@@ -22,6 +22,20 @@ Collate:
     'boxQTwice.R'
     'boxResidMonth.R'
     'flowDuration.R'
+    'logPretty1.R'
+    'logPretty3.R'
+    'multiPlotDataOverview.R'
+    'plotConcPred.R'
+    'plotConcQ.R'
+    'plotConcTime.R'
+    'plotFluxHist.R'
+    'plotFluxPred.R'
+    'plotLogConcPred.R'
+    'plotLogConcQ.R'
+    'plotLogConcTime.R'
+    'plotLogFluxPred.R'
+    'printFluxUnitCheatSheet.R'
+    'printqUnitCheatSheet.R'
 Depends:
     R (>= 2.13.0),
     methods,
