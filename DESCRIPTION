@@ -9,11 +9,19 @@ Maintainer: Robert M. Hirsch <rhirsch@usgs.gov>, Laura De Cicco
 Description: Estimates WRTDS model, makes plots of the raw data (water quality
     and streamflow) as well as tables and graphs of results of the WRTDS
     analysis, and does flowHistory analysis and graphs and tables
-License: GPL-2
+License: This software is in the public domain because it contains materials
+    that originally came from the United States Geological Survey, an agency of
+    the United States Department of Interior. For more information, see the
+    official USGS copyright policy at
+    http://www.usgs.gov/visual-id/credit_usgs.html#copyright
 Collate:
     'EGRET.R'
     'fluxUnit.R'
     'objectDefinitions.R'
+    'boxConcMonth.R'
+    'boxQTwice.R'
+    'boxResidMonth.R'
+    'flowDuration.R'
 Depends:
     R (>= 2.13.0),
     methods,
