@@ -1,0 +1,30 @@
+\name{triCube}
+\alias{triCube}
+\title{Tukey's Tricube weight function}
+\usage{
+  triCube(d, h)
+}
+\arguments{
+  \item{d}{numeric vector of distances from the point of
+  estimation to the given sample value}
+
+  \item{h}{numeric value, the half-window width, measured
+  in the same units as d}
+}
+\value{
+  w numeric vector of weights, all 0<=w<=1
+}
+\description{
+  Computes the tricube weight function on a vector of
+  distance values (d), based on a half-window width of h,
+  and returns a vector of weights that range from zero to
+  1.
+}
+\examples{
+h<-10
+ d<-c(-11,-10,-5,-1,-0.01,0,5,9.9,10,20)
+ triCube(d,h)
+}
+\keyword{statistics}
+\keyword{weighting}
+

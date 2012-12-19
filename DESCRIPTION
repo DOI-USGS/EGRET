@@ -1,0 +1,23 @@
+Package: EGRET
+Type: Package
+Title: All EGRET code except for dataRetrieval
+Version: 1.2.3
+Date: 2012-11-19
+Author: Robert M. Hirsch
+Maintainer: Robert M. Hirsch <rhirsch@usgs.gov>, Laura De Cicco
+    <ldecicco@usgs.gov>
+Description: Estimates WRTDS model, makes plots of the raw data (water quality
+    and streamflow) as well as tables and graphs of results of the WRTDS
+    analysis, and does flowHistory analysis and graphs and tables
+License: GPL-2
+Collate:
+    'EGRET.R'
+    'fluxUnit.R'
+    'objectDefinitions.R'
+Depends:
+    R (>= 2.13.0),
+    methods,
+    zoo,
+    survival
+LazyLoad: yes
+LazyData: yes
