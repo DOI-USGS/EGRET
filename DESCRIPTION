@@ -81,6 +81,7 @@ Collate:
     'setPA.R'
     'setPAx.R'
     'tableFlowChange.R'
+    'estDailyFromSurfacesJ.R'
 Depends:
     R (>= 2.13.0),
     methods,
