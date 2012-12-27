@@ -27,10 +27,10 @@ modelEstimation<-function(localDaily = Daily,localSample = Sample, localINFO = I
   #  it returns several data frames
   #  all of the data frames are given their "standard" names
   #
-  library(survival)
+#   library(survival)
   cat("\n first step running estCrossVal may take about 1 minute")
   Sample1<-estCrossVal(SampleCrossV = localSample, windowY, windowQ, windowS, minNumObs, minNumUncen)
-  cat("\n done with estCrossVal")
+#   cat("\n done with estCrossVal")
   surfaceIndexParameters<-surfaceIndex(localDaily = localDaily)
   localINFO$bottomLogQ<-surfaceIndexParameters[1]
   localINFO$stepLogQ<-surfaceIndexParameters[2]
@@ -43,9 +43,9 @@ modelEstimation<-function(localDaily = Daily,localSample = Sample, localINFO = I
   localINFO$windowS<-windowS
   localINFO$minNumObs<-minNumObs
   localINFO$minNumUncen<-minNumUncen
-  cat("\nNext step running  estSurfaces this can take about another minute")
+  cat("\nNext step running  estSurfaces with survival regression:\n")
   surfaces1<-estSurfaces(localDaily = localDaily, localSample = localSample, windowY, windowQ, windowS, minNumObs, minNumUncen)
-  cat("\nDone with estSurfaces and starting estDailyFromSurface")
+#   cat("\nDone with estSurfaces and starting estDailyFromSurface")
 #   cat("\nThis can take several minutes but you will see updates")
   Daily1<-estDailyFromSurfaces(localDaily = localDaily, localINFO = localINFO, localsurfaces = surfaces1)
   #   cat("\nDone with estDailyFromSurfaces moving on to calculateMonthlyResults")
