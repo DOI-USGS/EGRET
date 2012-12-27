@@ -24,8 +24,10 @@
 #' @export
 #' @seealso \code{\link{plotConcTime}}
 #' @examples
-#' plotLogConcTime(localSample = exSampleStart, localINFO = exINFOStart, qUnit = 1)
-#' plotLogConcTime(localSample = exSampleStart, localINFO = exINFOStart, qUnit = 'thousandCfs')
+#' Sample <- exSampleEnd
+#' INFO <- exINFOStart
+#' plotLogConcTime(qUnit = 1)
+#' plotLogConcTime(qUnit = 'thousandCfs')
 plotLogConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,qLower = NA,qUpper = NA, paLong = 12, paStart = 10, tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE){
   # this function shows the sample data,
   # time on x-axis, concentration on y-axis 

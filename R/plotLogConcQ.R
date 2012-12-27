@@ -13,8 +13,10 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' plotLogConcQ(localSample = exSampleStart, localINFO = exINFOStart, qUnit = 1)
-#' plotLogConcQ(localSample = exSampleStart, localINFO = exINFOStart, qUnit = 'thousandCfs')
+#' Sample <- exSampleStart
+#' INFO <- exINFOStart
+#' plotLogConcQ(qUnit = 1)
+#' plotLogConcQ(qUnit = 'thousandCfs')
 plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE){
   # this function shows the sample data,
   # discharge on x-axis on a log scale, 

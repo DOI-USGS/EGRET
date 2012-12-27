@@ -44,7 +44,10 @@
   setPA and makeAnnualSeries.
 }
 \examples{
-\dontrun{plotFour(localINFO=exINFOEnd,localAnnualSeries=exannualSeries,localDaily=exDailyStart)}
+INFO <- exINFOEnd
+annualSeries <- exannualSeries
+Daily <- exDailyStart
+plotFour()
 }
 \keyword{graphics}
 \keyword{statistics}

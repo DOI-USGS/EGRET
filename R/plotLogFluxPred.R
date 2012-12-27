@@ -12,8 +12,10 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' plotLogFluxPred(localSample = exSampleEnd, localINFO = exINFOEnd, fluxUnit = 1)
-#' plotLogFluxPred(localSample = exSampleEnd, localINFO = exINFOEnd, fluxUnit = 'kgDay')
+#' Sample <- exSampleEnd
+#' INFO <- exINFOEnd
+#' plotLogFluxPred(fluxUnit = 1)
+#' plotLogFluxPred(fluxUnit = 'kgDay')
 plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3, 
                            fluxMax = NA, tinyPlot=TRUE, printTitle = TRUE) 
 {

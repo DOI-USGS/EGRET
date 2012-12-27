@@ -15,7 +15,10 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' \dontrun{plotFluxTimeDaily(2001,2009,localSample=exSampleEnd,localDaily=exDailyEnd,localINFO=exINFOEnd)}
+#' Sample <- exSampleEnd
+#' Daily <- exDailyEnd
+#' INFO <- exINFOEnd
+#' plotFluxTimeDaily(2001,2009)
 plotFluxTimeDaily<-function (startYear, endYear, localSample = Sample, localDaily = Daily, 
                              localINFO = INFO, tinyPlot = FALSE, fluxUnit = 3, fluxMax = NA, printTitle = TRUE) {
   ################################################################################

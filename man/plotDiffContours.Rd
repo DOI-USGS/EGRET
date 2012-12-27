@@ -89,7 +89,10 @@ year1<-2009
 qBottom<-0.2
 qTop<-20
 maxDiff<-0.5
-plotDiffContours(year0,year1,qBottom,qTop,maxDiff, localsurfaces = exsurfaces, localINFO = exINFOEnd, localDaily = exDailyEnd)
+surfaces <- exsurfaces
+INFO <- exINFOEnd
+Daily <- exDailyEnd
+plotDiffContours(year0,year1,qBottom,qTop,maxDiff)
 }
 \keyword{graphics}
 \keyword{statistics}

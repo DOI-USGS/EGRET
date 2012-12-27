@@ -95,7 +95,10 @@ yearEnd<-2010
 qBottom<-0.2
 qTop<-20
 clevel<-seq(0,2,0.5)
-plotContours(yearStart,yearEnd,qBottom,qTop, localsurfaces = exsurfaces, localINFO = exINFOEnd, localDaily = exDailyEnd, contourLevels = clevel)
+INFO <- exINFOEnd
+Daily <- exDailyEnd
+surfaces <- exsurfaces
+plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel)
 }
 \keyword{graphics}
 \keyword{statistics}

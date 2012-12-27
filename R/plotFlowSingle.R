@@ -21,7 +21,9 @@
 #' @keywords graphics streamflow statistics
 #' @export
 #' @examples
-#' plotFlowSingle(8,localINFO=exINFOEnd,localAnnualSeries=exannualSeries)
+#' INFO <- exINFOEnd
+#' annualSeries <- exannualSeries
+#' plotFlowSingle(8)
 plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA, localINFO = INFO, localAnnualSeries = annualSeries, qMax = NA, printTitle = TRUE, tinyPlot = FALSE, runoff = FALSE, qUnit = 1, printStaName = TRUE, printPA = TRUE, printIstat = TRUE) {
   qActual<-localAnnualSeries[2,istat,]
   qSmooth<-localAnnualSeries[3,istat,]

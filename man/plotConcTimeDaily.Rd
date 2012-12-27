@@ -45,7 +45,10 @@
   over a series of segments.
 }
 \examples{
-plotConcTimeDaily(2001,2010, localSample = exSampleEnd, localDaily = exDailyEnd, localINFO = exINFOEnd)
+Sample <- exSampleEnd
+Daily <- exDailyEnd
+INFO <- exINFOEnd
+plotConcTimeDaily(2001,2010)
 }
 \keyword{graphics}
 \keyword{statistics}

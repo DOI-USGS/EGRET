@@ -11,7 +11,7 @@
   an agency of the United States Department of Interior.
   For more information, see the official USGS copyright
   policy at
-  \code{\link{http://www.usgs.gov/visual-id/credit_usgs.html#copyright}}\cr
+  http://www.usgs.gov/visual-id/credit_usgs.html#copyright\cr
   LazyLoad: \tab yes\cr }
 }
 \details{

@@ -32,7 +32,8 @@
   paLong=3 and paStart=12
 }
 \examples{
-setupYears(localDaily = exDailyEnd)
+Daily <- exDailyEnd
+setupYears()
 }
 \keyword{statistics}
 \keyword{water-quality}

@@ -14,19 +14,26 @@
 #' @keywords graphics streamflow statistics
 #' @export
 #' @examples
-#' \dontrun{plotFour(localINFO=exINFOEnd,localAnnualSeries=exannualSeries,localDaily=exDailyStart)}
+#' INFO <- exINFOEnd
+#' annualSeries <- exannualSeries
+#' Daily <- exDailyStart
+#' plotFour()
 plotFour<-function (localINFO = INFO, localAnnualSeries = annualSeries, localDaily = Daily, 
                     yearStart = NA, yearEnd = NA, printTitle = TRUE, runoff = FALSE, 
                     qUnit = 1) 
 {
   par(mfcol = c(2, 2), cex = 0.6, oma = c(0, 1.7, 6, 1.7), 
       cex.lab = 1.4, cex.axis = 1.2)
-  setYearStart <- if (is.na(yearStart)) 
+  setYearStart <- if (is.na(yearStart)) {
     min(localAnnualSeries[1, , ], na.rm = TRUE)
-  else yearStart
-  setYearEnd <- if (is.na(yearEnd)) 
+  } else {
+    yearStart
+  } 
+  setYearEnd <- if (is.na(yearEnd)) {
     max(localAnnualSeries[1, , ], na.rm = TRUE)
-  else yearEnd
+  } else {
+    yearEnd
+  }
   plotFlowSingle(istat = 8, yearStart = setYearStart, yearEnd = setYearEnd, 
                  localAnnualSeries = localAnnualSeries, localINFO = localINFO, 
                  tinyPlot = TRUE, runoff = runoff, qUnit = qUnit, printPA = FALSE, 
@@ -39,7 +46,7 @@ plotFour<-function (localINFO = INFO, localAnnualSeries = annualSeries, localDai
                  localAnnualSeries = localAnnualSeries, localINFO = localINFO, 
                  tinyPlot = TRUE, runoff = runoff, qUnit = qUnit, printPA = FALSE, 
                  printIstat = TRUE, printStaName = FALSE)
-  plotSDLogQ(yearStart = setYearStart, yearEnd = setYearEnd, window = 15, 
+  plotSDLogQ(yearStart = setYearStart, yearEnd = setYearEnd, window = 2, #Laura changed this to 2, was 15 - but that sets the end date to before the start date...
              localDaily = localDaily, localINFO = localINFO, 
              tinyPlot = TRUE, printPA = FALSE,  
              printStaName = FALSE)

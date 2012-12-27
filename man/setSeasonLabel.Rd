@@ -26,7 +26,8 @@
   setSeasonLabelByUser.
 }
 \examples{
-setSeasonLabel(localAnnualResults = exAnnualResults)
+AnnualResults <- exAnnualResults
+setSeasonLabel()
 }
 \keyword{graphics}
 \keyword{quality}

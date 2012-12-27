@@ -54,7 +54,9 @@
   INFO<-setPA(paStart,paLong)
 }
 \examples{
-plotSDLogQ(window=3,localDaily=exDailyStart,localINFO=exINFOEnd,printTitle=FALSE)
+Daily <- exDailyStart
+INFO <- exINFOEnd
+plotSDLogQ(window=3,printTitle=FALSE)
 }
 \keyword{graphics}
 \keyword{statistics}

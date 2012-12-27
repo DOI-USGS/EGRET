@@ -35,8 +35,10 @@
   data frame named INFO.
 }
 \examples{
-plotLogFluxPred(localSample = exSampleEnd, localINFO = exINFOEnd, fluxUnit = 1)
-plotLogFluxPred(localSample = exSampleEnd, localINFO = exINFOEnd, fluxUnit = 'kgDay')
+Sample <- exSampleEnd
+INFO <- exINFOEnd
+plotLogFluxPred(fluxUnit = 1)
+plotLogFluxPred(fluxUnit = 'kgDay')
 }
 \keyword{graphics}
 \keyword{statistics}

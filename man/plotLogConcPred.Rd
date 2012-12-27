@@ -31,7 +31,9 @@
   named INFO.
 }
 \examples{
-plotLogConcPred(localSample = exSampleEnd, localINFO = exINFOEnd)
+Sample <- exSampleEnd
+INFO <- exINFOEnd
+plotLogConcPred()
 }
 \keyword{graphics}
 \keyword{statistics}

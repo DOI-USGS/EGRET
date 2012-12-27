@@ -48,8 +48,10 @@
 \examples{
 yearStart <- 2001
 yearEnd <- 2010
-plotFluxHist(yearStart, yearEnd, fluxUnit = 1, localAnnualResults = exAnnualResults, localINFO = exINFOEnd)
-plotFluxHist(yearStart, yearEnd, fluxUnit = 'kgDay', localAnnualResults = exAnnualResults, localINFO = exINFOEnd)
+AnnualResults <- exAnnualResults
+INFO <- exINFOEnd
+plotFluxHist(yearStart, yearEnd, fluxUnit = 1)
+plotFluxHist(yearStart, yearEnd, fluxUnit = 'kgDay')
 }
 \seealso{
   \code{\link{setupYears}}

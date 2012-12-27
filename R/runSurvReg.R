@@ -21,9 +21,10 @@
 #' @export
 #' @examples
 #' estPtYear<-c(2001.0,2005.0,2009.0)
-#' estPtLQ<-c(5,5,5)
-#' runSurvReg(localSample=exSampleStart,estPtYear,estPtLQ)
-runSurvReg<-function(localSample = Sample,estPtYear,estPtLQ,windowY=10,windowQ=2,windowS=0.5,minNumObs=100,minNumUncen=50,message=TRUE) {
+#' estPtLQ<-c(1,1,1)
+#' Sample <- exSampleStart
+#' resultSurvReg <- runSurvReg(estPtYear,estPtLQ,message=FALSE)
+runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2,windowS=0.5,minNumObs=100,minNumUncen=50,message=TRUE) {
   # runs survival regression model
   # Sample is the Sample data frame being used
   # estPtYear is a vector of DecYear values where the model will be estimated

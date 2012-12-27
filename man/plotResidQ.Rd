@@ -39,7 +39,9 @@
   estimated standard error
 }
 \examples{
-plotResidQ(localSample = exSampleEnd, localINFO = exINFOEnd, qUnit=1)
+Sample <- exSampleEnd
+INFO <- exINFOEnd
+plotResidQ(qUnit=1)
 }
 \keyword{graphics}
 \keyword{statistics}

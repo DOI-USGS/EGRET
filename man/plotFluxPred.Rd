@@ -35,10 +35,10 @@
   named INFO.
 }
 \examples{
-plotFluxPred(localSample = exSampleEnd, localINFO = exINFOEnd, fluxUnit = 7)
-plotFluxPred(localSample = exSampleEnd, localINFO = exINFOEnd, fluxUnit = 'poundsDay')
-testObject <- new("fluxUnit", shortName="testObject", unitFactor=1.234, unitName="testObjectName", unitExpress=expression("test"),shortCode=100)
-plotFluxPred(localSample = exSampleEnd, localINFO = exINFOEnd, fluxUnit = testObject)
+Sample <- exSampleEnd
+INFO <- exINFOEnd
+plotFluxPred(fluxUnit = 7)
+plotFluxPred(fluxUnit = 'poundsDay')
 }
 \keyword{graphics}
 \keyword{statistics}

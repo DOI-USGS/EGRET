@@ -16,7 +16,10 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' plotConcTimeDaily(2001,2010, localSample = exSampleEnd, localDaily = exDailyEnd, localINFO = exINFOEnd)
+#' Sample <- exSampleEnd
+#' Daily <- exDailyEnd
+#' INFO <- exINFOEnd
+#' plotConcTimeDaily(2001,2010)
 plotConcTimeDaily<-function(startYear, endYear, localSample = Sample, localDaily = Daily, localINFO = INFO, tinyPlot = FALSE, concMax = NA, printTitle = TRUE){
   if(tinyPlot) par(mar=c(5,4,1,1)) else par(mar=c(5,4,4,2)+0.1)
   subSample<-subset(localSample,DecYear>=startYear)

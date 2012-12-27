@@ -2,7 +2,7 @@
 \alias{runSurvReg}
 \title{Run the weighted survival regression for a set of estimation points (defined by DecYear and Log(Q))}
 \usage{
-  runSurvReg(localSample = Sample, estPtYear, estPtLQ,
+  runSurvReg(estPtYear, estPtLQ, localSample = Sample,
     windowY = 10, windowQ = 2, windowS = 0.5,
     minNumObs = 100, minNumUncen = 50, message = TRUE)
 }
@@ -53,8 +53,9 @@
 }
 \examples{
 estPtYear<-c(2001.0,2005.0,2009.0)
-estPtLQ<-c(5,5,5)
-runSurvReg(localSample=exSampleStart,estPtYear,estPtLQ)
+estPtLQ<-c(1,1,1)
+Sample <- exSampleStart
+resultSurvReg <- runSurvReg(estPtYear,estPtLQ,message=FALSE)
 }
 \keyword{statistics}
 \keyword{water-quality}

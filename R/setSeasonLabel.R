@@ -14,7 +14,8 @@
 #' @export
 #' @return periodName string which describes the period of analysis
 #' @examples
-#' setSeasonLabel(localAnnualResults = exAnnualResults)
+#' AnnualResults <- exAnnualResults
+#' setSeasonLabel()
 setSeasonLabel<-function(localAnnualResults = AnnualResults){
   # this function sets up text variable used to label graphs and
   # tables, defining what the period of analysis is

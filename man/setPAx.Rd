@@ -27,7 +27,8 @@
   call this function
 }
 \examples{
-setPAx(paStart=12, paLong=3, localINFO=exINFOStart)
+INFO <- exINFOStart
+INFO <- setPAx(paStart=12, paLong=3)
 }
 \keyword{statistics}
 \keyword{streamflow}

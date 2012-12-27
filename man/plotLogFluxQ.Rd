@@ -44,8 +44,10 @@
   INFO.
 }
 \examples{
-plotLogFluxQ(localSample = exSampleEnd, localINFO = exINFOEnd, qUnit = 1, fluxUnit = 1)
-plotLogFluxQ(localSample = exSampleEnd, localINFO = exINFOEnd, fluxUnit = 'kgDay')
+Sample <- exSampleEnd
+INFO <- exINFOEnd
+plotLogFluxQ(qUnit = 1, fluxUnit = 1)
+plotLogFluxQ(fluxUnit = 'kgDay')
 }
 \keyword{graphics}
 \keyword{statistics}

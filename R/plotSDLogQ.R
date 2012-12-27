@@ -19,7 +19,9 @@
 #' @keywords graphics streamflow statistics
 #' @export
 #' @examples
-#' plotSDLogQ(window=3,localDaily=exDailyStart,localINFO=exINFOEnd,printTitle=FALSE)  
+#' Daily <- exDailyStart
+#' INFO <- exINFOEnd
+#' plotSDLogQ(window=3,printTitle=FALSE)  
 plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,localINFO=INFO,sdMax=NA,printTitle = TRUE, tinyPlot = FALSE, printStaName = TRUE, printPA = TRUE){
   par(mar = c(5,6,5,2))
   numDays<-length(localDaily$LogQ)

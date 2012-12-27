@@ -31,7 +31,9 @@
   makeAnnualSeries before this function.
 }
 \examples{
-printSeries(5,localINFO=exINFOEnd, localAnnualSeries=exannualSeries)
+INFO <- exINFOEnd
+annualSeries <- exannualSeries
+printSeries(5)
 }
 \keyword{statistics}
 \keyword{streamflow}

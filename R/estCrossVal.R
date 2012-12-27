@@ -39,7 +39,7 @@ estCrossVal<-function(SampleCrossV = Sample, windowY = 10, windowQ = 2, windowS 
     if(i %in% printUpdate) cat(floor(i*100/numObs),"\t")
     SampleCV$keep<-ifelse(SampleCV$iCounter==i,FALSE,TRUE)
     SampleMinusOne<-subset(SampleCV,keep)
-    result<-runSurvReg(SampleMinusOne,SampleCrossV$DecYear[i],SampleCrossV$LogQ[i],windowY,windowQ,windowS,minNumObs,minNumUncen,message=FALSE)
+    result<-runSurvReg(SampleCrossV$DecYear[i],SampleCrossV$LogQ[i],SampleMinusOne,windowY,windowQ,windowS,minNumObs,minNumUncen,message=FALSE)
     SampleCrossV$yHat[i]<-result[1]
     SampleCrossV$SE[i]<-result[2]
     SampleCrossV$ConcHat[i]<-result[3]

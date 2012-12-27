@@ -28,11 +28,13 @@
 #' @export
 #' @examples 
 #' date1<-"2001-06-01"
-#' date2<-"2010-06-01"
-#' date3<-NA
+#' date2<-"2005-06-01"
+#' date3<-"2010-06-01"
 #' qLow<-1
 #' qHigh<-1000
-#' plotConcQSmooth(date1,date2,date3,qLow,qHigh, localSample=exSampleEnd, localINFO = exINFOEnd)
+#' Sample <- exSampleEnd
+#' INFO <- exINFOEnd
+#' plotConcQSmooth(date1,date2,date3,qLow,qHigh)
 plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0,legendTop = 0, concMax = NA,bw = FALSE, printTitle = TRUE, printValues = FALSE, localSample = Sample, localINFO = INFO, windowY = 10, windowQ = 2, windowS = 0.5) {
   #########################################################
   if (is.numeric(qUnit)) {
@@ -64,7 +66,7 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0
   decYear<-year+((day-0.5)/366)
   for(iCurve in 1:numDates) {
     yrs<-rep(decYear[iCurve],48)
-    result<-runSurvReg(localSample,yrs,LQ,windowY = windowY, windowQ = windowQ, windowS = windowS)
+    result<-runSurvReg(yrs,LQ,localSample,windowY = windowY, windowQ = windowQ, windowS = windowS,message=FALSE)
     y[iCurve,]<-result[,3]
   }
   title<-if(printTitle) paste (localINFO$shortName,"  ",localINFO$paramShortName,"\nEstimated Concentration Versus Discharge Relationship\nat",numDates,"specific dates") else ""

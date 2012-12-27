@@ -13,7 +13,9 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' plotResidQ(localSample = exSampleEnd, localINFO = exINFOEnd, qUnit=1)
+#' Sample <- exSampleEnd
+#' INFO <- exINFOEnd
+#' plotResidQ(qUnit=1)
 plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot = FALSE, 
                       stdResid = FALSE, printTitle = TRUE) 
 {  if(tinyPlot) par(mar=c(5,4,1,1)) else par(mar=c(5,4,4,2)+0.1)

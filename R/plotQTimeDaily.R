@@ -14,7 +14,9 @@
 #' @keywords graphics streamflow
 #' @export
 #' @examples
-#' plotQTimeDaily(1990,2000,localDaily=exDailyStart,localINFO=exINFOStart,qLower=10)
+#' Daily <- exDailyStart
+#' INFO <- exINFOStart
+#' plotQTimeDaily(1990,2000,qLower=10)
 plotQTimeDaily<-function (startYear, endYear, localDaily = Daily, 
                           localINFO = INFO, qLower = NA, qUnit = 1, tinyPlot = FALSE, printTitle = TRUE)    
 {

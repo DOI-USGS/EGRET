@@ -36,7 +36,9 @@
   standard error.
 }
 \examples{
-plotResidPred(localSample = exSampleEnd, localINFO = exINFOEnd)
+Sample <- exSampleEnd
+INFO <- exINFOEnd
+plotResidPred()
 }
 \keyword{graphics}
 \keyword{statistics}

@@ -13,7 +13,9 @@
 #' @keywords graphics streamflow statistics
 #' @export
 #' @examples
-#' plotFourStats(localINFO=exINFOEnd,localAnnualSeries=exannualSeries)
+#' INFO <- exINFOEnd
+#' annualSeries <- exannualSeries
+#' plotFourStats()
 plotFourStats<-function(localINFO = INFO, localAnnualSeries = annualSeries, yearStart = NA, yearEnd = NA, printTitle = TRUE, runoff = FALSE, qUnit =1) {
   # prior to running this user must do these two commands
   # INFO<-setPA(pastart,paLong,window) 

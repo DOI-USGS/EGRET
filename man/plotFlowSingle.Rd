@@ -64,7 +64,9 @@
   and (8) 1-day maximum
 }
 \examples{
-plotFlowSingle(8,localINFO=exINFOEnd,localAnnualSeries=exannualSeries)
+INFO <- exINFOEnd
+annualSeries <- exannualSeries
+plotFlowSingle(8)
 }
 \keyword{graphics}
 \keyword{statistics}

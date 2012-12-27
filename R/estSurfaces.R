@@ -24,7 +24,9 @@
 #' @return surfaces array containing the three surfaces estimated, array is 3 dimensional
 #' @export
 #' @examples
-#' estSurfaces(localDaily = exDailyStart, localSample = exSampleStart)
+#' Daily <- exDailyStart
+#' Sample <- exSampleStart
+#' surfaces <- estSurfaces()
 estSurfaces<-function(localDaily = Daily, localSample = Sample, windowY=10,windowQ=2,windowS=0.5,minNumObs=100,minNumUncen=50){
   # this function estimates the 3 surfaces based on the Sample data
   # one is the estimated log concentration (yHat)
@@ -47,7 +49,7 @@ estSurfaces<-function(localDaily = Daily, localSample = Sample, windowY=10,windo
   estPtLogQ<-rep(vectorLogQ,nVectorYear)
   estPtYear<-rep(vectorYear,each=14)
 
-  resultSurvReg<-runSurvReg(localSample,estPtYear,estPtLogQ,windowY,windowQ,windowS,minNumObs,minNumUncen)
+  resultSurvReg<-runSurvReg(estPtYear,estPtLogQ,localSample,windowY,windowQ,windowS,minNumObs,minNumUncen)
   
   surfaces<-array(0,dim=c(14,nVectorYear,3))
 

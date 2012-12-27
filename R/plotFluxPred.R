@@ -12,18 +12,15 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' plotFluxPred(localSample = exSampleEnd, localINFO = exINFOEnd, fluxUnit = 7)
-#' plotFluxPred(localSample = exSampleEnd, localINFO = exINFOEnd, fluxUnit = 'poundsDay')
-#' testObject <- new("fluxUnit", shortName="testObject", unitFactor=1.234, unitName="testObjectName", unitExpress=expression("test"),shortCode=100)
-#' plotFluxPred(localSample = exSampleEnd, localINFO = exINFOEnd, fluxUnit = testObject)
+#' Sample <- exSampleEnd
+#' INFO <- exINFOEnd
+#' plotFluxPred(fluxUnit = 7)
+#' plotFluxPred(fluxUnit = 'poundsDay')
 plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, fluxMax = NA, tinyPlot = FALSE, printTitle = TRUE){
   # this function shows observed versus estimated flux
   # estimated flux on the x-axis (these include the bias correction), 
   # observed flux on y-axis 
   # these estimates are from a jack-knife, "leave-one-out", cross validation application of WRTDS
-  ###############
-  # I don't understand the test, RMH 28Jan2011
-  ################
   
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:

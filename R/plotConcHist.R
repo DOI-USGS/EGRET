@@ -20,7 +20,9 @@
 #' @examples
 #' yearStart <- 2001
 #' yearEnd <- 2010
-#' plotConcHist(yearStart, yearEnd, localAnnualResults = exAnnualResults, localINFO = exINFOEnd)
+#' INFO <- exINFOEnd
+#' AnnualResults <- exAnnualResults
+#' plotConcHist(yearStart, yearEnd)
 plotConcHist<-function(yearStart = NA, yearEnd = NA, localAnnualResults = AnnualResults, localINFO = INFO, concMax = NA, printTitle = TRUE, plotFlowNorm = TRUE){
   # produces a graph of annual mean concentration and flow normalized concentration versus year
   # AnnualResults contains the set of results

@@ -14,8 +14,10 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' plotLogFluxQ(localSample = exSampleEnd, localINFO = exINFOEnd, qUnit = 1, fluxUnit = 1)
-#' plotLogFluxQ(localSample = exSampleEnd, localINFO = exINFOEnd, fluxUnit = 'kgDay')
+#' Sample <- exSampleEnd
+#' INFO <- exINFOEnd
+#' plotLogFluxQ(qUnit = 1, fluxUnit = 1)
+#' plotLogFluxQ(fluxUnit = 'kgDay')
 plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2, fluxUnit = 3, tinyPlot = FALSE, fluxMax = NA, fluxMin = NA, printTitle = TRUE){
   # this function shows the sample data,
   # discharge on x-axis on a log scale, 

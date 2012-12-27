@@ -2,7 +2,7 @@
 \alias{selectDays}
 \title{Creates a subset of the Daily data frame that only contains data for the specified period of analysis}
 \usage{
-  selectDays(paLong, paStart, localDaily)
+  selectDays(paLong, paStart, localDaily = Daily)
 }
 \arguments{
   \item{paLong}{a numeric value for the length of the
@@ -23,7 +23,8 @@
   plotSDLogQ
 }
 \examples{
-selectDays(1,3,localDaily=exDailyStart)
+Daily <- exDailyStart
+DailySubset <- selectDays(1,3)
 }
 \keyword{statistics}
 \keyword{streamflow}

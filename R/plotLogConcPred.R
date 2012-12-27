@@ -11,7 +11,9 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' plotLogConcPred(localSample = exSampleEnd, localINFO = exINFOEnd)
+#' Sample <- exSampleEnd
+#' INFO <- exINFOEnd
+#' plotLogConcPred()
 plotLogConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA, tinyPlot = FALSE, printTitle = TRUE){
   # this function shows observed versus estimated concentration
   # estimated log concentration on the x-axis (these are prior to bias correction), 

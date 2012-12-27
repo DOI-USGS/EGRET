@@ -75,8 +75,10 @@
   concentration, plotConcTime.
 }
 \examples{
-plotLogConcTime(localSample = exSampleStart, localINFO = exINFOStart, qUnit = 1)
-plotLogConcTime(localSample = exSampleStart, localINFO = exINFOStart, qUnit = 'thousandCfs')
+Sample <- exSampleEnd
+INFO <- exINFOStart
+plotLogConcTime(qUnit = 1)
+plotLogConcTime(qUnit = 'thousandCfs')
 }
 \seealso{
   \code{\link{plotConcTime}}

@@ -40,7 +40,9 @@
   run setPA and makeAnnualSeries.
 }
 \examples{
-plotFourStats(localINFO=exINFOEnd,localAnnualSeries=exannualSeries)
+INFO <- exINFOEnd
+annualSeries <- exannualSeries
+plotFourStats()
 }
 \keyword{graphics}
 \keyword{statistics}

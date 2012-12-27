@@ -20,8 +20,10 @@
 #' @examples
 #' yearStart <- 2001
 #' yearEnd <- 2010
-#' plotFluxHist(yearStart, yearEnd, fluxUnit = 1, localAnnualResults = exAnnualResults, localINFO = exINFOEnd)
-#' plotFluxHist(yearStart, yearEnd, fluxUnit = 'kgDay', localAnnualResults = exAnnualResults, localINFO = exINFOEnd)
+#' AnnualResults <- exAnnualResults
+#' INFO <- exINFOEnd
+#' plotFluxHist(yearStart, yearEnd, fluxUnit = 1)
+#' plotFluxHist(yearStart, yearEnd, fluxUnit = 'kgDay')
 plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9, localAnnualResults = AnnualResults, localINFO = INFO, fluxMax = NA, printTitle = TRUE, plotFlowNorm = TRUE){
   # produces a graph of annual flux and flow normalized flux versus year
   # AnnualResults contains the set of results

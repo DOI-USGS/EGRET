@@ -47,7 +47,9 @@
 \examples{
 yearStart <- 2001
 yearEnd <- 2010
-plotConcHist(yearStart, yearEnd, localAnnualResults = exAnnualResults, localINFO = exINFOEnd)
+INFO <- exINFOEnd
+AnnualResults <- exAnnualResults
+plotConcHist(yearStart, yearEnd)
 }
 \seealso{
   \code{\link{setupYears}}

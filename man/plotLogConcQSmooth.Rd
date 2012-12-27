@@ -103,7 +103,9 @@ date2<-"2009-06-01"
 date3<-NA
 qLow<-1
 qHigh<-1000
-plotLogConcQSmooth(date1,date2,date3,qLow,qHigh, localSample=exSampleEnd, localINFO = exINFOEnd)
+Sample <- exSampleEnd
+INFO <- exINFOEnd
+plotLogConcQSmooth(date1,date2,date3,qLow,qHigh)
 }
 \keyword{graphics}
 \keyword{statistics}

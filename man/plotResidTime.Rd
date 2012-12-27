@@ -29,7 +29,9 @@
   divided by its estimated standard error.
 }
 \examples{
-plotResidTime(localSample = exSampleEnd, localINFO = exINFOEnd)
+Sample <- exSampleEnd
+INFO <- exINFOEnd
+plotResidTime()
 }
 \keyword{graphics}
 \keyword{statistics}

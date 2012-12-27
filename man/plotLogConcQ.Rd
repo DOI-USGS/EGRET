@@ -40,8 +40,10 @@
   data frame named INFO.
 }
 \examples{
-plotLogConcQ(localSample = exSampleStart, localINFO = exINFOStart, qUnit = 1)
-plotLogConcQ(localSample = exSampleStart, localINFO = exINFOStart, qUnit = 'thousandCfs')
+Sample <- exSampleStart
+INFO <- exINFOStart
+plotLogConcQ(qUnit = 1)
+plotLogConcQ(qUnit = 'thousandCfs')
 }
 \keyword{graphics}
 \keyword{statistics}

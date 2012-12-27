@@ -17,7 +17,8 @@
   name using the abbreviations for station and constituent.
 }
 \examples{
-\dontrun{saveResults("",localINFO = exINFOEnd)}
+INFO <- exINFOEnd
+\dontrun{saveResults("")}
 }
 \keyword{statistics}
 \keyword{water-quality}

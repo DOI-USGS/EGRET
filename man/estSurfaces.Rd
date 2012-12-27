@@ -53,7 +53,9 @@
   daily values record.
 }
 \examples{
-estSurfaces(localDaily = exDailyStart, localSample = exSampleStart)
+Daily <- exDailyStart
+Sample <- exSampleStart
+surfaces <- estSurfaces()
 }
 \keyword{statistics}
 \keyword{water-quality}

@@ -93,11 +93,13 @@
 }
 \examples{
 date1<-"2001-06-01"
-date2<-"2010-06-01"
-date3<-NA
+date2<-"2005-06-01"
+date3<-"2010-06-01"
 qLow<-1
 qHigh<-1000
-plotConcQSmooth(date1,date2,date3,qLow,qHigh, localSample=exSampleEnd, localINFO = exINFOEnd)
+Sample <- exSampleEnd
+INFO <- exINFOEnd
+plotConcQSmooth(date1,date2,date3,qLow,qHigh)
 }
 \keyword{graphics}
 \keyword{statistics}

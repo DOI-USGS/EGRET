@@ -38,7 +38,7 @@
 \examples{
 AnnualSeries <- exannualSeries
 INFO <- exINFOEnd
-plot1of15(1990,2000,0.2938476,5,localAnnualSeries=exannualSeries)
+plot1of15(1990,2000,0.2938476,5)
 }
 \keyword{graphics}
 \keyword{streamflow}

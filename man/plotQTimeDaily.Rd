@@ -41,7 +41,9 @@
   only show those discharges above a given threshold
 }
 \examples{
-plotQTimeDaily(1990,2000,localDaily=exDailyStart,localINFO=exINFOStart,qLower=10)
+Daily <- exDailyStart
+INFO <- exINFOStart
+plotQTimeDaily(1990,2000,qLower=10)
 }
 \keyword{graphics}
 \keyword{streamflow}

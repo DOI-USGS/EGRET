@@ -14,7 +14,9 @@
 #' @keywords streamflow statistics
 #' @export
 #' @examples
-#' printSeries(5,localINFO=exINFOEnd, localAnnualSeries=exannualSeries)
+#' INFO <- exINFOEnd
+#' annualSeries <- exannualSeries
+#' printSeries(5)
 printSeries<-function(istat, qUnit = 1, runoff = FALSE, localINFO = INFO, localAnnualSeries = annualSeries) {
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:

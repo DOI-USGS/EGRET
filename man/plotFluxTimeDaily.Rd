@@ -45,7 +45,10 @@
   a time-series perspective.
 }
 \examples{
-\dontrun{plotFluxTimeDaily(2001,2009,localSample=exSampleEnd,localDaily=exDailyEnd,localINFO=exINFOEnd)}
+Sample <- exSampleEnd
+Daily <- exDailyEnd
+INFO <- exINFOEnd
+plotFluxTimeDaily(2001,2009)
 }
 \keyword{graphics}
 \keyword{statistics}

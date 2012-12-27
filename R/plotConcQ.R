@@ -13,7 +13,9 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' plotConcQ(localSample = exSampleStart, localINFO = exINFOStart)
+#' Sample <- exSampleStart
+#' INFO <- exINFOStart
+#' plotConcQ()
 plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot = FALSE, concMax = NA, printTitle = TRUE){
   # this function shows the sample data,
   # discharge on x-axis on a log scale, concentration on y-axis
