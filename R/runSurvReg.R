@@ -22,7 +22,7 @@
 #' estPtYear<-c(2001.0,2005.0,2009.0)
 #' estPtLQ<-c(5,5,5)
 #' runSurvReg(localSample=exSampleStart,estPtYear,estPtLQ)
-runSurvReg<-function(localSample = Sample,estPtYear,estPtLQ,windowY=10,windowQ=2,windowS=0.5,minNumObs=100,minNumUncen=50) {
+runSurvReg<-function(localSample = Sample,estPtYear,estPtLQ,windowY=10,windowQ=2,windowS=0.5,minNumObs=100,minNumUncen=50,message=TRUE) {
   # runs survival regression model
   # Sample is the Sample data frame being used
   # estPtYear is a vector of DecYear values where the model will be estimated
@@ -42,7 +42,7 @@ runSurvReg<-function(localSample = Sample,estPtYear,estPtLQ,windowY=10,windowQ=2
   
   printUpdate <- floor(seq(1,numEstPt,numEstPt/100))
   
-  cat("Survival regression (% complete):\n")
+  if (message) cat("Survival regression (% complete):\n")
 
   for (i in 1:numEstPt) {
     
@@ -99,11 +99,11 @@ runSurvReg<-function(localSample = Sample,estPtYear,estPtLQ,windowY=10,windowQ=2
     resultSurvReg[i,2]<-SE
     resultSurvReg[i,3]<-bias*exp(yHat)
     
-    if (i %in% printUpdate) cat(floor(i*100/numEstPt),"\t")
+    if (i %in% printUpdate & message) cat(floor(i*100/numEstPt),"\t")
     
   }
   
-  cat("\nSurvival regression: Done")
+  if (message) cat("\nSurvival regression: Done")
 
   return(resultSurvReg)
 }
