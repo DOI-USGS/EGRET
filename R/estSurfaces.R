@@ -46,13 +46,17 @@ estSurfaces<-function(localDaily = Daily, localSample = Sample, windowY=10,windo
   nVectorYear<-length(vectorYear)
   estPtLogQ<-rep(vectorLogQ,nVectorYear)
   estPtYear<-rep(vectorYear,each=14)
+
   resultSurvReg<-runSurvReg(localSample,estPtYear,estPtLogQ,windowY,windowQ,windowS,minNumObs,minNumUncen)
+  
   surfaces<-array(0,dim=c(14,nVectorYear,3))
+
   for(iQ in 1:14) {
     for(iY in 1:nVectorYear){ 
       k<-(iY-1)*14+iQ
       surfaces[iQ,iY,]<-resultSurvReg[k,]
     }
   }
+
   return(surfaces)
 }
