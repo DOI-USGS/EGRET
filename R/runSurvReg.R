@@ -39,7 +39,13 @@ runSurvReg<-function(localSample = Sample,estPtYear,estPtLQ,windowY=10,windowQ=2
   library(survival)
   numEstPt<-length(estPtYear)
   resultSurvReg<-array(0,c(numEstPt,3))
+  
+  printUpdate <- floor(seq(1,numEstPt,numEstPt/100))
+  
+  cat("Survival regression (% complete):\n")
+
   for (i in 1:numEstPt) {
+    
     # This loop takes us through all the estimation points
     # We always reset the window widths to their starting values, because they may
     #   have been widened in the process
@@ -48,7 +54,8 @@ runSurvReg<-function(localSample = Sample,estPtYear,estPtLQ,windowY=10,windowQ=2
     tempWindowS<-windowS
     estY<-estPtYear[i]
     estLQ<-estPtLQ[i]
-    repeat{
+
+    repeat{ # while loop took ever-so-slightly longer...not sure why
       #  We subset the sample frame by time, to narrow the set of data to run through in the following steps
       Sam<-subset(localSample,abs(DecYear-estY)<=tempWindowY)
       diffY<-abs(Sam$DecYear-estY)
@@ -64,22 +71,39 @@ runSurvReg<-function(localSample = Sample,estPtYear,estPtLQ,windowY=10,windowQ=2
       numUncen<-sum(Sam$Uncen)
       tempWindowY<-tempWindowY*1.1
       tempWindowQ<-tempWindowQ*1.1
-      tempWindowS<-min(tempWindowS*1.1,0.5)
-      if(numPosWt>=minNumObs&numUncen>=minNumUncen) break
+      tempWindowS<-min(tempWindowS*1.1,0.5) 
+      if(numPosWt >= minNumObs & numUncen >= minNumUncen) break
     }
+
+#     While option:
+#     numUncen <- 0
+#     numPosWt <- 0
+#     while (numPosWt < minNumObs | numUncen < minNumUncen){  
+#     }
+    
     # now we are ready to run Survival Regression
     weight<-Sam$weight
     aveWeight<-sum(weight)/numPosWt
     weight<-weight/aveWeight
+    
     survModel<-survreg(Surv(log(ConcLow),log(ConcHigh),type="interval2")~DecYear+LogQ+SinDY+CosDY,data=Sam,weights=weight,dist="gaus")
+
     new<-data.frame(DecYear=estY,LogQ=estLQ,SinDY=sin(2*pi*estY),CosDY=cos(2*pi*estY))
     #   extract results at estimation point
+
     yHat<-predict(survModel,new)
+
     SE<-survModel$scale
     bias<-exp((SE^2)/2)
     resultSurvReg[i,1]<-yHat
     resultSurvReg[i,2]<-SE
     resultSurvReg[i,3]<-bias*exp(yHat)
+    
+    if (i %in% printUpdate) cat(floor(i*100/numEstPt),"\t")
+    
   }
+  
+  cat("\nSurvival regression: Done")
+
   return(resultSurvReg)
 }
