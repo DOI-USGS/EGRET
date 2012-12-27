@@ -37,7 +37,10 @@
   makeAnnualSeries before this function.
 }
 \examples{
-tableFlowChange(istat=5,localAnnualSeries=exannualSeries,localINFO=exINFOEnd,yearPoints=c(2001,2005,2009))
+INFO <- exINFOStart
+INFO <- setPA(paStart=12, paLong=3)
+annualSeries <- exannualSeries
+tableFlowChange(istat=5,yearPoints=c(2001,2005,2009))
 }
 \keyword{statistics}
 \keyword{streamflow}

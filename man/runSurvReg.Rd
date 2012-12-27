@@ -4,7 +4,7 @@
 \usage{
   runSurvReg(localSample = Sample, estPtYear, estPtLQ,
     windowY = 10, windowQ = 2, windowS = 0.5,
-    minNumObs = 100, minNumUncen = 50)
+    minNumObs = 100, minNumUncen = 50, message = TRUE)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data

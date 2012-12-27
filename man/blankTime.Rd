@@ -28,7 +28,8 @@
 \examples{
 startBlank = "2004-10-01"
 endBlank = "2006-09-30"
-blankTime(startBlank, endBlank, localDaily = exDailyEnd)
+Daily <- exDailyEnd
+blankTime(startBlank, endBlank)
 }
 \keyword{statistics}
 \keyword{water-quality}

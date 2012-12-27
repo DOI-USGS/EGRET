@@ -17,7 +17,8 @@
   code for estSurfaces
 }
 \examples{
-surfaceIndex(localDaily = exDailyStart)
+Daily <- exDailyStart
+surfaceIndex()
 }
 \keyword{statistics}
 \keyword{water-quality}

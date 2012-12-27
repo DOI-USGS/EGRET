@@ -22,7 +22,8 @@
   FNFlux.
 }
 \examples{
-calculateMonthlyResults(localDaily = exDailyEnd)
+Daily <- exDailyEnd
+monthlyResults <- calculateMonthlyResults()
 }
 \keyword{statistics}
 \keyword{water-quality}

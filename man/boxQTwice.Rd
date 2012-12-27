@@ -32,9 +32,12 @@
   Daily, and INFO.
 }
 \examples{
-boxQTwice(localSample = exSampleStart, localDaily = exDailyStart, localINFO = exINFOStart)
-boxQTwice(localSample = exSampleStart, localDaily = exDailyStart, localINFO = exINFOStart, qUnit=1)
-boxQTwice(localSample = exSampleStart, localDaily = exDailyStart, localINFO = exINFOStart, qUnit='cfs')
+Sample <- exSampleStart
+Daily <- exDailyStart
+INFO <- exINFOStart
+boxQTwice()
+boxQTwice(qUnit=1)
+boxQTwice(qUnit='cfs')
 }
 \keyword{graphics}
 \keyword{statistics}
