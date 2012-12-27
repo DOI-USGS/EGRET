@@ -1,4 +1,4 @@
-q# Updating this list will not automatically update the objects available in the package.
+# Updating this list will not automatically update the objects available in the package.
 # If you update this list, run the code to generate fluxConst or qUnit, then save the arrays:
 # save(fluxConst, file="fluxConst.RData")
 # save(qConst, file="qConst.RData")

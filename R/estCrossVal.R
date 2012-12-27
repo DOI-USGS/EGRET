@@ -17,7 +17,8 @@
 #' @return SampleCrossV data frame containing the sample data augmented by the results of the cross-validation exercise
 #' @export
 #' @examples
-#' estCrossVal(SampleCrossV = exSampleStart)
+#' Sample <- exSampleStart
+#' SampleCrossV <- estCrossVal()
 estCrossVal<-function(SampleCrossV = Sample, windowY = 10, windowQ = 2, windowS = 0.5, minNumObs = 100, minNumUncen = 50){
   #  this function fits the WRTDS model making an estimate of concentration for every day
   #    But, it uses leave-one-out-cross-validation

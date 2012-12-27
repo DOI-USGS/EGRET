@@ -16,7 +16,11 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' fluxBiasMulti(localSample = exSampleEnd, localDaily = exDailyEnd, localINFO = exINFOEnd, fluxUnit = 9,moreTitle="WRTDS")
+#' Sample <- exSampleEnd
+#' Daily <- exDailyEnd
+#' INFO <- exINFOEnd
+#' 
+#' fluxBiasMulti(fluxUnit = 9,moreTitle="WRTDS")
 fluxBiasMulti<-function (localSample = Sample, localDaily = Daily, 
                          localINFO = INFO, qUnit = 2, fluxUnit = 3, moreTitle = "") 
 {

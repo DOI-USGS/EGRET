@@ -13,7 +13,10 @@
 #' @return localDaily string specifying the name of the data frame containing the daily values and these esimates
 #' @export
 #' @examples
-#' \dontrun{estDailyWithoutNormalization(localDaily = exDailyStart, localINFO = exINFOStart, localsurfaces = exsurfaces)}
+#' Daily <- exDailyStart
+#' INFO <- exINFOStart
+#' surfaces <- exsurfaces
+#' Daily <- estDailyWithoutNormalization()
 estDailyWithoutNormalization<-function(localDaily = Daily, localINFO = INFO, localsurfaces = surfaces) {
   # this function uses the surfaces that have been calulated based on the sample data
   # and fills in the individual estimates using bilinear interpolation off these surfaces

@@ -9,7 +9,9 @@
 #' @export
 #' @return annualSeries data frame that contains the annual series of streamflow statistics
 #' @examples 
-#' makeAnnualSeries(localDaily=exDailyStart,localINFO=exINFOEnd)
+#' Daily <- exDailyStart
+#' INFO <- exINFOEnd
+#' annualSeries <- makeAnnualSeries()
 makeAnnualSeries<-function(localDaily = Daily, localINFO = INFO) {
   paStart<-localINFO$paStart
   paLong<-localINFO$paLong
