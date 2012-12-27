@@ -13,9 +13,12 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' boxQTwice(localSample = exSampleStart, localDaily = exDailyStart, localINFO = exINFOStart)
-#' boxQTwice(localSample = exSampleStart, localDaily = exDailyStart, localINFO = exINFOStart, qUnit=1)
-#' boxQTwice(localSample = exSampleStart, localDaily = exDailyStart, localINFO = exINFOStart, qUnit='cfs')
+#' Sample <- exSampleStart
+#' Daily <- exDailyStart
+#' INFO <- exINFOStart
+#' boxQTwice()
+#' boxQTwice(qUnit=1)
+#' boxQTwice(qUnit='cfs')
 boxQTwice<-function(localSample = Sample, localDaily = Daily, localINFO = INFO, printTitle = TRUE, qUnit = 2){
   # This function does two boxplots side by side
   # The first is for the discharges on the sampled days
