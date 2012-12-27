@@ -44,7 +44,8 @@
   analysis that uses all the data.
 }
 \examples{
-estCrossVal(SampleCrossV = exSampleStart)
+Sample <- exSampleStart
+SampleCrossV <- estCrossVal()
 }
 \keyword{statistics}
 \keyword{water-quality}

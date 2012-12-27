@@ -27,7 +27,21 @@
   Daily data frame, which is returned.
 }
 \examples{
-\dontrun{estDailyFromSurfaces(localDaily = exDailyStart, localINFO = exINFOStart)}
+Daily <- exDailyStart
+INFO <- exINFOStart
+INFO <- setPA()
+surfaces <- exsurfaces
+#################################################
+# This is usually done in modelEstimation:
+surfaceIndexParameters<-surfaceIndex()
+INFO$bottomLogQ<-surfaceIndexParameters[1]
+INFO$stepLogQ<-surfaceIndexParameters[2]
+INFO$nVectorLogQ<-surfaceIndexParameters[3]
+INFO$bottomYear<-surfaceIndexParameters[4]
+INFO$stepYear<-surfaceIndexParameters[5]
+INFO$nVectorYear<-surfaceIndexParameters[6]
+#################################################
+Daily <- estDailyFromSurfaces()
 }
 \keyword{statistics}
 \keyword{water-quality}

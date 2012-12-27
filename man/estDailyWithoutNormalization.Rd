@@ -31,7 +31,10 @@
   computer time.
 }
 \examples{
-\dontrun{estDailyWithoutNormalization(localDaily = exDailyStart, localINFO = exINFOStart, localsurfaces = exsurfaces)}
+Daily <- exDailyStart
+INFO <- exINFOStart
+surfaces <- exsurfaces
+Daily <- estDailyWithoutNormalization()
 }
 \keyword{statistics}
 \keyword{water-quality}

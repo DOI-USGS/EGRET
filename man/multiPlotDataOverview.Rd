@@ -29,7 +29,10 @@
   only at the top of the 4 graph display.
 }
 \examples{
-multiPlotDataOverview(localSample = exSampleStart, localDaily = exDailyStart, localINFO = exINFOStart, qUnit=1)
+Sample <- exSampleStart
+Daily <- exDailyStart
+INFO <- exINFOStart
+multiPlotDataOverview(qUnit=1)
 }
 \keyword{graphics}
 \keyword{statistics}

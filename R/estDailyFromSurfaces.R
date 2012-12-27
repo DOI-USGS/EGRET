@@ -9,9 +9,6 @@
 #' @param localsurfaces string specifying the name of the array containing the three surfaces, default is surfaces
 #' @keywords water-quality statistics
 #' @return localDaily string specifying the name of the data frame containing the daily values and these esimates
-#' @export
-#' @examples
-#' \dontrun{estDailyFromSurfacesOrig(localDaily = exDailyStart, localINFO = exINFOStart)}
 estDailyFromSurfacesOrig<-function(localDaily = Daily, localINFO = INFO, localsurfaces = surfaces) {
   # this function uses the surfaces that have been calulated based on the sample data
   # and fills in the individual estimates using bilinear interpolation off these surfaces

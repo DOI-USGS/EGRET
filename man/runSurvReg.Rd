@@ -34,6 +34,9 @@
   \item{minNumUncen}{numeric specifying the minimum number
   of uncensored observations to run the weighted
   regression, default is 50}
+
+  \item{message}{logical specifying whether or not to
+  display progress message}
 }
 \value{
   resultSurvReg numeric array containing the yHat, SE, and

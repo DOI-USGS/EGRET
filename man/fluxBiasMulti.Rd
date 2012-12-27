@@ -46,7 +46,11 @@
   the other in real space).
 }
 \examples{
-fluxBiasMulti(localSample = exSampleEnd, localDaily = exDailyEnd, localINFO = exINFOEnd, fluxUnit = 9,moreTitle="WRTDS")
+Sample <- exSampleEnd
+Daily <- exDailyEnd
+INFO <- exINFOEnd
+
+fluxBiasMulti(fluxUnit = 9,moreTitle="WRTDS")
 }
 \keyword{graphics}
 \keyword{statistics}

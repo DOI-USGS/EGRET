@@ -3,7 +3,8 @@
 \title{plots 1 of the 15 graphs of streamflow statistics on a single page}
 \usage{
   plot1of15(yearStart, yearEnd, qf, istat,
-    localAnnualSeries, localINFO, isBottom = FALSE)
+    localAnnualSeries = AnnualSeries, localINFO = INFO,
+    isBottom = FALSE)
 }
 \arguments{
   \item{yearStart}{A numeric value for the year in which
@@ -35,7 +36,9 @@
   statistics: 1-day maximum, mean, and 7-day minimum
 }
 \examples{
-plot1of15(1990,2000,0.2938476,5,localAnnualSeries=exannualSeries,localINFO=exINFOEnd)
+AnnualSeries <- exannualSeries
+INFO <- exINFOEnd
+plot1of15(1990,2000,0.2938476,5,localAnnualSeries=exannualSeries)
 }
 \keyword{graphics}
 \keyword{streamflow}

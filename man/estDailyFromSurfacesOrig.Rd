@@ -26,9 +26,6 @@
   The results are stored in an augmented version of the
   Daily data frame, which is returned.
 }
-\examples{
-\dontrun{estDailyFromSurfacesOrig(localDaily = exDailyStart, localINFO = exINFOStart)}
-}
 \keyword{statistics}
 \keyword{water-quality}
 

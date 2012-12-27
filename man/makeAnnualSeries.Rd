@@ -22,7 +22,9 @@
   (e.g. water year).
 }
 \examples{
-makeAnnualSeries(localDaily=exDailyStart,localINFO=exINFOEnd)
+Daily <- exDailyStart
+INFO <- exINFOEnd
+annualSeries <- makeAnnualSeries()
 }
 \keyword{statistics}
 \keyword{streamflow}
