@@ -30,7 +30,10 @@
 #' qBottom<-0.2
 #' qTop<-20
 #' clevel<-seq(0,2,0.5)
-#' plotContours(yearStart,yearEnd,qBottom,qTop, localsurfaces = exsurfaces, localINFO = exINFOEnd, localDaily = exDailyEnd, contourLevels = clevel)  
+#' INFO <- exINFOEnd
+#' Daily <- exDailyEnd
+#' surfaces <- exsurfaces
+#' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel)  
 plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3, localsurfaces = surfaces, localINFO = INFO, localDaily = Daily, qUnit = 2, contourLevels = NA, span = 60, pval = 0.05, printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA, flowDuration = TRUE) {
   #  This funtion makes a contour plot 
   #  x-axis is bounded by yearStart and yearEnd
