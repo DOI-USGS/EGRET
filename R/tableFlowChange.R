@@ -15,7 +15,10 @@
 #' @keywords streamflow statistics
 #' @export
 #' @examples
-#' tableFlowChange(istat=5,localAnnualSeries=exannualSeries,localINFO=exINFOEnd,yearPoints=c(2001,2005,2009))
+#' INFO <- exINFOStart
+#' INFO <- setPA(paStart=12, paLong=3)
+#' annualSeries <- exannualSeries
+#' tableFlowChange(istat=5,yearPoints=c(2001,2005,2009))
 tableFlowChange<-function(istat, localAnnualSeries = annualSeries, localINFO = INFO, qUnit = 1, runoff = FALSE, yearPoints = NA) {
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
