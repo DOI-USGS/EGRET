@@ -26,11 +26,15 @@
 #' EGRET package (except for dataRetrieval) includes WRTDS and flowHistory
 #'
 #' \tabular{ll}{
-#' Package: \tab EGRET\cr
+#' Package: \tab EGRETBeta\cr
 #' Type: \tab Package\cr
-#' Version: \tab 0.1\cr
-#' Date: \tab 2012-04-23\cr
-#' License: \tab GPL (>= 2)\cr
+#' Version: \tab 1.2.3\cr
+#' Date: \tab 2012-12-31\cr
+#' License: \tab This software is in the public domain because it contains materials
+#' that originally came from the United States Geological Survey, an agency of
+#' the United States Department of Interior. For more information, see the
+#' official USGS copyright policy at
+#' \code{\link{http://www.usgs.gov/visual-id/credit_usgs.html#copyright}}\cr
 #' LazyLoad: \tab yes\cr
 #' }
 #'
