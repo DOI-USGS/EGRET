@@ -9,7 +9,8 @@
 #' @return MonthlyResults data frame of numeric values describing the monthly average values
 #' @export
 #' @examples
-#' calculateMonthlyResults(localDaily = exDailyEnd)
+#' Daily <- exDailyEnd
+#' monthlyResults <- calculateMonthlyResults()
 calculateMonthlyResults<-function(localDaily = Daily){
   # this creates a data frame of monthly results from Daily
   # it requires that there be at least 15 valid values in the month
