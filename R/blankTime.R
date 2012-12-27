@@ -14,7 +14,8 @@
 #' @examples
 #' startBlank = "2004-10-01"
 #' endBlank = "2006-09-30"
-#' blankTime(startBlank, endBlank, localDaily = exDailyEnd)
+#' Daily <- exDailyEnd
+#' blankTime(startBlank, endBlank)
 blankTime<-function(startBlank, endBlank, localDaily = Daily) {
   # this function is used after the model estimation is done
   # it can be used more than once, for multiple blank periods
