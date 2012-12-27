@@ -46,7 +46,7 @@ modelEstimation<-function(localDaily = Daily,localSample = Sample, localINFO = I
   cat("\nNext step running  estSurfaces this can take about another minute")
   surfaces1<-estSurfaces(localDaily = localDaily, localSample = localSample, windowY, windowQ, windowS, minNumObs, minNumUncen)
   cat("\nDone with estSurfaces and starting estDailyFromSurface")
-  cat("\nThis can take several minutes but you will see updates")
+#   cat("\nThis can take several minutes but you will see updates")
   Daily1<-estDailyFromSurfaces(localDaily = localDaily, localINFO = localINFO, localsurfaces = surfaces1)
   #   cat("\nDone with estDailyFromSurfaces moving on to calculateMonthlyResults")
   #   MonthlyResults1<-calculateMonthlyResults(localDaily = Daily1)
@@ -56,5 +56,5 @@ modelEstimation<-function(localDaily = Daily,localSample = Sample, localINFO = I
   env$Sample<-Sample1
   env$surfaces<-surfaces1
   #  env$MonthlyResults<-MonthlyResults1
-  cat("\nDone with modelEstimation now do AnnualResults<-setupYears()\nor if using a period of analysis other than Water Year specify the arguments paStart and paLong in call to setupYears ")
+  cat("\nDone with modelEstimation,\nnow do AnnualResults<-setupYears()\nor if using a period of analysis other than Water Year specify the arguments paStart and paLong in call to setupYears ")
 }
