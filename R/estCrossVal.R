@@ -29,13 +29,16 @@ estCrossVal<-function(SampleCrossV = Sample, windowY = 10, windowQ = 2, windowS 
   SE<-rep(0,numObs)
   ConcHat<-rep(0,numObs)
   iCounter<-seq(1,numObs)
-  cat("\n estCrossVal prints out the sample numbers to indicate progress\n")
+  cat("\n estCrossVal % complete:\n")
   SampleCV<-data.frame(SampleCrossV,iCounter,yHat,SE,ConcHat)
+
+  printUpdate <- floor(seq(1,numObs,numObs/100))
+  
   for(i in 1:numObs) {
-    cat(" ",i)
+    if(i %in% printUpdate) cat(floor(i*100/numObs),"\t")
     SampleCV$keep<-ifelse(SampleCV$iCounter==i,FALSE,TRUE)
     SampleMinusOne<-subset(SampleCV,keep)
-    result<-runSurvReg(SampleMinusOne,SampleCrossV$DecYear[i],SampleCrossV$LogQ[i],windowY,windowQ,windowS,minNumObs,minNumUncen)
+    result<-runSurvReg(SampleMinusOne,SampleCrossV$DecYear[i],SampleCrossV$LogQ[i],windowY,windowQ,windowS,minNumObs,minNumUncen,message=FALSE)
     SampleCrossV$yHat[i]<-result[1]
     SampleCrossV$SE[i]<-result[2]
     SampleCrossV$ConcHat[i]<-result[3]
