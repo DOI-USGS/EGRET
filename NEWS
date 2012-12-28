@@ -9,6 +9,8 @@ EGRET 1.2.3
 
 * Progress indicators modified to be more informative.
 
+* Fixed a calculation bug in function plotLogFluxPred.
+
 EGRET 1.2.1
 ===========
 
