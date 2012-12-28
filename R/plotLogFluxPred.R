@@ -29,7 +29,8 @@ plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3,
     par(mar = c(5, 5, 1, 1))
   else par(mar = c(5, 5, 4, 2) + 0.1)
   fluxFactor <- fluxUnit@unitFactor * 86.4
-  x <- exp(localSample$yHat) * localSample$Q * fluxFactor
+#   x <- exp(localSample$yHat) * localSample$Q * fluxFactor
+  x <- localSample$ConcHat * localSample$Q * fluxFactor
   yLow <- localSample$ConcLow * localSample$Q * fluxFactor
   yHigh <- localSample$ConcHigh * localSample$Q * fluxFactor
   Uncen <- localSample$Uncen
