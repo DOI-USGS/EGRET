@@ -1,7 +1,7 @@
 \docType{data}
 \name{exSampleEnd}
 \alias{exSampleEnd}
-\title{Data included in EGRET}
+\title{Example final Sample dataframe}
 \description{
   Example data representing Nitrate sample data from the
   Choptank River at Greensboro, MD, USGS data as agumented

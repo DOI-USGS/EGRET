@@ -1,7 +1,7 @@
 \docType{data}
 \name{exAnnualResults}
 \alias{exAnnualResults}
-\title{Data included in EGRET}
+\title{Example AnnualResults dataframe}
 \description{
   Example data representing annual WRTDS results for
   Nitrate data from the Choptank River at Greensboro, MD,

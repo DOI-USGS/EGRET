@@ -1,10 +1,11 @@
 \docType{data}
 \name{exDailyStart}
 \alias{exDailyStart}
-\title{Data included in EGRET}
+\title{Example initial Daily dataframe}
 \description{
-  Example data representing Streamflow and Nitrate from the
-  Choptank River at Greensboro, MD, USGS data
+  Example data representing streamflow from the Choptank
+  River at Greensboro, MD, USGS data. This is the data that
+  is initially generated from the dataRetrieval package.
 }
 \author{
   Robert M. Hirsch \email{rhirsch@usgs.gov}

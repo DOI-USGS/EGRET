@@ -1,11 +1,11 @@
 \docType{data}
 \name{exDailyEnd}
 \alias{exDailyEnd}
-\title{Data included in EGRET}
+\title{Example final Daily dataframe}
 \description{
-  Example data representing Streamflow and Nitrate from the
-  Choptank River at Greensboro, MD, USGS data as agumented
-  by the modelEstimation process
+  Example data representing streamflowfrom the Choptank
+  River at Greensboro, MD, USGS data as agumented by the
+  modelEstimation process.
 }
 \author{
   Robert M. Hirsch \email{rhirsch@usgs.gov}

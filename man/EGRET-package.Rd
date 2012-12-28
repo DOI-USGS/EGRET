@@ -3,7 +3,7 @@
 \alias{EGRET-package}
 \title{EGRET package (except for dataRetrieval) includes WRTDS and flowHistory}
 \description{
-  \tabular{ll}{ Package: \tab EGRETBeta\cr Type: \tab
+  \tabular{ll}{ Package: \tab EGRET\cr Type: \tab
   Package\cr Version: \tab 1.2.3\cr Date: \tab
   2012-12-31\cr License: \tab This software is in the
   public domain because it contains materials that

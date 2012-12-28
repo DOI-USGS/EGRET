@@ -1,7 +1,7 @@
 \docType{data}
 \name{exINFOEnd}
 \alias{exINFOEnd}
-\title{Data included in EGRET}
+\title{Example final INFO dataframe}
 \description{
   Example data representing meta-data from the Choptank
   River at Greensboro, MD, USGS data as augmented by the

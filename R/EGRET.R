@@ -26,7 +26,7 @@
 #' EGRET package (except for dataRetrieval) includes WRTDS and flowHistory
 #'
 #' \tabular{ll}{
-#' Package: \tab EGRETBeta\cr
+#' Package: \tab EGRET\cr
 #' Type: \tab Package\cr
 #' Version: \tab 1.2.3\cr
 #' Date: \tab 2012-12-31\cr
@@ -48,9 +48,10 @@
 #' @keywords water-quality graphics streamflow statistics 
 NULL
 
-#' Data included in EGRET
+#' Example initial Daily dataframe
 #'
-#' Example data representing Streamflow and Nitrate from the Choptank River at Greensboro, MD,  USGS data
+#' Example data representing streamflow from the Choptank River at Greensboro, MD,  USGS data.  
+#' This is the data that is initially generated from the dataRetrieval package.
 #'
 #' @name exDailyStart
 #' @docType data
@@ -58,10 +59,10 @@ NULL
 #' @keywords water quality streamflow data
 NULL
 
-#' Data included in EGRET
+#' Example final Daily dataframe
 #'
-#' Example data representing Streamflow and Nitrate from the Choptank River at Greensboro, MD,  USGS data
-#' as agumented by the modelEstimation process
+#' Example data representing streamflowfrom the Choptank River at Greensboro, MD,  USGS data
+#' as agumented by the modelEstimation process.
 #'
 #' @name exDailyEnd
 #' @docType data
@@ -69,9 +70,10 @@ NULL
 #' @keywords water quality streamflow data
 NULL
 
-#' Data included in EGRET
+#' Example initial Sample dataframe
 #'
-#' Example data representing Nitrate sample data from the Choptank River at Greensboro, MD,  USGS data
+#' Example data representing Nitrate sample data from the Choptank River at Greensboro, MD,  USGS data.
+#' This is the data that is initially generated from the dataRetrieval package.
 #'
 #' @name exSampleStart
 #' @docType data
@@ -79,7 +81,7 @@ NULL
 #' @keywords water quality data
 NULL
 
-#' Data included in EGRET
+#' Example final Sample dataframe
 #'
 #' Example data representing Nitrate sample data from the Choptank River at Greensboro, MD,  USGS data
 #' as agumented by the modelEstimation process
@@ -90,9 +92,10 @@ NULL
 #' @keywords water quality data
 NULL
 
-#' Data included in EGRET
+#' Example initial INFO dataframe
 #'
 #' Example data representing meta-data from the Choptank River at Greensboro, MD,  USGS data
+#' This is the data that is initially generated from the dataRetrieval package.
 #'
 #' @name exINFOStart
 #' @docType data
@@ -100,7 +103,7 @@ NULL
 #' @keywords water quality data
 NULL
 
-#' Data included in EGRET
+#' Example final INFO dataframe
 #'
 #' Example data representing meta-data from the Choptank River at Greensboro, MD,  USGS data
 #' as augmented by the functions setupYears (for WRTDS) and setPA (for flowHistory)
@@ -111,7 +114,7 @@ NULL
 #' @keywords water quality data
 NULL
 
-#' Data included in EGRET
+#' Example AnnualResults dataframe
 #'
 #' Example data representing annual WRTDS results for Nitrate data from the Choptank River at Greensboro, MD,  USGS data
 #' as output from the function setupYears
@@ -122,7 +125,7 @@ NULL
 #' @keywords water quality data
 NULL
 
-#' Data included in EGRET
+#' Example annualSeries dataframe
 #'
 #' Example data representing annual Series of streamflow statistics from the Choptank River at Greensboro, MD,  USGS data
 #' as output from the function makeAnnualSeries
@@ -133,7 +136,7 @@ NULL
 #' @keywords streamflow data
 NULL
 
-#' Data included in EGRET
+#' Example MonthlyResults dataframe
 #'
 #' Example data representing monthly WRTDS results for Nitrate data from the Choptank River at Greensboro, MD,  USGS data
 #' as output from the function calculateMonthlyResults
@@ -144,7 +147,7 @@ NULL
 #' @keywords water quality data
 NULL
 
-#' Data included in EGRET
+#' Example surface array
 #'
 #' Example data representing surfaces, from the fitted model
 #' of Nitrate data for the Choptank River at Greensboro, MD,  USGS data

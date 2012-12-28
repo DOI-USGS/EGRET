@@ -1,7 +1,7 @@
 \docType{data}
 \name{exsurfaces}
 \alias{exsurfaces}
-\title{Data included in EGRET}
+\title{Example surface array}
 \description{
   Example data representing surfaces, from the fitted model
   of Nitrate data for the Choptank River at Greensboro, MD,

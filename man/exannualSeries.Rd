@@ -1,7 +1,7 @@
 \docType{data}
 \name{exannualSeries}
 \alias{exannualSeries}
-\title{Data included in EGRET}
+\title{Example annualSeries dataframe}
 \description{
   Example data representing annual Series of streamflow
   statistics from the Choptank River at Greensboro, MD,
