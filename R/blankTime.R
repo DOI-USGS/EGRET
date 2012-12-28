@@ -9,13 +9,13 @@
 #' @param endBlank string specifying the ending date of blank period, input in quotes in yyyy-mm-dd format
 #' @param localDaily string specifying the name of the data frame containing the daily values, default is Daily
 #' @keywords water-quality statistics
-#' @return localDaily data frame 
+#' @return localDaily Daily data frame returned with NA's in sample gap
 #' @export
 #' @examples
 #' startBlank = "2004-10-01"
 #' endBlank = "2006-09-30"
 #' Daily <- exDailyEnd
-#' blankTime(startBlank, endBlank)
+#' Daily <- blankTime(startBlank, endBlank)
 blankTime<-function(startBlank, endBlank, localDaily = Daily) {
   # this function is used after the model estimation is done
   # it can be used more than once, for multiple blank periods

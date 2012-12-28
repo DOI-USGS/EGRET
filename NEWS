@@ -1,0 +1,27 @@
+EGRET 1.2.3
+===========
+
+* New estDailyFromSurfaces function utilizing "fields" package, written by Jeffrey Chanat.
+
+* Improved documentation, especially example functions.
+
+* runSurvReg modified to include a seasonal window (windowS).
+
+* Progress indicators modified to be more informative.
+
+EGRET 1.2.1
+===========
+
+* Adds four new functions to the flowHistory capability. The four new flow History functions are: plot15 (makes an array of 15 plots for a given site - a matrix of 3 flow statistics (7-day min, mean, and 1-day max) versus 5 periods of analysis (annual, fall, winter, spring, and summer), plotSDLogQ (makes a plot of the running standard deviation of the Log Discharge versus time), plotFour (makes a set of four graphs: 1-day max, mean, 7-day min, and running standard deviation of the logs), and plotQTimeDaily (a way to plot discharge versus time, setup particularly to show flows above some threshold discharge). 
+
+* Bug fix in WRTDS made no changes to calculations, it just prevents a crash in a situation where the user has shortened the length of the daily record.
+
+EGRET 1.1.3
+===========
+
+* A few small bug fixes and cosmetic changes in some graphics, improved saveResults function, and better formatting of help pages for the functions.
+
+EGRET 1.0.0
+===========
+
+* Initial release.

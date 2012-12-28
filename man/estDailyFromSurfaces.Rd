@@ -17,7 +17,7 @@
 }
 \value{
   localDaily string specifying the name of the data frame
-  containing the daily values and these esimates
+  containing the daily values and these estimates
 }
 \description{
   Uses the surfaces estimated in estSurfaces to estimate

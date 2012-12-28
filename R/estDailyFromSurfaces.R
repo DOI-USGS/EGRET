@@ -1,14 +1,3 @@
-#' Estimates all daily values of Concentration, Flux, Flow Normalized Concentration, and Flow Normalized Flux
-#'
-#'   Uses the surfaces estimated in estSurfaces to estimate these four time series
-#'    in addition to the time series for standard error and yHat (estimated log concentration). 
-#'    The results are stored in an augmented version of the Daily data frame, which is returned.
-#'
-#' @param localDaily string specifying the name of the data frame containing the daily values, default is Daily
-#' @param localINFO string specifying the name of the data frame containing the meta-data, default is INFO
-#' @param localsurfaces string specifying the name of the array containing the three surfaces, default is surfaces
-#' @keywords water-quality statistics
-#' @return localDaily string specifying the name of the data frame containing the daily values and these esimates
 estDailyFromSurfacesOrig<-function(localDaily = Daily, localINFO = INFO, localsurfaces = surfaces) {
   # this function uses the surfaces that have been calulated based on the sample data
   # and fills in the individual estimates using bilinear interpolation off these surfaces

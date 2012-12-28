@@ -8,7 +8,7 @@
 #' @param localINFO string specifying the name of the data frame containing the meta-data, default is INFO
 #' @param localsurfaces string specifying the name of the array containing the three surfaces, default is surfaces
 #' @keywords water-quality statistics
-#' @return localDaily string specifying the name of the data frame containing the daily values and these esimates
+#' @return localDaily string specifying the name of the data frame containing the daily values and these estimates
 #' @export
 #' @examples
 #' Daily <- exDailyStart

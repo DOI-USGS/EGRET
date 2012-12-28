@@ -15,7 +15,8 @@
   frame containing the daily values, default is Daily}
 }
 \value{
-  localDaily data frame
+  localDaily Daily data frame returned with NA's in sample
+  gap
 }
 \description{
   This function is used when the data analyst believes that
@@ -29,7 +30,7 @@
 startBlank = "2004-10-01"
 endBlank = "2006-09-30"
 Daily <- exDailyEnd
-blankTime(startBlank, endBlank)
+Daily <- blankTime(startBlank, endBlank)
 }
 \keyword{statistics}
 \keyword{water-quality}
