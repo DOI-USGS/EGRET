@@ -57,7 +57,7 @@ runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2
     estY<-estPtYear[i]
     estLQ<-estPtLQ[i]
 
-    repeat{ # while loop took ever-so-slightly longer...not sure why
+    repeat{
       #  We subset the sample frame by time, to narrow the set of data to run through in the following steps
       Sam<-subset(localSample,abs(DecYear-estY)<=tempWindowY)
       diffY<-abs(Sam$DecYear-estY)
@@ -73,28 +73,21 @@ runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2
       numUncen<-sum(Sam$Uncen)
       tempWindowY<-tempWindowY*1.1
       tempWindowQ<-tempWindowQ*1.1
-      tempWindowS<-min(tempWindowS*1.1,0.5) 
-      if(numPosWt >= minNumObs & numUncen >= minNumUncen) break
+      # the next line is designed so that if the user sets windowS so it includes
+      # data from all seasons, the widening process leaves it alone    	
+      tempWindowS<-if(windowS<=0.5) min(tempWindowS*1.1,0.5) else windowS
+      if(numPosWt>=minNumObs&numUncen>=minNumUncen) break
     }
 
-#     While option:
-#     numUncen <- 0
-#     numPosWt <- 0
-#     while (numPosWt < minNumObs | numUncen < minNumUncen){  
-#     }
     
     # now we are ready to run Survival Regression
     weight<-Sam$weight
     aveWeight<-sum(weight)/numPosWt
     weight<-weight/aveWeight
-    
     survModel<-survreg(Surv(log(ConcLow),log(ConcHigh),type="interval2")~DecYear+LogQ+SinDY+CosDY,data=Sam,weights=weight,dist="gaus")
-
     new<-data.frame(DecYear=estY,LogQ=estLQ,SinDY=sin(2*pi*estY),CosDY=cos(2*pi*estY))
     #   extract results at estimation point
-
     yHat<-predict(survModel,new)
-
     SE<-survModel$scale
     bias<-exp((SE^2)/2)
     resultSurvReg[i,1]<-yHat
