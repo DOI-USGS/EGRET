@@ -1,11 +1,11 @@
 EGRET 1.2.3
 ===========
 
-* New estDailyFromSurfaces function utilizing "fields" package, written by Jeffrey Chanat.
+* New estDailyFromSurfaces function utilizing "fields" package, written by Jeffrey Chanat. Greatly increases the speed of computations of the daily results.  Two additional R packages are needed: fields and spam
 
 * Improved documentation, especially example functions.
 
-* runSurvReg modified to include a seasonal window (windowS).
+* runSurvReg modified to include a seasonal window (windowS), which has the effect of eliminating the influence of the seasonal weights.
 
 * Progress indicators modified to be more informative.
 
