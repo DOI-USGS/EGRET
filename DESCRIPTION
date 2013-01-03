@@ -1,4 +1,4 @@
-Package: EGRETBeta
+Package: EGRET
 Type: Package
 Title: All EGRET code except for dataRetrieval
 Version: 1.2.3
@@ -9,7 +9,8 @@ Maintainer: Robert M. Hirsch <rhirsch@usgs.gov>, Laura De Cicco
 Description: Estimates WRTDS model, makes plots of the raw data (water quality
     and streamflow) as well as tables and graphs of results of the WRTDS
     analysis, and does flowHistory analysis and graphs and tables
-License: This software is in the public domain because it contains materials
+License: file LICENSE
+Copyright: This software is in the public domain because it contains materials
     that originally came from the United States Geological Survey, an agency of
     the United States Department of Interior. For more information, see the
     official USGS copyright policy at
