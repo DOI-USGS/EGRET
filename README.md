@@ -35,37 +35,59 @@ Download and Package Installation
 ---------------------------------
 
 ### Downloads:
-* [Download page](https://github.com/USGS-CIDA/WRTDS/downloads)
+* The latest version of EGRET can be downloaded with this link:
+[EGRET_1.2.3](https://github.com/USGS-CIDA/WRTDS/raw/master/MainRCodes/EGRET_1.2.3.tar.gz)
+
+* The latest version of dataRetrieval can be downloaded with this link:
+[dataRetrieval_1.2.1](https://github.com/USGS-CIDA/WRTDS/raw/master/MainRCodes/dataRetrieval_1.2.1.tar.gz)
+
+* [EGRET User Guide](https://github.com/USGS-CIDA/WRTDS/raw/master/EGRET manual_4.doc) (Word Document)
+
+* [WRTDS NWQMC course slides](https://github.com/USGS-CIDA/WRTDS/raw/master/Documentation/WRTDS NWQMC course.pdf) (pdf)
+
+* [EGRET flowHistory presentation](https://github.com/USGS-CIDA/WRTDS/raw/master/Documentation/EGRET flowHistory presentation.pdf) (pdf)
 
 ### Installation:
 While the EGRET and dataRetreival packages are in development (and not on CRAN), the following packages must first be manually installed: 
 * zoo
 * survival
 * plyr
+* fields
+* spam - (spam is actually a legitimate package - SPArse Matrix)
 
 Once EGRET is sent to the CRAN repository, these packages will be automatically imported. Packages only need to be installed once.
  
 To install the EGRET package:
 
-Include the full path to EGRET_1.2.1.tar.gz to install the package (here is a Windows example, note the direction of the slashes -> /, this is backwards from how Windows typically defines a path ):
+Include the full path to EGRET_1.2.3.tar.gz to install the package (here is a Windows example, note the direction of the slashes -> /, this is backwards from how Windows typically defines a path ):
 
-	install.packages("zoo")
+  install.packages("zoo")
 	install.packages("survival")
 	install.packages("plyr")
-	install.packages("C:/RPackages/Statistics/EGRET_1.2.1.tar.gz", repos=NULL, type="source")
+	install.packages("fields")
+	install.packages("spam")
+	install.packages("C:/RPackages/Statistics/EGRET_1.2.3.tar.gz", repos=NULL, type="source")
 
 A Mac example:
 
-	install.packages("/Users/userA/RPackages/Statistic/EGRET_1.2.1.tar.gz", repos=NULL, type="source")
+	install.packages("/Users/userA/RPackages/Statistic/EGRET_1.2.3.tar.gz", repos=NULL, type="source")
 	
-The EGRET package requires the methods, zoo, survival packages, all available from CRAN.
+The EGRET package requires the methods, zoo, survival, and fields packages, all available from CRAN.
 	
 Similarly, to install the dataRetrieval package, use the following commands:
 
 	install.packages("zoo")
-	install.packages("C:/RPackages/Statistics/dataRetrieval_1.0.6.tar.gz", repos=NULL, type="source")
+	install.packages("C:/RPackages/Statistics/dataRetrieval_1.2.0.tar.gz", repos=NULL, type="source")
 	
 The dataRetrieval package requires the zoo package available from CRAN.  
+
+### Note on updating versions:
+Some users have found it necessary to delete the package folders before installing newer versions of either dataRetrieval or EGRET.  If you are experiencing an issue after updating a package, trying deleting the package folder, the default location for Windows is something like this:
+C:\Users\ldecicco\Documents\R\win-library\2.15\dataRetrieval
+the default for a Mac:
+/Users/ldecicco/Library/R/2.15/library/dataRetrieval
+Then, re-install the package using the directions above.  Moving to CRAN should solve this problem.
+
 
 Background Information
 ----------------------
