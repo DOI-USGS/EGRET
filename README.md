@@ -36,16 +36,16 @@ Download and Package Installation
 
 ### Downloads:
 * The latest version of EGRET can be downloaded with this link:
-[EGRET_1.2.3](https://github.com/USGS-CIDA/WRTDS/raw/master/MainRCodes/EGRET_1.2.3.tar.gz)
+[EGRET_1.2.3](https://github.com/USGS-R/EGRET/blob/master/EGRET_1.2.3.tar.gz?raw=true)
 
 * The latest version of dataRetrieval can be downloaded with this link:
-[dataRetrieval_1.2.1](https://github.com/USGS-CIDA/WRTDS/raw/master/MainRCodes/dataRetrieval_1.2.1.tar.gz)
+[dataRetrieval_1.2.1](https://github.com/USGS-R/dataRetrieval/blob/master/dataRetrieval_1.2.1.tar.gz?raw=true)
 
-* [EGRET User Guide](https://github.com/USGS-CIDA/WRTDS/raw/master/EGRET manual_4.doc) (Word Document)
+* [EGRET User Guide](https://github.com/USGS-R/EGRET/blob/master/EGRET+manual_4.doc?raw=true) (Word Document)
 
-* [WRTDS NWQMC course slides](https://github.com/USGS-CIDA/WRTDS/raw/master/Documentation/WRTDS NWQMC course.pdf) (pdf)
+* [WRTDS NWQMC course slides](https://github.com/USGS-R/EGRET/blob/master/WRTDS+NWQMC+course.pdf?raw=true) (pdf)
 
-* [EGRET flowHistory presentation](https://github.com/USGS-CIDA/WRTDS/raw/master/Documentation/EGRET flowHistory presentation.pdf) (pdf)
+* [EGRET flowHistory presentation](https://github.com/USGS-R/EGRET/blob/master/EGRET+flowHistory+presentation.pdf?raw=true) (pdf)
 
 ### Installation:
 While the EGRET and dataRetreival packages are in development (and not on CRAN), the following packages must first be manually installed: 
