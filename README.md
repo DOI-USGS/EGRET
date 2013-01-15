@@ -61,7 +61,7 @@ To install the EGRET package:
 
 Include the full path to EGRET_1.2.3.tar.gz to install the package (here is a Windows example, note the direction of the slashes -> /, this is backwards from how Windows typically defines a path ):
 
-  install.packages("zoo")
+	install.packages("zoo")
 	install.packages("survival")
 	install.packages("plyr")
 	install.packages("fields")
