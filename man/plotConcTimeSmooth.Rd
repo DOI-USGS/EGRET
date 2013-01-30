@@ -1,36 +1,44 @@
-\name{plotLogConcQSmooth}
-\alias{plotLogConcQSmooth}
-\title{Plot up to three curves representing the log concentration versus discharge relationship, each curve is a different point in time}
+\name{plotConcTimeSmooth}
+\alias{plotConcTimeSmooth}
+\title{Plot up to three curves representing the concentration versus time relationship, each curve representing a different flow.}
 \usage{
-  plotLogConcQSmooth(date1, date2, date3, qLow, qHigh,
-    qUnit = 2, legendLeft = 0, legendTop = 0, concMax = NA,
-    concMin = NA, bw = FALSE, printTitle = TRUE,
+  plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart,
+    yearEnd, qUnit = 2, legendLeft = 0, legendTop = 0,
+    concMax = NA, bw = FALSE, printTitle = TRUE,
     printValues = FALSE, localSample = Sample,
     localINFO = INFO, windowY = 10, windowQ = 2,
     windowS = 0.5)
 }
 \arguments{
-  \item{date1}{string specifying the date for the first
-  curve on the graph, it is in the form "yyyy-mm-dd" (must
-  be in quotes)}
+  \item{q1}{numeric This is the discharge value for the
+  first curve to be shown on the plot. It is expressed in
+  units specified by qUnit.}
 
-  \item{date2}{string specifying the date for the second
-  curve on the graph, it is in the form "yyyy-mm-dd" (must
-  be in quotes).  If only one curve is wanted this should
-  be NA}
+  \item{q2}{numeric This is the discharge value for the
+  second curve to be shown on the plot. It is expressed in
+  units specified by qUnit. If you don't want a second
+  curve then the argument must be q2=NA}
 
-  \item{date3}{string specifying the date for the third
-  curve on the graph, it is in the form "yyyy-mm-dd" (must
-  be in quotes).  If a third curve is not wanted this
-  should be NA}
+  \item{q3}{numeric This is the discharge value for the
+  third curve to be shown on the plot. It is expressed in
+  units specified by qUnit. If you don't want a third curve
+  then the argument must be q3=NA}
 
-  \item{qLow}{numeric value for the lowest discharge to be
-  considered, expressed in the units of discharge that are
-  being used (as specified in qUnit)}
+  \item{centerDate}{string This is the time of year to be
+  used as the center date for the smoothing. It is
+  expressed as a month and day and must be in the form
+  "mm-dd"}
 
-  \item{qHigh}{numeric value for the highest discharge to
-  be considered, expressed in the units of discharge that
-  are being used (as specified in qUnit)}
+  \item{yearStart}{numeric This is the starting year for
+  the graph. The first value plotted for each curve will be
+  at the first instance of centerDate in the year
+  designated by yearStart.}
+
+  \item{yearEnd}{numeric This is the end of the sequence of
+  values plotted on the graph.The last value will be the
+  last instance of centerDate prior to the start of
+  yearEnd. (Note, the number of values plotted on each
+  curve will be yearEnd-yearStart.)}
 
   \item{qUnit}{object of qUnit class. \code{\link{qConst}},
   or numeric represented the short code, or character
@@ -49,11 +57,6 @@
   \item{concMax}{numeric value for upper limit on
   concentration shown on the graph, default = NA (which
   causes the upper limit to be set automatically, based on
-  the data)}
-
-  \item{concMin}{numeric value for lower limit on
-  concentration shown on the graph, default = NA (which
-  causes the lower limit to be set automatically, based on
   the data)}
 
   \item{bw}{logical if TRUE graph is produced in black and
@@ -86,26 +89,19 @@
   0.5}
 }
 \description{
-  These plots are like a vertical slice of the estimated
-  concentration surface that is seen in the plotContours
-  function. These plots show how the
-  concentration-discharge relationship is changing over
-  time. Typically the time points selected would be in
-  three years at the same time of year spaced out over the
-  period of record.  But that is not necessary. Another
-  possibility is to use this to explore seasonal
-  differences.  In this case the three dates would be in
-  the same year but different times during the year.
+  These plots show how the concentration-time relationship
+  is changing over flow.
 }
 \examples{
-date1<-"2001-06-01"
-date2<-"2009-06-01"
-date3<-NA
-qLow<-1
-qHigh<-1000
+q1 <- 10
+q2 <- 25
+q3 <- 75
+centerDate <- "07-01"
+yearStart <- 2000
+yearEnd <- 2010
 Sample <- exSampleEnd
 INFO <- exINFOEnd
-plotLogConcQSmooth(date1,date2,date3,qLow,qHigh)
+plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd)
 }
 \keyword{graphics}
 \keyword{statistics}

@@ -1,4 +1,4 @@
-#' plot up to three curves representing the log concentration versus discharge relationship, each curve is a different point in time
+#' Plot up to three curves representing the log concentration versus discharge relationship, each curve is a different point in time
 #'
 #' These plots are like a vertical slice of the estimated concentration surface that is seen in the plotContours function.  
 #' These plots show how the concentration-discharge relationship is changing over time. 

@@ -1,6 +1,6 @@
 \name{plotResidTime}
 \alias{plotResidTime}
-\title{plot of the residuals from WRTDS (in log concentration units) versus time}
+\title{Plot of the residuals from WRTDS (in log concentration units) versus time}
 \usage{
   plotResidTime(localSample = Sample, localINFO = INFO,
     stdResid = FALSE, printTitle = TRUE)

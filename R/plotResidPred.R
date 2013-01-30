@@ -1,4 +1,4 @@
-#' plot of the residuals from WRTDS versus the estimated values (all in log concentration units)
+#' Plot of the residuals from WRTDS versus the estimated values (all in log concentration units)
 #'
 #' This function produces a plot of the residuals from WRTDS, expressed in natural log concentration units
 #' versus the estimated values, also in natural log concentration units.  These estimates are

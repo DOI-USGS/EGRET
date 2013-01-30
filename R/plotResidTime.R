@@ -1,4 +1,4 @@
-#' plot of the residuals from WRTDS (in log concentration units) versus time 
+#' Plot of the residuals from WRTDS (in log concentration units) versus time 
 #'
 #' This function produces a plot of the residuals from WRTDS, expressed in natural log concentration units
 #' versus time.

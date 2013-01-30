@@ -1,6 +1,6 @@
 \name{plotResidPred}
 \alias{plotResidPred}
-\title{plot of the residuals from WRTDS versus the estimated values (all in log concentration units)}
+\title{Plot of the residuals from WRTDS versus the estimated values (all in log concentration units)}
 \usage{
   plotResidPred(localSample = Sample, localINFO = INFO,
     stdResid = FALSE, tinyPlot = FALSE, printTitle = TRUE)
