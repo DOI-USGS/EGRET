@@ -16,7 +16,7 @@ Overview of EGRET:  The following are 4 major features of EGRET.
 4. It has a streamflow history component, not related to water quality, that is not a part of WRTDS, but uses some similar concepts and shares some of the basic software and data structures.  This component, called flowHistory provides a variety of table and graphical outputs looking only at flow statistics (like annual mean, annual 7-day low flow, annual 1-day maximum, or seasonal versions of these) all based on time-series smoothing.  It is designed to be used in long-term studies of streamflow change (associated with climate or land use or water use change) and works best for daily streamflow data sets of 50 years or longer.   It is put together with the WRTDS method because it uses the same data retrieval infrastructure as WRTDS and the same data structure.  
 
 Please visit the wiki for more information:
-[EGRET Wiki](https://github.com/USGS-CIDA/WRTDS/wiki)
+[EGRET Wiki](https://github.com/USGS-R/EGRET/wiki)
 
 Disclaimer
 ----------
