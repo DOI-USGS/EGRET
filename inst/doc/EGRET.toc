@@ -1,0 +1,6 @@
+\select@language {american}
+\contentsline {section}{\numberline {1}Introduction to EGRET}{1}{section.1}
+\contentsline {section}{\numberline {2}Appendix 1: Getting Started}{2}{section.2}
+\contentsline {subsection}{\numberline {2.1}New to R?}{2}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}R User: Installing dataRetrieval from downloaded binary}{2}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}R Developers: Installing dataRetrieval from gitHub}{3}{subsection.2.3}
