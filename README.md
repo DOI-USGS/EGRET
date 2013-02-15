@@ -93,7 +93,7 @@ If you are an experienced R developer, with the devtools package, all required E
 	library(devtools)
 	install_github("EGRET", "USGS-R")
 
-Stable releases are archived on the packageBuild branch of this repository: [https://github.com/USGS-R/EGRET/tree/packageBuilds](https://github.com/USGS-R/dataRetrieval/tree/packageBuilds)
+Stable releases are archived on the packageBuild branch of this repository: [https://github.com/USGS-R/EGRET/tree/packageBuilds](https://github.com/USGS-R/EGRET/tree/packageBuilds)
 
 
 
