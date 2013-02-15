@@ -91,5 +91,7 @@ Depends:
     survival,
     fields,
     spam
+Suggests:
+    xtable
 LazyLoad: yes
 LazyData: yes
