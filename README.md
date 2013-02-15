@@ -39,7 +39,7 @@ Download and Package Installation
 [EGRET_1.2.3](https://github.com/USGS-R/EGRET/raw/packageBuilds/EGRET_1.2.3.tar.gz)
 
 * The latest version of dataRetrieval can be downloaded with this link:
-[dataRetrieval_1.2.1](https://github.com/USGS-R/dataRetrieval/blob/master/dataRetrieval_1.2.1.tar.gz?raw=true)
+[dataRetrieval_1.2.1](https://github.com/USGS-R/dataRetrieval/raw/packageBuilds/dataRetrieval_1.2.1.tar.gz)
 
 * [EGRET User Guide](https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc) (Word Document)
 
