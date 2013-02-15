@@ -36,7 +36,7 @@ Download and Package Installation
 
 ### Downloads:
 * The latest version of EGRET can be downloaded with this link:
-[EGRET_1.2.3](https://github.com/USGS-R/EGRET/blob/master/EGRET_1.2.3.tar.gz?raw=true)
+[EGRET_1.2.3](https://github.com/USGS-R/EGRET/raw/packageBuilds/EGRET_1.2.3.tar.gz)
 
 * The latest version of dataRetrieval can be downloaded with this link:
 [dataRetrieval_1.2.1](https://github.com/USGS-R/dataRetrieval/blob/master/dataRetrieval_1.2.1.tar.gz?raw=true)
@@ -87,6 +87,14 @@ C:\Users\ldecicco\Documents\R\win-library\2.15\dataRetrieval
 the default for a Mac:
 /Users/ldecicco/Library/R/2.15/library/dataRetrieval
 Then, re-install the package using the directions above.  Moving to CRAN should solve this problem.
+
+If you are an experienced R developer, with the devtools package and all associated LaTeX tools installed, the following command will install the working version of the dataRetrieval package directly from gitHub:
+
+	library(devtools)
+	install_github("EGRET", "USGS-R")
+
+Stable releases are archived on the packageBuild branch of this repository: [https://github.com/USGS-R/EGRET/tree/packageBuilds](https://github.com/USGS-R/dataRetrieval/tree/packageBuilds)
+
 
 
 Background Information
