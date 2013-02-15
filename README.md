@@ -41,11 +41,11 @@ Download and Package Installation
 * The latest version of dataRetrieval can be downloaded with this link:
 [dataRetrieval_1.2.1](https://github.com/USGS-R/dataRetrieval/blob/master/dataRetrieval_1.2.1.tar.gz?raw=true)
 
-* [EGRET User Guide](https://github.com/USGS-R/EGRET/blob/master/EGRET+manual_4.doc?raw=true) (Word Document)
+* [EGRET User Guide](https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc) (Word Document)
 
-* [WRTDS NWQMC course slides](https://github.com/USGS-R/EGRET/blob/master/WRTDS+NWQMC+course.pdf?raw=true) (pdf)
+* [WRTDS NWQMC course slides](https://github.com/USGS-R/EGRET/raw/Documentation/WRTDS+NWQMC+course.pdf) (pdf)
 
-* [EGRET flowHistory presentation](https://github.com/USGS-R/EGRET/blob/master/EGRET+flowHistory+presentation.pdf?raw=true) (pdf)
+* [EGRET flowHistory presentation](https://github.com/USGS-R/EGRET/raw/Documentation/EGRET+flowHistory+presentation.pdf) (pdf)
 
 ### Installation:
 While the EGRET and dataRetreival packages are in development (and not on CRAN), the following packages must first be manually installed: 
@@ -53,7 +53,7 @@ While the EGRET and dataRetreival packages are in development (and not on CRAN),
 * survival
 * plyr
 * fields
-* spam - (spam is actually a legitimate package - SPArse Matrix)
+* spam - (spam is a legitimate package: SPArse Matrix)
 
 Once EGRET is sent to the CRAN repository, these packages will be automatically imported. Packages only need to be installed once.
  
@@ -88,7 +88,7 @@ the default for a Mac:
 /Users/ldecicco/Library/R/2.15/library/dataRetrieval
 Then, re-install the package using the directions above.  Moving to CRAN should solve this problem.
 
-If you are an experienced R developer, with the devtools package and all associated LaTeX tools installed, the following command will install the working version of the dataRetrieval package directly from gitHub:
+If you are an experienced R developer, with the devtools package, all required EGRET packages (fields, spam, zoo, survival, plyr), and all associated LaTeX tools installed, the following command will install the working version of the dataRetrieval package directly from gitHub:
 
 	library(devtools)
 	install_github("EGRET", "USGS-R")
