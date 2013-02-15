@@ -79,6 +79,12 @@ Similarly, to install the dataRetrieval package, use the following commands:
 	install.packages("zoo")
 	install.packages("C:/RPackages/Statistics/dataRetrieval_1.2.0.tar.gz", repos=NULL, type="source")
 	
+Another easy way to find and install a package, simply use:
+
+	install.packages(file.choose(), repos=NULL, type="source")
+
+And a window will open allowing you to browse to the package.
+
 The dataRetrieval package requires the zoo package available from CRAN.  
 
 ### Note on updating versions:
