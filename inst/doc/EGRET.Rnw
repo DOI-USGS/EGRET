@@ -85,7 +85,7 @@ This vignette will walk through the major functions provided by the EGRET packag
 \\
 Installing dataRetrieval will provide a vignette similar to this document, with complete working examples of the main dataRetrieval functions.
 
-The vignette is divided into four sections: EGRET Dataframes, Flow History, WRTDS Analysis, and WRTDS Results. This document assumes the reader is familiar with the dataRetrieval package. The examples will follow an analysis of nitrate on the Choptank River at Greensboro, MD.
+The vignette is divided into four sections: EGRET Dataframes, Flow History, WRTDS Analysis, and WRTDS Results. This document assumes the reader is familiar with the dataRetrieval package. The examples will follow an analysis of nitrate on the Choptank River at Greensboro, MD. Further details can be found in the user guide that can be found on gitHub: \url{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}
 
 
 %------------------------------------------------------------ 
@@ -110,7 +110,7 @@ DF <- data.frame(ColumnName,Type,Description,Units)
 
 data.table <- xtable(DF,
                      caption="Daily dataframe")
-print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL)
+print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL,include.rownames=FALSE)
 @
 \\*
 \\
@@ -125,8 +125,8 @@ Units <- c("numeric","numeric","mg/L","kg/day","mg/L","kg/day")
 DF <- data.frame(ColumnName,Type,Description,Units)
 
 data.table <- xtable(DF,
-                     caption="Daily dataframe")
-print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL)
+                     caption="Daily dataframe, post-WRTDS")
+print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL,include.rownames=FALSE)
 @
 \\*
 
@@ -138,16 +138,16 @@ print(data.table, caption.placement="top",floating="FALSE",latex.environments=NU
 The Sample dataframe initially is populated with the following columns by the dataRetrieval package.
 
 <<label=colNamesQW, echo=FALSE,results=tex>>=
-ColumnName <- c("Date", "ConcLow", "ConcHigh", "Uncen", "ConcAve", "Julian","Month","Day","DecYear","MonthSeq","SinDY","CosDY","Q","LogQ")
+ColumnName <- c("Date", "ConcLow", "ConcHigh", "Uncen", "ConcAve", "Julian","Month","Day","DecYear","MonthSeq","SinDY","CosDY","Q **","LogQ **")
 Type <- c("Date", "number","number","integer","number", "number","integer","integer","number","integer","number","number","number","number")
-Description <- c("Date", "Lower limit of concentration", "Upper limit of concentration", "Uncensored data (1=true, 0=false)", "Average concentration","Number of days since January 1, 1850", "Month of the year [1-12]", "Day of the year [1-366]", "Decimal year", "Number of months since January 1, 1850", "Sine of DecYear", "Cosine of DecYear", "Discharge **", "Natural logarithm of flow **")
+Description <- c("Date", "Lower limit of concentration", "Upper limit of concentration", "Uncensored data (1=true, 0=false)", "Average concentration","Number of days since January 1, 1850", "Month of the year [1-12]", "Day of the year [1-366]", "Decimal year", "Number of months since January 1, 1850", "Sine of DecYear", "Cosine of DecYear", "Discharge", "Natural logarithm of flow")
 Units <- c("date","mg/L","mg/L","integer","mg/L","days","months","days","years","months","numeric","numeric","cms", "numeric")
 
 DF <- data.frame(ColumnName,Type,Description, Units)
 
 data.table <- xtable(DF,
                      caption="Sample dataframe")
-print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL)
+print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL,include.rownames=FALSE)
 @
 \\*
 ** Flow columns are populated from data in the Daily dataframe after calling the mergeReport function.
@@ -164,8 +164,8 @@ Units <- c("numeric","numeric","mg/L")
 DF <- data.frame(ColumnName,Type,Description,Units)
 
 data.table <- xtable(DF,
-                     caption="Daily dataframe")
-print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL)
+                     caption="Sample dataframe, post-WRTDS")
+print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL,include.rownames=FALSE)
 @
 \\*
 
@@ -176,39 +176,100 @@ print(data.table, caption.placement="top",floating="FALSE",latex.environments=NU
 The INFO dataframe is used to store information about the measurements, such as station name, parameter name, drainage area, etc. There can be many additional, optional columns, but the following are required to initiate the EGRET analysis:
 \\
 <<label=colNamesInfo, echo=FALSE,results=tex>>=
-ColumnName <- c("shortName", "staAbbrev", "paramShortName", "constitAbbrev","drainSqKm")
-Type <- c("string", "string","string", "string","numeric")
-Description <- c("Name of site, suitable for use in graphical headings", "Abbreviation for station name, used in saveResults","Name of constituent, suitable for use in graphical headings", "Abbreviation for constituent name, used in saveResults","Drainage area in km^2")
+ColumnName <- c("shortName", "staAbbrev", "paramShortName", "constitAbbrev","drainSqKm","paStart **", "paLong **")
+Type <- c("string", "string","string", "string","numeric","integer (1-12)","integer (1-12)")
+Description <- c("Name of site, suitable for use in graphical headings", "Abbreviation for station name, used in saveResults","Name of constituent, suitable for use in graphical headings", "Abbreviation for constituent name, used in saveResults","Drainage area in km^2","Starting month of period of analysis", "Length of period of analysis in months")
 
 DF <- data.frame(ColumnName,Type,Description)
 
 data.table <- xtable(DF,
-                     caption="Daily dataframe")
-print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL)
+                     caption="INFO dataframe")
+print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL,include.rownames=FALSE)
 @
 \\*
+** paStart and paLong can be inserted using the setPA function, described further in the following section (\ref{sec:flowHistory}).
+\\
+After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are automatically inserted into the INFO dataframe:\\
+\\
+<<label=colNamesINFO2, echo=FALSE,results=tex>>=
+ColumnName <- c("bottomLogQ","stepLogQ","nVectorLogQ","bottomYear","stepYear","nVectorYear","windowY","windowQ","windowS","minNumObs","minNumUncen")
+Description <- c("Lowest discharge in prediction surfaces","Step size in discharge in prediction surfaces","Number of steps in discharge, prediction surfaces","Starting year in prediction surfaces","Step size in years in prediction surfaces","Number of steps in years in prediction surfaces","Half-window width in the time dimension","Half-window width in the log discharge dimension","Half-window width in the seasonal dimension","Minimum number of observations for regression", "Minimum number of uncensored observations")
+Units <- c("numeric","numeric","numeric","numeric","numeric","numeric","years","numeric","years","integer","integer")
+
+DF <- data.frame(ColumnName,Description,Units)
+
+data.table <- xtable(DF,
+                     caption="INFO dataframe, post-WRTDS")
+print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL,include.rownames=FALSE)
+@
+\\*
+\\
+These values will be discussed further sections.
 
 
 %------------------------------------------------------------ 
 \section{Flow History}
 \label{sec:flowHistory}
 %------------------------------------------------------------ 
+At this point it is assumed that you have loaded the daily discharge record and created the Daily data frame, and also entered the required meta-data into the INFO data frame:
 
-
-<<flowHistory>>=
+<<flowHistory,echo=TRUE>>=
 library(dataRetrieval)
 library(EGRET)
 
 siteID <- "01491000"  #Choptank River at Greensboro, MD
-startDate<-"1979-10-01"
-endDate<-"2011-09-30"
+startDate <- "1979-10-01"
+endDate <- "2011-09-30"
 
 Daily <- getDVData(siteID,"00060",startDate,endDate)
 INFO <- getMetaData(siteID,"",interactive=FALSE)
-INFO$station.nm
+
 @
 
+The first choice you need to make is what 'period of analysis' to use (pa). What is the period of analysis?  If we want to examine our data set as a time series of water years, then the period of analysis is the water year.  If we want to examine the data set as calendar years then the period of analysis should be the calendar year.  We might want to examine the winter season, which we might want to define as December, January and February, then those 3 months become the period of analysis.  We might even want to examine September only then September becomes the period of analysis.  The only constraints on the definition of a period of analysis are these: It must be defined in terms of whole months.  It must be a set of contiguous months (like March-April-May).  And it must have a length that is no less than 1 month and no more than 12 months.  It can be uniquely defined by two arguments: paLong and paStart.  paLong is the length of the period of analysis, and paStart is the first month of the period of analysis. The following examples summarize paLong and paStart.\\
 
+\begin{center}
+
+<<label=paINFO, echo=FALSE,results=tex>>=
+PeriodOfAnalysis <- c("Calendar Year", "Water Year", "Winter", "September")
+paStart <- c("1","10","12","9")
+PaLong <- c("12","12","3","1")
+
+DF <- data.frame(PeriodOfAnalysis,paStart,PaLong)
+
+data.table <- xtable(DF,
+                     caption="Period of Analysis Information")
+print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL,include.rownames=FALSE)
+@
+
+\end{center}
+
+To set the default values:
+<<newChunck, echo=TRUE,eval=TRUE>>=
+INFO <- setPA()
+@
+
+To set a period running from December through February:
+<<newChunckWinter, echo=TRUE,eval=TRUE>>=
+INFO <- setPA(paStart=12,paLong=3)
+@
+
+The next step is to create the annual series of flow statistics.  These will be stored in a matrix called annualSeries that contain the following statistics:\\
+
+\begin{center}
+
+<<label=istat, echo=FALSE,results=tex>>=
+istat <- c("1", "2", "3", "4","5","6","7","8")
+Name <- c("1-day minimum flow","7-day minimum flow","30-day minimum flow","median flow","mean flow","30-day maximum flow", "7-day maximum flow", "1-day maximum flow")
+
+DF <- data.frame(istat,Name)
+
+data.table <- xtable(DF,
+                     caption="Index of Statistics Information")
+print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL,include.rownames=FALSE)
+@
+
+\end{center}
 
 %------------------------------------------------------------ 
 \section{WRTDS Analysis}
