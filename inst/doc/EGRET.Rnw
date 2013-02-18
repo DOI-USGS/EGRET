@@ -45,22 +45,39 @@
 %------------------------------------------------------------
 \title{Introduction to the EGRET package}
 %------------------------------------------------------------
-\author[1]{Laura De Cicco}
 \author[1]{Robert Hirsch}
+\author[1]{Laura De Cicco}
 \affil[1]{United States Geological Survey}
 
-\SweaveOpts{highlight=TRUE, tidy=TRUE, keep.space=TRUE, keep.blank.space=FALSE, keep.comment=TRUE, keep.source=TRUE}
+\SweaveOpts{highlight=TRUE, tidy=TRUE, keep.space=TRUE, keep.blank.space=FALSE, keep.comment=TRUE, keep.source=TRUE,concordance=TRUE}
 
 \maketitle
 \tableofcontents
 
 %------------------------------------------------------------
-\section{Introduction to EGRET}
+\section{Introduction to Exploration and Graphics for RivEr Trends (EGRET)}
 %------------------------------------------------------------ 
 
 For information on getting started in R, downloading and installing the package, see Appendix 1: Getting Started.
 
+Exploration and Graphics for RivEr Trends (EGRET): An R-package for the analysis of long-term changes in water quality and streamflow. 
 
+EGRET includes statistics and graphics for streamflow history, water quality trends, and the modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS). The best way to learn about the WRTDS approach and to see examples of its application to multiple large data sets is to read two journal articles.  Both are available, for free, from the journals in which they were published.
+
+The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay.  The URL is \cite{HirschII}: 
+\url{http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full}
+
+The second is an application to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries \cite{HirschIII}.  The URL is: \url{http://pubs.acs.org/doi/abs/10.1021/es201221s}
+
+The manual available here assumes that the user understands the concepts underlying WRTDS.  Thus, reading at least the first of these papers is necessary to understanding the manual.  The method has been enhanced beyond what was published there.  The enhancement is that it now properly handles censored data by using survival regression rather than ordinary regression.  The details of that are in a manuscript currently in process by Doug Moyer and Bob Hirsch.
+
+<<openLibrary, echo=FALSE>>=
+library(xtable)
+options(continue=" ")
+options(width=60)
+options(SweaveHooks=list(fig=function()
+  par(mar=c(4.1,4.1,1.1,4.1),oma=c(0,0,0,0))))
+@
 
 
 \newpage
@@ -74,12 +91,28 @@ This section describes the options for downloading and installing the dataRetrie
 %------------------------------------------------------------ 
 If you are new to R, you will need to first install the latest version of R, which can be found here: \url{http://www.r-project.org/}.
 
-There are many options for running and editing R code, one nice enviornment to learn R is RStudio. RStudio can be downloaded here: \url{http://rstudio.org/}. Once R and RStudio are installed, the dataRetrieval package needs to be installed as described in the next section.
+There are many options for running and editing R code, one nice environment to learn R is RStudio. RStudio can be downloaded here: \url{http://rstudio.org/}. Once R and RStudio are installed, the environment package needs to be installed as described in the next section.
 
 %------------------------------------------------------------
-\subsection{R User: Installing dataRetrieval from downloaded binary}
+\subsection{R User: Installing EGRET from downloaded binary}
 %------------------------------------------------------------ 
-The latest dataRetrieval package build is available for download at \url{https://github.com/USGS-R/dataRetrieval/raw/packageBuilds/EGRET_1.2.1.tar.gz}.  If the package's tar.gz file is saved in R's working directory, then the following command will fully install the package:
+Before installing EGRET, the following packages must be installed from CRAN:
+
+<<installFromCran,eval = FALSE>>=
+install.packages("zoo")
+install.packages("survival")
+install.packages("methods")
+install.packages("fields")
+install.packages("spam")
+@
+
+Next, the EGRET and dataRetrieval packages must be downloaded from the following locations:
+\url{https://github.com/USGS-R/EGRET/raw/packageBuilds/EGRET_1.2.3.tar.gz}
+\url{https://github.com/USGS-R/dataRetrieval/raw/packageBuilds/dataRetrieval_1.2.1.tar.gz}
+
+The following directions will show how to install a downloaded package.  Both the EGRET and dataRetrieval packages must be installed.
+
+If the package's tar.gz file is saved in R's working directory, then the following command will fully install the package:
 
 <<installFromWD,eval = FALSE>>=
 install.packages("EGRET_1.2.3.tar.gz", 
@@ -98,11 +131,11 @@ A Mac example looks like this:
 
 <<maxExample,eval = FALSE>>=
 install.packages(
-  "/Users/userA/RPackages/Statistic/dataRetrieval_1.2.1.tar.gz", 
+  "/Users/userA/RPackages/Statistic/EGRET_1.2.3.tar.gz", 
   repos=NULL, type="source")
 @
 
-It is a good idea to re-start the R enviornment after installing the package, especially if installing an updated version (that is, restart RStudio). Some users have found it necessary to delete the previous version's package folder before installing newer version of dataRetrieval. If you are experiencing issues after updating a package, trying deleting the package folder - the default location for Windows is something like this: C:/Users/userA/Documents/R/win-library/2.15/dataRetrieval, and the default for a Mac: /Users/userA/Library/R/2.15/library/dataRetrieval. Then, re-install the package using the directions above. Moving to CRAN should solve this problem.
+It is a good idea to re-start the R enviornment after installing the package, especially if installing an updated version (that is, restart RStudio). Some users have found it necessary to delete the previous version's package folder before installing newer version of EGRET. If you are experiencing issues after updating a package, trying deleting the package folder - the default location for Windows is something like this: C:/Users/userA/Documents/R/win-library/2.15/EGRET, and the default for a Mac: /Users/userA/Library/R/2.15/library/EGRET. Then, re-install the package using the directions above. Moving to CRAN should solve this problem.
 
 After installing the package, you need to open the library each time you re-start R.  This is done with the simple command:
 <<openLibraryTest, eval=FALSE>>=
@@ -112,9 +145,10 @@ library(EGRET)
 Using RStudio, you could alternatively click on the checkbox for dataRetrieval and EGRET in the Packages window.
 
 %------------------------------------------------------------
-\subsection{R Developers: Installing dataRetrieval from gitHub}
+\subsection{R Developers: Installing EGRET from gitHub}
 %------------------------------------------------------------
-Alternatively, R-developers can install the latest version of dataRetrieval directly from gitHub using the devtools package.  devtools is available on CRAN.  Simpley type the following commands into R to install the latest version of dataRetrieval available on gitHub.  Rtools (for Windows) and appropriate \LaTeX\ tools are required.
+Alternatively, R-developers can install the latest version of EGRET directly from gitHub using the devtools package.  devtools is available on CRAN.  Simply type the following commands into R to install the latest version of EGRET available on gitHub.  Rtools (for Windows) and appropriate \LaTeX\ tools are required. Be aware that the version installed using this method isn't necessarily the same as the version in the stable release branch.  
+
 
 <<gitInstal,eval = FALSE>>=
 library(devtools)
@@ -125,6 +159,7 @@ To then open the library, simply type:
 
 <<openLibrary, eval=FALSE>>=
 library(dataRetrieval)
+library(EGRET)
 @
 
 
