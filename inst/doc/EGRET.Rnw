@@ -173,7 +173,20 @@ print(data.table, caption.placement="top",floating="FALSE",latex.environments=NU
 \subsection{INFO}
 \label{sec:dataframesINFO}
 %------------------------------------------------------------ 
-Details of the INFO dataframe are listed below:
+The INFO dataframe is used to store information about the measurements, such as station name, parameter name, drainage area, etc. There can be many additional, optional columns, but the following are required to initiate the EGRET analysis:
+\\
+<<label=colNamesInfo, echo=FALSE,results=tex>>=
+ColumnName <- c("shortName", "staAbbrev", "paramShortName", "constitAbbrev","drainSqKm")
+Type <- c("string", "string","string", "string","numeric")
+Description <- c("Name of site, suitable for use in graphical headings", "Abbreviation for station name, used in saveResults","Name of constituent, suitable for use in graphical headings", "Abbreviation for constituent name, used in saveResults","Drainage area in km^2")
+
+DF <- data.frame(ColumnName,Type,Description)
+
+data.table <- xtable(DF,
+                     caption="Daily dataframe")
+print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL)
+@
+\\*
 
 
 %------------------------------------------------------------ 
@@ -205,8 +218,8 @@ INFO$station.nm
 
 <<wrtds1>>=
 param<-"00631"
-INFO <- getMetaData(siteID,param,interactive=FALSE)
-
+INFO<- getMetaData(siteID,param,interactive=FALSE)
+INFO$shortName <- "Choptank River"
 Sample <- getSampleData(siteID,param,startDate,endDate)
 Sample <- mergeReport()
 
