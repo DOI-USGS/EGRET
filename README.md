@@ -63,7 +63,7 @@ Include the full path to EGRET_1.2.3.tar.gz to install the package (here is a Wi
 
 	install.packages("zoo")
 	install.packages("survival")
-	install.packages("plyr")
+	install.packages("methods")
 	install.packages("fields")
 	install.packages("spam")
 	install.packages("C:/RPackages/Statistics/EGRET_1.2.3.tar.gz", repos=NULL, type="source")
