@@ -49,7 +49,7 @@
 \author[1]{Laura De Cicco}
 \affil[1]{United States Geological Survey}
 
-\SweaveOpts{highlight=TRUE, tidy=TRUE, keep.space=TRUE, keep.blank.space=FALSE, keep.comment=TRUE, keep.source=TRUE,concordance=TRUE}
+\SweaveOpts{highlight=TRUE, tidy=TRUE, keep.space=TRUE, keep.blank.space=FALSE, keep.comment=TRUE, concordance=TRUE,keep.source=FALSE}
 
 \maketitle
 \tableofcontents
@@ -58,7 +58,7 @@
 \section{Introduction to Exploration and Graphics for RivEr Trends (EGRET)}
 %------------------------------------------------------------ 
 
-For information on getting started in R, downloading and installing the package, see Appendix 1: Getting Started.
+For information on getting started in R, downloading and installing the package, see Appendix 1: (\ref{sec:appendix1}).
 
 Exploration and Graphics for RivEr Trends (EGRET): An R-package for the analysis of long-term changes in water quality and streamflow. 
 
@@ -79,10 +79,156 @@ options(SweaveHooks=list(fig=function()
   par(mar=c(4.1,4.1,1.1,4.1),oma=c(0,0,0,0))))
 @
 
+This vignette will walk through the major functions provided by the EGRET package. The package dataRetrieval is required for importing data in a EGRET-friendly format. The dataRetrieval package, along with download and installation instructions can be found at:
+\\
+\url{https://github.com/USGS-R/dataRetrieval}
+\\
+Installing dataRetrieval will provide a vignette similar to this document, with complete working examples of the main dataRetrieval functions.
+
+The vignette is divided into four sections: EGRET Dataframes, Flow History, WRTDS Analysis, and WRTDS Results. This document assumes the reader is familiar with the dataRetrieval package. The examples will follow an analysis of nitrate on the Choptank River at Greensboro, MD.
+
+
+%------------------------------------------------------------ 
+\section{EGRET Dataframes}
+\label{sec:dataframes}
+%------------------------------------------------------------ 
+The EGRET package uses 3 default dataframes throughout the calculations, analysis, and graphing. These dataframes are Daily (\ref{sec:dataframesDaily}), Sample (\ref{sec:dataframesSample}), and INFO (\ref{sec:dataframesINFO}).
+
+%------------------------------------------------------------ 
+\subsection{Daily}
+\label{sec:dataframesDaily}
+%------------------------------------------------------------ 
+The Daily dataframe initially is populated with the following columns by the dataRetrieval package.
+
+<<label=colNamesDaily, echo=FALSE,results=tex>>=
+ColumnName <- c("Date", "Q", "Julian","Month","Day","DecYear","MonthSeq","Qualifier","i","LogQ","Q7","Q30")
+Type <- c("Date", "number", "number","integer","integer","number","integer","string","integer","number","number","number")
+Description <- c("Date", "Discharge in cms", "Number of days since January 1, 1850", "Month of the year [1-12]", "Day of the year [1-366]", "Decimal year", "Number of months since January 1, 1850", "Qualifing code", "Index", "Natural logarithm of Q", "7 day running average of Q", "30 running average of Q")
+Units <- c("date", "cms","days", "months","days","years","months", "character","days","numeric","cms","cms")
+
+DF <- data.frame(ColumnName,Type,Description,Units)
+
+data.table <- xtable(DF,
+                     caption="Daily dataframe")
+print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL)
+@
+\\*
+\\
+After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are inserted into the Daily dataframe:\\
+\\
+<<label=colNamesDaily2, echo=FALSE,results=tex>>=
+ColumnName <- c("yHat", "SE", "ConcDay","FluxDay","FNConc","FNFlux")
+Type <- c("number", "number", "number","number","number","number")
+Description <- c("The WRTDS estimate of the log of concentration", "The WRTDS estimate of the standard error of yHat","The WRTDS estimate of concentration", "The WRTDS estimate of flux","Flow normalized estimate of concentration", "Flow Normalized estimate of flux")
+Units <- c("numeric","numeric","mg/L","kg/day","mg/L","kg/day")
+
+DF <- data.frame(ColumnName,Type,Description,Units)
+
+data.table <- xtable(DF,
+                     caption="Daily dataframe")
+print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL)
+@
+\\*
+
+
+%------------------------------------------------------------ 
+\subsection{Sample}
+\label{sec:dataframesSample}
+%------------------------------------------------------------ 
+The Sample dataframe initially is populated with the following columns by the dataRetrieval package.
+
+<<label=colNamesQW, echo=FALSE,results=tex>>=
+ColumnName <- c("Date", "ConcLow", "ConcHigh", "Uncen", "ConcAve", "Julian","Month","Day","DecYear","MonthSeq","SinDY","CosDY","Q","LogQ")
+Type <- c("Date", "number","number","integer","number", "number","integer","integer","number","integer","number","number","number","number")
+Description <- c("Date", "Lower limit of concentration", "Upper limit of concentration", "Uncensored data (1=true, 0=false)", "Average concentration","Number of days since January 1, 1850", "Month of the year [1-12]", "Day of the year [1-366]", "Decimal year", "Number of months since January 1, 1850", "Sine of DecYear", "Cosine of DecYear", "Discharge **", "Natural logarithm of flow **")
+Units <- c("date","mg/L","mg/L","integer","mg/L","days","months","days","years","months","numeric","numeric","cms", "numeric")
+
+DF <- data.frame(ColumnName,Type,Description, Units)
+
+data.table <- xtable(DF,
+                     caption="Sample dataframe")
+print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL)
+@
+\\*
+** Flow columns are populated from data in the Daily dataframe after calling the mergeReport function.
+\\
+\\
+After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are inserted into the Sample dataframe:\\
+\\
+<<label=colNamesSample2, echo=FALSE,results=tex>>=
+ColumnName <- c("yHat", "SE", "ConcHat")
+Type <- c("number", "number", "number")
+Description <- c("jack-knife estimate of the log of concentration", "jack-knife estimate of the standard error of yHat","jack-knife unbiased estimate of concentration")
+Units <- c("numeric","numeric","mg/L")
+
+DF <- data.frame(ColumnName,Type,Description,Units)
+
+data.table <- xtable(DF,
+                     caption="Daily dataframe")
+print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL)
+@
+\\*
+
+%------------------------------------------------------------ 
+\subsection{INFO}
+\label{sec:dataframesINFO}
+%------------------------------------------------------------ 
+Details of the INFO dataframe are listed below:
+
+
+%------------------------------------------------------------ 
+\section{Flow History}
+\label{sec:flowHistory}
+%------------------------------------------------------------ 
+
+
+<<flowHistory>>=
+library(dataRetrieval)
+library(EGRET)
+
+siteID <- "01491000"  #Choptank River at Greensboro, MD
+startDate<-"1979-10-01"
+endDate<-"2011-09-30"
+
+Daily <- getDVData(siteID,"00060",startDate,endDate)
+INFO <- getMetaData(siteID,"",interactive=FALSE)
+INFO$station.nm
+@
+
+
+
+%------------------------------------------------------------ 
+\section{WRTDS Analysis}
+\label{sec:wrtds}
+%------------------------------------------------------------ 
+
+
+<<wrtds1>>=
+param<-"00631"
+INFO <- getMetaData(siteID,param,interactive=FALSE)
+
+Sample <- getSampleData(siteID,param,startDate,endDate)
+Sample <- mergeReport()
+
+@
+
+<<wrtds2, eval=FALSE>>=
+modelEstimation()
+AnnualResults<-setupYears()
+@
+
+
+%------------------------------------------------------------ 
+\section{WRTDS Results}
+\label{sec:wrtdsResults}
+%------------------------------------------------------------ 
+
 
 \newpage
+\appendix
 %------------------------------------------------------------ 
 \section{Appendix 1: Getting Started}
+\label{sec:appendix1}
 %------------------------------------------------------------ 
 This section describes the options for downloading and installing the dataRetrieval package.
 
