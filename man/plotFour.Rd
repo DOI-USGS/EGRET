@@ -5,7 +5,7 @@
   plotFour(localINFO = INFO,
     localAnnualSeries = annualSeries, localDaily = Daily,
     yearStart = NA, yearEnd = NA, printTitle = TRUE,
-    runoff = FALSE, qUnit = 1)
+    runoff = FALSE, qUnit = 1, window = 15)
 }
 \arguments{
   \item{localINFO}{string specifying the name of the data
@@ -35,6 +35,10 @@
   \item{qUnit}{object of qUnit class \code{\link{qConst}},
   or numeric represented the short code, or character
   representing the descriptive name.}
+
+  \item{window}{numeric which is the full width, in years,
+  of the time window over which the standard deviation is
+  computed, default = 15}
 }
 \description{
   Part of the flowHistory system.  The four statistics are
@@ -47,7 +51,7 @@
 INFO <- exINFOEnd
 annualSeries <- exannualSeries
 Daily <- exDailyStart
-plotFour()
+plotFour(window=2)
 }
 \keyword{graphics}
 \keyword{statistics}

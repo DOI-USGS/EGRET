@@ -436,7 +436,7 @@ plotSDLogQ(localDaily = DailyRed, localINFO = INFORed,printStaName = FALSE)
 %------------------------------------------------------------ 
 plotQTimeDaily is simply a time series plot of discharge.  But, it is most suited for showing events above some discharge threshold.  In the simplest case, it can plot the entire record, but given the line weight and use of an arithmetic scale it will primarily provide a visual focus on the higher values. plotQTimeDaily requires startYear and endYear, along with some other optional arguements (see ?plotQTimeDaily for more details).
 
-Returning to our example concerning the Rio Grande:
+Returning to our example concerning the Rio Grande (Figure \ref{fig:plotQTimeDaily}):
 <<plotQTimeDaily, echo=TRUE,eval=TRUE>>=
 plotQTimeDaily(1990,2000,qLower=2,qUnit=3)
 @
@@ -453,15 +453,47 @@ plotQTimeDaily(1990,2000,qLower=2,qUnit=3)
 \end{figure}
 
 %------------------------------------------------------------ 
-\subsubsection{plotFourStats}
-\label{sec:plotFourStats}
+\subsubsection{plotFour}
+\label{sec:plotFour}
 %------------------------------------------------------------
+
+<<plotFour, echo=TRUE,eval=TRUE>>=
+annualSeries <- makeAnnualSeries()
+plotFour(qUnit=3)
+@
+
+\begin{figure}[h]
+\begin{center}
+
+<<label=figplotFour, fig=TRUE,echo=FALSE>>=
+<<plotFour>>
+@
+\end{center}
+\caption{Default plotFour}
+\label{fig:plotFour}
+\end{figure}
+
 
 
 %------------------------------------------------------------ 
-\subsubsection{plotFour}
-\label{plotFour}
+\subsubsection{plotFourStats}
+\label{plotFourStats}
 %------------------------------------------------------------
+<<plotFourStats, echo=TRUE,eval=TRUE>>=
+plotFourStats(qUnit=3)
+@
+
+\begin{figure}[h]
+\begin{center}
+
+<<label=figplotFourStats, fig=TRUE,echo=FALSE>>=
+<<plotFourStats>>
+@
+\end{center}
+\caption{Default plotFourStats}
+\label{fig:plotFourStats}
+\end{figure}
+
 
 
 %------------------------------------------------------------ 
