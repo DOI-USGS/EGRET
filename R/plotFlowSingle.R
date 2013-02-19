@@ -28,7 +28,7 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA, localINFO = INFO, loc
   qActual<-localAnnualSeries[2,istat,]
   qSmooth<-localAnnualSeries[3,istat,]
   years<-localAnnualSeries[1,istat,]
-  par(mar =  c(5,6,5,2))
+  par(mar =  c(3,2,5,1), pty="s")
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(qUnit)){
