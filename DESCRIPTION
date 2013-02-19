@@ -92,6 +92,7 @@ Depends:
     fields,
     spam
 Suggests:
-    xtable
+    xtable,
+    dataRetrieval
 LazyLoad: yes
 LazyData: yes
