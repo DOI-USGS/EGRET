@@ -30,8 +30,8 @@ plotQTimeDaily<-function (startYear, endYear, localDaily = Daily,
   #############################################################
   qFactor<-qUnit@qUnitFactor
   if (tinyPlot) 
-    par(mar = c(5, 4, 1, 1))
-  else par(mar = c(5, 4, 4, 2) + 0.1)
+    par(mar = c(5, 4, 1, 1), pty="s")
+  else par(mar = c(5, 4, 4, 2) + 0.1, pty="s")
   subDaily <- subset(localDaily, DecYear >= startYear)
   subDaily <- subset(subDaily, DecYear <= endYear)
   xDaily <- subDaily$DecYear
@@ -53,7 +53,7 @@ plotQTimeDaily<-function (startYear, endYear, localDaily = Daily,
   plotTitle <- if (printTitle) 
     paste(line1, "\n", line2)
   else ""
-  yLab <- qUnit@qUnitName
+  yLab <- qUnit@qUnitExpress
   qBottom <- if(is.na(qLower)) 0 else qLower
   plot(xDaily, yDaily, axes = FALSE, xlim = c(startYear, endYear), 
        xaxs = "i", xlab = "", ylim = c(qBottom, yTop), yaxs = "i", 
