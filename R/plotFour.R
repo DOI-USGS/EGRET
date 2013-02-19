@@ -11,16 +11,17 @@
 #' @param printTitle logical variable, if TRUE title is printed, if FALSE title is not printed, default is TRUE
 #' @param runoff logical variable, if TRUE the streamflow data are converted to runoff values in mm/day
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
+#' @param window numeric which is the full width, in years, of the time window over which the standard deviation is computed, default = 15
 #' @keywords graphics streamflow statistics
 #' @export
 #' @examples
 #' INFO <- exINFOEnd
 #' annualSeries <- exannualSeries
 #' Daily <- exDailyStart
-#' plotFour()
+#' plotFour(window=2)
 plotFour<-function (localINFO = INFO, localAnnualSeries = annualSeries, localDaily = Daily, 
                     yearStart = NA, yearEnd = NA, printTitle = TRUE, runoff = FALSE, 
-                    qUnit = 1) 
+                    qUnit = 1, window=15) 
 {
   par(mfcol = c(2, 2), cex = 0.6, oma = c(0, 1.7, 6, 1.7), 
       cex.lab = 1.4, cex.axis = 1.2)
@@ -46,7 +47,7 @@ plotFour<-function (localINFO = INFO, localAnnualSeries = annualSeries, localDai
                  localAnnualSeries = localAnnualSeries, localINFO = localINFO, 
                  tinyPlot = TRUE, runoff = runoff, qUnit = qUnit, printPA = FALSE, 
                  printIstat = TRUE, printStaName = FALSE)
-  plotSDLogQ(yearStart = setYearStart, yearEnd = setYearEnd, window = 2, #Laura changed this to 2, was 15 - but that sets the end date to before the start date...
+  plotSDLogQ(yearStart = setYearStart, yearEnd = setYearEnd, window = window, 
              localDaily = localDaily, localINFO = localINFO, 
              tinyPlot = TRUE, printPA = FALSE,  
              printStaName = FALSE)

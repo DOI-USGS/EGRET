@@ -24,11 +24,18 @@
 #' INFO <- exINFOEnd
 #' annualSeries <- exannualSeries
 #' plotFlowSingle(8)
-plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA, localINFO = INFO, localAnnualSeries = annualSeries, qMax = NA, printTitle = TRUE, tinyPlot = FALSE, runoff = FALSE, qUnit = 1, printStaName = TRUE, printPA = TRUE, printIstat = TRUE) {
+plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA, 
+                  localINFO = INFO, localAnnualSeries = annualSeries, 
+                  qMax = NA, printTitle = TRUE, tinyPlot = FALSE, 
+                  runoff = FALSE, qUnit = 1, printStaName = TRUE, printPA = TRUE, 
+                  printIstat = TRUE) {
+  
   qActual<-localAnnualSeries[2,istat,]
   qSmooth<-localAnnualSeries[3,istat,]
   years<-localAnnualSeries[1,istat,]
-  par(mar =  c(3,2,5,1), pty="s")
+#   par(mar =  c(3,2,5,1))
+#   if(!tinyPlot) par(pty="s")
+  par(mar =  c(5,6,5,2))
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(qUnit)){

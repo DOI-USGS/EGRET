@@ -29,9 +29,17 @@ plotQTimeDaily<-function (startYear, endYear, localDaily = Daily,
   }
   #############################################################
   qFactor<-qUnit@qUnitFactor
-  if (tinyPlot) 
-    par(mar = c(5, 4, 1, 1), pty="s")
-  else par(mar = c(5, 4, 4, 2) + 0.1, pty="s")
+#   if (tinyPlot) {
+#     par(mar =  c(3,2,5,1), pty="s")
+# #     par(mar = c(5, 4, 1, 1), pty="s")
+#   } else { 
+#     par(mar = c(5, 4, 4, 2) + 0.1)
+#   }
+  if (tinyPlot){
+    par(mar = c(5, 4, 1, 1))
+  } else {
+    par(mar = c(5, 4, 4, 2) + 0.1)
+  }
   subDaily <- subset(localDaily, DecYear >= startYear)
   subDaily <- subset(subDaily, DecYear <= endYear)
   xDaily <- subDaily$DecYear

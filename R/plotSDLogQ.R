@@ -22,8 +22,12 @@
 #' Daily <- exDailyStart
 #' INFO <- exINFOEnd
 #' plotSDLogQ(window=3,printTitle=FALSE)  
-plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,localINFO=INFO,sdMax=NA,printTitle = TRUE, tinyPlot = FALSE, printStaName = TRUE, printPA = TRUE){
+plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
+                     localINFO=INFO,sdMax=NA,printTitle = TRUE, tinyPlot = FALSE, 
+                     printStaName = TRUE, printPA = TRUE){
   par(mar = c(5,6,5,2))
+#   par(mar =  c(3,2,5,1))
+#   if(!tinyPlot) par(pty="s")
   numDays<-length(localDaily$LogQ)
   paLong <- localINFO$paLong
   paStart <- localINFO$paStart
