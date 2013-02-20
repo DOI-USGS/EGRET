@@ -1,29 +1,4 @@
-#####################################################
-# 07June2012  EGRET.R
-# RMH  17Jan2012  various functions modified and added for flux bias analysis
-# RMH  21Jan2012  Added plotConcHist
-# RMH  23Jan2012  Added plotContours
-# RMH  23Jan2012  Enhancements of graphics, and added scientific notation to axes
-# RMH  24Jan2012  Starting to document for packaging
-# LDC  27Jan2012  Including S4 objects for flux and qUnits and some packaging docs
-# RMH  31Jan2012  More documentation for packaging and adding a few more functions
-# RMH  01Feb2012  Small correction to plotLogConcTime also added plotConcQSmooth and put plotContours back in
-# RMH  01Feb2012  found that some of the roxygen2 documentation was missing from plotResidPred so this was added in
-# RMH  09Feb2012  added another function plotLogConcQSmooth, still needs roxygen2 documentation also deleted un-necessary code about units
-# RMH  09Feb2012  added the surfaces data set and finished of some roxygen2 code
-# RMH  13Feb2012  merging in Smooths.R and estimateAndAggregate.R
-# RMH  23Feb2012  minor adjustments to some of the plotting routines
-# RMH  09Mar2012  small changes to flowDuration, plotLogFluxQ, fluxBiasStat, fluxBiasMulti
-# RMH  13Mar2012  added in all the code that had been in allOther.R
-# RMH  16Mar2012  changed all of the example data sets (also changed cex=0.4 to cex=0.7 in plots)
-# RMH  21Mar2012  fixed small bugs in plotConcHist, plotFluxHist, and saveResults
-# RMH  23Mar2012  cosmetic improvements in plotContours and plotDiffContours
-# RMH  23Apr2012  fixed typos in estDailyWithoutNormalization and changes to vertical axes in 3 plots
-# RMH  25Apr2012  Edited the text in descriptions to add periods at the end of sentences, also fixed the example in plotConcHist
-# RMH  05Jun2012  Added several new functions to increase the capabilities of flowHistory
-# RMH  07Jun2012  three bug fixes (in plotFlowSingle, plotSDLogQ, and estDailyFromSurfaces)
-################################################################
-#' EGRET package (except for dataRetrieval) includes WRTDS and flowHistory
+#' EGRET package includes WRTDS and flowHistory
 #'
 #' \tabular{ll}{
 #' Package: \tab EGRET\cr
