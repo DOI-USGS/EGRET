@@ -19,7 +19,6 @@
 \renewcommand{\textfraction}{0.1}
 \usepackage{graphicx}
 
-
 \textwidth=6.2in
 \textheight=8.5in
 \parskip=.3cm
@@ -77,7 +76,7 @@ library(xtable)
 options(continue=" ")
 options(width=60)
 options(SweaveHooks=list(fig=function()
-  par(mar=c(4.1,4.1,1.1,4.1),oma=c(0,0,0,0))))
+  par(mar=c(5.1,4.1,1.1,2.1),oma=c(0,0,0,0))))
 @
 
 This vignette will walk through the major functions provided by the EGRET package. The package dataRetrieval is required for importing data in a EGRET-friendly format. The dataRetrieval package, along with download and installation instructions can be found at:
@@ -324,9 +323,9 @@ The simplest way to look at these time series is with the function plotFlowSingl
 plotFlowSingle(istat=7,qUnit="thousandCfs")
 @
 
+\setlength{\abovecaptionskip}{0pt}
 \begin{figure}[h]
 \begin{center}
-
 <<label=fig1, fig=TRUE,echo=FALSE>>=
 <<plotFlow>>
 @

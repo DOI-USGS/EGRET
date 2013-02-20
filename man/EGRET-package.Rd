@@ -1,7 +1,7 @@
 \docType{package}
 \name{EGRET-package}
 \alias{EGRET-package}
-\title{EGRET package (except for dataRetrieval) includes WRTDS and flowHistory}
+\title{EGRET package includes WRTDS and flowHistory}
 \description{
   \tabular{ll}{ Package: \tab EGRET\cr Type: \tab
   Package\cr Version: \tab 1.2.3\cr Date: \tab
