@@ -55,6 +55,7 @@ the default for a Mac:
 Then, re-install the package using the directions above.  Moving to CRAN should solve this problem.
 
 Stable releases are archived on the packageBuild branch of this repository: 
+
 [EGRET_1.2.3](https://github.com/USGS-R/EGRET/raw/packageBuilds/EGRET_1.2.3.tar.gz)
 
 [dataRetrieval_1.2.1](https://github.com/USGS-R/dataRetrieval/raw/packageBuilds/dataRetrieval_1.2.1.tar.gz)
