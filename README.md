@@ -43,7 +43,7 @@ While the EGRET and dataRetreival packages are in development (and not on CRAN),
 
 To install the EGRET package:
 
-	install.packages("zoo","survival","methods","fields","spam")
+	install.packages(c("zoo","survival","methods","fields","spam"))
 	install.packages("dataRetrieval", repos="http://usgs-r.github.com/EGRET/", type="source")
 	install.packages("EGRET", repos="http://usgs-r.github.com/EGRET/", type="source")
 
