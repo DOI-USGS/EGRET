@@ -472,8 +472,6 @@ plotFour(qUnit=3)
 \label{fig:plotFour}
 \end{figure}
 
-
-
 %------------------------------------------------------------ 
 \subsubsection{plotFourStats}
 \label{plotFourStats}
@@ -493,13 +491,23 @@ plotFourStats(qUnit=3)
 \label{fig:plotFourStats}
 \end{figure}
 
-
-
 %------------------------------------------------------------ 
 \subsection{Table Options}
 \label{sec:tableOptions}
 %------------------------------------------------------------ 
+Rathar than graphically, it is sometimes easier to consider the results in table formats. 
 
+%------------------------------------------------------------ 
+\subsubsection{printSeries}
+\label{sec:printSeries}
+%------------------------------------------------------------
+
+
+
+%------------------------------------------------------------ 
+\subsubsection{tableFlowChange}
+\label{sec:tableFlowChange}
+%------------------------------------------------------------
 
 %------------------------------------------------------------ 
 \section{WRTDS Analysis}
