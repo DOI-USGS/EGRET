@@ -31,23 +31,9 @@ egret_comments@usgs.gov
 
 Additionally, to subscribe to an email list concerning updates to these R packages, please send a request to egret_comments@usgs.gov.
 
-Download and Package Installation
+Package Installation
 ---------------------------------
 
-### Downloads:
-* The latest version of EGRET can be downloaded with this link:
-[EGRET_1.2.3](https://github.com/USGS-R/EGRET/raw/packageBuilds/EGRET_1.2.3.tar.gz)
-
-* The latest version of dataRetrieval can be downloaded with this link:
-[dataRetrieval_1.2.1](https://github.com/USGS-R/dataRetrieval/raw/packageBuilds/dataRetrieval_1.2.1.tar.gz)
-
-* [EGRET User Guide](https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc) (Word Document)
-
-* [WRTDS NWQMC course slides](https://github.com/USGS-R/EGRET/raw/Documentation/WRTDS+NWQMC+course.pdf) (pdf)
-
-* [EGRET flowHistory presentation](https://github.com/USGS-R/EGRET/raw/Documentation/EGRET+flowHistory+presentation.pdf) (pdf)
-
-### Installation:
 While the EGRET and dataRetreival packages are in development (and not on CRAN), the following packages must first be manually installed: 
 * zoo
 * survival
@@ -55,37 +41,11 @@ While the EGRET and dataRetreival packages are in development (and not on CRAN),
 * fields
 * spam - (spam is a legitimate package: SPArse Matrix)
 
-Once EGRET is sent to the CRAN repository, these packages will be automatically imported. Packages only need to be installed once.
- 
 To install the EGRET package:
 
-Include the full path to EGRET_1.2.3.tar.gz to install the package (here is a Windows example, note the direction of the slashes -> /, this is backwards from how Windows typically defines a path ):
-
-	install.packages("zoo")
-	install.packages("survival")
-	install.packages("methods")
-	install.packages("fields")
-	install.packages("spam")
-	install.packages("C:/RPackages/Statistics/EGRET_1.2.3.tar.gz", repos=NULL, type="source")
-
-A Mac example:
-
-	install.packages("/Users/userA/RPackages/Statistic/EGRET_1.2.3.tar.gz", repos=NULL, type="source")
-	
-The EGRET package requires the methods, zoo, survival, and fields packages, all available from CRAN.
-	
-Similarly, to install the dataRetrieval package, use the following commands:
-
-	install.packages("zoo")
-	install.packages("C:/RPackages/Statistics/dataRetrieval_1.2.0.tar.gz", repos=NULL, type="source")
-	
-Another easy way to find and install a package, simply use:
-
-	install.packages(file.choose(), repos=NULL, type="source")
-
-And a window will open allowing you to browse to the package.
-
-The dataRetrieval package requires the zoo package available from CRAN.  
+	install.packages("zoo","survival","methods","fields","spam")
+	install.packages("dataRetrieval", repos="http://usgs-r.github.com/EGRET/", type="source")
+	install.packages("EGRET", repos="http://usgs-r.github.com/EGRET/", type="source")
 
 ### Note on updating versions:
 Some users have found it necessary to delete the package folders before installing newer versions of either dataRetrieval or EGRET.  If you are experiencing an issue after updating a package, trying deleting the package folder, the default location for Windows is something like this:
@@ -94,14 +54,9 @@ the default for a Mac:
 /Users/ldecicco/Library/R/2.15/library/dataRetrieval
 Then, re-install the package using the directions above.  Moving to CRAN should solve this problem.
 
-If you are an experienced R developer, with the devtools package, all required EGRET packages (fields, spam, zoo, survival, plyr), and all associated LaTeX tools installed, the following command will install the working version of the dataRetrieval package directly from gitHub:
-
-	library(devtools)
-	install_github("EGRET", "USGS-R")
-
-Stable releases are archived on the packageBuild branch of this repository: [https://github.com/USGS-R/EGRET/tree/packageBuilds](https://github.com/USGS-R/EGRET/tree/packageBuilds)
-
-
+Stable releases are archived on the packageBuild branch of this repository: 
+[EGRET_1.2.3](https://github.com/USGS-R/EGRET/raw/packageBuilds/EGRET_1.2.3.tar.gz)
+[dataRetrieval_1.2.1](https://github.com/USGS-R/dataRetrieval/raw/packageBuilds/dataRetrieval_1.2.1.tar.gz)
 
 Background Information
 ----------------------
@@ -116,13 +71,27 @@ The second is an application to nitrate data for 8 monitoring sites on the Missi
 
 [Mississippi River](http://pubs.acs.org/doi/abs/10.1021/es201221s)
 
-The manual available here assumes that the user understands the concepts underlying WRTDS.  Thus, reading at least the first of these papers is necessary to understanding the manual.
+The manual assumes that the user understands the concepts underlying WRTDS.  Thus, reading at least the first of these papers is necessary to understanding the manual.
+
+* [EGRET User Guide](https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc) (Word Document)
+
+* [WRTDS NWQMC course slides](https://github.com/USGS-R/EGRET/raw/Documentation/WRTDS+NWQMC+course.pdf) (pdf)
+
+* [EGRET flowHistory presentation](https://github.com/USGS-R/EGRET/raw/Documentation/EGRET+flowHistory+presentation.pdf) (pdf)
 
 
 Version updates
 ---------------
 
 ####EGRET
+
+* Version 1.2.3 Feburary 21, 2013
+
+	* New estDailyFromSurfaces function utilizing "fields" package, written by Jeffrey Chanat. Greatly increases the speed of computations of the daily results. Two additional R packages are needed: fields and spam
+	* Improved documentation, especially example functions.
+	* runSurvReg modified to include the option of a very wide seasonal window (windowS), which has the effect of eliminating the influence of the seasonal weights.
+	* Progress indicators modified to be more informative.
+	* Fixed a calculation bug in function plotLogFluxPred.
 
 * Version 1.2.1 June 8, 2012
  
