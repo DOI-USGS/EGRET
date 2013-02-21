@@ -87,7 +87,7 @@ Version updates
 
 ####EGRET
 
-* Version 1.2.3 Feburary 21, 2013
+* Version 1.2.3 February 21, 2013
 
 	* New estDailyFromSurfaces function utilizing "fields" package, written by Jeffrey Chanat. Greatly increases the speed of computations of the daily results. Two additional R packages are needed: fields and spam
 	* Improved documentation, especially example functions.
