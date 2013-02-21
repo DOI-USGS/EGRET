@@ -1,0 +1,15 @@
+Package: dataRetrieval
+Version: 1.2.1
+Depends: R (>= 2.15.0), zoo, methods
+Suggests: xtable
+License: file LICENSE
+NeedsCompilation: no
+MD5sum: 66ba2128b716b7c9e56273832c5f5851
+
+Package: EGRET
+Version: 1.2.3
+Depends: R (>= 2.13.0), methods, zoo, survival, fields, spam
+License: file LICENSE
+NeedsCompilation: no
+MD5sum: b86f8a96f3d61b49a1be2f831b921493
+
