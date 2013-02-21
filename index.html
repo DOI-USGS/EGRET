@@ -55,7 +55,6 @@ install.packages(c("zoo", "fields", "survival", "spam","plyr"))
 </code>
 </pre>
 
-
 <p>Then use the following command:</p>
 <pre><code>
 install.packages("dataRetrieval", repos="http://usgs-r.github.com/EGRET/", type="source")
@@ -64,17 +63,14 @@ install.packages("EGRET", repos="http://usgs-r.github.com/EGRET/", type="source"
 <p>Further instructions on installation can be found <a href="https://github.com/USGS-R/EGRET/wiki" target="_blank">here</a>.</p>
 
 <h4> - R Developer?</h4>
-<p>If you are an experienced R developer, and have the package 'devtools', as well as all the required LaTex tools installed to create packages, you can easily build this package directly from gitHub.
+<p>If you are an experienced R developer, and have the package 'devtools' and all the required LaTex tools installed to create packages, you can build the working version of this package directly from gitHub.
 
 Windows tools can be found <a href="http://cran.r-project.org/bin/windows/Rtools/" target="_blank">here</a>. Carefully follow the directions, and note that you need to install Rtools from that page, as well as <a href="http://www.miktex.org/download" target="_blank">MikTex</a> (the Windows set of LaTex tools). The full set of Mac LaTex tools can be found <a href="http://www.tug.org/mactex/downloading.html" target="_blank">here</a>.</p>
 
-<p>Once you have the required tools for building R packages, you can simply type the following commands in R to build the EGRET package on your system:</p>
-
-<pre><code>install.packages('devtools') #if not already installed
-library('devtools')
-</code></pre>
 Once that is installed, you can use the function install_github to install this package directly from github:
-<pre><code>install_github("dataRetrieval", "USGS-R")
+<pre><code>
+library('devtools')
+install_github("dataRetrieval", "USGS-R")
 </code></pre>
 This will install the latest code that is currently committed to gitHub.
 </p>
