@@ -14,6 +14,7 @@
 \usepackage{authblk}
 \usepackage{subcaption}
 \usepackage{placeins}
+\usepackage{footnote}
 \renewcommand\Affilfont{\itshape\small}
 \usepackage{Sweave}
 \renewcommand{\topfraction}{0.85}
@@ -140,7 +141,7 @@ print(data.table, caption.placement="top",include.rownames=FALSE,table.placement
 The Sample dataframe initially is populated with the following columns by the dataRetrieval package.
 
 <<label=colNamesQW, echo=FALSE,results=tex>>=
-ColumnName <- c("Date", "ConcLow", "ConcHigh", "Uncen", "ConcAve", "Julian","Month","Day","DecYear","MonthSeq","SinDY","CosDY","Q **","LogQ **")
+ColumnName <- c("Date", "ConcLow", "ConcHigh", "Uncen", "ConcAve", "Julian","Month","Day","DecYear","MonthSeq","SinDY","CosDY","Q footnote","LogQ footnote")
 Type <- c("Date", "number","number","integer","number", "number","integer","integer","number","integer","number","number","number","number")
 Description <- c("Date", "Lower limit of concentration", "Upper limit of concentration", "Uncensored data (1=true, 0=false)", "Average concentration","Number of days since January 1, 1850", "Month of the year [1-12]", "Day of the year [1-366]", "Decimal year", "Number of months since January 1, 1850", "Sine of DecYear", "Cosine of DecYear", "Discharge", "Natural logarithm of flow")
 Units <- c("date","mg/L","mg/L","integer","mg/L","days","months","days","years","months","numeric","numeric","cms", "numeric")
@@ -148,9 +149,10 @@ Units <- c("date","mg/L","mg/L","integer","mg/L","days","months","days","years",
 DF <- data.frame(ColumnName,Type,Description, Units)
 
 data.table <- xtable(DF, caption="Sample dataframe", label="table:Sample1")
-print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!h")
+print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!h",
+      sanitize.text.function=function(str)gsub("footnote","\\footnotemark[1]",str,fixed=TRUE))
 @
-** Flow columns are populated from data in the Daily dataframe after calling the mergeReport function.
+\footnotetext[1]{Flow columns are populated after calling the mergeReport function.}
 
 After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are inserted into the Sample dataframe:
 
@@ -175,19 +177,20 @@ print(data.table, caption.placement="top",include.rownames=FALSE,table.placement
 The INFO dataframe is used to store information about the measurements, such as station name, parameter name, drainage area, etc. There can be many additional, optional columns, but the following are required to initiate the EGRET analysis:
 
 <<label=colNamesInfo, echo=FALSE,results=tex>>=
-ColumnName <- c("shortName", "staAbbrev", "paramShortName", "constitAbbrev","drainSqKm","paStart **", "paLong **")
+ColumnName <- c("shortName", "staAbbrev", "paramShortName", "constitAbbrev","drainSqKm","paStart footnote", "paLong footnote")
 Type <- c("string", "string","string", "string","numeric","integer (1-12)","integer (1-12)")
 Description <- c("Name of site, suitable for use in graphical headings", "Abbreviation for station name, used in saveResults","Name of constituent, suitable for use in graphical headings", "Abbreviation for constituent name, used in saveResults","Drainage area in km^2","Starting month of period of analysis", "Length of period of analysis in months")
 
 DF <- data.frame(ColumnName,Type,Description)
 
 data.table <- xtable(DF, caption="INFO dataframe", label="table:Info1")
-print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!h")
+print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!h"
+      , sanitize.text.function=function(str)gsub("footnote","\\footnotemark[1]",str,fixed=TRUE)
+      )
 @
+\footnotetext[1]{paStart and paLong can be inserted using the setPA function}
 
-** paStart and paLong can be inserted using the setPA function, described further in the following section (\ref{sec:flowHistory}).
-
-After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are automatically inserted into the INFO dataframe:
+After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are automatically inserted into the INFO dataframe (the values will be discussed further sections):
 
 <<label=colNamesINFO2, echo=FALSE,results=tex>>=
 ColumnName <- c("bottomLogQ","stepLogQ","nVectorLogQ","bottomYear","stepYear","nVectorYear","windowY","windowQ","windowS","minNumObs","minNumUncen")
@@ -199,8 +202,6 @@ DF <- data.frame(ColumnName,Description,Units)
 data.table <- xtable(DF, caption="INFO dataframe, post-WRTDS", label="table:Info2")
 print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!h")
 @
-
-These values will be discussed further sections.
 
 \FloatBarrier
 
