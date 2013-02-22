@@ -2,7 +2,7 @@ Package: EGRET
 Type: Package
 Title: All EGRET code except for dataRetrieval
 Version: 1.2.3
-Date: 2012-12-31
+Date: 2013-02-26
 Author: Robert M. Hirsch
 Maintainer: Robert M. Hirsch <rhirsch@usgs.gov>, Laura De Cicco
     <ldecicco@usgs.gov>
@@ -86,11 +86,11 @@ Collate:
     'plotConcTimeSmooth.R'
 Depends:
     R (>= 2.13.0),
+    fields
+Imports:
     methods,
-    zoo,
-    survival,
-    fields,
-    spam
+    spam,
+    survival
 Suggests:
     xtable,
     dataRetrieval
