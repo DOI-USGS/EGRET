@@ -176,19 +176,28 @@ print(data.table, caption.placement="top",include.rownames=FALSE,table.placement
 %------------------------------------------------------------ 
 The INFO dataframe is used to store information about the measurements, such as station name, parameter name, drainage area, etc. There can be many additional, optional columns, but the following are required to initiate the EGRET analysis:
 
-<<label=colNamesInfo, echo=FALSE,results=tex>>=
-ColumnName <- c("shortName", "staAbbrev", "paramShortName", "constitAbbrev","drainSqKm","paStart footnote", "paLong footnote")
-Type <- c("string", "string","string", "string","numeric","integer (1-12)","integer (1-12)")
-Description <- c("Name of site, suitable for use in graphical headings", "Abbreviation for station name, used in saveResults","Name of constituent, suitable for use in graphical headings", "Abbreviation for constituent name, used in saveResults","Drainage area in km^2","Starting month of period of analysis", "Length of period of analysis in months")
 
-DF <- data.frame(ColumnName,Type,Description)
+\begin{table}[!h]
+\begin{center}
+\caption{INFO dataframe}
+\label{table:Info1}
+\begin{tabular}{lll}
+  \hline
+ColumnName & Type & Description \\ 
+  \hline
+shortName & string & Name of site, suitable for use in graphical headings \\ 
+  staAbbrev & string & Abbreviation for station name, used in saveResults \\ 
+  paramShortName & string & Name of constituent, suitable for use in graphical headings \\ 
+  constitAbbrev & string & Abbreviation for constituent name, used in saveResults \\ 
+  drainSqKm & numeric & Drainage area in  km\verb@^@2 \\ 
+  paStart \footnotemark[2] & integer (1-12) & Starting month of period of analysis \\ 
+  paLong \footnotemark[2] & integer (1-12) & Length of period of analysis in months \\ 
+   \hline
+\end{tabular}
+\end{center}
+\end{table}
 
-data.table <- xtable(DF, caption="INFO dataframe", label="table:Info1")
-print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!h"
-      , sanitize.text.function=function(str)gsub("footnote","\\footnotemark[1]",str,fixed=TRUE)
-      )
-@
-\footnotetext[1]{paStart and paLong can be inserted using the setPA function}
+\footnotetext[2]{paStart and paLong can be inserted using the setPA function}
 
 After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are automatically inserted into the INFO dataframe (the values will be discussed further sections):
 
@@ -202,6 +211,7 @@ DF <- data.frame(ColumnName,Description,Units)
 data.table <- xtable(DF, caption="INFO dataframe, post-WRTDS", label="table:Info2")
 print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!h")
 @
+
 
 \FloatBarrier
 
@@ -383,7 +393,7 @@ siteID <- "05082500"
 DailyRed <- getDVData(siteID,"00060","","",interactive=FALSE)
 INFORed <- getMetaData(siteID,"",interactive=FALSE)
 INFORed$shortName <- "Red River, ND"
-INFORed <- setPA(paStart=6, paLong=3)
+INFORed <- setPA(paStart=6, paLong=3,localINFO = INFORed)
 plotSDLogQ(localDaily = DailyRed, localINFO = INFORed, printStaName = FALSE)
 @
 
