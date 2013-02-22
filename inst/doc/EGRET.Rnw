@@ -15,6 +15,7 @@
 \usepackage{subcaption}
 \usepackage{placeins}
 \usepackage{footnote}
+\usepackage{tabularx}
 \renewcommand\Affilfont{\itshape\small}
 \usepackage{Sweave}
 \renewcommand{\topfraction}{0.85}
@@ -547,13 +548,14 @@ tableFlowChange(istat=3, qUnit=3,yearPoints=c(1930,1950,1970,1990,2010))
 
 
 \FloatBarrier
-%------------------------------------------------------------ 
-\section{WRTDS Analysis}
-\label{sec:wrtds}
-%------------------------------------------------------------ 
-Weighted Regressions on Time, Discharge and Season (WRTDS) creates a model of long-term trends in river-water quality, seasonal components, and discharge-related components of the behavior of measured water-quality parameters. In this section, we will step though the process require for a WRTDS analysis. The following section (\ref{sec:wrtdsResults}) will detail the available methods to view and evaluate the model results.
 
-In this section and the next, we will use the Choptank River at Greensboro, MD as our example case. The Choptank River is a major tributary of the Chesapeake Bay. Inorganic nitrogen (nitrate and nitrite) has been measured from 1979.
+%------------------------------------------------------------ 
+\section{Water Quality Analysis (pre-WRTDS)}
+\label{sec:wqa}
+%------------------------------------------------------------ 
+Before running the WRTDS model, it is very helpful to take a look at the measured data in a graphical way to understand its behavior and to identify things that might be errors in the data set or learn about the temporal distribution of the data (identify gaps) prior to running the model.  It is always best to clear up these issues before moving forward.
+
+In this section and the next, we will use the Choptank River at Greensboro, MD as our example case. The Choptank River is a major tributary of the Chesapeake Bay. Inorganic nitrogen (nitrate and nitrite) has been measured from 1979. First, we need to get the streamflow and nitrate data into R, then use the mergeReport function to associate flow with the discrete measured water quality data.
 
 
 <<wrtds1,eval=FALSE>>=
@@ -565,8 +567,40 @@ INFO<- getMetaData(siteID,param,interactive=FALSE)
 INFO$shortName <- "Choptank River"
 Sample <- getSampleData(siteID,param,startDate,endDate)
 Sample <- mergeReport()
-
 @
+
+%------------------------------------------------------------ 
+\subsection{Water Quality Plotting Variables}
+\label{sec:wqVariables}
+%------------------------------------------------------------
+The next section will cover the available plots in the EGRET package. This section will briefly summarize common input variables (arguments) for those functions.
+
+\begin{table}
+\caption{Variables used in water quality analysis plots  \label{tab:wqVariables}}
+\begin{tabularx}{\textwidth}{lX}
+\hline
+  \textbf{Argument} & \textbf{Definition} \\
+\hline
+qUnit & Determines what units will be used for discharge, see \ref{sec:units}\\
+printTitle & If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption)\\
+qLower & The lower bound on the discharge on the day of sampling that will be used in forming a subset of the sample data set that will be displayed in the graph.  It is expressed in the units specified in qUnit.  If qLower = NA, then the lower bound is set to zero.\\
+qUpper & The upper bound on the discharge on the day of sampling that will be used in forming a subset of the sample data set that will be displayed in the graph.  It is expressed in the units specified in qUnit.  If qUpper = NA, then the lower bound is set to infinity.\\
+\hline
+\end{tabularx}
+
+\end{table}
+
+%------------------------------------------------------------ 
+\subsection{Water Quality Plots}
+\label{sec:wqPlots}
+%------------------------------------------------------------
+
+%------------------------------------------------------------ 
+\section{WRTDS Analysis}
+\label{sec:wrtds}
+%------------------------------------------------------------ 
+Weighted Regressions on Time, Discharge and Season (WRTDS) creates a model of long-term trends in river-water quality, seasonal components, and discharge-related components of the behavior of measured water-quality parameters. In this section, we will step though the process require for a WRTDS analysis. The following section (\ref{sec:wrtdsResults}) will detail the available methods to view and evaluate the model results.
+
 
 <<wrtds2, eval=FALSE>>=
 modelEstimation()
