@@ -13,6 +13,7 @@
 \usepackage[american]{babel}
 \usepackage{authblk}
 \usepackage{subcaption}
+\usepackage{placeins}
 \renewcommand\Affilfont{\itshape\small}
 \usepackage{Sweave}
 \renewcommand{\topfraction}{0.85}
@@ -112,14 +113,12 @@ Units <- c("date", "cms","days", "months","days","years","months", "character","
 
 DF <- data.frame(ColumnName,Type,Description,Units)
 
-data.table <- xtable(DF,
-                     caption="Daily dataframe")
-print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL,include.rownames=FALSE)
+data.table <- xtable(DF, caption="Daily dataframe",label="table:Daily1")
+print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!h")
 @
-\\*
-\\
-After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are inserted into the Daily dataframe:\\
-\\
+
+After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are inserted into the Daily dataframe:
+
 <<label=colNamesDaily2, echo=FALSE,results=tex>>=
 ColumnName <- c("yHat", "SE", "ConcDay","FluxDay","FNConc","FNFlux")
 Type <- c("number", "number", "number","number","number","number")
@@ -128,12 +127,11 @@ Units <- c("numeric","numeric","mg/L","kg/day","mg/L","kg/day")
 
 DF <- data.frame(ColumnName,Type,Description,Units)
 
-data.table <- xtable(DF,
-                     caption="Daily dataframe, post-WRTDS")
-print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL,include.rownames=FALSE)
+data.table <- xtable(DF, caption="Daily dataframe, post-WRTDS",label="table:Daily2")
+print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!h")
 @
-\\*
 
+\FloatBarrier
 
 %------------------------------------------------------------ 
 \subsection{Sample}
@@ -149,16 +147,13 @@ Units <- c("date","mg/L","mg/L","integer","mg/L","days","months","days","years",
 
 DF <- data.frame(ColumnName,Type,Description, Units)
 
-data.table <- xtable(DF,
-                     caption="Sample dataframe")
-print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL,include.rownames=FALSE)
+data.table <- xtable(DF, caption="Sample dataframe", label="table:Sample1")
+print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!h")
 @
-\\*
 ** Flow columns are populated from data in the Daily dataframe after calling the mergeReport function.
-\\
-\\
-After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are inserted into the Sample dataframe:\\
-\\
+
+After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are inserted into the Sample dataframe:
+
 <<label=colNamesSample2, echo=FALSE,results=tex>>=
 ColumnName <- c("yHat", "SE", "ConcHat")
 Type <- c("number", "number", "number")
@@ -167,18 +162,18 @@ Units <- c("numeric","numeric","mg/L")
 
 DF <- data.frame(ColumnName,Type,Description,Units)
 
-data.table <- xtable(DF,
-                     caption="Sample dataframe, post-WRTDS")
-print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL,include.rownames=FALSE)
+data.table <- xtable(DF, caption="Sample dataframe, post-WRTDS", label="table:Sample2")
+print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!h")
 @
-\\*
+
+\FloatBarrier
 
 %------------------------------------------------------------ 
 \subsection{INFO}
 \label{sec:dataframesINFO}
 %------------------------------------------------------------ 
 The INFO dataframe is used to store information about the measurements, such as station name, parameter name, drainage area, etc. There can be many additional, optional columns, but the following are required to initiate the EGRET analysis:
-\\
+
 <<label=colNamesInfo, echo=FALSE,results=tex>>=
 ColumnName <- c("shortName", "staAbbrev", "paramShortName", "constitAbbrev","drainSqKm","paStart **", "paLong **")
 Type <- c("string", "string","string", "string","numeric","integer (1-12)","integer (1-12)")
@@ -186,15 +181,14 @@ Description <- c("Name of site, suitable for use in graphical headings", "Abbrev
 
 DF <- data.frame(ColumnName,Type,Description)
 
-data.table <- xtable(DF,
-                     caption="INFO dataframe")
-print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL,include.rownames=FALSE)
+data.table <- xtable(DF, caption="INFO dataframe", label="table:Info1")
+print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!h")
 @
-\\*
+
 ** paStart and paLong can be inserted using the setPA function, described further in the following section (\ref{sec:flowHistory}).
-\\
-After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are automatically inserted into the INFO dataframe:\\
-\\
+
+After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are automatically inserted into the INFO dataframe:
+
 <<label=colNamesINFO2, echo=FALSE,results=tex>>=
 ColumnName <- c("bottomLogQ","stepLogQ","nVectorLogQ","bottomYear","stepYear","nVectorYear","windowY","windowQ","windowS","minNumObs","minNumUncen")
 Description <- c("Lowest discharge in prediction surfaces","Step size in discharge in prediction surfaces","Number of steps in discharge, prediction surfaces","Starting year in prediction surfaces","Step size in years in prediction surfaces","Number of steps in years in prediction surfaces","Half-window width in the time dimension","Half-window width in the log discharge dimension","Half-window width in the seasonal dimension","Minimum number of observations for regression", "Minimum number of uncensored observations")
@@ -202,13 +196,13 @@ Units <- c("numeric","numeric","numeric","numeric","numeric","numeric","years","
 
 DF <- data.frame(ColumnName,Description,Units)
 
-data.table <- xtable(DF,
-                     caption="INFO dataframe, post-WRTDS")
-print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL,include.rownames=FALSE)
+data.table <- xtable(DF, caption="INFO dataframe, post-WRTDS", label="table:Info2")
+print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!h")
 @
-\\*
-\\
+
 These values will be discussed further sections.
+
+\FloatBarrier
 
 %------------------------------------------------------------ 
 \subsection{Units}
@@ -252,9 +246,7 @@ INFO <- getMetaData(siteID,"",interactive=FALSE)
 INFO$shortName <- "Rio Grande at Embudo, NM"
 @
 
-The first choice you need to make is what 'period of analysis' to use (pa). What is the period of analysis?  If we want to examine our data set as a time series of water years, then the period of analysis is the water year.  If we want to examine the data set as calendar years then the period of analysis should be the calendar year.  We might want to examine the winter season, which we might want to define as December, January and February, then those 3 months become the period of analysis.  We might even want to examine September only then September becomes the period of analysis.  The only constraints on the definition of a period of analysis are these: It must be defined in terms of whole months.  It must be a set of contiguous months (like March-April-May).  And it must have a length that is no less than 1 month and no more than 12 months.  It can be uniquely defined by two arguments: paLong and paStart.  paLong is the length of the period of analysis, and paStart is the first month of the period of analysis. The following examples summarize paLong and paStart.\\
-
-\begin{center}
+The first choice you need to make is what 'period of analysis' to use (pa). What is the period of analysis?  If we want to examine our data set as a time series of water years, then the period of analysis is the water year.  If we want to examine the data set as calendar years then the period of analysis should be the calendar year.  We might want to examine the winter season, which we might want to define as December, January and February, then those 3 months become the period of analysis.  We might even want to examine September only then September becomes the period of analysis.  The only constraints on the definition of a period of analysis are these: It must be defined in terms of whole months.  It must be a set of contiguous months (like March-April-May).  And it must have a length that is no less than 1 month and no more than 12 months.  It can be uniquely defined by two arguments: paLong and paStart.  paLong is the length of the period of analysis, and paStart is the first month of the period of analysis. The following examples summarize paLong and paStart.
 
 <<label=paINFO, echo=FALSE,results=tex>>=
 PeriodOfAnalysis <- c("Calendar Year", "Water Year", "Winter", "September")
@@ -263,12 +255,9 @@ PaLong <- c("12","12","3","1")
 
 DF <- data.frame(PeriodOfAnalysis,paStart,PaLong)
 
-data.table <- xtable(DF,
-                     caption="Period of Analysis Information")
-print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL,include.rownames=FALSE)
+data.table <- xtable(DF, caption="Period of Analysis Information",label="table:paINFO")
+print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!h")
 @
-
-\end{center}
 
 To set a period running from December through February:
 <<newChunckWinter, echo=TRUE,eval=TRUE>>=
@@ -280,9 +269,7 @@ To set the default value (water year):
 INFO <- setPA()
 @
 
-The next step is to create the annual series of flow statistics.  These will be stored in a matrix called annualSeries that contain the following statistics:\\
-
-\begin{center}
+The next step is to create the annual series of flow statistics.  These will be stored in a matrix called annualSeries that contain the following statistics:
 
 <<label=istat, echo=FALSE,results=tex>>=
 istat <- c("1", "2", "3", "4","5","6","7","8")
@@ -290,12 +277,11 @@ Name <- c("1-day minimum flow","7-day minimum flow","30-day minimum flow","media
 
 DF <- data.frame(istat,Name)
 
-data.table <- xtable(DF,
-                     caption="Index of Statistics Information")
-print(data.table, caption.placement="top",floating="FALSE",latex.environments=NULL,include.rownames=FALSE)
+data.table <- xtable(DF,  caption="Index of Statistics Information",label= "table:istat")
+
+print(data.table, caption.placement="top", include.rownames=FALSE,table.placement="!h")
 @
 
-\end{center}
 
 To create the annualSeries matrix, using the function makeAnnualSeries:
 <<newChunckAS, echo=TRUE,eval=TRUE>>=
@@ -333,6 +319,8 @@ plotFlowSingle(istat=7,qUnit="thousandCfs")
 \caption{7-day Maxiumum Flow (istat=7)}
 \label{fig:plotflow}
 \end{figure}
+
+\FloatBarrier
 
 %------------------------------------------------------------ 
 \subsubsection{plotSDLogQ}
@@ -429,6 +417,7 @@ plotSDLogQ(localDaily = DailyRed, localINFO = INFORed,printStaName = FALSE)
   \label{fig:red}
 \end{figure}
 
+\FloatBarrier
 %------------------------------------------------------------ 
 \subsubsection{plotQTimeDaily}
 \label{sec:plotQTimeDaily}
@@ -451,6 +440,7 @@ plotQTimeDaily(1990,2000,qLower=2,qUnit=3)
 \label{fig:plotQTimeDaily}
 \end{figure}
 
+\FloatBarrier
 %------------------------------------------------------------ 
 \subsubsection{plotFour}
 \label{sec:plotFour}
@@ -472,6 +462,7 @@ plotFour(qUnit=3)
 \label{fig:plotFour}
 \end{figure}
 
+\FloatBarrier
 %------------------------------------------------------------ 
 \subsubsection{plotFourStats}
 \label{plotFourStats}
@@ -491,6 +482,7 @@ plotFourStats(qUnit=3)
 \label{fig:plotFourStats}
 \end{figure}
 
+\FloatBarrier
 %------------------------------------------------------------ 
 \subsection{Table Options}
 \label{sec:tableOptions}
@@ -501,14 +493,16 @@ Rathar than graphically, it is sometimes easier to consider the results in table
 \subsubsection{printSeries}
 \label{sec:printSeries}
 %------------------------------------------------------------
+Similar to the function plotFlowSingle, the printSeries will print the requested flow statistics (Table \ref{table:istat})
 
-
-
+\FloatBarrier
 %------------------------------------------------------------ 
 \subsubsection{tableFlowChange}
 \label{sec:tableFlowChange}
 %------------------------------------------------------------
 
+
+\FloatBarrier
 %------------------------------------------------------------ 
 \section{WRTDS Analysis}
 \label{sec:wrtds}
@@ -557,46 +551,29 @@ If you are new to R, you will need to first install the latest version of R, whi
 
 There are many options for running and editing R code, one nice environment to learn R is RStudio. RStudio can be downloaded here: \url{http://rstudio.org/}. Once R and RStudio are installed, the environment package needs to be installed as described in the next section.
 
+At any time, you can get information about any function in R by typing a question mark before the functions name.  This will open a file (in RStudio, in the Help window) that describes the function, the required arguments, and provides working examples.
+
+<<helpFunc,eval = FALSE>>=
+?getJulian
+@
+
+To see the raw code for a particular code, type the name of the function:
+<<rawFunc,eval = TRUE>>=
+getJulian
+@
+
+
 %------------------------------------------------------------
-\subsection{R User: Installing EGRET from downloaded binary}
+\subsection{R User: Installing EGRET}
 %------------------------------------------------------------ 
-Before installing EGRET, the following packages must be installed from CRAN:
+To install the EGRET packages and it's dependencies:
 
 <<installFromCran,eval = FALSE>>=
-install.packages("zoo")
-install.packages("survival")
-install.packages("methods")
-install.packages("fields")
-install.packages("spam")
-@
-
-Next, the EGRET and dataRetrieval packages must be downloaded from the following locations:
-\url{https://github.com/USGS-R/EGRET/raw/packageBuilds/EGRET_1.2.3.tar.gz}
-\url{https://github.com/USGS-R/dataRetrieval/raw/packageBuilds/dataRetrieval_1.2.1.tar.gz}
-
-The following directions will show how to install a downloaded package.  Both the EGRET and dataRetrieval packages must be installed.
-
-If the package's tar.gz file is saved in R's working directory, then the following command will fully install the package:
-
-<<installFromWD,eval = FALSE>>=
-install.packages("EGRET_1.2.3.tar.gz", 
-                 repos=NULL, type="source")
-@
-
-If the downloaded file is stored in an alternative location, include the path in the install command.  A Windows example looks like this (notice the direction of the slashes, they are in the opposite direction that Windows normally creates paths):
-
-<<installFromFile,eval = FALSE>>=
-install.packages(
-  "C:/RPackages/Statistics/EGRET_1.2.3.tar.gz", 
-  repos=NULL, type="source")
-@
-
-A Mac example looks like this:
-
-<<maxExample,eval = FALSE>>=
-install.packages(
-  "/Users/userA/RPackages/Statistic/EGRET_1.2.3.tar.gz", 
-  repos=NULL, type="source")
+install.packages(c("zoo","survival","methods","fields","spam"))
+install.packages("dataRetrieval", repos="http://usgs-r.github.com/EGRET/", 
+                 type="source")
+install.packages("EGRET", repos="http://usgs-r.github.com/EGRET/", 
+                 type="source")
 @
 
 It is a good idea to re-start the R enviornment after installing the package, especially if installing an updated version (that is, restart RStudio). Some users have found it necessary to delete the previous version's package folder before installing newer version of EGRET. If you are experiencing issues after updating a package, trying deleting the package folder - the default location for Windows is something like this: C:/Users/userA/Documents/R/win-library/2.15/EGRET, and the default for a Mac: /Users/userA/Library/R/2.15/library/EGRET. Then, re-install the package using the directions above. Moving to CRAN should solve this problem.
@@ -611,7 +588,7 @@ Using RStudio, you could alternatively click on the checkbox for dataRetrieval a
 %------------------------------------------------------------
 \subsection{R Developers: Installing EGRET from gitHub}
 %------------------------------------------------------------
-Alternatively, R-developers can install the latest version of EGRET directly from gitHub using the devtools package.  devtools is available on CRAN.  Simply type the following commands into R to install the latest version of EGRET available on gitHub.  Rtools (for Windows) and appropriate \LaTeX\ tools are required. Be aware that the version installed using this method isn't necessarily the same as the version in the stable release branch.  
+Alternatively, R-developers can install the most recent (not-necessarily stable) version of EGRET directly from gitHub using the devtools package.  devtools is available on CRAN.  Simply type the following commands into R to install the latest version of EGRET available on gitHub.  Rtools (for Windows) and appropriate \LaTeX\ tools are required. Be aware that the version installed using this method isn't necessarily the same as the version in the stable release branch.  
 
 
 <<gitInstal,eval = FALSE>>=
