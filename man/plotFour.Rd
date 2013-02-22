@@ -48,9 +48,9 @@
   setPA and makeAnnualSeries.
 }
 \examples{
-INFO <- exINFOEnd
+INFO <- exINFO
 annualSeries <- exannualSeries
-Daily <- exDailyStart
+Daily <- exDaily
 plotFour(window=2)
 }
 \keyword{graphics}

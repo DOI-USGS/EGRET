@@ -49,7 +49,7 @@
 yearStart <- 2001
 yearEnd <- 2010
 AnnualResults <- exAnnualResults
-INFO <- exINFOEnd
+INFO <- exINFO
 plotFluxHist(yearStart, yearEnd, fluxUnit = 1)
 plotFluxHist(yearStart, yearEnd, fluxUnit = 'kgDay')
 }

@@ -32,8 +32,8 @@
 #' date3<-"2010-06-01"
 #' qLow<-1
 #' qHigh<-1000
-#' Sample <- exSampleEnd
-#' INFO <- exINFOEnd
+#' Sample <- exSample
+#' INFO <- exINFO
 #' plotConcQSmooth(date1,date2,date3,qLow,qHigh)
 plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0,legendTop = 0, concMax = NA,bw = FALSE, printTitle = TRUE, printValues = FALSE, localSample = Sample, localINFO = INFO, windowY = 10, windowQ = 2, windowS = 0.5) {
   #########################################################

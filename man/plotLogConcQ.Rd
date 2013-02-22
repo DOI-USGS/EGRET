@@ -40,8 +40,8 @@
   data frame named INFO.
 }
 \examples{
-Sample <- exSampleStart
-INFO <- exINFOStart
+Sample <- exSample
+INFO <- exINFO
 plotLogConcQ(qUnit = 1)
 plotLogConcQ(qUnit = 'thousandCfs')
 }

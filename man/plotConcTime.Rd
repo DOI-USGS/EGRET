@@ -69,8 +69,8 @@
   the months of March, April and May.
 }
 \examples{
-Sample <- exSampleStart
-INFO <- exINFOStart
+Sample <- exSample
+INFO <- exINFO
 plotConcTime(qUnit = 1, qLower = 100, qUpper = 10000, paLong = 3, paStart = 4)
 }
 \keyword{graphics}

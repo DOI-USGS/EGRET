@@ -20,7 +20,7 @@
 #' @examples
 #' yearStart <- 2001
 #' yearEnd <- 2010
-#' INFO <- exINFOEnd
+#' INFO <- exINFO
 #' AnnualResults <- exAnnualResults
 #' plotConcHist(yearStart, yearEnd)
 plotConcHist<-function(yearStart = NA, yearEnd = NA, localAnnualResults = AnnualResults, localINFO = INFO, concMax = NA, printTitle = TRUE, plotFlowNorm = TRUE){

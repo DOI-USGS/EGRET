@@ -13,8 +13,8 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- exSampleEnd
-#' INFO <- exINFOEnd
+#' Sample <- exSample
+#' INFO <- exINFO
 #' plotResidQ(qUnit=1)
 plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot = FALSE, 
                       stdResid = FALSE, printTitle = TRUE) 

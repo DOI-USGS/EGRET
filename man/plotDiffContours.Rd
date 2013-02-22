@@ -90,8 +90,8 @@ qBottom<-0.2
 qTop<-20
 maxDiff<-0.5
 surfaces <- exsurfaces
-INFO <- exINFOEnd
-Daily <- exDailyEnd
+INFO <- exINFO
+Daily <- exDaily
 plotDiffContours(year0,year1,qBottom,qTop,maxDiff)
 }
 \keyword{graphics}

@@ -13,8 +13,8 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- exSampleStart
-#' INFO <- exINFOStart
+#' Sample <- exSample
+#' INFO <- exINFO
 #' plotConcQ()
 plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot = FALSE, concMax = NA, printTitle = TRUE){
   # this function shows the sample data,

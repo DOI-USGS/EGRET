@@ -23,7 +23,7 @@
   plotSDLogQ
 }
 \examples{
-Daily <- exDailyStart
+Daily <- exDaily
 DailySubset <- selectDays(1,3)
 }
 \keyword{statistics}

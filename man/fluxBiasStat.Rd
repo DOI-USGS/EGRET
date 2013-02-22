@@ -24,7 +24,7 @@
   among them.
 }
 \examples{
-Sample <- exSampleEnd
+Sample <- exSample
 fluxBias <- fluxBiasStat()
 }
 \keyword{bias}

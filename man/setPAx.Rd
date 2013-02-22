@@ -27,7 +27,7 @@
   call this function
 }
 \examples{
-INFO <- exINFOStart
+INFO <- exINFO
 INFO <- setPAx(paStart=12, paLong=3)
 }
 \keyword{statistics}

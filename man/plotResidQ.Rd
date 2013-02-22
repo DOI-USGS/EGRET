@@ -39,8 +39,8 @@
   estimated standard error
 }
 \examples{
-Sample <- exSampleEnd
-INFO <- exINFOEnd
+Sample <- exSample
+INFO <- exINFO
 plotResidQ(qUnit=1)
 }
 \keyword{graphics}

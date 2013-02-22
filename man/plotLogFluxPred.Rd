@@ -35,8 +35,8 @@
   data frame named INFO.
 }
 \examples{
-Sample <- exSampleEnd
-INFO <- exINFOEnd
+Sample <- exSample
+INFO <- exINFO
 plotLogFluxPred(fluxUnit = 1)
 plotLogFluxPred(fluxUnit = 'kgDay')
 }

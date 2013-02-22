@@ -16,7 +16,7 @@
 #' @return dataframe with Year1, Year2, change[mg/L], slope[mg/L], change[percent], slope[percent] columns. The data in each row is the change or slope calculated from Year1 to Year2
 #' @examples
 #' AnnualResults <- exAnnualResults
-#' INFO <- exINFOEnd
+#' INFO <- exINFO
 #' tableChangeSingle(fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)  #This returns concentration ASCII table in the console 
 #' tableChangeSingle(fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=TRUE)  #This returns flux values ASCII table in the console
 #' tableChangeConc <-tableChangeSingle(fluxUnit=9, returnDataFrame = TRUE, flux=FALSE)    #This returns concentration values in a dataframe

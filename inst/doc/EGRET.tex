@@ -100,7 +100,7 @@ The EGRET package uses 3 default dataframes throughout the calculations, analysi
 The Daily dataframe initially is populated with the following columns by the dataRetrieval package.
 
 % latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Thu Feb 21 09:45:34 2013
+% Thu Feb 21 16:35:26 2013
 \begin{tabular}{llll}
   \hline
 ColumnName & Type & Description & Units \\ 
@@ -123,7 +123,7 @@ Date & Date & Date & date \\
 After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are inserted into the Daily dataframe:\\
 \\
 % latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Thu Feb 21 09:45:34 2013
+% Thu Feb 21 16:35:26 2013
 \begin{tabular}{llll}
   \hline
 ColumnName & Type & Description & Units \\ 
@@ -145,7 +145,7 @@ yHat & number & The WRTDS estimate of the log of concentration & numeric \\
 The Sample dataframe initially is populated with the following columns by the dataRetrieval package.
 
 % latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Thu Feb 21 09:45:34 2013
+% Thu Feb 21 16:35:26 2013
 \begin{tabular}{llll}
   \hline
 ColumnName & Type & Description & Units \\ 
@@ -172,7 +172,7 @@ Date & Date & Date & date \\
 After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are inserted into the Sample dataframe:\\
 \\
 % latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Thu Feb 21 09:45:34 2013
+% Thu Feb 21 16:35:26 2013
 \begin{tabular}{llll}
   \hline
 ColumnName & Type & Description & Units \\ 
@@ -190,7 +190,7 @@ yHat & number & jack-knife estimate of the log of concentration & numeric \\
 The INFO dataframe is used to store information about the measurements, such as station name, parameter name, drainage area, etc. There can be many additional, optional columns, but the following are required to initiate the EGRET analysis:
 \\
 % latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Thu Feb 21 09:45:34 2013
+% Thu Feb 21 16:35:26 2013
 \begin{tabular}{lll}
   \hline
 ColumnName & Type & Description \\ 
@@ -209,7 +209,7 @@ shortName & string & Name of site, suitable for use in graphical headings \\
 After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are automatically inserted into the INFO dataframe:\\
 \\
 % latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Thu Feb 21 09:45:34 2013
+% Thu Feb 21 16:35:26 2013
 \begin{tabular}{lll}
   \hline
 ColumnName & Description & Units \\ 
@@ -306,7 +306,7 @@ The first choice you need to make is what 'period of analysis' to use (pa). What
 \begin{center}
 
 % latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Thu Feb 21 09:45:41 2013
+% Thu Feb 21 16:35:33 2013
 \begin{tabular}{lll}
   \hline
 PeriodOfAnalysis & paStart & PaLong \\ 
@@ -338,7 +338,7 @@ The next step is to create the annual series of flow statistics.  These will be 
 \begin{center}
 
 % latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Thu Feb 21 09:45:41 2013
+% Thu Feb 21 16:35:33 2013
 \begin{tabular}{ll}
   \hline
 istat & Name \\ 
@@ -508,8 +508,6 @@ Returning to our example concerning the Rio Grande (Figure \ref{fig:plotQTimeDai
 \label{fig:plotFour}
 \end{figure}
 
-
-
 %------------------------------------------------------------ 
 \subsubsection{plotFourStats}
 \label{plotFourStats}
@@ -529,13 +527,23 @@ Returning to our example concerning the Rio Grande (Figure \ref{fig:plotQTimeDai
 \label{fig:plotFourStats}
 \end{figure}
 
-
-
 %------------------------------------------------------------ 
 \subsection{Table Options}
 \label{sec:tableOptions}
 %------------------------------------------------------------ 
+Rathar than graphically, it is sometimes easier to consider the results in table formats. 
 
+%------------------------------------------------------------ 
+\subsubsection{printSeries}
+\label{sec:printSeries}
+%------------------------------------------------------------
+
+
+
+%------------------------------------------------------------ 
+\subsubsection{tableFlowChange}
+\label{sec:tableFlowChange}
+%------------------------------------------------------------
 
 %------------------------------------------------------------ 
 \section{WRTDS Analysis}

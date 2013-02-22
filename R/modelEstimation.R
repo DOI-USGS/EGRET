@@ -19,7 +19,7 @@
 #' @import survival
 #' @export
 #' @examples
-#' \dontrun{modelEstimation(localDaily = exDailyStart, localSample = exSampleStart, localINFO = exINFOStart)}
+#' \dontrun{modelEstimation(localDaily = exDaily, localSample = exSample, localINFO = exINFO)}
 modelEstimation<-function(localDaily = Daily,localSample = Sample, localINFO = INFO, windowY=10, windowQ=2, windowS=0.5,minNumObs=100,minNumUncen=50, env=parent.frame()){
   # this code is a wrapper for several different functions that test the model, fit a surface,
   #  estimate daily values and flow normalized daily values
@@ -27,7 +27,6 @@ modelEstimation<-function(localDaily = Daily,localSample = Sample, localINFO = I
   #  it returns several data frames
   #  all of the data frames are given their "standard" names
   #
-#   library(survival)
   cat("\n first step running estCrossVal may take about 1 minute")
   Sample1<-estCrossVal(SampleCrossV = localSample, windowY, windowQ, windowS, minNumObs, minNumUncen)
 #   cat("\n done with estCrossVal")

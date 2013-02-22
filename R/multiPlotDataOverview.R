@@ -12,9 +12,9 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- exSampleStart
-#' Daily <- exDailyStart
-#' INFO <- exINFOStart
+#' Sample <- exSample
+#' Daily <- exDaily
+#' INFO <- exINFO
 #' multiPlotDataOverview(qUnit=1)
 multiPlotDataOverview<-function (localSample = Sample, localDaily = Daily, localINFO = INFO, qUnit = 2){
   par(mfcol=c(2,2),oma=c(0,2.4,4.5,2.4))

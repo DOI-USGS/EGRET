@@ -21,7 +21,7 @@
 #' yearStart <- 2001
 #' yearEnd <- 2010
 #' AnnualResults <- exAnnualResults
-#' INFO <- exINFOEnd
+#' INFO <- exINFO
 #' plotFluxHist(yearStart, yearEnd, fluxUnit = 1)
 #' plotFluxHist(yearStart, yearEnd, fluxUnit = 'kgDay')
 plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9, localAnnualResults = AnnualResults, localINFO = INFO, fluxMax = NA, printTitle = TRUE, plotFlowNorm = TRUE){

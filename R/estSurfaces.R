@@ -24,8 +24,8 @@
 #' @return surfaces array containing the three surfaces estimated, array is 3 dimensional
 #' @export
 #' @examples
-#' Daily <- exDailyStart
-#' Sample <- exSampleStart
+#' Daily <- exDaily
+#' Sample <- exSample
 #' surfaces <- estSurfaces()
 estSurfaces<-function(localDaily = Daily, localSample = Sample, windowY=10,windowQ=2,windowS=0.5,minNumObs=100,minNumUncen=50){
   # this function estimates the 3 surfaces based on the Sample data

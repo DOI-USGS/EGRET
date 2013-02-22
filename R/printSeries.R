@@ -14,7 +14,7 @@
 #' @keywords streamflow statistics
 #' @export
 #' @examples
-#' INFO <- exINFOEnd
+#' INFO <- exINFO
 #' annualSeries <- exannualSeries
 #' printSeries(5)
 printSeries<-function(istat, qUnit = 1, runoff = FALSE, localINFO = INFO, localAnnualSeries = annualSeries) {

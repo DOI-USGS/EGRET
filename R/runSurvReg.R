@@ -22,7 +22,7 @@
 #' @examples
 #' estPtYear<-c(2001.0,2005.0,2009.0)
 #' estPtLQ<-c(1,1,1)
-#' Sample <- exSampleStart
+#' Sample <- exSample
 #' resultSurvReg <- runSurvReg(estPtYear,estPtLQ,message=FALSE)
 runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2,windowS=0.5,minNumObs=100,minNumUncen=50,message=TRUE) {
   # runs survival regression model
@@ -38,7 +38,6 @@ runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2
   #        first column is predicted concentration in log space (called yHat)
   #        second column is the standard error (which is used to compute the bias correction)
   #        third column is the predicted concentration in real space (called ConcHat)
-  library(survival)
   numEstPt<-length(estPtYear)
   resultSurvReg<-array(0,c(numEstPt,3))
   

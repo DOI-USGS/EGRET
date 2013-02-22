@@ -22,8 +22,8 @@
   (e.g. water year).
 }
 \examples{
-Daily <- exDailyStart
-INFO <- exINFOEnd
+Daily <- exDaily
+INFO <- exINFO
 annualSeries <- makeAnnualSeries()
 }
 \keyword{statistics}

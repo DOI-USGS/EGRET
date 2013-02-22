@@ -47,7 +47,7 @@
 \examples{
 yearStart <- 2001
 yearEnd <- 2010
-INFO <- exINFOEnd
+INFO <- exINFO
 AnnualResults <- exAnnualResults
 plotConcHist(yearStart, yearEnd)
 }

@@ -19,8 +19,8 @@
 #' @keywords graphics streamflow statistics
 #' @export
 #' @examples
-#' Daily <- exDailyStart
-#' INFO <- exINFOEnd
+#' Daily <- exDaily
+#' INFO <- exINFO
 #' plotSDLogQ(window=3,printTitle=FALSE)  
 plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
                      localINFO=INFO,sdMax=NA,printTitle = TRUE, tinyPlot = FALSE, 

@@ -48,7 +48,7 @@
   Sample, and surfaces).
 }
 \examples{
-\dontrun{modelEstimation(localDaily = exDailyStart, localSample = exSampleStart, localINFO = exINFOStart)}
+\dontrun{modelEstimation(localDaily = exDaily, localSample = exSample, localINFO = exINFO)}
 }
 \keyword{statistics}
 \keyword{water-quality}

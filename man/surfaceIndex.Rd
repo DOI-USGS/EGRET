@@ -17,7 +17,7 @@
   code for estSurfaces
 }
 \examples{
-Daily <- exDailyStart
+Daily <- exDaily
 surfaceIndex()
 }
 \keyword{statistics}

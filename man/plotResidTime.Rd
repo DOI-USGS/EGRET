@@ -29,8 +29,8 @@
   divided by its estimated standard error.
 }
 \examples{
-Sample <- exSampleEnd
-INFO <- exINFOEnd
+Sample <- exSample
+INFO <- exINFO
 plotResidTime()
 }
 \keyword{graphics}

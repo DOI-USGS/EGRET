@@ -16,7 +16,7 @@
 #' @return AnnualResults data frame with one row per year
 #' @export
 #' @examples 
-#' Daily <- exDailyEnd
+#' Daily <- exDaily
 #' setupYears()
 setupYears<-function(paLong = 12, paStart = 10, localDaily = Daily){
   # this function aggregates the results in the data frame Daily into annual values

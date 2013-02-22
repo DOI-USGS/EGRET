@@ -35,8 +35,8 @@
   named INFO.
 }
 \examples{
-Sample <- exSampleEnd
-INFO <- exINFOEnd
+Sample <- exSample
+INFO <- exINFO
 plotFluxPred(fluxUnit = 7)
 plotFluxPred(fluxUnit = 'poundsDay')
 }

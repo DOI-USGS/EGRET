@@ -13,7 +13,7 @@
 #' @keywords graphics streamflow statistics
 #' @export
 #' @examples
-#' INFO <- exINFOEnd
+#' INFO <- exINFO
 #' annualSeries <- exannualSeries
 #' plotFourStats()
 plotFourStats<-function(localINFO = INFO, localAnnualSeries = annualSeries, yearStart = NA, yearEnd = NA, printTitle = TRUE, runoff = FALSE, qUnit =1) {

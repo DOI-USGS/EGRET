@@ -40,7 +40,7 @@
   run setPA and makeAnnualSeries.
 }
 \examples{
-INFO <- exINFOEnd
+INFO <- exINFO
 annualSeries <- exannualSeries
 plotFourStats()
 }

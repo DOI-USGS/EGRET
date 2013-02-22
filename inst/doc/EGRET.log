@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.2.20)  21 FEB 2013 09:47
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.6)  21 FEB 2013 16:36
 entering extended mode
 **EGRET.tex
-(D:\LADData\RCodes\EGRET\inst\doc\EGRET.tex
+(D:\LADData\RCode\EGRET\inst\doc\EGRET.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -92,7 +92,7 @@ LaTeX Info: Redefining \] on input line 2667.
 Package: times 2005/04/12 PSNFSS-v9.2a (SPQR) 
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hyperref.sty"
-Package: hyperref 2011/12/04 v6.82m Hypertext links for LaTeX
+Package: hyperref 2011/08/19 v6.82h Hypertext links for LaTeX
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\hobsub-hyperref.sty"
 Package: hobsub-hyperref 2011/04/23 v1.4 Bundle oberdiek, subset hyperref (HO)
@@ -150,39 +150,39 @@ Package: kvoptions 2010/12/23 v3.10 Keyval support for LaTeX options (HO)
 \Hy@pagecounter=\count100
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\pd1enc.def"
-File: pd1enc.def 2011/12/04 v6.82m Hyperref: PDFDocEncoding definition (HO)
+File: pd1enc.def 2011/08/19 v6.82h Hyperref: PDFDocEncoding definition (HO)
 )
 \Hy@SavedSpaceFactor=\count101
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\hyperref.cfg"
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
-Package hyperref Info: Hyper figures OFF on input line 4046.
-Package hyperref Info: Link nesting OFF on input line 4051.
-Package hyperref Info: Hyper index ON on input line 4054.
-Package hyperref Info: Plain pages OFF on input line 4061.
-Package hyperref Info: Backreferencing OFF on input line 4066.
+Package hyperref Info: Hyper figures OFF on input line 4053.
+Package hyperref Info: Link nesting OFF on input line 4058.
+Package hyperref Info: Hyper index ON on input line 4061.
+Package hyperref Info: Plain pages OFF on input line 4068.
+Package hyperref Info: Backreferencing OFF on input line 4073.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks ON on input line 4284.
+Package hyperref Info: Bookmarks ON on input line 4291.
 \c@Hy@tempcnt=\count102
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ltxmisc\url.sty"
 \Urlmuskip=\muskip11
 Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
 )
-LaTeX Info: Redefining \url on input line 4637.
+LaTeX Info: Redefining \url on input line 4644.
 \Fld@menulength=\count103
 \Field@Width=\dimen113
 \Fld@charsize=\dimen114
-Package hyperref Info: Hyper figures OFF on input line 5757.
-Package hyperref Info: Link nesting OFF on input line 5762.
-Package hyperref Info: Hyper index ON on input line 5765.
-Package hyperref Info: backreferencing OFF on input line 5772.
-Package hyperref Info: Link coloring OFF on input line 5777.
-Package hyperref Info: Link coloring with OCG OFF on input line 5782.
-Package hyperref Info: PDF/A mode OFF on input line 5787.
-LaTeX Info: Redefining \ref on input line 5827.
-LaTeX Info: Redefining \pageref on input line 5831.
+Package hyperref Info: Hyper figures OFF on input line 5730.
+Package hyperref Info: Link nesting OFF on input line 5735.
+Package hyperref Info: Hyper index ON on input line 5738.
+Package hyperref Info: backreferencing OFF on input line 5745.
+Package hyperref Info: Link coloring OFF on input line 5750.
+Package hyperref Info: Link coloring with OCG OFF on input line 5755.
+Package hyperref Info: PDF/A mode OFF on input line 5760.
+LaTeX Info: Redefining \ref on input line 5800.
+LaTeX Info: Redefining \pageref on input line 5804.
 \Hy@abspage=\count104
 \c@Item=\count105
 \c@Hfootnote=\count106
@@ -191,7 +191,7 @@ LaTeX Info: Redefining \pageref on input line 5831.
 Package hyperref Message: Driver (autodetected): hpdftex.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hpdftex.def"
-File: hpdftex.def 2011/12/04 v6.82m Hyperref driver for pdfTeX
+File: hpdftex.def 2011/08/19 v6.82h Hyperref driver for pdfTeX
 \Fld@listcount=\count107
 \c@bookmark@seq@number=\count108
 
@@ -405,7 +405,7 @@ LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ae\t1aer.fd"
 File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
 ))))
-(D:\LADData\RCodes\EGRET\inst\doc\EGRET.aux)
+(D:\LADData\RCode\EGRET\inst\doc\EGRET.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 42.
 LaTeX Font Info:    ... okay on input line 42.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 42.
@@ -442,8 +442,8 @@ LaTeX Info: Redefining \ref on input line 42.
 LaTeX Info: Redefining \pageref on input line 42.
 LaTeX Info: Redefining \nameref on input line 42.
 
-(D:\LADData\RCodes\EGRET\inst\doc\EGRET.out)
-(D:\LADData\RCodes\EGRET\inst\doc\EGRET.out)
+(D:\LADData\RCode\EGRET\inst\doc\EGRET.out)
+(D:\LADData\RCode\EGRET\inst\doc\EGRET.out)
 \@outlinefile=\write4
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
@@ -461,8 +461,8 @@ Package caption Info: End \AtBeginDocument code.
 \MPnumerator=\count126
 \makeMPintoPDFobject=\count127
 \everyMPtoPDFconversion=\toks21
-) (D:\LADData\RCodes\EGRET\inst\doc\EGRET-concordance.tex)
-(D:\LADData\RCodes\EGRET\inst\doc\EGRET.toc
+) (D:\LADData\RCode\EGRET\inst\doc\EGRET-concordance.tex)
+(D:\LADData\RCode\EGRET\inst\doc\EGRET.toc
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
@@ -553,7 +553,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 336--337
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[7] <EGRET-fig1.pdf, id=165, 433.62pt x 433.62pt>
+[7] <EGRET-fig1.pdf, id=175, 433.62pt x 433.62pt>
 File: EGRET-fig1.pdf Graphic file (type pdf)
  <use EGRET-fig1.pdf>
 Package pdftex.def Info: EGRET-fig1.pdf used on input line 391.
@@ -570,14 +570,14 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[9 <D:/LADData/RCodes/EGRET/inst/doc/EGRET-fig1.pdf>]
-<EGRET-fig2a.pdf, id=184, 433.62pt x 433.62pt>
+[9 <D:/LADData/RCode/EGRET/inst/doc/EGRET-fig1.pdf>]
+<EGRET-fig2a.pdf, id=194, 433.62pt x 433.62pt>
 File: EGRET-fig2a.pdf Graphic file (type pdf)
  <use EGRET-fig2a.pdf>
 Package pdftex.def Info: EGRET-fig2a.pdf used on input line 424.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-<EGRET-fig2b.pdf, id=185, 433.62pt x 433.62pt>
+<EGRET-fig2b.pdf, id=195, 433.62pt x 433.62pt>
 File: EGRET-fig2b.pdf Graphic file (type pdf)
  <use EGRET-fig2b.pdf>
 Package pdftex.def Info: EGRET-fig2b.pdf used on input line 434.
@@ -587,13 +587,13 @@ Overfull \hbox (19.08807pt too wide) in paragraph at lines 420--439
 []$[]$   $[]$ 
  []
 
-<EGRET-fig3a.pdf, id=187, 433.62pt x 433.62pt>
+<EGRET-fig3a.pdf, id=197, 433.62pt x 433.62pt>
 File: EGRET-fig3a.pdf Graphic file (type pdf)
  <use EGRET-fig3a.pdf>
 Package pdftex.def Info: EGRET-fig3a.pdf used on input line 449.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-<EGRET-fig3b.pdf, id=188, 433.62pt x 433.62pt>
+<EGRET-fig3b.pdf, id=198, 433.62pt x 433.62pt>
 File: EGRET-fig3b.pdf Graphic file (type pdf)
  <use EGRET-fig3b.pdf>
 Package pdftex.def Info: EGRET-fig3b.pdf used on input line 459.
@@ -607,10 +607,10 @@ Overfull \hbox (19.08807pt too wide) in paragraph at lines 446--464
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[10 <D:/LADData/RCodes/EGRET/inst/doc/EGRET-fig2a.pdf> <D:/LADData/RCodes/EGRET
-/inst/doc/EGRET-fig2b.pdf> <D:/LADData/RCodes/EGRET/inst/doc/EGRET-fig3a.pdf> <
-D:/LADData/RCodes/EGRET/inst/doc/EGRET-fig3b.pdf>]
-<EGRET-figplotQTimeDailyFig.pdf, id=219, 433.62pt x 433.62pt>
+[10 <D:/LADData/RCode/EGRET/inst/doc/EGRET-fig2a.pdf> <D:/LADData/RCode/EGRET/i
+nst/doc/EGRET-fig2b.pdf> <D:/LADData/RCode/EGRET/inst/doc/EGRET-fig3a.pdf> <D:/
+LADData/RCode/EGRET/inst/doc/EGRET-fig3b.pdf>]
+<EGRET-figplotQTimeDailyFig.pdf, id=229, 433.62pt x 433.62pt>
 File: EGRET-figplotQTimeDailyFig.pdf Graphic file (type pdf)
 
 <use EGRET-figplotQTimeDailyFig.pdf>
@@ -618,7 +618,7 @@ Package pdftex.def Info: EGRET-figplotQTimeDailyFig.pdf used on input line 484.
 
 (pdftex.def)             Requested size: 358.46039pt x 358.47534pt.
 
-<EGRET-figplotFour.pdf, id=220, 433.62pt x 433.62pt>
+<EGRET-figplotFour.pdf, id=230, 433.62pt x 433.62pt>
 File: EGRET-figplotFour.pdf Graphic file (type pdf)
 
 <use EGRET-figplotFour.pdf>
@@ -632,12 +632,12 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[11 <D:/LADData/RCodes/EGRET/inst/doc/EGRET-figplotQTimeDailyFig.pdf>]
-<EGRET-figplotFourStats.pdf, id=232, 433.62pt x 433.62pt>
+[11 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotQTimeDailyFig.pdf>]
+<EGRET-figplotFourStats.pdf, id=242, 433.62pt x 433.62pt>
 File: EGRET-figplotFourStats.pdf Graphic file (type pdf)
 
 <use EGRET-figplotFourStats.pdf>
-Package pdftex.def Info: EGRET-figplotFourStats.pdf used on input line 526.
+Package pdftex.def Info: EGRET-figplotFourStats.pdf used on input line 524.
 (pdftex.def)             Requested size: 358.46039pt x 358.47534pt.
 
 
@@ -647,16 +647,16 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[12 <D:/LADData/RCodes/EGRET/inst/doc/EGRET-figplotFour.pdf>]
+[12 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotFour.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[13 <D:/LADData/RCodes/EGRET/inst/doc/EGRET-figplotFourStats.pdf>]
+[13 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotFourStats.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
 [14]
-Overfull \hbox (9.88757pt too wide) in paragraph at lines 607--610
+Overfull \hbox (9.88757pt too wide) in paragraph at lines 615--618
 \T1/aer/m/n/10.95 tions: []$\T1/aett/m/n/10.95 https : / / github . com / USGS-
 []R / EGRET / raw / packageBuilds / EGRET _ 1 . 2 . 3 . tar . gz$[] []$https :$
 
@@ -667,7 +667,7 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
 [15]
-Overfull \hbox (13.26042pt too wide) in paragraph at lines 642--643
+Overfull \hbox (13.26042pt too wide) in paragraph at lines 650--651
 \T1/aer/m/n/10.95 library/2.15/EGRET, and the de-fault for a Mac: /Users/userA/
 Library/R/2.15/library/EGRET.
  []
@@ -677,24 +677,24 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
 [16]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 692.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 700.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
 [17]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 692.
- (D:\LADData\RCodes\EGRET\inst\doc\EGRET.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 692.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 692.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 700.
+ (D:\LADData\RCode\EGRET\inst\doc\EGRET.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 700.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 700.
 Package rerunfilecheck Info: File `EGRET.out' has not changed.
-(rerunfilecheck)             Checksum: D141998082C7E1E21CC12A696870AC0B;1346.
+(rerunfilecheck)             Checksum: 54B6A0A6BF20247F209090685919F328;1494.
  ) 
 Here is how much of TeX's memory you used:
- 8434 strings out of 494045
- 124509 string characters out of 3145960
- 210876 words of memory out of 3000000
- 11530 multiletter control sequences out of 15000+200000
+ 8464 strings out of 494045
+ 125194 string characters out of 3145961
+ 214018 words of memory out of 3000000
+ 11558 multiletter control sequences out of 15000+200000
  41496 words of font info for 83 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
  42i,7n,40p,1096b,490s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -708,9 +708,9 @@ es (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files (
 x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsltt10.pfb><C:/Program Files (
 x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files (x8
 6)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on EGRET.pdf (17 pages, 333993 bytes).
+Output written on EGRET.pdf (17 pages, 335806 bytes).
 PDF statistics:
- 331 PDF objects out of 1000 (max. 8388607)
- 49 named destinations out of 1000 (max. 500000)
- 205 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 341 PDF objects out of 1000 (max. 8388607)
+ 51 named destinations out of 1000 (max. 500000)
+ 221 words of extra memory for PDF output out of 10000 (max. 10000000)
 

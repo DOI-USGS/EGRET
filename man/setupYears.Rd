@@ -32,7 +32,7 @@
   paLong=3 and paStart=12
 }
 \examples{
-Daily <- exDailyEnd
+Daily <- exDaily
 setupYears()
 }
 \keyword{statistics}

@@ -11,8 +11,8 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- exSampleEnd
-#' INFO <- exINFOEnd
+#' Sample <- exSample
+#' INFO <- exINFO
 #' plotResidTime()
 plotResidTime<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, printTitle = TRUE){
   # this function shows residual versus Time

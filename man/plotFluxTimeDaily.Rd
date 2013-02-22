@@ -45,9 +45,9 @@
   a time-series perspective.
 }
 \examples{
-Sample <- exSampleEnd
-Daily <- exDailyEnd
-INFO <- exINFOEnd
+Sample <- exSample
+Daily <- exDaily
+INFO <- exINFO
 plotFluxTimeDaily(2001,2009)
 }
 \keyword{graphics}

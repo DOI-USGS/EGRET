@@ -44,8 +44,8 @@
   INFO.
 }
 \examples{
-Sample <- exSampleEnd
-INFO <- exINFOEnd
+Sample <- exSample
+INFO <- exINFO
 plotLogFluxQ(qUnit = 1, fluxUnit = 1)
 plotLogFluxQ(fluxUnit = 'kgDay')
 }

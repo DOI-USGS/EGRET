@@ -14,8 +14,8 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- exSampleEnd
-#' INFO <- exINFOEnd
+#' Sample <- exSample
+#' INFO <- exINFO
 #' plotLogFluxQ(qUnit = 1, fluxUnit = 1)
 #' plotLogFluxQ(fluxUnit = 'kgDay')
 plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2, fluxUnit = 3, tinyPlot = FALSE, fluxMax = NA, fluxMin = NA, printTitle = TRUE){

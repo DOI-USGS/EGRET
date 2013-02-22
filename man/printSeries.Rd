@@ -31,7 +31,7 @@
   makeAnnualSeries before this function.
 }
 \examples{
-INFO <- exINFOEnd
+INFO <- exINFO
 annualSeries <- exannualSeries
 printSeries(5)
 }

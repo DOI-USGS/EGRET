@@ -44,7 +44,7 @@
   analysis that uses all the data.
 }
 \examples{
-Sample <- exSampleStart
+Sample <- exSample
 SampleCrossV <- estCrossVal()
 }
 \keyword{statistics}

@@ -29,8 +29,8 @@
 #' qTop<-20
 #' maxDiff<-0.5
 #' surfaces <- exsurfaces
-#' INFO <- exINFOEnd
-#' Daily <- exDailyEnd
+#' INFO <- exINFO
+#' Daily <- exDaily
 #' plotDiffContours(year0,year1,qBottom,qTop,maxDiff)
 plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 3, 
                             localsurfaces = surfaces, localINFO = INFO, localDaily = Daily, 

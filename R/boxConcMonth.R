@@ -10,8 +10,8 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- exSampleStart
-#' INFO <- exINFOStart
+#' Sample <- exSample
+#' INFO <- exINFO
 #' boxConcMonth()
 boxConcMonth<-function(localSample = Sample, localINFO = INFO, printTitle = TRUE) {
   #This function makes a boxplot of log concentration by month

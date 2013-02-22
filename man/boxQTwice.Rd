@@ -32,9 +32,9 @@
   Daily, and INFO.
 }
 \examples{
-Sample <- exSampleStart
-Daily <- exDailyStart
-INFO <- exINFOStart
+Sample <- exSample
+Daily <- exDaily
+INFO <- exINFO
 boxQTwice()
 boxQTwice(qUnit=1)
 boxQTwice(qUnit='cfs')

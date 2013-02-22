@@ -13,7 +13,7 @@
 #' @export
 #' @examples
 #' AnnualResults <- exAnnualResults
-#' INFO <- exINFOEnd
+#' INFO <- exINFO
 #' tableChange(fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
 #' tableChange(fluxUnit=9) 
 tableChange<-function(localAnnualResults = AnnualResults, localINFO = INFO, fluxUnit = 9, yearPoints = NA) {

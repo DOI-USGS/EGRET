@@ -21,7 +21,7 @@
 #' @keywords graphics streamflow statistics
 #' @export
 #' @examples
-#' INFO <- exINFOEnd
+#' INFO <- exINFO
 #' annualSeries <- exannualSeries
 #' plotFlowSingle(8)
 plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA, 

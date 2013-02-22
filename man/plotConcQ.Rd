@@ -36,8 +36,8 @@
   named INFO. Discharge is plotted on a log scale.
 }
 \examples{
-Sample <- exSampleStart
-INFO <- exINFOStart
+Sample <- exSample
+INFO <- exINFO
 plotConcQ()
 }
 \keyword{graphics}

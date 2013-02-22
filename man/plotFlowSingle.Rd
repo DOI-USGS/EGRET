@@ -64,7 +64,7 @@
   and (8) 1-day maximum
 }
 \examples{
-INFO <- exINFOEnd
+INFO <- exINFO
 annualSeries <- exannualSeries
 plotFlowSingle(8)
 }

@@ -37,7 +37,7 @@
   makeAnnualSeries before this function.
 }
 \examples{
-INFO <- exINFOStart
+INFO <- exINFO
 INFO <- setPA(paStart=12, paLong=3)
 annualSeries <- exannualSeries
 tableFlowChange(istat=5,yearPoints=c(2001,2005,2009))

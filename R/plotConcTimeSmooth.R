@@ -29,8 +29,8 @@
 #' centerDate <- "07-01"
 #' yearStart <- 2000
 #' yearEnd <- 2010
-#' Sample <- exSampleEnd
-#' INFO <- exINFOEnd
+#' Sample <- exSample
+#' INFO <- exINFO
 #' plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd)
 plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit = 2, legendLeft = 0, 
     legendTop = 0, concMax = NA, bw = FALSE, printTitle = TRUE, 

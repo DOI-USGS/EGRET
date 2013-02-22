@@ -11,8 +11,8 @@
 #' @return localDaily string specifying the name of the data frame containing the daily values and these estimates
 #' @export
 #' @examples
-#' Daily <- exDailyStart
-#' INFO <- exINFOStart
+#' Daily <- exDaily
+#' INFO <- exINFO
 #' INFO <- setPA()
 #' surfaces <- exsurfaces
 #' #################################################
@@ -29,7 +29,7 @@
 estDailyFromSurfaces <- function(localDaily = Daily, localINFO = INFO, localsurfaces = surfaces) 
 {
   # Do the interpolation from "surfaces" to daily values:
-  library("fields")
+#   library("fields")
   
   # First argument in calls below is the "known" x-y-z surface, second argument is matrix of 
   # "target" x-y points.

@@ -16,9 +16,9 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- exSampleEnd
-#' Daily <- exDailyEnd
-#' INFO <- exINFOEnd
+#' Sample <- exSample
+#' Daily <- exDaily
+#' INFO <- exINFO
 #' 
 #' fluxBiasMulti(fluxUnit = 9,moreTitle="WRTDS")
 fluxBiasMulti<-function (localSample = Sample, localDaily = Daily, 

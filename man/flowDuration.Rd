@@ -37,8 +37,8 @@
   various other plots in this package.
 }
 \examples{
-Daily <- exDailyStart
-INFO <- exINFOStart
+Daily <- exDaily
+INFO <- exINFO
 flowDuration("06-25", qUnit=1,span=30) # for a window of 30 days either side of June 25 expressed in units of cubic feet per second
 flowDuration("01-01", qUnit=2) # for a flow-duration curve covering the whole year, expressed in units of cubic meters per second
 }

@@ -14,7 +14,7 @@
 #' @return dataframe with year, discharge, concentration, flow-normalized concentration, flux, and flow-normalized concentration columns. 
 #' @examples
 #' AnnualResults <- exAnnualResults
-#' INFO <- exINFOEnd
+#' INFO <- exINFO
 #' tableResults(fluxUnit = 1)
 #' tableResults(fluxUnit = 'kgDay', qUnit = 'cms')
 #' returnedTable <- tableResults(fluxUnit = 1, returnDataFrame = TRUE)

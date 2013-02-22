@@ -7,7 +7,7 @@
 #' @return surfaceIndexParameters a numeric vector of length 6, defining the grid for the surfaces
 #' @export
 #' @examples
-#' Daily <- exDailyStart
+#' Daily <- exDaily
 #' surfaceIndex()
 surfaceIndex<-function(localDaily = Daily){
   # this function contains the same code that comes at the start of

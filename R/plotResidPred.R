@@ -13,8 +13,8 @@
 #' @keywords water-quality statistics graphics
 #' @export
 #' @examples
-#' Sample <- exSampleEnd
-#' INFO <- exINFOEnd
+#' Sample <- exSample
+#' INFO <- exINFO
 #' plotResidPred()
 plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, tinyPlot = FALSE, printTitle = TRUE){
   # this function shows residual versus estimated in log space

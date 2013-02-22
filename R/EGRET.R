@@ -24,67 +24,34 @@
 #' @keywords water-quality graphics streamflow statistics 
 NULL
 
-#' Example initial Daily dataframe
-#'
-#' Example data representing streamflow from the Choptank River at Greensboro, MD,  USGS data.  
-#' This is the data that is initially generated from the dataRetrieval package.
-#'
-#' @name exDailyStart
-#' @docType data
-#' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
-#' @keywords water quality streamflow data
-NULL
-
-#' Example final Daily dataframe
+#' Example Daily dataframe
 #'
 #' Example data representing streamflowfrom the Choptank River at Greensboro, MD,  USGS data
 #' as agumented by the modelEstimation process.
 #'
-#' @name exDailyEnd
+#' @name exDaily
 #' @docType data
 #' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
 #' @keywords water quality streamflow data
 NULL
 
-#' Example initial Sample dataframe
-#'
-#' Example data representing Nitrate sample data from the Choptank River at Greensboro, MD,  USGS data.
-#' This is the data that is initially generated from the dataRetrieval package.
-#'
-#' @name exSampleStart
-#' @docType data
-#' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
-#' @keywords water quality data
-NULL
-
-#' Example final Sample dataframe
+#' Example Sample dataframe
 #'
 #' Example data representing Nitrate sample data from the Choptank River at Greensboro, MD,  USGS data
 #' as agumented by the modelEstimation process
 #'
-#' @name exSampleEnd
+#' @name exSample
 #' @docType data
 #' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
 #' @keywords water quality data
 NULL
 
-#' Example initial INFO dataframe
-#'
-#' Example data representing meta-data from the Choptank River at Greensboro, MD,  USGS data
-#' This is the data that is initially generated from the dataRetrieval package.
-#'
-#' @name exINFOStart
-#' @docType data
-#' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
-#' @keywords water quality data
-NULL
-
-#' Example final INFO dataframe
+#' Example INFO dataframe
 #'
 #' Example data representing meta-data from the Choptank River at Greensboro, MD,  USGS data
 #' as augmented by the functions setupYears (for WRTDS) and setPA (for flowHistory)
 #'
-#' @name exINFOEnd
+#' @name exINFO
 #' @docType data
 #' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
 #' @keywords water quality data

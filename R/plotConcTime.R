@@ -21,8 +21,8 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- exSampleStart
-#' INFO <- exINFOStart
+#' Sample <- exSample
+#' INFO <- exINFO
 #' plotConcTime(qUnit = 1, qLower = 100, qUpper = 10000, paLong = 3, paStart = 4)
 plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2, qLower = NA, qUpper = NA, paLong = 12, paStart = 10, tinyPlot = FALSE, concMax = NA, printTitle = TRUE){
   # this function shows the sample data,

@@ -12,8 +12,8 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- exSampleEnd
-#' INFO <- exINFOEnd
+#' Sample <- exSample
+#' INFO <- exINFO
 #' plotFluxPred(fluxUnit = 7)
 #' plotFluxPred(fluxUnit = 'poundsDay')
 plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, fluxMax = NA, tinyPlot = FALSE, printTitle = TRUE){

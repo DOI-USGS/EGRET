@@ -39,7 +39,7 @@
 }
 \examples{
 AnnualResults <- exAnnualResults
-INFO <- exINFOEnd
+INFO <- exINFO
 tableResults(fluxUnit = 1)
 tableResults(fluxUnit = 'kgDay', qUnit = 'cms')
 returnedTable <- tableResults(fluxUnit = 1, returnDataFrame = TRUE)

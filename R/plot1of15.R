@@ -13,7 +13,7 @@
 #' @export
 #' @examples
 #' AnnualSeries <- exannualSeries
-#' INFO <- exINFOEnd
+#' INFO <- exINFO
 #' plot1of15(1990,2000,0.2938476,5)
 plot1of15<-function(yearStart,yearEnd,qf,istat,localAnnualSeries=AnnualSeries,localINFO=INFO,isBottom=FALSE) {
   xSpan<-c(yearStart,yearEnd)

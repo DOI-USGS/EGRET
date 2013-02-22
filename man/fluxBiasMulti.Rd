@@ -46,9 +46,9 @@
   the other in real space).
 }
 \examples{
-Sample <- exSampleEnd
-Daily <- exDailyEnd
-INFO <- exINFOEnd
+Sample <- exSample
+Daily <- exDaily
+INFO <- exINFO
 
 fluxBiasMulti(fluxUnit = 9,moreTitle="WRTDS")
 }

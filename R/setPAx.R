@@ -11,7 +11,7 @@
 #' @export
 #' @return localInfo A data frame containing the metadata
 #' @examples
-#' INFO <- exINFOStart
+#' INFO <- exINFO
 #' INFO <- setPAx(paStart=12, paLong=3)
 setPAx<-function (paStart = 10, paLong = 12, window = 30, localINFO = INFO) 
 {

@@ -13,8 +13,8 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- exSampleEnd
-#' INFO <- exINFOEnd
+#' Sample <- exSample
+#' INFO <- exINFO
 #' boxResidMonth()
 boxResidMonth<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, printTitle = TRUE) {
   #This function makes a boxplot of Residual by month
