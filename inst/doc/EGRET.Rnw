@@ -504,13 +504,46 @@ Rathar than graphically, it is sometimes easier to consider the results in table
 \subsubsection{printSeries}
 \label{sec:printSeries}
 %------------------------------------------------------------
-Similar to the function plotFlowSingle, the printSeries will print the requested flow statistics (Table \ref{table:istat})
+Similar to the function plotFlowSingle, the printSeries will print the requested flow statistics (Table \ref{table:istat}). A small sample of the output is printed below.
+
+<<printSeries, eval=FALSE,echo=TRUE>>=
+printSeries(istat=3, qUnit=3)
+@
+
+\begin{verbatim}
+Rio Grande at Embudo, NM
+ Water Year
+    30-day minimum
+    Thousand Cubic Feet per Second
+   year   annual   smoothed
+           value    value
+   1899    0.280    0.296
+   1900    0.208    0.285
+   1901    0.169    0.277
+   1902    0.320    0.272
+...
+   2011    0.252    0.248
+   2012    0.257       NA
+\end{verbatim}
 
 \FloatBarrier
 %------------------------------------------------------------ 
 \subsubsection{tableFlowChange}
 \label{sec:tableFlowChange}
 %------------------------------------------------------------
+Another way to look at the results is to consider how much the smoothed values change between various pairs of years.  These changes can be represented in four different ways.  
+\begin{itemize}
+  \item As a change between the first and last year of the pair, expressed in the flow units selected.
+  \item As a change between the first and last year of the pair, expressed as a percentage of the value in the first year
+  \item As a slope between the first and last year of the pair, expressed in terms of the flow units per year.
+  \item As a slope between the first and last year of the pair, expressed as a percentage change per year (a percentage based on the value in the first year).
+\end{itemize}
+
+There is another argument that can be very useful in this function: yearPoints.  In the default case, the set of years that are compared are at 5 year intervals along the whole data set.  If the data set was quite long this can be a daunting number of comparisons.  For example, in an 80 year record, there would be 136 such pairs. Instead, we could look at changes for every 20 years starting in 1930: 
+
+<<printSeries, eval=TRUE,echo=TRUE>>=
+tableFlowChange(istat=3, qUnit=3,yearPoints=c(1930,1950,1970,1990,2010))
+@
 
 
 \FloatBarrier
