@@ -585,6 +585,12 @@ qUnit & Determines what units will be used for discharge, see \ref{sec:units}\\
 printTitle & If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption)\\
 qLower & The lower bound on the discharge on the day of sampling that will be used in forming a subset of the sample data set that will be displayed in the graph.  It is expressed in the units specified in qUnit.  If qLower = NA, then the lower bound is set to zero.\\
 qUpper & The upper bound on the discharge on the day of sampling that will be used in forming a subset of the sample data set that will be displayed in the graph.  It is expressed in the units specified in qUnit.  If qUpper = NA, then the lower bound is set to infinity.\\
+paLong & The length of the time period that will be used in forming a subset of the sample data set that will be displayed in the graph, expressed in months. \\ 
+paStart & The starting month for the time period that will be used in forming a subset of the sample data set that will be displayed in the graph.  It is expressed in months (calendar months).\\
+concMax & The upper limit on the vertical axis of graphs showing concentration values in mg/L (NA sets value to just above maximum).  \\
+concMin & The lower limit on the vertical axis of graphs showing concentration values in mg/L (NA sets value to just below minimum for log scales, zero for linear).  \\
+fluxUnit & Determines what units will be used for flux (see Section \ref{sec:units}).\\
+fluxMax & The upper limit on the vertical axis of graphs showing flux values.  \\
 \hline
 \end{tabularx}
 
