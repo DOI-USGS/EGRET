@@ -13,6 +13,9 @@
 \usepackage[american]{babel}
 \usepackage{authblk}
 \usepackage{subcaption}
+\usepackage{placeins}
+\usepackage{footnote}
+\usepackage{tabularx}
 \renewcommand\Affilfont{\itshape\small}
 \usepackage{Sweave}
 \renewcommand{\topfraction}{0.85}
@@ -100,7 +103,11 @@ The EGRET package uses 3 default dataframes throughout the calculations, analysi
 The Daily dataframe initially is populated with the following columns by the dataRetrieval package.
 
 % latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Thu Feb 21 16:35:26 2013
+% Mon Feb 25 08:35:14 2013
+\begin{table}[!h]
+\begin{center}
+\caption{Daily dataframe}
+\label{table:Daily1}
 \begin{tabular}{llll}
   \hline
 ColumnName & Type & Description & Units \\ 
@@ -118,12 +125,17 @@ Date & Date & Date & date \\
   Q7 & number & 7 day running average of Q & cms \\ 
   Q30 & number & 30 running average of Q & cms \\ 
    \hline
-\end{tabular}\\*
-\\
-After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are inserted into the Daily dataframe:\\
-\\
+\end{tabular}
+\end{center}
+\end{table}
+After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are inserted into the Daily dataframe:
+
 % latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Thu Feb 21 16:35:26 2013
+% Mon Feb 25 08:35:14 2013
+\begin{table}[!h]
+\begin{center}
+\caption{Daily dataframe, post-WRTDS}
+\label{table:Daily2}
 \begin{tabular}{llll}
   \hline
 ColumnName & Type & Description & Units \\ 
@@ -135,8 +147,10 @@ yHat & number & The WRTDS estimate of the log of concentration & numeric \\
   FNConc & number & Flow normalized estimate of concentration & mg/L \\ 
   FNFlux & number & Flow Normalized estimate of flux & kg/day \\ 
    \hline
-\end{tabular}\\*
-
+\end{tabular}
+\end{center}
+\end{table}
+\FloatBarrier
 
 %------------------------------------------------------------ 
 \subsection{Sample}
@@ -145,7 +159,11 @@ yHat & number & The WRTDS estimate of the log of concentration & numeric \\
 The Sample dataframe initially is populated with the following columns by the dataRetrieval package.
 
 % latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Thu Feb 21 16:35:26 2013
+% Mon Feb 25 08:35:14 2013
+\begin{table}[!h]
+\begin{center}
+\caption{Sample dataframe}
+\label{table:Sample1}
 \begin{tabular}{llll}
   \hline
 ColumnName & Type & Description & Units \\ 
@@ -162,17 +180,21 @@ Date & Date & Date & date \\
   MonthSeq & integer & Number of months since January 1, 1850 & months \\ 
   SinDY & number & Sine of DecYear & numeric \\ 
   CosDY & number & Cosine of DecYear & numeric \\ 
-  Q ** & number & Discharge & cms \\ 
-  LogQ ** & number & Natural logarithm of flow & numeric \\ 
+  Q \footnotemark[1] & number & Discharge & cms \\ 
+  LogQ \footnotemark[1] & number & Natural logarithm of flow & numeric \\ 
    \hline
-\end{tabular}\\*
-** Flow columns are populated from data in the Daily dataframe after calling the mergeReport function.
-\\
-\\
-After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are inserted into the Sample dataframe:\\
-\\
+\end{tabular}
+\end{center}
+\end{table}\footnotetext[1]{Flow columns are populated after calling the mergeReport function.}
+
+After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are inserted into the Sample dataframe:
+
 % latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Thu Feb 21 16:35:26 2013
+% Mon Feb 25 08:35:14 2013
+\begin{table}[!h]
+\begin{center}
+\caption{Sample dataframe, post-WRTDS}
+\label{table:Sample2}
 \begin{tabular}{llll}
   \hline
 ColumnName & Type & Description & Units \\ 
@@ -181,16 +203,22 @@ yHat & number & jack-knife estimate of the log of concentration & numeric \\
   SE & number & jack-knife estimate of the standard error of yHat & numeric \\ 
   ConcHat & number & jack-knife unbiased estimate of concentration & mg/L \\ 
    \hline
-\end{tabular}\\*
+\end{tabular}
+\end{center}
+\end{table}
+\FloatBarrier
 
 %------------------------------------------------------------ 
 \subsection{INFO}
 \label{sec:dataframesINFO}
 %------------------------------------------------------------ 
 The INFO dataframe is used to store information about the measurements, such as station name, parameter name, drainage area, etc. There can be many additional, optional columns, but the following are required to initiate the EGRET analysis:
-\\
-% latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Thu Feb 21 16:35:26 2013
+
+
+\begin{table}[!h]
+\begin{center}
+\caption{INFO dataframe}
+\label{table:Info1}
 \begin{tabular}{lll}
   \hline
 ColumnName & Type & Description \\ 
@@ -199,17 +227,24 @@ shortName & string & Name of site, suitable for use in graphical headings \\
   staAbbrev & string & Abbreviation for station name, used in saveResults \\ 
   paramShortName & string & Name of constituent, suitable for use in graphical headings \\ 
   constitAbbrev & string & Abbreviation for constituent name, used in saveResults \\ 
-  drainSqKm & numeric & Drainage area in km\verb|^|2 \\ 
-  paStart ** & integer (1-12) & Starting month of period of analysis \\ 
-  paLong ** & integer (1-12) & Length of period of analysis in months \\ 
+  drainSqKm & numeric & Drainage area in  km\verb@^@2 \\ 
+  paStart \footnotemark[2] & integer (1-12) & Starting month of period of analysis \\ 
+  paLong \footnotemark[2] & integer (1-12) & Length of period of analysis in months \\ 
    \hline
-\end{tabular}\\*
-** paStart and paLong can be inserted using the setPA function, described further in the following section (\ref{sec:flowHistory}).
-\\
-After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are automatically inserted into the INFO dataframe:\\
-\\
+\end{tabular}
+\end{center}
+\end{table}
+
+\footnotetext[2]{paStart and paLong can be inserted using the setPA function}
+
+After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are automatically inserted into the INFO dataframe (the values will be discussed further sections):
+
 % latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Thu Feb 21 16:35:26 2013
+% Mon Feb 25 08:35:14 2013
+\begin{table}[!h]
+\begin{center}
+\caption{INFO dataframe, post-WRTDS}
+\label{table:Info2}
 \begin{tabular}{lll}
   \hline
 ColumnName & Description & Units \\ 
@@ -226,9 +261,11 @@ bottomLogQ & Lowest discharge in prediction surfaces & numeric \\
   minNumObs & Minimum number of observations for regression & integer \\ 
   minNumUncen & Minimum number of uncensored observations & integer \\ 
    \hline
-\end{tabular}\\*
-\\
-These values will be discussed further sections.
+\end{tabular}
+\end{center}
+\end{table}
+
+\FloatBarrier
 
 %------------------------------------------------------------ 
 \subsection{Units}
@@ -301,12 +338,14 @@ At this point it is assumed that you have loaded the daily discharge record and 
 \end{Sinput}
 \end{Schunk}
 
-The first choice you need to make is what 'period of analysis' to use (pa). What is the period of analysis?  If we want to examine our data set as a time series of water years, then the period of analysis is the water year.  If we want to examine the data set as calendar years then the period of analysis should be the calendar year.  We might want to examine the winter season, which we might want to define as December, January and February, then those 3 months become the period of analysis.  We might even want to examine September only then September becomes the period of analysis.  The only constraints on the definition of a period of analysis are these: It must be defined in terms of whole months.  It must be a set of contiguous months (like March-April-May).  And it must have a length that is no less than 1 month and no more than 12 months.  It can be uniquely defined by two arguments: paLong and paStart.  paLong is the length of the period of analysis, and paStart is the first month of the period of analysis. The following examples summarize paLong and paStart.\\
-
-\begin{center}
+The first choice you need to make is what 'period of analysis' to use (pa). What is the period of analysis?  If we want to examine our data set as a time series of water years, then the period of analysis is the water year.  If we want to examine the data set as calendar years then the period of analysis should be the calendar year.  We might want to examine the winter season, which we might want to define as December, January and February, then those 3 months become the period of analysis.  We might even want to examine September only then September becomes the period of analysis.  The only constraints on the definition of a period of analysis are these: It must be defined in terms of whole months.  It must be a set of contiguous months (like March-April-May).  And it must have a length that is no less than 1 month and no more than 12 months.  It can be uniquely defined by two arguments: paLong and paStart.  paLong is the length of the period of analysis, and paStart is the first month of the period of analysis. The following examples summarize paLong and paStart.
 
 % latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Thu Feb 21 16:35:33 2013
+% Mon Feb 25 08:35:18 2013
+\begin{table}[!h]
+\begin{center}
+\caption{Period of Analysis Information}
+\label{table:paINFO}
 \begin{tabular}{lll}
   \hline
 PeriodOfAnalysis & paStart & PaLong \\ 
@@ -318,7 +357,7 @@ Calendar Year & 1 & 12 \\
    \hline
 \end{tabular}
 \end{center}
-
+\end{table}
 To set a period running from December through February:
 \begin{Schunk}
 \begin{Sinput}
@@ -333,12 +372,14 @@ To set the default value (water year):
 \end{Sinput}
 \end{Schunk}
 
-The next step is to create the annual series of flow statistics.  These will be stored in a matrix called annualSeries that contain the following statistics:\\
-
-\begin{center}
+The next step is to create the annual series of flow statistics.  These will be stored in a matrix called annualSeries that contain the following statistics:
 
 % latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Thu Feb 21 16:35:33 2013
+% Mon Feb 25 08:35:18 2013
+\begin{table}[!h]
+\begin{center}
+\caption{Index of Statistics Information}
+\label{table:istat}
 \begin{tabular}{ll}
   \hline
 istat & Name \\ 
@@ -354,6 +395,7 @@ istat & Name \\
    \hline
 \end{tabular}
 \end{center}
+\end{table}
 
 To create the annualSeries matrix, using the function makeAnnualSeries:
 \begin{Schunk}
@@ -393,6 +435,8 @@ The simplest way to look at these time series is with the function plotFlowSingl
 \caption{7-day Maxiumum Flow (istat=7)}
 \label{fig:plotflow}
 \end{figure}
+
+\FloatBarrier
 
 %------------------------------------------------------------ 
 \subsubsection{plotSDLogQ}
@@ -465,6 +509,7 @@ A more interesting comparison might be between spring and summer on the Red Rive
   \label{fig:red}
 \end{figure}
 
+\FloatBarrier
 %------------------------------------------------------------ 
 \subsubsection{plotQTimeDaily}
 \label{sec:plotQTimeDaily}
@@ -487,6 +532,7 @@ Returning to our example concerning the Rio Grande (Figure \ref{fig:plotQTimeDai
 \label{fig:plotQTimeDaily}
 \end{figure}
 
+\FloatBarrier
 %------------------------------------------------------------ 
 \subsubsection{plotFour}
 \label{sec:plotFour}
@@ -508,6 +554,7 @@ Returning to our example concerning the Rio Grande (Figure \ref{fig:plotQTimeDai
 \label{fig:plotFour}
 \end{figure}
 
+\FloatBarrier
 %------------------------------------------------------------ 
 \subsubsection{plotFourStats}
 \label{plotFourStats}
@@ -527,6 +574,7 @@ Returning to our example concerning the Rio Grande (Figure \ref{fig:plotQTimeDai
 \label{fig:plotFourStats}
 \end{figure}
 
+\FloatBarrier
 %------------------------------------------------------------ 
 \subsection{Table Options}
 \label{sec:tableOptions}
@@ -537,21 +585,80 @@ Rathar than graphically, it is sometimes easier to consider the results in table
 \subsubsection{printSeries}
 \label{sec:printSeries}
 %------------------------------------------------------------
+Similar to the function plotFlowSingle, the printSeries will print the requested flow statistics (Table \ref{table:istat}). A small sample of the output is printed below.
 
+\begin{Schunk}
+\begin{Sinput}
+> printSeries(istat=3, qUnit=3)
+\end{Sinput}
+\end{Schunk}
 
+\begin{verbatim}
+Rio Grande at Embudo, NM
+ Water Year
+    30-day minimum
+    Thousand Cubic Feet per Second
+   year   annual   smoothed
+           value    value
+   1899    0.280    0.296
+   1900    0.208    0.285
+   1901    0.169    0.277
+   1902    0.320    0.272
+...
+   2011    0.252    0.248
+   2012    0.257       NA
+\end{verbatim}
 
+\FloatBarrier
 %------------------------------------------------------------ 
 \subsubsection{tableFlowChange}
 \label{sec:tableFlowChange}
 %------------------------------------------------------------
+Another way to look at the results is to consider how much the smoothed values change between various pairs of years.  These changes can be represented in four different ways.  
+\begin{itemize}
+  \item As a change between the first and last year of the pair, expressed in the flow units selected.
+  \item As a change between the first and last year of the pair, expressed as a percentage of the value in the first year
+  \item As a slope between the first and last year of the pair, expressed in terms of the flow units per year.
+  \item As a slope between the first and last year of the pair, expressed as a percentage change per year (a percentage based on the value in the first year).
+\end{itemize}
+
+There is another argument that can be very useful in this function: yearPoints.  In the default case, the set of years that are compared are at 5 year intervals along the whole data set.  If the data set was quite long this can be a daunting number of comparisons.  For example, in an 80 year record, there would be 136 such pairs. Instead, we could look at changes for every 20 years starting in 1930: 
+
+\begin{Schunk}
+\begin{Sinput}
+> tableFlowChange(istat=3, qUnit=3,yearPoints=c(1930,1950,1970,1990,2010))
+\end{Sinput}
+\begin{Soutput}
+   Rio Grande at Embudo, NM
+   Season Consisting of Mar Apr May
+    30-day minimum 
+
+             Streamflow Trends
+   time span          change        slope       change        slope
+                      10^3 cfs 10^3 cfs /yr         %         %/yr
+ 1930  to  1950       -0.089      -0.0045          -16         -0.8
+ 1930  to  1970         -0.1      -0.0025          -18        -0.45
+ 1930  to  1990       -0.046     -0.00077         -8.3        -0.14
+ 1930  to  2010        -0.11      -0.0013          -19        -0.24
+ 1950  to  1970       -0.011     -0.00054         -2.3        -0.12
+ 1950  to  1990        0.043       0.0011          9.2         0.23
+ 1950  to  2010       -0.016     -0.00026         -3.4       -0.056
+ 1970  to  1990        0.054       0.0027           12         0.59
+ 1970  to  2010      -0.0049     -0.00012         -1.1       -0.027
+ 1990  to  2010       -0.059      -0.0029          -12        -0.58
+\end{Soutput}
+\end{Schunk}
+
+
+\FloatBarrier
 
 %------------------------------------------------------------ 
-\section{WRTDS Analysis}
-\label{sec:wrtds}
+\section{Water Quality Analysis (pre-WRTDS)}
+\label{sec:wqa}
 %------------------------------------------------------------ 
-Weighted Regressions on Time, Discharge and Season (WRTDS) creates a model of long-term trends in river-water quality, seasonal components, and discharge-related components of the behavior of measured water-quality parameters. In this section, we will step though the process require for a WRTDS analysis. The following section (\ref{sec:wrtdsResults}) will detail the available methods to view and evaluate the model results.
+Before running the WRTDS model, it is very helpful to take a look at the measured data in a graphical way to understand its behavior and to identify things that might be errors in the data set or learn about the temporal distribution of the data (identify gaps) prior to running the model.  It is always best to clear up these issues before moving forward.
 
-In this section and the next, we will use the Choptank River at Greensboro, MD as our example case. The Choptank River is a major tributary of the Chesapeake Bay. Inorganic nitrogen (nitrate and nitrite) has been measured from 1979.
+In this section and the next, we will use the Choptank River at Greensboro, MD as our example case. The Choptank River is a major tributary of the Chesapeake Bay. Inorganic nitrogen (nitrate and nitrite) has been measured from 1979. First, we need to get the streamflow and nitrate data into R, then use the mergeReport function to associate flow with the discrete measured water quality data.
 
 
 \begin{Schunk}
@@ -564,9 +671,47 @@ In this section and the next, we will use the Choptank River at Greensboro, MD a
 > INFO$shortName <- "Choptank River"
 > Sample <- getSampleData(siteID,param,startDate,endDate)
 > Sample <- mergeReport()
-> 
 \end{Sinput}
 \end{Schunk}
+
+%------------------------------------------------------------ 
+\subsection{Water Quality Plotting Variables}
+\label{sec:wqVariables}
+%------------------------------------------------------------
+The next section will cover the available plots in the EGRET package. This section will briefly summarize common input variables (arguments) for those functions.
+
+\begin{table}
+\caption{Variables used in water quality analysis plots  \label{tab:wqVariables}}
+\begin{tabularx}{\textwidth}{lX}
+\hline
+  \textbf{Argument} & \textbf{Definition} \\
+\hline
+qUnit & Determines what units will be used for discharge, see \ref{sec:units}\\
+printTitle & If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption)\\
+qLower & The lower bound on the discharge on the day of sampling that will be used in forming a subset of the sample data set that will be displayed in the graph.  It is expressed in the units specified in qUnit.  If qLower = NA, then the lower bound is set to zero.\\
+qUpper & The upper bound on the discharge on the day of sampling that will be used in forming a subset of the sample data set that will be displayed in the graph.  It is expressed in the units specified in qUnit.  If qUpper = NA, then the lower bound is set to infinity.\\
+paLong & The length of the time period that will be used in forming a subset of the sample data set that will be displayed in the graph, expressed in months. \\ 
+paStart & The starting month for the time period that will be used in forming a subset of the sample data set that will be displayed in the graph.  It is expressed in months (calendar months).\\
+concMax & The upper limit on the vertical axis of graphs showing concentration values in mg/L (NA sets value to just above maximum).  \\
+concMin & The lower limit on the vertical axis of graphs showing concentration values in mg/L (NA sets value to just below minimum for log scales, zero for linear).  \\
+fluxUnit & Determines what units will be used for flux (see Section \ref{sec:units}).\\
+fluxMax & The upper limit on the vertical axis of graphs showing flux values.  \\
+\hline
+\end{tabularx}
+
+\end{table}
+
+%------------------------------------------------------------ 
+\subsection{Water Quality Plots}
+\label{sec:wqPlots}
+%------------------------------------------------------------
+
+%------------------------------------------------------------ 
+\section{WRTDS Analysis}
+\label{sec:wrtds}
+%------------------------------------------------------------ 
+Weighted Regressions on Time, Discharge and Season (WRTDS) creates a model of long-term trends in river-water quality, seasonal components, and discharge-related components of the behavior of measured water-quality parameters. In this section, we will step though the process require for a WRTDS analysis. The following section (\ref{sec:wrtdsResults}) will detail the available methods to view and evaluate the model results.
+
 
 \begin{Schunk}
 \begin{Sinput}
@@ -597,53 +742,44 @@ If you are new to R, you will need to first install the latest version of R, whi
 
 There are many options for running and editing R code, one nice environment to learn R is RStudio. RStudio can be downloaded here: \url{http://rstudio.org/}. Once R and RStudio are installed, the environment package needs to be installed as described in the next section.
 
+At any time, you can get information about any function in R by typing a question mark before the functions name.  This will open a file (in RStudio, in the Help window) that describes the function, the required arguments, and provides working examples.
+
+\begin{Schunk}
+\begin{Sinput}
+> ?getJulian
+\end{Sinput}
+\end{Schunk}
+
+To see the raw code for a particular code, type the name of the function:
+\begin{Schunk}
+\begin{Sinput}
+> getJulian
+\end{Sinput}
+\begin{Soutput}
+function(date) {
+  # enter date in quotes for example "1949-09-30" 
+  # program returns the julian date  
+  dateTime <- as.Date(date)
+  Julian <- as.numeric(julian(dateTime, origin = as.Date("1850-01-01")))
+  return(Julian)
+}
+<environment: namespace:EGRET>
+\end{Soutput}
+\end{Schunk}
+
+
 %------------------------------------------------------------
-\subsection{R User: Installing EGRET from downloaded binary}
+\subsection{R User: Installing EGRET}
 %------------------------------------------------------------ 
-Before installing EGRET, the following packages must be installed from CRAN:
+To install the EGRET packages and it's dependencies:
 
 \begin{Schunk}
 \begin{Sinput}
-> install.packages("zoo")
-> install.packages("survival")
-> install.packages("methods")
-> install.packages("fields")
-> install.packages("spam")
-\end{Sinput}
-\end{Schunk}
-
-Next, the EGRET and dataRetrieval packages must be downloaded from the following locations:
-\url{https://github.com/USGS-R/EGRET/raw/packageBuilds/EGRET_1.2.3.tar.gz}
-\url{https://github.com/USGS-R/dataRetrieval/raw/packageBuilds/dataRetrieval_1.2.1.tar.gz}
-
-The following directions will show how to install a downloaded package.  Both the EGRET and dataRetrieval packages must be installed.
-
-If the package's tar.gz file is saved in R's working directory, then the following command will fully install the package:
-
-\begin{Schunk}
-\begin{Sinput}
-> install.packages("EGRET_1.2.3.tar.gz", 
-                  repos=NULL, type="source")
-\end{Sinput}
-\end{Schunk}
-
-If the downloaded file is stored in an alternative location, include the path in the install command.  A Windows example looks like this (notice the direction of the slashes, they are in the opposite direction that Windows normally creates paths):
-
-\begin{Schunk}
-\begin{Sinput}
-> install.packages(
-   "C:/RPackages/Statistics/EGRET_1.2.3.tar.gz", 
-   repos=NULL, type="source")
-\end{Sinput}
-\end{Schunk}
-
-A Mac example looks like this:
-
-\begin{Schunk}
-\begin{Sinput}
-> install.packages(
-   "/Users/userA/RPackages/Statistic/EGRET_1.2.3.tar.gz", 
-   repos=NULL, type="source")
+> install.packages(c("zoo","survival","methods","fields","spam"))
+> install.packages("dataRetrieval", repos="http://usgs-r.github.com/EGRET/", 
+                  type="source")
+> install.packages("EGRET", repos="http://usgs-r.github.com/EGRET/", 
+                  type="source")
 \end{Sinput}
 \end{Schunk}
 
@@ -661,7 +797,7 @@ Using RStudio, you could alternatively click on the checkbox for dataRetrieval a
 %------------------------------------------------------------
 \subsection{R Developers: Installing EGRET from gitHub}
 %------------------------------------------------------------
-Alternatively, R-developers can install the latest version of EGRET directly from gitHub using the devtools package.  devtools is available on CRAN.  Simply type the following commands into R to install the latest version of EGRET available on gitHub.  Rtools (for Windows) and appropriate \LaTeX\ tools are required. Be aware that the version installed using this method isn't necessarily the same as the version in the stable release branch.  
+Alternatively, R-developers can install the most recent (not-necessarily stable) version of EGRET directly from gitHub using the devtools package.  devtools is available on CRAN.  Simply type the following commands into R to install the latest version of EGRET available on gitHub.  Rtools (for Windows) and appropriate \LaTeX\ tools are required. Be aware that the version installed using this method isn't necessarily the same as the version in the stable release branch.  
 
 
 \begin{Schunk}

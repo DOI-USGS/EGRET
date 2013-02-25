@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.6)  21 FEB 2013 16:36
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.6)  25 FEB 2013 08:36
 entering extended mode
 **EGRET.tex
 (D:\LADData\RCode\EGRET\inst\doc\EGRET.tex
@@ -30,41 +30,41 @@ File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsmath.sty"
-Package: amsmath 2000/07/18 v2.13 AMS math features
+(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\amsmath\amsmath.sty
+Package: amsmath 2013/01/14 v2.14 AMS math features
 \@mathmargin=\skip43
 
 For additional information on amsmath, use the `?' option.
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amstext.sty"
+(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\amsmath\amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsgen.sty"
+(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks14
 \ex@=\dimen103
 ))
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsbsy.sty"
+(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\amsmath\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen104
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsopn.sty"
+(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\amsmath\amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count87
-LaTeX Info: Redefining \frac on input line 211.
+LaTeX Info: Redefining \frac on input line 210.
 \uproot@=\count88
 \leftroot@=\count89
-LaTeX Info: Redefining \overline on input line 307.
+LaTeX Info: Redefining \overline on input line 306.
 \classnum@=\count90
 \DOTSCASE@=\count91
-LaTeX Info: Redefining \ldots on input line 379.
-LaTeX Info: Redefining \dots on input line 382.
-LaTeX Info: Redefining \cdots on input line 467.
+LaTeX Info: Redefining \ldots on input line 378.
+LaTeX Info: Redefining \dots on input line 381.
+LaTeX Info: Redefining \cdots on input line 466.
 \Mathstrutbox@=\box26
 \strutbox@=\box27
 \big@size=\dimen105
-LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 \macc@depth=\count92
 \c@MaxMatrixCols=\count93
 \dotsspace@=\muskip10
@@ -85,8 +85,8 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 \multlinegap=\skip44
 \multlinetaggap=\skip45
 \mathdisplay@stack=\toks18
-LaTeX Info: Redefining \[ on input line 2666.
-LaTeX Info: Redefining \] on input line 2667.
+LaTeX Info: Redefining \[ on input line 2665.
+LaTeX Info: Redefining \] on input line 2666.
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\times.sty"
 Package: times 2005/04/12 PSNFSS-v9.2a (SPQR) 
@@ -259,7 +259,32 @@ Package caption Info: hyperref package is loaded.
 )
 \c@subfigure=\count115
 \c@subtable=\count116
-) (C:/PROGRA~1/R/R-215~1.2/share/texmf/tex/latex\Sweave.sty
+) (C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\placeins\placeins.sty
+Package: placeins 2005/04/18  v 2.2
+) (C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\mdwtools\footnote.sty
+Package: footnote 1997/01/28 1.13 Save footnotes around boxes
+\fn@notes=\box28
+\fn@width=\dimen123
+) ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\tabularx.sty"
+Package: tabularx 1999/01/07 v2.07 `tabularx' package (DPC)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\array.sty"
+Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
+\col@sep=\dimen124
+\extrarowheight=\dimen125
+\NC@list=\toks20
+\extratabsurround=\skip51
+\backup@length=\skip52
+)
+\TX@col@width=\dimen126
+\TX@old@table=\dimen127
+\TX@old@col=\dimen128
+\TX@target=\dimen129
+\TX@delta=\dimen130
+\TX@cols=\count117
+\TX@ftn=\toks21
+)
+(C:/PROGRA~1/R/R-215~1.2/share/texmf/tex/latex\Sweave.sty
 Package: Sweave 
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ifthen.sty"
@@ -281,21 +306,21 @@ Package graphics Info: Driver file: pdftex.def on input line 91.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
-\Gread@gobject=\count117
+\Gread@gobject=\count118
 ))
-\Gin@req@height=\dimen123
-\Gin@req@width=\dimen124
+\Gin@req@height=\dimen131
+\Gin@req@width=\dimen132
 )
 (C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\fancyvrb\fancyvrb.sty
 Package: fancyvrb 2008/02/07
 
 Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix 
 <2008/02/07> (tvz)
-\FV@CodeLineNo=\count118
+\FV@CodeLineNo=\count119
 \FV@InFile=\read1
-\FV@TabBox=\box28
-\c@FancyVerbLine=\count119
-\FV@StepNumber=\count120
+\FV@TabBox=\box29
+\c@FancyVerbLine=\count120
+\FV@StepNumber=\count121
 \FV@OutFile=\write3
 )
 (C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\upquote\upquote.sty
@@ -406,29 +431,29 @@ LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
 File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
 ))))
 (D:\LADData\RCode\EGRET\inst\doc\EGRET.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 42.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 42.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 45.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 45.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
 File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 42.
-\AtBeginShipoutBox=\box29
-Package hyperref Info: Link coloring OFF on input line 42.
+LaTeX Font Info:    ... okay on input line 45.
+\AtBeginShipoutBox=\box30
+Package hyperref Info: Link coloring OFF on input line 45.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
@@ -436,11 +461,11 @@ Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count121
+\c@section@level=\count122
 )
-LaTeX Info: Redefining \ref on input line 42.
-LaTeX Info: Redefining \pageref on input line 42.
-LaTeX Info: Redefining \nameref on input line 42.
+LaTeX Info: Redefining \ref on input line 45.
+LaTeX Info: Redefining \pageref on input line 45.
+LaTeX Info: Redefining \nameref on input line 45.
 
 (D:\LADData\RCode\EGRET\inst\doc\EGRET.out)
 (D:\LADData\RCode\EGRET\inst\doc\EGRET.out)
@@ -450,17 +475,17 @@ Package caption Info: End \AtBeginDocument code.
 
 (C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count122
-\scratchdimen=\dimen125
-\scratchbox=\box30
-\nofMPsegments=\count123
-\nofMParguments=\count124
-\everyMPshowfont=\toks20
-\MPscratchCnt=\count125
-\MPscratchDim=\dimen126
-\MPnumerator=\count126
-\makeMPintoPDFobject=\count127
-\everyMPtoPDFconversion=\toks21
+\scratchcounter=\count123
+\scratchdimen=\dimen133
+\scratchbox=\box31
+\nofMPsegments=\count124
+\nofMParguments=\count125
+\everyMPshowfont=\toks22
+\MPscratchCnt=\count126
+\MPscratchDim=\dimen134
+\MPnumerator=\count127
+\makeMPintoPDFobject=\count128
+\everyMPtoPDFconversion=\toks23
 ) (D:\LADData\RCode\EGRET\inst\doc\EGRET-concordance.tex)
 (D:\LADData\RCode\EGRET\inst\doc\EGRET.toc
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
@@ -470,7 +495,7 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 {C:/Users/ldecicco/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}])
 \tf@toc=\write5
-LaTeX Font Info:    Try loading font information for T1+aett on input line 68.
+LaTeX Font Info:    Try loading font information for T1+aett on input line 71.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ae\t1aett.fd"
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
@@ -479,59 +504,33 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 104--139
 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 104--139
-
- []
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 104--139
-
- []
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 149--185
 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 149--185
-
- []
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 149--185
-
- []
-
-
-Overfull \hbox (18.61671pt too wide) in paragraph at lines 190--232
-[] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 190--232
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 190--232
-
- []
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
 [4]
+Overfull \hbox (18.61671pt too wide) in paragraph at lines 222--235
+ [] 
+ []
+
+
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
@@ -540,23 +539,21 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 304--305
-
- []
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 336--337
+[7]
 
- []
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[7] <EGRET-fig1.pdf, id=175, 433.62pt x 433.62pt>
+[8] <EGRET-fig1.pdf, id=202, 433.62pt x 433.62pt>
 File: EGRET-fig1.pdf Graphic file (type pdf)
  <use EGRET-fig1.pdf>
-Package pdftex.def Info: EGRET-fig1.pdf used on input line 391.
+Package pdftex.def Info: EGRET-fig1.pdf used on input line 433.
 (pdftex.def)             Requested size: 358.46039pt x 358.47534pt.
 
 
@@ -566,40 +563,40 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[8]
+[9]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[9 <D:/LADData/RCode/EGRET/inst/doc/EGRET-fig1.pdf>]
-<EGRET-fig2a.pdf, id=194, 433.62pt x 433.62pt>
+[10 <D:/LADData/RCode/EGRET/inst/doc/EGRET-fig1.pdf>]
+<EGRET-fig2a.pdf, id=222, 433.62pt x 433.62pt>
 File: EGRET-fig2a.pdf Graphic file (type pdf)
  <use EGRET-fig2a.pdf>
-Package pdftex.def Info: EGRET-fig2a.pdf used on input line 424.
+Package pdftex.def Info: EGRET-fig2a.pdf used on input line 468.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-<EGRET-fig2b.pdf, id=195, 433.62pt x 433.62pt>
+<EGRET-fig2b.pdf, id=223, 433.62pt x 433.62pt>
 File: EGRET-fig2b.pdf Graphic file (type pdf)
  <use EGRET-fig2b.pdf>
-Package pdftex.def Info: EGRET-fig2b.pdf used on input line 434.
+Package pdftex.def Info: EGRET-fig2b.pdf used on input line 478.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-Overfull \hbox (19.08807pt too wide) in paragraph at lines 420--439
+Overfull \hbox (19.08807pt too wide) in paragraph at lines 464--483
 []$[]$   $[]$ 
  []
 
-<EGRET-fig3a.pdf, id=197, 433.62pt x 433.62pt>
+<EGRET-fig3a.pdf, id=225, 433.62pt x 433.62pt>
 File: EGRET-fig3a.pdf Graphic file (type pdf)
  <use EGRET-fig3a.pdf>
-Package pdftex.def Info: EGRET-fig3a.pdf used on input line 449.
+Package pdftex.def Info: EGRET-fig3a.pdf used on input line 493.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-<EGRET-fig3b.pdf, id=198, 433.62pt x 433.62pt>
+<EGRET-fig3b.pdf, id=226, 433.62pt x 433.62pt>
 File: EGRET-fig3b.pdf Graphic file (type pdf)
  <use EGRET-fig3b.pdf>
-Package pdftex.def Info: EGRET-fig3b.pdf used on input line 459.
+Package pdftex.def Info: EGRET-fig3b.pdf used on input line 503.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-Overfull \hbox (19.08807pt too wide) in paragraph at lines 446--464
+Overfull \hbox (19.08807pt too wide) in paragraph at lines 490--508
 []$[]$   $[]$ 
  []
 
@@ -607,37 +604,33 @@ Overfull \hbox (19.08807pt too wide) in paragraph at lines 446--464
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[10 <D:/LADData/RCode/EGRET/inst/doc/EGRET-fig2a.pdf> <D:/LADData/RCode/EGRET/i
+[11 <D:/LADData/RCode/EGRET/inst/doc/EGRET-fig2a.pdf> <D:/LADData/RCode/EGRET/i
 nst/doc/EGRET-fig2b.pdf> <D:/LADData/RCode/EGRET/inst/doc/EGRET-fig3a.pdf> <D:/
 LADData/RCode/EGRET/inst/doc/EGRET-fig3b.pdf>]
-<EGRET-figplotQTimeDailyFig.pdf, id=229, 433.62pt x 433.62pt>
+<EGRET-figplotQTimeDailyFig.pdf, id=257, 433.62pt x 433.62pt>
 File: EGRET-figplotQTimeDailyFig.pdf Graphic file (type pdf)
 
 <use EGRET-figplotQTimeDailyFig.pdf>
-Package pdftex.def Info: EGRET-figplotQTimeDailyFig.pdf used on input line 484.
+Package pdftex.def Info: EGRET-figplotQTimeDailyFig.pdf used on input line 529.
 
 (pdftex.def)             Requested size: 358.46039pt x 358.47534pt.
 
-<EGRET-figplotFour.pdf, id=230, 433.62pt x 433.62pt>
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[12 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotQTimeDailyFig.pdf>]
+<EGRET-figplotFour.pdf, id=269, 433.62pt x 433.62pt>
 File: EGRET-figplotFour.pdf Graphic file (type pdf)
 
 <use EGRET-figplotFour.pdf>
-Package pdftex.def Info: EGRET-figplotFour.pdf used on input line 505.
+Package pdftex.def Info: EGRET-figplotFour.pdf used on input line 551.
 (pdftex.def)             Requested size: 358.46039pt x 358.47534pt.
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-Overfull \vbox (21.68121pt too high) has occurred while \output is active []
-
-
-[11 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotQTimeDailyFig.pdf>]
-<EGRET-figplotFourStats.pdf, id=242, 433.62pt x 433.62pt>
+<EGRET-figplotFourStats.pdf, id=270, 433.62pt x 433.62pt>
 File: EGRET-figplotFourStats.pdf Graphic file (type pdf)
 
 <use EGRET-figplotFourStats.pdf>
-Package pdftex.def Info: EGRET-figplotFourStats.pdf used on input line 524.
+Package pdftex.def Info: EGRET-figplotFourStats.pdf used on input line 571.
 (pdftex.def)             Requested size: 358.46039pt x 358.47534pt.
 
 
@@ -647,27 +640,37 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[12 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotFour.pdf>]
+[13 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotFour.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[13 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotFourStats.pdf>]
-Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+[14 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotFourStats.pdf>]
+LaTeX Font Info:    Try loading font information for TS1+aer on input line 619.
 
 
-[14]
-Overfull \hbox (9.88757pt too wide) in paragraph at lines 615--618
-\T1/aer/m/n/10.95 tions: []$\T1/aett/m/n/10.95 https : / / github . com / USGS-
-[]R / EGRET / raw / packageBuilds / EGRET _ 1 . 2 . 3 . tar . gz$[] []$https :$
-
- []
-
+(C:/PROGRA~1/R/R-215~1.2/share/texmf/tex/latex\ts1aer.fd
+File: ts1aer.fd 
+)
+LaTeX Font Info:    Font shape `TS1/aer/m/n' in size <10.95> not available
+(Font)              Font shape `TS1/cmr/m/n' tried instead on input line 619.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
 [15]
-Overfull \hbox (13.26042pt too wide) in paragraph at lines 650--651
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[16]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[17]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[18]
+Overfull \hbox (13.26042pt too wide) in paragraph at lines 786--787
 \T1/aer/m/n/10.95 library/2.15/EGRET, and the de-fault for a Mac: /Users/userA/
 Library/R/2.15/library/EGRET.
  []
@@ -676,41 +679,48 @@ Library/R/2.15/library/EGRET.
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[16]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 700.
+[19]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[20]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 836.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[17]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 700.
+[21]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 836.
  (D:\LADData\RCode\EGRET\inst\doc\EGRET.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 700.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 700.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 836.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 836.
 Package rerunfilecheck Info: File `EGRET.out' has not changed.
-(rerunfilecheck)             Checksum: 54B6A0A6BF20247F209090685919F328;1494.
+(rerunfilecheck)             Checksum: 7B7C28F2CB3C2EBF0529483F87AE83A1;1697.
  ) 
 Here is how much of TeX's memory you used:
- 8464 strings out of 494045
- 125194 string characters out of 3145961
- 214018 words of memory out of 3000000
- 11558 multiletter control sequences out of 15000+200000
- 41496 words of font info for 83 fonts, out of 3000000 for 9000
+ 8685 strings out of 494045
+ 128461 string characters out of 3145961
+ 214994 words of memory out of 3000000
+ 11736 multiletter control sequences out of 15000+200000
+ 47275 words of font info for 94 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 42i,7n,40p,1096b,490s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb>
-<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C
-:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/P
-rogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Prog
-ram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program
- Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Fil
-es (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files (
-x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsltt10.pfb><C:/Program Files (
-x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files (x8
-6)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on EGRET.pdf (17 pages, 335806 bytes).
+ 42i,12n,40p,1094b,506s stack positions out of 5000i,500n,10000p,200000b,50000s
+ <C:\Users\ldecicco\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi6
+00\tcrm1095.pk><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/c
+m/cmbx10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
+cmbx12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
+r10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12
+.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pf
+b><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C
+:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Pr
+ogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Progra
+m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Program Fi
+les (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsltt10.pfb><C:/Program Fi
+les (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program File
+s (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on EGRET.pdf (21 pages, 372514 bytes).
 PDF statistics:
- 341 PDF objects out of 1000 (max. 8388607)
- 51 named destinations out of 1000 (max. 500000)
- 221 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 401 PDF objects out of 1000 (max. 8388607)
+ 67 named destinations out of 1000 (max. 500000)
+ 245 words of extra memory for PDF output out of 10000 (max. 10000000)
 
