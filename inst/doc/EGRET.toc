@@ -16,11 +16,11 @@
 \contentsline {subsubsection}{\numberline {3.2.1}printSeries}{14}{subsubsection.3.2.1}
 \contentsline {subsubsection}{\numberline {3.2.2}tableFlowChange}{15}{subsubsection.3.2.2}
 \contentsline {section}{\numberline {4}Water Quality Analysis (pre-WRTDS)}{16}{section.4}
-\contentsline {subsection}{\numberline {4.1}Water Quality Plotting Variables}{16}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Water Quality Plots}{18}{subsection.4.2}
-\contentsline {section}{\numberline {5}WRTDS Analysis}{18}{section.5}
-\contentsline {section}{\numberline {6}WRTDS Results}{18}{section.6}
-\contentsline {section}{\numberline {A}Appendix 1: Getting Started}{19}{appendix.A}
-\contentsline {subsection}{\numberline {A.1}New to R?}{19}{subsection.A.1}
-\contentsline {subsection}{\numberline {A.2}R User: Installing EGRET}{19}{subsection.A.2}
-\contentsline {subsection}{\numberline {A.3}R Developers: Installing EGRET from gitHub}{20}{subsection.A.3}
+\contentsline {subsection}{\numberline {4.1}Water Quality Plotting Variables}{17}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Water Quality Plots}{17}{subsection.4.2}
+\contentsline {section}{\numberline {5}WRTDS Analysis}{20}{section.5}
+\contentsline {section}{\numberline {6}WRTDS Results}{20}{section.6}
+\contentsline {section}{\numberline {A}Appendix 1: Getting Started}{21}{appendix.A}
+\contentsline {subsection}{\numberline {A.1}New to R?}{21}{subsection.A.1}
+\contentsline {subsection}{\numberline {A.2}R User: Installing EGRET}{21}{subsection.A.2}
+\contentsline {subsection}{\numberline {A.3}R Developers: Installing EGRET from gitHub}{22}{subsection.A.3}

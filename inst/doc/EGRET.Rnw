@@ -116,7 +116,7 @@ Units <- c("date", "cms","days", "months","days","years","months", "character","
 DF <- data.frame(ColumnName,Type,Description,Units)
 
 data.table <- xtable(DF, caption="Daily dataframe",label="table:Daily1")
-print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!h")
+print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!ht")
 @
 
 After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are inserted into the Daily dataframe:
@@ -130,7 +130,7 @@ Units <- c("numeric","numeric","mg/L","kg/day","mg/L","kg/day")
 DF <- data.frame(ColumnName,Type,Description,Units)
 
 data.table <- xtable(DF, caption="Daily dataframe, post-WRTDS",label="table:Daily2")
-print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!h")
+print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!ht")
 @
 
 \FloatBarrier
@@ -150,7 +150,7 @@ Units <- c("date","mg/L","mg/L","integer","mg/L","days","months","days","years",
 DF <- data.frame(ColumnName,Type,Description, Units)
 
 data.table <- xtable(DF, caption="Sample dataframe", label="table:Sample1")
-print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!h",
+print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!ht",
       sanitize.text.function=function(str)gsub("footnote","\\footnotemark[1]",str,fixed=TRUE))
 @
 \footnotetext[1]{Flow columns are populated after calling the mergeReport function.}
@@ -166,7 +166,7 @@ Units <- c("numeric","numeric","mg/L")
 DF <- data.frame(ColumnName,Type,Description,Units)
 
 data.table <- xtable(DF, caption="Sample dataframe, post-WRTDS", label="table:Sample2")
-print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!h")
+print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!ht")
 @
 
 \FloatBarrier
@@ -178,7 +178,7 @@ print(data.table, caption.placement="top",include.rownames=FALSE,table.placement
 The INFO dataframe is used to store information about the measurements, such as station name, parameter name, drainage area, etc. There can be many additional, optional columns, but the following are required to initiate the EGRET analysis:
 
 
-\begin{table}[!h]
+\begin{table}[!ht]
 \begin{center}
 \caption{INFO dataframe}
 \label{table:Info1}
@@ -210,7 +210,7 @@ Units <- c("numeric","numeric","numeric","numeric","numeric","numeric","years","
 DF <- data.frame(ColumnName,Description,Units)
 
 data.table <- xtable(DF, caption="INFO dataframe, post-WRTDS", label="table:Info2")
-print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!h")
+print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!ht")
 @
 
 
@@ -268,7 +268,7 @@ PaLong <- c("12","12","3","1")
 DF <- data.frame(PeriodOfAnalysis,paStart,PaLong)
 
 data.table <- xtable(DF, caption="Period of Analysis Information",label="table:paINFO")
-print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!h")
+print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!ht")
 @
 
 To set a period running from December through February:
@@ -291,7 +291,7 @@ DF <- data.frame(istat,Name)
 
 data.table <- xtable(DF,  caption="Index of Statistics Information",label= "table:istat")
 
-print(data.table, caption.placement="top", include.rownames=FALSE,table.placement="!h")
+print(data.table, caption.placement="top", include.rownames=FALSE,table.placement="!ht")
 @
 
 
@@ -322,7 +322,7 @@ plotFlowSingle(istat=7,qUnit="thousandCfs")
 @
 
 \setlength{\abovecaptionskip}{0pt}
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 <<label=fig1, fig=TRUE,echo=FALSE>>=
 <<plotFlow>>
@@ -441,7 +441,7 @@ Returning to our example concerning the Rio Grande (Figure \ref{fig:plotQTimeDai
 plotQTimeDaily(1990,2000,qLower=2,qUnit=3)
 @
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 
 <<label=figplotQTimeDailyFig, fig=TRUE,echo=FALSE>>=
@@ -483,7 +483,7 @@ plotFour(qUnit=3)
 plotFourStats(qUnit=3)
 @
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{center}
 
 <<label=figplotFourStats, fig=TRUE,echo=FALSE>>=
@@ -558,11 +558,12 @@ Before running the WRTDS model, it is very helpful to take a look at the measure
 In this section and the next, we will use the Choptank River at Greensboro, MD as our example case. The Choptank River is a major tributary of the Chesapeake Bay. Inorganic nitrogen (nitrate and nitrite) has been measured from 1979. First, we need to get the streamflow and nitrate data into R, then use the mergeReport function to associate flow with the discrete measured water quality data.
 
 
-<<wrtds1,eval=FALSE>>=
+<<wrtds1,eval=TRUE>>=
 siteID <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "1979-10-01"
 endDate <- "2011-09-30"
 param<-"00631"
+Daily <- getDVData(siteID,"00060",startDate,endDate)
 INFO<- getMetaData(siteID,param,interactive=FALSE)
 INFO$shortName <- "Choptank River"
 Sample <- getSampleData(siteID,param,startDate,endDate)
@@ -600,7 +601,163 @@ fluxMax & The upper limit on the vertical axis of graphs showing flux values.  \
 \subsection{Water Quality Plots}
 \label{sec:wqPlots}
 %------------------------------------------------------------
+This section will give an example of the available plots appropriate for analyzing the data prior to performing a WRTDS analysis. The plots here will use the default values.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. 
 
+One note about any of the plotting functions that show the sample data:  If a value in the data set is a non-detect. Then it is displayed on a graph as a vertical line.  The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values, the minimum value on the y-axis.  This line is an 'honest' representation of what we know about that observation and doesn't involve us using a statistical model to fill in what we don't know. 
+
+
+<<plotList, echo=TRUE,eval=FALSE>>=
+boxConcMonth()
+boxQTwice()
+plotLogConcTime()
+plotConcTime()
+plotConcQ()
+plotLogConcQ()
+plotLogFluxQ()
+multiPlotDataOverview()
+@
+
+<<boxConcMonth, echo=FALSE,eval=TRUE>>=
+boxConcMonth()
+@
+
+\begin{figure}[htbp]
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+<<label=figboxConcMonth, fig=TRUE,echo=FALSE>>=
+<<boxConcMonth>>
+@
+    \subcaption{Default boxConcMonth}
+    \label{fig:boxConcMonth}
+    \end{center}
+  \end{minipage}
+  \hspace{0.5cm}
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+<<boxQTwice, echo=FALSE,eval=TRUE>>=
+boxQTwice()
+@
+
+<<label=figboxQTwice, fig=TRUE,echo=FALSE>>=
+<<boxQTwice>>
+@
+    \subcaption{Default boxQTwice}
+    \label{fig:boxQTwice}
+    \end{center}
+  \end{minipage}
+  \caption{Monthly sample distributions (left) and flow distributions (right)}
+  \label{fig:boxConcMonthANDboxQTwice}
+\end{figure}
+
+
+<<plotConcTime, echo=FALSE,eval=TRUE>>=
+plotConcTime()
+@
+
+\begin{figure}[htbp]
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+<<label=figplotConcTime, fig=TRUE,echo=FALSE>>=
+<<plotConcTime>>
+@
+    \subcaption{Default plotConcTime}
+    \label{fig:plotConcTime}
+    \end{center}
+  \end{minipage}
+  \hspace{0.5cm}
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+<<plotLogConcTime, echo=FALSE,eval=TRUE>>=
+plotLogConcTime()
+@
+
+<<label=figplotLogConcTime, fig=TRUE,echo=FALSE>>=
+<<plotLogConcTime>>
+@
+    \subcaption{Default plotLogConcTime}
+    \label{fig:plotLogConcTime}
+    \end{center}
+  \end{minipage}
+  \caption{Concentration vs. Time (Linear=left, Log=right)}
+  \label{fig:plotLogConcTimeANDplotConcTime}
+\end{figure}
+
+<<plotConcQ, echo=FALSE,eval=TRUE>>=
+plotConcQ()
+@
+
+\begin{figure}[htbp]
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+<<label=figplotConcQ, fig=TRUE,echo=FALSE>>=
+<<plotConcQ>>
+@
+    \subcaption{Default plotConcQ}
+    \label{fig:plotConcQ}
+    \end{center}
+  \end{minipage}
+  \hspace{0.5cm}
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+<<plotLogConcQ, echo=FALSE,eval=TRUE>>=
+plotLogConcQ()
+@
+
+<<label=figplotLogConcQ, fig=TRUE,echo=FALSE>>=
+<<plotLogConcQ>>
+@
+    \subcaption{Default plotLogConcQ}
+    \label{fig:plotLogConcQ}
+    \end{center}
+  \end{minipage}
+  \caption{Concentration vs. Discharge (Linear=left, Log=right) }
+  \label{fig:plotLogConcQANDplotConcQ}
+\end{figure}
+
+
+<<plotLogFluxQ, echo=FALSE,eval=TRUE>>=
+plotLogFluxQ()
+@
+
+\begin{figure}[htbp]
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+<<label=figplotLogFluxQ, fig=TRUE,echo=FALSE>>=
+<<plotLogFluxQ>>
+@
+    \subcaption{Default plotLogFluxQ}
+    \label{fig:plotLogFluxQ}
+    \end{center}
+  \end{minipage}
+  \hspace{0.5cm}
+  
+  \caption{Log flux vs. discharge}
+  \label{fig:plotLogFluxQMain}
+\end{figure}
+
+<<multiPlotDataOverview, echo=TRUE,eval=TRUE>>=
+multiPlotDataOverview()
+@
+
+\begin{figure}[ht]
+\begin{center}
+
+<<label=figmultiPlotDataOverview, fig=TRUE,echo=FALSE>>=
+<<multiPlotDataOverview>>
+@
+\end{center}
+\caption{Default multiPlotDataOverview}
+\label{fig:multiPlotDataOverview}
+\end{figure}
+
+\FloatBarrier
 %------------------------------------------------------------ 
 \section{WRTDS Analysis}
 \label{sec:wrtds}
@@ -654,9 +811,9 @@ To install the EGRET packages and it's dependencies:
 
 <<installFromCran,eval = FALSE>>=
 install.packages(c("zoo","survival","methods","fields","spam"))
-install.packages("dataRetrieval", repos="http://usgs-r.github.com/EGRET/", 
+install.packages("dataRetrieval", repos="http://usgs-r.github.com/", 
                  type="source")
-install.packages("EGRET", repos="http://usgs-r.github.com/EGRET/", 
+install.packages("EGRET", repos="http://usgs-r.github.com/", 
                  type="source")
 @
 
