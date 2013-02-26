@@ -97,8 +97,8 @@ The vignette is divided into four sections: EGRET Dataframes, Flow History, WRTD
 %------------------------------------------------------------ 
 The EGRET package uses 3 default dataframes throughout the calculations, analysis, and graphing. These dataframes are Daily (\ref{sec:dataframesDaily}), Sample (\ref{sec:dataframesSample}), and INFO (\ref{sec:dataframesINFO}). EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units, which will be discussed in (\ref{sec:units}). To start our exploration, the packages must be installed (check the appendix for detailed instructions (\ref{sec:appendix1})), then opened:
 <<openlibraries, echo=TRUE,eval=TRUE>>=
-library(EGRET)
 library(dataRetrieval)
+library(EGRET)
 @
 
 %------------------------------------------------------------ 
@@ -293,7 +293,6 @@ data.table <- xtable(DF,  caption="Index of Statistics Information",label= "tabl
 
 print(data.table, caption.placement="top", include.rownames=FALSE,table.placement="!ht")
 @
-
 
 To create the annualSeries matrix, using the function makeAnnualSeries:
 <<newChunckAS, echo=TRUE,eval=TRUE>>=
@@ -849,7 +848,213 @@ moreTitle & A character variable that adds additional information to the graphic
 \subsection{Graphical Results}
 \label{sec:wrtdsPlotting}
 %------------------------------------------------------------ 
+Check the help files or manual for more details on the following functions.  Defaults are shown here, unless an input is required:
 
+<<plotWRTDSList, echo=TRUE,eval=FALSE>>=
+boxResidMonth()
+plotConcTimeDaily(startYear=2008, endYear=2010)
+plotFluxTimeDaily(startYear=2008, endYear=2010)
+plotConcPred()
+plotFluxPred()
+plotLogConcPred()
+plotLogFluxPred()
+plotResidPred()
+plotResidQ()
+plotResidTime()
+fluxBiasMulti()
+@
+
+The following plots are generated:
+<<boxResidMonth, echo=FALSE, eval=TRUE>>=
+Sample <- exSample
+Daily <- exDaily
+INFO <- exINFO
+
+boxResidMonth()
+@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+<<label=figboxResidMonth, fig=TRUE,echo=FALSE>>=
+<<boxResidMonth>>
+@
+    \subcaption{Default boxResidMonth}
+    \label{fig:boxResidMonth}
+    \end{center}
+  \end{minipage}
+  \hspace{0.5cm}
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+<<plotConcTimeDaily, echo=FALSE,eval=TRUE>>=
+plotConcTimeDaily(startYear=2008, endYear=2010)
+@
+
+<<label=figplotConcTimeDaily, fig=TRUE,echo=FALSE>>=
+<<plotConcTimeDaily>>
+@
+    \subcaption{Default plotConcTimeDaily}
+    \label{fig:plotConcTimeDaily}
+    \end{center}
+  \end{minipage}
+  \caption{}
+  \label{fig:boxResidMonthANDplotConcTimeDaily}
+\end{figure}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+<<plotFluxTimeDaily, echo=FALSE,eval=TRUE>>=
+plotFluxTimeDaily(startYear=2008, endYear=2010)
+@
+\begin{figure}[htbp]
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+<<label=figplotFluxTimeDaily, fig=TRUE,echo=FALSE>>=
+<<plotFluxTimeDaily>>
+@
+    \subcaption{Default plotFluxTimeDaily}
+    \label{fig:plotFluxTimeDaily}
+    \end{center}
+  \end{minipage}
+  \hspace{0.5cm}
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+<<plotConcPred, echo=FALSE,eval=TRUE>>=
+plotConcPred()
+@
+
+<<label=figplotConcPred, fig=TRUE,echo=FALSE>>=
+<<plotConcPred>>
+@
+    \subcaption{Default plotConcPred}
+    \label{fig:plotConcPred}
+    \end{center}
+  \end{minipage}
+  \caption{}
+  \label{fig:plotFluxTimeDailyANDplotConcPred}
+\end{figure}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+<<plotFluxPred, echo=FALSE,eval=TRUE>>=
+plotFluxPred()
+@
+
+\begin{figure}[htbp]
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+<<label=figplotFluxPred, fig=TRUE,echo=FALSE>>=
+<<plotFluxPred>>
+@
+    \subcaption{Default plotFluxPred}
+    \label{fig:plotFluxPred}
+    \end{center}
+  \end{minipage}
+  \hspace{0.5cm}
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+<<plotLogConcPred, echo=FALSE,eval=TRUE>>=
+plotLogConcPred()
+@
+
+<<label=figplotLogConcPred, fig=TRUE,echo=FALSE>>=
+<<plotLogConcPred>>
+@
+    \subcaption{Default plotLogConcPred}
+    \label{fig:plotLogConcPred}
+    \end{center}
+  \end{minipage}
+  \caption{}
+  \label{fig:plotFluxPredANDplotLogConcPred}
+\end{figure}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+<<plotLogFluxPred, echo=FALSE,eval=TRUE>>=
+plotLogFluxPred()
+@
+
+\begin{figure}[htbp]
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+<<label=figplotLogFluxPred, fig=TRUE,echo=FALSE>>=
+<<plotLogFluxPred>>
+@
+    \subcaption{Default plotLogFluxPred}
+    \label{fig:plotLogFluxPred}
+    \end{center}
+  \end{minipage}
+  \hspace{0.5cm}
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+<<plotResidPred, echo=FALSE,eval=TRUE>>=
+plotResidPred()
+@
+
+<<label=figplotResidPred, fig=TRUE,echo=FALSE>>=
+<<plotResidPred>>
+@
+    \subcaption{Default plotResidPred}
+    \label{fig:plotResidPred}
+    \end{center}
+  \end{minipage}
+  \caption{}
+  \label{fig:plotLogFluxPredANDplotResidPred}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+<<plotResidQ, echo=FALSE,eval=TRUE>>=
+plotResidQ()
+@
+\begin{figure}[htbp]
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+<<label=figplotResidQ, fig=TRUE,echo=FALSE>>=
+<<plotResidQ>>
+@
+    \subcaption{Default plotResidQ}
+    \label{fig:plotResidQ}
+    \end{center}
+  \end{minipage}
+  \hspace{0.5cm}
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+<<plotResidTime, echo=FALSE,eval=TRUE>>=
+plotResidTime()
+@
+
+<<label=figplotResidTime, fig=TRUE,echo=FALSE>>=
+<<plotResidTime>>
+@
+    \subcaption{Default plotResidTime}
+    \label{fig:plotResidTime}
+    \end{center}
+  \end{minipage}
+  \caption{}
+  \label{fig:plotResidQANDplotResidTime}
+\end{figure}
+
+\FloatBarrier
 %------------------------------------------------------------ 
 \subsection{Tabular Results}
 \label{sec:wrtdsTable}

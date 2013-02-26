@@ -91,8 +91,8 @@ The vignette is divided into four sections: EGRET Dataframes, Flow History, WRTD
 The EGRET package uses 3 default dataframes throughout the calculations, analysis, and graphing. These dataframes are Daily (\ref{sec:dataframesDaily}), Sample (\ref{sec:dataframesSample}), and INFO (\ref{sec:dataframesINFO}). EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units, which will be discussed in (\ref{sec:units}). To start our exploration, the packages must be installed (check the appendix for detailed instructions (\ref{sec:appendix1})), then opened:
 \begin{Schunk}
 \begin{Sinput}
-> library(EGRET)
 > library(dataRetrieval)
+> library(EGRET)
 \end{Sinput}
 \end{Schunk}
 
@@ -103,7 +103,7 @@ The EGRET package uses 3 default dataframes throughout the calculations, analysi
 The Daily dataframe initially is populated with the following columns by the dataRetrieval package.
 
 % latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Mon Feb 25 16:17:59 2013
+% Tue Feb 26 10:20:47 2013
 \begin{table}[!ht]
 \begin{center}
 \caption{Daily dataframe}
@@ -131,7 +131,7 @@ Date & Date & Date & date \\
 After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are inserted into the Daily dataframe:
 
 % latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Mon Feb 25 16:17:59 2013
+% Tue Feb 26 10:20:47 2013
 \begin{table}[!ht]
 \begin{center}
 \caption{Daily dataframe, post-WRTDS}
@@ -159,7 +159,7 @@ yHat & number & The WRTDS estimate of the log of concentration & numeric \\
 The Sample dataframe initially is populated with the following columns by the dataRetrieval package.
 
 % latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Mon Feb 25 16:17:59 2013
+% Tue Feb 26 10:20:47 2013
 \begin{table}[!ht]
 \begin{center}
 \caption{Sample dataframe}
@@ -190,7 +190,7 @@ Date & Date & Date & date \\
 After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are inserted into the Sample dataframe:
 
 % latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Mon Feb 25 16:17:59 2013
+% Tue Feb 26 10:20:47 2013
 \begin{table}[!ht]
 \begin{center}
 \caption{Sample dataframe, post-WRTDS}
@@ -240,7 +240,7 @@ shortName & string & Name of site, suitable for use in graphical headings \\
 After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), the following columns are automatically inserted into the INFO dataframe (the values will be discussed further sections):
 
 % latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Mon Feb 25 16:17:59 2013
+% Tue Feb 26 10:20:47 2013
 \begin{table}[!ht]
 \begin{center}
 \caption{INFO dataframe, post-WRTDS}
@@ -341,7 +341,7 @@ At this point it is assumed that you have loaded the daily discharge record and 
 The first choice you need to make is what 'period of analysis' to use (pa). What is the period of analysis?  If we want to examine our data set as a time series of water years, then the period of analysis is the water year.  If we want to examine the data set as calendar years then the period of analysis should be the calendar year.  We might want to examine the winter season, which we might want to define as December, January and February, then those 3 months become the period of analysis.  We might even want to examine September only then September becomes the period of analysis.  The only constraints on the definition of a period of analysis are these: It must be defined in terms of whole months.  It must be a set of contiguous months (like March-April-May).  And it must have a length that is no less than 1 month and no more than 12 months.  It can be uniquely defined by two arguments: paLong and paStart.  paLong is the length of the period of analysis, and paStart is the first month of the period of analysis. The following examples summarize paLong and paStart.
 
 % latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Mon Feb 25 16:18:05 2013
+% Tue Feb 26 10:20:52 2013
 \begin{table}[!ht]
 \begin{center}
 \caption{Period of Analysis Information}
@@ -375,7 +375,7 @@ To set the default value (water year):
 The next step is to create the annual series of flow statistics.  These will be stored in a matrix called annualSeries that contain the following statistics:
 
 % latex table generated in R 2.15.2 by xtable 1.7-0 package
-% Mon Feb 25 16:18:05 2013
+% Tue Feb 26 10:20:52 2013
 \begin{table}[!ht]
 \begin{center}
 \caption{Index of Statistics Information}
@@ -396,7 +396,6 @@ istat & Name \\
 \end{tabular}
 \end{center}
 \end{table}
-
 To create the annualSeries matrix, using the function makeAnnualSeries:
 \begin{Schunk}
 \begin{Sinput}
@@ -953,7 +952,161 @@ moreTitle & A character variable that adds additional information to the graphic
 \subsection{Graphical Results}
 \label{sec:wrtdsPlotting}
 %------------------------------------------------------------ 
+Check the help files or manual for more details on the following functions.  Defaults are shown here, unless an input is required:
 
+\begin{Schunk}
+\begin{Sinput}
+> boxResidMonth()
+> plotConcTimeDaily(startYear=2008, endYear=2010)
+> plotFluxTimeDaily(startYear=2008, endYear=2010)
+> plotConcPred()
+> plotFluxPred()
+> plotLogConcPred()
+> plotLogFluxPred()
+> plotResidPred()
+> plotResidQ()
+> plotResidTime()
+> fluxBiasMulti()
+\end{Sinput}
+\end{Schunk}
+
+The following plots are generated:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+\includegraphics{EGRET-figboxResidMonth}
+    \subcaption{Default boxResidMonth}
+    \label{fig:boxResidMonth}
+    \end{center}
+  \end{minipage}
+  \hspace{0.5cm}
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+
+\includegraphics{EGRET-figplotConcTimeDaily}
+    \subcaption{Default plotConcTimeDaily}
+    \label{fig:plotConcTimeDaily}
+    \end{center}
+  \end{minipage}
+  \caption{}
+  \label{fig:boxResidMonthANDplotConcTimeDaily}
+\end{figure}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+\includegraphics{EGRET-figplotFluxTimeDaily}
+    \subcaption{Default plotFluxTimeDaily}
+    \label{fig:plotFluxTimeDaily}
+    \end{center}
+  \end{minipage}
+  \hspace{0.5cm}
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+
+\includegraphics{EGRET-figplotConcPred}
+    \subcaption{Default plotConcPred}
+    \label{fig:plotConcPred}
+    \end{center}
+  \end{minipage}
+  \caption{}
+  \label{fig:plotFluxTimeDailyANDplotConcPred}
+\end{figure}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[htbp]
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+\includegraphics{EGRET-figplotFluxPred}
+    \subcaption{Default plotFluxPred}
+    \label{fig:plotFluxPred}
+    \end{center}
+  \end{minipage}
+  \hspace{0.5cm}
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+
+\includegraphics{EGRET-figplotLogConcPred}
+    \subcaption{Default plotLogConcPred}
+    \label{fig:plotLogConcPred}
+    \end{center}
+  \end{minipage}
+  \caption{}
+  \label{fig:plotFluxPredANDplotLogConcPred}
+\end{figure}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[htbp]
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+\includegraphics{EGRET-figplotLogFluxPred}
+    \subcaption{Default plotLogFluxPred}
+    \label{fig:plotLogFluxPred}
+    \end{center}
+  \end{minipage}
+  \hspace{0.5cm}
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+
+\includegraphics{EGRET-figplotResidPred}
+    \subcaption{Default plotResidPred}
+    \label{fig:plotResidPred}
+    \end{center}
+  \end{minipage}
+  \caption{}
+  \label{fig:plotLogFluxPredANDplotResidPred}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+\includegraphics{EGRET-figplotResidQ}
+    \subcaption{Default plotResidQ}
+    \label{fig:plotResidQ}
+    \end{center}
+  \end{minipage}
+  \hspace{0.5cm}
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+
+\includegraphics{EGRET-figplotResidTime}
+    \subcaption{Default plotResidTime}
+    \label{fig:plotResidTime}
+    \end{center}
+  \end{minipage}
+  \caption{}
+  \label{fig:plotResidQANDplotResidTime}
+\end{figure}
+
+\FloatBarrier
 %------------------------------------------------------------ 
 \subsection{Tabular Results}
 \label{sec:wrtdsTable}
