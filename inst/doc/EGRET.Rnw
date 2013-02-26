@@ -1054,6 +1054,23 @@ plotResidTime()
   \label{fig:plotResidQANDplotResidTime}
 \end{figure}
 
+
+<<fluxBiasMulti, echo=TRUE,eval=TRUE>>=
+fluxBiasMulti()
+@
+
+\begin{figure}[ht]
+\begin{center}
+
+<<label=figfluxBiasMulti, fig=TRUE,echo=FALSE>>=
+<<fluxBiasMulti>>
+@
+\end{center}
+\caption{Default fluxBiasMulti}
+\label{fig:fluxBiasMulti}
+\end{figure}
+
+
 \FloatBarrier
 %------------------------------------------------------------ 
 \subsection{Tabular Results}
