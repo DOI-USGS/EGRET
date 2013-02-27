@@ -83,8 +83,8 @@ This vignette assumes that the user understands the concepts underlying WRTDS.  
 library(xtable)
 options(continue=" ")
 options(width=60)
-options(SweaveHooks=list(fig=function()
-  par(mar=c(5.1,4.1,1.1,2.1),oma=c(0,0,0,0))))
+# options(SweaveHooks=list(fig=function()
+#   par(mar=c(5.1,4.1,1.1,2.1),oma=c(0,0,0,0))))
 @
 
 This vignette will walk through the major functions provided by the EGRET package. The package dataRetrieval is required for importing data in a EGRET-friendly format. The dataRetrieval package, along with installation instructions can be found at:
@@ -447,7 +447,7 @@ plotSDLogQ(localDaily = DailyRed, localINFO = INFORed, printStaName = FALSE)
 
 <<plotSDRed2, echo=FALSE,eval=TRUE>>=
 INFORed <- setPA(paStart=3, paLong=3)
-plotSDLogQ(localDaily = DailyRed, localINFO = INFORed,printStaName = FALSE)
+plotSDLogQ(localDaily = DailyRed, localINFO = INFORed)
 @
 
 <<label=fig3b, fig=TRUE,echo=FALSE>>=
@@ -757,7 +757,7 @@ plotFluxTimeDaily(yearStart, yearEnd)
 plotConcPred()
 plotFluxPred()
 plotLogConcPred()
-plotLogFluxPred()
+plotLogFluxPred(tinyPlot=FALSE)
 plotResidPred()
 plotResidQ()
 plotResidTime()
@@ -917,7 +917,7 @@ plotLogConcPred()
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 <<plotLogFluxPred, echo=FALSE,eval=TRUE>>=
-plotLogFluxPred()
+plotLogFluxPred(tinyPlot=FALSE)
 @
 
 \begin{figure}[htbp]
