@@ -327,12 +327,10 @@ plotFour(qUnit=3)
 plotFourStats(qUnit=3)
 @
 
-
 <<plotFlowSingle, echo=FALSE, eval=TRUE>>=
 annualSeries <- makeAnnualSeries()
 plotFlowSingle(istat=7,qUnit="thousandCfs")
 @
-
 
 \begin{figure}[htbp]
   \begin{minipage}[h]{0.5\linewidth}
@@ -384,7 +382,6 @@ plotQTimeDaily(1990,2010,qLower=2,qUnit=3)
   \label{fig:plotQTimeDailyAND}
 \end{figure}
 
-
 <<plotFour, echo=FALSE,eval=TRUE>>=
 annualSeries <- makeAnnualSeries()
 plotFour(qUnit=3)
@@ -423,7 +420,6 @@ The simplest way to look at these time series is with the function plotFlowSingl
 plotSDLogQ produces a graphic of the running standard deviation of the log of daily discharge over time.  The idea is to get some idea of how variability of daily discharge is changing over time.  By using the standard deviation of the log discharge the statistic becomes dimensionless.  It also means that it is a way of looking at variability quite aside from average values, so, in the case of a system where discharge might be increasing over a period of years, this provides a way of looking at the variability relative to that changing mean value.  It is much like a coefficient of variation, but it has sample properties that make it a smoother measure of variability.  There are often comments about how things like urbanization or enhanced greenhouse gases in the atmosphere are bringing about an increase in variability, this is one way to explore that idea.
 
 The Rio Grande does not contain much seasonal variablity, but as quick side example, you can see that there is a difference between variability in spring and summer on the Red River of the North (Figure \ref{fig:red}).
-
 
 <<plotSDRed, echo=TRUE,eval=TRUE>>=
 siteID <- "05082500"
@@ -465,11 +461,11 @@ plotSDLogQ(localDaily = DailyRed, localINFO = INFORed,printStaName = FALSE)
   \label{fig:red}
 \end{figure}
 
-
 plotQTimeDaily is simply a time series plot of discharge.  But, it is most suited for showing events above some discharge threshold.  In the simplest case, it can plot the entire record, but given the line weight and use of an arithmetic scale it will primarily provide a visual focus on the higher values. plotQTimeDaily requires startYear and endYear, along with some other optional arguements (see ?plotQTimeDaily for more details).
 
 plotFour, plotFourStats, and plot15 are all designed to plot several graphs from the other functions all in a single figure. 
 
+\FloatBarrier
 %------------------------------------------------------------ 
 \subsection{Table Options}
 \label{sec:tableOptions}
@@ -719,7 +715,7 @@ Assuming you are using the defaults, with dataframes called Daily, Sample, and I
 modelEstimation()
 @
 
-This function is slow, and shows the progress in percent complete. See the references and manual for more information. It's important to understand that this is the one function that will globally change your Daily, Sample, and INFO dataframes. It is unusual R programming, but was chosen to make it easy for the user.
+This function is slow, and shows the progress in percent complete. See the references and manual for more information. It's important to understand that this is the one function that will globally change your Daily, Sample, and INFO dataframes. It is unusual R programming behavior (and generally considered poor practice), but was chosen to make it easy for the user.
 
 The next step is for the user to select the period of analysis (see section \ref{sec:flowHistory}) to use in looking at the summary results from WRTDS. In the simplest case, where you would like to do the analysis by water years, the call would be:
 
@@ -1137,8 +1133,86 @@ plotConcTimeSmooth(q1, q2, q3, centerDate, 2000, yearEnd)
 \subsection{Table Options}
 \label{sec:wrtdsTable}
 %------------------------------------------------------------ 
+Sometimes easier to consider the results in table formats rather than graphically. The function tableResults produces a simple text table that contains the annual values for the results.  Each row of the output represents a year and it prints: year, average discharge, average concentration, flow normalized concentration, average flux, and flow normalized flux.  
 
-\newpage
+<<tableResults1, echo=TRUE, eval=TRUE>>=
+tableResults()
+@
+
+\FloatBarrier
+
+Additionally, you can have the tableResults return the results as a dataframe. This can be useful for further R analysis, or creating more visually appealing tables.  For instance, using the xtable package, one can create a \LaTeX table.
+
+<<tableResults1, echo=TRUE,eval=FALSE>>=
+tableOut <- tableResults(returnDataFrame = TRUE)
+
+data.table <- xtable(tableOut, caption="Table created from tableResults function",label="table:tableResults")
+print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!ht")
+@
+
+\begin{table}[!ht]
+\begin{center}
+\caption{Table created from tableResults function}
+\label{table:tableResults}
+\begin{tabular}{llllll}
+  \hline
+Year & Discharge [   cms  ] & Conc [mg/L] & FN\_Conc [mg/L] & Flux [10\verb|^|6kg/yr] & FN\_Flux [10\verb|^|6kg/yr] \\ 
+  \hline
+   2000 &      4.72 &      1.19 &      1.20 &    0.1614 &     0.149 \\ 
+     2001 &      4.88 &      1.23 &      1.23 &    0.1670 &     0.152 \\ 
+     2002 &      1.24 &      1.30 &      1.25 &    0.0478 &     0.154 \\ 
+     2003 &      8.64 &      1.14 &      1.28 &    0.2682 &     0.156 \\ 
+     2004 &      5.28 &      1.27 &      1.30 &    0.1851 &     0.157 \\ 
+     2005 &      3.81 &      1.36 &      1.32 &    0.1462 &     0.159 \\ 
+     2006 &      3.59 &      1.38 &      1.34 &    0.1413 &     0.160 \\ 
+     2007 &      4.28 &      1.40 &      1.36 &    0.1595 &     0.161 \\ 
+     2008 &      2.56 &      1.46 &      1.38 &    0.1007 &     0.162 \\ 
+     2009 &      3.68 &      1.41 &      1.40 &    0.1337 &     0.162 \\ 
+     2010 &      7.19 &      1.32 &      1.41 &    0.2247 &     0.162 \\ 
+     2011 &      5.24 &      1.44 &      1.43 &    0.1589 &     0.161 \\ 
+   \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\FloatBarrier
+
+The other table option is tableChange. This is a function that provides for the computation of changes or slopes between any selected pairs of time points.  These computations are made only on the flow-normalized results.
+
+<<tableChange1, eval=TRUE, echo=TRUE>>=
+tableChange()
+@
+
+Finally, tableChangeSingle operates exactly the same as tableChange, but it provides either concentration results or flux results, but not both.  This can be useful when producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except that the final two arguments are these.  The first is a logical argument to indicate if a data frame of output should be returned (for later manipulation and printing through other programs such as Excel), this argument is returnDataFrame, and its default is FALSE.  The final argument is flux, and the default is TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  
+
+
+<<tableChange2, echo=TRUE, eval=FALSE>>=
+changeOutput <- tableChangeSingle(fluxUnit=3, flux=TRUE,
+        yearPoints=c(2002,2004,2006), returnDataFrame = TRUE)
+
+data.table <- xtable(changeOutput, caption="Table created from tableChangeSingle function",label="table:tableChangeSingle")
+print(data.table, caption.placement="top",include.rownames=FALSE,table.placement="!ht")
+@
+
+\begin{table}[!ht]
+\begin{center}
+\caption{Table created from tableChangeSingle function}
+\label{table:tableChangeSingle}
+\begin{tabular}{rrrrrr}
+  \hline
+Year1 & Year2 & change [kg/day] & slope [kg/day] & change[\%] & slope [\%/yr] \\ 
+  \hline
+2002.00 & 2004.00 & 429.00 & 215.00 & 34265.00 & 17133.00 \\ 
+  2002.00 & 2006.00 & 437.00 & 109.00 & 34848.00 & 8712.00 \\ 
+  2004.00 & 2006.00 & 437.00 & 218.00 & 33687.00 & 16844.00 \\ 
+   \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\clearpage
+
 \appendix
 %------------------------------------------------------------ 
 \section{Getting Started}
@@ -1298,7 +1372,7 @@ minNumUncen & This is the minimum number of uncensored observations with non-zer
 \clearpage
 
 %------------------------------------------------------------ 
-\subsection{WRTDS Analysis Input}
+\subsection{WRTDS Plotting Input}
 \label{sec:wrtdsOutputVariables}
 %------------------------------------------------------------
 
