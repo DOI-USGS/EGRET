@@ -1302,7 +1302,7 @@ qMax & User specified upper limit on y axis (can be used when we want several gr
 printTitle & can be TRUE or FALSE, you may want FALSE if it is going to be a figure with a caption or if it is a part of a multipanel plot. \\
 tinyPlot & Can be TRUE or FALSE, the TRUE option assures that there will be a small number of tick marks, consistent with printing in a small space \\
 runoff & Can be TRUE or FALSE.  If true then discharge values are reported as runoff in mm/day.  This can be very useful in multi-site analyses. \\
-qUnit & An index indicating what discharge units to use.  Options run from 1 to 13 (see \ref{sec:units}).  The choice should be based on the units that are customary for the audience but also, the choice should be made so that the discharge values don’t have too many digits to the right or left of the decimal point.\\
+qUnit & An index indicating what discharge units to use.  Options run from 1 to 13 (see \ref{sec:units}).  The choice should be based on the units that are customary for the audience but also, the choice should be made so that the discharge values don't have too many digits to the right or left of the decimal point.\\
 printStaName\footnotemark[4] & Can be TRUE or FALSE, if TRUE the name of the streamgage is stated in the plot title. \\
 printPA\footnotemark[4] & Can be TRUE or FALSE, if TRUE the period of analysis is stated in the plot title. \\
 printIstat\footnotemark[4] & Can be TRUE or FALSE, if TRUE the name of the statistic (e.g. 7-day minimum flow) is stated in the plot title. \\
@@ -1312,7 +1312,7 @@ printIstat\footnotemark[4] & Can be TRUE or FALSE, if TRUE the name of the stati
 
 \end{table}
 
-\footnotetext[3]{Setting yearStart and yearEnd will determine where the graphs start and end, but they don’t determine where the smoothing analysis starts and ends.  There are situations, typically where many sites are be analyzed together, where you may want to run the smoothing on a consistent period of record across all sites.  Doing this requires modifying the Daily data frame before running makeAnnualSeries}
+\footnotetext[3]{Setting yearStart and yearEnd will determine where the graphs start and end, but they don't determine where the smoothing analysis starts and ends.  There are situations, typically where many sites are be analyzed together, where you may want to run the smoothing on a consistent period of record across all sites.  Doing this requires modifying the Daily data frame before running makeAnnualSeries}
 \footnotetext[4]{If the printTitle argument is set to FALSE, then it really makes no difference what you do with printSta, printPA, or printIstat.  They can all be left as their default values and thus there is no need to include them in the call for the function.}
 
 \FloatBarrier

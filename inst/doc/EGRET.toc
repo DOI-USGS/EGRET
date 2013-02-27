@@ -7,19 +7,20 @@
 \contentsline {subsection}{\numberline {2.4}Units}{6}{subsection.2.4}
 \contentsline {section}{\numberline {3}Flow History}{7}{section.3}
 \contentsline {subsection}{\numberline {3.1}Plotting Options}{9}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Table Options}{15}{subsection.3.2}
-\contentsline {section}{\numberline {4}Water Quality Analysis (pre-WRTDS)}{16}{section.4}
-\contentsline {subsection}{\numberline {4.1}Plotting Options}{17}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Table Options}{20}{subsection.4.2}
-\contentsline {section}{\numberline {5}WRTDS Analysis}{21}{section.5}
-\contentsline {section}{\numberline {6}WRTDS Results}{22}{section.6}
-\contentsline {subsection}{\numberline {6.1}Plotting Options}{22}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Table Options}{30}{subsection.6.2}
-\contentsline {section}{\numberline {A}Getting Started}{31}{appendix.A}
-\contentsline {subsection}{\numberline {A.1}New to R?}{31}{subsection.A.1}
-\contentsline {subsection}{\numberline {A.2}R User: Installing EGRET}{31}{subsection.A.2}
-\contentsline {subsection}{\numberline {A.3}R Developers: Installing EGRET from gitHub}{32}{subsection.A.3}
-\contentsline {section}{\numberline {B}Common Function Variables}{33}{appendix.B}
-\contentsline {subsection}{\numberline {B.1}Water Quality Plotting Input}{33}{subsection.B.1}
-\contentsline {subsection}{\numberline {B.2}WRTDS Estimation Input}{34}{subsection.B.2}
-\contentsline {subsection}{\numberline {B.3}WRTDS Analysis Input}{35}{subsection.B.3}
+\contentsline {subsection}{\numberline {3.2}Table Options}{14}{subsection.3.2}
+\contentsline {section}{\numberline {4}Water Quality Analysis (pre-WRTDS)}{15}{section.4}
+\contentsline {subsection}{\numberline {4.1}Plotting Options}{16}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Table Options}{19}{subsection.4.2}
+\contentsline {section}{\numberline {5}WRTDS Analysis}{20}{section.5}
+\contentsline {section}{\numberline {6}WRTDS Results}{21}{section.6}
+\contentsline {subsection}{\numberline {6.1}Plotting Options}{21}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Table Options}{29}{subsection.6.2}
+\contentsline {section}{\numberline {A}Getting Started}{32}{appendix.A}
+\contentsline {subsection}{\numberline {A.1}New to R?}{32}{subsection.A.1}
+\contentsline {subsection}{\numberline {A.2}R User: Installing EGRET}{32}{subsection.A.2}
+\contentsline {subsection}{\numberline {A.3}R Developers: Installing EGRET from gitHub}{33}{subsection.A.3}
+\contentsline {section}{\numberline {B}Common Function Variables}{34}{appendix.B}
+\contentsline {subsection}{\numberline {B.1}flowHistory Plotting Input}{34}{subsection.B.1}
+\contentsline {subsection}{\numberline {B.2}Water Quality Plotting Input}{35}{subsection.B.2}
+\contentsline {subsection}{\numberline {B.3}WRTDS Estimation Input}{36}{subsection.B.3}
+\contentsline {subsection}{\numberline {B.4}WRTDS Plotting Input}{37}{subsection.B.4}
