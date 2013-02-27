@@ -328,20 +328,60 @@ plotFourStats(qUnit=3)
 @
 
 
-<<plotFlow, echo=FALSE, eval=TRUE>>=
+<<plotFlowSingle, echo=FALSE, eval=TRUE>>=
 annualSeries <- makeAnnualSeries()
 plotFlowSingle(istat=7,qUnit="thousandCfs")
 @
 
-\setlength{\abovecaptionskip}{0pt}
-\begin{figure}[ht]
-\begin{center}
-<<label=fig1, fig=TRUE,echo=FALSE>>=
-<<plotFlow>>
+
+\begin{figure}[htbp]
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+<<label=figplotFlowSingle, fig=TRUE,echo=FALSE>>=
+<<plotFlowSingle>>
 @
-\end{center}
-\caption{7-day Maxiumum Flow (istat=7)}
-\label{fig:plotflow}
+    \subcaption{Default plotFlowSingle}
+    \label{fig:plotFlowSingle}
+    \end{center}
+  \end{minipage}
+  \hspace{0.5cm}
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+<<plotSDLogQ, echo=FALSE,eval=TRUE>>=
+plotSDLogQ()
+@
+
+<<label=figplotSDLogQ, fig=TRUE,echo=FALSE>>=
+<<plotSDLogQ>>
+@
+    \subcaption{Default plotSDLogQ}
+    \label{fig:plotSDLogQ}
+    \end{center}
+  \end{minipage}
+  \caption{}
+  \label{fig:plotFlowSingleANDplotSDLogQ}
+\end{figure}
+
+<<plotQTimeDaily, echo=FALSE,eval=TRUE>>=
+plotQTimeDaily(1990,2010,qLower=2,qUnit=3)
+@
+
+\begin{figure}[htbp]
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
+
+<<label=figplotQTimeDaily, fig=TRUE,echo=FALSE>>=
+<<plotQTimeDaily>>
+@
+    \subcaption{Default plotQTimeDaily}
+    \label{fig:plotQTimeDaily}
+    \end{center}
+  \end{minipage}
+  \hspace{0.5cm}
+  \caption{}
+  \label{fig:plotQTimeDailyAND}
 \end{figure}
 
 
@@ -425,20 +465,6 @@ plotSDLogQ(localDaily = DailyRed, localINFO = INFORed,printStaName = FALSE)
   \label{fig:red}
 \end{figure}
 
-<<plotQTimeDaily, echo=FALSE,eval=TRUE>>=
-plotQTimeDaily(1990,2010,qLower=2,qUnit=3)
-@
-
-\begin{figure}[ht]
-\begin{center}
-
-<<label=figplotQTimeDailyFig, fig=TRUE,echo=FALSE>>=
-<<plotQTimeDaily>>
-@
-\end{center}
-\caption{Discharge above a threshold}
-\label{fig:plotQTimeDaily}
-\end{figure}
 
 plotQTimeDaily is simply a time series plot of discharge.  But, it is most suited for showing events above some discharge threshold.  In the simplest case, it can plot the entire record, but given the line weight and use of an arithmetic scale it will primarily provide a visual focus on the higher values. plotQTimeDaily requires startYear and endYear, along with some other optional arguements (see ?plotQTimeDaily for more details).
 
@@ -508,14 +534,14 @@ Sample <- getSampleData(siteID,param,startDate,endDate)
 Sample <- mergeReport()
 @
 
-This section will give examples of the available plots appropriate for analyzing the data prior to performing a WRTDS analysis. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See Appendix \ref{sec:wqVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}).
-
-One note about any of the plotting functions that show the sample data:  If a value in the data set is a non-detect. Then it is displayed on a graph as a vertical line.  The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values, the minimum value on the y-axis.  This line is an 'honest' representation of what we know about that observation and doesn't involve us using a statistical model to fill in what we don't know. 
-
 %------------------------------------------------------------ 
 \subsection{Plotting Options}
 \label{sec:plotOptionsWQ}
 %------------------------------------------------------------ 
+This section will give examples of the available plots appropriate for analyzing the data prior to performing a WRTDS analysis. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See Appendix \ref{sec:wqVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}).
+
+One note about any of the plotting functions that show the sample data:  If a value in the data set is a non-detect. Then it is displayed on a graph as a vertical line.  The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values, the minimum value on the y-axis.  This line is an 'honest' representation of what we know about that observation and doesn't involve us using a statistical model to fill in what we don't know. 
+
 <<plotList, echo=TRUE,eval=FALSE>>=
 boxConcMonth()
 boxQTwice()
@@ -1089,16 +1115,22 @@ plotLogConcQSmooth(date1, date2, date3, qBottom, qTop, concMax=2, concMin=0.1)
 plotConcTimeSmooth(q1, q2, q3, centerDate, 2000, yearEnd)
 @
 
-\begin{figure}[ht]
-\begin{center}
+\begin{figure}[htbp]
+  \begin{minipage}[h]{0.5\linewidth}
+    \begin{center}
 
-<<label=figplotConcTimeSmooth, fig=TRUE,echo=FALSE, width=8>>=
+<<label=figplotConcTimeSmooth, fig=TRUE,echo=FALSE>>=
 <<plotConcTimeSmooth>>
 @
-\end{center}
-\caption{Default plotConcTimeSmooth}
-\label{fig:plotConcTimeSmooth}
+    \subcaption{Default plotConcTimeSmooth}
+    \label{fig:plotConcTimeSmooth}
+    \end{center}
+  \end{minipage}
+  \hspace{0.5cm}
+  \caption{}
+  \label{fig:plotConcTimeSmoothAND}
 \end{figure}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \FloatBarrier
 %------------------------------------------------------------ 
@@ -1183,7 +1215,34 @@ library(EGRET)
 \subsection{flowHistory Plotting Input}
 \label{sec:flowHistoryVariables}
 %------------------------------------------------------------
+\begin{table}[ht]
+\caption{Variables used in flow history plots  \label{tab:flowHistoryVariables}}
+\begin{tabularx}{\textwidth}{lX}
+\hline
+  \textbf{Argument} & \textbf{Definition} \\
+\hline
+istat & Which flow statistic to plot: 1-8.  Must be specified, see Table \ref{table:istat}. \\
+yearStart\footnotemark[3] & What is the decYear value where you want the graph to start? \\
+yearEnd\footnotemark[3] & What is the decYear value where you want the graph to end? \\
+qMax & User specified upper limit on y axis (can be used when we want several graphs to all share the same scale) will be specified in the discharge units that the user selects. \\
+printTitle & can be TRUE or FALSE, you may want FALSE if it is going to be a figure with a caption or if it is a part of a multipanel plot. \\
+tinyPlot & Can be TRUE or FALSE, the TRUE option assures that there will be a small number of tick marks, consistent with printing in a small space \\
+runoff & Can be TRUE or FALSE.  If true then discharge values are reported as runoff in mm/day.  This can be very useful in multi-site analyses. \\
+qUnit & An index indicating what discharge units to use.  Options run from 1 to 13 (see \ref{sec:units}).  The choice should be based on the units that are customary for the audience but also, the choice should be made so that the discharge values don’t have too many digits to the right or left of the decimal point.\\
+printStaName\footnotemark[4] & Can be TRUE or FALSE, if TRUE the name of the streamgage is stated in the plot title. \\
+printPA\footnotemark[4] & Can be TRUE or FALSE, if TRUE the period of analysis is stated in the plot title. \\
+printIstat\footnotemark[4] & Can be TRUE or FALSE, if TRUE the name of the statistic (e.g. 7-day minimum flow) is stated in the plot title. \\
 
+\hline
+\end{tabularx}
+
+\end{table}
+
+\footnotetext[3]{Setting yearStart and yearEnd will determine where the graphs start and end, but they don’t determine where the smoothing analysis starts and ends.  There are situations, typically where many sites are be analyzed together, where you may want to run the smoothing on a consistent period of record across all sites.  Doing this requires modifying the Daily data frame before running makeAnnualSeries}
+\footnotetext[4]{If the printTitle argument is set to FALSE, then it really makes no difference what you do with printSta, printPA, or printIstat.  They can all be left as their default values and thus there is no need to include them in the call for the function.}
+
+\FloatBarrier
+\clearpage
 
 %------------------------------------------------------------ 
 \subsection{Water Quality Plotting Input}
