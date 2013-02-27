@@ -277,7 +277,7 @@ print(data.table, caption.placement="top",include.rownames=FALSE,table.placement
 @
 
 To set a period running from December through February:
-<<newChunckWinter, echo=TRUE,eval=TRUE>>=
+<<newChunckWinter, echo=TRUE,eval=FALSE>>=
 INFO <- setPA(paStart=12,paLong=3)
 @
 
@@ -310,14 +310,26 @@ Once the annualSeries matrix is created, the plots of any of the stored statisti
 \subsection{Plotting Options}
 \label{sec:plotOptions}
 %------------------------------------------------------------ 
-There are several plotting options available for studying flow history once the annualSeries has been created.
+This section will give examples of the available plots appropriate for studying flow history once the annualSeries has been created. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See Appendix \ref{sec:flowHistoryVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}).
 
-The simplest way to look at these time series is with the function plotFlowSingle. The statistic index (istat) must be defined, but other input arguements can defined. To see a list of these optional arguments and other information about the function, type ?plotFlowSingle in the R console. In this example, we can plot the 7-day maximum over the water year in thousands of cfs (Figure \ref{fig:plotflow}):
-
-
-<<plotFlow, echo=TRUE>>=
+<<plotFlow, echo=TRUE, eval=FALSE>>=
+Daily <- getDVData(siteID,"00060",startDate,endDate,interactive=FALSE)
+INFO <- getMetaData(siteID,"",interactive=FALSE)
+INFO$shortName <- "Rio Grande at Embudo, NM"
+INFO <- setPA()
+annualSeries <- makeAnnualSeries()
 # plotFlowSingle(istat=5,qUnit=3)
 #identical to:
+plotFlowSingle(istat=7,qUnit="thousandCfs")
+plotSDLogQ()
+plotQTimeDaily(1990,2010,qLower=1,qUnit=3)
+plotFour(qUnit=3)
+plotFourStats(qUnit=3)
+@
+
+
+<<plotFlow, echo=FALSE, eval=TRUE>>=
+annualSeries <- makeAnnualSeries()
 plotFlowSingle(istat=7,qUnit="thousandCfs")
 @
 
@@ -332,64 +344,48 @@ plotFlowSingle(istat=7,qUnit="thousandCfs")
 \label{fig:plotflow}
 \end{figure}
 
+
+<<plotFour, echo=FALSE,eval=TRUE>>=
+annualSeries <- makeAnnualSeries()
+plotFour(qUnit=3)
+@
+
+\begin{figure}[ht]
+\begin{center}
+
+<<label=figplotFour, fig=TRUE,echo=FALSE>>=
+<<plotFour>>
+@
+\end{center}
+\caption{Default plotFour}
+\label{fig:plotFour}
+\end{figure}
+
+<<plotFourStats, echo=FALSE,eval=TRUE>>=
+plotFourStats(qUnit=3)
+@
+
+\begin{figure}[ht]
+\begin{center}
+
+<<label=figplotFourStats, fig=TRUE,echo=FALSE>>=
+<<plotFourStats>>
+@
+\end{center}
+\caption{Default plotFourStats}
+\label{fig:plotFourStats}
+\end{figure}
+
 \FloatBarrier
 
-This function produces a graphic of the running standard deviation of the log of daily discharge over time.  The idea is to get some idea of how variability of daily discharge is changing over time.  By using the standard deviation of the log discharge the statistic becomes dimensionless.  It also means that it is a way of looking at variability quite aside from average values, so, in the case of a system where discharge might be increasing over a period of years, this provides a way of looking at the variability relative to that changing mean value.  It is much like a coefficient of variation, but it has sample properties that make it a smoother measure of variability.  There are often comments about how things like urbanization or enhanced greenhouse gases in the atmosphere are bringing about an increase in variability, this is one way to explore that idea.  
+The simplest way to look at these time series is with the function plotFlowSingle. The statistic index (istat) must be defined, but other input arguements can defined. To see a list of these optional arguments and other information about the function, type ?plotFlowSingle in the R console. 
+
+plotSDLogQ produces a graphic of the running standard deviation of the log of daily discharge over time.  The idea is to get some idea of how variability of daily discharge is changing over time.  By using the standard deviation of the log discharge the statistic becomes dimensionless.  It also means that it is a way of looking at variability quite aside from average values, so, in the case of a system where discharge might be increasing over a period of years, this provides a way of looking at the variability relative to that changing mean value.  It is much like a coefficient of variation, but it has sample properties that make it a smoother measure of variability.  There are often comments about how things like urbanization or enhanced greenhouse gases in the atmosphere are bringing about an increase in variability, this is one way to explore that idea.
 
 The Rio Grande does not contain much seasonal variablity, but as quick side example, you can see that there is a difference between variability in spring and summer on the Red River of the North (Figure \ref{fig:red}).
 
-% (Figure \ref{fig:SD1}):
-% 
-% <<plotSDtext, echo=TRUE,eval=FALSE>>=
-% INFO <- setPA()
-% plotSDLogQ()
-% @
-% 
-% \begin{figure}[htbp]
-%   \begin{minipage}[h]{0.5\linewidth}
-%     \begin{center}
-% 
-% If you were just interested in the variablility in spring (March-April-May), you could change paStart and paLong using the setPA function (Figure \ref{fig:SD2}). These figures show there is little change in variability on the Rio Grande between the water year and spring.  
-% 
-% <<plotSD2text, echo=TRUE,eval=FALSE>>=
-% INFO <- setPA(paStart=3, paLong=3)
-% plotSDLogQ()
-% @
-% 
-% <<plotSD, echo=FALSE,eval=TRUE>>=
-% INFO <- setPA()
-% plotSDLogQ(printStaName = FALSE)
-% @
-% 
-% <<label=fig2a, fig=TRUE,echo=FALSE>>=
-% <<plotSD>>
-% @
-%     \subcaption{Water Year}
-%     \label{fig:SD1}
-%     \end{center}
-%   \end{minipage}
-%   \hspace{0.5cm}
-%   \begin{minipage}[h]{0.5\linewidth}
-%     \begin{center}
-% 
-% <<plotSD2, echo=FALSE,eval=TRUE>>=
-% INFO <- setPA(paStart=3, paLong=3)
-% plotSDLogQ(printStaName = FALSE)
-% @
-% 
-% <<label=fig2b, fig=TRUE,echo=FALSE>>=
-% <<plotSD2>>
-% @
-%     \subcaption{Spring (March-May)}
-%     \label{fig:SD2}
-%     \end{center}
-%   \end{minipage}
-%   \caption{Discharge variability on the Rio Grande}
-% \end{figure}
 
-% An interesting comparison might be between spring and summer on the Red River of the North (Figure \ref{fig:red}).  This figure shows that there is generally more variability in discharge in the spring compared to the summer.
-
-<<plotSDRed, echo=FALSE,eval=TRUE>>=
+<<plotSDRed, echo=TRUE,eval=TRUE>>=
 siteID <- "05082500"
 DailyRed <- getDVData(siteID,"00060","","",interactive=FALSE)
 INFORed <- getMetaData(siteID,"",interactive=FALSE)
@@ -429,13 +425,8 @@ plotSDLogQ(localDaily = DailyRed, localINFO = INFORed,printStaName = FALSE)
   \label{fig:red}
 \end{figure}
 
-\FloatBarrier
-
-plotQTimeDaily is simply a time series plot of discharge.  But, it is most suited for showing events above some discharge threshold.  In the simplest case, it can plot the entire record, but given the line weight and use of an arithmetic scale it will primarily provide a visual focus on the higher values. plotQTimeDaily requires startYear and endYear, along with some other optional arguements (see ?plotQTimeDaily for more details).
-
-Returning to our example concerning the Rio Grande (Figure \ref{fig:plotQTimeDaily}):
-<<plotQTimeDaily, echo=TRUE,eval=TRUE>>=
-plotQTimeDaily(1990,2000,qLower=2,qUnit=3)
+<<plotQTimeDaily, echo=FALSE,eval=TRUE>>=
+plotQTimeDaily(1990,2010,qLower=2,qUnit=3)
 @
 
 \begin{figure}[ht]
@@ -449,42 +440,10 @@ plotQTimeDaily(1990,2000,qLower=2,qUnit=3)
 \label{fig:plotQTimeDaily}
 \end{figure}
 
-\FloatBarrier
+plotQTimeDaily is simply a time series plot of discharge.  But, it is most suited for showing events above some discharge threshold.  In the simplest case, it can plot the entire record, but given the line weight and use of an arithmetic scale it will primarily provide a visual focus on the higher values. plotQTimeDaily requires startYear and endYear, along with some other optional arguements (see ?plotQTimeDaily for more details).
 
-plotFour, plotFourStats, and plot15 are all designed to plot several graphs from the other functions all in a single figure.  
+plotFour, plotFourStats, and plot15 are all designed to plot several graphs from the other functions all in a single figure. 
 
-<<plotFour, echo=TRUE,eval=TRUE>>=
-annualSeries <- makeAnnualSeries()
-plotFour(qUnit=3)
-@
-
-\begin{figure}[ht]
-\begin{center}
-
-<<label=figplotFour, fig=TRUE,echo=FALSE>>=
-<<plotFour>>
-@
-\end{center}
-\caption{Default plotFour}
-\label{fig:plotFour}
-\end{figure}
-
-<<plotFourStats, echo=TRUE,eval=TRUE>>=
-plotFourStats(qUnit=3)
-@
-
-\begin{figure}[ht]
-\begin{center}
-
-<<label=figplotFourStats, fig=TRUE,echo=FALSE>>=
-<<plotFourStats>>
-@
-\end{center}
-\caption{Default plotFourStats}
-\label{fig:plotFourStats}
-\end{figure}
-
-\FloatBarrier
 %------------------------------------------------------------ 
 \subsection{Table Options}
 \label{sec:tableOptions}
@@ -522,6 +481,7 @@ Another way to look at the results is to consider how much the smoothed values c
 There is another argument that can be very useful in this function: yearPoints.  In the default case, the set of years that are compared are at 5 year intervals along the whole data set.  If the data set was quite long this can be a daunting number of comparisons.  For example, in an 80 year record, there would be 136 such pairs. Instead, we could look at changes for every 20 years starting in 1930: 
 
 <<printSeries, eval=TRUE,echo=TRUE>>=
+annualSeries <- makeAnnualSeries()
 tableFlowChange(istat=3, qUnit=3,yearPoints=c(1930,1950,1970,1990,2010))
 @
 
@@ -1219,6 +1179,12 @@ library(EGRET)
 \section{Common Function Variables}
 \label{sec:appendixPlot}
 %------------------------------------------------------------ 
+%------------------------------------------------------------ 
+\subsection{flowHistory Plotting Input}
+\label{sec:flowHistoryVariables}
+%------------------------------------------------------------
+
+
 %------------------------------------------------------------ 
 \subsection{Water Quality Plotting Input}
 \label{sec:wqVariables}
