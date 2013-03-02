@@ -24,6 +24,7 @@
 #' @param tcl number defaults to 0.5, specifies length of tick marks as fraction of height of a line of text.
 #' @param oma vector defaults to c(0,0,0,0) specifies outer margin
 #' @param mar vector defaults to c(5,4,1,1) specifies plot area
+#' @param cex.axis number defaults to 1, specifies axis text magnification
 #' @param tinyPlot logical defaults to FALSE, if TRUE, changes defaults to be appropriate for multi-plot
 #' @param hLine logical defaults to FALSE, inserts horizontal line at zero
 #' @param oneToOneLine logical defaults to FALSE, inserts 1:1 line
@@ -49,7 +50,7 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
                                 axes = FALSE, printTitle=TRUE,
                                 xaxs="i",xlab="",yaxs="i",ylab="",plotTitle="",
                                 pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2,
-                                tcl=0.5,oma=c(0,0,0,0),mar=c(5,4,1,1),
+                                tcl=0.5,oma=c(0,0,0,0),mar=c(5,4,1,1),cex.axis=1,
                                 tinyPlot=FALSE,hLine=FALSE,oneToOneLine=FALSE, ...){
   
 #   if(tinyPlot) par(mar=c(5,4,1,1)) else par(mar=c(5,4,4,2)+0.1)
@@ -63,10 +64,10 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
   if (hLine) abline(h = 0)
   if (oneToOneLine) abline(a=0,b=1)
   axis(1,tcl=tcl,at=xTicks,labels=xTicks)
-  axis(2,tcl=tcl,las=1,at=yTicks,labels=yTicks)
+  axis(2,tcl=tcl,las=1,at=yTicks,labels=yTicks,cex.axis=cex.axis)
   axis(3,tcl=tcl,at=xTicks,labels=FALSE)
   axis(4,tcl=tcl,at=yTicks,labels=FALSE)
-  par(mar=c(5,4,4,2)+0.1) # Not sure if this is a good idea or not
-  par(oma=c(0,0,0,0)) # Not sure if this is a good idea or not
+#   par(mar=c(5,4,4,2)+0.1) # Not sure if this is a good idea or not
+#   par(oma=c(0,0,0,0)) # Not sure if this is a good idea or not
 }
 

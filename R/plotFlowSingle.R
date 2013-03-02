@@ -35,7 +35,7 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
   years<-localAnnualSeries[1,istat,]
 #   par(mar =  c(3,2,5,1))
 #   if(!tinyPlot) par(pty="s")
-  par(mar =  c(5,6,5,2))
+
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(qUnit)){
@@ -73,13 +73,26 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
   nameIstat<-c("minimum day","7-day minimum","30-day minimum","median daily","mean daily","30-day maximum","7-day maximum",'maximum day')
   line3<-if(printIstat) paste("\n",nameIstat[istat]) else ""
   title<-if(printTitle) paste(line1,line2,line3) else ""
-  plot(localSeries$years,localSeries$qActual,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(yBottom,yTop),yaxs="i",ylab=yLab,main=title,cex=0.8,cex.main=1.1,cex.lab=1.2,font=2,pch=20)
-  axis(1,tcl=0.5,at=xTicks,labels=xTicks)
-  axis(2,tcl=0.5,las=1,at=yTicks,labels=yTicks,cex.axis=1.1)
-  axis(3,tcl=0.5,at=xTicks,labels=FALSE)
-  axis(4,tcl=0.5,at=yTicks,labels=FALSE)
-  box()
-  par(new=TRUE)
-  plot(localSeries$years,localSeries$qSmooth,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(yBottom,yTop),yaxs="i",ylab="",main="",cex=0.8,cex.main=1.1,cex.lab=1.2,font=2,type="l",lwd=2)
+  
+  ##############################################
+  genericEGRETDotPlot(x=localSeries$years, y=localSeries$qActual, 
+                      xlim=c(xLeft,xRight), ylim=c(yBottom,yTop),
+                      xlab="", ylab=yLab,
+                      xTicks=xTicks, yTicks=yTicks,cex=0.8,
+                      plotTitle=title, mar=c(5,6,5,2), cex.axis=1.1,cex.main=1.1
+  )
+  
+#   par(mar =  c(5,6,5,2))
+#   plot(localSeries$years,localSeries$qActual,axes=FALSE,
+#         xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(yBottom,yTop),yaxs="i",
+#         ylab=yLab,main=title,cex=0.8,cex.main=1.1,cex.lab=1.2,font=2,pch=20)
+#   axis(1,tcl=0.5,at=xTicks,labels=xTicks)
+#   axis(2,tcl=0.5,las=1,at=yTicks,labels=yTicks,cex.axis=1.1)
+#   axis(3,tcl=0.5,at=xTicks,labels=FALSE)
+#   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
+#   box()
+  ##############################################
+  
+  lines(localSeries$years,localSeries$qSmooth,lwd=2)
   par(mar=c(5,4,4,2)+0.1)
 }
