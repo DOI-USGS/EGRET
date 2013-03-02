@@ -84,6 +84,7 @@ Collate:
     'tableFlowChange.R'
     'estDailyFromSurfacesJ.R'
     'plotConcTimeSmooth.R'
+	'genericEGRETplot.R'
 Depends:
     R (>= 2.13.0),
     fields

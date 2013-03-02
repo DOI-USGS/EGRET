@@ -21,9 +21,19 @@ centerDate <- "07-01"
 
 plotResidQ()
 plotConcPred()
-genericEGRETDotPlot(hLine=TRUE,x=Daily$Date, y=Daily$Q, 
-                    xlim=c(0,2), ylim=c(0,2),
-                    xlab="Estimated X", ylab="Estimated Y",
-                    xTicks=c(0,max(Daily$Date)),yTicks=c(0,max(Daily$Q)/2,max(Daily$Q))
+
+x <- Daily$Date
+y <- Daily$Q
+xlim <- c(min(x),max(x))
+ylim <- c(min(y),1.05*max(y)))
+xlab <- "Date"
+ylab <- "Flow"
+xTicks <- pretty(xlim)
+yTicks <- pretty(ylim)
+genericEGRETDotPlot(hLine=TRUE,x=x, y=y, 
+                    xlim=xlim, ylim=ylim,
+                    xlab=xlab, ylab=ylab,
+                    xTicks=xTicks, yTicks=yTicks,
+                    plotTitle="Test\ntest\ntest"
                     )
 
