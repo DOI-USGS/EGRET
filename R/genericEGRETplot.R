@@ -9,7 +9,6 @@
 #' @param ylim vector specifying the y plotting range (required)
 #' @param xTicks vector specifying x axis tick placement
 #' @param yTicks vector specifying y axis tick placement
-#' @param axes logical defaults to FALSE to allow better control over axis, plotting parameter
 #' @param printTitle logical defaults to TRUE, plotting parameter to control whether to have title
 #' @param xaxs string defaults to "i", defines the style of x-axis interval calculation.  Possible values are i, r, e, s, d.
 #' @param xlab string defaults to "", defines the x label
@@ -47,7 +46,7 @@
 #'                     plotTitle="Test"
 #' )
 genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
-                                axes = FALSE, printTitle=TRUE,
+                                printTitle=TRUE,
                                 xaxs="i",xlab="",yaxs="i",ylab="",plotTitle="",
                                 pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2,
                                 tcl=0.5,oma=c(0,0,0,0),mar=c(5,4,1,1),cex.axis=1,
@@ -56,9 +55,9 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
 #   if(tinyPlot) par(mar=c(5,4,1,1)) else par(mar=c(5,4,4,2)+0.1)
   par(oma=oma) 
   par(mar=mar)
-  plot(x,y,axes=axes,xlim=xlim,xaxs=xaxs,xlab=xlab,
+  plot(x,y,xlim=xlim,xaxs=xaxs,xlab=xlab,axes=FALSE,
        ylim=ylim,yaxs=yaxs,ylab=ylab,main=plotTitle,
-       pch=pch,cex=cex,cex.main=cex.main,font.main=font.main,cex.lab=cex.lab)
+       pch=pch,cex=cex,cex.main=cex.main,font.main=font.main,cex.lab=cex.lab,...)
 
   box()
   if (hLine) abline(h = 0)

@@ -18,11 +18,12 @@
 #' INFO <- exINFO
 #' plotLogFluxQ(qUnit = 1, fluxUnit = 1)
 #' plotLogFluxQ(fluxUnit = 'kgDay')
+#' plotLogFluxQ()
 plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2, fluxUnit = 3, tinyPlot = FALSE, fluxMax = NA, fluxMin = NA, printTitle = TRUE){
   # this function shows the sample data,
   # discharge on x-axis on a log scale, 
   # flux on y-axis on a log scale 
-  par(mar=c(5,5,4,2)+0.1)
+  
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(qUnit)){
@@ -62,12 +63,38 @@ plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2, fluxUni
   yBottom<-yTicks[1]
   yTop<-yTicks[numYTicks]
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Flux versus Discharge") else ""
-  plot(log(x,10),log(yHigh,10),axes=FALSE,xlim=c(log(xLeft,10),log(xRight,10)),xaxs="i",xlab=xLab,ylim=c(log(yBottom,10),log(yTop,10)),yaxs="i",ylab=yLab,main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)
-  axis(1,tcl=0.5,at=log(xTicks,10),labels=xTicks)
-  axis(2,tcl=0.5,las=1,at=log(yTicks,10),labels=yTicks)
-  axis(3,tcl=0.5,at=log(xTicks,10),labels=FALSE)
-  axis(4,tcl=0.5,at=log(yTicks,10),labels=FALSE)
-  box()
+  
+  ##############################################  
+  mar<-c(5,5,4,2)+0.1
+  
+  genericEGRETDotPlot(x=x, y=yHigh, 
+                      xlim=c(xLeft,xRight), ylim=c(yBottom,yTop),
+                      xlab=xLab, ylab=yLab,
+                      xTicks=xTicks, yTicks=yTicks,
+                      plotTitle=plotTitle, mar=mar,log="xy"
+  )
+  
+#   par(mar=c(5,5,4,2)+0.1)
+#   plot(log(x,10),log(yHigh,10),axes=FALSE,xlim=c(xLeft,xRight),
+#        xaxs="i",xlab=xLab,ylim=c(yBottom,yTop),yaxs="i",
+#        ylab=yLab,main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)
+#   axis(1,tcl=0.5,at=log(xTicks,10),labels=xTicks)
+#   axis(2,tcl=0.5,las=1,at=log(yTicks,10),labels=yTicks)
+#   axis(3,tcl=0.5,at=log(xTicks,10),labels=FALSE)
+#   axis(4,tcl=0.5,at=log(yTicks,10),labels=FALSE)
+#   box()
+  
+#   par(mar=c(5,5,4,2)+0.1)
+#   plot(log(x,10),log(yHigh,10),axes=FALSE,xlim=c(log(xLeft,10),log(xRight,10)),
+#          xaxs="i",xlab=xLab,ylim=c(log(yBottom,10),log(yTop,10)),yaxs="i",
+#          ylab=yLab,main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)
+#   axis(1,tcl=0.5,at=log(xTicks,10),labels=xTicks)
+#   axis(2,tcl=0.5,las=1,at=log(yTicks,10),labels=yTicks)
+#   axis(3,tcl=0.5,at=log(xTicks,10),labels=FALSE)
+#   axis(4,tcl=0.5,at=log(yTicks,10),labels=FALSE)
+#   box()
+  ##############################################
+  
   yLowVal<-ifelse(is.na(yLow),yBottom,yLow)
   numSamples<-length(x)
   uncensoredIndex <- 1:numSamples
