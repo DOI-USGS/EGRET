@@ -19,7 +19,8 @@
 #' plotLogFluxQ(qUnit = 1, fluxUnit = 1)
 #' plotLogFluxQ(fluxUnit = 'kgDay')
 #' plotLogFluxQ()
-plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2, fluxUnit = 3, tinyPlot = FALSE, fluxMax = NA, fluxMin = NA, printTitle = TRUE){
+plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2, 
+              fluxUnit = 3, tinyPlot = FALSE, fluxMax = NA, fluxMin = NA, printTitle = TRUE,...){
   # this function shows the sample data,
   # discharge on x-axis on a log scale, 
   # flux on y-axis on a log scale 
@@ -71,7 +72,7 @@ plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2, fluxUni
                       xlim=c(xLeft,xRight), ylim=c(yBottom,yTop),
                       xlab=xLab, ylab=yLab,
                       xTicks=xTicks, yTicks=yTicks,
-                      plotTitle=plotTitle, mar=mar,log="xy"
+                      plotTitle=plotTitle, mar=mar,log="xy",...
   )
   
 
@@ -90,6 +91,7 @@ plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2, fluxUni
   numSamples<-length(x)
   uncensoredIndex <- 1:numSamples
   uncensoredIndex <- uncensoredIndex[Uncen==0]
-  segments(log(x[uncensoredIndex],10),log(yLowVal[uncensoredIndex],10),log(x[uncensoredIndex],10),log(yHigh[uncensoredIndex],10))
+  segments(x[uncensoredIndex],yLowVal[uncensoredIndex],x[uncensoredIndex],yHigh[uncensoredIndex])  
+#   segments(log(x[uncensoredIndex],10),log(yLowVal[uncensoredIndex],10),log(x[uncensoredIndex],10),log(yHigh[uncensoredIndex],10))
   par(mar=c(5,4,4,2)+0.1)
 }

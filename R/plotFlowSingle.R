@@ -28,7 +28,7 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
                   localINFO = INFO, localAnnualSeries = annualSeries, 
                   qMax = NA, printTitle = TRUE, tinyPlot = FALSE, 
                   runoff = FALSE, qUnit = 1, printStaName = TRUE, printPA = TRUE, 
-                  printIstat = TRUE) {
+                  printIstat = TRUE,...) {
   
   qActual<-localAnnualSeries[2,istat,]
   qSmooth<-localAnnualSeries[3,istat,]
@@ -79,7 +79,7 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
                       xlim=c(xLeft,xRight), ylim=c(yBottom,yTop),
                       xlab="", ylab=yLab,
                       xTicks=xTicks, yTicks=yTicks,cex=0.8,
-                      plotTitle=title, mar=c(5,6,5,2), cex.axis=1.1,cex.main=1.1
+                      plotTitle=title, mar=c(5,6,5,2), cex.axis=1.1,cex.main=1.1,...
   )
   
 #   par(mar =  c(5,6,5,2))
