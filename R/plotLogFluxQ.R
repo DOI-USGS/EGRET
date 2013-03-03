@@ -74,16 +74,7 @@ plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2, fluxUni
                       plotTitle=plotTitle, mar=mar,log="xy"
   )
   
-#   par(mar=c(5,5,4,2)+0.1)
-#   plot(log(x,10),log(yHigh,10),axes=FALSE,xlim=c(xLeft,xRight),
-#        xaxs="i",xlab=xLab,ylim=c(yBottom,yTop),yaxs="i",
-#        ylab=yLab,main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)
-#   axis(1,tcl=0.5,at=log(xTicks,10),labels=xTicks)
-#   axis(2,tcl=0.5,las=1,at=log(yTicks,10),labels=yTicks)
-#   axis(3,tcl=0.5,at=log(xTicks,10),labels=FALSE)
-#   axis(4,tcl=0.5,at=log(yTicks,10),labels=FALSE)
-#   box()
-  
+
 #   par(mar=c(5,5,4,2)+0.1)
 #   plot(log(x,10),log(yHigh,10),axes=FALSE,xlim=c(log(xLeft,10),log(xRight,10)),
 #          xaxs="i",xlab=xLab,ylim=c(log(yBottom,10),log(yTop,10)),yaxs="i",

@@ -36,4 +36,13 @@ genericEGRETDotPlot(hLine=TRUE,x=x, y=y,
                     xTicks=xTicks, yTicks=yTicks,
                     plotTitle="Test\ntest\ntest"
                     )
-
+siteID <- "01491000" #Choptank River at Greensboro, MD
+startDate <- "1979-10-01"
+endDate <- "2011-09-30"
+param<-"00631"
+Daily <- getDVData(siteID,"00060",startDate,endDate)
+INFO<- getMetaData(siteID,param,interactive=FALSE)
+INFO$shortName <- "Choptank River"
+Sample <- getSampleData(siteID,param,startDate,endDate)
+Sample <- mergeReport()
+plotLogFluxQ()
