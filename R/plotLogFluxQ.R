@@ -76,7 +76,7 @@ plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2,
                       plotTitle=plotTitle, mar=mar,log="xy",...
   )
   
-
+#Tracey's fork!
 #   par(mar=c(5,5,4,2)+0.1)
 #   plot(log(x,10),log(yHigh,10),axes=FALSE,xlim=c(log(xLeft,10),log(xRight,10)),
 #          xaxs="i",xlab=xLab,ylim=c(log(yBottom,10),log(yTop,10)),yaxs="i",
