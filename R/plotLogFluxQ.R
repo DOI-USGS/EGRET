@@ -88,11 +88,14 @@ plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2,
 #   box()
   ##############################################
   
-  yLowVal<-ifelse(is.na(yLow),yBottom,yLow)
-  numSamples<-length(x)
-  uncensoredIndex <- 1:numSamples
-  uncensoredIndex <- uncensoredIndex[Uncen==0]
-  segments(x[uncensoredIndex],yLowVal[uncensoredIndex],x[uncensoredIndex],yHigh[uncensoredIndex])  
-#   segments(log(x[uncensoredIndex],10),log(yLowVal[uncensoredIndex],10),log(x[uncensoredIndex],10),log(yHigh[uncensoredIndex],10))
+#   yLowVal<-ifelse(is.na(yLow),yBottom,yLow)
+#   numSamples<-length(x)
+#   uncensoredIndex <- 1:numSamples
+#   uncensoredIndex <- uncensoredIndex[Uncen==0]
+#   segments(x[uncensoredIndex],yLowVal[uncensoredIndex],x[uncensoredIndex],yHigh[uncensoredIndex])  
+  ##############################################
+  #   segments(log(x[uncensoredIndex],10),log(yLowVal[uncensoredIndex],10),log(x[uncensoredIndex],10),log(yHigh[uncensoredIndex],10))
+  censoredSegments(yBottom,yLow,yHigh,x,Uncen)
+  
   par(mar=c(5,4,4,2)+0.1)
 }
