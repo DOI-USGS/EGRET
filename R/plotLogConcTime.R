@@ -20,92 +20,22 @@
 #' @param concMax numeric specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param concMin numeric specifying the minimum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
+#' @param ... arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords graphics water-quality statistics
 #' @export
 #' @seealso \code{\link{plotConcTime}}
 #' @examples
 #' Sample <- exSample
 #' INFO <- exINFO
-#' plotLogConcTime(qUnit = 1)
+#' plotLogConcTime()
 #' plotLogConcTime(qUnit = 'thousandCfs')
-plotLogConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,qLower = NA,qUpper = NA, paLong = 12, paStart = 10, tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE){
-  # this function shows the sample data,
-  # time on x-axis, concentration on y-axis 
-  
-  ################################################################################
-  # I plan to make this a method, so we don't have to repeat it in every funciton:
-  if (is.numeric(qUnit)){
-    qUnit <- qConst[shortCode=qUnit][[1]]
-  } else if (is.character(qUnit)){
-    qUnit <- qConst[qUnit][[1]]
-  }
-  ################################################################################
-  
-  qFactor<-qUnit@qUnitFactor
-  if(tinyPlot)
-    par(mar = c(5,4,1,1.5))
-  else par(mar = c(5,4,4,2) + 0.1)
-  subSample<-localSample
-  subSample$Q<-subSample$Q*qFactor
-  qMin<-min(subSample$Q)
-  qMax<-max(subSample$Q)
-  qLowerBound<-if(is.na(qLower)) 0.90*qMin else qLower
-  qUpperBound<-if(is.na(qUpper)) 1.05*qMax else qUpper
-  # the next section of code just sets up the approach to creating the plot title
-  codeLower<-if(is.na(qLower)) 0 else 1
-  codeUpper<-if(is.na(qUpper)) 0 else 2
-  codeSum<-codeLower+codeUpper+1
-  qText<-rep("",4)
-  qText[1]<-"\n"
-  qText[2]<-paste("\nFor Discharge >",qLower,qUnit@qUnitName)
-  qText[3]<-paste("\nFor Discharge <",qUpper,qUnit@qUnitName)
-  qText[4]<-paste("\nFor Discharge between",qLower,"and",qUpper,qUnit@qUnitName)
-  title3<-qText[codeSum]
-  subSample<-subset(subSample,Q>qLowerBound)
-  subSample<-subset(subSample,Q<qUpperBound)
-  # the next section subsets the data for the selected season
-  goodMonth<-seq(paStart,paStart+paLong-1,1)
-  goodMonth<-ifelse(goodMonth>12,goodMonth-12,goodMonth)
-  numDays<-length(subSample$Month)
-  isGood<-rep(FALSE,numDays)
-  for(i in 1:numDays){
-    count<-ifelse(subSample$Month[i]==goodMonth,1,0)
-    isGood[i]<-if(sum(count)>0) TRUE else FALSE
-  }
-  subSample<-data.frame(subSample,isGood)
-  subSample<-subset(subSample,isGood)
-  # the next section of code sets up the seasonal part of the plot title
-  title2<-if(paLong==12) "\n" else paste("\n",setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong))  
-  yLow<-subSample$ConcLow
-  yHigh<-subSample$ConcHigh
-  Uncen<-subSample$Uncen
-  numSamples<-length(subSample$Q)
-  x<-subSample$DecYear
-  xMin<-x[1]
-  xMax<-x[numSamples]
-  yearSpan<-c(xMin,xMax)
-  nXTicks<-if(tinyPlot) 5 else 8 
-  xTicks<-pretty(yearSpan,n=nXTicks)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
-  maxYHigh<-if(is.na(concMax)) 1.05*max(yHigh) else concMax
-  minYLow<-if(is.na(concMin)) 0.95*min(subSample$ConcAve) else concMin
-  yTicks<-logPretty3(minYLow,maxYHigh)
-  numYTicks<-length(yTicks)
-  yBottom<-yTicks[1]
-  yTop<-yTicks[numYTicks]
-  plotTitle<-if(printTitle) paste(localINFO$shortName,",",localINFO$paramShortName,title2,title3) else ""
-  plot(x,log(yHigh,10),axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(log(yBottom,10),log(yTop,10)),yaxs="i",ylab="Concentration in mg/L",main=plotTitle,pch=20,cex=0.5,cex.main=1.0,font.main=2,cex.lab=1.2)
-  axis(1,tcl=0.5,at=xTicks,labels=xTicks)
-  axis(2,tcl=0.5,las=1,at=log(yTicks,10),labels=yTicks)
-  axis(3,tcl=0.5,at=xTicks,labels=FALSE)
-  axis(4,tcl=0.5,at=log(yTicks,10),labels=FALSE)
-  box()
-  yLowVal<-ifelse(is.na(yLow),yBottom,yLow)
-  numSamples<-length(x)
-  uncensoredIndex <- 1:numSamples
-  uncensoredIndex <- uncensoredIndex[Uncen==0]
-  segments(x[uncensoredIndex],log(yLowVal[uncensoredIndex],10),x[uncensoredIndex],log(yHigh[uncensoredIndex],10))
-  par(mar = c(5, 4, 4, 2) + 0.1)
+plotLogConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,qLower = NA,
+                          qUpper = NA, paLong = 12, paStart = 10, tinyPlot = FALSE, 
+                          concMax = NA, concMin = NA, printTitle = TRUE, ...){
+ 
+  plotConcTime(localSample = localSample, localINFO = localINFO, qUnit = qUnit, 
+               qLower = qLower, qUpper = qUpper, paLong = paLong, paStart = paStart, 
+               tinyPlot = tinyPlot, concMax = concMax, concMin = concMin, 
+               printTitle = printTitle, logScale="y",...)
+ 
 }

@@ -29,9 +29,6 @@
 #' Uncen <- c(0,1,1,1,1,1)
 #' censoredSegments(yBottom=yBottom,yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
 censoredSegments <- function(yBottom,yLow,yHigh,x,Uncen){
-  yLowVal<-ifelse(is.na(yLow),yBottom,yLow)
-  numSamples<-length(x)
-  uncensoredIndex <- 1:numSamples
-  uncensoredIndex <- uncensoredIndex[Uncen==0]
-  segments(x[uncensoredIndex],yLowVal[uncensoredIndex],x[uncensoredIndex],yHigh[uncensoredIndex])  
+  yLowVal<-ifelse(is.na(yLow),yBottom,yLow) #yLow would be NA if "simple" censored....so giving it a value here
+  segments(x[Uncen==0],yLowVal[Uncen==0],x[Uncen==0],yHigh[Uncen==0])  
 }

@@ -18,24 +18,25 @@ q1 <- 10
 q2 <- 25
 q3 <- 75
 centerDate <- "07-01"
+plotFlowSingle(8)
 
-plotResidQ()
-plotConcPred()
 
 x <- Daily$Date
 y <- Daily$Q
 xlim <- c(min(x),max(x))
-ylim <- c(min(y),1.05*max(y)))
+ylim <- c(min(y),1.05*max(y))
 xlab <- "Date"
 ylab <- "Flow"
 xTicks <- pretty(xlim)
 yTicks <- pretty(ylim)
-genericEGRETDotPlot(hLine=TRUE,x=x, y=y, 
+genericEGRETDotPlot(x=x, y=y, 
                     xlim=xlim, ylim=ylim,
                     xlab=xlab, ylab=ylab,
                     xTicks=xTicks, yTicks=yTicks,
-                    plotTitle="Test\ntest\ntest"
+                    plotTitle="Test"
                     )
+
+
 siteID <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "1979-10-01"
 endDate <- "2011-09-30"
@@ -43,6 +44,9 @@ param<-"00631"
 Daily <- getDVData(siteID,"00060",startDate,endDate)
 INFO<- getMetaData(siteID,param,interactive=FALSE)
 INFO$shortName <- "Choptank River"
+INFO <- setPA()
+annualSeries <- makeAnnualSeries()
 Sample <- getSampleData(siteID,param,startDate,endDate)
 Sample <- mergeReport()
+plotFlowSingle(8)
 plotLogFluxQ(cex.main=1.5)

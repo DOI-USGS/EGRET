@@ -18,13 +18,18 @@
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
+#' @param logScale string, default "", "y" indicates y axis is in log scale, "xy" indicates both x and y in log scale, "x" is only x
+#' @param ... arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
 #' Sample <- exSample
 #' INFO <- exINFO
 #' plotConcTime(qUnit = 1, qLower = 100, qUpper = 10000, paLong = 3, paStart = 4)
-plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2, qLower = NA, qUpper = NA, paLong = 12, paStart = 10, tinyPlot = FALSE, concMax = NA, printTitle = TRUE){
+#' plotConcTime()
+plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2, 
+                       qLower = NA, qUpper = NA, paLong = 12, paStart = 10, 
+                       tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale="",...){
   # this function shows the sample data,
   # time on x-axis, concentration on y-axis
   ################################################################################
@@ -35,12 +40,25 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2, qLower
     qUnit <- qConst[qUnit][[1]]
   }
   ################################################################################  
+  
+  if(tinyPlot){
+    mar = c(5,4,1,1.5)
+  } else {
+    mar = c(5,4,4,2) + 0.1
+  }
+  
   qFactor<-qUnit@qUnitFactor
   subSample<-localSample
   subSample$Q<-subSample$Q*qFactor
   qMin<-min(subSample$Q)
   qMax<-max(subSample$Q)
-  qLowerBound<-if(is.na(qLower)) 0.95*qMin else qLower
+  if (logScale=="y"){
+    qScale <- 0.9
+  } else {
+    qScale <- 0.95
+  }
+  
+  qLowerBound<-if(is.na(qLower)) qScale*qMin else qLower
   qUpperBound<-if(is.na(qUpper)) 1.05*qMax else qUpper
   # the next section of code just sets up the approach to creating the plot title
   codeLower<-if(is.na(qLower)) 0 else 1
@@ -81,18 +99,39 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2, qLower
   xLeft<-xTicks[1]
   xRight<-xTicks[numXTicks]
   maxYHigh<-if(is.na(concMax)) 1.05*max(yHigh) else concMax
-  yTicks<-yPretty(maxYHigh)
+  
+  #########################################################
+  if (logScale=="y"){
+    minYLow<-if(is.na(concMin)) 0.95*min(subSample$ConcAve) else concMin  #Unique to log
+    yTicks<-logPretty3(minYLow,maxYHigh)
+    numYTicks<-length(yTicks)
+    yBottom<-yTicks[1]
+  } else {
+    yTicks<-yPretty(maxYHigh)
+    yBottom <- 0
+  }
+  
+  #########################################################
   yTop<-yTicks[length(yTicks)]
   plotTitle<-if(printTitle) paste(localINFO$shortName,",",localINFO$paramShortName,title2,title3) else ""
-  plot(x,yHigh,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="Concentration in mg/L",main=plotTitle,pch=20,cex=0.7,cex.main=1.0,font.main=2,cex.lab=1.2)
-  axis(1,tcl=0.5,at=xTicks,labels=xTicks)
-  axis(2,tcl=0.5,las=1,at=yTicks)
-  axis(3,tcl=0.5,at=xTicks,labels=FALSE)
-  axis(4,tcl=0.5,at=yTicks,labels=FALSE)
-  box()
-  yLowVal<-ifelse(is.na(yLow),0,yLow)
-  numSamples<-length(x)
-  uncensoredIndex <- 1:numSamples
-  uncensoredIndex <- uncensoredIndex[Uncen==0]
-  segments(x[uncensoredIndex],yLowVal[uncensoredIndex],x[uncensoredIndex],yHigh[uncensoredIndex])
+  yLab="Concentration in mg/L"
+  
+  genericEGRETDotPlot(x=x, y=yHigh, 
+                      xlim=c(xLeft,xRight), ylim=c(yBottom,yTop),
+                      xlab="", ylab=yLab,
+                      xTicks=xTicks, yTicks=yTicks,cex.main=1,
+                      plotTitle=plotTitle, mar=mar, log=logScale,...
+  )
+  censoredSegments(yBottom=yBottom,yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
+#   plot(x,yHigh,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="Concentration in mg/L",main=plotTitle,pch=20,cex=0.7,cex.main=1.0,font.main=2,cex.lab=1.2)
+#   axis(1,tcl=0.5,at=xTicks,labels=xTicks)
+#   axis(2,tcl=0.5,las=1,at=yTicks)
+#   axis(3,tcl=0.5,at=xTicks,labels=FALSE)
+#   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
+#   box()
+#   yLowVal<-ifelse(is.na(yLow),0,yLow)
+#   numSamples<-length(x)
+#   uncensoredIndex <- 1:numSamples
+#   uncensoredIndex <- uncensoredIndex[Uncen==0]
+#   segments(x[uncensoredIndex],yLowVal[uncensoredIndex],x[uncensoredIndex],yHigh[uncensoredIndex])
 }
