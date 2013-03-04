@@ -9,6 +9,7 @@
 #' @param x vector x data (required)
 #' @export
 #' @examples
+#' censoredSegments(c(0,1,2),c(0,1,2),c(0,1,2),c(0,1,2),c(0,1,2))
 censoredSegments <- function(yBottom,yLow,yHigh,x,Uncen){
   yLowVal<-ifelse(is.na(yLow),yBottom,yLow)
   numSamples<-length(x)
