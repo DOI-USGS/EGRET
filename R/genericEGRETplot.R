@@ -67,7 +67,6 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
   axis(3,tcl=tcl,at=xTicks,labels=FALSE)
   axis(4,tcl=tcl,at=yTicks,labels=FALSE)
   
-  
 #   par(mar=c(5,4,4,2)+0.1) # Not sure if this is a good idea or not
 #   par(oma=c(0,0,0,0)) # Not sure if this is a good idea or not
 }
