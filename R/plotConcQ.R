@@ -43,15 +43,27 @@ plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot 
   yTicks<-yPretty(maxYHigh)
   yTop<-yTicks[length(yTicks)]
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Concentration versus Discharge") else ""
-  plot(log(x,10),yHigh,axes=FALSE,xlim=c(log(xLeft,10),log(xRight,10)),xaxs="i",xlab=xLab,ylim=c(0,yTop),yaxs="i",ylab="Concentration in mg/L",main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)
-  axis(1,tcl=0.5,at=log(xTicks,10),labels=xTicks)
-  axis(2,tcl=0.5,las=1,at=yTicks)
-  axis(3,tcl=0.5,at=log(xTicks,10),labels=FALSE)
-  axis(4,tcl=0.5,at=yTicks,labels=FALSE)
-  box()
+  
+  yLab <- "Concentration in mg/L"
+  mar<-c(5,4,4,2)+0.1
+  
+  genericEGRETDotPlot(x=x, y=yHigh, 
+                      xlim=c(xLeft,xRight), ylim=c(0,yTop),
+                      xlab=xLab, ylab=yLab,
+                      xTicks=xTicks, yTicks=yTicks,
+                      plotTitle=plotTitle, mar=mar,log="x"
+  )
+  
+#   plot(log(x,10),yHigh,axes=FALSE,xlim=c(log(xLeft,10),log(xRight,10)),xaxs="i",xlab=xLab,ylim=c(0,yTop),yaxs="i",ylab="Concentration in mg/L",main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)
+#   axis(1,tcl=0.5,at=log(xTicks,10),labels=xTicks)
+#   axis(2,tcl=0.5,las=1,at=yTicks)
+#   axis(3,tcl=0.5,at=log(xTicks,10),labels=FALSE)
+#   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
+#   box()
   yLowVal<-ifelse(is.na(yLow),0,yLow)
   numSamples<-length(x)
   uncensoredIndex <- 1:numSamples
   uncensoredIndex <- uncensoredIndex[Uncen==0]
-  segments(log(x[uncensoredIndex],10),yLowVal[uncensoredIndex],log(x[uncensoredIndex],10),yHigh[uncensoredIndex])
+  segments(x[uncensoredIndex],yLowVal[uncensoredIndex],x[uncensoredIndex],yHigh[uncensoredIndex])
+#   segments(log(x[uncensoredIndex],10),yLowVal[uncensoredIndex],log(x[uncensoredIndex],10),yHigh[uncensoredIndex])
 }

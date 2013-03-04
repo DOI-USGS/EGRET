@@ -1,8 +1,8 @@
 Package: EGRET
 Type: Package
 Title: All EGRET code except for dataRetrieval
-Version: 1.2.3
-Date: 2013-02-26
+Version: 1.2.4
+Date: 2013-03-04
 Author: Robert M. Hirsch
 Maintainer: Robert M. Hirsch <rhirsch@usgs.gov>, Laura De Cicco
     <ldecicco@usgs.gov>
