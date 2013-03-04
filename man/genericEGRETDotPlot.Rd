@@ -3,11 +3,12 @@
 \title{Generic EGRET plotting function}
 \usage{
   genericEGRETDotPlot(x, y, xlim, ylim, xTicks, yTicks,
-    axes = FALSE, printTitle = TRUE, xaxs = "i", xlab = "",
-    yaxs = "i", ylab = "", plotTitle = "", pch = 20,
-    cex = 0.7, cex.main = 1.3, font.main = 2,
-    cex.lab = 1.2, tcl = 0.5, tinyPlot = FALSE,
-    hLine = FALSE, oneToOneLine = FALSE, ...)
+    printTitle = TRUE, xaxs = "i", xlab = "", yaxs = "i",
+    ylab = "", plotTitle = "", pch = 20, cex = 0.7,
+    cex.main = 1.3, font.main = 2, cex.lab = 1.2,
+    tcl = 0.5, oma = c(0, 0, 0, 0), mar = c(5, 4, 1, 1),
+    cex.axis = 1, tinyPlot = FALSE, hLine = FALSE,
+    oneToOneLine = FALSE, ...)
 }
 \arguments{
   \item{x}{vector specifying the x data (required)}
@@ -23,9 +24,6 @@
   \item{xTicks}{vector specifying x axis tick placement}
 
   \item{yTicks}{vector specifying y axis tick placement}
-
-  \item{axes}{logical defaults to FALSE to allow better
-  control over axis, plotting parameter}
 
   \item{printTitle}{logical defaults to TRUE, plotting
   parameter to control whether to have title}
@@ -61,6 +59,15 @@
 
   \item{tcl}{number defaults to 0.5, specifies length of
   tick marks as fraction of height of a line of text.}
+
+  \item{oma}{vector defaults to c(0,0,0,0) specifies outer
+  margin}
+
+  \item{mar}{vector defaults to c(5,4,1,1) specifies plot
+  area}
+
+  \item{cex.axis}{number defaults to 1, specifies axis text
+  magnification}
 
   \item{tinyPlot}{logical defaults to FALSE, if TRUE,
   changes defaults to be appropriate for multi-plot}

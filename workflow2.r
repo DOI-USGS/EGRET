@@ -45,4 +45,4 @@ INFO<- getMetaData(siteID,param,interactive=FALSE)
 INFO$shortName <- "Choptank River"
 Sample <- getSampleData(siteID,param,startDate,endDate)
 Sample <- mergeReport()
-plotLogFluxQ()
+plotLogFluxQ(cex.main=1.5)

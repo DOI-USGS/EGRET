@@ -6,7 +6,7 @@
     localINFO = INFO, localAnnualSeries = annualSeries,
     qMax = NA, printTitle = TRUE, tinyPlot = FALSE,
     runoff = FALSE, qUnit = 1, printStaName = TRUE,
-    printPA = TRUE, printIstat = TRUE)
+    printPA = TRUE, printIstat = TRUE, ...)
 }
 \arguments{
   \item{istat}{A numeric value for the flow statistic to be
@@ -55,6 +55,10 @@
   \item{printIstat}{logical variable, if TRUE print the
   statistic name is printed in title, if FALSE not printed,
   default is TRUE}
+
+  \item{...}{arbitrary graphical parameters that will be
+  passed to genericEGRETDotPlot function (see ?par for
+  options)}
 }
 \description{
   A part of the flowHistory system. The index of the flow

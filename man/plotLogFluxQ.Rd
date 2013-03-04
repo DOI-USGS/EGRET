@@ -4,7 +4,7 @@
 \usage{
   plotLogFluxQ(localSample = Sample, localINFO = INFO,
     qUnit = 2, fluxUnit = 3, tinyPlot = FALSE,
-    fluxMax = NA, fluxMin = NA, printTitle = TRUE)
+    fluxMax = NA, fluxMin = NA, printTitle = TRUE, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -36,6 +36,10 @@
   \item{printTitle}{logical variable if TRUE title is
   printed, if FALSE not printed (this is best for a
   multi-plot figure)}
+
+  \item{...}{arbitrary graphical parameters that will be
+  passed to genericEGRETDotPlot function (see ?par for
+  options)}
 }
 \description{
   Concentration and discharge data used to compute flux
@@ -48,6 +52,7 @@ Sample <- exSample
 INFO <- exINFO
 plotLogFluxQ(qUnit = 1, fluxUnit = 1)
 plotLogFluxQ(fluxUnit = 'kgDay')
+plotLogFluxQ()
 }
 \keyword{graphics}
 \keyword{statistics}
