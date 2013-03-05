@@ -7,9 +7,11 @@ NeedsCompilation: no
 MD5sum: 66ba2128b716b7c9e56273832c5f5851
 
 Package: EGRET
-Version: 1.2.3
-Depends: R (>= 2.13.0), methods, zoo, survival, fields, spam
+Version: 1.2.4
+Depends: R (>= 2.13.0), fields
+Imports: methods, spam, survival
+Suggests: xtable, dataRetrieval
 License: file LICENSE
 NeedsCompilation: no
-MD5sum: b86f8a96f3d61b49a1be2f831b921493
+MD5sum: abb6896eaa282dc860b7af80236aee24
 
