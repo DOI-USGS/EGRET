@@ -28,7 +28,7 @@ plotFour<-function (localINFO = INFO, localAnnualSeries = annualSeries, localDai
 {
   
   
-  par(mfcol = c(2, 2), cex = 0.6, oma = c(0, 1.7, 6, 1.7))
+  par(mfcol = c(2, 2), cex = cex, oma = c(0, 1.7, 6, 1.7))
   
   setYearStart <- if (is.na(yearStart)) {
     min(localAnnualSeries[1, , ], na.rm = TRUE)

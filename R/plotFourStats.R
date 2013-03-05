@@ -25,7 +25,7 @@ plotFourStats<-function(localINFO = INFO, localAnnualSeries = annualSeries, year
   # INFO<-setPA(pastart,paLong,window) 
   # annualSeries<-makeAnnualSeries()
   #
-  par(mfcol=c(2,2),oma=c(0,1.7,6,1.7))
+  par(mfcol=c(2,2),oma=c(0,1.7,6,1.7), cex=cex)
   setYearStart<-if(is.na(yearStart)) min(localAnnualSeries[1,,],na.rm=TRUE) else yearStart
   setYearEnd<-if(is.na(yearEnd)) max(localAnnualSeries[1,,],na.rm=TRUE) else yearEnd
   plotFlowSingle(istat=8, yearStart=setYearStart, yearEnd=setYearEnd, localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,cex.lab=cex.lab,cex.axis=cex.axis,cex=cex)
