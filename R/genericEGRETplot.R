@@ -64,7 +64,7 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
   if (hLine) abline(h = 0)
   if (oneToOneLine) abline(a=0,b=1)
   axis(1,tcl=tcl,at=xTicks,labels=xTicks)
-  axis(2,tcl=tcl,las=las,at=yTicks,labels=yTicks,cex.axis=cex.axis)
+  axis(2,tcl=tcl,las=las,at=yTicks,cex.axis=cex.axis)
   axis(3,tcl=tcl,at=xTicks,labels=FALSE)
   axis(4,tcl=tcl,at=yTicks,labels=FALSE)
   

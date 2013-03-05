@@ -67,4 +67,4 @@ Daily <- getDVData(siteID,"00060",startDate, endDate,interactive=FALSE)
 INFO <- getMetaData(siteID,"",interactive=FALSE)
 INFO$shortName <- "Rio Grande at Embudo, NM"
 INFO <- setPA()
-annualSeries <- makeAnnualSeries()s
+annualSeries <- makeAnnualSeries()
