@@ -1,0 +1,48 @@
+\name{censoredSegments}
+\alias{censoredSegments}
+\title{Generic plotting function to create censored line segments}
+\usage{
+  censoredSegments(yBottom, yLow, yHigh, x, Uncen)
+}
+\arguments{
+  \item{yBottom}{number specifying minimum flux (required)}
+
+  \item{yLow}{vector specifying the x data (required), such
+  as ConcLow}
+
+  \item{yHigh}{vector specifying the x data (required),
+  such as ConcHigh}
+
+  \item{x}{vector x data (required)}
+
+  \item{Uncen}{vector that defines whether the values are
+  censored (0) or not (1)}
+}
+\description{
+  Basic plotting framework for EGRET dot plots. Graphical
+  parameters default to values that work well with most
+  plots, but all can be re-assigned. See ?par for complete
+  definitions of most optional input variables.
+}
+\examples{
+x <- c(1,2,3,4,5,6)
+y <- c(1,3,4,3.3,4.4,2)
+xlim <- c(min(x)*.75,max(x)*1.25)
+ylim <- c(0,1.25*max(y))
+xlab <- "Date"
+ylab <- "Concentration"
+xTicks <- pretty(xlim)
+yTicks <- pretty(ylim)
+genericEGRETDotPlot(x=x, y=y,
+                    xlim=xlim, ylim=ylim,
+                    xlab=xlab, ylab=ylab,
+                    xTicks=xTicks, yTicks=yTicks,
+                    plotTitle="Test"
+)
+yBottom <- 0
+yLow <- c(NA,3,4,3.3,4.4,2)
+yHigh <- c(1,3,4,3.3,4.4,2)
+Uncen <- c(0,1,1,1,1,1)
+censoredSegments(yBottom=yBottom,yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
+}
+

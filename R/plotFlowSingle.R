@@ -18,6 +18,9 @@
 #' @param printStaName logical variable, if TRUE station name is printed in title, if FALSE not printed, default is TRUE
 #' @param printPA logical variable, if TRUE Period of Analysis information is printed in title, if FALSE not printed, default is TRUE
 #' @param printIstat logical variable, if TRUE print the statistic name is printed in title, if FALSE not printed, default is TRUE
+#' @param cex number
+#' @param cex.axis number
+#' @param cex.main number
 #' @param ... arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow statistics
 #' @export
@@ -29,7 +32,7 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
                   localINFO = INFO, localAnnualSeries = annualSeries, 
                   qMax = NA, printTitle = TRUE, tinyPlot = FALSE, 
                   runoff = FALSE, qUnit = 1, printStaName = TRUE, printPA = TRUE, 
-                  printIstat = TRUE,...) {
+                  printIstat = TRUE,cex=0.8, cex.axis=1.1,cex.main=1.1, ...) {
   
   qActual<-localAnnualSeries[2,istat,]
   qSmooth<-localAnnualSeries[3,istat,]
@@ -76,11 +79,12 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
   title<-if(printTitle) paste(line1,line2,line3) else ""
   
   ##############################################
+  par(mar = c(5,6,5,2))
   genericEGRETDotPlot(x=localSeries$years, y=localSeries$qActual, 
                       xlim=c(xLeft,xRight), ylim=c(yBottom,yTop),
                       xlab="", ylab=yLab,
-                      xTicks=xTicks, yTicks=yTicks,cex=0.8,
-                      plotTitle=title, mar=c(5,6,5,2), cex.axis=1.1,cex.main=1.1,...
+                      xTicks=xTicks, yTicks=yTicks,cex=cex,
+                      plotTitle=title, cex.axis=cex.axis,cex.main=cex.main,...
   )
   
 #   par(mar =  c(5,6,5,2))
@@ -95,5 +99,5 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
   ##############################################
   
   lines(localSeries$years,localSeries$qSmooth,lwd=2)
-  par(mar=c(5,4,4,2)+0.1)
+  par(mar = c(5, 4, 4, 2) + 0.1)
 }

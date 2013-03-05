@@ -7,6 +7,7 @@
 #' @param yLow vector specifying the x data (required), such as ConcLow
 #' @param yHigh vector specifying the x data (required), such as ConcHigh
 #' @param x vector x data (required)
+#' @param Uncen vector that defines whether the values are censored (0) or not (1)
 #' @export
 #' @examples
 #' x <- c(1,2,3,4,5,6)

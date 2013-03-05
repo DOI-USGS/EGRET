@@ -526,6 +526,8 @@ param<-"00631"
 Daily <- getDVData(siteID,"00060",startDate,endDate)
 INFO<- getMetaData(siteID,param,interactive=FALSE)
 INFO$shortName <- "Choptank River"
+INFO <- setPA()
+annualSeries <- makeAnnualSeries()
 Sample <- getSampleData(siteID,param,startDate,endDate)
 Sample <- mergeReport()
 @

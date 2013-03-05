@@ -5,7 +5,8 @@
   plotFour(localINFO = INFO,
     localAnnualSeries = annualSeries, localDaily = Daily,
     yearStart = NA, yearEnd = NA, printTitle = TRUE,
-    runoff = FALSE, qUnit = 1, window = 15)
+    runoff = FALSE, qUnit = 1, window = 15, cex = 0.6,
+    cex.lab = 1.4, cex.axis = 1.2)
 }
 \arguments{
   \item{localINFO}{string specifying the name of the data
@@ -39,6 +40,12 @@
   \item{window}{numeric which is the full width, in years,
   of the time window over which the standard deviation is
   computed, default = 15}
+
+  \item{cex}{number}
+
+  \item{cex.lab}{number}
+
+  \item{cex.axis}{number}
 }
 \description{
   Part of the flowHistory system.  The four statistics are

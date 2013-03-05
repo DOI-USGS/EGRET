@@ -6,7 +6,8 @@
     localINFO = INFO, localAnnualSeries = annualSeries,
     qMax = NA, printTitle = TRUE, tinyPlot = FALSE,
     runoff = FALSE, qUnit = 1, printStaName = TRUE,
-    printPA = TRUE, printIstat = TRUE, ...)
+    printPA = TRUE, printIstat = TRUE, cex = 0.8,
+    cex.axis = 1.1, cex.main = 1.1, ...)
 }
 \arguments{
   \item{istat}{A numeric value for the flow statistic to be
@@ -55,6 +56,12 @@
   \item{printIstat}{logical variable, if TRUE print the
   statistic name is printed in title, if FALSE not printed,
   default is TRUE}
+
+  \item{cex}{number}
+
+  \item{cex.axis}{number}
+
+  \item{cex.main}{number}
 
   \item{...}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

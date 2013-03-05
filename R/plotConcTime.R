@@ -17,6 +17,7 @@
 #' @param paStart numeric, this is the starting month of the portion of the year from which data should be included in the plot, paStart must be an integer between 1 and 12.  The default is 10, which corresponds to the water year, which starts in October.  If paLong = 12 then the choice of paStart is of no consequence.  All months will be included.
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
+#' @param concMin number specifying the minimum value to be used on the vertical axis, only appropriate for log scale.  
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
 #' @param logScale string, default "", "y" indicates y axis is in log scale, "xy" indicates both x and y in log scale, "x" is only x
 #' @param ... arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
@@ -42,9 +43,9 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   ################################################################################  
   
   if(tinyPlot){
-    mar = c(5,4,1,1.5)
+    par(mar = c(5,4,1,1.5))
   } else {
-    mar = c(5,4,4,2) + 0.1
+    par(mar = c(5,4,4,2) + 0.1)
   }
   
   qFactor<-qUnit@qUnitFactor
@@ -123,6 +124,7 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
                       plotTitle=plotTitle, mar=mar, log=logScale,...
   )
   censoredSegments(yBottom=yBottom,yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
+  par(mar = c(5,6,5,2))
 #   plot(x,yHigh,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="Concentration in mg/L",main=plotTitle,pch=20,cex=0.7,cex.main=1.0,font.main=2,cex.lab=1.2)
 #   axis(1,tcl=0.5,at=xTicks,labels=xTicks)
 #   axis(2,tcl=0.5,las=1,at=yTicks)

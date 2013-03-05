@@ -7,7 +7,7 @@
     ylab = "", plotTitle = "", pch = 20, cex = 0.7,
     cex.main = 1.3, font.main = 2, cex.lab = 1.2,
     tcl = 0.5, oma = c(0, 0, 0, 0), mar = c(5, 4, 1, 1),
-    cex.axis = 1, tinyPlot = FALSE, hLine = FALSE,
+    cex.axis = 1, las = 1, tinyPlot = FALSE, hLine = FALSE,
     oneToOneLine = FALSE, ...)
 }
 \arguments{
@@ -71,6 +71,8 @@
 
   \item{tinyPlot}{logical defaults to FALSE, if TRUE,
   changes defaults to be appropriate for multi-plot}
+
+  \item{las}{number represents style of axis labels}
 
   \item{hLine}{logical defaults to FALSE, inserts
   horizontal line at zero}

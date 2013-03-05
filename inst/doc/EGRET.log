@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.2.20)  27 FEB 2013 16:06
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.6)  5 MAR 2013 10:37
 entering extended mode
 **EGRET.tex
-(D:\LADData\RCodes\EGRET\inst\doc\EGRET.tex
+(D:\LADData\RCode\EGRET\inst\doc\EGRET.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -30,41 +30,41 @@ File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsmath.sty"
-Package: amsmath 2000/07/18 v2.13 AMS math features
+(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\amsmath\amsmath.sty
+Package: amsmath 2013/01/14 v2.14 AMS math features
 \@mathmargin=\skip43
 
 For additional information on amsmath, use the `?' option.
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amstext.sty"
+(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\amsmath\amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsgen.sty"
+(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks14
 \ex@=\dimen103
 ))
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsbsy.sty"
+(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\amsmath\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen104
 )
-("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ams\math\amsopn.sty"
+(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\amsmath\amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count87
-LaTeX Info: Redefining \frac on input line 211.
+LaTeX Info: Redefining \frac on input line 210.
 \uproot@=\count88
 \leftroot@=\count89
-LaTeX Info: Redefining \overline on input line 307.
+LaTeX Info: Redefining \overline on input line 306.
 \classnum@=\count90
 \DOTSCASE@=\count91
-LaTeX Info: Redefining \ldots on input line 379.
-LaTeX Info: Redefining \dots on input line 382.
-LaTeX Info: Redefining \cdots on input line 467.
+LaTeX Info: Redefining \ldots on input line 378.
+LaTeX Info: Redefining \dots on input line 381.
+LaTeX Info: Redefining \cdots on input line 466.
 \Mathstrutbox@=\box26
 \strutbox@=\box27
 \big@size=\dimen105
-LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 \macc@depth=\count92
 \c@MaxMatrixCols=\count93
 \dotsspace@=\muskip10
@@ -85,14 +85,14 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 \multlinegap=\skip44
 \multlinetaggap=\skip45
 \mathdisplay@stack=\toks18
-LaTeX Info: Redefining \[ on input line 2666.
-LaTeX Info: Redefining \] on input line 2667.
+LaTeX Info: Redefining \[ on input line 2665.
+LaTeX Info: Redefining \] on input line 2666.
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\times.sty"
 Package: times 2005/04/12 PSNFSS-v9.2a (SPQR) 
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hyperref.sty"
-Package: hyperref 2011/12/04 v6.82m Hypertext links for LaTeX
+Package: hyperref 2011/08/19 v6.82h Hypertext links for LaTeX
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\hobsub-hyperref.sty"
 Package: hobsub-hyperref 2011/04/23 v1.4 Bundle oberdiek, subset hyperref (HO)
@@ -150,39 +150,39 @@ Package: kvoptions 2010/12/23 v3.10 Keyval support for LaTeX options (HO)
 \Hy@pagecounter=\count100
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\pd1enc.def"
-File: pd1enc.def 2011/12/04 v6.82m Hyperref: PDFDocEncoding definition (HO)
+File: pd1enc.def 2011/08/19 v6.82h Hyperref: PDFDocEncoding definition (HO)
 )
 \Hy@SavedSpaceFactor=\count101
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\hyperref.cfg"
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
-Package hyperref Info: Hyper figures OFF on input line 4046.
-Package hyperref Info: Link nesting OFF on input line 4051.
-Package hyperref Info: Hyper index ON on input line 4054.
-Package hyperref Info: Plain pages OFF on input line 4061.
-Package hyperref Info: Backreferencing OFF on input line 4066.
+Package hyperref Info: Hyper figures OFF on input line 4053.
+Package hyperref Info: Link nesting OFF on input line 4058.
+Package hyperref Info: Hyper index ON on input line 4061.
+Package hyperref Info: Plain pages OFF on input line 4068.
+Package hyperref Info: Backreferencing OFF on input line 4073.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks ON on input line 4284.
+Package hyperref Info: Bookmarks ON on input line 4291.
 \c@Hy@tempcnt=\count102
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ltxmisc\url.sty"
 \Urlmuskip=\muskip11
 Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
 )
-LaTeX Info: Redefining \url on input line 4637.
+LaTeX Info: Redefining \url on input line 4644.
 \Fld@menulength=\count103
 \Field@Width=\dimen113
 \Fld@charsize=\dimen114
-Package hyperref Info: Hyper figures OFF on input line 5757.
-Package hyperref Info: Link nesting OFF on input line 5762.
-Package hyperref Info: Hyper index ON on input line 5765.
-Package hyperref Info: backreferencing OFF on input line 5772.
-Package hyperref Info: Link coloring OFF on input line 5777.
-Package hyperref Info: Link coloring with OCG OFF on input line 5782.
-Package hyperref Info: PDF/A mode OFF on input line 5787.
-LaTeX Info: Redefining \ref on input line 5827.
-LaTeX Info: Redefining \pageref on input line 5831.
+Package hyperref Info: Hyper figures OFF on input line 5730.
+Package hyperref Info: Link nesting OFF on input line 5735.
+Package hyperref Info: Hyper index ON on input line 5738.
+Package hyperref Info: backreferencing OFF on input line 5745.
+Package hyperref Info: Link coloring OFF on input line 5750.
+Package hyperref Info: Link coloring with OCG OFF on input line 5755.
+Package hyperref Info: PDF/A mode OFF on input line 5760.
+LaTeX Info: Redefining \ref on input line 5800.
+LaTeX Info: Redefining \pageref on input line 5804.
 \Hy@abspage=\count104
 \c@Item=\count105
 \c@Hfootnote=\count106
@@ -191,7 +191,7 @@ LaTeX Info: Redefining \pageref on input line 5831.
 Package hyperref Message: Driver (autodetected): hpdftex.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hpdftex.def"
-File: hpdftex.def 2011/12/04 v6.82m Hyperref driver for pdfTeX
+File: hpdftex.def 2011/08/19 v6.82h Hyperref driver for pdfTeX
 \Fld@listcount=\count107
 \c@bookmark@seq@number=\count108
 
@@ -284,7 +284,7 @@ Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
 \TX@cols=\count117
 \TX@ftn=\toks21
 )
-(C:/PROGRA~1/R/R-215~1.2/share/texmf/tex/latex\Sweave.sty
+(C:/PROGRA~1/R/R-215~1.3/share/texmf/tex/latex\Sweave.sty
 Package: Sweave 
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ifthen.sty"
@@ -430,7 +430,7 @@ LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ae\t1aer.fd"
 File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
 ))))
-(D:\LADData\RCodes\EGRET\inst\doc\EGRET.aux)
+(D:\LADData\RCode\EGRET\inst\doc\EGRET.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 45.
 LaTeX Font Info:    ... okay on input line 45.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 45.
@@ -467,8 +467,8 @@ LaTeX Info: Redefining \ref on input line 45.
 LaTeX Info: Redefining \pageref on input line 45.
 LaTeX Info: Redefining \nameref on input line 45.
 
-(D:\LADData\RCodes\EGRET\inst\doc\EGRET.out)
-(D:\LADData\RCodes\EGRET\inst\doc\EGRET.out)
+(D:\LADData\RCode\EGRET\inst\doc\EGRET.out)
+(D:\LADData\RCode\EGRET\inst\doc\EGRET.out)
 \@outlinefile=\write4
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
@@ -486,8 +486,8 @@ Package caption Info: End \AtBeginDocument code.
 \MPnumerator=\count127
 \makeMPintoPDFobject=\count128
 \everyMPtoPDFconversion=\toks23
-) (D:\LADData\RCodes\EGRET\inst\doc\EGRET-concordance.tex)
-(D:\LADData\RCodes\EGRET\inst\doc\EGRET.toc
+) (D:\LADData\RCode\EGRET\inst\doc\EGRET-concordance.tex)
+(D:\LADData\RCode\EGRET\inst\doc\EGRET.toc
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
@@ -512,7 +512,7 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
 [4]
-Overfull \hbox (18.61671pt too wide) in paragraph at lines 219--232
+Overfull \hbox (18.61671pt too wide) in paragraph at lines 223--236
  [] 
  []
 
@@ -532,76 +532,76 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[8] <EGRET-figplotFlowSingle.pdf, id=213, 433.62pt x 433.62pt>
+[8]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[9] <EGRET-figplotFlowSingle.pdf, id=217, 433.62pt x 433.62pt>
 File: EGRET-figplotFlowSingle.pdf Graphic file (type pdf)
 
 <use EGRET-figplotFlowSingle.pdf>
-Package pdftex.def Info: EGRET-figplotFlowSingle.pdf used on input line 436.
+Package pdftex.def Info: EGRET-figplotFlowSingle.pdf used on input line 443.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-<EGRET-figplotSDLogQ.pdf, id=214, 433.62pt x 433.62pt>
+<EGRET-figplotSDLogQ.pdf, id=218, 433.62pt x 433.62pt>
 File: EGRET-figplotSDLogQ.pdf Graphic file (type pdf)
 
 <use EGRET-figplotSDLogQ.pdf>
-Package pdftex.def Info: EGRET-figplotSDLogQ.pdf used on input line 446.
+Package pdftex.def Info: EGRET-figplotSDLogQ.pdf used on input line 453.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-Overfull \hbox (19.08807pt too wide) in paragraph at lines 433--451
+Overfull \hbox (19.08807pt too wide) in paragraph at lines 440--458
 []$[]$   $[]$ 
  []
 
-<EGRET-figplotQTimeDaily.pdf, id=215, 433.62pt x 433.62pt>
+<EGRET-figplotQTimeDaily.pdf, id=219, 433.62pt x 433.62pt>
 File: EGRET-figplotQTimeDaily.pdf Graphic file (type pdf)
 
 <use EGRET-figplotQTimeDaily.pdf>
-Package pdftex.def Info: EGRET-figplotQTimeDaily.pdf used on input line 460.
+Package pdftex.def Info: EGRET-figplotQTimeDaily.pdf used on input line 467.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-<EGRET-figplotFour.pdf, id=216, 433.62pt x 433.62pt>
+<EGRET-figplotFour.pdf, id=220, 433.62pt x 433.62pt>
 File: EGRET-figplotFour.pdf Graphic file (type pdf)
 
 <use EGRET-figplotFour.pdf>
-Package pdftex.def Info: EGRET-figplotFour.pdf used on input line 474.
+Package pdftex.def Info: EGRET-figplotFour.pdf used on input line 481.
 (pdftex.def)             Requested size: 358.46039pt x 358.47534pt.
 
-<EGRET-figplotFourStats.pdf, id=217, 433.62pt x 433.62pt>
+<EGRET-figplotFourStats.pdf, id=221, 433.62pt x 433.62pt>
 File: EGRET-figplotFourStats.pdf Graphic file (type pdf)
 
 <use EGRET-figplotFourStats.pdf>
-Package pdftex.def Info: EGRET-figplotFourStats.pdf used on input line 484.
+Package pdftex.def Info: EGRET-figplotFourStats.pdf used on input line 491.
 (pdftex.def)             Requested size: 358.46039pt x 358.47534pt.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[9]
+[10 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotFlowSingle.pdf> <D:/LADData/R
+Code/EGRET/inst/doc/EGRET-figplotSDLogQ.pdf> <D:/LADData/RCode/EGRET/inst/doc/E
+GRET-figplotQTimeDaily.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[10 <D:/LADData/RCodes/EGRET/inst/doc/EGRET-figplotFlowSingle.pdf> <D:/LADData/
-RCodes/EGRET/inst/doc/EGRET-figplotSDLogQ.pdf> <D:/LADData/RCodes/EGRET/inst/do
-c/EGRET-figplotQTimeDaily.pdf>]
+[11 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotFour.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[11 <D:/LADData/RCodes/EGRET/inst/doc/EGRET-figplotFour.pdf>]
-Overfull \vbox (21.68121pt too high) has occurred while \output is active []
-
-
-[12 <D:/LADData/RCodes/EGRET/inst/doc/EGRET-figplotFourStats.pdf>]
+[12 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotFourStats.pdf>]
 <EGRET-fig3a.pdf, id=269, 433.62pt x 433.62pt>
 File: EGRET-fig3a.pdf Graphic file (type pdf)
  <use EGRET-fig3a.pdf>
-Package pdftex.def Info: EGRET-fig3a.pdf used on input line 513.
+Package pdftex.def Info: EGRET-fig3a.pdf used on input line 520.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
 <EGRET-fig3b.pdf, id=270, 433.62pt x 433.62pt>
 File: EGRET-fig3b.pdf Graphic file (type pdf)
  <use EGRET-fig3b.pdf>
-Package pdftex.def Info: EGRET-fig3b.pdf used on input line 523.
+Package pdftex.def Info: EGRET-fig3b.pdf used on input line 530.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-Overfull \hbox (19.08807pt too wide) in paragraph at lines 510--528
+Overfull \hbox (19.08807pt too wide) in paragraph at lines 517--535
 []$[]$   $[]$ 
  []
 
@@ -611,16 +611,16 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 [13
 
- <D:/LADData/RCodes/EGRET/inst/doc/EGRET-fig3a.pdf> <D:/LADData/RCodes/EGRET/in
-st/doc/EGRET-fig3b.pdf>]
-LaTeX Font Info:    Try loading font information for TS1+aer on input line 567.
+ <D:/LADData/RCode/EGRET/inst/doc/EGRET-fig3a.pdf> <D:/LADData/RCode/EGRET/inst
+/doc/EGRET-fig3b.pdf>]
+LaTeX Font Info:    Try loading font information for TS1+aer on input line 574.
 
 
-(C:/PROGRA~1/R/R-215~1.2/share/texmf/tex/latex\ts1aer.fd
+(C:/PROGRA~1/R/R-215~1.3/share/texmf/tex/latex\ts1aer.fd
 File: ts1aer.fd 
 )
 LaTeX Font Info:    Font shape `TS1/aer/m/n' in size <10.95> not available
-(Font)              Font shape `TS1/cmr/m/n' tried instead on input line 567.
+(Font)              Font shape `TS1/cmr/m/n' tried instead on input line 574.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
@@ -633,17 +633,17 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 File: EGRET-figboxConcMonth.pdf Graphic file (type pdf)
 
 <use EGRET-figboxConcMonth.pdf>
-Package pdftex.def Info: EGRET-figboxConcMonth.pdf used on input line 666.
+Package pdftex.def Info: EGRET-figboxConcMonth.pdf used on input line 673.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
 <EGRET-figboxQTwice.pdf, id=302, 433.62pt x 433.62pt>
 File: EGRET-figboxQTwice.pdf Graphic file (type pdf)
 
 <use EGRET-figboxQTwice.pdf>
-Package pdftex.def Info: EGRET-figboxQTwice.pdf used on input line 676.
+Package pdftex.def Info: EGRET-figboxQTwice.pdf used on input line 683.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-Overfull \hbox (19.08807pt too wide) in paragraph at lines 663--681
+Overfull \hbox (19.08807pt too wide) in paragraph at lines 670--688
 []$[]$   $[]$ 
  []
 
@@ -651,17 +651,17 @@ Overfull \hbox (19.08807pt too wide) in paragraph at lines 663--681
 File: EGRET-figplotConcTime.pdf Graphic file (type pdf)
 
 <use EGRET-figplotConcTime.pdf>
-Package pdftex.def Info: EGRET-figplotConcTime.pdf used on input line 691.
+Package pdftex.def Info: EGRET-figplotConcTime.pdf used on input line 698.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
 <EGRET-figplotLogConcTime.pdf, id=304, 433.62pt x 433.62pt>
 File: EGRET-figplotLogConcTime.pdf Graphic file (type pdf)
 
 <use EGRET-figplotLogConcTime.pdf>
-Package pdftex.def Info: EGRET-figplotLogConcTime.pdf used on input line 701.
+Package pdftex.def Info: EGRET-figplotLogConcTime.pdf used on input line 708.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-Overfull \hbox (19.08807pt too wide) in paragraph at lines 688--706
+Overfull \hbox (19.08807pt too wide) in paragraph at lines 695--713
 []$[]$   $[]$ 
  []
 
@@ -669,17 +669,17 @@ Overfull \hbox (19.08807pt too wide) in paragraph at lines 688--706
 File: EGRET-figplotConcQ.pdf Graphic file (type pdf)
 
 <use EGRET-figplotConcQ.pdf>
-Package pdftex.def Info: EGRET-figplotConcQ.pdf used on input line 715.
+Package pdftex.def Info: EGRET-figplotConcQ.pdf used on input line 722.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
 <EGRET-figplotLogConcQ.pdf, id=306, 433.62pt x 433.62pt>
 File: EGRET-figplotLogConcQ.pdf Graphic file (type pdf)
 
 <use EGRET-figplotLogConcQ.pdf>
-Package pdftex.def Info: EGRET-figplotLogConcQ.pdf used on input line 725.
+Package pdftex.def Info: EGRET-figplotLogConcQ.pdf used on input line 732.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-Overfull \hbox (19.08807pt too wide) in paragraph at lines 712--730
+Overfull \hbox (19.08807pt too wide) in paragraph at lines 719--737
 []$[]$   $[]$ 
  []
 
@@ -687,7 +687,7 @@ Overfull \hbox (19.08807pt too wide) in paragraph at lines 712--730
 File: EGRET-figplotLogFluxQ.pdf Graphic file (type pdf)
 
 <use EGRET-figplotLogFluxQ.pdf>
-Package pdftex.def Info: EGRET-figplotLogFluxQ.pdf used on input line 740.
+Package pdftex.def Info: EGRET-figplotLogFluxQ.pdf used on input line 747.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
 <EGRET-figmultiPlotDataOverview.pdf, id=308, 433.62pt x 433.62pt>
@@ -695,7 +695,7 @@ File: EGRET-figmultiPlotDataOverview.pdf Graphic file (type pdf)
 
 <use EGRET-figmultiPlotDataOverview.pdf>
 Package pdftex.def Info: EGRET-figmultiPlotDataOverview.pdf used on input line 
-755.
+762.
 (pdftex.def)             Requested size: 358.46039pt x 358.47534pt.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
@@ -705,20 +705,20 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[17 <D:/LADData/RCodes/EGRET/inst/doc/EGRET-figboxConcMonth.pdf> <D:/LADData/RC
-odes/EGRET/inst/doc/EGRET-figboxQTwice.pdf> <D:/LADData/RCodes/EGRET/inst/doc/E
-GRET-figplotConcTime.pdf> <D:/LADData/RCodes/EGRET/inst/doc/EGRET-figplotLogCon
-cTime.pdf>]
+[17 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figboxConcMonth.pdf> <D:/LADData/RCo
+de/EGRET/inst/doc/EGRET-figboxQTwice.pdf> <D:/LADData/RCode/EGRET/inst/doc/EGRE
+T-figplotConcTime.pdf> <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotLogConcTim
+e.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[18 <D:/LADData/RCodes/EGRET/inst/doc/EGRET-figplotConcQ.pdf> <D:/LADData/RCode
-s/EGRET/inst/doc/EGRET-figplotLogConcQ.pdf> <D:/LADData/RCodes/EGRET/inst/doc/E
-GRET-figplotLogFluxQ.pdf>]
+[18 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotConcQ.pdf> <D:/LADData/RCode/
+EGRET/inst/doc/EGRET-figplotLogConcQ.pdf> <D:/LADData/RCode/EGRET/inst/doc/EGRE
+T-figplotLogFluxQ.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[19 <D:/LADData/RCodes/EGRET/inst/doc/EGRET-figmultiPlotDataOverview.pdf>]
+[19 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figmultiPlotDataOverview.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
@@ -726,154 +726,154 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[21] <EGRET-figboxResidMonth.pdf, id=392, 433.62pt x 433.62pt>
+[21] <EGRET-figboxResidMonth.pdf, id=391, 433.62pt x 433.62pt>
 File: EGRET-figboxResidMonth.pdf Graphic file (type pdf)
 
 <use EGRET-figboxResidMonth.pdf>
-Package pdftex.def Info: EGRET-figboxResidMonth.pdf used on input line 883.
+Package pdftex.def Info: EGRET-figboxResidMonth.pdf used on input line 890.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-<EGRET-figplotConcTimeDaily.pdf, id=393, 433.62pt x 433.62pt>
+<EGRET-figplotConcTimeDaily.pdf, id=392, 433.62pt x 433.62pt>
 File: EGRET-figplotConcTimeDaily.pdf Graphic file (type pdf)
 
 <use EGRET-figplotConcTimeDaily.pdf>
-Package pdftex.def Info: EGRET-figplotConcTimeDaily.pdf used on input line 893.
+Package pdftex.def Info: EGRET-figplotConcTimeDaily.pdf used on input line 900.
 
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-Overfull \hbox (19.08807pt too wide) in paragraph at lines 880--898
+Overfull \hbox (19.08807pt too wide) in paragraph at lines 887--905
 []$[]$   $[]$ 
  []
 
-<EGRET-figplotFluxTimeDaily.pdf, id=394, 433.62pt x 433.62pt>
+<EGRET-figplotFluxTimeDaily.pdf, id=393, 433.62pt x 433.62pt>
 File: EGRET-figplotFluxTimeDaily.pdf Graphic file (type pdf)
 
 <use EGRET-figplotFluxTimeDaily.pdf>
-Package pdftex.def Info: EGRET-figplotFluxTimeDaily.pdf used on input line 908.
+Package pdftex.def Info: EGRET-figplotFluxTimeDaily.pdf used on input line 915.
 
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-<EGRET-figplotConcPred.pdf, id=395, 433.62pt x 433.62pt>
+<EGRET-figplotConcPred.pdf, id=394, 433.62pt x 433.62pt>
 File: EGRET-figplotConcPred.pdf Graphic file (type pdf)
 
 <use EGRET-figplotConcPred.pdf>
-Package pdftex.def Info: EGRET-figplotConcPred.pdf used on input line 918.
+Package pdftex.def Info: EGRET-figplotConcPred.pdf used on input line 925.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-Overfull \hbox (19.08807pt too wide) in paragraph at lines 905--923
+Overfull \hbox (19.08807pt too wide) in paragraph at lines 912--930
 []$[]$   $[]$ 
  []
 
-<EGRET-figplotFluxPred.pdf, id=396, 433.62pt x 433.62pt>
+<EGRET-figplotFluxPred.pdf, id=395, 433.62pt x 433.62pt>
 File: EGRET-figplotFluxPred.pdf Graphic file (type pdf)
 
 <use EGRET-figplotFluxPred.pdf>
-Package pdftex.def Info: EGRET-figplotFluxPred.pdf used on input line 934.
+Package pdftex.def Info: EGRET-figplotFluxPred.pdf used on input line 941.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-<EGRET-figplotLogConcPred.pdf, id=397, 433.62pt x 433.62pt>
+<EGRET-figplotLogConcPred.pdf, id=396, 433.62pt x 433.62pt>
 File: EGRET-figplotLogConcPred.pdf Graphic file (type pdf)
 
 <use EGRET-figplotLogConcPred.pdf>
-Package pdftex.def Info: EGRET-figplotLogConcPred.pdf used on input line 944.
+Package pdftex.def Info: EGRET-figplotLogConcPred.pdf used on input line 951.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-Overfull \hbox (19.08807pt too wide) in paragraph at lines 931--949
+Overfull \hbox (19.08807pt too wide) in paragraph at lines 938--956
 []$[]$   $[]$ 
  []
 
-<EGRET-figplotLogFluxPred.pdf, id=398, 433.62pt x 433.62pt>
+<EGRET-figplotLogFluxPred.pdf, id=397, 433.62pt x 433.62pt>
 File: EGRET-figplotLogFluxPred.pdf Graphic file (type pdf)
 
 <use EGRET-figplotLogFluxPred.pdf>
-Package pdftex.def Info: EGRET-figplotLogFluxPred.pdf used on input line 960.
+Package pdftex.def Info: EGRET-figplotLogFluxPred.pdf used on input line 967.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-<EGRET-figplotResidPred.pdf, id=399, 433.62pt x 433.62pt>
+<EGRET-figplotResidPred.pdf, id=398, 433.62pt x 433.62pt>
 File: EGRET-figplotResidPred.pdf Graphic file (type pdf)
 
 <use EGRET-figplotResidPred.pdf>
-Package pdftex.def Info: EGRET-figplotResidPred.pdf used on input line 970.
+Package pdftex.def Info: EGRET-figplotResidPred.pdf used on input line 977.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-Overfull \hbox (19.08807pt too wide) in paragraph at lines 957--975
+Overfull \hbox (19.08807pt too wide) in paragraph at lines 964--982
 []$[]$   $[]$ 
  []
 
-<EGRET-figplotResidQ.pdf, id=400, 433.62pt x 433.62pt>
+<EGRET-figplotResidQ.pdf, id=399, 433.62pt x 433.62pt>
 File: EGRET-figplotResidQ.pdf Graphic file (type pdf)
 
 <use EGRET-figplotResidQ.pdf>
-Package pdftex.def Info: EGRET-figplotResidQ.pdf used on input line 985.
+Package pdftex.def Info: EGRET-figplotResidQ.pdf used on input line 992.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-<EGRET-figplotResidTime.pdf, id=401, 433.62pt x 433.62pt>
+<EGRET-figplotResidTime.pdf, id=400, 433.62pt x 433.62pt>
 File: EGRET-figplotResidTime.pdf Graphic file (type pdf)
 
 <use EGRET-figplotResidTime.pdf>
-Package pdftex.def Info: EGRET-figplotResidTime.pdf used on input line 995.
+Package pdftex.def Info: EGRET-figplotResidTime.pdf used on input line 1002.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-Overfull \hbox (19.08807pt too wide) in paragraph at lines 982--1000
+Overfull \hbox (19.08807pt too wide) in paragraph at lines 989--1007
 []$[]$   $[]$ 
  []
 
-<EGRET-figfluxBiasMulti.pdf, id=402, 433.62pt x 433.62pt>
+<EGRET-figfluxBiasMulti.pdf, id=401, 433.62pt x 433.62pt>
 File: EGRET-figfluxBiasMulti.pdf Graphic file (type pdf)
 
 <use EGRET-figfluxBiasMulti.pdf>
-Package pdftex.def Info: EGRET-figfluxBiasMulti.pdf used on input line 1010.
+Package pdftex.def Info: EGRET-figfluxBiasMulti.pdf used on input line 1017.
 (pdftex.def)             Requested size: 358.46039pt x 358.47534pt.
 
-<EGRET-figplotConcHist.pdf, id=403, 433.62pt x 433.62pt>
+<EGRET-figplotConcHist.pdf, id=402, 433.62pt x 433.62pt>
 File: EGRET-figplotConcHist.pdf Graphic file (type pdf)
 
 <use EGRET-figplotConcHist.pdf>
-Package pdftex.def Info: EGRET-figplotConcHist.pdf used on input line 1022.
+Package pdftex.def Info: EGRET-figplotConcHist.pdf used on input line 1029.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-<EGRET-figplotFluxHist.pdf, id=404, 433.62pt x 433.62pt>
+<EGRET-figplotFluxHist.pdf, id=403, 433.62pt x 433.62pt>
 File: EGRET-figplotFluxHist.pdf Graphic file (type pdf)
 
 <use EGRET-figplotFluxHist.pdf>
-Package pdftex.def Info: EGRET-figplotFluxHist.pdf used on input line 1032.
+Package pdftex.def Info: EGRET-figplotFluxHist.pdf used on input line 1039.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-Overfull \hbox (19.08807pt too wide) in paragraph at lines 1019--1037
+Overfull \hbox (19.08807pt too wide) in paragraph at lines 1026--1044
 []$[]$   $[]$ 
  []
 
-<EGRET-figplotContours.pdf, id=405, 578.16pt x 433.62pt>
+<EGRET-figplotContours.pdf, id=404, 578.16pt x 433.62pt>
 File: EGRET-figplotContours.pdf Graphic file (type pdf)
 
 <use EGRET-figplotContours.pdf>
-Package pdftex.def Info: EGRET-figplotContours.pdf used on input line 1047.
+Package pdftex.def Info: EGRET-figplotContours.pdf used on input line 1054.
 (pdftex.def)             Requested size: 358.46039pt x 268.84161pt.
 
-<EGRET-figplotDiffContours.pdf, id=406, 578.16pt x 433.62pt>
+<EGRET-figplotDiffContours.pdf, id=405, 578.16pt x 433.62pt>
 File: EGRET-figplotDiffContours.pdf Graphic file (type pdf)
 
 <use EGRET-figplotDiffContours.pdf>
-Package pdftex.def Info: EGRET-figplotDiffContours.pdf used on input line 1058.
+Package pdftex.def Info: EGRET-figplotDiffContours.pdf used on input line 1065.
 
 (pdftex.def)             Requested size: 358.46039pt x 268.84161pt.
 
-<EGRET-figplotConcQSmooth.pdf, id=407, 433.62pt x 433.62pt>
+<EGRET-figplotConcQSmooth.pdf, id=406, 433.62pt x 433.62pt>
 File: EGRET-figplotConcQSmooth.pdf Graphic file (type pdf)
 
 <use EGRET-figplotConcQSmooth.pdf>
-Package pdftex.def Info: EGRET-figplotConcQSmooth.pdf used on input line 1070.
+Package pdftex.def Info: EGRET-figplotConcQSmooth.pdf used on input line 1077.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-<EGRET-figplotLogConcQSmooth.pdf, id=408, 433.62pt x 433.62pt>
+<EGRET-figplotLogConcQSmooth.pdf, id=407, 433.62pt x 433.62pt>
 File: EGRET-figplotLogConcQSmooth.pdf Graphic file (type pdf)
 
 <use EGRET-figplotLogConcQSmooth.pdf>
 Package pdftex.def Info: EGRET-figplotLogConcQSmooth.pdf used on input line 108
-0.
+7.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
-Overfull \hbox (19.08807pt too wide) in paragraph at lines 1067--1085
+Overfull \hbox (19.08807pt too wide) in paragraph at lines 1074--1092
 []$[]$   $[]$ 
  []
 
@@ -881,51 +881,50 @@ Overfull \hbox (19.08807pt too wide) in paragraph at lines 1067--1085
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[22 <D:/LADData/RCodes/EGRET/inst/doc/EGRET-figboxResidMonth.pdf> <D:/LADData/R
-Codes/EGRET/inst/doc/EGRET-figplotConcTimeDaily.pdf> <D:/LADData/RCodes/EGRET/i
-nst/doc/EGRET-figplotFluxTimeDaily.pdf> <D:/LADData/RCodes/EGRET/inst/doc/EGRET
--figplotConcPred.pdf>]
+[22 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figboxResidMonth.pdf> <D:/LADData/RC
+ode/EGRET/inst/doc/EGRET-figplotConcTimeDaily.pdf> <D:/LADData/RCode/EGRET/inst
+/doc/EGRET-figplotFluxTimeDaily.pdf> <D:/LADData/RCode/EGRET/inst/doc/EGRET-fig
+plotConcPred.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[23 <D:/LADData/RCodes/EGRET/inst/doc/EGRET-figplotFluxPred.pdf> <D:/LADData/RC
-odes/EGRET/inst/doc/EGRET-figplotLogConcPred.pdf> <D:/LADData/RCodes/EGRET/inst
-/doc/EGRET-figplotLogFluxPred.pdf> <D:/LADData/RCodes/EGRET/inst/doc/EGRET-figp
-lotResidPred.pdf>]
-<EGRET-figplotConcTimeSmooth.pdf, id=469, 433.62pt x 433.62pt>
+[23 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotFluxPred.pdf> <D:/LADData/RCo
+de/EGRET/inst/doc/EGRET-figplotLogConcPred.pdf> <D:/LADData/RCode/EGRET/inst/do
+c/EGRET-figplotLogFluxPred.pdf> <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotR
+esidPred.pdf>] <EGRET-figplotConcTimeSmooth.pdf, id=468, 433.62pt x 433.62pt>
 File: EGRET-figplotConcTimeSmooth.pdf Graphic file (type pdf)
 
 <use EGRET-figplotConcTimeSmooth.pdf>
-Package pdftex.def Info: EGRET-figplotConcTimeSmooth.pdf used on input line 111
-8.
+Package pdftex.def Info: EGRET-figplotConcTimeSmooth.pdf used on input line 112
+5.
 (pdftex.def)             Requested size: 179.23018pt x 179.22774pt.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[24 <D:/LADData/RCodes/EGRET/inst/doc/EGRET-figplotResidQ.pdf> <D:/LADData/RCod
-es/EGRET/inst/doc/EGRET-figplotResidTime.pdf>]
+[24 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotResidQ.pdf> <D:/LADData/RCode
+/EGRET/inst/doc/EGRET-figplotResidTime.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[25 <D:/LADData/RCodes/EGRET/inst/doc/EGRET-figfluxBiasMulti.pdf>]
+[25 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figfluxBiasMulti.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[26 <D:/LADData/RCodes/EGRET/inst/doc/EGRET-figplotConcHist.pdf> <D:/LADData/RC
-odes/EGRET/inst/doc/EGRET-figplotFluxHist.pdf> <D:/LADData/RCodes/EGRET/inst/do
-c/EGRET-figplotContours.pdf>]
+[26 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotConcHist.pdf> <D:/LADData/RCo
+de/EGRET/inst/doc/EGRET-figplotFluxHist.pdf> <D:/LADData/RCode/EGRET/inst/doc/E
+GRET-figplotContours.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[27 <D:/LADData/RCodes/EGRET/inst/doc/EGRET-figplotDiffContours.pdf> <D:/LADDat
-a/RCodes/EGRET/inst/doc/EGRET-figplotConcQSmooth.pdf> <D:/LADData/RCodes/EGRET/
-inst/doc/EGRET-figplotLogConcQSmooth.pdf>]
+[27 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotDiffContours.pdf> <D:/LADData
+/RCode/EGRET/inst/doc/EGRET-figplotConcQSmooth.pdf> <D:/LADData/RCode/EGRET/ins
+t/doc/EGRET-figplotLogConcQSmooth.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[28 <D:/LADData/RCodes/EGRET/inst/doc/EGRET-figplotConcTimeSmooth.pdf>]
-Overfull \hbox (50.28142pt too wide) in paragraph at lines 1180--1198
+[28 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotConcTimeSmooth.pdf>]
+Overfull \hbox (50.28142pt too wide) in paragraph at lines 1187--1205
  [] 
  []
 
@@ -984,7 +983,7 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
 [39]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1539.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1547.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
@@ -993,19 +992,19 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1539.
- (D:\LADData\RCodes\EGRET\inst\doc\EGRET.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1539.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1539.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1547.
+ (D:\LADData\RCode\EGRET\inst\doc\EGRET.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1547.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1547.
 
 Package rerunfilecheck Info: File `EGRET.out' has not changed.
 (rerunfilecheck)             Checksum: 4505ED4E1603EB15B9656F1E8A46277C;1649.
  ) 
 Here is how much of TeX's memory you used:
- 8890 strings out of 494045
- 133789 string characters out of 3145960
- 223820 words of memory out of 3000000
- 11875 multiletter control sequences out of 15000+200000
+ 8920 strings out of 494045
+ 134553 string characters out of 3145961
+ 223858 words of memory out of 3000000
+ 11905 multiletter control sequences out of 15000+200000
  47275 words of font info for 94 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
  42i,12n,40p,1024b,510s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1023,9 +1022,9 @@ Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Program File
 s (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsltt10.pfb><C:/Program File
 s (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files 
 (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on EGRET.pdf (40 pages, 1024868 bytes).
+Output written on EGRET.pdf (40 pages, 921040 bytes).
 PDF statistics:
- 718 PDF objects out of 1000 (max. 8388607)
+ 717 PDF objects out of 1000 (max. 8388607)
  108 named destinations out of 1000 (max. 500000)
  370 words of extra memory for PDF output out of 10000 (max. 10000000)
 

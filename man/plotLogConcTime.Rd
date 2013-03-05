@@ -5,7 +5,7 @@
   plotLogConcTime(localSample = Sample, localINFO = INFO,
     qUnit = 2, qLower = NA, qUpper = NA, paLong = 12,
     paStart = 10, tinyPlot = FALSE, concMax = NA,
-    concMin = NA, printTitle = TRUE)
+    concMin = NA, printTitle = TRUE, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -58,6 +58,10 @@
   \item{printTitle}{logical variable if TRUE title is
   printed, if FALSE not printed (this is best for a
   multi-plot figure)}
+
+  \item{...}{arbitrary functions sent to the generic
+  plotting function.  See ?par for details on possible
+  parameters}
 }
 \description{
   Concentration data come from a data frame named Sample
@@ -77,7 +81,7 @@
 \examples{
 Sample <- exSample
 INFO <- exINFO
-plotLogConcTime(qUnit = 1)
+plotLogConcTime()
 plotLogConcTime(qUnit = 'thousandCfs')
 }
 \seealso{

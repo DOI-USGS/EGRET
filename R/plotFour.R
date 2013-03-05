@@ -12,6 +12,9 @@
 #' @param runoff logical variable, if TRUE the streamflow data are converted to runoff values in mm/day
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param window numeric which is the full width, in years, of the time window over which the standard deviation is computed, default = 15
+#' @param cex number
+#' @param cex.lab number
+#' @param cex.axis number
 #' @keywords graphics streamflow statistics
 #' @export
 #' @examples
@@ -21,10 +24,12 @@
 #' plotFour(window=2)
 plotFour<-function (localINFO = INFO, localAnnualSeries = annualSeries, localDaily = Daily, 
                     yearStart = NA, yearEnd = NA, printTitle = TRUE, runoff = FALSE, 
-                    qUnit = 1, window=15) 
+                    qUnit = 1, window=15,  cex = 0.6, cex.lab = 1.4, cex.axis = 1.2) 
 {
-  par(mfcol = c(2, 2), cex = 0.6, oma = c(0, 1.7, 6, 1.7), 
-      cex.lab = 1.4, cex.axis = 1.2)
+  
+  
+  par(mfcol = c(2, 2), cex = 0.6, oma = c(0, 1.7, 6, 1.7))
+  
   setYearStart <- if (is.na(yearStart)) {
     min(localAnnualSeries[1, , ], na.rm = TRUE)
   } else {
@@ -38,15 +43,15 @@ plotFour<-function (localINFO = INFO, localAnnualSeries = annualSeries, localDai
   plotFlowSingle(istat = 8, yearStart = setYearStart, yearEnd = setYearEnd, 
                  localAnnualSeries = localAnnualSeries, localINFO = localINFO, 
                  tinyPlot = TRUE, runoff = runoff, qUnit = qUnit, printPA = FALSE, 
-                 printIstat = TRUE, printStaName = FALSE)
+                 printIstat = TRUE, printStaName = FALSE,cex=cex, cex.lab = cex.lab, cex.axis = cex.axis)
   plotFlowSingle(istat = 2, yearStart = setYearStart, yearEnd = setYearEnd, 
                  localAnnualSeries = localAnnualSeries, localINFO = localINFO, 
                  tinyPlot = TRUE, runoff = runoff, qUnit = qUnit, printPA = FALSE, 
-                 printIstat = TRUE, printStaName = FALSE)
+                 printIstat = TRUE, printStaName = FALSE,cex=cex, cex.lab = cex.lab, cex.axis = cex.axis)
   plotFlowSingle(istat = 5, yearStart = setYearStart, yearEnd = setYearEnd, 
                  localAnnualSeries = localAnnualSeries, localINFO = localINFO, 
                  tinyPlot = TRUE, runoff = runoff, qUnit = qUnit, printPA = FALSE, 
-                 printIstat = TRUE, printStaName = FALSE)
+                 printIstat = TRUE, printStaName = FALSE,cex=cex, cex.lab = cex.lab, cex.axis = cex.axis)
   plotSDLogQ(yearStart = setYearStart, yearEnd = setYearEnd, window = window, 
              localDaily = localDaily, localINFO = localINFO, 
              tinyPlot = TRUE, printPA = FALSE,  

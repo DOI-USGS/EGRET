@@ -5,7 +5,7 @@
   plotConcTime(localSample = Sample, localINFO = INFO,
     qUnit = 2, qLower = NA, qUpper = NA, paLong = 12,
     paStart = 10, tinyPlot = FALSE, concMax = NA,
-    printTitle = TRUE)
+    concMin = NA, printTitle = TRUE, logScale = "", ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -51,9 +51,21 @@
   used on the vertical axis, default is NA (which allows it
   to be set automatically by the data)}
 
+  \item{concMin}{number specifying the minimum value to be
+  used on the vertical axis, only appropriate for log
+  scale.}
+
   \item{printTitle}{logical variable if TRUE title is
   printed, if FALSE title is not printed (this is best for
   a multi-plot figure)}
+
+  \item{logScale}{string, default "", "y" indicates y axis
+  is in log scale, "xy" indicates both x and y in log
+  scale, "x" is only x}
+
+  \item{...}{arbitrary functions sent to the generic
+  plotting function.  See ?par for details on possible
+  parameters}
 }
 \description{
   Data come from a data frame named Sample which contains
@@ -72,6 +84,7 @@
 Sample <- exSample
 INFO <- exINFO
 plotConcTime(qUnit = 1, qLower = 100, qUpper = 10000, paLong = 3, paStart = 4)
+plotConcTime()
 }
 \keyword{graphics}
 \keyword{statistics}

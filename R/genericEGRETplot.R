@@ -25,6 +25,7 @@
 #' @param mar vector defaults to c(5,4,1,1) specifies plot area
 #' @param cex.axis number defaults to 1, specifies axis text magnification
 #' @param tinyPlot logical defaults to FALSE, if TRUE, changes defaults to be appropriate for multi-plot
+#' @param las number represents style of axis labels
 #' @param hLine logical defaults to FALSE, inserts horizontal line at zero
 #' @param oneToOneLine logical defaults to FALSE, inserts 1:1 line
 #' @param ... additional graphical parameters can be adjusted
@@ -53,8 +54,8 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
                                 tinyPlot=FALSE,hLine=FALSE,oneToOneLine=FALSE, ...){
   
 #   if(tinyPlot) par(mar=c(5,4,1,1)) else par(mar=c(5,4,4,2)+0.1)
-  par(oma=oma) 
-  par(mar=mar)
+#   par(oma=oma) 
+#   par(mar=mar)
   plot(x,y,xlim=xlim,xaxs=xaxs,xlab=xlab,axes=FALSE,
        ylim=ylim,yaxs=yaxs,ylab=ylab,main=plotTitle,
        pch=pch,cex=cex,cex.main=cex.main,font.main=font.main,cex.lab=cex.lab,...)
