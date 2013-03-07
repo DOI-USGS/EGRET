@@ -43,6 +43,7 @@ plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot 
   yTicks<-yPretty(maxYHigh)
   yTop<-yTicks[length(yTicks)]
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Concentration versus Discharge") else ""
+  yBottom <- 0 #No value given, so assuming zero due to the ylim value
   
   yLab <- "Concentration in mg/L"
   mar<-c(5,4,4,2)+0.1
@@ -60,10 +61,12 @@ plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot 
 #   axis(3,tcl=0.5,at=log(xTicks,10),labels=FALSE)
 #   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
 #   box()
-  yLowVal<-ifelse(is.na(yLow),0,yLow)
-  numSamples<-length(x)
-  uncensoredIndex <- 1:numSamples
-  uncensoredIndex <- uncensoredIndex[Uncen==0]
-  segments(x[uncensoredIndex],yLowVal[uncensoredIndex],x[uncensoredIndex],yHigh[uncensoredIndex])
+  censoredSegments(yBottom, yLow, yHigh, x, Uncen
+    )
+#   yLowVal<-ifelse(is.na(yLow),0,yLow)
+#   numSamples<-length(x)
+#   uncensoredIndex <- 1:numSamples
+#   uncensoredIndex <- uncensoredIndex[Uncen==0]
+#   segments(x[uncensoredIndex],yLowVal[uncensoredIndex],x[uncensoredIndex],yHigh[uncensoredIndex])
 #   segments(log(x[uncensoredIndex],10),yLowVal[uncensoredIndex],log(x[uncensoredIndex],10),yHigh[uncensoredIndex])
 }

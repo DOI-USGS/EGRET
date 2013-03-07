@@ -58,25 +58,47 @@ plotFluxTimeDaily<-function (startYear, endYear, localSample = Sample, localDail
     paste(localINFO$shortName, "\n", localINFO$paramShortName, 
           "\n", "Observed and Estimated Flux versus Time")
   else ""
-  plot(xSample, yHigh, axes = FALSE, xlim = c(xLeft, xRight), 
-       xaxs = "i", xlab = "", ylim = c(0, yTop), yaxs = "i", 
-       ylab = fluxUnit@unitExpress, main = plotTitle, pch = 20, 
-       cex = 0.7, cex.main = 1.3, font.main = 2, cex.lab = 1.2)
-  axis(1, tcl = 0.5, at = xTicks, labels = xTicks)
-  axis(2, tcl = 0.5, las = 1, at = yTicks)
-  axis(3, tcl = 0.5, at = xTicks, labels = FALSE)
-  axis(4, tcl = 0.5, at = yTicks, labels = FALSE)
+  
+  ###################################
+  
+  yBottom <- 0 #Not specified within script, added under assumption that it's always zero based on ylim definition in this function
+  
+  genericEGRETDotPlot(x=xSample, y=yHigh,
+                      xlim = c(xLeft, xRight), ylim = c(0, yTop),
+                      xTicks=xTicks, yTicks=yTicks,
+                      ylab = fluxUnit@unitExpress,
+                      plotTitle=plotTitle, ...
+    )
+  
+#   plot(xSample, yHigh, axes = FALSE, xlim = c(xLeft, xRight), 
+#        xaxs = "i", xlab = "", ylim = c(0, yTop), yaxs = "i", 
+#        ylab = fluxUnit@unitExpress, main = plotTitle, pch = 20, 
+#        cex = 0.7, cex.main = 1.3, font.main = 2, cex.lab = 1.2)
+#   axis(1, tcl = 0.5, at = xTicks, labels = xTicks)
+#   axis(2, tcl = 0.5, las = 1, at = yTicks)
+#   axis(3, tcl = 0.5, at = xTicks, labels = FALSE)
+#   axis(4, tcl = 0.5, at = yTicks, labels = FALSE)
+  
   par(new = TRUE)
-  plot(xDaily, subDaily$ConcDay*subDaily$Q*fluxFactor, axes = FALSE, xlim = c(xLeft, 
-                                                                              xRight), xaxs = "i", xlab = "", ylim = c(0, yTop), yaxs = "i", 
-       ylab = "", main = "", type = "l", cex.main = 1.3, font.main = 2, 
-       cex.lab = 1.2)
-  box()
-  yLowVal <- ifelse(is.na(yLow), 0, yLow)
-  numSamples <- length(xSample)
-  uncensoredIndex <- 1:numSamples
-  uncensoredIndex <- uncensoredIndex[Uncen == 0]
-  segments(xSample[uncensoredIndex], yLowVal[uncensoredIndex], 
-           xSample[uncensoredIndex], yHigh[uncensoredIndex])
+  genericEGRETDotPlot(x=xDaily, y=subDaily$ConcDay*subDaily$Q*fluxFactor,
+                      xTicks=xTicks, yTicks=yTicks,
+                      xlim = c(xLeft,xRight), ylim = c(0, yTop),
+                      type="l", ...
+    )
+  
+#   plot(xDaily, subDaily$ConcDay*subDaily$Q*fluxFactor, axes = FALSE, xlim = c(xLeft, 
+#                                                                               xRight), xaxs = "i", xlab = "", ylim = c(0, yTop), yaxs = "i", 
+#        ylab = "", main = "", type = "l", cex.main = 1.3, font.main = 2, 
+#        cex.lab = 1.2)
+#   box()
+  censoredSegments(yBottom=yBottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen
+    )
+  
+#   yLowVal <- ifelse(is.na(yLow), 0, yLow)
+#   numSamples <- length(xSample)
+#   uncensoredIndex <- 1:numSamples
+#   uncensoredIndex <- uncensoredIndex[Uncen == 0]
+#   segments(xSample[uncensoredIndex], yLowVal[uncensoredIndex], 
+#            xSample[uncensoredIndex], yHigh[uncensoredIndex])
   par(mar = c(5, 4, 4, 2) + 0.1)
 }

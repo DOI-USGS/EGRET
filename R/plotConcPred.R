@@ -35,16 +35,27 @@ plotConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA, pri
   xLab<-"Estimated Concentration in mg/L"
   yLab<-"Observed Concentration in mg/L"
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed versus Estimated Concentration") else ""
-  plot(x,yHigh,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab=xLab,ylim=c(yBottom,yTop),yaxs="i",ylab=yLab,main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)
-  axis(1,tcl=0.5,at=xTicks,labels=xTicks)
-  axis(2,tcl=0.5,las=1,at=yTicks,labels=yTicks)
-  axis(3,tcl=0.5,at=xTicks,labels=FALSE)
-  axis(4,tcl=0.5,at=yTicks,labels=FALSE)
-  box()
-  yLowVal<-ifelse(is.na(yLow),yBottom,yLow)
-  numSamples<-length(x)
-  uncensoredIndex <- 1:numSamples
-  uncensoredIndex <- uncensoredIndex[Uncen==0]
-  segments(x[uncensoredIndex],yLowVal[uncensoredIndex],x[uncensoredIndex],yHigh[uncensoredIndex])
-  abline(a=0,b=1)
+  
+  ############################
+  genericEGRETDotPlot(x=x, y=yHigh,
+                      xTicks=xTicks, yTicks=yTicks,
+                      xlim=c(xLeft,xRight), ylim=c(yBottom,yTop),
+                      xlab=xLab, ylab=yLab,
+                      plotTitle=plotTitle, oneToOneLine=TRUE
+    )
+  
+#   plot(x,yHigh,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab=xLab,ylim=c(yBottom,yTop),yaxs="i",ylab=yLab,main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)
+#   axis(1,tcl=0.5,at=xTicks,labels=xTicks)
+#   axis(2,tcl=0.5,las=1,at=yTicks,labels=yTicks)
+#   axis(3,tcl=0.5,at=xTicks,labels=FALSE)
+#   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
+#   box()
+  censoredSegments(yBottom=yBottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen
+    )
+#   yLowVal<-ifelse(is.na(yLow),yBottom,yLow)
+#   numSamples<-length(x)
+#   uncensoredIndex <- 1:numSamples
+#   uncensoredIndex <- uncensoredIndex[Uncen==0]
+#   segments(x[uncensoredIndex],yLowVal[uncensoredIndex],x[uncensoredIndex],yHigh[uncensoredIndex])
+#   abline(a=0,b=1)
 }

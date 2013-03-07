@@ -84,7 +84,7 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
                       xlim=c(xLeft,xRight), ylim=c(yBottom,yTop),
                       xlab="", ylab=yLab,
                       xTicks=xTicks, yTicks=yTicks,cex=cex,
-                      plotTitle=title, cex.axis=cex.axis,cex.main=cex.main,...
+                      plotTitle=title, cex.axis=cex.axis,cex.main=cex.main
   )
   
 #   par(mar =  c(5,6,5,2))

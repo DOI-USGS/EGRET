@@ -113,25 +113,46 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
     } else {
       c(1, 1, 1)
     }
-    plot(x, y[1, ], axes = FALSE, xlim = c(xLeft,xRight), xaxs = "i", xlab = "", ylim = c(0, 
-        yTop), yaxs = "i", ylab = yLab, main = title, type = "l", 
-        lwd = 2, col = colorVal[1], lty = lineVal[1], cex = 0.7, 
-        cex.main = 1.1, font.main = 2, cex.lab = 1.2)
-    axis(1, tcl = 0.5, at = xTicks, labels = xTicks)
-    axis(2, tcl = 0.5, las = 1, at = yTicks, labels = yTicks)
-    axis(3, tcl = 0.5, at = xTicks, labels = FALSE)
-    axis(4, tcl = 0.5, at = yTicks, labels = FALSE)
-    box()
+    
+    #####################
+    genericEGRETDotPlot(x=x, y=y[1, ],
+                        xTicks=xTicks, yTicks=yTicks,
+                        xlim = c(xLeft,xRight),ylim = c(0,yTop),
+                        ylab = yLab, plotTitle=title, 
+                        type = "l", lwd = 2, col = colorVal[1], lty = lineVal[1],
+                        cex.main = 1.1
+      )
+#     plot(x, y[1, ], axes = FALSE, xlim = c(xLeft,xRight), xaxs = "i", xlab = "", ylim = c(0, 
+#         yTop), yaxs = "i", ylab = yLab, main = title, type = "l", 
+#         lwd = 2, col = colorVal[1], lty = lineVal[1], cex = 0.7, 
+#         cex.main = 1.1, font.main = 2, cex.lab = 1.2)
+#     axis(1, tcl = 0.5, at = xTicks, labels = xTicks)
+#     axis(2, tcl = 0.5, las = 1, at = yTicks, labels = yTicks)
+#     axis(3, tcl = 0.5, at = xTicks, labels = FALSE)
+#     axis(4, tcl = 0.5, at = yTicks, labels = FALSE)
+#     box()
     par(new = TRUE)
-    plot(x, y[2, ], axes = FALSE, xlim = c(xLeft,xRight), xaxs = "i", xlab = "", ylim = c(0, 
-        yTop), yaxs = "i", ylab = "", main = "", type = "l", 
-        lwd = 2, col = colorVal[2], lty = lineVal[2], cex = 0.7, 
-        cex.main = 1.1, font.main = 2, cex.lab = 1.2)
+    genericEGRETDotPlot(x=x, y=y[2, ],
+                        xTicks=xTicks, yTicks=yTicks,
+                        xlim = c(xLeft,xRight),ylim = c(0,yTop),
+                        type = "l", lwd = 2, col = colorVal[2], lty = lineVal[2],
+                        cex.main = 1.1
+    )
+#     plot(x, y[2, ], axes = FALSE, xlim = c(xLeft,xRight), xaxs = "i", xlab = "", ylim = c(0, 
+#         yTop), yaxs = "i", ylab = "", main = "", type = "l", 
+#         lwd = 2, col = colorVal[2], lty = lineVal[2], cex = 0.7, 
+#         cex.main = 1.1, font.main = 2, cex.lab = 1.2)
     par(new = TRUE)
-    plot(x, y[3, ], axes = FALSE, xlim = c(xLeft,xRight), xaxs = "i", xlab = "", ylim = c(0, 
-        yTop), yaxs = "i", ylab = "", main = "", type = "l", 
-        lwd = 2, col = colorVal[3], lty = lineVal[3], cex = 0.7, 
-        cex.main = 1.1, font.main = 2, cex.lab = 1.2)
+    genericEGRETDotPlot(x=x, y=y[3, ],
+                        xTicks=xTicks, yTicks=yTicks,
+                        xlim = c(xLeft,xRight),ylim = c(0,yTop),
+                        type = "l", lwd = 2, col = colorVal[3], lty = lineVal[3],
+                        cex.main = 1.1
+    )
+#     plot(x, y[3, ], axes = FALSE, xlim = c(xLeft,xRight), xaxs = "i", xlab = "", ylim = c(0, 
+#         yTop), yaxs = "i", ylab = "", main = "", type = "l", 
+#         lwd = 2, col = colorVal[3], lty = lineVal[3], cex = 0.7, 
+#         cex.main = 1.1, font.main = 2, cex.lab = 1.2)
     legendLeft <- if (legendLeft == 0) {
         xLeft + 2
     } else {
