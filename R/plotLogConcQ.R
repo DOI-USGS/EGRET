@@ -35,44 +35,39 @@ plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPl
   if(tinyPlot) par(mar=c(5,4,1,1.5)) else par(mar=c(5,4,4,2)+0.1)
   qFactor <- qUnit@qUnitFactor
   x<-localSample$Q*qFactor
+  Uncen<-localSample$Uncen
+#   xMin<-0.95*min(x)
+#   xMax<-1.05*max(x)
+#   xTicks<-if(tinyPlot) logPretty1(xMin,xMax) else logPretty3(xMin,xMax)
+#   numXTicks<-length(xTicks)
+#   xLeft<-xTicks[1]
+#   xRight<-xTicks[numXTicks]
+#   #   xLab<-qUnitExpress[qUnit]
+#   xLab <- qUnit@qUnitExpress
+
+  xInfo <- dischargeLogAxis(x,tinyPlot,qUnit)
+  
   yLow<-localSample$ConcLow
   yHigh<-localSample$ConcHigh
-  Uncen<-localSample$Uncen
-  xMin<-0.95*min(x)
-  xMax<-1.05*max(x)
-  xTicks<-if(tinyPlot) logPretty1(xMin,xMax) else logPretty3(xMin,xMax)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
-  #   xLab<-qUnitExpress[qUnit]
-  xLab <- qUnit@qUnitExpress
-  maxYHigh<-if(is.na(concMax)) 1.05*max(yHigh) else concMax
-  minYLow<-if(is.na(concMin)) 0.9*min(localSample$ConcAve) else concMin
-  yTicks<-logPretty3(minYLow,maxYHigh)
-  yBottom<-yTicks[1]
-  yTop<-yTicks[length(yTicks)]
+#   maxYHigh<-if(is.na(concMax)) 1.05*max(yHigh) else concMax
+#   minYLow<-if(is.na(concMin)) 0.9*min(localSample$ConcAve) else concMin
+#   yTicks<-logPretty3(minYLow,maxYHigh)
+#   yBottom<-yTicks[1]
+#   yTop<-yTicks[length(yTicks)]
+  
+  yInfo <- with(localSample, concentrationAxis(ConcLow, ConcHigh, ConcAve, concMax, concMin))
+  
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Concentration versus Discharge") else ""
   
   #####################
   genericEGRETDotPlot(x=x, y=yHigh,
-                      xTicks=xTicks, yTicks=yTicks,
-                      xlim=c(xLeft,xRight),ylim=c(yBottom,yTop),
-                      xlab=xLab,ylab="Concentration in mg/L", plotTitle=plotTitle,
+                      xTicks=xInfo$xTicks, yTicks=yInfo$yTicks,
+                      xlim=c(xInfo$xLeft,xInfo$xRight),ylim=c(yInfo$yBottom,yInfo$yTop),
+                      xlab=xInfo$xLab,ylab="Concentration in mg/L", plotTitle=plotTitle,
                       log="xy"
     )
-#   
-#   plot(log(x,10),log(yHigh,10),axes=FALSE,xlim=c(log(xLeft,10),log(xRight,10)),xaxs="i",xlab=xLab,ylim=c(log(yBottom,10),log(yTop,10)),yaxs="i",ylab="Concentration in mg/L",main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)
-#   axis(1,tcl=0.5,at=log(xTicks,10),labels=xTicks)
-#   axis(2,tcl=0.5,las=1,at=log(yTicks,10),labels=yTicks)
-#   axis(3,tcl=0.5,at=log(xTicks,10),labels=FALSE)
-#   axis(4,tcl=0.5,at=log(yTicks,10),labels=FALSE)
-#   box()
-  censoredSegments(yBottom, yLow, yHigh, x, Uncen
-    )
-#   yLowVal<-ifelse(is.na(yLow),yBottom,yLow)
-#   numSamples<-length(x)
-#   uncensoredIndex <- 1:numSamples
-#   uncensoredIndex <- uncensoredIndex[Uncen==0]
-#   segments(log(x[uncensoredIndex],10),log(yLowVal[uncensoredIndex],10),log(x[uncensoredIndex],10),log(yHigh[uncensoredIndex],10))
+
+  censoredSegments(yInfo$yBottom, yLow, yHigh, x, Uncen )
+
   par(mar=c(5,4,4,2)+0.1)
 }

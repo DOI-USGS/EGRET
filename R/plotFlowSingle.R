@@ -27,12 +27,12 @@
 #' @examples
 #' INFO <- exINFO
 #' annualSeries <- exannualSeries
-#' plotFlowSingle(8)
+#' plotFlowSingle(8,cex=0.7,lwd=1)
 plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA, 
                   localINFO = INFO, localAnnualSeries = annualSeries, 
                   qMax = NA, printTitle = TRUE, tinyPlot = FALSE, 
                   runoff = FALSE, qUnit = 1, printStaName = TRUE, printPA = TRUE, 
-                  printIstat = TRUE,cex=0.8, cex.axis=1.1,cex.main=1.1, ...) {
+                  printIstat = TRUE,cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2, ...) {
   
   qActual<-localAnnualSeries[2,istat,]
   qSmooth<-localAnnualSeries[3,istat,]
@@ -65,13 +65,9 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
   numXTicks<-length(xTicks)
   xLeft<-xTicks[1]
   xRight<-xTicks[numXTicks]
-  yTop<-if(is.na(qMax)) 1.1*max(qActual,na.rm=TRUE) else qMax
-  ySpan<-c(0,yTop)
-  yTicks<-pretty(ySpan,n=nTicks)
-  numYTicks<-length(yTicks)
-  yBottom<-yTicks[1]
-  yTop<-yTicks[numYTicks]
-  yLab<-if(runoff) "mm/day" else qUnit@qUnitExpress
+  
+  yInfo <- dischargeYAxis(qMax=qMax,qActual=qActual,qUnit=qUnit,tinyPlot=tinyPlot)
+  
   line1<-if(printStaName) localINFO$shortName else ""	
   line2<-if(printPA) paste("\n",setSeasonLabelByUser(paStartInput = localINFO$paStart, paLongInput = localINFO$paLong)) else ""
   nameIstat<-c("minimum day","7-day minimum","30-day minimum","median daily","mean daily","30-day maximum","7-day maximum",'maximum day')
@@ -81,23 +77,14 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
   ##############################################
   par(mar = c(5,6,5,2))
   genericEGRETDotPlot(x=localSeries$years, y=localSeries$qActual, 
-                      xlim=c(xLeft,xRight), ylim=c(yBottom,yTop),
-                      xlab="", ylab=yLab,
-                      xTicks=xTicks, yTicks=yTicks,cex=cex,
+                      xlim=c(xLeft,xRight), ylim=c(yInfo$yBottom,yInfo$yTop),
+                      xlab="", ylab=yInfo$yLab,
+                      xTicks=xTicks, yTicks=yInfo$yTicks,cex=cex,
                       plotTitle=title, cex.axis=cex.axis,cex.main=cex.main
   )
   
-#   par(mar =  c(5,6,5,2))
-#   plot(localSeries$years,localSeries$qActual,axes=FALSE,
-#         xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(yBottom,yTop),yaxs="i",
-#         ylab=yLab,main=title,cex=0.8,cex.main=1.1,cex.lab=1.2,font=2,pch=20)
-#   axis(1,tcl=0.5,at=xTicks,labels=xTicks)
-#   axis(2,tcl=0.5,las=1,at=yTicks,labels=yTicks,cex.axis=1.1)
-#   axis(3,tcl=0.5,at=xTicks,labels=FALSE)
-#   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
-#   box()
   ##############################################
   
-  lines(localSeries$years,localSeries$qSmooth,lwd=2)
+  lines(localSeries$years,localSeries$qSmooth,lwd=lwd)
   par(mar = c(5, 4, 4, 2) + 0.1)
 }

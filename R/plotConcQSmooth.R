@@ -35,12 +35,15 @@
 #' Sample <- exSample
 #' INFO <- exINFO
 #' plotConcQSmooth(date1,date2,date3,qLow,qHigh)
-plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0,legendTop = 0, concMax = NA,bw = FALSE, printTitle = TRUE, printValues = FALSE, localSample = Sample, localINFO = INFO, windowY = 10, windowQ = 2, windowS = 0.5) {
+plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0,legendTop = 0, 
+                          concMax = NA,bw = FALSE, printTitle = TRUE, printValues = FALSE, 
+                          localSample = Sample, localINFO = INFO, 
+                          windowY = 10, windowQ = 2, windowS = 0.5,tinyPlot=FALSE,
+                          lwd=2,cex=0.8, cex.axis=1.1,cex.main=1.1, legend.cex=1,...) {
   #########################################################
-  if (is.numeric(qUnit)) {
-    qUnit <- qConst[shortCode = qUnit][[1]]
-  }
-  else if (is.character(qUnit)) {
+  if (is.numeric(qUnit)){
+    qUnit <- qConst[shortCode=qUnit][[1]]
+  } else if (is.character(qUnit)){
     qUnit <- qConst[qUnit][[1]]
   }
   #############################################################
@@ -61,64 +64,60 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0
   # and the vector LQ is the same set of 48 discharge values but expressed in units of natural log of cubic meters per second
   y<-rep(NA,3*48)
   dim(y)<-c(3,48)
+  
   day<-dates$yday + 1
   year<-dates$year + 1900
   decYear<-year+((day-0.5)/366)
+  
   for(iCurve in 1:numDates) {
     yrs<-rep(decYear[iCurve],48)
-    result<-runSurvReg(yrs,LQ,localSample,windowY = windowY, windowQ = windowQ, windowS = windowS,message=FALSE)
+    result<-runSurvReg(yrs,LQ,localSample,windowY = windowY, windowQ = windowQ, 
+                       windowS = windowS,message=FALSE)
     y[iCurve,]<-result[,3]
   }
+  
   title<-if(printTitle) paste (localINFO$shortName,"  ",localINFO$paramShortName,"\nEstimated Concentration Versus Discharge Relationship\nat",numDates,"specific dates") else ""
-  xLab=qUnit@qUnitExpress
+  
+#   xLab=qUnit@qUnitExpress  
+#   xTicks<-logPretty3(qLow,qHigh)
+#   numXTicks<-length(xTicks)
+#   xLeft<-xTicks[1]
+#   xRight<-xTicks[numXTicks]
+  
+  xInfo <- dischargeLogAxis(c(qLow,qHigh),tinyPlot,qUnit,padPercent=0)
+  
   yLab="Concentration in mg/L"
-  xTicks<-logPretty3(qLow,qHigh)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
   yMax<-max(y,na.rm=TRUE)
   yTop<-if(is.na(concMax)) yMax else concMax
   yTicks<-yPretty(yTop)
   numYTicks<-length(yTicks)
   yTop<-yTicks[numYTicks]
+  
+  
   colorVal<-if(bw) c("black","black","black") else c("black","red","green")
   lineVal<-if(bw) c(1,2,3) else c(1,1,1)
   
   #####################
   genericEGRETDotPlot(x=x, y=y[1,],
-                      xTicks=xTicks, yTicks=yTicks,
-                      xlim=c(xLeft,xRight),ylim=c(0,yTop),
-                      xlab=xLab, ylab=yLab, plotTitle=title,
-                      type="l",lwd=2,col=colorVal[1],lty=lineVal[1], cex.main=1.1, log="x"
+                      xTicks=xInfo$xTicks, yTicks=xInfo$yTicks,
+                      xlim=c(xInfo$xLeft,xInfo$xRight),ylim=c(0,yTop),
+                      xlab=xInfo$xLab, ylab=yLab, plotTitle=title,
+                      type="l",lwd=lwd,col=colorVal[1],lty=lineVal[1], 
+                      cex=cex,cex.axis=cex.axis,cex.main=cex.main, log="x"
     )
   
-#   plot(log(x,10),y[1,],axes=FALSE,xlim=c(log(xLeft,10),log(xRight,10)),xaxs="i",xlab=xLab,ylim=c(0,yTop),yaxs="i",ylab=yLab,main=title,type="l",lwd=2,col=colorVal[1],lty=lineVal[1],cex=0.7,cex.main=1.1,font.main=2,cex.lab=1.2)
-#   axis(1, tcl = 0.5, at = log(xTicks, 10), labels = xTicks)
-#   axis(2, tcl = 0.5, las = 1, at = yTicks, labels = yTicks)
-#   axis(3, tcl = 0.5, at = log(xTicks, 10), labels = FALSE)
-#   axis(4, tcl = 0.5, at = yTicks, labels = FALSE)
-#   box()
-  par(new=TRUE)
-  genericEGRETDotPlot(x=x, y=y[2,],
-                      xTicks=xTicks, yTicks=yTicks,
-                      xlim=c(xLeft,xRight),ylim=c(0,yTop),
-                      type="l",lwd=2,col=colorVal[2],lty=lineVal[2], cex.main=1.1, log="x"
-    )
-#   plot(log(x,10),y[2,],axes=FALSE,xlim=c(log(xLeft,10),log(xRight,10)),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="",main="",type="l",lwd=2,col=colorVal[2],lty=lineVal[2],cex=0.7,cex.main=1.1,font.main=2,cex.lab=1.2)
-  par(new=TRUE)
-  genericEGRETDotPlot(x=x, y=y[3,],
-                      xTicks=xTicks, yTicks=yTicks,
-                      xlim=c(xLeft,xRight),ylim=c(0,yTop),
-                      type="l",lwd=2,col=colorVal[3],lty=lineVal[3], cex.main=1.1, log="x"
-  )
-#   plot(log(x,10),y[3,],axes=FALSE,xlim=c(log(xLeft,10),log(xRight,10)),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="",main="",type="l",lwd=2,col=colorVal[3],lty=lineVal[3],cex=0.7,cex.main=1.1,font.main=2,cex.lab=1.2)
+  lines(x=x, y=y[2,],col=colorVal[2],lty=lineVal[2],lwd=lwd)
+  lines(x=x, y=y[3,],col=colorVal[3],lty=lineVal[3],lwd=lwd)
+
   legendLeft<-if(legendLeft==0) qLow*2 else legendLeft
-#   legendLeft<-log(legendLeft,10)
+
   legendTop<-if(legendTop==0) 0.3*yTop else legendTop 
+
   words<-as.character(dates[1:numDates])
   ltys<-lineVal[1:numDates]
   cols<-colorVal[1:numDates]
-  legend(legendLeft,legendTop,legend=words,lty=ltys,col=cols,lwd=2,cex=1.5)
+  legend(legendLeft,legendTop,legend=words,lty=ltys,col=cols,lwd=lwd,cex=legend.cex)
+  
   printResults<-rep(NA,48*4)
   dim(printResults)<-c(48,4)
   for(j in 1:48) {printResults[j,1]<-format(x[j],width=9)
