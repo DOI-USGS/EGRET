@@ -44,8 +44,8 @@ While the EGRET and dataRetreival packages are in development (and not on CRAN),
 To install the EGRET package:
 
 	install.packages(c("zoo","survival","methods","fields","spam"))
-	install.packages("dataRetrieval", repos="http://usgs-r.github.com/EGRET/", type="source")
-	install.packages("EGRET", repos="http://usgs-r.github.com/EGRET/", type="source")
+	install.packages("dataRetrieval", repos="http://usgs-r.github.com", type="source")
+	install.packages("EGRET", repos="http://usgs-r.github.com", type="source")
 
 ### Note on updating versions:
 Some users have found it necessary to delete the package folders before installing newer versions of either dataRetrieval or EGRET.  If you are experiencing an issue after updating a package, trying deleting the package folder, the default location for Windows is something like this:
