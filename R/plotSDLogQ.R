@@ -61,11 +61,24 @@ plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
   line2<-if(printPA) paste("\n",setSeasonLabelByUser(paStartInput = localINFO$paStart, paLongInput = localINFO$paLong)) else ""
   line3<-"\nDischarge variability: Standard Deviation of Log(Q)" 
   title<-if(printTitle) paste(line1,line2,line3) else ""
-  plot(xmid,y,type="l",ylim=c(0,yTop),yaxs="i",lwd=2,xlim=c(xLeft,xRight),xaxs="i",main=title,xlab="",ylab="Dimensionless",axes=FALSE,cex=0.8,cex.main=1.1,cex.lab=1.2,font=2)
-  axis(1, tcl = 0.5, at = xTicks, labels = xTicks)
-  axis(2, tcl = 0.5, las = 1, at = yTicks, cex.axis = 1.1)
-  axis(3, tcl = 0.5, at = xTicks, labels = FALSE)
-  axis(4, tcl = 0.5, at = yTicks, labels = FALSE)
-  box()
+  
+  ##############################################
+  genericEGRETDotPlot(x=xmid,y=y,
+                      xlim=c(xLeft,xRight),ylim=c(0,yTop),
+                      xlab="",ylab="Dimensionless",
+                      xTicks=xTicks,yTicks=yTicks,cex=0.8,
+                      plotTitle=title,cex.main=1.1,cex.axis = 1.1,
+                      type="l",lwd=2
+  )
+  
+  
+#   plot(xmid,y,type="l",ylim=c(0,yTop),yaxs="i",lwd=2,xlim=c(xLeft,xRight),xaxs="i",main=title,xlab="",ylab="Dimensionless",axes=FALSE,cex=0.8,cex.main=1.1,cex.lab=1.2,font=2)
+#   axis(1, tcl = 0.5, at = xTicks, labels = xTicks)
+#   axis(2, tcl = 0.5, las = 1, at = yTicks, cex.axis = 1.1)
+#   axis(3, tcl = 0.5, at = xTicks, labels = FALSE)
+#   axis(4, tcl = 0.5, at = yTicks, labels = FALSE)
+#   box()
+  ##############################################
+  
   par(mar = c(5, 4, 4, 2) + 0.1)
 }

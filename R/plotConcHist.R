@@ -53,14 +53,29 @@ plotConcHist<-function(yearStart = NA, yearEnd = NA, localAnnualResults = Annual
   periodName<-setSeasonLabel(localAnnualResults=localAnnualResults)
   title3<-if(plotFlowNorm) "\nMean Concentration (dots) & Flow Normalized Concentration (line)" else "\nAnnual Mean Concentration"
   title<-if(printTitle) paste(localINFO$shortName," ",localINFO$paramShortName,"\n",periodName,title3) else ""
-  plot(subAnnualResults$DecYear,annConc,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="Concentration in mg/L",main=title,pch=20,cex=0.8,cex.main=1.1,cex.lab=1.2,font=2)
+  
+  ##################
+  genericEGRETDotPlot(x=subAnnualResults$DecYear, y=annConc,
+                      xTicks=xTicks, yTicks=yTicks,
+                      xlim=c(xLeft,xRight), ylim=c(0,yTop),
+                      ylab="Concentration in mg/L", cex=0.8,cex.main=1.1, cex.axis=1.1,
+                      plotTitle=title
+    )
+  
+#   plot(subAnnualResults$DecYear,annConc,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="Concentration in mg/L",main=title,pch=20,cex=0.8,cex.main=1.1,cex.lab=1.2,font=2)
   if(plotFlowNorm) par(new=TRUE)
-  if(plotFlowNorm) plot(subAnnualResults$DecYear,fnConc,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="",main="",type="l",col="green",lwd=3,cex=0.8,cex.main=1.0,cex.lab=1.2,font=2)
-  axis(1,tcl=0.5,at=xTicks,labels=xTicks)
-  axis(2,tcl=0.5,las=1,at=yTicks,cex.axis=1.1)
-  axis(3,tcl=0.5,at=xTicks,labels=FALSE)
-  axis(4,tcl=0.5,at=yTicks,labels=FALSE)
-  box()
+  if(plotFlowNorm) genericEGRETDotPlot(x=subAnnualResults$DecYear, y=fnConc,
+                                       xTicks=xTicks, yTicks=yTicks,
+                                       xlim=c(xLeft,xRight), ylim=c(0,yTop),
+                                       type="l",col="green",lwd=3,cex=0.8,cex.main=1.0, cex.axis=1.1
+    )
+    
+#     plot(subAnnualResults$DecYear,fnConc,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="",main="",type="l",col="green",lwd=3,cex=0.8,cex.main=1.0,cex.lab=1.2,font=2)
+#   axis(1,tcl=0.5,at=xTicks,labels=xTicks)
+#   axis(2,tcl=0.5,las=1,at=yTicks,cex.axis=1.1)
+#   axis(3,tcl=0.5,at=xTicks,labels=FALSE)
+#   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
+#   box()
   par(oma=c(0,0,0,0))
   par(mar=c(5,4,4,2)+0.1)	
 }

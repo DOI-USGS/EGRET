@@ -45,6 +45,7 @@ Daily <- getDVData(siteID,"00060",startDate,endDate)
 INFO<- getMetaData(siteID,param,interactive=FALSE)
 INFO$shortName <- "Choptank River"
 INFO <- setPA()
+
 annualSeries <- makeAnnualSeries()
 Sample <- getSampleData(siteID,param,startDate,endDate)
 Sample <- mergeReport()
@@ -52,3 +53,18 @@ plotFlowSingle(8)
 plotLogFluxQ(cex.main=1.5)
 plotConcTime()
 plotConcQ()
+=======
+Sample <- getSampleData(siteID,param,startDate,endDate)
+Sample <- mergeReport()
+annualSeries <- makeAnnualSeries()
+plotFlowSingle(8)
+plotLogFluxQ(cex.main=1.5)
+
+siteID <- "08279500" #Rio Grande at Embudo, NM (section 3)
+startDate <- ""
+endDate <- ""
+Daily <- getDVData(siteID,"00060",startDate, endDate,interactive=FALSE)
+INFO <- getMetaData(siteID,"",interactive=FALSE)
+INFO$shortName <- "Rio Grande at Embudo, NM"
+INFO <- setPA()
+annualSeries <- makeAnnualSeries()

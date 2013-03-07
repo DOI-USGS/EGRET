@@ -30,7 +30,7 @@
 #' plotConcTime()
 plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2, 
                        qLower = NA, qUpper = NA, paLong = 12, paStart = 10, 
-                       tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale="",...){
+                       tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale="", ...){
   # this function shows the sample data,
   # time on x-axis, concentration on y-axis
   ################################################################################
@@ -121,7 +121,7 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
                       xlim=c(xLeft,xRight), ylim=c(yBottom,yTop),
                       xlab="", ylab=yLab,
                       xTicks=xTicks, yTicks=yTicks,cex.main=1,
-                      plotTitle=plotTitle, mar=mar, log=logScale,...
+                      plotTitle=plotTitle, mar=mar, log=logScale
   )
   censoredSegments(yBottom=yBottom,yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
   par(mar = c(5,6,5,2))
