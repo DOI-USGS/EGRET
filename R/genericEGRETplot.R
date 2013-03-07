@@ -63,7 +63,7 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
   box()
   if (hLine) abline(h = 0)
   if (oneToOneLine) abline(a=0,b=1)
-=======
+# =======
   axis(1,tcl=tcl,at=xTicks)   # took out labels=xTicks
   axis(2,tcl=tcl,las=las,at=yTicks,cex.axis=cex.axis) # took out labels=yTicks
   axis(3,tcl=tcl,at=xTicks,labels=FALSE)
@@ -71,5 +71,6 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
   
 #   par(mar=c(5,4,4,2)+0.1) # Not sure if this is a good idea or not
 #   par(oma=c(0,0,0,0)) # Not sure if this is a good idea or not
+  
 }
 

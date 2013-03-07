@@ -73,7 +73,7 @@ plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2,
                       xlim=c(xLeft,xRight), ylim=c(yBottom,yTop),
                       xlab=xLab, ylab=yLab,
                       xTicks=xTicks, yTicks=yTicks,
-                      plotTitle=plotTitle, mar=mar,log="xy",...
+                      plotTitle=plotTitle, mar=mar,log="xy"
   )
   
 #Tracey's fork!
