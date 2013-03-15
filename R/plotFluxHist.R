@@ -14,6 +14,11 @@
 #' @param fluxMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
 #' @param plotFlowNorm logical variable if TRUE the flow normalized line is plotted, if FALSE not plotted 
+#' @param cex number
+#' @param cex.axis number
+#' @param cex.main number
+#' @param lwd number
+#' @param ... arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
 #' @seealso \code{\link{setupYears}}
@@ -24,7 +29,10 @@
 #' INFO <- exINFO
 #' plotFluxHist(yearStart, yearEnd, fluxUnit = 1)
 #' plotFluxHist(yearStart, yearEnd, fluxUnit = 'kgDay')
-plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9, localAnnualResults = AnnualResults, localINFO = INFO, fluxMax = NA, printTitle = TRUE, plotFlowNorm = TRUE){
+plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9, 
+    localAnnualResults = AnnualResults, localINFO = INFO, fluxMax = NA, 
+    printTitle = TRUE, plotFlowNorm = TRUE,
+    cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2, ...){
   # produces a graph of annual flux and flow normalized flux versus year
   # AnnualResults contains the set of results
   # typically yearStart and yearEnd should be integers, 
@@ -32,8 +40,9 @@ plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9, localAnnualRe
   # yearEnd is the start of the calendar year after the last estimated annual value
   # if you want to specify the maximum value, you can do so with the argument fluxMax, otherwise it will be automatic
   # fluxUnit is the units you want the results displayed in, see manual for list of all possible units  
-  par(oma=c(3,0,3,0))
-  par(mar=c(5,6,5,2))
+
+  #   par(oma=c(3,0,3,0))
+#   par(mar=c(5,6,5,2))
   
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
@@ -69,28 +78,18 @@ plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9, localAnnualRe
   title<-if(printTitle) paste(localINFO$shortName," ",localINFO$paramShortName,"\n",periodName,title3) else ""
   
   ###############################################
+  par(mar = c(5,6,5,2))
   genericEGRETDotPlot(x=subAnnualResults$DecYear, y = annFlux,
                       xTicks=xTicks, yTicks=yTicks,
                       xlim=c(xLeft,xRight), ylim=c(0,yTop),
                       ylab=ylabel, plotTitle=title,
-                      cex=0.8,cex.main=1.1, cex.axis=1.1
+                      cex.axis=cex.axis,cex.main=cex.main,...
+                      
     )
-  
-#   plot(subAnnualResults$DecYear,annFlux,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab=ylabel,main=title,pch=20,cex=0.8,cex.main=1.1,cex.lab=1.2,font=2)
-  if(plotFlowNorm) par(new=TRUE)
-  if(plotFlowNorm) genericEGRETDotPlot(x=subAnnualResults$DecYear, y=fnFlux,
-                                       xTicks=xTicks, yTicks=yTicks,
-                                       xlim=c(xLeft,xRight), ylim=c(0,yTop),
-                                       type="l",col="green",lwd=3,cex=0.8,cex.main=1.1, cex.axis=1.1
-    )
+  # Laura took out cex=0.8,cex.main=1.1, cex.axis=1.1
+
+  if(plotFlowNorm) lines(subAnnualResults$DecYear, fnFlux, col="green", lwd=lwd)
     
-    
-#     plot(subAnnualResults$DecYear,fnFlux,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="",main="",type="l",col="green",lwd=3,cex=0.8,cex.main=1.1,cex.lab=1.2,font=2)
-#   axis(1,tcl=0.5,at=xTicks,labels=xTicks)
-#   axis(2,tcl=0.5,las=1,at=yTicks,cex.axis=1.1)
-#   axis(3,tcl=0.5,at=xTicks,labels=FALSE)
-#   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
-#   box()
   par(oma=c(0,0,0,0))
   par(mar=c(5,4,4,2)+0.1)   
 }

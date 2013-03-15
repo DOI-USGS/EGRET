@@ -18,23 +18,36 @@
 #' plotResidQ(qUnit=1)
 plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot = FALSE, 
                       stdResid = FALSE, printTitle = TRUE) 
-{  if(tinyPlot) par(mar=c(5,4,1,1)) else par(mar=c(5,4,4,2)+0.1)
+{  
+   if(tinyPlot) {
+     par(mar=c(5,4,1,1)) 
+   }else {
+     par(mar=c(5,4,4,2)+0.1)
+   }
+   
    if (is.numeric(qUnit)) {
      qUnit <- qConst[shortCode = qUnit][[1]]
-   }
-   else if (is.character(qUnit)) {
+   } else if (is.character(qUnit)) {
      qUnit <- qConst[qUnit][[1]]
    }
+   
    qFactor <- qUnit@qUnitFactor
    x <- localSample$Q * qFactor
+   
    yLow <- log(localSample$ConcLow) - localSample$yHat
    yHigh <- log(localSample$ConcHigh) - localSample$yHat
-   yLow <- if (stdResid) 
+   
+   yLow <- if(stdResid){
      yLow/localSample$SE
-   else yLow
-   yHigh <- if (stdResid) 
+     } else {
+       yLow
+     }
+   yHigh <- if(stdResid){
      yHigh/localSample$SE
-   else yHigh
+     } else {
+       yHigh
+     }
+   
    Uncen <- localSample$Uncen
    xMin <- 0.95 * min(x)
    xMax <- 1.05 * max(x)
@@ -50,39 +63,20 @@ plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlo
    yBottom <- yTicks[1]
    yTop <- yTicks[numYTicks]
    xLab <- qUnit@qUnitExpress
-   yLab <- if (stdResid) 
-     "Standardized Residual in natural log units"
-   else "Residual in natural log units"
-   plotTitle <- if (printTitle) 
-     paste(localINFO$shortName, "\n", localINFO$paramShortName, 
-           "\n", "Residual versus Discharge")
-   else ""
+   yLab <- ifelse (stdResid, "Standardized Residual in natural log units", "Residual in natural log units")
+   plotTitle <- ifelse (printTitle,  paste(localINFO$shortName, "\n", localINFO$paramShortName, 
+           "\n", "Residual versus Discharge"), "")
    
    #######################
    genericEGRETDotPlot(x=x, y=yHigh,
                        xTicks=xTicks, yTicks=yTicks,hLine=TRUE,
                        xlim = c(xLeft, xRight), ylim = c(yBottom, yTop),
                        xlab = xLab, ylab = yLab, plotTitle=plotTitle,
-                       cex = 0.4, cex.lab = 1.0, log = "x"
+                       log = "x"
      )
-   
-#    plot(log(x, 10), yHigh, axes = FALSE, xlim = c(log(xLeft, 
-#                                                       10), log(xRight, 10)), xaxs = "i", xlab = xLab, ylim = c(yBottom, 
-#                                                                                                                yTop), yaxs = "i", ylab = yLab, main = plotTitle, pch = 20, 
-#         cex = 0.4, cex.main = 1.3, font.main = 2, cex.lab = 1.0)
-#    axis(1, tcl = 0.5, at = log(xTicks, 10), labels = xTicks)
-#    axis(2, tcl = 0.5, las = 1, at = yTicks, labels = yTicks)
-#    axis(3, tcl = 0.5, at = log(xTicks, 10), labels = FALSE)
-#    axis(4, tcl = 0.5, at = yTicks, labels = FALSE)
-#    box()
-   censoredSegments(yBottom, yLow, yHigh, x, Uncen
-     )
-#    yLowVal <- ifelse(is.na(yLow), yBottom, yLow)
-#    numSamples <- length(x)
-#    uncensoredIndex <- 1:numSamples
-#    uncensoredIndex <- uncensoredIndex[Uncen == 0]
-#    segments(log(x[uncensoredIndex], 10), yLowVal[uncensoredIndex], 
-#             log(x[uncensoredIndex], 10), yHigh[uncensoredIndex])
-#    abline(h = 0)
+   # Laura took out cex.lab = 1.0, cex = 0.4, 
+
+   censoredSegments(yBottom, yLow, yHigh, x, Uncen )
+
    par(mar=c(5,4,4,2)+0.1)
 }

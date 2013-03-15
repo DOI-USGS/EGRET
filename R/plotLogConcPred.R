@@ -8,18 +8,20 @@
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multi-plot figure, default is FALSE.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
+#' @param ... arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
 #' Sample <- exSample
 #' INFO <- exINFO
 #' plotLogConcPred()
-plotLogConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA, tinyPlot = FALSE, printTitle = TRUE){
+plotLogConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA, 
+                          tinyPlot = FALSE, printTitle = TRUE, ...){
   # this function shows observed versus estimated concentration
   # estimated log concentration on the x-axis (these are prior to bias correction), 
   # observed log concentration on y-axis 
   # these estimates are from a "leave-one-out" cross validation application of WRTDS
-  if(tinyPlot) par(mar=c(5,4,1,1)) else par(mar=c(5,4,4,2)+0.1)
+#   if(tinyPlot) par(mar=c(5,4,1,1)) else par(mar=c(5,4,4,2)+0.1)
   x<-exp(localSample$yHat)
   yLow<-localSample$ConcLow
   yHigh<-localSample$ConcHigh
@@ -41,27 +43,16 @@ plotLogConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA, 
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed versus Estimated Concentration") else ""
   
   #################################
+  par(mar = c(5,6,5,2))
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xTicks, yTicks=yTicks,
                       xlim=c(xLeft,xRight), ylim=c(yBottom,yTop),
                       xlab=xLab,ylab=yLab,
                       plotTitle=plotTitle, cex.main=1.0,
-                      log="xy", oneToOneLine=TRUE
+                      log="xy", oneToOneLine=TRUE, ...
     )
-  
-#   plot(log(x,10),log(yHigh,10),axes=FALSE,xlim=c(log(xLeft,10),log(xRight,10)),xaxs="i",xlab=xLab,ylim=c(log(yBottom,10),log(yTop,10)),yaxs="i",ylab=yLab,main=plotTitle,pch=20,cex=0.7,cex.main=1.0,font.main=2,cex.lab=1.2)
-#   axis(1,tcl=0.5,at=log(xTicks,10),labels=xTicks)
-#   axis(2,tcl=0.5,las=1,at=log(yTicks,10),labels=yTicks)
-#   axis(3,tcl=0.5,at=log(xTicks,10),labels=FALSE)
-#   axis(4,tcl=0.5,at=log(yTicks,10),labels=FALSE)
-#   box()
-  censoredSegments(yBottom=yBottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen
-    )
-#   yLowVal<-ifelse(is.na(yLow),yBottom,yLow)
-#   numSamples<-length(x)
-#   uncensoredIndex <- 1:numSamples
-#   uncensoredIndex <- uncensoredIndex[Uncen==0]
-#   segments(log(x[uncensoredIndex],10),log(yLowVal[uncensoredIndex],10),log(x[uncensoredIndex],10),log(yHigh[uncensoredIndex],10))
-#   abline(a=0,b=1)
+
+  censoredSegments(yBottom=yBottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen)
+
   par(mar=c(5,4,4,2)+0.1)
 }

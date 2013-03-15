@@ -17,7 +17,8 @@
 #' INFO <- exINFO
 #' plotLogConcQ(qUnit = 1)
 #' plotLogConcQ(qUnit = 'thousandCfs')
-plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE){
+plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, 
+            tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE){
   # this function shows the sample data,
   # discharge on x-axis on a log scale, 
   # concentration on y-axis on a log scale
@@ -45,7 +46,7 @@ plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPl
 #   #   xLab<-qUnitExpress[qUnit]
 #   xLab <- qUnit@qUnitExpress
 
-  xInfo <- dischargeLogAxis(x,tinyPlot,qUnit)
+  xInfo <- dischargeLogAxis(x,qUnit,tinyPlot)
   
   yLow<-localSample$ConcLow
   yHigh<-localSample$ConcHigh

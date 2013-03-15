@@ -16,7 +16,8 @@
 #' Sample <- exSample
 #' INFO <- exINFO
 #' plotConcQ()
-plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot = FALSE, concMax = NA, printTitle = TRUE){
+plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot = FALSE, 
+    concMax = NA, printTitle = TRUE){
   # this function shows the sample data,
   # discharge on x-axis on a log scale, concentration on y-axis
   ################################################################################

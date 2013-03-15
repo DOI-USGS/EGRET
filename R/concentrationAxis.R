@@ -1,12 +1,29 @@
-concentrationAxis <- function(ConcLow, ConcHigh, ConcAve, concMax, concMin,padPercent=5){
+#' Axis generation for concentration
+#'
+#' Concentration axis tick generation
+#'
+#' @param ConcLow vector specifying ConcLow
+#' @param ConcHigh vector
+#' @param ConcAve vector
+#' @param ConcMax number
+#' @param ConcMin number
+#' @param padPercent number
+#' @keywords graphics water-quality statistics
+#' @export
+#' @examples
+#' Sample <- exSample
+#' ConcMin <- min(Sample$ConcAve)
+#' ConcMax <- max(Sample$ConcAve)
+#' with(Sample, concentrationAxis(ConcLow, ConcHigh, ConcAve, ConcMax, ConcMin))
+concentrationAxis <- function(ConcLow, ConcHigh, ConcAve, ConcMax, ConcMin,padPercent=5){
   
   upperMagnification <- 1+(padPercent/100)
   lowerMagnification <- 1-(padPercent/100)
   
   yLow <- ConcLow
   yHigh <- ConcHigh
-  maxYHigh <- if(is.na(concMax)) upperMagnification*max(yHigh) else concMax
-  minYLow <- if(is.na(concMin)) lowerMagnification*min(ConcAve) else concMin
+  maxYHigh <- if(is.na(ConcMax)) upperMagnification*max(yHigh) else ConcMax
+  minYLow <- if(is.na(ConcMin)) lowerMagnification*min(ConcAve) else ConcMin
   yTicks <- logPretty3(minYLow,maxYHigh)
   yBottom <- yTicks[1]
   yTop <- yTicks[length(yTicks)]

@@ -1,6 +1,8 @@
 Package: EGRET
 Type: Package
-Title: All EGRET code except for dataRetrieval
+Title: Exploration and Graphics for RivEr Time-Series (EGRET), including
+    functions for WRTDS (Weighted Regressions on Time, Discharge, and Season)
+    analysis
 Version: 1.2.4
 Date: 2013-03-04
 Author: Robert M. Hirsch
@@ -86,6 +88,10 @@ Collate:
     'plotConcTimeSmooth.R'
     'genericEGRETplot.R'
     'censoredSegments.R'
+    'concentrationAxis.R'
+    'dischargeAxis.R'
+    'dischargeLogAxis.R'
+    'dischargeYAxis.R'
 Depends:
     R (>= 2.13.0),
     fields

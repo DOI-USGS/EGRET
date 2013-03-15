@@ -23,6 +23,13 @@
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 10
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
+#' @param cex number
+#' @param cex.axis number
+#' @param cex.main number
+#' @param lwd number
+#' @param legend.cex number
+#' @param tinyPlot logical
+#' @param ... arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords water-quality statistics graphics
 #' @import survival
 #' @export
@@ -84,7 +91,7 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0
 #   xLeft<-xTicks[1]
 #   xRight<-xTicks[numXTicks]
   
-  xInfo <- dischargeLogAxis(c(qLow,qHigh),tinyPlot,qUnit,padPercent=0)
+  xInfo <- dischargeLogAxis(c(qLow,qHigh),qUnit,tinyPlot,padPercent=0)
   
   yLab="Concentration in mg/L"
   yMax<-max(y,na.rm=TRUE)
