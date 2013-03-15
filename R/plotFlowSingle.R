@@ -55,19 +55,21 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
   localSeries<-data.frame(years,qActual,qSmooth)
   localSeries<-if(is.na(yearStart)) localSeries else subset(localSeries,years>=yearStart)
   localSeries<-if(is.na(yearEnd)) localSeries else subset(localSeries,years<=yearEnd)
-  minYear<-min(localSeries$years,na.rm=TRUE)
-  maxYear<-max(localSeries$years,na.rm=TRUE)
-  xLeft<-if(is.na(yearStart)) minYear else yearStart
-  numYears<-length(localSeries$years)
-  xRight<-if(is.na(yearEnd)) maxYear else yearEnd
-  nTicks<-if(tinyPlot) 5 else 8
-  xSpan<-c(xLeft,xRight)
-  xTicks<-pretty(xSpan,n=nTicks)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
   
-  yInfo <- dischargeYAxis(qMax=qMax,qActual=qActual,qUnit=qUnit,tinyPlot=tinyPlot)
+#   minYear<-min(localSeries$years,na.rm=TRUE)
+#   maxYear<-max(localSeries$years,na.rm=TRUE)  
+#   xLeft<-if(is.na(yearStart)) minYear else yearStart
+#   numYears<-length(localSeries$years)
+#   xRight<-if(is.na(yearEnd)) maxYear else yearEnd
+#   nTicks<-if(tinyPlot) 5 else 8
+#   xSpan<-c(xLeft,xRight)
+#   xTicks<-pretty(xSpan,n=nTicks)
+#   numXTicks<-length(xTicks)
+#   xLeft<-xTicks[1]
+#   xRight<-xTicks[numXTicks]
+
+  yInfo <- generalAxis(x=qActual, max=qMax, min=0,tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=localSeries$years, max=yearEnd, min=yearStart, padPercent=0,tinyPlot=tinyPlot)
   
   line1<-if(printStaName) localINFO$shortName else ""	
   line2<-if(printPA) paste("\n",setSeasonLabelByUser(paStartInput = localINFO$paStart, paLongInput = localINFO$paLong)) else ""
@@ -78,9 +80,9 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
   ##############################################
   par(mar = c(5,6,5,2))
   genericEGRETDotPlot(x=localSeries$years, y=localSeries$qActual, 
-                      xlim=c(xLeft,xRight), ylim=c(yInfo$yBottom,yInfo$yTop),
-                      xlab="", ylab=yInfo$yLab,
-                      xTicks=xTicks, yTicks=yInfo$yTicks,cex=cex,
+                      xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
+                      xlab="", ylab=qUnit@qUnitExpress,
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,cex=cex,
                       plotTitle=title, cex.axis=cex.axis,cex.main=cex.main,...
   )
   
