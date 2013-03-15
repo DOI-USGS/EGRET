@@ -6,7 +6,9 @@
     qUnit = 2, legendLeft = 0, legendTop = 0, concMax = NA,
     bw = FALSE, printTitle = TRUE, printValues = FALSE,
     localSample = Sample, localINFO = INFO, windowY = 10,
-    windowQ = 2, windowS = 0.5)
+    windowQ = 2, windowS = 0.5, tinyPlot = FALSE, lwd = 2,
+    cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
+    legend.cex = 1, ...)
 }
 \arguments{
   \item{date1}{string specifying the date for the first
@@ -78,6 +80,22 @@
   \item{windowS}{numeric specifying the half-window with in
   the seasonal dimension, in units of years, default is
   0.5}
+
+  \item{cex}{number}
+
+  \item{cex.axis}{number}
+
+  \item{cex.main}{number}
+
+  \item{lwd}{number}
+
+  \item{legend.cex}{number}
+
+  \item{tinyPlot}{logical}
+
+  \item{...}{arbitrary graphical parameters that will be
+  passed to genericEGRETDotPlot function (see ?par for
+  options)}
 }
 \description{
   These plots are like a vertical slice of the estimated

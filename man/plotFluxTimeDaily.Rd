@@ -5,7 +5,7 @@
   plotFluxTimeDaily(startYear, endYear,
     localSample = Sample, localDaily = Daily,
     localINFO = INFO, tinyPlot = FALSE, fluxUnit = 3,
-    fluxMax = NA, printTitle = TRUE)
+    fluxMax = NA, printTitle = TRUE, ...)
 }
 \arguments{
   \item{startYear}{numeric specifying the starting date
@@ -38,6 +38,10 @@
   \item{printTitle}{logical variable if TRUE title is
   printed, if FALSE title is not printed (this is best for
   a multi-plot figure)}
+
+  \item{...}{arbitrary graphical parameters that will be
+  passed to genericEGRETDotPlot function (see ?par for
+  options)}
 }
 \description{
   This plot is useful for visual examination of the ability

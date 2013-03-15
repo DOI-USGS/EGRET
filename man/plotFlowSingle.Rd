@@ -7,7 +7,7 @@
     qMax = NA, printTitle = TRUE, tinyPlot = FALSE,
     runoff = FALSE, qUnit = 1, printStaName = TRUE,
     printPA = TRUE, printIstat = TRUE, cex = 0.8,
-    cex.axis = 1.1, cex.main = 1.1, ...)
+    cex.axis = 1.1, cex.main = 1.1, lwd = 2, ...)
 }
 \arguments{
   \item{istat}{A numeric value for the flow statistic to be
@@ -63,6 +63,8 @@
 
   \item{cex.main}{number}
 
+  \item{lwd}{number}
+
   \item{...}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for
   options)}
@@ -77,7 +79,7 @@
 \examples{
 INFO <- exINFO
 annualSeries <- exannualSeries
-plotFlowSingle(8)
+plotFlowSingle(8,cex=0.7,lwd=1)
 }
 \keyword{graphics}
 \keyword{statistics}

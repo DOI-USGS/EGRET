@@ -4,7 +4,9 @@
 \usage{
   plotConcHist(yearStart = NA, yearEnd = NA,
     localAnnualResults = AnnualResults, localINFO = INFO,
-    concMax = NA, printTitle = TRUE, plotFlowNorm = TRUE)
+    concMax = NA, printTitle = TRUE, plotFlowNorm = TRUE,
+    cex = 0.8, cex.axis = 1.1, cex.main = 1.1, lwd = 2,
+    ...)
 }
 \arguments{
   \item{yearStart}{numeric is the calendar year containing
@@ -33,6 +35,18 @@
 
   \item{plotFlowNorm}{logical variable if TRUE flow
   normalized line is plotted, if FALSE not plotted}
+
+  \item{cex}{number}
+
+  \item{cex.axis}{number}
+
+  \item{cex.main}{number}
+
+  \item{lwd}{number}
+
+  \item{...}{arbitrary graphical parameters that will be
+  passed to genericEGRETDotPlot function (see ?par for
+  options)}
 }
 \description{
   Data come from a data frame named AnnualResults. The

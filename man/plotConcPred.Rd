@@ -3,7 +3,7 @@
 \title{Plot of Observed Concentration versus Estimated Concentration}
 \usage{
   plotConcPred(localSample = Sample, localINFO = INFO,
-    concMax = NA, printTitle = TRUE)
+    concMax = NA, printTitle = TRUE, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -20,6 +20,10 @@
   \item{printTitle}{logical variable if TRUE title is
   printed, if FALSE not printed (this is best for a
   multi-plot figure)}
+
+  \item{...}{arbitrary graphical parameters that will be
+  passed to genericEGRETDotPlot function (see ?par for
+  options)}
 }
 \description{
   Data come from a data frame named Sample which contains
