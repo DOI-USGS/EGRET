@@ -31,13 +31,22 @@ setupYears<-function(paLong = 12, paStart = 10, localDaily = Daily){
   numDays<-length(localDaily$MonthSeq)
   firstMonthSeq<-localDaily$MonthSeq[1]
   lastMonthSeq<-localDaily$MonthSeq[numDays]
+  
+  
+  
   #   creating a data frame of starting and ending months for each year
   Starts<-seq(paStart,lastMonthSeq,12)
   Ends<-Starts+paLong-1
   StartEndSeq<-data.frame(Starts,Ends)
   #   need to trim off the front and back, those years that aren't in the Daily data set
-  StartEndSeq<-subset(StartEndSeq,Starts>=firstMonthSeq)
-  StartEndSeq<-subset(StartEndSeq,Ends<=lastMonthSeq)
+  # Trying to avoid subset
+#   StartEndSeq<-subset(StartEndSeq,Starts>=firstMonthSeq)
+#   StartEndSeq<-subset(StartEndSeq,Ends<=lastMonthSeq)
+  
+  StartEndSeq <- StartEndSeq[(StartEndSeq$Starts >=firstMonthSeq) & (StartEndSeq$Ends<=lastMonthSeq),]
+  
+  firstMonth <- StartEndSeq[1,1]
+  
   numYears<-length(StartEndSeq$Starts)
   DecYear<-rep(NA,numYears)
   Q<-rep(NA,numYears)
@@ -45,21 +54,40 @@ setupYears<-function(paLong = 12, paStart = 10, localDaily = Daily){
   Flux<-rep(NA,numYears)
   FNConc<-rep(NA,numYears)
   FNFlux<-rep(NA,numYears)
+  
   for(i in 1:numYears) {
-    startSeq<-StartEndSeq$Starts[i]
-    endSeq<-StartEndSeq$Ends[i]
-    DailyYear<-subset(localDaily,MonthSeq>=startSeq)
-    DailyYear<-subset(DailyYear,MonthSeq<=endSeq)
+    
+#     startSeq<-StartEndSeq$Starts[i]
+#     endSeq<-StartEndSeq$Ends[i]
+    
+#     DailyYear<-subset(localDaily,MonthSeq>=startSeq)
+#     DailyYear<-subset(DailyYear,MonthSeq<=endSeq)
+    # This is better:
+#     DailyYear <- localDaily[(localDaily$MonthSeq>=startSeq) & (localDaily$MonthSeq<=endSeq),]
+    
+    # This should be even better:
+    startMonth <- (i-1)*12+firstMonth
+    stopMonth <- startMonth+paLong-1
+    DailyYear <- localDaily[which(localDaily$MonthSeq %in% startMonth:stopMonth),]
+
     #     need to see if the data frame for the year has enough good data
     counter<-ifelse(is.na(DailyYear$ConcDay),1,0)
     #     if we have NA values on more than 10% of the days, then don't use the year
-    good<-if((sum(counter)/length(DailyYear$ConcDay))>0.1) FALSE else TRUE
+    if (length(counter) > 0){
+      good<-((sum(counter)/length(DailyYear$ConcDay))<0.1)
+#       good<-if((sum(counter)/length(DailyYear$ConcDay))>0.1) FALSE else TRUE
+    } else {
+      good<-FALSE
+    }    
+    
     DecYear[i]<-mean(DailyYear$DecYear)
     Q[i]<-mean(DailyYear$Q)
-    Conc[i]<-if(good) mean(DailyYear$ConcDay,na.rm=TRUE) else NA
-    Flux[i]<-if(good) mean(DailyYear$FluxDay,na.rm=TRUE) else NA
-    FNConc[i]<-if(good) mean(DailyYear$FNConc,na.rm=TRUE) else NA
-    FNFlux[i]<-if(good) mean(DailyYear$FNFlux,na.rm=TRUE) else NA
+    if(good) {
+      Conc[i]<- mean(DailyYear$ConcDay,na.rm=TRUE)# else NA it's alreay NA as setup before the loop
+      Flux[i]<-mean(DailyYear$FluxDay,na.rm=TRUE)# else NA
+      FNConc[i]<- mean(DailyYear$FNConc,na.rm=TRUE)# else NA
+      FNFlux[i]<-mean(DailyYear$FNFlux,na.rm=TRUE)# else NA
+    }
   }
   #  create two more variables that just report paStart and paLong
   #    needed later to verify the period of analysis used in the Annual Results summary
