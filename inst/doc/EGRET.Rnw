@@ -745,6 +745,31 @@ multiPlotDataOverview()
 \FloatBarrier
 
 %------------------------------------------------------------ 
+\subsection{Extending Plots Past Defaults}
+\label{sec:extendedPlots}
+%------------------------------------------------------------ 
+The basic plotting options were shown in the previous section.  This section demonstrates some ideas on how to extend the capabilities of the EGRET plots.
+
+
+<<box2, echo=TRUE,eval=TRUE>>=
+  bp <- boxConcMonth()
+  mtext(paste(bp$n, sep = ""), at = seq_along(bp$n), 
+        line = -1, side = 3, cex=0.75)
+  mtext("n = ",side=3,line=-1,adj=.01, cex=0.75)
+@
+
+\begin{figure}[ht]
+\begin{center}
+
+<<label=figBox2, fig=TRUE,echo=FALSE>>=
+<<box2>>
+@
+\end{center}
+\caption{Adding number of samples to boxConcMonth}
+\label{fig:box2}
+\end{figure}
+
+%------------------------------------------------------------ 
 \subsection{Table Options}
 \label{sec:tableOptionsWQ}
 %------------------------------------------------------------ 
