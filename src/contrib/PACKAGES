@@ -5,7 +5,7 @@ Imports: zoo
 Suggests: xtable, EGRET
 License: file LICENSE
 NeedsCompilation: no
-MD5sum: 17e58942cb4f182bc758aac4d765afe6
+MD5sum: 8c31d5fe2726811b8048db6dc5ec21bc
 
 Package: EGRET
 Version: 1.2.4
