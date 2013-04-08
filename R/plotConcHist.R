@@ -18,7 +18,7 @@
 #' @param cex.axis number
 #' @param cex.main number
 #' @param lwd number
-#' @param ... arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
 #' @seealso \code{\link{setupYears}}
