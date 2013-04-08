@@ -1,11 +1,11 @@
 Package: dataRetrieval
 Version: 1.2.2
-Depends: R (>= 2.15.0), XML
+Depends: R (>= 2.15.0), XML, RCurl
 Imports: zoo
 Suggests: xtable, EGRET
 License: file LICENSE
+MD5sum: f857ad434841e96f2f6530d63644d36a
 NeedsCompilation: no
-MD5sum: 8c31d5fe2726811b8048db6dc5ec21bc
 
 Package: EGRET
 Version: 1.2.4
@@ -13,6 +13,6 @@ Depends: R (>= 2.13.0), fields
 Imports: methods, spam, survival
 Suggests: xtable, dataRetrieval
 License: file LICENSE
-NeedsCompilation: no
 MD5sum: 99cfc27408eba8e1aff5a8dba4fc1dfd
+NeedsCompilation: no
 
