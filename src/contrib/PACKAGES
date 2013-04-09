@@ -4,7 +4,7 @@ Depends: R (>= 2.15.0), XML, RCurl
 Imports: zoo
 Suggests: xtable, EGRET
 License: file LICENSE
-MD5sum: f857ad434841e96f2f6530d63644d36a
+MD5sum: f3b3a862bdbe76ad3232f0a4a641ec17
 NeedsCompilation: no
 
 Package: EGRET
