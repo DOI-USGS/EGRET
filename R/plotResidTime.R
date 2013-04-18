@@ -21,29 +21,31 @@ plotResidTime<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   # these residuals are from a "leave-one-out" cross validation application of WRTDS
   # if stdResid=FALSE it just works with the regular residuals
   # if stdResid=TRUE it computes the standardized residual which is the residual/Sample$SE  
-  x<-localSample$DecYear
-  yLow<-log(localSample$ConcLow)-localSample$yHat
-  yHigh<-log(localSample$ConcHigh)-localSample$yHat
-  yLow<-if(stdResid) yLow/localSample$SE else yLow
-  yHigh<-if(stdResid) yHigh/localSample$SE else yHigh
-  Uncen<-localSample$Uncen
-  xMin<-min(x) - 0.2
-  xMax<-max(x) + 0.2
-  maxYHigh<-max(yHigh) + 0.1
-  minYLow<-min(yLow,na.rm=TRUE) - 0.5
-  xSpan<-c(xMin,xMax)
-  xTicks<-pretty(xSpan,n=9)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
-  ySpan<-c(minYLow,maxYHigh)
-  yTicks<-pretty(ySpan,n=5)
-  numYTicks<-length(yTicks)
-  yBottom<-yTicks[1]
-  yTop<-yTicks[numYTicks]
-  xLab<-paste("")
-  yLab<-if(stdResid) "Standardized Residual in natural log units" else "Residual in natural log units" 
-  plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Residual versus Time") else ""
+  #x<-localSample$DecYear
+  #yLow<-log(localSample$ConcLow)-localSample$yHat
+  #yHigh<-log(localSample$ConcHigh)-localSample$yHat
+  #yLow<-if(stdResid) yLow/localSample$SE else yLow
+  #yHigh<-if(stdResid) yHigh/localSample$SE else yHigh
+  #Uncen<-localSample$Uncen
+  #xMin<-min(x) - 0.2
+  #xMax<-max(x) + 0.2
+  #maxYHigh<-max(yHigh) + 0.1
+  #minYLow<-min(yLow,na.rm=TRUE) - 0.5
+  #xSpan<-c(xMin,xMax)
+  #xTicks<-pretty(xSpan,n=9)
+  #numXTicks<-length(xTicks)
+  #xLeft<-xTicks[1]
+  #xRight<-xTicks[numXTicks]
+  #ySpan<-c(minYLow,maxYHigh)
+  #yTicks<-pretty(ySpan,n=5)
+  #numYTicks<-length(yTicks)
+  #yBottom<-yTicks[1]
+  #yTop<-yTicks[numYTicks]
+  #xLab<-paste("")
+  #yLab<-if(stdResid) "Standardized Residual in natural log units" else "Residual in natural log units" 
+  #plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Residual versus Time") else ""
+  
+  #yAxis <- generalAxis(x=NULL, min=7, max=yHigh, log=TRUE)
   
   ##########################
   genericEGRETDotPlot(x=x, y=yHigh,
