@@ -29,8 +29,7 @@ generalAxis <- function(x,max,min,log=FALSE, tinyPlot=FALSE,padPercent=5){
   high <- if(is.na(max)) upperMagnification*max(x,na.rm=TRUE) else max
   low <- if(is.na(min)) lowerMagnification*min(x,na.rm=TRUE) else min
   
-  span<-c(low,high)
-  
+  span<-c(low,high)  
   ticks<-if (log){
     if(tinyPlot) {
       logPretty1(min,max) 
