@@ -63,9 +63,14 @@ plotConcHist<-function(yearStart = NA, yearEnd = NA, localAnnualResults = Annual
   
   ##################
   par(mar = c(5,6,5,2))
+  
+  xInfo <- generalAxis(x=yearSpan, min=xMin, max=xMax)
+  
+  yInfo <- generalAxis(x=annConc, min=0, max=concMax)
+  
   genericEGRETDotPlot(x=subAnnualResults$DecYear, y=annConc,
-                      xTicks=xTicks, yTicks=yTicks,
-                      xlim=c(xLeft,xRight), ylim=c(0,yTop),
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+                      xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       ylab="Concentration in mg/L", 
                       plotTitle=title, cex.axis=cex.axis,cex.main=cex.main,...
     )

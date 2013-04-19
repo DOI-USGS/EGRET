@@ -94,36 +94,43 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   xMin<-x[1]
   xMax<-x[numSamples]
   yearSpan<-c(xMin,xMax)
-  nXTicks<-if(tinyPlot) 5 else 8 
-  xTicks<-pretty(yearSpan,n=nXTicks)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
+  #nXTicks<-if(tinyPlot) 5 else 8 
+  #xTicks<-pretty(yearSpan,n=nXTicks)
+  #numXTicks<-length(xTicks)
+  #xLeft<-xTicks[1]
+  #xRight<-xTicks[numXTicks]
   maxYHigh<-if(is.na(concMax)) 1.05*max(yHigh) else concMax
   
   #########################################################
   if (logScale=="y"){
     minYLow<-if(is.na(concMin)) 0.95*min(subSample$ConcAve) else concMin  #Unique to log
-    yTicks<-logPretty3(minYLow,maxYHigh)
-    numYTicks<-length(yTicks)
-    yBottom<-yTicks[1]
+    #yTicks<-logPretty3(minYLow,maxYHigh)
+    #numYTicks<-length(yTicks)
+    #yBottom<-yTicks[1]
+    log_state <- TRUE
   } else {
-    yTicks<-yPretty(maxYHigh)
-    yBottom <- 0
+    #yTicks<-yPretty(maxYHigh)
+    log_state <- FALSE
+    minYLow <- 0
+    #yBottom <- 0
   }
   
   #########################################################
-  yTop<-yTicks[length(yTicks)]
+  #yTop<-yTicks[length(yTicks)]
   plotTitle<-if(printTitle) paste(localINFO$shortName,",",localINFO$paramShortName,title2,title3) else ""
   yLab="Concentration in mg/L"
   
+  xInfo <- generalAxis(x=yearSpan, min=xMin, max=xMax)
+  
+  yInfo <- generalAxis(x=yHigh, min=minYLow, max=maxYHigh, log=log_state)
+  
   genericEGRETDotPlot(x=x, y=yHigh, 
-                      xlim=c(xLeft,xRight), ylim=c(yBottom,yTop),
+                      xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab="", ylab=yLab,
-                      xTicks=xTicks, yTicks=yTicks,cex.main=1,
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,cex.main=1,
                       plotTitle=plotTitle, mar=mar, log=logScale
   )
-  censoredSegments(yBottom=yBottom,yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
+  censoredSegments(yBottom=yInfo$ticks[1],yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
   par(mar = c(5,6,5,2))
 #   plot(x,yHigh,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="Concentration in mg/L",main=plotTitle,pch=20,cex=0.7,cex.main=1.0,font.main=2,cex.lab=1.2)
 #   axis(1,tcl=0.5,at=xTicks,labels=xTicks)

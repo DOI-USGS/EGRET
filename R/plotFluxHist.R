@@ -63,25 +63,29 @@ plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9,
   annFlux<-unitFactorReturn*subAnnualResults$Flux
   fnFlux<-unitFactorReturn*subAnnualResults$FNFlux
   fluxMax<-if(is.na(fluxMax)) 1.05*max(annFlux,na.rm=TRUE) else fluxMax
-  xVals<-subAnnualResults$DecYear
+  #xVals<-subAnnualResults$DecYear
   xMin<-yearStart
   xMax<-yearEnd
-  yearSpan<-c(xMin,xMax)
-  xTicks<-pretty(yearSpan,n=9)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
-  yTicks<-yPretty(fluxMax)
-  yTop<-yTicks[length(yTicks)]
+  #yearSpan<-c(xMin,xMax)
+  #xTicks<-pretty(yearSpan,n=9)
+  #numXTicks<-length(xTicks)
+  #xLeft<-xTicks[1]
+  #xRight<-xTicks[numXTicks]
+  #yTicks<-yPretty(fluxMax)
+  #yTop<-yTicks[length(yTicks)]
   periodName<-setSeasonLabel(localAnnualResults=localAnnualResults)
   title3<-if(plotFlowNorm) "\nFlux Estimates (dots) & Flow Normalized Flux (line)" else "\nAnnual Flux Estimates"
   title<-if(printTitle) paste(localINFO$shortName," ",localINFO$paramShortName,"\n",periodName,title3) else ""
   
+  xInfo <- generalAxis(x=subAnnualResults$DecYear, min=xMin, max=xMax)
+  
+  yInfo <- generalAxis(x=annFlux, min=0, max=fluxMax)
+  
   ###############################################
   par(mar = c(5,6,5,2))
   genericEGRETDotPlot(x=subAnnualResults$DecYear, y = annFlux,
-                      xTicks=xTicks, yTicks=yTicks,
-                      xlim=c(xLeft,xRight), ylim=c(0,yTop),
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+                      xlim=c(xInfo$bottom,xInfo$top), ylim=c(0,yInfo$top),
                       ylab=ylabel, plotTitle=title,
                       cex.axis=cex.axis,cex.main=cex.main,...
                       

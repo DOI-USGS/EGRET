@@ -29,51 +29,56 @@ plotConcTimeDaily<-function(startYear, endYear, localSample = Sample, localDaily
   xSample<-subSample$DecYear
   xDaily<-subDaily$DecYear
   xLimits<-c(startYear,endYear)
-  xTicks<-pretty(xLimits,n=5)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
+  #xTicks<-pretty(xLimits,n=5)
+  #numXTicks<-length(xTicks)
+  #xLeft<-xTicks[1]
+  #xRight<-xTicks[numXTicks]
   yLow<-subSample$ConcLow
   yHigh<-subSample$ConcHigh
   Uncen<-subSample$Uncen
   yAll<-c(subDaily$ConcDay,subSample$ConcHigh)
   maxYHigh<-if(is.na(concMax)) 1.05*max(yAll) else concMax
-  yTicks<-yPretty(maxYHigh)
-  yTop<-yTicks[length(yTicks)]
+  #yTicks<-yPretty(maxYHigh)
+  #yTop<-yTicks[length(yTicks)]
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed and Estimated Concentration versus Time") else ""
   
   ###################################
   
   yBottom <- 0 #Not specified within script, added under assumption that it's always zero based on ylim definition in this function
   
-  genericEGRETDotPlot(x=xSample, y=yHigh, xTicks=xTicks, yTicks=yTicks,
-                   xlim=c(xLeft,xRight), ylim=c(0,yTop),
-                   ylab="Concentration in mg/L",plotTitle=plotTitle
-    )
+  min_space = startYear-1
+  xInfo <- generalAxis(x=xLimits, min=min_space, max=endYear)
   
-#   plot(xSample,yHigh,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="Concentration in mg/L",main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)
-#   axis(1,tcl=0.5,at=xTicks,labels=xTicks)
-#   axis(2,tcl=0.5,las=1,at=yTicks)
-#   axis(3,tcl=0.5,at=xTicks,labels=FALSE)
-#   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
+  yInfo <- generalAxis(x=yHigh, min=0, max=maxYHigh)
+  
+  genericEGRETDotPlot(x=xSample, y=yHigh, xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+                      xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
+                      ylab="Concentration in mg/L",plotTitle=plotTitle
+  )
+  
+  #   plot(xSample,yHigh,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="Concentration in mg/L",main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)
+  #   axis(1,tcl=0.5,at=xTicks,labels=xTicks)
+  #   axis(2,tcl=0.5,las=1,at=yTicks)
+  #   axis(3,tcl=0.5,at=xTicks,labels=FALSE)
+  #   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
   
   par(new=TRUE)
   genericEGRETDotPlot(x=xDaily, y=subDaily$ConcDay, 
-                      xTicks=xTicks, yTicks=yTicks,
-                   xlim=c(xLeft,xRight), ylim=c(0,yTop),
-                   type="l"
-    )  
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+                      xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
+                      type="l"
+  )  
   
-#   plot(xDaily,subDaily$ConcDay,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="",main="",type="l",cex.main=1.3,font.main=2,cex.lab=1.2)
-#   box()
+  #   plot(xDaily,subDaily$ConcDay,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="",main="",type="l",cex.main=1.3,font.main=2,cex.lab=1.2)
+  #   box()
   censoredSegments(yBottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen
-    )
+  )
   
-#   yLowVal<-ifelse(is.na(yLow),0,yLow)
-#   numSamples<-length(xSample)
-#   uncensoredIndex <- 1:numSamples
-#   uncensoredIndex <- uncensoredIndex[Uncen==0]
-#   segments(xSample[uncensoredIndex],yLowVal[uncensoredIndex],xSample[uncensoredIndex],yHigh[uncensoredIndex])
+  #   yLowVal<-ifelse(is.na(yLow),0,yLow)
+  #   numSamples<-length(xSample)
+  #   uncensoredIndex <- 1:numSamples
+  #   uncensoredIndex <- uncensoredIndex[Uncen==0]
+  #   segments(xSample[uncensoredIndex],yLowVal[uncensoredIndex],xSample[uncensoredIndex],yHigh[uncensoredIndex])
   
   par(mar=c(5,4,4,2)+0.1)
 }

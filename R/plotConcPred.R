@@ -38,11 +38,15 @@ plotConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
   yLab<-"Observed Concentration in mg/L"
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed versus Estimated Concentration") else ""
   
+  xInfo <- generalAxis(x=x, min=0, max=xMax)
+  
+  yInfo <- generalAxis(x=yHigh, min=0, max=maxYHigh)
+  
   ############################
   par(mar = c(5,6,5,2))
   genericEGRETDotPlot(x=x, y=yHigh,
-                      xTicks=xTicks, yTicks=yTicks,
-                      xlim=c(xLeft,xRight), ylim=c(yBottom,yTop),
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+                      xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xLab, ylab=yLab,
                       plotTitle=plotTitle, oneToOneLine=TRUE,...
     )

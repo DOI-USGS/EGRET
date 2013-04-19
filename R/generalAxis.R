@@ -23,12 +23,18 @@ generalAxis <- function(x,max,min,log=FALSE, tinyPlot=FALSE,padPercent=5){
   
   nTicks<-if(tinyPlot) 5 else 8
   
+  if (length(max)>1) {
+    max<-max(max) + 0.2
+  }
+  
+  if (length(min)>1) {
+    min<-min(min) - 0.2
+  }
+  
   upperMagnification <- 1+(padPercent/100)
   lowerMagnification <- 1-(padPercent/100)
-  
   high <- if(is.na(max)) upperMagnification*max(x,na.rm=TRUE) else max
   low <- if(is.na(min)) lowerMagnification*min(x,na.rm=TRUE) else min
-  
   span<-c(low,high)  
   ticks<-if (log){
     if(tinyPlot) {
