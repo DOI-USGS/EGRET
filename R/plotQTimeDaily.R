@@ -43,19 +43,19 @@ plotQTimeDaily<-function (startYear, endYear, localDaily = Daily,
   subDaily <- subset(localDaily, DecYear >= startYear)
   subDaily <- subset(subDaily, DecYear <= endYear)
   xDaily <- subDaily$DecYear
-  xLimits <- c(startYear, endYear)
-  xTicks <- pretty(xLimits, n = 9)
-  numXTicks <- length(xTicks)
-  xLeft <- xTicks[1]
-  xRight <- xTicks[numXTicks]
+  #xLimits <- c(startYear, endYear)
+  #xTicks <- pretty(xLimits, n = 9)
+  #numXTicks <- length(xTicks)
+  #xLeft <- xTicks[1]
+  #xRight <- xTicks[numXTicks]
   yDaily <- qFactor * subDaily$Q
   yMin <- if(is.na(qLower)) 0 else qLower
   yMax <- 1.05*max(yDaily)
-  ySpan <- c(yMin,yMax)
-  yTicks <- pretty(ySpan,8)
-  nYTicks <- length(yTicks)
-  yTop <- yTicks[nYTicks]
-  yBottom <- yTicks[1]
+  #ySpan <- c(yMin,yMax)
+  #yTicks <- pretty(ySpan,8)
+  #nYTicks <- length(yTicks)
+  #yTop <- yTicks[nYTicks]
+  #yBottom <- yTicks[1]
   line2 <- if(is.na(qLower)) "Daily Discharge" else paste("Daily discharge above a threshold of\n",qLower," ",qUnit@qUnitName,sep="")
   line1 <- localINFO$shortName
   plotTitle <- if (printTitle) 
@@ -63,14 +63,20 @@ plotQTimeDaily<-function (startYear, endYear, localDaily = Daily,
   else ""
   yLab <- qUnit@qUnitExpress
   qBottom <- if(is.na(qLower)) 0 else qLower
-  plot(xDaily, yDaily, axes = FALSE, xlim = c(startYear, endYear), 
-       xaxs = "i", xlab = "", ylim = c(qBottom, yTop), yaxs = "i", 
+  
+  xInfo <- generalAxis(x=xDaily, min=startYear, max=endYear, tinyPlot=tinyPlot)
+  
+  yInfo <- generalAxis(x=yDaily, min=yMin, max=yMax, tinyPlot=tinyPlot)
+
+  plot(xDaily, yDaily, axes = FALSE, xlim = c(xInfo$bottom, xInfo$top), 
+       xaxs = "i", xlab = "", ylim = c(yInfo$bottom, yInfo$top), yaxs = "i", 
        ylab = yLab, main = plotTitle, type = "l", lwd = 3, col="red", 
        cex = 0.7, cex.main = 1.3, font.main = 2, cex.lab = 1.2)
-  axis(1, tcl = 0.5, at = xTicks, labels = xTicks)
-  axis(2, tcl = 0.5, las = 1, at = yTicks)
-  axis(3, tcl = 0.5, at = xTicks, labels = FALSE)
-  axis(4, tcl = 0.5, at = yTicks, labels = FALSE)
+  axis(1, tcl = 0.5, at = xInfo$ticks, labels = xInfo$ticks)
+  axis(2, tcl = 0.5, las = 1, at = yInfo$ticks)
+  axis(3, tcl = 0.5, at = xInfo$ticks, labels = FALSE)
+  axis(4, tcl = 0.5, at = yInfo$ticks, labels = FALSE)
   box()
   par(mar = c(5, 4, 4, 2) + 0.1)
+
 }

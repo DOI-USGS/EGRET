@@ -24,9 +24,10 @@ concentrationAxis <- function(ConcLow, ConcHigh, ConcAve, ConcMax, ConcMin,padPe
   yHigh <- ConcHigh
   maxYHigh <- if(is.na(ConcMax)) upperMagnification*max(yHigh) else ConcMax
   minYLow <- if(is.na(ConcMin)) lowerMagnification*min(ConcAve) else ConcMin
-  yTicks <- logPretty3(minYLow,maxYHigh)
-  yBottom <- yTicks[1]
-  yTop <- yTicks[length(yTicks)]
-  return(list(yTop=yTop,yBottom=yBottom,yTicks=yTicks))
+  #yTicks <- logPretty3(minYLow,maxYHigh)
+  #yBottom <- yTicks[1]
+  #yTop <- yTicks[length(yTicks)]
+  axis_info <- generalAxis(x=yHigh, min=minYLow, max=maxYHigh, log=TRUE)
+  return(list(yTop=axis_info$top,yBottom=axis_info$bottom,yTicks=axis_info$ticks))
 
 }

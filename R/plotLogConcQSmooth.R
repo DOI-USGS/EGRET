@@ -73,24 +73,29 @@ plotLogConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft 
   title<-if(printTitle) paste (localINFO$shortName,"  ",localINFO$paramShortName,"\nEstimated Concentration Versus Discharge Relationship\nat",numDates,"specific dates") else ""
   xLab=qUnit@qUnitExpress
   yLab="Concentration in mg/L"
-  xTicks<-logPretty3(qLow,qHigh)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
+  #xTicks<-logPretty3(qLow,qHigh)
+  #numXTicks<-length(xTicks)
+  #xLeft<-xTicks[1]
+  #xRight<-xTicks[numXTicks]
   yMax<-max(y,na.rm=TRUE)
   yTop<-if(is.na(concMax)) yMax else concMax
   yMin<-min(y,na.rm=TRUE)
   yBottom<-if(is.na(concMin)) yMin else concMin
-  yTicks<-logPretty3(yBottom,yTop)
-  numYTicks<-length(yTicks)
-  yTop<-yTicks[numYTicks]
+  #yTicks<-logPretty3(yBottom,yTop)
+  #numYTicks<-length(yTicks)
+  #yTop<-yTicks[numYTicks]
   colorVal<-if(bw) c("black","black","black") else c("black","red","green")
   lineVal<-if(bw) c(1,2,3) else c(1,1,1)
   
   ######################
+  
+  xInfo <- generalAxis(x=x, min=qLow, max=qHigh, log=TRUE)
+  
+  yInfo_n <- generalAxis(x=y[1,2,3,], min=yBottom, max=yTop, log=TRUE)
+
   genericEGRETDotPlot(x=x, y=y[1,],
-                      xTicks=xTicks, yTicks=yTicks,
-                      xlim=c(xLeft,xRight),ylim=c(yBottom,yTop),
+                      xTicks=xInfo$ticks, yTicks=yInfo_n$ticks,
+                      xlim=c(xInfo$bottom,xInfo$top),ylim=c(yInfo_n$bottom,yInfo_n$top),
                       xlab=xLab,ylab=yLab,plotTitle=title,
                       type="l",lwd=2,col=colorVal[1],lty=lineVal[1],cex.main=1.1,
                       log="xy"
@@ -103,8 +108,8 @@ plotLogConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft 
 #   box()
   par(new=TRUE)
   genericEGRETDotPlot(x=x, y=y[2,],
-                      xTicks=xTicks, yTicks=yTicks,
-                      xlim=c(xLeft,xRight),ylim=c(yBottom,yTop),
+                      xTicks=xInfo$ticks, yTicks=yInfo_n$ticks,
+                      xlim=c(xInfo$bottom,xInfo$top),ylim=c(yInfo_n$bottom,yInfo_n$top),
                       xlab=xLab,ylab=yLab,plotTitle=title,
                       type="l",lwd=2,col=colorVal[2],lty=lineVal[2],cex.main=1.1,
                       log="xy"
@@ -112,8 +117,8 @@ plotLogConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft 
 #   plot(log(x,10),log(y[2,],10),axes=FALSE,xlim=c(log(xLeft,10),log(xRight,10)),xaxs="i",xlab="",ylim=c(log(yBottom,10),log(yTop,10)), yaxs="i",ylab="",main="",type="l",lwd=2,col=colorVal[2],lty=lineVal[2],cex=0.7,cex.main=1.1,font.main=2,cex.lab=1.2)
   par(new=TRUE)
   genericEGRETDotPlot(x=x, y=y[3,],
-                      xTicks=xTicks, yTicks=yTicks,
-                      xlim=c(xLeft,xRight),ylim=c(yBottom,yTop),
+                      xTicks=xInfo$ticks, yTicks=yInfo_n$ticks,
+                      xlim=c(xInfo$bottom,xInfo$top),ylim=c(yInfo_n$bottom,yInfo_n$top),
                       xlab=xLab,ylab=yLab,plotTitle=title,
                       type="l",lwd=2,col=colorVal[3],lty=lineVal[3],cex.main=1.1,
                       log="xy"

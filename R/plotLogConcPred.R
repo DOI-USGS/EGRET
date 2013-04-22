@@ -30,23 +30,28 @@ plotLogConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
   xMax<-1.05*max(x)
   maxYHigh<-if(is.na(concMax)) 1.05*max(yHigh) else concMax
   minYLow<-0.9*min(localSample$ConcLow,na.rm=TRUE)
-  xTicks<-logPretty3(xMin,xMax)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
-  yTicks<-logPretty3(minYLow,maxYHigh)
-  numYTicks<-length(yTicks)
-  yBottom<-yTicks[1]
-  yTop<-yTicks[numYTicks]
+  #xTicks<-logPretty3(xMin,xMax)
+  #numXTicks<-length(xTicks)
+  #xLeft<-xTicks[1]
+  #xRight<-xTicks[numXTicks]
+  #yTicks<-logPretty3(minYLow,maxYHigh)
+  #numYTicks<-length(yTicks)
+  #yBottom<-yTicks[1]
+  #yTop<-yTicks[numYTicks]
   xLab<-"Estimated Concentration in mg/L"
   yLab<-"Observed Concentration in mg/L"
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed versus Estimated Concentration") else ""
   
   #################################
   par(mar = c(5,6,5,2))
+  
+  xInfo <- generalAxis(x=x, min=xMin, max=xMax, log=TRUE, tinyPlot=tinyPlot)
+  
+  yInfo <- generalAxis(x=yHigh, min=minYLow, max=maxYHigh, log=TRUE, tinyPlot=tinyPlot)
+
   genericEGRETDotPlot(x=x, y=yHigh,
-                      xTicks=xTicks, yTicks=yTicks,
-                      xlim=c(xLeft,xRight), ylim=c(yBottom,yTop),
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+                      xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xLab,ylab=yLab,
                       plotTitle=plotTitle, cex.main=1.0,
                       log="xy", oneToOneLine=TRUE, ...

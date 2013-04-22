@@ -42,11 +42,11 @@ plotFluxTimeDaily<-function (startYear, endYear, localSample = Sample, localDail
   subDaily <- subset(subDaily, DecYear <= endYear)
   xSample <- subSample$DecYear
   xDaily <- subDaily$DecYear
-  xLimits <- c(startYear, endYear)
-  xTicks <- pretty(xLimits, n = 5)
-  numXTicks <- length(xTicks)
-  xLeft <- xTicks[1]
-  xRight <- xTicks[numXTicks]
+  #xLimits <- c(startYear, endYear)
+  #xTicks <- pretty(xLimits, n = 5)
+  #numXTicks <- length(xTicks)
+  #xLeft <- xTicks[1]
+  #xRight <- xTicks[numXTicks]
   yLow <- subSample$ConcLow*subSample$Q*fluxFactor
   yHigh <- subSample$ConcHigh*subSample$Q*fluxFactor
   Uncen <- subSample$Uncen
@@ -54,8 +54,8 @@ plotFluxTimeDaily<-function (startYear, endYear, localSample = Sample, localDail
   maxYHigh <- if (is.na(fluxMax)) 
     1.05 * max(yAll)
   else fluxMax
-  yTicks <- yPretty(maxYHigh)
-  yTop <- yTicks[length(yTicks)]
+  #yTicks <- yPretty(maxYHigh)
+  #yTop <- yTicks[length(yTicks)]
   plotTitle <- if (printTitle) 
     paste(localINFO$shortName, "\n", localINFO$paramShortName, 
           "\n", "Observed and Estimated Flux versus Time")
@@ -64,10 +64,15 @@ plotFluxTimeDaily<-function (startYear, endYear, localSample = Sample, localDail
   ###################################
   
   yBottom <- 0 #Not specified within script, added under assumption that it's always zero based on ylim definition in this function
+  
   par(mar = c(5,6,5,2))
+  
+  xInfo <- generalAxis(x=xSample, min=startYear-1, max=endYear+1, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yHigh, min=0, max=maxYHigh, tinyPlot=tinyPlot)
+  
   genericEGRETDotPlot(x=xSample, y=yHigh,
-                      xlim = c(xLeft, xRight), ylim = c(0, yTop),
-                      xTicks=xTicks, yTicks=yTicks,
+                      xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       ylab = fluxUnit@unitExpress,
                       plotTitle=plotTitle, ...
     )

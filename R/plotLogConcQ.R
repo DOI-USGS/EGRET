@@ -61,6 +61,7 @@ plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Concentration versus Discharge") else ""
   
   #####################
+  pdf('test.pdf')
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$xTicks, yTicks=yInfo$yTicks,
                       xlim=c(xInfo$xLeft,xInfo$xRight),ylim=c(yInfo$yBottom,yInfo$yTop),
@@ -71,4 +72,5 @@ plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   censoredSegments(yInfo$yBottom, yLow, yHigh, x, Uncen )
 
   par(mar=c(5,4,4,2)+0.1)
+  dev.off()
 }

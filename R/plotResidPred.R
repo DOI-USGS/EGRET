@@ -34,26 +34,32 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   xMax<-1.05*max(x)
   maxYHigh<-max(yHigh) + 0.1
   minYLow<-min(yLow,na.rm=TRUE) - 0.5
-  xTicks<-logPretty3(xMin,xMax)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
-  ySpan<-c(minYLow,maxYHigh)
-  yTicks<-pretty(ySpan,n=5)
-  numYTicks<-length(yTicks)
-  yBottom<-yTicks[1]
-  yTop<-yTicks[numYTicks]
+  #xTicks<-logPretty3(xMin,xMax)
+  #numXTicks<-length(xTicks)
+  #xLeft<-xTicks[1]
+  #xRight<-xTicks[numXTicks]
+  #ySpan<-c(minYLow,maxYHigh)
+  #yTicks<-pretty(ySpan,n=5)
+  #numYTicks<-length(yTicks)
+  #yBottom<-yTicks[1]
+  #yTop<-yTicks[numYTicks]
   xLab<-"Estimated Concentration in mg/L"
   yLab<-if(stdResid) "Standardized Residual in natural log units" else "Residual in natural log units" 
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Residual versus Estimated Concentration") else ""
   
   ####################
+  
+  xInfo <- generalAxis(x=x, min=xMin, max=xMax, log=TRUE, tinyPlot=tinyPlot)
+  
+  yInfo <- generalAxis(x=yHigh, min=minYLow, max=maxYHigh, tinyPlot=tinyPlot)
+
   genericEGRETDotPlot(x=x, y=yHigh,
-                      xTicks=xTicks, yTicks=yTicks,
-                      xlim=c(xLeft,xRight), ylim=c(yBottom,yTop),
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+                      xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xLab, ylab=yLab, plotTitle=plotTitle,
                       log="x",hLine=TRUE
     )
+
   
 #   plot(log(x,10),yHigh,axes=FALSE,xlim=c(log(xLeft,10),log(xRight,10)),xaxs="i",xlab=xLab,ylim=c(yBottom,yTop),yaxs="i",ylab=yLab,main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)
 #   axis(1,tcl=0.5,at=log(xTicks,10),labels=xTicks)

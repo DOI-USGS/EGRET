@@ -41,23 +41,29 @@ plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, flu
   Uncen<-localSample$Uncen
   xMax<-1.05*max(x)
   maxYHigh<-if(is.na(fluxMax)) 1.05*max(yHigh) else fluxMax
-  xTicks<-yPretty(xMax)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
-  yTicks<-yPretty(maxYHigh)
-  numYTicks<-length(yTicks)
-  yBottom<-yTicks[1]
-  yTop<-yTicks[numYTicks]
+  #xTicks<-yPretty(xMax)
+  #numXTicks<-length(xTicks)
+  #xLeft<-xTicks[1]
+  #xRight<-xTicks[numXTicks]
+  #yTicks<-yPretty(maxYHigh)
+  #numYTicks<-length(yTicks)
+  #yBottom<-yTicks[1]
+  #yTop<-yTicks[numYTicks]
   xLab <- fluxUnit@unitEstimate
   yLab <- fluxUnit@unitExpress
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed vs Estimated Flux") else ""
   
   ###############################
+  
+  xInfo <- generalAxis(x=x, min=0, max=xMax, tinyPlot=tinyPlot)
+  
+  yInfo <- generalAxis(x=yHigh, min=0, max=maxYHigh, tinyPlot=tinyPlot)
+  
   par(mar = c(5,6,5,2))
+
   genericEGRETDotPlot(x=x, y=yHigh,
-                      xTicks=xTicks, yTicks=yTicks,
-                      xlim=c(xLeft,xRight), ylim=c(yBottom,yTop),
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+                      xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xLab, ylab=yLab,
                       plotTitle=plotTitle,oneToOneLine=TRUE,...
     )

@@ -46,31 +46,34 @@ plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
     y[i]<-sd(smallDaily$LogQ,na.rm=TRUE)
   }
   yTop<-if(is.na(sdMax)) 1.05*max(y)
-  yTicks<-yPretty(yTop)
-  numYTicks<-length(yTicks)
-  yTop<-yTicks[numYTicks]
+  #yTicks<-yPretty(yTop)
+  #numYTicks<-length(yTicks)
+  #yTop<-yTicks[numYTicks]
   xMin<-if(is.na(yearStart)) startDec else yearStart
   xMax<-if(is.na(yearEnd)) endDec else yearEnd
-  nTicks <- if (tinyPlot) 5 else 8
-  yearSpan<-c(xMin,xMax)
-  xTicks<- pretty(yearSpan,n = nTicks)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
+  #nTicks <- if (tinyPlot) 5 else 8
+  #yearSpan<-c(xMin,xMax)
+  #xTicks<- pretty(yearSpan,n = nTicks)
+  #numXTicks<-length(xTicks)
+  #xLeft<-xTicks[1]
+  #xRight<-xTicks[numXTicks]
   line1<-if(printStaName) localINFO$shortName else ""
   line2<-if(printPA) paste("\n",setSeasonLabelByUser(paStartInput = localINFO$paStart, paLongInput = localINFO$paLong)) else ""
   line3<-"\nDischarge variability: Standard Deviation of Log(Q)" 
   title<-if(printTitle) paste(line1,line2,line3) else ""
   
   ##############################################
+  
+  xInfo <- generalAxis(x=xmid, min=xMin, max=xMax, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=y, min=0, max=yTop, tinyPlot=tinyPlot)
+
   genericEGRETDotPlot(x=xmid,y=y,
-                      xlim=c(xLeft,xRight),ylim=c(0,yTop),
+                      xlim=c(xInfo$bottom,xInfo$top),ylim=c(yInfo$bottom,yInfo$top),
                       xlab="",ylab="Dimensionless",
-                      xTicks=xTicks,yTicks=yTicks,cex=0.8,
+                      xTicks=xInfo$ticks,yTicks=yInfo$ticks,cex=0.8,
                       plotTitle=title,cex.main=1.1,cex.axis = 1.1,
                       type="l",lwd=2
   )
-  
   
 #   plot(xmid,y,type="l",ylim=c(0,yTop),yaxs="i",lwd=2,xlim=c(xLeft,xRight),xaxs="i",main=title,xlab="",ylab="Dimensionless",axes=FALSE,cex=0.8,cex.main=1.1,cex.lab=1.2,font=2)
 #   axis(1, tcl = 0.5, at = xTicks, labels = xTicks)

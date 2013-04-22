@@ -47,9 +47,9 @@ plotConcTimeDaily<-function(startYear, endYear, localSample = Sample, localDaily
   yBottom <- 0 #Not specified within script, added under assumption that it's always zero based on ylim definition in this function
   
   min_space = startYear-1
-  xInfo <- generalAxis(x=xLimits, min=min_space, max=endYear)
+  xInfo <- generalAxis(x=xLimits, min=min_space, max=endYear, tinyPlot=tinyPlot)
   
-  yInfo <- generalAxis(x=yHigh, min=0, max=maxYHigh)
+  yInfo <- generalAxis(x=yHigh, min=0, max=maxYHigh, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=xSample, y=yHigh, xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),

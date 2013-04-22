@@ -33,7 +33,7 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
                   localINFO = INFO, localAnnualSeries = annualSeries, 
                   qMax = NA, printTitle = TRUE, tinyPlot = FALSE, 
                   runoff = FALSE, qUnit = 1, printStaName = TRUE, printPA = TRUE, 
-                  printIstat = TRUE,cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2, ...) {
+                  printIstat = TRUE,cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2) {
   
   qActual<-localAnnualSeries[2,istat,]
   qSmooth<-localAnnualSeries[3,istat,]

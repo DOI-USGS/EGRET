@@ -53,24 +53,29 @@ plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlo
    xMax <- 1.05 * max(x)
    maxYHigh <- max(yHigh) + 0.1
    minYLow <- min(yLow, na.rm = TRUE) - 0.5
-   xTicks <- logPretty3(xMin, xMax)
-   numXTicks <- length(xTicks)
-   xLeft <- xTicks[1]
-   xRight <- xTicks[numXTicks]
-   ySpan <- c(minYLow, maxYHigh)
-   yTicks <- pretty(ySpan, n = 5)
-   numYTicks <- length(yTicks)
-   yBottom <- yTicks[1]
-   yTop <- yTicks[numYTicks]
+   #xTicks <- logPretty3(xMin, xMax)
+   #numXTicks <- length(xTicks)
+   #xLeft <- xTicks[1]
+   #xRight <- xTicks[numXTicks]
+   #ySpan <- c(minYLow, maxYHigh)
+   #yTicks <- pretty(ySpan, n = 5)
+   #numYTicks <- length(yTicks)
+   #yBottom <- yTicks[1]
+   #yTop <- yTicks[numYTicks]
    xLab <- qUnit@qUnitExpress
    yLab <- ifelse (stdResid, "Standardized Residual in natural log units", "Residual in natural log units")
    plotTitle <- ifelse (printTitle,  paste(localINFO$shortName, "\n", localINFO$paramShortName, 
            "\n", "Residual versus Discharge"), "")
    
    #######################
+   
+   xInfo <- generalAxis(x=x, min=xMin, max=xMax, log=TRUE, tinyPlot=tinyPlot)
+   
+   yInfo <- generalAxis(x=yHigh, min=minYLow, max=maxYHigh, tinyPlot=tinyPlot)
+
    genericEGRETDotPlot(x=x, y=yHigh,
-                       xTicks=xTicks, yTicks=yTicks,hLine=TRUE,
-                       xlim = c(xLeft, xRight), ylim = c(yBottom, yTop),
+                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,hLine=TRUE,
+                       xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
                        xlab = xLab, ylab = yLab, plotTitle=plotTitle,
                        log = "x"
      )

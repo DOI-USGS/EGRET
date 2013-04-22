@@ -41,14 +41,14 @@ plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3,
   else fluxMax
   minYLow <- 0.5 * min(localSample$ConcLow * localSample$Q * 
                          fluxFactor, na.rm = TRUE)
-  xTicks <- logPretty3(xMin, xMax)
-  numXTicks <- length(xTicks)
-  xLeft <- xTicks[1]
-  xRight <- xTicks[numXTicks]
-  yTicks <- logPretty3(minYLow, maxYHigh)
-  numYTicks <- length(yTicks)
-  yBottom <- yTicks[1]
-  yTop <- yTicks[numYTicks]
+  #xTicks <- logPretty3(xMin, xMax)
+  #numXTicks <- length(xTicks)
+  #xLeft <- xTicks[1]
+  #xRight <- xTicks[numXTicks]
+  #yTicks <- logPretty3(minYLow, maxYHigh)
+  #numYTicks <- length(yTicks)
+  #yBottom <- yTicks[1]
+  #yTop <- yTicks[numYTicks]
   xLab <- fluxUnit@unitEstimate
   yLab <- fluxUnit@unitExpress
   plotTitle <- if (printTitle) 
@@ -57,9 +57,14 @@ plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3,
   else ""
   
   ##################################
+  
+  xInfo <- generalAxis(x=x, min=xMin, max=xMax, log=TRUE, tinyPlot=tinyPlot)
+  
+  yInfo <- generalAxis(x=yHigh, min=minYLow, max=maxYHigh, log=TRUE, tinyPlot=tinyPlot)
+
   genericEGRETDotPlot(x=x, y=yHigh,
-                      xTicks=xTicks, yTicks=yTicks,
-                      xlim = c(xLeft, xRight), ylim = c(yBottom, yTop),
+                      xTicks=xInfo$ticks, yTicks=xInfo$ticks,
+                      xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
                       xlab = xLab, ylab = yLab, plotTitle=plotTitle,
                       log="xy", oneToOneLine=TRUE
     )
@@ -68,4 +73,5 @@ plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3,
   censoredSegments(yBottom, yLow, yHigh, x, Uncen )
 
   par(mar = c(5, 4, 4, 2) + 0.1)
+
 }

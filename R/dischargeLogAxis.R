@@ -25,13 +25,13 @@ dischargeLogAxis <- function(x,qUnit,padPercent=5,tinyPlot=FALSE){
   
   xMin <- lowerMagnification*min(x)
   xMax <- upperMagnification*max(x)
-
+  
   xTicks <- if(tinyPlot) {
     logPretty1(xMin,xMax) 
   } else {
     logPretty3(xMin,xMax)
   }
-
+  
   numXTicks<-length(xTicks)
   xLeft<-xTicks[1]
   xRight<-xTicks[numXTicks]

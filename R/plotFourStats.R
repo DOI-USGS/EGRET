@@ -20,7 +20,7 @@
 #' annualSeries <- exannualSeries
 #' plotFourStats()
 plotFourStats<-function(localINFO = INFO, localAnnualSeries = annualSeries, yearStart = NA, yearEnd = NA, 
-                        printTitle = TRUE, runoff = FALSE, qUnit =1,cex.lab=1.4,cex.axis=1.2,cex=0.6) {
+                        printTitle = TRUE, runoff = FALSE, qUnit =1,cex.lab=1.4,cex.axis=1.2,cex=0.6, ...) {
   # prior to running this user must do these two commands
   # INFO<-setPA(pastart,paLong,window) 
   # annualSeries<-makeAnnualSeries()

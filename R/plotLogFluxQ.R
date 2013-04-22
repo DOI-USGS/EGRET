@@ -52,27 +52,30 @@ plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2,
   Uncen<-localSample$Uncen
   xMin<-0.95*min(x)
   xMax<-1.05*max(x)
-  xTicks<-if(tinyPlot) logPretty1(xMin,xMax) else logPretty3(xMin,xMax)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
+  #xTicks<-if(tinyPlot) logPretty1(xMin,xMax) else logPretty3(xMin,xMax)
+  #numXTicks<-length(xTicks)
+  #xLeft<-xTicks[1]
+  #xRight<-xTicks[numXTicks]
   xLab<-qUnit@qUnitExpress
   yLab<-fluxUnit@unitExpress
   maxYHigh<-if(is.na(fluxMax)) 1.05*max(yHigh) else fluxMax
   minYLow<-if(is.na(fluxMin)) 0.95*min(yLow,na.rm=TRUE) else fluxMin
-  yTicks<-if(tinyPlot) logPretty1(minYLow,maxYHigh) else logPretty3(minYLow,maxYHigh)
-  numYTicks<-length(yTicks)
-  yBottom<-yTicks[1]
-  yTop<-yTicks[numYTicks]
+  #yTicks<-if(tinyPlot) logPretty1(minYLow,maxYHigh) else logPretty3(minYLow,maxYHigh)
+  #numYTicks<-length(yTicks)
+  #yBottom<-yTicks[1]
+  #yTop<-yTicks[numYTicks]
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Flux versus Discharge") else ""
   
   ##############################################  
   mar<-c(5,5,4,2)+0.1
   
+  xInfo <- generalAxis(x=x, min=xMin, max=xMax, log=TRUE, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yHigh, min=minYLow, max=maxYHigh, log=TRUE, tinyPlot=tinyPlot)
+  
   genericEGRETDotPlot(x=x, y=yHigh, 
-                      xlim=c(xLeft,xRight), ylim=c(yBottom,yTop),
+                      xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xLab, ylab=yLab,
-                      xTicks=xTicks, yTicks=yTicks,
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       plotTitle=plotTitle, mar=mar,log="xy"
   )
 

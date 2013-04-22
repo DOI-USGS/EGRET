@@ -120,9 +120,9 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   plotTitle<-if(printTitle) paste(localINFO$shortName,",",localINFO$paramShortName,title2,title3) else ""
   yLab="Concentration in mg/L"
   
-  xInfo <- generalAxis(x=yearSpan, min=xMin, max=xMax)
+  xInfo <- generalAxis(x=yearSpan, min=xMin, max=xMax, tinyPlot=tinyPlot)
   
-  yInfo <- generalAxis(x=yHigh, min=minYLow, max=maxYHigh, log=log_state)
+  yInfo <- generalAxis(x=yHigh, min=minYLow, max=maxYHigh, log=log_state, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=yHigh, 
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
