@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.6)  19 MAR 2013 15:56
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.6)  23 APR 2013 10:19
 entering extended mode
 **EGRET.tex
 (D:\LADData\RCode\EGRET\inst\doc\EGRET.tex
@@ -284,7 +284,7 @@ Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
 \TX@cols=\count117
 \TX@ftn=\toks21
 )
-(C:/PROGRA~1/R/R-215~1.3/share/texmf/tex/latex\Sweave.sty
+(C:/PROGRA~1/R/R-30~1.0/share/texmf/tex/latex\Sweave.sty
 Package: Sweave 
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ifthen.sty"
@@ -616,7 +616,7 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 LaTeX Font Info:    Try loading font information for TS1+aer on input line 555.
 
 
-(C:/PROGRA~1/R/R-215~1.3/share/texmf/tex/latex\ts1aer.fd
+(C:/PROGRA~1/R/R-30~1.0/share/texmf/tex/latex\ts1aer.fd
 File: ts1aer.fd 
 )
 LaTeX Font Info:    Font shape `TS1/aer/m/n' in size <10.95> not available
@@ -998,7 +998,7 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 [41]
 LaTeX Font Info:    Try loading font information for TS1+aett on input line 154
 2.
- (C:/PROGRA~1/R/R-215~1.3/share/texmf/tex/latex\ts1aett.fd
+ (C:/PROGRA~1/R/R-30~1.0/share/texmf/tex/latex\ts1aett.fd
 File: ts1aett.fd 
 )
 LaTeX Font Info:    Try loading font information for TS1+cmtt on input line 154
@@ -1044,7 +1044,7 @@ Package rerunfilecheck Info: File `EGRET.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  8993 strings out of 494045
- 135794 string characters out of 3145961
+ 135787 string characters out of 3145961
  224132 words of memory out of 3000000
  11940 multiletter control sequences out of 15000+200000
  53526 words of font info for 104 fonts, out of 3000000 for 9000
@@ -1067,7 +1067,7 @@ cmr6.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7
 rogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti7.pfb><C:/Prog
 ram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti8.pfb><C:/Program
  Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on EGRET.pdf (44 pages, 1069070 bytes).
+Output written on EGRET.pdf (44 pages, 1069316 bytes).
 PDF statistics:
  795 PDF objects out of 1000 (max. 8388607)
  129 named destinations out of 1000 (max. 500000)
