@@ -26,14 +26,14 @@ plotConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
   Uncen<-localSample$Uncen
   xMax<-1.05*max(x)
   maxYHigh<-if(is.na(concMax)) 1.05*max(yHigh) else concMax
-  xTicks<-yPretty(xMax)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
-  yTicks<-yPretty(maxYHigh)
-  numYTicks<-length(yTicks)
-  yBottom<-yTicks[1]
-  yTop<-yTicks[numYTicks]
+  #xTicks<-yPretty(xMax)
+  #numXTicks<-length(xTicks)
+  #xLeft<-xTicks[1]
+  #xRight<-xTicks[numXTicks]
+  #yTicks<-yPretty(maxYHigh)
+  #numYTicks<-length(yTicks)
+  #yBottom<-yTicks[1]
+  #yTop<-yTicks[numYTicks]
   xLab<-"Estimated Concentration in mg/L"
   yLab<-"Observed Concentration in mg/L"
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed versus Estimated Concentration") else ""
@@ -51,6 +51,6 @@ plotConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
                       plotTitle=plotTitle, oneToOneLine=TRUE,...
     )
 
-  censoredSegments(yBottom=yBottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen)
+  censoredSegments(yBottom=yInfo$bottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen)
 
 }

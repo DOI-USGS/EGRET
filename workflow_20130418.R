@@ -66,3 +66,7 @@ plotConcQSmooth(date1,date2,date3,qLow,qHigh)
 Daily <- exDaily
 INFO <- exINFO
 plotSDLogQ(window=3,printTitle=FALSE) 
+
+INFO <- exINFO
+annualSeries <- exannualSeries
+plotFlowSingle(8,cex=0.7,lwd=1)

@@ -68,7 +68,7 @@ plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, flu
                       plotTitle=plotTitle,oneToOneLine=TRUE,...
     )
 
-  censoredSegments(yBottom=yBottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen)
+  censoredSegments(yBottom=yInfo$bottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen)
 
   par(mar=c(5,4,4,2)+0.1)
 }

@@ -46,7 +46,7 @@ plotConcTimeDaily<-function(startYear, endYear, localSample = Sample, localDaily
   
   yBottom <- 0 #Not specified within script, added under assumption that it's always zero based on ylim definition in this function
   
-  min_space = startYear-1
+  min_space = startYear
   xInfo <- generalAxis(x=xLimits, min=min_space, max=endYear, tinyPlot=tinyPlot)
   
   yInfo <- generalAxis(x=yHigh, min=0, max=maxYHigh, tinyPlot=tinyPlot)
@@ -71,7 +71,7 @@ plotConcTimeDaily<-function(startYear, endYear, localSample = Sample, localDaily
   
   #   plot(xDaily,subDaily$ConcDay,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="",main="",type="l",cex.main=1.3,font.main=2,cex.lab=1.2)
   #   box()
-  censoredSegments(yBottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen
+  censoredSegments(yInfo$bottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen
   )
   
   #   yLowVal<-ifelse(is.na(yLow),0,yLow)

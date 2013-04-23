@@ -67,7 +67,7 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
 #   axis(3,tcl=0.5,at=log(xTicks,10),labels=FALSE)
 #   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
 #   box()
-  censoredSegments(yBottom, yLow, yHigh, x, Uncen
+  censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen
     )
 #   yLowVal<-ifelse(is.na(yLow),yBottom,yLow)
 #   numSamples<-length(x)

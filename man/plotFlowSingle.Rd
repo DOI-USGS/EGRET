@@ -79,7 +79,6 @@
 \examples{
 INFO <- exINFO
 annualSeries <- exannualSeries
-plotFlowSingle(8,cex=0.7,lwd=1)
 }
 \keyword{graphics}
 \keyword{statistics}

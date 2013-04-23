@@ -1,18 +1,18 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.6)  19 MAR 2013 15:56
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.4.23)  23 APR 2013 14:53
 entering extended mode
 **EGRET.tex
-(D:\LADData\RCode\EGRET\inst\doc\EGRET.tex
+(D:\Work\egret\EGRET\inst\doc\EGRET.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
 croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
-lician, german, german-x-2009-06-19, greek, gujarati, hindi, hungarian, iceland
-ic, indonesian, interlingua, irish, italian, kannada, kurmanji, lao, latin, lat
-vian, lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerm
-an, ngerman-x-2009-06-19, nynorsk, oriya, panjabi, pinyin, polish, portuguese, 
-romanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swis
-sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
-senglishmax, welsh, loaded.
+lician, german, german-x-2012-05-30, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, latin, latvian,
+ lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerman, n
+german-x-2012-05-30, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
+ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
+an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
+ishmax, welsh, loaded.
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\article.cls"
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\size11.clo"
@@ -30,24 +30,24 @@ File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\amsmath\amsmath.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty"
 Package: amsmath 2013/01/14 v2.14 AMS math features
 \@mathmargin=\skip43
 
 For additional information on amsmath, use the `?' option.
-(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\amsmath\amstext.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amstext.sty"
 Package: amstext 2000/06/29 v2.01
 
-(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\amsmath\amsgen.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty"
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks14
 \ex@=\dimen103
 ))
-(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\amsmath\amsbsy.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty"
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen104
 )
-(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\amsmath\amsopn.sty
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty"
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count87
@@ -92,48 +92,52 @@ LaTeX Info: Redefining \] on input line 2666.
 Package: times 2005/04/12 PSNFSS-v9.2a (SPQR) 
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hyperref.sty"
-Package: hyperref 2011/08/19 v6.82h Hypertext links for LaTeX
+Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\hobsub-hyperref.sty"
-Package: hobsub-hyperref 2011/04/23 v1.4 Bundle oberdiek, subset hyperref (HO)
+Package: hobsub-hyperref 2012/04/25 v1.12 Bundle oberdiek, subset hyperref (HO)
+
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\hobsub-generic.sty"
-Package: hobsub-generic 2011/04/23 v1.4 Bundle oberdiek, subset generic (HO)
-Package: hobsub 2011/04/23 v1.4 Subsetting bundle oberdiek (HO)
-Package: infwarerr 2010/04/08 v1.3 Providing info/warning/message (HO)
-Package: ltxcmds 2011/04/18 v1.20 LaTeX kernel commands for general use (HO)
+Package: hobsub-generic 2012/04/25 v1.12 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2012/04/25 v1.12 Construct package bundles (HO)
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
 Package ifluatex Info: LuaTeX not detected.
-Package: ifvtex 2010/03/01 v1.5 Switches for detecting VTeX and its modes (HO)
+Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
 Package ifvtex Info: VTeX not detected.
-Package: intcalc 2007/09/27 v1.1 Expandable integer calculations (HO)
+Package: intcalc 2007/09/27 v1.1 Expandable calculations with integers (HO)
 Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
 Package ifpdf Info: pdfTeX in PDF mode is detected.
-Package: etexcmds 2011/02/16 v1.5 Prefix for e-TeX command names (HO)
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
 Package etexcmds Info: Could not find \expanded.
 (etexcmds)             That can mean that you are not using pdfTeX 1.50 or
 (etexcmds)             that some package has redefined \expanded.
 (etexcmds)             In the latter case, load this package earlier.
-Package: kvsetkeys 2011/04/07 v1.13 Key value parser (HO)
-Package: kvdefinekeys 2011/04/07 v1.3 Defining keys (HO)
-Package: pdftexcmds 2011/04/22 v0.16 Utilities of pdfTeX for LuaTeX (HO)
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
 Package pdftexcmds Info: LuaTeX not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-Package: pdfescape 2011/04/04 v1.12 Provides string conversions (HO)
-Package: bigintcalc 2011/01/30 v1.2 Expandable big integer calculations (HO)
-Package: bitset 2011/01/30 v1.1 Data type bit set (HO)
-Package: uniquecounter 2011/01/30 v1.2 Provides unlimited unique counter (HO)
+Package: pdfescape 2011/11/25 v1.13 Implements pdfTeX's escape features (HO)
+Package: bigintcalc 2012/04/08 v1.3 Expandable calculations on big integers (HO
+)
+Package: bitset 2011/01/30 v1.1 Handle bit-vector datatype (HO)
+Package: uniquecounter 2011/01/30 v1.2 Provide unlimited unique counter (HO)
 )
 Package hobsub Info: Skipping package `hobsub' (already loaded).
 Package: letltxmacro 2010/09/02 v1.4 Let assignment for LaTeX macros (HO)
-Package: hopatch 2011/01/30 v1.0 Wrapper for package hooks (HO)
+Package: hopatch 2011/06/24 v1.1 Wrapper for package hooks (HO)
 Package: xcolor-patch 2011/01/30 xcolor patch
-Package: atveryend 2011/04/23 v1.7 Hooks at very end of document (HO)
-Package: atbegshi 2011/01/30 v1.15 At begin shipout hook (HO)
-Package: refcount 2010/12/01 v3.2 Data extraction from references (HO)
-Package: hycolor 2011/01/30 v1.7 Color options of hyperref/bookmark (HO)
+Package: atveryend 2011/06/30 v1.8 Hooks at the very end of document (HO)
+Package atveryend Info: \enddocument detected (standard20110627).
+Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
+Package: refcount 2011/10/16 v3.4 Data extraction from label references (HO)
+Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
 )
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
@@ -142,47 +146,51 @@ Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\auxhook.sty"
+Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
+)
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
-Package: kvoptions 2010/12/23 v3.10 Keyval support for LaTeX options (HO)
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
 )
 \@linkdim=\dimen112
 \Hy@linkcounter=\count99
 \Hy@pagecounter=\count100
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\pd1enc.def"
-File: pd1enc.def 2011/08/19 v6.82h Hyperref: PDFDocEncoding definition (HO)
+File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
 )
 \Hy@SavedSpaceFactor=\count101
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\hyperref.cfg"
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
-Package hyperref Info: Hyper figures OFF on input line 4053.
-Package hyperref Info: Link nesting OFF on input line 4058.
-Package hyperref Info: Hyper index ON on input line 4061.
-Package hyperref Info: Plain pages OFF on input line 4068.
-Package hyperref Info: Backreferencing OFF on input line 4073.
+Package hyperref Info: Hyper figures OFF on input line 4443.
+Package hyperref Info: Link nesting OFF on input line 4448.
+Package hyperref Info: Hyper index ON on input line 4451.
+Package hyperref Info: Plain pages OFF on input line 4458.
+Package hyperref Info: Backreferencing OFF on input line 4463.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks ON on input line 4291.
+Package hyperref Info: Bookmarks ON on input line 4688.
 \c@Hy@tempcnt=\count102
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ltxmisc\url.sty"
 \Urlmuskip=\muskip11
 Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
 )
-LaTeX Info: Redefining \url on input line 4644.
+LaTeX Info: Redefining \url on input line 5041.
+\XeTeXLinkMargin=\dimen113
 \Fld@menulength=\count103
-\Field@Width=\dimen113
-\Fld@charsize=\dimen114
-Package hyperref Info: Hyper figures OFF on input line 5730.
-Package hyperref Info: Link nesting OFF on input line 5735.
-Package hyperref Info: Hyper index ON on input line 5738.
-Package hyperref Info: backreferencing OFF on input line 5745.
-Package hyperref Info: Link coloring OFF on input line 5750.
-Package hyperref Info: Link coloring with OCG OFF on input line 5755.
-Package hyperref Info: PDF/A mode OFF on input line 5760.
-LaTeX Info: Redefining \ref on input line 5800.
-LaTeX Info: Redefining \pageref on input line 5804.
+\Field@Width=\dimen114
+\Fld@charsize=\dimen115
+Package hyperref Info: Hyper figures OFF on input line 6295.
+Package hyperref Info: Link nesting OFF on input line 6300.
+Package hyperref Info: Hyper index ON on input line 6303.
+Package hyperref Info: backreferencing OFF on input line 6310.
+Package hyperref Info: Link coloring OFF on input line 6315.
+Package hyperref Info: Link coloring with OCG OFF on input line 6320.
+Package hyperref Info: PDF/A mode OFF on input line 6325.
+LaTeX Info: Redefining \ref on input line 6365.
+LaTeX Info: Redefining \pageref on input line 6369.
 \Hy@abspage=\count104
 \c@Item=\count105
 \c@Hfootnote=\count106
@@ -191,7 +199,7 @@ LaTeX Info: Redefining \pageref on input line 5804.
 Package hyperref Message: Driver (autodetected): hpdftex.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hpdftex.def"
-File: hpdftex.def 2011/08/19 v6.82h Hyperref driver for pdfTeX
+File: hpdftex.def 2012/11/06 v6.83m Hyperref driver for pdfTeX
 \Fld@listcount=\count107
 \c@bookmark@seq@number=\count108
 
@@ -202,7 +210,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip46
 )
-(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\natbib\natbib.sty
+(C:\Users\ayan\AppData\Roaming\MiKTeX\2.9\tex\latex\natbib\natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip47
 \bibsep=\skip48
@@ -224,13 +232,13 @@ Language: english 2005/03/30 v3.3o English support from the babel system
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.def"
 File: babel.def 2008/07/08 v3.8m Babel common definitions
 \babel@savecnt=\count110
-\U@D=\dimen115
+\U@D=\dimen116
 )
 \l@canadian = a dialect from \language\l@american 
 \l@australian = a dialect from \language\l@british 
 \l@newzealand = a dialect from \language\l@british 
 ))
-(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\preprint\authblk.sty
+(C:\Users\ayan\AppData\Roaming\MiKTeX\2.9\tex\latex\preprint\authblk.sty
 Package: authblk 2009/11/18 1.3 (PWD)
 \affilsep=\skip49
 \@affilsep=\skip50
@@ -238,53 +246,56 @@ Package: authblk 2009/11/18 1.3 (PWD)
 \c@authors=\count112
 \c@affil=\count113
 )
-(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\caption\subcaption.sty
+(C:\Users\ayan\AppData\Roaming\MiKTeX\2.9\tex\latex\caption\subcaption.sty
 Package: subcaption 2013/02/03 v1.1-62 Sub-captions (AR)
 
-(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\caption\caption.sty
-Package: caption 2013/02/03 v3.3-65 Customizing captions (AR)
+(C:\Users\ayan\AppData\Roaming\MiKTeX\2.9\tex\latex\caption\caption.sty
+Package: caption 2013/04/14 v3.3-73 Customizing captions (AR)
 
-(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\caption\caption3.sty
-Package: caption3 2013/02/03 v1.5-62 caption3 kernel (AR)
-\captionmargin=\dimen116
-\captionmargin@=\dimen117
-\captionwidth=\dimen118
-\caption@tempdima=\dimen119
-\caption@indent=\dimen120
-\caption@parindent=\dimen121
-\caption@hangindent=\dimen122
+(C:\Users\ayan\AppData\Roaming\MiKTeX\2.9\tex\latex\caption\caption3.sty
+Package: caption3 2013/04/14 v1.5-71 caption3 kernel (AR)
+\captionmargin=\dimen117
+\captionmargin@=\dimen118
+\captionwidth=\dimen119
+\caption@tempdima=\dimen120
+\caption@indent=\dimen121
+\caption@parindent=\dimen122
+\caption@hangindent=\dimen123
 )
 \c@ContinuedFloat=\count114
 Package caption Info: hyperref package is loaded.
 )
 \c@subfigure=\count115
 \c@subtable=\count116
-) (C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\placeins\placeins.sty
+)
+(C:\Users\ayan\AppData\Roaming\MiKTeX\2.9\tex\latex\placeins\placeins.sty
 Package: placeins 2005/04/18  v 2.2
-) (C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\mdwtools\footnote.sty
+)
+(C:\Users\ayan\AppData\Roaming\MiKTeX\2.9\tex\latex\mdwtools\footnote.sty
 Package: footnote 1997/01/28 1.13 Save footnotes around boxes
 \fn@notes=\box28
-\fn@width=\dimen123
-) ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\tabularx.sty"
+\fn@width=\dimen124
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\tabularx.sty"
 Package: tabularx 1999/01/07 v2.07 `tabularx' package (DPC)
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\array.sty"
 Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
-\col@sep=\dimen124
-\extrarowheight=\dimen125
+\col@sep=\dimen125
+\extrarowheight=\dimen126
 \NC@list=\toks20
 \extratabsurround=\skip51
 \backup@length=\skip52
 )
-\TX@col@width=\dimen126
-\TX@old@table=\dimen127
-\TX@old@col=\dimen128
-\TX@target=\dimen129
-\TX@delta=\dimen130
+\TX@col@width=\dimen127
+\TX@old@table=\dimen128
+\TX@old@col=\dimen129
+\TX@target=\dimen130
+\TX@delta=\dimen131
 \TX@cols=\count117
 \TX@ftn=\toks21
 )
-(C:/PROGRA~1/R/R-215~1.3/share/texmf/tex/latex\Sweave.sty
+(C:/PROGRA~1/R/R-30~1.0/share/texmf/tex/latex\Sweave.sty
 Package: Sweave 
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ifthen.sty"
@@ -308,10 +319,10 @@ Package graphics Info: Driver file: pdftex.def on input line 91.
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 \Gread@gobject=\count118
 ))
-\Gin@req@height=\dimen131
-\Gin@req@width=\dimen132
+\Gin@req@height=\dimen132
+\Gin@req@width=\dimen133
 )
-(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\fancyvrb\fancyvrb.sty
+(C:\Users\ayan\AppData\Roaming\MiKTeX\2.9\tex\latex\fancyvrb\fancyvrb.sty
 Package: fancyvrb 2008/02/07
 
 Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix 
@@ -323,7 +334,7 @@ Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix
 \FV@StepNumber=\count121
 \FV@OutFile=\write3
 )
-(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\upquote\upquote.sty
+(C:\Users\ayan\AppData\Roaming\MiKTeX\2.9\tex\latex\upquote\upquote.sty
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
 tim
 
@@ -430,7 +441,7 @@ LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ae\t1aer.fd"
 File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
 ))))
-(D:\LADData\RCode\EGRET\inst\doc\EGRET.aux)
+(D:\Work\egret\EGRET\inst\doc\EGRET.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 45.
 LaTeX Font Info:    ... okay on input line 45.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 45.
@@ -456,7 +467,7 @@ LaTeX Font Info:    ... okay on input line 45.
 Package hyperref Info: Link coloring OFF on input line 45.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
-Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
+Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
@@ -467,33 +478,33 @@ LaTeX Info: Redefining \ref on input line 45.
 LaTeX Info: Redefining \pageref on input line 45.
 LaTeX Info: Redefining \nameref on input line 45.
 
-(D:\LADData\RCode\EGRET\inst\doc\EGRET.out)
-(D:\LADData\RCode\EGRET\inst\doc\EGRET.out)
+(D:\Work\egret\EGRET\inst\doc\EGRET.out)
+(D:\Work\egret\EGRET\inst\doc\EGRET.out)
 \@outlinefile=\write4
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 
-(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
+(C:\Users\ayan\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count123
-\scratchdimen=\dimen133
+\scratchdimen=\dimen134
 \scratchbox=\box31
 \nofMPsegments=\count124
 \nofMParguments=\count125
 \everyMPshowfont=\toks22
 \MPscratchCnt=\count126
-\MPscratchDim=\dimen134
+\MPscratchDim=\dimen135
 \MPnumerator=\count127
 \makeMPintoPDFobject=\count128
 \everyMPtoPDFconversion=\toks23
-) (D:\LADData\RCode\EGRET\inst\doc\EGRET-concordance.tex)
-(D:\LADData\RCode\EGRET\inst\doc\EGRET.toc
+) (D:\Work\egret\EGRET\inst\doc\EGRET-concordance.tex)
+(D:\Work\egret\EGRET\inst\doc\EGRET.toc
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
 [1
 
-{C:/Users/ldecicco/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}])
+{C:/Users/ayan/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}])
 \tf@toc=\write5
 LaTeX Font Info:    Try loading font information for T1+aett on input line 76.
 
@@ -578,17 +589,17 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[10 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotFlowSingle.pdf> <D:/LADData/R
-Code/EGRET/inst/doc/EGRET-figplotSDLogQ.pdf> <D:/LADData/RCode/EGRET/inst/doc/E
-GRET-figplotQTimeDaily.pdf>]
+[10 <D:/Work/egret/EGRET/inst/doc/EGRET-figplotFlowSingle.pdf> <D:/Work/egret/E
+GRET/inst/doc/EGRET-figplotSDLogQ.pdf> <D:/Work/egret/EGRET/inst/doc/EGRET-figp
+lotQTimeDaily.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[11 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotFour.pdf>]
+[11 <D:/Work/egret/EGRET/inst/doc/EGRET-figplotFour.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[12 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotFourStats.pdf>]
+[12 <D:/Work/egret/EGRET/inst/doc/EGRET-figplotFourStats.pdf>]
 <EGRET-fig3a.pdf, id=288, 433.62pt x 433.62pt>
 File: EGRET-fig3a.pdf Graphic file (type pdf)
  <use EGRET-fig3a.pdf>
@@ -611,12 +622,11 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 [13
 
- <D:/LADData/RCode/EGRET/inst/doc/EGRET-fig3a.pdf> <D:/LADData/RCode/EGRET/inst
-/doc/EGRET-fig3b.pdf>]
+ <D:/Work/egret/EGRET/inst/doc/EGRET-fig3a.pdf> <D:/Work/egret/EGRET/inst/doc/E
+GRET-fig3b.pdf>]
 LaTeX Font Info:    Try loading font information for TS1+aer on input line 555.
 
-
-(C:/PROGRA~1/R/R-215~1.3/share/texmf/tex/latex\ts1aer.fd
+ (C:/PROGRA~1/R/R-30~1.0/share/texmf/tex/latex\ts1aer.fd
 File: ts1aer.fd 
 )
 LaTeX Font Info:    Font shape `TS1/aer/m/n' in size <10.95> not available
@@ -705,16 +715,15 @@ Package pdftex.def Info: EGRET-figmultiPlotDataOverview.pdf used on input line
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[17 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figboxConcMonth.pdf> <D:/LADData/RCo
-de/EGRET/inst/doc/EGRET-figboxQTwice.pdf> <D:/LADData/RCode/EGRET/inst/doc/EGRE
-T-figplotConcTime.pdf> <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotLogConcTim
-e.pdf>]
+[17 <D:/Work/egret/EGRET/inst/doc/EGRET-figboxConcMonth.pdf> <D:/Work/egret/EGR
+ET/inst/doc/EGRET-figboxQTwice.pdf> <D:/Work/egret/EGRET/inst/doc/EGRET-figplot
+ConcTime.pdf> <D:/Work/egret/EGRET/inst/doc/EGRET-figplotLogConcTime.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[18 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotConcQ.pdf> <D:/LADData/RCode/
-EGRET/inst/doc/EGRET-figplotLogConcQ.pdf> <D:/LADData/RCode/EGRET/inst/doc/EGRE
-T-figplotLogFluxQ.pdf>] <EGRET-figBox2.pdf, id=387, 433.62pt x 433.62pt>
+[18 <D:/Work/egret/EGRET/inst/doc/EGRET-figplotConcQ.pdf> <D:/Work/egret/EGRET/
+inst/doc/EGRET-figplotLogConcQ.pdf> <D:/Work/egret/EGRET/inst/doc/EGRET-figplot
+LogFluxQ.pdf>] <EGRET-figBox2.pdf, id=387, 433.62pt x 433.62pt>
 File: EGRET-figBox2.pdf Graphic file (type pdf)
 
 <use EGRET-figBox2.pdf>
@@ -724,11 +733,11 @@ Package pdftex.def Info: EGRET-figBox2.pdf used on input line 768.
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[19 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figmultiPlotDataOverview.pdf>]
+[19 <D:/Work/egret/EGRET/inst/doc/EGRET-figmultiPlotDataOverview.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[20 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figBox2.pdf>]
+[20 <D:/Work/egret/EGRET/inst/doc/EGRET-figBox2.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
@@ -898,45 +907,44 @@ Package pdftex.def Info: EGRET-figplotDiffContours.pdf used on input line 1125.
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[23 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figboxResidMonth.pdf> <D:/LADData/RC
-ode/EGRET/inst/doc/EGRET-figplotConcTimeDaily.pdf>]
+[23 <D:/Work/egret/EGRET/inst/doc/EGRET-figboxResidMonth.pdf> <D:/Work/egret/EG
+RET/inst/doc/EGRET-figplotConcTimeDaily.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[24 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotFluxTimeDaily.pdf> <D:/LADDat
-a/RCode/EGRET/inst/doc/EGRET-figplotConcPred.pdf> <D:/LADData/RCode/EGRET/inst/
-doc/EGRET-figplotFluxPred.pdf> <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotLo
-gConcPred.pdf>]
+[24 <D:/Work/egret/EGRET/inst/doc/EGRET-figplotFluxTimeDaily.pdf> <D:/Work/egre
+t/EGRET/inst/doc/EGRET-figplotConcPred.pdf> <D:/Work/egret/EGRET/inst/doc/EGRET
+-figplotFluxPred.pdf> <D:/Work/egret/EGRET/inst/doc/EGRET-figplotLogConcPred.pd
+f>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[25 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotLogFluxPred.pdf> <D:/LADData/
-RCode/EGRET/inst/doc/EGRET-figplotResidPred.pdf> <D:/LADData/RCode/EGRET/inst/d
-oc/EGRET-figplotResidQ.pdf> <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotResid
-Time.pdf>]
+[25 <D:/Work/egret/EGRET/inst/doc/EGRET-figplotLogFluxPred.pdf> <D:/Work/egret/
+EGRET/inst/doc/EGRET-figplotResidPred.pdf> <D:/Work/egret/EGRET/inst/doc/EGRET-
+figplotResidQ.pdf> <D:/Work/egret/EGRET/inst/doc/EGRET-figplotResidTime.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[26 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotConcHist.pdf> <D:/LADData/RCo
-de/EGRET/inst/doc/EGRET-figplotFluxHist.pdf> <D:/LADData/RCode/EGRET/inst/doc/E
-GRET-figplotConcQSmooth.pdf> <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotLogC
-oncQSmooth.pdf>]
+[26 <D:/Work/egret/EGRET/inst/doc/EGRET-figplotConcHist.pdf> <D:/Work/egret/EGR
+ET/inst/doc/EGRET-figplotFluxHist.pdf> <D:/Work/egret/EGRET/inst/doc/EGRET-figp
+lotConcQSmooth.pdf> <D:/Work/egret/EGRET/inst/doc/EGRET-figplotLogConcQSmooth.p
+df>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[27 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotConcTimeSmooth.pdf>]
+[27 <D:/Work/egret/EGRET/inst/doc/EGRET-figplotConcTimeSmooth.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[28 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figfluxBiasMulti.pdf>]
+[28 <D:/Work/egret/EGRET/inst/doc/EGRET-figfluxBiasMulti.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[29 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotContours.pdf>]
+[29 <D:/Work/egret/EGRET/inst/doc/EGRET-figplotContours.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[30 <D:/LADData/RCode/EGRET/inst/doc/EGRET-figplotDiffContours.pdf>]
+[30 <D:/Work/egret/EGRET/inst/doc/EGRET-figplotDiffContours.pdf>]
 Overfull \hbox (50.28142pt too wide) in paragraph at lines 1189--1207
  [] 
  []
@@ -998,7 +1006,7 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 [41]
 LaTeX Font Info:    Try loading font information for TS1+aett on input line 154
 2.
- (C:/PROGRA~1/R/R-215~1.3/share/texmf/tex/latex\ts1aett.fd
+ (C:/PROGRA~1/R/R-30~1.0/share/texmf/tex/latex\ts1aett.fd
 File: ts1aett.fd 
 )
 LaTeX Font Info:    Try loading font information for TS1+cmtt on input line 154
@@ -1025,7 +1033,7 @@ Package pdftex.def Info: table1.png used on input line 1597.
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[43 <D:/LADData/RCode/EGRET/inst/doc/table1.png>]
+[43 <D:/Work/egret/EGRET/inst/doc/table1.png>]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1620.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
@@ -1035,39 +1043,40 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 ]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 1620.
- (D:\LADData\RCode\EGRET\inst\doc\EGRET.aux)
+ (D:\Work\egret\EGRET\inst\doc\EGRET.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1620.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1620.
 
 Package rerunfilecheck Info: File `EGRET.out' has not changed.
 (rerunfilecheck)             Checksum: D704992865012ECB93BAB07266C5BB9B;1802.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1620.
  ) 
 Here is how much of TeX's memory you used:
- 8993 strings out of 494045
- 135794 string characters out of 3145961
- 224132 words of memory out of 3000000
- 11940 multiletter control sequences out of 15000+200000
+ 9137 strings out of 493921
+ 137805 string characters out of 3144879
+ 229087 words of memory out of 3000000
+ 12082 multiletter control sequences out of 15000+200000
  53526 words of font info for 104 fonts, out of 3000000 for 9000
- 715 hyphenation exceptions out of 8191
- 42i,17n,40p,1024b,512s stack positions out of 5000i,500n,10000p,200000b,50000s
- <C:\Users\ldecicco\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi6
-00\tcst1095.pk> <C:\Users\ldecicco\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jkn
-appen\ec\dpi600\tcrm1095.pk><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/publ
-ic/amsfonts/cm/cmbx10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public
-/amsfonts/cm/cmbx12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/a
-msfonts/cm/cmmi10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/ams
-fonts/cm/cmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfon
-ts/cm/cmr12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/
-cm/cmr17.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
-cmr6.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7
-.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb
-><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:
-/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsltt10.pfb><C:
-/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/P
-rogram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti7.pfb><C:/Prog
-ram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti8.pfb><C:/Program
- Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on EGRET.pdf (44 pages, 1069070 bytes).
+ 841 hyphenation exceptions out of 8191
+ 42i,17n,40p,1024b,516s stack positions out of 5000i,500n,10000p,200000b,50000s
+ <C:\Users\ayan\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\t
+cst1095.pk> <C:\Users\ayan\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec
+\dpi600\tcrm1095.pk><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfo
+nts/cm/cmbx10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfont
+s/cm/cmbx12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmmi10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
+/cmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
+r12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17
+.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb
+><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:
+/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Pro
+gram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Program
+ Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsltt10.pfb><C:/Program
+ Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program F
+iles (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti7.pfb><C:/Program File
+s (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti8.pfb><C:/Program Files (
+x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
+Output written on EGRET.pdf (44 pages, 1070443 bytes).
 PDF statistics:
  795 PDF objects out of 1000 (max. 8388607)
  129 named destinations out of 1000 (max. 500000)

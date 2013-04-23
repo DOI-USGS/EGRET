@@ -28,12 +28,11 @@
 #' @examples
 #' INFO <- exINFO
 #' annualSeries <- exannualSeries
-#' plotFlowSingle(8,cex=0.7,lwd=1)
 plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA, 
                   localINFO = INFO, localAnnualSeries = annualSeries, 
                   qMax = NA, printTitle = TRUE, tinyPlot = FALSE, 
                   runoff = FALSE, qUnit = 1, printStaName = TRUE, printPA = TRUE, 
-                  printIstat = TRUE,cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2) {
+                  printIstat = TRUE,cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2, ...) {
   
   qActual<-localAnnualSeries[2,istat,]
   qSmooth<-localAnnualSeries[3,istat,]
@@ -83,7 +82,7 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab="", ylab=qUnit@qUnitExpress,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,cex=cex,
-                      plotTitle=title, cex.axis=cex.axis,cex.main=cex.main,...
+                      plotTitle=title, cex.axis=cex.axis,cex.main=cex.main
   )
   
   ##############################################

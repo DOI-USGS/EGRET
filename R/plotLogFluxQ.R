@@ -79,7 +79,7 @@ plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2,
                       plotTitle=plotTitle, mar=mar,log="xy"
   )
 
-  censoredSegments(yBottom,yLow,yHigh,x,Uncen)
+  censoredSegments(yInfo$bottom,yLow,yHigh,x,Uncen)
   
   par(mar=c(5,4,4,2)+0.1)
 }

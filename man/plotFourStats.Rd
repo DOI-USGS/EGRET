@@ -5,7 +5,8 @@
   plotFourStats(localINFO = INFO,
     localAnnualSeries = annualSeries, yearStart = NA,
     yearEnd = NA, printTitle = TRUE, runoff = FALSE,
-    qUnit = 1, cex.lab = 1.4, cex.axis = 1.2, cex = 0.6)
+    qUnit = 1, cex.lab = 1.4, cex.axis = 1.2, cex = 0.6,
+    ...)
 }
 \arguments{
   \item{localINFO}{string specifying the name of the data

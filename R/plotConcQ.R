@@ -49,9 +49,9 @@ plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot 
   yLab <- "Concentration in mg/L"
   mar<-c(5,4,4,2)+0.1
   
-  xInfo <- generalAxis(x=x, max=xMax, min=xMin, log=TRUE)
+  xInfo <- generalAxis(x=x, max=xMax, min=xMin, log=TRUE, tinyPlot=tinyPlot)
 
-  yInfo <- generalAxis(x=yHigh, max=maxYHigh, min=min(yHigh))
+  yInfo <- generalAxis(x=yHigh, max=maxYHigh, min=min(yHigh), tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=yHigh, 
                       xlim=c(xLeft, xRight), ylim=c(0,yInfo$top),

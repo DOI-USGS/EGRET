@@ -70,7 +70,7 @@ plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3,
     )
   # Laura took out cex = 0.4,
 
-  censoredSegments(yBottom, yLow, yHigh, x, Uncen )
+  censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen )
 
   par(mar = c(5, 4, 4, 2) + 0.1)
 
