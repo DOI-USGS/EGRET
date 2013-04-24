@@ -5,7 +5,8 @@
   plotSDLogQ(yearStart = NA, yearEnd = NA, window = 15,
     localDaily = Daily, localINFO = INFO, sdMax = NA,
     printTitle = TRUE, tinyPlot = FALSE,
-    printStaName = TRUE, printPA = TRUE)
+    printStaName = TRUE, printPA = TRUE, cex = 0.8,
+    cex.main = 1.1, cex.axis = 1.1, lwd = 2, ...)
 }
 \arguments{
   \item{yearStart}{numeric is the calendar year of the

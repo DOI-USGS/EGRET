@@ -3,7 +3,9 @@
 \title{A box plot of WRTDS residuals by month}
 \usage{
   boxResidMonth(localSample = Sample, localINFO = INFO,
-    stdResid = FALSE, printTitle = TRUE)
+    stdResid = FALSE, printTitle = TRUE, las = 2,
+    cex = 0.8, cex.axis = 0.9, cex.main = 1, font.main = 2,
+    ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -20,6 +22,10 @@
   \item{printTitle}{logical variable if TRUE title is
   printed, if FALSE not printed (this is best for a
   multi-plot figure)}
+
+  \item{\dots}{arbitrary graphical parameters that will be
+  passed to genericEGRETDotPlot function (see ?par for
+  options)}
 }
 \description{
   This function produces a boxplot of the residuals from

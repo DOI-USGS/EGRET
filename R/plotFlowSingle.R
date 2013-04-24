@@ -22,7 +22,7 @@
 #' @param cex.axis number
 #' @param cex.main number
 #' @param lwd number
-#' @param ... arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow statistics
 #' @export
 #' @examples
@@ -82,7 +82,7 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab="", ylab=qUnit@qUnitExpress,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,cex=cex,
-                      plotTitle=title, cex.axis=cex.axis,cex.main=cex.main
+                      plotTitle=title, cex.axis=cex.axis,cex.main=cex.main, ...
   )
   
   ##############################################

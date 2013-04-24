@@ -5,7 +5,8 @@
   plotConcTime(localSample = Sample, localINFO = INFO,
     qUnit = 2, qLower = NA, qUpper = NA, paLong = 12,
     paStart = 10, tinyPlot = FALSE, concMax = NA,
-    concMin = NA, printTitle = TRUE, logScale = "", ...)
+    concMin = NA, printTitle = TRUE, logScale = "",
+    cex.main = 1, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -63,7 +64,7 @@
   is in log scale, "xy" indicates both x and y in log
   scale, "x" is only x}
 
-  \item{...}{arbitrary functions sent to the generic
+  \item{\dots}{arbitrary functions sent to the generic
   plotting function.  See ?par for details on possible
   parameters}
 }

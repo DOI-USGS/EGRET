@@ -8,13 +8,15 @@
 #' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
 #' Sample <- exSample
 #' INFO <- exINFO
 #' plotResidTime()
-plotResidTime<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, printTitle = TRUE){
+plotResidTime<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, 
+                        printTitle = TRUE, hLine=TRUE, ...){
   # this function shows residual versus Time
   # Time on the x-axis , 
   # residual on y-axis 
@@ -51,7 +53,7 @@ plotResidTime<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom, yInfo$top),
-                      xlab=xLab, ylab=yLab, plotTitle=plotTitle, hLine=TRUE
+                      xlab=xLab, ylab=yLab, plotTitle=plotTitle, hLine=hLine, ...
   )
   
   #   plot(x,yHigh,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab=xLab,ylim=c(yBottom,yTop),yaxs="i",ylab=yLab,main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)

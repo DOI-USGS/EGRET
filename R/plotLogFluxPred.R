@@ -9,6 +9,7 @@
 #' @param fluxMax numeric specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
@@ -17,7 +18,7 @@
 #' plotLogFluxPred(fluxUnit = 1)
 #' plotLogFluxPred(fluxUnit = 'kgDay')
 plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3, 
-                           fluxMax = NA, tinyPlot=TRUE, printTitle = TRUE) 
+                           fluxMax = NA, tinyPlot=TRUE, printTitle = TRUE, oneToOneLine=TRUE, ...) 
 {
   if (is.numeric(fluxUnit)) {
     fluxUnit <- fluxConst[shortCode = fluxUnit][[1]]
@@ -66,7 +67,7 @@ plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3,
                       xTicks=xInfo$ticks, yTicks=xInfo$ticks,
                       xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
                       xlab = xLab, ylab = yLab, plotTitle=plotTitle,
-                      log="xy", oneToOneLine=TRUE
+                      log="xy", oneToOneLine=oneToOneLine, ...
   )
   # Laura took out cex = 0.4,
   

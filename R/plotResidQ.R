@@ -10,14 +10,15 @@
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
 #' Sample <- exSample
 #' INFO <- exINFO
 #' plotResidQ(qUnit=1)
-plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot = FALSE, 
-                      stdResid = FALSE, printTitle = TRUE) 
+plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2, 
+                      tinyPlot = FALSE, stdResid = FALSE, printTitle = TRUE, ...) 
 {  
    if(tinyPlot) {
      par(mar=c(5,4,1,1)) 
@@ -77,7 +78,7 @@ plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlo
                        xTicks=xInfo$ticks, yTicks=yInfo$ticks,hLine=TRUE,
                        xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
                        xlab = xLab, ylab = yLab, plotTitle=plotTitle,
-                       log = "x"
+                       log = "x", ...
      )
    # Laura took out cex.lab = 1.0, cex = 0.4, 
 

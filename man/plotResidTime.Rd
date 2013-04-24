@@ -3,7 +3,7 @@
 \title{Plot of the residuals from WRTDS (in log concentration units) versus time}
 \usage{
   plotResidTime(localSample = Sample, localINFO = INFO,
-    stdResid = FALSE, printTitle = TRUE)
+    stdResid = FALSE, printTitle = TRUE, hLine = TRUE, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -20,6 +20,10 @@
   \item{printTitle}{logical variable if TRUE title is
   printed, if FALSE not printed (this is best for a
   multi-plot figure)}
+
+  \item{\dots}{arbitrary graphical parameters that will be
+  passed to genericEGRETDotPlot function (see ?par for
+  options)}
 }
 \description{
   This function produces a plot of the residuals from

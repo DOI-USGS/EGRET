@@ -11,6 +11,7 @@
 #' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.  Default is qUnit=1 (cubic feet per second)
 #' @param tinyPlot logical variable, if TRUE plot is designed to be short and wide, default is FALSE.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow
 #' @export
 #' @examples
@@ -18,7 +19,9 @@
 #' INFO <- exINFO
 #' plotQTimeDaily(1990,2000,qLower=10)
 plotQTimeDaily<-function (startYear, endYear, localDaily = Daily, 
-                          localINFO = INFO, qLower = NA, qUnit = 1, tinyPlot = FALSE, printTitle = TRUE)    
+                          localINFO = INFO, qLower = NA, qUnit = 1, 
+                          tinyPlot = FALSE, printTitle = TRUE, lwd = 3, col="red", 
+                          cex = 0.7, cex.main = 1.3, font.main = 2, cex.lab = 1.2, ...)    
 {
   #########################################################
   if (is.numeric(qUnit)) {
@@ -70,8 +73,8 @@ plotQTimeDaily<-function (startYear, endYear, localDaily = Daily,
 
   plot(xDaily, yDaily, axes = FALSE, xlim = c(xInfo$bottom, xInfo$top), 
        xaxs = "i", xlab = "", ylim = c(yInfo$bottom, yInfo$top), yaxs = "i", 
-       ylab = yLab, main = plotTitle, type = "l", lwd = 3, col="red", 
-       cex = 0.7, cex.main = 1.3, font.main = 2, cex.lab = 1.2)
+       ylab = yLab, main = plotTitle, type = "l", lwd = lwd, col=col, 
+       cex = cex, cex.main = cex.main, font.main = font.main, cex.lab = cex.lab, ...)
   axis(1, tcl = 0.5, at = xInfo$ticks, labels = xInfo$ticks)
   axis(2, tcl = 0.5, las = 1, at = yInfo$ticks)
   axis(3, tcl = 0.5, at = xInfo$ticks, labels = FALSE)

@@ -13,6 +13,7 @@
 #' @param tinyPlot logical variable, if TRUE plot is designed to be short and wide, default is FALSE.
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
+#' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
@@ -20,7 +21,9 @@
 #' Daily <- exDaily
 #' INFO <- exINFO
 #' plotConcTimeDaily(2001,2010)
-plotConcTimeDaily<-function(startYear, endYear, localSample = Sample, localDaily = Daily, localINFO = INFO, tinyPlot = FALSE, concMax = NA, printTitle = TRUE){
+plotConcTimeDaily<-function(startYear, endYear, localSample = Sample, 
+                            localDaily = Daily, localINFO = INFO, tinyPlot = FALSE, 
+                            concMax = NA, printTitle = TRUE, ...){
   if(tinyPlot) par(mar=c(5,4,1,1)) else par(mar=c(5,4,4,2)+0.1)
   subSample<-subset(localSample,DecYear>=startYear)
   subSample<-subset(subSample,DecYear<=endYear)
@@ -53,7 +56,7 @@ plotConcTimeDaily<-function(startYear, endYear, localSample = Sample, localDaily
   
   genericEGRETDotPlot(x=xSample, y=yHigh, xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                      ylab="Concentration in mg/L",plotTitle=plotTitle
+                      ylab="Concentration in mg/L",plotTitle=plotTitle, ...
   )
   
   #   plot(xSample,yHigh,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="Concentration in mg/L",main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)

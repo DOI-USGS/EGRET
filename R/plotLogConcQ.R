@@ -10,6 +10,7 @@
 #' @param concMax numeric if you want to specify the maximum concentration value to display, you can do so with the argument concMax, otherwise it will be automatic
 #' @param concMin numeric if you want to specify the minimum concentration value to display, you can do so with the argument concMin, otherwise it will be automatic
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
@@ -18,7 +19,7 @@
 #' plotLogConcQ(qUnit = 1)
 #' plotLogConcQ(qUnit = 'thousandCfs')
 plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, 
-            tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE){
+            tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE, ...){
   # this function shows the sample data,
   # discharge on x-axis on a log scale, 
   # concentration on y-axis on a log scale
@@ -66,7 +67,7 @@ plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
                       xTicks=xInfo$xTicks, yTicks=yInfo$yTicks,
                       xlim=c(xInfo$xLeft,xInfo$xRight),ylim=c(yInfo$yBottom,yInfo$yTop),
                       xlab=xInfo$xLab,ylab="Concentration in mg/L", plotTitle=plotTitle,
-                      log="xy"
+                      log="xy", ...
     )
 
   censoredSegments(yInfo$yBottom, yLow, yHigh, x, Uncen )

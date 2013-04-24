@@ -11,7 +11,7 @@
 #' @param fluxMax numeric specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param fluxMin numeric specifying the minimum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
-#' @param ... arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
@@ -21,7 +21,8 @@
 #' plotLogFluxQ(fluxUnit = 'kgDay')
 #' plotLogFluxQ()
 plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2, 
-              fluxUnit = 3, tinyPlot = FALSE, fluxMax = NA, fluxMin = NA, printTitle = TRUE,...){
+              fluxUnit = 3, tinyPlot = FALSE, fluxMax = NA, fluxMin = NA, 
+                       printTitle = TRUE,...){
   # this function shows the sample data,
   # discharge on x-axis on a log scale, 
   # flux on y-axis on a log scale 
@@ -76,7 +77,7 @@ plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xLab, ylab=yLab,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
-                      plotTitle=plotTitle, mar=mar,log="xy"
+                      plotTitle=plotTitle, mar=mar,log="xy", ...
   )
 
   censoredSegments(yInfo$bottom,yLow,yHigh,x,Uncen)

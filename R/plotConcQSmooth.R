@@ -29,7 +29,7 @@
 #' @param lwd number
 #' @param legend.cex number
 #' @param tinyPlot logical
-#' @param ... arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords water-quality statistics graphics
 #' @import survival
 #' @export
@@ -110,7 +110,7 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0
                       xlim=c(xInfo$xLeft,xInfo$xRight),ylim=c(0,yTop),
                       xlab=xInfo$xLab, ylab=yLab, plotTitle=title,
                       type="l",lwd=lwd,col=colorVal[1],lty=lineVal[1], 
-                      cex=cex,cex.axis=cex.axis,cex.main=cex.main, log="x"
+                      cex=cex,cex.axis=cex.axis,cex.main=cex.main, log="x", ...
     )
   
   lines(x=x, y=y[2,],col=colorVal[2],lty=lineVal[2],lwd=lwd)

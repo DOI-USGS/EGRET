@@ -10,13 +10,15 @@
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords water-quality statistics graphics
 #' @export
 #' @examples
 #' Sample <- exSample
 #' INFO <- exINFO
 #' plotResidPred()
-plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, tinyPlot = FALSE, printTitle = TRUE){
+plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, 
+                        tinyPlot = FALSE, printTitle = TRUE, ...){
   # this function shows residual versus estimated in log space
   # estimated log concentration on the x-axis (these are prior to bias correction), 
   # observed log concentration on y-axis 
@@ -57,7 +59,7 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xLab, ylab=yLab, plotTitle=plotTitle,
-                      log="x",hLine=TRUE
+                      log="x",hLine=TRUE, ...
     )
 
   

@@ -20,6 +20,7 @@
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 10
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
+#' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords water-quality statistics graphics
 #' @export
 #' @examples 
@@ -35,7 +36,7 @@
 plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit = 2, legendLeft = 0, 
                               legendTop = 0, concMax = NA, bw = FALSE, printTitle = TRUE, 
                               printValues = FALSE, localSample = Sample, localINFO = INFO, 
-                              windowY = 10, windowQ = 2, windowS = 0.5){
+                              windowY = 10, windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2, ...){
   
   if (is.numeric(qUnit)) {
     qUnit <- qConst[shortCode = qUnit][[1]]
@@ -130,8 +131,8 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
                       xTicks=xInfo$ticks, yTicks=yInfo_x$ticks,
                       xlim = c(xInfo$bottom,xInfo$top),ylim = c(yInfo_x$bottom,yInfo_x$top),
                       ylab = yLab, plotTitle=title, 
-                      type = "l", lwd = 2, col = colorVal[1], lty = lineVal[1],
-                      cex.main = 1.1
+                      type = "l", lwd = lwd, col = colorVal[1], lty = lineVal[1],
+                      cex.main = cex.main, ...
   )
   #     plot(x, y[1, ], axes = FALSE, xlim = c(xLeft,xRight), xaxs = "i", xlab = "", ylim = c(0, 
   #         yTop), yaxs = "i", ylab = yLab, main = title, type = "l", 
@@ -146,8 +147,8 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
   genericEGRETDotPlot(x=x, y=y[2, ],
                       xTicks=xInfo$ticks, yTicks=yInfo_x$ticks,
                       xlim = c(xInfo$bottom,xInfo$top),ylim = c(yInfo_x$bottom,yInfo_x$top),
-                      type = "l", lwd = 2, col = colorVal[2], lty = lineVal[2],
-                      cex.main = 1.1
+                      type = "l", lwd = lwd, col = colorVal[2], lty = lineVal[2],
+                      cex.main = cex.main, ...
   )
   #     plot(x, y[2, ], axes = FALSE, xlim = c(xLeft,xRight), xaxs = "i", xlab = "", ylim = c(0, 
   #         yTop), yaxs = "i", ylab = "", main = "", type = "l", 
@@ -157,8 +158,8 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
   genericEGRETDotPlot(x=x, y=y[3, ],
                       xTicks=xInfo$ticks, yTicks=yInfo_x$ticks,
                       xlim = c(xInfo$bottom,xInfo$top),ylim = c(yInfo_x$bottom,yInfo_x$top),
-                      type = "l", lwd = 2, col = colorVal[3], lty = lineVal[3],
-                      cex.main = 1.1
+                      type = "l", lwd = lwd, col = colorVal[3], lty = lineVal[3],
+                      cex.main = cex.main, ...
   )
   #     plot(x, y[3, ], axes = FALSE, xlim = c(xLeft,xRight), xaxs = "i", xlab = "", ylim = c(0, 
   #         yTop), yaxs = "i", ylab = "", main = "", type = "l", 

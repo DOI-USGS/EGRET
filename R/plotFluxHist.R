@@ -18,7 +18,7 @@
 #' @param cex.axis number
 #' @param cex.main number
 #' @param lwd number
-#' @param ... arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
 #' @seealso \code{\link{setupYears}}
@@ -87,7 +87,7 @@ plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(0,yInfo$top),
                       ylab=ylabel, plotTitle=title,
-                      cex.axis=cex.axis,cex.main=cex.main,...
+                      cex.axis=cex.axis,cex.main=cex.main, ...
                       
     )
   # Laura took out cex=0.8,cex.main=1.1, cex.axis=1.1

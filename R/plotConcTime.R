@@ -20,7 +20,7 @@
 #' @param concMin number specifying the minimum value to be used on the vertical axis, only appropriate for log scale.  
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
 #' @param logScale string, default "", "y" indicates y axis is in log scale, "xy" indicates both x and y in log scale, "x" is only x
-#' @param ... arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
+#' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
@@ -30,7 +30,8 @@
 #' plotConcTime()
 plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2, 
                        qLower = NA, qUpper = NA, paLong = 12, paStart = 10, 
-                       tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale="", ...){
+                       tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale="", 
+                       cex.main=1, ...){
   # this function shows the sample data,
   # time on x-axis, concentration on y-axis
   ################################################################################
@@ -127,8 +128,8 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   genericEGRETDotPlot(x=x, y=yHigh, 
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab="", ylab=yLab,
-                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,cex.main=1,
-                      plotTitle=plotTitle, mar=mar, log=logScale
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,cex.main=cex.main,
+                      plotTitle=plotTitle, mar=mar, log=logScale, ...
   )
   censoredSegments(yBottom=yInfo$ticks[1],yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
   par(mar = c(5,6,5,2))

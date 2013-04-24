@@ -24,7 +24,8 @@
 #' plotSDLogQ(window=3,printTitle=FALSE)  
 plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
                      localINFO=INFO,sdMax=NA,printTitle = TRUE, tinyPlot = FALSE, 
-                     printStaName = TRUE, printPA = TRUE){
+                     printStaName = TRUE, printPA = TRUE, cex=0.8,
+                     cex.main=1.1,cex.axis = 1.1,lwd=2, ...){
   par(mar = c(5,6,5,2))
 #   par(mar =  c(3,2,5,1))
 #   if(!tinyPlot) par(pty="s")
@@ -70,9 +71,9 @@ plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
   genericEGRETDotPlot(x=xmid,y=y,
                       xlim=c(xInfo$bottom,xInfo$top),ylim=c(yInfo$bottom,yInfo$top),
                       xlab="",ylab="Dimensionless",
-                      xTicks=xInfo$ticks,yTicks=yInfo$ticks,cex=0.8,
-                      plotTitle=title,cex.main=1.1,cex.axis = 1.1,
-                      type="l",lwd=2
+                      xTicks=xInfo$ticks,yTicks=yInfo$ticks,cex=cex,
+                      plotTitle=title, cex.main=cex.main, cex.axis = cex.axis,
+                      type="l", lwd=lwd, ...
   )
   
 #   plot(xmid,y,type="l",ylim=c(0,yTop),yaxs="i",lwd=2,xlim=c(xLeft,xRight),xaxs="i",main=title,xlab="",ylab="Dimensionless",axes=FALSE,cex=0.8,cex.main=1.1,cex.lab=1.2,font=2)

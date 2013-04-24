@@ -8,7 +8,7 @@
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multi-plot figure, default is FALSE.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
-#' @param ... arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
@@ -16,7 +16,7 @@
 #' INFO <- exINFO
 #' plotLogConcPred()
 plotLogConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA, 
-                          tinyPlot = FALSE, printTitle = TRUE, ...){
+                          tinyPlot = FALSE, printTitle = TRUE, cex.main=1.0, oneToOneLine=TRUE, ...){
   # this function shows observed versus estimated concentration
   # estimated log concentration on the x-axis (these are prior to bias correction), 
   # observed log concentration on y-axis 
@@ -53,8 +53,8 @@ plotLogConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xLab,ylab=yLab,
-                      plotTitle=plotTitle, cex.main=1.0,
-                      log="xy", oneToOneLine=TRUE, ...
+                      plotTitle=plotTitle, cex.main=cex.main,
+                      log="xy", oneToOneLine=oneToOneLine, ...
     )
 
   censoredSegments(yBottom=yInfo$bottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen)

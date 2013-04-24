@@ -7,7 +7,7 @@
     concMax = NA, bw = FALSE, printTitle = TRUE,
     printValues = FALSE, localSample = Sample,
     localINFO = INFO, windowY = 10, windowQ = 2,
-    windowS = 0.5)
+    windowS = 0.5, cex.main = 1.1, lwd = 2, ...)
 }
 \arguments{
   \item{q1}{numeric This is the discharge value for the
@@ -87,6 +87,10 @@
   \item{windowS}{numeric specifying the half-window with in
   the seasonal dimension, in units of years, default is
   0.5}
+
+  \item{\dots}{arbitrary functions sent to the generic
+  plotting function.  See ?par for details on possible
+  parameters}
 }
 \description{
   These plots show how the concentration-time relationship

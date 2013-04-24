@@ -10,13 +10,16 @@
 #' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
 #' Sample <- exSample
 #' INFO <- exINFO
 #' boxResidMonth()
-boxResidMonth<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, printTitle = TRUE) {
+boxResidMonth<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, 
+                        printTitle = TRUE, las=2, cex=0.8, cex.axis=0.9, cex.main=1.0,
+                        font.main=2, ...) {
   #This function makes a boxplot of Residual by month
   #  if stdResid=TRUE, they will be standardized residuals
   #Box width is proportional to the square root of the sample size
@@ -40,7 +43,11 @@ boxResidMonth<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
           #           names=singleMonthList,
           xlab="Month",ylab=yLab,
           main=plotTitle,
-          las=2,
-          cex=0.8,cex.axis=0.9,cex.main=1.0,font.main=2)
+          las=las,
+          cex=cex,
+          cex.axis=cex.axis,
+          cex.main=cex.main,
+          font.main=font.main,
+          ...)
   abline(h=0)  
 }

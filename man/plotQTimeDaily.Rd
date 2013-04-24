@@ -4,7 +4,9 @@
 \usage{
   plotQTimeDaily(startYear, endYear, localDaily = Daily,
     localINFO = INFO, qLower = NA, qUnit = 1,
-    tinyPlot = FALSE, printTitle = TRUE)
+    tinyPlot = FALSE, printTitle = TRUE, lwd = 3,
+    col = "red", cex = 0.7, cex.main = 1.3, font.main = 2,
+    cex.lab = 1.2, ...)
 }
 \arguments{
   \item{startYear}{numeric indicating the starting year for
@@ -35,6 +37,10 @@
   \item{printTitle}{logical variable if TRUE title is
   printed, if FALSE title is not printed (this is best for
   a multi-plot figure)}
+
+  \item{\dots}{arbitrary graphical parameters that will be
+  passed to genericEGRETDotPlot function (see ?par for
+  options)}
 }
 \description{
   Part of flowHistory component. Allows discharge record to

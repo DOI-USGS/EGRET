@@ -7,7 +7,7 @@
     concMin = NA, bw = FALSE, printTitle = TRUE,
     printValues = FALSE, localSample = Sample,
     localINFO = INFO, windowY = 10, windowQ = 2,
-    windowS = 0.5)
+    windowS = 0.5, cex.main = 1.1, lwd = 2, ...)
 }
 \arguments{
   \item{date1}{string specifying the date for the first
@@ -84,6 +84,10 @@
   \item{windowS}{numeric specifying the half-window with in
   the seasonal dimension, in units of years, default is
   0.5}
+
+  \item{\dots}{arbitrary graphical parameters that will be
+  passed to genericEGRETDotPlot function (see ?par for
+  options)}
 }
 \description{
   These plots are like a vertical slice of the estimated

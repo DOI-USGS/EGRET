@@ -24,6 +24,7 @@
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 10
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords water-quality statistics graphics
 #' @import survival
 #' @export
@@ -36,7 +37,11 @@
 #' Sample <- exSample
 #' INFO <- exINFO
 #' plotLogConcQSmooth(date1,date2,date3,qLow,qHigh)
-plotLogConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0,legendTop = 0, concMax = NA, concMin = NA, bw = FALSE, printTitle = TRUE, printValues = FALSE, localSample = Sample, localINFO = INFO, windowY = 10, windowQ = 2, windowS = 0.5) {
+plotLogConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0,
+                             legendTop = 0, concMax = NA, concMin = NA, bw = FALSE, 
+                             printTitle = TRUE, printValues = FALSE, 
+                             localSample = Sample, localINFO = INFO, windowY = 10, 
+                             windowQ = 2, windowS = 0.5, cex.main=1.1, lwd=2, ...) {
   ##################################################
   if (is.numeric(qUnit)) {
     qUnit <- qConst[shortCode = qUnit][[1]]
@@ -97,8 +102,8 @@ plotLogConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft 
                       xTicks=xInfo$ticks, yTicks=yInfo_n$ticks,
                       xlim=c(xInfo$bottom,xInfo$top),ylim=c(yInfo_n$bottom,yInfo_n$top),
                       xlab=xLab,ylab=yLab,plotTitle=title,
-                      type="l",lwd=2,col=colorVal[1],lty=lineVal[1],cex.main=1.1,
-                      log="xy"
+                      type="l",lwd=lwd,col=colorVal[1],lty=lineVal[1],cex.main=cex.main,
+                      log="xy", ...
     )
 #   plot(log(x,10),log(y[1,],10),axes=FALSE, xlim=c(log(xLeft,10),log(xRight,10)), xaxs="i",xlab=xLab,ylim=c(log(yBottom,10),log(yTop,10)), yaxs="i",ylab=yLab,main=title,type="l",lwd=2,col=colorVal[1],lty=lineVal[1], cex=0.7,cex.main=1.1,font.main=2,cex.lab=1.2)
 #   axis(1, tcl = 0.5, at = log(xTicks, 10), labels = xTicks)
@@ -111,8 +116,8 @@ plotLogConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft 
                       xTicks=xInfo$ticks, yTicks=yInfo_n$ticks,
                       xlim=c(xInfo$bottom,xInfo$top),ylim=c(yInfo_n$bottom,yInfo_n$top),
                       xlab=xLab,ylab=yLab,plotTitle=title,
-                      type="l",lwd=2,col=colorVal[2],lty=lineVal[2],cex.main=1.1,
-                      log="xy"
+                      type="l",lwd=lwd,col=colorVal[2],lty=lineVal[2],cex.main=cex.main,
+                      log="xy", ...
     )
 #   plot(log(x,10),log(y[2,],10),axes=FALSE,xlim=c(log(xLeft,10),log(xRight,10)),xaxs="i",xlab="",ylim=c(log(yBottom,10),log(yTop,10)), yaxs="i",ylab="",main="",type="l",lwd=2,col=colorVal[2],lty=lineVal[2],cex=0.7,cex.main=1.1,font.main=2,cex.lab=1.2)
   par(new=TRUE)
@@ -120,8 +125,8 @@ plotLogConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft 
                       xTicks=xInfo$ticks, yTicks=yInfo_n$ticks,
                       xlim=c(xInfo$bottom,xInfo$top),ylim=c(yInfo_n$bottom,yInfo_n$top),
                       xlab=xLab,ylab=yLab,plotTitle=title,
-                      type="l",lwd=2,col=colorVal[3],lty=lineVal[3],cex.main=1.1,
-                      log="xy"
+                      type="l",lwd=lwd,col=colorVal[3],lty=lineVal[3],cex.main=cex.main,
+                      log="xy", ...
   )
 #   plot(log(x,10),log(y[3,],10),axes=FALSE,xlim=c(log(xLeft,10),log(xRight,10)),xaxs="i",xlab="", ylim=c(log(yBottom,10), log(yTop,10)) ,yaxs="i",ylab="",main="",type="l",lwd=2,col=colorVal[3],lty=lineVal[3],cex=0.7,cex.main=1.1,font.main=2,cex.lab=1.2)
   legendLeft<-if(legendLeft==0) qLow*2 else legendLeft

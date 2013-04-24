@@ -65,7 +65,7 @@
 
   \item{lwd}{number}
 
-  \item{...}{arbitrary graphical parameters that will be
+  \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for
   options)}
 }
