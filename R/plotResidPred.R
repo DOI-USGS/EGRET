@@ -46,7 +46,13 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   #yBottom<-yTicks[1]
   #yTop<-yTicks[numYTicks]
   xLab<-"Estimated Concentration in mg/L"
-  yLab<-if(stdResid) "Standardized Residual in natural log units" else "Residual in natural log units" 
+  
+  if (tinyPlot){
+    yLab <- if(stdResid) expression(paste("log"["e"],"(Std. Residual) units")) else expression(paste("log"["e"],"(Residual) units"))
+  }
+  else {
+    yLab<-if(stdResid) "Standardized Residual in natural log units" else "Residual in natural log units"
+  }
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Residual versus Estimated Concentration") else ""
   
   ####################
@@ -59,7 +65,7 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xLab, ylab=yLab, plotTitle=plotTitle,
-                      log="x",hLine=TRUE, ...
+                      log="x",hLine=TRUE,...
     )
 
   

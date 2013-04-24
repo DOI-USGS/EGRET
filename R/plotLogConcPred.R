@@ -39,7 +39,13 @@ plotLogConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
   #yBottom<-yTicks[1]
   #yTop<-yTicks[numYTicks]
   xLab<-"Estimated Concentration in mg/L"
-  yLab<-"Observed Concentration in mg/L"
+  
+  if (tinyPlot) {
+    yLab <- "Obs. Conc. (mg/L)"
+  }
+  else {
+    yLab <- "Observed Concentration in mg/L"
+  }
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed versus Estimated Concentration") else ""
   
   #################################

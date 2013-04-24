@@ -13,6 +13,7 @@
 #' @param cex.lab number
 #' @param cex.axis number
 #' @param cex number
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow statistics
 #' @export
 #' @examples
@@ -28,10 +29,10 @@ plotFourStats<-function(localINFO = INFO, localAnnualSeries = annualSeries, year
   par(mfcol=c(2,2),oma=c(0,1.7,6,1.7), cex=cex)
   setYearStart<-if(is.na(yearStart)) min(localAnnualSeries[1,,],na.rm=TRUE) else yearStart
   setYearEnd<-if(is.na(yearEnd)) max(localAnnualSeries[1,,],na.rm=TRUE) else yearEnd
-  plotFlowSingle(istat=8, yearStart=setYearStart, yearEnd=setYearEnd, localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,cex.lab=cex.lab,cex.axis=cex.axis,cex=cex)
-  plotFlowSingle(istat=4, yearStart=setYearStart, yearEnd=setYearEnd, localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,cex.lab=cex.lab,cex.axis=cex.axis,cex=cex)
-  plotFlowSingle(istat=5, yearStart=setYearStart, yearEnd=setYearEnd, localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,cex.lab=cex.lab,cex.axis=cex.axis,cex=cex)
-  plotFlowSingle(istat=2, yearStart=setYearStart, yearEnd=setYearEnd, localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,cex.lab=cex.lab,cex.axis=cex.axis,cex=cex)
+  plotFlowSingle(istat=8, yearStart=setYearStart, yearEnd=setYearEnd, localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,cex.lab=cex.lab,cex.axis=cex.axis,cex=cex, ...)
+  plotFlowSingle(istat=4, yearStart=setYearStart, yearEnd=setYearEnd, localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,cex.lab=cex.lab,cex.axis=cex.axis,cex=cex, ...)
+  plotFlowSingle(istat=5, yearStart=setYearStart, yearEnd=setYearEnd, localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,cex.lab=cex.lab,cex.axis=cex.axis,cex=cex, ...)
+  plotFlowSingle(istat=2, yearStart=setYearStart, yearEnd=setYearEnd, localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,cex.lab=cex.lab,cex.axis=cex.axis,cex=cex, ...)
   textPA<-setSeasonLabelByUser(paStartInput=localINFO$paStart, paLongInput=localINFO$paLong)
   title<-if(printTitle) paste(localINFO$shortName,"\n",textPA)
   mtext(title,cex=1.2,outer=TRUE,font=2)

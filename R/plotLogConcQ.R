@@ -61,13 +61,20 @@ plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Concentration versus Discharge") else ""
   
+  if (tinyPlot) {
+    yLabel <- "Conc. (mg/L)"
+  }
+  else {
+    yLabel <- "Concentration in mg/L"
+  }
+  
   #####################
 
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$xTicks, yTicks=yInfo$yTicks,
                       xlim=c(xInfo$xLeft,xInfo$xRight),ylim=c(yInfo$yBottom,yInfo$yTop),
-                      xlab=xInfo$xLab,ylab="Concentration in mg/L", plotTitle=plotTitle,
-                      log="xy", ...
+                      xlab=xInfo$xLab,ylab=yLabel, plotTitle=plotTitle,
+                      log="xy",...
     )
 
   censoredSegments(yInfo$yBottom, yLow, yHigh, x, Uncen )

@@ -39,6 +39,10 @@
   \item{cex.axis}{number}
 
   \item{cex}{number}
+
+  \item{\dots}{arbitrary graphical parameters that will be
+  passed to genericEGRETDotPlot function (see ?par for
+  options)}
 }
 \description{
   Part of the flowHistory system.  The four statistics are
