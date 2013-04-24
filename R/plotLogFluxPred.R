@@ -29,7 +29,7 @@ plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3,
     par(mar = c(5, 5, 1, 1))
   else par(mar = c(5, 5, 4, 2) + 0.1)
   fluxFactor <- fluxUnit@unitFactor * 86.4
-#   x <- exp(localSample$yHat) * localSample$Q * fluxFactor
+  #   x <- exp(localSample$yHat) * localSample$Q * fluxFactor
   x <- localSample$ConcHat * localSample$Q * fluxFactor
   yLow <- localSample$ConcLow * localSample$Q * fluxFactor
   yHigh <- localSample$ConcHigh * localSample$Q * fluxFactor
@@ -61,17 +61,17 @@ plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3,
   xInfo <- generalAxis(x=x, min=xMin, max=xMax, log=TRUE, tinyPlot=tinyPlot)
   
   yInfo <- generalAxis(x=yHigh, min=minYLow, max=maxYHigh, log=TRUE, tinyPlot=tinyPlot)
-
+  
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$ticks, yTicks=xInfo$ticks,
                       xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
                       xlab = xLab, ylab = yLab, plotTitle=plotTitle,
                       log="xy", oneToOneLine=TRUE
-    )
+  )
   # Laura took out cex = 0.4,
-
+  
   censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen )
-
+  
   par(mar = c(5, 4, 4, 2) + 0.1)
-
+  
 }

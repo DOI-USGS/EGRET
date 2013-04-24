@@ -33,7 +33,7 @@ plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, flu
   }
   ################################################################################
   
-#   if(tinyPlot) par(mar=c(5,5,1,1)) else par(mar=c(5,5,4,2)+0.1)
+  #   if(tinyPlot) par(mar=c(5,5,1,1)) else par(mar=c(5,5,4,2)+0.1)
   fluxFactor <- fluxUnit@unitFactor*86.40
   x<-localSample$ConcHat*localSample$Q*fluxFactor
   yLow<-localSample$ConcLow*localSample$Q*fluxFactor
@@ -60,15 +60,15 @@ plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, flu
   yInfo <- generalAxis(x=yHigh, min=0, max=maxYHigh, tinyPlot=tinyPlot)
   
   par(mar = c(5,6,5,2))
-
+  
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xLab, ylab=yLab,
                       plotTitle=plotTitle,oneToOneLine=TRUE,...
-    )
-
+  )
+  
   censoredSegments(yBottom=yInfo$bottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen)
-
+  
   par(mar=c(5,4,4,2)+0.1)
 }
