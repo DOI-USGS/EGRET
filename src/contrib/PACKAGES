@@ -1,10 +1,10 @@
 Package: dataRetrieval
 Version: 1.2.2
-Depends: R (>= 2.15.0), XML, RCurl
-Imports: zoo
+Depends: R (>= 2.15.0)
+Imports: zoo, XML, RCurl
 Suggests: xtable, EGRET
 License: file LICENSE
-MD5sum: 49d5459e44e78b9c880883b65bc9a951
+MD5sum: 4f4e026f1c9bca2653a70a37506a3426
 NeedsCompilation: no
 
 Package: EGRET
