@@ -2,13 +2,12 @@
 #'
 #' Discharge axis tick generation
 #'
-#' @param qMax number
-#' @param qActual vector
-#' @param yPlotMin number
-#' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
-#' @param padPercent number
+#' @param x vector to create scale about
+#' @param max number maximum value on returned scale
+#' @param min number minimum value on returned scale
+#' @param log logical whether or not to return a log scale
 #' @param tinyPlot logical
-#' @param runoff logical
+#' @param padPercent number used to pad the max and min if not specified
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
