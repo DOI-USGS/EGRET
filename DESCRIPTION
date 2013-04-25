@@ -8,9 +8,10 @@ Date: 2013-03-04
 Author: Robert M. Hirsch
 Maintainer: Robert M. Hirsch <rhirsch@usgs.gov>, Laura De Cicco
     <ldecicco@usgs.gov>
-Description: Estimates WRTDS (Weighted Regressions on Time, Discharge, and Season) model, 
-    makes plots of the raw data (water quality and streamflow) as well as tables and graphs 
-    of results of the WRTDS analysis, and does flowHistory analysis and graphs and tables
+Description: Estimates WRTDS (Weighted Regressions on Time, Discharge, and
+    Season) model, makes plots of the raw data (water quality and streamflow)
+    as well as tables and graphs of results of the WRTDS analysis, and does
+    flowHistory analysis and graphs and tables
 License: file LICENSE
 Copyright: This software is in the public domain because it contains materials
     that originally came from the United States Geological Survey, an agency of
@@ -91,13 +92,14 @@ Collate:
     'concentrationAxis.R'
     'dischargeLogAxis.R'
     'dischargeYAxis.R'
+    'generalAxis.R'
 Depends:
-    R (>= 2.13.0),
-    fields
+    R (>= 2.13.0)
 Imports:
     methods,
     spam,
-    survival
+    survival,
+    fields
 Suggests:
     xtable,
     dataRetrieval
