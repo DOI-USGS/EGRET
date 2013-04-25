@@ -51,16 +51,16 @@ plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2,
   yLow<-localSample$ConcLow*localSample$Q*fluxFactor
   yHigh<-localSample$ConcHigh*localSample$Q*fluxFactor
   Uncen<-localSample$Uncen
-  xMin<-0.95*min(x)
-  xMax<-1.05*max(x)
+  #xMin<-0.95*min(x)
+  #xMax<-1.05*max(x)
   #xTicks<-if(tinyPlot) logPretty1(xMin,xMax) else logPretty3(xMin,xMax)
   #numXTicks<-length(xTicks)
   #xLeft<-xTicks[1]
   #xRight<-xTicks[numXTicks]
   xLab<-qUnit@qUnitExpress
   yLab<-fluxUnit@unitExpress
-  maxYHigh<-if(is.na(fluxMax)) 1.05*max(yHigh) else fluxMax
-  minYLow<-if(is.na(fluxMin)) 0.95*min(yLow,na.rm=TRUE) else fluxMin
+  #maxYHigh<-if(is.na(fluxMax)) 1.05*max(yHigh) else fluxMax
+  #minYLow<-if(is.na(fluxMin)) 0.95*min(yLow,na.rm=TRUE) else fluxMin
   #yTicks<-if(tinyPlot) logPretty1(minYLow,maxYHigh) else logPretty3(minYLow,maxYHigh)
   #numYTicks<-length(yTicks)
   #yBottom<-yTicks[1]
@@ -70,8 +70,8 @@ plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2,
   ##############################################  
   mar<-c(5,5,4,2)+0.1
   
-  xInfo <- generalAxis(x=x, min=xMin, max=xMax, log=TRUE, tinyPlot=tinyPlot)
-  yInfo <- generalAxis(x=yHigh, min=minYLow, max=maxYHigh, log=TRUE, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=x, min=NA, max=NA, log=TRUE, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yHigh, min=fluxMin, max=fluxMax, log=TRUE, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=yHigh, 
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),

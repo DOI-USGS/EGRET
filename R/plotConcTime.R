@@ -31,7 +31,7 @@
 plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2, 
                        qLower = NA, qUpper = NA, paLong = 12, paStart = 10, 
                        tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale="", 
-                       cex.main=1, ...){
+                       cex.main=1,...){
   # this function shows the sample data,
   # time on x-axis, concentration on y-axis
   ################################################################################
@@ -90,21 +90,22 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   yLow<-subSample$ConcLow
   yHigh<-subSample$ConcHigh
   Uncen<-subSample$Uncen
-  numSamples<-length(subSample$Q)
+  #numSamples<-length(subSample$Q)
   x<-subSample$DecYear
-  xMin<-x[1]
-  xMax<-x[numSamples]
-  yearSpan<-c(xMin,xMax)
+  #xMin<-x[1]
+  #xMax<-x[numSamples]
+  #yearSpan<-c(xMin,xMax)
   #nXTicks<-if(tinyPlot) 5 else 8 
   #xTicks<-pretty(yearSpan,n=nXTicks)
   #numXTicks<-length(xTicks)
   #xLeft<-xTicks[1]
   #xRight<-xTicks[numXTicks]
-  maxYHigh<-if(is.na(concMax)) 1.05*max(yHigh) else concMax
+  #maxYHigh<-if(is.na(concMax)) 1.05*max(yHigh) else concMax
   
   #########################################################
   if (logScale=="y"){
-    minYLow<-if(is.na(concMin)) 0.95*min(subSample$ConcAve) else concMin  #Unique to log
+    minYLow <- concMin
+    #minYLow<-if(is.na(concMin)) 0.95*min(subSample$ConcAve) else concMin  #Unique to log
     #yTicks<-logPretty3(minYLow,maxYHigh)
     #numYTicks<-length(yTicks)
     #yBottom<-yTicks[1]
@@ -121,15 +122,15 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   plotTitle<-if(printTitle) paste(localINFO$shortName,",",localINFO$paramShortName,title2,title3) else ""
   yLab="Concentration in mg/L"
   
-  xInfo <- generalAxis(x=yearSpan, min=xMin, max=xMax, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=x, min=min(x), max=max(x), tinyPlot=tinyPlot)
   
-  yInfo <- generalAxis(x=yHigh, min=minYLow, max=maxYHigh, log=log_state, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yHigh, min=minYLow, max=concMax, log=log_state, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=yHigh, 
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab="", ylab=yLab,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,cex.main=cex.main,
-                      plotTitle=plotTitle, mar=mar, log=logScale, ...
+                      plotTitle=plotTitle, mar=mar, log=logScale,...
   )
   censoredSegments(yBottom=yInfo$ticks[1],yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
   par(mar = c(5,6,5,2))

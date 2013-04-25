@@ -65,7 +65,7 @@ plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
   
   ##############################################
   
-  xInfo <- generalAxis(x=xmid, min=xMin, max=xMax, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=xmid, min=NA, max=NA, tinyPlot=tinyPlot)
   yInfo <- generalAxis(x=y, min=0, max=yTop, tinyPlot=tinyPlot)
 
   genericEGRETDotPlot(x=xmid,y=y,

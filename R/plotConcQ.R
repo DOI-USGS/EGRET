@@ -18,7 +18,7 @@
 #' INFO <- exINFO
 #' plotConcQ()
 plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot = FALSE, 
-                    concMax = NA, printTitle = TRUE, ...){
+                    concMax = NA, printTitle = TRUE,...){
   # this function shows the sample data,
   # discharge on x-axis on a log scale, concentration on y-axis
   ################################################################################
@@ -34,14 +34,14 @@ plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot 
   yLow<-localSample$ConcLow
   yHigh<-localSample$ConcHigh
   Uncen<-localSample$Uncen
-  xMin<-0.95*min(x)
-  xMax<-1.05*max(x)
-  xTicks<-if(tinyPlot) logPretty1(xMin,xMax) else logPretty3(xMin,xMax)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
+  #xMin<-0.95*min(x)
+  #xMax<-1.05*max(x)
+  #xTicks<-if(tinyPlot) logPretty1(xMin,xMax) else logPretty3(xMin,xMax)
+  #numXTicks<-length(xTicks)
+  #xLeft<-xTicks[1]
+  #xRight<-xTicks[numXTicks]
   xLab<-qUnit@qUnitExpress
-  maxYHigh<-if(is.na(concMax)) 1.05*max(yHigh) else concMax
+  #maxYHigh<-if(is.na(concMax)) 1.05*max(yHigh) else concMax
   #yTicks<-yPretty(maxYHigh)
   #yTop<-yTicks[length(yTicks)]
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Concentration versus Discharge") else ""
@@ -50,15 +50,15 @@ plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot 
   yLab <- "Concentration in mg/L"
   mar<-c(5,4,4,2)+0.1
   
-  xInfo <- generalAxis(x=x, max=xMax, min=xMin, log=TRUE, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=x, max=max(x), min=min(x), log=TRUE, tinyPlot=tinyPlot)
 
-  yInfo <- generalAxis(x=yHigh, max=maxYHigh, min=min(yHigh), tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yHigh, max=concMax, min=min(yHigh), tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=yHigh, 
-                      xlim=c(xLeft, xRight), ylim=c(0,yInfo$top),
+                      xlim=c(xInfo$bottom, xInfo$top), ylim=c(0,yInfo$top),
                       xlab=xLab, ylab=yLab,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
-                      plotTitle=plotTitle, mar=mar,log="x", ...
+                      plotTitle=plotTitle, mar=mar,log="x",...
   )
   
   #   plot(log(x,10),yHigh,axes=FALSE,xlim=c(log(xLeft,10),log(xRight,10)),xaxs="i",xlab=xLab,ylim=c(0,yTop),yaxs="i",ylab="Concentration in mg/L",main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)

@@ -50,10 +50,10 @@ plotFluxTimeDaily<-function (startYear, endYear, localSample = Sample, localDail
   yLow <- subSample$ConcLow*subSample$Q*fluxFactor
   yHigh <- subSample$ConcHigh*subSample$Q*fluxFactor
   Uncen <- subSample$Uncen
-  yAll <- c(subDaily$ConcDay*subDaily$Q*fluxFactor, subSample$ConcHigh*subSample$Q*fluxFactor)
-  maxYHigh <- if (is.na(fluxMax)) 
-    1.05 * max(yAll)
-  else fluxMax
+  #yAll <- c(subDaily$ConcDay*subDaily$Q*fluxFactor, subSample$ConcHigh*subSample$Q*fluxFactor)
+  #maxYHigh <- if (is.na(fluxMax)) 
+  #  1.05 * max(yAll)
+  #else fluxMax
   #yTicks <- yPretty(maxYHigh)
   #yTop <- yTicks[length(yTicks)]
   plotTitle <- if (printTitle) 
@@ -68,7 +68,7 @@ plotFluxTimeDaily<-function (startYear, endYear, localSample = Sample, localDail
   par(mar = c(5,6,5,2))
   
   xInfo <- generalAxis(x=xSample, min=startYear, max=endYear, tinyPlot=tinyPlot)
-  yInfo <- generalAxis(x=yHigh, min=yBottom, max=maxYHigh, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yHigh, min=yBottom, max=fluxMax, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=xSample, y=yHigh,
                       xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),

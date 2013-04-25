@@ -19,7 +19,7 @@
 #' generalAxis(x, max, min)
 #' min <- min(x)
 #' generalAxis(x, max, min, log=TRUE)
-generalAxis <- function(x,max,min,log=FALSE, tinyPlot=FALSE,padPercent=5){
+generalAxis <- function(x,max,min,log=FALSE, tinyPlot=FALSE,padPercent=5, max_offset=0, min_offset=0){
   
   nTicks<-if(tinyPlot) 5 else 8
   
@@ -33,21 +33,21 @@ generalAxis <- function(x,max,min,log=FALSE, tinyPlot=FALSE,padPercent=5){
   
   upperMagnification <- 1+(padPercent/100)
   lowerMagnification <- 1-(padPercent/100)
-  high <- if(is.na(max)) upperMagnification*max(x,na.rm=TRUE) else max
-  low <- if(is.na(min)) lowerMagnification*min(x,na.rm=TRUE) else min
-  span<-c(low,high)  
+  high <- if(is.na(max)) {upperMagnification*(max(x,na.rm=TRUE) + max_offset)} else {max}
+  low <- if(is.na(min)) {lowerMagnification*(min(x,na.rm=TRUE) - min_offset)} else {min}
+  span<-c(low,high)
   ticks<-if (log){
     if(tinyPlot) {
-      logPretty1(min,max) 
+      logPretty1(low,high) 
     } else {
-      logPretty3(min,max)
+      logPretty3(low,high)
     }
   } else {
     pretty(span,n=nTicks)
   }  
   
   numTicks<-length(ticks)
-  
+  print(min(x,na.rm=TRUE))
   bottom<-ticks[1]
   top<-ticks[numTicks]
   

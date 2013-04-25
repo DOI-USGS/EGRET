@@ -23,7 +23,7 @@
 #' plotConcTimeDaily(2001,2010)
 plotConcTimeDaily<-function(startYear, endYear, localSample = Sample, 
                             localDaily = Daily, localINFO = INFO, tinyPlot = FALSE, 
-                            concMax = NA, printTitle = TRUE, ...){
+                            concMax = NA, printTitle = TRUE,...){
   if(tinyPlot) par(mar=c(5,4,1,1)) else par(mar=c(5,4,4,2)+0.1)
   subSample<-subset(localSample,DecYear>=startYear)
   subSample<-subset(subSample,DecYear<=endYear)
@@ -31,7 +31,7 @@ plotConcTimeDaily<-function(startYear, endYear, localSample = Sample,
   subDaily<-subset(subDaily,DecYear<=endYear)
   xSample<-subSample$DecYear
   xDaily<-subDaily$DecYear
-  xLimits<-c(startYear,endYear)
+  #xLimits<-c(startYear,endYear)
   #xTicks<-pretty(xLimits,n=5)
   #numXTicks<-length(xTicks)
   #xLeft<-xTicks[1]
@@ -39,8 +39,8 @@ plotConcTimeDaily<-function(startYear, endYear, localSample = Sample,
   yLow<-subSample$ConcLow
   yHigh<-subSample$ConcHigh
   Uncen<-subSample$Uncen
-  yAll<-c(subDaily$ConcDay,subSample$ConcHigh)
-  maxYHigh<-if(is.na(concMax)) 1.05*max(yAll) else concMax
+  #yAll<-c(subDaily$ConcDay,subSample$ConcHigh)
+  #maxYHigh<-if(is.na(concMax)) 1.05*max(yAll) else concMax
   #yTicks<-yPretty(maxYHigh)
   #yTop<-yTicks[length(yTicks)]
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed and Estimated Concentration versus Time") else ""
@@ -49,10 +49,9 @@ plotConcTimeDaily<-function(startYear, endYear, localSample = Sample,
   
   yBottom <- 0 #Not specified within script, added under assumption that it's always zero based on ylim definition in this function
   
-  min_space = startYear
-  xInfo <- generalAxis(x=xLimits, min=min_space, max=endYear, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=xLimits, min=startYear, max=endYear, tinyPlot=tinyPlot)
   
-  yInfo <- generalAxis(x=yHigh, min=0, max=maxYHigh, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yHigh, min=0, max=concMax, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=xSample, y=yHigh, xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),

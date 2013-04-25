@@ -84,8 +84,8 @@ plotLogConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft 
   #xRight<-xTicks[numXTicks]
   yMax<-max(y,na.rm=TRUE)
   yTop<-if(is.na(concMax)) yMax else concMax
-  yMin<-min(y,na.rm=TRUE)
-  yBottom<-if(is.na(concMin)) yMin else concMin
+  #yMin<-min(y,na.rm=TRUE)
+  #yBottom<-if(is.na(concMin)) yMin else concMin
   #yTicks<-logPretty3(yBottom,yTop)
   #numYTicks<-length(yTicks)
   #yTop<-yTicks[numYTicks]
@@ -96,7 +96,7 @@ plotLogConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft 
   
   xInfo <- generalAxis(x=x, min=qLow, max=qHigh, log=TRUE)
   
-  yInfo_n <- generalAxis(x=y[1,2,3,], min=yBottom, max=yTop, log=TRUE)
+  yInfo_n <- generalAxis(x=y[1,2,3,], min=min(y,na.rm=TRUE), max=max(y,na.rm=TRUE), log=TRUE)
 
   genericEGRETDotPlot(x=x, y=y[1,],
                       xTicks=xInfo$ticks, yTicks=yInfo_n$ticks,
@@ -131,7 +131,7 @@ plotLogConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft 
 #   plot(log(x,10),log(y[3,],10),axes=FALSE,xlim=c(log(xLeft,10),log(xRight,10)),xaxs="i",xlab="", ylim=c(log(yBottom,10), log(yTop,10)) ,yaxs="i",ylab="",main="",type="l",lwd=2,col=colorVal[3],lty=lineVal[3],cex=0.7,cex.main=1.1,font.main=2,cex.lab=1.2)
   legendLeft<-if(legendLeft==0) qLow*2 else legendLeft
 #   legendLeft<-log(legendLeft,10)
-  legendTop<-if(legendTop==0) 0.3*yTop else legendTop
+  legendTop<-if(legendTop==0) 0.3*yInfo_n$top else legendTop
 #   legendTop<-log(legendTop,10) 
   words<-as.character(dates[1:numDates])
   ltys<-lineVal[1:numDates]

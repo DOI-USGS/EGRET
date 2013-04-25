@@ -62,10 +62,10 @@ plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9,
   subAnnualResults<-subset(subAnnualResults,DecYear<=yearEnd)
   annFlux<-unitFactorReturn*subAnnualResults$Flux
   fnFlux<-unitFactorReturn*subAnnualResults$FNFlux
-  fluxMax<-if(is.na(fluxMax)) 1.05*max(annFlux,na.rm=TRUE) else fluxMax
+  #fluxMax<-if(is.na(fluxMax)) 1.05*max(annFlux,na.rm=TRUE) else fluxMax
   #xVals<-subAnnualResults$DecYear
-  xMin<-yearStart
-  xMax<-yearEnd
+  #xMin<-yearStart
+  #xMax<-yearEnd
   #yearSpan<-c(xMin,xMax)
   #xTicks<-pretty(yearSpan,n=9)
   #numXTicks<-length(xTicks)
@@ -77,7 +77,7 @@ plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9,
   title3<-if(plotFlowNorm) "\nFlux Estimates (dots) & Flow Normalized Flux (line)" else "\nAnnual Flux Estimates"
   title<-if(printTitle) paste(localINFO$shortName," ",localINFO$paramShortName,"\n",periodName,title3) else ""
   
-  xInfo <- generalAxis(x=subAnnualResults$DecYear, min=xMin, max=xMax)
+  xInfo <- generalAxis(x=subAnnualResults$DecYear, min=yearStart, max=yearEnd)
   
   yInfo <- generalAxis(x=annFlux, min=0, max=fluxMax)
   

@@ -47,7 +47,7 @@ plotResidTime<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   yLab<-if(stdResid) "Standardized Residual in natural log units" else "Residual in natural log units" 
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Residual versus Time") else ""
   
-  yInfo <- generalAxis(x=yHigh, max=yHigh, min=yLow)
+  yInfo <- generalAxis(x=yHigh, max=NA, min=NA)
   xInfo <- generalAxis(x=x, max=xMax, min=xMin)
   ##########################
   genericEGRETDotPlot(x=x, y=yHigh,

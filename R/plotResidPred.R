@@ -32,10 +32,10 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   yLow<-if(stdResid) yLow/localSample$SE else yLow
   yHigh<-if(stdResid) yHigh/localSample$SE else yHigh
   Uncen<-localSample$Uncen
-  xMin<-0.95*min(x)
-  xMax<-1.05*max(x)
-  maxYHigh<-max(yHigh) + 0.1
-  minYLow<-min(yLow,na.rm=TRUE) - 0.5
+  #xMin<-0.95*min(x)
+  #xMax<-1.05*max(x)
+  #maxYHigh<-max(yHigh) + 0.1
+  #minYLow<-min(yLow,na.rm=TRUE) - 0.5
   #xTicks<-logPretty3(xMin,xMax)
   #numXTicks<-length(xTicks)
   #xLeft<-xTicks[1]
@@ -57,9 +57,9 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   
   ####################
   
-  xInfo <- generalAxis(x=x, min=xMin, max=xMax, log=TRUE, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=x, min=NA, max=NA, log=TRUE, tinyPlot=tinyPlot)
   
-  yInfo <- generalAxis(x=yHigh, min=minYLow, max=maxYHigh, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yHigh, min=NA, max=NA, tinyPlot=tinyPlot, max_offset=0.1, min_offset=0.5)
 
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,

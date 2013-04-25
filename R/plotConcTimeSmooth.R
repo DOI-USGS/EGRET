@@ -88,7 +88,7 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
           numQ, "specific discharges")
   } else{
     ""
-  } 
+  }
   qExpress = qUnit@qUnitExpress
   yLab = "Concentration in mg/L"
   #xTicks <- pretty(x,8)
@@ -114,16 +114,9 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
   } else {
     c(1, 1, 1)
   }
-  
   #####################
   
-  xInfo <- generalAxis(x=x, min=xStart, max=yearEnd)
-  
-  #yInfo_1 <- generalAxis(x=y[1, ], min=0, max=yTop)
-  
-  #yInfo_2 <- generalAxis(x=y[2, ], min=0, max=yTop)
-  
-  #yInfo_3 <- generalAxis(x=y[3, ], min=0, max=yTop)
+  xInfo <- generalAxis(x=x, min=yearStart, max=yearEnd)
   
   yInfo_x <- generalAxis(x=y[1,2,3,], min=0, max=yTop)
   

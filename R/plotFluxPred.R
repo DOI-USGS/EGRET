@@ -39,8 +39,8 @@ plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, flu
   yLow<-localSample$ConcLow*localSample$Q*fluxFactor
   yHigh<-localSample$ConcHigh*localSample$Q*fluxFactor
   Uncen<-localSample$Uncen
-  xMax<-1.05*max(x)
-  maxYHigh<-if(is.na(fluxMax)) 1.05*max(yHigh) else fluxMax
+  #xMax<-1.05*max(x)
+  #maxYHigh<-if(is.na(fluxMax)) 1.05*max(yHigh) else fluxMax
   #xTicks<-yPretty(xMax)
   #numXTicks<-length(xTicks)
   #xLeft<-xTicks[1]
@@ -55,9 +55,9 @@ plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, flu
   
   ###############################
   
-  xInfo <- generalAxis(x=x, min=0, max=xMax, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=x, min=0, max=NA, tinyPlot=tinyPlot)
   
-  yInfo <- generalAxis(x=yHigh, min=0, max=maxYHigh, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yHigh, min=0, max=fluxMax, tinyPlot=tinyPlot)
   
   par(mar = c(5,6,5,2))
   

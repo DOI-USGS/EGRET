@@ -26,10 +26,10 @@ plotLogConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
   yLow<-localSample$ConcLow
   yHigh<-localSample$ConcHigh
   Uncen<-localSample$Uncen
-  xMin<-0.95*min(x)
-  xMax<-1.05*max(x)
-  maxYHigh<-if(is.na(concMax)) 1.05*max(yHigh) else concMax
-  minYLow<-0.9*min(localSample$ConcLow,na.rm=TRUE)
+  #xMin<-0.95*min(x)
+  #xMax<-1.05*max(x)
+  #maxYHigh<-if(is.na(concMax)) 1.05*max(yHigh) else concMax
+  #minYLow<-0.9*min(localSample$ConcLow,na.rm=TRUE)
   #xTicks<-logPretty3(xMin,xMax)
   #numXTicks<-length(xTicks)
   #xLeft<-xTicks[1]
@@ -51,9 +51,9 @@ plotLogConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
   #################################
   par(mar = c(5,6,5,2))
   
-  xInfo <- generalAxis(x=x, min=xMin, max=xMax, log=TRUE, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=x, min=NA, max=NA, log=TRUE, tinyPlot=tinyPlot)
   
-  yInfo <- generalAxis(x=yHigh, min=minYLow, max=maxYHigh, log=TRUE, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yHigh, min=NA, max=concMax, log=TRUE, tinyPlot=tinyPlot)
 
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,

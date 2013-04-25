@@ -30,7 +30,7 @@
 #' plotConcHist(yearStart, yearEnd)
 plotConcHist<-function(yearStart = NA, yearEnd = NA, localAnnualResults = AnnualResults, 
         localINFO = INFO, concMax = NA, printTitle = TRUE, plotFlowNorm = TRUE,
-        cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2, ...){
+        cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2,...){
   # produces a graph of annual mean concentration and flow normalized concentration versus year
   # AnnualResults contains the set of results
   # typically yearStart and yearEnd should be integers, 
@@ -46,17 +46,17 @@ plotConcHist<-function(yearStart = NA, yearEnd = NA, localAnnualResults = Annual
   subAnnualResults<-subset(subAnnualResults,DecYear<=yearEnd)
   annConc<-subAnnualResults$Conc
   fnConc<-subAnnualResults$FNConc
-  concMax<-if(is.na(concMax)) 1.05*max(annConc,na.rm=TRUE) else concMax
-  xVals<-subAnnualResults$DecYear
-  xMin<-yearStart
-  xMax<-yearEnd
-  yearSpan<-c(xMin,xMax)
-  xTicks<-pretty(yearSpan,n=9)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
-  yTicks<-yPretty(concMax)
-  yTop<-yTicks[length(yTicks)]
+  #concMax<-if(is.na(concMax)) 1.05*max(annConc,na.rm=TRUE) else concMax
+  #xVals<-subAnnualResults$DecYear
+  #xMin<-yearStart
+  #xMax<-yearEnd
+  #yearSpan<-c(xMin,xMax)
+  #xTicks<-pretty(yearSpan,n=9)
+  #numXTicks<-length(xTicks)
+  #xLeft<-xTicks[1]
+  #xRight<-xTicks[numXTicks]
+  #yTicks<-yPretty(concMax)
+  #yTop<-yTicks[length(yTicks)]
   periodName<-setSeasonLabel(localAnnualResults=localAnnualResults)
   title3<-if(plotFlowNorm) "\nMean Concentration (dots) & Flow Normalized Concentration (line)" else "\nAnnual Mean Concentration"
   title<-if(printTitle) paste(localINFO$shortName," ",localINFO$paramShortName,"\n",periodName,title3) else ""
@@ -64,7 +64,7 @@ plotConcHist<-function(yearStart = NA, yearEnd = NA, localAnnualResults = Annual
   ##################
   par(mar = c(5,6,5,2))
   
-  xInfo <- generalAxis(x=yearSpan, min=xMin, max=xMax)
+  xInfo <- generalAxis(x=subAnnualResults$DecYear, min=yearStart, max=yearEnd)
   
   yInfo <- generalAxis(x=annConc, min=0, max=concMax)
   

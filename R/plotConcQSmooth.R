@@ -96,21 +96,23 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0
   yLab="Concentration in mg/L"
   yMax<-max(y,na.rm=TRUE)
   yTop<-if(is.na(concMax)) yMax else concMax
-  yTicks<-yPretty(yTop)
-  numYTicks<-length(yTicks)
-  yTop<-yTicks[numYTicks]
+  #yTicks<-yPretty(yTop)
+  #numYTicks<-length(yTicks)
+  #yTop<-yTicks[numYTicks]
   
+  yInfo <- generalAxis(x=y[1,], min=0, max=yTop)
   
   colorVal<-if(bw) c("black","black","black") else c("black","red","green")
   lineVal<-if(bw) c(1,2,3) else c(1,1,1)
+
   
   #####################
   genericEGRETDotPlot(x=x, y=y[1,],
-                      xTicks=xInfo$xTicks, yTicks=xInfo$yTicks,
-                      xlim=c(xInfo$xLeft,xInfo$xRight),ylim=c(0,yTop),
+                      xTicks=xInfo$xTicks, yTicks=yInfo$ticks,
+                      xlim=c(xInfo$xLeft,xInfo$xRight),ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xInfo$xLab, ylab=yLab, plotTitle=title,
                       type="l",lwd=lwd,col=colorVal[1],lty=lineVal[1], 
-                      cex=cex,cex.axis=cex.axis,cex.main=cex.main, log="x", ...
+                      cex=cex,cex.axis=cex.axis,cex.main=cex.main, log="x",...
     )
   
   lines(x=x, y=y[2,],col=colorVal[2],lty=lineVal[2],lwd=lwd)

@@ -53,7 +53,7 @@ plotQTimeDaily<-function (startYear, endYear, localDaily = Daily,
   #xRight <- xTicks[numXTicks]
   yDaily <- qFactor * subDaily$Q
   yMin <- if(is.na(qLower)) 0 else qLower
-  yMax <- 1.05*max(yDaily)
+  #yMax <- 1.05*max(yDaily)
   #ySpan <- c(yMin,yMax)
   #yTicks <- pretty(ySpan,8)
   #nYTicks <- length(yTicks)
@@ -69,7 +69,7 @@ plotQTimeDaily<-function (startYear, endYear, localDaily = Daily,
   
   xInfo <- generalAxis(x=xDaily, min=startYear, max=endYear, tinyPlot=tinyPlot)
   
-  yInfo <- generalAxis(x=yDaily, min=yMin, max=yMax, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yDaily, min=yMin, max=NA, tinyPlot=tinyPlot)
 
   plot(xDaily, yDaily, axes = FALSE, xlim = c(xInfo$bottom, xInfo$top), 
        xaxs = "i", xlab = "", ylim = c(yInfo$bottom, yInfo$top), yaxs = "i", 

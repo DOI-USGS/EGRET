@@ -35,13 +35,13 @@ plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3,
   yLow <- localSample$ConcLow * localSample$Q * fluxFactor
   yHigh <- localSample$ConcHigh * localSample$Q * fluxFactor
   Uncen <- localSample$Uncen
-  xMin <- 0.95 * min(x)
-  xMax <- 1.05 * max(x)
-  maxYHigh <- if (is.na(fluxMax)) 
-    1.05 * max(yHigh)
-  else fluxMax
-  minYLow <- 0.5 * min(localSample$ConcLow * localSample$Q * 
-                         fluxFactor, na.rm = TRUE)
+  #xMin <- 0.95 * min(x)
+  #xMax <- 1.05 * max(x)
+  #maxYHigh <- if (is.na(fluxMax)) 
+  #  1.05 * max(yHigh)
+  #else fluxMax
+  #minYLow <- 0.5 * min(localSample$ConcLow * localSample$Q * 
+  #                      fluxFactor, na.rm = TRUE)
   #xTicks <- logPretty3(xMin, xMax)
   #numXTicks <- length(xTicks)
   #xLeft <- xTicks[1]
@@ -59,9 +59,9 @@ plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3,
   
   ##################################
   
-  xInfo <- generalAxis(x=x, min=xMin, max=xMax, log=TRUE, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=x, min=NA, max=NA, log=TRUE, tinyPlot=tinyPlot)
   
-  yInfo <- generalAxis(x=yHigh, min=minYLow, max=maxYHigh, log=TRUE, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yHigh, min=NA, max=fluxMax, log=TRUE, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$ticks, yTicks=xInfo$ticks,
