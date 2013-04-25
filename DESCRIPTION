@@ -90,8 +90,6 @@ Collate:
     'genericEGRETplot.R'
     'censoredSegments.R'
     'concentrationAxis.R'
-    'dischargeLogAxis.R'
-    'dischargeYAxis.R'
     'generalAxis.R'
 Depends:
     R (>= 2.13.0)
