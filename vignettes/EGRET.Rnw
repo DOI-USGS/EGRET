@@ -360,7 +360,7 @@ istat & Name \\
 \end{table}
 
 To create the annualSeries matrix, using the function makeAnnualSeries:
-<<newChunckAS, echo=TRUE,eval=TRUE>>=
+<<newChunckAS, echo=TRUE,eval=FALSE>>=
 annualSeries <- makeAnnualSeries()
 @
 
@@ -439,7 +439,6 @@ plotQTimeDaily(1990,2010,qLower=2,qUnit=3)
 \end{figure}
 
 <<plotFour, echo=FALSE,eval=TRUE>>=
-annualSeries <- makeAnnualSeries()
 plotFour(qUnit=3)
 @
 

@@ -2,17 +2,18 @@
 \alias{generalAxis}
 \title{Axis generation for log discharge}
 \usage{
-  generalAxis(x, max, min, log = FALSE, tinyPlot = FALSE,
-    padPercent = 5)
+  generalAxis(x, maxVal, minVal, logScale = FALSE,
+    tinyPlot = FALSE, padPercent = 5)
 }
 \arguments{
   \item{x}{vector to create scale about}
 
-  \item{max}{number maximum value on returned scale}
+  \item{maxVal}{number maximum value on returned scale}
 
-  \item{min}{number minimum value on returned scale}
+  \item{minVal}{number minimum value on returned scale}
 
-  \item{log}{logical whether or not to return a log scale}
+  \item{logScale}{logical whether or not to return a log
+  scale}
 
   \item{tinyPlot}{logical}
 

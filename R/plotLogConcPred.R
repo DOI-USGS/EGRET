@@ -43,7 +43,7 @@ plotLogConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed versus Estimated Concentration") else ""
   
   #################################
-  par(mar = c(5,6,5,2))
+  if(tinyPlot) par(mar=c(5,4,1,1.5)) else par(mar=c(5,4,4,2)+0.1)
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xTicks, yTicks=yTicks,
                       xlim=c(xLeft,xRight), ylim=c(yBottom,yTop),

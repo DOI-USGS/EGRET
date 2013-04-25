@@ -85,13 +85,11 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0
   
   title<-if(printTitle) paste (localINFO$shortName,"  ",localINFO$paramShortName,"\nEstimated Concentration Versus Discharge Relationship\nat",numDates,"specific dates") else ""
   
-#   xLab=qUnit@qUnitExpress  
-#   xTicks<-logPretty3(qLow,qHigh)
-#   numXTicks<-length(xTicks)
-#   xLeft<-xTicks[1]
-#   xRight<-xTicks[numXTicks]
-  
-  xInfo <- dischargeLogAxis(c(qLow,qHigh),qUnit,tinyPlot,padPercent=0)
+  xLab=qUnit@qUnitExpress  
+  xTicks<-logPretty3(qLow,qHigh)
+  numXTicks<-length(xTicks)
+  xLeft<-xTicks[1]
+  xRight<-xTicks[numXTicks]
   
   yLab="Concentration in mg/L"
   yMax<-max(y,na.rm=TRUE)
@@ -105,6 +103,10 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0
   lineVal<-if(bw) c(1,2,3) else c(1,1,1)
   
   #####################
+  
+  xInfo <- generalAxis(x, maxVal=qHigh, minVal=qLow, logScale=TRUE, tinyPlot=tinyPlot, padPercent=5 )
+  yInfo <- generalAxis(y[1,], maxVal=concMax, minVal=NA, logScale=FALSE, tinyPlot=tinyPlot, padPercent=5 )
+  
   genericEGRETDotPlot(x=x, y=y[1,],
                       xTicks=xInfo$xTicks, yTicks=xInfo$yTicks,
                       xlim=c(xInfo$xLeft,xInfo$xRight),ylim=c(0,yTop),

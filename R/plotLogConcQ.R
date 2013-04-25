@@ -46,29 +46,31 @@ plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
 #   #   xLab<-qUnitExpress[qUnit]
 #   xLab <- qUnit@qUnitExpress
 
-  xInfo <- dischargeLogAxis(x,qUnit,tinyPlot)
+  xInfo <- generalAxis(x, maxVal=NA, minVal=NA, logScale=TRUE, tinyPlot=tinyPlot, padPercent=5 )
   
-  yLow<-localSample$ConcLow
-  yHigh<-localSample$ConcHigh
+#   yLow<-localSample$ConcLow
+#   yHigh<-localSample$ConcHigh
 #   maxYHigh<-if(is.na(concMax)) 1.05*max(yHigh) else concMax
 #   minYLow<-if(is.na(concMin)) 0.9*min(localSample$ConcAve) else concMin
 #   yTicks<-logPretty3(minYLow,maxYHigh)
 #   yBottom<-yTicks[1]
 #   yTop<-yTicks[length(yTicks)]
   
-  yInfo <- with(localSample, concentrationAxis(ConcLow, ConcHigh, ConcAve, concMax, concMin))
+#   yInfo <- with(localSample, concentrationAxis(ConcLow, ConcHigh, ConcAve, concMax, concMin))
+  
+  yInfo <- generalAxis(localSample$ConcAve, max=concMax, min=concMin, tinyPlot=tinyPlot, padPercent=5, log=TRUE)
   
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Concentration versus Discharge") else ""
   
   #####################
-  genericEGRETDotPlot(x=x, y=yHigh,
-                      xTicks=xInfo$xTicks, yTicks=yInfo$yTicks,
-                      xlim=c(xInfo$xLeft,xInfo$xRight),ylim=c(yInfo$yBottom,yInfo$yTop),
+  genericEGRETDotPlot(x=x, y=localSample$ConcHigh,
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+                      xlim=c(xInfo$bottom,xInfo$top),ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xInfo$xLab,ylab="Concentration in mg/L", plotTitle=plotTitle,
                       log="xy"
     )
 
-  censoredSegments(yInfo$yBottom, yLow, yHigh, x, Uncen )
+  censoredSegments(yInfo$bottom, localSample$ConcLow, localSample$ConcHigh, x, Uncen )
 
   par(mar=c(5,4,4,2)+0.1)
 }
