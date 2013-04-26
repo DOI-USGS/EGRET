@@ -10,6 +10,7 @@
 #' @param padPercent number used to pad the max and min if not specified
 #' @param max_offset maximum value offset
 #' @param min_offset minimum value offset
+#' @param year_search default is false; decides if the function needs to find the min and max as years
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
@@ -21,7 +22,7 @@
 #' min <- min(x)
 #' generalAxis(x, max, min, log=TRUE)
 generalAxis <- function(x, maxVal, minVal,logScale=FALSE, tinyPlot=FALSE,padPercent=5, max_offset=0, 
-                        min_offset=0){
+                        min_offset=0, year_search=FALSE){
   
   nTicks<-if(tinyPlot) 5 else 8
   
@@ -35,8 +36,16 @@ generalAxis <- function(x, maxVal, minVal,logScale=FALSE, tinyPlot=FALSE,padPerc
   
   upperMagnification <- 1+(padPercent/100)
   lowerMagnification <- 1-(padPercent/100)
-  high <- if(is.na(maxVal)) {upperMagnification*(max(x,na.rm=TRUE) + max_offset)} else {maxVal}
-  low <- if(is.na(minVal)) {lowerMagnification*(min(x,na.rm=TRUE) - min_offset)} else {minVal}
+  
+  if (year_search) {
+    high <- if(is.na(maxVal)) {(max(x,na.rm=TRUE) + max_offset)} else {maxVal}
+    low <- if(is.na(minVal)) {(min(x,na.rm=TRUE) - min_offset)} else {minVal}       
+  }
+  else {
+    high <- if(is.na(maxVal)) {upperMagnification*(max(x,na.rm=TRUE) + max_offset)} else {maxVal}
+    low <- if(is.na(minVal)) {lowerMagnification*(min(x,na.rm=TRUE) - min_offset)} else {minVal}
+  }
+  
   span<-c(low,high)
   ticks<-if (logScale){
     if(tinyPlot) {

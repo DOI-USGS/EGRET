@@ -45,9 +45,9 @@ plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
 #   xLeft<-xTicks[1]
 #   xRight<-xTicks[numXTicks]
 #   #   xLab<-qUnitExpress[qUnit]
-#   xLab <- qUnit@qUnitExpress
+   xLab <- qUnit@qUnitExpress
 
-  xInfo <- generalAxis(x, maxVal=NA, minVal=NA, logScale=TRUE, tinyPlot=tinyPlot, padPercent=5 )
+  xInfo <- generalAxis(x, maxVal=NA, minVal=NA, logScale=TRUE, tinyPlot=tinyPlot, padPercent=5)
   
 #   yLow<-localSample$ConcLow
 #   yHigh<-localSample$ConcHigh
@@ -74,7 +74,7 @@ plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   genericEGRETDotPlot(x=x, y=localSample$ConcHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top),ylim=c(yInfo$bottom,yInfo$top),
-                      xlab=xInfo$xLab,ylab=yLabel, plotTitle=plotTitle,
+                      xlab=xLab,ylab=yLabel, plotTitle=plotTitle,
                       log="xy",...
     )
 
