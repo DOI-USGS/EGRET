@@ -2,13 +2,12 @@
 #'
 #' Discharge axis tick generation
 #'
-#' @param qMax number
-#' @param qActual vector
-#' @param yPlotMin number
-#' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
-#' @param padPercent number
+#' @param x vector to create scale about
+#' @param maxVal number maximum value on returned scale
+#' @param minVal number minimum value on returned scale
+#' @param logScale logical whether or not to return a log scale
 #' @param tinyPlot logical
-#' @param runoff logical
+#' @param padPercent number used to pad the max and min if not specified
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
@@ -19,7 +18,7 @@
 #' generalAxis(x, max, min)
 #' min <- min(x)
 #' generalAxis(x, max, min, log=TRUE)
-generalAxis <- function(x,max,min,log=FALSE, tinyPlot=FALSE,padPercent=5, max_offset=0, min_offset=0){
+generalAxis <- function(x,maxVal,minVal,logScale=FALSE, tinyPlot=FALSE,padPercent=5){
   
   nTicks<-if(tinyPlot) 5 else 8
   
@@ -36,7 +35,7 @@ generalAxis <- function(x,max,min,log=FALSE, tinyPlot=FALSE,padPercent=5, max_of
   high <- if(is.na(max)) {upperMagnification*(max(x,na.rm=TRUE) + max_offset)} else {max}
   low <- if(is.na(min)) {lowerMagnification*(min(x,na.rm=TRUE) - min_offset)} else {min}
   span<-c(low,high)
-  ticks<-if (log){
+  ticks<-if (logScale){
     if(tinyPlot) {
       logPretty1(low,high) 
     } else {

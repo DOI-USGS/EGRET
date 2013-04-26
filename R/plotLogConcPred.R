@@ -49,12 +49,16 @@ plotLogConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed versus Estimated Concentration") else ""
   
   #################################
+<<<<<<< HEAD
   par(mar = c(5,6,5,2))
   
   xInfo <- generalAxis(x=x, min=NA, max=NA, log=TRUE, tinyPlot=tinyPlot)
   
   yInfo <- generalAxis(x=yHigh, min=NA, max=concMax, log=TRUE, tinyPlot=tinyPlot)
 
+=======
+  if(tinyPlot) par(mar=c(5,4,1,1.5)) else par(mar=c(5,4,4,2)+0.1)
+>>>>>>> canon_master/master
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),

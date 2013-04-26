@@ -2,6 +2,7 @@
 \alias{generalAxis}
 \title{Axis generation for log discharge}
 \usage{
+<<<<<<< HEAD
   generalAxis(x, max, min, log = FALSE, tinyPlot = FALSE,
     padPercent = 5)
 }
@@ -21,6 +22,25 @@
   \item{tinyPlot}{logical}
 
   \item{runoff}{logical}
+=======
+  generalAxis(x, maxVal, minVal, logScale = FALSE,
+    tinyPlot = FALSE, padPercent = 5)
+}
+\arguments{
+  \item{x}{vector to create scale about}
+
+  \item{maxVal}{number maximum value on returned scale}
+
+  \item{minVal}{number minimum value on returned scale}
+
+  \item{logScale}{logical whether or not to return a log
+  scale}
+
+  \item{tinyPlot}{logical}
+
+  \item{padPercent}{number used to pad the max and min if
+  not specified}
+>>>>>>> canon_master/master
 }
 \description{
   Discharge axis tick generation

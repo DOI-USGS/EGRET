@@ -54,12 +54,11 @@ plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, flu
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed vs Estimated Flux") else ""
   
   ###############################
+  if(tinyPlot) par(mar=c(5,4,1,1.5)) else par(mar=c(5,4,4,2)+0.1)
   
   xInfo <- generalAxis(x=x, min=0, max=NA, tinyPlot=tinyPlot)
   
   yInfo <- generalAxis(x=yHigh, min=0, max=fluxMax, tinyPlot=tinyPlot)
-  
-  par(mar = c(5,6,5,2))
   
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
