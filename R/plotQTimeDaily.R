@@ -11,6 +11,12 @@
 #' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.  Default is qUnit=1 (cubic feet per second)
 #' @param tinyPlot logical variable, if TRUE plot is designed to be short and wide, default is FALSE.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
+#' @param lwd line width, a positive number, defaulting to 1
+#' @param col specification for the default plotting color
+#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param font.main font to be used for plot main titles
+#' @param cex.lab magnification to be used for x and y labels relative to the current setting of cex
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow
 #' @export
@@ -67,9 +73,9 @@ plotQTimeDaily<-function (startYear, endYear, localDaily = Daily,
   yLab <- qUnit@qUnitExpress
   qBottom <- if(is.na(qLower)) 0 else qLower
   
-  xInfo <- generalAxis(x=xDaily, min=startYear, max=endYear, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=xDaily, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot)
   
-  yInfo <- generalAxis(x=yDaily, min=yMin, max=NA, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yDaily, minVal=yMin, maxVal=NA, tinyPlot=tinyPlot)
 
   plot(xDaily, yDaily, axes = FALSE, xlim = c(xInfo$bottom, xInfo$top), 
        xaxs = "i", xlab = "", ylim = c(yInfo$bottom, yInfo$top), yaxs = "i", 

@@ -67,8 +67,8 @@ plotFluxTimeDaily<-function (startYear, endYear, localSample = Sample, localDail
   
   par(mar = c(5,6,5,2))
   
-  xInfo <- generalAxis(x=xSample, min=startYear, max=endYear, tinyPlot=tinyPlot)
-  yInfo <- generalAxis(x=yHigh, min=yBottom, max=fluxMax, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=xSample, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yHigh, minVal=yBottom, maxVal=fluxMax, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=xSample, y=yHigh,
                       xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),

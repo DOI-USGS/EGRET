@@ -20,6 +20,7 @@
 #' @param concMin number specifying the minimum value to be used on the vertical axis, only appropriate for log scale.  
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
 #' @param logScale string, default "", "y" indicates y axis is in log scale, "xy" indicates both x and y in log scale, "x" is only x
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords graphics water-quality statistics
 #' @export
@@ -122,9 +123,9 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   plotTitle<-if(printTitle) paste(localINFO$shortName,",",localINFO$paramShortName,title2,title3) else ""
   yLab="Concentration in mg/L"
   
-  xInfo <- generalAxis(x=x, min=min(x), max=max(x), tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=x, minVal=min(x), maxVal=max(x), tinyPlot=tinyPlot)
   
-  yInfo <- generalAxis(x=yHigh, min=minYLow, max=concMax, log=log_state, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yHigh, minVal=minYLow, maxVal=concMax, log=log_state, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=yHigh, 
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),

@@ -29,6 +29,8 @@
   printed, if FALSE not printed (this is best for a
   multi-plot figure)}
 
+  \item{oneToOneLine}{inserts 1:1 line}
+
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for
   options)}

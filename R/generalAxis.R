@@ -8,6 +8,8 @@
 #' @param logScale logical whether or not to return a log scale
 #' @param tinyPlot logical
 #' @param padPercent number used to pad the max and min if not specified
+#' @param max_offset maximum value offset
+#' @param min_offset minimum value offset
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
@@ -18,22 +20,23 @@
 #' generalAxis(x, max, min)
 #' min <- min(x)
 #' generalAxis(x, max, min, log=TRUE)
-generalAxis <- function(x,maxVal,minVal,logScale=FALSE, tinyPlot=FALSE,padPercent=5){
+generalAxis <- function(x, maxVal, minVal,logScale=FALSE, tinyPlot=FALSE,padPercent=5, max_offset=0, 
+                        min_offset=0){
   
   nTicks<-if(tinyPlot) 5 else 8
   
-  if (length(max)>1) {
-    max<-max(max) + 0.2
+  if (length(maxVal)>1) {
+    maxVal<-max(maxVal) + 0.2
   }
   
-  if (length(min)>1) {
-    min<-min(min) - 0.2
+  if (length(maxVal)>1) {
+    maxVal<-min(maxVal) - 0.2
   }
   
   upperMagnification <- 1+(padPercent/100)
   lowerMagnification <- 1-(padPercent/100)
-  high <- if(is.na(max)) {upperMagnification*(max(x,na.rm=TRUE) + max_offset)} else {max}
-  low <- if(is.na(min)) {lowerMagnification*(min(x,na.rm=TRUE) - min_offset)} else {min}
+  high <- if(is.na(maxVal)) {upperMagnification*(max(x,na.rm=TRUE) + max_offset)} else {maxVal}
+  low <- if(is.na(minVal)) {lowerMagnification*(min(x,na.rm=TRUE) - min_offset)} else {minVal}
   span<-c(low,high)
   ticks<-if (logScale){
     if(tinyPlot) {
@@ -46,7 +49,6 @@ generalAxis <- function(x,maxVal,minVal,logScale=FALSE, tinyPlot=FALSE,padPercen
   }  
   
   numTicks<-length(ticks)
-  print(min(x,na.rm=TRUE))
   bottom<-ticks[1]
   top<-ticks[numTicks]
   

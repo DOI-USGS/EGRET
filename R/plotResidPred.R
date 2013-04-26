@@ -57,9 +57,9 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   
   ####################
   
-  xInfo <- generalAxis(x=x, min=NA, max=NA, log=TRUE, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, log=TRUE, tinyPlot=tinyPlot)
   
-  yInfo <- generalAxis(x=yHigh, min=NA, max=NA, tinyPlot=tinyPlot, max_offset=0.1, min_offset=0.5)
+  yInfo <- generalAxis(x=yHigh, minVal=NA, maxVal=NA, tinyPlot=tinyPlot, max_offset=0.1, min_offset=0.5)
 
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,

@@ -8,6 +8,8 @@
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multi-plot figure, default is FALSE.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param oneToOneLine inserts 1:1 line
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -49,16 +51,15 @@ plotLogConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed versus Estimated Concentration") else ""
   
   #################################
-<<<<<<< HEAD
+
   par(mar = c(5,6,5,2))
   
-  xInfo <- generalAxis(x=x, min=NA, max=NA, log=TRUE, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, log=TRUE, tinyPlot=tinyPlot)
   
-  yInfo <- generalAxis(x=yHigh, min=NA, max=concMax, log=TRUE, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yHigh, minVal=NA, maxVal=concMax, log=TRUE, tinyPlot=tinyPlot)
 
-=======
   if(tinyPlot) par(mar=c(5,4,1,1.5)) else par(mar=c(5,4,4,2)+0.1)
->>>>>>> canon_master/master
+
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),

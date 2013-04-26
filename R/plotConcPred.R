@@ -38,9 +38,9 @@ plotConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
   yLab<-"Observed Concentration in mg/L"
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed versus Estimated Concentration") else ""
 
-  xInfo <- generalAxis(x=x, min=0, max=max(x))
+  xInfo <- generalAxis(x=x, minVal=0, maxVal=max(x))
   
-  yInfo <- generalAxis(x=yHigh, min=0, max=concMax)
+  yInfo <- generalAxis(x=yHigh, minVal=0, maxVal=concMax)
   
   ############################
   par(mar = c(5,6,5,2))

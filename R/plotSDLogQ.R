@@ -16,6 +16,11 @@
 #' @param tinyPlot logical variable if TRUE plot is designed to be small, if FALSE it is designed for page size, default is FALSE (not fully implemented yet)
 #' @param printStaName logical variable, if TRUE print the station name, if FALSE do not, default is TRUE
 #' @param printPA logical variable, if TRUE print the period of analysis information in the plot title, if FALSE leave it out, default is TRUE
+#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
+#' @param lwd line width, a positive number, defaulting to 1
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow statistics
 #' @export
 #' @examples
@@ -65,8 +70,8 @@ plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
   
   ##############################################
   
-  xInfo <- generalAxis(x=xmid, min=NA, max=NA, tinyPlot=tinyPlot)
-  yInfo <- generalAxis(x=y, min=0, max=yTop, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=xmid, minVal=NA, maxVal=NA, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=y, minVal=0, maxVal=yTop, tinyPlot=tinyPlot)
 
   genericEGRETDotPlot(x=xmid,y=y,
                       xlim=c(xInfo$bottom,xInfo$top),ylim=c(yInfo$bottom,yInfo$top),

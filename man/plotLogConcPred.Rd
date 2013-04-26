@@ -26,6 +26,11 @@
   printed, if FALSE not printed (this is best for a
   multi-plot figure)}
 
+  \item{cex.main}{magnification to be used for main titles
+  relative to the current setting of cex}
+
+  \item{oneToOneLine}{inserts 1:1 line}
+
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for
   options)}

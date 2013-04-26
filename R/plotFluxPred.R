@@ -9,6 +9,7 @@
 #' @param fluxMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
+#' @param oneToOneLine inserts 1:1 line
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -18,7 +19,7 @@
 #' plotFluxPred(fluxUnit = 7)
 #' plotFluxPred(fluxUnit = 'poundsDay')
 plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, fluxMax = NA, 
-                       tinyPlot = FALSE, printTitle = TRUE, oneToOneLine=TRUE, ...){
+                       tinyPlot = FALSE, printTitle = TRUE, oneToOneLine=FALSE, ...){
   # this function shows observed versus estimated flux
   # estimated flux on the x-axis (these include the bias correction), 
   # observed flux on y-axis 
@@ -56,9 +57,9 @@ plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, flu
   ###############################
   if(tinyPlot) par(mar=c(5,4,1,1.5)) else par(mar=c(5,4,4,2)+0.1)
   
-  xInfo <- generalAxis(x=x, min=0, max=NA, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=x, minVal=0, maxVal=NA, tinyPlot=tinyPlot)
   
-  yInfo <- generalAxis(x=yHigh, min=0, max=fluxMax, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yHigh, minVal=0, maxVal=fluxMax, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,

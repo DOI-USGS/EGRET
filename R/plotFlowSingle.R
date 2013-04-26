@@ -67,8 +67,8 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
 #   xLeft<-xTicks[1]
 #   xRight<-xTicks[numXTicks]
 
-  yInfo <- generalAxis(x=qActual, max=qMax, min=0,tinyPlot=tinyPlot)
-  xInfo <- generalAxis(x=localSeries$years, max=yearEnd, min=yearStart, padPercent=0,tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=qActual, maxVal=qMax, minVal=0,tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=localSeries$years, maxVal=yearEnd, minVal=yearStart, padPercent=0,tinyPlot=tinyPlot)
   
   line1<-if(printStaName) localINFO$shortName else ""	
   line2<-if(printPA) paste("\n",setSeasonLabelByUser(paStartInput = localINFO$paStart, paLongInput = localINFO$paLong)) else ""

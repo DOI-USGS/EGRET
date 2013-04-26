@@ -27,7 +27,7 @@ concentrationAxis <- function(ConcLow, ConcHigh, ConcAve, ConcMax, ConcMin,padPe
   #yTicks <- logPretty3(minYLow,maxYHigh)
   #yBottom <- yTicks[1]
   #yTop <- yTicks[length(yTicks)]
-  axis_info <- generalAxis(x=yHigh, min=minYLow, max=maxYHigh, log=TRUE)
+  axis_info <- generalAxis(x=yHigh, minVal=minYLow, maxVal=maxYHigh, log=TRUE)
   return(list(yTop=axis_info$top,yBottom=axis_info$bottom,yTicks=axis_info$ticks))
 
 }

@@ -77,9 +77,9 @@ plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9,
   title3<-if(plotFlowNorm) "\nFlux Estimates (dots) & Flow Normalized Flux (line)" else "\nAnnual Flux Estimates"
   title<-if(printTitle) paste(localINFO$shortName," ",localINFO$paramShortName,"\n",periodName,title3) else ""
   
-  xInfo <- generalAxis(x=subAnnualResults$DecYear, min=yearStart, max=yearEnd)
+  xInfo <- generalAxis(x=subAnnualResults$DecYear, minVal=yearStart, maxVal=yearEnd)
   
-  yInfo <- generalAxis(x=annFlux, min=0, max=fluxMax)
+  yInfo <- generalAxis(x=annFlux, minVal=0, maxVal=fluxMax)
   
   ###############################################
   par(mar = c(5,6,5,2))

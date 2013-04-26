@@ -64,9 +64,9 @@ plotConcHist<-function(yearStart = NA, yearEnd = NA, localAnnualResults = Annual
   ##################
   par(mar = c(5,6,5,2))
   
-  xInfo <- generalAxis(x=subAnnualResults$DecYear, min=yearStart, max=yearEnd)
+  xInfo <- generalAxis(x=subAnnualResults$DecYear, minVal=yearStart, maxVal=yearEnd)
   
-  yInfo <- generalAxis(x=annConc, min=0, max=concMax)
+  yInfo <- generalAxis(x=annConc, minVal=0, maxVal=concMax)
   
   genericEGRETDotPlot(x=subAnnualResults$DecYear, y=annConc,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,

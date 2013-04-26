@@ -2,9 +2,29 @@
 \alias{generalAxis}
 \title{Axis generation for log discharge}
 \usage{
+<<<<<<< HEAD
+  generalAxis(x, max, min, log = FALSE, tinyPlot = FALSE,
+    padPercent = 5)
+}
+\arguments{
+  \item{qMax}{number}
+
+  \item{qActual}{vector}
+
+  \item{yPlotMin}{number}
+
+  \item{qUnit}{object of qUnit class \code{\link{qConst}},
+  or numeric represented the short code, or character
+  representing the descriptive name.}
+
+  \item{padPercent}{number}
+
+  \item{tinyPlot}{logical}
+
+  \item{runoff}{logical}
+=======
   generalAxis(x, maxVal, minVal, logScale = FALSE,
-    tinyPlot = FALSE, padPercent = 5, max_offset = 0,
-    min_offset = 0)
+    tinyPlot = FALSE, padPercent = 5)
 }
 \arguments{
   \item{x}{vector to create scale about}
@@ -20,10 +40,7 @@
 
   \item{padPercent}{number used to pad the max and min if
   not specified}
-
-  \item{max_offset}{maximum value offset}
-
-  \item{min_offset}{minimum value offset}
+>>>>>>> canon_master/master
 }
 \description{
   Discharge axis tick generation

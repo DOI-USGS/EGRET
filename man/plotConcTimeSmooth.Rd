@@ -88,6 +88,12 @@
   the seasonal dimension, in units of years, default is
   0.5}
 
+  \item{cex.main}{magnification to be used for main titles
+  relative to the current setting of cex}
+
+  \item{lwd}{line width, a positive number, defaulting to
+  1}
+
   \item{\dots}{arbitrary functions sent to the generic
   plotting function.  See ?par for details on possible
   parameters}

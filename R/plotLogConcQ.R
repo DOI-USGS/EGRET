@@ -59,7 +59,7 @@ plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   
 #   yInfo <- with(localSample, concentrationAxis(ConcLow, ConcHigh, ConcAve, concMax, concMin))
   
-  yInfo <- generalAxis(localSample$ConcAve, max=concMax, min=concMin, tinyPlot=tinyPlot, padPercent=5, log=TRUE)
+  yInfo <- generalAxis(localSample$ConcAve, maxVal=concMax, minVal=concMin, tinyPlot=tinyPlot, padPercent=5, log=TRUE)
   
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Concentration versus Discharge") else ""
   

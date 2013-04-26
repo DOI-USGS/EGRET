@@ -46,6 +46,23 @@
   \item{printPA}{logical variable, if TRUE print the period
   of analysis information in the plot title, if FALSE leave
   it out, default is TRUE}
+
+  \item{cex}{numerical value giving the amount by which
+  plotting text and symbols should be magnified relative to
+  the default}
+
+  \item{cex.main}{magnification to be used for main titles
+  relative to the current setting of cex}
+
+  \item{cex.axis}{magnification to be used for axis
+  annotation relative to the current setting of cex}
+
+  \item{lwd}{line width, a positive number, defaulting to
+  1}
+
+  \item{\dots}{arbitrary graphical parameters that will be
+  passed to genericEGRETDotPlot function (see ?par for
+  options)}
 }
 \description{
   Data come from data frame named Daily. The metadata come

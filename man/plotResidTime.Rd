@@ -21,6 +21,8 @@
   printed, if FALSE not printed (this is best for a
   multi-plot figure)}
 
+  \item{hLine}{inserts horizontal line at zero}
+
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for
   options)}

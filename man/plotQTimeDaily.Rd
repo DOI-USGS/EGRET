@@ -38,6 +38,23 @@
   printed, if FALSE title is not printed (this is best for
   a multi-plot figure)}
 
+  \item{lwd}{line width, a positive number, defaulting to
+  1}
+
+  \item{col}{specification for the default plotting color}
+
+  \item{cex}{numerical value giving the amount by which
+  plotting text and symbols should be magnified relative to
+  the default}
+
+  \item{cex.main}{magnification to be used for main titles
+  relative to the current setting of cex}
+
+  \item{font.main}{font to be used for plot main titles}
+
+  \item{cex.lab}{magnification to be used for x and y
+  labels relative to the current setting of cex}
+
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for
   options)}

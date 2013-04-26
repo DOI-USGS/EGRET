@@ -98,7 +98,7 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0
   #numYTicks<-length(yTicks)
   #yTop<-yTicks[numYTicks]
   
-  yInfo <- generalAxis(x=y[1,], min=0, max=yTop)
+  #yInfo <- generalAxis(x=y[1,], min=0, max=yTop)
   
   colorVal<-if(bw) c("black","black","black") else c("black","red","green")
   lineVal<-if(bw) c(1,2,3) else c(1,1,1)

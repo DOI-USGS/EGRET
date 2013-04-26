@@ -90,12 +90,8 @@ Collate:
     'genericEGRETplot.R'
     'censoredSegments.R'
     'concentrationAxis.R'
-<<<<<<< HEAD
-    'dischargeLogAxis.R'
-    'dischargeYAxis.R'
-=======
->>>>>>> canon_master/master
     'generalAxis.R'
+    'dischargeLogAxis.R'
 Depends:
     R (>= 2.13.0)
 Imports:
