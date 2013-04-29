@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.4.23)  26 APR 2013 16:00
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.4.23)  29 APR 2013 12:07
 entering extended mode
 **EGRET.tex
 (D:\Work\egret\EGRET\vignettes\EGRET.tex
@@ -1006,18 +1006,18 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 [41]
 LaTeX Font Info:    Try loading font information for TS1+aett on input line 154
-2.
+3.
  (C:/PROGRA~1/R/R-30~1.0/share/texmf/tex/latex\ts1aett.fd
 File: ts1aett.fd 
 )
 LaTeX Font Info:    Try loading font information for TS1+cmtt on input line 154
-2.
+3.
 
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ts1cmtt.fd"
 File: ts1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `TS1/aett/m/sl' in size <10.95> not available
-(Font)              Font shape `TS1/cmtt/m/sl' tried instead on input line 1542
+(Font)              Font shape `TS1/cmtt/m/sl' tried instead on input line 1543
 .
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
@@ -1028,14 +1028,14 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 ] <table1.png, id=681, 554.07pt x 125.71968pt>
 File: table1.png Graphic file (type png)
  <use table1.png>
-Package pdftex.def Info: table1.png used on input line 1597.
+Package pdftex.def Info: table1.png used on input line 1598.
 (pdftex.def)             Requested size: 358.46039pt x 81.33507pt.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
 [43 <D:/Work/egret/EGRET/vignettes/table1.png>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1620.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1621.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
@@ -1043,14 +1043,14 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 [44
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1620.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1621.
  (D:\Work\egret\EGRET\vignettes\EGRET.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1620.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1620.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1621.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1621.
 
 Package rerunfilecheck Info: File `EGRET.out' has not changed.
 (rerunfilecheck)             Checksum: D704992865012ECB93BAB07266C5BB9B;1802.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1620.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1621.
  ) 
 Here is how much of TeX's memory you used:
  9137 strings out of 493921
@@ -1077,7 +1077,7 @@ gram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Program
 iles (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti7.pfb><C:/Program File
 s (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti8.pfb><C:/Program Files (
 x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on EGRET.pdf (44 pages, 1070276 bytes).
+Output written on EGRET.pdf (44 pages, 1070626 bytes).
 PDF statistics:
  795 PDF objects out of 1000 (max. 8388607)
  129 named destinations out of 1000 (max. 500000)
