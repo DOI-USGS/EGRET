@@ -107,29 +107,14 @@ plotLogConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft 
                       type="l",lwd=lwd,col=colorVal[1],lty=lineVal[1],cex.main=cex.main,
                       log="xy", ...
     )
-#   plot(log(x,10),log(y[1,],10),axes=FALSE, xlim=c(log(xLeft,10),log(xRight,10)), xaxs="i",xlab=xLab,ylim=c(log(yBottom,10),log(yTop,10)), yaxs="i",ylab=yLab,main=title,type="l",lwd=2,col=colorVal[1],lty=lineVal[1], cex=0.7,cex.main=1.1,font.main=2,cex.lab=1.2)
-#   axis(1, tcl = 0.5, at = log(xTicks, 10), labels = xTicks)
-#   axis(2, tcl = 0.5, las = 1, at = log(yTicks,10), labels = yTicks)
-#   axis(3, tcl = 0.5, at = log(xTicks, 10), labels = FALSE)
-#   axis(4, tcl = 0.5, at = log(yTicks,10), labels = FALSE)
-#   box()
-  par(new=TRUE)
-  genericEGRETDotPlot(x=x, y=y[2,],
-                      xTicks=xInfo$ticks, yTicks=yInfo_n$ticks,
-                      xlim=c(xInfo$bottom,xInfo$top),ylim=c(yInfo_n$bottom,yInfo_n$top),
-                      xlab=xLab,ylab=yLab,plotTitle=title,
-                      type="l",lwd=lwd,col=colorVal[2],lty=lineVal[2],cex.main=cex.main,
-                      log="xy", ...
-    )
-#   plot(log(x,10),log(y[2,],10),axes=FALSE,xlim=c(log(xLeft,10),log(xRight,10)),xaxs="i",xlab="",ylim=c(log(yBottom,10),log(yTop,10)), yaxs="i",ylab="",main="",type="l",lwd=2,col=colorVal[2],lty=lineVal[2],cex=0.7,cex.main=1.1,font.main=2,cex.lab=1.2)
-  par(new=TRUE)
-  genericEGRETDotPlot(x=x, y=y[3,],
-                      xTicks=xInfo$ticks, yTicks=yInfo_n$ticks,
-                      xlim=c(xInfo$bottom,xInfo$top),ylim=c(yInfo_n$bottom,yInfo_n$top),
-                      xlab=xLab,ylab=yLab,plotTitle=title,
-                      type="l",lwd=lwd,col=colorVal[3],lty=lineVal[3],cex.main=cex.main,
-                      log="xy", ...
-  )
+
+  #par(new=TRUE)
+  lines(x=x, y=y[2, ], lwd=lwd, col=colorVal[2], lty=lineVal[2])
+
+
+  #par(new=TRUE)
+  lines(x=x, y=y[3, ], lwd=lwd, col=colorVal[3], lty=lineVal[3])
+
 #   plot(log(x,10),log(y[3,],10),axes=FALSE,xlim=c(log(xLeft,10),log(xRight,10)),xaxs="i",xlab="", ylim=c(log(yBottom,10), log(yTop,10)) ,yaxs="i",ylab="",main="",type="l",lwd=2,col=colorVal[3],lty=lineVal[3],cex=0.7,cex.main=1.1,font.main=2,cex.lab=1.2)
   legendLeft<-if(legendLeft==0) qLow*2 else legendLeft
 #   legendLeft<-log(legendLeft,10)
