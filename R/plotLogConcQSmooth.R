@@ -109,11 +109,11 @@ plotLogConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft 
     )
 
   #par(new=TRUE)
-  lines(x=x, y=y[2, ], lwd=lwd, col=colorVal[2], lty=lineVal[2])
+  lines(x=x, y=y[2, ], lwd=lwd, col=colorVal[2], lty=lineVal[2], ...)
 
 
   #par(new=TRUE)
-  lines(x=x, y=y[3, ], lwd=lwd, col=colorVal[3], lty=lineVal[3])
+  lines(x=x, y=y[3, ], lwd=lwd, col=colorVal[3], lty=lineVal[3], ...)
 
 #   plot(log(x,10),log(y[3,],10),axes=FALSE,xlim=c(log(xLeft,10),log(xRight,10)),xaxs="i",xlab="", ylim=c(log(yBottom,10), log(yTop,10)) ,yaxs="i",ylab="",main="",type="l",lwd=2,col=colorVal[3],lty=lineVal[3],cex=0.7,cex.main=1.1,font.main=2,cex.lab=1.2)
   legendLeft<-if(legendLeft==0) qLow*2 else legendLeft

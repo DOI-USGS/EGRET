@@ -131,10 +131,10 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
   )
 
   #par(new = TRUE)
-  lines(x=x, y=y[2, ], col=colorVal[2], lwd=lwd, lty=lineVal[2])
+  lines(x=x, y=y[2, ], col=colorVal[2], lwd=lwd, lty=lineVal[2], ...)
 
   #par(new = TRUE)
-  lines(x=x, y=y[3, ], col=colorVal[3], lwd=lwd, lty=lineVal[3])
+  lines(x=x, y=y[3, ], col=colorVal[3], lwd=lwd, lty=lineVal[3], ...)
 
   legendLeft <- if (legendLeft == 0) {
     xInfo$bottom + 2
