@@ -40,14 +40,21 @@ plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot 
   #numXTicks<-length(xTicks)
   #xLeft<-xTicks[1]
   #xRight<-xTicks[numXTicks]
-  xLab<-qUnit@qUnitExpress
+  #xLab<-qUnit@qUnitExpress
   #maxYHigh<-if(is.na(concMax)) 1.05*max(yHigh) else concMax
   #yTicks<-yPretty(maxYHigh)
   #yTop<-yTicks[length(yTicks)]
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Concentration versus Discharge") else ""
   yBottom <- 0 #No value given, so assuming zero due to the ylim value
   
-  yLab <- "Concentration in mg/L"
+  if (tinyPlot){
+    xLab<-qUnit@qUnitTiny
+    yLab <- "Conc. (mg/L)"
+  }
+  else {
+    xLab<-qUnit@qUnitExpress
+    yLab <- "Concentration in mg/L"
+  }
   mar<-c(5,4,4,2)+0.1
   
   xInfo <- generalAxis(x=x, maxVal=max(x), minVal=min(x), log=TRUE, tinyPlot=tinyPlot)

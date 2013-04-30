@@ -121,8 +121,13 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   #########################################################
   #yTop<-yTicks[length(yTicks)]
   plotTitle<-if(printTitle) paste(localINFO$shortName,",",localINFO$paramShortName,title2,title3) else ""
-  yLab="Concentration in mg/L"
   
+  if (tinyPlot) {
+    yLab <- "Conc. (mg/L)"
+  }
+  else {
+    yLab="Concentration in mg/L"
+  }
   xInfo <- generalAxis(x=x, minVal=min(x), maxVal=max(x), tinyPlot=tinyPlot)
   
   yInfo <- generalAxis(x=yHigh, minVal=minYLow, maxVal=concMax, log=log_state, tinyPlot=tinyPlot)

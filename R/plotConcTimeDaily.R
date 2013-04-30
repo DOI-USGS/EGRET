@@ -47,6 +47,12 @@ plotConcTimeDaily<-function(startYear, endYear, localSample = Sample,
   
   ###################################
   
+  if (tinyPlot) {
+    yLab = "Conc. (mg/L)"
+  }
+  else {
+    yLab = "Concentration in mg/L"
+  }
   yBottom <- 0 #Not specified within script, added under assumption that it's always zero based on ylim definition in this function
   
   xInfo <- generalAxis(x=xLimits, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot)
@@ -55,7 +61,7 @@ plotConcTimeDaily<-function(startYear, endYear, localSample = Sample,
   
   genericEGRETDotPlot(x=xSample, y=yHigh, xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                      ylab="Concentration in mg/L",plotTitle=plotTitle, ...
+                      ylab=yLab,plotTitle=plotTitle, ...
   )
   
   #   plot(xSample,yHigh,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="Concentration in mg/L",main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)
@@ -64,13 +70,9 @@ plotConcTimeDaily<-function(startYear, endYear, localSample = Sample,
   #   axis(3,tcl=0.5,at=xTicks,labels=FALSE)
   #   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
   
-  par(new=TRUE)
-  genericEGRETDotPlot(x=xDaily, y=subDaily$ConcDay, 
-                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
-                      xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                      type="l"
-  )  
-  
+  #par(new=TRUE)
+  lines(x=xDaily, y=subDaily$ConcDay, type="l")
+
   #   plot(xDaily,subDaily$ConcDay,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="",main="",type="l",cex.main=1.3,font.main=2,cex.lab=1.2)
   #   box()
   censoredSegments(yInfo$bottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen
