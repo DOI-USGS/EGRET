@@ -51,8 +51,14 @@ plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3,
   #numYTicks <- length(yTicks)
   #yBottom <- yTicks[1]
   #yTop <- yTicks[numYTicks]
-  xLab <- fluxUnit@unitEstimate
-  yLab <- fluxUnit@unitExpress
+  if (tinyPlot) {
+    xLab <- fluxUnit@unitEstimateTiny
+    yLab <- fluxUnit@unitExpressTiny
+  }
+  else {
+    xLab <- fluxUnit@unitEstimate
+    yLab <- fluxUnit@unitExpress
+  }
   plotTitle <- if (printTitle) 
     paste(localINFO$shortName, "\n", localINFO$paramShortName, 
           "\n", "Observed vs Predicted Flux")

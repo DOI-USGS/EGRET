@@ -70,10 +70,17 @@ plotFluxTimeDaily<-function (startYear, endYear, localSample = Sample, localDail
   xInfo <- generalAxis(x=xSample, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot)
   yInfo <- generalAxis(x=yHigh, minVal=yBottom, maxVal=fluxMax, tinyPlot=tinyPlot)
   
+  if (tinyPlot) {
+    yLab <- fluxUnit@unitExpressTiny
+  }
+  else {
+    yLab <- fluxUnit@unitExpress
+  }
+  
   genericEGRETDotPlot(x=xSample, y=yHigh,
                       xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
-                      ylab = fluxUnit@unitExpress,
+                      ylab = yLab,
                       plotTitle=plotTitle, ...
     )
 

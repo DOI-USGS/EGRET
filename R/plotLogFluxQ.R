@@ -57,8 +57,14 @@ plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2,
   #numXTicks<-length(xTicks)
   #xLeft<-xTicks[1]
   #xRight<-xTicks[numXTicks]
-  xLab<-qUnit@qUnitExpress
-  yLab<-fluxUnit@unitExpress
+  if (tinyPlot) {
+    xLab <- qUnit@qUnitTiny
+    yLab <- fluxUnit@unitExpressTiny
+  }
+  else {
+    xLab<-qUnit@qUnitExpress
+    yLab<-fluxUnit@unitExpress
+  }
   #maxYHigh<-if(is.na(fluxMax)) 1.05*max(yHigh) else fluxMax
   #minYLow<-if(is.na(fluxMin)) 0.95*min(yLow,na.rm=TRUE) else fluxMin
   #yTicks<-if(tinyPlot) logPretty1(minYLow,maxYHigh) else logPretty3(minYLow,maxYHigh)

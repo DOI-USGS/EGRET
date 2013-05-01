@@ -63,11 +63,13 @@ plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2,
    #numYTicks <- length(yTicks)
    #yBottom <- yTicks[1]
    #yTop <- yTicks[numYTicks]
-   xLab <- qUnit@qUnitExpress
+   #xLab <- qUnit@qUnitExpress
    if (tinyPlot){
+     xLab <- qUnit@qUnitTiny
      yLab <- ifelse(stdResid, expression(paste("log"["e"],"(Std. Residual) units")), expression(paste("log"["e"],"(Residual) units")))   
 }
    else {
+     xLab <- qUnit@qUnitExpress
      yLab <- ifelse(stdResid, "Standardized Residual in natural log units", "Residual in natural log units")
     }
    plotTitle <- ifelse (printTitle,  paste(localINFO$shortName, "\n", localINFO$paramShortName, 

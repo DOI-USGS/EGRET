@@ -45,7 +45,6 @@ plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
 #   xLeft<-xTicks[1]
 #   xRight<-xTicks[numXTicks]
 #   #   xLab<-qUnitExpress[qUnit]
-   xLab <- qUnit@qUnitExpress
 
   
 #   yLow<-localSample$ConcLow
@@ -64,9 +63,11 @@ plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Concentration versus Discharge") else ""
   
   if (tinyPlot) {
+    xLab <- qUnit@qUnitTiny
     yLabel <- "Conc. (mg/L)"
   }
   else {
+    xLab <- qUnit@qUnitExpress
     yLabel <- "Concentration in mg/L"
   }
   
