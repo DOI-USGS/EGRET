@@ -10,14 +10,15 @@
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
 #' Sample <- exSample
 #' INFO <- exINFO
 #' plotResidQ(qUnit=1)
-plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot = FALSE, 
-                      stdResid = FALSE, printTitle = TRUE) 
+plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2, 
+                      tinyPlot = FALSE, stdResid = FALSE, printTitle = TRUE,...) 
 {  
    if(tinyPlot) {
      par(mar=c(5,4,1,1)) 
@@ -49,30 +50,42 @@ plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlo
      }
    
    Uncen <- localSample$Uncen
-   xMin <- 0.95 * min(x)
-   xMax <- 1.05 * max(x)
-   maxYHigh <- max(yHigh) + 0.1
-   minYLow <- min(yLow, na.rm = TRUE) - 0.5
-   xTicks <- logPretty3(xMin, xMax)
-   numXTicks <- length(xTicks)
-   xLeft <- xTicks[1]
-   xRight <- xTicks[numXTicks]
-   ySpan <- c(minYLow, maxYHigh)
-   yTicks <- pretty(ySpan, n = 5)
-   numYTicks <- length(yTicks)
-   yBottom <- yTicks[1]
-   yTop <- yTicks[numYTicks]
-   xLab <- qUnit@qUnitExpress
-   yLab <- ifelse (stdResid, "Standardized Residual in natural log units", "Residual in natural log units")
+   #xMin <- 0.95 * min(x)
+   #xMax <- 1.05 * max(x)
+   #maxYHigh <- max(yHigh) + 0.1
+   #minYLow <- min(yLow, na.rm = TRUE) - 0.5
+   #xTicks <- logPretty3(xMin, xMax)
+   #numXTicks <- length(xTicks)
+   #xLeft <- xTicks[1]
+   #xRight <- xTicks[numXTicks]
+   #ySpan <- c(minYLow, maxYHigh)
+   #yTicks <- pretty(ySpan, n = 5)
+   #numYTicks <- length(yTicks)
+   #yBottom <- yTicks[1]
+   #yTop <- yTicks[numYTicks]
+   #xLab <- qUnit@qUnitExpress
+   if (tinyPlot){
+     xLab <- qUnit@qUnitTiny
+     yLab <- ifelse(stdResid, expression(paste("log"["e"],"(Std. Residual) units")), expression(paste("log"["e"],"(Residual) units")))   
+}
+   else {
+     xLab <- qUnit@qUnitExpress
+     yLab <- ifelse(stdResid, "Standardized Residual in natural log units", "Residual in natural log units")
+    }
    plotTitle <- ifelse (printTitle,  paste(localINFO$shortName, "\n", localINFO$paramShortName, 
            "\n", "Residual versus Discharge"), "")
    
    #######################
+   
+   xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, log=TRUE, tinyPlot=tinyPlot)
+   
+   yInfo <- generalAxis(x=yHigh, minVal=NA, maxVal=NA, tinyPlot=tinyPlot, min_offset=0.5, max_offset=0.1)
+
    genericEGRETDotPlot(x=x, y=yHigh,
-                       xTicks=xTicks, yTicks=yTicks,hLine=TRUE,
-                       xlim = c(xLeft, xRight), ylim = c(yBottom, yTop),
+                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,hLine=TRUE,
+                       xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
                        xlab = xLab, ylab = yLab, plotTitle=plotTitle,
-                       log = "x"
+                       log = "x",...
      )
    # Laura took out cex.lab = 1.0, cex = 0.4, 
 

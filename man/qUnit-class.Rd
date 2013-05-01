@@ -16,6 +16,9 @@
   \item{qUnitExpress}{An expression specifying the full
   name.}
 
+  \item{qUnitTiny}{An expression specifying the abbreviated
+  name.}
+
   \item{shortCode}{A number for quick lookup} }
 }
 

@@ -13,6 +13,7 @@
 #' @param tinyPlot logical variable, if TRUE plot is designed to be short and wide, default is FALSE.
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
+#' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
@@ -20,7 +21,9 @@
 #' Daily <- exDaily
 #' INFO <- exINFO
 #' plotConcTimeDaily(2001,2010)
-plotConcTimeDaily<-function(startYear, endYear, localSample = Sample, localDaily = Daily, localINFO = INFO, tinyPlot = FALSE, concMax = NA, printTitle = TRUE){
+plotConcTimeDaily<-function(startYear, endYear, localSample = Sample, 
+                            localDaily = Daily, localINFO = INFO, tinyPlot = FALSE, 
+                            concMax = NA, printTitle = TRUE,...){
   if(tinyPlot) par(mar=c(5,4,1,1)) else par(mar=c(5,4,4,2)+0.1)
   subSample<-subset(localSample,DecYear>=startYear)
   subSample<-subset(subSample,DecYear<=endYear)
@@ -28,52 +31,58 @@ plotConcTimeDaily<-function(startYear, endYear, localSample = Sample, localDaily
   subDaily<-subset(subDaily,DecYear<=endYear)
   xSample<-subSample$DecYear
   xDaily<-subDaily$DecYear
-  xLimits<-c(startYear,endYear)
-  xTicks<-pretty(xLimits,n=5)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
+  #xLimits<-c(startYear,endYear)
+  #xTicks<-pretty(xLimits,n=5)
+  #numXTicks<-length(xTicks)
+  #xLeft<-xTicks[1]
+  #xRight<-xTicks[numXTicks]
   yLow<-subSample$ConcLow
   yHigh<-subSample$ConcHigh
   Uncen<-subSample$Uncen
-  yAll<-c(subDaily$ConcDay,subSample$ConcHigh)
-  maxYHigh<-if(is.na(concMax)) 1.05*max(yAll) else concMax
-  yTicks<-yPretty(maxYHigh)
-  yTop<-yTicks[length(yTicks)]
+  #yAll<-c(subDaily$ConcDay,subSample$ConcHigh)
+  #maxYHigh<-if(is.na(concMax)) 1.05*max(yAll) else concMax
+  #yTicks<-yPretty(maxYHigh)
+  #yTop<-yTicks[length(yTicks)]
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed and Estimated Concentration versus Time") else ""
   
   ###################################
   
+  if (tinyPlot) {
+    yLab = "Conc. (mg/L)"
+  }
+  else {
+    yLab = "Concentration in mg/L"
+  }
   yBottom <- 0 #Not specified within script, added under assumption that it's always zero based on ylim definition in this function
   
-  genericEGRETDotPlot(x=xSample, y=yHigh, xTicks=xTicks, yTicks=yTicks,
-                   xlim=c(xLeft,xRight), ylim=c(0,yTop),
-                   ylab="Concentration in mg/L",plotTitle=plotTitle
-    )
+  xInfo <- generalAxis(x=xLimits, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot)
   
-#   plot(xSample,yHigh,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="Concentration in mg/L",main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)
-#   axis(1,tcl=0.5,at=xTicks,labels=xTicks)
-#   axis(2,tcl=0.5,las=1,at=yTicks)
-#   axis(3,tcl=0.5,at=xTicks,labels=FALSE)
-#   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
+  yInfo <- generalAxis(x=yHigh, minVal=0, maxVal=concMax, tinyPlot=tinyPlot)
   
-  par(new=TRUE)
-  genericEGRETDotPlot(x=xDaily, y=subDaily$ConcDay, 
-                      xTicks=xTicks, yTicks=yTicks,
-                   xlim=c(xLeft,xRight), ylim=c(0,yTop),
-                   type="l"
-    )  
+  genericEGRETDotPlot(x=xSample, y=yHigh, xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+                      xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
+                      ylab=yLab,plotTitle=plotTitle, ...
+  )
   
-#   plot(xDaily,subDaily$ConcDay,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="",main="",type="l",cex.main=1.3,font.main=2,cex.lab=1.2)
-#   box()
-  censoredSegments(yBottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen
-    )
+  #   plot(xSample,yHigh,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="Concentration in mg/L",main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)
+  #   axis(1,tcl=0.5,at=xTicks,labels=xTicks)
+  #   axis(2,tcl=0.5,las=1,at=yTicks)
+  #   axis(3,tcl=0.5,at=xTicks,labels=FALSE)
+  #   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
   
-#   yLowVal<-ifelse(is.na(yLow),0,yLow)
-#   numSamples<-length(xSample)
-#   uncensoredIndex <- 1:numSamples
-#   uncensoredIndex <- uncensoredIndex[Uncen==0]
-#   segments(xSample[uncensoredIndex],yLowVal[uncensoredIndex],xSample[uncensoredIndex],yHigh[uncensoredIndex])
+  #par(new=TRUE)
+  lines(x=xDaily, y=subDaily$ConcDay, type="l")
+
+  #   plot(xDaily,subDaily$ConcDay,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="",main="",type="l",cex.main=1.3,font.main=2,cex.lab=1.2)
+  #   box()
+  censoredSegments(yInfo$bottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen
+  )
+  
+  #   yLowVal<-ifelse(is.na(yLow),0,yLow)
+  #   numSamples<-length(xSample)
+  #   uncensoredIndex <- 1:numSamples
+  #   uncensoredIndex <- uncensoredIndex[Uncen==0]
+  #   segments(xSample[uncensoredIndex],yLowVal[uncensoredIndex],xSample[uncensoredIndex],yHigh[uncensoredIndex])
   
   par(mar=c(5,4,4,2)+0.1)
 }

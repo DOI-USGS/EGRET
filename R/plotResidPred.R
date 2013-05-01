@@ -10,13 +10,15 @@
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords water-quality statistics graphics
 #' @export
 #' @examples
 #' Sample <- exSample
 #' INFO <- exINFO
 #' plotResidPred()
-plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, tinyPlot = FALSE, printTitle = TRUE){
+plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, 
+                        tinyPlot = FALSE, printTitle = TRUE, ...){
   # this function shows residual versus estimated in log space
   # estimated log concentration on the x-axis (these are prior to bias correction), 
   # observed log concentration on y-axis 
@@ -30,30 +32,44 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   yLow<-if(stdResid) yLow/localSample$SE else yLow
   yHigh<-if(stdResid) yHigh/localSample$SE else yHigh
   Uncen<-localSample$Uncen
-  xMin<-0.95*min(x)
-  xMax<-1.05*max(x)
-  maxYHigh<-max(yHigh) + 0.1
-  minYLow<-min(yLow,na.rm=TRUE) - 0.5
-  xTicks<-logPretty3(xMin,xMax)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
-  ySpan<-c(minYLow,maxYHigh)
-  yTicks<-pretty(ySpan,n=5)
-  numYTicks<-length(yTicks)
-  yBottom<-yTicks[1]
-  yTop<-yTicks[numYTicks]
+  #xMin<-0.95*min(x)
+  #xMax<-1.05*max(x)
+  #maxYHigh<-max(yHigh) + 0.1
+  #minYLow<-min(yLow,na.rm=TRUE) - 0.5
+  #xTicks<-logPretty3(xMin,xMax)
+  #numXTicks<-length(xTicks)
+  #xLeft<-xTicks[1]
+  #xRight<-xTicks[numXTicks]
+  #ySpan<-c(minYLow,maxYHigh)
+  #yTicks<-pretty(ySpan,n=5)
+  #numYTicks<-length(yTicks)
+  #yBottom<-yTicks[1]
+  #yTop<-yTicks[numYTicks]
   xLab<-"Estimated Concentration in mg/L"
-  yLab<-if(stdResid) "Standardized Residual in natural log units" else "Residual in natural log units" 
+  
+  if (tinyPlot){
+    xLab <- "Est. Conc. (mg/L)"
+    yLab <- if(stdResid) expression(paste("log"["e"],"(Std. Residual) units")) else expression(paste("log"["e"],"(Residual) units"))
+  }
+  else {
+    xLab<-"Estimated Concentration in mg/L"
+    yLab<-if(stdResid) "Standardized Residual in natural log units" else "Residual in natural log units"
+  }
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Residual versus Estimated Concentration") else ""
   
   ####################
+  
+  xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, log=TRUE, tinyPlot=tinyPlot)
+  
+  yInfo <- generalAxis(x=yHigh, minVal=NA, maxVal=NA, tinyPlot=tinyPlot, max_offset=0.1, min_offset=0.5)
+
   genericEGRETDotPlot(x=x, y=yHigh,
-                      xTicks=xTicks, yTicks=yTicks,
-                      xlim=c(xLeft,xRight), ylim=c(yBottom,yTop),
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+                      xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xLab, ylab=yLab, plotTitle=plotTitle,
-                      log="x",hLine=TRUE
+                      log="x",hLine=TRUE,...
     )
+
   
 #   plot(log(x,10),yHigh,axes=FALSE,xlim=c(log(xLeft,10),log(xRight,10)),xaxs="i",xlab=xLab,ylim=c(yBottom,yTop),yaxs="i",ylab=yLab,main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)
 #   axis(1,tcl=0.5,at=log(xTicks,10),labels=xTicks)
@@ -61,7 +77,7 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
 #   axis(3,tcl=0.5,at=log(xTicks,10),labels=FALSE)
 #   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
 #   box()
-  censoredSegments(yBottom, yLow, yHigh, x, Uncen
+  censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen
     )
 #   yLowVal<-ifelse(is.na(yLow),yBottom,yLow)
 #   numSamples<-length(x)

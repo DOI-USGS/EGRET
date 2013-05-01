@@ -16,8 +16,14 @@
   \item{unitExpress}{An expression specifying the full name
   starting with Observed.}
 
+  \item{unitExpressTiny}{An expression specifying the
+  abbreviated name starting with Observed.}
+
   \item{unitEstimate}{An expression specifying the full
   name starting with Estimated.}
+
+  \item{unitEstimateTiny}{An expression specifying the
+  abbreviated name starting with Estimated.}
 
   \item{shortCode}{A number for quick lookup} }
 }

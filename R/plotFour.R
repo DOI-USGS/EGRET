@@ -15,6 +15,7 @@
 #' @param cex number
 #' @param cex.lab number
 #' @param cex.axis number
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow statistics
 #' @export
 #' @examples
@@ -24,7 +25,7 @@
 #' plotFour(window=2)
 plotFour<-function (localINFO = INFO, localAnnualSeries = annualSeries, localDaily = Daily, 
                     yearStart = NA, yearEnd = NA, printTitle = TRUE, runoff = FALSE, 
-                    qUnit = 1, window=15,  cex = 0.6, cex.lab = 1.4, cex.axis = 1.2) 
+                    qUnit = 1, window=15,  cex = 0.6, cex.lab = 1.4, cex.axis = 1.2, ...) 
 {
   
   
@@ -43,19 +44,19 @@ plotFour<-function (localINFO = INFO, localAnnualSeries = annualSeries, localDai
   plotFlowSingle(istat = 8, yearStart = setYearStart, yearEnd = setYearEnd, 
                  localAnnualSeries = localAnnualSeries, localINFO = localINFO, 
                  tinyPlot = TRUE, runoff = runoff, qUnit = qUnit, printPA = FALSE, 
-                 printIstat = TRUE, printStaName = FALSE,cex=cex, cex.lab = cex.lab, cex.axis = cex.axis)
+                 printIstat = TRUE, printStaName = FALSE,cex=cex, cex.lab = cex.lab, cex.axis = cex.axis, ...)
   plotFlowSingle(istat = 2, yearStart = setYearStart, yearEnd = setYearEnd, 
                  localAnnualSeries = localAnnualSeries, localINFO = localINFO, 
                  tinyPlot = TRUE, runoff = runoff, qUnit = qUnit, printPA = FALSE, 
-                 printIstat = TRUE, printStaName = FALSE,cex=cex, cex.lab = cex.lab, cex.axis = cex.axis)
+                 printIstat = TRUE, printStaName = FALSE,cex=cex, cex.lab = cex.lab, cex.axis = cex.axis, ...)
   plotFlowSingle(istat = 5, yearStart = setYearStart, yearEnd = setYearEnd, 
                  localAnnualSeries = localAnnualSeries, localINFO = localINFO, 
                  tinyPlot = TRUE, runoff = runoff, qUnit = qUnit, printPA = FALSE, 
-                 printIstat = TRUE, printStaName = FALSE,cex=cex, cex.lab = cex.lab, cex.axis = cex.axis)
+                 printIstat = TRUE, printStaName = FALSE,cex=cex, cex.lab = cex.lab, cex.axis = cex.axis, ...)
   plotSDLogQ(yearStart = setYearStart, yearEnd = setYearEnd, window = window, 
              localDaily = localDaily, localINFO = localINFO, 
              tinyPlot = TRUE, printPA = FALSE,  
-             printStaName = FALSE)
+             printStaName = FALSE, ...)
   
   textPA <- setSeasonLabelByUser(paStartInput = localINFO$paStart, 
                                  paLongInput = localINFO$paLong)

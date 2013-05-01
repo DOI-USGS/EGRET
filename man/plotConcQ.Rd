@@ -4,7 +4,7 @@
 \usage{
   plotConcQ(localSample = Sample, localINFO = INFO,
     qUnit = 2, tinyPlot = FALSE, concMax = NA,
-    printTitle = TRUE)
+    printTitle = TRUE, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -29,6 +29,10 @@
   \item{printTitle}{logical variable if TRUE title is
   printed, if FALSE title is not printed (this is best for
   a multi-plot figure)}
+
+  \item{\dots}{arbitrary graphical parameters that will be
+  passed to genericEGRETDotPlot function (see ?par for
+  options)}
 }
 \description{
   Data come from a data frame named Sample which contains

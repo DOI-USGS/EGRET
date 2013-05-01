@@ -13,6 +13,7 @@
 #' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param fluxUnit object of fluxUnit class. \code{\link{fluxConst}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param moreTitle string specifying some additional information to go in figure title, typically some information about the specific estimation method used, default is no additional information
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
@@ -22,24 +23,23 @@
 #' 
 #' fluxBiasMulti(fluxUnit = 9,moreTitle="WRTDS")
 fluxBiasMulti<-function (localSample = Sample, localDaily = Daily, 
-                         localINFO = INFO, qUnit = 2, fluxUnit = 3, moreTitle = "") 
+                         localINFO = INFO, qUnit = 2, fluxUnit = 3, moreTitle = "",...) 
 {
   layout(rbind(c(1, 2), c(3, 4), c(5, 6)), heights = c(1, 1), 
          width = c(1.5, 1.5), respect = rbind(c(0, 0), c(0, 0), 
                                               c(0, 0)))
   par(oma = c(0, 6.8, 4, 6.8))
   plotLogConcQ(localSample = localSample, localINFO = localINFO, 
-               qUnit, tinyPlot = TRUE, printTitle = FALSE)
-  plotResidQ(localSample = localSample, localINFO = localINFO, qUnit,tinyPlot=TRUE,printTitle=FALSE)
+               qUnit, tinyPlot = TRUE, printTitle = FALSE,...)
+  plotResidQ(localSample = localSample, localINFO = localINFO, qUnit,tinyPlot=TRUE,printTitle=FALSE, ...)
   plotLogConcPred(localSample = localSample, localINFO = localINFO, 
-                  tinyPlot = TRUE, printTitle = FALSE)
+                  tinyPlot = TRUE, printTitle = FALSE,...)
   plotResidPred(localSample = localSample, localINFO = localINFO, 
-                tinyPlot = TRUE, printTitle = FALSE)
-  
+                tinyPlot = TRUE, printTitle = FALSE,...)  
   plotFluxPred(localSample = localSample, localINFO = localINFO, 
-               fluxUnit, tinyPlot = TRUE, printTitle = FALSE)
+               fluxUnit, tinyPlot = TRUE, printTitle = FALSE,...)
   plotLogFluxPred(localSample = localSample, localINFO = localINFO, 
-                  fluxUnit, tinyPlot = TRUE, printTitle = FALSE)
+                  fluxUnit, tinyPlot = TRUE, printTitle = FALSE,...)
   
   fluxBias <- fluxBiasStat(localSample = localSample)
   fB <- as.numeric(fluxBias[3])
