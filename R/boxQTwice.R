@@ -10,6 +10,10 @@
 #' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
+#' @param font.main font to be used for plot main titles
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
@@ -19,7 +23,9 @@
 #' boxQTwice()
 #' boxQTwice(qUnit=1)
 #' boxQTwice(qUnit='cfs')
-boxQTwice<-function(localSample = Sample, localDaily = Daily, localINFO = INFO, printTitle = TRUE, qUnit = 2){
+boxQTwice<-function(localSample = Sample, localDaily = Daily, localINFO = INFO, 
+                    printTitle = TRUE, qUnit = 2, font.main=2, cex.main=1.0, 
+                    cex.axis=0.8, ...){
   # This function does two boxplots side by side
   # The first is for the discharges on the sampled days
   # The second is for the discharges on all of the days  
@@ -43,5 +49,6 @@ boxQTwice<-function(localSample = Sample, localDaily = Daily, localINFO = INFO, 
   yLab<-paste("Discharge in",qUnit@qUnitName)
   groupNames<-c("Sampled Days","All Days")
   plotTitle<-if(printTitle) paste(localINFO$shortName,",",localINFO$paramShortName,"\nComparison of distribution of\nSampled Discharges and All Daily Discharges") else ""
-  boxplot(bigQ~index,log="y",varwidth=TRUE,names=groupNames,xlab="",ylab=yLab,main=plotTitle,font.main=2,cex.main=1.0,cex.axis=0.8)
+  boxplot(bigQ~index,log="y",varwidth=TRUE,names=groupNames,xlab="",ylab=yLab,
+          main=plotTitle,font.main=font.main,cex.main=cex.main,cex.axis=cex.axis, ...)
 }

@@ -20,6 +20,7 @@
 #' @param vert2 numeric, the location in time for a black vertical line on the figure, yearStart<vert2<yearEnd, default is NA (vertical line is not drawn)
 #' @param horiz numeric, the location in discharge for a black horizontal line on the figure, qBottom<vert1<qTop, default is NA (no horizontal line is drawn)
 #' @param flowDuration logical variable if TRUE plot the flow duration lines, if FALSE do not plot them, default = TRUE
+#' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords water-quality statistics graphics
 #' @export
 #' @examples 
@@ -35,7 +36,8 @@
 plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 3, 
                             localsurfaces = surfaces, localINFO = INFO, localDaily = Daily, 
                             qUnit = 2, span = 60, pval = 0.05, printTitle = TRUE, 
-                            vert1 = NA, vert2 = NA, horiz = NA, flowDuration = TRUE) 
+                            vert1 = NA, vert2 = NA, horiz = NA, flowDuration = TRUE, 
+                            ...) 
 {
   if (is.numeric(qUnit)) {
     qUnit <- qConst[shortCode = qUnit][[1]]
@@ -163,7 +165,7 @@ plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 
                    segments(v1[1], v1[2], v1[3], v1[4])
                    segments(v2[1], v2[2], v2[3], v2[4])
                    segments(h1[1], h1[2], h1[3], h1[4])
-                 })
+                 }, ...)
   par(oma = c(0, 0, 0, 0))
   par(mar = c(5, 4, 4, 2) + 0.1)
 }

@@ -3,6 +3,7 @@ library(EGRET)
 Sample <- exSample
 Daily <- exDaily
 INFO <- exINFO
+annualSeries <- exannualSeries
 AnnualResults <- setupYears()
 surfaces <- exsurfaces
 qBottom<-0.1

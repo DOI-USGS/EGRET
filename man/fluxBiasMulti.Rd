@@ -4,7 +4,7 @@
 \usage{
   fluxBiasMulti(localSample = Sample, localDaily = Daily,
     localINFO = INFO, qUnit = 2, fluxUnit = 3,
-    moreTitle = "")
+    moreTitle = "", ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -29,6 +29,10 @@
   information to go in figure title, typically some
   information about the specific estimation method used,
   default is no additional information}
+
+  \item{\dots}{arbitrary graphical parameters that will be
+  passed to genericEGRETDotPlot function (see ?par for
+  options)}
 }
 \description{
   These plots use the jack-knife estimates from WRTDS to

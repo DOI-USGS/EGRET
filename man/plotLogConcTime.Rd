@@ -59,7 +59,7 @@
   printed, if FALSE not printed (this is best for a
   multi-plot figure)}
 
-  \item{...}{arbitrary functions sent to the generic
+  \item{\dots}{arbitrary functions sent to the generic
   plotting function.  See ?par for details on possible
   parameters}
 }

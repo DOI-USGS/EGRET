@@ -5,7 +5,7 @@
   plotConcTimeDaily(startYear, endYear,
     localSample = Sample, localDaily = Daily,
     localINFO = INFO, tinyPlot = FALSE, concMax = NA,
-    printTitle = TRUE)
+    printTitle = TRUE, ...)
 }
 \arguments{
   \item{startYear}{numeric specifying the starting date
@@ -35,6 +35,10 @@
   \item{printTitle}{logical variable if TRUE title is
   printed, if FALSE title is not printed (this is best for
   a multi-plot figure)}
+
+  \item{\dots}{arbitrary functions sent to the generic
+  plotting function.  See ?par for details on possible
+  parameters}
 }
 \description{
   This plot is useful for visual examination of the ability

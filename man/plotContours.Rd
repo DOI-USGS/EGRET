@@ -7,7 +7,7 @@
     localINFO = INFO, localDaily = Daily, qUnit = 2,
     contourLevels = NA, span = 60, pval = 0.05,
     printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA,
-    flowDuration = TRUE)
+    flowDuration = TRUE, ...)
 }
 \arguments{
   \item{yearStart}{numeric value for the starting date for
@@ -72,6 +72,10 @@
   \item{horiz}{numeric, the location in discharge for a
   black horizontal line on the figure, qBottom<vert1<qTop,
   default is NA (no horizontal line is drawn)}
+
+  \item{\dots}{arbitrary functions sent to the generic
+  plotting function.  See ?par for details on possible
+  parameters}
 
   \item{flowDuration}{logical variable if TRUE plot the
   flow duration lines, if FALSE do not plot them, default =

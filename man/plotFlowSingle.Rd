@@ -65,7 +65,7 @@
 
   \item{lwd}{number}
 
-  \item{...}{arbitrary graphical parameters that will be
+  \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for
   options)}
 }
@@ -79,7 +79,6 @@
 \examples{
 INFO <- exINFO
 annualSeries <- exannualSeries
-plotFlowSingle(8,cex=0.7,lwd=1)
 }
 \keyword{graphics}
 \keyword{statistics}
