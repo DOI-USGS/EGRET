@@ -10,8 +10,12 @@
 #'    \item{unitName}{A character specifying the full name.}
 #' 
 #'    \item{unitExpress}{An expression specifying the full name starting with Observed.}
+#'    
+#'    \item{unitExpressTiny}{An expression specifying the abbreviated name starting with Observed.}
 #'
 #'    \item{unitEstimate}{An expression specifying the full name starting with Estimated.}
+#'    
+#'    \item{unitEstimateTiny}{An expression specifying the abbreviated name starting with Estimated.}
 #'
 #'    \item{shortCode}{A number for quick lookup}
 #'  }
@@ -24,7 +28,9 @@ setClass("fluxUnit",
 		unitFactor   = "numeric",
 		unitName     = "character",
     unitExpress  = "expression",
+		unitExpressTiny = "expression",
     unitEstimate = "expression",
+		unitEstimateTiny = "expression",
     shortCode    = "numeric"
 	)	
 )
@@ -41,6 +47,8 @@ setClass("fluxUnit",
 #'    \item{qUnitName}{A character specifying the full name.}
 #' 
 #'    \item{qUnitExpress}{An expression specifying the full name.}
+#'    
+#'    \item{qUnitTiny}{An expression specifying the abbreviated name.}
 #'
 #'    \item{shortCode}{A number for quick lookup}
 #'  }
@@ -53,6 +61,7 @@ setClass("qUnit",
 		qUnitFactor  = "numeric",
 		qUnitName    = "character",
     qUnitExpress = "expression",
+    qUnitTiny = "expression",
     shortCode    = "numeric"
 	)	
 )

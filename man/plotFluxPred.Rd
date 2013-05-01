@@ -4,7 +4,7 @@
 \usage{
   plotFluxPred(localSample = Sample, localINFO = INFO,
     fluxUnit = 3, fluxMax = NA, tinyPlot = FALSE,
-    printTitle = TRUE, ...)
+    printTitle = TRUE, oneToOneLine = FALSE, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -29,7 +29,9 @@
   printed, if FALSE not printed (this is best for a
   multi-plot figure)}
 
-  \item{...}{arbitrary graphical parameters that will be
+  \item{oneToOneLine}{inserts 1:1 line}
+
+  \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for
   options)}
 }

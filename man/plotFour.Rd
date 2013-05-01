@@ -6,7 +6,7 @@
     localAnnualSeries = annualSeries, localDaily = Daily,
     yearStart = NA, yearEnd = NA, printTitle = TRUE,
     runoff = FALSE, qUnit = 1, window = 15, cex = 0.6,
-    cex.lab = 1.4, cex.axis = 1.2)
+    cex.lab = 1.4, cex.axis = 1.2, ...)
 }
 \arguments{
   \item{localINFO}{string specifying the name of the data
@@ -46,6 +46,10 @@
   \item{cex.lab}{number}
 
   \item{cex.axis}{number}
+
+  \item{\dots}{arbitrary graphical parameters that will be
+  passed to genericEGRETDotPlot function (see ?par for
+  options)}
 }
 \description{
   Part of the flowHistory system.  The four statistics are

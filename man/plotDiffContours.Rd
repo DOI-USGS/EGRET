@@ -6,7 +6,7 @@
     whatSurface = 3, localsurfaces = surfaces,
     localINFO = INFO, localDaily = Daily, qUnit = 2,
     span = 60, pval = 0.05, printTitle = TRUE, vert1 = NA,
-    vert2 = NA, horiz = NA, flowDuration = TRUE)
+    vert2 = NA, horiz = NA, flowDuration = TRUE, ...)
 }
 \arguments{
   \item{year0}{numeric value for the calendar year that is
@@ -75,6 +75,10 @@
   \item{flowDuration}{logical variable if TRUE plot the
   flow duration lines, if FALSE do not plot them, default =
   TRUE}
+
+  \item{\dots}{arbitrary functions sent to the generic
+  plotting function.  See ?par for details on possible
+  parameters}
 }
 \description{
   These plots are normally used for plotting changes in the

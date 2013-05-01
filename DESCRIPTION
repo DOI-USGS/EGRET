@@ -91,6 +91,7 @@ Collate:
     'censoredSegments.R'
     'concentrationAxis.R'
     'generalAxis.R'
+    'dischargeLogAxis.R'
 Depends:
     R (>= 2.13.0)
 Imports:

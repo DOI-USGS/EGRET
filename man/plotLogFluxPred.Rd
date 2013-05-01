@@ -4,7 +4,7 @@
 \usage{
   plotLogFluxPred(localSample = Sample, localINFO = INFO,
     fluxUnit = 3, fluxMax = NA, tinyPlot = TRUE,
-    printTitle = TRUE)
+    printTitle = TRUE, oneToOneLine = TRUE, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -28,6 +28,12 @@
   \item{printTitle}{logical variable if TRUE title is
   printed, if FALSE not printed (this is best for a
   multi-plot figure)}
+
+  \item{oneToOneLine}{inserts 1:1 line}
+
+  \item{\dots}{arbitrary graphical parameters that will be
+  passed to genericEGRETDotPlot function (see ?par for
+  options)}
 }
 \description{
   Concentration data come from a data frame named Sample

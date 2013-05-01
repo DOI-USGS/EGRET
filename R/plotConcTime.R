@@ -20,7 +20,8 @@
 #' @param concMin number specifying the minimum value to be used on the vertical axis, only appropriate for log scale.  
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
 #' @param logScale string, default "", "y" indicates y axis is in log scale, "xy" indicates both x and y in log scale, "x" is only x
-#' @param ... arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
@@ -30,7 +31,8 @@
 #' plotConcTime()
 plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2, 
                        qLower = NA, qUpper = NA, paLong = 12, paStart = 10, 
-                       tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale="", ...){
+                       tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale="", 
+                       cex.main=1,...){
   # this function shows the sample data,
   # time on x-axis, concentration on y-axis
   ################################################################################
@@ -89,41 +91,54 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   yLow<-subSample$ConcLow
   yHigh<-subSample$ConcHigh
   Uncen<-subSample$Uncen
-  numSamples<-length(subSample$Q)
+  #numSamples<-length(subSample$Q)
   x<-subSample$DecYear
-  xMin<-x[1]
-  xMax<-x[numSamples]
-  yearSpan<-c(xMin,xMax)
-  nXTicks<-if(tinyPlot) 5 else 8 
-  xTicks<-pretty(yearSpan,n=nXTicks)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
-  maxYHigh<-if(is.na(concMax)) 1.05*max(yHigh) else concMax
+  #xMin<-x[1]
+  #xMax<-x[numSamples]
+  #yearSpan<-c(xMin,xMax)
+  #nXTicks<-if(tinyPlot) 5 else 8 
+  #xTicks<-pretty(yearSpan,n=nXTicks)
+  #numXTicks<-length(xTicks)
+  #xLeft<-xTicks[1]
+  #xRight<-xTicks[numXTicks]
+  #maxYHigh<-if(is.na(concMax)) 1.05*max(yHigh) else concMax
   
   #########################################################
   if (logScale=="y"){
-    minYLow<-if(is.na(concMin)) 0.95*min(subSample$ConcAve) else concMin  #Unique to log
-    yTicks<-logPretty3(minYLow,maxYHigh)
-    numYTicks<-length(yTicks)
-    yBottom<-yTicks[1]
+    minYLow <- concMin
+    #minYLow<-if(is.na(concMin)) 0.95*min(subSample$ConcAve) else concMin  #Unique to log
+    #yTicks<-logPretty3(minYLow,maxYHigh)
+    #numYTicks<-length(yTicks)
+    #yBottom<-yTicks[1]
+    log_state <- TRUE
   } else {
-    yTicks<-yPretty(maxYHigh)
-    yBottom <- 0
+    #yTicks<-yPretty(maxYHigh)
+    log_state <- FALSE
+    minYLow <- 0
+    #yBottom <- 0
   }
   
   #########################################################
-  yTop<-yTicks[length(yTicks)]
+  #yTop<-yTicks[length(yTicks)]
   plotTitle<-if(printTitle) paste(localINFO$shortName,",",localINFO$paramShortName,title2,title3) else ""
-  yLab="Concentration in mg/L"
+  
+  if (tinyPlot) {
+    yLab <- "Conc. (mg/L)"
+  }
+  else {
+    yLab="Concentration in mg/L"
+  }
+  xInfo <- generalAxis(x=x, minVal=min(x), maxVal=max(x), tinyPlot=tinyPlot)
+  
+  yInfo <- generalAxis(x=yHigh, minVal=minYLow, maxVal=concMax, log=log_state, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=yHigh, 
-                      xlim=c(xLeft,xRight), ylim=c(yBottom,yTop),
+                      xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab="", ylab=yLab,
-                      xTicks=xTicks, yTicks=yTicks,cex.main=1,
-                      plotTitle=plotTitle, mar=mar, log=logScale
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,cex.main=cex.main,
+                      plotTitle=plotTitle, mar=mar, log=logScale,...
   )
-  censoredSegments(yBottom=yBottom,yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
+  censoredSegments(yBottom=yInfo$ticks[1],yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
   par(mar = c(5,6,5,2))
 #   plot(x,yHigh,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="Concentration in mg/L",main=plotTitle,pch=20,cex=0.7,cex.main=1.0,font.main=2,cex.lab=1.2)
 #   axis(1,tcl=0.5,at=xTicks,labels=xTicks)

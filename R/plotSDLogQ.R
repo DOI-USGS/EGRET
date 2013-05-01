@@ -16,6 +16,11 @@
 #' @param tinyPlot logical variable if TRUE plot is designed to be small, if FALSE it is designed for page size, default is FALSE (not fully implemented yet)
 #' @param printStaName logical variable, if TRUE print the station name, if FALSE do not, default is TRUE
 #' @param printPA logical variable, if TRUE print the period of analysis information in the plot title, if FALSE leave it out, default is TRUE
+#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
+#' @param lwd line width, a positive number, defaulting to 1
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow statistics
 #' @export
 #' @examples
@@ -24,7 +29,8 @@
 #' plotSDLogQ(window=3,printTitle=FALSE)  
 plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
                      localINFO=INFO,sdMax=NA,printTitle = TRUE, tinyPlot = FALSE, 
-                     printStaName = TRUE, printPA = TRUE){
+                     printStaName = TRUE, printPA = TRUE, cex=0.8,
+                     cex.main=1.1,cex.axis = 1.1,lwd=2, ...){
   par(mar = c(5,6,5,2))
 #   par(mar =  c(3,2,5,1))
 #   if(!tinyPlot) par(pty="s")
@@ -46,31 +52,34 @@ plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
     y[i]<-sd(smallDaily$LogQ,na.rm=TRUE)
   }
   yTop<-if(is.na(sdMax)) 1.05*max(y)
-  yTicks<-yPretty(yTop)
-  numYTicks<-length(yTicks)
-  yTop<-yTicks[numYTicks]
+  #yTicks<-yPretty(yTop)
+  #numYTicks<-length(yTicks)
+  #yTop<-yTicks[numYTicks]
   xMin<-if(is.na(yearStart)) startDec else yearStart
   xMax<-if(is.na(yearEnd)) endDec else yearEnd
-  nTicks <- if (tinyPlot) 5 else 8
-  yearSpan<-c(xMin,xMax)
-  xTicks<- pretty(yearSpan,n = nTicks)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
+  #nTicks <- if (tinyPlot) 5 else 8
+  #yearSpan<-c(xMin,xMax)
+  #xTicks<- pretty(yearSpan,n = nTicks)
+  #numXTicks<-length(xTicks)
+  #xLeft<-xTicks[1]
+  #xRight<-xTicks[numXTicks]
   line1<-if(printStaName) localINFO$shortName else ""
   line2<-if(printPA) paste("\n",setSeasonLabelByUser(paStartInput = localINFO$paStart, paLongInput = localINFO$paLong)) else ""
   line3<-"\nDischarge variability: Standard Deviation of Log(Q)" 
   title<-if(printTitle) paste(line1,line2,line3) else ""
   
   ##############################################
-  genericEGRETDotPlot(x=xmid,y=y,
-                      xlim=c(xLeft,xRight),ylim=c(0,yTop),
-                      xlab="",ylab="Dimensionless",
-                      xTicks=xTicks,yTicks=yTicks,cex=0.8,
-                      plotTitle=title,cex.main=1.1,cex.axis = 1.1,
-                      type="l",lwd=2
-  )
   
+  xInfo <- generalAxis(x=xmid, minVal=yearStart, maxVal=yearEnd, tinyPlot=tinyPlot, year_search=TRUE)
+  yInfo <- generalAxis(x=y, minVal=0, maxVal=yTop, tinyPlot=tinyPlot)
+
+  genericEGRETDotPlot(x=xmid,y=y,
+                      xlim=c(xInfo$bottom,xInfo$top),ylim=c(yInfo$bottom,yInfo$top),
+                      xlab="",ylab="Dimensionless",
+                      xTicks=xInfo$ticks,yTicks=yInfo$ticks,cex=cex,
+                      plotTitle=title, cex.main=cex.main, cex.axis = cex.axis,
+                      type="l", lwd=lwd, ...
+  )
   
 #   plot(xmid,y,type="l",ylim=c(0,yTop),yaxs="i",lwd=2,xlim=c(xLeft,xRight),xaxs="i",main=title,xlab="",ylab="Dimensionless",axes=FALSE,cex=0.8,cex.main=1.1,cex.lab=1.2,font=2)
 #   axis(1, tcl = 0.5, at = xTicks, labels = xTicks)

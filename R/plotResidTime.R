@@ -8,13 +8,16 @@
 #' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
+#' @param hLine inserts horizontal line at zero
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
 #' Sample <- exSample
 #' INFO <- exINFO
 #' plotResidTime()
-plotResidTime<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, printTitle = TRUE){
+plotResidTime<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, 
+                        printTitle = TRUE, hLine=TRUE, ...){
   # this function shows residual versus Time
   # Time on the x-axis , 
   # residual on y-axis 
@@ -29,41 +32,43 @@ plotResidTime<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   Uncen<-localSample$Uncen
   xMin<-min(x) - 0.2
   xMax<-max(x) + 0.2
-  maxYHigh<-max(yHigh) + 0.1
-  minYLow<-min(yLow,na.rm=TRUE) - 0.5
-  xSpan<-c(xMin,xMax)
-  xTicks<-pretty(xSpan,n=9)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
-  ySpan<-c(minYLow,maxYHigh)
-  yTicks<-pretty(ySpan,n=5)
-  numYTicks<-length(yTicks)
-  yBottom<-yTicks[1]
-  yTop<-yTicks[numYTicks]
+  #maxYHigh<-max(yHigh) + 0.1
+  #minYLow<-min(yLow,na.rm=TRUE) - 0.5
+  #xSpan<-c(xMin,xMax)
+  #xTicks<-pretty(xSpan,n=9)
+  #numXTicks<-length(xTicks)
+  #xLeft<-xTicks[1]
+  #xRight<-xTicks[numXTicks]
+  #ySpan<-c(minYLow,maxYHigh)
+  #yTicks<-pretty(ySpan,n=5)
+  #numYTicks<-length(yTicks)
+  #yBottom<-yTicks[1]
+  #yTop<-yTicks[numYTicks]
   xLab<-paste("")
   yLab<-if(stdResid) "Standardized Residual in natural log units" else "Residual in natural log units" 
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Residual versus Time") else ""
   
+  yInfo <- generalAxis(x=yHigh, maxVal=NA, minVal=NA)
+  xInfo <- generalAxis(x=x, maxVal=xMax, minVal=xMin)
   ##########################
   genericEGRETDotPlot(x=x, y=yHigh,
-                      xTicks=xTicks, yTicks=yTicks,
-                      xlim=c(xLeft,xRight), ylim=c(yBottom,yTop),
-                      xlab=xLab, ylab=yLab, plotTitle=plotTitle, hLine=TRUE
-    )
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+                      xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom, yInfo$top),
+                      xlab=xLab, ylab=yLab, plotTitle=plotTitle, hLine=hLine, ...
+  )
   
-#   plot(x,yHigh,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab=xLab,ylim=c(yBottom,yTop),yaxs="i",ylab=yLab,main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)
-#   axis(1,tcl=0.5,at=xTicks,labels=xTicks)
-#   axis(2,tcl=0.5,las=1,at=yTicks,labels=yTicks)
-#   axis(3,tcl=0.5,at=xTicks,labels=FALSE)
-#   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
-#   box()
+  #   plot(x,yHigh,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab=xLab,ylim=c(yBottom,yTop),yaxs="i",ylab=yLab,main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)
+  #   axis(1,tcl=0.5,at=xTicks,labels=xTicks)
+  #   axis(2,tcl=0.5,las=1,at=yTicks,labels=yTicks)
+  #   axis(3,tcl=0.5,at=xTicks,labels=FALSE)
+  #   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
+  #   box()
   censoredSegments(yBottom, yLow, yHigh, x, Uncen
-    )
-#   yLowVal<-ifelse(is.na(yLow),yBottom,yLow)
-#   numSamples<-length(x)
-#   uncensoredIndex <- 1:numSamples
-#   uncensoredIndex <- uncensoredIndex[Uncen==0]
-#   segments(x[uncensoredIndex],yLowVal[uncensoredIndex],x[uncensoredIndex],yHigh[uncensoredIndex])
-#   abline(h=0)
+  )
+  #   yLowVal<-ifelse(is.na(yLow),yBottom,yLow)
+  #   numSamples<-length(x)
+  #   uncensoredIndex <- 1:numSamples
+  #   uncensoredIndex <- uncensoredIndex[Uncen==0]
+  #   segments(x[uncensoredIndex],yLowVal[uncensoredIndex],x[uncensoredIndex],yHigh[uncensoredIndex])
+  #   abline(h=0)
 }

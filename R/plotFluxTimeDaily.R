@@ -12,7 +12,7 @@
 #' @param fluxUnit number representing in pre-defined fluxUnit class array. \code{\link{fluxConst}}
 #' @param fluxMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
-#' @param ... arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
+#' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
@@ -42,20 +42,20 @@ plotFluxTimeDaily<-function (startYear, endYear, localSample = Sample, localDail
   subDaily <- subset(subDaily, DecYear <= endYear)
   xSample <- subSample$DecYear
   xDaily <- subDaily$DecYear
-  xLimits <- c(startYear, endYear)
-  xTicks <- pretty(xLimits, n = 5)
-  numXTicks <- length(xTicks)
-  xLeft <- xTicks[1]
-  xRight <- xTicks[numXTicks]
+  #xLimits <- c(startYear, endYear)
+  #xTicks <- pretty(xLimits, n = 5)
+  #numXTicks <- length(xTicks)
+  #xLeft <- xTicks[1]
+  #xRight <- xTicks[numXTicks]
   yLow <- subSample$ConcLow*subSample$Q*fluxFactor
   yHigh <- subSample$ConcHigh*subSample$Q*fluxFactor
   Uncen <- subSample$Uncen
-  yAll <- c(subDaily$ConcDay*subDaily$Q*fluxFactor, subSample$ConcHigh*subSample$Q*fluxFactor)
-  maxYHigh <- if (is.na(fluxMax)) 
-    1.05 * max(yAll)
-  else fluxMax
-  yTicks <- yPretty(maxYHigh)
-  yTop <- yTicks[length(yTicks)]
+  #yAll <- c(subDaily$ConcDay*subDaily$Q*fluxFactor, subSample$ConcHigh*subSample$Q*fluxFactor)
+  #maxYHigh <- if (is.na(fluxMax)) 
+  #  1.05 * max(yAll)
+  #else fluxMax
+  #yTicks <- yPretty(maxYHigh)
+  #yTop <- yTicks[length(yTicks)]
   plotTitle <- if (printTitle) 
     paste(localINFO$shortName, "\n", localINFO$paramShortName, 
           "\n", "Observed and Estimated Flux versus Time")
@@ -64,16 +64,28 @@ plotFluxTimeDaily<-function (startYear, endYear, localSample = Sample, localDail
   ###################################
   
   yBottom <- 0 #Not specified within script, added under assumption that it's always zero based on ylim definition in this function
+  
   par(mar = c(5,6,5,2))
+  
+  xInfo <- generalAxis(x=xSample, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yHigh, minVal=yBottom, maxVal=fluxMax, tinyPlot=tinyPlot)
+  
+  if (tinyPlot) {
+    yLab <- fluxUnit@unitExpressTiny
+  }
+  else {
+    yLab <- fluxUnit@unitExpress
+  }
+  
   genericEGRETDotPlot(x=xSample, y=yHigh,
-                      xlim = c(xLeft, xRight), ylim = c(0, yTop),
-                      xTicks=xTicks, yTicks=yTicks,
-                      ylab = fluxUnit@unitExpress,
+                      xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+                      ylab = yLab,
                       plotTitle=plotTitle, ...
     )
 
   lines(xDaily, subDaily$ConcDay*subDaily$Q*fluxFactor)
-  censoredSegments(yBottom=yBottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen)
+  censoredSegments(yBottom=yInfo$bottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen)
 
   par(mar = c(5, 4, 4, 2) + 0.1)
 }
