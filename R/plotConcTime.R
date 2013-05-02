@@ -130,7 +130,7 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   }
   xInfo <- generalAxis(x=x, minVal=min(x), maxVal=max(x), tinyPlot=tinyPlot)
   
-  yInfo <- generalAxis(x=yHigh, minVal=minYLow, maxVal=concMax, log=log_state, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yHigh, minVal=minYLow, maxVal=concMax, logScale=log_state, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=yHigh, 
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),

@@ -77,7 +77,7 @@ plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2,
    
    #######################
    
-   xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, log=TRUE, tinyPlot=tinyPlot)
+   xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot)
    
    yInfo <- generalAxis(x=yHigh, minVal=NA, maxVal=NA, tinyPlot=tinyPlot, min_offset=0.5, max_offset=0.1)
 

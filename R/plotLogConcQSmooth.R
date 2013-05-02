@@ -96,9 +96,9 @@ plotLogConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft 
   
   ######################
   
-  xInfo <- generalAxis(x=x, minVal=qLow, maxVal=qHigh, log=TRUE)
+  xInfo <- generalAxis(x=x, minVal=qLow, maxVal=qHigh, logScale=TRUE)
   
-  yInfo_n <- generalAxis(x=y[1,2,3,], minVal=min(y,na.rm=TRUE), maxVal=max(y,na.rm=TRUE), log=TRUE)
+  yInfo_n <- generalAxis(x=y[1,2,3,], minVal=min(y,na.rm=TRUE), maxVal=max(y,na.rm=TRUE), logScale=TRUE)
 
   genericEGRETDotPlot(x=x, y=y[1,],
                       xTicks=xInfo$ticks, yTicks=yInfo_n$ticks,

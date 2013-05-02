@@ -40,8 +40,7 @@ generalAxis <- function(x, maxVal, minVal,logScale=FALSE, tinyPlot=FALSE,padPerc
   if (year_search) {
     high <- if(is.na(maxVal)) {(max(x,na.rm=TRUE) + max_offset)} else {maxVal}
     low <- if(is.na(minVal)) {(min(x,na.rm=TRUE) - min_offset)} else {minVal}       
-  }
-  else {
+  } else {
     high <- if(is.na(maxVal)) {upperMagnification*(max(x,na.rm=TRUE) + max_offset)} else {maxVal}
     low <- if(is.na(minVal)) {lowerMagnification*(min(x,na.rm=TRUE) - min_offset)} else {minVal}
   }

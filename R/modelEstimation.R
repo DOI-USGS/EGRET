@@ -28,7 +28,7 @@ modelEstimation<-function(localDaily = Daily,localSample = Sample, localINFO = I
   #  all of the data frames are given their "standard" names
   #
   cat("\n first step running estCrossVal may take about 1 minute")
-  Sample1<-estCrossVal(SampleCrossV = localSample, windowY, windowQ, windowS, minNumObs, minNumUncen)
+  Sample1<-estCrossVal(localSample = localSample, windowY, windowQ, windowS, minNumObs, minNumUncen)
 #   cat("\n done with estCrossVal")
   surfaceIndexParameters<-surfaceIndex(localDaily = localDaily)
   localINFO$bottomLogQ<-surfaceIndexParameters[1]

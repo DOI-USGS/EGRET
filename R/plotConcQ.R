@@ -57,7 +57,7 @@ plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot 
   }
   mar<-c(5,4,4,2)+0.1
   
-  xInfo <- generalAxis(x=x, maxVal=max(x), minVal=min(x), log=TRUE, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=x, maxVal=max(x), minVal=min(x), logScale=TRUE, tinyPlot=tinyPlot)
 
   yInfo <- generalAxis(x=yHigh, maxVal=concMax, minVal=min(yHigh), tinyPlot=tinyPlot)
   

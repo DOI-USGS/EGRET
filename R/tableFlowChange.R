@@ -48,7 +48,7 @@ tableFlowChange<-function(istat, localAnnualSeries = annualSeries, localINFO = I
   qSmooth<-localAnnualSeries[3,istat,]
   qSmooth<-if(runoff) qSmooth*86.4/localINFO$drainSqKm else qSmooth*qFactor
   cat("\n  ",localINFO$shortName)
-  periodName<-setSeasonLabelByUser(paStart = localINFO$paStart, paLong = localINFO$paLong)
+  periodName<-setSeasonLabelByUser(paStartInput = localINFO$paStart, paLongInput = localINFO$paLong)
   cat("\n  ",periodName)
   nameIstat<-c("minimum day","7-day minimum","30-day minimum","median daily","mean daily","30-day maximum","7-day maximum",'maximum day')
   cat("\n   ",nameIstat[istat],"\n")

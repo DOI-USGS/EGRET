@@ -54,9 +54,9 @@ plotLogConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
 
   par(mar = c(5,6,5,2))
   
-  xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, log=TRUE, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot)
   
-  yInfo <- generalAxis(x=yHigh, minVal=NA, maxVal=concMax, log=TRUE, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yHigh, minVal=NA, maxVal=concMax, logScale=TRUE, tinyPlot=tinyPlot)
 
   if(tinyPlot) par(mar=c(5,4,1,1.5)) else par(mar=c(5,4,4,2)+0.1)
 
