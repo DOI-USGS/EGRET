@@ -39,24 +39,8 @@ plotConcHist<-function(yearStart = NA, yearEnd = NA, localAnnualResults = Annual
   # if you want to specify the maximum value, you can do so with the argument concMax, otherwise it will be automatic
 #   par(oma=c(3,0,3,0))
 #   par(mar=c(5,6,5,2))
-  numYears <- length(localAnnualResults$DecYear)
-  yearStart <- if(is.na(yearStart)) trunc(localAnnualResults$DecYear[1]) else yearStart
-  yearEnd <- if(is.na(yearEnd)) trunc(localAnnualResults$DecYear[numYears])+1 else yearEnd 
-  subAnnualResults<-subset(localAnnualResults,DecYear>=yearStart)
-  subAnnualResults<-subset(subAnnualResults,DecYear<=yearEnd)
-  annConc<-subAnnualResults$Conc
-  fnConc<-subAnnualResults$FNConc
-  #concMax<-if(is.na(concMax)) 1.05*max(annConc,na.rm=TRUE) else concMax
-  #xVals<-subAnnualResults$DecYear
-  #xMin<-yearStart
-  #xMax<-yearEnd
-  #yearSpan<-c(xMin,xMax)
-  #xTicks<-pretty(yearSpan,n=9)
-  #numXTicks<-length(xTicks)
-  #xLeft<-xTicks[1]
-  #xRight<-xTicks[numXTicks]
-  #yTicks<-yPretty(concMax)
-  #yTop<-yTicks[length(yTicks)]
+  
+  
   periodName<-setSeasonLabel(localAnnualResults=localAnnualResults)
   title3<-if(plotFlowNorm) "\nMean Concentration (dots) & Flow Normalized Concentration (line)" else "\nAnnual Mean Concentration"
   title<-if(printTitle) paste(localINFO$shortName," ",localINFO$paramShortName,"\n",periodName,title3) else ""
@@ -64,18 +48,21 @@ plotConcHist<-function(yearStart = NA, yearEnd = NA, localAnnualResults = Annual
   ##################
   par(mar = c(5,6,5,2))
   
-  xInfo <- generalAxis(x=subAnnualResults$DecYear, minVal=yearStart, maxVal=yearEnd)
+  xInfo <- generalAxis(x=localAnnualResults$DecYear, minVal=yearStart, maxVal=yearEnd)
   
-  yInfo <- generalAxis(x=annConc, minVal=0, maxVal=concMax)
+  yInfo <- generalAxis(x=localAnnualResults$Conc, minVal=0, maxVal=concMax, padPercent=5)
   
-  genericEGRETDotPlot(x=subAnnualResults$DecYear, y=annConc,
+  genericEGRETDotPlot(x=localAnnualResults$DecYear, y=localAnnualResults$Conc,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       ylab="Concentration in mg/L", 
                       plotTitle=title, cex.axis=cex.axis,cex.main=cex.main,...
     )
   
-  if(plotFlowNorm) lines(subAnnualResults$DecYear, fnConc, col="green", lwd=lwd)
+  if(plotFlowNorm) with(localAnnualResults, 
+                        lines(DecYear[DecYear>xInfo$bottom & DecYear<xInfo$top], 
+                              FNConc[DecYear>xInfo$bottom & DecYear<xInfo$top], 
+                              col="green", lwd=lwd))
 
 #   par(oma=c(0,0,0,0))
   par(mar=c(5,4,4,2)+0.1)	

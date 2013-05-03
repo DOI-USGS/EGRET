@@ -24,21 +24,12 @@ plotConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
   yLow<-localSample$ConcLow
   yHigh<-localSample$ConcHigh
   Uncen<-localSample$Uncen
-  #xMax<-1.05*max(x)
-  #maxYHigh<-if(is.na(concMax)) 1.05*max(yHigh) else concMax
-  #xTicks<-yPretty(xMax)
-  #numXTicks<-length(xTicks)
-  #xLeft<-xTicks[1]
-  #xRight<-xTicks[numXTicks]
-  #yTicks<-yPretty(maxYHigh)
-  #numYTicks<-length(yTicks)
-  #yBottom<-yTicks[1]
-  #yTop<-yTicks[numYTicks]
+
   xLab<-"Estimated Concentration in mg/L"
   yLab<-"Observed Concentration in mg/L"
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed versus Estimated Concentration") else ""
 
-  xInfo <- generalAxis(x=x, minVal=0, maxVal=max(x))
+  xInfo <- generalAxis(x=x, minVal=0, maxVal=concMax)
   
   yInfo <- generalAxis(x=yHigh, minVal=0, maxVal=concMax)
   

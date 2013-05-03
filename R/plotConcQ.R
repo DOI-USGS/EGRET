@@ -31,19 +31,11 @@ plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot 
   ################################################################################
   qFactor<-qUnit@qUnitFactor
   x<-localSample$Q*qFactor
+  
   yLow<-localSample$ConcLow
   yHigh<-localSample$ConcHigh
   Uncen<-localSample$Uncen
-  #xMin<-0.95*min(x)
-  #xMax<-1.05*max(x)
-  #xTicks<-if(tinyPlot) logPretty1(xMin,xMax) else logPretty3(xMin,xMax)
-  #numXTicks<-length(xTicks)
-  #xLeft<-xTicks[1]
-  #xRight<-xTicks[numXTicks]
-  #xLab<-qUnit@qUnitExpress
-  #maxYHigh<-if(is.na(concMax)) 1.05*max(yHigh) else concMax
-  #yTicks<-yPretty(maxYHigh)
-  #yTop<-yTicks[length(yTicks)]
+
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Concentration versus Discharge") else ""
   yBottom <- 0 #No value given, so assuming zero due to the ylim value
   
@@ -57,9 +49,9 @@ plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot 
   }
   mar<-c(5,4,4,2)+0.1
   
-  xInfo <- generalAxis(x=x, maxVal=max(x), minVal=min(x), logScale=TRUE, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=x, maxVal=NA, minVal=NA, logScale=TRUE, tinyPlot=tinyPlot)
 
-  yInfo <- generalAxis(x=yHigh, maxVal=concMax, minVal=min(yHigh), tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yHigh, maxVal=concMax, minVal=0, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=yHigh, 
                       xlim=c(xInfo$bottom, xInfo$top), ylim=c(0,yInfo$top),
@@ -68,18 +60,7 @@ plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot 
                       plotTitle=plotTitle, mar=mar,log="x",...
   )
   
-  #   plot(log(x,10),yHigh,axes=FALSE,xlim=c(log(xLeft,10),log(xRight,10)),xaxs="i",xlab=xLab,ylim=c(0,yTop),yaxs="i",ylab="Concentration in mg/L",main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)
-  #   axis(1,tcl=0.5,at=log(xTicks,10),labels=xTicks)
-  #   axis(2,tcl=0.5,las=1,at=yTicks)
-  #   axis(3,tcl=0.5,at=log(xTicks,10),labels=FALSE)
-  #   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
-  #   box()
   censoredSegments(yBottom, yLow, yHigh, x, Uncen
   )
-  #   yLowVal<-ifelse(is.na(yLow),0,yLow)
-  #   numSamples<-length(x)
-  #   uncensoredIndex <- 1:numSamples
-  #   uncensoredIndex <- uncensoredIndex[Uncen==0]
-  #   segments(x[uncensoredIndex],yLowVal[uncensoredIndex],x[uncensoredIndex],yHigh[uncensoredIndex])
-  #   segments(log(x[uncensoredIndex],10),yLowVal[uncensoredIndex],log(x[uncensoredIndex],10),yHigh[uncensoredIndex])
+
 }
