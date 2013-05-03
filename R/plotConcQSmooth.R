@@ -61,6 +61,7 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0
   dates[1]<-as.POSIXlt(date1)
   dates[2]<-as.POSIXlt(date2)
   dates[3]<-as.POSIXlt(date3)
+  
   LogQLow<-log(qLow)
   LogQHigh<-log(qHigh)
   step<-(LogQHigh-LogQLow)/47
@@ -86,28 +87,15 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0
   title<-if(printTitle) paste (localINFO$shortName,"  ",localINFO$paramShortName,"\nEstimated Concentration Versus Discharge Relationship\nat",numDates,"specific dates") else ""
   
   xLab=qUnit@qUnitExpress  
-  xTicks<-logPretty3(qLow,qHigh)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
-  
   yLab="Concentration in mg/L"
-  yMax<-max(y,na.rm=TRUE)
-  yTop<-if(is.na(concMax)) yMax else concMax
-  #yTicks<-yPretty(yTop)
-  #numYTicks<-length(yTicks)
-  #yTop<-yTicks[numYTicks]
-  
-  #yInfo <- generalAxis(x=y[1,], min=0, max=yTop)
   
   colorVal<-if(bw) c("black","black","black") else c("black","red","green")
   lineVal<-if(bw) c(1,2,3) else c(1,1,1)
 
-  
   #####################
   
-  xInfo <- generalAxis(x, maxVal=qHigh, minVal=qLow, logScale=TRUE, tinyPlot=tinyPlot, padPercent=5 )
-  yInfo <- generalAxis(y[1,], maxVal=concMax, minVal=NA, logScale=FALSE, tinyPlot=tinyPlot, padPercent=5 )
+  xInfo <- generalAxis(x, maxVal=qHigh, minVal=qLow, logScale=TRUE, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(y[1,], maxVal=concMax, minVal=NA, logScale=FALSE, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=y[1,],
                       xTicks=xInfo$xTicks, yTicks=yInfo$ticks,
@@ -120,14 +108,17 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0
   lines(x=x, y=y[2,],col=colorVal[2],lty=lineVal[2],lwd=lwd)
   lines(x=x, y=y[3,],col=colorVal[3],lty=lineVal[3],lwd=lwd)
 
-  legendLeft<-if(legendLeft==0) qLow*2 else legendLeft
-
-  legendTop<-if(legendTop==0) 0.3*yTop else legendTop 
+#   legendLeft<-if(legendLeft==0) qLow*2 else legendLeft
+#   legendTop<-if(legendTop==0) 0.3*yTop else legendTop 
 
   words<-as.character(dates[1:numDates])
   ltys<-lineVal[1:numDates]
   cols<-colorVal[1:numDates]
-  legend(legendLeft,legendTop,legend=words,lty=ltys,col=cols,lwd=lwd,cex=legend.cex)
+  
+  x1 <- grconvertX(legendLeft, from="npc", to="user")
+  y1 <- grconvertY(legendTop, from="npc", to="user") +.2
+  
+  legend(x1,y1 ,legend=words,lty=ltys,col=cols,lwd=lwd,cex=legend.cex)
   
   printResults<-rep(NA,48*4)
   dim(printResults)<-c(48,4)
