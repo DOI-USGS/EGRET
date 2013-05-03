@@ -35,6 +35,8 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
                        cex.main=1,...){
   # this function shows the sample data,
   # time on x-axis, concentration on y-axis
+  
+  originalPar <-  par(no.readonly = TRUE)
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(qUnit)){
@@ -91,35 +93,18 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   yLow<-subSample$ConcLow
   yHigh<-subSample$ConcHigh
   Uncen<-subSample$Uncen
-  #numSamples<-length(subSample$Q)
   x<-subSample$DecYear
-  #xMin<-x[1]
-  #xMax<-x[numSamples]
-  #yearSpan<-c(xMin,xMax)
-  #nXTicks<-if(tinyPlot) 5 else 8 
-  #xTicks<-pretty(yearSpan,n=nXTicks)
-  #numXTicks<-length(xTicks)
-  #xLeft<-xTicks[1]
-  #xRight<-xTicks[numXTicks]
-  #maxYHigh<-if(is.na(concMax)) 1.05*max(yHigh) else concMax
   
   #########################################################
   if (logScale=="y"){
     minYLow <- concMin
-    #minYLow<-if(is.na(concMin)) 0.95*min(subSample$ConcAve) else concMin  #Unique to log
-    #yTicks<-logPretty3(minYLow,maxYHigh)
-    #numYTicks<-length(yTicks)
-    #yBottom<-yTicks[1]
     log_state <- TRUE
   } else {
-    #yTicks<-yPretty(maxYHigh)
     log_state <- FALSE
     minYLow <- 0
-    #yBottom <- 0
-  }
-  
+  }  
   #########################################################
-  #yTop<-yTicks[length(yTicks)]
+
   plotTitle<-if(printTitle) paste(localINFO$shortName,",",localINFO$paramShortName,title2,title3) else ""
   
   if (tinyPlot) {
@@ -139,16 +124,6 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
                       plotTitle=plotTitle, mar=mar, log=logScale,...
   )
   censoredSegments(yBottom=yInfo$ticks[1],yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
-  par(mar = c(5,6,5,2))
-#   plot(x,yHigh,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab="",ylim=c(0,yTop),yaxs="i",ylab="Concentration in mg/L",main=plotTitle,pch=20,cex=0.7,cex.main=1.0,font.main=2,cex.lab=1.2)
-#   axis(1,tcl=0.5,at=xTicks,labels=xTicks)
-#   axis(2,tcl=0.5,las=1,at=yTicks)
-#   axis(3,tcl=0.5,at=xTicks,labels=FALSE)
-#   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
-#   box()
-#   yLowVal<-ifelse(is.na(yLow),0,yLow)
-#   numSamples<-length(x)
-#   uncensoredIndex <- 1:numSamples
-#   uncensoredIndex <- uncensoredIndex[Uncen==0]
-#   segments(x[uncensoredIndex],yLowVal[uncensoredIndex],x[uncensoredIndex],yHigh[uncensoredIndex])
+  par(originalPar)
+
 }
