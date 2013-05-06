@@ -20,11 +20,11 @@
 plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2, 
                       tinyPlot = FALSE, stdResid = FALSE, printTitle = TRUE,...) 
 {  
-   if(tinyPlot) {
-     par(mar=c(5,4,1,1)) 
-   }else {
-     par(mar=c(5,4,4,2)+0.1)
-   }
+   #if(tinyPlot) {
+   # par(mar=c(5,4,1,1)) 
+   #}else {
+   # par(mar=c(5,4,4,2)+0.1)
+   #}
    
    if (is.numeric(qUnit)) {
      qUnit <- qConst[shortCode = qUnit][[1]]
@@ -66,11 +66,13 @@ plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2,
    #xLab <- qUnit@qUnitExpress
    if (tinyPlot){
      xLab <- qUnit@qUnitTiny
-     yLab <- ifelse(stdResid, expression(paste("log"["e"],"(Std. Residual) units")), expression(paste("log"["e"],"(Residual) units")))   
+     yLab <- ifelse(stdResid, expression(paste("log"["e"],"(Std. Residual) units")), expression(paste("log"["e"],"(Residual) units")))
+     par(mar=c(5,4,1,1.5))
 }
    else {
      xLab <- qUnit@qUnitExpress
      yLab <- ifelse(stdResid, "Standardized Residual in natural log units", "Residual in natural log units")
+     par(mar=c(5,4,4,2)+0.1)
     }
    plotTitle <- ifelse (printTitle,  paste(localINFO$shortName, "\n", localINFO$paramShortName, 
            "\n", "Residual versus Discharge"), "")
@@ -90,6 +92,6 @@ plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2,
    # Laura took out cex.lab = 1.0, cex = 0.4, 
 
    censoredSegments(yBottom, yLow, yHigh, x, Uncen )
-
+   
    par(mar=c(5,4,4,2)+0.1)
 }

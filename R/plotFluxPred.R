@@ -53,15 +53,17 @@ plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, flu
   if (tinyPlot) {
     xLab <- fluxUnit@unitEstimateTiny
     yLab <- fluxUnit@unitExpressTiny
+    par(mar=c(5,4,1,1.5))
   }
   else {
     xLab <- fluxUnit@unitEstimate
     yLab <- fluxUnit@unitExpress
+    par(mar=c(5,4,4,2)+0.1)
   }
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed vs Estimated Flux") else ""
   
   ###############################
-  if(tinyPlot) par(mar=c(5,4,1,1.5)) else par(mar=c(5,4,4,2)+0.1)
+  #if(tinyPlot) par(mar=c(5,4,1,1.5)) else par(mar=c(5,4,4,2)+0.1)
   
   xInfo <- generalAxis(x=x, minVal=0, maxVal=NA, tinyPlot=tinyPlot)
   
