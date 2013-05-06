@@ -42,12 +42,6 @@ plotLogConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
   #yTop<-yTicks[numYTicks]
   xLab<-"Estimated Concentration in mg/L"
   
-  if (tinyPlot) {
-    yLab <- "Obs. Conc. (mg/L)"
-  }
-  else {
-    yLab <- "Observed Concentration in mg/L"
-  }
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed versus Estimated Concentration") else ""
   
   #################################
@@ -58,7 +52,16 @@ plotLogConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
   
   yInfo <- generalAxis(x=yHigh, minVal=NA, maxVal=concMax, log=TRUE, tinyPlot=tinyPlot)
 
-  if(tinyPlot) par(mar=c(5,4,1,1.5)) else par(mar=c(5,4,4,2)+0.1)
+  #if(tinyPlot) par(mar=c(5,4,1,1.5)) else par(mar=c(5,4,4,2)+0.1)
+  
+  if (tinyPlot) {
+    yLab <- "Obs. Conc. (mg/L)"
+    par(mar=c(5,4,1,1.5))
+  }
+  else {
+    yLab <- "Observed Concentration in mg/L"
+    par(mar=c(5,4,4,2)+0.1)
+  }
 
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,

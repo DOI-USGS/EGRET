@@ -25,7 +25,8 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   # these estimates are from a "leave-one-out" cross validation application of WRTDS
   # if stdResid=FALSE it just works with the regular residuals
   # if stdResid=TRUE it computes the standardized residual which is the residual/Sample$SE  
-  if(tinyPlot) par(mar=c(5,4,1,1)) else par(mar=c(5,4,4,2)+0.1)
+  #if(tinyPlot) par(mar=c(5,4,1,1)) else par(mar=c(5,4,4,2)+0.1)
+  
   x<-exp(localSample$yHat)
   yLow<-log(localSample$ConcLow)-localSample$yHat
   yHigh<-log(localSample$ConcHigh)-localSample$yHat
@@ -50,10 +51,12 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   if (tinyPlot){
     xLab <- "Est. Conc. (mg/L)"
     yLab <- if(stdResid) expression(paste("log"["e"],"(Std. Residual) units")) else expression(paste("log"["e"],"(Residual) units"))
+    par(mar=c(5,4,1,1.5))
   }
   else {
     xLab<-"Estimated Concentration in mg/L"
     yLab<-if(stdResid) "Standardized Residual in natural log units" else "Residual in natural log units"
+    par(mar=c(5,4,4,2)+0.1)
   }
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Residual versus Estimated Concentration") else ""
   

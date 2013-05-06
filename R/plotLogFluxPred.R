@@ -27,9 +27,10 @@ plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3,
   else if (is.character(fluxUnit)) {
     fluxUnit <- fluxConst[fluxUnit][[1]]
   }
-  if (tinyPlot) 
-    par(mar = c(5, 5, 1, 1))
-  else par(mar = c(5, 5, 4, 2) + 0.1)
+  #if (tinyPlot) 
+  #  par(mar = c(5, 4, 1, 1))
+  #else par(mar = c(5, 5, 4, 2) + 0.1)
+  
   fluxFactor <- fluxUnit@unitFactor * 86.4
   #   x <- exp(localSample$yHat) * localSample$Q * fluxFactor
   x <- localSample$ConcHat * localSample$Q * fluxFactor
@@ -54,10 +55,12 @@ plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3,
   if (tinyPlot) {
     xLab <- fluxUnit@unitEstimateTiny
     yLab <- fluxUnit@unitExpressTiny
+    par(mar = c(5, 4, 1, 1.5))
   }
   else {
     xLab <- fluxUnit@unitEstimate
     yLab <- fluxUnit@unitExpress
+    par(mar = c(5, 5, 4, 2) + 0.1)
   }
   plotTitle <- if (printTitle) 
     paste(localINFO$shortName, "\n", localINFO$paramShortName, 

@@ -34,7 +34,17 @@ plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   ################################################################################
   
   
-  if(tinyPlot) par(mar=c(5,4,1,1.5)) else par(mar=c(5,4,4,2)+0.1)
+  #if(tinyPlot) par(mar=c(5,4,1,1.5)) else par(mar=c(5,4,4,2)+0.1)
+  if (tinyPlot) {
+    xLab <- qUnit@qUnitTiny
+    yLabel <- "Conc. (mg/L)"
+    par(mar=c(5,4,1,1.5))
+  }
+  else {
+    xLab <- qUnit@qUnitExpress
+    yLabel <- "Concentration in mg/L"
+    par(mar=c(5,4,4,2)+0.1)
+  }
   qFactor <- qUnit@qUnitFactor
   x<-localSample$Q*qFactor
   Uncen<-localSample$Uncen
@@ -61,15 +71,6 @@ plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   xInfo <- generalAxis(x, maxVal=NA, minVal=NA, logScale=TRUE, tinyPlot=tinyPlot, padPercent=5)
   
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Concentration versus Discharge") else ""
-  
-  if (tinyPlot) {
-    xLab <- qUnit@qUnitTiny
-    yLabel <- "Conc. (mg/L)"
-  }
-  else {
-    xLab <- qUnit@qUnitExpress
-    yLabel <- "Concentration in mg/L"
-  }
   
   #####################
   genericEGRETDotPlot(x=x, y=localSample$ConcHigh,
