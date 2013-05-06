@@ -62,7 +62,7 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   
   ####################
   
-  xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, log=TRUE, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot)
   
   yInfo <- generalAxis(x=yHigh, minVal=NA, maxVal=NA, tinyPlot=tinyPlot, max_offset=0.1, min_offset=0.5)
 

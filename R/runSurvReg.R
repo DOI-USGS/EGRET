@@ -38,6 +38,7 @@ runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2
   #        first column is predicted concentration in log space (called yHat)
   #        second column is the standard error (which is used to compute the bias correction)
   #        third column is the predicted concentration in real space (called ConcHat)
+#   require(survival)
   numEstPt<-length(estPtYear)
   resultSurvReg<-array(0,c(numEstPt,3))
   
@@ -58,6 +59,7 @@ runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2
 
     repeat{
       #  We subset the sample frame by time, to narrow the set of data to run through in the following steps
+
       Sam<-subset(localSample,abs(DecYear-estY)<=tempWindowY)
       diffY<-abs(Sam$DecYear-estY)
       weightY<-triCube(diffY,tempWindowY)
@@ -83,6 +85,7 @@ runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2
     weight<-Sam$weight
     aveWeight<-sum(weight)/numPosWt
     weight<-weight/aveWeight
+    Sam <- data.frame(Sam)
     survModel<-survreg(Surv(log(ConcLow),log(ConcHigh),type="interval2")~DecYear+LogQ+SinDY+CosDY,data=Sam,weights=weight,dist="gaus")
     new<-data.frame(DecYear=estY,LogQ=estLQ,SinDY=sin(2*pi*estY),CosDY=cos(2*pi*estY))
     #   extract results at estimation point

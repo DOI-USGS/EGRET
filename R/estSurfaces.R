@@ -37,6 +37,8 @@ estSurfaces<-function(localDaily = Daily, localSample = Sample, windowY=10,windo
   # the second index is time, layed out as 16 increments of the calendar year, starting January 1.
   # it returns the data frame called surfaces 
   #
+  originalColumns <- names(localSample)
+  
   bottomLogQ<-min(localDaily$LogQ) - 0.05
   topLogQ<-max(localDaily$LogQ) + 0.05
   stepLogQ<-(topLogQ-bottomLogQ)/13
@@ -49,7 +51,11 @@ estSurfaces<-function(localDaily = Daily, localSample = Sample, windowY=10,windo
   estPtLogQ<-rep(vectorLogQ,nVectorYear)
   estPtYear<-rep(vectorYear,each=14)
 
-  resultSurvReg<-runSurvReg(estPtYear,estPtLogQ,localSample,windowY,windowQ,windowS,minNumObs,minNumUncen)
+  colToKeep <- c("ConcLow","ConcHigh","Uncen","DecYear","SinDY","CosDY","LogQ")
+  
+  localSampleMin <- localSample[,which(originalColumns %in% colToKeep)]
+  
+  resultSurvReg<-runSurvReg(estPtYear,estPtLogQ,localSampleMin,windowY,windowQ,windowS,minNumObs,minNumUncen)
   
   surfaces<-array(0,dim=c(14,nVectorYear,3))
 

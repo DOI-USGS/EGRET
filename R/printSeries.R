@@ -27,7 +27,7 @@ printSeries<-function(istat, qUnit = 1, runoff = FALSE, localINFO = INFO, localA
   }
   ###############################################################################
   cat("\n",localINFO$shortName)
-  seasonText<-setSeasonLabelByUser(paStart=localINFO$paStart,paLong=localINFO$paLong)
+  seasonText<-setSeasonLabelByUser(paStartInput=localINFO$paStart,paLongInput=localINFO$paLong)
   cat("\n",seasonText)
   nameIstat<-c("minimum day","7-day minimum","30-day minimum","median daily","mean daily","30-day maximum","7-day maximum",'maximum day')
   cat("\n   ",nameIstat[istat])

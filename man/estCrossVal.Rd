@@ -2,14 +2,13 @@
 \alias{estCrossVal}
 \title{Jack-Knife cross validation of the WRTDS (Weighted Regressions on Time, Discharge, and Season)}
 \usage{
-  estCrossVal(SampleCrossV = Sample, windowY = 10,
+  estCrossVal(localSample = Sample, windowY = 10,
     windowQ = 2, windowS = 0.5, minNumObs = 100,
     minNumUncen = 50)
 }
 \arguments{
-  \item{SampleCrossV}{string specifying the name of the
-  data frame containing the sample values, default is
-  Sample}
+  \item{localSample}{string specifying the name of the data
+  frame containing the sample values, default is Sample}
 
   \item{windowY}{numeric specifying the half-window width
   in the time dimension, in units of years, default is 10}

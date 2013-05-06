@@ -76,8 +76,8 @@ plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2,
   ##############################################  
   mar<-c(5,5,4,2)+0.1
   
-  xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, log=TRUE, tinyPlot=tinyPlot)
-  yInfo <- generalAxis(x=yHigh, minVal=fluxMin, maxVal=fluxMax, log=TRUE, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yHigh, minVal=fluxMin, maxVal=fluxMax, logScale=TRUE, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=yHigh, 
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
