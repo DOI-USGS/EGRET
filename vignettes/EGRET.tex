@@ -1300,12 +1300,11 @@ To see the raw code for a particular code, type the name of the function:
 > getJulian
 \end{Sinput}
 \begin{Soutput}
-function(date) {
-  # enter date in quotes for example "1949-09-30" 
-  # program returns the julian date  
-  dateTime <- as.Date(date)
-  Julian <- as.numeric(julian(dateTime, origin = as.Date("1850-01-01")))
-  return(Julian)
+function (date) 
+{
+    dateTime <- as.Date(date)
+    Julian <- as.numeric(julian(dateTime, origin = as.Date("1850-01-01")))
+    return(Julian)
 }
 <environment: namespace:EGRET>
 \end{Soutput}

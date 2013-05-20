@@ -72,6 +72,8 @@ plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Concentration versus Discharge") else ""
   
+<<<<<<< HEAD
+=======
   if (tinyPlot) {
     xLab <- qUnit@qUnitTiny
     yLabel <- "Conc. (mg/L)"
@@ -80,6 +82,7 @@ plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
     yLabel <- "Concentration in mg/L"
   }
   
+>>>>>>> canon_master/master
   #####################
   genericEGRETDotPlot(x=x, y=localSample$ConcHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
