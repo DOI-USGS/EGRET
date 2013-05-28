@@ -23,18 +23,13 @@ plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   # this function shows the sample data,
   # discharge on x-axis on a log scale, 
   # concentration on y-axis on a log scale
-  
-  ################################################################################
-  # I plan to make this a method, so we don't have to repeat it in every funciton:
+
   if (is.numeric(qUnit)){
     qUnit <- qConst[shortCode=qUnit][[1]]
   } else if (is.character(qUnit)){
     qUnit <- qConst[qUnit][[1]]
   }
-  ################################################################################
-  
-  
-  #if(tinyPlot) par(mar=c(5,4,1,1.5)) else par(mar=c(5,4,4,2)+0.1)
+
   if (tinyPlot) {
     xLab <- qUnit@qUnitTiny
     yLabel <- "Conc. (mg/L)"
@@ -48,24 +43,6 @@ plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   qFactor <- qUnit@qUnitFactor
   x<-localSample$Q*qFactor
   Uncen<-localSample$Uncen
-#   xMin<-0.95*min(x)
-#   xMax<-1.05*max(x)
-#   xTicks<-if(tinyPlot) logPretty1(xMin,xMax) else logPretty3(xMin,xMax)
-#   numXTicks<-length(xTicks)
-#   xLeft<-xTicks[1]
-#   xRight<-xTicks[numXTicks]
-#   #   xLab<-qUnitExpress[qUnit]
-
-  
-#   yLow<-localSample$ConcLow
-#   yHigh<-localSample$ConcHigh
-#   maxYHigh<-if(is.na(concMax)) 1.05*max(yHigh) else concMax
-#   minYLow<-if(is.na(concMin)) 0.9*min(localSample$ConcAve) else concMin
-#   yTicks<-logPretty3(minYLow,maxYHigh)
-#   yBottom<-yTicks[1]
-#   yTop<-yTicks[length(yTicks)]
-  
-#   yInfo <- with(localSample, concentrationAxis(ConcLow, ConcHigh, ConcAve, concMax, concMin))
   
   yInfo <- generalAxis(localSample$ConcAve, maxVal=concMax, minVal=concMin, tinyPlot=tinyPlot, padPercent=5, logScale=TRUE)
   xInfo <- generalAxis(x, maxVal=NA, minVal=NA, logScale=TRUE, tinyPlot=tinyPlot, padPercent=5)

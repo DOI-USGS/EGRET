@@ -23,13 +23,9 @@ plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3,
 {
   if (is.numeric(fluxUnit)) {
     fluxUnit <- fluxConst[shortCode = fluxUnit][[1]]
-  }
-  else if (is.character(fluxUnit)) {
+  } else if (is.character(fluxUnit)) {
     fluxUnit <- fluxConst[fluxUnit][[1]]
   }
-  #if (tinyPlot) 
-  #  par(mar = c(5, 4, 1, 1))
-  #else par(mar = c(5, 5, 4, 2) + 0.1)
   
   fluxFactor <- fluxUnit@unitFactor * 86.4
   #   x <- exp(localSample$yHat) * localSample$Q * fluxFactor
@@ -37,40 +33,27 @@ plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3,
   yLow <- localSample$ConcLow * localSample$Q * fluxFactor
   yHigh <- localSample$ConcHigh * localSample$Q * fluxFactor
   Uncen <- localSample$Uncen
-  #xMin <- 0.95 * min(x)
-  #xMax <- 1.05 * max(x)
-  #maxYHigh <- if (is.na(fluxMax)) 
-  #  1.05 * max(yHigh)
-  #else fluxMax
-  #minYLow <- 0.5 * min(localSample$ConcLow * localSample$Q * 
-  #                      fluxFactor, na.rm = TRUE)
-  #xTicks <- logPretty3(xMin, xMax)
-  #numXTicks <- length(xTicks)
-  #xLeft <- xTicks[1]
-  #xRight <- xTicks[numXTicks]
-  #yTicks <- logPretty3(minYLow, maxYHigh)
-  #numYTicks <- length(yTicks)
-  #yBottom <- yTicks[1]
-  #yTop <- yTicks[numYTicks]
+
   if (tinyPlot) {
     xLab <- fluxUnit@unitEstimateTiny
     yLab <- fluxUnit@unitExpressTiny
     par(mar = c(5, 4, 1, 1.5))
-  }
-  else {
+  } else {
     xLab <- fluxUnit@unitEstimate
     yLab <- fluxUnit@unitExpress
     par(mar = c(5, 5, 4, 2) + 0.1)
   }
-  plotTitle <- if (printTitle) 
+  
+  plotTitle <- if (printTitle) {
     paste(localINFO$shortName, "\n", localINFO$paramShortName, 
           "\n", "Observed vs Predicted Flux")
-  else ""
+  } else {
+    ""
+  }
   
   ##################################
   
-  xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot)
-  
+  xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot)  
   yInfo <- generalAxis(x=yHigh, minVal=NA, maxVal=fluxMax, logScale=TRUE, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=yHigh,
@@ -79,7 +62,6 @@ plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3,
                       xlab = xLab, ylab = yLab, plotTitle=plotTitle,
                       log="xy", oneToOneLine=oneToOneLine, ...
   )
-  # Laura took out cex = 0.4,
   
   censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen )
   

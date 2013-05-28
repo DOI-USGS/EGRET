@@ -4,7 +4,8 @@
 \usage{
   boxQTwice(localSample = Sample, localDaily = Daily,
     localINFO = INFO, printTitle = TRUE, qUnit = 2,
-    font.main = 2, cex.main = 1, cex.axis = 0.8, ...)
+    font.main = 2, cex.main = 1, cex.axis = 0.8,
+    tinyPlot = FALSE, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -32,6 +33,10 @@
 
   \item{cex.axis}{magnification to be used for axis
   annotation relative to the current setting of cex}
+
+  \item{tinyPlot}{logical variable, if TRUE plot is
+  designed to be plotted small as part of a multi-plot
+  figure, default is FALSE.}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

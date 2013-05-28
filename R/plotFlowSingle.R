@@ -37,8 +37,6 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
   qActual<-localAnnualSeries[2,istat,]
   qSmooth<-localAnnualSeries[3,istat,]
   years<-localAnnualSeries[1,istat,]
-#   par(mar =  c(3,2,5,1))
-#   if(!tinyPlot) par(pty="s")
 
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
@@ -54,18 +52,6 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
   localSeries<-data.frame(years,qActual,qSmooth)
   localSeries<-if(is.na(yearStart)) localSeries else subset(localSeries,years>=yearStart)
   localSeries<-if(is.na(yearEnd)) localSeries else subset(localSeries,years<=yearEnd)
-  
-#   minYear<-min(localSeries$years,na.rm=TRUE)
-#   maxYear<-max(localSeries$years,na.rm=TRUE)  
-#   xLeft<-if(is.na(yearStart)) minYear else yearStart
-#   numYears<-length(localSeries$years)
-#   xRight<-if(is.na(yearEnd)) maxYear else yearEnd
-#   nTicks<-if(tinyPlot) 5 else 8
-#   xSpan<-c(xLeft,xRight)
-#   xTicks<-pretty(xSpan,n=nTicks)
-#   numXTicks<-length(xTicks)
-#   xLeft<-xTicks[1]
-#   xRight<-xTicks[numXTicks]
 
   yInfo <- generalAxis(x=qActual, maxVal=qMax, minVal=0,tinyPlot=tinyPlot)
   xInfo <- generalAxis(x=localSeries$years, maxVal=yearEnd, minVal=yearStart, padPercent=0,tinyPlot=tinyPlot)
@@ -80,10 +66,10 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
   
   if(tinyPlot) {
     yLab <- qUnit@qUnitTiny
-  }
-  else {
+  } else {
     yLab <- qUnit@qUnitExpress
   }
+  
   par(mar = c(5,6,5,2))
   genericEGRETDotPlot(x=localSeries$years, y=localSeries$qActual, 
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),

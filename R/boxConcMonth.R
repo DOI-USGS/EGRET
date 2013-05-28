@@ -12,6 +12,7 @@
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param las numeric in {0,1,2,3}; the style of axis labels
 #' @param font.main font to be used for plot main titles
+#' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multi-plot figure, default is FALSE.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -21,7 +22,7 @@
 #' boxConcMonth()
 boxConcMonth<-function(localSample = Sample, localINFO = INFO, printTitle = TRUE,
                        cex=0.8, cex.axis=0.9, cex.main=1.0, las=2, 
-                       font.main=2, ...) {
+                       font.main=2, tinyPlot = FALSE, ...) {
   #This function makes a boxplot of log concentration by month
   #Box width is proportional to the square root of the sample size
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\nBoxplots of sample values by month") else ""
@@ -38,16 +39,25 @@ boxConcMonth<-function(localSample = Sample, localINFO = INFO, printTitle = TRUE
   yTicks<-pretty(ySpan, n = 7)
   yMax<-yTicks[length(yTicks)]
   
+  if (tinyPlot) {
+    yLabel <- "Conc. (mg/L)"
+    par(mar=c(5,4,1,1.5))
+  } else {
+    yLabel <- "Concentration in mg/L"
+    par(mar=c(5,4,4,2)+0.1)
+  }
+  
   boxplot(tempDF$conc ~ tempDF$month,
           #     localSample$ConcAve~localSample$Month,
           ylim=c(0,yMax),yaxs="i",
           varwidth=TRUE,
           names=nameList,
           xlab="Month",
-          ylab="Concentration in mg/L",
+          ylab=yLabel,
           main=plotTitle,
           cex=cex,cex.axis=cex.axis,cex.main=cex.main,
           las=las,        #makes all text perpendicular to axis
           font.main=font.main,
           ...)  
+#   par(mar=c(5,4,4,2)+0.1)
 }

@@ -13,6 +13,7 @@
 #' @param font.main font to be used for plot main titles
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
+#' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multi-plot figure, default is FALSE.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -25,7 +26,7 @@
 #' boxQTwice(qUnit='cfs')
 boxQTwice<-function(localSample = Sample, localDaily = Daily, localINFO = INFO, 
                     printTitle = TRUE, qUnit = 2, font.main=2, cex.main=1.0, 
-                    cex.axis=0.8, ...){
+                    cex.axis=0.8, tinyPlot = FALSE,...){
   # This function does two boxplots side by side
   # The first is for the discharges on the sampled days
   # The second is for the discharges on all of the days  
@@ -46,9 +47,19 @@ boxQTwice<-function(localSample = Sample, localDaily = Daily, localINFO = INFO,
   index1<-rep(1,nS)
   index2<-rep(2,nD)
   index<-c(index1,index2)
-  yLab<-paste("Discharge in",qUnit@qUnitName)
+
   groupNames<-c("Sampled Days","All Days")
   plotTitle<-if(printTitle) paste(localINFO$shortName,",",localINFO$paramShortName,"\nComparison of distribution of\nSampled Discharges and All Daily Discharges") else ""
-  boxplot(bigQ~index,log="y",varwidth=TRUE,names=groupNames,xlab="",ylab=yLab,
+  
+  if (tinyPlot) {
+    yLabel <- paste("Discharge (",qUnit@qShortName,")",sep="")
+    par(mar=c(5,4,1,1.5))
+  } else {
+    yLabel <- paste("Discharge in",qUnit@qUnitName,sep="")
+    par(mar=c(5,4,4,2)+0.1)
+  }
+  
+  boxplot(bigQ~index,log="y",varwidth=TRUE,names=groupNames,xlab="",ylab=yLabel,
           main=plotTitle,font.main=font.main,cex.main=cex.main,cex.axis=cex.axis, ...)
+  par(mar=c(5,4,4,2)+0.1)
 }
