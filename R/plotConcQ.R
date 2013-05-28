@@ -21,6 +21,8 @@ plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot 
                     concMax = NA, printTitle = TRUE,...){
   # this function shows the sample data,
   # discharge on x-axis on a log scale, concentration on y-axis
+  
+  originalPar <-  par(no.readonly = TRUE)
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(qUnit)){
@@ -37,13 +39,11 @@ plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot 
   Uncen<-localSample$Uncen
 
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Concentration versus Discharge") else ""
-  yBottom <- 0 #No value given, so assuming zero due to the ylim value
   
   if (tinyPlot){
     xLab<-qUnit@qUnitTiny
     yLab <- "Conc. (mg/L)"
-  }
-  else {
+  } else {
     xLab<-qUnit@qUnitExpress
     yLab <- "Concentration in mg/L"
   }
@@ -60,7 +60,8 @@ plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot 
                       plotTitle=plotTitle, mar=mar,log="x",...
   )
   
-  censoredSegments(yBottom, yLow, yHigh, x, Uncen
-  )
+  censoredSegments(0, yLow, yHigh, x, Uncen  )
+  
+  par(originalPar)  
 
 }

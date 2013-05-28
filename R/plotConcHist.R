@@ -40,7 +40,7 @@ plotConcHist<-function(yearStart = NA, yearEnd = NA, localAnnualResults = Annual
 #   par(oma=c(3,0,3,0))
 #   par(mar=c(5,6,5,2))
   
-  
+  originalPar <-  par(no.readonly = TRUE)
   periodName<-setSeasonLabel(localAnnualResults=localAnnualResults)
   title3<-if(plotFlowNorm) "\nMean Concentration (dots) & Flow Normalized Concentration (line)" else "\nAnnual Mean Concentration"
   title<-if(printTitle) paste(localINFO$shortName," ",localINFO$paramShortName,"\n",periodName,title3) else ""
@@ -65,5 +65,5 @@ plotConcHist<-function(yearStart = NA, yearEnd = NA, localAnnualResults = Annual
                               col="green", lwd=lwd))
 
 #   par(oma=c(0,0,0,0))
-  par(mar=c(5,4,4,2)+0.1)	
+  par(originalPar)	
 }

@@ -20,6 +20,8 @@ plotConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
   # predicted concentration on the x-axis (these include the bias correction), 
   # observed concentration on y-axis 
   # these predictions are from a "leave-one-out" cross validation application of WRTDS 
+  originalPar <-  par(no.readonly = TRUE)
+  
   x<-localSample$ConcHat
   yLow<-localSample$ConcLow
   yHigh<-localSample$ConcHigh
@@ -43,5 +45,5 @@ plotConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
     )
 
   censoredSegments(yBottom=yInfo$bottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen)
-
+  par(originalPar)
 }

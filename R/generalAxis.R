@@ -26,26 +26,30 @@ generalAxis <- function(x, maxVal, minVal,logScale=FALSE, tinyPlot=FALSE,padPerc
   
   nTicks<-if(tinyPlot) 5 else 8
   
-  if (length(maxVal)>1) {
-    maxVal<-max(maxVal) + 0.2
-  }
-  
-  if (length(maxVal)>1) {
-    maxVal<-min(maxVal) - 0.2
-  }
+#   if (length(maxVal)>1) {
+#     maxVal<-max(maxVal) + 0.2
+#   }
+#   
+#   if (length(maxVal)>1) {
+#     maxVal<-min(maxVal) - 0.2
+#   }
   
   upperMagnification <- 1+(padPercent/100)
   lowerMagnification <- 1-(padPercent/100)
   
-  if (year_search) {
-    high <- if(is.na(maxVal)) {(max(x,na.rm=TRUE) + max_offset)} else {maxVal}
-    low <- if(is.na(minVal)) {(min(x,na.rm=TRUE) - min_offset)} else {minVal}       
-  } else {
-    high <- if(is.na(maxVal)) {upperMagnification*(max(x,na.rm=TRUE) + max_offset)} else {maxVal}
-    low <- if(is.na(minVal)) {lowerMagnification*(min(x,na.rm=TRUE) - min_offset)} else {minVal}
-  }
+  high <- if(is.na(maxVal)) {upperMagnification*max(x,na.rm=TRUE) + max_offset} else {maxVal}
+  low <- if(is.na(minVal)) {lowerMagnification*min(x,na.rm=TRUE) - min_offset} else {minVal}       
+  
+#   if (year_search) {
+#     high <- if(is.na(maxVal)) {(max(x,na.rm=TRUE) + max_offset)} else {maxVal}
+#     low <- if(is.na(minVal)) {(min(x,na.rm=TRUE) - min_offset)} else {minVal}       
+#   } else {
+#     high <- if(is.na(maxVal)) {upperMagnification*(max(x,na.rm=TRUE) + max_offset)} else {maxVal}
+#     low <- if(is.na(minVal)) {lowerMagnification*(min(x,na.rm=TRUE) - min_offset)} else {minVal}
+#   }
   
   span<-c(low,high)
+  
   ticks<-if (logScale){
     if(tinyPlot) {
       logPretty1(low,high) 
