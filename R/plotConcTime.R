@@ -124,6 +124,8 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
                       plotTitle=plotTitle, mar=mar, log=logScale,...
   )
   censoredSegments(yBottom=yInfo$ticks[1],yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
-  par(originalPar)
-
+  
+  if(!tinyPlot){
+    par(originalPar)
+  }
 }
