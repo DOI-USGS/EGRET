@@ -31,7 +31,7 @@ boxQTwice<-function(localSample = Sample, localDaily = Daily, localINFO = INFO,
   # This function does two boxplots side by side
   # The first is for the discharges on the sampled days
   # The second is for the discharges on all of the days  
-  originalPar <-  par(no.readonly = TRUE)
+#   originalPar <-  par(no.readonly = TRUE)C
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(qUnit)){
@@ -64,10 +64,10 @@ boxQTwice<-function(localSample = Sample, localDaily = Daily, localINFO = INFO,
           names=groupNames,xlab="",ylab=yLabel,
           main=plotTitle,font.main=font.main,cex=cex,
           cex.main=cex.main,
-          cex.axis=cex.axis,
+          cex.axis=cex.axis, las=1,
           ...)
   
-  if(!tinyPlot){
-    par(originalPar)
-  }
+#   if(!tinyPlot){
+#     par(originalPar)
+#   }
 }
