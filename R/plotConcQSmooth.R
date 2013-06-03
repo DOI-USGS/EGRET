@@ -42,7 +42,7 @@
 #' Sample <- exSample
 #' INFO <- exINFO
 #' plotConcQSmooth(date1,date2,date3,qLow,qHigh)
-plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0,legendTop = 0, 
+plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = .05,legendTop =0.3, 
                           concMax = NA,bw = FALSE, printTitle = TRUE, printValues = FALSE, 
                           localSample = Sample, localINFO = INFO, 
                           windowY = 10, windowQ = 2, windowS = 0.5,tinyPlot=FALSE,
@@ -116,7 +116,7 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0
   cols<-colorVal[1:numDates]
   
   x1 <- grconvertX(legendLeft, from="npc", to="user")
-  y1 <- grconvertY(legendTop, from="npc", to="user") +.2
+  y1 <- grconvertY(legendTop, from="npc", to="user") 
   
   legend(x1,y1 ,legend=words,lty=ltys,col=cols,lwd=lwd,cex=legend.cex)
   
