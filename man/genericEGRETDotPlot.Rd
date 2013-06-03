@@ -6,9 +6,8 @@
     printTitle = TRUE, xaxs = "i", xlab = "", yaxs = "i",
     ylab = "", plotTitle = "", pch = 20, cex = 0.7,
     cex.main = 1.3, font.main = 2, cex.lab = 1.2,
-    tcl = 0.5, oma = c(0, 0, 0, 0), mar = c(5, 4, 1, 1),
-    cex.axis = 1, las = 1, tinyPlot = FALSE, hLine = FALSE,
-    oneToOneLine = FALSE, ...)
+    tcl = 0.5, cex.axis = 1, las = 1, tinyPlot = FALSE,
+    hLine = FALSE, oneToOneLine = FALSE, ...)
 }
 \arguments{
   \item{x}{vector specifying the x data (required)}
@@ -59,12 +58,6 @@
 
   \item{tcl}{number defaults to 0.5, specifies length of
   tick marks as fraction of height of a line of text.}
-
-  \item{oma}{vector defaults to c(0,0,0,0) specifies outer
-  margin}
-
-  \item{mar}{vector defaults to c(5,4,1,1) specifies plot
-  area}
 
   \item{cex.axis}{number defaults to 1, specifies axis text
   magnification}

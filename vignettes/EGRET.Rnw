@@ -607,6 +607,9 @@ multiPlotDataOverview()
 @
 
 <<boxConcMonth, echo=FALSE,eval=TRUE>>=
+Daily <- ChopDaily
+Sample <- ChopSample
+INFO <- ChopINFO
 boxConcMonth()
 @
 
@@ -1061,6 +1064,8 @@ plotResidTime()
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 <<plotConcHist, echo=FALSE,eval=TRUE>>=
+yearStart <- 2000
+yearEnd <- 2010
 plotConcHist()
 @
 \begin{figure}[htbp]

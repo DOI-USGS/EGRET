@@ -3,9 +3,9 @@
 \title{Plot of Observed Concentration versus Discharge}
 \usage{
   plotConcQ(localSample = Sample, localINFO = INFO,
-    qUnit = 2, tinyPlot = FALSE, concMax = NA,
-    printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
-    cex.main = 1.1, ...)
+    qUnit = 2, tinyPlot = FALSE, logScale = FALSE,
+    concMax = NA, concMin = NA, printTitle = TRUE,
+    cex = 0.8, cex.axis = 1.1, cex.main = 1.1, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -23,9 +23,16 @@
   designed to be plotted small as part of a multipart
   figure, default is FALSE.}
 
+  \item{logScale}{logical if TRUE x and y plotted in log
+  axis}
+
   \item{concMax}{number specifying the maximum value to be
   used on the vertical axis, default is NA (which allows it
   to be set automatically by the data)}
+
+  \item{concMin}{numeric if you want to specify the minimum
+  concentration value to display, you can do so with the
+  argument concMin, otherwise it will be automatic}
 
   \item{printTitle}{logical variable if TRUE title is
   printed, if FALSE title is not printed (this is best for

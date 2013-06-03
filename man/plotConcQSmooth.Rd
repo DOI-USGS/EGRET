@@ -3,12 +3,12 @@
 \title{Plot up to three curves representing the concentration versus discharge relationship. Each curve is a different point in time.}
 \usage{
   plotConcQSmooth(date1, date2, date3, qLow, qHigh,
-    qUnit = 2, legendLeft = 0, legendTop = 0, concMax = NA,
-    bw = FALSE, printTitle = TRUE, printValues = FALSE,
-    localSample = Sample, localINFO = INFO, windowY = 10,
-    windowQ = 2, windowS = 0.5, tinyPlot = FALSE, lwd = 2,
-    cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
-    legend.cex = 1, ...)
+    qUnit = 2, legendLeft = 0.05, legendTop = 0.3,
+    concMax = NA, bw = FALSE, printTitle = TRUE,
+    printValues = FALSE, localSample = Sample,
+    localINFO = INFO, windowY = 10, windowQ = 2,
+    windowS = 0.5, tinyPlot = FALSE, lwd = 2, cex = 0.8,
+    cex.axis = 1.1, cex.main = 1.1, legend.cex = 1, ...)
 }
 \arguments{
   \item{date1}{string specifying the date for the first

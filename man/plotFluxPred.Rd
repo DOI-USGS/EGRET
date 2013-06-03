@@ -4,7 +4,7 @@
 \usage{
   plotFluxPred(localSample = Sample, localINFO = INFO,
     fluxUnit = 3, fluxMax = NA, tinyPlot = FALSE,
-    printTitle = TRUE, oneToOneLine = FALSE, ...)
+    printTitle = TRUE, oneToOneLine = TRUE, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data

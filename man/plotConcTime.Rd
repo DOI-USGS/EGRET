@@ -5,7 +5,7 @@
   plotConcTime(localSample = Sample, localINFO = INFO,
     qUnit = 2, qLower = NA, qUpper = NA, paLong = 12,
     paStart = 10, tinyPlot = FALSE, concMax = NA,
-    concMin = NA, printTitle = TRUE, logScale = "",
+    concMin = NA, printTitle = TRUE, logScale = FALSE,
     cex = 0.8, cex.axis = 1.1, cex.main = 1.1, ...)
 }
 \arguments{
@@ -60,8 +60,8 @@
   printed, if FALSE title is not printed (this is best for
   a multi-plot figure)}
 
-  \item{logScale}{string, default "", "y" indicates y axis
-  is in log scale, "xy" indicates both x and y in log
+  \item{logScale}{logical, default TRUE, TRUE indicates y
+  axis is in log scale, "xy" indicates both x and y in log
   scale, "x" is only x}
 
   \item{cex.main}{magnification to be used for main titles
