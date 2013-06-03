@@ -48,7 +48,7 @@ plotConcHist<-function(yearStart = NA, yearEnd = NA, localAnnualResults = Annual
   ##################
   par(mar = c(5,6,5,2))
   
-  xInfo <- generalAxis(x=localAnnualResults$DecYear, minVal=yearStart, maxVal=yearEnd)
+  xInfo <- generalAxis(x=localAnnualResults$DecYear, minVal=yearStart, maxVal=yearEnd, padPercent=0)
   
   yInfo <- generalAxis(x=localAnnualResults$Conc, minVal=0, maxVal=concMax, padPercent=5)
   
