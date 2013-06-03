@@ -19,7 +19,7 @@
 #' plotFluxPred(fluxUnit = 7)
 #' plotFluxPred(fluxUnit = 'poundsDay')
 plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, fluxMax = NA, 
-                       tinyPlot = FALSE, printTitle = TRUE, oneToOneLine=FALSE, ...){
+                       tinyPlot = FALSE, printTitle = TRUE, oneToOneLine=TRUE, ...){
   # this function shows observed versus estimated flux
   # estimated flux on the x-axis (these include the bias correction), 
   # observed flux on y-axis 
