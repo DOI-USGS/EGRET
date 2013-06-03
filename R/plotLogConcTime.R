@@ -36,6 +36,6 @@ plotLogConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,qLow
   plotConcTime(localSample = localSample, localINFO = localINFO, qUnit = qUnit, 
                qLower = qLower, qUpper = qUpper, paLong = paLong, paStart = paStart, 
                tinyPlot = tinyPlot, concMax = concMax, concMin = concMin, 
-               printTitle = printTitle, logScale="y",  ...)
+               printTitle = printTitle, logScale=TRUE,  ...)
  
 }
