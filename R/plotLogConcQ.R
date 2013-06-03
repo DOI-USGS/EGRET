@@ -10,6 +10,9 @@
 #' @param concMax numeric if you want to specify the maximum concentration value to display, you can do so with the argument concMax, otherwise it will be automatic
 #' @param concMin numeric if you want to specify the minimum concentration value to display, you can do so with the argument concMin, otherwise it will be automatic
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
+#' @param cex number
+#' @param cex.axis number
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -19,53 +22,10 @@
 #' plotLogConcQ(qUnit = 1)
 #' plotLogConcQ(qUnit = 'thousandCfs')
 plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, 
-            tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE, ...){
-  # this function shows the sample data,
-  # discharge on x-axis on a log scale, 
-  # concentration on y-axis on a log scale
+            tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE, cex=0.8, cex.axis=1.1,cex.main=1.1,...){
 
-  if (is.numeric(qUnit)){
-    qUnit <- qConst[shortCode=qUnit][[1]]
-  } else if (is.character(qUnit)){
-    qUnit <- qConst[qUnit][[1]]
-  }
+  plotConcQ(localSample = localSample, localINFO = localINFO, qUnit = qUnit, tinyPlot = tinyPlot,
+            logScale=TRUE, concMax = concMax, concMin = concMin,printTitle = printTitle, 
+            cex=cex, cex.axis=cex.axis,cex.main=cex.main,...)
 
-  if (tinyPlot) {
-    xLab <- qUnit@qUnitTiny
-    yLabel <- "Conc. (mg/L)"
-    par(mar=c(5,4,1,1.5))
-  }
-  else {
-    xLab <- qUnit@qUnitExpress
-    yLabel <- "Concentration in mg/L"
-    par(mar=c(5,4,4,2)+0.1)
-  }
-  qFactor <- qUnit@qUnitFactor
-  x<-localSample$Q*qFactor
-  Uncen<-localSample$Uncen
-  
-  yInfo <- generalAxis(localSample$ConcAve, maxVal=concMax, minVal=concMin, tinyPlot=tinyPlot, padPercent=5, logScale=TRUE)
-  xInfo <- generalAxis(x, maxVal=NA, minVal=NA, logScale=TRUE, tinyPlot=tinyPlot, padPercent=5)
-  
-  plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Concentration versus Discharge") else ""
-  
-  if (tinyPlot) {
-    xLab <- qUnit@qUnitTiny
-    yLabel <- "Conc. (mg/L)"
-  } else {
-    xLab <- qUnit@qUnitExpress
-    yLabel <- "Concentration in mg/L"
-  }
-  
-  #####################
-  genericEGRETDotPlot(x=x, y=localSample$ConcHigh,
-                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
-                      xlim=c(xInfo$bottom,xInfo$top),ylim=c(yInfo$bottom,yInfo$top),
-                      xlab=xLab,ylab=yLabel, plotTitle=plotTitle,
-                      log="xy",...
-    )
-
-  censoredSegments(yInfo$bottom, localSample$ConcLow, localSample$ConcHigh, x, Uncen )
-
-  par(mar=c(5,4,4,2)+0.1)
 }
