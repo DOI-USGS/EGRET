@@ -21,8 +21,6 @@
 #' @param font.main number defaults to 2, specifies which font to use for text
 #' @param cex.lab number defaults to 1.2 specifies label text magnification
 #' @param tcl number defaults to 0.5, specifies length of tick marks as fraction of height of a line of text.
-#' @param oma vector defaults to c(0,0,0,0) specifies outer margin
-#' @param mar vector defaults to c(5,4,1,1) specifies plot area
 #' @param cex.axis number defaults to 1, specifies axis text magnification
 #' @param tinyPlot logical defaults to FALSE, if TRUE, changes defaults to be appropriate for multi-plot
 #' @param las number represents style of axis labels
@@ -50,12 +48,9 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
                                 printTitle=TRUE,
                                 xaxs="i",xlab="",yaxs="i",ylab="",plotTitle="",
                                 pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2,
-                                tcl=0.5,oma=c(0,0,0,0),mar=c(5,4,1,1),cex.axis=1,las=1,
+                                tcl=0.5,cex.axis=1,las=1,
                                 tinyPlot=FALSE,hLine=FALSE,oneToOneLine=FALSE, ...){
   
-#   if(tinyPlot) par(mar=c(5,4,1,1)) else par(mar=c(5,4,4,2)+0.1)
-#   par(oma=oma) 
-#   par(mar=mar)
   plot(x,y,xlim=xlim,xaxs=xaxs,xlab=xlab,axes=FALSE,
        ylim=ylim,yaxs=yaxs,ylab=ylab,main=plotTitle,
        pch=pch,cex=cex,cex.main=cex.main,font.main=font.main,cex.lab=cex.lab,...)
@@ -68,9 +63,6 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
   axis(2,tcl=tcl,las=las,at=yTicks,cex.axis=cex.axis) # took out labels=yTicks
   axis(3,tcl=tcl,at=xTicks,labels=FALSE)
   axis(4,tcl=tcl,at=yTicks,labels=FALSE)
-  
-#   par(mar=c(5,4,4,2)+0.1) # Not sure if this is a good idea or not
-#   par(oma=c(0,0,0,0)) # Not sure if this is a good idea or not
   
 }
 
