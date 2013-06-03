@@ -19,7 +19,7 @@
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param concMin number specifying the minimum value to be used on the vertical axis, only appropriate for log scale.  
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
-#' @param logScale string, default "", "y" indicates y axis is in log scale, "xy" indicates both x and y in log scale, "x" is only x
+#' @param logScale logical, default TRUE, TRUE indicates y axis is in log scale, "xy" indicates both x and y in log scale, "x" is only x
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex number
 #' @param cex.axis number
@@ -33,7 +33,7 @@
 #' plotConcTime()
 plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2, 
                        qLower = NA, qUpper = NA, paLong = 12, paStart = 10, 
-                       tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale="", 
+                       tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale=FALSE, 
                        cex=0.8, cex.axis=1.1,cex.main=1.1,...){
   # this function shows the sample data,
   # time on x-axis, concentration on y-axis
@@ -100,25 +100,25 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   x<-subSample$DecYear
   
   #########################################################
-  if (logScale=="y"){
+  if (logScale){
     minYLow <- concMin
-    log_state <- TRUE
+    logVariable <- "y"
   } else {
-    log_state <- FALSE
     minYLow <- 0
+    logVariable <- ""
   }  
   #########################################################
 
   plotTitle<-if(printTitle) paste(localINFO$shortName,",",localINFO$paramShortName,title2,title3) else ""
   
   xInfo <- generalAxis(x=x, minVal=min(x), maxVal=max(x), tinyPlot=tinyPlot)  
-  yInfo <- generalAxis(x=yHigh, minVal=minYLow, maxVal=concMax, logScale=log_state, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yHigh, minVal=minYLow, maxVal=concMax, logScale=logScale, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=yHigh, 
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab="", ylab=yLab,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,cex=cex,
-                      plotTitle=plotTitle, mar=mar, log=logScale,cex.axis=cex.axis,cex.main=cex.main, ...
+                      plotTitle=plotTitle, log=logVariable,cex.axis=cex.axis,cex.main=cex.main, ...
   )
   censoredSegments(yBottom=yInfo$ticks[1],yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
   
