@@ -56,7 +56,7 @@ plotFour<-function (localINFO = INFO, localAnnualSeries = annualSeries, localDai
   plotSDLogQ(yearStart = setYearStart, yearEnd = setYearEnd, window = window, 
              localDaily = localDaily, localINFO = localINFO, 
              tinyPlot = TRUE, printPA = FALSE,  
-             printStaName = FALSE, ...)
+             printStaName = FALSE, cex=cex, cex.lab = cex.lab, cex.axis = cex.axis, ...)
   
   textPA <- setSeasonLabelByUser(paStartInput = localINFO$paStart, 
                                  paLongInput = localINFO$paLong)

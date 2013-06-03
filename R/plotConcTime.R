@@ -21,6 +21,8 @@
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
 #' @param logScale string, default "", "y" indicates y axis is in log scale, "xy" indicates both x and y in log scale, "x" is only x
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param cex number
+#' @param cex.axis number
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords graphics water-quality statistics
 #' @export
@@ -32,11 +34,11 @@
 plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2, 
                        qLower = NA, qUpper = NA, paLong = 12, paStart = 10, 
                        tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale="", 
-                       cex.main=1,...){
+                       cex=0.8, cex.axis=1.1,cex.main=1.1,...){
   # this function shows the sample data,
   # time on x-axis, concentration on y-axis
   
-  originalPar <-  par(no.readonly = TRUE)
+#   originalPar <-  par(no.readonly = TRUE)
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(qUnit)){
@@ -48,8 +50,10 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   
   if(tinyPlot){
     par(mar = c(5,4,1,1.5))
+    yLab <- "Conc. (mg/L)"
   } else {
     par(mar = c(5,4,4,2) + 0.1)
+    yLab="Concentration in mg/L"
   }
   
   qFactor<-qUnit@qUnitFactor
@@ -107,25 +111,18 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
 
   plotTitle<-if(printTitle) paste(localINFO$shortName,",",localINFO$paramShortName,title2,title3) else ""
   
-  if (tinyPlot) {
-    yLab <- "Conc. (mg/L)"
-  }
-  else {
-    yLab="Concentration in mg/L"
-  }
-  xInfo <- generalAxis(x=x, minVal=min(x), maxVal=max(x), tinyPlot=tinyPlot)
-  
+  xInfo <- generalAxis(x=x, minVal=min(x), maxVal=max(x), tinyPlot=tinyPlot)  
   yInfo <- generalAxis(x=yHigh, minVal=minYLow, maxVal=concMax, logScale=log_state, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=yHigh, 
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab="", ylab=yLab,
-                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,cex.main=cex.main,
-                      plotTitle=plotTitle, mar=mar, log=logScale,...
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,cex=cex,
+                      plotTitle=plotTitle, mar=mar, log=logScale,cex.axis=cex.axis,cex.main=cex.main, ...
   )
   censoredSegments(yBottom=yInfo$ticks[1],yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
   
-  if(!tinyPlot){
-    par(originalPar)
-  }
+#   if(!tinyPlot){
+#     par(originalPar)
+#   }
 }

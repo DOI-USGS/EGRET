@@ -4,7 +4,8 @@
 \usage{
   plotConcQ(localSample = Sample, localINFO = INFO,
     qUnit = 2, tinyPlot = FALSE, concMax = NA,
-    printTitle = TRUE, ...)
+    printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
+    cex.main = 1.1, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -29,6 +30,13 @@
   \item{printTitle}{logical variable if TRUE title is
   printed, if FALSE title is not printed (this is best for
   a multi-plot figure)}
+
+  \item{cex}{number}
+
+  \item{cex.axis}{number}
+
+  \item{cex.main}{magnification to be used for main titles
+  relative to the current setting of cex}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

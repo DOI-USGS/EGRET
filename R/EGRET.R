@@ -59,6 +59,39 @@ NULL
 #' @keywords water quality data
 NULL
 
+#' Example Daily dataframe for Choptank River
+#'
+#' Example data representing streamflowfrom the Choptank River at Greensboro, MD,  USGS data
+#' as agumented by the modelEstimation process.
+#'
+#' @name ChopDaily
+#' @docType data
+#' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
+#' @keywords water quality streamflow data
+NULL
+
+#' Example Sample dataframe for Choptank River
+#'
+#' Example data representing Nitrate sample data from the Choptank River at Greensboro, MD,  USGS data
+#' as agumented by the modelEstimation process
+#'
+#' @name ChopSample
+#' @docType data
+#' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
+#' @keywords water quality data
+NULL
+
+#' Example INFO dataframe for Choptank River
+#'
+#' Example data representing meta-data from the Choptank River at Greensboro, MD,  USGS data
+#' as augmented by the functions setupYears (for WRTDS) and setPA (for flowHistory)
+#'
+#' @name ChopINFO
+#' @docType data
+#' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
+#' @keywords water quality data
+NULL
+
 #' Example AnnualResults dataframe
 #'
 #' Example data representing annual WRTDS results for Nitrate data from the Choptank River at Greensboro, MD,  USGS data

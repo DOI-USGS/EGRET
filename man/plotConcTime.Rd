@@ -6,7 +6,7 @@
     qUnit = 2, qLower = NA, qUpper = NA, paLong = 12,
     paStart = 10, tinyPlot = FALSE, concMax = NA,
     concMin = NA, printTitle = TRUE, logScale = "",
-    cex.main = 1, ...)
+    cex = 0.8, cex.axis = 1.1, cex.main = 1.1, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -66,6 +66,10 @@
 
   \item{cex.main}{magnification to be used for main titles
   relative to the current setting of cex}
+
+  \item{cex}{number}
+
+  \item{cex.axis}{number}
 
   \item{\dots}{arbitrary functions sent to the generic
   plotting function.  See ?par for details on possible

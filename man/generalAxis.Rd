@@ -4,7 +4,7 @@
 \usage{
   generalAxis(x, maxVal, minVal, logScale = FALSE,
     tinyPlot = FALSE, padPercent = 5, max_offset = 0,
-    min_offset = 0, year_search = FALSE)
+    min_offset = 0)
 }
 \arguments{
   \item{x}{vector to create scale about}
@@ -24,9 +24,6 @@
   \item{max_offset}{maximum value offset}
 
   \item{min_offset}{minimum value offset}
-
-  \item{year_search}{default is false; decides if the
-  function needs to find the min and max as years}
 }
 \description{
   Discharge axis tick generation

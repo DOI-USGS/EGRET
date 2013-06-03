@@ -4,7 +4,7 @@
 \usage{
   boxQTwice(localSample = Sample, localDaily = Daily,
     localINFO = INFO, printTitle = TRUE, qUnit = 2,
-    font.main = 2, cex.main = 1, cex.axis = 0.8,
+    font.main = 2, cex = 0.8, cex.main = 1, cex.axis = 0.8,
     tinyPlot = FALSE, ...)
 }
 \arguments{
@@ -33,6 +33,8 @@
 
   \item{cex.axis}{magnification to be used for axis
   annotation relative to the current setting of cex}
+
+  \item{cex}{number}
 
   \item{tinyPlot}{logical variable, if TRUE plot is
   designed to be plotted small as part of a multi-plot

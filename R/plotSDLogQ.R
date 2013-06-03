@@ -31,9 +31,13 @@ plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
                      localINFO=INFO,sdMax=NA,printTitle = TRUE, tinyPlot = FALSE, 
                      printStaName = TRUE, printPA = TRUE, cex=0.8,
                      cex.main=1.1,cex.axis = 1.1,lwd=2, ...){
-  par(mar = c(5,6,5,2))
-#   par(mar =  c(3,2,5,1))
-#   if(!tinyPlot) par(pty="s")
+#   par(mar = c(5,6,5,2))
+  if(tinyPlot){
+#     par(mar = c(5,4,4,2) + 0.1)
+    par(mar = c(5,6,2,0.1))
+  } else {
+    par(mar = c(5,6,5,2))
+  }
   numDays<-length(localDaily$LogQ)
   paLong <- localINFO$paLong
   paStart <- localINFO$paStart
@@ -52,25 +56,20 @@ plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
     y[i]<-sd(smallDaily$LogQ,na.rm=TRUE)
   }
   yTop<-if(is.na(sdMax)) 1.05*max(y)
-  #yTicks<-yPretty(yTop)
-  #numYTicks<-length(yTicks)
-  #yTop<-yTicks[numYTicks]
+
   xMin<-if(is.na(yearStart)) startDec else yearStart
   xMax<-if(is.na(yearEnd)) endDec else yearEnd
-  #nTicks <- if (tinyPlot) 5 else 8
-  #yearSpan<-c(xMin,xMax)
-  #xTicks<- pretty(yearSpan,n = nTicks)
-  #numXTicks<-length(xTicks)
-  #xLeft<-xTicks[1]
-  #xRight<-xTicks[numXTicks]
+
   line1<-if(printStaName) localINFO$shortName else ""
   line2<-if(printPA) paste("\n",setSeasonLabelByUser(paStartInput = localINFO$paStart, paLongInput = localINFO$paLong)) else ""
   line3<-"\nDischarge variability: Standard Deviation of Log(Q)" 
   title<-if(printTitle) paste(line1,line2,line3) else ""
-  
+  if(tinyPlot){
+    title<-if(printTitle) "Discharge variability: Standard Deviation of Log(Q)"
+  }
   ##############################################
   
-  xInfo <- generalAxis(x=xmid, minVal=yearStart, maxVal=yearEnd, tinyPlot=tinyPlot, year_search=TRUE)
+  xInfo <- generalAxis(x=xmid, minVal=yearStart, maxVal=yearEnd, tinyPlot=tinyPlot,padPercent=0)
   yInfo <- generalAxis(x=y, minVal=0, maxVal=yTop, tinyPlot=tinyPlot)
 
   genericEGRETDotPlot(x=xmid,y=y,
@@ -81,13 +80,5 @@ plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
                       type="l", lwd=lwd, ...
   )
   
-#   plot(xmid,y,type="l",ylim=c(0,yTop),yaxs="i",lwd=2,xlim=c(xLeft,xRight),xaxs="i",main=title,xlab="",ylab="Dimensionless",axes=FALSE,cex=0.8,cex.main=1.1,cex.lab=1.2,font=2)
-#   axis(1, tcl = 0.5, at = xTicks, labels = xTicks)
-#   axis(2, tcl = 0.5, las = 1, at = yTicks, cex.axis = 1.1)
-#   axis(3, tcl = 0.5, at = xTicks, labels = FALSE)
-#   axis(4, tcl = 0.5, at = yTicks, labels = FALSE)
-#   box()
-  ##############################################
-  
-  par(mar = c(5, 4, 4, 2) + 0.1)
+#   par(mar = c(5, 4, 4, 2) + 0.1)
 }

@@ -10,6 +10,9 @@
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
+#' @param cex number
+#' @param cex.axis number
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -18,11 +21,11 @@
 #' INFO <- exINFO
 #' plotConcQ()
 plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot = FALSE, 
-                    concMax = NA, printTitle = TRUE,...){
+                    concMax = NA, printTitle = TRUE, cex=0.8, cex.axis=1.1,cex.main=1.1,...){
   # this function shows the sample data,
   # discharge on x-axis on a log scale, concentration on y-axis
   
-  originalPar <-  par(no.readonly = TRUE)
+#   originalPar <-  par(no.readonly = TRUE)
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(qUnit)){
@@ -43,11 +46,13 @@ plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot 
   if (tinyPlot){
     xLab<-qUnit@qUnitTiny
     yLab <- "Conc. (mg/L)"
+    mar<-c(5,4,1,1.5)
   } else {
     xLab<-qUnit@qUnitExpress
     yLab <- "Concentration in mg/L"
+    mar<-c(5,4,4,2)+0.1
   }
-  mar<-c(5,4,4,2)+0.1
+
   
   xInfo <- generalAxis(x=x, maxVal=NA, minVal=NA, logScale=TRUE, tinyPlot=tinyPlot)
 
@@ -57,11 +62,11 @@ plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot 
                       xlim=c(xInfo$bottom, xInfo$top), ylim=c(0,yInfo$top),
                       xlab=xLab, ylab=yLab,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
-                      plotTitle=plotTitle, mar=mar,log="x",...
+                      plotTitle=plotTitle, mar=mar,log="x",cex.axis=cex.axis,cex.main=cex.main, ...
   )
   
   censoredSegments(0, yLow, yHigh, x, Uncen  )
   
-  par(originalPar)  
+#   par(originalPar)  
 
 }

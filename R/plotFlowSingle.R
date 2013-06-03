@@ -64,13 +64,15 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
   
   ##############################################
   
-  if(tinyPlot) {
+  if(tinyPlot){
+    par(mar = c(5,6,2,0.1))
     yLab <- qUnit@qUnitTiny
+    title<-if(printTitle) paste(nameIstat[istat]) else ""
   } else {
+    par(mar = c(5,6,4,2) + 0.1)
     yLab <- qUnit@qUnitExpress
   }
-  
-  par(mar = c(5,6,5,2))
+
   genericEGRETDotPlot(x=localSeries$years, y=localSeries$qActual, 
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab="", ylab=yLab,
@@ -81,5 +83,5 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
   ##############################################
   
   lines(localSeries$years,localSeries$qSmooth,lwd=lwd)
-  par(mar = c(5, 4, 4, 2) + 0.1)
+#   par(mar = c(5, 4, 4, 2) + 0.1)
 }
