@@ -74,16 +74,17 @@ tableChangeSingle<-function(localAnnualResults = AnnualResults, localINFO = INFO
   
   for(iFirst in 1:numPointsMinusOne) {
     xFirst<-indexPoints[iFirst]
-    yFirst<-localAnnualResults$FNConc[indexPoints[iFirst]]
     iFirstPlusOne<-iFirst+1
     for(iLast in iFirstPlusOne:numPoints) {
       xLast<-indexPoints[iLast]
       
       if (flux) {
-        yLast<-localAnnualResults$FNFlux[indexPoints[iLast]]
+        yLast<-localAnnualResults$FNFlux[indexPoints[iLast]]*fluxFactor
+        yFirst<-localAnnualResults$FNFlux[indexPoints[iFirst]]*fluxFactor        
         widthLength <- 12
       } else {
         yLast<-localAnnualResults$FNConc[indexPoints[iLast]]
+        yFirst<-localAnnualResults$FNConc[indexPoints[iFirst]]
         widthLength <- 9
       }      
       
