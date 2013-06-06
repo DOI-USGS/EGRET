@@ -24,10 +24,11 @@
 #' fluxBiasMulti(fluxUnit = 9,moreTitle="WRTDS")
 fluxBiasMulti<-function (localSample = Sample, localDaily = Daily, 
                          localINFO = INFO, qUnit = 2, fluxUnit = 3, moreTitle = "",...){
-  layout(rbind(c(1, 2), c(3, 4), c(5, 6)), heights = c(1, 1), 
-         widths = c(1.5, 1.5), respect = rbind(c(0, 0), c(0, 0), 
-                                              c(0, 0)))
-  par(oma = c(0, 6.8, 4, 6.8))
+  
+#   layout(rbind(c(1, 2), c(3, 4), c(5, 6)), heights = c(1, 1), 
+#          widths = c(1, 1), respect = rbind(c(0, 0), c(0, 0), 
+#                                               c(0, 0)))
+  par(oma = c(0, 6.8, 4, 6.8),mfrow=c(3,2))
   plotLogConcQ(localSample = localSample, localINFO = localINFO, 
                qUnit, tinyPlot = TRUE, printTitle = FALSE,...)
   plotResidQ(localSample = localSample, localINFO = localINFO, qUnit,tinyPlot=TRUE,printTitle=FALSE, ...)

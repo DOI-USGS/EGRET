@@ -15,6 +15,7 @@
 #' @param legendLeft numeric which represents the left edge of the legend, in the units shown on x-axis of graph, default is 0, will be placed within the graph but may overprint data
 #' @param legendTop numeric which represents the top edge of the legend, in the units shown on y-axis of graph, default is 0, will be placed within the graph but may overprint data
 #' @param concMax numeric value for upper limit on concentration shown on the graph, default = NA (which causes the upper limit to be set automatically, based on the data)
+#' @param concMin numeric value for lower limit on concentration shown on the graph, default = NA (which causes the lower limit to be set automatically, based on the data)
 #' @param bw logical if TRUE graph is produced in black and white, default is FALSE (which means it will use color)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed 
 #' @param printValues logical variable if TRUE the results shown on the graph are also printed to the console (this can be useful for quantifying the changes seen visually in the graph), default is FALSE (not printed)
@@ -29,6 +30,7 @@
 #' @param lwd number
 #' @param legend.cex number
 #' @param tinyPlot logical
+#' @param logScale logical
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords water-quality statistics graphics
 #' @import survival
@@ -43,10 +45,10 @@
 #' INFO <- exINFO
 #' plotConcQSmooth(date1,date2,date3,qLow,qHigh)
 plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = .05,legendTop =0.3, 
-                          concMax = NA,bw = FALSE, printTitle = TRUE, printValues = FALSE, 
+                          concMax = NA, concMin=NA, bw = FALSE, printTitle = TRUE, printValues = FALSE, 
                           localSample = Sample, localINFO = INFO, 
                           windowY = 10, windowQ = 2, windowS = 0.5,tinyPlot=FALSE,
-                          lwd=2,cex=0.8, cex.axis=1.1,cex.main=1.1, legend.cex=1,...) {
+                          lwd=2,cex=0.8, cex.axis=1.1,cex.main=1.1, legend.cex=1,logScale=FALSE,...) {
   #########################################################
   if (is.numeric(qUnit)){
     qUnit <- qConst[shortCode=qUnit][[1]]
@@ -86,23 +88,35 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = .
   
   title<-if(printTitle) paste (localINFO$shortName,"  ",localINFO$paramShortName,"\nEstimated Concentration Versus Discharge Relationship\nat",numDates,"specific dates") else ""
   
-  xLab=qUnit@qUnitExpress  
-  yLab="Concentration in mg/L"
-  
   colorVal<-if(bw) c("black","black","black") else c("black","red","green")
   lineVal<-if(bw) c(1,2,3) else c(1,1,1)
 
   #####################
   
+  if(tinyPlot){
+    xLab=qUnit@qUnitTiny  
+    yLab="Conc. (mg/L)"
+  } else {
+    xLab=qUnit@qUnitExpress  
+    yLab="Concentration in mg/L"
+  }
+  
+  if(logScale){
+    logText <- "xy"
+  } else {
+    logText <- "x"
+    concMin <- 0
+  }
+  
   xInfo <- generalAxis(x, maxVal=qHigh, minVal=qLow, logScale=TRUE, tinyPlot=tinyPlot)
-  yInfo <- generalAxis(y[1,], maxVal=concMax, minVal=NA, logScale=FALSE, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(y[1,], maxVal=concMax, minVal=concMin, logScale=logScale, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=y[1,],
                       xTicks=xInfo$xTicks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$xLeft,xInfo$xRight),ylim=c(yInfo$bottom,yInfo$top),
-                      xlab=xInfo$xLab, ylab=yLab, plotTitle=title,
+                      xlab=xLab, ylab=yLab, plotTitle=title,
                       type="l",lwd=lwd,col=colorVal[1],lty=lineVal[1], 
-                      cex=cex,cex.axis=cex.axis,cex.main=cex.main, log="x",...
+                      cex=cex,cex.axis=cex.axis,cex.main=cex.main, log=logText,tinyPlot=tinyPlot,...
     )
   
   lines(x=x, y=y[2,],col=colorVal[2],lty=lineVal[2],lwd=lwd)

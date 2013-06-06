@@ -10,6 +10,9 @@
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
 #' @param oneToOneLine inserts 1:1 line
+#' @param cex number
+#' @param cex.axis number
+#' @param cex.main number
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -19,7 +22,8 @@
 #' plotLogFluxPred(fluxUnit = 1)
 #' plotLogFluxPred(fluxUnit = 'kgDay')
 plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3, 
-                           fluxMax = NA, tinyPlot=TRUE, printTitle = TRUE, oneToOneLine=TRUE, ...) 
+                           fluxMax = NA, tinyPlot=FALSE, printTitle = TRUE, 
+                           oneToOneLine=TRUE,cex=0.8, cex.axis=1.1,cex.main=1.1, ...) 
 {
   if (is.numeric(fluxUnit)) {
     fluxUnit <- fluxConst[shortCode = fluxUnit][[1]]
@@ -37,11 +41,9 @@ plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3,
   if (tinyPlot) {
     xLab <- fluxUnit@unitEstimateTiny
     yLab <- fluxUnit@unitExpressTiny
-    par(mar = c(5, 4, 1, 1.5))
   } else {
     xLab <- fluxUnit@unitEstimate
     yLab <- fluxUnit@unitExpress
-    par(mar = c(5, 5, 4, 2) + 0.1)
   }
   
   plotTitle <- if (printTitle) {
@@ -60,11 +62,12 @@ plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3,
                       xTicks=xInfo$ticks, yTicks=xInfo$ticks,
                       xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
                       xlab = xLab, ylab = yLab, plotTitle=plotTitle,
-                      log="xy", oneToOneLine=oneToOneLine, ...
+                      log="xy", oneToOneLine=oneToOneLine, 
+                      cex.axis=cex.axis,cex.main=cex.main, tinyPlot=tinyPlot,...
   )
   
   censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen )
   
-  par(mar = c(5, 4, 4, 2) + 0.1)
+#   par(mar = c(5, 4, 4, 2) + 0.1)
   
 }

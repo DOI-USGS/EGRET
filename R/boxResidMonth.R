@@ -23,7 +23,7 @@
 #' INFO <- exINFO
 #' boxResidMonth()
 boxResidMonth<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, 
-                        printTitle = TRUE, las=2, cex=0.8, cex.axis=0.9, cex.main=1.0,
+                        printTitle = TRUE, las=2, cex=0.8, cex.axis=1.0, cex.main=1.1,
                         font.main=2, ...) {
   #This function makes a boxplot of Residual by month
   #  if stdResid=TRUE, they will be standardized residuals

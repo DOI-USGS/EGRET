@@ -26,8 +26,8 @@
 #' boxQTwice(qUnit=1)
 #' boxQTwice(qUnit='cfs')
 boxQTwice<-function(localSample = Sample, localDaily = Daily, localINFO = INFO, 
-                    printTitle = TRUE, qUnit = 2, font.main=2, cex=0.8,cex.main=1.0, 
-                    cex.axis=0.8, tinyPlot = FALSE,...){
+                    printTitle = TRUE, qUnit = 2, font.main=2, cex=0.8,cex.main=1.1, 
+                    cex.axis=1.0, tinyPlot = FALSE,...){
   # This function does two boxplots side by side
   # The first is for the discharges on the sampled days
   # The second is for the discharges on all of the days  
@@ -54,10 +54,10 @@ boxQTwice<-function(localSample = Sample, localDaily = Daily, localINFO = INFO,
   
   if (tinyPlot) {
     yLabel <- paste("Discharge (",qUnit@qShortName,")",sep="")
-    par(mar=c(5,4,1,1.5))
+    par(mar=c(5,6,2,0.1))
   } else {
     yLabel <- paste("Discharge in ",qUnit@qUnitName,sep="")
-    par(mar=c(5,4,4,2)+0.1)
+    par(mar=c(5,6,4,2)+0.1)
   }
   
   boxplot(bigQ~index,log="y",varwidth=TRUE,

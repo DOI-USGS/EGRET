@@ -10,6 +10,9 @@
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
 #' @param oneToOneLine inserts 1:1 line
+#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -19,7 +22,8 @@
 #' plotFluxPred(fluxUnit = 7)
 #' plotFluxPred(fluxUnit = 'poundsDay')
 plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, fluxMax = NA, 
-                       tinyPlot = FALSE, printTitle = TRUE, oneToOneLine=TRUE, ...){
+                       tinyPlot = FALSE, printTitle = TRUE, oneToOneLine=TRUE, 
+                       cex=0.8, cex.axis=1.1,cex.main=1.1,...){
   # this function shows observed versus estimated flux
   # estimated flux on the x-axis (these include the bias correction), 
   # observed flux on y-axis 
@@ -53,27 +57,25 @@ plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, flu
   if (tinyPlot) {
     xLab <- fluxUnit@unitEstimateTiny
     yLab <- fluxUnit@unitExpressTiny
-    par(mar=c(5,4,1,1.5))
   }
   else {
     xLab <- fluxUnit@unitEstimate
     yLab <- fluxUnit@unitExpress
-    par(mar=c(5,4,4,2)+0.1)
   }
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed vs Estimated Flux") else ""
   
   ###############################
-  #if(tinyPlot) par(mar=c(5,4,1,1.5)) else par(mar=c(5,4,4,2)+0.1)
+
   
-  xInfo <- generalAxis(x=x, minVal=0, maxVal=NA, tinyPlot=tinyPlot)
-  
-  yInfo <- generalAxis(x=yHigh, minVal=0, maxVal=fluxMax, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=x, minVal=0, maxVal=NA, tinyPlot=tinyPlot,padPercent=5)  
+  yInfo <- generalAxis(x=yHigh, minVal=0, maxVal=fluxMax, tinyPlot=tinyPlot,padPercent=5)
   
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xLab, ylab=yLab,
-                      plotTitle=plotTitle,oneToOneLine=oneToOneLine, ...
+                      plotTitle=plotTitle,oneToOneLine=oneToOneLine, 
+                      tinyPlot=tinyPlot,cex.axis=cex.axis,cex.main=cex.main,...
   )
   
   censoredSegments(yBottom=yInfo$bottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen)

@@ -31,13 +31,7 @@ plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
                      localINFO=INFO,sdMax=NA,printTitle = TRUE, tinyPlot = FALSE, 
                      printStaName = TRUE, printPA = TRUE, cex=0.8,
                      cex.main=1.1,cex.axis = 1.1,lwd=2, ...){
-#   par(mar = c(5,6,5,2))
-  if(tinyPlot){
-#     par(mar = c(5,4,4,2) + 0.1)
-    par(mar = c(5,6,2,0.1))
-  } else {
-    par(mar = c(5,6,5,2))
-  }
+
   numDays<-length(localDaily$LogQ)
   paLong <- localINFO$paLong
   paStart <- localINFO$paStart
@@ -49,13 +43,17 @@ plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
   numResults<-length(startDays)
   y<-rep(NA,numResults)
   xmid<-startDays+(window/2)
+  
+  
   for (i in 1:numResults){
     firstDay<-startDays[i]
     lastDay<-startDays[i]+window
     smallDaily<-subset(localDaily,DecYear>=firstDay&DecYear<=lastDay)
     y[i]<-sd(smallDaily$LogQ,na.rm=TRUE)
   }
-  yTop<-if(is.na(sdMax)) 1.05*max(y)
+  
+#   newWindow <- window*365
+#   y <- rollapply(localDaily$LogQ, width = newWindow, FUN = sd, fill = NA)
 
   xMin<-if(is.na(yearStart)) startDec else yearStart
   xMax<-if(is.na(yearEnd)) endDec else yearEnd
@@ -64,21 +62,26 @@ plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
   line2<-if(printPA) paste("\n",setSeasonLabelByUser(paStartInput = localINFO$paStart, paLongInput = localINFO$paLong)) else ""
   line3<-"\nDischarge variability: Standard Deviation of Log(Q)" 
   title<-if(printTitle) paste(line1,line2,line3) else ""
+  
   if(tinyPlot){
-    title<-if(printTitle) "Discharge variability: Standard Deviation of Log(Q)"
+    par(mar = c(5,6,2,0.1))
+    title<-if(printTitle) "standard deviation of log(Q)"
+  } else {
+    par(mar = c(5,6,5,2))
   }
+
   ##############################################
   
   xInfo <- generalAxis(x=xmid, minVal=yearStart, maxVal=yearEnd, tinyPlot=tinyPlot,padPercent=0)
-  yInfo <- generalAxis(x=y, minVal=0, maxVal=yTop, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=y, minVal=0, maxVal=sdMax, tinyPlot=tinyPlot,padPercent=5)
 
-  genericEGRETDotPlot(x=xmid,y=y,
+  genericEGRETDotPlot(x=xmid,#localDaily$DecYear,
+                      y=y,
                       xlim=c(xInfo$bottom,xInfo$top),ylim=c(yInfo$bottom,yInfo$top),
                       xlab="",ylab="Dimensionless",
                       xTicks=xInfo$ticks,yTicks=yInfo$ticks,cex=cex,
                       plotTitle=title, cex.main=cex.main, cex.axis = cex.axis,
                       type="l", lwd=lwd, ...
   )
-  
-#   par(mar = c(5, 4, 4, 2) + 0.1)
+
 }

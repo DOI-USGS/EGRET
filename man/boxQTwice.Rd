@@ -4,7 +4,7 @@
 \usage{
   boxQTwice(localSample = Sample, localDaily = Daily,
     localINFO = INFO, printTitle = TRUE, qUnit = 2,
-    font.main = 2, cex = 0.8, cex.main = 1, cex.axis = 0.8,
+    font.main = 2, cex = 0.8, cex.main = 1.1, cex.axis = 1,
     tinyPlot = FALSE, ...)
 }
 \arguments{

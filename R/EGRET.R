@@ -185,3 +185,23 @@ NULL
 #' @name monthInfo
 #' @docType data
 NULL
+
+#' Example Daily dataframe for Rio Grande
+#'
+#' Example data representing streamflowfrom the Rio Grande at Embudo, NM,  USGS data.
+#'
+#' @name RioDaily
+#' @docType data
+#' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
+#' @keywords water quality streamflow data
+NULL
+
+#' Example INFO dataframe for Rio Grande River
+#'
+#' Example data representing meta-data from the Rio Grande at Embudo, NM,  USGS data
+#'
+#' @name RioINFO
+#' @docType data
+#' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
+#' @keywords water quality data
+NULL

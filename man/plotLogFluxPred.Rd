@@ -3,8 +3,9 @@
 \title{Sample data plot:  observed log flux vs predicted log flux}
 \usage{
   plotLogFluxPred(localSample = Sample, localINFO = INFO,
-    fluxUnit = 3, fluxMax = NA, tinyPlot = TRUE,
-    printTitle = TRUE, oneToOneLine = TRUE, ...)
+    fluxUnit = 3, fluxMax = NA, tinyPlot = FALSE,
+    printTitle = TRUE, oneToOneLine = TRUE, cex = 0.8,
+    cex.axis = 1.1, cex.main = 1.1, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -30,6 +31,12 @@
   multi-plot figure)}
 
   \item{oneToOneLine}{inserts 1:1 line}
+
+  \item{cex}{number}
+
+  \item{cex.axis}{number}
+
+  \item{cex.main}{number}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

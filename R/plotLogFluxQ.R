@@ -11,6 +11,9 @@
 #' @param fluxMax numeric specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param fluxMin numeric specifying the minimum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
+#' @param cex number
+#' @param cex.axis number
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -22,7 +25,7 @@
 #' plotLogFluxQ()
 plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2, 
               fluxUnit = 3, tinyPlot = FALSE, fluxMax = NA, fluxMin = NA, 
-                       printTitle = TRUE,...){
+                       printTitle = TRUE,cex=0.8, cex.axis=1.1,cex.main=1.1,...){
   # this function shows the sample data,
   # discharge on x-axis on a log scale, 
   # flux on y-axis on a log scale 
@@ -51,42 +54,31 @@ plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2,
   yLow<-localSample$ConcLow*localSample$Q*fluxFactor
   yHigh<-localSample$ConcHigh*localSample$Q*fluxFactor
   Uncen<-localSample$Uncen
-  #xMin<-0.95*min(x)
-  #xMax<-1.05*max(x)
-  #xTicks<-if(tinyPlot) logPretty1(xMin,xMax) else logPretty3(xMin,xMax)
-  #numXTicks<-length(xTicks)
-  #xLeft<-xTicks[1]
-  #xRight<-xTicks[numXTicks]
+
   if (tinyPlot) {
     xLab <- qUnit@qUnitTiny
     yLab <- fluxUnit@unitExpressTiny
-  }
-  else {
+    par(mar=c(5,4,1,1.5))
+  } else {
     xLab<-qUnit@qUnitExpress
     yLab<-fluxUnit@unitExpress
+    par(mar=c(5,4,4,2)+0.1)
   }
-  #maxYHigh<-if(is.na(fluxMax)) 1.05*max(yHigh) else fluxMax
-  #minYLow<-if(is.na(fluxMin)) 0.95*min(yLow,na.rm=TRUE) else fluxMin
-  #yTicks<-if(tinyPlot) logPretty1(minYLow,maxYHigh) else logPretty3(minYLow,maxYHigh)
-  #numYTicks<-length(yTicks)
-  #yBottom<-yTicks[1]
-  #yTop<-yTicks[numYTicks]
+
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Flux versus Discharge") else ""
   
   ##############################################  
-  mar<-c(5,5,4,2)+0.1
   
-  xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot)
-  yInfo <- generalAxis(x=yHigh, minVal=fluxMin, maxVal=fluxMax, logScale=TRUE, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot, padPercent=5)
+  yInfo <- generalAxis(x=yHigh, minVal=fluxMin, maxVal=fluxMax, logScale=TRUE, tinyPlot=tinyPlot, padPercent=5)
   
   genericEGRETDotPlot(x=x, y=yHigh, 
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xLab, ylab=yLab,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
-                      plotTitle=plotTitle, mar=mar,log="xy", ...
+                      plotTitle=plotTitle, log="xy",cex.axis=cex.axis,cex.main=cex.main, ...
   )
 
   censoredSegments(yInfo$bottom,yLow,yHigh,x,Uncen)
   
-  par(mar=c(5,4,4,2)+0.1)
 }

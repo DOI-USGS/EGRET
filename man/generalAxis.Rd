@@ -3,8 +3,7 @@
 \title{Axis generation for log discharge}
 \usage{
   generalAxis(x, maxVal, minVal, logScale = FALSE,
-    tinyPlot = FALSE, padPercent = 5, max_offset = 0,
-    min_offset = 0)
+    tinyPlot = FALSE, padPercent = 5)
 }
 \arguments{
   \item{x}{vector to create scale about}
@@ -20,10 +19,6 @@
 
   \item{padPercent}{number used to pad the max and min if
   not specified}
-
-  \item{max_offset}{maximum value offset}
-
-  \item{min_offset}{minimum value offset}
 }
 \description{
   Discharge axis tick generation

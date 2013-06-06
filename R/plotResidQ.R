@@ -10,6 +10,9 @@
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
+#' @param cex number
+#' @param cex.axis number
+#' @param cex.main number
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -18,13 +21,9 @@
 #' INFO <- exINFO
 #' plotResidQ(qUnit=1)
 plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2, 
-                      tinyPlot = FALSE, stdResid = FALSE, printTitle = TRUE,...) 
+                      tinyPlot = FALSE, stdResid = FALSE, printTitle = TRUE,
+                      cex=0.8, cex.axis=1.1,cex.main=1.1,...) 
 {  
-   #if(tinyPlot) {
-   # par(mar=c(5,4,1,1)) 
-   #}else {
-   # par(mar=c(5,4,4,2)+0.1)
-   #}
    
    if (is.numeric(qUnit)) {
      qUnit <- qConst[shortCode = qUnit][[1]]
@@ -50,8 +49,7 @@ plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2,
      }
    
    Uncen <- localSample$Uncen
-   #xMin <- 0.95 * min(x)
-   #xMax <- 1.05 * max(x)
+   
    #maxYHigh <- max(yHigh) + 0.1
    #minYLow <- min(yLow, na.rm = TRUE) - 0.5
    #xTicks <- logPretty3(xMin, xMax)
@@ -67,27 +65,25 @@ plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2,
    if (tinyPlot){
      xLab <- qUnit@qUnitTiny
      yLab <- ifelse(stdResid, expression(paste("log"["e"],"(Std. Residual) units")), expression(paste("log"["e"],"(Residual) units")))
-     par(mar=c(5,4,1,1.5))
-}
-   else {
+  } else {
      xLab <- qUnit@qUnitExpress
      yLab <- ifelse(stdResid, "Standardized Residual in natural log units", "Residual in natural log units")
-     par(mar=c(5,4,4,2)+0.1)
-    }
-   plotTitle <- ifelse (printTitle,  paste(localINFO$shortName, "\n", localINFO$paramShortName, 
+  }
+  
+  plotTitle <- ifelse (printTitle,  paste(localINFO$shortName, "\n", localINFO$paramShortName, 
            "\n", "Residual versus Discharge"), "")
    
    #######################
    
-   xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot)
+   xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot,padPercent=5)
    
-   yInfo <- generalAxis(x=yHigh, minVal=NA, maxVal=NA, tinyPlot=tinyPlot, min_offset=0.5, max_offset=0.1)
+   yInfo <- generalAxis(x=yHigh, minVal=(max(yHigh) + 0.1), maxVal=(max(yHigh) + 0.1), tinyPlot=tinyPlot)
 
    genericEGRETDotPlot(x=x, y=yHigh,
                        xTicks=xInfo$ticks, yTicks=yInfo$ticks,hLine=TRUE,
                        xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
                        xlab = xLab, ylab = yLab, plotTitle=plotTitle,
-                       log = "x",...
+                       log = "x", cex.axis=cex.axis,cex.main=cex.main, tinyPlot=tinyPlot,...
      )
    # Laura took out cex.lab = 1.0, cex = 0.4, 
 

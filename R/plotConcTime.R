@@ -49,10 +49,8 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   ################################################################################  
   
   if(tinyPlot){
-    par(mar = c(5,4,1,1.5))
     yLab <- "Conc. (mg/L)"
   } else {
-    par(mar = c(5,4,4,2) + 0.1)
     yLab="Concentration in mg/L"
   }
   
@@ -118,7 +116,8 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab="", ylab=yLab,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,cex=cex,
-                      plotTitle=plotTitle, log=logVariable,cex.axis=cex.axis,cex.main=cex.main, ...
+                      plotTitle=plotTitle, log=logVariable,
+                      cex.axis=cex.axis,cex.main=cex.main,tinyPlot=tinyPlot, ...
   )
   censoredSegments(yBottom=yInfo$ticks[1],yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
   

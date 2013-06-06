@@ -21,7 +21,7 @@
 #' INFO <- exINFO
 #' boxConcMonth()
 boxConcMonth<-function(localSample = Sample, localINFO = INFO, printTitle = TRUE,
-                       cex=0.8, cex.axis=0.9, cex.main=1.0, las=2, 
+                       cex=0.8, cex.axis=1.0, cex.main=1.1, las=2, 
                        font.main=2, tinyPlot = FALSE, ...) {
   #This function makes a boxplot of log concentration by month
   #Box width is proportional to the square root of the sample size
@@ -41,12 +41,12 @@ boxConcMonth<-function(localSample = Sample, localINFO = INFO, printTitle = TRUE
   
   if (tinyPlot) {
     yLabel <- "Conc. (mg/L)"
-    par(mar=c(5,4,1,1.5))
+    par(mar=c(5,6,2,0.1))
   } else {
     yLabel <- "Concentration in mg/L"
-    par(mar=c(5,4,4,2)+0.1)
+    par(mar=c(5,6,4,2)+0.1)
   }
-  
+    
   boxplot(tempDF$conc ~ tempDF$month,
           #     localSample$ConcAve~localSample$Month,
           ylim=c(0,yMax),yaxs="i",

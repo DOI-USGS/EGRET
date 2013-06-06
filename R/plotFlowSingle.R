@@ -18,9 +18,9 @@
 #' @param printStaName logical variable, if TRUE station name is printed in title, if FALSE not printed, default is TRUE
 #' @param printPA logical variable, if TRUE Period of Analysis information is printed in title, if FALSE not printed, default is TRUE
 #' @param printIstat logical variable, if TRUE print the statistic name is printed in title, if FALSE not printed, default is TRUE
-#' @param cex number
-#' @param cex.axis number
-#' @param cex.main number
+#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param lwd number
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow statistics
@@ -65,11 +65,9 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
   ##############################################
   
   if(tinyPlot){
-    par(mar = c(5,6,2,0.1))
     yLab <- qUnit@qUnitTiny
     title<-if(printTitle) paste(nameIstat[istat]) else ""
   } else {
-    par(mar = c(5,6,4,2) + 0.1)
     yLab <- qUnit@qUnitExpress
   }
 
@@ -77,7 +75,7 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab="", ylab=yLab,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,cex=cex,
-                      plotTitle=title, cex.axis=cex.axis,cex.main=cex.main, ...
+                      plotTitle=title, cex.axis=cex.axis,cex.main=cex.main, tinyPlot=tinyPlot,...
   )
   
   ##############################################

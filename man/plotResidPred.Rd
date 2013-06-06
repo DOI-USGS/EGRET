@@ -4,7 +4,7 @@
 \usage{
   plotResidPred(localSample = Sample, localINFO = INFO,
     stdResid = FALSE, tinyPlot = FALSE, printTitle = TRUE,
-    ...)
+    cex = 0.8, cex.axis = 1.1, cex.main = 1.1, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -25,6 +25,12 @@
   \item{printTitle}{logical variable if TRUE title is
   printed, if FALSE not printed (this is best for a
   multi-plot figure)}
+
+  \item{cex}{number}
+
+  \item{cex.axis}{number}
+
+  \item{cex.main}{number}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

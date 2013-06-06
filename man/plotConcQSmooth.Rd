@@ -4,11 +4,12 @@
 \usage{
   plotConcQSmooth(date1, date2, date3, qLow, qHigh,
     qUnit = 2, legendLeft = 0.05, legendTop = 0.3,
-    concMax = NA, bw = FALSE, printTitle = TRUE,
-    printValues = FALSE, localSample = Sample,
-    localINFO = INFO, windowY = 10, windowQ = 2,
-    windowS = 0.5, tinyPlot = FALSE, lwd = 2, cex = 0.8,
-    cex.axis = 1.1, cex.main = 1.1, legend.cex = 1, ...)
+    concMax = NA, concMin = NA, bw = FALSE,
+    printTitle = TRUE, printValues = FALSE,
+    localSample = Sample, localINFO = INFO, windowY = 10,
+    windowQ = 2, windowS = 0.5, tinyPlot = FALSE, lwd = 2,
+    cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
+    legend.cex = 1, logScale = FALSE, ...)
 }
 \arguments{
   \item{date1}{string specifying the date for the first
@@ -52,6 +53,11 @@
   causes the upper limit to be set automatically, based on
   the data)}
 
+  \item{concMin}{numeric value for lower limit on
+  concentration shown on the graph, default = NA (which
+  causes the lower limit to be set automatically, based on
+  the data)}
+
   \item{bw}{logical if TRUE graph is produced in black and
   white, default is FALSE (which means it will use color)}
 
@@ -92,6 +98,8 @@
   \item{legend.cex}{number}
 
   \item{tinyPlot}{logical}
+
+  \item{logScale}{logical}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

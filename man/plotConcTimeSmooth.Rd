@@ -6,8 +6,9 @@
     yearEnd, qUnit = 2, legendLeft = 0, legendTop = 0,
     concMax = NA, bw = FALSE, printTitle = TRUE,
     printValues = FALSE, localSample = Sample,
-    localINFO = INFO, windowY = 10, windowQ = 2,
-    windowS = 0.5, cex.main = 1.1, lwd = 2, ...)
+    localINFO = INFO, tinyPlot = FALSE, windowY = 10,
+    windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2,
+    ...)
 }
 \arguments{
   \item{q1}{numeric This is the discharge value for the
@@ -87,6 +88,10 @@
   \item{windowS}{numeric specifying the half-window with in
   the seasonal dimension, in units of years, default is
   0.5}
+
+  \item{tinyPlot}{logical variable, if TRUE plot is
+  designed to be plotted small, as a part of a multipart
+  figure, default is FALSE}
 
   \item{cex.main}{magnification to be used for main titles
   relative to the current setting of cex}

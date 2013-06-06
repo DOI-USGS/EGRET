@@ -3,11 +3,13 @@
 \title{Plot up to three curves representing the log concentration versus discharge relationship, each curve is a different point in time}
 \usage{
   plotLogConcQSmooth(date1, date2, date3, qLow, qHigh,
-    qUnit = 2, legendLeft = 0, legendTop = 0, concMax = NA,
-    concMin = NA, bw = FALSE, printTitle = TRUE,
-    printValues = FALSE, localSample = Sample,
-    localINFO = INFO, windowY = 10, windowQ = 2,
-    windowS = 0.5, cex.main = 1.1, lwd = 2, ...)
+    qUnit = 2, legendLeft = 0.05, legendTop = 0.3,
+    concMax = NA, concMin = NA, bw = FALSE,
+    printTitle = TRUE, printValues = FALSE,
+    localSample = Sample, localINFO = INFO, windowY = 10,
+    windowQ = 2, windowS = 0.5, tinyPlot = FALSE, lwd = 2,
+    cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
+    legend.cex = 1, ...)
 }
 \arguments{
   \item{date1}{string specifying the date for the first
@@ -85,11 +87,17 @@
   the seasonal dimension, in units of years, default is
   0.5}
 
-  \item{cex.main}{magnification to be used for main titles
-  relative to the current setting of cex}
+  \item{cex}{number}
 
-  \item{lwd}{line width, a positive number, defaulting to
-  1}
+  \item{cex.axis}{number}
+
+  \item{cex.main}{number}
+
+  \item{lwd}{number}
+
+  \item{legend.cex}{number}
+
+  \item{tinyPlot}{logical}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

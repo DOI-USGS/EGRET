@@ -14,6 +14,7 @@
 #' @param fluxMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
 #' @param plotFlowNorm logical variable if TRUE the flow normalized line is plotted, if FALSE not plotted 
+#' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE
 #' @param cex number
 #' @param cex.axis number
 #' @param cex.main number
@@ -31,7 +32,7 @@
 #' plotFluxHist(yearStart, yearEnd, fluxUnit = 'kgDay')
 plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9, 
     localAnnualResults = AnnualResults, localINFO = INFO, fluxMax = NA, 
-    printTitle = TRUE, plotFlowNorm = TRUE,
+    printTitle = TRUE, plotFlowNorm = TRUE,tinyPlot=FALSE,
     cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2, ...){
   # produces a graph of annual flux and flow normalized flux versus year
   # AnnualResults contains the set of results
@@ -62,32 +63,26 @@ plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9,
   subAnnualResults<-subset(subAnnualResults,DecYear<=yearEnd)
   annFlux<-unitFactorReturn*subAnnualResults$Flux
   fnFlux<-unitFactorReturn*subAnnualResults$FNFlux
-  #fluxMax<-if(is.na(fluxMax)) 1.05*max(annFlux,na.rm=TRUE) else fluxMax
-  #xVals<-subAnnualResults$DecYear
-  #xMin<-yearStart
-  #xMax<-yearEnd
-  #yearSpan<-c(xMin,xMax)
-  #xTicks<-pretty(yearSpan,n=9)
-  #numXTicks<-length(xTicks)
-  #xLeft<-xTicks[1]
-  #xRight<-xTicks[numXTicks]
-  #yTicks<-yPretty(fluxMax)
-  #yTop<-yTicks[length(yTicks)]
+
   periodName<-setSeasonLabel(localAnnualResults=localAnnualResults)
   title3<-if(plotFlowNorm) "\nFlux Estimates (dots) & Flow Normalized Flux (line)" else "\nAnnual Flux Estimates"
   title<-if(printTitle) paste(localINFO$shortName," ",localINFO$paramShortName,"\n",periodName,title3) else ""
   
-  xInfo <- generalAxis(x=subAnnualResults$DecYear, minVal=yearStart, maxVal=yearEnd)
-  
-  yInfo <- generalAxis(x=annFlux, minVal=0, maxVal=fluxMax)
+  xInfo <- generalAxis(x=subAnnualResults$DecYear, minVal=yearStart, maxVal=yearEnd,padPercent=0)  
+  yInfo <- generalAxis(x=annFlux, minVal=0, maxVal=fluxMax, padPercent=5)
   
   ###############################################
-  par(mar = c(5,6,5,2))
+  if(tinyPlot){
+    par(mar = c(5,6,2,0.1))
+  } else {
+    par(mar = c(5,6,4,2) + 0.1)
+  }
+  
   genericEGRETDotPlot(x=subAnnualResults$DecYear, y = annFlux,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(0,yInfo$top),
                       ylab=ylabel, plotTitle=title,
-                      cex.axis=cex.axis,cex.main=cex.main, ...
+                      cex.axis=cex.axis,cex.main=cex.main, tinyPlot=tinyPlot,...
                       
     )
   # Laura took out cex=0.8,cex.main=1.1, cex.axis=1.1

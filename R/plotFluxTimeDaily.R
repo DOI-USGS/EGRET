@@ -12,6 +12,9 @@
 #' @param fluxUnit number representing in pre-defined fluxUnit class array. \code{\link{fluxConst}}
 #' @param fluxMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
+#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -22,7 +25,7 @@
 #' plotFluxTimeDaily(2001,2009)
 plotFluxTimeDaily<-function (startYear, endYear, localSample = Sample, localDaily = Daily, 
                              localINFO = INFO, tinyPlot = FALSE, fluxUnit = 3, fluxMax = NA, 
-                             printTitle = TRUE, ...) {
+                             printTitle = TRUE, cex=0.8, cex.axis=1.1,cex.main=1.1, ...) {
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(fluxUnit)){
@@ -32,9 +35,6 @@ plotFluxTimeDaily<-function (startYear, endYear, localSample = Sample, localDail
   }
   ################################################################################    
   
-#   if (tinyPlot) 
-#     par(mar = c(5, 4, 1, 1))
-#   else par(mar = c(5, 4, 4, 2) + 0.1)
   fluxFactor <- fluxUnit@unitFactor*86.40
   subSample <- subset(localSample, DecYear >= startYear)
   subSample <- subset(subSample, DecYear <= endYear)
@@ -42,11 +42,7 @@ plotFluxTimeDaily<-function (startYear, endYear, localSample = Sample, localDail
   subDaily <- subset(subDaily, DecYear <= endYear)
   xSample <- subSample$DecYear
   xDaily <- subDaily$DecYear
-  #xLimits <- c(startYear, endYear)
-  #xTicks <- pretty(xLimits, n = 5)
-  #numXTicks <- length(xTicks)
-  #xLeft <- xTicks[1]
-  #xRight <- xTicks[numXTicks]
+
   yLow <- subSample$ConcLow*subSample$Q*fluxFactor
   yHigh <- subSample$ConcHigh*subSample$Q*fluxFactor
   Uncen <- subSample$Uncen
@@ -65,10 +61,8 @@ plotFluxTimeDaily<-function (startYear, endYear, localSample = Sample, localDail
   
   yBottom <- 0 #Not specified within script, added under assumption that it's always zero based on ylim definition in this function
   
-  par(mar = c(5,6,5,2))
-  
-  xInfo <- generalAxis(x=xSample, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot)
-  yInfo <- generalAxis(x=yHigh, minVal=yBottom, maxVal=fluxMax, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=xSample, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot,padPercent=0)
+  yInfo <- generalAxis(x=yHigh, minVal=yBottom, maxVal=fluxMax, tinyPlot=tinyPlot,padPercent=5)
   
   if (tinyPlot) {
     yLab <- fluxUnit@unitExpressTiny
@@ -81,11 +75,10 @@ plotFluxTimeDaily<-function (startYear, endYear, localSample = Sample, localDail
                       xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       ylab = yLab,
-                      plotTitle=plotTitle, ...
+                      plotTitle=plotTitle, tinyPlot=tinyPlot,cex.axis=cex.axis,cex.main=cex.main,...
     )
 
   lines(xDaily, subDaily$ConcDay*subDaily$Q*fluxFactor)
   censoredSegments(yBottom=yInfo$bottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen)
 
-  par(mar = c(5, 4, 4, 2) + 0.1)
 }

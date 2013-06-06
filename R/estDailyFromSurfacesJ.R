@@ -10,6 +10,7 @@
 #' @keywords water-quality statistics
 #' @return localDaily string specifying the name of the data frame containing the daily values and these estimates
 #' @export
+#' @importFrom fields interp.surface
 #' @examples
 #' Daily <- exDaily
 #' INFO <- exINFO

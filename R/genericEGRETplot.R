@@ -51,6 +51,12 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
                                 tcl=0.5,cex.axis=1,las=1,
                                 tinyPlot=FALSE,hLine=FALSE,oneToOneLine=FALSE, ...){
   
+  if (tinyPlot){
+    par(mar=c(5,6,2,0.1))
+  } else {
+    par(mar=c(5,6,4,2) + 0.1)
+  }
+  
   plot(x,y,xlim=xlim,xaxs=xaxs,xlab=xlab,axes=FALSE,
        ylim=ylim,yaxs=yaxs,ylab=ylab,main=plotTitle,
        pch=pch,cex=cex,cex.main=cex.main,font.main=font.main,cex.lab=cex.lab,...)

@@ -5,7 +5,8 @@
   plotConcTimeDaily(startYear, endYear,
     localSample = Sample, localDaily = Daily,
     localINFO = INFO, tinyPlot = FALSE, concMax = NA,
-    printTitle = TRUE, ...)
+    printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
+    cex.main = 1.1, ...)
 }
 \arguments{
   \item{startYear}{numeric specifying the starting date
@@ -35,6 +36,12 @@
   \item{printTitle}{logical variable if TRUE title is
   printed, if FALSE title is not printed (this is best for
   a multi-plot figure)}
+
+  \item{cex}{number}
+
+  \item{cex.axis}{number}
+
+  \item{cex.main}{number}
 
   \item{\dots}{arbitrary functions sent to the generic
   plotting function.  See ?par for details on possible

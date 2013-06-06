@@ -5,8 +5,8 @@
   plotFluxHist(yearStart = NA, yearEnd = NA, fluxUnit = 9,
     localAnnualResults = AnnualResults, localINFO = INFO,
     fluxMax = NA, printTitle = TRUE, plotFlowNorm = TRUE,
-    cex = 0.8, cex.axis = 1.1, cex.main = 1.1, lwd = 2,
-    ...)
+    tinyPlot = FALSE, cex = 0.8, cex.axis = 1.1,
+    cex.main = 1.1, lwd = 2, ...)
 }
 \arguments{
   \item{yearStart}{numeric is the calendar year containing
@@ -38,6 +38,10 @@
 
   \item{plotFlowNorm}{logical variable if TRUE the flow
   normalized line is plotted, if FALSE not plotted}
+
+  \item{tinyPlot}{logical variable, if TRUE plot is
+  designed to be plotted small, as a part of a multipart
+  figure, default is FALSE}
 
   \item{cex}{number}
 

@@ -10,6 +10,9 @@
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
+#' @param cex number
+#' @param cex.axis number
+#' @param cex.main number
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords water-quality statistics graphics
 #' @export
@@ -18,7 +21,8 @@
 #' INFO <- exINFO
 #' plotResidPred()
 plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, 
-                        tinyPlot = FALSE, printTitle = TRUE, ...){
+                        tinyPlot = FALSE, printTitle = TRUE, 
+                        cex=0.8, cex.axis=1.1,cex.main=1.1,...){
   # this function shows residual versus estimated in log space
   # estimated log concentration on the x-axis (these are prior to bias correction), 
   # observed log concentration on y-axis 
@@ -51,42 +55,27 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   if (tinyPlot){
     xLab <- "Est. Conc. (mg/L)"
     yLab <- if(stdResid) expression(paste("log"["e"],"(Std. Residual) units")) else expression(paste("log"["e"],"(Residual) units"))
-    par(mar=c(5,4,1,1.5))
   }
   else {
     xLab<-"Estimated Concentration in mg/L"
     yLab<-if(stdResid) "Standardized Residual in natural log units" else "Residual in natural log units"
-    par(mar=c(5,4,4,2)+0.1)
   }
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Residual versus Estimated Concentration") else ""
   
   ####################
   
-  xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot, padPercent=5)
   
-  yInfo <- generalAxis(x=yHigh, minVal=NA, maxVal=NA, tinyPlot=tinyPlot, max_offset=0.1, min_offset=0.5)
+  yInfo <- generalAxis(x=yHigh, minVal=(min(yLow,na.rm=TRUE)-0.5), maxVal=(max(yHigh) + 0.1), tinyPlot=tinyPlot)
 
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xLab, ylab=yLab, plotTitle=plotTitle,
-                      log="x",hLine=TRUE,...
+                      log="x",hLine=TRUE,cex.axis=cex.axis,cex.main=cex.main, tinyPlot=tinyPlot,...
     )
 
-  
-#   plot(log(x,10),yHigh,axes=FALSE,xlim=c(log(xLeft,10),log(xRight,10)),xaxs="i",xlab=xLab,ylim=c(yBottom,yTop),yaxs="i",ylab=yLab,main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)
-#   axis(1,tcl=0.5,at=log(xTicks,10),labels=xTicks)
-#   axis(2,tcl=0.5,las=1,at=yTicks,labels=yTicks)
-#   axis(3,tcl=0.5,at=log(xTicks,10),labels=FALSE)
-#   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
-#   box()
   censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen
     )
-#   yLowVal<-ifelse(is.na(yLow),yBottom,yLow)
-#   numSamples<-length(x)
-#   uncensoredIndex <- 1:numSamples
-#   uncensoredIndex <- uncensoredIndex[Uncen==0]
-#   segments(log(x[uncensoredIndex],10),yLowVal[uncensoredIndex],log(x[uncensoredIndex],10),yHigh[uncensoredIndex])
-#   abline(h=0)
-  par(mar=c(5,4,4,2)+0.1)
+
 }

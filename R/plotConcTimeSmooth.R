@@ -20,6 +20,7 @@
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 10
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
+#' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param lwd line width, a positive number, defaulting to 1
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
@@ -37,7 +38,7 @@
 #' plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd)
 plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit = 2, legendLeft = 0, 
                               legendTop = 0, concMax = NA, bw = FALSE, printTitle = TRUE, 
-                              printValues = FALSE, localSample = Sample, localINFO = INFO, 
+                              printValues = FALSE, localSample = Sample, localINFO = INFO,tinyPlot=FALSE, 
                               windowY = 10, windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2, ...){
   
   if (is.numeric(qUnit)) {
@@ -117,6 +118,7 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
     c(1, 1, 1)
   }
   #####################
+
   
   xInfo <- generalAxis(x=x, minVal=yearStart, maxVal=yearEnd)
   
@@ -127,7 +129,7 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
                       xlim = c(xInfo$bottom,xInfo$top),ylim = c(yInfo_x$bottom,yInfo_x$top),
                       ylab = yLab, plotTitle=title, 
                       type = "l", lwd = lwd, col = colorVal[1], lty = lineVal[1],
-                      cex.main = cex.main, ...
+                      cex.main = cex.main, tinyPlot=tinyPlot,...
   )
 
   #par(new = TRUE)

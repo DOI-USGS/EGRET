@@ -4,7 +4,7 @@
 \usage{
   boxResidMonth(localSample = Sample, localINFO = INFO,
     stdResid = FALSE, printTitle = TRUE, las = 2,
-    cex = 0.8, cex.axis = 0.9, cex.main = 1, font.main = 2,
+    cex = 0.8, cex.axis = 1, cex.main = 1.1, font.main = 2,
     ...)
 }
 \arguments{
