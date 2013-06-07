@@ -3,9 +3,9 @@
 \title{Graph of observed versus estimated flux}
 \usage{
   plotFluxPred(localSample = Sample, localINFO = INFO,
-    fluxUnit = 3, fluxMax = NA, tinyPlot = FALSE,
-    printTitle = TRUE, oneToOneLine = TRUE, cex = 0.8,
-    cex.axis = 1.1, cex.main = 1.1, ...)
+    fluxUnit = 3, fluxMax = NA, printTitle = TRUE,
+    oneToOneLine = TRUE, cex = 0.8, cex.axis = 1.1,
+    cex.main = 1.1, tinyPlot = FALSE, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -22,15 +22,15 @@
   used on the vertical axis, default is NA (which allows it
   to be set automatically by the data)}
 
-  \item{tinyPlot}{logical variable, if TRUE plot is
-  designed to be plotted small as part of a multipart
-  figure, default is FALSE.}
-
   \item{printTitle}{logical variable if TRUE title is
   printed, if FALSE not printed (this is best for a
   multi-plot figure)}
 
   \item{oneToOneLine}{inserts 1:1 line}
+
+  \item{tinyPlot}{logical variable if TRUE plot is designed
+  to be small, if FALSE it is designed for page size,
+  default is FALSE (not fully implemented yet)}
 
   \item{cex}{numerical value giving the amount by which
   plotting text and symbols should be magnified relative to

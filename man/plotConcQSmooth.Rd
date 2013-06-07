@@ -39,14 +39,14 @@
   representing the descriptive name.}
 
   \item{legendLeft}{numeric which represents the left edge
-  of the legend, in the units shown on x-axis of graph,
-  default is 0, will be placed within the graph but may
-  overprint data}
+  of the legend, in fraction of x-axis of graph, default is
+  0.1, will be placed within the graph but may overprint
+  data}
 
   \item{legendTop}{numeric which represents the top edge of
-  the legend, in the units shown on y-axis of graph,
-  default is 0, will be placed within the graph but may
-  overprint data}
+  the legend, in fraction of y-axis of graph, default is
+  0.3, will be placed within the graph but may overprint
+  data}
 
   \item{concMax}{numeric value for upper limit on
   concentration shown on the graph, default = NA (which
@@ -91,7 +91,8 @@
 
   \item{cex.axis}{number}
 
-  \item{cex.main}{number}
+  \item{cex.main}{magnification to be used for main titles
+  relative to the current setting of cex}
 
   \item{lwd}{number}
 

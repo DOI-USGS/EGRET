@@ -3,12 +3,12 @@
 \title{Plot up to three curves representing the concentration versus time relationship, each curve representing a different flow.}
 \usage{
   plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart,
-    yearEnd, qUnit = 2, legendLeft = 0, legendTop = 0,
+    yearEnd, qUnit = 2, legendLeft = 0.05, legendTop = 0.3,
     concMax = NA, bw = FALSE, printTitle = TRUE,
     printValues = FALSE, localSample = Sample,
     localINFO = INFO, tinyPlot = FALSE, windowY = 10,
     windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2,
-    ...)
+    legend.cex = 1, ...)
 }
 \arguments{
   \item{q1}{numeric This is the discharge value for the
@@ -46,14 +46,14 @@
   representing the descriptive name.}
 
   \item{legendLeft}{numeric which represents the left edge
-  of the legend, in the units shown on x-axis of graph,
-  default is 0, will be placed within the graph but may
-  overprint data}
+  of the legend, in fraction of x-axis of graph, default is
+  0.1, will be placed within the graph but may overprint
+  data}
 
   \item{legendTop}{numeric which represents the top edge of
-  the legend, in the units shown on y-axis of graph,
-  default is 0, will be placed within the graph but may
-  overprint data}
+  the legend, in fraction of y-axis of graph, default is
+  0.3, will be placed within the graph but may overprint
+  data}
 
   \item{concMax}{numeric value for upper limit on
   concentration shown on the graph, default = NA (which
@@ -98,6 +98,8 @@
 
   \item{lwd}{line width, a positive number, defaulting to
   1}
+
+  \item{legend.cex}{number}
 
   \item{\dots}{arbitrary functions sent to the generic
   plotting function.  See ?par for details on possible
