@@ -12,8 +12,8 @@
 #' @param qLow numeric value for the lowest discharge to be considered, expressed in the units of discharge that are being used (as specified in qUnit)
 #' @param qHigh numeric value for the highest discharge to be considered, expressed in the units of discharge that are being used (as specified in qUnit)
 #' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
-#' @param legendLeft numeric which represents the left edge of the legend, in the units shown on x-axis of graph, default is 0, will be placed within the graph but may overprint data
-#' @param legendTop numeric which represents the top edge of the legend, in the units shown on y-axis of graph, default is 0, will be placed within the graph but may overprint data
+#' @param legendLeft numeric which represents the left edge of the legend, in fraction of x-axis of graph, default is 0.1, will be placed within the graph but may overprint data
+#' @param legendTop numeric which represents the top edge of the legend, in fraction of y-axis of graph, default is 0.3, will be placed within the graph but may overprint data
 #' @param concMax numeric value for upper limit on concentration shown on the graph, default = NA (which causes the upper limit to be set automatically, based on the data)
 #' @param concMin numeric value for lower limit on concentration shown on the graph, default = NA (which causes the lower limit to be set automatically, based on the data)
 #' @param bw logical if TRUE graph is produced in black and white, default is FALSE (which means it will use color)
@@ -26,7 +26,7 @@
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
 #' @param cex number
 #' @param cex.axis number
-#' @param cex.main number
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param lwd number
 #' @param legend.cex number
 #' @param tinyPlot logical

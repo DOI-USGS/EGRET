@@ -46,27 +46,21 @@ plotLogConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
   
   #################################
 
-  par(mar = c(5,6,5,2))
-  
-  xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot)
-  
-  yInfo <- generalAxis(x=yHigh, minVal=NA, maxVal=concMax, logScale=TRUE, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot,padPercent=5)
+  yInfo <- generalAxis(x=yHigh, minVal=NA, maxVal=concMax, logScale=TRUE, tinyPlot=tinyPlot,padPercent=5)
 
-  #if(tinyPlot) par(mar=c(5,4,1,1.5)) else par(mar=c(5,4,4,2)+0.1)
   
   if (tinyPlot) {
     yLab <- "Obs. Conc. (mg/L)"
-    par(mar=c(5,4,1,1.5))
   }
   else {
     yLab <- "Observed Concentration in mg/L"
-    par(mar=c(5,4,4,2)+0.1)
   }
 
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                      xlab=xLab,ylab=yLab,
+                      xlab=xLab,ylab=yLab,tinyPlot=tinyPlot,
                       plotTitle=plotTitle, cex.main=cex.main,
                       log="xy", oneToOneLine=oneToOneLine, ...
     )

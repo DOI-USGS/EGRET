@@ -42,9 +42,6 @@ plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9,
   # if you want to specify the maximum value, you can do so with the argument fluxMax, otherwise it will be automatic
   # fluxUnit is the units you want the results displayed in, see manual for list of all possible units  
 
-  #   par(oma=c(3,0,3,0))
-#   par(mar=c(5,6,5,2))
-  
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(fluxUnit)){
@@ -55,7 +52,7 @@ plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9,
   ################################################################################
   
   unitFactorReturn <- fluxUnit@unitFactor
-  ylabel <- fluxUnit@unitName
+  ylabel <- paste("Flux in ", fluxUnit@unitName, sep="")
   numYears <- length(localAnnualResults$DecYear)
   yearStart <- if(is.na(yearStart)) trunc(localAnnualResults$DecYear[1]) else yearStart
   yearEnd <- if(is.na(yearEnd)) trunc(localAnnualResults$DecYear[numYears])+1 else yearEnd
@@ -72,11 +69,6 @@ plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9,
   yInfo <- generalAxis(x=annFlux, minVal=0, maxVal=fluxMax, padPercent=5)
   
   ###############################################
-  if(tinyPlot){
-    par(mar = c(5,6,2,0.1))
-  } else {
-    par(mar = c(5,6,4,2) + 0.1)
-  }
   
   genericEGRETDotPlot(x=subAnnualResults$DecYear, y = annFlux,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
@@ -89,6 +81,4 @@ plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9,
 
   if(plotFlowNorm) lines(subAnnualResults$DecYear, fnFlux, col="green", lwd=lwd)
     
-  par(oma=c(0,0,0,0))
-  par(mar=c(5,4,4,2)+0.1)   
 }

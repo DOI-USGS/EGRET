@@ -9,8 +9,8 @@
 #' @param yearStart numeric This is the starting year for the graph. The first value plotted for each curve will be at the first instance of centerDate in the year designated by yearStart.
 #' @param yearEnd numeric This is the end of the sequence of values plotted on the graph.The last value will be the last instance of centerDate prior to the start of yearEnd. (Note, the number of values plotted on each curve will be yearEnd-yearStart.)
 #' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
-#' @param legendLeft numeric which represents the left edge of the legend, in the units shown on x-axis of graph, default is 0, will be placed within the graph but may overprint data
-#' @param legendTop numeric which represents the top edge of the legend, in the units shown on y-axis of graph, default is 0, will be placed within the graph but may overprint data
+#' @param legendLeft numeric which represents the left edge of the legend, in fraction of x-axis of graph, default is 0.1, will be placed within the graph but may overprint data
+#' @param legendTop numeric which represents the top edge of the legend, in fraction of y-axis of graph, default is 0.3, will be placed within the graph but may overprint data
 #' @param concMax numeric value for upper limit on concentration shown on the graph, default = NA (which causes the upper limit to be set automatically, based on the data)
 #' @param bw logical if TRUE graph is produced in black and white, default is FALSE (which means it will use color)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed 
@@ -23,6 +23,7 @@
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param lwd line width, a positive number, defaulting to 1
+#' @param legend.cex number
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords water-quality statistics graphics
 #' @export
@@ -36,10 +37,11 @@
 #' Sample <- exSample
 #' INFO <- exINFO
 #' plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd)
-plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit = 2, legendLeft = 0, 
-                              legendTop = 0, concMax = NA, bw = FALSE, printTitle = TRUE, 
+plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit = 2, legendLeft = .05, 
+                              legendTop = 0.3, concMax = NA, bw = FALSE, printTitle = TRUE, 
                               printValues = FALSE, localSample = Sample, localINFO = INFO,tinyPlot=FALSE, 
-                              windowY = 10, windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2, ...){
+                              windowY = 10, windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2, 
+                              legend.cex =1, ...){
   
   if (is.numeric(qUnit)) {
     qUnit <- qConst[shortCode = qUnit][[1]]
@@ -132,27 +134,33 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
                       cex.main = cex.main, tinyPlot=tinyPlot,...
   )
 
-  #par(new = TRUE)
-  lines(x=x, y=y[2, ], col=colorVal[2], lwd=lwd, lty=lineVal[2], ...)
 
-  #par(new = TRUE)
+  lines(x=x, y=y[2, ], col=colorVal[2], lwd=lwd, lty=lineVal[2], ...)
   lines(x=x, y=y[3, ], col=colorVal[3], lwd=lwd, lty=lineVal[3], ...)
 
-  legendLeft <- if (legendLeft == 0) {
-    xInfo$bottom + 2
-  } else {
-    legendLeft
-  }
-  legendTop <- if (legendTop == 0) {
-    0.3 * yTop
-  } else {
-    legendTop
-  }
+#   legendLeft <- if (legendLeft == 0) {
+#     xInfo$bottom + 2
+#   } else {
+#     legendLeft
+#   }
+#   legendTop <- if (legendTop == 0) {
+#     0.3 * yTop
+#   } else {
+#     legendTop
+#   }
+  
   words <- paste(qV[1:numQ],qUnit@qUnitName)
   ltys <- lineVal[1:numQ]
   cols <- colorVal[1:numQ]
-  legend(legendLeft, legendTop, legend = words, lty = ltys, 
-         col = cols, lwd = 2, cex = 1.3)
+  
+  x1 <- grconvertX(legendLeft, from="npc", to="user")
+  y1 <- grconvertY(legendTop, from="npc", to="user") 
+  
+  legend(x1,y1 ,legend=words,lty=ltys,col=cols,lwd=lwd,cex=legend.cex)
+  
+  
+#   legend(legendLeft, legendTop, legend = words, lty = ltys, 
+#          col = cols, lwd = 2, cex = 1.3)
   printResults <- rep(NA, numX * 4)
   dim(printResults) <- c(numX, 4)
   for (j in 1:numX) {

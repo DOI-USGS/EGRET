@@ -64,10 +64,7 @@ plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
   title<-if(printTitle) paste(line1,line2,line3) else ""
   
   if(tinyPlot){
-    par(mar = c(5,6,2,0.1))
     title<-if(printTitle) "standard deviation of log(Q)"
-  } else {
-    par(mar = c(5,6,5,2))
   }
 
   ##############################################
@@ -79,7 +76,7 @@ plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
                       y=y,
                       xlim=c(xInfo$bottom,xInfo$top),ylim=c(yInfo$bottom,yInfo$top),
                       xlab="",ylab="Dimensionless",
-                      xTicks=xInfo$ticks,yTicks=yInfo$ticks,cex=cex,
+                      xTicks=xInfo$ticks,yTicks=yInfo$ticks,cex=cex,tinyPlot=tinyPlot,
                       plotTitle=title, cex.main=cex.main, cex.axis = cex.axis,
                       type="l", lwd=lwd, ...
   )

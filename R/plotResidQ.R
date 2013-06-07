@@ -77,7 +77,7 @@ plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2,
    
    xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot,padPercent=5)
    
-   yInfo <- generalAxis(x=yHigh, minVal=(max(yHigh) + 0.1), maxVal=(max(yHigh) + 0.1), tinyPlot=tinyPlot)
+   yInfo <- generalAxis(x=yHigh, minVal=(min(yLow, na.rm = TRUE) - 0.5), maxVal=(max(yHigh) + 0.1), tinyPlot=tinyPlot)
 
    genericEGRETDotPlot(x=x, y=yHigh,
                        xTicks=xInfo$ticks, yTicks=yInfo$ticks,hLine=TRUE,
@@ -89,5 +89,4 @@ plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2,
 
    censoredSegments(yBottom, yLow, yHigh, x, Uncen )
    
-   par(mar=c(5,4,4,2)+0.1)
 }
