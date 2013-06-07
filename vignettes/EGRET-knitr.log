@@ -1,0 +1,1333 @@
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.6)  7 JUN 2013 15:42
+entering extended mode
+**EGRET-knitr.tex
+(D:\LADData\RCode\EGRET\vignettes\EGRET-knitr.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2009-06-19, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, lao, latin, lat
+vian, lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerm
+an, ngerman-x-2009-06-19, nynorsk, oriya, panjabi, pinyin, polish, portuguese, 
+romanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swis
+sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
+senglishmax, welsh, loaded.
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\article.cls"
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\size11.clo"
+File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/message (HO)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2011/04/18 v1.20 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count87
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\graphics\color.sty"
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 130.
+)
+(D:\LADData\RCode\EGRET\vignettes\framed.sty
+Package: framed 2007/10/04 v 0.95: framed or shaded text with page breaks
+\fb@frw=\dimen105
+\fb@frh=\dimen106
+\FrameRule=\dimen107
+\FrameSep=\dimen108
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\alltt.sty"
+Package: alltt 1997/06/16 v2.0g defines alltt environment
+)
+(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\amsmath\amsmath.sty
+Package: amsmath 2013/01/14 v2.14 AMS math features
+\@mathmargin=\skip43
+
+For additional information on amsmath, use the `?' option.
+(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\amsmath\amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\amsmath\amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks15
+\ex@=\dimen109
+))
+(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\amsmath\amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen110
+)
+(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\amsmath\amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count88
+LaTeX Info: Redefining \frac on input line 210.
+\uproot@=\count89
+\leftroot@=\count90
+LaTeX Info: Redefining \overline on input line 306.
+\classnum@=\count91
+\DOTSCASE@=\count92
+LaTeX Info: Redefining \ldots on input line 378.
+LaTeX Info: Redefining \dots on input line 381.
+LaTeX Info: Redefining \cdots on input line 466.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen111
+LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
+\macc@depth=\count93
+\c@MaxMatrixCols=\count94
+\dotsspace@=\muskip10
+\c@parentequation=\count95
+\dspbrk@lvl=\count96
+\tag@help=\toks16
+\row@=\count97
+\column@=\count98
+\maxfields@=\count99
+\andhelp@=\toks17
+\eqnshift@=\dimen112
+\alignsep@=\dimen113
+\tagshift@=\dimen114
+\tagwidth@=\dimen115
+\totwidth@=\dimen116
+\lineht@=\dimen117
+\@envbody=\toks18
+\multlinegap=\skip44
+\multlinetaggap=\skip45
+\mathdisplay@stack=\toks19
+LaTeX Info: Redefining \[ on input line 2665.
+LaTeX Info: Redefining \] on input line 2666.
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\times.sty"
+Package: times 2005/04/12 PSNFSS-v9.2a (SPQR) 
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hyperref.sty"
+Package: hyperref 2011/08/19 v6.82h Hypertext links for LaTeX
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\hobsub-hyperref.sty"
+Package: hobsub-hyperref 2011/04/23 v1.4 Bundle oberdiek, subset hyperref (HO)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\hobsub-generic.sty"
+Package: hobsub-generic 2011/04/23 v1.4 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2011/04/23 v1.4 Subsetting bundle oberdiek (HO)
+Package hobsub Info: Skipping package `infwarerr' (already loaded).
+Package hobsub Info: Skipping package `ltxcmds' (already loaded).
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+Package: ifvtex 2010/03/01 v1.5 Switches for detecting VTeX and its modes (HO)
+Package ifvtex Info: VTeX not detected.
+Package: intcalc 2007/09/27 v1.1 Expandable integer calculations (HO)
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+Package: etexcmds 2011/02/16 v1.5 Prefix for e-TeX command names (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+Package: kvsetkeys 2011/04/07 v1.13 Key value parser (HO)
+Package: kvdefinekeys 2011/04/07 v1.3 Defining keys (HO)
+Package: pdftexcmds 2011/04/22 v0.16 Utilities of pdfTeX for LuaTeX (HO)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+Package: pdfescape 2011/04/04 v1.12 Provides string conversions (HO)
+Package: bigintcalc 2011/01/30 v1.2 Expandable big integer calculations (HO)
+Package: bitset 2011/01/30 v1.1 Data type bit set (HO)
+Package: uniquecounter 2011/01/30 v1.2 Provides unlimited unique counter (HO)
+)
+Package hobsub Info: Skipping package `hobsub' (already loaded).
+Package: letltxmacro 2010/09/02 v1.4 Let assignment for LaTeX macros (HO)
+Package: hopatch 2011/01/30 v1.0 Wrapper for package hooks (HO)
+Package: xcolor-patch 2011/01/30 xcolor patch
+Package: atveryend 2011/04/23 v1.7 Hooks at very end of document (HO)
+Package: atbegshi 2011/01/30 v1.15 At begin shipout hook (HO)
+Package: refcount 2010/12/01 v3.2 Data extraction from references (HO)
+Package: hycolor 2011/01/30 v1.7 Color options of hyperref/bookmark (HO)
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty"
+Package: kvoptions 2010/12/23 v3.10 Keyval support for LaTeX options (HO)
+)
+\@linkdim=\dimen118
+\Hy@linkcounter=\count100
+\Hy@pagecounter=\count101
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\pd1enc.def"
+File: pd1enc.def 2011/08/19 v6.82h Hyperref: PDFDocEncoding definition (HO)
+)
+\Hy@SavedSpaceFactor=\count102
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\hyperref.cfg"
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+Package hyperref Info: Hyper figures OFF on input line 4053.
+Package hyperref Info: Link nesting OFF on input line 4058.
+Package hyperref Info: Hyper index ON on input line 4061.
+Package hyperref Info: Plain pages OFF on input line 4068.
+Package hyperref Info: Backreferencing OFF on input line 4073.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4291.
+\c@Hy@tempcnt=\count103
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\ltxmisc\url.sty"
+\Urlmuskip=\muskip11
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4644.
+\Fld@menulength=\count104
+\Field@Width=\dimen119
+\Fld@charsize=\dimen120
+Package hyperref Info: Hyper figures OFF on input line 5730.
+Package hyperref Info: Link nesting OFF on input line 5735.
+Package hyperref Info: Hyper index ON on input line 5738.
+Package hyperref Info: backreferencing OFF on input line 5745.
+Package hyperref Info: Link coloring OFF on input line 5750.
+Package hyperref Info: Link coloring with OCG OFF on input line 5755.
+Package hyperref Info: PDF/A mode OFF on input line 5760.
+LaTeX Info: Redefining \ref on input line 5800.
+LaTeX Info: Redefining \pageref on input line 5804.
+\Hy@abspage=\count105
+\c@Item=\count106
+\c@Hfootnote=\count107
+)
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\hpdftex.def"
+File: hpdftex.def 2011/08/19 v6.82h Hyperref driver for pdfTeX
+\Fld@listcount=\count108
+\c@bookmark@seq@number=\count109
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\oberdiek\rerunfilecheck.sty"
+Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+82.
+)
+\Hy@SectionHShift=\skip46
+)
+(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\natbib\natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip47
+\bibsep=\skip48
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count110
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.sty"
+Package: babel 2008/07/08 v3.8m The Babel package
+
+*************************************
+* Local config file bblopts.cfg used
+*
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\00miktex\bblopts.cfg"
+File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
+)
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\english.ldf"
+Language: english 2005/03/30 v3.3o English support from the babel system
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\babel\babel.def"
+File: babel.def 2008/07/08 v3.8m Babel common definitions
+\babel@savecnt=\count111
+\U@D=\dimen121
+)
+\l@canadian = a dialect from \language\l@american 
+\l@australian = a dialect from \language\l@british 
+\l@newzealand = a dialect from \language\l@british 
+))
+(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\preprint\authblk.sty
+Package: authblk 2009/11/18 1.3 (PWD)
+\affilsep=\skip49
+\@affilsep=\skip50
+\c@Maxaffil=\count112
+\c@authors=\count113
+\c@affil=\count114
+)
+(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\caption\subcaption.sty
+Package: subcaption 2013/02/03 v1.1-62 Sub-captions (AR)
+
+(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\caption\caption.sty
+Package: caption 2013/02/03 v3.3-65 Customizing captions (AR)
+
+(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\caption\caption3.sty
+Package: caption3 2013/02/03 v1.5-62 caption3 kernel (AR)
+\captionmargin=\dimen122
+\captionmargin@=\dimen123
+\captionwidth=\dimen124
+\caption@tempdima=\dimen125
+\caption@indent=\dimen126
+\caption@parindent=\dimen127
+\caption@hangindent=\dimen128
+)
+\c@ContinuedFloat=\count115
+Package caption Info: hyperref package is loaded.
+)
+\c@subfigure=\count116
+\c@subtable=\count117
+) (C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\placeins\placeins.sty
+Package: placeins 2005/04/18  v 2.2
+) (C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\mdwtools\footnote.sty
+Package: footnote 1997/01/28 1.13 Save footnotes around boxes
+\fn@notes=\box28
+\fn@width=\dimen129
+) ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\tabularx.sty"
+Package: tabularx 1999/01/07 v2.07 `tabularx' package (DPC)
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\tools\array.sty"
+Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
+\col@sep=\dimen130
+\extrarowheight=\dimen131
+\NC@list=\toks20
+\extratabsurround=\skip51
+\backup@length=\skip52
+)
+\TX@col@width=\dimen132
+\TX@old@table=\dimen133
+\TX@old@col=\dimen134
+\TX@target=\dimen135
+\TX@delta=\dimen136
+\TX@cols=\count118
+\TX@ftn=\toks21
+)
+(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\latex\upquote\upquote.sty
+Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
+tim
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\textcomp.sty"
+Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
+Package textcomp Info: Sub-encoding information:
+(textcomp)               5 = only ISO-Adobe without \textcurrency
+(textcomp)               4 = 5 + \texteuro
+(textcomp)               3 = 4 + \textohm
+(textcomp)               2 = 3 + \textestimated + \textcurrency
+(textcomp)               1 = TS1 - \textcircled - \t
+(textcomp)               0 = TS1 (full)
+(textcomp)             Font families with sub-encoding setting implement
+(textcomp)             only a restricted character set as indicated.
+(textcomp)             Family '?' is the default used for unknown fonts.
+(textcomp)             See the documentation for details.
+Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 71.
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ts1enc.def"
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+)
+LaTeX Info: Redefining \oldstylenums on input line 266.
+Package textcomp Info: Setting cmr sub-encoding to TS1/0 on input line 281.
+Package textcomp Info: Setting cmss sub-encoding to TS1/0 on input line 282.
+Package textcomp Info: Setting cmtt sub-encoding to TS1/0 on input line 283.
+Package textcomp Info: Setting cmvtt sub-encoding to TS1/0 on input line 284.
+Package textcomp Info: Setting cmbr sub-encoding to TS1/0 on input line 285.
+Package textcomp Info: Setting cmtl sub-encoding to TS1/0 on input line 286.
+Package textcomp Info: Setting ccr sub-encoding to TS1/0 on input line 287.
+Package textcomp Info: Setting ptm sub-encoding to TS1/4 on input line 288.
+Package textcomp Info: Setting pcr sub-encoding to TS1/4 on input line 289.
+Package textcomp Info: Setting phv sub-encoding to TS1/4 on input line 290.
+Package textcomp Info: Setting ppl sub-encoding to TS1/3 on input line 291.
+Package textcomp Info: Setting pag sub-encoding to TS1/4 on input line 292.
+Package textcomp Info: Setting pbk sub-encoding to TS1/4 on input line 293.
+Package textcomp Info: Setting pnc sub-encoding to TS1/4 on input line 294.
+Package textcomp Info: Setting pzc sub-encoding to TS1/4 on input line 295.
+Package textcomp Info: Setting bch sub-encoding to TS1/4 on input line 296.
+Package textcomp Info: Setting put sub-encoding to TS1/5 on input line 297.
+Package textcomp Info: Setting uag sub-encoding to TS1/5 on input line 298.
+Package textcomp Info: Setting ugq sub-encoding to TS1/5 on input line 299.
+Package textcomp Info: Setting ul8 sub-encoding to TS1/4 on input line 300.
+Package textcomp Info: Setting ul9 sub-encoding to TS1/4 on input line 301.
+Package textcomp Info: Setting augie sub-encoding to TS1/5 on input line 302.
+Package textcomp Info: Setting dayrom sub-encoding to TS1/3 on input line 303.
+Package textcomp Info: Setting dayroms sub-encoding to TS1/3 on input line 304.
+
+Package textcomp Info: Setting pxr sub-encoding to TS1/0 on input line 305.
+Package textcomp Info: Setting pxss sub-encoding to TS1/0 on input line 306.
+Package textcomp Info: Setting pxtt sub-encoding to TS1/0 on input line 307.
+Package textcomp Info: Setting txr sub-encoding to TS1/0 on input line 308.
+Package textcomp Info: Setting txss sub-encoding to TS1/0 on input line 309.
+Package textcomp Info: Setting txtt sub-encoding to TS1/0 on input line 310.
+Package textcomp Info: Setting lmr sub-encoding to TS1/0 on input line 311.
+Package textcomp Info: Setting lmdh sub-encoding to TS1/0 on input line 312.
+Package textcomp Info: Setting lmss sub-encoding to TS1/0 on input line 313.
+Package textcomp Info: Setting lmssq sub-encoding to TS1/0 on input line 314.
+Package textcomp Info: Setting lmvtt sub-encoding to TS1/0 on input line 315.
+Package textcomp Info: Setting qhv sub-encoding to TS1/0 on input line 316.
+Package textcomp Info: Setting qag sub-encoding to TS1/0 on input line 317.
+Package textcomp Info: Setting qbk sub-encoding to TS1/0 on input line 318.
+Package textcomp Info: Setting qcr sub-encoding to TS1/0 on input line 319.
+Package textcomp Info: Setting qcs sub-encoding to TS1/0 on input line 320.
+Package textcomp Info: Setting qpl sub-encoding to TS1/0 on input line 321.
+Package textcomp Info: Setting qtm sub-encoding to TS1/0 on input line 322.
+Package textcomp Info: Setting qzc sub-encoding to TS1/0 on input line 323.
+Package textcomp Info: Setting qhvc sub-encoding to TS1/0 on input line 324.
+Package textcomp Info: Setting futs sub-encoding to TS1/4 on input line 325.
+Package textcomp Info: Setting futx sub-encoding to TS1/4 on input line 326.
+Package textcomp Info: Setting futj sub-encoding to TS1/4 on input line 327.
+Package textcomp Info: Setting hlh sub-encoding to TS1/3 on input line 328.
+Package textcomp Info: Setting hls sub-encoding to TS1/3 on input line 329.
+Package textcomp Info: Setting hlst sub-encoding to TS1/3 on input line 330.
+Package textcomp Info: Setting hlct sub-encoding to TS1/5 on input line 331.
+Package textcomp Info: Setting hlx sub-encoding to TS1/5 on input line 332.
+Package textcomp Info: Setting hlce sub-encoding to TS1/5 on input line 333.
+Package textcomp Info: Setting hlcn sub-encoding to TS1/5 on input line 334.
+Package textcomp Info: Setting hlcw sub-encoding to TS1/5 on input line 335.
+Package textcomp Info: Setting hlcf sub-encoding to TS1/5 on input line 336.
+Package textcomp Info: Setting pplx sub-encoding to TS1/3 on input line 337.
+Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 338.
+Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 339.
+Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 340.
+))
+(D:\LADData\RCode\EGRET\vignettes\EGRET-knitr.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 101.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 101.
+
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
+File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 101.
+
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\ot1ptm.fd"
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+(C:\Users\ldecicco\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count119
+\scratchdimen=\dimen137
+\scratchbox=\box29
+\nofMPsegments=\count120
+\nofMParguments=\count121
+\everyMPshowfont=\toks22
+\MPscratchCnt=\count122
+\MPscratchDim=\dimen138
+\MPnumerator=\count123
+\makeMPintoPDFobject=\count124
+\everyMPtoPDFconversion=\toks23
+)
+\AtBeginShipoutBox=\box30
+Package hyperref Info: Link coloring OFF on input line 101.
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
+Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
+Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
+)
+\c@section@level=\count125
+)
+LaTeX Info: Redefining \ref on input line 101.
+LaTeX Info: Redefining \pageref on input line 101.
+LaTeX Info: Redefining \nameref on input line 101.
+
+(D:\LADData\RCode\EGRET\vignettes\EGRET-knitr.out)
+(D:\LADData\RCode\EGRET\vignettes\EGRET-knitr.out)
+\@outlinefile=\write3
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 118.
+
+(D:\LADData\RCode\EGRET\vignettes\EGRET-knitr.toc
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 2.
+
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[1
+
+{C:/Users/ldecicco/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}])
+\tf@toc=\write4
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 137.
+
+
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\ot1pcr.fd"
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+)
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[2]
+Package color Info: Redefining color shadecolor on input line 160.
+LaTeX Font Info:    Font shape `OT1/pcr/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/pcr/b/n' tried instead on input line 162.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 170.
+
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[3]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[4]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[5]
+Package color Info: Redefining color shadecolor on input line 335.
+
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[6]
+Package color Info: Redefining color shadecolor on input line 355.
+
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[7]
+Package color Info: Redefining color shadecolor on input line 389.
+Package color Info: Redefining color shadecolor on input line 401.
+
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 408--408
+[]\OT1/pcr/m/n/10.95 Daily <- []\OT1/pcr/b/n/10.95 getDVData[]\OT1/pcr/m/n/10.9
+5 (siteID,[]"00060"[],startDate,endDate,interactive=FALSE)[] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 439.
+Package color Info: Redefining color shadecolor on input line 449.
+
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[8]
+Package color Info: Redefining color shadecolor on input line 481.
+Package color Info: Redefining color shadecolor on input line 498.
+Package color Info: Redefining color shadecolor on input line 511.
+
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 511.
+
+<figure/plotSingleandSD1.pdf, id=222, 505.89pt x 505.89pt>
+File: figure/plotSingleandSD1.pdf Graphic file (type pdf)
+
+<use figure/plotSingleandSD1.pdf>
+Package pdftex.def Info: figure/plotSingleandSD1.pdf used on input line 513.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+<figure/plotSingleandSD2.pdf, id=223, 505.89pt x 505.89pt>
+File: figure/plotSingleandSD2.pdf Graphic file (type pdf)
+
+<use figure/plotSingleandSD2.pdf>
+Package pdftex.def Info: figure/plotSingleandSD2.pdf used on input line 514.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+Overfull \hbox (2.0783pt too wide) in paragraph at lines 513--514
+[][] [] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 522.
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 522.
+
+<figure/plotQTimeDaily.pdf, id=224, 505.89pt x 505.89pt>
+File: figure/plotQTimeDaily.pdf Graphic file (type pdf)
+
+<use figure/plotQTimeDaily.pdf>
+Package pdftex.def Info: figure/plotQTimeDaily.pdf used on input line 524.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+Package color Info: Redefining color shadecolor on input line 532.
+
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 532.
+
+<figure/plotFour.pdf, id=225, 505.89pt x 505.89pt>
+File: figure/plotFour.pdf Graphic file (type pdf)
+ <use figure/plotFour.pdf>
+Package pdftex.def Info: figure/plotFour.pdf used on input line 534.
+(pdftex.def)             Requested size: 448.07928pt x 448.07928pt.
+Package color Info: Redefining color shadecolor on input line 542.
+
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 542.
+
+<figure/plotFourStats.pdf, id=226, 505.89pt x 505.89pt>
+File: figure/plotFourStats.pdf Graphic file (type pdf)
+
+<use figure/plotFourStats.pdf>
+Package pdftex.def Info: figure/plotFourStats.pdf used on input line 544.
+(pdftex.def)             Requested size: 448.07928pt x 448.07928pt.
+
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[9]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[10 <D:/LADData/RCode/EGRET/vignettes/figure/plotSingleandSD1.pdf> <D:/LADData/
+RCode/EGRET/vignettes/figure/plotSingleandSD2.pdf> <D:/LADData/RCode/EGRET/vign
+ettes/figure/plotQTimeDaily.pdf>]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[11 <D:/LADData/RCode/EGRET/vignettes/figure/plotFour.pdf>]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[12 <D:/LADData/RCode/EGRET/vignettes/figure/plotFourStats.pdf>]
+Package color Info: Redefining color shadecolor on input line 561.
+
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 574.
+
+<figure/red1.pdf, id=279, 505.89pt x 505.89pt>
+File: figure/red1.pdf Graphic file (type pdf)
+ <use figure/red1.pdf>
+Package pdftex.def Info: figure/red1.pdf used on input line 576.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+<figure/red2.pdf, id=280, 505.89pt x 505.89pt>
+File: figure/red2.pdf Graphic file (type pdf)
+ <use figure/red2.pdf>
+Package pdftex.def Info: figure/red2.pdf used on input line 577.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+Overfull \hbox (2.0783pt too wide) in paragraph at lines 576--577
+[][] [] 
+ []
+
+
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[13]
+Package color Info: Redefining color shadecolor on input line 598.
+LaTeX Font Info:    Try loading font information for TS1+ptm on input line 624.
+
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\ts1ptm.fd"
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+)
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[14 <D:/LADData/RCode/EGRET/vignettes/figure/red1.pdf> <D:/LADData/RCode/EGRET/
+vignettes/figure/red2.pdf>]
+Package color Info: Redefining color shadecolor on input line 634.
+
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 651--651
+[]\OT1/pcr/m/n/10.95 ##    time span          change        slope       change 
+       slope[] 
+ []
+
+
+Overfull \hbox (5.25568pt too wide) in paragraph at lines 651--651
+[]\OT1/pcr/m/n/10.95 ##                       10^3 cfs 10^3 cfs /yr         %  
+       %/yr[] 
+ []
+
+
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 651--651
+[]\OT1/pcr/m/n/10.95 ##  1930  to  1970       -0.046      -0.0011          -14 
+       -0.36[] 
+ []
+
+
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 651--651
+[]\OT1/pcr/m/n/10.95 ##  1930  to  2010       -0.078     -0.00098          -24 
+        -0.3[] 
+ []
+
+
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 651--651
+[]\OT1/pcr/m/n/10.95 ##  1970  to  2010       -0.032     -0.00081          -12 
+       -0.29[] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 672.
+
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[15]
+Package color Info: Redefining color shadecolor on input line 703.
+Package color Info: Redefining color shadecolor on input line 719.
+
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 719.
+
+<figure/plotBoxes1.pdf, id=311, 505.89pt x 505.89pt>
+File: figure/plotBoxes1.pdf Graphic file (type pdf)
+
+<use figure/plotBoxes1.pdf>
+Package pdftex.def Info: figure/plotBoxes1.pdf used on input line 721.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+<figure/plotBoxes2.pdf, id=312, 505.89pt x 505.89pt>
+File: figure/plotBoxes2.pdf Graphic file (type pdf)
+
+<use figure/plotBoxes2.pdf>
+Package pdftex.def Info: figure/plotBoxes2.pdf used on input line 722.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+Overfull \hbox (2.0783pt too wide) in paragraph at lines 721--722
+[][] [] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 730.
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 730.
+
+<figure/plotConcTime1.pdf, id=313, 505.89pt x 505.89pt>
+File: figure/plotConcTime1.pdf Graphic file (type pdf)
+
+<use figure/plotConcTime1.pdf>
+Package pdftex.def Info: figure/plotConcTime1.pdf used on input line 732.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+<figure/plotConcTime2.pdf, id=314, 505.89pt x 505.89pt>
+File: figure/plotConcTime2.pdf Graphic file (type pdf)
+
+<use figure/plotConcTime2.pdf>
+Package pdftex.def Info: figure/plotConcTime2.pdf used on input line 733.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+Overfull \hbox (2.0783pt too wide) in paragraph at lines 732--733
+[][] [] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 741.
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 741.
+
+<figure/plotConcQ1.pdf, id=315, 505.89pt x 505.89pt>
+File: figure/plotConcQ1.pdf Graphic file (type pdf)
+
+<use figure/plotConcQ1.pdf>
+Package pdftex.def Info: figure/plotConcQ1.pdf used on input line 743.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+<figure/plotConcQ2.pdf, id=316, 505.89pt x 505.89pt>
+File: figure/plotConcQ2.pdf Graphic file (type pdf)
+
+<use figure/plotConcQ2.pdf>
+Package pdftex.def Info: figure/plotConcQ2.pdf used on input line 744.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+Overfull \hbox (2.0783pt too wide) in paragraph at lines 743--744
+[][] [] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 752.
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 752.
+
+<figure/plotLogConcQ1.pdf, id=317, 505.89pt x 505.89pt>
+File: figure/plotLogConcQ1.pdf Graphic file (type pdf)
+
+<use figure/plotLogConcQ1.pdf>
+Package pdftex.def Info: figure/plotLogConcQ1.pdf used on input line 754.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+<figure/plotLogConcQ2.pdf, id=318, 505.89pt x 505.89pt>
+File: figure/plotLogConcQ2.pdf Graphic file (type pdf)
+
+<use figure/plotLogConcQ2.pdf>
+Package pdftex.def Info: figure/plotLogConcQ2.pdf used on input line 755.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+Overfull \hbox (2.0783pt too wide) in paragraph at lines 754--755
+[][] [] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 763.
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 763.
+
+<figure/multiPlotDataOverview.pdf, id=319, 505.89pt x 505.89pt>
+File: figure/multiPlotDataOverview.pdf Graphic file (type pdf)
+
+<use figure/multiPlotDataOverview.pdf>
+Package pdftex.def Info: figure/multiPlotDataOverview.pdf used on input line 76
+5.
+(pdftex.def)             Requested size: 448.07928pt x 448.07928pt.
+
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[16]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[17 <D:/LADData/RCode/EGRET/vignettes/figure/plotBoxes1.pdf> <D:/LADData/RCode/
+EGRET/vignettes/figure/plotBoxes2.pdf> <D:/LADData/RCode/EGRET/vignettes/figure
+/plotConcTime1.pdf> <D:/LADData/RCode/EGRET/vignettes/figure/plotConcTime2.pdf>
+]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[18 <D:/LADData/RCode/EGRET/vignettes/figure/plotConcQ1.pdf> <D:/LADData/RCode/
+EGRET/vignettes/figure/plotConcQ2.pdf> <D:/LADData/RCode/EGRET/vignettes/figure
+/plotLogConcQ1.pdf> <D:/LADData/RCode/EGRET/vignettes/figure/plotLogConcQ2.pdf>
+]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[19 <D:/LADData/RCode/EGRET/vignettes/figure/multiPlotDataOverview.pdf>]
+Package color Info: Redefining color shadecolor on input line 784.
+
+<figure/plot-fascinating.pdf, id=396, 505.89pt x 505.89pt>
+File: figure/plot-fascinating.pdf Graphic file (type pdf)
+
+<use figure/plot-fascinating.pdf>
+Package pdftex.def Info: figure/plot-fascinating.pdf used on input line 792.
+(pdftex.def)             Requested size: 448.07378pt x 448.07928pt.
+
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[20]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[21 <D:/LADData/RCode/EGRET/vignettes/figure/plot-fascinating.pdf>]
+Package color Info: Redefining color shadecolor on input line 810.
+
+Overfull \hbox (162.93549pt too wide) in paragraph at lines 824--824
+[]\OT1/pcr/m/n/10.95 ##        min        5%       10%       25%       50%     
+  75%       90%       95%       max[] 
+ []
+
+
+Overfull \hbox (162.93549pt too wide) in paragraph at lines 824--824
+[]\OT1/pcr/m/n/10.95 ##   9.91e-03  3.40e-01  4.53e-01  9.34e-01  2.41e+00  4.6
+2e+00  8.21e+00  1.31e+01  2.46e+02[] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 841.
+Package color Info: Redefining color shadecolor on input line 854.
+
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[22]
+Package color Info: Redefining color shadecolor on input line 865.
+Package color Info: Redefining color shadecolor on input line 890.
+
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[23]
+Package color Info: Redefining color shadecolor on input line 946.
+
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 946.
+
+<figure/plotConcTimeDaily1.pdf, id=425, 505.89pt x 505.89pt>
+File: figure/plotConcTimeDaily1.pdf Graphic file (type pdf)
+
+<use figure/plotConcTimeDaily1.pdf>
+Package pdftex.def Info: figure/plotConcTimeDaily1.pdf used on input line 948.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+<figure/plotConcTimeDaily2.pdf, id=426, 505.89pt x 505.89pt>
+File: figure/plotConcTimeDaily2.pdf Graphic file (type pdf)
+
+<use figure/plotConcTimeDaily2.pdf>
+Package pdftex.def Info: figure/plotConcTimeDaily2.pdf used on input line 949.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+Overfull \hbox (2.0783pt too wide) in paragraph at lines 948--949
+[][] [] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 957.
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 957.
+
+<figure/unnamed-chunk-31.pdf, id=427, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-31.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-31.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-31.pdf used on input line 959.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+<figure/unnamed-chunk-32.pdf, id=428, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-32.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-32.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-32.pdf used on input line 960.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+Overfull \hbox (2.0783pt too wide) in paragraph at lines 959--960
+[][] [] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 968.
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 968.
+
+<figure/unnamed-chunk-41.pdf, id=429, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-41.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-41.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-41.pdf used on input line 970.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+<figure/unnamed-chunk-42.pdf, id=430, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-42.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-42.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-42.pdf used on input line 971.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+Overfull \hbox (2.0783pt too wide) in paragraph at lines 970--971
+[][] [] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 979.
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 979.
+
+<figure/unnamed-chunk-51.pdf, id=431, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-51.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-51.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-51.pdf used on input line 981.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+<figure/unnamed-chunk-52.pdf, id=432, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-52.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-52.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-52.pdf used on input line 982.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+Overfull \hbox (2.0783pt too wide) in paragraph at lines 981--982
+[][] [] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 990.
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 990.
+
+<figure/unnamed-chunk-61.pdf, id=433, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-61.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-61.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-61.pdf used on input line 992.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+<figure/unnamed-chunk-62.pdf, id=434, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-62.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-62.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-62.pdf used on input line 993.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+Overfull \hbox (2.0783pt too wide) in paragraph at lines 992--993
+[][] [] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 1001.
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 1001.
+
+<figure/unnamed-chunk-71.pdf, id=435, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-71.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-71.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-71.pdf used on input line 1003.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+<figure/unnamed-chunk-72.pdf, id=436, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-72.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-72.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-72.pdf used on input line 1004.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+Overfull \hbox (2.0783pt too wide) in paragraph at lines 1003--1004
+[][] [] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 1012.
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 1012.
+
+<figure/unnamed-chunk-81.pdf, id=437, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-81.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-81.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-81.pdf used on input line 1014.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+<figure/unnamed-chunk-82.pdf, id=438, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-82.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-82.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-82.pdf used on input line 1015.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+Overfull \hbox (2.0783pt too wide) in paragraph at lines 1014--1015
+[][] [] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 1023.
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 1023.
+
+<figure/unnamed-chunk-9.pdf, id=439, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-9.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-9.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-9.pdf used on input line 1025.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+Package color Info: Redefining color shadecolor on input line 1033.
+
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 1033.
+
+<figure/unnamed-chunk-10.pdf, id=440, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-10.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-10.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-10.pdf used on input line 1035.
+(pdftex.def)             Requested size: 448.07928pt x 448.07928pt.
+Package color Info: Redefining color shadecolor on input line 1044.
+
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 1044.
+
+<figure/unnamed-chunk-11.pdf, id=441, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-11.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-11.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-11.pdf used on input line 1046.
+(pdftex.def)             Requested size: 448.07928pt x 448.07928pt.
+Package color Info: Redefining color shadecolor on input line 1054.
+
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 1054.
+
+<figure/unnamed-chunk-12.pdf, id=442, 505.89pt x 505.89pt>
+File: figure/unnamed-chunk-12.pdf Graphic file (type pdf)
+
+<use figure/unnamed-chunk-12.pdf>
+Package pdftex.def Info: figure/unnamed-chunk-12.pdf used on input line 1056.
+(pdftex.def)             Requested size: 448.07928pt x 448.07928pt.
+
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[24]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[25 <D:/LADData/RCode/EGRET/vignettes/figure/plotConcTimeDaily1.pdf> <D:/LADDat
+a/RCode/EGRET/vignettes/figure/plotConcTimeDaily2.pdf> <D:/LADData/RCode/EGRET/
+vignettes/figure/unnamed-chunk-31.pdf> <D:/LADData/RCode/EGRET/vignettes/figure
+/unnamed-chunk-32.pdf>]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[26 <D:/LADData/RCode/EGRET/vignettes/figure/unnamed-chunk-41.pdf> <D:/LADData/
+RCode/EGRET/vignettes/figure/unnamed-chunk-42.pdf> <D:/LADData/RCode/EGRET/vign
+ettes/figure/unnamed-chunk-51.pdf> <D:/LADData/RCode/EGRET/vignettes/figure/unn
+amed-chunk-52.pdf>]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[27 <D:/LADData/RCode/EGRET/vignettes/figure/unnamed-chunk-61.pdf> <D:/LADData/
+RCode/EGRET/vignettes/figure/unnamed-chunk-62.pdf> <D:/LADData/RCode/EGRET/vign
+ettes/figure/unnamed-chunk-71.pdf> <D:/LADData/RCode/EGRET/vignettes/figure/unn
+amed-chunk-72.pdf>]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[28 <D:/LADData/RCode/EGRET/vignettes/figure/unnamed-chunk-81.pdf> <D:/LADData/
+RCode/EGRET/vignettes/figure/unnamed-chunk-82.pdf> <D:/LADData/RCode/EGRET/vign
+ettes/figure/unnamed-chunk-9.pdf>]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[29 <D:/LADData/RCode/EGRET/vignettes/figure/unnamed-chunk-10.pdf>]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[30 <D:/LADData/RCode/EGRET/vignettes/figure/unnamed-chunk-11.pdf>]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[31 <D:/LADData/RCode/EGRET/vignettes/figure/unnamed-chunk-12.pdf>]
+Package color Info: Redefining color shadecolor on input line 1072.
+Package color Info: Redefining color shadecolor on input line 1109.
+
+Overfull \hbox (25.22942pt too wide) in paragraph at lines 1127--1145
+ [] 
+ []
+
+
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[32]
+Package color Info: Redefining color shadecolor on input line 1154.
+
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1179--1179
+[]\OT1/pcr/m/n/10.95 ##    time span          change        slope       change 
+       slope[] 
+ []
+
+
+Overfull \hbox (5.25568pt too wide) in paragraph at lines 1179--1179
+[]\OT1/pcr/m/n/10.95 ##                   10^6 kg/yr    10^6 kg/yr /yr      %  
+       %/yr[] 
+ []
+
+
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1179--1179
+[]\OT1/pcr/m/n/10.95 ##  2001  to  2006       0.0074       0.0015          4.9 
+        0.97[] 
+ []
+
+
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1179--1179
+[]\OT1/pcr/m/n/10.95 ##  2001  to  2011       0.0089      0.00089          5.8 
+        0.58[] 
+ []
+
+
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1179--1179
+[]\OT1/pcr/m/n/10.95 ##  2006  to  2011       0.0015      0.00029         0.92 
+        0.18[] 
+ []
+
+
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[33]
+Package color Info: Redefining color shadecolor on input line 1188.
+
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[34]
+Package color Info: Redefining color shadecolor on input line 1239.
+Package color Info: Redefining color shadecolor on input line 1249.
+Package color Info: Redefining color shadecolor on input line 1264.
+Package color Info: Redefining color shadecolor on input line 1282.
+
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[35
+
+]
+Package color Info: Redefining color shadecolor on input line 1299.
+Package color Info: Redefining color shadecolor on input line 1311.
+
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[36]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[37]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[38
+
+]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[39
+
+]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[40
+
+]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[41]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[42]
+Package color Info: Redefining color shadecolor on input line 1503.
+LaTeX Font Info:    Try loading font information for TS1+pcr on input line 1505
+.
+ ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\ts1pcr.fd"
+File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
+)
+Overfull \hbox (294.33533pt too wide) in paragraph at lines 1509--1509
+[]\OT1/pcr/m/n/10.95 pCodeINFO <- []\OT1/pcr/b/n/10.95 getMultipleParameterName
+s[]\OT1/pcr/m/n/10.95 (ChopDaily$parameter_cd,                                 
+interactive=FALSE)[] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 1524.
+LaTeX Font Info:    Try loading font information for OMS+pcr on input line 1526
+.
+("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\omspcr.fd"
+File: omspcr.fd 
+)
+LaTeX Font Info:    Font shape `OMS/pcr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1526.
+
+
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1542--1542
+[]\OT1/pcr/m/n/10.95 Suspended sediment concentration (SSC) 1980-10-01 1991-09-
+30 3651 mg/l[] 
+ []
+
+
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[43
+
+] <table1.png, id=684, 554.07pt x 125.71968pt>
+File: table1.png Graphic file (type png)
+ <use table1.png>
+Package pdftex.def Info: table1.png used on input line 1561.
+(pdftex.def)             Requested size: 554.06865pt x 125.71936pt.
+
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[44 <D:/LADData/RCode/EGRET/vignettes/table1.png>]
+Underfull \hbox (badness 1983) in paragraph at lines 1578--1579
+[]\OT1/ptm/m/n/10.95 Hirsch, R. M., Moyer, D. L. and Arch-field, S. A. (2010), 
+Weighted Re-gres-sions on
+ []
+
+
+Underfull \hbox (badness 1221) in paragraph at lines 1578--1579
+\OT1/ptm/m/n/10.95 Time, Dis-charge, and Sea-son (WRTDS), with an Ap-pli-ca-tio
+n to Chesa-peake Bay River
+ []
+
+
+Underfull \hbox (badness 2443) in paragraph at lines 1578--1579
+\OT1/ptm/m/n/10.95 In-puts. JAWRA Jour-nal of the Amer-i-can Wa-ter Re-sources 
+As-so-ci-a-tion, 46: 857-880.
+ []
+
+
+Underfull \hbox (badness 3690) in paragraph at lines 1578--1579
+\OT1/ptm/m/n/10.95 doi: 10.1111/j.1752-1688.2010.00482.x []$\OT1/pcr/m/n/10.95 
+http : / / onlinelibrary . wiley . com / doi /$
+ []
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1585.
+
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[45
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1585.
+ (D:\LADData\RCode\EGRET\vignettes\EGRET-knitr.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1585.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1585.
+
+Package rerunfilecheck Info: File `EGRET-knitr.out' has not changed.
+(rerunfilecheck)             Checksum: D704992865012ECB93BAB07266C5BB9B;1802.
+ ) 
+Here is how much of TeX's memory you used:
+ 8399 strings out of 494045
+ 127150 string characters out of 3145961
+ 219464 words of memory out of 3000000
+ 11394 multiletter control sequences out of 15000+200000
+ 34046 words of font info for 71 fonts, out of 3000000 for 9000
+ 715 hyphenation exceptions out of 8191
+ 42i,18n,40p,1030b,457s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Progra
+m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program 
+Files (x86)/MiKTeX 2.9/fonts/type1/urw/courier/ucrb8a.pfb><C:/Program Files (x8
+6)/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/Program Files (x86)/MiKTeX
+ 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/
+type1/urw/times/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/t
+imes/utmri8a.pfb>
+Output written on EGRET-knitr.pdf (45 pages, 977080 bytes).
+PDF statistics:
+ 761 PDF objects out of 1000 (max. 8388607)
+ 130 named destinations out of 1000 (max. 500000)
+ 397 words of extra memory for PDF output out of 10000 (max. 10000000)
+
