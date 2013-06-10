@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.6)  7 JUN 2013 15:42
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.6)  10 JUN 2013 13:45
 entering extended mode
-**EGRET-knitr.tex
-(D:\LADData\RCode\EGRET\vignettes\EGRET-knitr.tex
+**EGRET.tex
+(D:\LADData\RCode\EGRET\vignettes\EGRET.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -415,7 +415,7 @@ Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 338.
 Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 339.
 Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 340.
 ))
-(D:\LADData\RCode\EGRET\vignettes\EGRET-knitr.aux)
+(D:\LADData\RCode\EGRET\vignettes\EGRET.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 101.
 LaTeX Font Info:    ... okay on input line 101.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 101.
@@ -472,15 +472,15 @@ LaTeX Info: Redefining \ref on input line 101.
 LaTeX Info: Redefining \pageref on input line 101.
 LaTeX Info: Redefining \nameref on input line 101.
 
-(D:\LADData\RCode\EGRET\vignettes\EGRET-knitr.out)
-(D:\LADData\RCode\EGRET\vignettes\EGRET-knitr.out)
+(D:\LADData\RCode\EGRET\vignettes\EGRET.out)
+(D:\LADData\RCode\EGRET\vignettes\EGRET.out)
 \@outlinefile=\write3
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 118.
 
-(D:\LADData\RCode\EGRET\vignettes\EGRET-knitr.toc
+(D:\LADData\RCode\EGRET\vignettes\EGRET.toc
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10.95> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 2.
 
@@ -902,18 +902,18 @@ Package color Info: Redefining color shadecolor on input line 957.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 957.
 
-<figure/unnamed-chunk-31.pdf, id=427, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-31.pdf Graphic file (type pdf)
+<figure/plotFluxPred1.pdf, id=427, 505.89pt x 505.89pt>
+File: figure/plotFluxPred1.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-31.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-31.pdf used on input line 959.
+<use figure/plotFluxPred1.pdf>
+Package pdftex.def Info: figure/plotFluxPred1.pdf used on input line 959.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/unnamed-chunk-32.pdf, id=428, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-32.pdf Graphic file (type pdf)
+<figure/plotFluxPred2.pdf, id=428, 505.89pt x 505.89pt>
+File: figure/plotFluxPred2.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-32.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-32.pdf used on input line 960.
+<use figure/plotFluxPred2.pdf>
+Package pdftex.def Info: figure/plotFluxPred2.pdf used on input line 960.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
 Overfull \hbox (2.0783pt too wide) in paragraph at lines 959--960
@@ -925,18 +925,18 @@ Package color Info: Redefining color shadecolor on input line 968.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 968.
 
-<figure/unnamed-chunk-41.pdf, id=429, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-41.pdf Graphic file (type pdf)
+<figure/plotLogFluxPred1.pdf, id=429, 505.89pt x 505.89pt>
+File: figure/plotLogFluxPred1.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-41.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-41.pdf used on input line 970.
+<use figure/plotLogFluxPred1.pdf>
+Package pdftex.def Info: figure/plotLogFluxPred1.pdf used on input line 970.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/unnamed-chunk-42.pdf, id=430, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-42.pdf Graphic file (type pdf)
+<figure/plotLogFluxPred2.pdf, id=430, 505.89pt x 505.89pt>
+File: figure/plotLogFluxPred2.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-42.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-42.pdf used on input line 971.
+<use figure/plotLogFluxPred2.pdf>
+Package pdftex.def Info: figure/plotLogFluxPred2.pdf used on input line 971.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
 Overfull \hbox (2.0783pt too wide) in paragraph at lines 970--971
@@ -948,18 +948,18 @@ Package color Info: Redefining color shadecolor on input line 979.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 979.
 
-<figure/unnamed-chunk-51.pdf, id=431, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-51.pdf Graphic file (type pdf)
+<figure/plotResidQ1.pdf, id=431, 505.89pt x 505.89pt>
+File: figure/plotResidQ1.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-51.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-51.pdf used on input line 981.
+<use figure/plotResidQ1.pdf>
+Package pdftex.def Info: figure/plotResidQ1.pdf used on input line 981.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/unnamed-chunk-52.pdf, id=432, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-52.pdf Graphic file (type pdf)
+<figure/plotResidQ2.pdf, id=432, 505.89pt x 505.89pt>
+File: figure/plotResidQ2.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-52.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-52.pdf used on input line 982.
+<use figure/plotResidQ2.pdf>
+Package pdftex.def Info: figure/plotResidQ2.pdf used on input line 982.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
 Overfull \hbox (2.0783pt too wide) in paragraph at lines 981--982
@@ -971,18 +971,18 @@ Package color Info: Redefining color shadecolor on input line 990.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 990.
 
-<figure/unnamed-chunk-61.pdf, id=433, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-61.pdf Graphic file (type pdf)
+<figure/boxResidMonth1.pdf, id=433, 505.89pt x 505.89pt>
+File: figure/boxResidMonth1.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-61.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-61.pdf used on input line 992.
+<use figure/boxResidMonth1.pdf>
+Package pdftex.def Info: figure/boxResidMonth1.pdf used on input line 992.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/unnamed-chunk-62.pdf, id=434, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-62.pdf Graphic file (type pdf)
+<figure/boxResidMonth2.pdf, id=434, 505.89pt x 505.89pt>
+File: figure/boxResidMonth2.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-62.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-62.pdf used on input line 993.
+<use figure/boxResidMonth2.pdf>
+Package pdftex.def Info: figure/boxResidMonth2.pdf used on input line 993.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
 Overfull \hbox (2.0783pt too wide) in paragraph at lines 992--993
@@ -994,18 +994,18 @@ Package color Info: Redefining color shadecolor on input line 1001.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1001.
 
-<figure/unnamed-chunk-71.pdf, id=435, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-71.pdf Graphic file (type pdf)
+<figure/plotFluxHist1.pdf, id=435, 505.89pt x 505.89pt>
+File: figure/plotFluxHist1.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-71.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-71.pdf used on input line 1003.
+<use figure/plotFluxHist1.pdf>
+Package pdftex.def Info: figure/plotFluxHist1.pdf used on input line 1003.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/unnamed-chunk-72.pdf, id=436, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-72.pdf Graphic file (type pdf)
+<figure/plotFluxHist2.pdf, id=436, 505.89pt x 505.89pt>
+File: figure/plotFluxHist2.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-72.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-72.pdf used on input line 1004.
+<use figure/plotFluxHist2.pdf>
+Package pdftex.def Info: figure/plotFluxHist2.pdf used on input line 1004.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
 Overfull \hbox (2.0783pt too wide) in paragraph at lines 1003--1004
@@ -1017,18 +1017,20 @@ Package color Info: Redefining color shadecolor on input line 1012.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1012.
 
-<figure/unnamed-chunk-81.pdf, id=437, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-81.pdf Graphic file (type pdf)
+<figure/plotLogConcQSmooth1.pdf, id=437, 505.89pt x 505.89pt>
+File: figure/plotLogConcQSmooth1.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-81.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-81.pdf used on input line 1014.
+<use figure/plotLogConcQSmooth1.pdf>
+Package pdftex.def Info: figure/plotLogConcQSmooth1.pdf used on input line 1014
+.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/unnamed-chunk-82.pdf, id=438, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-82.pdf Graphic file (type pdf)
+<figure/plotLogConcQSmooth2.pdf, id=438, 505.89pt x 505.89pt>
+File: figure/plotLogConcQSmooth2.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-82.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-82.pdf used on input line 1015.
+<use figure/plotLogConcQSmooth2.pdf>
+Package pdftex.def Info: figure/plotLogConcQSmooth2.pdf used on input line 1015
+.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
 Overfull \hbox (2.0783pt too wide) in paragraph at lines 1014--1015
@@ -1040,11 +1042,12 @@ Package color Info: Redefining color shadecolor on input line 1023.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1023.
 
-<figure/unnamed-chunk-9.pdf, id=439, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-9.pdf Graphic file (type pdf)
+<figure/plotConcTimeSmooth_.pdf, id=439, 505.89pt x 505.89pt>
+File: figure/plotConcTimeSmooth_.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-9.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-9.pdf used on input line 1025.
+<use figure/plotConcTimeSmooth_.pdf>
+Package pdftex.def Info: figure/plotConcTimeSmooth_.pdf used on input line 1025
+.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 Package color Info: Redefining color shadecolor on input line 1033.
 
@@ -1052,11 +1055,11 @@ Package color Info: Redefining color shadecolor on input line 1033.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1033.
 
-<figure/unnamed-chunk-10.pdf, id=440, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-10.pdf Graphic file (type pdf)
+<figure/fluxBiasMulti.pdf, id=440, 505.89pt x 505.89pt>
+File: figure/fluxBiasMulti.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-10.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-10.pdf used on input line 1035.
+<use figure/fluxBiasMulti.pdf>
+Package pdftex.def Info: figure/fluxBiasMulti.pdf used on input line 1035.
 (pdftex.def)             Requested size: 448.07928pt x 448.07928pt.
 Package color Info: Redefining color shadecolor on input line 1044.
 
@@ -1064,11 +1067,11 @@ Package color Info: Redefining color shadecolor on input line 1044.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1044.
 
-<figure/unnamed-chunk-11.pdf, id=441, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-11.pdf Graphic file (type pdf)
+<figure/plotContours.pdf, id=441, 505.89pt x 505.89pt>
+File: figure/plotContours.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-11.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-11.pdf used on input line 1046.
+<use figure/plotContours.pdf>
+Package pdftex.def Info: figure/plotContours.pdf used on input line 1046.
 (pdftex.def)             Requested size: 448.07928pt x 448.07928pt.
 Package color Info: Redefining color shadecolor on input line 1054.
 
@@ -1076,11 +1079,11 @@ Package color Info: Redefining color shadecolor on input line 1054.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1054.
 
-<figure/unnamed-chunk-12.pdf, id=442, 505.89pt x 505.89pt>
-File: figure/unnamed-chunk-12.pdf Graphic file (type pdf)
+<figure/plotDiffContours.pdf, id=442, 505.89pt x 505.89pt>
+File: figure/plotDiffContours.pdf Graphic file (type pdf)
 
-<use figure/unnamed-chunk-12.pdf>
-Package pdftex.def Info: figure/unnamed-chunk-12.pdf used on input line 1056.
+<use figure/plotDiffContours.pdf>
+Package pdftex.def Info: figure/plotDiffContours.pdf used on input line 1056.
 (pdftex.def)             Requested size: 448.07928pt x 448.07928pt.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
@@ -1092,40 +1095,40 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 [25 <D:/LADData/RCode/EGRET/vignettes/figure/plotConcTimeDaily1.pdf> <D:/LADDat
 a/RCode/EGRET/vignettes/figure/plotConcTimeDaily2.pdf> <D:/LADData/RCode/EGRET/
-vignettes/figure/unnamed-chunk-31.pdf> <D:/LADData/RCode/EGRET/vignettes/figure
-/unnamed-chunk-32.pdf>]
+vignettes/figure/plotFluxPred1.pdf> <D:/LADData/RCode/EGRET/vignettes/figure/pl
+otFluxPred2.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[26 <D:/LADData/RCode/EGRET/vignettes/figure/unnamed-chunk-41.pdf> <D:/LADData/
-RCode/EGRET/vignettes/figure/unnamed-chunk-42.pdf> <D:/LADData/RCode/EGRET/vign
-ettes/figure/unnamed-chunk-51.pdf> <D:/LADData/RCode/EGRET/vignettes/figure/unn
-amed-chunk-52.pdf>]
+[26 <D:/LADData/RCode/EGRET/vignettes/figure/plotLogFluxPred1.pdf> <D:/LADData/
+RCode/EGRET/vignettes/figure/plotLogFluxPred2.pdf> <D:/LADData/RCode/EGRET/vign
+ettes/figure/plotResidQ1.pdf> <D:/LADData/RCode/EGRET/vignettes/figure/plotResi
+dQ2.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[27 <D:/LADData/RCode/EGRET/vignettes/figure/unnamed-chunk-61.pdf> <D:/LADData/
-RCode/EGRET/vignettes/figure/unnamed-chunk-62.pdf> <D:/LADData/RCode/EGRET/vign
-ettes/figure/unnamed-chunk-71.pdf> <D:/LADData/RCode/EGRET/vignettes/figure/unn
-amed-chunk-72.pdf>]
+[27 <D:/LADData/RCode/EGRET/vignettes/figure/boxResidMonth1.pdf> <D:/LADData/RC
+ode/EGRET/vignettes/figure/boxResidMonth2.pdf> <D:/LADData/RCode/EGRET/vignette
+s/figure/plotFluxHist1.pdf> <D:/LADData/RCode/EGRET/vignettes/figure/plotFluxHi
+st2.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[28 <D:/LADData/RCode/EGRET/vignettes/figure/unnamed-chunk-81.pdf> <D:/LADData/
-RCode/EGRET/vignettes/figure/unnamed-chunk-82.pdf> <D:/LADData/RCode/EGRET/vign
-ettes/figure/unnamed-chunk-9.pdf>]
+[28 <D:/LADData/RCode/EGRET/vignettes/figure/plotLogConcQSmooth1.pdf> <D:/LADDa
+ta/RCode/EGRET/vignettes/figure/plotLogConcQSmooth2.pdf> <D:/LADData/RCode/EGRE
+T/vignettes/figure/plotConcTimeSmooth_.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[29 <D:/LADData/RCode/EGRET/vignettes/figure/unnamed-chunk-10.pdf>]
+[29 <D:/LADData/RCode/EGRET/vignettes/figure/fluxBiasMulti.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[30 <D:/LADData/RCode/EGRET/vignettes/figure/unnamed-chunk-11.pdf>]
+[30 <D:/LADData/RCode/EGRET/vignettes/figure/plotContours.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[31 <D:/LADData/RCode/EGRET/vignettes/figure/unnamed-chunk-12.pdf>]
+[31 <D:/LADData/RCode/EGRET/vignettes/figure/plotDiffContours.pdf>]
 Package color Info: Redefining color shadecolor on input line 1072.
 Package color Info: Redefining color shadecolor on input line 1109.
 
@@ -1303,21 +1306,21 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 ]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 1585.
- (D:\LADData\RCode\EGRET\vignettes\EGRET-knitr.aux)
+ (D:\LADData\RCode\EGRET\vignettes\EGRET.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1585.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1585.
 
-Package rerunfilecheck Info: File `EGRET-knitr.out' has not changed.
+Package rerunfilecheck Info: File `EGRET.out' has not changed.
 (rerunfilecheck)             Checksum: D704992865012ECB93BAB07266C5BB9B;1802.
  ) 
 Here is how much of TeX's memory you used:
  8399 strings out of 494045
- 127150 string characters out of 3145961
+ 126926 string characters out of 3145961
  219464 words of memory out of 3000000
  11394 multiletter control sequences out of 15000+200000
  34046 words of font info for 71 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 42i,18n,40p,1030b,457s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 42i,18n,40p,1024b,457s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Progra
 m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program 
 Files (x86)/MiKTeX 2.9/fonts/type1/urw/courier/ucrb8a.pfb><C:/Program Files (x8
@@ -1325,7 +1328,7 @@ Files (x86)/MiKTeX 2.9/fonts/type1/urw/courier/ucrb8a.pfb><C:/Program Files (x8
  2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/
 type1/urw/times/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/t
 imes/utmri8a.pfb>
-Output written on EGRET-knitr.pdf (45 pages, 977080 bytes).
+Output written on EGRET.pdf (45 pages, 977063 bytes).
 PDF statistics:
  761 PDF objects out of 1000 (max. 8388607)
  130 named destinations out of 1000 (max. 500000)

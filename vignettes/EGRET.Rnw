@@ -548,9 +548,9 @@ boxConcMonth()
 boxQTwice()
 @
 
-<<plotConcTime,echo=FALSE, fig.cap="Default plotLogConcTime (left), and plotConcTime (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
-plotLogConcTime()
+<<plotConcTime,echo=FALSE, fig.cap="Default plotConcTime (left), and plotLogConcTime (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotConcTime()
+plotLogConcTime()
 @
 
 <<plotConcQ, echo=FALSE, fig.cap="Default plotConcQ (left), and plotLogConcQ (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
@@ -720,53 +720,53 @@ plotConcTimeDaily(yearStart, yearEnd)
 plotFluxTimeDaily(yearStart, yearEnd)
 @
 
-<<echo=FALSE, fig.cap="Default plotConcPred (left), and plotFluxPred (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotFluxPred, echo=FALSE, fig.cap="Default plotConcPred (left), and plotFluxPred (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotConcPred()
 plotFluxPred()
 @
 
-<<echo=FALSE, fig.cap="Default plotLogConcPred (left), and plotLogFluxPred (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotLogFluxPred, echo=FALSE, fig.cap="Default plotLogConcPred (left), and plotLogFluxPred (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotLogConcPred()
 plotLogFluxPred()
 @
 
-<<echo=FALSE, fig.cap="Default plotResidPred (left), and plotResidQ (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotResidQ, echo=FALSE, fig.cap="Default plotResidPred (left), and plotResidQ (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotResidPred()
 plotResidQ()
 @
 
-<<echo=FALSE, fig.cap="Default plotResidTime (left), and boxResidMonth (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<boxResidMonth, echo=FALSE, fig.cap="Default plotResidTime (left), and boxResidMonth (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotResidTime()
 boxResidMonth()
 @
 
-<<echo=FALSE, fig.cap="Default plotConcHist (left), and plotFluxHist (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotFluxHist, echo=FALSE, fig.cap="Default plotConcHist (left), and plotFluxHist (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotConcHist()
 plotFluxHist()
 @
 
-<<echo=FALSE, fig.cap="Default plotConcQSmooth (left), and plotLogConcQSmooth (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotLogConcQSmooth, echo=FALSE, fig.cap="Default plotConcQSmooth (left), and plotLogConcQSmooth (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotConcQSmooth(date1, date2, date3, qBottom, qTop, 
                    concMax=2)
 plotLogConcQSmooth(date1, date2, date3, qBottom, qTop, 
                    concMax=2, concMin=0.1)
 @
 
-<<echo=FALSE, fig.cap="Default plotConcTimeSmooth (left)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='asis',results='hide'>>=
+<<plotConcTimeSmooth(, echo=FALSE, fig.cap="Default plotConcTimeSmooth (left)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='asis',results='hide'>>=
 plotConcTimeSmooth(q1, q2, q3, centerDate, 2000, yearEnd)
 @
 
-<<echo=FALSE, fig.cap="Default fluxBiasMulti",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+<<fluxBiasMulti, echo=FALSE, fig.cap="Default fluxBiasMulti",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 fluxBiasMulti()
 @
 
 
-<<echo=FALSE, fig.cap="Default plotContours",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+<<plotContours, echo=FALSE, fig.cap="Default plotContours",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 plotContours(yearStart,yearEnd,qBottom,qTop, 
              contourLevels = clevel)
 @
 
-<<echo=FALSE, fig.cap="Default plotDiffContours",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+<<plotDiffContours, echo=FALSE, fig.cap="Default plotDiffContours",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 plotDiffContours(year0=2000,yearEnd,
                  qBottom,qTop,maxDiff)
 @
