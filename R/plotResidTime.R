@@ -9,6 +9,10 @@
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
 #' @param hLine inserts horizontal line at zero
+#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
+#' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -17,7 +21,8 @@
 #' INFO <- exINFO
 #' plotResidTime()
 plotResidTime<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, 
-                        printTitle = TRUE, hLine=TRUE, ...){
+                        printTitle = TRUE, hLine=TRUE, tinyPlot=FALSE,
+                        cex=0.8, cex.axis=1.1,cex.main=1.1,...){
   # this function shows residual versus Time
   # Time on the x-axis , 
   # residual on y-axis 
@@ -32,43 +37,27 @@ plotResidTime<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   Uncen<-localSample$Uncen
   xMin<-min(x) - 0.2
   xMax<-max(x) + 0.2
-  #maxYHigh<-max(yHigh) + 0.1
-  #minYLow<-min(yLow,na.rm=TRUE) - 0.5
-  #xSpan<-c(xMin,xMax)
-  #xTicks<-pretty(xSpan,n=9)
-  #numXTicks<-length(xTicks)
-  #xLeft<-xTicks[1]
-  #xRight<-xTicks[numXTicks]
-  #ySpan<-c(minYLow,maxYHigh)
-  #yTicks<-pretty(ySpan,n=5)
-  #numYTicks<-length(yTicks)
-  #yBottom<-yTicks[1]
-  #yTop<-yTicks[numYTicks]
-  xLab<-paste("")
-  yLab<-if(stdResid) "Standardized Residual in natural log units" else "Residual in natural log units" 
+
+  xLab<-""
+  if(tinyPlot){
+    yLab<-if(stdResid) "Standardized Residual" else "Residual"     
+  } else {
+    yLab<-if(stdResid) "Standardized Residual in natural log units" else "Residual in natural log units"     
+  }
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Residual versus Time") else ""
   
-  yInfo <- generalAxis(x=yHigh, maxVal=NA, minVal=NA)
-  xInfo <- generalAxis(x=x, maxVal=xMax, minVal=xMin)
+  yInfo <- generalAxis(x=yHigh, maxVal=max(yHigh) + 0.1, minVal=min(yLow,na.rm=TRUE) - 0.5,padPercent=0, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=x, maxVal=xMax, minVal=xMin,padPercent=0, tinyPlot=tinyPlot)
+  
   ##########################
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom, yInfo$top),
-                      xlab=xLab, ylab=yLab, plotTitle=plotTitle, hLine=hLine, ...
+                      xlab=xLab, ylab=yLab, plotTitle=plotTitle, 
+                      cex.axis=cex.axis,cex.main=cex.main, hLine=hLine, tinyPlot=tinyPlot,...
   )
-  
-  #   plot(x,yHigh,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",xlab=xLab,ylim=c(yBottom,yTop),yaxs="i",ylab=yLab,main=plotTitle,pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2)
-  #   axis(1,tcl=0.5,at=xTicks,labels=xTicks)
-  #   axis(2,tcl=0.5,las=1,at=yTicks,labels=yTicks)
-  #   axis(3,tcl=0.5,at=xTicks,labels=FALSE)
-  #   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
-  #   box()
-  censoredSegments(yBottom, yLow, yHigh, x, Uncen
+
+  censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen
   )
-  #   yLowVal<-ifelse(is.na(yLow),yBottom,yLow)
-  #   numSamples<-length(x)
-  #   uncensoredIndex <- 1:numSamples
-  #   uncensoredIndex <- uncensoredIndex[Uncen==0]
-  #   segments(x[uncensoredIndex],yLowVal[uncensoredIndex],x[uncensoredIndex],yHigh[uncensoredIndex])
-  #   abline(h=0)
+
 }

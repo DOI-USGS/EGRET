@@ -122,9 +122,9 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
   #####################
 
   
-  xInfo <- generalAxis(x=x, minVal=yearStart, maxVal=yearEnd)
+  xInfo <- generalAxis(x=x, minVal=yearStart, maxVal=yearEnd, tinyPlot=tinyPlot)
   
-  yInfo_x <- generalAxis(x=y[1,2,3,], minVal=0, maxVal=yTop)
+  yInfo_x <- generalAxis(x=y[1,2,3,], minVal=0, maxVal=yTop, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=y[1, ],
                       xTicks=xInfo$ticks, yTicks=yInfo_x$ticks,

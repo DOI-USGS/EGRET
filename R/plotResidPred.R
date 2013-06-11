@@ -29,7 +29,6 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   # these estimates are from a "leave-one-out" cross validation application of WRTDS
   # if stdResid=FALSE it just works with the regular residuals
   # if stdResid=TRUE it computes the standardized residual which is the residual/Sample$SE  
-  #if(tinyPlot) par(mar=c(5,4,1,1)) else par(mar=c(5,4,4,2)+0.1)
   
   x<-exp(localSample$yHat)
   yLow<-log(localSample$ConcLow)-localSample$yHat
@@ -37,26 +36,11 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   yLow<-if(stdResid) yLow/localSample$SE else yLow
   yHigh<-if(stdResid) yHigh/localSample$SE else yHigh
   Uncen<-localSample$Uncen
-  #xMin<-0.95*min(x)
-  #xMax<-1.05*max(x)
-  #maxYHigh<-max(yHigh) + 0.1
-  #minYLow<-min(yLow,na.rm=TRUE) - 0.5
-  #xTicks<-logPretty3(xMin,xMax)
-  #numXTicks<-length(xTicks)
-  #xLeft<-xTicks[1]
-  #xRight<-xTicks[numXTicks]
-  #ySpan<-c(minYLow,maxYHigh)
-  #yTicks<-pretty(ySpan,n=5)
-  #numYTicks<-length(yTicks)
-  #yBottom<-yTicks[1]
-  #yTop<-yTicks[numYTicks]
-  xLab<-"Estimated Concentration in mg/L"
   
   if (tinyPlot){
     xLab <- "Est. Conc. (mg/L)"
-    yLab <- if(stdResid) expression(paste("log"["e"],"(Std. Residual) units")) else expression(paste("log"["e"],"(Residual) units"))
-  }
-  else {
+    yLab <- if(stdResid) "Std. Residual" else "Residual"
+  }  else {
     xLab<-"Estimated Concentration in mg/L"
     yLab<-if(stdResid) "Standardized Residual in natural log units" else "Residual in natural log units"
   }
@@ -75,7 +59,6 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
                       log="x",hLine=TRUE,cex.axis=cex.axis,cex.main=cex.main, tinyPlot=tinyPlot,...
     )
 
-  censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen
-    )
+  censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen  )
 
 }

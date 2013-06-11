@@ -30,8 +30,9 @@ fluxBiasMulti<-function (localSample = Sample, localDaily = Daily,
 #                                               c(0, 0)))
   par(oma = c(0, 6.8, 4, 6.8),mfrow=c(3,2))
   plotLogConcQ(localSample = localSample, localINFO = localINFO, 
-               qUnit, tinyPlot = TRUE, printTitle = FALSE,...)
-  plotResidQ(localSample = localSample, localINFO = localINFO, qUnit,tinyPlot=TRUE,printTitle=FALSE, ...)
+               qUnit, tinyPlot = TRUE, printTitle = FALSE,rmSciX=TRUE,...)
+  plotResidQ(localSample = localSample, localINFO = localINFO, qUnit,
+             rmSciX=TRUE,tinyPlot=TRUE,printTitle=FALSE, ...)
   plotLogConcPred(localSample = localSample, localINFO = localINFO, 
                   tinyPlot = TRUE, printTitle = FALSE,...)
   plotResidPred(localSample = localSample, localINFO = localINFO, 

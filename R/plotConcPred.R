@@ -27,12 +27,18 @@ plotConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
   yHigh<-localSample$ConcHigh
   Uncen<-localSample$Uncen
 
-  xLab<-"Estimated Concentration in mg/L"
-  yLab<-"Observed Concentration in mg/L"
+  if(tinyPlot){
+    xLab<-"Est. Conc. (mg/L)"
+    yLab<-"Obs. Conc. (mg/L)"
+  } else {
+    xLab<-"Estimated Concentration in mg/L"
+    yLab<-"Observed Concentration in mg/L"
+  }
+
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed versus Estimated Concentration") else ""
 
-  xInfo <- generalAxis(x=x, minVal=0, maxVal=concMax)  
-  yInfo <- generalAxis(x=yHigh, minVal=0, maxVal=concMax)
+  xInfo <- generalAxis(x=x, minVal=0, maxVal=concMax, tinyPlot=tinyPlot)  
+  yInfo <- generalAxis(x=yHigh, minVal=0, maxVal=concMax, tinyPlot=tinyPlot)
   
   ############################
 

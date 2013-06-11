@@ -12,9 +12,11 @@
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param concMin numeric if you want to specify the minimum concentration value to display, you can do so with the argument concMin, otherwise it will be automatic
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
-#' @param cex number
-#' @param cex.axis number
+#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
+#' @param rmSciX logical defaults to FALSE, changes x label from scientific to fixed
+#' @param rmSciY logical defaults to FALSE, changes y label from scientific to fixed
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -23,7 +25,8 @@
 #' INFO <- exINFO
 #' plotConcQ()
 plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot = FALSE, logScale=FALSE,
-                    concMax = NA, concMin =NA, printTitle = TRUE, cex=0.8, cex.axis=1.1,cex.main=1.1,...){
+                    concMax = NA, concMin =NA, printTitle = TRUE, cex=0.8, cex.axis=1.1,cex.main=1.1,
+                    rmSciX=FALSE,rmSciY=FALSE,...){
   # this function shows the sample data,
   # discharge on x-axis on a log scale, concentration on y-axis
   
@@ -67,8 +70,8 @@ plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot 
                       xlim=c(xInfo$bottom, xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xLab, ylab=yLab,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
-                      plotTitle=plotTitle, log=logScaleText,cex.axis=cex.axis,
-                      cex.main=cex.main, tinyPlot=tinyPlot,...
+                      plotTitle=plotTitle, log=logScaleText,cex.axis=cex.axis,cex=cex,
+                      cex.main=cex.main, tinyPlot=tinyPlot,xaxt="n",rmSciX=rmSciX,rmSciY=rmSciY,...
   )
   
   censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen  )

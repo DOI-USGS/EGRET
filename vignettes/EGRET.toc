@@ -16,13 +16,13 @@
 \contentsline {section}{\numberline {6}WRTDS Results}{23}{section.6}
 \contentsline {subsection}{\numberline {6.1}Plotting Options}{23}{subsection.6.1}
 \contentsline {subsection}{\numberline {6.2}Table Options}{32}{subsection.6.2}
-\contentsline {section}{\numberline {A}Getting Started}{35}{appendix.A}
-\contentsline {subsection}{\numberline {A.1}New to R?}{35}{subsection.A.1}
-\contentsline {subsection}{\numberline {A.2}R User: Installing EGRET}{35}{subsection.A.2}
-\contentsline {subsection}{\numberline {A.3}R Developers: Installing EGRET from gitHub}{36}{subsection.A.3}
-\contentsline {section}{\numberline {B}Common Function Variables}{37}{appendix.B}
-\contentsline {subsection}{\numberline {B.1}flowHistory Plotting Input}{37}{subsection.B.1}
-\contentsline {subsection}{\numberline {B.2}Water Quality Plotting Input}{38}{subsection.B.2}
-\contentsline {subsection}{\numberline {B.3}WRTDS Estimation Input}{39}{subsection.B.3}
-\contentsline {subsection}{\numberline {B.4}WRTDS Plotting Input}{40}{subsection.B.4}
-\contentsline {section}{\numberline {C}Creating tables in Microsoft from R}{43}{appendix.C}
+\contentsline {section}{\numberline {A}Getting Started}{36}{appendix.A}
+\contentsline {subsection}{\numberline {A.1}New to R?}{36}{subsection.A.1}
+\contentsline {subsection}{\numberline {A.2}R User: Installing EGRET}{36}{subsection.A.2}
+\contentsline {subsection}{\numberline {A.3}R Developers: Installing EGRET from gitHub}{37}{subsection.A.3}
+\contentsline {section}{\numberline {B}Common Function Variables}{38}{appendix.B}
+\contentsline {subsection}{\numberline {B.1}flowHistory Plotting Input}{38}{subsection.B.1}
+\contentsline {subsection}{\numberline {B.2}Water Quality Plotting Input}{39}{subsection.B.2}
+\contentsline {subsection}{\numberline {B.3}WRTDS Estimation Input}{40}{subsection.B.3}
+\contentsline {subsection}{\numberline {B.4}WRTDS Plotting Input}{41}{subsection.B.4}
+\contentsline {section}{\numberline {C}Creating tables in Microsoft from R}{44}{appendix.C}

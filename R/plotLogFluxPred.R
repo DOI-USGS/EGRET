@@ -25,49 +25,9 @@ plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3,
                            fluxMax = NA, tinyPlot=FALSE, printTitle = TRUE, 
                            oneToOneLine=TRUE,cex=0.8, cex.axis=1.1,cex.main=1.1, ...) 
 {
-  if (is.numeric(fluxUnit)) {
-    fluxUnit <- fluxConst[shortCode = fluxUnit][[1]]
-  } else if (is.character(fluxUnit)) {
-    fluxUnit <- fluxConst[fluxUnit][[1]]
-  }
-  
-  fluxFactor <- fluxUnit@unitFactor * 86.4
-  #   x <- exp(localSample$yHat) * localSample$Q * fluxFactor
-  x <- localSample$ConcHat * localSample$Q * fluxFactor
-  yLow <- localSample$ConcLow * localSample$Q * fluxFactor
-  yHigh <- localSample$ConcHigh * localSample$Q * fluxFactor
-  Uncen <- localSample$Uncen
 
-  if (tinyPlot) {
-    xLab <- fluxUnit@unitEstimateTiny
-    yLab <- fluxUnit@unitExpressTiny
-  } else {
-    xLab <- fluxUnit@unitEstimate
-    yLab <- fluxUnit@unitExpress
-  }
-  
-  plotTitle <- if (printTitle) {
-    paste(localINFO$shortName, "\n", localINFO$paramShortName, 
-          "\n", "Observed vs Predicted Flux")
-  } else {
-    ""
-  }
-  
-  ##################################
-  
-  xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot)  
-  yInfo <- generalAxis(x=yHigh, minVal=NA, maxVal=fluxMax, logScale=TRUE, tinyPlot=tinyPlot)
-  
-  genericEGRETDotPlot(x=x, y=yHigh,
-                      xTicks=xInfo$ticks, yTicks=xInfo$ticks,
-                      xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
-                      xlab = xLab, ylab = yLab, plotTitle=plotTitle,
-                      log="xy", oneToOneLine=oneToOneLine, 
-                      cex.axis=cex.axis,cex.main=cex.main, tinyPlot=tinyPlot,...
-  )
-  
-  censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen )
-  
-#   par(mar = c(5, 4, 4, 2) + 0.1)
-  
+  plotFluxPred(localSample = localSample, localINFO = localINFO, fluxUnit = fluxUnit, fluxMax = fluxMax, 
+                         printTitle = printTitle, oneToOneLine=oneToOneLine, 
+                         cex=cex, cex.axis=cex.axis,cex.main=cex.main,tinyPlot=tinyPlot,logScale=TRUE,...)
+
 }

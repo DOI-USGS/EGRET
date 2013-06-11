@@ -7,7 +7,8 @@
     ylab = "", plotTitle = "", pch = 20, cex = 0.7,
     cex.main = 1.3, font.main = 2, cex.lab = 1.2,
     tcl = 0.5, cex.axis = 1, las = 1, tinyPlot = FALSE,
-    hLine = FALSE, oneToOneLine = FALSE, ...)
+    hLine = FALSE, oneToOneLine = FALSE, rmSciX = FALSE,
+    rmSciY = FALSE, ...)
 }
 \arguments{
   \item{x}{vector specifying the x data (required)}
@@ -73,7 +74,13 @@
   \item{oneToOneLine}{logical defaults to FALSE, inserts
   1:1 line}
 
-  \item{...}{additional graphical parameters can be
+  \item{rmSciX}{logical defaults to FALSE, changes x label
+  from scientific to fixed}
+
+  \item{rmSciY}{logical defaults to FALSE, changes y label
+  from scientific to fixed}
+
+  \item{\dots}{additional graphical parameters can be
   adjusted}
 }
 \description{

@@ -41,10 +41,10 @@ boxConcMonth<-function(localSample = Sample, localINFO = INFO, printTitle = TRUE
   
   if (tinyPlot) {
     yLabel <- "Conc. (mg/L)"
-    par(mar=c(5,6,2,0.1))
+    par(mar=c(5,6,2,0.1),cex.lab=cex.axis)
   } else {
     yLabel <- "Concentration in mg/L"
-    par(mar=c(5,6,4,2)+0.1)
+    par(mar=c(5,6,4,2)+0.1,cex.lab=cex.axis)
   }
     
   boxplot(tempDF$conc ~ tempDF$month,

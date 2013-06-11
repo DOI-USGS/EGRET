@@ -10,6 +10,7 @@
 #' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
+#' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE
 #' @param las numeric in {0,1,2,3}; the style of axis labels
 #' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
@@ -23,12 +24,19 @@
 #' INFO <- exINFO
 #' boxResidMonth()
 boxResidMonth<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, 
-                        printTitle = TRUE, las=2, cex=0.8, cex.axis=1.0, cex.main=1.1,
-                        font.main=2, ...) {
+                        printTitle = TRUE, las=2, cex=0.8, cex.axis=1.1, cex.main=1.1,
+                        font.main=2, tinyPlot=FALSE,...) {
   #This function makes a boxplot of Residual by month
   #  if stdResid=TRUE, they will be standardized residuals
   #Box width is proportional to the square root of the sample size
-  yLab<-if(stdResid) "Standardized Residuals in natural log units" else "Residuals in natural log units"
+  if (tinyPlot){
+    par(mar=c(5,6,2,0.1),cex.lab=cex.axis)
+    yLab<-if(stdResid) "Standardized Residuals" else "Residuals"
+  } else {
+    par(mar=c(5,6,4,2) + 0.1,cex.lab=cex.axis)
+    yLab<-if(stdResid) "Standardized Residuals in natural log units" else "Residuals in natural log units"    
+  }
+  
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\nBoxplots of residuals by month") else ""
   resid<-log(localSample$ConcAve) - localSample$yHat
   resid<-if(stdResid) resid/localSample$SE else resid
@@ -50,9 +58,8 @@ boxResidMonth<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
           main=plotTitle,
           las=las,
           cex=cex,
-          cex.axis=cex.axis,
           cex.main=cex.main,
-          font.main=font.main,
+          cex.axis=cex.axis,
           ...)
   abline(h=0)  
 }

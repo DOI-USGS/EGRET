@@ -27,11 +27,11 @@
 #' boxQTwice(qUnit='cfs')
 boxQTwice<-function(localSample = Sample, localDaily = Daily, localINFO = INFO, 
                     printTitle = TRUE, qUnit = 2, font.main=2, cex=0.8,cex.main=1.1, 
-                    cex.axis=1.0, tinyPlot = FALSE,...){
+                    cex.axis=1.1, tinyPlot = FALSE,...){
   # This function does two boxplots side by side
   # The first is for the discharges on the sampled days
   # The second is for the discharges on all of the days  
-#   originalPar <-  par(no.readonly = TRUE)C
+
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(qUnit)){
@@ -49,25 +49,35 @@ boxQTwice<-function(localSample = Sample, localDaily = Daily, localINFO = INFO,
   index2<-rep(2,nD)
   index<-c(index1,index2)
 
-  groupNames<-c("Sampled Days","All Days")
+  
   plotTitle<-if(printTitle) paste(localINFO$shortName,",",localINFO$paramShortName,"\nComparison of distribution of\nSampled Discharges and All Daily Discharges") else ""
+ 
+  yMin <- 0.99 * min(bigQ)
+  yMax <- 1.01 * max(bigQ)
   
   if (tinyPlot) {
-    yLabel <- paste("Discharge (",qUnit@qShortName,")",sep="")
-    par(mar=c(5,6,2,0.1))
+    yLabel <- paste("Discharge (",gsub(" ","",qUnit@qShortName),")",sep="")
+    par(mar=c(5,6,2,0.1),tcl=0.5,cex.lab=cex.axis)
+    groupNames<-c("Sampled","All")
+    yTicks <- logPretty1(yMin,yMax)
   } else {
     yLabel <- paste("Discharge in ",qUnit@qUnitName,sep="")
-    par(mar=c(5,6,4,2)+0.1)
+    par(mar=c(5,6,4,2)+0.1,tcl=0.5,cex.lab=cex.axis)
+    groupNames<-c("Sampled Days","All Days")
+    yTicks <- logPretty1(yMin,yMax)
   }
+    
+  numYTicks <- length(yTicks)
+  yBottom <- yTicks[1]
+  yTop <- yTicks[numYTicks]
   
-  boxplot(bigQ~index,log="y",varwidth=TRUE,
+  boxplot(log(bigQ,10)~index,varwidth=TRUE,
           names=groupNames,xlab="",ylab=yLabel,
+          ylim=c(log(yBottom,10),log(yTop,10)),
           main=plotTitle,font.main=font.main,cex=cex,
           cex.main=cex.main,
-          cex.axis=cex.axis, las=1,
+          cex.axis=cex.axis, las=1,yaxt = "n",yaxs="i",
           ...)
+  axis(2, tcl = 0.5, las = 1, at = log(yTicks,10), labels = yTicks, cex.axis=cex.axis, cex=cex.axis)
   
-#   if(!tinyPlot){
-#     par(originalPar)
-#   }
 }

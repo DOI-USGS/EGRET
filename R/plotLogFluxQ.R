@@ -58,11 +58,9 @@ plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2,
   if (tinyPlot) {
     xLab <- qUnit@qUnitTiny
     yLab <- fluxUnit@unitExpressTiny
-    par(mar=c(5,4,1,1.5))
   } else {
     xLab<-qUnit@qUnitExpress
     yLab<-fluxUnit@unitExpress
-    par(mar=c(5,4,4,2)+0.1)
   }
 
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Flux versus Discharge") else ""
@@ -75,7 +73,7 @@ plotLogFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2,
   genericEGRETDotPlot(x=x, y=yHigh, 
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xLab, ylab=yLab,
-                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks, tinyPlot=tinyPlot,
                       plotTitle=plotTitle, log="xy",cex.axis=cex.axis,cex.main=cex.main, ...
   )
 

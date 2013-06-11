@@ -23,24 +23,13 @@ plotLogConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
   # estimated log concentration on the x-axis (these are prior to bias correction), 
   # observed log concentration on y-axis 
   # these estimates are from a "leave-one-out" cross validation application of WRTDS
-#   if(tinyPlot) par(mar=c(5,4,1,1)) else par(mar=c(5,4,4,2)+0.1)
+
   x<-exp(localSample$yHat)
   yLow<-localSample$ConcLow
   yHigh<-localSample$ConcHigh
   Uncen<-localSample$Uncen
-  #xMin<-0.95*min(x)
-  #xMax<-1.05*max(x)
-  #maxYHigh<-if(is.na(concMax)) 1.05*max(yHigh) else concMax
-  #minYLow<-0.9*min(localSample$ConcLow,na.rm=TRUE)
-  #xTicks<-logPretty3(xMin,xMax)
-  #numXTicks<-length(xTicks)
-  #xLeft<-xTicks[1]
-  #xRight<-xTicks[numXTicks]
-  #yTicks<-logPretty3(minYLow,maxYHigh)
-  #numYTicks<-length(yTicks)
-  #yBottom<-yTicks[1]
-  #yTop<-yTicks[numYTicks]
-  xLab<-"Estimated Concentration in mg/L"
+
+  
   
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed versus Estimated Concentration") else ""
   
@@ -52,9 +41,11 @@ plotLogConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
   
   if (tinyPlot) {
     yLab <- "Obs. Conc. (mg/L)"
+    xLab<-"Est. Conc (mg/L)"
   }
   else {
     yLab <- "Observed Concentration in mg/L"
+    xLab<-"Estimated Concentration in mg/L"
   }
 
   genericEGRETDotPlot(x=x, y=yHigh,
@@ -67,5 +58,4 @@ plotLogConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
 
   censoredSegments(yBottom=yInfo$bottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen)
 
-  par(mar=c(5,4,4,2)+0.1)
 }

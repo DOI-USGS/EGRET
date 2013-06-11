@@ -26,7 +26,9 @@
 #' @param las number represents style of axis labels
 #' @param hLine logical defaults to FALSE, inserts horizontal line at zero
 #' @param oneToOneLine logical defaults to FALSE, inserts 1:1 line
-#' @param ... additional graphical parameters can be adjusted
+#' @param rmSciX logical defaults to FALSE, changes x label from scientific to fixed
+#' @param rmSciY logical defaults to FALSE, changes y label from scientific to fixed
+#' @param \dots additional graphical parameters can be adjusted
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
@@ -49,12 +51,13 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
                                 xaxs="i",xlab="",yaxs="i",ylab="",plotTitle="",
                                 pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2,
                                 tcl=0.5,cex.axis=1,las=1,
-                                tinyPlot=FALSE,hLine=FALSE,oneToOneLine=FALSE, ...){
+                                tinyPlot=FALSE,hLine=FALSE,oneToOneLine=FALSE, 
+                                rmSciX=FALSE,rmSciY=FALSE,...){
   
   if (tinyPlot){
-    par(mar=c(5,6,2,0.1))
+    par(mar=c(5,6,2,0.1),mgp=c(2.5,0.5,0))
   } else {
-    par(mar=c(5,6,4,2) + 0.1)
+    par(mar=c(5,6,4,2) + 0.1,mgp=c(3,1,0))
   }
   
   plot(x,y,xlim=xlim,xaxs=xaxs,xlab=xlab,axes=FALSE,
@@ -65,8 +68,20 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
   if (hLine) abline(h = 0)
   if (oneToOneLine) abline(a=0,b=1)
 
-  axis(1,tcl=tcl,at=xTicks,cex.axis=cex.axis)   # took out labels=xTicks
-  axis(2,tcl=tcl,las=las,at=yTicks,cex.axis=cex.axis) # took out labels=yTicks
+  if(rmSciX){
+    xTicksLab <- prettyNum(xTicks)
+  } else {
+    xTicksLab <- xTicks
+  }
+  
+  if(rmSciY){
+    yTicksLab <- prettyNum(yTicks)
+  } else {
+    yTicksLab <- yTicks
+  }
+  
+  axis(1,tcl=tcl,at=xTicks,cex.axis=cex.axis,labels=xTicksLab)   
+  axis(2,tcl=tcl,las=las,at=yTicks,cex.axis=cex.axis,labels=yTicksLab)
   axis(3,tcl=tcl,at=xTicks,labels=FALSE)
   axis(4,tcl=tcl,at=yTicks,labels=FALSE)
   

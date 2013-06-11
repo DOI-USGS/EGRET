@@ -5,7 +5,8 @@
   plotFluxPred(localSample = Sample, localINFO = INFO,
     fluxUnit = 3, fluxMax = NA, printTitle = TRUE,
     oneToOneLine = TRUE, cex = 0.8, cex.axis = 1.1,
-    cex.main = 1.1, tinyPlot = FALSE, ...)
+    cex.main = 1.1, tinyPlot = FALSE, logScale = FALSE,
+    ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -31,6 +32,9 @@
   \item{tinyPlot}{logical variable if TRUE plot is designed
   to be small, if FALSE it is designed for page size,
   default is FALSE (not fully implemented yet)}
+
+  \item{logScale}{logical if TRUE x and y plotted in log
+  axis}
 
   \item{cex}{numerical value giving the amount by which
   plotting text and symbols should be magnified relative to

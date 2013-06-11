@@ -10,9 +10,11 @@
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
-#' @param cex number
-#' @param cex.axis number
-#' @param cex.main number
+#' @param rmSciX logical defaults to FALSE, changes x label from scientific to fixed
+#' @param rmSciY logical defaults to FALSE, changes y label from scientific to fixed
+#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -22,7 +24,7 @@
 #' plotResidQ(qUnit=1)
 plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2, 
                       tinyPlot = FALSE, stdResid = FALSE, printTitle = TRUE,
-                      cex=0.8, cex.axis=1.1,cex.main=1.1,...) 
+                      cex=0.8, cex.axis=1.1,cex.main=1.1,rmSciX=FALSE,rmSciY=FALSE,...) 
 {  
    
    if (is.numeric(qUnit)) {
@@ -39,32 +41,21 @@ plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2,
    
    yLow <- if(stdResid){
      yLow/localSample$SE
-     } else {
+   } else {
        yLow
-     }
+   }
+   
    yHigh <- if(stdResid){
      yHigh/localSample$SE
-     } else {
+   } else {
        yHigh
-     }
+   }
    
    Uncen <- localSample$Uncen
-   
-   #maxYHigh <- max(yHigh) + 0.1
-   #minYLow <- min(yLow, na.rm = TRUE) - 0.5
-   #xTicks <- logPretty3(xMin, xMax)
-   #numXTicks <- length(xTicks)
-   #xLeft <- xTicks[1]
-   #xRight <- xTicks[numXTicks]
-   #ySpan <- c(minYLow, maxYHigh)
-   #yTicks <- pretty(ySpan, n = 5)
-   #numYTicks <- length(yTicks)
-   #yBottom <- yTicks[1]
-   #yTop <- yTicks[numYTicks]
-   #xLab <- qUnit@qUnitExpress
+
    if (tinyPlot){
      xLab <- qUnit@qUnitTiny
-     yLab <- ifelse(stdResid, expression(paste("log"["e"],"(Std. Residual) units")), expression(paste("log"["e"],"(Residual) units")))
+     yLab <- ifelse(stdResid, "Standardized Residual", "Residual")
   } else {
      xLab <- qUnit@qUnitExpress
      yLab <- ifelse(stdResid, "Standardized Residual in natural log units", "Residual in natural log units")
@@ -75,18 +66,17 @@ plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2,
    
    #######################
    
-   xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot,padPercent=5)
-   
+   xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot,padPercent=5)   
    yInfo <- generalAxis(x=yHigh, minVal=(min(yLow, na.rm = TRUE) - 0.5), maxVal=(max(yHigh) + 0.1), tinyPlot=tinyPlot)
 
    genericEGRETDotPlot(x=x, y=yHigh,
                        xTicks=xInfo$ticks, yTicks=yInfo$ticks,hLine=TRUE,
                        xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
-                       xlab = xLab, ylab = yLab, plotTitle=plotTitle,
-                       log = "x", cex.axis=cex.axis,cex.main=cex.main, tinyPlot=tinyPlot,...
+                       xlab = xLab, ylab = yLab, plotTitle=plotTitle,cex=cex,
+                       log = "x", cex.axis=cex.axis,cex.main=cex.main, 
+                       tinyPlot=tinyPlot,rmSciX=rmSciX,rmSciY=rmSciY,...
      )
-   # Laura took out cex.lab = 1.0, cex = 0.4, 
 
-   censoredSegments(yBottom, yLow, yHigh, x, Uncen )
+   censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen )
    
 }

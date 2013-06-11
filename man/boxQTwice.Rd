@@ -4,8 +4,8 @@
 \usage{
   boxQTwice(localSample = Sample, localDaily = Daily,
     localINFO = INFO, printTitle = TRUE, qUnit = 2,
-    font.main = 2, cex = 0.8, cex.main = 1.1, cex.axis = 1,
-    tinyPlot = FALSE, ...)
+    font.main = 2, cex = 0.8, cex.main = 1.1,
+    cex.axis = 1.1, tinyPlot = FALSE, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data

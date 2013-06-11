@@ -400,7 +400,7 @@ plotFlowSingle(istat=7,qUnit="thousandCfs")
 plotSDLogQ()
 @
 
-<<plotQTimeDaily,echo=FALSE, fig.cap="plotQTimDaily",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotQTimeDaily,echo=FALSE, fig.cap="plotQTimeDaily",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotQTimeDaily(1990,2010,qLower=2,qUnit=3)
 @
 
@@ -698,9 +698,9 @@ plotDiffContours(year0=2000,yearEnd,
 @
 
 <<plotConcTimeDaily, echo=FALSE, fig.cap="Default plotConcTimeDaily (left), and plotFluxTimeDaily (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
-Sample <- exSample
-Daily <- exDaily
-INFO <- exINFO
+Sample <- ChopSample
+Daily <- ChopDaily
+INFO <- ChopINFO
 AnnualResults <- setupYears()
 surfaces <- exsurfaces
 qBottom<-0.1
@@ -762,6 +762,9 @@ fluxBiasMulti()
 
 
 <<plotContours, echo=FALSE, fig.cap="Default plotContours",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+surfaces <- exsurfaces
+Daily <- exDaily
+INFO <- exINFO
 plotContours(yearStart,yearEnd,qBottom,qTop, 
              contourLevels = clevel)
 @

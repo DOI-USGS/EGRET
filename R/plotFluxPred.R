@@ -10,6 +10,7 @@
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
 #' @param oneToOneLine inserts 1:1 line
 #' @param tinyPlot logical variable if TRUE plot is designed to be small, if FALSE it is designed for page size, default is FALSE (not fully implemented yet)
+#' @param logScale logical if TRUE x and y plotted in log axis
 #' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
@@ -23,7 +24,7 @@
 #' plotFluxPred(fluxUnit = 'poundsDay')
 plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, fluxMax = NA, 
                        printTitle = TRUE, oneToOneLine=TRUE, 
-                       cex=0.8, cex.axis=1.1,cex.main=1.1,tinyPlot=FALSE,...){
+                       cex=0.8, cex.axis=1.1,cex.main=1.1,tinyPlot=FALSE,logScale=FALSE,...){
   # this function shows observed versus estimated flux
   # estimated flux on the x-axis (these include the bias correction), 
   # observed flux on y-axis 
@@ -43,16 +44,7 @@ plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, flu
   yLow<-localSample$ConcLow*localSample$Q*fluxFactor
   yHigh<-localSample$ConcHigh*localSample$Q*fluxFactor
   Uncen<-localSample$Uncen
-  #xMax<-1.05*max(x)
-  #maxYHigh<-if(is.na(fluxMax)) 1.05*max(yHigh) else fluxMax
-  #xTicks<-yPretty(xMax)
-  #numXTicks<-length(xTicks)
-  #xLeft<-xTicks[1]
-  #xRight<-xTicks[numXTicks]
-  #yTicks<-yPretty(maxYHigh)
-  #numYTicks<-length(yTicks)
-  #yBottom<-yTicks[1]
-  #yTop<-yTicks[numYTicks]
+
   if (tinyPlot) {
     xLab <- fluxUnit@unitEstimateTiny
     yLab <- fluxUnit@unitExpressTiny
@@ -60,18 +52,29 @@ plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, flu
     xLab <- fluxUnit@unitEstimate
     yLab <- fluxUnit@unitExpress
   }
+  
+  if(logScale){
+    logText <- "xy"
+    minX <- NA
+    minY <- NA
+  } else {
+    logText <- ""
+    minX <- 0
+    minY <- 0
+  }
+  
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed vs Estimated Flux") else ""
   
   ###############################
 
   
-  xInfo <- generalAxis(x=x, minVal=0, maxVal=NA, tinyPlot=tinyPlot,padPercent=5)  
-  yInfo <- generalAxis(x=yHigh, minVal=0, maxVal=fluxMax, tinyPlot=tinyPlot,padPercent=5)
+  xInfo <- generalAxis(x=x, minVal=minX, maxVal=NA, logScale=logScale, tinyPlot=tinyPlot,padPercent=5)  
+  yInfo <- generalAxis(x=yHigh, minVal=minY, maxVal=fluxMax, logScale=logScale, tinyPlot=tinyPlot,padPercent=5)
   
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                      xlab=xLab, ylab=yLab,
+                      xlab=xLab, ylab=yLab,log=logText,
                       plotTitle=plotTitle,oneToOneLine=oneToOneLine, 
                       tinyPlot=tinyPlot,cex.axis=cex.axis,cex.main=cex.main,...
   )
