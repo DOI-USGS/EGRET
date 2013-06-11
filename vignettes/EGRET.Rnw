@@ -663,6 +663,7 @@ plotResidPred()
 plotResidQ()
 plotResidTime()
 boxResidMonth()
+boxConcThree()
 
 #Require annualResults + INFO:
 AnnualResults <- setupYears()
@@ -740,6 +741,10 @@ plotResidTime()
 boxResidMonth()
 @
 
+<<boxConcThree(, echo=FALSE, fig.cap="Default boxConcThree (left)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='asis',results='hide'>>=
+boxConcThree()
+@
+
 <<plotFluxHist, echo=FALSE, fig.cap="Default plotConcHist (left), and plotFluxHist (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotConcHist()
 plotFluxHist()
@@ -758,6 +763,14 @@ plotConcTimeSmooth(q1, q2, q3, centerDate, 2000, yearEnd)
 
 <<fluxBiasMulti, echo=FALSE, fig.cap="Default fluxBiasMulti",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 fluxBiasMulti()
+@
+
+<<fluxBiasMultiAlt, echo=FALSE, fig.cap="Default fluxBiasMultiAlt",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+fluxBiasMultiAlt()
+@
+
+<<fluxBiasEight, echo=FALSE, fig.cap="Default fluxBiasMulti",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+fluxBiasEight()
 @
 
 

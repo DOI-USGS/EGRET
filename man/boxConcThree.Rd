@@ -1,11 +1,11 @@
-\name{boxQTwice}
-\alias{boxQTwice}
-\title{Two box plots side-by-side, discharge on sample days, and discharge on all days}
+\name{boxConcThree}
+\alias{boxConcThree}
+\title{Three box plots side-by-side}
 \usage{
-  boxQTwice(localSample = Sample, localDaily = Daily,
-    localINFO = INFO, printTitle = TRUE, qUnit = 2,
-    font.main = 2, cex = 0.8, cex.main = 1.1,
-    cex.axis = 1.1, tinyPlot = FALSE, ...)
+  boxConcThree(localSample = Sample, localDaily = Daily,
+    localINFO = INFO, tinyPlot = FALSE, printTitle = TRUE,
+    moreTitle = "WRTDS", font.main = 2, cex = 0.8,
+    cex.main = 0.9, cex.axis = 1.1, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -22,11 +22,12 @@
   printed, if FALSE not printed (this is best for a
   multi-plot figure)}
 
-  \item{qUnit}{object of qUnit class \code{\link{qConst}},
-  or numeric represented the short code, or character
-  representing the descriptive name.}
-
   \item{font.main}{font to be used for plot main titles}
+
+  \item{moreTitle}{string specifying some additional
+  information to go in figure title, typically some
+  information about the specific estimation method used,
+  default is no additional information}
 
   \item{cex.main}{magnification to be used for main titles
   relative to the current setting of cex}
@@ -48,18 +49,15 @@
 }
 \description{
   This function is used to compare the distribution of
-  discharges in the sample data set and the discharges in
-  the full daily data set. Data come from three data frames
-  created by the dataRetrieval package. These are Sample,
-  Daily, and INFO.
+  concentration in the sample and predicted data set. Data
+  come from three data frames created by the dataRetrieval
+  package.
 }
 \examples{
 Sample <- exSample
 Daily <- exDaily
 INFO <- exINFO
-boxQTwice()
-boxQTwice(qUnit=1)
-boxQTwice(qUnit='cfs')
+boxConcThree()
 }
 \keyword{graphics}
 \keyword{statistics}
