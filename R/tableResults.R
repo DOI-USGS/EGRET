@@ -42,6 +42,7 @@ tableResults<-function(localAnnualResults = AnnualResults, localINFO = INFO, qUn
   qName<-qUnit@qShortName
   
   fNameNoSpace <- gsub(" ","", fName)
+  qNameNoSpace <- gsub(" ","", qName)
   
   periodName<-setSeasonLabel(localAnnualResults = localAnnualResults)
   
@@ -57,7 +58,7 @@ tableResults<-function(localAnnualResults = AnnualResults, localINFO = INFO, qUn
   c5<-format(localAnnualResults$Flux*fluxFactor,digits=3,width=9)
   c6<-format(localAnnualResults$FNFlux*fluxFactor,digits=3,width=9)
   results<-data.frame(c1,c2,c3,c4,c5,c6)
-  colnames(results) <- c("Year", paste("Discharge [", qName, "]", sep=""), "Conc [mg/L]", "FN_Conc [mg/L]", paste("Flux [", fNameNoSpace, "]", sep=""), paste("FN_Flux [", fNameNoSpace, "]", sep="") )
+  colnames(results) <- c("Year", paste("Discharge [", qNameNoSpace, "]", sep=""), "Conc [mg/L]", "FN_Conc [mg/L]", paste("Flux [", fNameNoSpace, "]", sep=""), paste("FN_Flux [", fNameNoSpace, "]", sep="") )
   
   write.table(results,file="",quote=FALSE,col.names=FALSE,row.names=FALSE)
   
