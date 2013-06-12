@@ -57,7 +57,7 @@ boxQTwice<-function(localSample = Sample, localDaily = Daily, localINFO = INFO,
   
   if (tinyPlot) {
     yLabel <- paste("Discharge (",gsub(" ","",qUnit@qShortName),")",sep="")
-    par(mar=c(5,6,2,0.1),tcl=0.5,cex.lab=cex.axis)
+    par(mar=c(4,5,1,0.1),tcl=0.5,cex.lab=cex.axis)
     groupNames<-c("Sampled","All")
     yTicks <- logPretty1(yMin,yMax)
   } else {
