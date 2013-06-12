@@ -23,7 +23,7 @@
 #' boxConcThree()
 boxConcThree<-function (localSample = Sample, localDaily = Daily, localINFO = INFO, tinyPlot=FALSE,
                         printTitle = TRUE, moreTitle = "WRTDS",
-                        font.main=2,cex=0.8,cex.main = 0.9, cex.axis = 1.1,...) 
+                        font.main=2,cex=0.8,cex.main = 1.1, cex.axis = 1.1,...) 
 {
   
   nS <- length(localSample$ConcAve)
@@ -47,7 +47,8 @@ boxConcThree<-function (localSample = Sample, localDaily = Daily, localINFO = IN
   
   if (tinyPlot) {
     yLab <- paste("Conc. (mg/L)")
-    par(mar=c(5,6,2,0.1),tcl=0.5,cex.lab=cex.axis)
+    par(mar=c(4,5,1,0.1),tcl=0.5,cex.lab=cex.axis)  
+
   } else {
     yLab <- paste("Concentration in mg/L")
     par(mar=c(5,6,4,2)+0.1,tcl=0.5,cex.lab=cex.axis)
@@ -66,7 +67,7 @@ boxConcThree<-function (localSample = Sample, localDaily = Daily, localINFO = IN
           las=1,yaxs="i",
           ...)
   
-  axis(1,tcl=0.5,at=c(1,2,3),labels=groupNames,cex.axis=cex.axis*.6)
+  axis(1,tcl=0.5,at=c(1,2,3),labels=groupNames,cex.axis=cex.axis*0.5454)
   axis(2,tcl=0.5,las=1,at=yTicks,cex.axis=cex.axis)
   axis(3,tcl=0.5,at=c(1,2,3),labels=FALSE)
   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
