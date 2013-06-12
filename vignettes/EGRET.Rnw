@@ -13,7 +13,7 @@
 \usepackage[numbers, round]{natbib}
 \usepackage[american]{babel}
 \usepackage{authblk}
-\usepackage{subcaption}
+\usepackage{subfig}
 \usepackage{placeins}
 \usepackage{footnote}
 \usepackage{tabularx}
@@ -70,13 +70,14 @@ knit_hooks$set(crop = hook_pdfcrop)
 \affil[1]{United States Geological Survey}
 
 \maketitle
+
+Exploration and Graphics for RivEr Trends (EGRET): An R-package for the analysis of long-term changes in water quality and streamflow, including the water-quality method Weighted Regressions on Time, Discharge, and Season (WRTDS)
+
 \tableofcontents
 
 %------------------------------------------------------------
 \section{Introduction to Exploration and Graphics for RivEr Trends (EGRET)}
 %------------------------------------------------------------ 
-
-For information on getting started in R, downloading and installing the package, see Appendix 1: 
 
 Exploration and Graphics for RivEr Trends (EGRET): An R-package for the analysis of long-term changes in water quality and streamflow. EGRET includes statistics and graphics for streamflow history, water quality trends, and the modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS). 
 
@@ -85,24 +86,134 @@ Exploration and Graphics for RivEr Trends (EGRET): An R-package for the analysis
 (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}) 
 \textbf{for more information on the EGRET package.}
 
+For information on getting started in R, downloading and installing the package, see Appendix 1:
 
-The best way to learn about the WRTDS approach and to see examples of its application to multiple large data sets is to read two journal articles.  Both are available, for free, from the journals in which they were published.
+The best way to learn about the WRTDS approach and to see examples of its application to multiple large data sets is to read two journal articles.  They are available, for free, from the journals in which they were published.
 
 The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay.  The URL is \cite{HirschII}: 
 \url{http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full}
 
-The second is an application to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries \cite{HirschIII}.  The URL is: \url{http://pubs.acs.org/doi/abs/10.1021/es201221s}
+The second is an application  to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries \cite{HirschIII}.  The URL is: \url{http://pubs.acs.org/doi/abs/10.1021/es201221s}
 
-This vignette assumes that the user understands the concepts underlying WRTDS.  Thus, reading at least the first of these papers is necessary for understanding.  The method has been enhanced beyond what was published there.  The enhancement is that it now properly handles censored data by using survival regression rather than ordinary regression.  The details of that are in a manuscript currently in process by Doug Moyer and Bob Hirsch.
+This vignette assumes that the user understands the concepts underlying WRTDS.  Thus, reading at least the first of these papers is necessary for understanding.  The method has been enhanced beyond what was published there.  The enhancement is that it now properly handles censored data by using survival regression rather than ordinary regression.  The details of that are in a report on Chesapeake Bay river input trends \cite{HirschIV}:\url{http://pubs.usgs.gov/sir/2012/5244/}.  The specific enhancements for handling censored data are on pages 9-11 of that report."
 
 This vignette will walk through the major functions provided by the EGRET package. The package dataRetrieval is required for importing data in a EGRET-friendly format. The dataRetrieval package, along with installation instructions can be found at:
-\\
 \url{https://github.com/USGS-R/dataRetrieval}
-\\
+
 Installing dataRetrieval will provide a vignette similar to this document, with complete working examples of the main dataRetrieval functions.
 
-This vignette is divided into four sections: EGRET Dataframes, Flow History, WRTDS Analysis, and WRTDS Results. This document assumes the reader is familiar with the dataRetrieval package. The examples will follow an analysis of nitrate on the Choptank River at Greensboro, MD. Further details can be found in the user guide that can be found on gitHub: \url{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}
+This document assumes the reader is familiar with the dataRetrieval package. Further details can be found in the user guide that can be found on gitHub: \url{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}
 
+%------------------------------------------------------------
+\section{EGRET Workflow}
+%------------------------------------------------------------ 
+Subsequent sections of this vignette will discuss the EGRET workflow steps in greater detail. This section provides a handy cheat sheet for diving into a EGRET analysis.
+
+<<workflow, echo=TRUE,eval=FALSE>>=
+library(dataRetrieval)
+library(EGRET)
+
+############################
+# Gather discharge data:
+siteID <- "01491000" #Choptank River at Greensboro, MD
+startDate <- "" #Gets earliest date
+endDate <- "2011-09-30"
+Daily <- getDVData(siteID,"00060",startDate,endDate)
+
+# Gather sample data:
+param<-"00631"
+Sample <- getSampleData(siteID,param,startDate,endDate)
+
+# Gather site and parameter information:
+INFO<- getMetaData(siteID,param,interactive=FALSE)
+INFO$shortName <- "Choptank River"
+INFO <- setPA()
+
+# Merge discharge with sample data:
+Sample <- mergeReport()
+############################
+
+############################
+# Check flow history data:
+annualSeries <- makeAnnualSeries()
+plotFlowSingle(istat=7,qUnit="thousandCfs")
+plotSDLogQ()
+plotQTimeDaily(1990,2010,qLower=1,qUnit=3)
+plotFour(qUnit=3)
+plotFourStats(qUnit=3)
+############################
+
+############################
+# Check sample data:
+boxConcMonth()
+boxQTwice()
+plotLogConcTime()
+plotConcTime()
+plotConcQ()
+plotLogConcQ()
+plotLogFluxQ()
+multiPlotDataOverview()
+############################
+
+############################
+# Run WRTDS model:
+modelEstimation()
+############################
+
+############################
+#Check model results:
+AnnualResults<-setupYears()
+annualSeries <- makeAnnualSeries()
+yearStart <- 2000
+yearEnd <- 2010
+
+#Require Sample + INFO:
+plotConcTimeDaily(yearStart, yearEnd)
+plotFluxTimeDaily(yearStart, yearEnd)
+plotConcPred()
+plotFluxPred()
+plotLogConcPred()
+plotLogFluxPred()
+plotResidPred()
+plotResidQ()
+plotResidTime()
+boxResidMonth()
+boxConcThree()
+
+#Require annualResults + INFO:
+plotConcHist()
+plotFluxHist()
+
+# Multi-line plots:
+date1 <- "2000-09-01"
+date2 <- "2005-09-01"
+date3 <- "2009-09-01"
+qBottom<-0.1
+qTop<-100
+plotLogConcQSmooth(date1, date2, date3, qBottom, qTop, 
+                   concMax=2, concMin=0.1)
+plotConcQSmooth(date1, date2, date3, qBottom, qTop, 
+                   concMax=2)
+q1 <- 10
+q2 <- 25
+q3 <- 75
+centerDate <- "07-01"
+plotConcTimeSmooth(q1, q2, q3, centerDate, 2000, yearEnd)
+
+# Multi-plot:
+fluxBiasMulti()
+fluxBiasMultiAlt()
+fluxBiasEight()
+
+#Contour plots:
+clevel<-seq(0,2,0.5)
+maxDiff<-0.8
+plotContours(yearStart,yearEnd,qBottom,qTop, 
+             contourLevels = clevel)
+plotDiffContours(year0=2000,yearEnd,
+                 qBottom,qTop,maxDiff)
+
+@
 
 
 %------------------------------------------------------------ 
@@ -120,7 +231,7 @@ library(EGRET)
 \subsection{Daily}
 \label{sec:dataframesDaily}
 %------------------------------------------------------------ 
-The Daily dataframe initially is populated with columns generated by the dataRetrieval package (Table \ref{table:Daily1}).  After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), additional columns are inserted (Table \ref{table:Daily2}).
+The Daily dataframe initially is populated with columns generated by the dataRetrieval package (Table \ref{table:Daily1}).  After running the WRTDS calculations (as will be described in section \ref{sec:wrtds}), additional columns are inserted (Table \ref{table:Daily2}).
 
 \begin{table}[!ht]
 \centering
@@ -138,7 +249,7 @@ Date & Date & Date & date \\
   DecYear & number & Decimal year & years \\ 
   MonthSeq & integer & Number of months since January 1, 1850 & months \\ 
   Qualifier & string & Qualifing code & character \\ 
-  i & integer & Index & days \\ 
+  i & integer & Index of days, starting with 1 & days \\ 
   LogQ & number & Natural logarithm of Q & numeric \\ 
   Q7 & number & 7 day running average of Q & cms \\ 
   Q30 & number & 30 running average of Q & cms \\ 
@@ -171,7 +282,7 @@ yHat & number & The WRTDS estimate of the log of concentration & numeric \\
 \subsection{Sample}
 \label{sec:dataframesSample}
 %------------------------------------------------------------ 
-The Sample dataframe initially is populated with columns generated by the dataRetrieval package (Table \ref{table:Sample1}). After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), additional columns are inserted (Table \ref{table:Sample2}):
+The Sample dataframe initially is populated with columns generated by the dataRetrieval package (Table \ref{table:Sample1}). After running the WRTDS calculations (as will be described in section \ref{sec:wrtds}), additional columns are inserted (Table \ref{table:Sample2}):
 
 \begin{table}[!ht]
 \begin{minipage}{\linewidth}
@@ -194,12 +305,13 @@ Date & Date & Date & date \\
   MonthSeq & integer & Number of months since January 1, 1850 & months \\ 
   SinDY & number & Sine of DecYear & numeric \\ 
   CosDY & number & Cosine of DecYear & numeric \\ 
-  Q \footnote{Populated after calling mergeReport} & number & Discharge & cms \\ 
-  LogQ \footnote{Populated after calling mergeReport} & number & Natural logarithm of flow & numeric \\ 
+  Q \footnotemark[1] & number & Discharge & cms \\ 
+  LogQ \footnotemark[1] & number & Natural logarithm of flow & numeric \\ 
    \hline
 \end{tabular}
 \end{minipage}
 \end{table}
+\footnotetext[1]{Populated after calling mergeReport.}
 
 \begin{table}[!ht]
 \centering
@@ -209,12 +321,14 @@ Date & Date & Date & date \\
   \hline
 ColumnName & Type & Description & Units \\ 
   \hline
-yHat & number & jack-knife estimate of the log of concentration & numeric \\ 
-  SE & number & jack-knife estimate of the standard error of yHat & numeric \\ 
-  ConcHat & number & jack-knife unbiased estimate of concentration & mg/L \\ 
+yHat\footnotemark[2] & number & estimate of the log of concentration & numeric \\ 
+  SE\footnotemark[2] & number & estimate of the standard error of yHat & numeric \\ 
+  ConcHat\footnotemark[2] & number & unbiased estimate of concentration & mg/L \\ 
    \hline
 \end{tabular}
 \end{table}
+
+\footnotetext[2]{These estimates are 'leave-one-out cross validation' estimates.  They are computed for each sample value by withholding that particular sample value from the data set when they are estimated.}
 
 \FloatBarrier
 
@@ -222,7 +336,7 @@ yHat & number & jack-knife estimate of the log of concentration & numeric \\
 \subsection{INFO}
 \label{sec:dataframesINFO}
 %------------------------------------------------------------ 
-The INFO dataframe is used to store information about the measurements, such as station name, parameter name, drainage area, etc. There can be many additional, optional columns, but the columns in Table \ref{table:Info1} are required to initiate the EGRET analysis. After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), additional columns (Table \ref{table:Info2}) are automatically inserted into the INFO dataframe (the meaning of the values will be discussed further sections):
+The INFO dataframe is used to store information about the measurements, such as station name, parameter name, drainage area, etc. There can be many additional, optional columns, but the columns in Table \ref{table:Info1} are required to initiate the EGRET analysis. After running the WRTDS calculations (as will be described in section \ref{sec:wrtds}), additional columns (Table \ref{table:Info2}) are automatically inserted into the INFO dataframe (the meaning of the values will be discussed further sections):
 
 
 \begin{table}[!ht]
@@ -256,7 +370,7 @@ shortName & string & Name of site, suitable for use in graphical headings \\
 ColumnName & Description & Units \\ 
   \hline
 bottomLogQ & Lowest discharge in prediction surfaces & numeric \\ 
-  stepLogQ & Step size in discharge in prediction surfaces & numeric \\ 
+  stepLogQ & Step size in log discharge in prediction surfaces & numeric \\ 
   nVectorLogQ & Number of steps in discharge, prediction surfaces & numeric \\ 
   bottomYear & Starting year in prediction surfaces & numeric \\ 
   stepYear & Step size in years in prediction surfaces & numeric \\ 
@@ -276,22 +390,22 @@ bottomLogQ & Lowest discharge in prediction surfaces & numeric \\
 \subsection{Units}
 \label{sec:units}
 %------------------------------------------------------------ 
-EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units. The default is that concentration is measured in mg/L, discharge is cubic meters per second (cms), flux is kg/day, and drainage area is km\verb@^@2. When discharge values are imported from USGS web services (using the dataRetrieval package), they are automatically converted from cubic feet per second (cfs) to cms unless the argument convet is set to FALSE.  This can cause confusion if not careful. 
+EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units. The default is that concentration is measured in mg/L, discharge is cubic meters per second (cms), flux is kg/day, and drainage area is km\verb@^@2. When discharge values are imported from USGS web services (using the dataRetrieval package), they are automatically converted from cubic feet per second (cfs) to cms unless the argument convert is set to FALSE.  This can cause confusion if not careful. 
 
-Although the data is stored in the dataframes in SI, it is possible to report the results in a variety of units. For all functions that provide output, there are two arguments that can be defined to set the output units: qUnit and FluxUnit.  qUnit and FluxUnit can be defined by a numeric code or name.  There are two functions that can be called to see the options for qUnit and FluxUnit: printqUnitCheatSheet and printFluxUnitCheatSheet.
+Although the data is stored in the dataframes in SI, it is possible to report the results in a variety of units. For all functions that provide output, there are two arguments that can be defined to set the output units: qUnit and FluxUnit.  qUnit and fluxUnit can be defined by a numeric code or name.  There are two functions that can be called to see the options for qUnit and FluxUnit: printqUnitCheatSheet and printFluxUnitCheatSheet.
 
 
 <<cheatSheets,echo=TRUE,eval=TRUE>>=
 printqUnitCheatSheet()
 @
 
-When a function has an input argument qUnit, you can define the flow units with the index (1-6) as shown above. The choice should be based on the units that are customary for the audience, but also so that the discharge values don't have too many digits to the right or left of the decimal point.
+When a function has an input argument qUnit, you can define the flow units that will be used in the figure or table that is generated by the function with the index (1-6) as shown above. The choice should be based on the units that are customary for the audience, but also so that the discharge values don't have too many digits to the right or left of the decimal point.
 
 <<cheatSheets2,echo=TRUE,eval=TRUE>>=
 printFluxUnitCheatSheet()
 @
 
-When a function has an input argument FluxUnit, you can define the flux units with the index (1-12) as shown above. The choice should be based on the units that are customary for the audience, but also so that the flux values don't have too many digits to the right or left of the decimal point.
+When a function has an input argument fluxUnit, you can define the flux units with the index (1-12) as shown above. The choice should be based on the units that are customary for the audience, but also so that the flux values don't have too many digits to the right or left of the decimal point. Tons are always 'short tons' and not 'metric tons'.
 
 %------------------------------------------------------------ 
 \section{Flow History}
@@ -305,7 +419,7 @@ At this point it is assumed that you can load the daily discharge record into R,
 vignette("dataRetrieval")
 @
 
-We will walk through an example from the Rio Grande gaging station in Embodo, NM.  This is the first stream gage station in the USGS, established by John Wesley Powell in 1888.
+We will walk through an example from the Rio Grande streamgage in Embodo, NM.  This is the first streamgage in the USGS, established by John Wesley Powell in 1888.
 
 
 <<flowHistory,echo=TRUE,eval=FALSE>>=
@@ -332,7 +446,7 @@ The first choice you need to make is what period of analysis to use (pa). What i
 \label{table:paINFO}
 \begin{tabular}{lll}
   \hline
-PeriodOfAnalysis & paStart & PaLong \\ 
+PeriodOfAnalysis & paStart & paLong \\ 
   \hline
 Calendar Year & 1 & 12 \\ 
   Water Year & 10 & 12 \\ 
@@ -388,27 +502,27 @@ Once the annualSeries matrix is created, the plots of any of the stored statisti
 This section will give examples of the available plots appropriate for studying flow history once the annualSeries has been created. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See Appendix \ref{sec:flowHistoryVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}).
 
 <<plotFlow, echo=TRUE, eval=FALSE>>=
-plotFlowSingle(istat=7,qUnit="thousandCfs")
+plotFlowSingle(istat=5,qUnit="thousandCfs")
 plotSDLogQ()
 plotQTimeDaily(1990,2010,qLower=1,qUnit=3)
 plotFour(qUnit=3)
 plotFourStats(qUnit=3)
 @
 
-<<plotSingleandSD, echo=FALSE, fig.cap="plotFlowSingle (left), default plotSDLogQ (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
-plotFlowSingle(istat=7,qUnit="thousandCfs")
+<<plotSingleandSD, echo=FALSE, fig.cap="Discharge statistics",fig.subcap=c("plotFlowSingle(istat=5,qUnit='thousandCfs')","plotSDLogQ"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+plotFlowSingle(istat=5,qUnit="thousandCfs")
 plotSDLogQ()
 @
 
-<<plotQTimeDaily,echo=FALSE, fig.cap="plotQTimeDaily",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotQTimeDaily,echo=FALSE, fig.cap="plotQTimeDaily(1990,2010,qLower=2,qUnit=3)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotQTimeDaily(1990,2010,qLower=2,qUnit=3)
 @
 
-<<plotFour, echo=FALSE, fig.cap="plotFour",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+<<plotFour, echo=FALSE, fig.cap="plotFour(qUnit=3)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 plotFour(qUnit=3)
 @
 
-<<plotFourStats,echo=FALSE, fig.cap="plotFourStats",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+<<plotFourStats,echo=FALSE, fig.cap="plotFourStats(qUnit=3)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 plotFourStats(qUnit=3)
 @
 
@@ -421,7 +535,7 @@ plotSDLogQ produces a graphic of the running standard deviation of the log of da
 
 The Rio Grande does not contain much seasonal variablity, but as quick side example, you can see that there is a difference between variability in spring and summer on the Red River of the North (Figure \ref{fig:red}).
 
-<<red, echo=TRUE,eval=TRUE,fig.cap="Red River Standard Deviation Example",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<red, echo=TRUE,eval=TRUE,fig.cap="Red River plotSDLogQ Example",fig.subcap=c("June-Aug", "March-May"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 siteID <- "05082500"
 DailyRed <- getDVData(siteID,"00060","","",interactive=FALSE)
 INFORed <- getMetaData(siteID,"",interactive=FALSE)
@@ -491,12 +605,12 @@ See Appendix \ref{app:createWordTable} for instructions on converting an R dataf
 
 
 %------------------------------------------------------------ 
-\section{Water Quality Analysis (pre-WRTDS)}
+\section{Summary of Water Quality Data (without using WRTDS)}
 \label{sec:wqa}
 %------------------------------------------------------------ 
 Before running the WRTDS model, it is very helpful to take a look at the measured data in a graphical way to understand its behavior and to identify things that might be errors in the data set or learn about the temporal distribution of the data (identify gaps) prior to running the model.  It is always best to clear up these issues before moving forward.
 
-We will now use the Choptank River at Greensboro, MD as our example case. The Choptank River is a major tributary of the Chesapeake Bay. Inorganic nitrogen (nitrate and nitrite) has been measured from 1979 onward. First, we need to get the streamflow and nitrate data into R, then use the mergeReport function to associate flow with the discrete measured water quality data.
+We will now use the Choptank River at Greensboro, MD as our example case. The Choptank River is a small tributary of the Chesapeake Bay. Inorganic nitrogen (nitrate and nitrite) has been measured from 1979 onward. First, we need to get the streamflow and nitrate data into R, then use the mergeReport function to associate flow with the discrete measured water quality data.
 
 <<wrtds1,eval=FALSE,echo=TRUE>>=
 siteID <- "01491000" #Choptank River at Greensboro, MD
@@ -543,23 +657,22 @@ plotLogFluxQ()
 multiPlotDataOverview()
 @
 
-<<plotBoxes, echo=FALSE, fig.cap="Default boxConcMonth (left), and boxQTwice (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotBoxes, echo=FALSE, fig.cap="Concentration box plots",fig.subcap=c("boxConcMonth","boxQTwice"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 boxConcMonth()
 boxQTwice()
 @
 
-<<plotConcTime,echo=FALSE, fig.cap="Default plotConcTime (left), and plotLogConcTime (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotConcTime,echo=FALSE, fig.cap="Concentration vs time",fig.subcap=c("plotConcTime","plotLogConcTime"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotConcTime()
 plotLogConcTime()
 @
 
-<<plotConcQ, echo=FALSE, fig.cap="Default plotConcQ (left), and plotLogConcQ (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotConcQ, echo=FALSE, fig.cap="Concentration vs discharge",fig.subcap=c("plotConcQ","plotLogConcQ"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotConcQ()
 plotLogConcQ()
 @
 
-<<plotLogConcQ, echo=FALSE, fig.cap="Default plotLogConcQ (left), and plotLogFluxQ (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
-plotLogConcQ()
+<<plotLogConcQ, echo=FALSE, fig.cap="Flux vs discharge",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotLogFluxQ()
 @
 
@@ -674,6 +787,8 @@ plotFluxHist()
 date1 <- "2000-09-01"
 date2 <- "2005-09-01"
 date3 <- "2009-09-01"
+qBottom<-0.1
+qTop<-100
 plotLogConcQSmooth(date1, date2, date3, qBottom, qTop, 
                    concMax=2, concMin=0.1)
 plotConcQSmooth(date1, date2, date3, qBottom, qTop, 
@@ -686,6 +801,8 @@ plotConcTimeSmooth(q1, q2, q3, centerDate, 2000, yearEnd)
 
 # Multi-plot:
 fluxBiasMulti()
+fluxBiasMultiAlt()
+fluxBiasEight()
 
 #Contour plots:
 qBottom<-0.1
@@ -698,7 +815,7 @@ plotDiffContours(year0=2000,yearEnd,
                  qBottom,qTop,maxDiff)
 @
 
-<<plotConcTimeDaily, echo=FALSE, fig.cap="Default plotConcTimeDaily (left), and plotFluxTimeDaily (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotConcTimeDaily, echo=FALSE, fig.cap="Concentration and flux vs time",fig.subcap=c("plotConcTimeDaily","plotFluxTimeDaily"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 Sample <- ChopSample
 Daily <- ChopDaily
 INFO <- ChopINFO
@@ -721,60 +838,59 @@ plotConcTimeDaily(yearStart, yearEnd)
 plotFluxTimeDaily(yearStart, yearEnd)
 @
 
-<<plotFluxPred, echo=FALSE, fig.cap="Default plotConcPred (left), and plotFluxPred (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotFluxPred, echo=FALSE, fig.cap="Concentration predictions",fig.subcap=c('plotConcPred','plotLogConcPred'),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotConcPred()
-plotFluxPred()
+plotLogConcPred()
 @
 
-<<plotLogFluxPred, echo=FALSE, fig.cap="Default plotLogConcPred (left), and plotLogFluxPred (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
-plotLogConcPred()
+<<plotLogFluxPred, echo=FALSE, fig.cap="Flux predictions",fig.subcap=c('plotFluxPred','plotLogFluxPred'), out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+plotFluxPred()
 plotLogFluxPred()
 @
 
-<<plotResidQ, echo=FALSE, fig.cap="Default plotResidPred (left), and plotResidQ (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotResidQ, echo=FALSE, fig.cap="Residuals",fig.subcap=c("plotResidPred","plotResidQ"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotResidPred()
 plotResidQ()
 @
 
-<<boxResidMonth, echo=FALSE, fig.cap="Default plotResidTime (left), and boxResidMonth (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<boxResidMonth, echo=FALSE, fig.cap="Residuals with respect to time",fig.subcap=c("plotResidTime","boxResidMonth"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotResidTime()
 boxResidMonth()
 @
 
-<<boxConcThree(, echo=FALSE, fig.cap="Default boxConcThree (left)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='asis',results='hide'>>=
+<<boxConcThree, echo=FALSE, fig.cap="Default boxConcThree",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='asis',results='hide'>>=
 boxConcThree()
 @
 
-<<plotFluxHist, echo=FALSE, fig.cap="Default plotConcHist (left), and plotFluxHist (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotFluxHist, echo=FALSE, fig.cap="Concentration and flux history",fig.subcap=c("plotConcHist", "plotFluxHist"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotConcHist()
 plotFluxHist()
 @
 
-<<plotLogConcQSmooth, echo=FALSE, fig.cap="Default plotConcQSmooth (left), and plotLogConcQSmooth (right)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotLogConcQSmooth, echo=FALSE, fig.cap="Concentration vs. discharge",fig.subcap=c("plotConcQSmooth","plotLogConcQSmooth"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotConcQSmooth(date1, date2, date3, qBottom, qTop, 
                    concMax=2)
 plotLogConcQSmooth(date1, date2, date3, qBottom, qTop, 
                    concMax=2, concMin=0.1)
 @
 
-<<plotConcTimeSmooth(, echo=FALSE, fig.cap="Default plotConcTimeSmooth (left)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='asis',results='hide'>>=
+<<plotConcTimeSmooth, echo=FALSE, fig.cap="plotConcTimeSmooth",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='asis',results='hide'>>=
 plotConcTimeSmooth(q1, q2, q3, centerDate, 2000, yearEnd)
 @
 
-<<fluxBiasMulti, echo=FALSE, fig.cap="Default fluxBiasMulti",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+<<fluxBiasMulti, echo=FALSE, fig.cap="fluxBiasMulti",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 fluxBiasMulti()
 @
 
-<<fluxBiasMultiAlt, echo=FALSE, fig.cap="Default fluxBiasMultiAlt",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+<<fluxBiasMultiAlt, echo=FALSE, fig.cap="fluxBiasMultiAlt",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 fluxBiasMultiAlt()
 @
 
-<<fluxBiasEight, echo=FALSE, fig.cap="Default fluxBiasMulti",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+<<fluxBiasEight, echo=FALSE, fig.cap="fluxBiasEight",fig.show='asis',fig.width=8, fig.height=10>>=
 fluxBiasEight()
 @
 
-
-<<plotContours, echo=FALSE, fig.cap="Default plotContours",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+<<plotContours, echo=FALSE, fig.cap="plotContours",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 surfaces <- exsurfaces
 Daily <- exDaily
 INFO <- exINFO
@@ -782,7 +898,7 @@ plotContours(yearStart,yearEnd,qBottom,qTop,
              contourLevels = clevel)
 @
 
-<<plotDiffContours, echo=FALSE, fig.cap="Default plotDiffContours",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+<<plotDiffContours, echo=FALSE, fig.cap="plotDiffContours",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 plotDiffContours(year0=2000,yearEnd,
                  qBottom,qTop,maxDiff)
 @
@@ -803,42 +919,32 @@ tableResults()
 
 Additionally, you can have the tableResults return the results as a dataframe. This can be useful for further R analysis, or creating more visually appealing tables.  For instance, using the xtable package, one can create a \LaTeX table. See Appendix \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft.
 
-
-<<tableResults2, echo=TRUE,eval=FALSE>>=
+<<tableResults2, eval=FALSE,echo=TRUE,results='hide'>>=
+library(xtable)
 tableOut <- tableResults(returnDataFrame = TRUE)
-
-data.table <- xtable(tableOut, 
+tableOut <- head(tableOut)
+xtable(tableOut, 
     caption="Table created from tableResults function",
     label="table:tableResults")
-print(data.table, caption.placement="top",
-      include.rownames=FALSE,table.placement="!ht")
 @
 
-\begin{table}[!ht]
-\begin{center}
-\caption{Table created from tableResults function}
-\label{table:tableResults}
-\begin{tabular}{llllll}
+\begin{table}[ht]
+\centering
+\begin{tabular}{rllllll}
   \hline
-Year & Discharge [   cms  ] & Conc [mg/L] & FN\_Conc [mg/L] & Flux [10\verb|^|6kg/yr] & FN\_Flux [10\verb|^|6kg/yr] \\ 
+ & Year & Discharge [cms] & Conc [mg/L] & FN\_Conc [mg/L] & Flux [10\verb|^|6kg/yr] & FN\_Flux [10\verb|^|6kg/yr] \\ 
   \hline
-   2000 &      4.72 &      1.19 &      1.20 &    0.1614 &     0.149 \\ 
-     2001 &      4.88 &      1.23 &      1.23 &    0.1670 &     0.152 \\ 
-     2002 &      1.24 &      1.30 &      1.25 &    0.0478 &     0.154 \\ 
-     2003 &      8.64 &      1.14 &      1.28 &    0.2682 &     0.156 \\ 
-     2004 &      5.28 &      1.27 &      1.30 &    0.1851 &     0.157 \\ 
-     2005 &      3.81 &      1.36 &      1.32 &    0.1462 &     0.159 \\ 
-     2006 &      3.59 &      1.38 &      1.34 &    0.1413 &     0.160 \\ 
-     2007 &      4.28 &      1.40 &      1.36 &    0.1595 &     0.161 \\ 
-     2008 &      2.56 &      1.46 &      1.38 &    0.1007 &     0.162 \\ 
-     2009 &      3.68 &      1.41 &      1.40 &    0.1337 &     0.162 \\ 
-     2010 &      7.19 &      1.32 &      1.41 &    0.2247 &     0.162 \\ 
-     2011 &      5.24 &      1.44 &      1.43 &    0.1589 &     0.161 \\ 
+1 &    1980 &      4.25 &     0.949 &     1.003 &    0.1154 &     0.106 \\ 
+  2 &    1981 &      2.22 &     1.035 &     0.999 &    0.0675 &     0.108 \\ 
+  3 &    1982 &      3.05 &     1.036 &     0.993 &    0.0985 &     0.110 \\ 
+  4 &    1983 &      4.99 &     1.007 &     0.993 &    0.1329 &     0.112 \\ 
+  5 &    1984 &      5.72 &     0.990 &     1.002 &    0.1597 &     0.114 \\ 
+  6 &    1985 &      1.52 &     1.057 &     1.017 &    0.0489 &     0.116 \\ 
    \hline
 \end{tabular}
-\end{center}
+\caption{Table created from tableResults function} 
+\label{table:tableResults}
 \end{table}
-
 
 \FloatBarrier
 
@@ -850,33 +956,34 @@ tableChange()
 
 Finally, tableChangeSingle operates exactly the same as tableChange, but it provides either concentration results or flux results, but not both.  This can be useful when producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except that the final two arguments.  The first is a logical argument to indicate if a data frame of output should be returned (for later manipulation and printing through other programs such as Excel), this argument is returnDataFrame, and its default is FALSE.  The final argument is flux, and the default is TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  Additionally, this function allows for the return of a dataframe.  See Appendix \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft.
 
+<<tableChange2, echo=TRUE, eval=TRUE,results='hide'>>=
+library(xtable)
+changeOutput <- tableChangeSingle(fluxUnit=5, 
+        yearPoints=c(2002,2004,2006), 
+        returnDataFrame = TRUE,
+        flux=TRUE)
 
-<<tableChange2, echo=TRUE, eval=FALSE>>=
-changeOutput <- tableChangeSingle(fluxUnit=3, flux=TRUE,
-        yearPoints=c(2002,2004,2006), returnDataFrame = TRUE)
-
-data.table <- xtable(changeOutput, 
+xtable(changeOutput, 
         caption="Table created from tableChangeSingle function",
         label="table:tableChangeSingle")
-print(data.table, caption.placement="top",
-      include.rownames=FALSE,table.placement="!ht")
+
 @
 
-\begin{table}[!ht]
-\begin{center}
-\caption{Table created from tableChangeSingle function}
-\label{table:tableChangeSingle}
-\begin{tabular}{rrrrrr}
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
   \hline
-Year1 & Year2 & change [kg/day] & slope [kg/day] & change[\%] & slope [\%/yr] \\ 
+ & Year1 & Year2 & change [tons/yr] & slope [tons/yr/yr] & change[\%] & slope [\%/yr] \\ 
   \hline
-2002.00 & 2004.00 & 429.00 & 215.00 & 34265.00 & 17133.00 \\ 
-  2002.00 & 2006.00 & 437.00 & 109.00 & 34848.00 & 8712.00 \\ 
-  2004.00 & 2006.00 & 437.00 & 218.00 & 33687.00 & 16844.00 \\ 
+1 & 2002 & 2004 & 3.10 & 1.60 & 2.00 & 1.00 \\ 
+  2 & 2002 & 2006 & 6.60 & 1.70 & 4.20 & 1.10 \\ 
+  3 & 2004 & 2006 & 3.50 & 1.70 & 2.20 & 1.10 \\ 
    \hline
 \end{tabular}
-\end{center}
+\caption{Table created from tableChangeSingle function} 
+\label{table:tableChangeSingle}
 \end{table}
+
 
 \clearpage
 
@@ -975,7 +1082,7 @@ qMax & User specified upper limit on y axis (can be used when we want several gr
 printTitle & can be TRUE or FALSE, you may want FALSE if it is going to be a figure with a caption or if it is a part of a multipanel plot. \\
 tinyPlot & Can be TRUE or FALSE, the TRUE option assures that there will be a small number of tick marks, consistent with printing in a small space \\
 runoff & Can be TRUE or FALSE.  If true then discharge values are reported as runoff in mm/day.  This can be very useful in multi-site analyses. \\
-qUnit & An index indicating what discharge units to use.  Options run from 1 to 13 (see \ref{sec:units}).  The choice should be based on the units that are customary for the audience but also, the choice should be made so that the discharge values don't have too many digits to the right or left of the decimal point.\\
+qUnit & An index indicating what discharge units to use.  Options run from 1 to 6 (see section \ref{sec:units}).  The choice should be based on the units that are customary for the audience but also, the choice should be made so that the discharge values don't have too many digits to the right or left of the decimal point.\\
 printStaName\footnotemark[4] & Can be TRUE or FALSE, if TRUE the name of the streamgage is stated in the plot title. \\
 printPA\footnotemark[4] & Can be TRUE or FALSE, if TRUE the period of analysis is stated in the plot title. \\
 printIstat\footnotemark[4] & Can be TRUE or FALSE, if TRUE the name of the statistic (e.g. 7-day minimum flow) is stated in the plot title. \\
@@ -1002,7 +1109,7 @@ printIstat\footnotemark[4] & Can be TRUE or FALSE, if TRUE the name of the stati
 \hline
   \textbf{Argument} & \textbf{Definition} \\
 \hline
-qUnit & Determines what units will be used for discharge, see \ref{sec:units}\\
+qUnit & Determines what units will be used for discharge, see section \ref{sec:units}\\
 printTitle & If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption)\\
 qLower & The lower bound on the discharge on the day of sampling that will be used in forming a subset of the sample data set that will be displayed in the graph.  It is expressed in the units specified in qUnit.  If qLower = NA, then the lower bound is set to zero.\\
 qUpper & The upper bound on the discharge on the day of sampling that will be used in forming a subset of the sample data set that will be displayed in the graph.  It is expressed in the units specified in qUnit.  If qUpper = NA, then the lower bound is set to infinity.\\
@@ -1201,6 +1308,10 @@ Hirsch, R. M., Moyer, D. L. and Archfield, S. A. (2010), Weighted Regressions on
 
 \bibitem{HirschIII}
 Sprague, L. A., Hirsch, R. M., and Aulenbach, B. T. (2011), Nitrate in the Mississippi River and Its Tributaries, 1980 to 2008: Are We Making Progress? Environmental Science \& Technology, 45 (17): 7209-7216. doi: 10.1021/es201221s \url{http://pubs.acs.org/doi/abs/10.1021/es201221s}
+
+\bibitem{HirschIV}
+Moyer, D.L., Hirsch, R.M., and Hyer, K.E. (2012), Comparison of Two Regression-Based Approaches for Determining Nutrient and Sediment Fluxes and Trends in the Chesapeake Bay Watershed: U.S. Geological Survey Scientific Investigations Report: 2012-5244, 118 p. \url{http://pubs.usgs.gov/sir/2012/5244/}
+
 
 \end{thebibliography}
 
