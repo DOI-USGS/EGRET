@@ -64,7 +64,7 @@ tableChangeSingle<-function(localAnnualResults = AnnualResults, localINFO = INFO
   write(header1,file="")
   
   if (flux){
-    header <- c("Year1", "Year2", paste("change [", fNameNoSpace, "]", sep=""), paste("slope [", fNameNoSpace, "]", sep=""),"change[%]", "slope [%/yr]" )
+    header <- c("Year1", "Year2", paste("change [", fNameNoSpace, "]", sep=""), paste("slope [", fNameNoSpace, "/yr]", sep=""),"change[%]", "slope [%/yr]" )
   } else {
     header <- c("Year1", "Year2", "change [mg/L]","slope [mg/L/yr]","change[%]", "slope [%/yr]")    
   }
