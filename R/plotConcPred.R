@@ -32,8 +32,8 @@ plotConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA, log
   Uncen<-localSample$Uncen
 
   if(tinyPlot){
-    xLab<-"Est. Conc. (mg/L)"
-    yLab<-"Obs. Conc. (mg/L)"
+    xLab<-"Est. Conc."
+    yLab<-"Obs. Conc."
   } else {
     xLab<-"Estimated Concentration in mg/L"
     yLab<-"Observed Concentration in mg/L"
