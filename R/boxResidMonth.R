@@ -30,10 +30,10 @@ boxResidMonth<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   #  if stdResid=TRUE, they will be standardized residuals
   #Box width is proportional to the square root of the sample size
   if (tinyPlot){
-    par(mar=c(5,6,2,0.1),cex.lab=cex.axis)
+    par(mar=c(4,5,1,0.1),cex.lab=cex.axis,mgp=c(2.5,0.5,0))
     yLab<-if(stdResid) "Standardized Residuals" else "Residuals"
   } else {
-    par(mar=c(5,6,4,2) + 0.1,cex.lab=cex.axis)
+    par(mar=c(5,6,4,2) + 0.1,cex.lab=cex.axis,mgp=c(3,1,0))
     yLab<-if(stdResid) "Standardized Residuals in natural log units" else "Residuals in natural log units"    
   }
   
