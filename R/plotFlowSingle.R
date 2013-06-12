@@ -27,7 +27,9 @@
 #' @export
 #' @examples
 #' INFO <- exINFO
-#' annualSeries <- exannualSeries
+#' Daily <- exDaily
+#' annualSeries <- makeAnnualSeries()
+#' plotFlowSingle(1)
 plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA, 
                   localINFO = INFO, localAnnualSeries = annualSeries, 
                   qMax = NA, printTitle = TRUE, tinyPlot = FALSE, 
