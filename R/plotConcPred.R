@@ -8,6 +8,10 @@
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE
+#' @param logScale logical, default TRUE, TRUE indicates y axis is in log scale, "xy" indicates both x and y in log scale, "x" is only x
+#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param ... arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -15,8 +19,8 @@
 #' Sample <- exSample
 #' INFO <- exINFO
 #' plotConcPred()
-plotConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA, 
-                       printTitle = TRUE,tinyPlot=FALSE,...){
+plotConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA, logScale=FALSE,
+                       printTitle = TRUE,tinyPlot=FALSE,cex=0.8, cex.axis=1.1,cex.main=1.1,...){
   # this function shows observed versus predicted concentration
   # predicted concentration on the x-axis (these include the bias correction), 
   # observed concentration on y-axis 
@@ -34,19 +38,30 @@ plotConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA,
     xLab<-"Estimated Concentration in mg/L"
     yLab<-"Observed Concentration in mg/L"
   }
-
+  
+  if (logScale){
+    minYLow <- NA
+    minXLow <- NA
+    logVariable <- "xy"
+  } else {
+    minYLow <- 0
+    minXLow <- 0
+    logVariable <- ""
+  } 
+  
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed versus Estimated Concentration") else ""
 
-  xInfo <- generalAxis(x=x, minVal=0, maxVal=concMax, tinyPlot=tinyPlot)  
-  yInfo <- generalAxis(x=yHigh, minVal=0, maxVal=concMax, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=x, minVal=minXLow, maxVal=concMax, tinyPlot=tinyPlot,logScale=logScale)  
+  yInfo <- generalAxis(x=yHigh, minVal=minYLow, maxVal=concMax, tinyPlot=tinyPlot,logScale=logScale)
   
   ############################
 
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                      xlab=xLab, ylab=yLab,
-                      plotTitle=plotTitle, oneToOneLine=TRUE,tinyPlot=tinyPlot,...
+                      xlab=xLab, ylab=yLab,log=logVariable,
+                      plotTitle=plotTitle, oneToOneLine=TRUE,
+                      cex.axis=cex.axis,cex.main=cex.main,tinyPlot=tinyPlot,...
     )
 
   censoredSegments(yBottom=yInfo$bottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen)
