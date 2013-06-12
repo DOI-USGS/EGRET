@@ -353,13 +353,15 @@ shortName & string & Name of site, suitable for use in graphical headings \\
   paramShortName & string & Name of constituent, suitable for use in graphical headings \\ 
   constitAbbrev & string & Abbreviation for constituent name, used in saveResults \\ 
   drainSqKm & numeric & Drainage area in  km\verb@^@2 \\ 
-  paStart \footnote{Inserted with the setPA function} & integer (1-12) & Starting month of period of analysis \\ 
-  paLong \footnote{Inserted with the setPA function} & integer (1-12) & Length of period of analysis in months \\ 
+  paStart \footnotemark[1] & integer (1-12) & Starting month of period of analysis \\ 
+  paLong \footnotemark[1] & integer (1-12) & Length of period of analysis in months \\ 
    \hline
 \end{tabular}
 \end{center}
 \end{minipage}
 \end{table}
+
+\footnotetext[1]{Inserted with the setPA function}
 
 \begin{table}[!ht]
 \centering
@@ -411,7 +413,7 @@ When a function has an input argument fluxUnit, you can define the flux units wi
 \section{Flow History}
 \label{sec:flowHistory}
 %------------------------------------------------------------ 
-This section describes functions included in the EGRET package that provide a variety of table and graphical outputs looking only at flow statistics based on time-series smoothing. These functions were designed for studies of long-term streamflow change and work best for daily streamflow data sets of 50 years or longer. This type of analysis might be useful for studying 
+This section describes functions included in the EGRET package that provide a variety of table and graphical outputs looking only at flow statistics based on time-series smoothing. These functions were designed for studies of long-term streamflow change and work best for daily streamflow data sets of 50 years or longer. This type of analysis might be useful for studying issues such as the influence of land use change, water management change, or climate change on streamflow conditions.  This includes potential impacts on average flows, high flows, low flows, both at annual time scales as well as seasonal or monthly time scales. 
 
 At this point it is assumed that you can load the daily discharge record into R, create the Daily dataframe, and enter the required meta-data into the INFO dataframe. If not, see the dataRetrieval vignette:
 
@@ -419,23 +421,16 @@ At this point it is assumed that you can load the daily discharge record into R,
 vignette("dataRetrieval")
 @
 
-We will walk through an example from the Rio Grande streamgage in Embodo, NM.  This is the first streamgage in the USGS, established by John Wesley Powell in 1888.
+We will walk through an example from Columbia River at Dalles, OR.
 
-
-<<flowHistory,echo=TRUE,eval=FALSE>>=
-#Rio Grande at Embudo, NM
-siteID <- "08279500"  
+<<flowHistory,echo=TRUE,eval=TRUE>>=
+siteID <- "14105700"  
 startDate <- ""
 endDate <- ""
 
-Daily <- getDVData(siteID,"00060",startDate,endDate,interactive=FALSE)
+Daily <- getDVData(siteID,"00060",startDate,endDate)
 INFO <- getMetaData(siteID,"",interactive=FALSE)
-INFO$shortName <- "Rio Grande at Embudo, NM"
-@
-
-<<flowHistoryGetData,echo=FALSE,eval=TRUE>>=
-Daily <- RioDaily
-INFO <- RioINFO
+INFO$shortName <- "Columbia River"
 @
 
 The first choice you need to make is what period of analysis to use (pa). What is the period of analysis?  If we want to examine our data set as a time series of water years, then the period of analysis is October through September.  If we want to examine the data set as calendar years then the period of analysis should be January through December.  We might want to examine the winter season, which we could define as December through February, then those 3 months become the period of analysis. The only constraints on the definition of a period of analysis are these: It must be defined in terms of whole months.  It must be a set of contiguous months (like March-April-May).  And it must have a length that is no less than 1 month and no more than 12 months.  It can be uniquely defined by two arguments: paLong and paStart.  paLong is the length of the period of analysis, and paStart is the first month of the period of analysis. Table \ref{table:paINFO} summarizes paLong and paStart.
@@ -504,19 +499,15 @@ This section will give examples of the available plots appropriate for studying 
 <<plotFlow, echo=TRUE, eval=FALSE>>=
 plotFlowSingle(istat=5,qUnit="thousandCfs")
 plotSDLogQ()
-plotQTimeDaily(1990,2010,qLower=1,qUnit=3)
 plotFour(qUnit=3)
 plotFourStats(qUnit=3)
 @
 
-<<plotSingleandSD, echo=FALSE, fig.cap="Discharge statistics",fig.subcap=c("plotFlowSingle(istat=5,qUnit='thousandCfs')","plotSDLogQ"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotSingleandSD, echo=FALSE, fig.cap="Discharge statistics",fig.subcap=c("plotFlowSingle(istat=5,qUnit='thousandCfs')","plotSDLogQ()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotFlowSingle(istat=5,qUnit="thousandCfs")
 plotSDLogQ()
 @
 
-<<plotQTimeDaily,echo=FALSE, fig.cap="plotQTimeDaily(1990,2010,qLower=2,qUnit=3)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
-plotQTimeDaily(1990,2010,qLower=2,qUnit=3)
-@
 
 <<plotFour, echo=FALSE, fig.cap="plotFour(qUnit=3)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 plotFour(qUnit=3)
@@ -529,28 +520,43 @@ plotFourStats(qUnit=3)
 
 \FloatBarrier
 
-The simplest way to look at these time series is with the function plotFlowSingle. The statistic index (istat) must be defined, but other input arguements can defined. To see a list of these optional arguments and other information about the function, type ?plotFlowSingle in the R console. 
+The simplest way to look at these time series is with the function plotFlowSingle. The statistic index (istat) must be defined, but other input arguements can defined. To see a list of these optional arguments and other information about the function, type ?plotFlowSingle in the R console. All of the graphs in plotFlowSingle, plotFourStats, and all but one of the graphs in plotFour, show both the individual annual values of the selected flow statistic (e.g. the annual mean or 7-day minimum), but they also show a curve that is a smooth fit to those data.  The curve is a LOWESS (locally weighted scatterplot smooth).  The algorithm for computing it is provided in \cite{HirschV}:\url{http://pubs.usgs.gov/sir/2012/5151/}  (pages 6 and 7).  The default is that they are smoothed with a "half-window width" of 30 years and the smoothing is performed on the log discharge values.  The smoothing window is a user-defined option. 
 
-plotSDLogQ produces a graphic of the running standard deviation of the log of daily discharge over time.  The idea is to get some idea of how variability of daily discharge is changing over time.  By using the standard deviation of the log discharge the statistic becomes dimensionless.  It also means that it is a way of looking at variability quite aside from average values, so, in the case of a system where discharge might be increasing over a period of years, this provides a way of looking at the variability relative to that changing mean value.  It is much like a coefficient of variation, but it has sample properties that make it a smoother measure of variability.  There are often comments about how things like urbanization or enhanced greenhouse gases in the atmosphere are bringing about an increase in variability, this is one way to explore that idea.
+plotSDLogQ produces a graphic of the running standard deviation of the log of daily discharge over time.  The idea is to get some idea of how variability of daily discharge is changing over time.  By using the standard deviation of the log discharge the statistic becomes dimensionless.  It also means that it is a way of looking at variability quite aside from average values, so, in the case of a system where discharge might be increasing over a period of years, this provides a way of looking at the variability relative to that changing mean value.  It is much like a coefficient of variation, but it has sample properties that make it a smoother measure of variability.  There are often comments about how things like urbanization or enhanced greenhouse gases in the atmosphere are bringing about an increase in variability, this is one way to explore that idea. plotFour, plotFourStats, and plot15 are all designed to plot several graphs from the other functions all in a single figure. 
 
-The Rio Grande does not contain much seasonal variablity, but as quick side example, you can see that there is a difference between variability in spring and summer on the Red River of the North (Figure \ref{fig:red}).
+Here is an example of looking at mean daily streamflow for the full water year and then looking at mean daily streamflow for the winter season only.  The site being considered is the Merced River at Happy Isles Bridge in Yosemite National Park in California.  First, we can look at the mean daily streamflow for the full year (after having read in the data and metadata):
 
-<<red, echo=TRUE,eval=TRUE,fig.cap="Red River plotSDLogQ Example",fig.subcap=c("June-Aug", "March-May"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
-siteID <- "05082500"
-DailyRed <- getDVData(siteID,"00060","","",interactive=FALSE)
-INFORed <- getMetaData(siteID,"",interactive=FALSE)
-INFORed$shortName <- "Red River, ND"
-INFORed <- setPA(paStart=6, paLong=3,localINFO = INFORed)
-plotSDLogQ(localDaily = DailyRed, localINFO = INFORed, 
-           printStaName = FALSE)
-INFORed <- setPA(paStart=3, paLong=3)
-plotSDLogQ(localDaily = DailyRed, localINFO = INFORed, 
-           printStaName = FALSE)
+<<Merced, echo=TRUE,eval=TRUE,fig.cap="Merced River Winter Trend",fig.subcap=c("Water Year", "Dec-Feb"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+sta<-"11264500"
+Daily <-getDVData(sta,"00060",StartDate="",EndDate="")
+INFO <- getMetaData(sta,"",interactive=FALSE)
+INFO$shortName <- "Merced River, CA"
+INFO <- setPA(paStart=6, paLong=3)
+annualSeries <- makeAnnualSeries()
+plotFlowSingle(istat=5)
+
+INFO<-setPA(paStart=12,paLong=3)
+annualSeries<-makeAnnualSeries()
+plotFlowSingle(istat=5)
+
 @
 
-plotQTimeDaily is simply a time series plot of discharge.  But, it is most suited for showing events above some discharge threshold.  In the simplest case, it can plot the entire record, but given the line weight and use of an arithmetic scale it will primarily provide a visual focus on the higher values. plotQTimeDaily requires startYear and endYear, along with some other optional arguements (see ?plotQTimeDaily for more details).
+The two figures produced are shown below.  What they show us is that on an annual basis there is very little indication of a long-term trend in mean streamflow, but for the winter months there is a pretty strong indication of an upward trend.  This could well be related to the climate warming in the Sierra Nevada, resulting in a general increase in the ratio of rain to snow in the winter and more thawing events.
 
-plotFour, plotFourStats, and plot15 are all designed to plot several graphs from the other functions all in a single figure. 
+plotQTimeDaily is simply a time series plot of discharge.  But, it is most suited for showing events above some discharge threshold.  In the simplest case, it can plot the entire record, but given the line weight and use of an arithmetic scale it will primarily provide a visual focus on the higher values. The example shown here illustrates a very long record and the long gap of more than 60 years of no flows above 300,000 ft3/s, followed by the last 50 years with at least 5 events above that threshold. plotQTimeDaily requires startYear and endYear, along with some other optional arguements (see ?plotQTimeDaily for more details).
+
+
+<<Mississippi, echo=TRUE,eval=TRUE,fig.cap="Mississippi River at Keokuk Iowa",fig.subcap=c("Water Year", "Dec-Feb"),out.width='1\\linewidth',out.height='1\\linewidth',fig.show='hold'>>=
+sta<-"05474500"
+Daily <-getDVData(sta,"00060",StartDate="",EndDate="")
+INFO <- getMetaData(sta,"",interactive=FALSE)
+INFO$shortName <- "Mississippi River at Keokuk Iowa"
+INFO <- setPA()
+
+plotQTimeDaily(startYear=1870,endYear=2020,qUnit=3,qLower=300)
+
+@
+
 
 \FloatBarrier
 
@@ -566,19 +572,19 @@ printSeries(istat=3, qUnit=3)
 @
 
 \begin{verbatim}
-Rio Grande at Embudo, NM
+Mississippi River at Keokuk Iowa
  Water Year
     30-day minimum
     Thousand Cubic Feet per Second
    year   annual   smoothed
            value    value
-   1899    0.280    0.296
-   1900    0.208    0.285
-   1901    0.169    0.277
-   1902    0.320    0.272
+   1879     22.6     30.1
+   1880     31.7     28.7
+   1881     23.0     27.5
 ...
-   2011    0.252    0.248
-   2012    0.257       NA
+   2011     51.0     32.4
+   2012     34.3     32.1
+   2013     16.2     31.8
 \end{verbatim}
 
 Another way to look at the results is to consider how much the smoothed values change between various pairs of years.  These changes can be represented in four different ways.  
@@ -594,14 +600,12 @@ There is another argument that can be very useful in this function: yearPoints. 
 
 <<eval=TRUE,echo=TRUE>>=
 annualSeries <- makeAnnualSeries()
-tableFlowChange(istat=3, qUnit=3,yearPoints=c(1930,1970,2010))
+tableFlowChange(istat=3, qUnit=3,yearPoints=c(1890,1950,2010))
 @
 
 See Appendix \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft. 
 
 \FloatBarrier
-
-
 
 
 %------------------------------------------------------------ 
@@ -610,7 +614,7 @@ See Appendix \ref{app:createWordTable} for instructions on converting an R dataf
 %------------------------------------------------------------ 
 Before running the WRTDS model, it is very helpful to take a look at the measured data in a graphical way to understand its behavior and to identify things that might be errors in the data set or learn about the temporal distribution of the data (identify gaps) prior to running the model.  It is always best to clear up these issues before moving forward.
 
-We will now use the Choptank River at Greensboro, MD as our example case. The Choptank River is a small tributary of the Chesapeake Bay. Inorganic nitrogen (nitrate and nitrite) has been measured from 1979 onward. First, we need to get the streamflow and nitrate data into R, then use the mergeReport function to associate flow with the discrete measured water quality data.
+We will now use the Choptank River at Greensboro, MD as our example case. The Choptank River is a small tributary of the Chesapeake Bay. Inorganic nitrogen (nitrate and nitrite) has been measured from 1979 onward. First, we need to get the streamflow and nitrate data into R, then use the mergeReport function to associate flow with the discrete measured water quality data. Before the data can be graphed or entered into any of the WRTDS analysis the discharge data must be brought into the Sample dataframe.  This is done with the mergeReport function which does this merger of the discharge information and also provides a compact report about some major features of the data set.
 
 <<wrtds1,eval=FALSE,echo=TRUE>>=
 siteID <- "01491000" #Choptank River at Greensboro, MD
@@ -620,8 +624,7 @@ param<-"00631"
 Daily <- getDVData(siteID,"00060",startDate,endDate)
 INFO<- getMetaData(siteID,param,interactive=FALSE)
 INFO$shortName <- "Choptank River"
-INFO <- setPA()
-annualSeries <- makeAnnualSeries()
+
 Sample <- getSampleData(siteID,param,startDate,endDate)
 Sample <- mergeReport()
 @
@@ -648,36 +651,36 @@ One note about any of the plotting functions that show the sample data:  If a va
 
 <<plotList, echo=TRUE,eval=FALSE>>=
 boxConcMonth()
-boxQTwice()
-plotLogConcTime()
+boxQTwice(qUnit=1)
 plotConcTime()
-plotConcQ()
-plotLogConcQ()
-plotLogFluxQ()
-multiPlotDataOverview()
+plotLogConcTime()
+plotConcQ(qUnit=1)
+plotLogConcQ(qUnit=1)
+plotLogFluxQ(qUnit=1)
+multiPlotDataOverview(qUnit=1)
 @
 
-<<plotBoxes, echo=FALSE, fig.cap="Concentration box plots",fig.subcap=c("boxConcMonth","boxQTwice"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotBoxes, echo=FALSE, fig.cap="Concentration box plots",fig.subcap=c("boxConcMonth()","boxQTwice(qUnit=1)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 boxConcMonth()
-boxQTwice()
+boxQTwice(qUnit=1)
 @
 
-<<plotConcTime,echo=FALSE, fig.cap="Concentration vs time",fig.subcap=c("plotConcTime","plotLogConcTime"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotConcTime,echo=FALSE, fig.cap="Concentration vs time",fig.subcap=c("plotConcTime()","plotLogConcTime()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotConcTime()
 plotLogConcTime()
 @
 
-<<plotConcQ, echo=FALSE, fig.cap="Concentration vs discharge",fig.subcap=c("plotConcQ","plotLogConcQ"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
-plotConcQ()
-plotLogConcQ()
+<<plotConcQ, echo=FALSE, fig.cap="Concentration vs discharge",fig.subcap=c("plotConcQ(qUnit=1)","plotLogConcQ(qUnit=1)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+plotConcQ(qUnit=1)
+plotLogConcQ(qUnit=1)
 @
 
-<<plotLogConcQ, echo=FALSE, fig.cap="Flux vs discharge",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
-plotLogFluxQ()
+<<plotLogConcQ, echo=FALSE, fig.cap="plotLogFluxQ(qUnit=1)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+plotLogFluxQ(qUnit=1)
 @
 
-<<multiPlotDataOverview, echo=FALSE, fig.cap="multiPlotDataOverview",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
-multiPlotDataOverview()
+<<multiPlotDataOverview, echo=FALSE, fig.cap="multiPlotDataOverview(qUnit=1)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+multiPlotDataOverview(qUnit=1)
 @
 
 \FloatBarrier
@@ -815,14 +818,14 @@ plotDiffContours(year0=2000,yearEnd,
                  qBottom,qTop,maxDiff)
 @
 
-<<plotConcTimeDaily, echo=FALSE, fig.cap="Concentration and flux vs time",fig.subcap=c("plotConcTimeDaily","plotFluxTimeDaily"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotConcTimeDaily, echo=FALSE, fig.cap="Concentration and flux vs time",fig.subcap=c("plotConcTimeDaily(yearStart=2008, yearEnd=2010)","plotFluxTimeDaily(yearStart=2008, yearEnd=2010)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 Sample <- ChopSample
 Daily <- ChopDaily
 INFO <- ChopINFO
 AnnualResults <- setupYears()
 surfaces <- exsurfaces
-qBottom<-0.1
-qTop<-100
+qBottom<-100
+qTop<-5000
 clevel<-seq(0,2,0.5)
 maxDiff<-0.8
 yearStart <- 2008
@@ -838,56 +841,56 @@ plotConcTimeDaily(yearStart, yearEnd)
 plotFluxTimeDaily(yearStart, yearEnd)
 @
 
-<<plotFluxPred, echo=FALSE, fig.cap="Concentration predictions",fig.subcap=c('plotConcPred','plotLogConcPred'),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotFluxPred, echo=FALSE, fig.cap="Concentration predictions",fig.subcap=c('plotConcPred()','plotLogConcPred()'),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotConcPred()
 plotLogConcPred()
 @
 
-<<plotLogFluxPred, echo=FALSE, fig.cap="Flux predictions",fig.subcap=c('plotFluxPred','plotLogFluxPred'), out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotLogFluxPred, echo=FALSE, fig.cap="Flux predictions",fig.subcap=c('plotFluxPred()','plotLogFluxPred()'), out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotFluxPred()
 plotLogFluxPred()
 @
 
-<<plotResidQ, echo=FALSE, fig.cap="Residuals",fig.subcap=c("plotResidPred","plotResidQ"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotResidQ, echo=FALSE, fig.cap="Residuals",fig.subcap=c("plotResidPred()","plotResidQ(qUnit=1)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotResidPred()
-plotResidQ()
+plotResidQ(qUnit=1)
 @
 
-<<boxResidMonth, echo=FALSE, fig.cap="Residuals with respect to time",fig.subcap=c("plotResidTime","boxResidMonth"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<boxResidMonth, echo=FALSE, fig.cap="Residuals with respect to time",fig.subcap=c("plotResidTime()","boxResidMonth()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotResidTime()
 boxResidMonth()
 @
 
-<<boxConcThree, echo=FALSE, fig.cap="Default boxConcThree",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='asis',results='hide'>>=
+<<boxConcThree, echo=FALSE, fig.cap="Default boxConcThree()",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='asis',results='hide'>>=
 boxConcThree()
 @
 
-<<plotFluxHist, echo=FALSE, fig.cap="Concentration and flux history",fig.subcap=c("plotConcHist", "plotFluxHist"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotFluxHist, echo=FALSE, fig.cap="Concentration and flux history",fig.subcap=c("plotConcHist()", "plotFluxHist()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotConcHist()
 plotFluxHist()
 @
 
 <<plotLogConcQSmooth, echo=FALSE, fig.cap="Concentration vs. discharge",fig.subcap=c("plotConcQSmooth","plotLogConcQSmooth"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotConcQSmooth(date1, date2, date3, qBottom, qTop, 
-                   concMax=2)
-plotLogConcQSmooth(date1, date2, date3, qBottom, qTop, 
-                   concMax=2, concMin=0.1)
+                   concMax=1.5,qUnit=1)
+plotLogConcQSmooth(date1, date2, date3, qBottom, qTop,
+                   concMax=1.5, concMin=0.1,qUnit=1)
 @
 
 <<plotConcTimeSmooth, echo=FALSE, fig.cap="plotConcTimeSmooth",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='asis',results='hide'>>=
 plotConcTimeSmooth(q1, q2, q3, centerDate, 2000, yearEnd)
 @
 
-<<fluxBiasMulti, echo=FALSE, fig.cap="fluxBiasMulti",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
-fluxBiasMulti()
+<<fluxBiasMulti, echo=FALSE, fig.cap="fluxBiasMulti(qUnit=1)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+fluxBiasMulti(qUnit=1)
 @
 
-<<fluxBiasMultiAlt, echo=FALSE, fig.cap="fluxBiasMultiAlt",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
-fluxBiasMultiAlt()
+<<fluxBiasMultiAlt, echo=FALSE, fig.cap="fluxBiasMultiAlt(qUnit=1)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+fluxBiasMultiAlt(qUnit=1)
 @
 
-<<fluxBiasEight, echo=FALSE, fig.cap="fluxBiasEight",fig.show='asis',fig.width=8, fig.height=10>>=
-fluxBiasEight()
+<<fluxBiasEight, echo=FALSE, fig.cap="fluxBiasEight(qUnit=1)",fig.show='asis',fig.width=8, fig.height=10>>=
+fluxBiasEight(qUnit=1)
 @
 
 <<plotContours, echo=FALSE, fig.cap="plotContours",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
@@ -895,10 +898,10 @@ surfaces <- exsurfaces
 Daily <- exDaily
 INFO <- exINFO
 plotContours(yearStart,yearEnd,qBottom,qTop, 
-             contourLevels = clevel)
+             contourLevels = clevel,qUnit=1)
 @
 
-<<plotDiffContours, echo=FALSE, fig.cap="plotDiffContours",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+<<plotDiffContours, echo=FALSE, fig.cap="plotDiffContours(year0=2000,yearEnd=2010,qBottom=0.1,qTop=100,maxDiff=0.8)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 plotDiffContours(year0=2000,yearEnd,
                  qBottom,qTop,maxDiff)
 @
@@ -1029,35 +1032,13 @@ install.packages("EGRET",
                  type="source")
 @
 
-It is a good idea to re-start the R enviornment after installing the package if installing an updated version (that is, restart RStudio). 
+It is a good idea to re-start R after installing the package if installing an updated version. 
 
 After installing the package, you need to open the library each time you re-start R.  This is done with the simple command:
 <<openLibraryTest, eval=FALSE>>=
 library(dataRetrieval)
 library(EGRET)
 @
-Using RStudio, you could alternatively click on the checkbox for dataRetrieval and EGRET in the Packages window.
-
-%------------------------------------------------------------
-\subsection{R Developers: Installing EGRET from gitHub}
-%------------------------------------------------------------
-Alternatively, R-developers can install the most recent (not-necessarily stable) version of EGRET directly from gitHub using the devtools package.  devtools is available on CRAN.  Simply type the following commands into R to install the latest version of EGRET available on gitHub.  Rtools (for Windows) and appropriate \LaTeX\ tools are required. Be aware that the version installed using this method isn't necessarily the same as the version in the stable release branch.  
-
-
-<<gitInstal,eval = FALSE>>=
-library(devtools)
-install_github("dataRetrieval", "USGS-R")
-install_github("EGRET", "USGS-R")
-@
-To then open the library, simply type:
-
-<<openLibraryPartDeux, eval=FALSE>>=
-library(dataRetrieval)
-library(EGRET)
-@
-
-\newpage
-\FloatBarrier
 
 \newpage
 \FloatBarrier
@@ -1311,6 +1292,9 @@ Sprague, L. A., Hirsch, R. M., and Aulenbach, B. T. (2011), Nitrate in the Missi
 
 \bibitem{HirschIV}
 Moyer, D.L., Hirsch, R.M., and Hyer, K.E. (2012), Comparison of Two Regression-Based Approaches for Determining Nutrient and Sediment Fluxes and Trends in the Chesapeake Bay Watershed: U.S. Geological Survey Scientific Investigations Report: 2012-5244, 118 p. \url{http://pubs.usgs.gov/sir/2012/5244/}
+
+\bibitem{HirschV}
+Rice, K.C., and Hirsch, R.M. (2012), Spatial and temporal trends in runoff at long-term streamgages within and near the Chesapeake Bay Watershed: U.S. Geological Survey Scientific Investigations Report 2012–5151, 56 p. \url{http://pubs.usgs.gov/sir/2012/5151}
 
 
 \end{thebibliography}
