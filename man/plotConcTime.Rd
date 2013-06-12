@@ -64,12 +64,15 @@
   axis is in log scale, "xy" indicates both x and y in log
   scale, "x" is only x}
 
+  \item{cex}{numerical value giving the amount by which
+  plotting text and symbols should be magnified relative to
+  the default}
+
   \item{cex.main}{magnification to be used for main titles
   relative to the current setting of cex}
 
-  \item{cex}{number}
-
-  \item{cex.axis}{number}
+  \item{cex.axis}{magnification to be used for axis
+  annotation relative to the current setting of cex}
 
   \item{\dots}{arbitrary functions sent to the generic
   plotting function.  See ?par for details on possible

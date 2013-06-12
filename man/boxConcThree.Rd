@@ -5,7 +5,7 @@
   boxConcThree(localSample = Sample, localDaily = Daily,
     localINFO = INFO, tinyPlot = FALSE, printTitle = TRUE,
     moreTitle = "WRTDS", font.main = 2, cex = 0.8,
-    cex.main = 0.9, cex.axis = 1.1, ...)
+    cex.main = 1.1, cex.axis = 1.1, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data

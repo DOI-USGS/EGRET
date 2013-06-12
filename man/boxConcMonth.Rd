@@ -3,7 +3,7 @@
 \title{Box plot of the water quality data by month}
 \usage{
   boxConcMonth(localSample = Sample, localINFO = INFO,
-    printTitle = TRUE, cex = 0.8, cex.axis = 1,
+    printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
     cex.main = 1.1, las = 2, font.main = 2,
     tinyPlot = FALSE, ...)
 }

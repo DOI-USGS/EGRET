@@ -82,7 +82,9 @@
 }
 \examples{
 INFO <- exINFO
-annualSeries <- exannualSeries
+Daily <- exDaily
+annualSeries <- makeAnnualSeries()
+plotFlowSingle(1)
 }
 \keyword{graphics}
 \keyword{statistics}
