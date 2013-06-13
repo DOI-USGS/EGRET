@@ -1,28 +1,28 @@
 \select@language {american}
 \contentsline {section}{\numberline {1}Introduction to Exploration and Graphics for RivEr Trends (EGRET)}{2}{section.1}
-\contentsline {section}{\numberline {2}EGRET Dataframes and Units}{3}{section.2}
-\contentsline {subsection}{\numberline {2.1}Daily}{3}{subsection.2.1}
-\contentsline {subsection}{\numberline {2.2}Sample}{4}{subsection.2.2}
-\contentsline {subsection}{\numberline {2.3}INFO}{5}{subsection.2.3}
-\contentsline {subsection}{\numberline {2.4}Units}{6}{subsection.2.4}
-\contentsline {section}{\numberline {3}Flow History}{7}{section.3}
-\contentsline {subsection}{\numberline {3.1}Plotting Options}{9}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Table Options}{14}{subsection.3.2}
-\contentsline {section}{\numberline {4}Water Quality Analysis (pre-WRTDS)}{15}{section.4}
-\contentsline {subsection}{\numberline {4.1}Plotting Options}{16}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Extending Plots Past Defaults}{20}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Table Options}{22}{subsection.4.3}
-\contentsline {section}{\numberline {5}WRTDS Analysis}{22}{section.5}
-\contentsline {section}{\numberline {6}WRTDS Results}{23}{section.6}
-\contentsline {subsection}{\numberline {6.1}Plotting Options}{23}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Table Options}{35}{subsection.6.2}
-\contentsline {section}{\numberline {A}Getting Started}{39}{appendix.A}
-\contentsline {subsection}{\numberline {A.1}New to R?}{39}{subsection.A.1}
-\contentsline {subsection}{\numberline {A.2}R User: Installing EGRET}{39}{subsection.A.2}
-\contentsline {subsection}{\numberline {A.3}R Developers: Installing EGRET from gitHub}{40}{subsection.A.3}
-\contentsline {section}{\numberline {B}Common Function Variables}{41}{appendix.B}
-\contentsline {subsection}{\numberline {B.1}flowHistory Plotting Input}{41}{subsection.B.1}
-\contentsline {subsection}{\numberline {B.2}Water Quality Plotting Input}{42}{subsection.B.2}
-\contentsline {subsection}{\numberline {B.3}WRTDS Estimation Input}{43}{subsection.B.3}
-\contentsline {subsection}{\numberline {B.4}WRTDS Plotting Input}{44}{subsection.B.4}
-\contentsline {section}{\numberline {C}Creating tables in Microsoft from R}{47}{appendix.C}
+\contentsline {section}{\numberline {2}EGRET Workflow}{3}{section.2}
+\contentsline {section}{\numberline {3}EGRET Dataframes and Units}{6}{section.3}
+\contentsline {subsection}{\numberline {3.1}Daily}{6}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Sample}{7}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}INFO}{8}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Units}{9}{subsection.3.4}
+\contentsline {section}{\numberline {4}Flow History}{10}{section.4}
+\contentsline {subsection}{\numberline {4.1}Plotting Options}{12}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Table Options}{18}{subsection.4.2}
+\contentsline {section}{\numberline {5}Summary of Water Quality Data (without using WRTDS)}{19}{section.5}
+\contentsline {subsection}{\numberline {5.1}Plotting Options}{20}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Extending Plots Past Defaults}{24}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Table Options}{26}{subsection.5.3}
+\contentsline {section}{\numberline {6}WRTDS Analysis}{26}{section.6}
+\contentsline {section}{\numberline {7}WRTDS Results}{27}{section.7}
+\contentsline {subsection}{\numberline {7.1}Plotting Options}{27}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Table Options}{39}{subsection.7.2}
+\contentsline {section}{\numberline {A}Getting Started}{43}{appendix.A}
+\contentsline {subsection}{\numberline {A.1}New to R?}{43}{subsection.A.1}
+\contentsline {subsection}{\numberline {A.2}R User: Installing EGRET}{43}{subsection.A.2}
+\contentsline {section}{\numberline {B}Common Function Variables}{45}{appendix.B}
+\contentsline {subsection}{\numberline {B.1}flowHistory Plotting Input}{45}{subsection.B.1}
+\contentsline {subsection}{\numberline {B.2}Water Quality Plotting Input}{46}{subsection.B.2}
+\contentsline {subsection}{\numberline {B.3}WRTDS Estimation Input}{47}{subsection.B.3}
+\contentsline {subsection}{\numberline {B.4}WRTDS Plotting Input}{48}{subsection.B.4}
+\contentsline {section}{\numberline {C}Creating tables in Microsoft from R}{51}{appendix.C}

@@ -67,7 +67,7 @@
 \usepackage[numbers, round]{natbib}
 \usepackage[american]{babel}
 \usepackage{authblk}
-\usepackage{subcaption}
+\usepackage{subfig}
 \usepackage{placeins}
 \usepackage{footnote}
 \usepackage{tabularx}
@@ -115,13 +115,14 @@
 \affil[1]{United States Geological Survey}
 
 \maketitle
+
+Exploration and Graphics for RivEr Trends (EGRET): An R-package for the analysis of long-term changes in water quality and streamflow, including the water-quality method Weighted Regressions on Time, Discharge, and Season (WRTDS)
+
 \tableofcontents
 
 %------------------------------------------------------------
 \section{Introduction to Exploration and Graphics for RivEr Trends (EGRET)}
 %------------------------------------------------------------ 
-
-For information on getting started in R, downloading and installing the package, see Appendix 1: 
 
 Exploration and Graphics for RivEr Trends (EGRET): An R-package for the analysis of long-term changes in water quality and streamflow. EGRET includes statistics and graphics for streamflow history, water quality trends, and the modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS). 
 
@@ -130,23 +131,138 @@ Exploration and Graphics for RivEr Trends (EGRET): An R-package for the analysis
 (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}) 
 \textbf{for more information on the EGRET package.}
 
+For information on getting started in R, downloading and installing the package, see Appendix 1:
 
-The best way to learn about the WRTDS approach and to see examples of its application to multiple large data sets is to read two journal articles.  Both are available, for free, from the journals in which they were published.
+The best way to learn about the WRTDS approach and to see examples of its application to multiple large data sets is to read two journal articles.  They are available, for free, from the journals in which they were published.
 
 The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay.  The URL is \cite{HirschII}: 
 \url{http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full}
 
-The second is an application to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries \cite{HirschIII}.  The URL is: \url{http://pubs.acs.org/doi/abs/10.1021/es201221s}
+The second is an application  to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries \cite{HirschIII}.  The URL is: \url{http://pubs.acs.org/doi/abs/10.1021/es201221s}
 
-This vignette assumes that the user understands the concepts underlying WRTDS.  Thus, reading at least the first of these papers is necessary for understanding.  The method has been enhanced beyond what was published there.  The enhancement is that it now properly handles censored data by using survival regression rather than ordinary regression.  The details of that are in a manuscript currently in process by Doug Moyer and Bob Hirsch.
+This vignette assumes that the user understands the concepts underlying WRTDS.  Thus, reading at least the first of these papers is necessary for understanding.  The method has been enhanced beyond what was published there.  The enhancement is that it now properly handles censored data by using survival regression rather than ordinary regression.  The details of that are in a report on Chesapeake Bay river input trends \cite{HirschIV}:\url{http://pubs.usgs.gov/sir/2012/5244/}.  The specific enhancements for handling censored data are on pages 9-11 of that report.
 
-This vignette will walk through the major functions provided by the EGRET package. The package dataRetrieval is required for importing data in a EGRET-friendly format. The dataRetrieval package, along with installation instructions can be found at:
-\\
+This vignette will walk through the major functions provided by the EGRET package. The package dataRetrieval is required for importing data in an EGRET-friendly format. The dataRetrieval package, along with installation instructions can be found at:
 \url{https://github.com/USGS-R/dataRetrieval}
-\\
+
 Installing dataRetrieval will provide a vignette similar to this document, with complete working examples of the main dataRetrieval functions.
 
-This vignette is divided into four sections: EGRET Dataframes, Flow History, WRTDS Analysis, and WRTDS Results. This document assumes the reader is familiar with the dataRetrieval package. The examples will follow an analysis of nitrate on the Choptank River at Greensboro, MD. Further details can be found in the user guide that can be found on gitHub: \url{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}
+This document assumes the reader is familiar with the dataRetrieval package. Further details can be found in the user guide that can be found on gitHub: \url{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}
+
+%------------------------------------------------------------
+\section{EGRET Workflow}
+%------------------------------------------------------------ 
+Subsequent sections of this vignette will discuss the EGRET workflow steps in greater detail. This section provides a handy cheat sheet for diving into an EGRET analysis.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{library}(dataRetrieval)
+\hlfunctioncall{library}(EGRET)
+
+\hlcomment{############################}
+\hlcomment{# Gather discharge data:}
+siteID <- \hlstring{"01491000"} #Choptank River at Greensboro, MD
+startDate <- \hlstring{""} #Gets earliest date
+endDate <- \hlstring{"2011-09-30"}
+Daily <- \hlfunctioncall{getDVData}(siteID,\hlstring{"00060"},startDate,endDate)
+
+\hlcomment{# Gather sample data:}
+parameter_cd<-\hlstring{"00631"} #5 digit USGS code
+Sample <- \hlfunctioncall{getSampleData}(siteID,parameter_cd,startDate,endDate)
+
+\hlcomment{# Gather site and parameter information:}
+INFO<- \hlfunctioncall{getMetaData}(siteID,param,interactive=FALSE)
+INFO$shortName <- \hlstring{"Choptank River"}
+INFO <- \hlfunctioncall{setPA}()
+
+\hlcomment{# Merge discharge with sample data:}
+Sample <- \hlfunctioncall{mergeReport}()
+\hlcomment{############################}
+
+\hlcomment{############################}
+\hlcomment{# Check flow history data:}
+annualSeries <- \hlfunctioncall{makeAnnualSeries}()
+\hlfunctioncall{plotFlowSingle}(istat=7,qUnit=\hlstring{"thousandCfs"})
+\hlfunctioncall{plotSDLogQ}()
+\hlfunctioncall{plotQTimeDaily}(1990,2010,qLower=1,qUnit=3)
+\hlfunctioncall{plotFour}(qUnit=3)
+\hlfunctioncall{plotFourStats}(qUnit=3)
+\hlcomment{############################}
+
+\hlcomment{############################}
+\hlcomment{# Check sample data:}
+\hlfunctioncall{boxConcMonth}()
+\hlfunctioncall{boxQTwice}()
+\hlfunctioncall{plotLogConcTime}()
+\hlfunctioncall{plotConcTime}()
+\hlfunctioncall{plotConcQ}()
+\hlfunctioncall{plotLogConcQ}()
+\hlfunctioncall{plotLogFluxQ}()
+\hlfunctioncall{multiPlotDataOverview}()
+\hlcomment{############################}
+
+\hlcomment{############################}
+\hlcomment{# Run WRTDS model:}
+\hlfunctioncall{modelEstimation}()
+\hlcomment{############################}
+
+\hlcomment{############################}
+\hlcomment{#Check model results:}
+AnnualResults<-\hlfunctioncall{setupYears}()
+annualSeries <- \hlfunctioncall{makeAnnualSeries}()
+yearStart <- 2000
+yearEnd <- 2010
+
+\hlcomment{#Require Sample + INFO:}
+\hlfunctioncall{plotConcTimeDaily}(yearStart, yearEnd)
+\hlfunctioncall{plotFluxTimeDaily}(yearStart, yearEnd)
+\hlfunctioncall{plotConcPred}()
+\hlfunctioncall{plotFluxPred}()
+\hlfunctioncall{plotLogConcPred}()
+\hlfunctioncall{plotLogFluxPred}()
+\hlfunctioncall{plotResidPred}()
+\hlfunctioncall{plotResidQ}()
+\hlfunctioncall{plotResidTime}()
+\hlfunctioncall{boxResidMonth}()
+\hlfunctioncall{boxConcThree}()
+
+\hlcomment{#Require annualResults + INFO:}
+\hlfunctioncall{plotConcHist}()
+\hlfunctioncall{plotFluxHist}()
+
+\hlcomment{# Multi-line plots:}
+date1 <- \hlstring{"2000-09-01"}
+date2 <- \hlstring{"2005-09-01"}
+date3 <- \hlstring{"2009-09-01"}
+qBottom<-100
+qTop<-5000
+\hlfunctioncall{plotLogConcQSmooth}(date1, date2, date3, qBottom, qTop, 
+                   concMax=2, concMin=0.1,qUnit=1)
+\hlfunctioncall{plotConcQSmooth}(date1, date2, date3, qBottom, qTop, 
+                   concMax=2,qUnit=1)
+q1 <- 10
+q2 <- 25
+q3 <- 75
+centerDate <- \hlstring{"07-01"}
+\hlfunctioncall{plotConcTimeSmooth}(q1, q2, q3, centerDate, 2000, yearEnd)
+
+\hlcomment{# Multi-plot:}
+\hlfunctioncall{fluxBiasMulti}()
+\hlfunctioncall{fluxBiasMultiAlt}()
+\hlfunctioncall{fluxBiasEight}()
+
+\hlcomment{#Contour plots:}
+clevel<-\hlfunctioncall{seq}(0,2,0.5)
+maxDiff<-0.8
+\hlfunctioncall{plotContours}(yearStart,yearEnd,qBottom,qTop, 
+             contourLevels = clevel,qUnit=1)
+\hlfunctioncall{plotDiffContours}(year0=2000,yearEnd,
+                 qBottom,qTop,maxDiff,qUnit=1)
+
+\end{alltt}
+\end{kframe}
+\end{knitrout}
 
 
 
@@ -154,7 +270,7 @@ This vignette is divided into four sections: EGRET Dataframes, Flow History, WRT
 \section{EGRET Dataframes and Units}
 \label{sec:dataframes}
 %------------------------------------------------------------ 
-The EGRET package uses 3 default dataframes throughout the calculations, analysis, and graphing. These dataframes are Daily (\ref{sec:dataframesDaily}), Sample (\ref{sec:dataframesSample}), and INFO (\ref{sec:dataframesINFO}). EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units, which will be discussed in (\ref{sec:units}). To start our exploration, the packages must be installed (check the appendix for detailed instructions (\ref{sec:appendix1})), then opened:
+The EGRET package uses 3 default dataframes throughout the calculations, analysis, and graphing. These dataframes are Daily (\ref{sec:dataframesDaily}), Sample (\ref{sec:dataframesSample}), and INFO (\ref{sec:dataframesINFO}). EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units, which will be discussed in (\ref{sec:units}). To start our exploration, the packages must be installed (check the appendix for detailed instructions (\ref{sec:appendix1})), then opened with the following command:
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -170,7 +286,7 @@ The EGRET package uses 3 default dataframes throughout the calculations, analysi
 \subsection{Daily}
 \label{sec:dataframesDaily}
 %------------------------------------------------------------ 
-The Daily dataframe initially is populated with columns generated by the dataRetrieval package (Table \ref{table:Daily1}).  After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), additional columns are inserted (Table \ref{table:Daily2}).
+The Daily dataframe initially is populated with columns generated by the dataRetrieval package (Table \ref{table:Daily1}).  After running the WRTDS calculations (as will be described in section \ref{sec:wrtds}), additional columns are inserted (Table \ref{table:Daily2}).
 
 \begin{table}[!ht]
 \centering
@@ -188,7 +304,7 @@ Date & Date & Date & date \\
   DecYear & number & Decimal year & years \\ 
   MonthSeq & integer & Number of months since January 1, 1850 & months \\ 
   Qualifier & string & Qualifing code & character \\ 
-  i & integer & Index & days \\ 
+  i & integer & Index of days, starting with 1 & days \\ 
   LogQ & number & Natural logarithm of Q & numeric \\ 
   Q7 & number & 7 day running average of Q & cms \\ 
   Q30 & number & 30 running average of Q & cms \\ 
@@ -215,13 +331,14 @@ yHat & number & The WRTDS estimate of the log of concentration & numeric \\
 \end{table}
 
 \FloatBarrier
+\pagebreak
 
 
 %------------------------------------------------------------ 
 \subsection{Sample}
 \label{sec:dataframesSample}
 %------------------------------------------------------------ 
-The Sample dataframe initially is populated with columns generated by the dataRetrieval package (Table \ref{table:Sample1}). After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), additional columns are inserted (Table \ref{table:Sample2}):
+The Sample dataframe initially is populated with columns generated by the dataRetrieval package (Table \ref{table:Sample1}). After running the WRTDS calculations (as will be described in section \ref{sec:wrtds}), additional columns are inserted (Table \ref{table:Sample2}):
 
 \begin{table}[!ht]
 \begin{minipage}{\linewidth}
@@ -244,12 +361,13 @@ Date & Date & Date & date \\
   MonthSeq & integer & Number of months since January 1, 1850 & months \\ 
   SinDY & number & Sine of DecYear & numeric \\ 
   CosDY & number & Cosine of DecYear & numeric \\ 
-  Q \footnote{Populated after calling mergeReport} & number & Discharge & cms \\ 
-  LogQ \footnote{Populated after calling mergeReport} & number & Natural logarithm of flow & numeric \\ 
+  Q \footnotemark[1] & number & Discharge & cms \\ 
+  LogQ \footnotemark[1] & number & Natural logarithm of flow & numeric \\ 
    \hline
 \end{tabular}
 \end{minipage}
 \end{table}
+\footnotetext[1]{Populated after calling mergeReport.}
 
 \begin{table}[!ht]
 \centering
@@ -259,20 +377,24 @@ Date & Date & Date & date \\
   \hline
 ColumnName & Type & Description & Units \\ 
   \hline
-yHat & number & jack-knife estimate of the log of concentration & numeric \\ 
-  SE & number & jack-knife estimate of the standard error of yHat & numeric \\ 
-  ConcHat & number & jack-knife unbiased estimate of concentration & mg/L \\ 
+yHat\footnotemark[2] & number & estimate of the log of concentration & numeric \\ 
+  SE\footnotemark[2] & number & estimate of the standard error of yHat & numeric \\ 
+  ConcHat\footnotemark[2] & number & unbiased estimate of concentration & mg/L \\ 
    \hline
 \end{tabular}
 \end{table}
 
+\footnotetext[2]{These estimates are 'leave-one-out cross validation' estimates.  They are computed for each sample value by withholding that particular sample value from the data set when they are estimated.}
+
 \FloatBarrier
+\pagebreak
+
 
 %------------------------------------------------------------ 
 \subsection{INFO}
 \label{sec:dataframesINFO}
 %------------------------------------------------------------ 
-The INFO dataframe is used to store information about the measurements, such as station name, parameter name, drainage area, etc. There can be many additional, optional columns, but the columns in Table \ref{table:Info1} are required to initiate the EGRET analysis. After running the WRTDS calculations (as will be described in \ref{sec:wrtds}), additional columns (Table \ref{table:Info2}) are automatically inserted into the INFO dataframe (the meaning of the values will be discussed further sections):
+The INFO dataframe is used to store information about the measurements, such as station name, parameter name, drainage area, etc. There can be many additional, optional columns, but the columns in Table \ref{table:Info1} are required to initiate the EGRET analysis. After running the WRTDS calculations (as will be described in section \ref{sec:wrtds}), additional columns (Table \ref{table:Info2}) are automatically inserted into the INFO dataframe (the meaning of the values will be discussed further sections):
 
 
 \begin{table}[!ht]
@@ -289,13 +411,15 @@ shortName & string & Name of site, suitable for use in graphical headings \\
   paramShortName & string & Name of constituent, suitable for use in graphical headings \\ 
   constitAbbrev & string & Abbreviation for constituent name, used in saveResults \\ 
   drainSqKm & numeric & Drainage area in  km\verb@^@2 \\ 
-  paStart \footnote{Inserted with the setPA function} & integer (1-12) & Starting month of period of analysis \\ 
-  paLong \footnote{Inserted with the setPA function} & integer (1-12) & Length of period of analysis in months \\ 
+  paStart \footnotemark[1] & integer (1-12) & Starting month of period of analysis \\ 
+  paLong \footnotemark[1] & integer (1-12) & Length of period of analysis in months \\ 
    \hline
 \end{tabular}
 \end{center}
 \end{minipage}
 \end{table}
+
+\footnotetext[1]{Inserted with the setPA function}
 
 \begin{table}[!ht]
 \centering
@@ -306,7 +430,7 @@ shortName & string & Name of site, suitable for use in graphical headings \\
 ColumnName & Description & Units \\ 
   \hline
 bottomLogQ & Lowest discharge in prediction surfaces & numeric \\ 
-  stepLogQ & Step size in discharge in prediction surfaces & numeric \\ 
+  stepLogQ & Step size in log discharge in prediction surfaces & numeric \\ 
   nVectorLogQ & Number of steps in discharge, prediction surfaces & numeric \\ 
   bottomYear & Starting year in prediction surfaces & numeric \\ 
   stepYear & Step size in years in prediction surfaces & numeric \\ 
@@ -321,14 +445,16 @@ bottomLogQ & Lowest discharge in prediction surfaces & numeric \\
 \end{table}
 
 \FloatBarrier
+\pagebreak
+
 
 %------------------------------------------------------------ 
 \subsection{Units}
 \label{sec:units}
 %------------------------------------------------------------ 
-EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units. The default is that concentration is measured in mg/L, discharge is cubic meters per second (cms), flux is kg/day, and drainage area is km\verb@^@2. When discharge values are imported from USGS web services (using the dataRetrieval package), they are automatically converted from cubic feet per second (cfs) to cms unless the argument convet is set to FALSE.  This can cause confusion if not careful. 
+EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units. The default is that concentration is measured in mg/L, discharge is cubic meters per second (cms), flux is kg/day, and drainage area is km\verb@^@2. When discharge values are imported from USGS web services (using the dataRetrieval package), they are automatically converted from cubic feet per second (cfs) to cms unless the argument convert is set to FALSE.  This can cause confusion if not careful. 
 
-Although the data is stored in the dataframes in SI, it is possible to report the results in a variety of units. For all functions that provide output, there are two arguments that can be defined to set the output units: qUnit and FluxUnit.  qUnit and FluxUnit can be defined by a numeric code or name.  There are two functions that can be called to see the options for qUnit and FluxUnit: printqUnitCheatSheet and printFluxUnitCheatSheet.
+Although the data is stored in the dataframes in SI, it is possible to report the results in a variety of units. For all functions that provide output, there are two arguments that can be defined to set the output units: qUnit and FluxUnit.  qUnit and fluxUnit can be defined by a numeric code or name.  There are two functions that can be called to see the options for qUnit and FluxUnit: printqUnitCheatSheet and printFluxUnitCheatSheet.
 
 
 \begin{knitrout}
@@ -349,7 +475,7 @@ Although the data is stored in the dataframes in SI, it is possible to report th
 \end{knitrout}
 
 
-When a function has an input argument qUnit, you can define the flow units with the index (1-6) as shown above. The choice should be based on the units that are customary for the audience, but also so that the discharge values don't have too many digits to the right or left of the decimal point.
+When a function has an input argument qUnit, you can define the flow units that will be used in the figure or table that is generated by the function with the index (1-6) as shown above. The choice should be based on the units that are customary for the audience, but also so that the discharge values don't have too many digits to the right or left of the decimal point.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -375,13 +501,13 @@ When a function has an input argument qUnit, you can define the flow units with 
 \end{knitrout}
 
 
-When a function has an input argument FluxUnit, you can define the flux units with the index (1-12) as shown above. The choice should be based on the units that are customary for the audience, but also so that the flux values don't have too many digits to the right or left of the decimal point.
+When a function has an input argument fluxUnit, you can define the flux units with the index (1-12) as shown above. The choice should be based on the units that are customary for the audience, but also so that the flux values don't have too many digits to the right or left of the decimal point. Tons are always 'short tons' and not 'metric tons'.
 
 %------------------------------------------------------------ 
 \section{Flow History}
 \label{sec:flowHistory}
 %------------------------------------------------------------ 
-This section describes functions included in the EGRET package that provide a variety of table and graphical outputs looking only at flow statistics based on time-series smoothing. These functions were designed for studies of long-term streamflow change and work best for daily streamflow data sets of 50 years or longer. This type of analysis might be useful for studying 
+This section describes functions included in the EGRET package that provide a variety of table and graphical outputs looking only at flow statistics based on time-series smoothing. These functions were designed for studies of long-term streamflow change and work best for daily streamflow data sets of 50 years or longer. This type of analysis might be useful for studying issues such as the influence of land use change, water management change, or climate change on streamflow conditions.  This includes potential impacts on average flows, high flows, low flows, both at annual time scales as well as seasonal or monthly time scales. 
 
 At this point it is assumed that you can load the daily discharge record into R, create the Daily dataframe, and enter the required meta-data into the INFO dataframe. If not, see the dataRetrieval vignette:
 
@@ -394,26 +520,26 @@ At this point it is assumed that you can load the daily discharge record into R,
 \end{knitrout}
 
 
-We will walk through an example from the Rio Grande gaging station in Embodo, NM.  This is the first stream gage station in the USGS, established by John Wesley Powell in 1888.
-
+We will walk through an example from Columbia River at Dalles, OR.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcomment{#Rio Grande at Embudo, NM}
-siteID <- \hlstring{"08279500"}  
+siteID <- \hlstring{"14105700"}  
 startDate <- \hlstring{""}
 endDate <- \hlstring{""}
 
-Daily <- \hlfunctioncall{getDVData}(siteID,\hlstring{"00060"},startDate,endDate,interactive=FALSE)
+Daily <- \hlfunctioncall{getDVData}(siteID,\hlstring{"00060"},startDate,endDate)
+\end{alltt}
+\begin{verbatim}
+## There are  49320 data points, and  49320 days.
+\end{verbatim}
+\begin{alltt}
 INFO <- \hlfunctioncall{getMetaData}(siteID,\hlstring{""},interactive=FALSE)
-INFO$shortName <- \hlstring{"Rio Grande at Embudo, NM"}
+INFO$shortName <- \hlstring{"Columbia River"}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-
-
-
 
 
 The first choice you need to make is what period of analysis to use (pa). What is the period of analysis?  If we want to examine our data set as a time series of water years, then the period of analysis is October through September.  If we want to examine the data set as calendar years then the period of analysis should be January through December.  We might want to examine the winter season, which we could define as December through February, then those 3 months become the period of analysis. The only constraints on the definition of a period of analysis are these: It must be defined in terms of whole months.  It must be a set of contiguous months (like March-April-May).  And it must have a length that is no less than 1 month and no more than 12 months.  It can be uniquely defined by two arguments: paLong and paStart.  paLong is the length of the period of analysis, and paStart is the first month of the period of analysis. Table \ref{table:paINFO} summarizes paLong and paStart.
@@ -424,7 +550,7 @@ The first choice you need to make is what period of analysis to use (pa). What i
 \label{table:paINFO}
 \begin{tabular}{lll}
   \hline
-PeriodOfAnalysis & paStart & PaLong \\ 
+PeriodOfAnalysis & paStart & paLong \\ 
   \hline
 Calendar Year & 1 & 12 \\ 
   Water Year & 10 & 12 \\ 
@@ -497,9 +623,8 @@ This section will give examples of the available plots appropriate for studying 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{plotFlowSingle}(istat=7,qUnit=\hlstring{"thousandCfs"})
+\hlfunctioncall{plotFlowSingle}(istat=5,qUnit=\hlstring{"thousandCfs"})
 \hlfunctioncall{plotSDLogQ}()
-\hlfunctioncall{plotQTimeDaily}(1990,2010,qLower=1,qUnit=3)
 \hlfunctioncall{plotFour}(qUnit=3)
 \hlfunctioncall{plotFourStats}(qUnit=3)
 \end{alltt}
@@ -509,9 +634,21 @@ This section will give examples of the available plots appropriate for studying 
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\subfloat[plotFlowSingle(istat=5,qUnit='thousandCfs')\label{fig:plotSingleandSD1}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotSingleandSD1} }
+\subfloat[plotSDLogQ()\label{fig:plotSingleandSD2}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotSingleandSD2} }\caption[Discharge statistics]{Discharge statistics\label{fig:plotSingleandSD}}
+\end{figure}
 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotSingleandSD1} 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotSingleandSD2} \caption[plotFlowSingle (left), default plotSDLogQ (right)]{plotFlowSingle (left), default plotSDLogQ (right)\label{fig:plotSingleandSD}}
+
+\end{knitrout}
+
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+
+\includegraphics[width=1\linewidth,height=1\linewidth]{figure/plotFour} \caption[plotFour(qUnit=3)]{plotFour(qUnit=3)\label{fig:plotFour}}
 \end{figure}
 
 
@@ -521,27 +658,7 @@ This section will give examples of the available plots appropriate for studying 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotQTimeDaily} \caption[plotQTimeDaily]{plotQTimeDaily\label{fig:plotQTimeDaily}}
-\end{figure}
-
-
-\end{knitrout}
-
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
-
-\includegraphics[width=1\linewidth,height=1\linewidth]{figure/plotFour} \caption[plotFour]{plotFour\label{fig:plotFour}}
-\end{figure}
-
-
-\end{knitrout}
-
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
-
-\includegraphics[width=1\linewidth,height=1\linewidth]{figure/plotFourStats} \caption[plotFourStats]{plotFourStats\label{fig:plotFourStats}}
+\includegraphics[width=1\linewidth,height=1\linewidth]{figure/plotFourStats} \caption[plotFourStats(qUnit=3)]{plotFourStats(qUnit=3)\label{fig:plotFourStats}}
 \end{figure}
 
 
@@ -551,39 +668,73 @@ This section will give examples of the available plots appropriate for studying 
 
 \FloatBarrier
 
-The simplest way to look at these time series is with the function plotFlowSingle. The statistic index (istat) must be defined, but other input arguements can defined. To see a list of these optional arguments and other information about the function, type ?plotFlowSingle in the R console. 
+The simplest way to look at these time series is with the function plotFlowSingle. The statistic index (istat) must be defined, but other input arguements can defined. To see a list of these optional arguments and other information about the function, type ?plotFlowSingle in the R console. All of the graphs in plotFlowSingle, plotFourStats, and all but one of the graphs in plotFour, show both the individual annual values of the selected flow statistic (e.g. the annual mean or 7-day minimum), but they also show a curve that is a smooth fit to those data.  The curve is a LOWESS (locally weighted scatterplot smooth).  The algorithm for computing it is provided in \cite{HirschV}:\url{http://pubs.usgs.gov/sir/2012/5151/}  (pages 6 and 7).  The default is that they are smoothed with a "half-window width" of 30 years and the smoothing is performed on the log discharge values.  The smoothing window is a user-defined option. 
 
-plotSDLogQ produces a graphic of the running standard deviation of the log of daily discharge over time.  The idea is to get some idea of how variability of daily discharge is changing over time.  By using the standard deviation of the log discharge the statistic becomes dimensionless.  It also means that it is a way of looking at variability quite aside from average values, so, in the case of a system where discharge might be increasing over a period of years, this provides a way of looking at the variability relative to that changing mean value.  It is much like a coefficient of variation, but it has sample properties that make it a smoother measure of variability.  There are often comments about how things like urbanization or enhanced greenhouse gases in the atmosphere are bringing about an increase in variability, this is one way to explore that idea.
+plotSDLogQ produces a graphic of the running standard deviation of the log of daily discharge over time.  The idea is to get some idea of how variability of daily discharge is changing over time.  By using the standard deviation of the log discharge the statistic becomes dimensionless.  It also means that it is a way of looking at variability quite aside from average values, so, in the case of a system where discharge might be increasing over a period of years, this provides a way of looking at the variability relative to that changing mean value.  It is much like a coefficient of variation, but it has sample properties that make it a smoother measure of variability.  There are often comments about how things like urbanization or enhanced greenhouse gases in the atmosphere are bringing about an increase in variability, this is one way to explore that idea. plotFour, plotFourStats, and plot15 are all designed to plot several graphs from the other functions all in a single figure. 
 
-The Rio Grande does not contain much seasonal variablity, but as quick side example, you can see that there is a difference between variability in spring and summer on the Red River of the North (Figure \ref{fig:red}).
+Here is an example of looking at mean daily streamflow for the full water year and then looking at mean daily streamflow for the winter season only.  The site being considered is the Merced River at Happy Isles Bridge in Yosemite National Park in California.  First, we can look at the mean daily streamflow for the full year (after having read in the data and metadata):
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-siteID <- \hlstring{"05082500"}
-DailyRed <- \hlfunctioncall{getDVData}(siteID,\hlstring{"00060"},\hlstring{""},\hlstring{""},interactive=FALSE)
-INFORed <- \hlfunctioncall{getMetaData}(siteID,\hlstring{""},interactive=FALSE)
-INFORed$shortName <- \hlstring{"Red River, ND"}
-INFORed <- \hlfunctioncall{setPA}(paStart=6, paLong=3,localINFO = INFORed)
-\hlfunctioncall{plotSDLogQ}(localDaily = DailyRed, localINFO = INFORed, 
-           printStaName = FALSE)
-INFORed <- \hlfunctioncall{setPA}(paStart=3, paLong=3)
-\hlfunctioncall{plotSDLogQ}(localDaily = DailyRed, localINFO = INFORed, 
-           printStaName = FALSE)
+sta<-\hlstring{"11264500"}
+Daily <-\hlfunctioncall{getDVData}(sta,\hlstring{"00060"},StartDate=\hlstring{""},EndDate=\hlstring{""})
+\end{alltt}
+\begin{verbatim}
+## There are  35724 data points, and  35724 days.
+\end{verbatim}
+\begin{alltt}
+INFO <- \hlfunctioncall{getMetaData}(sta,\hlstring{""},interactive=FALSE)
+INFO$shortName <- \hlstring{"Merced River, CA"}
+INFO <- \hlfunctioncall{setPA}(paStart=6, paLong=3)
+annualSeries <- \hlfunctioncall{makeAnnualSeries}()
+\hlfunctioncall{plotFlowSingle}(istat=5)
+
+INFO<-\hlfunctioncall{setPA}(paStart=12,paLong=3)
+annualSeries<-\hlfunctioncall{makeAnnualSeries}()
+\hlfunctioncall{plotFlowSingle}(istat=5)
 \end{alltt}
 \end{kframe}\begin{figure}[]
-
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/red1} 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/red2} \caption[Red River Standard Deviation Example]{Red River Standard Deviation Example\label{fig:red}}
+\subfloat[Water Year\label{fig:Merced1}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/Merced1} }
+\subfloat[Dec-Feb\label{fig:Merced2}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/Merced2} }\caption[Merced River Winter Trend]{Merced River Winter Trend\label{fig:Merced}}
 \end{figure}
 
 
 \end{knitrout}
 
 
-plotQTimeDaily is simply a time series plot of discharge.  But, it is most suited for showing events above some discharge threshold.  In the simplest case, it can plot the entire record, but given the line weight and use of an arithmetic scale it will primarily provide a visual focus on the higher values. plotQTimeDaily requires startYear and endYear, along with some other optional arguements (see ?plotQTimeDaily for more details).
+The two figures produced are shown below.  What they show us is that on an annual basis there is very little indication of a long-term trend in mean streamflow, but for the winter months there is a pretty strong indication of an upward trend.  This could well be related to the climate warming in the Sierra Nevada, resulting in a general increase in the ratio of rain to snow in the winter and more thawing events.
 
-plotFour, plotFourStats, and plot15 are all designed to plot several graphs from the other functions all in a single figure. 
+plotQTimeDaily is simply a time series plot of discharge.  But, it is most suited for showing events above some discharge threshold.  In the simplest case, it can plot the entire record, but given the line weight and use of an arithmetic scale it will primarily provide a visual focus on the higher values.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+sta<-\hlstring{"05474500"}
+Daily <-\hlfunctioncall{getDVData}(sta,\hlstring{"00060"},StartDate=\hlstring{""},EndDate=\hlstring{""})
+\end{alltt}
+\begin{verbatim}
+## There are  49428 data points, and  49428 days.
+\end{verbatim}
+\begin{alltt}
+INFO <- \hlfunctioncall{getMetaData}(sta,\hlstring{""},interactive=FALSE)
+INFO$shortName <- \hlstring{"Mississippi River at Keokuk Iowa"}
+INFO <- \hlfunctioncall{setPA}()
+
+\hlfunctioncall{plotQTimeDaily}(startYear=1870,endYear=2020,qUnit=3,qLower=300)
+\end{alltt}
+\end{kframe}\begin{figure}[]
+
+\includegraphics[width=1\linewidth,height=1\linewidth]{figure/Mississippi} \caption[Mississippi River at Keokuk Iowa]{Mississippi River at Keokuk Iowa\label{fig:Mississippi}}
+\end{figure}
+
+
+\end{knitrout}
+
+
+The example shown here illustrates a very long record and the long gap of more than 60 years of no flows above 300,000 ft3/s, followed by the last 50 years with at least 5 events above that threshold. plotQTimeDaily requires startYear and endYear, along with some other optional arguements (see ?plotQTimeDaily for more details).
 
 \FloatBarrier
 
@@ -604,19 +755,19 @@ Sometimes easier to consider the results in table formats rather than graphicall
 
 
 \begin{verbatim}
-Rio Grande at Embudo, NM
+Mississippi River at Keokuk Iowa
  Water Year
     30-day minimum
     Thousand Cubic Feet per Second
    year   annual   smoothed
            value    value
-   1899    0.280    0.296
-   1900    0.208    0.285
-   1901    0.169    0.277
-   1902    0.320    0.272
+   1879     22.6     30.1
+   1880     31.7     28.7
+   1881     23.0     27.5
 ...
-   2011    0.252    0.248
-   2012    0.257       NA
+   2011     51.0     32.4
+   2012     34.3     32.1
+   2013     16.2     31.8
 \end{verbatim}
 
 Another way to look at the results is to consider how much the smoothed values change between various pairs of years.  These changes can be represented in four different ways.  
@@ -634,20 +785,20 @@ There is another argument that can be very useful in this function: yearPoints. 
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 annualSeries <- \hlfunctioncall{makeAnnualSeries}()
-\hlfunctioncall{tableFlowChange}(istat=3, qUnit=3,yearPoints=\hlfunctioncall{c}(1930,1970,2010))
+\hlfunctioncall{tableFlowChange}(istat=3, qUnit=3,yearPoints=\hlfunctioncall{c}(1890,1950,2010))
 \end{alltt}
 \begin{verbatim}
 ## 
-##    Rio Grande at Embudo, NM
+##    Mississippi River at Keokuk Iowa
 ##    Water Year
 ##     30-day minimum 
 ## 
 ##              Streamflow Trends
 ##    time span          change        slope       change        slope
 ##                       10^3 cfs 10^3 cfs /yr         %         %/yr
-##  1930  to  1970       -0.046      -0.0011          -14        -0.36
-##  1930  to  2010       -0.078     -0.00098          -24         -0.3
-##  1970  to  2010       -0.032     -0.00081          -12        -0.29
+##  1890  to  1950         0.54       0.0091          2.4         0.04
+##  1890  to  2010          9.8        0.082           43         0.36
+##  1950  to  2010          9.3         0.15           40         0.66
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -658,15 +809,13 @@ See Appendix \ref{app:createWordTable} for instructions on converting an R dataf
 \FloatBarrier
 
 
-
-
 %------------------------------------------------------------ 
-\section{Water Quality Analysis (pre-WRTDS)}
+\section{Summary of Water Quality Data (without using WRTDS)}
 \label{sec:wqa}
 %------------------------------------------------------------ 
 Before running the WRTDS model, it is very helpful to take a look at the measured data in a graphical way to understand its behavior and to identify things that might be errors in the data set or learn about the temporal distribution of the data (identify gaps) prior to running the model.  It is always best to clear up these issues before moving forward.
 
-We will now use the Choptank River at Greensboro, MD as our example case. The Choptank River is a major tributary of the Chesapeake Bay. Inorganic nitrogen (nitrate and nitrite) has been measured from 1979 onward. First, we need to get the streamflow and nitrate data into R, then use the mergeReport function to associate flow with the discrete measured water quality data.
+We will now use the Choptank River at Greensboro, MD as our example case. The Choptank River is a small tributary of the Chesapeake Bay. Inorganic nitrogen (nitrate and nitrite) has been measured from 1979 onward. First, we need to get the streamflow and nitrate data into R, then use the mergeReport function to associate flow with the discrete measured water quality data. Before the data can be graphed or entered into any of the WRTDS analysis the discharge data must be brought into the Sample dataframe.  This is done with the mergeReport function which does this merger of the discharge information and also provides a compact report about some major features of the data set.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -678,8 +827,7 @@ param<-\hlstring{"00631"}
 Daily <- \hlfunctioncall{getDVData}(siteID,\hlstring{"00060"},startDate,endDate)
 INFO<- \hlfunctioncall{getMetaData}(siteID,param,interactive=FALSE)
 INFO$shortName <- \hlstring{"Choptank River"}
-INFO <- \hlfunctioncall{setPA}()
-annualSeries <- \hlfunctioncall{makeAnnualSeries}()
+
 Sample <- \hlfunctioncall{getSampleData}(siteID,param,startDate,endDate)
 Sample <- \hlfunctioncall{mergeReport}()
 \end{alltt}
@@ -703,13 +851,13 @@ One note about any of the plotting functions that show the sample data:  If a va
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlfunctioncall{boxConcMonth}()
-\hlfunctioncall{boxQTwice}()
-\hlfunctioncall{plotLogConcTime}()
+\hlfunctioncall{boxQTwice}(qUnit=1)
 \hlfunctioncall{plotConcTime}()
-\hlfunctioncall{plotConcQ}()
-\hlfunctioncall{plotLogConcQ}()
-\hlfunctioncall{plotLogFluxQ}()
-\hlfunctioncall{multiPlotDataOverview}()
+\hlfunctioncall{plotLogConcTime}()
+\hlfunctioncall{plotConcQ}(qUnit=1)
+\hlfunctioncall{plotLogConcQ}(qUnit=1)
+\hlfunctioncall{plotLogFluxQ}(qUnit=1)
+\hlfunctioncall{multiPlotDataOverview}(qUnit=1)
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -717,9 +865,34 @@ One note about any of the plotting functions that show the sample data:  If a va
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\subfloat[boxConcMonth()\label{fig:plotBoxes1}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotBoxes1} }
+\subfloat[boxQTwice(qUnit=1)\label{fig:plotBoxes2}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotBoxes2} }\caption[Concentration box plots]{Concentration box plots\label{fig:plotBoxes}}
+\end{figure}
 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotBoxes1} 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotBoxes2} \caption[Default boxConcMonth (left), and boxQTwice (right)]{Default boxConcMonth (left), and boxQTwice (right)\label{fig:plotBoxes}}
+
+\end{knitrout}
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\subfloat[plotConcTime()\label{fig:plotConcTime1}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcTime1} }
+\subfloat[plotLogConcTime()\label{fig:plotConcTime2}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcTime2} }\caption[Concentration vs time]{Concentration vs time\label{fig:plotConcTime}}
+\end{figure}
+
+
+\end{knitrout}
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\subfloat[plotConcQ(qUnit=1)\label{fig:plotConcQ1}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcQ1} }
+\subfloat[plotLogConcQ(qUnit=1)\label{fig:plotConcQ2}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcQ2} }\caption[Concentration vs discharge]{Concentration vs discharge\label{fig:plotConcQ}}
 \end{figure}
 
 
@@ -729,8 +902,7 @@ One note about any of the plotting functions that show the sample data:  If a va
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcTime1} 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcTime2} \caption[Default plotConcTime (left), and plotLogConcTime (right)]{Default plotConcTime (left), and plotLogConcTime (right)\label{fig:plotConcTime}}
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogConcQ} \caption[plotLogFluxQ(qUnit=1)]{plotLogFluxQ(qUnit=1)\label{fig:plotLogConcQ}}
 \end{figure}
 
 
@@ -740,29 +912,7 @@ One note about any of the plotting functions that show the sample data:  If a va
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcQ1} 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcQ2} \caption[Default plotConcQ (left), and plotLogConcQ (right)]{Default plotConcQ (left), and plotLogConcQ (right)\label{fig:plotConcQ}}
-\end{figure}
-
-
-\end{knitrout}
-
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
-
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogConcQ1} 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogConcQ2} \caption[Default plotLogConcQ (left), and plotLogFluxQ (right)]{Default plotLogConcQ (left), and plotLogFluxQ (right)\label{fig:plotLogConcQ}}
-\end{figure}
-
-
-\end{knitrout}
-
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
-
-\includegraphics[width=1\linewidth,height=1\linewidth]{figure/multiPlotDataOverview} \caption[multiPlotDataOverview]{multiPlotDataOverview\label{fig:multiPlotDataOverview}}
+\includegraphics[width=1\linewidth,height=1\linewidth]{figure/multiPlotDataOverview} \caption[multiPlotDataOverview(qUnit=1)]{multiPlotDataOverview(qUnit=1)\label{fig:multiPlotDataOverview}}
 \end{figure}
 
 
@@ -916,6 +1066,8 @@ AnnualResults <- \hlfunctioncall{setupYears}()
 date1 <- \hlstring{"2000-09-01"}
 date2 <- \hlstring{"2005-09-01"}
 date3 <- \hlstring{"2009-09-01"}
+qBottom<-0.1
+qTop<-100
 \hlfunctioncall{plotLogConcQSmooth}(date1, date2, date3, qBottom, qTop, 
                    concMax=2, concMin=0.1)
 \hlfunctioncall{plotConcQSmooth}(date1, date2, date3, qBottom, qTop, 
@@ -928,6 +1080,8 @@ centerDate <- \hlstring{"07-01"}
 
 \hlcomment{# Multi-plot:}
 \hlfunctioncall{fluxBiasMulti}()
+\hlfunctioncall{fluxBiasMultiAlt}()
+\hlfunctioncall{fluxBiasEight}()
 
 \hlcomment{#Contour plots:}
 qBottom<-0.1
@@ -945,9 +1099,58 @@ maxDiff<-0.8
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\subfloat[plotConcTimeDaily(yearStart=2008, yearEnd=2010)\label{fig:plotConcTimeDaily1}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcTimeDaily1} }
+\subfloat[plotFluxTimeDaily(yearStart=2008, yearEnd=2010)\label{fig:plotConcTimeDaily2}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcTimeDaily2} }\caption[Concentration and flux vs time]{Concentration and flux vs time\label{fig:plotConcTimeDaily}}
+\end{figure}
 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcTimeDaily1} 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcTimeDaily2} \caption[Default plotConcTimeDaily (left), and plotFluxTimeDaily (right)]{Default plotConcTimeDaily (left), and plotFluxTimeDaily (right)\label{fig:plotConcTimeDaily}}
+
+\end{knitrout}
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\subfloat[plotConcPred()\label{fig:plotFluxPred1}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotFluxPred1} }
+\subfloat[plotLogConcPred()\label{fig:plotFluxPred2}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotFluxPred2} }\caption[Concentration predictions]{Concentration predictions\label{fig:plotFluxPred}}
+\end{figure}
+
+
+\end{knitrout}
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\subfloat[plotFluxPred()\label{fig:plotLogFluxPred1}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogFluxPred1} }
+\subfloat[plotLogFluxPred()\label{fig:plotLogFluxPred2}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogFluxPred2} }\caption[Flux predictions]{Flux predictions\label{fig:plotLogFluxPred}}
+\end{figure}
+
+
+\end{knitrout}
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\subfloat[plotResidPred()\label{fig:plotResidQ1}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotResidQ1} }
+\subfloat[plotResidQ(qUnit=1)\label{fig:plotResidQ2}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotResidQ2} }\caption[Residuals]{Residuals\label{fig:plotResidQ}}
+\end{figure}
+
+
+\end{knitrout}
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\subfloat[plotResidTime()\label{fig:boxResidMonth1}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/boxResidMonth1} }
+\subfloat[boxResidMonth()\label{fig:boxResidMonth2}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/boxResidMonth2} }\caption[Residuals with respect to time]{Residuals with respect to time\label{fig:boxResidMonth}}
 \end{figure}
 
 
@@ -957,8 +1160,31 @@ maxDiff<-0.8
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotFluxPred1} 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotFluxPred2} \caption[Default plotConcPred (left), and plotFluxPred (right)]{Default plotConcPred (left), and plotFluxPred (right)\label{fig:plotFluxPred}}
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/boxConcThree} \caption[Default boxConcThree()]{Default boxConcThree()\label{fig:boxConcThree}}
+\end{figure}
+
+
+\end{knitrout}
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\subfloat[plotConcHist()\label{fig:plotFluxHist1}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotFluxHist1} }
+\subfloat[plotFluxHist()\label{fig:plotFluxHist2}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotFluxHist2} }\caption[Concentration and flux history]{Concentration and flux history\label{fig:plotFluxHist}}
+\end{figure}
+
+
+\end{knitrout}
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\subfloat[plotConcQSmooth\label{fig:plotLogConcQSmooth1}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogConcQSmooth1} }
+\subfloat[plotLogConcQSmooth\label{fig:plotLogConcQSmooth2}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogConcQSmooth2} }\caption[Concentration vs]{Concentration vs. discharge\label{fig:plotLogConcQSmooth}}
 \end{figure}
 
 
@@ -968,8 +1194,7 @@ maxDiff<-0.8
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogFluxPred1} 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogFluxPred2} \caption[Default plotLogConcPred (left), and plotLogFluxPred (right)]{Default plotLogConcPred (left), and plotLogFluxPred (right)\label{fig:plotLogFluxPred}}
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcTimeSmooth} \caption[plotConcTimeSmooth]{plotConcTimeSmooth\label{fig:plotConcTimeSmooth}}
 \end{figure}
 
 
@@ -979,8 +1204,7 @@ maxDiff<-0.8
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotResidQ1} 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotResidQ2} \caption[Default plotResidPred (left), and plotResidQ (right)]{Default plotResidPred (left), and plotResidQ (right)\label{fig:plotResidQ}}
+\includegraphics[width=1\linewidth,height=1\linewidth]{figure/fluxBiasMulti} \caption[fluxBiasMulti(qUnit=1)]{fluxBiasMulti(qUnit=1)\label{fig:fluxBiasMulti}}
 \end{figure}
 
 
@@ -990,8 +1214,7 @@ maxDiff<-0.8
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/boxResidMonth1} 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/boxResidMonth2} \caption[Default plotResidTime (left), and boxResidMonth (right)]{Default plotResidTime (left), and boxResidMonth (right)\label{fig:boxResidMonth}}
+\includegraphics[width=1\linewidth,height=1\linewidth]{figure/fluxBiasMultiAlt} \caption[fluxBiasMultiAlt(qUnit=1)]{fluxBiasMultiAlt(qUnit=1)\label{fig:fluxBiasMultiAlt}}
 \end{figure}
 
 
@@ -1001,7 +1224,7 @@ maxDiff<-0.8
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/boxConcThree_} \caption[Default boxConcThree (left)]{Default boxConcThree (left)\label{fig:boxConcThree(}}
+\includegraphics[width=\maxwidth]{figure/fluxBiasEight} \caption[fluxBiasEight(qUnit=1)]{fluxBiasEight(qUnit=1)\label{fig:fluxBiasEight}}
 \end{figure}
 
 
@@ -1011,8 +1234,7 @@ maxDiff<-0.8
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotFluxHist1} 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotFluxHist2} \caption[Default plotConcHist (left), and plotFluxHist (right)]{Default plotConcHist (left), and plotFluxHist (right)\label{fig:plotFluxHist}}
+\includegraphics[width=1\linewidth,height=1\linewidth]{figure/plotContours} \caption[plotContours]{plotContours\label{fig:plotContours}}
 \end{figure}
 
 
@@ -1022,69 +1244,7 @@ maxDiff<-0.8
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogConcQSmooth1} 
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogConcQSmooth2} \caption[Default plotConcQSmooth (left), and plotLogConcQSmooth (right)]{Default plotConcQSmooth (left), and plotLogConcQSmooth (right)\label{fig:plotLogConcQSmooth}}
-\end{figure}
-
-
-\end{knitrout}
-
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
-
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcTimeSmooth_} \caption[Default plotConcTimeSmooth (left)]{Default plotConcTimeSmooth (left)\label{fig:plotConcTimeSmooth(}}
-\end{figure}
-
-
-\end{knitrout}
-
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
-
-\includegraphics[width=1\linewidth,height=1\linewidth]{figure/fluxBiasMulti} \caption[Default fluxBiasMulti]{Default fluxBiasMulti\label{fig:fluxBiasMulti}}
-\end{figure}
-
-
-\end{knitrout}
-
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
-
-\includegraphics[width=1\linewidth,height=1\linewidth]{figure/fluxBiasMultiAlt} \caption[Default fluxBiasMultiAlt]{Default fluxBiasMultiAlt\label{fig:fluxBiasMultiAlt}}
-\end{figure}
-
-
-\end{knitrout}
-
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
-
-\includegraphics[width=1\linewidth,height=1\linewidth]{figure/fluxBiasEight} \caption[Default fluxBiasMulti]{Default fluxBiasMulti\label{fig:fluxBiasEight}}
-\end{figure}
-
-
-\end{knitrout}
-
-
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
-
-\includegraphics[width=1\linewidth,height=1\linewidth]{figure/plotContours} \caption[Default plotContours]{Default plotContours\label{fig:plotContours}}
-\end{figure}
-
-
-\end{knitrout}
-
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
-
-\includegraphics[width=1\linewidth,height=1\linewidth]{figure/plotDiffContours} \caption[Default plotDiffContours]{Default plotDiffContours\label{fig:plotDiffContours}}
+\includegraphics[width=1\linewidth,height=1\linewidth]{figure/plotDiffContours} \caption[plotDiffContours(year0=2000,yearEnd=2010,qBottom=0]{plotDiffContours(year0=2000,yearEnd=2010,qBottom=0.1,qTop=100,maxDiff=0.8)\label{fig:plotDiffContours}}
 \end{figure}
 
 
@@ -1155,47 +1315,37 @@ Sometimes easier to consider the results in table formats rather than graphicall
 
 Additionally, you can have the tableResults return the results as a dataframe. This can be useful for further R analysis, or creating more visually appealing tables.  For instance, using the xtable package, one can create a \LaTeX table. See Appendix \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft.
 
-
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
+\hlfunctioncall{library}(xtable)
 tableOut <- \hlfunctioncall{tableResults}(returnDataFrame = TRUE)
-
-data.table <- \hlfunctioncall{xtable}(tableOut, 
+tableOut <- \hlfunctioncall{head}(tableOut)
+\hlfunctioncall{xtable}(tableOut, 
     caption=\hlstring{"Table created from tableResults function"},
     label=\hlstring{"table:tableResults"})
-\hlfunctioncall{print}(data.table, caption.placement=\hlstring{"top"},
-      include.rownames=FALSE,table.placement=\hlstring{"!ht"})
 \end{alltt}
 \end{kframe}
 \end{knitrout}
 
 
-\begin{table}[!ht]
-\begin{center}
-\caption{Table created from tableResults function}
-\label{table:tableResults}
-\begin{tabular}{llllll}
+\begin{table}[ht]
+\centering
+\begin{tabular}{rllllll}
   \hline
-Year & Discharge [   cms  ] & Conc [mg/L] & FN\_Conc [mg/L] & Flux [10\verb|^|6kg/yr] & FN\_Flux [10\verb|^|6kg/yr] \\ 
+ & Year & Discharge [cms] & Conc [mg/L] & FN\_Conc [mg/L] & Flux [10\verb|^|6kg/yr] & FN\_Flux [10\verb|^|6kg/yr] \\ 
   \hline
-   2000 &      4.72 &      1.19 &      1.20 &    0.1614 &     0.149 \\ 
-     2001 &      4.88 &      1.23 &      1.23 &    0.1670 &     0.152 \\ 
-     2002 &      1.24 &      1.30 &      1.25 &    0.0478 &     0.154 \\ 
-     2003 &      8.64 &      1.14 &      1.28 &    0.2682 &     0.156 \\ 
-     2004 &      5.28 &      1.27 &      1.30 &    0.1851 &     0.157 \\ 
-     2005 &      3.81 &      1.36 &      1.32 &    0.1462 &     0.159 \\ 
-     2006 &      3.59 &      1.38 &      1.34 &    0.1413 &     0.160 \\ 
-     2007 &      4.28 &      1.40 &      1.36 &    0.1595 &     0.161 \\ 
-     2008 &      2.56 &      1.46 &      1.38 &    0.1007 &     0.162 \\ 
-     2009 &      3.68 &      1.41 &      1.40 &    0.1337 &     0.162 \\ 
-     2010 &      7.19 &      1.32 &      1.41 &    0.2247 &     0.162 \\ 
-     2011 &      5.24 &      1.44 &      1.43 &    0.1589 &     0.161 \\ 
+1 &    1980 &      4.25 &     0.949 &     1.003 &    0.1154 &     0.106 \\ 
+  2 &    1981 &      2.22 &     1.035 &     0.999 &    0.0675 &     0.108 \\ 
+  3 &    1982 &      3.05 &     1.036 &     0.993 &    0.0985 &     0.110 \\ 
+  4 &    1983 &      4.99 &     1.007 &     0.993 &    0.1329 &     0.112 \\ 
+  5 &    1984 &      5.72 &     0.990 &     1.002 &    0.1597 &     0.114 \\ 
+  6 &    1985 &      1.52 &     1.057 &     1.017 &    0.0489 &     0.116 \\ 
    \hline
 \end{tabular}
-\end{center}
+\caption{Table created from tableResults function} 
+\label{table:tableResults}
 \end{table}
-
 
 \FloatBarrier
 
@@ -1270,38 +1420,38 @@ The other table option is tableChange. This is a function that provides for the 
 
 Finally, tableChangeSingle operates exactly the same as tableChange, but it provides either concentration results or flux results, but not both.  This can be useful when producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except that the final two arguments.  The first is a logical argument to indicate if a data frame of output should be returned (for later manipulation and printing through other programs such as Excel), this argument is returnDataFrame, and its default is FALSE.  The final argument is flux, and the default is TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  Additionally, this function allows for the return of a dataframe.  See Appendix \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft.
 
-
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-changeOutput <- \hlfunctioncall{tableChangeSingle}(fluxUnit=3, flux=TRUE,
-        yearPoints=\hlfunctioncall{c}(2002,2004,2006), returnDataFrame = TRUE)
+\hlfunctioncall{library}(xtable)
+changeOutput <- \hlfunctioncall{tableChangeSingle}(fluxUnit=5, 
+        yearPoints=\hlfunctioncall{c}(2002,2004,2006), 
+        returnDataFrame = TRUE,
+        flux=TRUE)
 
-data.table <- \hlfunctioncall{xtable}(changeOutput, 
+\hlfunctioncall{xtable}(changeOutput, 
         caption=\hlstring{"Table created from tableChangeSingle function"},
         label=\hlstring{"table:tableChangeSingle"})
-\hlfunctioncall{print}(data.table, caption.placement=\hlstring{"top"},
-      include.rownames=FALSE,table.placement=\hlstring{"!ht"})
 \end{alltt}
 \end{kframe}
 \end{knitrout}
 
 
-\begin{table}[!ht]
-\begin{center}
-\caption{Table created from tableChangeSingle function}
-\label{table:tableChangeSingle}
-\begin{tabular}{rrrrrr}
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrrr}
   \hline
-Year1 & Year2 & change [kg/day] & slope [kg/day] & change[\%] & slope [\%/yr] \\ 
+ & Year1 & Year2 & change [tons/yr] & slope [tons/yr/yr] & change[\%] & slope [\%/yr] \\ 
   \hline
-2002.00 & 2004.00 & 429.00 & 215.00 & 34265.00 & 17133.00 \\ 
-  2002.00 & 2006.00 & 437.00 & 109.00 & 34848.00 & 8712.00 \\ 
-  2004.00 & 2006.00 & 437.00 & 218.00 & 33687.00 & 16844.00 \\ 
+1 & 2002 & 2004 & 3.10 & 1.60 & 2.00 & 1.00 \\ 
+  2 & 2002 & 2006 & 6.60 & 1.70 & 4.20 & 1.10 \\ 
+  3 & 2004 & 2006 & 3.50 & 1.70 & 2.20 & 1.10 \\ 
    \hline
 \end{tabular}
-\end{center}
+\caption{Table created from tableChangeSingle function} 
+\label{table:tableChangeSingle}
 \end{table}
+
 
 \clearpage
 
@@ -1362,7 +1512,7 @@ To install the EGRET packages and it's dependencies:
 \end{knitrout}
 
 
-It is a good idea to re-start the R enviornment after installing the package if installing an updated version (that is, restart RStudio). 
+It is a good idea to re-start R after installing the package if installing an updated version. 
 
 After installing the package, you need to open the library each time you re-start R.  This is done with the simple command:
 \begin{knitrout}
@@ -1374,38 +1524,6 @@ After installing the package, you need to open the library each time you re-star
 \end{kframe}
 \end{knitrout}
 
-Using RStudio, you could alternatively click on the checkbox for dataRetrieval and EGRET in the Packages window.
-
-%------------------------------------------------------------
-\subsection{R Developers: Installing EGRET from gitHub}
-%------------------------------------------------------------
-Alternatively, R-developers can install the most recent (not-necessarily stable) version of EGRET directly from gitHub using the devtools package.  devtools is available on CRAN.  Simply type the following commands into R to install the latest version of EGRET available on gitHub.  Rtools (for Windows) and appropriate \LaTeX\ tools are required. Be aware that the version installed using this method isn't necessarily the same as the version in the stable release branch.  
-
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlfunctioncall{library}(devtools)
-\hlfunctioncall{install_github}(\hlstring{"dataRetrieval"}, \hlstring{"USGS-R"})
-\hlfunctioncall{install_github}(\hlstring{"EGRET"}, \hlstring{"USGS-R"})
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-
-To then open the library, simply type:
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlfunctioncall{library}(dataRetrieval)
-\hlfunctioncall{library}(EGRET)
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-
-
-\newpage
-\FloatBarrier
 
 \newpage
 \FloatBarrier
@@ -1430,7 +1548,7 @@ qMax & User specified upper limit on y axis (can be used when we want several gr
 printTitle & can be TRUE or FALSE, you may want FALSE if it is going to be a figure with a caption or if it is a part of a multipanel plot. \\
 tinyPlot & Can be TRUE or FALSE, the TRUE option assures that there will be a small number of tick marks, consistent with printing in a small space \\
 runoff & Can be TRUE or FALSE.  If true then discharge values are reported as runoff in mm/day.  This can be very useful in multi-site analyses. \\
-qUnit & An index indicating what discharge units to use.  Options run from 1 to 13 (see \ref{sec:units}).  The choice should be based on the units that are customary for the audience but also, the choice should be made so that the discharge values don't have too many digits to the right or left of the decimal point.\\
+qUnit & An index indicating what discharge units to use.  Options run from 1 to 6 (see section \ref{sec:units}).  The choice should be based on the units that are customary for the audience but also, the choice should be made so that the discharge values don't have too many digits to the right or left of the decimal point.\\
 printStaName\footnotemark[4] & Can be TRUE or FALSE, if TRUE the name of the streamgage is stated in the plot title. \\
 printPA\footnotemark[4] & Can be TRUE or FALSE, if TRUE the period of analysis is stated in the plot title. \\
 printIstat\footnotemark[4] & Can be TRUE or FALSE, if TRUE the name of the statistic (e.g. 7-day minimum flow) is stated in the plot title. \\
@@ -1457,7 +1575,7 @@ printIstat\footnotemark[4] & Can be TRUE or FALSE, if TRUE the name of the stati
 \hline
   \textbf{Argument} & \textbf{Definition} \\
 \hline
-qUnit & Determines what units will be used for discharge, see \ref{sec:units}\\
+qUnit & Determines what units will be used for discharge, see section \ref{sec:units}\\
 printTitle & If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption)\\
 qLower & The lower bound on the discharge on the day of sampling that will be used in forming a subset of the sample data set that will be displayed in the graph.  It is expressed in the units specified in qUnit.  If qLower = NA, then the lower bound is set to zero.\\
 qUpper & The upper bound on the discharge on the day of sampling that will be used in forming a subset of the sample data set that will be displayed in the graph.  It is expressed in the units specified in qUnit.  If qUpper = NA, then the lower bound is set to infinity.\\
@@ -1666,6 +1784,13 @@ Hirsch, R. M., Moyer, D. L. and Archfield, S. A. (2010), Weighted Regressions on
 
 \bibitem{HirschIII}
 Sprague, L. A., Hirsch, R. M., and Aulenbach, B. T. (2011), Nitrate in the Mississippi River and Its Tributaries, 1980 to 2008: Are We Making Progress? Environmental Science \& Technology, 45 (17): 7209-7216. doi: 10.1021/es201221s \url{http://pubs.acs.org/doi/abs/10.1021/es201221s}
+
+\bibitem{HirschIV}
+Moyer, D.L., Hirsch, R.M., and Hyer, K.E. (2012), Comparison of Two Regression-Based Approaches for Determining Nutrient and Sediment Fluxes and Trends in the Chesapeake Bay Watershed: U.S. Geological Survey Scientific Investigations Report: 2012-5244, 118 p. \url{http://pubs.usgs.gov/sir/2012/5244/}
+
+\bibitem{HirschV}
+Rice, K.C., and Hirsch, R.M. (2012), Spatial and temporal trends in runoff at long-term streamgages within and near the Chesapeake Bay Watershed: U.S. Geological Survey Scientific Investigations Report 20125151, 56 p. \url{http://pubs.usgs.gov/sir/2012/5151}
+
 
 \end{thebibliography}
 

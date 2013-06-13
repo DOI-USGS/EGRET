@@ -95,9 +95,9 @@ The first relates to nitrate and total phosphorus data for 9 rivers draining to 
 
 The second is an application  to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries \cite{HirschIII}.  The URL is: \url{http://pubs.acs.org/doi/abs/10.1021/es201221s}
 
-This vignette assumes that the user understands the concepts underlying WRTDS.  Thus, reading at least the first of these papers is necessary for understanding.  The method has been enhanced beyond what was published there.  The enhancement is that it now properly handles censored data by using survival regression rather than ordinary regression.  The details of that are in a report on Chesapeake Bay river input trends \cite{HirschIV}:\url{http://pubs.usgs.gov/sir/2012/5244/}.  The specific enhancements for handling censored data are on pages 9-11 of that report."
+This vignette assumes that the user understands the concepts underlying WRTDS.  Thus, reading at least the first of these papers is necessary for understanding.  The method has been enhanced beyond what was published there.  The enhancement is that it now properly handles censored data by using survival regression rather than ordinary regression.  The details of that are in a report on Chesapeake Bay river input trends \cite{HirschIV}:\url{http://pubs.usgs.gov/sir/2012/5244/}.  The specific enhancements for handling censored data are on pages 9-11 of that report.
 
-This vignette will walk through the major functions provided by the EGRET package. The package dataRetrieval is required for importing data in a EGRET-friendly format. The dataRetrieval package, along with installation instructions can be found at:
+This vignette will walk through the major functions provided by the EGRET package. The package dataRetrieval is required for importing data in an EGRET-friendly format. The dataRetrieval package, along with installation instructions can be found at:
 \url{https://github.com/USGS-R/dataRetrieval}
 
 Installing dataRetrieval will provide a vignette similar to this document, with complete working examples of the main dataRetrieval functions.
@@ -107,7 +107,7 @@ This document assumes the reader is familiar with the dataRetrieval package. Fur
 %------------------------------------------------------------
 \section{EGRET Workflow}
 %------------------------------------------------------------ 
-Subsequent sections of this vignette will discuss the EGRET workflow steps in greater detail. This section provides a handy cheat sheet for diving into a EGRET analysis.
+Subsequent sections of this vignette will discuss the EGRET workflow steps in greater detail. This section provides a handy cheat sheet for diving into an EGRET analysis.
 
 <<workflow, echo=TRUE,eval=FALSE>>=
 library(dataRetrieval)
@@ -121,8 +121,8 @@ endDate <- "2011-09-30"
 Daily <- getDVData(siteID,"00060",startDate,endDate)
 
 # Gather sample data:
-param<-"00631"
-Sample <- getSampleData(siteID,param,startDate,endDate)
+parameter_cd<-"00631" #5 digit USGS code
+Sample <- getSampleData(siteID,parameter_cd,startDate,endDate)
 
 # Gather site and parameter information:
 INFO<- getMetaData(siteID,param,interactive=FALSE)
@@ -188,12 +188,12 @@ plotFluxHist()
 date1 <- "2000-09-01"
 date2 <- "2005-09-01"
 date3 <- "2009-09-01"
-qBottom<-0.1
-qTop<-100
+qBottom<-100
+qTop<-5000
 plotLogConcQSmooth(date1, date2, date3, qBottom, qTop, 
-                   concMax=2, concMin=0.1)
+                   concMax=2, concMin=0.1,qUnit=1)
 plotConcQSmooth(date1, date2, date3, qBottom, qTop, 
-                   concMax=2)
+                   concMax=2,qUnit=1)
 q1 <- 10
 q2 <- 25
 q3 <- 75
@@ -209,9 +209,9 @@ fluxBiasEight()
 clevel<-seq(0,2,0.5)
 maxDiff<-0.8
 plotContours(yearStart,yearEnd,qBottom,qTop, 
-             contourLevels = clevel)
+             contourLevels = clevel,qUnit=1)
 plotDiffContours(year0=2000,yearEnd,
-                 qBottom,qTop,maxDiff)
+                 qBottom,qTop,maxDiff,qUnit=1)
 
 @
 
@@ -220,7 +220,7 @@ plotDiffContours(year0=2000,yearEnd,
 \section{EGRET Dataframes and Units}
 \label{sec:dataframes}
 %------------------------------------------------------------ 
-The EGRET package uses 3 default dataframes throughout the calculations, analysis, and graphing. These dataframes are Daily (\ref{sec:dataframesDaily}), Sample (\ref{sec:dataframesSample}), and INFO (\ref{sec:dataframesINFO}). EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units, which will be discussed in (\ref{sec:units}). To start our exploration, the packages must be installed (check the appendix for detailed instructions (\ref{sec:appendix1})), then opened:
+The EGRET package uses 3 default dataframes throughout the calculations, analysis, and graphing. These dataframes are Daily (\ref{sec:dataframesDaily}), Sample (\ref{sec:dataframesSample}), and INFO (\ref{sec:dataframesINFO}). EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units, which will be discussed in (\ref{sec:units}). To start our exploration, the packages must be installed (check the appendix for detailed instructions (\ref{sec:appendix1})), then opened with the following command:
 
 <<openlibraries, echo=TRUE,eval=TRUE>>=
 library(dataRetrieval)
@@ -276,6 +276,7 @@ yHat & number & The WRTDS estimate of the log of concentration & numeric \\
 \end{table}
 
 \FloatBarrier
+\pagebreak
 
 
 %------------------------------------------------------------ 
@@ -331,6 +332,8 @@ yHat\footnotemark[2] & number & estimate of the log of concentration & numeric \
 \footnotetext[2]{These estimates are 'leave-one-out cross validation' estimates.  They are computed for each sample value by withholding that particular sample value from the data set when they are estimated.}
 
 \FloatBarrier
+\pagebreak
+
 
 %------------------------------------------------------------ 
 \subsection{INFO}
@@ -387,6 +390,8 @@ bottomLogQ & Lowest discharge in prediction surfaces & numeric \\
 \end{table}
 
 \FloatBarrier
+\pagebreak
+
 
 %------------------------------------------------------------ 
 \subsection{Units}
@@ -543,8 +548,7 @@ plotFlowSingle(istat=5)
 
 The two figures produced are shown below.  What they show us is that on an annual basis there is very little indication of a long-term trend in mean streamflow, but for the winter months there is a pretty strong indication of an upward trend.  This could well be related to the climate warming in the Sierra Nevada, resulting in a general increase in the ratio of rain to snow in the winter and more thawing events.
 
-plotQTimeDaily is simply a time series plot of discharge.  But, it is most suited for showing events above some discharge threshold.  In the simplest case, it can plot the entire record, but given the line weight and use of an arithmetic scale it will primarily provide a visual focus on the higher values. The example shown here illustrates a very long record and the long gap of more than 60 years of no flows above 300,000 ft3/s, followed by the last 50 years with at least 5 events above that threshold. plotQTimeDaily requires startYear and endYear, along with some other optional arguements (see ?plotQTimeDaily for more details).
-
+plotQTimeDaily is simply a time series plot of discharge.  But, it is most suited for showing events above some discharge threshold.  In the simplest case, it can plot the entire record, but given the line weight and use of an arithmetic scale it will primarily provide a visual focus on the higher values.
 
 <<Mississippi, echo=TRUE,eval=TRUE,fig.cap="Mississippi River at Keokuk Iowa",fig.subcap=c("Water Year", "Dec-Feb"),out.width='1\\linewidth',out.height='1\\linewidth',fig.show='hold'>>=
 sta<-"05474500"
@@ -557,6 +561,7 @@ plotQTimeDaily(startYear=1870,endYear=2020,qUnit=3,qLower=300)
 
 @
 
+The example shown here illustrates a very long record and the long gap of more than 60 years of no flows above 300,000 ft3/s, followed by the last 50 years with at least 5 events above that threshold. plotQTimeDaily requires startYear and endYear, along with some other optional arguements (see ?plotQTimeDaily for more details).
 
 \FloatBarrier
 
@@ -897,13 +902,13 @@ fluxBiasEight(qUnit=1)
 surfaces <- exsurfaces
 Daily <- exDaily
 INFO <- exINFO
-plotContours(yearStart,yearEnd,qBottom,qTop, 
+plotContours(yearStart,yearEnd,1,5000, 
              contourLevels = clevel,qUnit=1)
 @
 
 <<plotDiffContours, echo=FALSE, fig.cap="plotDiffContours(year0=2000,yearEnd=2010,qBottom=0.1,qTop=100,maxDiff=0.8)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 plotDiffContours(year0=2000,yearEnd,
-                 qBottom,qTop,maxDiff)
+                 1,5000,maxDiff,qUnit=1)
 @
 
 
