@@ -2,9 +2,8 @@
 #'
 #' This one function does a jack-knife cross-validation of a WRTDS model, fits the surface
 #' (concentration as a function of discharge and time), 
-#' estimates daily values of concentration and flux, and flow normalized values.  
-#' It combines these results to compute monthly values. 
-#' It returns several data frames or matrices (Daily, INFO, Sample, and surfaces).
+#' estimates daily values of concentration and flux, and flow normalized values. 
+#' It returns several data frames or matrices (Daily, INFO, Sample, AnnualResults, and surfaces).
 #'
 #' @param localDaily string specifying the name of the data frame containing the daily values, default is Daily
 #' @param localSample string specifying the name of the data frame containing the sample values, default is Sample
@@ -19,7 +18,10 @@
 #' @import survival
 #' @export
 #' @examples
-#' \dontrun{modelEstimation(localDaily = exDaily, localSample = exSample, localINFO = exINFO)}
+#' Daily <- ChopDaily
+#' Sample <- ChopSample
+#' INFO <- ChopINFO
+#' \dontrun{modelEstimation()}
 modelEstimation<-function(localDaily = Daily,localSample = Sample, localINFO = INFO, windowY=10, windowQ=2, windowS=0.5,minNumObs=100,minNumUncen=50, env=parent.frame()){
   # this code is a wrapper for several different functions that test the model, fit a surface,
   #  estimate daily values and flow normalized daily values
@@ -54,6 +56,9 @@ modelEstimation<-function(localDaily = Daily,localSample = Sample, localINFO = I
   env$INFO<-localINFO
   env$Sample<-Sample1
   env$surfaces<-surfaces1
+  localpaLong <- ifelse("paLong" %in% colnames(localINFO),localINFO$paLong, 12)
+  localpaStart <- ifelse("paStart" %in% colnames(localINFO),localINFO$paStart, 10)
+  env$AnnualResults<-setupYears(paLong = localpaLong, paStart =localpaStart, localDaily = localDaily)
   #  env$MonthlyResults<-MonthlyResults1
   cat("\nDone with modelEstimation,\nnow do AnnualResults<-setupYears()\nor if using a period of analysis other than Water Year specify the arguments paStart and paLong in call to setupYears ")
 }
