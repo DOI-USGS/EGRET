@@ -72,8 +72,8 @@
   INFO<-setPA(paStart,paLong)
 }
 \examples{
-Daily <- exDaily
-INFO <- exINFO
+Daily <- ChopDaily
+INFO <- ChopINFO
 plotSDLogQ(window=3,printTitle=FALSE)
 }
 \keyword{graphics}

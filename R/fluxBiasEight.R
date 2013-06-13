@@ -17,9 +17,9 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- exSample
-#' Daily <- exDaily
-#' INFO <- exINFO
+#' Sample <- ChopSample
+#' Daily <- ChopDaily
+#' INFO <- ChopINFO
 #' 
 #' fluxBiasEight()
 fluxBiasEight<-function (localSample = Sample, localDaily = Daily, 

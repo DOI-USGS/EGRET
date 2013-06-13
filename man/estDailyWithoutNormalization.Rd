@@ -31,8 +31,8 @@
   computer time.
 }
 \examples{
-Daily <- exDaily
-INFO <- exINFO
+Daily <- ChopDaily
+INFO <- ChopINFO
 surfaces <- exsurfaces
 Daily <- estDailyWithoutNormalization()
 }

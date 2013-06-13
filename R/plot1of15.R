@@ -12,10 +12,11 @@
 #' @keywords graphics streamflow
 #' @export
 #' @examples
-#' AnnualSeries <- exannualSeries
-#' INFO <- exINFO
+#' INFO <- ChopINFO
+#' Daily <- ChopDaily
+#' annualSeries <- makeAnnualSeries()
 #' plot1of15(1990,2000,0.2938476,5)
-plot1of15<-function(yearStart,yearEnd,qf,istat,localAnnualSeries=AnnualSeries,localINFO=INFO,isBottom=FALSE) {
+plot1of15<-function(yearStart,yearEnd,qf,istat,localAnnualSeries=annualSeries,localINFO=INFO,isBottom=FALSE) {
   xSpan<-c(yearStart,yearEnd)
   xTicks<-pretty(xSpan,n=6)
   numXTicks<-length(xTicks)

@@ -24,7 +24,7 @@
   Discharge axis tick generation
 }
 \examples{
-Daily <- exDaily
+Daily <- ChopDaily
 x <- Daily$Q
 max <- max(x)
 min <- 0

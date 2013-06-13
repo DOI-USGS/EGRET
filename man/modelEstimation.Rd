@@ -43,12 +43,14 @@
   WRTDS model, fits the surface (concentration as a
   function of discharge and time), estimates daily values
   of concentration and flux, and flow normalized values. It
-  combines these results to compute monthly values. It
   returns several data frames or matrices (Daily, INFO,
-  Sample, and surfaces).
+  Sample, AnnualResults, and surfaces).
 }
 \examples{
-\dontrun{modelEstimation(localDaily = exDaily, localSample = exSample, localINFO = exINFO)}
+Daily <- ChopDaily
+Sample <- ChopSample
+INFO <- ChopINFO
+\dontrun{modelEstimation()}
 }
 \keyword{statistics}
 \keyword{water-quality}

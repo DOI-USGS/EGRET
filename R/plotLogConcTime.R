@@ -25,8 +25,8 @@
 #' @export
 #' @seealso \code{\link{plotConcTime}}
 #' @examples
-#' Sample <- exSample
-#' INFO <- exINFO
+#' Sample <- ChopSample
+#' INFO <- ChopINFO
 #' plotLogConcTime()
 #' plotLogConcTime(qUnit = 'thousandCfs')
 plotLogConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,qLower = NA,

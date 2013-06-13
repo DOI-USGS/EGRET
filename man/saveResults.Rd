@@ -17,7 +17,7 @@
   name using the abbreviations for station and constituent.
 }
 \examples{
-INFO <- exINFO
+INFO <- ChopINFO
 \dontrun{saveResults("")}
 }
 \keyword{statistics}

@@ -30,8 +30,8 @@
   using the abbreviations for station.
 }
 \examples{
-Daily <- exDaily
-INFO <- exINFO
+Daily <- ChopDaily
+INFO <- ChopINFO
 \dontrun{plot15("",yearStart=1990,yearEnd=2000)}
 }
 \keyword{graphics}

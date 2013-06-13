@@ -19,9 +19,9 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- exSample
-#' Daily <- exDaily
-#' INFO <- exINFO
+#' Sample <- ChopSample
+#' Daily <- ChopDaily
+#' INFO <- ChopINFO
 #' boxQTwice()
 #' boxQTwice(qUnit=1)
 #' boxQTwice(qUnit='cfs')

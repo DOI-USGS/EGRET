@@ -1,11 +1,47 @@
 \docType{data}
 \name{ChopSample}
 \alias{ChopSample}
-\title{Example Sample dataframe for Choptank River}
+\title{Example Sample dataframe}
+\format{Data frame with 606 rows and 17 columns:
+\tabular{llll}{
+ColumnName \tab Type \tab Description \tab Units  \cr
+Date \tab Date \tab Date \tab date \cr
+ConcLow \tab number \tab Lower limit of concentration \tab mg/L \cr
+ConcHigh \tab number \tab Upper limit of concentration \tab mg/L \cr
+Uncen \tab integer \tab Uncensored data (1=true, 0=false) \tab integer \cr
+ConcAve \tab number \tab Average concentration \tab mg/L \cr
+Julian \tab number \tab Number of days since January 1, 1850 \tab days \cr
+Month \tab integer \tab Month of the year [1-12] \tab months \cr
+Day \tab integer \tab Day of the year [1-366] \tab days \cr
+DecYear \tab number \tab Decimal year \tab years \cr
+MonthSeq \tab integer \tab Number of months since January 1, 1850 \tab months \cr
+SinDY \tab number \tab Sine of DecYear \tab numeric \cr
+CosDY \tab number \tab Cosine of DecYear \tab numeric \cr
+Q \tab number \tab Discharge \tab cms \cr
+LogQ \tab number \tab Natural logarithm of flow \tab numeric \cr
+yHat \tab number \tab estimate of the log of concentration \tab numeric \cr
+SE \tab number \tab estimate of the standard error of yHat \tab numeric \cr
+ConcHat \tab number \tab unbiased estimate of concentration \tab mg/L \cr
+}}
+\source{
+  Nitrate/nitrite data retrieved from National Water
+  Quality Monitoring Council (NWQMC) Water Quality Portal
+  (\url{http://www.waterqualitydata.us/}), and discharge
+  retrieved from NWIS water services
+  (\url{http://waterservices.usgs.gov/}), both via the
+  dataRetrieval R package. The USGS site id is 01491000.
+  The period requested was 1979-10-01 to 2011-09-30. The
+  parameter was Inorganic nitrogen (nitrate and nitrite),
+  USGS parameter code 00631.
+}
 \description{
   Example data representing Nitrate sample data from the
   Choptank River at Greensboro, MD, USGS data as agumented
   by the modelEstimation process
+}
+\examples{
+Sample <- ChopSample
+with(Sample, plot(Date, ConcAve))
 }
 \author{
   Robert M. Hirsch \email{rhirsch@usgs.gov}

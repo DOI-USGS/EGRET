@@ -19,8 +19,8 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- exSample
-#' INFO <- exINFO
+#' Sample <- ChopSample
+#' INFO <- ChopINFO
 #' plotLogConcQ(qUnit = 1)
 #' plotLogConcQ(qUnit = 'thousandCfs')
 plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, 

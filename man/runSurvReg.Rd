@@ -54,7 +54,7 @@
 \examples{
 estPtYear<-c(2001.0,2005.0,2009.0)
 estPtLQ<-c(1,1,1)
-Sample <- exSample
+Sample <- ChopSample
 resultSurvReg <- runSurvReg(estPtYear,estPtLQ,message=FALSE)
 }
 \keyword{statistics}

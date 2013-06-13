@@ -48,8 +48,8 @@
   data frame named INFO.
 }
 \examples{
-Sample <- exSample
-INFO <- exINFO
+Sample <- ChopSample
+INFO <- ChopINFO
 plotLogFluxPred(fluxUnit = 1)
 plotLogFluxPred(fluxUnit = 'kgDay')
 }

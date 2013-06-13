@@ -19,9 +19,9 @@
 #' @keywords graphics streamflow statistics
 #' @export
 #' @examples
-#' INFO <- exINFO
-#' annualSeries <- exannualSeries
-#' Daily <- exDaily
+#' INFO <- ChopINFO
+#' Daily <- ChopDaily
+#' annualSeries <- makeAnnualSeries()
 #' plotFour(window=2)
 plotFour<-function (localINFO = INFO, localAnnualSeries = annualSeries, localDaily = Daily, 
                     yearStart = NA, yearEnd = NA, printTitle = TRUE, runoff = FALSE, 

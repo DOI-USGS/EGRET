@@ -26,8 +26,9 @@
 #' @examples
 #' yearStart <- 2001
 #' yearEnd <- 2010
-#' INFO <- exINFO
-#' AnnualResults <- exAnnualResults
+#' INFO <- ChopINFO
+#' Daily <- ChopDaily
+#' AnnualResults <- setupYears()
 #' plotConcHist(yearStart, yearEnd)
 plotConcHist<-function(yearStart = NA, yearEnd = NA, localAnnualResults = AnnualResults, 
         localINFO = INFO, concMax = NA, printTitle = TRUE, tinyPlot = FALSE,plotFlowNorm = TRUE,

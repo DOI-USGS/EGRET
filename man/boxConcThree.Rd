@@ -54,9 +54,9 @@
   package.
 }
 \examples{
-Sample <- exSample
-Daily <- exDaily
-INFO <- exINFO
+Sample <- ChopSample
+Daily <- ChopDaily
+INFO <- ChopINFO
 boxConcThree()
 }
 \keyword{graphics}

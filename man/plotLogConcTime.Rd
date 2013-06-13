@@ -79,8 +79,8 @@
   concentration, plotConcTime.
 }
 \examples{
-Sample <- exSample
-INFO <- exINFO
+Sample <- ChopSample
+INFO <- ChopINFO
 plotLogConcTime()
 plotLogConcTime(qUnit = 'thousandCfs')
 }

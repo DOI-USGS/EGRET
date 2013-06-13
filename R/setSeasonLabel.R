@@ -14,7 +14,8 @@
 #' @export
 #' @return periodName string which describes the period of analysis
 #' @examples
-#' AnnualResults <- exAnnualResults
+#' Daily <- ChopDaily
+#' AnnualResults <- setupYears()
 #' setSeasonLabel()
 setSeasonLabel<-function(localAnnualResults = AnnualResults){
   # this function sets up text variable used to label graphs and

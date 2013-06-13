@@ -48,8 +48,9 @@
   are multiple of 5 years prior to that.
 }
 \examples{
-AnnualResults <- exAnnualResults
-INFO <- exINFO
+Daily <- ChopDaily
+AnnualResults <- setupYears()
+INFO <- ChopINFO
 tableChangeSingle(fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)  #This returns concentration ASCII table in the console
 tableChangeSingle(fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=TRUE)  #This returns flux values ASCII table in the console
 tableChangeConc <-tableChangeSingle(fluxUnit=9, returnDataFrame = TRUE, flux=FALSE)    #This returns concentration values in a dataframe

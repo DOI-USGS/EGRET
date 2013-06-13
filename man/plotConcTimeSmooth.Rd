@@ -116,8 +116,8 @@ q3 <- 75
 centerDate <- "07-01"
 yearStart <- 2000
 yearEnd <- 2010
-Sample <- exSample
-INFO <- exINFO
+Sample <- ChopSample
+INFO <- ChopINFO
 plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd)
 }
 \keyword{graphics}

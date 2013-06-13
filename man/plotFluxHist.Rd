@@ -66,8 +66,9 @@
 \examples{
 yearStart <- 2001
 yearEnd <- 2010
-AnnualResults <- exAnnualResults
-INFO <- exINFO
+Daily <- ChopDaily
+AnnualResults <- setupYears()
+INFO <- ChopINFO
 plotFluxHist(yearStart, yearEnd, fluxUnit = 1)
 plotFluxHist(yearStart, yearEnd, fluxUnit = 'kgDay')
 }

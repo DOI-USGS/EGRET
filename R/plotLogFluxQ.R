@@ -18,8 +18,8 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- exSample
-#' INFO <- exINFO
+#' Sample <- ChopSample
+#' INFO <- ChopINFO
 #' plotLogFluxQ(qUnit = 1, fluxUnit = 1)
 #' plotLogFluxQ(fluxUnit = 'kgDay')
 #' plotLogFluxQ()

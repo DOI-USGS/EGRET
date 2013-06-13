@@ -19,9 +19,9 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- exSample
-#' Daily <- exDaily
-#' INFO <- exINFO
+#' Sample <- ChopSample
+#' Daily <- ChopDaily
+#' INFO <- ChopINFO
 #' plotFluxTimeDaily(2001,2009)
 plotFluxTimeDaily<-function (startYear, endYear, localSample = Sample, localDaily = Daily, 
                              localINFO = INFO, tinyPlot = FALSE, fluxUnit = 3, fluxMax = NA, 

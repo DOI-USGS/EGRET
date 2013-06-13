@@ -51,8 +51,8 @@
   divided by its estimated standard error.
 }
 \examples{
-Sample <- exSample
-INFO <- exINFO
+Sample <- ChopSample
+INFO <- ChopINFO
 plotResidTime()
 }
 \keyword{graphics}

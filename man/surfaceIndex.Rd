@@ -17,7 +17,7 @@
   code for estSurfaces
 }
 \examples{
-Daily <- exDaily
+Daily <- ChopDaily
 surfaceIndex()
 }
 \keyword{statistics}

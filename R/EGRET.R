@@ -31,10 +31,37 @@ NULL
 #' Example data representing streamflowfrom the Choptank River at Greensboro, MD,  USGS data
 #' as agumented by the modelEstimation process.
 #'
-#' @name exDaily
+#' @name ChopDaily
 #' @docType data
+#' @source Data retrieved from NWIS water services (\url{http://waterservices.usgs.gov/}) via the dataRetrieval R package.
+#' The USGS site id is 01491000. The period requested was 1979-10-01 to 2011-09-30. 
+#' @format Data frame with 11688 rows and 18 columns:
+#' \tabular{llll}{
+#' ColumnName \tab Type \tab Description \tab Units  \cr
+#' Date \tab Date \tab Date \tab date \cr 
+#' Q \tab number \tab Discharge in cms \tab cms \cr 
+#' Julian \tab number \tab Number of days since January 1, 1850 \tab days \cr 
+#' Month \tab integer \tab Month of the year [1-12] \tab months \cr 
+#' Day \tab integer \tab Day of the year [1-366] \tab days \cr 
+#' DecYear \tab number \tab Decimal year \tab years \cr 
+#' MonthSeq \tab integer \tab Number of months since January 1, 1850 \tab months \cr 
+#' Qualifier \tab string \tab Qualifing code \tab character \cr 
+#' i \tab integer \tab Index of days, starting with 1 \tab days \cr 
+#' LogQ \tab number \tab Natural logarithm of Q \tab numeric \cr 
+#' Q7 \tab number \tab 7 day running average of Q \tab cms \cr
+#' Q30 \tab number \tab 30 running average of Q \tab cms \cr
+#' yHat \tab number \tab The WRTDS estimate of the log of concentration \tab numeric \cr 
+#' SE \tab number \tab The WRTDS estimate of the standard error of yHat \tab numeric \cr 
+#' ConcDay \tab number \tab The WRTDS estimate of concentration \tab mg/L \cr 
+#' FluxDay \tab number \tab The WRTDS estimate of flux \tab kg/day \cr 
+#' FNConc \tab number \tab Flow normalized estimate of concentration \tab mg/L \cr 
+#' FNFlux \tab number \tab Flow Normalized estimate of flux \tab kg/day \cr 
+#' }
 #' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
 #' @keywords water quality streamflow data
+#' @examples
+#' Daily <- ChopDaily
+#' with(Daily, plot(Date, LogQ, type="l"))
 NULL
 
 #' Example Sample dataframe
@@ -42,85 +69,61 @@ NULL
 #' Example data representing Nitrate sample data from the Choptank River at Greensboro, MD,  USGS data
 #' as agumented by the modelEstimation process
 #'
-#' @name exSample
+#' @name ChopSample
 #' @docType data
+#' @source Nitrate/nitrite data retrieved from National Water Quality Monitoring Council (NWQMC) Water Quality Portal
+#' (\url{http://www.waterqualitydata.us/}), and discharge retrieved from NWIS water services (\url{http://waterservices.usgs.gov/}), both via the dataRetrieval R package.
+#' The USGS site id is 01491000. The period requested was 1979-10-01 to 2011-09-30. The parameter was Inorganic nitrogen (nitrate and nitrite), 
+#' USGS parameter code 00631.
+#' @format Data frame with 606 rows and 17 columns:
+#' \tabular{llll}{
+#' ColumnName \tab Type \tab Description \tab Units  \cr
+#' Date \tab Date \tab Date \tab date \cr 
+#' ConcLow \tab number \tab Lower limit of concentration \tab mg/L \cr
+#' ConcHigh \tab number \tab Upper limit of concentration \tab mg/L \cr
+#' Uncen \tab integer \tab Uncensored data (1=true, 0=false) \tab integer \cr 
+#' ConcAve \tab number \tab Average concentration \tab mg/L \cr
+#' Julian \tab number \tab Number of days since January 1, 1850 \tab days \cr 
+#' Month \tab integer \tab Month of the year [1-12] \tab months \cr 
+#' Day \tab integer \tab Day of the year [1-366] \tab days \cr 
+#' DecYear \tab number \tab Decimal year \tab years \cr 
+#' MonthSeq \tab integer \tab Number of months since January 1, 1850 \tab months \cr 
+#' SinDY \tab number \tab Sine of DecYear \tab numeric \cr 
+#' CosDY \tab number \tab Cosine of DecYear \tab numeric \cr 
+#' Q \tab number \tab Discharge \tab cms \cr 
+#' LogQ \tab number \tab Natural logarithm of flow \tab numeric \cr
+#' yHat \tab number \tab estimate of the log of concentration \tab numeric \cr 
+#' SE \tab number \tab estimate of the standard error of yHat \tab numeric \cr 
+#' ConcHat \tab number \tab unbiased estimate of concentration \tab mg/L \cr
+#' }
 #' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
 #' @keywords water quality data
+#' @examples
+#' Sample <- ChopSample
+#' with(Sample, plot(Date, ConcAve))
 NULL
 
 #' Example INFO dataframe
 #'
 #' Example data representing meta-data from the Choptank River at Greensboro, MD,  USGS data
-#' as augmented by the functions setupYears (for WRTDS) and setPA (for flowHistory)
-#'
-#' @name exINFO
-#' @docType data
-#' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
-#' @keywords water quality data
-NULL
-
-#' Example Daily dataframe for Choptank River
-#'
-#' Example data representing streamflowfrom the Choptank River at Greensboro, MD,  USGS data
-#' as agumented by the modelEstimation process.
-#'
-#' @name ChopDaily
-#' @docType data
-#' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
-#' @keywords water quality streamflow data
-NULL
-
-#' Example Sample dataframe for Choptank River
-#'
-#' Example data representing Nitrate sample data from the Choptank River at Greensboro, MD,  USGS data
-#' as agumented by the modelEstimation process
-#'
-#' @name ChopSample
-#' @docType data
-#' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
-#' @keywords water quality data
-NULL
-
-#' Example INFO dataframe for Choptank River
-#'
-#' Example data representing meta-data from the Choptank River at Greensboro, MD,  USGS data
-#' as augmented by the functions setupYears (for WRTDS) and setPA (for flowHistory)
+#' as augmented by the functions setupYears (for WRTDS) and setPA (for flowHistory).
 #'
 #' @name ChopINFO
 #' @docType data
-#' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
-#' @keywords water quality data
-NULL
-
-#' Example AnnualResults dataframe
-#'
-#' Example data representing annual WRTDS results for Nitrate data from the Choptank River at Greensboro, MD,  USGS data
-#' as output from the function setupYears
-#'
-#' @name exAnnualResults
-#' @docType data
-#' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
-#' @keywords water quality data
-NULL
-
-#' Example annualSeries dataframe
-#'
-#' Example data representing annual Series of streamflow statistics from the Choptank River at Greensboro, MD,  USGS data
-#' as output from the function makeAnnualSeries
-#'
-#' @name exannualSeries
-#' @docType data
-#' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
-#' @keywords streamflow data
-NULL
-
-#' Example MonthlyResults dataframe
-#'
-#' Example data representing monthly WRTDS results for Nitrate data from the Choptank River at Greensboro, MD,  USGS data
-#' as output from the function calculateMonthlyResults
-#'
-#' @name exMonthlyResults
-#' @docType data
+#' @source Parameter information (Nitrate/nitrite, USGS parameter code 00631) is found from NWISweb (\url{http://nwis.waterdata.usgs.gov/nwis/pmcodes/}), and station
+#' information is retrieved from NWIS water services (\url{http://waterservices.usgs.gov/}), both via the dataRetrieval R package.
+#' The USGS site id is 01491000. 
+#' @format Data frame with 1 row and 56 columns, some of which are described here:
+#' \tabular{lll}{
+#' ColumnName \tab Type \tab Description \cr
+#' shortName \tab string \tab Name of site, suitable for use in graphical headings \cr 
+#' staAbbrev \tab string \tab Abbreviation for station name, used in saveResults \cr 
+#' paramShortName \tab string \tab Name of constituent, suitable for use in graphical headings \cr 
+#' constitAbbrev \tab string \tab Abbreviation for constituent name, used in saveResults \cr 
+#' drainSqKm \tab numeric \tab Drainage area in  km^2 \cr 
+#' paStart \tab integer (1-12) \tab Starting month of period of analysis \cr 
+#' paLong \tab integer (1-12) \tab Length of period of analysis in months \cr 
+#' }
 #' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
 #' @keywords water quality data
 NULL
@@ -186,22 +189,3 @@ NULL
 #' @docType data
 NULL
 
-#' Example Daily dataframe for Rio Grande
-#'
-#' Example data representing streamflowfrom the Rio Grande at Embudo, NM,  USGS data.
-#'
-#' @name RioDaily
-#' @docType data
-#' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
-#' @keywords water quality streamflow data
-NULL
-
-#' Example INFO dataframe for Rio Grande River
-#'
-#' Example data representing meta-data from the Rio Grande at Embudo, NM,  USGS data
-#'
-#' @name RioINFO
-#' @docType data
-#' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
-#' @keywords water quality data
-NULL

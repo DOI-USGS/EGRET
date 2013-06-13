@@ -49,8 +49,8 @@
   named INFO.
 }
 \examples{
-Sample <- exSample
-INFO <- exINFO
+Sample <- ChopSample
+INFO <- ChopINFO
 plotLogConcPred()
 }
 \keyword{graphics}

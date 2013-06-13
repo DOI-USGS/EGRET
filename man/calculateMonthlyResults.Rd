@@ -22,7 +22,7 @@
   FNFlux.
 }
 \examples{
-Daily <- exDaily
+Daily <- ChopDaily
 monthlyResults <- calculateMonthlyResults()
 }
 \keyword{statistics}

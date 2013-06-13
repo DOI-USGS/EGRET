@@ -29,9 +29,9 @@
   only at the top of the 4 graph display.
 }
 \examples{
-Sample <- exSample
-Daily <- exDaily
-INFO <- exINFO
+Sample <- ChopSample
+Daily <- ChopDaily
+INFO <- ChopINFO
 multiPlotDataOverview(qUnit=1)
 }
 \keyword{graphics}

@@ -16,8 +16,8 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- exSample
-#' INFO <- exINFO
+#' Sample <- ChopSample
+#' INFO <- ChopINFO
 #' plotLogConcPred()
 plotLogConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA, 
                           tinyPlot = FALSE, printTitle = TRUE,cex=0.8, cex.axis=1.1,cex.main=1.1, oneToOneLine=TRUE, ...){

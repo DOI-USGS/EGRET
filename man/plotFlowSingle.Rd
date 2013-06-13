@@ -81,8 +81,8 @@
   and (8) 1-day maximum
 }
 \examples{
-INFO <- exINFO
-Daily <- exDaily
+INFO <- ChopINFO
+Daily <- ChopDaily
 annualSeries <- makeAnnualSeries()
 plotFlowSingle(1)
 }

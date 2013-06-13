@@ -62,8 +62,8 @@
   data frame named INFO.
 }
 \examples{
-Sample <- exSample
-INFO <- exINFO
+Sample <- ChopSample
+INFO <- ChopINFO
 plotLogConcQ(qUnit = 1)
 plotLogConcQ(qUnit = 'thousandCfs')
 }

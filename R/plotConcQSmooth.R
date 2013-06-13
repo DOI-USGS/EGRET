@@ -41,8 +41,8 @@
 #' date3<-"2010-06-01"
 #' qLow<-1
 #' qHigh<-1000
-#' Sample <- exSample
-#' INFO <- exINFO
+#' Sample <- ChopSample
+#' INFO <- ChopINFO
 #' plotConcQSmooth(date1,date2,date3,qLow,qHigh)
 plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = .05,legendTop =0.3, 
                           concMax = NA, concMin=NA, bw = FALSE, printTitle = TRUE, printValues = FALSE, 

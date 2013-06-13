@@ -12,8 +12,8 @@
 #' @export
 #' @importFrom fields interp.surface
 #' @examples
-#' Daily <- exDaily
-#' INFO <- exINFO
+#' Daily <- ChopDaily
+#' INFO <- ChopINFO
 #' INFO <- setPA()
 #' surfaces <- exsurfaces
 #' #################################################

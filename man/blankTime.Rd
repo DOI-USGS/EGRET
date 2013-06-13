@@ -29,7 +29,7 @@
 \examples{
 startBlank = "2004-10-01"
 endBlank = "2006-09-30"
-Daily <- exDaily
+Daily <- ChopDaily
 Daily <- blankTime(startBlank, endBlank)
 }
 \keyword{statistics}

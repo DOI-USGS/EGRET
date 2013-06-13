@@ -9,7 +9,7 @@
 #' @export
 #' @return localDaily a data frame containing the daily data but only for the period of analysis (not all months)
 #' @examples
-#' Daily <- exDaily
+#' Daily <- ChopDaily
 #' DailySubset <- selectDays(1,3)
 selectDays<-function(paLong,paStart,localDaily=Daily) {
   numDays<-length(localDaily$Q)

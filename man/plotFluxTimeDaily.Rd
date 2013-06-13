@@ -60,9 +60,9 @@
   a time-series perspective.
 }
 \examples{
-Sample <- exSample
-Daily <- exDaily
-INFO <- exINFO
+Sample <- ChopSample
+Daily <- ChopDaily
+INFO <- ChopINFO
 plotFluxTimeDaily(2001,2009)
 }
 \keyword{graphics}

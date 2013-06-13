@@ -31,8 +31,8 @@
 #' qBottom<-0.2
 #' qTop<-20
 #' clevel<-seq(0,2,0.5)
-#' INFO <- exINFO
-#' Daily <- exDaily
+#' INFO <- ChopINFO
+#' Daily <- ChopDaily
 #' surfaces <- exsurfaces
 #' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel)  
 plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3, 

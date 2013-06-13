@@ -12,8 +12,8 @@
 #' @keywords graphics streamflow statistics
 #' @export
 #' @examples
-#' Daily <- exDaily
-#' INFO <- exINFO
+#' Daily <- ChopDaily
+#' INFO <- ChopINFO
 #' \dontrun{plot15("",yearStart=1990,yearEnd=2000)}
 plot15<-function(savePath,yearStart,yearEnd,localDaily=Daily,localINFO=INFO){
   plotName<-paste(savePath,"plot15.",localINFO$staAbbrev,".ps",sep="")

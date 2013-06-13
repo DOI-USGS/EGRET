@@ -17,8 +17,8 @@
 #' @keywords water-quality statistics graphics
 #' @export
 #' @examples
-#' Sample <- exSample
-#' INFO <- exINFO
+#' Sample <- ChopSample
+#' INFO <- ChopINFO
 #' plotResidPred()
 plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, 
                         tinyPlot = FALSE, printTitle = TRUE, 

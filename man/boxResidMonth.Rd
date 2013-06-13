@@ -59,8 +59,8 @@
   log space estimate of concentration.
 }
 \examples{
-Sample <- exSample
-INFO <- exINFO
+Sample <- ChopSample
+INFO <- ChopINFO
 boxResidMonth()
 }
 \keyword{graphics}

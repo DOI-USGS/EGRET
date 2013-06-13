@@ -32,7 +32,7 @@
   paLong =3.
 }
 \examples{
-INFO <- exINFO
+INFO <- ChopINFO
 setPA(paStart=12, paLong=3)
 }
 \keyword{statistics}

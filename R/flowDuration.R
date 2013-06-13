@@ -12,8 +12,8 @@
 #' @keywords streamflow, statistics
 #' @export
 #' @examples
-#' Daily <- exDaily
-#' INFO <- exINFO
+#' Daily <- ChopDaily
+#' INFO <- ChopINFO
 #' flowDuration("06-25", qUnit=1,span=30) # for a window of 30 days either side of June 25 expressed in units of cubic feet per second
 #' flowDuration("01-01", qUnit=2) # for a flow-duration curve covering the whole year, expressed in units of cubic meters per second 
 flowDuration<-function(centerDate = "09-30", localDaily = Daily, localINFO = INFO, qUnit = 2, span = 365) {

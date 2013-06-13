@@ -64,8 +64,8 @@
   only show those discharges above a given threshold
 }
 \examples{
-Daily <- exDaily
-INFO <- exINFO
+Daily <- ChopDaily
+INFO <- ChopINFO
 plotQTimeDaily(1990,2000,qLower=10)
 }
 \keyword{graphics}

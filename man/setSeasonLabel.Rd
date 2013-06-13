@@ -26,7 +26,8 @@
   setSeasonLabelByUser.
 }
 \examples{
-AnnualResults <- exAnnualResults
+Daily <- ChopDaily
+AnnualResults <- setupYears()
 setSeasonLabel()
 }
 \keyword{graphics}

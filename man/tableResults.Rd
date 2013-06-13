@@ -38,8 +38,9 @@
   AnnualResults and INFO data frames.
 }
 \examples{
-AnnualResults <- exAnnualResults
-INFO <- exINFO
+Daily <- ChopDaily
+AnnualResults <- setupYears()
+INFO <- ChopINFO
 tableResults(fluxUnit = 1)
 tableResults(fluxUnit = 'kgDay', qUnit = 'cms')
 returnedTable <- tableResults(fluxUnit = 1, returnDataFrame = TRUE)

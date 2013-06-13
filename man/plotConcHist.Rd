@@ -65,8 +65,9 @@
 \examples{
 yearStart <- 2001
 yearEnd <- 2010
-INFO <- exINFO
-AnnualResults <- exAnnualResults
+INFO <- ChopINFO
+Daily <- ChopDaily
+AnnualResults <- setupYears()
 plotConcHist(yearStart, yearEnd)
 }
 \seealso{

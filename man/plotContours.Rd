@@ -99,8 +99,8 @@ yearEnd<-2010
 qBottom<-0.2
 qTop<-20
 clevel<-seq(0,2,0.5)
-INFO <- exINFO
-Daily <- exDaily
+INFO <- ChopINFO
+Daily <- ChopDaily
 surfaces <- exsurfaces
 plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel)
 }

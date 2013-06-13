@@ -22,7 +22,7 @@
 #' @examples
 #' estPtYear<-c(2001.0,2005.0,2009.0)
 #' estPtLQ<-c(1,1,1)
-#' Sample <- exSample
+#' Sample <- ChopSample
 #' resultSurvReg <- runSurvReg(estPtYear,estPtLQ,message=FALSE)
 runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2,windowS=0.5,minNumObs=100,minNumUncen=50,message=TRUE) {
   # runs survival regression model

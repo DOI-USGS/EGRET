@@ -8,7 +8,7 @@
 #' @keywords water-quality statistics
 #' @export
 #' @examples
-#' INFO <- exINFO
+#' INFO <- ChopINFO
 #' \dontrun{saveResults("")}
 saveResults<-function(savePath, localINFO =INFO){
   saveName <- paste(savePath, localINFO$staAbbrev, ".", localINFO$constitAbbrev, 

@@ -47,8 +47,8 @@
   standard error.
 }
 \examples{
-Sample <- exSample
-INFO <- exINFO
+Sample <- ChopSample
+INFO <- ChopINFO
 plotResidPred()
 }
 \keyword{graphics}

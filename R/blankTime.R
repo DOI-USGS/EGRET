@@ -14,7 +14,7 @@
 #' @examples
 #' startBlank = "2004-10-01"
 #' endBlank = "2006-09-30"
-#' Daily <- exDaily
+#' Daily <- ChopDaily
 #' Daily <- blankTime(startBlank, endBlank)
 blankTime<-function(startBlank, endBlank, localDaily = Daily) {
   # this function is used after the model estimation is done

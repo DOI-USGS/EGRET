@@ -15,7 +15,7 @@
 \contentsline {subsection}{\numberline {5.3}Table Options}{26}{subsection.5.3}
 \contentsline {section}{\numberline {6}WRTDS Analysis}{26}{section.6}
 \contentsline {section}{\numberline {7}WRTDS Results}{27}{section.7}
-\contentsline {subsection}{\numberline {7.1}Plotting Options}{27}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.1}Plotting Options}{28}{subsection.7.1}
 \contentsline {subsection}{\numberline {7.2}Table Options}{39}{subsection.7.2}
 \contentsline {section}{\numberline {A}Getting Started}{43}{appendix.A}
 \contentsline {subsection}{\numberline {A.1}New to R?}{43}{subsection.A.1}

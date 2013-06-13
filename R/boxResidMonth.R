@@ -20,8 +20,8 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- exSample
-#' INFO <- exINFO
+#' Sample <- ChopSample
+#' INFO <- ChopINFO
 #' boxResidMonth()
 boxResidMonth<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, 
                         printTitle = TRUE, las=2, cex=0.8, cex.axis=1.1, cex.main=1.1,

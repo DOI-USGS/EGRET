@@ -48,8 +48,8 @@
   the dataRetrieval package.
 }
 \examples{
-Sample <- exSample
-INFO <- exINFO
+Sample <- ChopSample
+INFO <- ChopINFO
 boxConcMonth()
 }
 \keyword{graphics}

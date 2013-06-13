@@ -9,7 +9,7 @@
 #' @return MonthlyResults data frame of numeric values describing the monthly average values
 #' @export
 #' @examples
-#' Daily <- exDaily
+#' Daily <- ChopDaily
 #' monthlyResults <- calculateMonthlyResults()
 calculateMonthlyResults<-function(localDaily = Daily){
   # this creates a data frame of monthly results from Daily

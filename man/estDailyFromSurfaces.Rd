@@ -27,8 +27,8 @@
   Daily data frame, which is returned.
 }
 \examples{
-Daily <- exDaily
-INFO <- exINFO
+Daily <- ChopDaily
+INFO <- ChopINFO
 INFO <- setPA()
 surfaces <- exsurfaces
 #################################################

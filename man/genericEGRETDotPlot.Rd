@@ -90,8 +90,8 @@
   definitions of most optional input variables.
 }
 \examples{
-x <- exDaily$Date
-y <- exDaily$Q
+x <- ChopDaily$Date
+y <- ChopDaily$Q
 xlim <- c(min(x),max(x))
 ylim <- c(min(y),1.05*max(y))
 xlab <- "Date"

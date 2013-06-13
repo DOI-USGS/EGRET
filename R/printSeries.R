@@ -14,8 +14,9 @@
 #' @keywords streamflow statistics
 #' @export
 #' @examples
-#' INFO <- exINFO
-#' annualSeries <- exannualSeries
+#' INFO <- ChopINFO
+#' Daily <- ChopDaily
+#' annualSeries <- makeAnnualSeries()
 #' printSeries(5)
 printSeries<-function(istat, qUnit = 1, runoff = FALSE, localINFO = INFO, localAnnualSeries = annualSeries) {
   ################################################################################

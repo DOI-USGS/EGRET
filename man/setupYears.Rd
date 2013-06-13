@@ -32,8 +32,8 @@
   paLong=3 and paStart=12
 }
 \examples{
-Daily <- exDaily
-setupYears()
+Daily <- ChopDaily
+AnnualResults <- setupYears()
 }
 \keyword{statistics}
 \keyword{water-quality}

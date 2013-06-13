@@ -50,9 +50,9 @@
   the other in real space).
 }
 \examples{
-Sample <- exSample
-Daily <- exDaily
-INFO <- exINFO
+Sample <- ChopSample
+Daily <- ChopDaily
+INFO <- ChopINFO
 
 fluxBiasMulti(fluxUnit = 9,moreTitle="WRTDS")
 }

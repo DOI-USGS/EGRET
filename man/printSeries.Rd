@@ -31,8 +31,9 @@
   makeAnnualSeries before this function.
 }
 \examples{
-INFO <- exINFO
-annualSeries <- exannualSeries
+INFO <- ChopINFO
+Daily <- ChopDaily
+annualSeries <- makeAnnualSeries()
 printSeries(5)
 }
 \keyword{statistics}

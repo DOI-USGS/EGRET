@@ -26,8 +26,8 @@
 #' @keywords graphics streamflow statistics
 #' @export
 #' @examples
-#' INFO <- exINFO
-#' Daily <- exDaily
+#' INFO <- ChopINFO
+#' Daily <- ChopDaily
 #' annualSeries <- makeAnnualSeries()
 #' plotFlowSingle(1)
 plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA, 

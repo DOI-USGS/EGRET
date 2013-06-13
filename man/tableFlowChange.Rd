@@ -37,9 +37,10 @@
   makeAnnualSeries before this function.
 }
 \examples{
-INFO <- exINFO
+INFO <- ChopINFO
 INFO <- setPA(paStart=12, paLong=3)
-annualSeries <- exannualSeries
+Daily <- ChopDaily
+annualSeries <- makeAnnualSeries()
 tableFlowChange(istat=5,yearPoints=c(2001,2005,2009))
 }
 \keyword{statistics}

@@ -21,8 +21,8 @@
 #' @keywords graphics streamflow
 #' @export
 #' @examples
-#' Daily <- exDaily
-#' INFO <- exINFO
+#' Daily <- ChopDaily
+#' INFO <- ChopINFO
 #' plotQTimeDaily(1990,2000,qLower=10)
 plotQTimeDaily<-function (startYear, endYear, localDaily = Daily, 
                           localINFO = INFO, qLower = NA, qUnit = 1, 

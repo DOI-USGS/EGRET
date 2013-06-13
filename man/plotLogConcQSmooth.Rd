@@ -121,8 +121,8 @@ date2<-"2009-06-01"
 date3<-NA
 qLow<-1
 qHigh<-1000
-Sample <- exSample
-INFO <- exINFO
+Sample <- ChopSample
+INFO <- ChopINFO
 plotLogConcQSmooth(date1,date2,date3,qLow,qHigh)
 }
 \keyword{graphics}

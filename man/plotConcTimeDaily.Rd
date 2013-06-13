@@ -56,9 +56,9 @@
   over a series of segments.
 }
 \examples{
-Sample <- exSample
-Daily <- exDaily
-INFO <- exINFO
+Sample <- ChopSample
+Daily <- ChopDaily
+INFO <- ChopINFO
 plotConcTimeDaily(2001,2010)
 }
 \keyword{graphics}

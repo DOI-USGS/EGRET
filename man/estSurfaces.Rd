@@ -53,8 +53,8 @@
   daily values record.
 }
 \examples{
-Daily <- exDaily
-Sample <- exSample
+Daily <- ChopDaily
+Sample <- ChopSample
 surfaces <- estSurfaces()
 }
 \keyword{statistics}
