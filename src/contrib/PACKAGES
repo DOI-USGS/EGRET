@@ -13,6 +13,6 @@ Depends: R (>= 2.13.0)
 Imports: methods, survival, fields
 Suggests: xtable, dataRetrieval, knitr
 License: file LICENSE
-MD5sum: 39be34ab30ec088e5bd4c41bf3066295
+MD5sum: c136cc7903e3d9b0aca1d61594b5d9d1
 NeedsCompilation: no
 
