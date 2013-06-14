@@ -21,7 +21,8 @@
 #' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
-#' @param lwd number
+#' @param lwd number line width
+#' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow statistics
 #' @export
@@ -32,7 +33,7 @@
 #' plotFlowSingle(1)
 plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA, 
                   localINFO = INFO, localAnnualSeries = annualSeries, 
-                  qMax = NA, printTitle = TRUE, tinyPlot = FALSE, 
+                  qMax = NA, printTitle = TRUE, tinyPlot = FALSE, customPar=FALSE,
                   runoff = FALSE, qUnit = 1, printStaName = TRUE, printPA = TRUE, 
                   printIstat = TRUE,cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2, ...) {
   
@@ -75,9 +76,10 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
 
   genericEGRETDotPlot(x=localSeries$years, y=localSeries$qActual, 
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                      xlab="", ylab=yLab,
+                      xlab="", ylab=yLab, customPar=customPar,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,cex=cex,
-                      plotTitle=title, cex.axis=cex.axis,cex.main=cex.main, tinyPlot=tinyPlot,...
+                      plotTitle=title, cex.axis=cex.axis,cex.main=cex.main, 
+                      tinyPlot=tinyPlot, ...
   )
   
   ##############################################

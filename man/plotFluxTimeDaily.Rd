@@ -6,7 +6,7 @@
     localSample = Sample, localDaily = Daily,
     localINFO = INFO, tinyPlot = FALSE, fluxUnit = 3,
     fluxMax = NA, printTitle = TRUE, cex = 0.8,
-    cex.axis = 1.1, cex.main = 1.1, ...)
+    cex.axis = 1.1, cex.main = 1.1, customPar = FALSE, ...)
 }
 \arguments{
   \item{startYear}{numeric specifying the starting date
@@ -49,6 +49,10 @@
 
   \item{cex.axis}{magnification to be used for axis
   annotation relative to the current setting of cex}
+
+  \item{customPar}{logical defaults to FALSE. If TRUE, par
+  should be set by user, if FALSE, EGRET chooses best
+  graphical parameters.}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

@@ -13,9 +13,10 @@
 #' @param tinyPlot logical variable, if TRUE plot is designed to be short and wide, default is FALSE.
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
-#' @param cex number
-#' @param cex.axis number
-#' @param cex.main number
+#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
+#' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords graphics water-quality statistics
 #' @export
@@ -26,7 +27,8 @@
 #' plotConcTimeDaily(2001,2010)
 plotConcTimeDaily<-function(startYear, endYear, localSample = Sample, 
                             localDaily = Daily, localINFO = INFO, tinyPlot = FALSE, 
-                            concMax = NA, printTitle = TRUE,cex=0.8, cex.axis=1.1,cex.main=1.1,...){
+                            concMax = NA, printTitle = TRUE,cex=0.8, cex.axis=1.1,
+                            cex.main=1.1, customPar=FALSE,...){
 
   subSample<-subset(localSample,DecYear>=startYear)
   subSample<-subset(subSample,DecYear<=endYear)
@@ -55,7 +57,8 @@ plotConcTimeDaily<-function(startYear, endYear, localSample = Sample,
   
   genericEGRETDotPlot(x=xSample, y=yHigh, xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                      ylab=yLab,plotTitle=plotTitle,cex.axis=cex.axis,cex.main=cex.main, tinyPlot=tinyPlot, ...
+                      ylab=yLab,plotTitle=plotTitle,cex.axis=cex.axis,
+                      cex.main=cex.main, tinyPlot=tinyPlot,customPar=customPar, ...
   )
 
   lines(x=xDaily, y=subDaily$ConcDay, type="l")

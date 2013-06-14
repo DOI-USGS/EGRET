@@ -6,7 +6,8 @@
     localDaily = Daily, localINFO = INFO, sdMax = NA,
     printTitle = TRUE, tinyPlot = FALSE,
     printStaName = TRUE, printPA = TRUE, cex = 0.8,
-    cex.main = 1.1, cex.axis = 1.1, lwd = 2, ...)
+    cex.main = 1.1, cex.axis = 1.1, lwd = 2,
+    customPar = FALSE, ...)
 }
 \arguments{
   \item{yearStart}{numeric is the calendar year of the
@@ -56,6 +57,10 @@
 
   \item{cex.axis}{magnification to be used for axis
   annotation relative to the current setting of cex}
+
+  \item{customPar}{logical defaults to FALSE. If TRUE, par
+  should be set by user, if FALSE, EGRET chooses best
+  graphical parameters.}
 
   \item{lwd}{line width, a positive number, defaulting to
   1}

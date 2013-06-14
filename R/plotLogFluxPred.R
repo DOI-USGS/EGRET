@@ -10,9 +10,10 @@
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
 #' @param oneToOneLine inserts 1:1 line
-#' @param cex number
-#' @param cex.axis number
-#' @param cex.main number
+#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
+#' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -23,11 +24,12 @@
 #' plotLogFluxPred(fluxUnit = 'kgDay')
 plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3, 
                            fluxMax = NA, tinyPlot=FALSE, printTitle = TRUE, 
-                           oneToOneLine=TRUE,cex=0.8, cex.axis=1.1,cex.main=1.1, ...) 
+                           oneToOneLine=TRUE,cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE, ...) 
 {
 
   plotFluxPred(localSample = localSample, localINFO = localINFO, fluxUnit = fluxUnit, fluxMax = fluxMax, 
                          printTitle = printTitle, oneToOneLine=oneToOneLine, 
-                         cex=cex, cex.axis=cex.axis,cex.main=cex.main,tinyPlot=tinyPlot,logScale=TRUE,...)
+                         cex=cex, cex.axis=cex.axis,cex.main=cex.main,
+                         tinyPlot=tinyPlot,logScale=TRUE, customPar=FALSE,...)
 
 }

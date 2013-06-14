@@ -28,6 +28,7 @@
 #' @param oneToOneLine logical defaults to FALSE, inserts 1:1 line
 #' @param rmSciX logical defaults to FALSE, changes x label from scientific to fixed
 #' @param rmSciY logical defaults to FALSE, changes y label from scientific to fixed
+#' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
 #' @param \dots additional graphical parameters can be adjusted
 #' @keywords graphics water-quality statistics
 #' @export
@@ -52,12 +53,14 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
                                 pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2,
                                 tcl=0.5,cex.axis=1,las=1,
                                 tinyPlot=FALSE,hLine=FALSE,oneToOneLine=FALSE, 
-                                rmSciX=FALSE,rmSciY=FALSE,...){
+                                rmSciX=FALSE,rmSciY=FALSE,customPar=FALSE,...){
   
-  if (tinyPlot){
-    par(mar=c(4,5,1,0.1),mgp=c(2.5,0.5,0))
-  } else {
-    par(mar=c(5,6,4,2) + 0.1,mgp=c(3,1,0))
+  if(!customPar){
+    if (tinyPlot){
+      par(mar=c(4,5,1,0.1),mgp=c(2.5,0.5,0))
+    } else {
+      par(mar=c(5,6,4,2) + 0.1,mgp=c(3,1,0))
+    }
   }
   
   plot(x,y,xlim=xlim,xaxs=xaxs,xlab=xlab,axes=FALSE,

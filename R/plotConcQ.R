@@ -17,6 +17,7 @@
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param rmSciX logical defaults to FALSE, changes x label from scientific to fixed
 #' @param rmSciY logical defaults to FALSE, changes y label from scientific to fixed
+#' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -26,7 +27,7 @@
 #' plotConcQ()
 plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot = FALSE, logScale=FALSE,
                     concMax = NA, concMin =NA, printTitle = TRUE, cex=0.8, cex.axis=1.1,cex.main=1.1,
-                    rmSciX=FALSE,rmSciY=FALSE,...){
+                    rmSciX=FALSE,rmSciY=FALSE, customPar=FALSE,...){
   # this function shows the sample data,
   # discharge on x-axis on a log scale, concentration on y-axis
   
@@ -71,7 +72,8 @@ plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot 
                       xlab=xLab, ylab=yLab,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       plotTitle=plotTitle, log=logScaleText,cex.axis=cex.axis,cex=cex,
-                      cex.main=cex.main, tinyPlot=tinyPlot,xaxt="n",rmSciX=rmSciX,rmSciY=rmSciY,...
+                      cex.main=cex.main, tinyPlot=tinyPlot,xaxt="n",
+                      rmSciX=rmSciX,rmSciY=rmSciY,customPar=customPar,...
   )
   
   censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen  )

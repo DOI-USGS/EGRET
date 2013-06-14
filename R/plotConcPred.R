@@ -12,6 +12,7 @@
 #' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
+#' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
 #' @param ... arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -20,7 +21,8 @@
 #' INFO <- ChopINFO
 #' plotConcPred()
 plotConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA, logScale=FALSE,
-                       printTitle = TRUE,tinyPlot=FALSE,cex=0.8, cex.axis=1.1,cex.main=1.1,...){
+                       printTitle = TRUE,tinyPlot=FALSE,cex=0.8, cex.axis=1.1,
+                       cex.main=1.1, customPar=FALSE,...){
   # this function shows observed versus predicted concentration
   # predicted concentration on the x-axis (these include the bias correction), 
   # observed concentration on y-axis 
@@ -61,7 +63,8 @@ plotConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA, log
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xLab, ylab=yLab,log=logVariable,
                       plotTitle=plotTitle, oneToOneLine=TRUE,
-                      cex.axis=cex.axis,cex.main=cex.main,tinyPlot=tinyPlot,...
+                      cex.axis=cex.axis,cex.main=cex.main,
+                      tinyPlot=tinyPlot,customPar=customPar,...
     )
 
   censoredSegments(yBottom=yInfo$bottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen)

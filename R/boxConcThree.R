@@ -13,6 +13,7 @@
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multi-plot figure, default is FALSE.
+#' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -22,7 +23,7 @@
 #' INFO <- ChopINFO
 #' boxConcThree()
 boxConcThree<-function (localSample = Sample, localDaily = Daily, localINFO = INFO, tinyPlot=FALSE,
-                        printTitle = TRUE, moreTitle = "WRTDS",
+                        printTitle = TRUE, moreTitle = "WRTDS",customPar=FALSE,
                         font.main=2,cex=0.8,cex.main = 1.1, cex.axis = 1.1,...) 
 {
   
@@ -47,11 +48,11 @@ boxConcThree<-function (localSample = Sample, localDaily = Daily, localINFO = IN
   
   if (tinyPlot) {
     yLab <- paste("Conc. (mg/L)")
-    par(mar=c(4,5,1,0.1),tcl=0.5,cex.lab=cex.axis)  
+    if (!customPar) par(mar=c(4,5,1,0.1),tcl=0.5,cex.lab=cex.axis)  
 
   } else {
     yLab <- paste("Concentration in mg/L")
-    par(mar=c(5,6,4,2)+0.1,tcl=0.5,cex.lab=cex.axis)
+    if (!customPar) par(mar=c(5,6,4,2)+0.1,tcl=0.5,cex.lab=cex.axis)
 
   }
   name1 <- "Sampled day\nvalues"

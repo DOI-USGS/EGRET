@@ -14,6 +14,7 @@
 #' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
+#' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -23,7 +24,7 @@
 #' plotFluxPred(fluxUnit = 7)
 #' plotFluxPred(fluxUnit = 'poundsDay')
 plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, fluxMax = NA, 
-                       printTitle = TRUE, oneToOneLine=TRUE, 
+                       printTitle = TRUE, oneToOneLine=TRUE, customPar=FALSE, 
                        cex=0.8, cex.axis=1.1,cex.main=1.1,tinyPlot=FALSE,logScale=FALSE,...){
   # this function shows observed versus estimated flux
   # estimated flux on the x-axis (these include the bias correction), 
@@ -74,7 +75,7 @@ plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, flu
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                      xlab=xLab, ylab=yLab,log=logText,
+                      xlab=xLab, ylab=yLab,log=logText, customPar=customPar,
                       plotTitle=plotTitle,oneToOneLine=oneToOneLine, 
                       tinyPlot=tinyPlot,cex.axis=cex.axis,cex.main=cex.main,...
   )

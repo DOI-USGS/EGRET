@@ -10,9 +10,10 @@
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
-#' @param cex number
-#' @param cex.axis number
-#' @param cex.main number
+#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param cex.lab magnification to be used for x and y labels relative to the current setting of cex
+#' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords water-quality statistics graphics
 #' @export
@@ -22,7 +23,7 @@
 #' plotResidPred()
 plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, 
                         tinyPlot = FALSE, printTitle = TRUE, 
-                        cex=0.8, cex.axis=1.1,cex.main=1.1,...){
+                        cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,...){
   # this function shows residual versus estimated in log space
   # estimated log concentration on the x-axis (these are prior to bias correction), 
   # observed log concentration on y-axis 
@@ -49,13 +50,12 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   ####################
   
   xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot, padPercent=5)
-  
   yInfo <- generalAxis(x=yHigh, minVal=(min(yLow,na.rm=TRUE)-0.5), maxVal=(max(yHigh) + 0.1), tinyPlot=tinyPlot)
 
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                      xlab=xLab, ylab=yLab, plotTitle=plotTitle,
+                      xlab=xLab, ylab=yLab, plotTitle=plotTitle, customPar=customPar,
                       log="x",hLine=TRUE,cex.axis=cex.axis,cex.main=cex.main, tinyPlot=tinyPlot,...
     )
 

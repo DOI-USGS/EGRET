@@ -397,7 +397,7 @@ bottomLogQ & Lowest discharge in prediction surfaces & numeric \\
 %------------------------------------------------------------ 
 EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units. The default is that concentration is measured in mg/L, discharge is cubic meters per second (cms), flux is kg/day, and drainage area is km\verb@^@2. When discharge values are imported from USGS web services (using the dataRetrieval package), they are automatically converted from cubic feet per second (cfs) to cms unless the argument convert is set to FALSE.  This can cause confusion if not careful. 
 
-Although the data is stored in the dataframes in SI, it is possible to report the results in a variety of units. For all functions that provide output, there are two arguments that can be defined to set the output units: qUnit and FluxUnit.  qUnit and fluxUnit can be defined by a numeric code or name.  There are two functions that can be called to see the options for qUnit and FluxUnit: printqUnitCheatSheet and printFluxUnitCheatSheet.
+Although the data is stored in the dataframes in SI, it is possible to report the results in a variety of units. For all functions that provide output, there are two arguments that can be defined to set the output units: qUnit and fluxUnit.  qUnit and fluxUnit can be defined by a numeric code or name.  There are two functions that can be called to see the options are printqUnitCheatSheet and printFluxUnitCheatSheet.
 
 
 <<cheatSheets,echo=TRUE,eval=TRUE>>=
@@ -411,6 +411,8 @@ printFluxUnitCheatSheet()
 @
 
 When a function has an input argument fluxUnit, you can define the flux units with the index (1-12) as shown above. The choice should be based on the units that are customary for the audience, but also so that the flux values don't have too many digits to the right or left of the decimal point. Tons are always 'short tons' and not 'metric tons'.
+
+\FloatBarrier
 
 %------------------------------------------------------------ 
 \section{Flow History}
@@ -493,11 +495,13 @@ annualSeries <- makeAnnualSeries()
 
 Once the annualSeries matrix is created, the plots of any of the stored statistics can be generated with the plotFlowSingle function.
 
+\FloatBarrier
+
 %------------------------------------------------------------ 
 \subsection{Plotting Options}
 \label{sec:plotOptions}
 %------------------------------------------------------------ 
-This section will give examples of the available plots appropriate for studying flow history once the annualSeries has been created. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See Appendix \ref{sec:flowHistoryVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}).
+This section will give examples of the available plots appropriate for studying flow history once the annualSeries has been created. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See Appendix \ref{sec:flowHistoryVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}). Finally, see section \ref{app:savingPlots} for information on saving plots.
 
 <<plotFlow, echo=TRUE, eval=FALSE>>=
 plotFlowSingle(istat=5,qUnit="thousandCfs")
@@ -559,7 +563,7 @@ plotQTimeDaily(startYear=1870,endYear=2020,qUnit=3,qLower=300)
 
 @
 
-The example shown here illustrates a very long record and the long gap of more than 60 years of no flows above 300,000 ft3/s, followed by the last 50 years with at least 5 events above that threshold. plotQTimeDaily requires startYear and endYear, along with some other optional arguements (see ?plotQTimeDaily for more details).
+The example shown here illustrates a very long record and the long gap of more than 60 years of no flows above 300,000 ft\verb|^|3/s, followed by the last 50 years with at least 5 events above that threshold. plotQTimeDaily requires startYear and endYear, along with some other optional arguements (see ?plotQTimeDaily for more details).
 
 \FloatBarrier
 
@@ -692,7 +696,8 @@ multiPlotDataOverview(qUnit=1)
 \subsection{Extending Plots Past Defaults}
 \label{sec:extendedPlots}
 %------------------------------------------------------------ 
-The basic plotting options were shown in the previous section.  This section demonstrates some ideas on how to extend the capabilities of the EGRET plots.
+The basic plotting options were shown in the previous section.  This section demonstrates some ideas on how to extend the capabilities of the EGRET plots. EGRET plots use R's base plotting options.
+
 
 
 \begin{figure}[htbp]
@@ -708,6 +713,8 @@ The basic plotting options were shown in the previous section.  This section dem
 \end{center}
 \end{figure}
 
+
+
 \FloatBarrier
 
 %------------------------------------------------------------ 
@@ -720,7 +727,7 @@ Another useful tool for checking the data before running the WRTDS estimations i
 flowDuration()
 @
 
-
+\FloatBarrier
 %------------------------------------------------------------ 
 \section{WRTDS Analysis}
 \label{sec:wrtds}
@@ -735,7 +742,7 @@ Assuming you are using the defaults, with dataframes called Daily, Sample, and I
 modelEstimation()
 @
 
-This function is slow, and shows the progress in percent complete. See the references and manual for more information. It's important to understand that this is the one function that will globally change your Daily, Sample, and INFO dataframes. It also creates a new matrix: surfaces, and a new dataframe AnnualResults. It is unusual R programming behavior (and generally considered poor practice), but was chosen to make it easy for the user.
+This function is slow, and shows the progress in percent complete. See the references and manual for more information. It's important to understand that this is the one function that will globally change your Daily, Sample, and INFO dataframes. It also creates a new matrix: surfaces, and a new dataframe: AnnualResults. It is unusual R programming behavior (and generally considered poor practice), but was chosen to make it easy for the user.
 
 If you wish to change the period of analysis after comleting modelEstimation, there is one more step that needs to happen.  For example, if we want to consider a 3 month season that runs from December through Feburary, we would set paStart = 12 and paLong = 3.  (Note that the period of analysis and the arguments paStart and paLong are introduced at the begining of section \ref{sec:flowHistory} of this document.) After running modelEstimation run the command:
 
@@ -751,9 +758,9 @@ savePath <- "C:/Users/ldecicco/WRTDS_Output"
 saveResults(savePath) 
 @
 
-This will now save all of the objects in your workspace. If you have saved workspaces from R versions earlier than 3.0, there will be a warning when opening them in R > 3.0. Re-saving the workspace using R >3.0 should get rid of the warning.
+This will now save all of the objects in your workspace. If you have saved workspaces from R versions earlier than 3.0, there will be a warning when opening them in R 3.0 (or \verb|>|). Re-saving the workspace using R 3.0 (or \verb|>|) should get rid of the warning.
 
-Alternatively, you can save the individually generated data:
+Alternatively, you can save the individually generated data in your working directory:
 
 <<wrtds6, eval=FALSE, echo=TRUE>>=
 save(Daily, file="Daily.RData")
@@ -785,7 +792,7 @@ At this point (after having run modelEstimation) we can start considering how to
 \subsection{Plotting Options}
 \label{sec:wrtdsPlotting}
 %------------------------------------------------------------ 
-Check the help files or manual for more details on the following functions.  Defaults are shown here, unless an input is required:
+Check the help files or manual for more details on the following functions.  See section \ref{app:savingPlots} for information on saving plots. Defaults are shown here, unless an input is required:
 
 <<plotWRTDSList, echo=TRUE,eval=FALSE>>=
 #Require Sample + INFO:
@@ -858,6 +865,8 @@ plotConcTimeDaily(yearStart, yearEnd)
 plotFluxTimeDaily(yearStart, yearEnd)
 @
 
+\FloatBarrier
+
 <<plotFluxPred, echo=FALSE, fig.cap="Concentration predictions",fig.subcap=c('plotConcPred()','plotLogConcPred()'),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotConcPred()
 plotLogConcPred()
@@ -923,9 +932,11 @@ plotDiffContours(year0=2000,yearEnd,
                  1,5000,maxDiff,qUnit=1)
 @
 
-To specify contourLevels the seq function in R should be used.  In general it would look like this:  
-contourLevels = seq(0,to,by).  For example, if we want contours to run from 0 to 5 in steps of 0.2 we would say contourLevels = seq(0,5,0.2).  
+To specify contourLevels the seq function in R should be used.  In general it would look like this: contourLevels = seq(from,to,by).  For example, if we want contours to run from 0 to 5 in steps of 0.2 we would say:  
 
+<<setcontours, echo=TRUE, eval=FALSE>>=
+contourLevels = seq(0,5,0.2)
+@
 
 
 \FloatBarrier
@@ -1294,6 +1305,46 @@ From Excel, it is simple to copy and paste the tables in other Microsoft product
 \caption{A simple table produced in Microsoft Excel}
 \label{overflow}
 \end{figure}
+
+%------------------------------------------------------------ 
+\section{Saving Plots}
+\label{app:savingPlots}
+%------------------------------------------------------------
+There are a variety of options for saving plots in R. Plots can be saved in JPG, PNG, PDF, and Postscript. JPG and PNG are easy to input into any number of programs (Microsoft Word or Powerpoint for example), but the images cannot be resized later. PDF and Postscript are easily re-sizable.
+
+There are two steps to saving plots. The first is to declare the output type and file name by opening the 'device'. The second step is to turn off the device. Some simple examples should demonstrate this easily:
+
+<<label=savePlots, echo=TRUE, eval=FALSE>>=
+jpeg("plotFlowSingle.jpg")
+plotFlowSingle(1)
+dev.off()
+
+png("plotFlowSingle.png")
+plotFlowSingle(1)
+dev.off()
+
+pdf("plotFlowSingle.pdf")
+plotFlowSingle(1)
+dev.off()
+
+postscript("plotFlowSingle.ps")
+plotFlowSingle(1)
+dev.off()
+
+@
+
+There are many additional options for each of these devices. See the R help files for more information. One option that would be useful for the larger fluxBiasEight graph is to adjust the height and width of the output. The output of fluxBiasEight is larger than the default pdf or postscript devices. Therefore, specifying the height and width eliminates R having to re-size the graphic:
+
+<<label=savePlots2, echo=TRUE, eval=FALSE>>=
+postscript("fluxBiasEight.ps", height=10,width=8)
+fluxBiasEight()
+dev.off()
+
+pdf("fluxBiasEight.pdf", height=10,width=8)
+fluxBiasEight()
+dev.off()
+
+@
 
 
 

@@ -24,12 +24,13 @@
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 10
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
-#' @param cex number
-#' @param cex.axis number
-#' @param cex.main number
-#' @param lwd number
-#' @param legend.cex number
-#' @param tinyPlot logical
+#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
+#' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
+#' @param lwd number line width
+#' @param legend.cex magnification to be used for legend annotation relative to the current setting of cex
+#' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multi-plot figure, default is FALSE.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords water-quality statistics graphics
 #' @import survival
@@ -45,7 +46,7 @@
 #' plotLogConcQSmooth(date1,date2,date3,qLow,qHigh)
 plotLogConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = .05,legendTop =0.3, 
                              concMax = NA, concMin = NA,bw = FALSE, printTitle = TRUE, printValues = FALSE, 
-                             localSample = Sample, localINFO = INFO, 
+                             localSample = Sample, localINFO = INFO, customPar=FALSE,
                              windowY = 10, windowQ = 2, windowS = 0.5,tinyPlot=FALSE,
                              lwd=2,cex=0.8, cex.axis=1.1,cex.main=1.1, legend.cex=1,...) {
   
@@ -55,7 +56,7 @@ plotLogConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft 
                             localSample = localSample, localINFO = localINFO, 
                             windowY = windowY, windowQ = windowQ, windowS = windowS,tinyPlot=tinyPlot,
                             lwd=lwd,cex=cex, cex.axis=cex.axis,cex.main=cex.main, legend.cex=legend.cex,
-                            logScale=TRUE,...) 
+                            logScale=TRUE, customPar=customPar,...) 
   
   
 }

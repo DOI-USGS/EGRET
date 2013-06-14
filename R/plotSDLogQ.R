@@ -19,6 +19,7 @@
 #' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
+#' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
 #' @param lwd line width, a positive number, defaulting to 1
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow statistics
@@ -30,7 +31,7 @@
 plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
                      localINFO=INFO,sdMax=NA,printTitle = TRUE, tinyPlot = FALSE, 
                      printStaName = TRUE, printPA = TRUE, cex=0.8,
-                     cex.main=1.1,cex.axis = 1.1,lwd=2, ...){
+                     cex.main=1.1,cex.axis = 1.1,lwd=2, customPar=FALSE, ...){
 
   numDays<-length(localDaily$LogQ)
   paLong <- localINFO$paLong
@@ -78,7 +79,7 @@ plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
                       xlab="",ylab="Dimensionless",
                       xTicks=xInfo$ticks,yTicks=yInfo$ticks,cex=cex,tinyPlot=tinyPlot,
                       plotTitle=title, cex.main=cex.main, cex.axis = cex.axis,
-                      type="l", lwd=lwd, ...
+                      type="l", lwd=lwd, customPar=customPar, ...
   )
 
 }

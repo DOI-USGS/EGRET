@@ -6,7 +6,7 @@
     qUnit = 2, tinyPlot = FALSE, logScale = FALSE,
     concMax = NA, concMin = NA, printTitle = TRUE,
     cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
-    rmSciX = FALSE, rmSciY = FALSE, ...)
+    rmSciX = FALSE, rmSciY = FALSE, customPar = FALSE, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -54,6 +54,10 @@
 
   \item{rmSciY}{logical defaults to FALSE, changes y label
   from scientific to fixed}
+
+  \item{customPar}{logical defaults to FALSE. If TRUE, par
+  should be set by user, if FALSE, EGRET chooses best
+  graphical parameters.}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

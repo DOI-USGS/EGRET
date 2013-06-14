@@ -17,6 +17,7 @@
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param font.main font to be used for plot main titles
 #' @param cex.lab magnification to be used for x and y labels relative to the current setting of cex
+#' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow
 #' @export
@@ -27,7 +28,7 @@
 plotQTimeDaily<-function (startYear, endYear, localDaily = Daily, 
                           localINFO = INFO, qLower = NA, qUnit = 1, 
                           tinyPlot = FALSE, printTitle = TRUE, lwd = 3, col="red", 
-                          cex = 0.7, cex.main = 1.3, font.main = 2, cex.lab = 1.2,...)    
+                          cex = 0.7, cex.main = 1.3, font.main = 2, cex.lab = 1.2, customPar=FALSE,...)    
 {
   #########################################################
   if (is.numeric(qUnit)) {
@@ -60,21 +61,11 @@ plotQTimeDaily<-function (startYear, endYear, localDaily = Daily,
   qBottom <- if(is.na(qLower)) 0 else qLower
   
   xInfo <- generalAxis(x=xDaily, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot)
-  
   yInfo <- generalAxis(x=yDaily, minVal=yMin, maxVal=1.05*max(yDaily), tinyPlot=tinyPlot)
 
-#   plot(xDaily, yDaily, axes = FALSE, xlim = c(xInfo$bottom, xInfo$top), 
-#        xaxs = "i", xlab = "", ylim = c(yInfo$bottom, yInfo$top), yaxs = "i", 
-#        ylab = yLab, main = plotTitle, type = "l", lwd = lwd, col=col, 
-#        cex = cex, cex.main = cex.main, font.main = font.main, cex.lab = cex.lab,...)
-#   axis(1, tcl = 0.5, at = xInfo$ticks, labels = xInfo$ticks)
-#   axis(2, tcl = 0.5, las = 1, at = yInfo$ticks)
-#   axis(3, tcl = 0.5, at = xInfo$ticks, labels = FALSE)
-#   axis(4, tcl = 0.5, at = yInfo$ticks, labels = FALSE)
-#   box()
   genericEGRETDotPlot(x=xDaily, y=yDaily, 
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                      xlab="", ylab=yLab,
+                      xlab="", ylab=yLab, customPar=customPar,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks, tinyPlot=tinyPlot,
                       plotTitle=plotTitle, cex=cex,cex.main=cex.main,font.main=font.main,cex.lab=cex.lab,
                       type="l",col=col,lwd=lwd,...

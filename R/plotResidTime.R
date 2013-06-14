@@ -13,6 +13,7 @@
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE
+#' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -22,7 +23,7 @@
 #' plotResidTime()
 plotResidTime<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, 
                         printTitle = TRUE, hLine=TRUE, tinyPlot=FALSE,
-                        cex=0.8, cex.axis=1.1,cex.main=1.1,...){
+                        cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,...){
   # this function shows residual versus Time
   # Time on the x-axis , 
   # residual on y-axis 
@@ -53,7 +54,7 @@ plotResidTime<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom, yInfo$top),
-                      xlab=xLab, ylab=yLab, plotTitle=plotTitle, 
+                      xlab=xLab, ylab=yLab, plotTitle=plotTitle, customPar=customPar, 
                       cex.axis=cex.axis,cex.main=cex.main, hLine=hLine, tinyPlot=tinyPlot,...
   )
 

@@ -14,7 +14,8 @@
 #' @param qLower numeric the lower bound on values of discharge used to select the data points to be plotted, units are those specified by qUnit, default = NA which is equivalent to a lower bound of zero but if the desired lower bound is zero use qLower = NA
 #' @param qUpper numeric the upper bound on values of discharge for selection of data points to be plotted, units are those specified by qUnit, default = NA which is equivalent to an upper bound of infinity
 #' @param paLong numeric, this is the length of the portion of the year from which data should be included in the plot, paLong must be an integer between 1 and 12.  The default is 12, which prints data from all months.
-#' @param paStart numeric, this is the starting month of the portion of the year from which data should be included in the plot, paStart must be an integer between 1 and 12.  The default is 10, which corresponds to the water year, which starts in October.  If paLong = 12 then the choice of paStart is of no consequence.  All months will be included.
+#' @param paStart numeric, this is the starting month of the portion of the year from which data should be included in the plot, paStart must be an integer between 1 and 12.  
+#' The default is 10, which corresponds to the water year, which starts in October.  If paLong = 12 then the choice of paStart is of no consequence.  All months will be included.
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param concMin number specifying the minimum value to be used on the vertical axis, only appropriate for log scale.  
@@ -23,6 +24,7 @@
 #' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
+#' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords graphics water-quality statistics
 #' @export
@@ -34,7 +36,7 @@
 plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2, 
                        qLower = NA, qUpper = NA, paLong = 12, paStart = 10, 
                        tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale=FALSE, 
-                       cex=0.8, cex.axis=1.1,cex.main=1.1,...){
+                       cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,...){
   # this function shows the sample data,
   # time on x-axis, concentration on y-axis
   
@@ -117,7 +119,7 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
                       xlab="", ylab=yLab,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,cex=cex,
                       plotTitle=plotTitle, log=logVariable,
-                      cex.axis=cex.axis,cex.main=cex.main,tinyPlot=tinyPlot, ...
+                      cex.axis=cex.axis,cex.main=cex.main,tinyPlot=tinyPlot,customPar=customPar, ...
   )
   censoredSegments(yBottom=yInfo$ticks[1],yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
   

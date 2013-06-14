@@ -8,7 +8,7 @@
     cex.main = 1.3, font.main = 2, cex.lab = 1.2,
     tcl = 0.5, cex.axis = 1, las = 1, tinyPlot = FALSE,
     hLine = FALSE, oneToOneLine = FALSE, rmSciX = FALSE,
-    rmSciY = FALSE, ...)
+    rmSciY = FALSE, customPar = FALSE, ...)
 }
 \arguments{
   \item{x}{vector specifying the x data (required)}
@@ -79,6 +79,10 @@
 
   \item{rmSciY}{logical defaults to FALSE, changes y label
   from scientific to fixed}
+
+  \item{customPar}{logical defaults to FALSE. If TRUE, par
+  should be set by user, if FALSE, EGRET chooses best
+  graphical parameters.}
 
   \item{\dots}{additional graphical parameters can be
   adjusted}

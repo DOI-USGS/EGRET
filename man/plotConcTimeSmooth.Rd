@@ -8,7 +8,8 @@
     printValues = FALSE, localSample = Sample,
     localINFO = INFO, tinyPlot = FALSE, windowY = 10,
     windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2,
-    legend.cex = 1, ...)
+    legend.cex = 1, cex = 0.8, cex.axis = 1.1,
+    customPar = FALSE, ...)
 }
 \arguments{
   \item{q1}{numeric This is the discharge value for the
@@ -93,13 +94,24 @@
   designed to be plotted small, as a part of a multipart
   figure, default is FALSE}
 
+  \item{cex}{numerical value giving the amount by which
+  plotting text and symbols should be magnified relative to
+  the default}
+
   \item{cex.main}{magnification to be used for main titles
   relative to the current setting of cex}
+
+  \item{cex.axis}{magnification to be used for axis
+  annotation relative to the current setting of cex}
+
+  \item{customPar}{logical defaults to FALSE. If TRUE, par
+  should be set by user, if FALSE, EGRET chooses best
+  graphical parameters.}
 
   \item{lwd}{line width, a positive number, defaulting to
   1}
 
-  \item{legend.cex}{number}
+  \item{legend.cex}{number magnification of legend}
 
   \item{\dots}{arbitrary functions sent to the generic
   plotting function.  See ?par for details on possible

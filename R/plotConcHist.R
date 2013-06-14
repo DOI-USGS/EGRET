@@ -15,10 +15,11 @@
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
 #' @param plotFlowNorm logical variable if TRUE flow normalized line is plotted, if FALSE not plotted 
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE
-#' @param cex number
-#' @param cex.axis number
-#' @param cex.main number
-#' @param lwd number
+#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
+#' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param lwd number magnification of line width.
+#' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -32,7 +33,7 @@
 #' plotConcHist(yearStart, yearEnd)
 plotConcHist<-function(yearStart = NA, yearEnd = NA, localAnnualResults = AnnualResults, 
         localINFO = INFO, concMax = NA, printTitle = TRUE, tinyPlot = FALSE,plotFlowNorm = TRUE,
-        cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2,...){
+        cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2, customPar=FALSE,...){
   # produces a graph of annual mean concentration and flow normalized concentration versus year
   # AnnualResults contains the set of results
   # typically yearStart and yearEnd should be integers, 
@@ -54,7 +55,8 @@ plotConcHist<-function(yearStart = NA, yearEnd = NA, localAnnualResults = Annual
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       ylab="Concentration in mg/L", 
-                      plotTitle=title, cex.axis=cex.axis,cex.main=cex.main,tinyPlot=tinyPlot,...
+                      plotTitle=title, cex.axis=cex.axis,cex.main=cex.main,
+                      tinyPlot=tinyPlot,customPar=customPar,...
     )
   
   if(plotFlowNorm) with(localAnnualResults, 

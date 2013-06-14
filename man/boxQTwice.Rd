@@ -5,7 +5,8 @@
   boxQTwice(localSample = Sample, localDaily = Daily,
     localINFO = INFO, printTitle = TRUE, qUnit = 2,
     font.main = 2, cex = 0.8, cex.main = 1.1,
-    cex.axis = 1.1, tinyPlot = FALSE, ...)
+    cex.axis = 1.1, tinyPlot = FALSE, customPar = FALSE,
+    ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -41,6 +42,10 @@
   \item{tinyPlot}{logical variable, if TRUE plot is
   designed to be plotted small as part of a multi-plot
   figure, default is FALSE.}
+
+  \item{customPar}{logical defaults to FALSE. If TRUE, par
+  should be set by user, if FALSE, EGRET chooses best
+  graphical parameters.}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

@@ -6,7 +6,7 @@
     localINFO = INFO, qLower = NA, qUnit = 1,
     tinyPlot = FALSE, printTitle = TRUE, lwd = 3,
     col = "red", cex = 0.7, cex.main = 1.3, font.main = 2,
-    cex.lab = 1.2, ...)
+    cex.lab = 1.2, customPar = FALSE, ...)
 }
 \arguments{
   \item{startYear}{numeric indicating the starting year for
@@ -54,6 +54,10 @@
 
   \item{cex.lab}{magnification to be used for x and y
   labels relative to the current setting of cex}
+
+  \item{customPar}{logical defaults to FALSE. If TRUE, par
+  should be set by user, if FALSE, EGRET chooses best
+  graphical parameters.}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

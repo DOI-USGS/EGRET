@@ -5,7 +5,8 @@
   boxResidMonth(localSample = Sample, localINFO = INFO,
     stdResid = FALSE, printTitle = TRUE, las = 2,
     cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
-    font.main = 2, tinyPlot = FALSE, ...)
+    font.main = 2, tinyPlot = FALSE, customPar = FALSE,
+    ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -41,6 +42,10 @@
   relative to the current setting of cex}
 
   \item{font.main}{font to be used for plot main titles}
+
+  \item{customPar}{logical defaults to FALSE. If TRUE, par
+  should be set by user, if FALSE, EGRET chooses best
+  graphical parameters.}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

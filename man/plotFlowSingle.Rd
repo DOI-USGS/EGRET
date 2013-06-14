@@ -5,9 +5,10 @@
   plotFlowSingle(istat, yearStart = NA, yearEnd = NA,
     localINFO = INFO, localAnnualSeries = annualSeries,
     qMax = NA, printTitle = TRUE, tinyPlot = FALSE,
-    runoff = FALSE, qUnit = 1, printStaName = TRUE,
-    printPA = TRUE, printIstat = TRUE, cex = 0.8,
-    cex.axis = 1.1, cex.main = 1.1, lwd = 2, ...)
+    customPar = FALSE, runoff = FALSE, qUnit = 1,
+    printStaName = TRUE, printPA = TRUE, printIstat = TRUE,
+    cex = 0.8, cex.axis = 1.1, cex.main = 1.1, lwd = 2,
+    ...)
 }
 \arguments{
   \item{istat}{A numeric value for the flow statistic to be
@@ -67,7 +68,11 @@
   \item{cex.axis}{magnification to be used for axis
   annotation relative to the current setting of cex}
 
-  \item{lwd}{number}
+  \item{lwd}{number line width}
+
+  \item{customPar}{logical defaults to FALSE. If TRUE, par
+  should be set by user, if FALSE, EGRET chooses best
+  graphical parameters.}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for
