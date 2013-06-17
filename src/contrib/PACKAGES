@@ -1,18 +1,18 @@
-Package: dataRetrieval
-Version: 1.2.2
-Depends: R (>= 2.15.0)
-Imports: zoo, XML, RCurl
-Suggests: xtable, EGRET
-License: file LICENSE
-MD5sum: 65464abc9e7b253dce834a310646a1d7
-NeedsCompilation: no
-
 Package: EGRET
 Version: 1.2.4
 Depends: R (>= 2.13.0)
 Imports: methods, survival, fields
 Suggests: xtable, dataRetrieval, knitr
 License: file LICENSE
-MD5sum: db1f0ae46a8eb056d2837649b7bca066
+MD5sum: 35c764a85edc0e04cb4b6fb2743ed762
+NeedsCompilation: no
+
+Package: dataRetrieval
+Version: 1.2.2
+Depends: R (>= 2.15.0)
+Imports: zoo, XML, RCurl
+Suggests: xtable, EGRET, knitr
+License: file LICENSE
+MD5sum: 38fdc7e7099393911f172c6fa26e229d
 NeedsCompilation: no
 
