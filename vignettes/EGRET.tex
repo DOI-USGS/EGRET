@@ -1,9 +1,9 @@
 %\VignetteIndexEntry{Introduction to the EGRET package}
 %\VignetteEngine{knitr::knitr}
-%\VignetteDepends{methods,survival, fields}
+%\VignetteDepends{}
 %\VignetteSuggests{xtable, dataRetrieval}
-%\VignetteImports{}
-%\VignettePackage{}
+%\VignetteImports{methods,survival, fields}
+%\VignettePackage{EGRET}
 
 \documentclass[a4paper,11pt]{article}\usepackage{graphicx, color}
 %% maxwidth is the original width if it is less than linewidth
@@ -625,20 +625,14 @@ Once the annualSeries matrix is created, the plots of any of the stored statisti
 
 This section will give examples of the available plots appropriate for studying flow history once the annualSeries has been created. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See Appendix \ref{sec:flowHistoryVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}). Finally, see section \ref{app:savingPlots} for information on saving plots.
 
+Figure \ref{fig:plotSingleandSD}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlfunctioncall{plotFlowSingle}(istat=5,qUnit=\hlstring{"thousandCfs"})
 \hlfunctioncall{plotSDLogQ}()
-\hlfunctioncall{plotFour}(qUnit=3)
-\hlfunctioncall{plotFourStats}(qUnit=3)
 \end{alltt}
-\end{kframe}
-\end{knitrout}
-
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\end{kframe}\begin{figure}[]
 \subfloat[plotFlowSingle(istat=5,qUnit='thousandCfs')\label{fig:plotSingleandSD1}]{
 \includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotSingleandSD1} }
 \subfloat[plotSDLogQ()\label{fig:plotSingleandSD2}]{
@@ -649,9 +643,13 @@ This section will give examples of the available plots appropriate for studying 
 \end{knitrout}
 
 
-
+Figure \ref{fig:plotFour}:
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{plotFour}(qUnit=3)
+\end{alltt}
+\end{kframe}\begin{figure}[]
 
 \includegraphics[width=1\linewidth,height=1\linewidth]{figure/plotFour} \caption[plotFour(qUnit=3)]{plotFour(qUnit=3)\label{fig:plotFour}}
 \end{figure}
@@ -660,8 +658,13 @@ This section will give examples of the available plots appropriate for studying 
 \end{knitrout}
 
 
+Figure \ref{fig:plotFourStats}:
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{plotFourStats}(qUnit=3)
+\end{alltt}
+\end{kframe}\begin{figure}[]
 
 \includegraphics[width=1\linewidth,height=1\linewidth]{figure/plotFourStats} \caption[plotFourStats(qUnit=3)]{plotFourStats(qUnit=3)\label{fig:plotFourStats}}
 \end{figure}
@@ -856,24 +859,14 @@ This section will give examples of the available plots appropriate for analyzing
 
 One note about any of the plotting functions that show the sample data:  If a value in the data set is a non-detect. Then it is displayed on a graph as a vertical line.  The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values, the minimum value on the y-axis.  This line is an 'honest' representation of what we know about that observation and doesn't involve us using a statistical model to fill in what we don't know. 
 
+Figure \ref{fig:plotBoxes}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlfunctioncall{boxConcMonth}()
 \hlfunctioncall{boxQTwice}(qUnit=1)
-\hlfunctioncall{plotConcTime}()
-\hlfunctioncall{plotLogConcTime}()
-\hlfunctioncall{plotConcQ}(qUnit=1)
-\hlfunctioncall{plotLogConcQ}(qUnit=1)
-\hlfunctioncall{plotLogFluxQ}(qUnit=1)
-\hlfunctioncall{multiPlotDataOverview}(qUnit=1)
 \end{alltt}
-\end{kframe}
-\end{knitrout}
-
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\end{kframe}\begin{figure}[]
 \subfloat[boxConcMonth()\label{fig:plotBoxes1}]{
 \includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotBoxes1} }
 \subfloat[boxQTwice(qUnit=1)\label{fig:plotBoxes2}]{
@@ -886,9 +879,14 @@ One note about any of the plotting functions that show the sample data:  If a va
 
 Note that the statistics to create the boxplot in boxQTwice are performed after the data is log-transformed.
 
-
+Figure \ref{fig:plotConcTime}:
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{plotConcTime}()
+\hlfunctioncall{plotLogConcTime}()
+\end{alltt}
+\end{kframe}\begin{figure}[]
 \subfloat[plotConcTime()\label{fig:plotConcTime1}]{
 \includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcTime1} }
 \subfloat[plotLogConcTime()\label{fig:plotConcTime2}]{
@@ -899,8 +897,14 @@ Note that the statistics to create the boxplot in boxQTwice are performed after 
 \end{knitrout}
 
 
+Figure \ref{fig:plotConcQ}:
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{plotConcQ}(qUnit=1)
+\hlfunctioncall{plotLogConcQ}(qUnit=1)
+\end{alltt}
+\end{kframe}\begin{figure}[]
 \subfloat[plotConcQ(qUnit=1)\label{fig:plotConcQ1}]{
 \includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcQ1} }
 \subfloat[plotLogConcQ(qUnit=1)\label{fig:plotConcQ2}]{
@@ -911,8 +915,13 @@ Note that the statistics to create the boxplot in boxQTwice are performed after 
 \end{knitrout}
 
 
+Figure \ref{fig:plotLogConcQ}:
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{plotLogFluxQ}(qUnit=1)
+\end{alltt}
+\end{kframe}\begin{figure}[]
 
 \includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogConcQ} \caption[plotLogFluxQ(qUnit=1)]{plotLogFluxQ(qUnit=1)\label{fig:plotLogConcQ}}
 \end{figure}
@@ -921,8 +930,13 @@ Note that the statistics to create the boxplot in boxQTwice are performed after 
 \end{knitrout}
 
 
+Figure \ref{fig:multiPlotDataOverview}:
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{multiPlotDataOverview}(qUnit=1)
+\end{alltt}
+\end{kframe}\begin{figure}[]
 
 \includegraphics[width=1\linewidth,height=1\linewidth]{figure/multiPlotDataOverview} \caption[multiPlotDataOverview(qUnit=1)]{multiPlotDataOverview(qUnit=1)\label{fig:multiPlotDataOverview}}
 \end{figure}
@@ -942,7 +956,7 @@ Note that the statistics to create the boxplot in boxQTwice are performed after 
 
 The basic plotting options were shown in the previous section.  This section demonstrates some ideas on how to extend the capabilities of the EGRET plots. EGRET plots use R's base plotting options. Default graphical parameters (see ?mar) and plot parameters were chosen, but all can be overridden. Additionally, features can be added to a plot after calling the plot function. To change the plot margins, set the argument customPar to TRUE.
 
-
+Figure \ref{fig:plotLogConcQComparison}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -965,7 +979,7 @@ The basic plotting options were shown in the previous section.  This section dem
 \end{knitrout}
 
 
-
+Figure \ref{fig:plot-fascinating2}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -1106,63 +1120,24 @@ At this point (after having run modelEstimation) we can start considering how to
 
 \FloatBarrier
 
-Check the help files or manual for more details on the following functions.  See section \ref{app:savingPlots} for information on saving plots. Defaults are shown here, unless an input is required:
+Check the help files or manual for more details on the following functions.  See section \ref{app:savingPlots} for information on saving plots.
 
+
+
+
+
+
+Figure \ref{fig:plotConcTimeDaily}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcomment{#Require Sample + INFO:}
-\hlfunctioncall{plotConcTimeDaily}(2008, 2010)
-\hlfunctioncall{plotFluxTimeDaily}(2008, 2010)
-\hlfunctioncall{plotConcPred}()
-\hlfunctioncall{plotFluxPred}()
-\hlfunctioncall{plotLogConcPred}()
-\hlfunctioncall{plotLogFluxPred}()
-\hlfunctioncall{plotResidPred}()
-\hlfunctioncall{plotResidQ}(qUnit=1)
-\hlfunctioncall{plotResidTime}()
-\hlfunctioncall{boxResidMonth}()
-\hlfunctioncall{boxConcThree}(qUnit=1)
+yearStart <- 2008
+yearEnd <- 2010
 
-\hlcomment{#Require annualResults + INFO:}
-\hlfunctioncall{plotConcHist}()
-\hlfunctioncall{plotFluxHist}()
-
-\hlcomment{# Multi-line plots:}
-date1 <- \hlstring{"2000-09-01"}
-date2 <- \hlstring{"2005-09-01"}
-date3 <- \hlstring{"2009-09-01"}
-qBottom<-1
-qTop<-5000
-\hlfunctioncall{plotLogConcQSmooth}(date1, date2, date3, qBottom, qTop, 
-                   concMax=2, concMin=0.1,qUnit=1)
-\hlfunctioncall{plotConcQSmooth}(date1, date2, date3, qBottom, qTop, 
-                   concMax=2,qUnit=1)
-q1 <- 10
-q2 <- 25
-q3 <- 75
-centerDate <- \hlstring{"07-01"}
-\hlfunctioncall{plotConcTimeSmooth}(q1, q2, q3, centerDate, 2000, 2010)
-
-\hlcomment{# Multi-plot:}
-\hlfunctioncall{fluxBiasMulti}(qUnit=1)
-\hlfunctioncall{fluxBiasMultiAlt}(qUnit=1)
-\hlfunctioncall{fluxBiasEight}(qUnit=1)
-
-\hlcomment{#Contour plots:}
-clevel<-\hlfunctioncall{seq}(0,2,0.5)
-maxDiff<-2
-\hlfunctioncall{plotContours}(2008,2010,qBottom,qTop, 
-             contourLevels = clevel,qUnit=1)
-\hlfunctioncall{plotDiffContours}(year0=2000,2010,
-                 qBottom,qTop,maxDiff,qUnit=1)
+\hlfunctioncall{plotConcTimeDaily}(yearStart, yearEnd)
+\hlfunctioncall{plotFluxTimeDaily}(yearStart, yearEnd)
 \end{alltt}
-\end{kframe}
-\end{knitrout}
-
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\end{kframe}\begin{figure}[]
 \subfloat[plotConcTimeDaily(yearStart=2008, yearEnd=2010)\label{fig:plotConcTimeDaily1}]{
 \includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcTimeDaily1} }
 \subfloat[plotFluxTimeDaily(yearStart=2008, yearEnd=2010)\label{fig:plotConcTimeDaily2}]{
@@ -1173,10 +1148,14 @@ maxDiff<-2
 \end{knitrout}
 
 
-\FloatBarrier
-
+Figure \ref{fig:plotFluxPred}:
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{plotConcPred}()
+\hlfunctioncall{plotLogConcPred}()
+\end{alltt}
+\end{kframe}\begin{figure}[]
 \subfloat[plotConcPred()\label{fig:plotFluxPred1}]{
 \includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotFluxPred1} }
 \subfloat[plotLogConcPred()\label{fig:plotFluxPred2}]{
@@ -1187,8 +1166,14 @@ maxDiff<-2
 \end{knitrout}
 
 
+Figure \ref{fig:plotLogFluxPred}:
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{plotFluxPred}()
+\hlfunctioncall{plotLogFluxPred}()
+\end{alltt}
+\end{kframe}\begin{figure}[]
 \subfloat[plotFluxPred()\label{fig:plotLogFluxPred1}]{
 \includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogFluxPred1} }
 \subfloat[plotLogFluxPred()\label{fig:plotLogFluxPred2}]{
@@ -1199,8 +1184,14 @@ maxDiff<-2
 \end{knitrout}
 
 
+Figure \ref{fig:plotResidQ}:
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{plotResidPred}()
+\hlfunctioncall{plotResidQ}(qUnit=1)
+\end{alltt}
+\end{kframe}\begin{figure}[]
 \subfloat[plotResidPred()\label{fig:plotResidQ1}]{
 \includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotResidQ1} }
 \subfloat[plotResidQ(qUnit=1)\label{fig:plotResidQ2}]{
@@ -1211,8 +1202,14 @@ maxDiff<-2
 \end{knitrout}
 
 
+Figure \ref{fig:boxResidMonth}:
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{plotResidTime}()
+\hlfunctioncall{boxResidMonth}()
+\end{alltt}
+\end{kframe}\begin{figure}[]
 \subfloat[plotResidTime()\label{fig:boxResidMonth1}]{
 \includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/boxResidMonth1} }
 \subfloat[boxResidMonth()\label{fig:boxResidMonth2}]{
@@ -1223,8 +1220,13 @@ maxDiff<-2
 \end{knitrout}
 
 
+Figure \ref{fig:boxConcThree}:
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{boxConcThree}()
+\end{alltt}
+\end{kframe}\begin{figure}[]
 
 \includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/boxConcThree} \caption[Default boxConcThree()]{Default boxConcThree()\label{fig:boxConcThree}}
 \end{figure}
@@ -1233,8 +1235,14 @@ maxDiff<-2
 \end{knitrout}
 
 
+Figure \ref{fig:plotFluxHist}:
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{plotConcHist}()
+\hlfunctioncall{plotFluxHist}()
+\end{alltt}
+\end{kframe}\begin{figure}[]
 \subfloat[plotConcHist()\label{fig:plotFluxHist1}]{
 \includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotFluxHist1} }
 \subfloat[plotFluxHist()\label{fig:plotFluxHist2}]{
@@ -1245,8 +1253,21 @@ maxDiff<-2
 \end{knitrout}
 
 
+Figure \ref{fig:plotLogConcQSmooth}:
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+qBottom<-1
+qTop<-5000
+date1 <- \hlstring{"2000-09-01"}
+date2 <- \hlstring{"2005-09-01"}
+date3 <- \hlstring{"2009-09-01"}
+\hlfunctioncall{plotConcQSmooth}(date1, date2, date3, qBottom, qTop, 
+                   concMax=1.5,qUnit=1)
+\hlfunctioncall{plotLogConcQSmooth}(date1, date2, date3, qBottom, qTop,
+                   concMax=1.5, concMin=0.1,qUnit=1)
+\end{alltt}
+\end{kframe}\begin{figure}[]
 \subfloat[plotConcQSmooth\label{fig:plotLogConcQSmooth1}]{
 \includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogConcQSmooth1} }
 \subfloat[plotLogConcQSmooth\label{fig:plotLogConcQSmooth2}]{
@@ -1257,8 +1278,17 @@ maxDiff<-2
 \end{knitrout}
 
 
+Figure \ref{fig:plotConcTimeSmooth}:
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+q1 <- 10
+q2 <- 25
+q3 <- 75
+centerDate <- \hlstring{"07-01"}
+\hlfunctioncall{plotConcTimeSmooth}(q1, q2, q3, centerDate, 2000, 2010)
+\end{alltt}
+\end{kframe}\begin{figure}[]
 
 \includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcTimeSmooth} \caption[plotConcTimeSmooth]{plotConcTimeSmooth\label{fig:plotConcTimeSmooth}}
 \end{figure}
@@ -1267,8 +1297,13 @@ maxDiff<-2
 \end{knitrout}
 
 
+Figure \ref{fig:fluxBiasMulti}:
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{fluxBiasMulti}(qUnit=1)
+\end{alltt}
+\end{kframe}\begin{figure}[]
 
 \includegraphics[width=1\linewidth,height=1\linewidth]{figure/fluxBiasMulti} \caption[fluxBiasMulti(qUnit=1)]{fluxBiasMulti(qUnit=1)\label{fig:fluxBiasMulti}}
 \end{figure}
@@ -1277,8 +1312,13 @@ maxDiff<-2
 \end{knitrout}
 
 
+Figure \ref{fig:fluxBiasMultiAlt}:
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{fluxBiasMultiAlt}(qUnit=1)
+\end{alltt}
+\end{kframe}\begin{figure}[]
 
 \includegraphics[width=1\linewidth,height=1\linewidth]{figure/fluxBiasMultiAlt} \caption[fluxBiasMultiAlt(qUnit=1)]{fluxBiasMultiAlt(qUnit=1)\label{fig:fluxBiasMultiAlt}}
 \end{figure}
@@ -1287,8 +1327,13 @@ maxDiff<-2
 \end{knitrout}
 
 
+Figure \ref{fig:fluxBiasEight}:
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{fluxBiasEight}(qUnit=1)
+\end{alltt}
+\end{kframe}\begin{figure}[]
 
 \includegraphics[width=\maxwidth]{figure/fluxBiasEight} \caption[fluxBiasEight(qUnit=1)]{fluxBiasEight(qUnit=1)\label{fig:fluxBiasEight}}
 \end{figure}
@@ -1297,10 +1342,15 @@ maxDiff<-2
 \end{knitrout}
 
 
-\FloatBarrier
-
+Figure \ref{fig:plotContours}:
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+clevel<-\hlfunctioncall{seq}(0,2,0.5)
+\hlfunctioncall{plotContours}(yearStart,yearEnd,qBottom,qTop, 
+             contourLevels = clevel,qUnit=1)
+\end{alltt}
+\end{kframe}\begin{figure}[]
 
 \includegraphics[width=1\linewidth,height=1\linewidth]{figure/plotContours} \caption[plotContours(2008,2010,1,5000,clevel,qUnit=1)]{plotContours(2008,2010,1,5000,clevel,qUnit=1)\label{fig:plotContours}}
 \end{figure}
@@ -1309,8 +1359,15 @@ maxDiff<-2
 \end{knitrout}
 
 
+Figure \ref{fig:plotDiffContours}:
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+maxDiff<-2
+\hlfunctioncall{plotDiffContours}(year0=2000,yearEnd,
+                 qBottom,qTop,maxDiff,qUnit=1)
+\end{alltt}
+\end{kframe}\begin{figure}[]
 
 \includegraphics[width=1\linewidth,height=1\linewidth]{figure/plotDiffContours} \caption[plotDiffContours(year0=2000,yearEnd=2010,qBottom=1,qTop=5000,maxDiff=2)]{plotDiffContours(year0=2000,yearEnd=2010,qBottom=1,qTop=5000,maxDiff=2)\label{fig:plotDiffContours}}
 \end{figure}

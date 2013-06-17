@@ -1,9 +1,9 @@
 %\VignetteIndexEntry{Introduction to the EGRET package}
 %\VignetteEngine{knitr::knitr}
-%\VignetteDepends{methods,survival, fields}
+%\VignetteDepends{}
 %\VignetteSuggests{xtable, dataRetrieval}
-%\VignetteImports{}
-%\VignettePackage{}
+%\VignetteImports{methods,survival, fields}
+%\VignettePackage{EGRET}
 
 \documentclass[a4paper,11pt]{article}
 
@@ -506,24 +506,19 @@ Once the annualSeries matrix is created, the plots of any of the stored statisti
 
 This section will give examples of the available plots appropriate for studying flow history once the annualSeries has been created. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See Appendix \ref{sec:flowHistoryVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}). Finally, see section \ref{app:savingPlots} for information on saving plots.
 
-<<plotFlow, echo=TRUE, eval=FALSE>>=
-plotFlowSingle(istat=5,qUnit="thousandCfs")
-plotSDLogQ()
-plotFour(qUnit=3)
-plotFourStats(qUnit=3)
-@
-
-<<plotSingleandSD, echo=FALSE, fig.cap="Discharge statistics",fig.subcap=c("plotFlowSingle(istat=5,qUnit='thousandCfs')","plotSDLogQ()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+Figure \ref{fig:plotSingleandSD}:
+<<plotSingleandSD, echo=TRUE, fig.cap="Discharge statistics",fig.subcap=c("plotFlowSingle(istat=5,qUnit='thousandCfs')","plotSDLogQ()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotFlowSingle(istat=5,qUnit="thousandCfs")
 plotSDLogQ()
 @
 
-
-<<plotFour, echo=FALSE, fig.cap="plotFour(qUnit=3)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+Figure \ref{fig:plotFour}:
+<<plotFour, echo=TRUE, fig.cap="plotFour(qUnit=3)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 plotFour(qUnit=3)
 @
 
-<<plotFourStats,echo=FALSE, fig.cap="plotFourStats(qUnit=3)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+Figure \ref{fig:plotFourStats}:
+<<plotFourStats,echo=TRUE, fig.cap="plotFourStats(qUnit=3)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 plotFourStats(qUnit=3)
 @
 
@@ -663,40 +658,33 @@ This section will give examples of the available plots appropriate for analyzing
 
 One note about any of the plotting functions that show the sample data:  If a value in the data set is a non-detect. Then it is displayed on a graph as a vertical line.  The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values, the minimum value on the y-axis.  This line is an 'honest' representation of what we know about that observation and doesn't involve us using a statistical model to fill in what we don't know. 
 
-<<plotList, echo=TRUE,eval=FALSE>>=
-boxConcMonth()
-boxQTwice(qUnit=1)
-plotConcTime()
-plotLogConcTime()
-plotConcQ(qUnit=1)
-plotLogConcQ(qUnit=1)
-plotLogFluxQ(qUnit=1)
-multiPlotDataOverview(qUnit=1)
-@
-
-<<plotBoxes, echo=FALSE, fig.cap="Concentration box plots",fig.subcap=c("boxConcMonth()","boxQTwice(qUnit=1)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+Figure \ref{fig:plotBoxes}:
+<<plotBoxes, echo=TRUE, fig.cap="Concentration box plots",fig.subcap=c("boxConcMonth()","boxQTwice(qUnit=1)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 boxConcMonth()
 boxQTwice(qUnit=1)
 @
 
 Note that the statistics to create the boxplot in boxQTwice are performed after the data is log-transformed.
 
-
-<<plotConcTime,echo=FALSE, fig.cap="Concentration vs time",fig.subcap=c("plotConcTime()","plotLogConcTime()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+Figure \ref{fig:plotConcTime}:
+<<plotConcTime,echo=TRUE, fig.cap="Concentration vs time",fig.subcap=c("plotConcTime()","plotLogConcTime()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotConcTime()
 plotLogConcTime()
 @
 
-<<plotConcQ, echo=FALSE, fig.cap="Concentration vs discharge",fig.subcap=c("plotConcQ(qUnit=1)","plotLogConcQ(qUnit=1)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+Figure \ref{fig:plotConcQ}:
+<<plotConcQ, echo=TRUE, fig.cap="Concentration vs discharge",fig.subcap=c("plotConcQ(qUnit=1)","plotLogConcQ(qUnit=1)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotConcQ(qUnit=1)
 plotLogConcQ(qUnit=1)
 @
 
-<<plotLogConcQ, echo=FALSE, fig.cap="plotLogFluxQ(qUnit=1)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+Figure \ref{fig:plotLogConcQ}:
+<<plotLogConcQ, echo=TRUE, fig.cap="plotLogFluxQ(qUnit=1)",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotLogFluxQ(qUnit=1)
 @
 
-<<multiPlotDataOverview, echo=FALSE, fig.cap="multiPlotDataOverview(qUnit=1)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+Figure \ref{fig:multiPlotDataOverview}:
+<<multiPlotDataOverview, echo=TRUE, fig.cap="multiPlotDataOverview(qUnit=1)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 multiPlotDataOverview(qUnit=1)
 @
 
@@ -711,7 +699,7 @@ multiPlotDataOverview(qUnit=1)
 
 The basic plotting options were shown in the previous section.  This section demonstrates some ideas on how to extend the capabilities of the EGRET plots. EGRET plots use R's base plotting options. Default graphical parameters (see ?mar) and plot parameters were chosen, but all can be overridden. Additionally, features can be added to a plot after calling the plot function. To change the plot margins, set the argument customPar to TRUE.
 
-
+Figure \ref{fig:plotLogConcQComparison}:
 <<plotLogConcQComparison,echo=TRUE,eval=TRUE,fig.cap="Modified plotLogConcQ", fig.subcap=c("Default","Modified"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotLogConcQ()
 par(mar=c(8,8,8,8))
@@ -722,7 +710,7 @@ grid()
 legend(4.5,.1,"Choptank Nitrogen", pch=18, col="blue",bg="white")
 @
 
-
+Figure \ref{fig:plot-fascinating2}:
 <<plot-fascinating2,echo=TRUE,eval=TRUE,fig.cap="Modified box plot",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 # Adding text to a boxplot:
 bp <- boxConcMonth()
@@ -812,146 +800,111 @@ At this point (after having run modelEstimation) we can start considering how to
 
 \FloatBarrier
 
-Check the help files or manual for more details on the following functions.  See section \ref{app:savingPlots} for information on saving plots. Defaults are shown here, unless an input is required:
+Check the help files or manual for more details on the following functions.  See section \ref{app:savingPlots} for information on saving plots.
 
-<<plotWRTDSList, echo=TRUE,eval=FALSE>>=
-#Require Sample + INFO:
-plotConcTimeDaily(2008, 2010)
-plotFluxTimeDaily(2008, 2010)
-plotConcPred()
-plotFluxPred()
-plotLogConcPred()
-plotLogFluxPred()
-plotResidPred()
-plotResidQ(qUnit=1)
-plotResidTime()
-boxResidMonth()
-boxConcThree(qUnit=1)
 
-#Require annualResults + INFO:
-plotConcHist()
-plotFluxHist()
-
-# Multi-line plots:
-date1 <- "2000-09-01"
-date2 <- "2005-09-01"
-date3 <- "2009-09-01"
-qBottom<-1
-qTop<-5000
-plotLogConcQSmooth(date1, date2, date3, qBottom, qTop, 
-                   concMax=2, concMin=0.1,qUnit=1)
-plotConcQSmooth(date1, date2, date3, qBottom, qTop, 
-                   concMax=2,qUnit=1)
-q1 <- 10
-q2 <- 25
-q3 <- 75
-centerDate <- "07-01"
-plotConcTimeSmooth(q1, q2, q3, centerDate, 2000, 2010)
-
-# Multi-plot:
-fluxBiasMulti(qUnit=1)
-fluxBiasMultiAlt(qUnit=1)
-fluxBiasEight(qUnit=1)
-
-#Contour plots:
-clevel<-seq(0,2,0.5)
-maxDiff<-2
-plotContours(2008,2010,qBottom,qTop, 
-             contourLevels = clevel,qUnit=1)
-plotDiffContours(year0=2000,2010,
-                 qBottom,qTop,maxDiff,qUnit=1)
-@
-
-<<plotConcTimeDaily, echo=FALSE, fig.cap="Concentration and flux vs time",fig.subcap=c("plotConcTimeDaily(yearStart=2008, yearEnd=2010)","plotFluxTimeDaily(yearStart=2008, yearEnd=2010)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<getChopData1,echo=FALSE,eval=TRUE>>=
 Sample <- ChopSample
 Daily <- ChopDaily
 INFO <- ChopINFO
 AnnualResults <- setupYears()
 surfaces <- exsurfaces
-qBottom<-1
-qTop<-5000
-clevel<-seq(0,2,0.5)
-maxDiff<-2
+@
+
+
+Figure \ref{fig:plotConcTimeDaily}:
+<<plotConcTimeDaily, echo=TRUE, fig.cap="Concentration and flux vs time",fig.subcap=c("plotConcTimeDaily(yearStart=2008, yearEnd=2010)","plotFluxTimeDaily(yearStart=2008, yearEnd=2010)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 yearStart <- 2008
 yearEnd <- 2010
-date1 <- "2000-09-01"
-date2 <- "2005-09-01"
-date3 <- "2009-09-01"
-q1 <- 10
-q2 <- 25
-q3 <- 75
-centerDate <- "07-01"
+
 plotConcTimeDaily(yearStart, yearEnd)
 plotFluxTimeDaily(yearStart, yearEnd)
 @
 
-\FloatBarrier
-
-<<plotFluxPred, echo=FALSE, fig.cap="Concentration predictions",fig.subcap=c('plotConcPred()','plotLogConcPred()'),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+Figure \ref{fig:plotFluxPred}:
+<<plotFluxPred, echo=TRUE, fig.cap="Concentration predictions",fig.subcap=c('plotConcPred()','plotLogConcPred()'),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotConcPred()
 plotLogConcPred()
 @
 
-<<plotLogFluxPred, echo=FALSE, fig.cap="Flux predictions",fig.subcap=c('plotFluxPred()','plotLogFluxPred()'), out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+Figure \ref{fig:plotLogFluxPred}:
+<<plotLogFluxPred, echo=TRUE, fig.cap="Flux predictions",fig.subcap=c('plotFluxPred()','plotLogFluxPred()'), out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotFluxPred()
 plotLogFluxPred()
 @
 
-<<plotResidQ, echo=FALSE, fig.cap="Residuals",fig.subcap=c("plotResidPred()","plotResidQ(qUnit=1)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+Figure \ref{fig:plotResidQ}:
+<<plotResidQ, echo=TRUE, fig.cap="Residuals",fig.subcap=c("plotResidPred()","plotResidQ(qUnit=1)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotResidPred()
 plotResidQ(qUnit=1)
 @
 
-<<boxResidMonth, echo=FALSE, fig.cap="Residuals with respect to time",fig.subcap=c("plotResidTime()","boxResidMonth()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+Figure \ref{fig:boxResidMonth}:
+<<boxResidMonth, echo=TRUE, fig.cap="Residuals with respect to time",fig.subcap=c("plotResidTime()","boxResidMonth()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotResidTime()
 boxResidMonth()
 @
 
-<<boxConcThree, echo=FALSE, fig.cap="Default boxConcThree()",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='asis',results='hide'>>=
+Figure \ref{fig:boxConcThree}:
+<<boxConcThree, echo=TRUE, fig.cap="Default boxConcThree()",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='asis',results='hide'>>=
 boxConcThree()
 @
 
-<<plotFluxHist, echo=FALSE, fig.cap="Concentration and flux history",fig.subcap=c("plotConcHist()", "plotFluxHist()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+Figure \ref{fig:plotFluxHist}:
+<<plotFluxHist, echo=TRUE, fig.cap="Concentration and flux history",fig.subcap=c("plotConcHist()", "plotFluxHist()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotConcHist()
 plotFluxHist()
 @
 
-<<plotLogConcQSmooth, echo=FALSE, fig.cap="Concentration vs. discharge",fig.subcap=c("plotConcQSmooth","plotLogConcQSmooth"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+Figure \ref{fig:plotLogConcQSmooth}:
+<<plotLogConcQSmooth, echo=TRUE, fig.cap="Concentration vs. discharge",fig.subcap=c("plotConcQSmooth","plotLogConcQSmooth"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+qBottom<-1
+qTop<-5000
+date1 <- "2000-09-01"
+date2 <- "2005-09-01"
+date3 <- "2009-09-01"
 plotConcQSmooth(date1, date2, date3, qBottom, qTop, 
                    concMax=1.5,qUnit=1)
 plotLogConcQSmooth(date1, date2, date3, qBottom, qTop,
                    concMax=1.5, concMin=0.1,qUnit=1)
 @
 
-<<plotConcTimeSmooth, echo=FALSE, fig.cap="plotConcTimeSmooth",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='asis',results='hide'>>=
-plotConcTimeSmooth(q1, q2, q3, centerDate, 2000, yearEnd)
+Figure \ref{fig:plotConcTimeSmooth}:
+<<plotConcTimeSmooth, echo=TRUE, fig.cap="plotConcTimeSmooth",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='asis',results='hide'>>=
+q1 <- 10
+q2 <- 25
+q3 <- 75
+centerDate <- "07-01"
+plotConcTimeSmooth(q1, q2, q3, centerDate, 2000, 2010)
 @
 
-<<fluxBiasMulti, echo=FALSE, fig.cap="fluxBiasMulti(qUnit=1)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+Figure \ref{fig:fluxBiasMulti}:
+<<fluxBiasMulti, echo=TRUE, fig.cap="fluxBiasMulti(qUnit=1)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 fluxBiasMulti(qUnit=1)
 @
 
-<<fluxBiasMultiAlt, echo=FALSE, fig.cap="fluxBiasMultiAlt(qUnit=1)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+Figure \ref{fig:fluxBiasMultiAlt}:
+<<fluxBiasMultiAlt, echo=TRUE, fig.cap="fluxBiasMultiAlt(qUnit=1)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 fluxBiasMultiAlt(qUnit=1)
 @
 
-<<fluxBiasEight, echo=FALSE, fig.cap="fluxBiasEight(qUnit=1)",fig.show='asis',fig.width=8, fig.height=10>>=
+Figure \ref{fig:fluxBiasEight}:
+<<fluxBiasEight, echo=TRUE, fig.cap="fluxBiasEight(qUnit=1)",fig.show='asis',fig.width=8, fig.height=10>>=
 fluxBiasEight(qUnit=1)
 @
 
-\FloatBarrier
-
-<<plotContours, echo=FALSE, fig.cap="plotContours(2008,2010,1,5000,clevel,qUnit=1)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
-surfaces <- exsurfaces
-Daily <- ChopDaily
-INFO <- ChopINFO
-plotContours(yearStart,yearEnd,1,5000, 
+Figure \ref{fig:plotContours}:
+<<plotContours, echo=TRUE, fig.cap="plotContours(2008,2010,1,5000,clevel,qUnit=1)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+clevel<-seq(0,2,0.5)
+plotContours(yearStart,yearEnd,qBottom,qTop, 
              contourLevels = clevel,qUnit=1)
 @
 
-<<plotDiffContours, echo=FALSE, fig.cap="plotDiffContours(year0=2000,yearEnd=2010,qBottom=1,qTop=5000,maxDiff=2)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+Figure \ref{fig:plotDiffContours}:
+<<plotDiffContours, echo=TRUE, fig.cap="plotDiffContours(year0=2000,yearEnd=2010,qBottom=1,qTop=5000,maxDiff=2)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+maxDiff<-2
 plotDiffContours(year0=2000,yearEnd,
-                 1,5000,maxDiff,qUnit=1)
+                 qBottom,qTop,maxDiff,qUnit=1)
 @
 
 
