@@ -55,8 +55,10 @@
   This function is used to compare the distribution of
   discharges in the sample data set and the discharges in
   the full daily data set. Data come from three data frames
-  created by the dataRetrieval package. These are Sample,
-  Daily, and INFO.
+  created by the dataRetrieval package: Sample, Daily, and
+  INFO. Note that discharge is plotted on a logarithmic
+  axis. The data is logged before the statistics are
+  performed to determine the output of the boxplot.
 }
 \examples{
 Sample <- ChopSample

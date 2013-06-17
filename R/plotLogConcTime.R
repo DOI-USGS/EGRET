@@ -24,6 +24,8 @@
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
 #' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
+#' @param col color of points on plot, see ?par 'Color Specification'
+#' @param lwd number line width
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords graphics water-quality statistics
 #' @export
@@ -36,12 +38,12 @@
 plotLogConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,qLower = NA,
                           qUpper = NA, paLong = 12, paStart = 10, tinyPlot = FALSE, 
                           concMax = NA, concMin = NA, printTitle = TRUE, 
-                          cex=0.8, cex.axis=1.1,cex.main=1.1,customPar=FALSE,...){
+                          cex=0.8, cex.axis=1.1,cex.main=1.1,customPar=FALSE,col="black",lwd=1,...){
  
   plotConcTime(localSample = localSample, localINFO = localINFO, qUnit = qUnit, 
                qLower = qLower, qUpper = qUpper, paLong = paLong, paStart = paStart, 
                tinyPlot = tinyPlot, concMax = concMax, concMin = concMin, 
                printTitle = printTitle, logScale=TRUE, 
-               cex=cex, cex.axis=cex.axis, cex.main=cex.main, customPar=customPar,  ...)
+               cex=cex, cex.axis=cex.axis, cex.main=cex.main, customPar=customPar,col=col,lwd=lwd,...)
  
 }

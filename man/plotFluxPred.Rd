@@ -62,7 +62,7 @@
 \examples{
 Sample <- ChopSample
 INFO <- ChopINFO
-plotFluxPred(fluxUnit = 7)
+plotFluxPred()
 plotFluxPred(fluxUnit = 'poundsDay')
 }
 \keyword{graphics}

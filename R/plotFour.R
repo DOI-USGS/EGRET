@@ -12,9 +12,11 @@
 #' @param runoff logical variable, if TRUE the streamflow data are converted to runoff values in mm/day
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param window numeric which is the full width, in years, of the time window over which the standard deviation is computed, default = 15
-#' @param cex number
-#' @param cex.lab number
-#' @param cex.axis number
+#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
+#' @param col color of points on plot, see ?par 'Color Specification'
+#' @param lwd number line width
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow statistics
 #' @export
@@ -25,7 +27,8 @@
 #' plotFour(window=2)
 plotFour<-function (localINFO = INFO, localAnnualSeries = annualSeries, localDaily = Daily, 
                     yearStart = NA, yearEnd = NA, printTitle = TRUE, runoff = FALSE, 
-                    qUnit = 1, window=15,  cex = 0.6, cex.lab = 1.4, cex.axis = 1.2, ...) 
+                    qUnit = 1, window=15,  cex = 0.6, cex.axis = 1.2,cex.main=1.2,
+                    col="black", lwd=1,...) 
 {
   
   
@@ -44,24 +47,28 @@ plotFour<-function (localINFO = INFO, localAnnualSeries = annualSeries, localDai
   plotFlowSingle(istat = 8, yearStart = setYearStart, yearEnd = setYearEnd, 
                  localAnnualSeries = localAnnualSeries, localINFO = localINFO, 
                  tinyPlot = TRUE, runoff = runoff, qUnit = qUnit, printPA = FALSE, 
-                 printIstat = TRUE, printStaName = FALSE,cex=cex, cex.lab = cex.lab, cex.axis = cex.axis, ...)
+                 printIstat = TRUE, printStaName = FALSE,cex=cex, 
+                 cex.axis = cex.axis, col=col,lwd=lwd,...)
   plotFlowSingle(istat = 2, yearStart = setYearStart, yearEnd = setYearEnd, 
                  localAnnualSeries = localAnnualSeries, localINFO = localINFO, 
                  tinyPlot = TRUE, runoff = runoff, qUnit = qUnit, printPA = FALSE, 
-                 printIstat = TRUE, printStaName = FALSE,cex=cex, cex.lab = cex.lab, cex.axis = cex.axis, ...)
+                 printIstat = TRUE, printStaName = FALSE,cex=cex, 
+                 cex.axis = cex.axis, col=col,lwd=lwd, ...)
   plotFlowSingle(istat = 5, yearStart = setYearStart, yearEnd = setYearEnd, 
                  localAnnualSeries = localAnnualSeries, localINFO = localINFO, 
                  tinyPlot = TRUE, runoff = runoff, qUnit = qUnit, printPA = FALSE, 
-                 printIstat = TRUE, printStaName = FALSE,cex=cex, cex.lab = cex.lab, cex.axis = cex.axis, ...)
+                 printIstat = TRUE, printStaName = FALSE,cex=cex, 
+                 cex.axis = cex.axis, col=col,lwd=lwd, ...)
   plotSDLogQ(yearStart = setYearStart, yearEnd = setYearEnd, window = window, 
              localDaily = localDaily, localINFO = localINFO, 
              tinyPlot = TRUE, printPA = FALSE,  
-             printStaName = FALSE, cex=cex, cex.lab = cex.lab, cex.axis = cex.axis, ...)
+             printStaName = FALSE, cex=cex, 
+             cex.axis = cex.axis, col=col,lwd=lwd, ...)
   
   textPA <- setSeasonLabelByUser(paStartInput = localINFO$paStart, 
                                  paLongInput = localINFO$paLong)
   title <- if (printTitle) 
     paste(localINFO$shortName, "\n", textPA)
-  mtext(title, cex = 1.2, outer = TRUE, font = 2)
+  mtext(title, outer = TRUE, font = 2,cex=cex.main)
   par(mfcol = c(1, 1), oma = c(0, 0, 0, 0))
 }

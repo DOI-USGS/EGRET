@@ -18,6 +18,8 @@
 #' @param rmSciX logical defaults to FALSE, changes x label from scientific to fixed
 #' @param rmSciY logical defaults to FALSE, changes y label from scientific to fixed
 #' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
+#' @param col color of points on plot, see ?par 'Color Specification'
+#' @param lwd number line width
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -27,7 +29,7 @@
 #' plotConcQ()
 plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot = FALSE, logScale=FALSE,
                     concMax = NA, concMin =NA, printTitle = TRUE, cex=0.8, cex.axis=1.1,cex.main=1.1,
-                    rmSciX=FALSE,rmSciY=FALSE, customPar=FALSE,...){
+                    rmSciX=FALSE,rmSciY=FALSE, customPar=FALSE,col="black",lwd=1,...){
   # this function shows the sample data,
   # discharge on x-axis on a log scale, concentration on y-axis
   
@@ -73,9 +75,9 @@ plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot 
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       plotTitle=plotTitle, log=logScaleText,cex.axis=cex.axis,cex=cex,
                       cex.main=cex.main, tinyPlot=tinyPlot,xaxt="n",
-                      rmSciX=rmSciX,rmSciY=rmSciY,customPar=customPar,...
+                      rmSciX=rmSciX,rmSciY=rmSciY,customPar=customPar,col=col,lwd=lwd,...
   )
   
-  censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen  )
+  censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen,col=col,lwd=lwd)
 
 }

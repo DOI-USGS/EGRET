@@ -21,7 +21,7 @@
 #' @examples
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
-#' plotFluxPred(fluxUnit = 7)
+#' plotFluxPred()
 #' plotFluxPred(fluxUnit = 'poundsDay')
 plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, fluxMax = NA, 
                        printTitle = TRUE, oneToOneLine=TRUE, customPar=FALSE, 

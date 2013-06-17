@@ -6,7 +6,8 @@
     localAnnualSeries = annualSeries, localDaily = Daily,
     yearStart = NA, yearEnd = NA, printTitle = TRUE,
     runoff = FALSE, qUnit = 1, window = 15, cex = 0.6,
-    cex.lab = 1.4, cex.axis = 1.2, ...)
+    cex.axis = 1.2, cex.main = 1.2, col = "black", lwd = 1,
+    ...)
 }
 \arguments{
   \item{localINFO}{string specifying the name of the data
@@ -41,11 +42,20 @@
   of the time window over which the standard deviation is
   computed, default = 15}
 
-  \item{cex}{number}
+  \item{cex}{numerical value giving the amount by which
+  plotting text and symbols should be magnified relative to
+  the default}
 
-  \item{cex.lab}{number}
+  \item{cex.main}{magnification to be used for main titles
+  relative to the current setting of cex}
 
-  \item{cex.axis}{number}
+  \item{cex.axis}{magnification to be used for axis
+  annotation relative to the current setting of cex}
+
+  \item{col}{color of points on plot, see ?par 'Color
+  Specification'}
+
+  \item{lwd}{number line width}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

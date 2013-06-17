@@ -2,7 +2,8 @@
 \alias{censoredSegments}
 \title{Generic plotting function to create censored line segments}
 \usage{
-  censoredSegments(yBottom, yLow, yHigh, x, Uncen)
+  censoredSegments(yBottom, yLow, yHigh, x, Uncen,
+    col = "black", lwd = 1)
 }
 \arguments{
   \item{yBottom}{number specifying minimum flux (required)}
@@ -17,6 +18,11 @@
 
   \item{Uncen}{vector that defines whether the values are
   censored (0) or not (1)}
+
+  \item{col}{color of points on plot, see ?par 'Color
+  Specification'}
+
+  \item{lwd}{number line width}
 }
 \description{
   Basic plotting framework for EGRET dot plots. Graphical

@@ -6,7 +6,8 @@
     localSample = Sample, localDaily = Daily,
     localINFO = INFO, tinyPlot = FALSE, fluxUnit = 3,
     fluxMax = NA, printTitle = TRUE, cex = 0.8,
-    cex.axis = 1.1, cex.main = 1.1, customPar = FALSE, ...)
+    cex.axis = 1.1, cex.main = 1.1, customPar = FALSE,
+    col = "black", lwd = 1, ...)
 }
 \arguments{
   \item{startYear}{numeric specifying the starting date
@@ -53,6 +54,11 @@
   \item{customPar}{logical defaults to FALSE. If TRUE, par
   should be set by user, if FALSE, EGRET chooses best
   graphical parameters.}
+
+  \item{col}{color of points on plot, see ?par 'Color
+  Specification'}
+
+  \item{lwd}{number line width}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

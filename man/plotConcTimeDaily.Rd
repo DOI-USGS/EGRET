@@ -6,7 +6,8 @@
     localSample = Sample, localDaily = Daily,
     localINFO = INFO, tinyPlot = FALSE, concMax = NA,
     printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
-    cex.main = 1.1, customPar = FALSE, ...)
+    cex.main = 1.1, customPar = FALSE, col = "black",
+    lwd = 1, ...)
 }
 \arguments{
   \item{startYear}{numeric specifying the starting date
@@ -51,6 +52,11 @@
   should be set by user, if FALSE, EGRET chooses best
   graphical parameters.}
 
+  \item{col}{color of points on plot, see ?par 'Color
+  Specification'}
+
+  \item{lwd}{number line width}
+
   \item{\dots}{arbitrary functions sent to the generic
   plotting function.  See ?par for details on possible
   parameters}
@@ -67,7 +73,7 @@
 Sample <- ChopSample
 Daily <- ChopDaily
 INFO <- ChopINFO
-plotConcTimeDaily(2001,2010)
+plotConcTimeDaily(1998,2001)
 }
 \keyword{graphics}
 \keyword{statistics}

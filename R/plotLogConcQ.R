@@ -16,6 +16,8 @@
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
+#' @param col color of points on plot, see ?par 'Color Specification'
+#' @param lwd number line width
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -27,10 +29,11 @@
 plotLogConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, 
             tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE, 
                        cex=0.8, cex.axis=1.1,cex.main=1.1,
-                       rmSciX=FALSE,rmSciY=FALSE, customPar=FALSE,...){
+                       rmSciX=FALSE,rmSciY=FALSE, customPar=FALSE,col="black",lwd=1,...){
 
   plotConcQ(localSample = localSample, localINFO = localINFO, qUnit = qUnit, tinyPlot = tinyPlot,
             logScale=TRUE, concMax = concMax, concMin = concMin,printTitle = printTitle, 
-            cex=cex, cex.axis=cex.axis,cex.main=cex.main,rmSciX=rmSciX,rmSciY=rmSciY, customPar=customPar,...)
+            cex=cex, cex.axis=cex.axis,cex.main=cex.main,rmSciX=rmSciX,rmSciY=rmSciY, 
+            customPar=customPar,col=col,lwd=lwd,...)
 
 }

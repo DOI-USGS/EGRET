@@ -16,6 +16,8 @@
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
+#' @param col color of points on plot, see ?par 'Color Specification'
+#' @param lwd number line width
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -26,7 +28,8 @@
 #' plotFluxTimeDaily(2001,2009)
 plotFluxTimeDaily<-function (startYear, endYear, localSample = Sample, localDaily = Daily, 
                              localINFO = INFO, tinyPlot = FALSE, fluxUnit = 3, fluxMax = NA, 
-                             printTitle = TRUE, cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE, ...) {
+                             printTitle = TRUE, cex=0.8, cex.axis=1.1,cex.main=1.1, 
+                             customPar=FALSE,col="black",lwd=1,...) {
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(fluxUnit)){
@@ -76,10 +79,11 @@ plotFluxTimeDaily<-function (startYear, endYear, localSample = Sample, localDail
                       xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       ylab = yLab, customPar=customPar,
-                      plotTitle=plotTitle, tinyPlot=tinyPlot,cex.axis=cex.axis,cex.main=cex.main,...
+                      plotTitle=plotTitle, tinyPlot=tinyPlot,cex.axis=cex.axis,
+                      cex.main=cex.main,col=col,lwd=lwd,...
     )
 
-  lines(xDaily, subDaily$ConcDay*subDaily$Q*fluxFactor)
-  censoredSegments(yBottom=yInfo$bottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen)
+  lines(xDaily, subDaily$ConcDay*subDaily$Q*fluxFactor,col=col,lwd=lwd)
+  censoredSegments(yBottom=yInfo$bottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen,col=col,lwd=lwd)
 
 }

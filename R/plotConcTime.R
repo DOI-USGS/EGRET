@@ -25,6 +25,8 @@
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
+#' @param col color of points on plot, see ?par 'Color Specification'
+#' @param lwd number line width
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords graphics water-quality statistics
 #' @export
@@ -36,7 +38,7 @@
 plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2, 
                        qLower = NA, qUpper = NA, paLong = 12, paStart = 10, 
                        tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale=FALSE, 
-                       cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,...){
+                       cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,col="black",lwd=1,...){
   # this function shows the sample data,
   # time on x-axis, concentration on y-axis
   
@@ -119,9 +121,9 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
                       xlab="", ylab=yLab,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,cex=cex,
                       plotTitle=plotTitle, log=logVariable,
-                      cex.axis=cex.axis,cex.main=cex.main,tinyPlot=tinyPlot,customPar=customPar, ...
+                      cex.axis=cex.axis,cex.main=cex.main,tinyPlot=tinyPlot,col=col,lwd=lwd,customPar=customPar, ...
   )
-  censoredSegments(yBottom=yInfo$ticks[1],yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
+  censoredSegments(yBottom=yInfo$ticks[1],yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen,col=col,lwd=lwd)
   
 #   if(!tinyPlot){
 #     par(originalPar)

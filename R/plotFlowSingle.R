@@ -22,6 +22,7 @@
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param lwd number line width
+#' @param col color of points on plot, see ?par 'Color Specification'
 #' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow statistics
@@ -35,7 +36,7 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
                   localINFO = INFO, localAnnualSeries = annualSeries, 
                   qMax = NA, printTitle = TRUE, tinyPlot = FALSE, customPar=FALSE,
                   runoff = FALSE, qUnit = 1, printStaName = TRUE, printPA = TRUE, 
-                  printIstat = TRUE,cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2, ...) {
+                  printIstat = TRUE,cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2, col="black",...) {
   
   qActual<-localAnnualSeries[2,istat,]
   qSmooth<-localAnnualSeries[3,istat,]
@@ -79,11 +80,11 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
                       xlab="", ylab=yLab, customPar=customPar,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,cex=cex,
                       plotTitle=title, cex.axis=cex.axis,cex.main=cex.main, 
-                      tinyPlot=tinyPlot, ...
+                      tinyPlot=tinyPlot,lwd=lwd,col=col,...
   )
   
   ##############################################
   
-  lines(localSeries$years,localSeries$qSmooth,lwd=lwd)
-#   par(mar = c(5, 4, 4, 2) + 0.1)
+  lines(localSeries$years,localSeries$qSmooth,lwd=lwd,col=col)
+
 }

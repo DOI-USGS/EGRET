@@ -8,6 +8,8 @@
 #' @param yHigh vector specifying the x data (required), such as ConcHigh
 #' @param x vector x data (required)
 #' @param Uncen vector that defines whether the values are censored (0) or not (1)
+#' @param col color of points on plot, see ?par 'Color Specification'
+#' @param lwd number line width
 #' @export
 #' @examples
 #' x <- c(1,2,3,4,5,6)
@@ -29,7 +31,7 @@
 #' yHigh <- c(1,3,4,3.3,4.4,2)
 #' Uncen <- c(0,1,1,1,1,1)
 #' censoredSegments(yBottom=yBottom,yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
-censoredSegments <- function(yBottom,yLow,yHigh,x,Uncen){
+censoredSegments <- function(yBottom,yLow,yHigh,x,Uncen,col="black",lwd=1){
   yLowVal<-ifelse(is.na(yLow),yBottom,yLow) #yLow would be NA if "simple" censored....so giving it a value here
-  segments(x[Uncen==0],yLowVal[Uncen==0],x[Uncen==0],yHigh[Uncen==0])  
+  segments(x[Uncen==0],yLowVal[Uncen==0],x[Uncen==0],yHigh[Uncen==0],col=col,lwd=lwd)  
 }

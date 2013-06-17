@@ -22,6 +22,8 @@
 #' @param cex.lab number defaults to 1.2 specifies label text magnification
 #' @param tcl number defaults to 0.5, specifies length of tick marks as fraction of height of a line of text.
 #' @param cex.axis number defaults to 1, specifies axis text magnification
+#' @param col color of points on plot, see ?par 'Color Specification'
+#' @param lwd number line width
 #' @param tinyPlot logical defaults to FALSE, if TRUE, changes defaults to be appropriate for multi-plot
 #' @param las number represents style of axis labels
 #' @param hLine logical defaults to FALSE, inserts horizontal line at zero
@@ -53,7 +55,7 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
                                 pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2,
                                 tcl=0.5,cex.axis=1,las=1,
                                 tinyPlot=FALSE,hLine=FALSE,oneToOneLine=FALSE, 
-                                rmSciX=FALSE,rmSciY=FALSE,customPar=FALSE,...){
+                                rmSciX=FALSE,rmSciY=FALSE,customPar=FALSE,col="black",lwd=1,...){
   
   if(!customPar){
     if (tinyPlot){
@@ -64,7 +66,7 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
   }
   
   plot(x,y,xlim=xlim,xaxs=xaxs,xlab=xlab,axes=FALSE,
-       ylim=ylim,yaxs=yaxs,ylab=ylab,main=plotTitle,
+       ylim=ylim,yaxs=yaxs,ylab=ylab,main=plotTitle,col=col,lwd=lwd,
        pch=pch,cex=cex,cex.main=cex.main,font.main=font.main,cex.lab=cex.lab,...)
 
   box()

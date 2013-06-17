@@ -17,6 +17,8 @@
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
+#' @param col color of points on plot, see ?par 'Color Specification'
+#' @param lwd number line width
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords graphics water-quality statistics
 #' @export
@@ -24,11 +26,11 @@
 #' Sample <- ChopSample
 #' Daily <- ChopDaily
 #' INFO <- ChopINFO
-#' plotConcTimeDaily(2001,2010)
+#' plotConcTimeDaily(1998,2001)
 plotConcTimeDaily<-function(startYear, endYear, localSample = Sample, 
                             localDaily = Daily, localINFO = INFO, tinyPlot = FALSE, 
                             concMax = NA, printTitle = TRUE,cex=0.8, cex.axis=1.1,
-                            cex.main=1.1, customPar=FALSE,...){
+                            cex.main=1.1, customPar=FALSE,col="black",lwd=1,...){
 
   subSample<-subset(localSample,DecYear>=startYear)
   subSample<-subset(subSample,DecYear<=endYear)
@@ -57,12 +59,12 @@ plotConcTimeDaily<-function(startYear, endYear, localSample = Sample,
   
   genericEGRETDotPlot(x=xSample, y=yHigh, xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                      ylab=yLab,plotTitle=plotTitle,cex.axis=cex.axis,
+                      ylab=yLab,plotTitle=plotTitle,cex.axis=cex.axis,col=col,lwd=lwd,
                       cex.main=cex.main, tinyPlot=tinyPlot,customPar=customPar, ...
   )
 
-  lines(x=xDaily, y=subDaily$ConcDay, type="l")
+  lines(x=xDaily, y=subDaily$ConcDay, type="l",col=col,lwd=lwd)
 
-  censoredSegments(yInfo$bottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen )
+  censoredSegments(yInfo$bottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen,col=col,lwd=lwd)
 
 }

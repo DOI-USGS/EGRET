@@ -8,7 +8,7 @@
     customPar = FALSE, runoff = FALSE, qUnit = 1,
     printStaName = TRUE, printPA = TRUE, printIstat = TRUE,
     cex = 0.8, cex.axis = 1.1, cex.main = 1.1, lwd = 2,
-    ...)
+    col = "black", ...)
 }
 \arguments{
   \item{istat}{A numeric value for the flow statistic to be
@@ -69,6 +69,9 @@
   annotation relative to the current setting of cex}
 
   \item{lwd}{number line width}
+
+  \item{col}{color of points on plot, see ?par 'Color
+  Specification'}
 
   \item{customPar}{logical defaults to FALSE. If TRUE, par
   should be set by user, if FALSE, EGRET chooses best

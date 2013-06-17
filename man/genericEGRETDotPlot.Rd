@@ -8,7 +8,8 @@
     cex.main = 1.3, font.main = 2, cex.lab = 1.2,
     tcl = 0.5, cex.axis = 1, las = 1, tinyPlot = FALSE,
     hLine = FALSE, oneToOneLine = FALSE, rmSciX = FALSE,
-    rmSciY = FALSE, customPar = FALSE, ...)
+    rmSciY = FALSE, customPar = FALSE, col = "black",
+    lwd = 1, ...)
 }
 \arguments{
   \item{x}{vector specifying the x data (required)}
@@ -62,6 +63,11 @@
 
   \item{cex.axis}{number defaults to 1, specifies axis text
   magnification}
+
+  \item{col}{color of points on plot, see ?par 'Color
+  Specification'}
+
+  \item{lwd}{number line width}
 
   \item{tinyPlot}{logical defaults to FALSE, if TRUE,
   changes defaults to be appropriate for multi-plot}
