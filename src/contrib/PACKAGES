@@ -4,7 +4,7 @@ Depends: R (>= 2.13.0)
 Imports: methods, survival, fields
 Suggests: xtable, dataRetrieval, knitr
 License: file LICENSE
-MD5sum: 35c764a85edc0e04cb4b6fb2743ed762
+MD5sum: 82b6fbc41951d4e6c5a8d7a877958b5f
 NeedsCompilation: no
 
 Package: dataRetrieval
