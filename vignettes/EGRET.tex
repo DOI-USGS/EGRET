@@ -532,7 +532,7 @@ endDate <- \hlstring{""}
 Daily <- \hlfunctioncall{getDVData}(siteID,\hlstring{"00060"},startDate,endDate)
 \end{alltt}
 \begin{verbatim}
-## There are  49321 data points, and  49321 days.
+## There are  49324 data points, and  49324 days.
 \end{verbatim}
 \begin{alltt}
 INFO <- \hlfunctioncall{getMetaData}(siteID,\hlstring{""},interactive=FALSE)
@@ -620,6 +620,9 @@ Once the annualSeries matrix is created, the plots of any of the stored statisti
 \subsection{Plotting Options}
 \label{sec:plotOptions}
 %------------------------------------------------------------ 
+
+\FloatBarrier
+
 This section will give examples of the available plots appropriate for studying flow history once the annualSeries has been created. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See Appendix \ref{sec:flowHistoryVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}). Finally, see section \ref{app:savingPlots} for information on saving plots.
 
 \begin{knitrout}
@@ -683,12 +686,12 @@ sta<-\hlstring{"11264500"}
 Daily <-\hlfunctioncall{getDVData}(sta,\hlstring{"00060"},StartDate=\hlstring{""},EndDate=\hlstring{""})
 \end{alltt}
 \begin{verbatim}
-## There are  35725 data points, and  35725 days.
+## There are  35728 data points, and  35728 days.
 \end{verbatim}
 \begin{alltt}
 INFO <- \hlfunctioncall{getMetaData}(sta,\hlstring{""},interactive=FALSE)
 INFO$shortName <- \hlstring{"Merced River, CA"}
-INFO <- \hlfunctioncall{setPA}(paStart=6, paLong=3)
+INFO <- \hlfunctioncall{setPA}()
 annualSeries <- \hlfunctioncall{makeAnnualSeries}()
 \hlfunctioncall{plotFlowSingle}(istat=5)
 
@@ -815,6 +818,8 @@ See Appendix \ref{app:createWordTable} for instructions on converting an R dataf
 \section{Summary of Water Quality Data (without using WRTDS)}
 \label{sec:wqa}
 %------------------------------------------------------------ 
+\FloatBarrier
+
 Before running the WRTDS model, it is very helpful to take a look at the measured data in a graphical way to understand its behavior and to identify things that might be errors in the data set or learn about the temporal distribution of the data (identify gaps) prior to running the model.  It is always best to clear up these issues before moving forward.
 
 We will now use the Choptank River at Greensboro, MD as our example case. The Choptank River is a small tributary of the Chesapeake Bay. Inorganic nitrogen (nitrate and nitrite) has been measured from 1979 onward. First, we need to get the streamflow and nitrate data into R, then use the mergeReport function to associate flow with the discrete measured water quality data. Before the data can be graphed or entered into any of the WRTDS analysis the discharge data must be brought into the Sample dataframe.  This is done with the mergeReport function which does this merger of the discharge information and also provides a compact report about some major features of the data set.
@@ -845,6 +850,8 @@ Sample <- \hlfunctioncall{mergeReport}()
 \subsection{Plotting Options}
 \label{sec:plotOptionsWQ}
 %------------------------------------------------------------ 
+\FloatBarrier
+
 This section will give examples of the available plots appropriate for analyzing the data prior to performing a WRTDS analysis. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See Appendix \ref{sec:wqVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}).
 
 One note about any of the plotting functions that show the sample data:  If a value in the data set is a non-detect. Then it is displayed on a graph as a vertical line.  The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values, the minimum value on the y-axis.  This line is an 'honest' representation of what we know about that observation and doesn't involve us using a statistical model to fill in what we don't know. 
@@ -875,6 +882,9 @@ One note about any of the plotting functions that show the sample data:  If a va
 
 
 \end{knitrout}
+
+
+Note that the statistics to create the boxplot in boxQTwice are performed after the data is log-transformed.
 
 
 \begin{knitrout}
@@ -927,6 +937,9 @@ One note about any of the plotting functions that show the sample data:  If a va
 \subsection{Extending Plots Past Defaults}
 \label{sec:extendedPlots}
 %------------------------------------------------------------ 
+
+\FloatBarrier
+
 The basic plotting options were shown in the previous section.  This section demonstrates some ideas on how to extend the capabilities of the EGRET plots. EGRET plots use R's base plotting options. Default graphical parameters (see ?mar) and plot parameters were chosen, but all can be overridden. Additionally, features can be added to a plot after calling the plot function. To change the plot margins, set the argument customPar to TRUE.
 
 
@@ -935,10 +948,11 @@ The basic plotting options were shown in the previous section.  This section dem
 \begin{alltt}
 \hlfunctioncall{plotLogConcQ}()
 \hlfunctioncall{par}(mar=\hlfunctioncall{c}(8,8,8,8))
+
 \hlfunctioncall{plotLogConcQ}(customPar=TRUE,col=\hlstring{"blue"},cex=1.1,
-             cex.axis=1.4,cex.main=1.5,cex.lab=1.2)
-\hlfunctioncall{legend}(5,.1,\hlstring{"Choptank Nitrogen"}, pch=20, col=\hlstring{"blue"})
+             cex.axis=1.4,cex.main=1.5,cex.lab=1.2,pch=18,lwd=2)
 \hlfunctioncall{grid}()
+\hlfunctioncall{legend}(4.5,.1,\hlstring{"Choptank Nitrogen"}, pch=18, col=\hlstring{"blue"},bg=\hlstring{"white"})
 \end{alltt}
 \end{kframe}\begin{figure}[]
 \subfloat[Default\label{fig:plotLogConcQComparison1}]{
@@ -968,11 +982,6 @@ bp <- \hlfunctioncall{boxConcMonth}()
 
 
 \end{knitrout}
-
-
-
-
-
 
 
 
@@ -1094,6 +1103,9 @@ At this point (after having run modelEstimation) we can start considering how to
 \subsection{Plotting Options}
 \label{sec:wrtdsPlotting}
 %------------------------------------------------------------ 
+
+\FloatBarrier
+
 Check the help files or manual for more details on the following functions.  See section \ref{app:savingPlots} for information on saving plots. Defaults are shown here, unless an input is required:
 
 \begin{knitrout}
@@ -1285,6 +1297,8 @@ maxDiff<-2
 \end{knitrout}
 
 
+\FloatBarrier
+
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
 
@@ -1303,6 +1317,7 @@ maxDiff<-2
 
 
 \end{knitrout}
+
 
 
 To specify contourLevels the seq function in R should be used.  In general it would look like this: contourLevels = seq(from,to,by).  For example, if we want contours to run from 0 to 5 in steps of 0.2 we would say:  
@@ -1607,24 +1622,24 @@ After installing the package, you need to open the library each time you re-star
   \textbf{Argument} & \textbf{Definition} \\
 \hline
 istat & Which flow statistic to plot: 1-8.  Must be specified, see Table \ref{table:istat}. \\
-yearStart\footnotemark[3] & What is the decYear value where you want the graph to start? \\
-yearEnd\footnotemark[3] & What is the decYear value where you want the graph to end? \\
+yearStart\footnotemark[1] & What is the decYear value where you want the graph to start? \\
+yearEnd\footnotemark[1] & What is the decYear value where you want the graph to end? \\
 qMax & User specified upper limit on y axis (can be used when we want several graphs to all share the same scale) will be specified in the discharge units that the user selects. \\
 printTitle & can be TRUE or FALSE, you may want FALSE if it is going to be a figure with a caption or if it is a part of a multipanel plot. \\
 tinyPlot & Can be TRUE or FALSE, the TRUE option assures that there will be a small number of tick marks, consistent with printing in a small space \\
 runoff & Can be TRUE or FALSE.  If true then discharge values are reported as runoff in mm/day.  This can be very useful in multi-site analyses. \\
 qUnit & An index indicating what discharge units to use.  Options run from 1 to 6 (see section \ref{sec:units}).  The choice should be based on the units that are customary for the audience but also, the choice should be made so that the discharge values don't have too many digits to the right or left of the decimal point.\\
-printStaName\footnotemark[4] & Can be TRUE or FALSE, if TRUE the name of the streamgage is stated in the plot title. \\
-printPA\footnotemark[4] & Can be TRUE or FALSE, if TRUE the period of analysis is stated in the plot title. \\
-printIstat\footnotemark[4] & Can be TRUE or FALSE, if TRUE the name of the statistic (e.g. 7-day minimum flow) is stated in the plot title. \\
+printStaName\footnotemark[2] & Can be TRUE or FALSE, if TRUE the name of the streamgage is stated in the plot title. \\
+printPA\footnotemark[2] & Can be TRUE or FALSE, if TRUE the period of analysis is stated in the plot title. \\
+printIstat\footnotemark[2] & Can be TRUE or FALSE, if TRUE the name of the statistic (e.g. 7-day minimum flow) is stated in the plot title. \\
 
 \hline
 \end{tabularx}
 
 \end{table}
 
-\footnotetext[3]{Setting yearStart and yearEnd will determine where the graphs start and end, but they don't determine where the smoothing analysis starts and ends.  There are situations, typically where many sites are be analyzed together, where you may want to run the smoothing on a consistent period of record across all sites.  Doing this requires modifying the Daily data frame before running makeAnnualSeries}
-\footnotetext[4]{If the printTitle argument is set to FALSE, then it really makes no difference what you do with printSta, printPA, or printIstat.  They can all be left as their default values and thus there is no need to include them in the call for the function.}
+\footnotetext[1]{Setting yearStart and yearEnd will determine where the graphs start and end, but they don't determine where the smoothing analysis starts and ends.  There are situations, typically where many sites are be analyzed together, where you may want to run the smoothing on a consistent period of record across all sites.  Doing this requires modifying the Daily data frame before running makeAnnualSeries}
+\footnotetext[2]{If the printTitle argument is set to FALSE, then it really makes no difference what you do with printSta, printPA, or printIstat.  They can all be left as their default values and thus there is no need to include them in the call for the function.}
 
 \FloatBarrier
 \clearpage
