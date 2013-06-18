@@ -21,7 +21,6 @@
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
 #' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
-#' @param col color of points on plot, see ?par 'Color Specification'
 #' @param col.pred color of flow normalized line on plot, see ?par 'Color Specification'
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics

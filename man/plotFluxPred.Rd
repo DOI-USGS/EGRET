@@ -4,9 +4,9 @@
 \usage{
   plotFluxPred(localSample = Sample, localINFO = INFO,
     fluxUnit = 3, fluxMax = NA, printTitle = TRUE,
-    oneToOneLine = TRUE, customPar = FALSE, cex = 0.8,
-    cex.axis = 1.1, cex.main = 1.1, tinyPlot = FALSE,
-    logScale = FALSE, ...)
+    oneToOneLine = TRUE, customPar = FALSE, col = "black",
+    cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
+    tinyPlot = FALSE, logScale = FALSE, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -49,6 +49,9 @@
   \item{customPar}{logical defaults to FALSE. If TRUE, par
   should be set by user, if FALSE, EGRET chooses best
   graphical parameters.}
+
+  \item{col}{color of points on plot, see ?par 'Color
+  Specification'}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

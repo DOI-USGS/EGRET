@@ -5,8 +5,9 @@
   plotFluxHist(yearStart = NA, yearEnd = NA, fluxUnit = 9,
     localAnnualResults = AnnualResults, localINFO = INFO,
     fluxMax = NA, printTitle = TRUE, plotFlowNorm = TRUE,
-    tinyPlot = FALSE, cex = 0.8, cex.axis = 1.1,
-    cex.main = 1.1, lwd = 2, customPar = FALSE, ...)
+    tinyPlot = FALSE, col = "black", col.pred = "green",
+    cex = 0.8, cex.axis = 1.1, cex.main = 1.1, lwd = 2,
+    customPar = FALSE, ...)
 }
 \arguments{
   \item{yearStart}{numeric is the calendar year containing
@@ -53,11 +54,17 @@
   \item{cex.axis}{magnification to be used for axis
   annotation relative to the current setting of cex}
 
+  \item{col}{color of points on plot, see ?par 'Color
+  Specification'}
+
   \item{lwd}{number line width}
 
   \item{customPar}{logical defaults to FALSE. If TRUE, par
   should be set by user, if FALSE, EGRET chooses best
   graphical parameters.}
+
+  \item{col.pred}{color of flow normalized line on plot,
+  see ?par 'Color Specification'}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

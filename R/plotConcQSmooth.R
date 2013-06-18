@@ -32,6 +32,7 @@
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param logScale logical whether or not to use a log scale in the y axis.
 #' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
+#' @param colors color vector of lines on plot, see ?par 'Color Specification'. Defaults to c("black","red","green")
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords water-quality statistics graphics
 #' @import survival
@@ -47,7 +48,7 @@
 #' plotConcQSmooth(date1,date2,date3,qLow,qHigh)
 plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = .05,legendTop =0.3, 
                           concMax = NA, concMin=NA, bw = FALSE, printTitle = TRUE, printValues = FALSE, 
-                          localSample = Sample, localINFO = INFO, 
+                          localSample = Sample, localINFO = INFO, colors=c("black","red","green"),
                           windowY = 10, windowQ = 2, windowS = 0.5,tinyPlot=FALSE, customPar=FALSE,
                           lwd=2,cex=0.8, cex.axis=1.1,cex.main=1.1, legend.cex=1,logScale=FALSE,...) {
   #########################################################
@@ -89,7 +90,7 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = .
   
   title<-if(printTitle) paste (localINFO$shortName,"  ",localINFO$paramShortName,"\nEstimated Concentration Versus Discharge Relationship\nat",numDates,"specific dates") else ""
   
-  colorVal<-if(bw) c("black","black","black") else c("black","red","green")
+  colorVal<-if(bw) c("black","black","black") else colors
   lineVal<-if(bw) c(1,2,3) else c(1,1,1)
 
   #####################

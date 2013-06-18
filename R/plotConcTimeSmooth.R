@@ -27,6 +27,7 @@
 #' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
 #' @param lwd line width, a positive number, defaulting to 1
 #' @param legend.cex number magnification  of legend
+#' @param colors color vector of lines on plot, see ?par 'Color Specification'. Defaults to c("black","red","green")
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords water-quality statistics graphics
 #' @export
@@ -41,10 +42,10 @@
 #' INFO <- ChopINFO
 #' plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd)
 plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit = 2, legendLeft = .05, 
-                              legendTop = 0.3, concMax = NA, bw = FALSE, printTitle = TRUE, 
+                              legendTop = 0.3, concMax = NA, bw = FALSE, printTitle = TRUE, colors=c("black","red","green"), 
                               printValues = FALSE, localSample = Sample, localINFO = INFO,tinyPlot=FALSE, 
                               windowY = 10, windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2, 
-                              legend.cex =1, cex=0.8, cex.axis=1.1, customPar=FALSE,...){
+                              legend.cex = 1, cex=0.8, cex.axis=1.1, customPar=FALSE,...){
   
   if (is.numeric(qUnit)) {
     qUnit <- qConst[shortCode = qUnit][[1]]
@@ -99,23 +100,18 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
   }
   qExpress = qUnit@qUnitExpress
   yLab = "Concentration in mg/L"
-  #xTicks <- pretty(x,8)
-  #numXTicks <- length(xTicks)
-  #xLeft <- xTicks[1]
-  #xRight <- xTicks[numXTicks]
+
   yMax <- max(y, na.rm = TRUE)
   yTop <- if (is.na(concMax)) {
     yMax
   } else {
     concMax
   }
-  #yTicks <- yPretty(yTop)
-  #numYTicks <- length(yTicks)
-  #yTop <- yTicks[numYTicks]
+
   colorVal <- if (bw) {
     c("black", "black", "black")
   } else {
-    c("black", "red", "green")
+    colors
   } 
   lineVal <- if (bw) {
     c(1, 2, 3)
@@ -123,35 +119,22 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
     c(1, 1, 1)
   }
   #####################
-
   
-  xInfo <- generalAxis(x=x, minVal=yearStart, maxVal=yearEnd, tinyPlot=tinyPlot)
-  
-  yInfo_x <- generalAxis(x=y[1,2,3,], minVal=0, maxVal=yTop, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=x, minVal=yearStart, maxVal=yearEnd, tinyPlot=tinyPlot)  
+  yInfo <- generalAxis(x=y[1,2,3,], minVal=0, maxVal=yTop, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=y[1, ],
-                      xTicks=xInfo$ticks, yTicks=yInfo_x$ticks,
-                      xlim = c(xInfo$bottom,xInfo$top),ylim = c(yInfo_x$bottom,yInfo_x$top),
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+                      xlim = c(xInfo$bottom,xInfo$top),ylim = c(yInfo$bottom,yInfo$top),
                       ylab = yLab, plotTitle=title, customPar=customPar,
                       type = "l", lwd = lwd, col = colorVal[1], lty = lineVal[1],
-                      cex.main = cex.main, tinyPlot=tinyPlot,cex=cex,cex.axis=cex,axis,...
+                      cex.main = cex.main, tinyPlot=tinyPlot,cex=cex,cex.axis=cex.axis,...
   )
 
 
   lines(x=x, y=y[2, ], col=colorVal[2], lwd=lwd, lty=lineVal[2], ...)
   lines(x=x, y=y[3, ], col=colorVal[3], lwd=lwd, lty=lineVal[3], ...)
 
-#   legendLeft <- if (legendLeft == 0) {
-#     xInfo$bottom + 2
-#   } else {
-#     legendLeft
-#   }
-#   legendTop <- if (legendTop == 0) {
-#     0.3 * yTop
-#   } else {
-#     legendTop
-#   }
-  
   words <- paste(qV[1:numQ],qUnit@qUnitName)
   ltys <- lineVal[1:numQ]
   cols <- colorVal[1:numQ]
@@ -161,9 +144,6 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
   
   legend(x1,y1 ,legend=words,lty=ltys,col=cols,lwd=lwd,cex=legend.cex)
   
-  
-#   legend(legendLeft, legendTop, legend = words, lty = ltys, 
-#          col = cols, lwd = 2, cex = 1.3)
   printResults <- rep(NA, numX * 4)
   dim(printResults) <- c(numX, 4)
   for (j in 1:numX) {

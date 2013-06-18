@@ -6,7 +6,8 @@
     localAnnualResults = AnnualResults, localINFO = INFO,
     concMax = NA, printTitle = TRUE, tinyPlot = FALSE,
     plotFlowNorm = TRUE, cex = 0.8, cex.axis = 1.1,
-    cex.main = 1.1, lwd = 2, customPar = FALSE, ...)
+    cex.main = 1.1, lwd = 2, col = "black",
+    col.pred = "green", customPar = FALSE, ...)
 }
 \arguments{
   \item{yearStart}{numeric is the calendar year containing
@@ -55,6 +56,12 @@
   \item{customPar}{logical defaults to FALSE. If TRUE, par
   should be set by user, if FALSE, EGRET chooses best
   graphical parameters.}
+
+  \item{col}{color of points on plot, see ?par 'Color
+  Specification'}
+
+  \item{col.pred}{color of flow normalized line on plot,
+  see ?par 'Color Specification'}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for
