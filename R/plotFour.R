@@ -27,11 +27,10 @@
 #' plotFour(window=2)
 plotFour<-function (localINFO = INFO, localAnnualSeries = annualSeries, localDaily = Daily, 
                     yearStart = NA, yearEnd = NA, printTitle = TRUE, runoff = FALSE, 
-                    qUnit = 1, window=15,  cex = 0.6, cex.axis = 1.2,cex.main=1.2,
+                    qUnit = 1, window=15, cex = 0.6, cex.axis = 1.2,cex.main=1.2,
                     col="black", lwd=1,...) 
 {
-  
-  
+    
   par(mfcol = c(2, 2), cex = cex, oma = c(0, 1.7, 6, 1.7))
   
   setYearStart <- if (is.na(yearStart)) {

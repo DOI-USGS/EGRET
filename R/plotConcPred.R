@@ -65,7 +65,7 @@ plotConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA, log
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xLab, ylab=yLab,log=logVariable,
                       plotTitle=plotTitle, oneToOneLine=TRUE,
-                      cex.axis=cex.axis,cex.main=cex.main,
+                      cex.axis=cex.axis,cex.main=cex.main,cex=cex,
                       tinyPlot=tinyPlot,customPar=customPar,col=col,lwd=lwd,...
     )
 

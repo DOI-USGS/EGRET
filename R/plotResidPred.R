@@ -55,7 +55,7 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   genericEGRETDotPlot(x=x, y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                      xlab=xLab, ylab=yLab, plotTitle=plotTitle, customPar=customPar,
+                      xlab=xLab, ylab=yLab, plotTitle=plotTitle, customPar=customPar,cex=cex,
                       log="x",hLine=TRUE,cex.axis=cex.axis,cex.main=cex.main, tinyPlot=tinyPlot,...
     )
 
