@@ -33,9 +33,11 @@ boxResidMonth<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   if (tinyPlot){
     if (!customPar) par(mar=c(4,5,1,0.1),cex.lab=cex.axis,mgp=c(2.5,0.5,0))
     yLab<-if(stdResid) "Standardized Residuals" else "Residuals"
+    names <- c("J","F","M","A","M","J","J","A","S","O","N","D")
   } else {
     if (!customPar) par(mar=c(5,6,4,2) + 0.1,cex.lab=cex.axis,mgp=c(3,1,0))
     yLab<-if(stdResid) "Standardized Residuals in natural log units" else "Residuals in natural log units"    
+    names <- sapply(c(1:12),function(x){monthInfo[[x]]@monthAbbrev})
   }
   
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\nBoxplots of residuals by month") else ""
@@ -43,7 +45,6 @@ boxResidMonth<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   resid<-if(stdResid) resid/localSample$SE else resid
   
   singleMonthList <- sapply(c(1:12),function(x){monthInfo[[x]]@monthAbbrev})
-  #   singleMonthList <- sapply(c(1:12),function(x){monthInfo[[x]]@monthSingle})
   
   namesListFactor <- factor(singleMonthList, levels=singleMonthList)
   monthList <- as.character(apply(localSample, 1, function(x)  monthInfo[[as.numeric(x[["Month"]])]]@monthAbbrev))
@@ -52,12 +53,10 @@ boxResidMonth<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   tempDF <- data.frame(month=monthList, resid=resid)  
   
   boxplot(tempDF$resid ~ tempDF$month,
-          #           resid~localSample$Month,
           varwidth=TRUE,
-          #           names=singleMonthList,
           xlab="Month",ylab=yLab,
           main=plotTitle,
-          las=las,
+          names=names,
           cex=cex,
           cex.main=cex.main,
           cex.axis=cex.axis,
