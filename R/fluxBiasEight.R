@@ -44,16 +44,16 @@ fluxBiasEight<-function (localSample = Sample, localDaily = Daily,
                 cex.axis = cex.axis, col=col,lwd=lwd,...)
   boxResidMonth(localSample = localSample, localINFO = localINFO, 
                 printTitle = FALSE, tinyPlot=TRUE,cex=cex, 
-                cex.axis = cex.axis, col=col,lwd=lwd,...)
+                cex.axis = cex.axis,lwd=lwd,...)
   boxConcThree(localSample = localSample, localDaily = localDaily, 
                localINFO = localINFO, printTitle=FALSE, tinyPlot=TRUE,cex=cex, 
-               cex.axis = cex.axis, col=col,lwd=lwd,...)
+               cex.axis = cex.axis, lwd=lwd,...)
   plotConcPred(localSample = localSample, localINFO=localINFO, printTitle=FALSE, 
                tinyPlot=TRUE,cex=cex, 
                cex.axis = cex.axis, col=col,lwd=lwd,...)
   boxQTwice(localSample = localSample, localDaily = localDaily, 
             localINFO = localINFO, printTitle = FALSE, qUnit = qUnit,tinyPlot=TRUE,cex=cex, 
-            cex.axis = cex.axis, col=col,lwd=lwd,...)
+            cex.axis = cex.axis, lwd=lwd,...)
   plotFluxPred(localSample = localSample, localINFO = localINFO, 
                fluxUnit, tinyPlot = TRUE, printTitle = FALSE,cex=cex, 
                cex.axis = cex.axis, col=col,lwd=lwd,...)
