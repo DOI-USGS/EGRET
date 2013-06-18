@@ -48,9 +48,13 @@ estDailyFromSurfaces <- function(localDaily = Daily, localINFO = INFO, localsurf
   
   # First, bin the LogQ values by day-of-year.
   allLogQsByDayOfYear <- split(localDaily$LogQ, localDaily$Day)
-  allLogQsByDayOfYear[['365']] <- c(unlist(allLogQsByDayOfYear['365']), 	# Bob's convention
-                                    unlist(allLogQsByDayOfYear['366']))
-  allLogQsByDayOfYear['366'] <- allLogQsByDayOfYear['365']
+#   allLogQsByDayOfYear2[['365']] <- c(unlist(allLogQsByDayOfYear['365']), 	# Bob's convention
+#                                     unlist(allLogQsByDayOfYear['366']))
+#   allLogQsByDayOfYear2['366'] <- allLogQsByDayOfYear2['365']
+  
+  allLogQsByDayOfYear[['59']] <- c(unlist(allLogQsByDayOfYear['59']),   # Bob's convention
+                                     unlist(allLogQsByDayOfYear['60']))
+  allLogQsByDayOfYear['60'] <- allLogQsByDayOfYear['60']
   
   # Using the above data structure as a "look-up" table, list all LogQ values that occured on every
   # day of the entire daily record. When "unlisted" into a vector, these will become the "x" values 
@@ -70,6 +74,9 @@ estDailyFromSurfaces <- function(localDaily = Daily, localINFO = INFO, localsurf
   # Finally bin the collective results by days (the decimal year), and calculate the desired means.
   localDaily$FNConc <- tapply(allConcReplicated, allDatesReplicated, "mean")
   localDaily$FNFlux <- tapply(allFluxReplicated, allDatesReplicated, "mean")
+  
+#   localDaily$FNConc[59 == localDaily$Day]
+#   localDaily$FNConc[60 == localDaily$Day]
   
   return(localDaily)
 }
