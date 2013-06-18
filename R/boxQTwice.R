@@ -58,12 +58,12 @@ boxQTwice<-function(localSample = Sample, localDaily = Daily, localINFO = INFO,
   yMax <- 1.01 * max(bigQ)
   
   if (tinyPlot) {
-    yLabel <- paste("Discharge (",gsub(" ","",qUnit@qShortName),")",sep="")
+    yLabel <- qUnit@qUnitTiny
     if (!customPar) par(mar=c(4,5,1,0.1),tcl=0.5,cex.lab=cex.axis)
     groupNames<-c("Sampled","All")
     yTicks <- logPretty1(yMin,yMax)
   } else {
-    yLabel <- paste("Discharge in ",qUnit@qUnitName,sep="")
+    yLabel <- qUnit@qUnitExpress
     if (!customPar) par(mar=c(5,6,4,2)+0.1,tcl=0.5,cex.lab=cex.axis)
     groupNames<-c("Sampled Days","All Days")
     yTicks <- logPretty1(yMin,yMax)
