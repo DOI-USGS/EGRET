@@ -20,6 +20,8 @@
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param lwd number magnification of line width.
 #' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
+#' @param col color of points on plot, see ?par 'Color Specification'
+#' @param col.pred color of flow normalized line on plot, see ?par 'Color Specification'
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -33,7 +35,7 @@
 #' plotConcHist(yearStart, yearEnd)
 plotConcHist<-function(yearStart = NA, yearEnd = NA, localAnnualResults = AnnualResults, 
         localINFO = INFO, concMax = NA, printTitle = TRUE, tinyPlot = FALSE,plotFlowNorm = TRUE,
-        cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2, customPar=FALSE,...){
+        cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2, col="black", col.pred="green", customPar=FALSE,...){
   # produces a graph of annual mean concentration and flow normalized concentration versus year
   # AnnualResults contains the set of results
   # typically yearStart and yearEnd should be integers, 
@@ -54,7 +56,7 @@ plotConcHist<-function(yearStart = NA, yearEnd = NA, localAnnualResults = Annual
   genericEGRETDotPlot(x=localAnnualResults$DecYear, y=localAnnualResults$Conc,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                      ylab="Concentration in mg/L", 
+                      ylab="Concentration in mg/L", col=col,cex=cex,
                       plotTitle=title, cex.axis=cex.axis,cex.main=cex.main,
                       tinyPlot=tinyPlot,customPar=customPar,...
     )
@@ -62,6 +64,6 @@ plotConcHist<-function(yearStart = NA, yearEnd = NA, localAnnualResults = Annual
   if(plotFlowNorm) with(localAnnualResults, 
                         lines(DecYear[DecYear>xInfo$bottom & DecYear<xInfo$top], 
                               FNConc[DecYear>xInfo$bottom & DecYear<xInfo$top], 
-                              col="green", lwd=lwd))
+                              col=col.pred, lwd=lwd))
 	
 }
