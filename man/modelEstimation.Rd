@@ -44,7 +44,10 @@
   function of discharge and time), estimates daily values
   of concentration and flux, and flow normalized values. It
   returns several data frames or matrices (Daily, INFO,
-  Sample, AnnualResults, and surfaces).
+  Sample, AnnualResults, and surfaces). AnnualResults is
+  calculated for water year. To use a period of analysis
+  other than water year:
+  AnnualResults<-setupYears(paLong,paStart).
 }
 \examples{
 Daily <- ChopDaily

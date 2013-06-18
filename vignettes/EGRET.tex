@@ -532,7 +532,7 @@ endDate <- \hlstring{""}
 Daily <- \hlfunctioncall{getDVData}(siteID,\hlstring{"00060"},startDate,endDate)
 \end{alltt}
 \begin{verbatim}
-## There are  49324 data points, and  49324 days.
+## There are  49325 data points, and  49325 days.
 \end{verbatim}
 \begin{alltt}
 INFO <- \hlfunctioncall{getMetaData}(siteID,\hlstring{""},interactive=FALSE)
@@ -724,7 +724,7 @@ sta<-\hlstring{"05474500"}
 Daily <-\hlfunctioncall{getDVData}(sta,\hlstring{"00060"},StartDate=\hlstring{""},EndDate=\hlstring{""})
 \end{alltt}
 \begin{verbatim}
-## There are  49428 data points, and  49428 days.
+## There are  49459 data points, and  49459 days.
 \end{verbatim}
 \begin{alltt}
 INFO <- \hlfunctioncall{getMetaData}(sta,\hlstring{""},interactive=FALSE)
@@ -1448,44 +1448,6 @@ Sometimes easier to consider the results in table formats rather than graphicall
 \end{knitrout}
 
 
-\FloatBarrier
-
-Additionally, you can have the tableResults return the results as a dataframe. This can be useful for further R analysis, or creating more visually appealing tables.  For instance, using the xtable package, one can create a \LaTeX table. See Appendix \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft.
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlfunctioncall{library}(xtable)
-tableOut <- \hlfunctioncall{tableResults}(returnDataFrame = TRUE)
-tableOut <- \hlfunctioncall{head}(tableOut)
-\hlfunctioncall{xtable}(tableOut, 
-    caption=\hlstring{"Table created from tableResults function"},
-    label=\hlstring{"table:tableResults"})
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-
-
-\begin{table}[ht]
-\centering
-\begin{tabular}{rllllll}
-  \hline
- & Year & Discharge [cms] & Conc [mg/L] & FN\_Conc [mg/L] & Flux [10\verb|^|6kg/yr] & FN\_Flux [10\verb|^|6kg/yr] \\ 
-  \hline
-1 &    1980 &      4.25 &     0.949 &     1.003 &    0.1154 &     0.106 \\ 
-  2 &    1981 &      2.22 &     1.035 &     0.999 &    0.0675 &     0.108 \\ 
-  3 &    1982 &      3.05 &     1.036 &     0.993 &    0.0985 &     0.110 \\ 
-  4 &    1983 &      4.99 &     1.007 &     0.993 &    0.1329 &     0.112 \\ 
-  5 &    1984 &      5.72 &     0.990 &     1.002 &    0.1597 &     0.114 \\ 
-  6 &    1985 &      1.52 &     1.057 &     1.017 &    0.0489 &     0.116 \\ 
-   \hline
-\end{tabular}
-\caption{Table created from tableResults function} 
-\label{table:tableResults}
-\end{table}
-
-\FloatBarrier
-
 The other table option is tableChange. This is a function that provides for the computation of changes or slopes between any selected pairs of time points.  These computations are made only on the flow-normalized results.
 
 \begin{knitrout}
@@ -1555,24 +1517,7 @@ The other table option is tableChange. This is a function that provides for the 
 \end{knitrout}
 
 
-Finally, tableChangeSingle operates exactly the same as tableChange except for the addition of two arguments: returnDataFrame and flux. This functions provides either concentration results or flux results, but not both.  This can be useful when producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except that the final two arguments.  The first is a logical argument to indicate if a data frame of output should be returned (for later manipulation and printing through other programs such as Excel), this argument is returnDataFrame, and its default is FALSE.  The final argument is flux, and the default is TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  Additionally, this function allows for the return of a dataframe.  See Appendix \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft.
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlfunctioncall{library}(xtable)
-changeOutput <- \hlfunctioncall{tableChangeSingle}(fluxUnit=5, 
-        yearPoints=\hlfunctioncall{c}(2002,2004,2006), 
-        returnDataFrame = TRUE,
-        flux=TRUE)
-
-\hlfunctioncall{xtable}(changeOutput, 
-        caption=\hlstring{"Table created from tableChangeSingle function"},
-        label=\hlstring{"table:tableChangeSingle"})
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-
+Finally, tableChangeSingle (Table \ref{table:tableChangeSingle}) operates exactly the same as tableChange except for the addition of two arguments: returnDataFrame and flux. This functions provides either concentration results or flux results, but not both.  This can be useful when producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except that the final two arguments.  The first is a logical argument to indicate if a data frame of output should be returned (for later manipulation or printing through other programs such as Excel), this argument is returnDataFrame, and its default is FALSE.  The final argument is flux, and the default is TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  Additionally, this function allows for the return of a dataframe.  See Appendix \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft.
 
 \begin{table}[ht]
 \centering

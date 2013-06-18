@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.6)  17 JUN 2013 16:33
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.6)  18 JUN 2013 11:42
 entering extended mode
 **EGRET.tex
 (D:\LADData\RCode\EGRET\vignettes\EGRET.tex
@@ -1244,147 +1244,141 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
 [40]
-Package color Info: Redefining color shadecolor on input line 1456.
+Package color Info: Redefining color shadecolor on input line 1454.
 
-Overfull \hbox (37.22945pt too wide) in paragraph at lines 1471--1483
- [][] 
- []
-
-Package color Info: Redefining color shadecolor on input line 1492.
-
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1553--1553
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1515--1515
 []\OT1/pcr/m/n/10.95 ##    time span          change        slope       change 
        slope[] 
  []
 
 
-Overfull \hbox (5.25568pt too wide) in paragraph at lines 1553--1553
+Overfull \hbox (5.25568pt too wide) in paragraph at lines 1515--1515
 []\OT1/pcr/m/n/10.95 ##                   10^6 kg/yr    10^6 kg/yr /yr      %  
        %/yr[] 
  []
 
 
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1553--1553
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1515--1515
 []\OT1/pcr/m/n/10.95 ##  1981  to  1986        0.011       0.0022           10 
            2[] 
  []
 
 
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1553--1553
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1515--1515
 []\OT1/pcr/m/n/10.95 ##  1981  to  1991        0.022       0.0022           20 
            2[] 
  []
 
 
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1553--1553
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1515--1515
 []\OT1/pcr/m/n/10.95 ##  1981  to  1996        0.026       0.0018           24 
          1.6[] 
  []
 
 
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1553--1553
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1515--1515
 []\OT1/pcr/m/n/10.95 ##  1981  to  2001        0.032       0.0016           29 
          1.5[] 
  []
 
 
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1553--1553
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1515--1515
 []\OT1/pcr/m/n/10.95 ##  1981  to  2006        0.039       0.0016           36 
          1.4[] 
  []
 
 
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1553--1553
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1515--1515
 []\OT1/pcr/m/n/10.95 ##  1981  to  2011         0.04       0.0013           37 
          1.2[] 
  []
 
 
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1553--1553
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1515--1515
 []\OT1/pcr/m/n/10.95 ##  1986  to  1991        0.011       0.0022          9.4 
          1.9[] 
  []
 
 
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1553--1553
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1515--1515
 []\OT1/pcr/m/n/10.95 ##  1986  to  1996        0.015       0.0015           13 
          1.3[] 
  []
 
 
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1553--1553
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1515--1515
 []\OT1/pcr/m/n/10.95 ##  1986  to  2001        0.021       0.0014           18 
          1.2[] 
  []
 
 
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1553--1553
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1515--1515
 []\OT1/pcr/m/n/10.95 ##  1986  to  2006        0.028       0.0014           23 
          1.2[] 
  []
 
 
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1553--1553
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1515--1515
 []\OT1/pcr/m/n/10.95 ##  1986  to  2011        0.029       0.0012           24 
         0.97[] 
  []
 
 
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1553--1553
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1515--1515
 []\OT1/pcr/m/n/10.95 ##  1991  to  1996       0.0042      0.00085          3.3 
         0.65[] 
  []
 
 
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1553--1553
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1515--1515
 []\OT1/pcr/m/n/10.95 ##  1991  to  2001       0.0097      0.00097          7.5 
         0.75[] 
  []
 
 
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1553--1553
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1515--1515
 []\OT1/pcr/m/n/10.95 ##  1991  to  2006        0.017       0.0011           13 
         0.86[] 
  []
 
 
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1553--1553
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1515--1515
 []\OT1/pcr/m/n/10.95 ##  1991  to  2011        0.018      0.00089           14 
         0.68[] 
  []
 
 
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1553--1553
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1515--1515
 []\OT1/pcr/m/n/10.95 ##  1996  to  2001       0.0055       0.0011          4.1 
         0.82[] 
  []
 
 
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1553--1553
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1515--1515
 []\OT1/pcr/m/n/10.95 ##  1996  to  2006        0.013       0.0013          9.4 
         0.94[] 
  []
 
 
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1553--1553
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1515--1515
 []\OT1/pcr/m/n/10.95 ##  1996  to  2011        0.014        9e-04           10 
         0.67[] 
  []
 
 
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1553--1553
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1515--1515
 []\OT1/pcr/m/n/10.95 ##  2001  to  2006       0.0071       0.0014          5.1 
            1[] 
  []
 
 
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1553--1553
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1515--1515
 []\OT1/pcr/m/n/10.95 ##  2001  to  2011       0.0081      0.00081          5.8 
         0.58[] 
  []
 
 
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1553--1553
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1515--1515
 []\OT1/pcr/m/n/10.95 ##  2006  to  2011      0.00096      0.00019         0.65 
         0.13[] 
  []
@@ -1394,35 +1388,25 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
 [41]
-Underfull \vbox (badness 10000) detected at line 1554
- []
-
-
-Underfull \vbox (badness 10000) detected at line 1554
- []
-
-
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
 [42]
-Package color Info: Redefining color shadecolor on input line 1561.
+Package color Info: Redefining color shadecolor on input line 1558.
+Package color Info: Redefining color shadecolor on input line 1568.
+Package color Info: Redefining color shadecolor on input line 1583.
+Package color Info: Redefining color shadecolor on input line 1601.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[43]
-Package color Info: Redefining color shadecolor on input line 1613.
-Package color Info: Redefining color shadecolor on input line 1623.
-Package color Info: Redefining color shadecolor on input line 1638.
-Package color Info: Redefining color shadecolor on input line 1656.
-
-Overfull \vbox (21.68121pt too high) has occurred while \output is active []
-
-
-[44
+[43
 
 ]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[44]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
@@ -1430,7 +1414,9 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[46]
+[46
+
+]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
@@ -1446,40 +1432,34 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[49
-
-]
+[49]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
 [50]
-Overfull \vbox (21.68121pt too high) has occurred while \output is active []
-
-
-[51]
-Package color Info: Redefining color shadecolor on input line 1846.
-LaTeX Font Info:    Try loading font information for TS1+pcr on input line 1848
+Package color Info: Redefining color shadecolor on input line 1791.
+LaTeX Font Info:    Try loading font information for TS1+pcr on input line 1793
 .
  ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\ts1pcr.fd"
 File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
 )
-Overfull \hbox (294.33533pt too wide) in paragraph at lines 1852--1852
+Overfull \hbox (294.33533pt too wide) in paragraph at lines 1797--1797
 []\OT1/pcr/m/n/10.95 pCodeINFO <- []\OT1/pcr/b/n/10.95 getMultipleParameterName
 s[]\OT1/pcr/m/n/10.95 (ChopDaily$parameter_cd,                                 
 interactive=FALSE)[] 
  []
 
-Package color Info: Redefining color shadecolor on input line 1867.
-LaTeX Font Info:    Try loading font information for OMS+pcr on input line 1869
+Package color Info: Redefining color shadecolor on input line 1812.
+LaTeX Font Info:    Try loading font information for OMS+pcr on input line 1814
 .
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\omspcr.fd"
 File: omspcr.fd 
 )
 LaTeX Font Info:    Font shape `OMS/pcr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1869.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1814.
 
 
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1885--1885
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1830--1830
 []\OT1/pcr/m/n/10.95 Suspended sediment concentration (SSC) 1980-10-01 1991-09-
 30 3651 mg/l[] 
  []
@@ -1488,74 +1468,74 @@ Overfull \hbox (11.82567pt too wide) in paragraph at lines 1885--1885
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[52
+[51
 
-] <table1.png, id=808, 554.07pt x 125.71968pt>
+] <table1.png, id=803, 554.07pt x 125.71968pt>
 File: table1.png Graphic file (type png)
  <use table1.png>
-Package pdftex.def Info: table1.png used on input line 1904.
+Package pdftex.def Info: table1.png used on input line 1849.
 (pdftex.def)             Requested size: 554.06865pt x 125.71936pt.
-Package color Info: Redefining color shadecolor on input line 1918.
+Package color Info: Redefining color shadecolor on input line 1863.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[53 <D:/LADData/RCode/EGRET/vignettes/table1.png>]
-Package color Info: Redefining color shadecolor on input line 1944.
+[52 <D:/LADData/RCode/EGRET/vignettes/table1.png>]
+Package color Info: Redefining color shadecolor on input line 1889.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[54]
-Underfull \hbox (badness 1983) in paragraph at lines 1971--1972
+[53]
+Underfull \hbox (badness 1983) in paragraph at lines 1916--1917
 []\OT1/ptm/m/n/10.95 Hirsch, R. M., Moyer, D. L. and Arch-field, S. A. (2010), 
 Weighted Re-gres-sions on
  []
 
 
-Underfull \hbox (badness 1221) in paragraph at lines 1971--1972
+Underfull \hbox (badness 1221) in paragraph at lines 1916--1917
 \OT1/ptm/m/n/10.95 Time, Dis-charge, and Sea-son (WRTDS), with an Ap-pli-ca-tio
 n to Chesa-peake Bay River
  []
 
 
-Underfull \hbox (badness 2443) in paragraph at lines 1971--1972
+Underfull \hbox (badness 2443) in paragraph at lines 1916--1917
 \OT1/ptm/m/n/10.95 In-puts. JAWRA Jour-nal of the Amer-i-can Wa-ter Re-sources 
 As-so-ci-a-tion, 46: 857-880.
  []
 
 
-Underfull \hbox (badness 3690) in paragraph at lines 1971--1972
+Underfull \hbox (badness 3690) in paragraph at lines 1916--1917
 \OT1/ptm/m/n/10.95 doi: 10.1111/j.1752-1688.2010.00482.x []$\OT1/pcr/m/n/10.95 
 http : / / onlinelibrary . wiley . com / doi /$
  []
 
 Missing character: There is no Â in font ptmr7t!
 Missing character: There is no – in font ptmr7t!
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1985.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1930.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[55
+[54
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1985.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1930.
  (D:\LADData\RCode\EGRET\vignettes\EGRET.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1985.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1985.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1930.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1930.
 
 Package rerunfilecheck Info: File `EGRET.out' has not changed.
 (rerunfilecheck)             Checksum: 288DAA6BF36F31CF1C1D10F4D62A353E;1826.
  ) 
 Here is how much of TeX's memory you used:
- 8627 strings out of 494045
- 131132 string characters out of 3145961
- 235907 words of memory out of 3000000
- 11580 multiletter control sequences out of 15000+200000
+ 8623 strings out of 494045
+ 131071 string characters out of 3145961
+ 233833 words of memory out of 3000000
+ 11578 multiletter control sequences out of 15000+200000
  30678 words of font info for 67 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
- 44i,15n,48p,1056b,468s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 44i,15n,48p,1097b,468s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files (x86)/MiKTeX 2.9/fonts/enc/dvips/fontname/8r.enc}<C:/Progra
 m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program 
 Files (x86)/MiKTeX 2.9/fonts/type1/urw/courier/ucrb8a.pfb><C:/Program Files (x8
@@ -1563,9 +1543,9 @@ Files (x86)/MiKTeX 2.9/fonts/type1/urw/courier/ucrb8a.pfb><C:/Program Files (x8
  2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/
 type1/urw/times/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/t
 imes/utmri8a.pfb>
-Output written on EGRET.pdf (55 pages, 1595096 bytes).
+Output written on EGRET.pdf (54 pages, 1592615 bytes).
 PDF statistics:
- 901 PDF objects out of 1000 (max. 8388607)
- 169 named destinations out of 1000 (max. 500000)
+ 894 PDF objects out of 1000 (max. 8388607)
+ 167 named destinations out of 1000 (max. 500000)
  425 words of extra memory for PDF output out of 10000 (max. 10000000)
 
