@@ -4,6 +4,7 @@
 #' (concentration as a function of discharge and time), 
 #' estimates daily values of concentration and flux, and flow normalized values. 
 #' It returns several data frames or matrices (Daily, INFO, Sample, AnnualResults, and surfaces).
+#' AnnualResults is calculated for water year. To use a period of analysis other than water year: AnnualResults<-setupYears(paLong,paStart).
 #'
 #' @param localDaily string specifying the name of the data frame containing the daily values, default is Daily
 #' @param localSample string specifying the name of the data frame containing the sample values, default is Sample
@@ -56,9 +57,11 @@ modelEstimation<-function(localDaily = Daily,localSample = Sample, localINFO = I
   env$INFO<-localINFO
   env$Sample<-Sample1
   env$surfaces<-surfaces1
-  localpaLong <- ifelse("paLong" %in% colnames(localINFO),localINFO$paLong, 12)
-  localpaStart <- ifelse("paStart" %in% colnames(localINFO),localINFO$paStart, 10)
-  env$AnnualResults<-setupYears(paLong = localpaLong, paStart =localpaStart, localDaily = localDaily)
-  #  env$MonthlyResults<-MonthlyResults1
-  cat("\nDone with modelEstimation,\nnow do AnnualResults<-setupYears()\nor if using a period of analysis other than Water Year specify the arguments paStart and paLong in call to setupYears ")
+#   localpaLong <- ifelse("paLong" %in% colnames(localINFO),localINFO$paLong, 12)
+#   localpaStart <- ifelse("paStart" %in% colnames(localINFO),localINFO$paStart, 10)
+#   env$AnnualResults<-setupYears(paLong = localpaLong, paStart =localpaStart, localDaily = Daily1)
+  env$AnnualResults<-setupYears(paLong = 12, paStart =10, localDaily = Daily1)
+  
+  cat("\nDone with modelEstimation,\nif you want to use a period of analysis other than water year\nnow do AnnualResults<-setupYears(paLong,paStart)\n")
+  
 }
