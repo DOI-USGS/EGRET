@@ -5,7 +5,7 @@
   plotFluxPred(localSample = Sample, localINFO = INFO,
     fluxUnit = 3, fluxMax = NA, printTitle = TRUE,
     oneToOneLine = TRUE, customPar = FALSE, col = "black",
-    cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
+    lwd = 1, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
     tinyPlot = FALSE, logScale = FALSE, ...)
 }
 \arguments{
@@ -52,6 +52,8 @@
 
   \item{col}{color of points on plot, see ?par 'Color
   Specification'}
+
+  \item{lwd}{number line width}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for
