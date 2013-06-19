@@ -18,11 +18,12 @@
 #' printqUnitCheatSheet()
 printqUnitCheatSheet <- function(){
   cat("The following codes apply to the qUnit list:\n")
-  numObects <- length(qConst)
-  qUnitNameList <- sapply(c(1:numObects), function(x){qConst[[x]]@qUnitName})
-  qShortCodeList <- sapply(c(1:numObects), function(x){qConst[[x]]@shortCode})
+  numObjects <- 4
+  #   numObjects <- length(qConst)
+  qUnitNameList <- sapply(c(1:numObjects), function(x){qConst[[x]]@qUnitName})
+  qShortCodeList <- sapply(c(1:numObjects), function(x){qConst[[x]]@shortCode})
   qNamesList <- names(qConst)
-  for (i in 1:numObects){
+  for (i in 1:numObjects){
     cat(qShortCodeList[i],"= ", qNamesList[i], " (", qUnitNameList[i], ")\n")
   }
 }
