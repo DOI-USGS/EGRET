@@ -13,7 +13,10 @@
 #' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for x and y labels relative to the current setting of cex
-#' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
+#' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+#' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
+#' @param col color of points on plot, see ?par 'Color Specification'
+#' @param lwd number line width
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords water-quality statistics graphics
 #' @export
@@ -22,7 +25,7 @@
 #' INFO <- ChopINFO
 #' plotResidPred()
 plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, 
-                        tinyPlot = FALSE, printTitle = TRUE, 
+                        tinyPlot = FALSE, printTitle = TRUE, col="black",lwd=1,
                         cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,...){
   # this function shows residual versus estimated in log space
   # estimated log concentration on the x-axis (these are prior to bias correction), 
@@ -53,12 +56,12 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   yInfo <- generalAxis(x=yHigh, minVal=(min(yLow,na.rm=TRUE)-0.5), maxVal=(max(yHigh) + 0.1), tinyPlot=tinyPlot)
 
   genericEGRETDotPlot(x=log(x), y=yHigh,
-                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,col=col,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xLab, ylab=yLab, plotTitle=plotTitle, customPar=customPar,cex=cex,
                       hLine=TRUE,cex.axis=cex.axis,cex.main=cex.main, tinyPlot=tinyPlot,...
     )
 
-  censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen  )
+  censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen, col=col, lwd=lwd )
 
 }

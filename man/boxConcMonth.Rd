@@ -37,9 +37,8 @@
   designed to be plotted small as part of a multi-plot
   figure, default is FALSE.}
 
-  \item{customPar}{logical defaults to FALSE. If TRUE, par
-  should be set by user, if FALSE, EGRET chooses best
-  graphical parameters.}
+  \item{customPar}{logical defaults to FALSE. If TRUE,
+  par() should be set by user before calling this function}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

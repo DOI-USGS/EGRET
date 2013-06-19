@@ -55,9 +55,8 @@
   \item{cex.lab}{magnification to be used for x and y
   labels relative to the current setting of cex}
 
-  \item{customPar}{logical defaults to FALSE. If TRUE, par
-  should be set by user, if FALSE, EGRET chooses best
-  graphical parameters.}
+  \item{customPar}{logical defaults to FALSE. If TRUE,
+  par() should be set by user before calling this function}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

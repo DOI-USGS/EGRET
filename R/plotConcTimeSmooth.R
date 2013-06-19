@@ -24,9 +24,10 @@
 #' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
-#' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
+#' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+#' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param lwd line width, a positive number, defaulting to 1
-#' @param legend.cex number magnification  of legend
+#' @param cex.legend number magnification  of legend
 #' @param colors color vector of lines on plot, see ?par 'Color Specification'. Defaults to c("black","red","green")
 #' @param lineVal vector of line types. Defaults to c(1,1,1) which is a solid line for each line. Options: 0=blank, 1=solid (default), 2=dashed, 3=dotted, 4=dotdash, 5=longdash, 6=twodash
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
@@ -46,7 +47,7 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
                               legendTop = 0.3, concMax = NA, bw = FALSE, printTitle = TRUE, colors=c("black","red","green"), 
                               printValues = FALSE, localSample = Sample, localINFO = INFO,tinyPlot=FALSE, 
                               windowY = 10, windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2, 
-                              legend.cex = 1, cex=0.8, cex.axis=1.1, customPar=FALSE,lineVal=c(1,1,1),...){
+                              cex.legend = 1.2, cex=0.8, cex.axis=1.1, customPar=FALSE,lineVal=c(1,1,1),...){
   
   if (is.numeric(qUnit)) {
     qUnit <- qConst[shortCode = qUnit][[1]]
@@ -143,7 +144,7 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
   x1 <- grconvertX(legendLeft, from="npc", to="user")
   y1 <- grconvertY(legendTop, from="npc", to="user") 
   
-  legend(x1,y1 ,legend=words,lty=ltys,col=cols,lwd=lwd,cex=legend.cex)
+  legend(x1,y1 ,legend=words,lty=ltys,col=cols,lwd=lwd,cex=cex.legend)
   
   printResults <- rep(NA, numX * 4)
   dim(printResults) <- c(numX, 4)

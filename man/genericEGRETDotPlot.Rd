@@ -86,9 +86,8 @@
   \item{rmSciY}{logical defaults to FALSE, changes y label
   from scientific to fixed}
 
-  \item{customPar}{logical defaults to FALSE. If TRUE, par
-  should be set by user, if FALSE, EGRET chooses best
-  graphical parameters.}
+  \item{customPar}{logical defaults to FALSE. If TRUE,
+  par() should be set by user before calling this function}
 
   \item{\dots}{additional graphical parameters can be
   adjusted}

@@ -4,8 +4,8 @@
 \usage{
   plotResidQ(localSample = Sample, localINFO = INFO,
     qUnit = 2, tinyPlot = FALSE, stdResid = FALSE,
-    printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
-    cex.main = 1.1, rmSciX = FALSE, rmSciY = FALSE,
+    printTitle = TRUE, col = "black", lwd = 1, cex = 0.8,
+    cex.axis = 1.1, cex.main = 1.1, rmSciX = FALSE,
     customPar = FALSE, ...)
 }
 \arguments{
@@ -35,9 +35,6 @@
   \item{rmSciX}{logical defaults to FALSE, changes x label
   from scientific to fixed}
 
-  \item{rmSciY}{logical defaults to FALSE, changes y label
-  from scientific to fixed}
-
   \item{cex}{numerical value giving the amount by which
   plotting text and symbols should be magnified relative to
   the default}
@@ -48,9 +45,16 @@
   \item{cex.axis}{magnification to be used for axis
   annotation relative to the current setting of cex}
 
-  \item{customPar}{logical defaults to FALSE. If TRUE, par
-  should be set by user, if FALSE, EGRET chooses best
-  graphical parameters.}
+  \item{customPar}{logical defaults to FALSE. If TRUE,
+  par() should be set by user before calling this function
+  (for example, adjusting margins with
+  par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses
+  the best margins depending on tinyPlot.}
+
+  \item{col}{color of points on plot, see ?par 'Color
+  Specification'}
+
+  \item{lwd}{number line width}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

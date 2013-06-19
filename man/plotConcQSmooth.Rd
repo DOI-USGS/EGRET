@@ -10,7 +10,7 @@
     colors = c("black", "red", "green"), windowY = 10,
     windowQ = 2, windowS = 0.5, tinyPlot = FALSE,
     customPar = FALSE, lwd = 2, cex = 0.8, cex.axis = 1.1,
-    cex.main = 1.1, legend.cex = 1, lineVal = c(1, 1, 1),
+    cex.main = 1.1, cex.legend = 1.2, lineVal = c(1, 1, 1),
     logScale = FALSE, ...)
 }
 \arguments{
@@ -111,9 +111,11 @@
   \item{logScale}{logical whether or not to use a log scale
   in the y axis.}
 
-  \item{customPar}{logical defaults to FALSE. If TRUE, par
-  should be set by user, if FALSE, EGRET chooses best
-  graphical parameters.}
+  \item{customPar}{logical defaults to FALSE. If TRUE,
+  par() should be set by user before calling this function
+  (for example, adjusting margins with
+  par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses
+  the best margins depending on tinyPlot.}
 
   \item{colors}{color vector of lines on plot, see ?par
   'Color Specification'. Defaults to

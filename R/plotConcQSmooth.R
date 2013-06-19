@@ -31,7 +31,8 @@
 #' @param legend.cex magnification to be used for legend annotation relative to the current setting of cex
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param logScale logical whether or not to use a log scale in the y axis.
-#' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
+#' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+#' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param colors color vector of lines on plot, see ?par 'Color Specification'. Defaults to c("black","red","green")
 #' @param lineVal vector of line types. Defaults to c(1,1,1) which is a solid line for each line. Options: 0=blank, 1=solid (default), 2=dashed, 3=dotted, 4=dotdash, 5=longdash, 6=twodash
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
@@ -51,7 +52,7 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = .
                           concMax = NA, concMin=NA, bw = FALSE, printTitle = TRUE, printValues = FALSE, 
                           localSample = Sample, localINFO = INFO, colors=c("black","red","green"),
                           windowY = 10, windowQ = 2, windowS = 0.5,tinyPlot=FALSE, customPar=FALSE,
-                          lwd=2,cex=0.8, cex.axis=1.1,cex.main=1.1, legend.cex=1,lineVal=c(1,1,1),logScale=FALSE,...) {
+                          lwd=2,cex=0.8, cex.axis=1.1,cex.main=1.1, cex.legend=1.2,lineVal=c(1,1,1),logScale=FALSE,...) {
   #########################################################
   if (is.numeric(qUnit)){
     qUnit <- qConst[shortCode=qUnit][[1]]
@@ -136,7 +137,7 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = .
   x1 <- grconvertX(legendLeft, from="npc", to="user")
   y1 <- grconvertY(legendTop, from="npc", to="user") 
   
-  legend(x1,y1 ,legend=words,lty=ltys,col=cols,lwd=lwd,cex=legend.cex)
+  legend(x1,y1 ,legend=words,lty=ltys,col=cols,lwd=lwd,cex=cex.legend)
   
   printResults<-rep(NA,48*4)
   dim(printResults)<-c(48,4)

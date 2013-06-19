@@ -11,11 +11,13 @@
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
 #' @param rmSciX logical defaults to FALSE, changes x label from scientific to fixed
-#' @param rmSciY logical defaults to FALSE, changes y label from scientific to fixed
 #' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
-#' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
+#' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+#' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
+#' @param col color of points on plot, see ?par 'Color Specification'
+#' @param lwd number line width
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -24,8 +26,8 @@
 #' INFO <- ChopINFO
 #' plotResidQ(qUnit=1)
 plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2, 
-                      tinyPlot = FALSE, stdResid = FALSE, printTitle = TRUE,
-                      cex=0.8, cex.axis=1.1,cex.main=1.1,rmSciX=FALSE,rmSciY=FALSE, customPar=FALSE,...) 
+                      tinyPlot = FALSE, stdResid = FALSE, printTitle = TRUE,col="black",lwd=1,
+                      cex=0.8, cex.axis=1.1,cex.main=1.1,rmSciX=FALSE, customPar=FALSE,...) 
 {  
    
    if (is.numeric(qUnit)) {
@@ -74,10 +76,10 @@ plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2,
                        xTicks=xInfo$ticks, yTicks=yInfo$ticks,hLine=TRUE,
                        xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
                        xlab = xLab, ylab = yLab, plotTitle=plotTitle,cex=cex,
-                       log = "x", cex.axis=cex.axis,cex.main=cex.main, 
-                       tinyPlot=tinyPlot,rmSciX=rmSciX,rmSciY=rmSciY, customPar=customPar,...
+                       log = "x", cex.axis=cex.axis,cex.main=cex.main, col=col,
+                       tinyPlot=tinyPlot,rmSciX=rmSciX, customPar=customPar,...
      )
 
-   censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen )
+   censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen,col=col, lwd=lwd )
    
 }

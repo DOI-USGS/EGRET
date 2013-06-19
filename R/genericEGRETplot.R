@@ -30,7 +30,7 @@
 #' @param oneToOneLine logical defaults to FALSE, inserts 1:1 line
 #' @param rmSciX logical defaults to FALSE, changes x label from scientific to fixed
 #' @param rmSciY logical defaults to FALSE, changes y label from scientific to fixed
-#' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
+#' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' @param \dots additional graphical parameters can be adjusted
 #' @keywords graphics water-quality statistics
 #' @export

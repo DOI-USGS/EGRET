@@ -49,9 +49,8 @@
   \item{cex.axis}{magnification to be used for axis
   annotation relative to the current setting of cex}
 
-  \item{customPar}{logical defaults to FALSE. If TRUE, par
-  should be set by user, if FALSE, EGRET chooses best
-  graphical parameters.}
+  \item{customPar}{logical defaults to FALSE. If TRUE,
+  par() should be set by user before calling this function}
 
   \item{col}{color of points on plot, see ?par 'Color
   Specification'}

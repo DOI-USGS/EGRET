@@ -9,7 +9,7 @@
     printValues = FALSE, localSample = Sample,
     localINFO = INFO, tinyPlot = FALSE, windowY = 10,
     windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2,
-    legend.cex = 1, cex = 0.8, cex.axis = 1.1,
+    cex.legend = 1.2, cex = 0.8, cex.axis = 1.1,
     customPar = FALSE, lineVal = c(1, 1, 1), ...)
 }
 \arguments{
@@ -105,14 +105,16 @@
   \item{cex.axis}{magnification to be used for axis
   annotation relative to the current setting of cex}
 
-  \item{customPar}{logical defaults to FALSE. If TRUE, par
-  should be set by user, if FALSE, EGRET chooses best
-  graphical parameters.}
+  \item{customPar}{logical defaults to FALSE. If TRUE,
+  par() should be set by user before calling this function
+  (for example, adjusting margins with
+  par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses
+  the best margins depending on tinyPlot.}
 
   \item{lwd}{line width, a positive number, defaulting to
   1}
 
-  \item{legend.cex}{number magnification of legend}
+  \item{cex.legend}{number magnification of legend}
 
   \item{colors}{color vector of lines on plot, see ?par
   'Color Specification'. Defaults to
