@@ -78,7 +78,7 @@ plotFluxTimeDaily<-function (startYear, endYear, localSample = Sample, localDail
   genericEGRETDotPlot(x=xSample, y=yHigh,
                       xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
-                      ylab = yLab, customPar=customPar,
+                      ylab = yLab, customPar=customPar,cex=cex,
                       plotTitle=plotTitle, tinyPlot=tinyPlot,cex.axis=cex.axis,
                       cex.main=cex.main,col=col,lwd=lwd,...
     )

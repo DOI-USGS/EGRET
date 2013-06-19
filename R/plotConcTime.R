@@ -121,7 +121,7 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
                       xlab="", ylab=yLab,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,cex=cex,
                       plotTitle=plotTitle, log=logVariable,
-                      cex.axis=cex.axis,cex.main=cex.main,tinyPlot=tinyPlot,col=col,lwd=lwd,customPar=customPar, ...
+                      cex.axis=cex.axis,cex.main=cex.main,tinyPlot=tinyPlot,col=col,customPar=customPar, ...
   )
   censoredSegments(yBottom=yInfo$ticks[1],yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen,col=col,lwd=lwd)
   

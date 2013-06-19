@@ -16,6 +16,7 @@
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param customPar logical defaults to FALSE. If TRUE, par should be set by user, if FALSE, EGRET chooses best graphical parameters.
 #' @param col color of points on plot, see ?par 'Color Specification'
+#' @param lwd number line width
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -25,7 +26,7 @@
 #' plotFluxPred()
 #' plotFluxPred(fluxUnit = 'poundsDay')
 plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, fluxMax = NA, 
-                       printTitle = TRUE, oneToOneLine=TRUE, customPar=FALSE,col="black", 
+                       printTitle = TRUE, oneToOneLine=TRUE, customPar=FALSE,col="black", lwd=1,
                        cex=0.8, cex.axis=1.1,cex.main=1.1,tinyPlot=FALSE,logScale=FALSE,...){
   # this function shows observed versus estimated flux
   # estimated flux on the x-axis (these include the bias correction), 
@@ -81,6 +82,6 @@ plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, flu
                       tinyPlot=tinyPlot,cex.axis=cex.axis,cex.main=cex.main,...
   )
   
-  censoredSegments(yBottom=yInfo$bottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen)
+  censoredSegments(yBottom=yInfo$bottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen,col=col,lwd=lwd)
 
 }
