@@ -74,6 +74,8 @@ plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA,
   } else {
     yLab <- qUnit@qUnitExpress
   }
+  
+  yLab <- if(runoff) "Runoff in mm/day" else yLab
 
   genericEGRETDotPlot(x=localSeries$years, y=localSeries$qActual, 
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
