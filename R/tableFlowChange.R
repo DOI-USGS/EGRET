@@ -60,7 +60,14 @@ tableFlowChange<-function(istat, localAnnualSeries = annualSeries, localINFO = I
   numPointsMinusOne<-numPoints-1
   write(header2,file="")
   unitsText<-if(runoff) "mm/day" else qUnit@qShortName
-  cat("                     ",unitsText,unitsText,"/yr         %         %/yr")
+  
+  if(runoff){
+    cat("                      ",unitsText,"      ",unitsText,"/yr       %           %/yr",sep="")
+  } else {
+    formatSpacing <- if (3 == nchar(gsub(" ", "",unitsText))) "       " else "   "
+    cat("                     ",unitsText,formatSpacing,gsub(" ", "",unitsText),"/yr        %            %/yr",sep="")
+  }
+  
   for(iFirst in 1:numPointsMinusOne) {
     xFirst<-indexPoints[iFirst]
     yFirst<-qSmooth[indexPoints[iFirst]]
