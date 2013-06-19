@@ -18,7 +18,8 @@
 #' Daily <- ChopDaily
 #' annualSeries <- makeAnnualSeries()
 #' printSeries(5)
-printSeries<-function(istat, qUnit = 1, runoff = FALSE, localINFO = INFO, localAnnualSeries = annualSeries) {
+printSeries<-function(istat, qUnit = 1, runoff = FALSE, localINFO = INFO, 
+                      localAnnualSeries = annualSeries) {
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(qUnit)){
@@ -47,4 +48,6 @@ printSeries<-function(istat, qUnit = 1, runoff = FALSE, localINFO = INFO, localA
   toPrint$qActual<-format(toPrint$qActual,digits=3,width=8)
   toPrint$qSmooth<-format(toPrint$qSmooth,digits=3,width=8)
   write.table(toPrint,file="",col.names=FALSE,row.names=FALSE,quote=FALSE)
+  
+  return(toPrint)
 }
