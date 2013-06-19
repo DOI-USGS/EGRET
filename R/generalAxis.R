@@ -25,8 +25,18 @@ generalAxis <- function(x, maxVal, minVal,logScale=FALSE, tinyPlot=FALSE,padPerc
   upperMagnification <- 1+(padPercent/100)
   lowerMagnification <- 1-(padPercent/100)
   
-  high <- if(is.na(maxVal)) {upperMagnification*max(x,na.rm=TRUE)} else {maxVal}
-  low <- if(is.na(minVal)) {lowerMagnification*min(x,na.rm=TRUE)} else {minVal}       
+  if (max(x,na.rm=TRUE) > 0){
+    high <- if(is.na(maxVal)) {upperMagnification*max(x,na.rm=TRUE)} else {maxVal}
+  } else {
+    high <- if(is.na(maxVal)) {lowerMagnification*max(x,na.rm=TRUE)} else {maxVal}
+  }
+  
+  if (min(x,na.rm=TRUE) > 0){
+    low <- if(is.na(minVal)) {lowerMagnification*min(x,na.rm=TRUE)} else {minVal}
+  } else {
+    low <- if(is.na(minVal)) {upperMagnification*min(x,na.rm=TRUE)} else {minVal}
+  }
+   
   
   span<-c(low,high)
   
