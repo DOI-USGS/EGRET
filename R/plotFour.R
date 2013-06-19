@@ -27,7 +27,7 @@
 #' plotFour(window=2)
 plotFour<-function (localINFO = INFO, localAnnualSeries = annualSeries, localDaily = Daily, 
                     yearStart = NA, yearEnd = NA, printTitle = TRUE, runoff = FALSE, 
-                    qUnit = 1, window=15, cex = 0.6, cex.axis = 1.2,cex.main=1.2,
+                    qUnit = 1, window=15, cex = 0.8, cex.axis = 1.2,cex.main=1.2,
                     col="black", lwd=1,...) 
 {
     
@@ -46,22 +46,22 @@ plotFour<-function (localINFO = INFO, localAnnualSeries = annualSeries, localDai
   plotFlowSingle(istat = 8, yearStart = setYearStart, yearEnd = setYearEnd, 
                  localAnnualSeries = localAnnualSeries, localINFO = localINFO, 
                  tinyPlot = TRUE, runoff = runoff, qUnit = qUnit, printPA = FALSE, 
-                 printIstat = TRUE, printStaName = FALSE,cex=cex, 
+                 printIstat = TRUE, printStaName = FALSE,cex=cex, cex.main=1,
                  cex.axis = cex.axis, col=col,lwd=lwd,...)
   plotFlowSingle(istat = 2, yearStart = setYearStart, yearEnd = setYearEnd, 
                  localAnnualSeries = localAnnualSeries, localINFO = localINFO, 
                  tinyPlot = TRUE, runoff = runoff, qUnit = qUnit, printPA = FALSE, 
-                 printIstat = TRUE, printStaName = FALSE,cex=cex, 
+                 printIstat = TRUE, printStaName = FALSE,cex=cex, cex.main=1,
                  cex.axis = cex.axis, col=col,lwd=lwd, ...)
   plotFlowSingle(istat = 5, yearStart = setYearStart, yearEnd = setYearEnd, 
                  localAnnualSeries = localAnnualSeries, localINFO = localINFO, 
                  tinyPlot = TRUE, runoff = runoff, qUnit = qUnit, printPA = FALSE, 
-                 printIstat = TRUE, printStaName = FALSE,cex=cex, 
+                 printIstat = TRUE, printStaName = FALSE,cex=cex, cex.main=1,
                  cex.axis = cex.axis, col=col,lwd=lwd, ...)
   plotSDLogQ(yearStart = setYearStart, yearEnd = setYearEnd, window = window, 
              localDaily = localDaily, localINFO = localINFO, 
              tinyPlot = TRUE, printPA = FALSE,  
-             printStaName = FALSE, cex=cex, 
+             printStaName = FALSE, cex=cex, cex.main=1,
              cex.axis = cex.axis, col=col,lwd=lwd, ...)
   
   textPA <- setSeasonLabelByUser(paStartInput = localINFO$paStart, 
