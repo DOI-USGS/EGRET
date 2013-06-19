@@ -6,10 +6,12 @@
     qUnit = 2, legendLeft = 0.05, legendTop = 0.3,
     concMax = NA, concMin = NA, bw = FALSE,
     printTitle = TRUE, printValues = FALSE,
-    localSample = Sample, localINFO = INFO, windowY = 10,
+    localSample = Sample, localINFO = INFO,
+    colors = c("black", "red", "green"), windowY = 10,
     windowQ = 2, windowS = 0.5, tinyPlot = FALSE,
     customPar = FALSE, lwd = 2, cex = 0.8, cex.axis = 1.1,
-    cex.main = 1.1, legend.cex = 1, logScale = FALSE, ...)
+    cex.main = 1.1, legend.cex = 1, lineVal = c(1, 1, 1),
+    logScale = FALSE, ...)
 }
 \arguments{
   \item{date1}{string specifying the date for the first
@@ -112,6 +114,15 @@
   \item{customPar}{logical defaults to FALSE. If TRUE, par
   should be set by user, if FALSE, EGRET chooses best
   graphical parameters.}
+
+  \item{colors}{color vector of lines on plot, see ?par
+  'Color Specification'. Defaults to
+  c("black","red","green")}
+
+  \item{lineVal}{vector of line types. Defaults to c(1,1,1)
+  which is a solid line for each line. Options: 0=blank,
+  1=solid (default), 2=dashed, 3=dotted, 4=dotdash,
+  5=longdash, 6=twodash}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

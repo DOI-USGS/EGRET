@@ -5,11 +5,12 @@
   plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart,
     yearEnd, qUnit = 2, legendLeft = 0.05, legendTop = 0.3,
     concMax = NA, bw = FALSE, printTitle = TRUE,
+    colors = c("black", "red", "green"),
     printValues = FALSE, localSample = Sample,
     localINFO = INFO, tinyPlot = FALSE, windowY = 10,
     windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2,
     legend.cex = 1, cex = 0.8, cex.axis = 1.1,
-    customPar = FALSE, ...)
+    customPar = FALSE, lineVal = c(1, 1, 1), ...)
 }
 \arguments{
   \item{q1}{numeric This is the discharge value for the
@@ -112,6 +113,15 @@
   1}
 
   \item{legend.cex}{number magnification of legend}
+
+  \item{colors}{color vector of lines on plot, see ?par
+  'Color Specification'. Defaults to
+  c("black","red","green")}
+
+  \item{lineVal}{vector of line types. Defaults to c(1,1,1)
+  which is a solid line for each line. Options: 0=blank,
+  1=solid (default), 2=dashed, 3=dotted, 4=dotdash,
+  5=longdash, 6=twodash}
 
   \item{\dots}{arbitrary functions sent to the generic
   plotting function.  See ?par for details on possible

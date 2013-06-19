@@ -39,24 +39,24 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   Uncen<-localSample$Uncen
   
   if (tinyPlot){
-    xLab <- "Est. Conc. (mg/L)"
+    xLab <- "Est. Conc. in natural log units"
     yLab <- if(stdResid) "Std. Residual" else "Residual"
   }  else {
-    xLab<-"Estimated Concentration in mg/L"
+    xLab<-"Estimated Concentration in natural log units"
     yLab<-if(stdResid) "Standardized Residual in natural log units" else "Residual in natural log units"
   }
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Residual versus Estimated Concentration") else ""
   
   ####################
   
-  xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot, padPercent=5)
+  xInfo <- generalAxis(x=log(x), minVal=NA, maxVal=NA, logScale=FALSE, tinyPlot=tinyPlot, padPercent=5)
   yInfo <- generalAxis(x=yHigh, minVal=(min(yLow,na.rm=TRUE)-0.5), maxVal=(max(yHigh) + 0.1), tinyPlot=tinyPlot)
 
-  genericEGRETDotPlot(x=x, y=yHigh,
+  genericEGRETDotPlot(x=log(x), y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xLab, ylab=yLab, plotTitle=plotTitle, customPar=customPar,cex=cex,
-                      log="x",hLine=TRUE,cex.axis=cex.axis,cex.main=cex.main, tinyPlot=tinyPlot,...
+                      hLine=TRUE,cex.axis=cex.axis,cex.main=cex.main, tinyPlot=tinyPlot,...
     )
 
   censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen  )

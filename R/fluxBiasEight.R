@@ -25,8 +25,9 @@
 #' Sample <- ChopSample
 #' Daily <- ChopDaily
 #' INFO <- ChopINFO
-#' 
+#' pdf("fluxBiasEight.pdf", height=10, width=10)
 #' fluxBiasEight()
+#' dev.off()
 fluxBiasEight<-function (localSample = Sample, localDaily = Daily, 
                          localINFO = INFO, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS", 
                          cex = 0.6, cex.axis = 1.1,cex.main=1.1,

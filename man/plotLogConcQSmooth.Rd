@@ -7,9 +7,11 @@
     concMax = NA, concMin = NA, bw = FALSE,
     printTitle = TRUE, printValues = FALSE,
     localSample = Sample, localINFO = INFO,
-    customPar = FALSE, windowY = 10, windowQ = 2,
-    windowS = 0.5, tinyPlot = FALSE, lwd = 2, cex = 0.8,
-    cex.axis = 1.1, cex.main = 1.1, legend.cex = 1, ...)
+    customPar = FALSE, colors = c("black", "red", "green"),
+    windowY = 10, windowQ = 2, windowS = 0.5,
+    tinyPlot = FALSE, lwd = 2, cex = 0.8, cex.axis = 1.1,
+    cex.main = 1.1, legend.cex = 1, lineVal = c(1, 1, 1),
+    ...)
 }
 \arguments{
   \item{date1}{string specifying the date for the first
@@ -109,6 +111,15 @@
   \item{tinyPlot}{logical variable, if TRUE plot is
   designed to be plotted small as part of a multi-plot
   figure, default is FALSE.}
+
+  \item{colors}{color vector of lines on plot, see ?par
+  'Color Specification'. Defaults to
+  c("black","red","green")}
+
+  \item{lineVal}{vector of line types. Defaults to c(1,1,1)
+  which is a solid line for each line. Options: 0=blank,
+  1=solid (default), 2=dashed, 3=dotted, 4=dotdash,
+  5=longdash, 6=twodash}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

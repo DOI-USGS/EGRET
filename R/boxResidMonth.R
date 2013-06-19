@@ -31,11 +31,11 @@ boxResidMonth<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   #  if stdResid=TRUE, they will be standardized residuals
   #Box width is proportional to the square root of the sample size
   if (tinyPlot){
-    if (!customPar) par(mar=c(4,5,1,0.1),cex.lab=cex.axis,mgp=c(2.5,0.5,0))
+    if (!customPar) par(mar=c(4,5,1,0.1),cex.lab=cex.axis,mgp=c(2.5,0.5,0),tcl=0.5)
     yLab<-if(stdResid) "Standardized Residuals" else "Residuals"
     names <- c("J","F","M","A","M","J","J","A","S","O","N","D")
   } else {
-    if (!customPar) par(mar=c(5,6,4,2) + 0.1,cex.lab=cex.axis,mgp=c(3,1,0))
+    if (!customPar) par(mar=c(5,6,4,2) + 0.1,cex.lab=cex.axis,mgp=c(3,1,0),tcl=0.5)
     yLab<-if(stdResid) "Standardized Residuals in natural log units" else "Residuals in natural log units"    
     names <- sapply(c(1:12),function(x){monthInfo[[x]]@monthAbbrev})
   }

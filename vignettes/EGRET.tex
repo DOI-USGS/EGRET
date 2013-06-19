@@ -131,7 +131,7 @@ Exploration and Graphics for RivEr Trends (EGRET): An R-package for the analysis
 (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}) 
 \textbf{for more information on the EGRET package.}
 
-For information on getting started in R, downloading and installing the package, see Appendix 1:
+For information on getting started in R, downloading and installing the package, see Appendix \ref{sec:appendix1}.
 
 The best way to learn about the WRTDS approach and to see examples of its application to multiple large data sets is to read two journal articles.  They are available, for free, from the journals in which they were published.
 
@@ -1138,9 +1138,9 @@ yearEnd <- 2010
 \hlfunctioncall{plotFluxTimeDaily}(yearStart, yearEnd)
 \end{alltt}
 \end{kframe}\begin{figure}[]
-\subfloat[plotConcTimeDaily(yearStart=2008, yearEnd=2010)\label{fig:plotConcTimeDaily1}]{
+\subfloat[plotConcTimeDaily(startYear=2008, endYear=2010)\label{fig:plotConcTimeDaily1}]{
 \includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcTimeDaily1} }
-\subfloat[plotFluxTimeDaily(yearStart=2008, yearEnd=2010)\label{fig:plotConcTimeDaily2}]{
+\subfloat[plotFluxTimeDaily(startYear=2008, endYear=2010)\label{fig:plotConcTimeDaily2}]{
 \includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcTimeDaily2} }\caption[Concentration and flux vs time]{Concentration and flux vs time\label{fig:plotConcTimeDaily}}
 \end{figure}
 
@@ -1517,7 +1517,7 @@ The other table option is tableChange. This is a function that provides for the 
 \end{knitrout}
 
 
-Finally, tableChangeSingle (Table \ref{table:tableChangeSingle}) operates exactly the same as tableChange except for the addition of two arguments: returnDataFrame and flux. This functions provides either concentration results or flux results, but not both.  This can be useful when producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except that the final two arguments.  The first is a logical argument to indicate if a data frame of output should be returned (for later manipulation or printing through other programs such as Excel), this argument is returnDataFrame, and its default is FALSE.  The final argument is flux, and the default is TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  Additionally, this function allows for the return of a dataframe.  See Appendix \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft.
+Finally, tableChangeSingle (Table \ref{table:tableChangeSingle}) operates exactly the same as tableChange except for the addition of two arguments: returnDataFrame and flux. This functions provides either concentration results or flux results, but not both.  This can be useful when producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except that the final two arguments.  The first is a logical argument to indicate if a dataframe of output should be returned (for later manipulation or printing through other programs such as Excel), this argument is returnDataFrame, and its default is FALSE.  The final argument is flux, and the default is TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  Additionally, this function allows for the return of a dataframe.  See Appendix \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft.
 
 \begin{table}[ht]
 \centering
@@ -1922,7 +1922,7 @@ Sprague, L. A., Hirsch, R. M., and Aulenbach, B. T. (2011), Nitrate in the Missi
 Moyer, D.L., Hirsch, R.M., and Hyer, K.E. (2012), Comparison of Two Regression-Based Approaches for Determining Nutrient and Sediment Fluxes and Trends in the Chesapeake Bay Watershed: U.S. Geological Survey Scientific Investigations Report: 2012-5244, 118 p. \url{http://pubs.usgs.gov/sir/2012/5244/}
 
 \bibitem{HirschV}
-Rice, K.C., and Hirsch, R.M. (2012), Spatial and temporal trends in runoff at long-term streamgages within and near the Chesapeake Bay Watershed: U.S. Geological Survey Scientific Investigations Report 20125151, 56 p. \url{http://pubs.usgs.gov/sir/2012/5151}
+Rice, K.C., and Hirsch, R.M. (2012), Spatial and temporal trends in runoff at long-term streamgages within and near the Chesapeake Bay Watershed: U.S. Geological Survey Scientific Investigations Report: 2012-5151, 56 p. \url{http://pubs.usgs.gov/sir/2012/5151}
 
 
 \end{thebibliography}
