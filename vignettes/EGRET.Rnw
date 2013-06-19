@@ -569,11 +569,11 @@ The example shown here illustrates a very long record and the long gap of more t
 \subsection{Table Options}
 \label{sec:tableOptions}
 %------------------------------------------------------------ 
-Sometimes easier to consider the results in table formats rather than graphically. Similar to the function plotFlowSingle, the printSeries will print the requested flow statistics (Table \ref{table:istat}). A small sample of the output is printed below.
+Sometimes easier to consider the results in table formats rather than graphically. Similar to the function plotFlowSingle, the printSeries will print the requested flow statistics (Table \ref{table:istat}), as well as return the results in a dataframe. A small sample of the output is printed below.
 
 
 <<printSeries, eval=FALSE,echo=TRUE>>=
-printSeries(istat=3, qUnit=3)
+seriesResult <- printSeries(istat=3, qUnit=3)
 @
 
 \begin{verbatim}

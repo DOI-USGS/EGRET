@@ -13,11 +13,10 @@
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
 #' @param lwd line width, a positive number, defaulting to 1
 #' @param col specification for the default plotting color
-#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
-#' @param font.main font to be used for plot main titles
 #' @param cex.lab magnification to be used for x and y labels relative to the current setting of cex
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+#' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow
 #' @export
@@ -28,7 +27,7 @@
 plotQTimeDaily<-function (startYear, endYear, localDaily = Daily, 
                           localINFO = INFO, qLower = NA, qUnit = 1, 
                           tinyPlot = FALSE, printTitle = TRUE, lwd = 3, col="red", 
-                          cex = 0.7, cex.main = 1.3, font.main = 2, cex.lab = 1.2, customPar=FALSE,...)    
+                          cex.main = 1.2, cex.lab = 1.2, customPar=FALSE,...)    
 {
   #########################################################
   if (is.numeric(qUnit)) {
@@ -67,7 +66,7 @@ plotQTimeDaily<-function (startYear, endYear, localDaily = Daily,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab="", ylab=yLab, customPar=customPar,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks, tinyPlot=tinyPlot,
-                      plotTitle=plotTitle, cex=cex,cex.main=cex.main,font.main=font.main,cex.lab=cex.lab,
+                      plotTitle=plotTitle, cex.main=cex.main,cex.lab=cex.lab,
                       type="l",col=col,lwd=lwd,...
   )
 
