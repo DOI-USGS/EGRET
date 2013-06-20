@@ -16,7 +16,8 @@
 #' Daily <- ChopDaily
 #' INFO <- ChopINFO
 #' multiPlotDataOverview(qUnit=1)
-multiPlotDataOverview<-function (localSample = Sample, localDaily = Daily, localINFO = INFO, qUnit = 2){
+multiPlotDataOverview<-function (localSample = Sample, localDaily = Daily, 
+                                 localINFO = INFO, qUnit = 2){
   par(mfcol=c(2,2),oma=c(0,2.4,4.5,2.4),tcl=0.5)
   plotLogConcQ(localSample = localSample, qUnit = qUnit, tinyPlot = TRUE, printTitle = FALSE,rmSciX=TRUE)
   boxConcMonth(localSample = localSample, printTitle = FALSE, tinyPlot=TRUE)
