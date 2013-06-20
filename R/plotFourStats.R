@@ -10,9 +10,11 @@
 #' @param printTitle logical variable, if TRUE title is printed, if FALSE title is not printed, default is TRUE
 #' @param runoff logical variable, if TRUE the streamflow data are converted to runoff values in mm/day
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
-#' @param cex.lab number
-#' @param cex.axis number
-#' @param cex number
+#' @param cex numerical value giving the amount by which plotting symbols should be magnified
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
+#' @param col color of points on plot, see ?par 'Color Specification'
+#' @param lwd number line width
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow statistics
 #' @export
@@ -22,20 +24,33 @@
 #' annualSeries <- makeAnnualSeries()
 #' plotFourStats()
 plotFourStats<-function(localINFO = INFO, localAnnualSeries = annualSeries, yearStart = NA, yearEnd = NA, 
-                        printTitle = TRUE, runoff = FALSE, qUnit =1,cex.lab=1.4,cex.axis=1.2,cex=0.6, ...) {
+                        printTitle = TRUE, runoff = FALSE, cex.main = 1.2,
+                        qUnit =1,cex.axis=1.2,cex=0.8, col="black", lwd=1,...) {
   # prior to running this user must do these two commands
   # INFO<-setPA(pastart,paLong,window) 
   # annualSeries<-makeAnnualSeries()
   #
-  par(mfcol=c(2,2),oma=c(0,1.7,6,1.7), cex=cex)
+  par(mfcol=c(2,2),oma=c(0,1.7,6,1.7))
   setYearStart<-if(is.na(yearStart)) min(localAnnualSeries[1,,],na.rm=TRUE) else yearStart
   setYearEnd<-if(is.na(yearEnd)) max(localAnnualSeries[1,,],na.rm=TRUE) else yearEnd
-  plotFlowSingle(istat=8, yearStart=setYearStart, yearEnd=setYearEnd, localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,cex.lab=cex.lab,cex.axis=cex.axis,cex=cex, ...)
-  plotFlowSingle(istat=4, yearStart=setYearStart, yearEnd=setYearEnd, localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,cex.lab=cex.lab,cex.axis=cex.axis,cex=cex, ...)
-  plotFlowSingle(istat=5, yearStart=setYearStart, yearEnd=setYearEnd, localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,cex.lab=cex.lab,cex.axis=cex.axis,cex=cex, ...)
-  plotFlowSingle(istat=2, yearStart=setYearStart, yearEnd=setYearEnd, localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,cex.lab=cex.lab,cex.axis=cex.axis,cex=cex, ...)
+  plotFlowSingle(istat=8, yearStart=setYearStart, yearEnd=setYearEnd, 
+                 localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, 
+                 qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,
+                 cex.axis=cex.axis,cex=cex, col=col,lwd=lwd, cex.main=1,...)
+  plotFlowSingle(istat=4, yearStart=setYearStart, yearEnd=setYearEnd, 
+                 localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, 
+                 qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,
+                 cex.axis=cex.axis,cex=cex, col=col,lwd=lwd cex.main=1, ...)
+  plotFlowSingle(istat=5, yearStart=setYearStart, yearEnd=setYearEnd, 
+                 localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, 
+                 qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,
+                 cex.axis=cex.axis,cex=cex, col=col,lwd=lwd cex.main=1, ...)
+  plotFlowSingle(istat=2, yearStart=setYearStart, yearEnd=setYearEnd, 
+                 localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, 
+                 qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,
+                 cex.axis=cex.axis,cex=cex, col=col,lwd=lwd, cex.main=1, ...)
   textPA<-setSeasonLabelByUser(paStartInput=localINFO$paStart, paLongInput=localINFO$paLong)
   title<-if(printTitle) paste(localINFO$shortName,"\n",textPA)
-  mtext(title,cex=1.2,outer=TRUE,font=2)
+  mtext(title,cex=1.2,outer=TRUE,font=cex.main)
   par(mfcol=c(1,1),oma=c(0,0,0,0))	
 }

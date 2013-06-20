@@ -1,7 +1,11 @@
 #' Makes four graphs of streamflow statistics on a single page
 #'
 #'  Part of the flowHistory system.  The four statistics are 1-day maximum, annual mean, annual 7-day minimum, and the running standard deviation of the log daily discharge values.
-#'  Prior to running this code user must have run setPA and makeAnnualSeries.
+#'  Prior to running this code user must have run setPA and makeAnnualSeries. 
+#'  
+#'  Although there are a log of optional arguments to this function, most are set to a logical default. If your workspace
+#'  contains an INFO and Daily dataframe, annualSeries array, then the following R code will produce a plot:
+#'  plotFour(window=2)
 #'
 #' @param localINFO string specifying the name of the data frame that contains the metadata, defoult name is INFO
 #' @param localAnnualSeries string specifying the name of the data frame that contains the annual series of statistics, default is annualSeries
@@ -31,7 +35,7 @@ plotFour<-function (localINFO = INFO, localAnnualSeries = annualSeries, localDai
                     col="black", lwd=1,...) 
 {
     
-  par(mfcol = c(2, 2), cex = cex, oma = c(0, 1.7, 6, 1.7))
+  par(mfcol = c(2, 2), oma = c(0, 1.7, 6, 1.7))
   
   setYearStart <- if (is.na(yearStart)) {
     min(localAnnualSeries[1, , ], na.rm = TRUE)
