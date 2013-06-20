@@ -11,6 +11,7 @@
 #' @param yearPoints numeric vector listing the years for which the change or slope computations are made, they need to be in chronological order.  For example yearPoints=c(1975,1985,1995,2005), default is NA (which allows the program to set yearPoints automatically)
 #' @param flux logical if TRUE results are returned in flux, if FALSE concentration. Default is set to FALSE.
 #' @param returnDataFrame logical, if a dataframe is required to be returned set this to TRUE.  Otherwise, the default is FALSE
+#' @return resultsDF dataframe describing trends in flow-normalized concentration or flux if returnDataFrame is TRUE
 #' @keywords water-quality statistics
 #' @export
 #' @return dataframe with Year1, Year2, change[mg/L], slope[mg/L], change[percent], slope[percent] columns. The data in each row is the change or slope calculated from Year1 to Year2
