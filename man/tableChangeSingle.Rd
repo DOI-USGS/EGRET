@@ -32,6 +32,9 @@
   default is FALSE}
 }
 \value{
+  resultsDF dataframe describing trends in flow-normalized
+  concentration or flux if returnDataFrame is TRUE
+
   dataframe with Year1, Year2, change[mg/L], slope[mg/L],
   change[percent], slope[percent] columns. The data in each
   row is the change or slope calculated from Year1 to Year2

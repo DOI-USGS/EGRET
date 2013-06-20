@@ -29,6 +29,9 @@
   Note that for a window of about 2-months width, a span
   value shoud be about 30.}
 }
+\value{
+  qDuration A named vector with flow duration information.
+}
 \description{
   This function is useful for helping the analyst determine
   the empirical probability distribution of streamflow for

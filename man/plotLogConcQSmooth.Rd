@@ -10,7 +10,7 @@
     colors = c("black", "red", "green"), windowY = 10,
     windowQ = 2, windowS = 0.5, tinyPlot = FALSE,
     printLegend = TRUE, lwd = 2, cex = 0.8, cex.axis = 1.1,
-    cex.main = 1.1, cex.legend = 1, lineVal = c(1, 1, 1),
+    cex.main = 1.1, cex.legend = 1.2, lineVal = c(1, 1, 1),
     ...)
 }
 \arguments{

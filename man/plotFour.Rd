@@ -67,6 +67,13 @@
   values.  Prior to running this code user must have run
   setPA and makeAnnualSeries.
 }
+\details{
+  Although there are a log of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO and Daily dataframe,
+  annualSeries array, then the following R code will
+  produce a plot: plotFour(window=2)
+}
 \examples{
 INFO <- ChopINFO
 Daily <- ChopDaily

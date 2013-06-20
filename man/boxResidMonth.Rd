@@ -3,7 +3,7 @@
 \title{A box plot of WRTDS residuals by month}
 \usage{
   boxResidMonth(localSample = Sample, localINFO = INFO,
-    stdResid = FALSE, printTitle = TRUE, las = 2,
+    stdResid = FALSE, las = 1, printTitle = TRUE,
     cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
     font.main = 2, tinyPlot = FALSE, customPar = FALSE,
     ...)
@@ -28,9 +28,6 @@
   designed to be plotted small, as a part of a multipart
   figure, default is FALSE}
 
-  \item{las}{numeric in {0,1,2,3}; the style of axis
-  labels}
-
   \item{cex}{numerical value giving the amount by which
   plotting symbols should be magnified}
 
@@ -44,6 +41,9 @@
 
   \item{customPar}{logical defaults to FALSE. If TRUE,
   par() should be set by user before calling this function}
+
+  \item{las}{numeric in {0,1,2,3}; the style of axis
+  labels}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

@@ -4,8 +4,8 @@
 \usage{
   boxConcMonth(localSample = Sample, localINFO = INFO,
     printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
-    cex.main = 1.1, las = 2, font.main = 2,
-    tinyPlot = FALSE, customPar = FALSE, ...)
+    cex.main = 1.1, las = 1, tinyPlot = FALSE,
+    customPar = FALSE, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -27,17 +27,15 @@
   \item{cex.main}{magnification to be used for main titles
   relative to the current setting of cex}
 
-  \item{las}{numeric in {0,1,2,3}; the style of axis
-  labels}
-
-  \item{font.main}{font to be used for plot main titles}
-
   \item{tinyPlot}{logical variable, if TRUE plot is
   designed to be plotted small as part of a multi-plot
   figure, default is FALSE.}
 
   \item{customPar}{logical defaults to FALSE. If TRUE,
   par() should be set by user before calling this function}
+
+  \item{las}{numeric in {0,1,2,3}; the style of axis
+  labels}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

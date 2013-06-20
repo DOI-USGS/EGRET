@@ -6,7 +6,7 @@
     localAnnualSeries = annualSeries, yearStart = NA,
     yearEnd = NA, printTitle = TRUE, runoff = FALSE,
     qUnit = 1, cex.lab = 1.4, cex.axis = 1.2, cex = 0.6,
-    ...)
+    col = "black", lwd = 1, ...)
 }
 \arguments{
   \item{localINFO}{string specifying the name of the data
@@ -34,11 +34,19 @@
   or numeric represented the short code, or character
   representing the descriptive name.}
 
-  \item{cex.lab}{number}
+  \item{cex}{numerical value giving the amount by which
+  plotting symbols should be magnified}
 
-  \item{cex.axis}{number}
+  \item{cex.main}{magnification to be used for main titles
+  relative to the current setting of cex}
 
-  \item{cex}{number}
+  \item{cex.axis}{magnification to be used for axis
+  annotation relative to the current setting of cex}
+
+  \item{col}{color of points on plot, see ?par 'Color
+  Specification'}
+
+  \item{lwd}{number line width}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

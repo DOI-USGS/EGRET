@@ -27,6 +27,8 @@
   FALSE.}
 }
 \value{
+  results dataframe, if returnDataFrame=TRUE
+
   dataframe with year, discharge, concentration,
   flow-normalized concentration, flux, and flow-normalized
   concentration columns.
