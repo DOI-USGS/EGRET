@@ -11,12 +11,12 @@
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE
-#' @param las numeric in {0,1,2,3}; the style of axis labels
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param font.main font to be used for plot main titles
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+#' @param las numeric in {0,1,2,3}; the style of axis labels
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -24,8 +24,8 @@
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
 #' boxResidMonth()
-boxResidMonth<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, 
-                        printTitle = TRUE, las=2, cex=0.8, cex.axis=1.1, cex.main=1.1,
+boxResidMonth<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, las=1,
+                        printTitle = TRUE, cex=0.8, cex.axis=1.1, cex.main=1.1,
                         font.main=2, tinyPlot=FALSE, customPar=FALSE,...) {
   #This function makes a boxplot of Residual by month
   #  if stdResid=TRUE, they will be standardized residuals
@@ -60,6 +60,7 @@ boxResidMonth<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
           cex=cex,
           cex.main=cex.main,
           cex.axis=cex.axis,
+          las=las,
           ...)
   abline(h=0)  
 }
