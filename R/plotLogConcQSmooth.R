@@ -52,7 +52,7 @@ plotLogConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft 
                              concMax = NA, concMin = NA,bw = FALSE, printTitle = TRUE, printValues = FALSE, 
                              localSample = Sample, localINFO = INFO, customPar=FALSE, colors=c("black","red","green"),
                              windowY = 10, windowQ = 2, windowS = 0.5,tinyPlot=FALSE,printLegend=TRUE,
-                             lwd=2,cex=0.8, cex.axis=1.1,cex.main=1.1, cex.legend=1,lineVal=c(1,1,1),...) {
+                             lwd=2,cex=0.8, cex.axis=1.1,cex.main=1.1, cex.legend=1.2,lineVal=c(1,1,1),...) {
   
   plotConcQSmooth(date1=date1,date2=date2,date3=date3,qLow=qLow,qHigh=qHigh,
                             qUnit = qUnit, legendLeft = legendLeft,legendTop =legendTop, 
