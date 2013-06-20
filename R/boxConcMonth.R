@@ -10,10 +10,9 @@
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
-#' @param las numeric in {0,1,2,3}; the style of axis labels
-#' @param font.main font to be used for plot main titles
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multi-plot figure, default is FALSE.
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+#' @param las numeric in {0,1,2,3}; the style of axis labels
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -22,8 +21,8 @@
 #' INFO <- ChopINFO
 #' boxConcMonth()
 boxConcMonth<-function(localSample = Sample, localINFO = INFO, printTitle = TRUE,
-                       cex=0.8, cex.axis=1.1, cex.main=1.1, las=2, 
-                       font.main=2, tinyPlot = FALSE, customPar=FALSE,...) {
+                       cex=0.8, cex.axis=1.1, cex.main=1.1, las=1,
+                       tinyPlot = FALSE, customPar=FALSE,...) {
   #This function makes a boxplot of log concentration by month
   #Box width is proportional to the square root of the sample size
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\nBoxplots of sample values by month") else ""
@@ -42,23 +41,24 @@ boxConcMonth<-function(localSample = Sample, localINFO = INFO, printTitle = TRUE
   
   if (tinyPlot) {
     yLabel <- "Conc. (mg/L)"
-    if (!customPar) par(mar=c(4,5,1,0.1),cex.lab=cex.axis)
+    if (!customPar) par(mar=c(4,5,1,0.1),cex.lab=cex.axis,tcl=0.5)
+    names <- c("J","F","M","A","M","J","J","A","S","O","N","D")
   } else {
     yLabel <- "Concentration in mg/L"
-    if (!customPar) par(mar=c(5,6,4,2)+0.1,cex.lab=cex.axis)
+    if (!customPar) par(mar=c(5,6,4,2)+0.1,cex.lab=cex.axis,tcl=0.5)
+    names <- sapply(c(1:12),function(x){monthInfo[[x]]@monthAbbrev})
   }
     
   boxplot(tempDF$conc ~ tempDF$month,
           #     localSample$ConcAve~localSample$Month,
           ylim=c(0,yMax),yaxs="i",
           varwidth=TRUE,
-          names=nameList,
+          names=names,
           xlab="Month",
           ylab=yLabel,
           main=plotTitle,
           cex=cex,cex.axis=cex.axis,cex.main=cex.main,
-          las=las,        #makes all text perpendicular to axis
-          font.main=font.main,
+          las=las,
           ...)  
 
 }
