@@ -9,6 +9,7 @@
 #' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param span number this is the half-width of the window over which the discharge values are to be used in constructing the flow-duration curve. If the full year is desired any value greater than 182 will provide serve. Note that for a window of about 2-months width, a span value shoud be about 30.
+#' @return qDuration A named vector with flow duration information.
 #' @keywords streamflow, statistics
 #' @export
 #' @examples
@@ -63,8 +64,12 @@ flowDuration<-function(centerDate = "09-30", localDaily = Daily, localINFO = INF
   cat("\nFlow Duration for",localINFO$shortName,"\n")
   # 	if(spanFull>182) cat("\nFlow duration is based on full year") else cat("\nFlow duration period is centered on",monthFull[monthCenter],dayCenter,"\nAnd spans the period from",monthFull[monthStart],dayStart," To",monthFull[monthEnd],dayEnd)
   if(spanFull>182) cat("\nFlow duration is based on full year") else cat("\nFlow duration period is centered on",monthInfo[[monthCenter]]@monthFull,dayCenter,"\nAnd spans the period from",monthInfo[[monthStart]]@monthFull,dayStart," To",monthInfo[[monthEnd]]@monthFull,dayEnd)
-  cat("\n\nDischarge units are",qUnit@qUnitName)
+  cat("\n\nDischarge units are",qUnit@qUnitName,"\n")
   Qprint<-format(QDuration,digits=3,width=9)
-  cat("\n\n       min        5%       10%       25%       50%       75%       90%       95%       max")
-  cat("\n",Qprint,"\n")		
+#   cat("\n\n       min        5%       10%       25%       50%       75%       90%       95%       max")
+#   cat("\n",Qprint,"\n")	
+  
+  names(QDuration) <- c("min","5%","10%","25%","50%","75%","90%","95%","max")
+  
+  return(QDuration)
 }
