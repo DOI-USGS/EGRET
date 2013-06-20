@@ -878,16 +878,6 @@ centerDate <- "07-01"
 plotConcTimeSmooth(q1, q2, q3, centerDate, 2000, 2010)
 @
 
-Figure \ref{fig:fluxBiasMulti}:
-<<fluxBiasMulti, echo=TRUE, fig.cap="fluxBiasMulti(qUnit=1)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
-fluxBiasMulti(qUnit=1)
-@
-
-Figure \ref{fig:fluxBiasMultiAlt}:
-<<fluxBiasMultiAlt, echo=TRUE, fig.cap="fluxBiasMultiAlt(qUnit=1)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
-fluxBiasMultiAlt(qUnit=1)
-@
-
 Figure \ref{fig:fluxBiasEight}:
 <<fluxBiasEight, echo=TRUE, fig.cap="fluxBiasEight(qUnit=1)",fig.show='asis',fig.width=8, fig.height=10>>=
 fluxBiasEight(qUnit=1)

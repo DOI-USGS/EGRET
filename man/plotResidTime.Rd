@@ -4,7 +4,7 @@
 \usage{
   plotResidTime(localSample = Sample, localINFO = INFO,
     stdResid = FALSE, printTitle = TRUE, hLine = TRUE,
-    tinyPlot = FALSE, col = "black", cex = 0.8,
+    tinyPlot = FALSE, col = "black", lwd = 1, cex = 0.8,
     cex.axis = 1.1, cex.main = 1.1, customPar = FALSE, ...)
 }
 \arguments{

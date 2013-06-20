@@ -42,7 +42,6 @@ Collate:
     'printqUnitCheatSheet.R'
     'estCrossVal.R'
     'estSurfaces.R'
-    'fluxBiasMulti.R'
     'fluxBiasStat.R'
     'plotConcHist.R'
     'plotConcQSmooth.R'
@@ -92,7 +91,6 @@ Collate:
     'generalAxis.R'
     'boxConcThree.R'
     'fluxBiasEight.R'
-    'fluxBiasMultiAlt.R'
 Depends:
     R (>= 2.13.0)
 Imports:

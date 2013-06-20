@@ -68,7 +68,7 @@
 Sample <- ChopSample
 Daily <- ChopDaily
 INFO <- ChopINFO
-pdf("fluxBiasEight.pdf", height=10, width=10)
+pdf("fluxBiasEight.pdf", height=10, width=8)
 fluxBiasEight()
 dev.off()
 }
