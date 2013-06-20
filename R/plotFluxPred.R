@@ -11,7 +11,7 @@
 #' @param oneToOneLine inserts 1:1 line
 #' @param tinyPlot logical variable if TRUE plot is designed to be small, if FALSE it is designed for page size, default is FALSE (not fully implemented yet)
 #' @param logScale logical if TRUE x and y plotted in log axis
-#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
+#' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 

@@ -40,8 +40,7 @@
   multi-plot figure)}
 
   \item{cex}{numerical value giving the amount by which
-  plotting text and symbols should be magnified relative to
-  the default}
+  plotting symbols should be magnified}
 
   \item{cex.main}{magnification to be used for main titles
   relative to the current setting of cex}
@@ -50,7 +49,10 @@
   annotation relative to the current setting of cex}
 
   \item{customPar}{logical defaults to FALSE. If TRUE,
-  par() should be set by user before calling this function}
+  par() should be set by user before calling this function
+  (for example, adjusting margins with
+  par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses
+  the best margins depending on tinyPlot.}
 
   \item{col}{color of points on plot, see ?par 'Color
   Specification'}

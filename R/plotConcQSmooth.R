@@ -12,19 +12,20 @@
 #' @param qLow numeric value for the lowest discharge to be considered, expressed in the units of discharge that are being used (as specified in qUnit)
 #' @param qHigh numeric value for the highest discharge to be considered, expressed in the units of discharge that are being used (as specified in qUnit)
 #' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
-#' @param legendLeft numeric which represents the left edge of the legend, in fraction of x-axis of graph, default is 0.1, will be placed within the graph but may overprint data
-#' @param legendTop numeric which represents the top edge of the legend, in fraction of y-axis of graph, default is 0.3, will be placed within the graph but may overprint data
+#' @param legendLeft numeric which represents the left edge of the legend in the units of the plot.
+#' @param legendTop numeric which represents the top edge of the legend in the units of the plot.
+#' @param printLegend logicalif TRUE, legend is included
 #' @param concMax numeric value for upper limit on concentration shown on the graph, default = NA (which causes the upper limit to be set automatically, based on the data)
 #' @param concMin numeric value for lower limit on concentration shown on the graph, default = NA (which causes the lower limit to be set automatically, based on the data)
 #' @param bw logical if TRUE graph is produced in black and white, default is FALSE (which means it will use color)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed 
-#' @param printValues logical variable if TRUE the results shown on the graph are also printed to the console (this can be useful for quantifying the changes seen visually in the graph), default is FALSE (not printed)
+#' @param printValues logical variable if TRUE the results shown on the graph are also printed to the console and returned in a dataframe (this can be useful for quantifying the changes seen visually in the graph), default is FALSE (not printed)
 #' @param localSample string specifying the name of the data frame that contains the Sample data, default name is Sample
 #' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 10
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
-#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
+#' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param lwd number line width
@@ -48,9 +49,9 @@
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
 #' plotConcQSmooth(date1,date2,date3,qLow,qHigh)
-plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = .05,legendTop =0.3, 
+plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0,legendTop = 0, 
                           concMax = NA, concMin=NA, bw = FALSE, printTitle = TRUE, printValues = FALSE, 
-                          localSample = Sample, localINFO = INFO, colors=c("black","red","green"),
+                          localSample = Sample, localINFO = INFO, colors=c("black","red","green"),printLegend=TRUE,
                           windowY = 10, windowQ = 2, windowS = 0.5,tinyPlot=FALSE, customPar=FALSE,
                           lwd=2,cex=0.8, cex.axis=1.1,cex.main=1.1, cex.legend=1.2,lineVal=c(1,1,1),logScale=FALSE,...) {
   #########################################################
@@ -113,7 +114,8 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = .
   }
   
   xInfo <- generalAxis(x, maxVal=qHigh, minVal=qLow, logScale=TRUE, tinyPlot=tinyPlot)
-  yInfo <- generalAxis(y[1,], maxVal=concMax, minVal=concMin, logScale=logScale, tinyPlot=tinyPlot)
+  combinedY <- c(y[1,], y[2,],y[3,])
+  yInfo <- generalAxis(combinedY, maxVal=concMax, minVal=concMin, logScale=logScale, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=y[1,],
                       xTicks=xInfo$xTicks, yTicks=yInfo$ticks,
@@ -134,16 +136,32 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = .
   ltys<-lineVal[1:numDates]
   cols<-colorVal[1:numDates]
   
-  x1 <- grconvertX(legendLeft, from="npc", to="user")
-  y1 <- grconvertY(legendTop, from="npc", to="user") 
+  legendLeft <- if(legendLeft == 0) {
+    grconvertX(0.05, from="npc", to="user")
+  } else {
+    legendLeft
+  }
   
-  legend(x1,y1 ,legend=words,lty=ltys,col=cols,lwd=lwd,cex=cex.legend)
+  legendTop <- if(legendTop == 0) {
+    grconvertY(0.3, from="npc", to="user") 
+  } else {
+    legendTop
+  }
+  
+  if (printLegend) legend(legendLeft,legendTop ,legend=words,lty=ltys,col=cols,lwd=lwd,cex=cex.legend)
   
   printResults<-rep(NA,48*4)
   dim(printResults)<-c(48,4)
   for(j in 1:48) {printResults[j,1]<-format(x[j],width=9)
                   printResults[j,2:4]<-format(y[1:3,j],width=10)}
   topLine<-c("discharge",as.character(dates[1:numDates]))
-  if(printValues) write(topLine,file="",ncolumns=4)
-  if(printValues) write.table(printResults,file="",quote=FALSE,row.names=FALSE,col.names=FALSE)      
+  
+  if(printValues) {    
+#     write(topLine,file="",ncolumns=4)
+#     write.table(printResults,file="",quote=FALSE,row.names=FALSE,col.names=FALSE)  
+    cat("\n")
+    returnDF <- data.frame(discharge=x, date1=y[1,], date2=y[2,], date3=y[3,])
+    colnames(returnDF) <- c("discharge",date1,date2,date3)
+    return(returnDF)
+  }
 }

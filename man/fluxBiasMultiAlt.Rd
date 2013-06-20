@@ -33,8 +33,7 @@
   default is no additional information}
 
   \item{cex}{numerical value giving the amount by which
-  plotting text and symbols should be magnified relative to
-  the default}
+  plotting symbols should be magnified}
 
   \item{cex.main}{magnification to be used for main titles
   relative to the current setting of cex}

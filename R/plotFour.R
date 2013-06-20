@@ -12,7 +12,7 @@
 #' @param runoff logical variable, if TRUE the streamflow data are converted to runoff values in mm/day
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param window numeric which is the full width, in years, of the time window over which the standard deviation is computed, default = 15
-#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
+#' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param col color of points on plot, see ?par 'Color Specification'

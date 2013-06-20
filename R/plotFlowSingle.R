@@ -18,7 +18,7 @@
 #' @param printStaName logical variable, if TRUE station name is printed in title, if FALSE not printed, default is TRUE
 #' @param printPA logical variable, if TRUE Period of Analysis information is printed in title, if FALSE not printed, default is TRUE
 #' @param printIstat logical variable, if TRUE print the statistic name is printed in title, if FALSE not printed, default is TRUE
-#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
+#' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param lwd number line width

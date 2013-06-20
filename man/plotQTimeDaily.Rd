@@ -5,8 +5,8 @@
   plotQTimeDaily(startYear, endYear, localDaily = Daily,
     localINFO = INFO, qLower = NA, qUnit = 1,
     tinyPlot = FALSE, printTitle = TRUE, lwd = 3,
-    col = "red", cex = 0.7, cex.main = 1.3, font.main = 2,
-    cex.lab = 1.2, customPar = FALSE, ...)
+    col = "red", cex.main = 1.2, cex.lab = 1.2,
+    customPar = FALSE, ...)
 }
 \arguments{
   \item{startYear}{numeric indicating the starting year for
@@ -43,20 +43,17 @@
 
   \item{col}{specification for the default plotting color}
 
-  \item{cex}{numerical value giving the amount by which
-  plotting text and symbols should be magnified relative to
-  the default}
-
   \item{cex.main}{magnification to be used for main titles
   relative to the current setting of cex}
-
-  \item{font.main}{font to be used for plot main titles}
 
   \item{cex.lab}{magnification to be used for x and y
   labels relative to the current setting of cex}
 
   \item{customPar}{logical defaults to FALSE. If TRUE,
-  par() should be set by user before calling this function}
+  par() should be set by user before calling this function
+  (for example, adjusting margins with
+  par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses
+  the best margins depending on tinyPlot.}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

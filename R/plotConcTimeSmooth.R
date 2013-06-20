@@ -9,19 +9,20 @@
 #' @param yearStart numeric This is the starting year for the graph. The first value plotted for each curve will be at the first instance of centerDate in the year designated by yearStart.
 #' @param yearEnd numeric This is the end of the sequence of values plotted on the graph.The last value will be the last instance of centerDate prior to the start of yearEnd. (Note, the number of values plotted on each curve will be yearEnd-yearStart.)
 #' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
-#' @param legendLeft numeric which represents the left edge of the legend, in fraction of x-axis of graph, default is 0.1, will be placed within the graph but may overprint data
-#' @param legendTop numeric which represents the top edge of the legend, in fraction of y-axis of graph, default is 0.3, will be placed within the graph but may overprint data
+#' @param legendLeft numeric which represents the left edge of the legend in the units of the plot.
+#' @param legendTop numeric which represents the top edge of the legend in the units of the plot.
+#' @param printLegend logicalif TRUE, legend is included
 #' @param concMax numeric value for upper limit on concentration shown on the graph, default = NA (which causes the upper limit to be set automatically, based on the data)
 #' @param bw logical if TRUE graph is produced in black and white, default is FALSE (which means it will use color)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed 
-#' @param printValues logical variable if TRUE the results shown on the graph are also printed to the console (this can be useful for quantifying the changes seen visually in the graph), default is FALSE (not printed)
+#' @param printValues logical variable if TRUE the results shown on the graph are printed to the console and returned in a dataframe (this can be useful for quantifying the changes seen visually in the graph), default is FALSE (not printed)
 #' @param localSample string specifying the name of the data frame that contains the Sample data, default name is Sample
 #' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 10
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE
-#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
+#' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
@@ -43,10 +44,10 @@
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
 #' plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd)
-plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit = 2, legendLeft = .05, 
-                              legendTop = 0.3, concMax = NA, bw = FALSE, printTitle = TRUE, colors=c("black","red","green"), 
+plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit = 2, legendLeft = 0, 
+                              legendTop = 0, concMax = NA, bw = FALSE, printTitle = TRUE, colors=c("black","red","green"), 
                               printValues = FALSE, localSample = Sample, localINFO = INFO,tinyPlot=FALSE, 
-                              windowY = 10, windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2, 
+                              windowY = 10, windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2, printLegend = TRUE,
                               cex.legend = 1.2, cex=0.8, cex.axis=1.1, customPar=FALSE,lineVal=c(1,1,1),...){
   
   if (is.numeric(qUnit)) {
@@ -123,7 +124,8 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
   #####################
   
   xInfo <- generalAxis(x=x, minVal=yearStart, maxVal=yearEnd, tinyPlot=tinyPlot)  
-  yInfo <- generalAxis(x=y[1,2,3,], minVal=0, maxVal=yTop, tinyPlot=tinyPlot)
+  combinedY <- c(y[1,], y[2,],y[3,])
+  yInfo <- generalAxis(x=combinedY, minVal=0, maxVal=yTop, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=y[1, ],
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
@@ -141,10 +143,19 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
   ltys <- lineVal[1:numQ]
   cols <- colorVal[1:numQ]
   
-  x1 <- grconvertX(legendLeft, from="npc", to="user")
-  y1 <- grconvertY(legendTop, from="npc", to="user") 
+  legendLeft <- if(legendLeft == 0) {
+    grconvertX(0.05, from="npc", to="user")
+  } else {
+    legendLeft
+  }
   
-  legend(x1,y1 ,legend=words,lty=ltys,col=cols,lwd=lwd,cex=cex.legend)
+  legendTop <- if(legendTop == 0) {
+    grconvertY(0.3, from="npc", to="user") 
+  } else {
+    legendTop
+  }
+  
+  if (printLegend) legend(legendLeft,legendTop,legend=words,lty=ltys,col=cols,lwd=lwd,cex=cex.legend)
   
   printResults <- rep(NA, numX * 4)
   dim(printResults) <- c(numX, 4)
@@ -153,12 +164,14 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
     printResults[j, 2:4] <- format(y[1:3, j], width = 10)
   }
   qPrint<-format(qV,width=10)
-  topLine <- c("  year  ", qPrint)
+  topLine <- c("\n  year  ", qPrint)
   if (printValues) {
-    write(topLine, file = "", ncolumns = 4)
-  }
-  if (printValues) {
-    write.table(printResults, file = "", quote = FALSE, row.names = FALSE, 
-                col.names = FALSE)
+#     write(topLine, file = "", ncolumns = 4)
+#     write.table(printResults, file = "", quote = FALSE, row.names = FALSE, 
+#                 col.names = FALSE)
+    cat("\n")
+    returnDF <- data.frame(year=x, q1=y[1,], q2=y[2,], q3=y[3,])
+    colnames(returnDF) <- c("year",q1,q2,q3)
+    return(returnDF)
   }
 }

@@ -10,7 +10,7 @@
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
-#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
+#' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for x and y labels relative to the current setting of cex
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
@@ -53,8 +53,9 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   ####################
   
   xInfo <- generalAxis(x=log(x), minVal=NA, maxVal=NA, logScale=FALSE, tinyPlot=tinyPlot, padPercent=5)
-  yInfo <- generalAxis(x=yHigh, minVal=(min(yLow,na.rm=TRUE)-0.5), maxVal=(max(yHigh) + 0.1), tinyPlot=tinyPlot)
-
+  yInfo <- generalAxis(x=yHigh, minVal=NA, maxVal=NA, tinyPlot=tinyPlot,padPercent=5)
+#   yInfo <- generalAxis(x=yHigh, minVal=(min(yLow,na.rm=TRUE)-0.5), maxVal=(max(yHigh) + 0.1), tinyPlot=tinyPlot)
+  
   genericEGRETDotPlot(x=log(x), y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,col=col,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
@@ -62,6 +63,6 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
                       hLine=TRUE,cex.axis=cex.axis,cex.main=cex.main, tinyPlot=tinyPlot,...
     )
 
-  censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen, col=col, lwd=lwd )
+  censoredSegments(0, yLow, yHigh, log(x), Uncen, col=col, lwd=lwd )
 
 }

@@ -3,14 +3,14 @@
 \title{Plot up to three curves representing the log concentration versus discharge relationship, each curve is a different point in time}
 \usage{
   plotLogConcQSmooth(date1, date2, date3, qLow, qHigh,
-    qUnit = 2, legendLeft = 0.05, legendTop = 0.3,
-    concMax = NA, concMin = NA, bw = FALSE,
-    printTitle = TRUE, printValues = FALSE,
-    localSample = Sample, localINFO = INFO,
-    customPar = FALSE, colors = c("black", "red", "green"),
-    windowY = 10, windowQ = 2, windowS = 0.5,
-    tinyPlot = FALSE, lwd = 2, cex = 0.8, cex.axis = 1.1,
-    cex.main = 1.1, legend.cex = 1, lineVal = c(1, 1, 1),
+    qUnit = 2, legendLeft = 0, legendTop = 0, concMax = NA,
+    concMin = NA, bw = FALSE, printTitle = TRUE,
+    printValues = FALSE, localSample = Sample,
+    localINFO = INFO, customPar = FALSE,
+    colors = c("black", "red", "green"), windowY = 10,
+    windowQ = 2, windowS = 0.5, tinyPlot = FALSE,
+    printLegend = TRUE, lwd = 2, cex = 0.8, cex.axis = 1.1,
+    cex.main = 1.1, cex.legend = 1, lineVal = c(1, 1, 1),
     ...)
 }
 \arguments{
@@ -41,14 +41,12 @@
   representing the descriptive name.}
 
   \item{legendLeft}{numeric which represents the left edge
-  of the legend, in the units shown on x-axis of graph,
-  default is 0, will be placed within the graph but may
-  overprint data}
+  of the legend in the units of the plot.}
 
   \item{legendTop}{numeric which represents the top edge of
-  the legend, in the units shown on y-axis of graph,
-  default is 0, will be placed within the graph but may
-  overprint data}
+  the legend in the units of the plot.}
+
+  \item{printLegend}{logicalif TRUE, legend is included}
 
   \item{concMax}{numeric value for upper limit on
   concentration shown on the graph, default = NA (which
@@ -67,9 +65,10 @@
   printed, if FALSE not printed}
 
   \item{printValues}{logical variable if TRUE the results
-  shown on the graph are also printed to the console (this
-  can be useful for quantifying the changes seen visually
-  in the graph), default is FALSE (not printed)}
+  shown on the graph are also printed to the console and
+  returned in a dataframe (this can be useful for
+  quantifying the changes seen visually in the graph),
+  default is FALSE (not printed)}
 
   \item{localSample}{string specifying the name of the data
   frame that contains the Sample data, default name is
@@ -90,8 +89,7 @@
   0.5}
 
   \item{cex}{numerical value giving the amount by which
-  plotting text and symbols should be magnified relative to
-  the default}
+  plotting symbols should be magnified}
 
   \item{cex.main}{magnification to be used for main titles
   relative to the current setting of cex}
@@ -107,7 +105,7 @@
 
   \item{lwd}{number line width}
 
-  \item{legend.cex}{magnification to be used for legend
+  \item{cex.legend}{magnification to be used for legend
   annotation relative to the current setting of cex}
 
   \item{tinyPlot}{logical variable, if TRUE plot is

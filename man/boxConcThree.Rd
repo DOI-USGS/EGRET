@@ -36,8 +36,7 @@
   annotation relative to the current setting of cex}
 
   \item{cex}{numerical value giving the amount by which
-  plotting text and symbols should be magnified relative to
-  the default}
+  plotting symbols should be magnified}
 
   \item{tinyPlot}{logical variable, if TRUE plot is
   designed to be plotted small as part of a multi-plot

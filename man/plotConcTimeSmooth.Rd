@@ -3,14 +3,15 @@
 \title{Plot up to three curves representing the concentration versus time relationship, each curve representing a different flow.}
 \usage{
   plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart,
-    yearEnd, qUnit = 2, legendLeft = 0.05, legendTop = 0.3,
+    yearEnd, qUnit = 2, legendLeft = 0, legendTop = 0,
     concMax = NA, bw = FALSE, printTitle = TRUE,
     colors = c("black", "red", "green"),
     printValues = FALSE, localSample = Sample,
     localINFO = INFO, tinyPlot = FALSE, windowY = 10,
     windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2,
-    cex.legend = 1.2, cex = 0.8, cex.axis = 1.1,
-    customPar = FALSE, lineVal = c(1, 1, 1), ...)
+    printLegend = TRUE, cex.legend = 1.2, cex = 0.8,
+    cex.axis = 1.1, customPar = FALSE,
+    lineVal = c(1, 1, 1), ...)
 }
 \arguments{
   \item{q1}{numeric This is the discharge value for the
@@ -48,14 +49,12 @@
   representing the descriptive name.}
 
   \item{legendLeft}{numeric which represents the left edge
-  of the legend, in fraction of x-axis of graph, default is
-  0.1, will be placed within the graph but may overprint
-  data}
+  of the legend in the units of the plot.}
 
   \item{legendTop}{numeric which represents the top edge of
-  the legend, in fraction of y-axis of graph, default is
-  0.3, will be placed within the graph but may overprint
-  data}
+  the legend in the units of the plot.}
+
+  \item{printLegend}{logicalif TRUE, legend is included}
 
   \item{concMax}{numeric value for upper limit on
   concentration shown on the graph, default = NA (which
@@ -69,9 +68,10 @@
   printed, if FALSE not printed}
 
   \item{printValues}{logical variable if TRUE the results
-  shown on the graph are also printed to the console (this
-  can be useful for quantifying the changes seen visually
-  in the graph), default is FALSE (not printed)}
+  shown on the graph are printed to the console and
+  returned in a dataframe (this can be useful for
+  quantifying the changes seen visually in the graph),
+  default is FALSE (not printed)}
 
   \item{localSample}{string specifying the name of the data
   frame that contains the Sample data, default name is
@@ -96,8 +96,7 @@
   figure, default is FALSE}
 
   \item{cex}{numerical value giving the amount by which
-  plotting text and symbols should be magnified relative to
-  the default}
+  plotting symbols should be magnified}
 
   \item{cex.main}{magnification to be used for main titles
   relative to the current setting of cex}

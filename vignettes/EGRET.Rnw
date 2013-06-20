@@ -557,7 +557,7 @@ INFO <- getMetaData(sta,"",interactive=FALSE)
 INFO$shortName <- "Mississippi River at Keokuk Iowa"
 INFO <- setPA()
 
-plotQTimeDaily(startYear=1870,endYear=2020,qUnit=3,qLower=300)
+plotQTimeDaily(startYear=1980,endYear=2010,qUnit=3,qLower=5)
 
 @
 

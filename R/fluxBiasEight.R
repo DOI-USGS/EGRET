@@ -13,7 +13,7 @@
 #' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param fluxUnit object of fluxUnit class. \code{\link{fluxConst}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param moreTitle string specifying some additional information to go in figure title, typically some information about the specific estimation method used, default is no additional information
-#' @param cex numerical value giving the amount by which plotting text and symbols should be magnified relative to the default
+#' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param col color of points on plot, see ?par 'Color Specification'
@@ -25,7 +25,7 @@
 #' Sample <- ChopSample
 #' Daily <- ChopDaily
 #' INFO <- ChopINFO
-#' pdf("fluxBiasEight.pdf", height=10, width=10)
+#' pdf("fluxBiasEight.pdf", height=10, width=8)
 #' fluxBiasEight()
 #' dev.off()
 fluxBiasEight<-function (localSample = Sample, localDaily = Daily, 
