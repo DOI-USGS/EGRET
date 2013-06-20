@@ -25,15 +25,15 @@
 #' Sample <- ChopSample
 #' Daily <- ChopDaily
 #' INFO <- ChopINFO
-#' pdf("fluxBiasEight.pdf", height=10, width=8)
+#' pdf("fluxBiasEight.pdf", height=9, width=8)
 #' fluxBiasEight()
 #' dev.off()
 fluxBiasEight<-function (localSample = Sample, localDaily = Daily, 
                          localINFO = INFO, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS", 
-                         cex = 0.6, cex.axis = 1.1,cex.main=1.1,
+                         cex = 0.7, cex.axis = 1.1,cex.main=1.1,
                          col="black", lwd=1,...){
   
-  par(oma = c(0, 6.8, 4, 6.8),mfrow=c(4,2))
+  par(oma = c(0, 10, 4, 10),mfrow=c(4,2))
   plotResidPred(localSample = localSample, localINFO = localINFO, 
                 stdResid = FALSE, tinyPlot=TRUE, printTitle = FALSE,cex=cex, 
                 cex.axis = cex.axis, col=col,lwd=lwd,...)

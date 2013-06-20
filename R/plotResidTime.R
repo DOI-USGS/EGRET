@@ -61,7 +61,6 @@ plotResidTime<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
                       xlab=xLab, ylab=yLab, plotTitle=plotTitle, customPar=customPar, cex=cex,
                       cex.axis=cex.axis,cex.main=cex.main, hLine=hLine, tinyPlot=tinyPlot,...
   )
-  censoredSegments(0, yLow, yHigh, x, Uncen,col=col,lwd=lwd)
-#   censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen,col=col,lwd=lwd)
+  censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen,col=col,lwd=lwd)
 
 }

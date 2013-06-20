@@ -81,6 +81,6 @@ plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2,
                        tinyPlot=tinyPlot,rmSciX=rmSciX, customPar=customPar,...
      )
 
-   censoredSegments(0, yLow, yHigh, x, Uncen,col=col, lwd=lwd )
+   censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen,col=col, lwd=lwd )
    
 }
