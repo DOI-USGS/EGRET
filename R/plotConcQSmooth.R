@@ -29,7 +29,7 @@
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param lwd number line width
-#' @param legend.cex magnification to be used for legend annotation relative to the current setting of cex
+#' @param cex.legend magnification to be used for legend annotation relative to the current setting of cex
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param logScale logical whether or not to use a log scale in the y axis.
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 

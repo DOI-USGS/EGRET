@@ -99,7 +99,7 @@
 
   \item{lwd}{number line width}
 
-  \item{legend.cex}{magnification to be used for legend
+  \item{cex.legend}{magnification to be used for legend
   annotation relative to the current setting of cex}
 
   \item{tinyPlot}{logical variable, if TRUE plot is

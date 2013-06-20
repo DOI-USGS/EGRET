@@ -4,7 +4,7 @@
 \usage{
   fluxBiasEight(localSample = Sample, localDaily = Daily,
     localINFO = INFO, qUnit = 2, fluxUnit = 3,
-    moreTitle = "WRTDS", cex = 0.6, cex.axis = 1.1,
+    moreTitle = "WRTDS", cex = 0.7, cex.axis = 1.1,
     cex.main = 1.1, col = "black", lwd = 1, ...)
 }
 \arguments{
@@ -68,7 +68,7 @@
 Sample <- ChopSample
 Daily <- ChopDaily
 INFO <- ChopINFO
-pdf("fluxBiasEight.pdf", height=10, width=8)
+pdf("fluxBiasEight.pdf", height=9, width=8)
 fluxBiasEight()
 dev.off()
 }
