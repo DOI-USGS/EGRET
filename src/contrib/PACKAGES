@@ -11,8 +11,8 @@ Package: EGRET
 Version: 1.2.4
 Depends: R (>= 2.13.0)
 Imports: methods, survival, fields
-Suggests: xtable, dataRetrieval, knitr
+Suggests: xtable, dataRetrieval, knitr, extrafont
 License: file LICENSE
-MD5sum: 444bf1cdf004187038a504040cd98937
+MD5sum: f17f1fd676c75b8f5420f57ad44b403e
 NeedsCompilation: no
 
