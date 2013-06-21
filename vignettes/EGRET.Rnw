@@ -1009,7 +1009,8 @@ arrows(3, 0.14, 1, .05,lwd=2)
 text(12,.14,"Censored Value")
 @
 
-There are just a few fonts that are generally available as a default. Figure \ref{fig:easyFontChange} shows how to change to the Serif font, as well as how to use the mtext function. To see the available fonts for pdf output on your computer, type names(pdfFonts()).
+There are just a few fonts that are generally available as a default. Figure \ref{fig:easyFontChange} shows how to change to the Serif font, as well as how to use the mtext function. To see the available fonts for pdf output on your computer, type names(pdfFonts()).The available fonts are quite limited in base R. To expand the font choices, there is a nice R library 'extrafont' that can help.
+
 <<easyFontChange,echo=TRUE,eval=TRUE,fig.cap="Serif font",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 # Switching to serif font:
 par(family="serif")
@@ -1018,17 +1019,6 @@ mtext(side=3,line=-3,"Serif font example",cex=3)
 @
 
 
-The available fonts are quite limited in base R. To expand the font choices, there is a nice R library 'extrafont' that can help. Figure \ref{fig:harderFontChange} uses a comic sans font. 
-<<harderFontChange,echo=TRUE,eval=TRUE,fig.cap="Comic Sans MS font",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',warning=FALSE, message=FALSE>>=
-library(extrafont)
-# The first time you use extrafont, you'll need to run: 
-# font_import()
-# To then see your font options:
-# fonts()
-par(family="Comic Sans MS")
-plotFluxPred(customPar=TRUE)
-mtext(side=3,line=-3,"Comic sans font example",cex=2)
-@
 \FloatBarrier
 
 
