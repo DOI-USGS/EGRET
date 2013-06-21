@@ -1501,7 +1501,8 @@ Figure \ref{fig:plotLogConcQComparison} shows the default on the left, and sever
 \end{knitrout}
 
 
-There are just a few fonts that are generally available as a default. Figure \ref{fig:easyFontChange} shows how to change to the Serif font, as well as how to use the mtext function. To see the available fonts for pdf output on your computer, type names(pdfFonts()).
+There are just a few fonts that are generally available as a default. Figure \ref{fig:easyFontChange} shows how to change to the Serif font, as well as how to use the mtext function. To see the available fonts for pdf output on your computer, type names(pdfFonts()).The available fonts are quite limited in base R. To expand the font choices, there is a nice R library 'extrafont' that can help.
+
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -1519,27 +1520,6 @@ There are just a few fonts that are generally available as a default. Figure \re
 \end{knitrout}
 
 
-
-The available fonts are quite limited in base R. To expand the font choices, there is a nice R library 'extrafont' that can help. Figure \ref{fig:harderFontChange} uses a comic sans font. 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlfunctioncall{library}(extrafont)
-\hlcomment{# The first time you use extrafont, you'll need to run: }
-\hlcomment{# font_import()}
-\hlcomment{# To then see your font options:}
-\hlcomment{# fonts()}
-\hlfunctioncall{par}(family=\hlstring{"Comic Sans MS"})
-\hlfunctioncall{plotFluxPred}(customPar=TRUE)
-\hlfunctioncall{mtext}(side=3,line=-3,\hlstring{"Comic sans font example"},cex=2)
-\end{alltt}
-\end{kframe}\begin{figure}[]
-
-\includegraphics[width=1\linewidth,height=1\linewidth]{figure/harderFontChange} \caption[Comic Sans MS font]{Comic Sans MS font\label{fig:harderFontChange}}
-\end{figure}
-
-
-\end{knitrout}
 
 \FloatBarrier
 
