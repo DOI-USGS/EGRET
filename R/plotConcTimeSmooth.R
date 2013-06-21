@@ -1,6 +1,11 @@
 #' Plot up to three curves representing the concentration versus time relationship, each curve representing a different flow.
 #'
-#' These plots show how the concentration-time relationship is changing over flow. 
+#' @description
+#' These plots show how the concentration-time relationship is changing over flow.
+#' 
+#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
+#' contains an INFO, and Sample dataframes, 3 discharge values, a center date, and start and end years, then the following R code will produce a plot:
+#' \code{plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd)} 
 #'
 #' @param q1 numeric This is the discharge value for the first curve to be shown on the plot. It is expressed in units specified by qUnit.
 #' @param q2 numeric This is the discharge value for the second curve to be shown on the plot. It is expressed in units specified by qUnit. If you don't want a second curve then the argument must be q2=NA

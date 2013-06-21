@@ -1,11 +1,14 @@
-#' Produces alternative 6-panel plot that is useful for determining if there is a flux bias problem
+#' Produces alternative 8-panel plot that is useful for determining if there is a flux bias problem
 #'
+#' @description
 #' These plots use the jack-knife estimates from WRTDS to investigate the potential flux bias problem. 
 #' It can also be used for estimates constructed by other methods (such as LOADEST) if the results are
 #' stored in a data frame organized like the Sample data frame.  It allows additional label information
 #' to indicate what method is used. 
-#' The 6 graphs are: Log Concentration versus Log Discharge, Residual verus Log Discharge, Log Concentration versus Log Estimated Concentration (estimates made prior to bias adjustment),
-#' Residuals versus Estimates (in log concentration space), Observed Flux versus Estimated Flux (2 plots, one in log space and the other in real space).
+#'
+#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
+#' contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
+#' \code{fluxBiasEight()}
 #'
 #' @param localSample string specifying the name of the data frame that contains the concentration data, default name is Sample
 #' @param localDaily string specifying the name of the data frame that contains the flow data, default name is Daily 

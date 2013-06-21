@@ -1,8 +1,13 @@
 #' Box plot of the water quality data by month
 #'
+#' @description
 #' Data come from a data frame named Sample which contains the Sample Data. 
 #' The metadata come from a data frame named INFO. 
 #' These data frames must have been created by the dataRetrieval package. 
+#'  
+#'  Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
+#'  contains an INFO and Sample dataframes, then the following R code will produce a plot:
+#'  \code{boxConcMonth()}
 #'
 #' @param localSample string specifying the name of the data frame, default name is Sample
 #' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO 

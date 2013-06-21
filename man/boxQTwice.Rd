@@ -4,9 +4,8 @@
 \usage{
   boxQTwice(localSample = Sample, localDaily = Daily,
     localINFO = INFO, printTitle = TRUE, qUnit = 2,
-    font.main = 2, cex = 0.8, cex.main = 1.1,
-    cex.axis = 1.1, tinyPlot = FALSE, customPar = FALSE,
-    ...)
+    cex = 0.8, cex.main = 1.1, cex.axis = 1.1,
+    tinyPlot = FALSE, customPar = FALSE, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -26,8 +25,6 @@
   \item{qUnit}{object of qUnit class \code{\link{qConst}},
   or numeric represented the short code, or character
   representing the descriptive name.}
-
-  \item{font.main}{font to be used for plot main titles}
 
   \item{cex.main}{magnification to be used for main titles
   relative to the current setting of cex}
@@ -57,6 +54,12 @@
   INFO. Note that discharge is plotted on a logarithmic
   axis. The data is logged before the statistics are
   performed to determine the output of the boxplot.
+
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO, Daily, and Sample dataframes,
+  then the following R code will produce a plot:
+  \code{boxQTwice()}
 }
 \examples{
 Sample <- ChopSample

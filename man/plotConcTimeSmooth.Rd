@@ -131,6 +131,14 @@
 \description{
   These plots show how the concentration-time relationship
   is changing over flow.
+
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO, and Sample dataframes, 3
+  discharge values, a center date, and start and end years,
+  then the following R code will produce a plot:
+  \code{plotConcTimeSmooth(q1, q2, q3, centerDate,
+  yearStart, yearEnd)}
 }
 \examples{
 q1 <- 10

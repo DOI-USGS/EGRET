@@ -136,6 +136,13 @@
   possibility is to use this to explore seasonal
   differences.  In this case the three dates would be in
   the same year but different times during the year.
+
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO and Sample dataframes, along
+  with three dates and upper and lower flow limits, then
+  the following R code will produce a plot:
+  \code{plotLogConcQSmooth(date1,date2,date3,qLow,qHigh)}
 }
 \examples{
 date1<-"2001-06-01"

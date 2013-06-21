@@ -66,11 +66,17 @@
   also provides an alternative for viewing the standardized
   residuals, where the each residual is divided by its
   estimated standard error
+
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO and Sample dataframes, then
+  the following R code will produce a plot:
+  \code{plotResidQ()}
 }
 \examples{
 Sample <- ChopSample
 INFO <- ChopINFO
-plotResidQ(qUnit=1)
+plotResidQ()
 }
 \keyword{graphics}
 \keyword{statistics}

@@ -1,10 +1,15 @@
 #' Plot up to three curves representing the log concentration versus discharge relationship, each curve is a different point in time
 #'
+#' @description
 #' These plots are like a vertical slice of the estimated concentration surface that is seen in the plotContours function.  
 #' These plots show how the concentration-discharge relationship is changing over time. 
 #' Typically the time points selected would be in three years at the same time of year spaced out over the period of record.  But that is not necessary.  
 #' Another possibility is to use this to explore seasonal differences.  In this case the three
 #' dates would be in the same year but different times during the year.
+#' 
+#'  Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
+#'  contains an INFO and Sample dataframes, along with three dates and upper and lower flow limits, then the following R code will produce a plot:
+#'  \code{plotLogConcQSmooth(date1,date2,date3,qLow,qHigh)}
 #'
 #' @param date1 string specifying the date for the first curve on the graph, it is in the form "yyyy-mm-dd" (must be in quotes) 
 #' @param date2 string specifying the date for the second curve on the graph, it is in the form "yyyy-mm-dd" (must be in quotes).  If only one curve is wanted this should be NA

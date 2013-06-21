@@ -1,7 +1,12 @@
 #' Makes four graphs of annual streamflow statistics on a single page
 #'
+#' @description
 #'  Part of the flowHistory system.  The four statistics are 1-day maximum, annual mean, annual median, and annual 7-day minimum.
-#'  Prior to running this code user must have run setPA and makeAnnualSeries.
+#'  Prior to running this code user must have run \code{INFO <- setPA} and \code{annualSeries <- makeAnnualSeries()}.
+#'  
+#'  Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
+#'  contains an INFO and Daily dataframes, annualSeries array, then the following R code will produce a plot:
+#'  \code{plotFourStats()}
 #'
 #' @param localINFO string specifying the name of the data frame that contains the metadata, defoult name is INFO
 #' @param localAnnualSeries string specifying the name of the data frame that contains the annual series of statistics, default is annualSeries
@@ -40,11 +45,11 @@ plotFourStats<-function(localINFO = INFO, localAnnualSeries = annualSeries, year
   plotFlowSingle(istat=4, yearStart=setYearStart, yearEnd=setYearEnd, 
                  localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, 
                  qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,
-                 cex.axis=cex.axis,cex=cex, col=col,lwd=lwd cex.main=1, ...)
+                 cex.axis=cex.axis,cex=cex, col=col,lwd=lwd, cex.main=1, ...)
   plotFlowSingle(istat=5, yearStart=setYearStart, yearEnd=setYearEnd, 
                  localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, 
                  qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,
-                 cex.axis=cex.axis,cex=cex, col=col,lwd=lwd cex.main=1, ...)
+                 cex.axis=cex.axis,cex=cex, col=col,lwd=lwd, cex.main=1, ...)
   plotFlowSingle(istat=2, yearStart=setYearStart, yearEnd=setYearEnd, 
                  localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, 
                  qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,

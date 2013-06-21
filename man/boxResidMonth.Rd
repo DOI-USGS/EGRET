@@ -60,6 +60,12 @@
   difference between the natural log of the average of the
   upper and lower.  bounds on the sample value, minus the
   log space estimate of concentration.
+
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO and Sample dataframes, then
+  the following R code will produce a plot:
+  \code{boxResidMonth()}
 }
 \examples{
 Sample <- ChopSample

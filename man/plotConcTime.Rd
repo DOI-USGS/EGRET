@@ -101,6 +101,12 @@
   combined. For example, we may only want to plot data for
   discharges between 100 and 500 cubic feet per second in
   the months of March, April and May.
+
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO and Sample dataframes, then
+  the following R code will produce a plot:
+  \code{plotConcTime()}
 }
 \examples{
 Sample <- ChopSample

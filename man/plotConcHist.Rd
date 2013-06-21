@@ -76,7 +76,14 @@
   reported are for a specified "period of analysis" which
   can be an entire water year, a calendar, a season or even
   an individual month. User specifies this period of
-  analysis in the call to setupYears.
+  analysis in the call to \code{setupYears}.
+
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO, Daily, and AnnualResults
+  (from either modelEstimation or setupYears) dataframes,
+  then the following R code will produce a plot:
+  \code{plotConcHist()}
 }
 \examples{
 yearStart <- 2001

@@ -27,6 +27,12 @@
   side-by-side boxplot of the sampled discharges and all
   daily discharges. To save space, the graphic is labeled
   only at the top of the 4 graph display.
+
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO, Daily, and Sample dataframes,
+  then the following R code will produce a plot:
+  \code{multiPlotDataOverview()}
 }
 \examples{
 Sample <- ChopSample

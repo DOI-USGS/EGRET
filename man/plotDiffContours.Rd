@@ -86,6 +86,14 @@
   be used to explore the changes in estimated surfaces for
   the log of concentration or for the standard error (in
   log space) which is what determines the bias correction.
+
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO, and Daily dataframes, surface
+  array from modelEstimation, the max change in
+  concentration to plot, year and flow limits, then the
+  following R code will produce a plot:
+  \code{plotDiffContours(year0,year1,qBottom,qTop,maxDiff)}
 }
 \examples{
 year0<-2001

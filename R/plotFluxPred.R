@@ -1,7 +1,12 @@
 #' Graph of observed versus estimated flux
 #'
+#' @description
 #' Data come from a data frame named Sample which contains the Sample Data. 
 #' The metadata come from a data frame named INFO.
+#' 
+#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
+#' contains an INFO and Sample dataframes, then the following R code will produce a plot:
+#' \code{plotFluxPred()} 
 #'
 #' @param localSample string specifying the name of the data frame that contains the concentration data, default name is Sample
 #' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO

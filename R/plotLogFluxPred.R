@@ -1,7 +1,12 @@
 #' Sample data plot:  observed log flux vs predicted log flux
 #'
+#' @description
 #' Concentration data come from a data frame named Sample which contains the sample data. 
 #' The metadata come from a data frame named INFO.
+#' 
+#'  Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
+#'  contains an INFO and Sample dataframes, then the following R code will produce a plot:
+#'  \code{plotLogFluxPred()}
 #'
 #' @param localSample string specifying the name of the data frame that contains the concentration data, default name is Sample
 #' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
@@ -23,6 +28,7 @@
 #' @examples
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
+#' plotLogFluxPred()
 #' plotLogFluxPred(fluxUnit = 1)
 #' plotLogFluxPred(fluxUnit = 'kgDay')
 plotLogFluxPred<-function (localSample = Sample, localINFO = INFO, fluxUnit = 3, 

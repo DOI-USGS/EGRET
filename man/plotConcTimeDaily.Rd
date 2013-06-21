@@ -69,6 +69,12 @@
   covers a period of just a few years and not the complete
   record but a complete record can be done by repeated use
   over a series of segments.
+
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO, Daily, and Sample dataframes,
+  then the following R code will produce a plot:
+  \code{plotConcTimeDaily(startYear,endYear)}
 }
 \examples{
 Sample <- ChopSample

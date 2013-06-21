@@ -62,6 +62,12 @@
 \description{
   Part of flowHistory component. Allows discharge record to
   only show those discharges above a given threshold
+
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO and Sample dataframes, along
+  with start and end years, then the following R code will
+  produce a plot: \code{plotQTimeDaily(startYear,endYear)}
 }
 \examples{
 Daily <- ChopDaily

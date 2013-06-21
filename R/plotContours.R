@@ -1,9 +1,14 @@
 #' Color contour plot of the estimated surfaces as a function of discharge and time (surfaces include log concentration, standard error, and concentration)
 #'
+#' @description
 #' These plots are normally used for plotting the estimated concentration surface (whatSurface=3) but can be used to explore the 
 #' estimated surfaces for the log of concentration or for the standard error (in log space) which is what determines the bias correction. 
 #' The plots are often more interpretable when the time limits are only about 4 years apart.
-#' To explore changes over a long time period it is best to do this multiple times, for various time slices of 4 years (for example) or to use the function plotDiffContours.
+#' To explore changes over a long time period it is best to do this multiple times, for various time slices of 4 years (for example) or to use the function \code{plotDiffContours}.
+#' 
+#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
+#' contains an INFO, and Daily dataframes, surface array from modelEstimation, a vector of contour levels, year and flow limits, then the following R code will produce a plot:
+#' \code{plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel)} 
 #'
 #' @param yearStart numeric value for the starting date for the graph, expressed as decimal year (typically whole number such as 1989.0)
 #' @param yearEnd numeric value for the ending date for the graph, expressed as decimal year, (for example 1993.0)

@@ -1,9 +1,14 @@
 #' Creates a plot of a time series of a particular flow statistic and a lowess smooth of that flow statistic
 #'
+#' @description
 #' A part of the flowHistory system.
 #' The index of the flow statistics is istat.  These statistics are: 
 #' (1) 1-day minimum, (2) 7-day minimum, (3) 30-day minimum, (4) median
 #' (5) mean, (6) 30-day maximum, (7) 7-day maximum, and (8) 1-day maximum
+#' 
+#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
+#' contains an INFO, and Daily dataframes, an annualSeries array, and the istat number (1-8), then the following R code will produce a plot:
+#' \code{plotFlowSingle(1)} 
 #'
 #' @param istat A numeric value for the flow statistic to be graphed (possible values are 1 through 8)
 #' @param yearStart A numeric value for year in which the graph should start, default is NA, which indicates that the graph should start with first annual value

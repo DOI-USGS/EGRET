@@ -69,6 +69,13 @@
   This plot is useful for visual examination of the ability
   of the WRTDS, or other model, to fit the data, as seen in
   a time-series perspective.
+
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO, Daily, and Sample dataframes,
+  and a start and end year, then the following R code will
+  produce a plot: \code{plotFluxTimeDaily(startYear,
+  endYear)}
 }
 \examples{
 Sample <- ChopSample

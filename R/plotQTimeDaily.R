@@ -1,7 +1,12 @@
 #' Plot of the discharge time series
 #'
+#' @description
 #' Part of flowHistory component.
 #' Allows discharge record to only show those discharges above a given threshold
+#' 
+#'  Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
+#'  contains an INFO and Sample dataframes, along with start and end years, then the following R code will produce a plot:
+#'  \code{plotQTimeDaily(startYear,endYear)}
 #'
 #' @param startYear numeric indicating the starting year for the graph
 #' @param endYear numeric indicating the ending year for the graph (should be a time in decimal years that is after the last observations to be plotted)

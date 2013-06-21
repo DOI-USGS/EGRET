@@ -1,9 +1,14 @@
 #' Plot of the time series of daily concentration estimates and the sample values for the days that were sampled
 #'
+#' @description
 #' This plot is useful for visual examination of the ability of the WRTDS, or other model, to fit the 
 #' data, seen in a time-series perspective. 
 #' The graph is most useful when it covers a period of just a few years and not the complete record
 #' but a complete record can be done by repeated use over a series of segments.
+#' 
+#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
+#' contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
+#' \code{plotConcTimeDaily(startYear,endYear)}
 #'
 #' @param startYear numeric specifying the starting date (expressed as decimal years, for example 1989.0) for the plot
 #' @param endYear numeric specifiying the ending date for the plot 

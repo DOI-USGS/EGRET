@@ -1,10 +1,15 @@
 #' Graph of annual flux and flow normalized flux versus year
 #'
+#' @description
 #' Data come from a data frame named AnnualResults.  
 #' The metadata come from a data frame named INFO. 
 #' The annual results reported are for a specified "period of analysis" which can be 
 #' an entire water year, a calendar, a season or even an individual month. 
 #' The user specifies this period of analysis in the call to setupYears.
+#' 
+#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
+#' contains an INFO and AnnualResults (from either modelEstimation or setupYears) dataframes, an annualSeries array, and the istat number (1-8), then the following R code will produce a plot:
+#' \code{plotFluxHist()} 
 #'
 #' @param yearStart numeric is the calendar year containing the first estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)
 #' @param yearEnd numeric is the calendar year just after the last estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)
@@ -33,6 +38,7 @@
 #' Daily <- ChopDaily
 #' AnnualResults <- setupYears()
 #' INFO <- ChopINFO
+#' plotFluxHist()
 #' plotFluxHist(yearStart, yearEnd, fluxUnit = 1)
 #' plotFluxHist(yearStart, yearEnd, fluxUnit = 'kgDay')
 plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9, 

@@ -73,14 +73,20 @@
 \description{
   Data come from data frame named Daily. The metadata come
   from a data frame named INFO. User must have already run
-  the function, INFO<-setPA() Can be used to analyze a
-  specific period of analysis by Running
-  INFO<-setPA(paStart,paLong)
+  the function, \code{INFO<-setPA()} Can be used to analyze
+  a specific period of analysis by Running
+  \code{INFO<-setPA(paStart,paLong)}
+}
+\details{
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO and Daily dataframes, then the
+  following R code will produce a plot: \code{plotSDLogQ()}
 }
 \examples{
 Daily <- ChopDaily
 INFO <- ChopINFO
-plotSDLogQ(window=3,printTitle=FALSE)
+plotSDLogQ()
 }
 \keyword{graphics}
 \keyword{statistics}

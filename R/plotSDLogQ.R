@@ -2,9 +2,13 @@
 #'
 #' Data come from data frame named Daily.
 #' The metadata come from a data frame named INFO.
-#' User must have already run the function, INFO<-setPA()
+#' User must have already run the function, \code{INFO<-setPA()}
 #' Can be used to analyze a specific period of analysis by
-#' Running INFO<-setPA(paStart,paLong)
+#' Running \code{INFO<-setPA(paStart,paLong)}
+#' 
+#'  Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
+#'  contains an INFO and Daily dataframes, then the following R code will produce a plot:
+#'  \code{plotSDLogQ()}
 #'
 #' @param yearStart numeric is the calendar year of the first value to be included in graph, default is NA, which plots from the start of the period of record
 #' @param yearEnd numeric is the calendar year of the last value to be included in graph, default is NA, which plots to the end of the period of record
@@ -28,7 +32,7 @@
 #' @examples
 #' Daily <- ChopDaily
 #' INFO <- ChopINFO
-#' plotSDLogQ(window=3,printTitle=FALSE)  
+#' plotSDLogQ()  
 plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
                      localINFO=INFO,sdMax=NA,printTitle = TRUE, tinyPlot = FALSE, 
                      printStaName = TRUE, printPA = TRUE, cex=0.8,

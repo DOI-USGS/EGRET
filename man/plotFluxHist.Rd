@@ -78,6 +78,14 @@
   which can be an entire water year, a calendar, a season
   or even an individual month. The user specifies this
   period of analysis in the call to setupYears.
+
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO and AnnualResults (from either
+  modelEstimation or setupYears) dataframes, an
+  annualSeries array, and the istat number (1-8), then the
+  following R code will produce a plot:
+  \code{plotFluxHist()}
 }
 \examples{
 yearStart <- 2001
@@ -85,6 +93,7 @@ yearEnd <- 2010
 Daily <- ChopDaily
 AnnualResults <- setupYears()
 INFO <- ChopINFO
+plotFluxHist()
 plotFluxHist(yearStart, yearEnd, fluxUnit = 1)
 plotFluxHist(yearStart, yearEnd, fluxUnit = 'kgDay')
 }

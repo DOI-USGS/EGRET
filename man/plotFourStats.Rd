@@ -5,7 +5,7 @@
   plotFourStats(localINFO = INFO,
     localAnnualSeries = annualSeries, yearStart = NA,
     yearEnd = NA, printTitle = TRUE, runoff = FALSE,
-    qUnit = 1, cex.lab = 1.4, cex.axis = 1.2, cex = 0.6,
+    cex.main = 1.2, qUnit = 1, cex.axis = 1.2, cex = 0.8,
     col = "black", lwd = 1, ...)
 }
 \arguments{
@@ -56,7 +56,14 @@
   Part of the flowHistory system.  The four statistics are
   1-day maximum, annual mean, annual median, and annual
   7-day minimum.  Prior to running this code user must have
-  run setPA and makeAnnualSeries.
+  run \code{INFO <- setPA} and \code{annualSeries <-
+  makeAnnualSeries()}.
+
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO and Daily dataframes,
+  annualSeries array, then the following R code will
+  produce a plot: \code{plotFourStats()}
 }
 \examples{
 INFO <- ChopINFO

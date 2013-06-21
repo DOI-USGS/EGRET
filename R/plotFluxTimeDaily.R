@@ -1,7 +1,12 @@
 #' Plot of the time series of daily flux estimates and the sample values for the days that were sampled
 #'
+#' @description
 #' This plot is useful for visual examination of the ability of the WRTDS, or other model, to fit the 
 #' data, as seen in a time-series perspective. 
+#' 
+#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
+#' contains an INFO, Daily, and Sample dataframes, and a start and end year, then the following R code will produce a plot:
+#' \code{plotFluxTimeDaily(startYear, endYear)} 
 #'
 #' @param startYear numeric specifying the starting date (expressed as decimal years, for example 1989.0) for the plot
 #' @param endYear numeric specifiying the ending date for the plot 

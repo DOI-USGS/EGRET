@@ -1,10 +1,15 @@
 #' A box plot of WRTDS residuals by month
 #'
+#' @description
 #' This function produces a boxplot of the residuals from WRTDS, expressed in natural log concentration units. 
 #' It provides an alternative for viewing the standardized residuals, where the each residual is divided by its estimated standard error. 
 #' The monthly boxplot widths are proportional to the square root of the sample size. 
 #' The residuals for a censored value are determined as the difference between the natural log of the average of the upper and lower. 
 #'   bounds on the sample value, minus the log space estimate of concentration. 
+#'   
+#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
+#' contains an INFO and Sample dataframes, then the following R code will produce a plot:
+#' \code{boxResidMonth()}
 #'
 #' @param localSample string specifying the name of the data frame that contains the concentration data, default name is Sample
 #' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO

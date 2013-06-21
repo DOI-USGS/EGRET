@@ -65,14 +65,14 @@
   1-day maximum, annual mean, annual 7-day minimum, and the
   running standard deviation of the log daily discharge
   values.  Prior to running this code user must have run
-  setPA and makeAnnualSeries.
-}
-\details{
-  Although there are a log of optional arguments to this
+  \code{INFO <- setPA} and \code{annualSeries <-
+  makeAnnualSeries()}.
+
+  Although there are a lot of optional arguments to this
   function, most are set to a logical default. If your
-  workspace contains an INFO and Daily dataframe,
+  workspace contains an INFO and Daily dataframes,
   annualSeries array, then the following R code will
-  produce a plot: plotFour(window=2)
+  produce a plot: \code{plotFour(window=2)}
 }
 \examples{
 INFO <- ChopINFO

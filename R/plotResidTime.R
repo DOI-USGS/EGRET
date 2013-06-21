@@ -1,8 +1,13 @@
 #' Plot of the residuals from WRTDS (in log concentration units) versus time 
 #'
+#' @description
 #' This function produces a plot of the residuals from WRTDS, expressed in natural log concentration units
 #' versus time.
 #' It also provides an alternative for viewing the standardized residuals, where the each residual is divided by its estimated standard error.
+#'
+#'  Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
+#'  contains an INFO and Sample dataframes, then the following R code will produce a plot:
+#'  \code{plotResidTime()}
 #'
 #' @param localSample string specifying the name of the data frame that contains the concentration data, default name is Sample
 #' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO

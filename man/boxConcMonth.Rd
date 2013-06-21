@@ -46,6 +46,12 @@
   the Sample Data. The metadata come from a data frame
   named INFO. These data frames must have been created by
   the dataRetrieval package.
+
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO and Sample dataframes, then
+  the following R code will produce a plot:
+  \code{boxConcMonth()}
 }
 \examples{
 Sample <- ChopSample

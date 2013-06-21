@@ -1,6 +1,6 @@
 \name{fluxBiasEight}
 \alias{fluxBiasEight}
-\title{Produces alternative 6-panel plot that is useful for determining if there is a flux bias problem}
+\title{Produces alternative 8-panel plot that is useful for determining if there is a flux bias problem}
 \usage{
   fluxBiasEight(localSample = Sample, localDaily = Daily,
     localINFO = INFO, qUnit = 2, fluxUnit = 3,
@@ -56,13 +56,13 @@
   as LOADEST) if the results are stored in a data frame
   organized like the Sample data frame.  It allows
   additional label information to indicate what method is
-  used. The 6 graphs are: Log Concentration versus Log
-  Discharge, Residual verus Log Discharge, Log
-  Concentration versus Log Estimated Concentration
-  (estimates made prior to bias adjustment), Residuals
-  versus Estimates (in log concentration space), Observed
-  Flux versus Estimated Flux (2 plots, one in log space and
-  the other in real space).
+  used.
+
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO, Daily, and Sample dataframes,
+  then the following R code will produce a plot:
+  \code{fluxBiasEight()}
 }
 \examples{
 Sample <- ChopSample

@@ -1,11 +1,16 @@
 #' Graph of annual concentration and flow normalized concentration versus year
 #'
+#' @description
 #' Data come from a data frame named AnnualResults. 
 #' The metadata come from a data frame named INFO.
 #' The annual concentrations are "time-weighted" mean concentrations (as opposed to "flow-weighted"). 
 #' The annual results reported are for a specified "period of analysis" which can be 
 #' an entire water year, a calendar, a season or even an individual month.  
-#' User specifies this period of analysis in the call to setupYears.
+#' User specifies this period of analysis in the call to \code{setupYears}.
+#' 
+#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
+#' contains an INFO, Daily, and AnnualResults (from either modelEstimation or setupYears) dataframes, then the following R code will produce a plot:
+#' \code{plotConcHist()}
 #'
 #' @param yearStart numeric is the calendar year containing the first estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)
 #' @param yearEnd numeric is the calendar year just after the last estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)

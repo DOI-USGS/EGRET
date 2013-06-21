@@ -88,6 +88,13 @@
   minimum, (2) 7-day minimum, (3) 30-day minimum, (4)
   median (5) mean, (6) 30-day maximum, (7) 7-day maximum,
   and (8) 1-day maximum
+
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO, and Daily dataframes, an
+  annualSeries array, and the istat number (1-8), then the
+  following R code will produce a plot:
+  \code{plotFlowSingle(1)}
 }
 \examples{
 INFO <- ChopINFO

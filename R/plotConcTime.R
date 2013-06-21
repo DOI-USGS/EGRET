@@ -1,5 +1,6 @@
 #' Plot of Observed Concentration versus Time 
 #'
+#' @description
 #' Data come from a data frame named Sample which contains the sample data. 
 #' The metadata come from a data frame named INFO. 
 #' This function allows the user to plot all of the data, but also to limit it in two ways. 
@@ -7,6 +8,10 @@
 #'   The data can also be limited to only those observed in certain months of the year. 
 #'     These two selection criteria can be combined. For example, 
 #'     we may only want to plot data for discharges between 100 and 500 cubic feet per second in the months of March, April and May.
+#'     
+#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
+#' contains an INFO and Sample dataframes, then the following R code will produce a plot:
+#' \code{plotConcTime()}
 #'
 #' @param localSample string specifying the name of the data frame that contains the concentration data, default name is Sample
 #' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO

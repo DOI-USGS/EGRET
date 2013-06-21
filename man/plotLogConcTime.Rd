@@ -99,6 +99,12 @@
   second in the months of March, April and May. There is
   also a version of this using an arithmetic scale for
   concentration, plotConcTime.
+
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO and Sample dataframes, then
+  the following R code will produce a plot:
+  \code{plotLogConcTime()}
 }
 \examples{
 Sample <- ChopSample

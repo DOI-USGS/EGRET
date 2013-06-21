@@ -68,6 +68,12 @@
   come from a data frame named Sample which contains the
   sample data. The metadata come from a data frame named
   INFO.
+
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO and Sample dataframes, then
+  the following R code will produce a plot:
+  \code{plotLogFluxQ()}
 }
 \examples{
 Sample <- ChopSample

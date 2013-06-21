@@ -1,17 +1,21 @@
 #' Two box plots side-by-side, discharge on sample days, and discharge on all days
 #'
+#' @description
 #' This function is used to compare the distribution of discharges in the sample data set 
 #' and the discharges in the full daily data set.
 #' Data come from three data frames created by the dataRetrieval package: Sample, Daily, and INFO.
 #' Note that discharge is plotted on a logarithmic axis. The data is logged before the statistics are performed
 #' to determine the output of the boxplot.
+#' 
+#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
+#' contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
+#' \code{boxQTwice()}
 #'
 #' @param localSample string specifying the name of the data frame that contains the concentration data, default name is Sample
 #' @param localDaily string specifying the name of the data frame that contains the flow data, default name is Daily 
 #' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
-#' @param font.main font to be used for plot main titles
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
@@ -28,7 +32,7 @@
 #' boxQTwice(qUnit=1)
 #' boxQTwice(qUnit='cfs')
 boxQTwice<-function(localSample = Sample, localDaily = Daily, localINFO = INFO, 
-                    printTitle = TRUE, qUnit = 2, font.main=2, cex=0.8,cex.main=1.1, 
+                    printTitle = TRUE, qUnit = 2, cex=0.8,cex.main=1.1, 
                     cex.axis=1.1, tinyPlot = FALSE, customPar=FALSE,...){
   # This function does two boxplots side by side
   # The first is for the discharges on the sampled days
@@ -76,7 +80,7 @@ boxQTwice<-function(localSample = Sample, localDaily = Daily, localINFO = INFO,
   boxplot(log(bigQ,10)~index,varwidth=TRUE,
           names=groupNames,xlab="",ylab=yLabel,
           ylim=c(log(yBottom,10),log(yTop,10)),
-          main=plotTitle,font.main=font.main,cex=cex,
+          main=plotTitle,cex=cex,
           cex.main=cex.main,
           cex.axis=cex.axis, las=1,yaxt = "n",yaxs="i",
           ...)
