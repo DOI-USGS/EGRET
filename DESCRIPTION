@@ -100,7 +100,8 @@ Imports:
 Suggests:
     xtable,
     dataRetrieval,
-    knitr
+    knitr,
+    extrafont
 LazyLoad: yes
 LazyData: yes
 VignetteBuilder: knitr
