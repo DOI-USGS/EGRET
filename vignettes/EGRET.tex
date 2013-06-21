@@ -1,7 +1,7 @@
 %\VignetteIndexEntry{Introduction to the EGRET package}
 %\VignetteEngine{knitr::knitr}
 %\VignetteDepends{}
-%\VignetteSuggests{xtable, dataRetrieval}
+%\VignetteSuggests{xtable, dataRetrieval,extrafont}
 %\VignetteImports{methods,survival, fields}
 %\VignettePackage{EGRET}
 
@@ -466,8 +466,6 @@ Although the data is stored in the dataframes in SI, it is possible to report th
 ## 2 =  cms  ( Cubic Meters per Second )
 ## 3 =  thousandCfs  ( Thousand Cubic Feet per Second )
 ## 4 =  thousandCms  ( Thousand Cubic Meters per Second )
-## 5 =  mmDay  ( mm per day )
-## 6 =  mmYear  ( mm per year )
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -532,7 +530,7 @@ endDate <- \hlstring{""}
 Daily <- \hlfunctioncall{getDVData}(siteID,\hlstring{"00060"},startDate,endDate)
 \end{alltt}
 \begin{verbatim}
-## There are  49325 data points, and  49325 days.
+## There are  49328 data points, and  49328 days.
 \end{verbatim}
 \begin{alltt}
 INFO <- \hlfunctioncall{getMetaData}(siteID,\hlstring{""},interactive=FALSE)
@@ -689,7 +687,7 @@ sta<-\hlstring{"11264500"}
 Daily <-\hlfunctioncall{getDVData}(sta,\hlstring{"00060"},StartDate=\hlstring{""},EndDate=\hlstring{""})
 \end{alltt}
 \begin{verbatim}
-## There are  35728 data points, and  35728 days.
+## There are  35732 data points, and  35732 days.
 \end{verbatim}
 \begin{alltt}
 INFO <- \hlfunctioncall{getMetaData}(sta,\hlstring{""},interactive=FALSE)
@@ -731,7 +729,7 @@ INFO <- \hlfunctioncall{getMetaData}(sta,\hlstring{""},interactive=FALSE)
 INFO$shortName <- \hlstring{"Mississippi River at Keokuk Iowa"}
 INFO <- \hlfunctioncall{setPA}()
 
-\hlfunctioncall{plotQTimeDaily}(startYear=1870,endYear=2020,qUnit=3,qLower=300)
+\hlfunctioncall{plotQTimeDaily}(startYear=1880,endYear=2010,qUnit=3,qLower=300)
 \end{alltt}
 \end{kframe}\begin{figure}[]
 
@@ -750,13 +748,13 @@ The example shown here illustrates a very long record and the long gap of more t
 \subsection{Table Options}
 \label{sec:tableOptions}
 %------------------------------------------------------------ 
-Sometimes easier to consider the results in table formats rather than graphically. Similar to the function plotFlowSingle, the printSeries will print the requested flow statistics (Table \ref{table:istat}). A small sample of the output is printed below.
+Sometimes easier to consider the results in table formats rather than graphically. Similar to the function plotFlowSingle, the printSeries will print the requested flow statistics (Table \ref{table:istat}), as well as return the results in a dataframe. A small sample of the output is printed below.
 
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{printSeries}(istat=3, qUnit=3)
+seriesResult <- \hlfunctioncall{printSeries}(istat=3, qUnit=3)
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -803,7 +801,7 @@ annualSeries <- \hlfunctioncall{makeAnnualSeries}()
 ## 
 ##              Streamflow Trends
 ##    time span          change        slope       change        slope
-##                       10^3 cfs 10^3 cfs /yr         %         %/yr
+##                      10^3 cfs   10^3cfs/yr        %            %/yr
 ##  1890  to  1950         0.54       0.0091          2.4         0.04
 ##  1890  to  2010          9.8        0.082           43         0.36
 ##  1950  to  2010          9.3         0.15           40         0.66
@@ -857,7 +855,7 @@ Sample <- \hlfunctioncall{mergeReport}()
 
 This section will give examples of the available plots appropriate for analyzing the data prior to performing a WRTDS analysis. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See Appendix \ref{sec:wqVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}).
 
-One note about any of the plotting functions that show the sample data:  If a value in the data set is a non-detect. Then it is displayed on a graph as a vertical line.  The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values, the minimum value on the y-axis.  This line is an 'honest' representation of what we know about that observation and doesn't involve us using a statistical model to fill in what we don't know. 
+One note about any of the plotting functions that show the sample data:  If a value in the data set is a non-detect, it is displayed on a graph as a vertical line.  The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values, the minimum value on the y-axis.  This line is an 'honest' representation of what we know about that observation and doesn't involve us using a statistical model to fill in what we don't know. 
 
 Figure \ref{fig:plotBoxes}:
 \begin{knitrout}
@@ -948,60 +946,6 @@ Figure \ref{fig:multiPlotDataOverview}:
 \FloatBarrier
 
 %------------------------------------------------------------ 
-\subsection{Extending Plots Past Defaults}
-\label{sec:extendedPlots}
-%------------------------------------------------------------ 
-
-\FloatBarrier
-
-The basic plotting options were shown in the previous section.  This section demonstrates some ideas on how to extend the capabilities of the EGRET plots. EGRET plots use R's base plotting options. Default graphical parameters (see ?mar) and plot parameters were chosen, but all can be overridden. Additionally, features can be added to a plot after calling the plot function. To change the plot margins, set the argument customPar to TRUE.
-
-Figure \ref{fig:plotLogConcQComparison}:
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlfunctioncall{plotLogConcQ}()
-\hlfunctioncall{par}(mar=\hlfunctioncall{c}(8,8,8,8))
-
-\hlfunctioncall{plotLogConcQ}(customPar=TRUE,col=\hlstring{"blue"},cex=1.1,
-             cex.axis=1.4,cex.main=1.5,cex.lab=1.2,pch=18,lwd=2)
-\hlfunctioncall{grid}()
-\hlfunctioncall{legend}(4.5,.1,\hlstring{"Choptank Nitrogen"}, pch=18, col=\hlstring{"blue"},bg=\hlstring{"white"})
-\end{alltt}
-\end{kframe}\begin{figure}[]
-\subfloat[Default\label{fig:plotLogConcQComparison1}]{
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogConcQComparison1} }
-\subfloat[Modified\label{fig:plotLogConcQComparison2}]{
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogConcQComparison2} }\caption[Modified plotLogConcQ]{Modified plotLogConcQ\label{fig:plotLogConcQComparison}}
-\end{figure}
-
-
-\end{knitrout}
-
-
-Figure \ref{fig:plot-fascinating2}:
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlcomment{# Adding text to a boxplot:}
-bp <- \hlfunctioncall{boxConcMonth}()
-\hlfunctioncall{mtext}(\hlfunctioncall{paste}(bp$n, sep = \hlstring{""}), at = \hlfunctioncall{seq_along}(bp$n), 
-      line = -1, side = 3, cex=0.75)
-\hlfunctioncall{mtext}(\hlstring{"n = "},side=3,line=-1,adj=.01, cex=0.75)
-\end{alltt}
-\end{kframe}\begin{figure}[]
-
-\includegraphics[width=1\linewidth,height=1\linewidth]{figure/plot-fascinating2} \caption[Modified box plot]{Modified box plot\label{fig:plot-fascinating2}}
-\end{figure}
-
-
-\end{knitrout}
-
-
-
-\FloatBarrier
-
-%------------------------------------------------------------ 
 \subsection{Table Options}
 \label{sec:tableOptionsWQ}
 %------------------------------------------------------------ 
@@ -1019,9 +963,10 @@ Another useful tool for checking the data before running the WRTDS estimations i
 ## Flow duration is based on full year
 ## 
 ## Discharge units are Cubic Meters per Second
-## 
-##        min        5%       10%       25%       50%       75%       90%       95%       max
-##   9.91e-03  3.40e-01  4.53e-01  9.34e-01  2.41e+00  4.62e+00  8.21e+00  1.31e+01  2.46e+02
+##       min        5%       10%       25%       50%       75% 
+## 9.911e-03 3.398e-01 4.531e-01 9.345e-01 2.407e+00 4.616e+00 
+##       90%       95%       max 
+## 8.212e+00 1.308e+01 2.464e+02
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -1262,10 +1207,10 @@ qTop<-5000
 date1 <- \hlstring{"2000-09-01"}
 date2 <- \hlstring{"2005-09-01"}
 date3 <- \hlstring{"2009-09-01"}
-\hlfunctioncall{plotConcQSmooth}(date1, date2, date3, qBottom, qTop, 
-                   concMax=1.5,qUnit=1)
-\hlfunctioncall{plotLogConcQSmooth}(date1, date2, date3, qBottom, qTop,
-                   concMax=1.5, concMin=0.1,qUnit=1)
+\hlfunctioncall{plotConcQSmooth}(date1, date2, date3,
+                qBottom, qTop, qUnit=1)
+\hlfunctioncall{plotLogConcQSmooth}(date1, date2, date3,
+                   qBottom, qTop, qUnit=1)
 \end{alltt}
 \end{kframe}\begin{figure}[]
 \subfloat[plotConcQSmooth\label{fig:plotLogConcQSmooth1}]{
@@ -1297,36 +1242,6 @@ centerDate <- \hlstring{"07-01"}
 \end{knitrout}
 
 
-Figure \ref{fig:fluxBiasMulti}:
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlfunctioncall{fluxBiasMulti}(qUnit=1)
-\end{alltt}
-\end{kframe}\begin{figure}[]
-
-\includegraphics[width=1\linewidth,height=1\linewidth]{figure/fluxBiasMulti} \caption[fluxBiasMulti(qUnit=1)]{fluxBiasMulti(qUnit=1)\label{fig:fluxBiasMulti}}
-\end{figure}
-
-
-\end{knitrout}
-
-
-Figure \ref{fig:fluxBiasMultiAlt}:
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlfunctioncall{fluxBiasMultiAlt}(qUnit=1)
-\end{alltt}
-\end{kframe}\begin{figure}[]
-
-\includegraphics[width=1\linewidth,height=1\linewidth]{figure/fluxBiasMultiAlt} \caption[fluxBiasMultiAlt(qUnit=1)]{fluxBiasMultiAlt(qUnit=1)\label{fig:fluxBiasMultiAlt}}
-\end{figure}
-
-
-\end{knitrout}
-
-
 Figure \ref{fig:fluxBiasEight}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -1346,7 +1261,7 @@ Figure \ref{fig:plotContours}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-clevel<-\hlfunctioncall{seq}(0,2,0.5)
+clevel<-\hlfunctioncall{seq}(0,3.5,0.25)
 \hlfunctioncall{plotContours}(yearStart,yearEnd,qBottom,qTop, 
              contourLevels = clevel,qUnit=1)
 \end{alltt}
@@ -1394,58 +1309,35 @@ contourLevels = \hlfunctioncall{seq}(0,5,0.2)
 \subsection{Table Options}
 \label{sec:wrtdsTable}
 %------------------------------------------------------------ 
-Sometimes easier to consider the results in table formats rather than graphically. The function tableResults produces a simple text table that contains the annual values for the results.  Each row of the output represents a year and it prints: year, average discharge, average concentration, flow normalized concentration, average flux, and flow normalized flux.  
+Sometimes easier to consider the results in table formats rather than graphically. The function tableResults produces a simple text table that contains the annual values for the results.  Each row of the output represents a year and it prints: year, average discharge, average concentration, flow normalized concentration, average flux, and flow normalized flux.  A small sample of the output is printed below.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlfunctioncall{tableResults}()
 \end{alltt}
-\begin{verbatim}
-## 
-##    Choptank River 
-##    Inorganic nitrogen (nitrate and nitrite)
-##    Water Year 
-## 
-##    Year   Discharge    Conc    FN_Conc     Flux    FN_Flux
-##              cms            mg/L             10^6 kg/yr 
-## 
-##    1980      4.25     0.949     1.003    0.1154     0.106
-##    1981      2.22     1.035     0.999    0.0675     0.108
-##    1982      3.05     1.036     0.993    0.0985     0.110
-##    1983      4.99     1.007     0.993    0.1329     0.112
-##    1984      5.72     0.990     1.002    0.1597     0.114
-##    1985      1.52     1.057     1.017    0.0489     0.116
-##    1986      2.63     1.062     1.038    0.0903     0.119
-##    1987      3.37     1.079     1.062    0.1142     0.122
-##    1988      1.87     1.120     1.085    0.0660     0.125
-##    1989      5.61     1.055     1.105    0.1638     0.127
-##    1990      4.01     1.115     1.125    0.1349     0.129
-##    1991      2.75     1.172     1.143    0.0980     0.130
-##    1992      2.19     1.203     1.159    0.0810     0.132
-##    1993      3.73     1.215     1.173    0.1306     0.132
-##    1994      5.48     1.144     1.187    0.1634     0.133
-##    1995      2.41     1.266     1.201    0.0928     0.134
-##    1996      6.24     1.134     1.213    0.1980     0.135
-##    1997      5.83     1.180     1.221    0.1884     0.136
-##    1998      4.88     1.236     1.229    0.1593     0.137
-##    1999      2.90     1.277     1.238    0.0919     0.138
-##    2000      4.72     1.213     1.253    0.1627     0.139
-##    2001      4.88     1.251     1.268    0.1655     0.140
-##    2002      1.24     1.321     1.285    0.0483     0.141
-##    2003      8.64     1.140     1.303    0.2664     0.143
-##    2004      5.28     1.274     1.321    0.1832     0.144
-##    2005      3.81     1.360     1.341    0.1444     0.146
-##    2006      3.59     1.382     1.362    0.1409     0.147
-##    2007      4.28     1.408     1.382    0.1593     0.149
-##    2008      2.56     1.477     1.401    0.1008     0.149
-##    2009      3.68     1.409     1.419    0.1328     0.149
-##    2010      7.19     1.323     1.438    0.2236     0.149
-##    2011      5.24     1.438     1.457    0.1554     0.148
-## NULL
-\end{verbatim}
 \end{kframe}
 \end{knitrout}
+
+
+
+\begin{verbatim}
+
+   Choptank River 
+   Inorganic nitrogen (nitrate and nitrite)
+   Water Year 
+
+   Year   Discharge    Conc    FN_Conc     Flux    FN_Flux
+             cms            mg/L             10^6 kg/yr 
+
+   1980      4.25     0.949     1.003    0.1154     0.106
+   1981      2.22     1.035     0.999    0.0675     0.108
+   1982      3.05     1.036     0.993    0.0985     0.110
+...
+   2009      3.68     1.409     1.419    0.1328     0.149
+   2010      7.19     1.323     1.438    0.2236     0.149
+   2011      5.24     1.438     1.457    0.1554     0.148
+\end{verbatim}
 
 
 The other table option is tableChange. This is a function that provides for the computation of changes or slopes between any selected pairs of time points.  These computations are made only on the flow-normalized results.
@@ -1453,7 +1345,7 @@ The other table option is tableChange. This is a function that provides for the 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{tableChange}()
+\hlfunctioncall{tableChange}(yearPoints=\hlfunctioncall{c}(2000,2005,2010))
 \end{alltt}
 \begin{verbatim}
 ## 
@@ -1465,53 +1357,17 @@ The other table option is tableChange. This is a function that provides for the 
 ##    time span       change     slope    change     slope
 ##                      mg/L   mg/L/yr        %       %/yr
 ## 
-##  1981  to  1986     0.039    0.0079       3.9      0.79
-##  1981  to  1991      0.14     0.014        14       1.4
-##  1981  to  1996      0.21     0.014        21       1.4
-##  1981  to  2001      0.27     0.013        27       1.3
-##  1981  to  2006      0.36     0.015        36       1.5
-##  1981  to  2011      0.46     0.015        46       1.5
-##  1986  to  1991       0.1     0.021        10         2
-##  1986  to  1996      0.18     0.018        17       1.7
-##  1986  to  2001      0.23     0.015        22       1.5
-##  1986  to  2006      0.32     0.016        31       1.6
-##  1986  to  2011      0.42     0.017        40       1.6
-##  1991  to  1996      0.07     0.014       6.2       1.2
-##  1991  to  2001      0.13     0.013        11       1.1
-##  1991  to  2006      0.22     0.015        19       1.3
-##  1991  to  2011      0.31     0.016        27       1.4
-##  1996  to  2001     0.055     0.011       4.5      0.91
-##  1996  to  2006      0.15     0.015        12       1.2
-##  1996  to  2011      0.24     0.016        20       1.3
-##  2001  to  2006     0.094     0.019       7.4       1.5
-##  2001  to  2011      0.19     0.019        15       1.5
-##  2006  to  2011     0.095     0.019         7       1.4
+##  2000  to  2005     0.088     0.018         7       1.4
+##  2000  to  2010      0.19     0.019        15       1.5
+##  2005  to  2010     0.098      0.02       7.3       1.5
 ## 
 ## 
 ##                  Flux Trends
 ##    time span          change        slope       change        slope
 ##                   10^6 kg/yr    10^6 kg/yr /yr      %         %/yr
-##  1981  to  1986        0.011       0.0022           10            2
-##  1981  to  1991        0.022       0.0022           20            2
-##  1981  to  1996        0.026       0.0018           24          1.6
-##  1981  to  2001        0.032       0.0016           29          1.5
-##  1981  to  2006        0.039       0.0016           36          1.4
-##  1981  to  2011         0.04       0.0013           37          1.2
-##  1986  to  1991        0.011       0.0022          9.4          1.9
-##  1986  to  1996        0.015       0.0015           13          1.3
-##  1986  to  2001        0.021       0.0014           18          1.2
-##  1986  to  2006        0.028       0.0014           23          1.2
-##  1986  to  2011        0.029       0.0012           24         0.97
-##  1991  to  1996       0.0042      0.00085          3.3         0.65
-##  1991  to  2001       0.0097      0.00097          7.5         0.75
-##  1991  to  2006        0.017       0.0011           13         0.86
-##  1991  to  2011        0.018      0.00089           14         0.68
-##  1996  to  2001       0.0055       0.0011          4.1         0.82
-##  1996  to  2006        0.013       0.0013          9.4         0.94
-##  1996  to  2011        0.014        9e-04           10         0.67
-##  2001  to  2006       0.0071       0.0014          5.1            1
-##  2001  to  2011       0.0081      0.00081          5.8         0.58
-##  2006  to  2011      0.00096      0.00019         0.65         0.13
+##  2000  to  2005       0.0065       0.0013          4.7         0.93
+##  2000  to  2010       0.0097      0.00097          6.9         0.69
+##  2005  to  2010       0.0032      0.00063          2.2         0.43
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -1519,15 +1375,25 @@ The other table option is tableChange. This is a function that provides for the 
 
 Finally, tableChangeSingle (Table \ref{table:tableChangeSingle}) operates exactly the same as tableChange except for the addition of two arguments: returnDataFrame and flux. This functions provides either concentration results or flux results, but not both.  This can be useful when producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except that the final two arguments.  The first is a logical argument to indicate if a dataframe of output should be returned (for later manipulation or printing through other programs such as Excel), this argument is returnDataFrame, and its default is FALSE.  The final argument is flux, and the default is TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  Additionally, this function allows for the return of a dataframe.  See Appendix \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft.
 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+returnDF <- \hlfunctioncall{tableChangeSingle}(yearPoints=\hlfunctioncall{c}(2000,2005,2010), 
+                              returnDataFrame=TRUE)
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrrrrr}
   \hline
- & Year1 & Year2 & change [tons/yr] & slope [tons/yr/yr] & change[\%] & slope [\%/yr] \\ 
+ & Year1 & Year2 & change [mg/L] & slope [mg/L/yr] & change[\%] & slope [\%/yr] \\ 
   \hline
-1 & 2002 & 2004 & 3.10 & 1.60 & 2.00 & 1.00 \\ 
-  2 & 2002 & 2006 & 6.60 & 1.70 & 4.20 & 1.10 \\ 
-  3 & 2004 & 2006 & 3.50 & 1.70 & 2.20 & 1.10 \\ 
+1 & 2000.00 & 2005.00 & 0.09 & 0.02 & 7.00 & 1.40 \\ 
+  2 & 2000.00 & 2010.00 & 0.19 & 0.02 & 15.00 & 1.50 \\ 
+  3 & 2005.00 & 2010.00 & 0.10 & 0.02 & 7.30 & 1.50 \\ 
    \hline
 \end{tabular}
 \caption{Table created from tableChangeSingle function} 
@@ -1538,6 +1404,147 @@ Finally, tableChangeSingle (Table \ref{table:tableChangeSingle}) operates exactl
 \clearpage
 
 \FloatBarrier
+
+
+%------------------------------------------------------------ 
+\section{Extending Plots Past Defaults}
+\label{sec:extendedPlots}
+%------------------------------------------------------------ 
+
+\FloatBarrier
+
+The basic plotting options were shown in the previous section.  This section demonstrates some ideas on how to extend the capabilities of the EGRET plots. EGRET plots use R's base plotting options. Default graphical parameters (see ?par) and plot parameters were chosen, but all can be overridden. Additionally, features can be added to a plot after calling the plot function. To change the plot margins (mar), font, or other graphical parameters initially assigned, set the argument customPar to TRUE.
+
+There are a few variables that are especially useful within the plot functions shown in Table \ref{table:tableChangeSingle}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rr}
+  \hline
+Argument & Description  \\ 
+  \hline
+cex &  relative point size (number) \\ 
+cex.main &  title font size (number) \\ 
+cex.lab &  axis label (text) font size (number) \\ 
+cex.axis & axis number font size (number) \\
+col & coler of dots and lines (string) - see ?par Color Specifications\\
+lwd & line width (number)\\
+pch & point type (number), common types are 0-25\\
+lty & line type (number), 1-6\\
+   \hline
+\end{tabular}
+\caption{Useful variables to adjust in plot functions} 
+\label{table:tableChangeSingle}
+\end{table}
+
+There are many other functions that might be useful to call after the plot was made to add text, legend, lines, etc. Table \ref{table:addOns} lists a few common ones that might be useful.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rr}
+  \hline
+Function & Description  \\ 
+  \hline
+mtext & add text based on specified side of plot\\
+text & add text to a specific point on plot\\
+legend & add a legend \\ 
+grid & add grid\\ 
+abline & add line \\
+arrows & add arrow \\ 
+   \hline
+\end{tabular}
+\caption{Useful functions to add on to default plots. Type ? then the function name to get help on the individual function.} 
+\label{table:addOns}
+\end{table}
+
+Some basic examples are shown below.
+
+Figure \ref{fig:adjustSize} shows a larger title and axis number (left), and larger axis labels and point size (right).
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{plotLogConcQ}(cex.axis=2,cex.main=1.5)
+\hlfunctioncall{plotLogConcQ}(cex.lab=2,cex=2)
+\end{alltt}
+\end{kframe}\begin{figure}[]
+\subfloat[plotLogConcQ(cex.axis=2,cex.main=1.5)\label{fig:adjustSize1}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/adjustSize1} }
+\subfloat[plotLogConcQ(cex.lab=2,cex=2)\label{fig:adjustSize2}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/adjustSize2} }\caption[Modifying text and point size]{Modifying text and point size\label{fig:adjustSize}}
+\end{figure}
+
+
+\end{knitrout}
+
+
+Figure \ref{fig:plotLogConcQComparison} shows the default on the left, and several features on the right. First, the margin is adjusted to c(8,8,8,8) (requiring customPar set to TRUE). Next, the text labels were adjusted, color set to "blue", point and line size increased, and the point type changed form a solid circle(pch=20) to solid diamond (pch=18). A grid, legend, arrow, and text are added after the plot is produced.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{plotLogConcQ}()
+\hlfunctioncall{par}(mar=\hlfunctioncall{c}(8,8,8,8))
+\hlfunctioncall{plotLogConcQ}(customPar=TRUE,col=\hlstring{"blue"},cex=1.1,
+             cex.axis=1.4,cex.main=1.5,cex.lab=1.2,pch=18,lwd=2)
+\hlfunctioncall{grid}(lwd=2)
+\hlfunctioncall{legend}(4.5,.09,\hlstring{"Choptank Nitrogen"}, pch=18, col=\hlstring{"blue"},bg=\hlstring{"white"})
+\hlfunctioncall{arrows}(3, 0.14, 1, .05,lwd=2)
+\hlfunctioncall{text}(12,.14,\hlstring{"Censored Value"})
+\end{alltt}
+\end{kframe}\begin{figure}[]
+\subfloat[Default\label{fig:plotLogConcQComparison1}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogConcQComparison1} }
+\subfloat[Modified\label{fig:plotLogConcQComparison2}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogConcQComparison2} }\caption[Modified plotLogConcQ]{Modified plotLogConcQ\label{fig:plotLogConcQComparison}}
+\end{figure}
+
+
+\end{knitrout}
+
+
+There are just a few fonts that are generally available as a default. Figure \ref{fig:easyFontChange} shows how to change to the Serif font, as well as how to use the mtext function. To see the available fonts for pdf output on your computer, type names(pdfFonts()).
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcomment{# Switching to serif font:}
+\hlfunctioncall{par}(family=\hlstring{"serif"})
+\hlfunctioncall{plotFluxPred}(customPar=TRUE)
+\hlfunctioncall{mtext}(side=3,line=-3,\hlstring{"Serif font example"},cex=3)
+\end{alltt}
+\end{kframe}\begin{figure}[]
+
+\includegraphics[width=1\linewidth,height=1\linewidth]{figure/easyFontChange} \caption[Serif font]{Serif font\label{fig:easyFontChange}}
+\end{figure}
+
+
+\end{knitrout}
+
+
+
+The available fonts are quite limited in base R. To expand the font choices, there is a nice R library 'extrafont' that can help. Figure \ref{fig:harderFontChange} uses a comic sans font. 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{library}(extrafont)
+\hlcomment{# The first time you use extrafont, you'll need to run: }
+\hlcomment{# font_import()}
+\hlcomment{# To then see your font options:}
+\hlcomment{# fonts()}
+\hlfunctioncall{par}(family=\hlstring{"Comic Sans MS"})
+\hlfunctioncall{plotFluxPred}(customPar=TRUE)
+\hlfunctioncall{mtext}(side=3,line=-3,\hlstring{"Comic sans font example"},cex=2)
+\end{alltt}
+\end{kframe}\begin{figure}[]
+
+\includegraphics[width=1\linewidth,height=1\linewidth]{figure/harderFontChange} \caption[Comic Sans MS font]{Comic Sans MS font\label{fig:harderFontChange}}
+\end{figure}
+
+
+\end{knitrout}
+
+\FloatBarrier
+
+
+
 \appendix
 %------------------------------------------------------------ 
 \section{Getting Started}

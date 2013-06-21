@@ -1,7 +1,7 @@
 %\VignetteIndexEntry{Introduction to the EGRET package}
 %\VignetteEngine{knitr::knitr}
 %\VignetteDepends{}
-%\VignetteSuggests{xtable, dataRetrieval}
+%\VignetteSuggests{xtable, dataRetrieval,extrafont}
 %\VignetteImports{methods,survival, fields}
 %\VignettePackage{EGRET}
 
@@ -557,7 +557,7 @@ INFO <- getMetaData(sta,"",interactive=FALSE)
 INFO$shortName <- "Mississippi River at Keokuk Iowa"
 INFO <- setPA()
 
-plotQTimeDaily(startYear=1980,endYear=2010,qUnit=3,qLower=5)
+plotQTimeDaily(startYear=1880,endYear=2010,qUnit=3,qLower=300)
 
 @
 
@@ -656,7 +656,7 @@ annualSeries <- makeAnnualSeries()
 
 This section will give examples of the available plots appropriate for analyzing the data prior to performing a WRTDS analysis. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See Appendix \ref{sec:wqVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}).
 
-One note about any of the plotting functions that show the sample data:  If a value in the data set is a non-detect. Then it is displayed on a graph as a vertical line.  The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values, the minimum value on the y-axis.  This line is an 'honest' representation of what we know about that observation and doesn't involve us using a statistical model to fill in what we don't know. 
+One note about any of the plotting functions that show the sample data:  If a value in the data set is a non-detect, it is displayed on a graph as a vertical line.  The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values, the minimum value on the y-axis.  This line is an 'honest' representation of what we know about that observation and doesn't involve us using a statistical model to fill in what we don't know. 
 
 Figure \ref{fig:plotBoxes}:
 <<plotBoxes, echo=TRUE, fig.cap="Concentration box plots",fig.subcap=c("boxConcMonth()","boxQTwice(qUnit=1)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
@@ -687,38 +687,6 @@ Figure \ref{fig:multiPlotDataOverview}:
 <<multiPlotDataOverview, echo=TRUE, fig.cap="multiPlotDataOverview(qUnit=1)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 multiPlotDataOverview(qUnit=1)
 @
-
-\FloatBarrier
-
-%------------------------------------------------------------ 
-\subsection{Extending Plots Past Defaults}
-\label{sec:extendedPlots}
-%------------------------------------------------------------ 
-
-\FloatBarrier
-
-The basic plotting options were shown in the previous section.  This section demonstrates some ideas on how to extend the capabilities of the EGRET plots. EGRET plots use R's base plotting options. Default graphical parameters (see ?mar) and plot parameters were chosen, but all can be overridden. Additionally, features can be added to a plot after calling the plot function. To change the plot margins, set the argument customPar to TRUE.
-
-Figure \ref{fig:plotLogConcQComparison}:
-<<plotLogConcQComparison,echo=TRUE,eval=TRUE,fig.cap="Modified plotLogConcQ", fig.subcap=c("Default","Modified"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
-plotLogConcQ()
-par(mar=c(8,8,8,8))
-
-plotLogConcQ(customPar=TRUE,col="blue",cex=1.1,
-             cex.axis=1.4,cex.main=1.5,cex.lab=1.2,pch=18,lwd=2)
-grid()
-legend(4.5,.1,"Choptank Nitrogen", pch=18, col="blue",bg="white")
-@
-
-Figure \ref{fig:plot-fascinating2}:
-<<plot-fascinating2,echo=TRUE,eval=TRUE,fig.cap="Modified box plot",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
-# Adding text to a boxplot:
-bp <- boxConcMonth()
-mtext(paste(bp$n, sep = ""), at = seq_along(bp$n), 
-      line = -1, side = 3, cex=0.75)
-mtext("n = ",side=3,line=-1,adj=.01, cex=0.75)
-@
-
 
 \FloatBarrier
 
@@ -863,10 +831,10 @@ qTop<-5000
 date1 <- "2000-09-01"
 date2 <- "2005-09-01"
 date3 <- "2009-09-01"
-plotConcQSmooth(date1, date2, date3, qBottom, qTop, 
-                   concMax=1.5,qUnit=1)
-plotLogConcQSmooth(date1, date2, date3, qBottom, qTop,
-                   concMax=1.5, concMin=0.1,qUnit=1)
+plotConcQSmooth(date1, date2, date3,
+                qBottom, qTop, qUnit=1)
+plotLogConcQSmooth(date1, date2, date3,
+                   qBottom, qTop, qUnit=1)
 @
 
 Figure \ref{fig:plotConcTimeSmooth}:
@@ -885,7 +853,7 @@ fluxBiasEight(qUnit=1)
 
 Figure \ref{fig:plotContours}:
 <<plotContours, echo=TRUE, fig.cap="plotContours(2008,2010,1,5000,clevel,qUnit=1)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
-clevel<-seq(0,2,0.5)
+clevel<-seq(0,3.5,0.25)
 plotContours(yearStart,yearEnd,qBottom,qTop, 
              contourLevels = clevel,qUnit=1)
 @
@@ -910,29 +878,54 @@ contourLevels = seq(0,5,0.2)
 \subsection{Table Options}
 \label{sec:wrtdsTable}
 %------------------------------------------------------------ 
-Sometimes easier to consider the results in table formats rather than graphically. The function tableResults produces a simple text table that contains the annual values for the results.  Each row of the output represents a year and it prints: year, average discharge, average concentration, flow normalized concentration, average flux, and flow normalized flux.  
+Sometimes easier to consider the results in table formats rather than graphically. The function tableResults produces a simple text table that contains the annual values for the results.  Each row of the output represents a year and it prints: year, average discharge, average concentration, flow normalized concentration, average flux, and flow normalized flux.  A small sample of the output is printed below.
 
-<<tableResults1, echo=TRUE, eval=TRUE>>=
+<<tableResults1, echo=TRUE, eval=FALSE>>=
 tableResults()
 @
+
+
+\begin{verbatim}
+
+   Choptank River 
+   Inorganic nitrogen (nitrate and nitrite)
+   Water Year 
+
+   Year   Discharge    Conc    FN_Conc     Flux    FN_Flux
+             cms            mg/L             10^6 kg/yr 
+
+   1980      4.25     0.949     1.003    0.1154     0.106
+   1981      2.22     1.035     0.999    0.0675     0.108
+   1982      3.05     1.036     0.993    0.0985     0.110
+...
+   2009      3.68     1.409     1.419    0.1328     0.149
+   2010      7.19     1.323     1.438    0.2236     0.149
+   2011      5.24     1.438     1.457    0.1554     0.148
+\end{verbatim}
+
 
 The other table option is tableChange. This is a function that provides for the computation of changes or slopes between any selected pairs of time points.  These computations are made only on the flow-normalized results.
 
 <<tableChange1, eval=TRUE, echo=TRUE>>=
-tableChange()
+tableChange(yearPoints=c(2000,2005,2010))
 @
 
 Finally, tableChangeSingle (Table \ref{table:tableChangeSingle}) operates exactly the same as tableChange except for the addition of two arguments: returnDataFrame and flux. This functions provides either concentration results or flux results, but not both.  This can be useful when producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except that the final two arguments.  The first is a logical argument to indicate if a dataframe of output should be returned (for later manipulation or printing through other programs such as Excel), this argument is returnDataFrame, and its default is FALSE.  The final argument is flux, and the default is TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  Additionally, this function allows for the return of a dataframe.  See Appendix \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft.
+
+<<tableChangeSingle, eval=FALSE, echo=TRUE,results='hide'>>=
+returnDF <- tableChangeSingle(yearPoints=c(2000,2005,2010), 
+                              returnDataFrame=TRUE)
+@
 
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrrrrr}
   \hline
- & Year1 & Year2 & change [tons/yr] & slope [tons/yr/yr] & change[\%] & slope [\%/yr] \\ 
+ & Year1 & Year2 & change [mg/L] & slope [mg/L/yr] & change[\%] & slope [\%/yr] \\ 
   \hline
-1 & 2002 & 2004 & 3.10 & 1.60 & 2.00 & 1.00 \\ 
-  2 & 2002 & 2006 & 6.60 & 1.70 & 4.20 & 1.10 \\ 
-  3 & 2004 & 2006 & 3.50 & 1.70 & 2.20 & 1.10 \\ 
+1 & 2000.00 & 2005.00 & 0.09 & 0.02 & 7.00 & 1.40 \\ 
+  2 & 2000.00 & 2010.00 & 0.19 & 0.02 & 15.00 & 1.50 \\ 
+  3 & 2005.00 & 2010.00 & 0.10 & 0.02 & 7.30 & 1.50 \\ 
    \hline
 \end{tabular}
 \caption{Table created from tableChangeSingle function} 
@@ -943,6 +936,103 @@ Finally, tableChangeSingle (Table \ref{table:tableChangeSingle}) operates exactl
 \clearpage
 
 \FloatBarrier
+
+
+%------------------------------------------------------------ 
+\section{Extending Plots Past Defaults}
+\label{sec:extendedPlots}
+%------------------------------------------------------------ 
+
+\FloatBarrier
+
+The basic plotting options were shown in the previous section.  This section demonstrates some ideas on how to extend the capabilities of the EGRET plots. EGRET plots use R's base plotting options. Default graphical parameters (see ?par) and plot parameters were chosen, but all can be overridden. Additionally, features can be added to a plot after calling the plot function. To change the plot margins (mar), font, or other graphical parameters initially assigned, set the argument customPar to TRUE.
+
+There are a few variables that are especially useful within the plot functions shown in Table \ref{table:tableChangeSingle}.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rr}
+  \hline
+Argument & Description  \\ 
+  \hline
+cex &  relative point size (number) \\ 
+cex.main &  title font size (number) \\ 
+cex.lab &  axis label (text) font size (number) \\ 
+cex.axis & axis number font size (number) \\
+col & coler of dots and lines (string) - see ?par Color Specifications\\
+lwd & line width (number)\\
+pch & point type (number), common types are 0-25\\
+lty & line type (number), 1-6\\
+   \hline
+\end{tabular}
+\caption{Useful variables to adjust in plot functions} 
+\label{table:tableChangeSingle}
+\end{table}
+
+There are many other functions that might be useful to call after the plot was made to add text, legend, lines, etc. Table \ref{table:addOns} lists a few common ones that might be useful.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rr}
+  \hline
+Function & Description  \\ 
+  \hline
+mtext & add text based on specified side of plot\\
+text & add text to a specific point on plot\\
+legend & add a legend \\ 
+grid & add grid\\ 
+abline & add line \\
+arrows & add arrow \\ 
+   \hline
+\end{tabular}
+\caption{Useful functions to add on to default plots. Type ? then the function name to get help on the individual function.} 
+\label{table:addOns}
+\end{table}
+
+Some basic examples are shown below.
+
+Figure \ref{fig:adjustSize} shows a larger title and axis number (left), and larger axis labels and point size (right).
+<<adjustSize,echo=TRUE,eval=TRUE,fig.cap="Modifying text and point size", fig.subcap=c("plotLogConcQ(cex.axis=2,cex.main=1.5)","plotLogConcQ(cex.lab=2,cex=2)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+plotLogConcQ(cex.axis=2,cex.main=1.5)
+plotLogConcQ(cex.lab=2,cex=2)
+@
+
+Figure \ref{fig:plotLogConcQComparison} shows the default on the left, and several features on the right. First, the margin is adjusted to c(8,8,8,8) (requiring customPar set to TRUE). Next, the text labels were adjusted, color set to "blue", point and line size increased, and the point type changed form a solid circle(pch=20) to solid diamond (pch=18). A grid, legend, arrow, and text are added after the plot is produced.
+<<plotLogConcQComparison,echo=TRUE,eval=TRUE,fig.cap="Modified plotLogConcQ", fig.subcap=c("Default","Modified"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+plotLogConcQ()
+par(mar=c(8,8,8,8))
+plotLogConcQ(customPar=TRUE,col="blue",cex=1.1,
+             cex.axis=1.4,cex.main=1.5,cex.lab=1.2,pch=18,lwd=2)
+grid(lwd=2)
+legend(4.5,.09,"Choptank Nitrogen", pch=18, col="blue",bg="white")
+arrows(3, 0.14, 1, .05,lwd=2)
+text(12,.14,"Censored Value")
+@
+
+There are just a few fonts that are generally available as a default. Figure \ref{fig:easyFontChange} shows how to change to the Serif font, as well as how to use the mtext function. To see the available fonts for pdf output on your computer, type names(pdfFonts()).
+<<easyFontChange,echo=TRUE,eval=TRUE,fig.cap="Serif font",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+# Switching to serif font:
+par(family="serif")
+plotFluxPred(customPar=TRUE)
+mtext(side=3,line=-3,"Serif font example",cex=3)
+@
+
+
+The available fonts are quite limited in base R. To expand the font choices, there is a nice R library 'extrafont' that can help. Figure \ref{fig:harderFontChange} uses a comic sans font. 
+<<harderFontChange,echo=TRUE,eval=TRUE,fig.cap="Comic Sans MS font",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',warning=FALSE, message=FALSE>>=
+library(extrafont)
+# The first time you use extrafont, you'll need to run: 
+# font_import()
+# To then see your font options:
+# fonts()
+par(family="Comic Sans MS")
+plotFluxPred(customPar=TRUE)
+mtext(side=3,line=-3,"Comic sans font example",cex=2)
+@
+\FloatBarrier
+
+
+
 \appendix
 %------------------------------------------------------------ 
 \section{Getting Started}
