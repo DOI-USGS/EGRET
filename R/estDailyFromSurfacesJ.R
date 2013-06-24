@@ -50,9 +50,9 @@ estDailyFromSurfaces <- function(localDaily = Daily, localINFO = INFO, localsurf
   allLogQsByDayOfYear <- split(localDaily$LogQ, localDaily$Day)
 
   
-#   allLogQsByDayOfYear[['59']] <- c(unlist(allLogQsByDayOfYear['59']),   # Bob's convention
-#                                      unlist(allLogQsByDayOfYear['60']))
-#   allLogQsByDayOfYear['60'] <- allLogQsByDayOfYear['60']
+  allLogQsByDayOfYear[['59']] <- c(unlist(allLogQsByDayOfYear['59']),   # Bob's convention
+                                     unlist(allLogQsByDayOfYear['60']))
+  allLogQsByDayOfYear['60'] <- allLogQsByDayOfYear['59']
   
   # Using the above data structure as a "look-up" table, list all LogQ values that occured on every
   # day of the entire daily record. When "unlisted" into a vector, these will become the "x" values 
