@@ -4,8 +4,8 @@
 \title{EGRET package includes WRTDS and flowHistory}
 \description{
   \tabular{ll}{ Package: \tab EGRET\cr Type: \tab
-  Package\cr Version: \tab 1.2.3\cr Date: \tab
-  2013-01-03\cr License: \tab Unlimited for this package,
+  Package\cr Version: \tab 1.2.4\cr Date: \tab
+  2013-06-28\cr License: \tab Unlimited for this package,
   dependencies have more restrictive licensing.\cr
   Copyright: \tab This software is in the public domain
   because it contains materials that originally came from
