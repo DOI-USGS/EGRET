@@ -39,10 +39,6 @@ setupYears<-function(paLong = 12, paStart = 10, localDaily = Daily){
   Ends<-Starts+paLong-1
   StartEndSeq<-data.frame(Starts,Ends)
   #   need to trim off the front and back, those years that aren't in the Daily data set
-  # Trying to avoid subset
-#   StartEndSeq<-subset(StartEndSeq,Starts>=firstMonthSeq)
-#   StartEndSeq<-subset(StartEndSeq,Ends<=lastMonthSeq)
-  
   StartEndSeq <- StartEndSeq[(StartEndSeq$Starts >=firstMonthSeq) & (StartEndSeq$Ends<=lastMonthSeq),]
   
   firstMonth <- StartEndSeq[1,1]
@@ -57,24 +53,17 @@ setupYears<-function(paLong = 12, paStart = 10, localDaily = Daily){
   
   for(i in 1:numYears) {
     
-#     startSeq<-StartEndSeq$Starts[i]
-#     endSeq<-StartEndSeq$Ends[i]
-    
-#     DailyYear<-subset(localDaily,MonthSeq>=startSeq)
-#     DailyYear<-subset(DailyYear,MonthSeq<=endSeq)
-    # This is better:
-#     DailyYear <- localDaily[(localDaily$MonthSeq>=startSeq) & (localDaily$MonthSeq<=endSeq),]
-    
     # This should be even better:
     startMonth <- (i-1)*12+firstMonth
     stopMonth <- startMonth+paLong-1
     DailyYear <- localDaily[which(localDaily$MonthSeq %in% startMonth:stopMonth),]
 
     #     need to see if the data frame for the year has enough good data
-    counter<-ifelse(is.na(DailyYear$ConcDay),1,0)
+    counter<-ifelse(is.na(DailyYear$ConcDay),0,1)
     #     if we have NA values on more than 10% of the days, then don't use the year
     if (length(counter) > 0){
-      good<-((sum(counter)/length(DailyYear$ConcDay))<0.1)
+      good <- (sum(counter) > 25)
+#       good<-((sum(counter)/length(DailyYear$ConcDay))<0.1)
 #       good<-if((sum(counter)/length(DailyYear$ConcDay))>0.1) FALSE else TRUE
     } else {
       good<-FALSE
