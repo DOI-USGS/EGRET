@@ -60,6 +60,7 @@ opts_chunk$set(highlight=TRUE, tidy=TRUE, keep.space=TRUE, keep.blank.space=FALS
 knit_hooks$set(inline = function(x) {
    if (is.numeric(x)) round(x, 3)})
 knit_hooks$set(crop = hook_pdfcrop)
+
 @
 
 %------------------------------------------------------------
@@ -1016,6 +1017,30 @@ There are just a few fonts that are generally available as a default. Figure \re
 par(family="serif")
 plotFluxPred(customPar=TRUE)
 mtext(side=3,line=-3,"Serif font example",cex=3)
+@
+
+The contour plots can also be extended. The default y-axis is determined from qTop and qBottom. Occationally, it is necessary to use a custom axis. This can be done by specifying yTicks. It is also nice to be able to adjust the color scheme of the contour plots. There are some color schemes built into base R such as heat.colors, topo.colors, terrain.colors, and cm.colors. Alternatively, colors can be set using the colorRampPalette function. For example, it might make more sense to use a scheme that goes from white to red for low to high concentrations. For the plotDiffContours, it moght make more sense to go from blue to white for the negative values, and white to red for the positive values. Examples are shown below.
+
+<<modifiedContour1,echo=TRUE,eval=TRUE,fig.cap="Contour plot with modified axis and color scheme",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+yearStart <- 2001
+yearEnd <- 2010
+qBottom <- 0.1
+qTop<- 25
+clevel <- seq(0,3.5,0.5)
+colors <- colorRampPalette(c("white","red"))
+yTicksModified <- c(.1,1,10,25)
+plotContours(yearStart,yearEnd,qBottom,qTop, 
+             contourLevels = clevel,
+             yTicks=yTicksModified,
+             color.palette=colors)  
+@
+
+<<modifiedDiffContour,echo=TRUE,eval=TRUE,fig.cap="Difference contour plot with modifiedcolor scheme",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+colors <- colorRampPalette(c("blue","white","red"))
+maxDiff<-0.5
+plotDiffContours(yearStart,yearEnd,qBottom,qTop, 
+             maxDiff,lwd=2,
+             color.palette=colors)
 @
 
 

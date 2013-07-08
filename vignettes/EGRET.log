@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.6)  21 JUN 2013 17:02
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.6)  8 JUL 2013 16:18
 entering extended mode
 **EGRET.tex
 (D:\LADData\RCode\EGRET\vignettes\EGRET.tex
@@ -1260,6 +1260,32 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 [38 <D:/LADData/RCode/EGRET/vignettes/figure/adjustSize1.pdf> <D:/LADData/RCode
 /EGRET/vignettes/figure/adjustSize2.pdf>]
+Package color Info: Redefining color shadecolor on input line 1526.
+
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 1540.
+
+<figure/modifiedContour1.pdf, id=700, 505.89pt x 505.89pt>
+File: figure/modifiedContour1.pdf Graphic file (type pdf)
+
+<use figure/modifiedContour1.pdf>
+Package pdftex.def Info: figure/modifiedContour1.pdf used on input line 1542.
+(pdftex.def)             Requested size: 448.07928pt x 448.07928pt.
+Package color Info: Redefining color shadecolor on input line 1550.
+
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 1558.
+
+<figure/modifiedDiffContour.pdf, id=701, 505.89pt x 505.89pt>
+File: figure/modifiedDiffContour.pdf Graphic file (type pdf)
+
+<use figure/modifiedDiffContour.pdf>
+Package pdftex.def Info: figure/modifiedDiffContour.pdf used on input line 1560
+.
+(pdftex.def)             Requested size: 448.07928pt x 448.07928pt.
+
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
@@ -1269,21 +1295,19 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
 [40 <D:/LADData/RCode/EGRET/vignettes/figure/easyFontChange.pdf>]
-Package color Info: Redefining color shadecolor on input line 1545.
-Package color Info: Redefining color shadecolor on input line 1555.
-Package color Info: Redefining color shadecolor on input line 1570.
-Package color Info: Redefining color shadecolor on input line 1588.
-
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[41
-
-]
+[41 <D:/LADData/RCode/EGRET/vignettes/figure/modifiedContour1.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[42]
+[42 <D:/LADData/RCode/EGRET/vignettes/figure/modifiedDiffContour.pdf>]
+Package color Info: Redefining color shadecolor on input line 1589.
+Package color Info: Redefining color shadecolor on input line 1599.
+Package color Info: Redefining color shadecolor on input line 1614.
+Package color Info: Redefining color shadecolor on input line 1632.
+
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
@@ -1291,15 +1315,11 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[44
-
-]
+[44]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[45
-
-]
+[45]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
@@ -1309,34 +1329,46 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[47]
+[47
+
+]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[48]
-Package color Info: Redefining color shadecolor on input line 1778.
-LaTeX Font Info:    Try loading font information for TS1+pcr on input line 1780
+[48
+
+]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[49]
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[50]
+Package color Info: Redefining color shadecolor on input line 1822.
+LaTeX Font Info:    Try loading font information for TS1+pcr on input line 1824
 .
  ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\ts1pcr.fd"
 File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
 )
-Overfull \hbox (294.33533pt too wide) in paragraph at lines 1784--1784
+Overfull \hbox (294.33533pt too wide) in paragraph at lines 1828--1828
 []\OT1/pcr/m/n/10.95 pCodeINFO <- []\OT1/pcr/b/n/10.95 getMultipleParameterName
 s[]\OT1/pcr/m/n/10.95 (ChopDaily$parameter_cd,                                 
 interactive=FALSE)[] 
  []
 
-Package color Info: Redefining color shadecolor on input line 1799.
-LaTeX Font Info:    Try loading font information for OMS+pcr on input line 1801
+Package color Info: Redefining color shadecolor on input line 1843.
+LaTeX Font Info:    Try loading font information for OMS+pcr on input line 1845
 .
 ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\omspcr.fd"
 File: omspcr.fd 
 )
 LaTeX Font Info:    Font shape `OMS/pcr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1801.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1845.
 
 
-Overfull \hbox (11.82567pt too wide) in paragraph at lines 1817--1817
+Overfull \hbox (11.82567pt too wide) in paragraph at lines 1861--1861
 []\OT1/pcr/m/n/10.95 Suspended sediment concentration (SSC) 1980-10-01 1991-09-
 30 3651 mg/l[] 
  []
@@ -1345,60 +1377,60 @@ Overfull \hbox (11.82567pt too wide) in paragraph at lines 1817--1817
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[49
+[51
 
-] <table1.png, id=800, 554.07pt x 125.71968pt>
+] <table1.png, id=824, 554.07pt x 125.71968pt>
 File: table1.png Graphic file (type png)
  <use table1.png>
-Package pdftex.def Info: table1.png used on input line 1836.
+Package pdftex.def Info: table1.png used on input line 1880.
 (pdftex.def)             Requested size: 554.06865pt x 125.71936pt.
-Package color Info: Redefining color shadecolor on input line 1850.
+Package color Info: Redefining color shadecolor on input line 1894.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[50 <D:/LADData/RCode/EGRET/vignettes/table1.png>]
-Package color Info: Redefining color shadecolor on input line 1876.
+[52 <D:/LADData/RCode/EGRET/vignettes/table1.png>]
+Package color Info: Redefining color shadecolor on input line 1920.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[51]
-Underfull \hbox (badness 1983) in paragraph at lines 1903--1904
+[53]
+Underfull \hbox (badness 1983) in paragraph at lines 1947--1948
 []\OT1/ptm/m/n/10.95 Hirsch, R. M., Moyer, D. L. and Arch-field, S. A. (2010), 
 Weighted Re-gres-sions on
  []
 
 
-Underfull \hbox (badness 1221) in paragraph at lines 1903--1904
+Underfull \hbox (badness 1221) in paragraph at lines 1947--1948
 \OT1/ptm/m/n/10.95 Time, Dis-charge, and Sea-son (WRTDS), with an Ap-pli-ca-tio
 n to Chesa-peake Bay River
  []
 
 
-Underfull \hbox (badness 2443) in paragraph at lines 1903--1904
+Underfull \hbox (badness 2443) in paragraph at lines 1947--1948
 \OT1/ptm/m/n/10.95 In-puts. JAWRA Jour-nal of the Amer-i-can Wa-ter Re-sources 
 As-so-ci-a-tion, 46: 857-880.
  []
 
 
-Underfull \hbox (badness 3690) in paragraph at lines 1903--1904
+Underfull \hbox (badness 3690) in paragraph at lines 1947--1948
 \OT1/ptm/m/n/10.95 doi: 10.1111/j.1752-1688.2010.00482.x []$\OT1/pcr/m/n/10.95 
 http : / / onlinelibrary . wiley . com / doi /$
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1917.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1961.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[52
+[54
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1917.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1961.
  (D:\LADData\RCode\EGRET\vignettes\EGRET.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1917.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1917.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1961.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1961.
 
 Package rerunfilecheck Info: File `EGRET.out' has not changed.
 (rerunfilecheck)             Checksum: CF3D4C1B84FA74EA82B1CEE124CEA6B7;1812.
@@ -1408,10 +1440,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 8628 strings out of 494045
- 131102 string characters out of 3145961
- 225132 words of memory out of 3000000
- 11582 multiletter control sequences out of 15000+200000
+ 8644 strings out of 494045
+ 131506 string characters out of 3145961
+ 225297 words of memory out of 3000000
+ 11592 multiletter control sequences out of 15000+200000
  30678 words of font info for 67 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
  44i,15n,48p,1096b,468s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1422,9 +1454,9 @@ Files (x86)/MiKTeX 2.9/fonts/type1/urw/courier/ucrb8a.pfb><C:/Program Files (x8
  2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/
 type1/urw/times/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/t
 imes/utmri8a.pfb>
-Output written on EGRET.pdf (52 pages, 1364504 bytes).
+Output written on EGRET.pdf (54 pages, 1438688 bytes).
 PDF statistics:
- 891 PDF objects out of 1000 (max. 8388607)
- 168 named destinations out of 1000 (max. 500000)
- 425 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 916 PDF objects out of 1000 (max. 8388607)
+ 172 named destinations out of 1000 (max. 500000)
+ 435 words of extra memory for PDF output out of 10000 (max. 10000000)
 

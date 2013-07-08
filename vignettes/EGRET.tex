@@ -530,7 +530,7 @@ endDate <- \hlstring{""}
 Daily <- \hlfunctioncall{getDVData}(siteID,\hlstring{"00060"},startDate,endDate)
 \end{alltt}
 \begin{verbatim}
-## There are  49328 data points, and  49328 days.
+## There are  49345 data points, and  49345 days.
 \end{verbatim}
 \begin{alltt}
 INFO <- \hlfunctioncall{getMetaData}(siteID,\hlstring{""},interactive=FALSE)
@@ -687,7 +687,7 @@ sta<-\hlstring{"11264500"}
 Daily <-\hlfunctioncall{getDVData}(sta,\hlstring{"00060"},StartDate=\hlstring{""},EndDate=\hlstring{""})
 \end{alltt}
 \begin{verbatim}
-## There are  35732 data points, and  35732 days.
+## There are  35749 data points, and  35749 days.
 \end{verbatim}
 \begin{alltt}
 INFO <- \hlfunctioncall{getMetaData}(sta,\hlstring{""},interactive=FALSE)
@@ -1514,6 +1514,50 @@ There are just a few fonts that are generally available as a default. Figure \re
 \end{kframe}\begin{figure}[]
 
 \includegraphics[width=1\linewidth,height=1\linewidth]{figure/easyFontChange} \caption[Serif font]{Serif font\label{fig:easyFontChange}}
+\end{figure}
+
+
+\end{knitrout}
+
+
+The contour plots can also be extended. The default y-axis is determined from qTop and qBottom. Occationally, it is necessary to use a custom axis. This can be done by specifying yTicks. It is also nice to be able to adjust the color scheme of the contour plots. There are some color schemes built into base R such as heat.colors, topo.colors, terrain.colors, and cm.colors. Alternatively, colors can be set using the colorRampPalette function. For example, it might make more sense to use a scheme that goes from white to red for low to high concentrations. For the plotDiffContours, it moght make more sense to go from blue to white for the negative values, and white to red for the positive values. Examples are shown below.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+yearStart <- 2001
+yearEnd <- 2010
+qBottom <- 0.1
+qTop<- 25
+clevel <- \hlfunctioncall{seq}(0,3.5,0.5)
+colors <- \hlfunctioncall{colorRampPalette}(\hlfunctioncall{c}(\hlstring{"white"},\hlstring{"red"}))
+yTicksModified <- \hlfunctioncall{c}(.1,1,10,25)
+\hlfunctioncall{plotContours}(yearStart,yearEnd,qBottom,qTop, 
+             contourLevels = clevel,
+             yTicks=yTicksModified,
+             color.palette=colors)  
+\end{alltt}
+\end{kframe}\begin{figure}[]
+
+\includegraphics[width=1\linewidth,height=1\linewidth]{figure/modifiedContour1} \caption[Contour plot with modified axis and color scheme]{Contour plot with modified axis and color scheme\label{fig:modifiedContour1}}
+\end{figure}
+
+
+\end{knitrout}
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+colors <- \hlfunctioncall{colorRampPalette}(\hlfunctioncall{c}(\hlstring{"blue"},\hlstring{"white"},\hlstring{"red"}))
+maxDiff<-0.5
+\hlfunctioncall{plotDiffContours}(yearStart,yearEnd,qBottom,qTop, 
+             maxDiff,lwd=2,
+             color.palette=colors)
+\end{alltt}
+\end{kframe}\begin{figure}[]
+
+\includegraphics[width=1\linewidth,height=1\linewidth]{figure/modifiedDiffContour} \caption[Difference contour plot with modifiedcolor scheme]{Difference contour plot with modifiedcolor scheme\label{fig:modifiedDiffContour}}
 \end{figure}
 
 
