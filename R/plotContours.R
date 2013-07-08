@@ -31,6 +31,7 @@
 #' @param yTicks vector of yTick labels and marks that will be plotted in log space. If NA, will be automatically generated. 
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
+#' @param lwd number line width
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @param flowDuration logical variable if TRUE plot the flow duration lines, if FALSE do not plot them, default = TRUE
 #' @keywords water-quality statistics graphics
@@ -47,7 +48,7 @@
 #' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel)  
 #' yTicksModified <- c(.1,1,10,25)
 #' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,yTicks=yTicksModified)  
-#' colors = colorRampPalette(c("white","red"))
+#' colors <- colorRampPalette(c("white","red"))
 #' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,yTicks=yTicksModified,color.palette=colors)
 #' colors2 <- heat.colors # Some other options: topo.colors,#terrain.colors,#cm.colors
 #' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,color.palette=colors2,lwd=2)
@@ -127,7 +128,6 @@ plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
   numX<-length(x)
   numY<-length(y)
   
-#   if(!(length(yTicks) > 1)){
   if(is.na(yTicks[1])){
     qBottom<-max(0.9*y[1],qBottom) 
     qTop<-min(1.1*y[numY],qTop) 
