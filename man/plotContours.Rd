@@ -7,7 +7,8 @@
     localINFO = INFO, localDaily = Daily, qUnit = 2,
     contourLevels = NA, span = 60, pval = 0.05,
     printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA,
-    flowDuration = TRUE, ...)
+    flowDuration = TRUE, customPar = FALSE, yTicks = NA,
+    lwd = 1, cex.main = 1, cex.axis = 1, ...)
 }
 \arguments{
   \item{yearStart}{numeric value for the starting date for
@@ -73,6 +74,24 @@
   black horizontal line on the figure, qBottom<vert1<qTop,
   default is NA (no horizontal line is drawn)}
 
+  \item{customPar}{logical defaults to FALSE. If TRUE,
+  par() should be set by user before calling this function
+  (for example, adjusting margins with
+  par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses
+  the best margins.}
+
+  \item{yTicks}{vector of yTick labels and marks that will
+  be plotted in log space. If NA, will be automatically
+  generated.}
+
+  \item{cex.main}{magnification to be used for main titles
+  relative to the current setting of cex}
+
+  \item{cex.axis}{magnification to be used for axis
+  annotation relative to the current setting of cex}
+
+  \item{lwd}{number line width}
+
   \item{\dots}{arbitrary functions sent to the generic
   plotting function.  See ?par for details on possible
   parameters}
@@ -103,15 +122,25 @@
   contourLevels = clevel)}
 }
 \examples{
-yearStart<-2001
-yearEnd<-2010
-qBottom<-0.2
-qTop<-20
-clevel<-seq(0,2,0.5)
+yearStart <- 2001
+yearEnd <- 2010
+qBottom <- 0.1
+qTop<- 25
+clevel <- seq(0,3.5,0.5)
 INFO <- ChopINFO
 Daily <- ChopDaily
 surfaces <- exsurfaces
 plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel)
+yTicksModified <- c(.1,1,10,25)
+plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,yTicks=yTicksModified)
+colors <- colorRampPalette(c("white","red"))
+plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,yTicks=yTicksModified,color.palette=colors)
+colors2 <- heat.colors # Some other options: topo.colors, terrain.colors, cm.colors
+plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,color.palette=colors2,lwd=2)
+plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,cex.axis=2)
+plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,cex.lab=2)
+par(mar=c(5,8,5,8))
+plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,customPar=TRUE,printTitle=FALSE)
 }
 \keyword{graphics}
 \keyword{statistics}

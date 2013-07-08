@@ -6,7 +6,9 @@
     whatSurface = 3, localsurfaces = surfaces,
     localINFO = INFO, localDaily = Daily, qUnit = 2,
     span = 60, pval = 0.05, printTitle = TRUE, vert1 = NA,
-    vert2 = NA, horiz = NA, flowDuration = TRUE, ...)
+    vert2 = NA, horiz = NA, flowDuration = TRUE,
+    yTicks = NA, lwd = 1, cex.main = 0.95, cex.axis = 1,
+    customPar = FALSE, ...)
 }
 \arguments{
   \item{year0}{numeric value for the calendar year that is
@@ -76,6 +78,24 @@
   flow duration lines, if FALSE do not plot them, default =
   TRUE}
 
+  \item{yTicks}{vector of yTick labels and marks that will
+  be plotted in log space. If NA, will be automatically
+  generated.}
+
+  \item{cex.main}{magnification to be used for main titles
+  relative to the current setting of cex}
+
+  \item{cex.axis}{magnification to be used for axis
+  annotation relative to the current setting of cex}
+
+  \item{lwd}{number line width}
+
+  \item{customPar}{logical defaults to FALSE. If TRUE,
+  par() should be set by user before calling this function
+  (for example, adjusting margins with
+  par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses
+  the best margins.}
+
   \item{\dots}{arbitrary functions sent to the generic
   plotting function.  See ?par for details on possible
   parameters}
@@ -98,13 +118,23 @@
 \examples{
 year0<-2001
 year1<-2009
-qBottom<-0.2
-qTop<-20
+qBottom<-0.1
+qTop<-25
 maxDiff<-0.5
 surfaces <- exsurfaces
 INFO <- ChopINFO
 Daily <- ChopDaily
 plotDiffContours(year0,year1,qBottom,qTop,maxDiff)
+yTicksModified <- c(.1,1,10,25)
+plotDiffContours(year0,year1,qBottom,qTop,maxDiff,yTicks=yTicksModified)
+colors <-colorRampPalette(c("blue","white","red"))
+plotDiffContours(year0,year1,qBottom,qTop,maxDiff,color.palette=colors)
+colors2 <- heat.colors # Some other options: topo.colors, terrain.colors, cm.colors
+plotDiffContours(year0,year1,qBottom,qTop,maxDiff,lwd=2,color.palette=colors2)
+plotDiffContours(year0,year1,qBottom,qTop,maxDiff,cex.lab=2)
+plotDiffContours(year0,year1,qBottom,qTop,maxDiff,cex.axis=2)
+par(mar=c(5,8,5,8))
+plotDiffContours(year0,year1,qBottom,qTop,maxDiff,customPar=TRUE)
 }
 \keyword{graphics}
 \keyword{statistics}
