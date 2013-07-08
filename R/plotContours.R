@@ -50,7 +50,7 @@
 #' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,yTicks=yTicksModified)  
 #' colors <- colorRampPalette(c("white","red"))
 #' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,yTicks=yTicksModified,color.palette=colors)
-#' colors2 <- heat.colors # Some other options: topo.colors,#terrain.colors,#cm.colors
+#' colors2 <- heat.colors # Some other options: topo.colors, terrain.colors, cm.colors
 #' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,color.palette=colors2,lwd=2)
 #' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,cex.axis=2)
 #' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,cex.lab=2)

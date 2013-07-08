@@ -48,7 +48,7 @@
 #' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,yTicks=yTicksModified)
 #' colors <-colorRampPalette(c("blue","white","red"))
 #' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,color.palette=colors)
-#' colors2 <- heat.colors # Some other options: topo.colors,#terrain.colors,#cm.colors
+#' colors2 <- heat.colors # Some other options: topo.colors, terrain.colors, cm.colors
 #' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,lwd=2,color.palette=colors2)
 #' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,cex.lab=2)
 #' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,cex.axis=2)
