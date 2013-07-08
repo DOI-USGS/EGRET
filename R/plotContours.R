@@ -26,25 +26,30 @@
 #' @param vert1 numeric, the location in time for a black vertical line on the figure, yearStart<vert1<yearEnd, default is NA (vertical line is not drawn) 
 #' @param vert2 numeric, the location in time for a black vertical line on the figure, yearStart<vert2<yearEnd, default is NA (vertical line is not drawn)
 #' @param horiz numeric, the location in discharge for a black horizontal line on the figure, qBottom<vert1<qTop, default is NA (no horizontal line is drawn)
+#' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+#' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins.
+#' @param yTicks vector of yTick labels and marks that will be plotted in log space. If NA, will be automatically generated. 
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @param flowDuration logical variable if TRUE plot the flow duration lines, if FALSE do not plot them, default = TRUE
 #' @keywords water-quality statistics graphics
 #' @export
 #' @examples 
-#' yearStart<-2001
-#' yearEnd<-2010
-#' qBottom<-0.2
-#' qTop<-20
-#' clevel<-seq(0,2,0.5)
+#' yearStart <- 2001
+#' yearEnd <- 2010
+#' qBottom <- 0.1
+#' qTop<- 25
+#' clevel <- seq(0,3.5,0.5)
 #' INFO <- ChopINFO
 #' Daily <- ChopDaily
 #' surfaces <- exsurfaces
 #' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel)  
+#' yTicksModified <- c(.1,1,10,25)
+#' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,yTicks=yTicksModified)  
 plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3, 
                        localsurfaces = surfaces, localINFO = INFO, localDaily = Daily, 
                        qUnit = 2, contourLevels = NA, span = 60, pval = 0.05, 
                        printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA, 
-                       flowDuration = TRUE, ...) {
+                       flowDuration = TRUE, customPar=FALSE, yTicks=NA,...) {
   #  This funtion makes a contour plot 
   #  x-axis is bounded by yearStart and yearEnd
   #  y-axis is bounded by qBottom and qTop (in whatever discharge units are specified by qUnit)
@@ -83,8 +88,10 @@ plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
     qUnit <- qConst[qUnit][[1]]
   }
   ################################################################################
-  par(oma=c(6,1,6,0))
-  par(mar=c(5,5,4,2)+0.1)
+  if(!customPar){
+    par(oma=c(6,1,6,0))
+    par(mar=c(5,5,4,2)+0.1)
+  }
   surfaceName<-c("log of Concentration","Standard Error of log(C)","Concentration")
   j<-3
   j<-if(whatSurface==1) 1 else j
@@ -108,11 +115,18 @@ plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
   y<-exp(y)*qFactor
   numX<-length(x)
   numY<-length(y)
-  qBottom<-max(0.9*y[1],qBottom)
-  qTop<-min(1.1*y[numY],qTop)
+  
+#   if(!(length(yTicks) > 1)){
+  if(is.na(yTicks[1])){
+    qBottom<-max(0.9*y[1],qBottom) 
+    qTop<-min(1.1*y[numY],qTop) 
+    yTicks<-logPretty3(qBottom,qTop)
+  }
+  
   xSpan<-c(yearStart,yearEnd)
   xTicks<-pretty(xSpan,n=5)
-  yTicks<-logPretty3(qBottom,qTop)
+  
+  
   nYTicks<-length(yTicks)
   surfj<-surf[,,j]
   surft<-t(surfj)
@@ -165,7 +179,9 @@ plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
   h1<-if(is.na(horiz)) vectorNone else c(yearStart,log(horiz,10),yearEnd,log(horiz,10))
   
   yLab<-qUnit@qUnitExpress
-  filled.contour(x,log(y,10),surft,levels=contourLevels,xlim=c(yearStart,yearEnd),ylim=c(log(yTicks[1],10),log(yTicks[nYTicks],10)),main=plotTitle,xlab="",ylab=yLab,xaxs="i",yaxs="i",cex.main=0.95,
+  filled.contour(x,log(y,10),surft,levels=contourLevels,xlim=c(yearStart,yearEnd),
+                 ylim=c(log(yTicks[1],10),log(yTicks[nYTicks],10)),main=plotTitle,
+                 xlab="",ylab=yLab,xaxs="i",yaxs="i",cex.main=0.95,
                  plot.axes={
                    axis(1,tcl=0.5,at=xTicks,labels=xTicks)
                    axis(2,tcl=0.5,las=1,at=log(yTicks,10),labels=yTicks)
@@ -176,6 +192,9 @@ plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
                    segments(v2[1],v2[2],v2[3],v2[4])
                    segments(h1[1],h1[2],h1[3],h1[4])
                  }, ...)
-  par(oma=c(0,0,0,0))
-  par(mar=c(5,4,4,2)+0.1)
+# If we leave this out, we can continue to add things to plot:
+#   if(!customPar){
+#     par(oma=c(0,0,0,0))
+#     par(mar=c(5,4,4,2)+0.1)
+#   }
 }
