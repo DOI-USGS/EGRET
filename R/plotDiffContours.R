@@ -25,33 +25,52 @@
 #' @param vert2 numeric, the location in time for a black vertical line on the figure, yearStart<vert2<yearEnd, default is NA (vertical line is not drawn)
 #' @param horiz numeric, the location in discharge for a black horizontal line on the figure, qBottom<vert1<qTop, default is NA (no horizontal line is drawn)
 #' @param flowDuration logical variable if TRUE plot the flow duration lines, if FALSE do not plot them, default = TRUE
+#' @param yTicks vector of yTick labels and marks that will be plotted in log space. If NA, will be automatically generated. 
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
+#' @param lwd number line width
+#' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+#' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins.
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords water-quality statistics graphics
 #' @export
 #' @examples 
 #' year0<-2001
 #' year1<-2009
-#' qBottom<-0.2
-#' qTop<-20
+#' qBottom<-0.1
+#' qTop<-25
 #' maxDiff<-0.5
 #' surfaces <- exsurfaces
 #' INFO <- ChopINFO
 #' Daily <- ChopDaily
 #' plotDiffContours(year0,year1,qBottom,qTop,maxDiff)
+#' yTicksModified <- c(.1,1,10,25)
+#' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,yTicks=yTicksModified)
+#' colors <-colorRampPalette(c("blue","white","red"))
+#' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,color.palette=colors)
+#' colors2 <- heat.colors # Some other options: topo.colors,#terrain.colors,#cm.colors
+#' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,lwd=2,color.palette=colors2)
+#' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,cex.lab=2)
+#' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,cex.axis=2)
+#' par(mar=c(5,8,5,8))
+#' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,customPar=TRUE)
 plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 3, 
                             localsurfaces = surfaces, localINFO = INFO, localDaily = Daily, 
                             qUnit = 2, span = 60, pval = 0.05, printTitle = TRUE, 
-                            vert1 = NA, vert2 = NA, horiz = NA, flowDuration = TRUE, 
-                            ...) 
+                            vert1 = NA, vert2 = NA, horiz = NA, flowDuration = TRUE, yTicks=NA,
+                            lwd=1,cex.main=0.95,cex.axis=1,customPar=FALSE,...) 
 {
   if (is.numeric(qUnit)) {
     qUnit <- qConst[shortCode = qUnit][[1]]
-  }
-  else if (is.character(qUnit)) {
+  } else if (is.character(qUnit)) {
     qUnit <- qConst[qUnit][[1]]
   }
-  par(oma = c(6, 1, 6, 0))
-  par(mar = c(5, 5, 4, 2) + 0.1)
+  
+  if(!customPar){
+    par(oma=c(6,1,6,0))
+    par(mar=c(5,5,4,2)+0.1)
+  }
+
   surfaceName <- c("log of Concentration", "Standard Error of log(C)", 
                    "Concentration")
   j <- 3
@@ -84,12 +103,17 @@ plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 
   y <- exp(y) * qFactor
   numX <- length(x)
   numY <- length(y)
-  qBottom <- max(0.9 * y[1], qBottom)
-  qTop <- min(1.1 * y[numY], qTop)
+  
+  if(is.na(yTicks[1])){
+    qBottom<-max(0.9*y[1],qBottom) 
+    qTop<-min(1.1*y[numY],qTop) 
+    yTicks<-logPretty3(qBottom,qTop)
+  }
+
   xTicks <- c(0,0.0848,0.1642,0.249,0.331,0.416,0.498,0.583,0.668,0.750,0.835,0.917,1)
   xLabels <- c("Jan1","Feb1","Mar1","Apr1","May1","Jun1","Jul1","Aug1","Sep1","Oct1","Nov1","Dec1","Jan1")
   nxTicks<-length(xTicks)
-  yTicks <- logPretty3(qBottom, qTop)
+  
   nYTicks <- length(yTicks)
   numDays <- length(localDaily$Day)
   freq <- rep(0, nVectorLogQ)
@@ -158,19 +182,19 @@ plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 
   filled.contour(x, log(y, 10), difft, levels = contourLevels, 
                  xlim = c(0,1), ylim = c(log(yTicks[1], 
                                              10), log(yTicks[nYTicks], 10)), main = plotTitle, 
-                 xlab = "", ylab = yLab, xaxs = "i", yaxs = "i", cex.main = 0.95, 
+                 xlab = "", ylab = yLab, xaxs = "i", yaxs = "i", cex.main = cex.main, 
                  plot.axes = {
-                   axis(1, tcl = 0.5, at = xTicks, labels = xLabels, cex.axis=0.9)
+                   axis(1, tcl = 0.5, at = xTicks, labels = xLabels, cex.axis=0.9*cex.axis)
                    axis(2, tcl = 0.5, las = 1, at = log(yTicks, 10), 
-                        labels = yTicks, cex.axis=1.0)
+                        labels = yTicks, cex.axis=cex.axis)
                    axis(3, tcl = 0.5, at = xTicks, labels =FALSE)
                    axis(4, tcl = 0.5, at = log(yTicks, 10), labels=FALSE)
                    if(flowDuration) contour(x, log(y, 10), durSurf, add = TRUE, drawlabels = FALSE, 
-                                            levels = plevels)
+                                            levels = plevels,lwd=lwd)
                    segments(v1[1], v1[2], v1[3], v1[4])
                    segments(v2[1], v2[2], v2[3], v2[4])
                    segments(h1[1], h1[2], h1[3], h1[4])
                  }, ...)
-  par(oma = c(0, 0, 0, 0))
-  par(mar = c(5, 4, 4, 2) + 0.1)
+#   par(oma = c(0, 0, 0, 0))
+#   par(mar = c(5, 4, 4, 2) + 0.1)
 }
