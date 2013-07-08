@@ -29,6 +29,8 @@
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins.
 #' @param yTicks vector of yTick labels and marks that will be plotted in log space. If NA, will be automatically generated. 
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @param flowDuration logical variable if TRUE plot the flow duration lines, if FALSE do not plot them, default = TRUE
 #' @keywords water-quality statistics graphics
@@ -45,11 +47,20 @@
 #' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel)  
 #' yTicksModified <- c(.1,1,10,25)
 #' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,yTicks=yTicksModified)  
+#' colors = colorRampPalette(c("white","red"))
+#' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,yTicks=yTicksModified,color.palette=colors)
+#' colors2 <- heat.colors # Some other options: topo.colors,#terrain.colors,#cm.colors
+#' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,color.palette=colors2,lwd=2)
+#' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,cex.axis=2)
+#' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,cex.lab=2)
+#' par(mar=c(5,8,5,8))
+#' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,customPar=TRUE,printTitle=FALSE)
 plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3, 
                        localsurfaces = surfaces, localINFO = INFO, localDaily = Daily, 
                        qUnit = 2, contourLevels = NA, span = 60, pval = 0.05, 
                        printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA, 
-                       flowDuration = TRUE, customPar=FALSE, yTicks=NA,...) {
+                       flowDuration = TRUE, customPar=FALSE, yTicks=NA,
+                       lwd=1,cex.main=1,cex.axis=1,...) {
   #  This funtion makes a contour plot 
   #  x-axis is bounded by yearStart and yearEnd
   #  y-axis is bounded by qBottom and qTop (in whatever discharge units are specified by qUnit)
@@ -181,17 +192,17 @@ plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
   yLab<-qUnit@qUnitExpress
   filled.contour(x,log(y,10),surft,levels=contourLevels,xlim=c(yearStart,yearEnd),
                  ylim=c(log(yTicks[1],10),log(yTicks[nYTicks],10)),main=plotTitle,
-                 xlab="",ylab=yLab,xaxs="i",yaxs="i",cex.main=0.95,
+                 xlab="",ylab=yLab,xaxs="i",yaxs="i",cex.main=cex.main, ...,
                  plot.axes={
-                   axis(1,tcl=0.5,at=xTicks,labels=xTicks)
-                   axis(2,tcl=0.5,las=1,at=log(yTicks,10),labels=yTicks)
-                   axis(3, tcl = 0.5, at = xTicks, labels =FALSE)
-                   axis(4, tcl = 0.5, at = log(yTicks, 10), labels=FALSE)
-                   if(flowDuration) contour(x,log(y,10),durSurf,add=TRUE,drawlabels=FALSE,levels=plevels)
+                   axis(1,tcl=0.5,at=xTicks,labels=xTicks,cex.axis=cex.axis)
+                   axis(2,tcl=0.5,las=1,at=log(yTicks,10),labels=yTicks,cex.axis=cex.axis)
+                   axis(3, tcl = 0.5, at = xTicks, labels =FALSE,cex.axis=cex.axis)
+                   axis(4, tcl = 0.5, at = log(yTicks, 10), labels=FALSE,cex.axis=cex.axis)
+                   if(flowDuration) contour(x,log(y,10),durSurf,add=TRUE,drawlabels=FALSE,levels=plevels,lwd=lwd)
                    segments(v1[1],v1[2],v1[3],v1[4])
                    segments(v2[1],v2[2],v2[3],v2[4])
                    segments(h1[1],h1[2],h1[3],h1[4])
-                 }, ...)
+                 })
 # If we leave this out, we can continue to add things to plot:
 #   if(!customPar){
 #     par(oma=c(0,0,0,0))
