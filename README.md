@@ -34,31 +34,12 @@ Additionally, to subscribe to an email list concerning updates to these R packag
 Package Installation
 ---------------------------------
 
-While the EGRET and dataRetreival packages are in development (and not on CRAN), the following packages must first be manually installed: 
-* zoo
-* survival
-* plyr
-* fields
-* spam - (spam is a legitimate package: SPArse Matrix)
-
-To install the EGRET package:
+To install the EGRET and dataRetrieval packages:
 
 	install.packages(c("zoo","survival","methods","fields","spam"))
 	install.packages("dataRetrieval", repos="http://usgs-r.github.com", type="source")
 	install.packages("EGRET", repos="http://usgs-r.github.com", type="source")
 
-### Note on updating versions:
-Some users have found it necessary to delete the package folders before installing newer versions of either dataRetrieval or EGRET.  If you are experiencing an issue after updating a package, trying deleting the package folder, the default location for Windows is something like this:
-C:\Users\ldecicco\Documents\R\win-library\2.15\dataRetrieval
-the default for a Mac:
-/Users/ldecicco/Library/R/2.15/library/dataRetrieval
-Then, re-install the package using the directions above.  Moving to CRAN should solve this problem.
-
-Stable releases are archived on the packageBuild branch of this repository: 
-
-[EGRET_1.2.3](https://github.com/USGS-R/EGRET/raw/packageBuilds/EGRET_1.2.3.tar.gz)
-
-[dataRetrieval_1.2.1](https://github.com/USGS-R/dataRetrieval/raw/packageBuilds/dataRetrieval_1.2.1.tar.gz)
 
 Background Information
 ----------------------
@@ -77,9 +58,9 @@ The manual assumes that the user understands the concepts underlying WRTDS.  Thu
 
 * [EGRET User Guide](https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc) (Word Document)
 
-* [WRTDS NWQMC course slides](https://github.com/USGS-R/EGRET/raw/Documentation/WRTDS+NWQMC+course.pdf) (pdf)
+* [WRTDS NWQMC course slides 2012](https://github.com/USGS-R/EGRET/raw/Documentation/WRTDS+NWQMC+course.pdf) (pdf)
 
-* [EGRET flowHistory presentation](https://github.com/USGS-R/EGRET/raw/Documentation/EGRET+flowHistory+presentation.pdf) (pdf)
+* [EGRET flowHistory presentation 2012](https://github.com/USGS-R/EGRET/raw/Documentation/EGRET+flowHistory+presentation.pdf) (pdf)
 
 
 Version updates
