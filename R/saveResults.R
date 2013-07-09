@@ -9,7 +9,16 @@
 #' @export
 #' @examples
 #' INFO <- ChopINFO
-#' \dontrun{saveResults("")}
+#' INFO$staAbbrev <- "Chop"
+#' INFO$constitAbbrev <- "nitrogen"
+#' Daily <- ChopDaily
+#' Sample <- ChopSample
+#' surfaces <- exsurfaces
+#' savePath <- "C:/RData/"
+#' saveResults(savePath)
+#' 
+#' #To load:
+#' load(paste(savePath,"Chop.nitrogen.RData",sep=""))
 saveResults<-function(savePath, localINFO =INFO){
   saveName <- paste(savePath, localINFO$staAbbrev, ".", localINFO$constitAbbrev, 
                     ".RData", sep = "")

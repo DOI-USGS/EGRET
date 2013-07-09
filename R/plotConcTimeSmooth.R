@@ -18,6 +18,7 @@
 #' @param legendTop numeric which represents the top edge of the legend in the units of the plot.
 #' @param printLegend logicalif TRUE, legend is included
 #' @param concMax numeric value for upper limit on concentration shown on the graph, default = NA (which causes the upper limit to be set automatically, based on the data)
+#' @param concMin numeric value for lower limit on concentration shown on the graph, default = NA (which causes the lower limit to be set automatically, based on the data)
 #' @param bw logical if TRUE graph is produced in black and white, default is FALSE (which means it will use color)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed 
 #' @param printValues logical variable if TRUE the results shown on the graph are printed to the console and returned in a dataframe (this can be useful for quantifying the changes seen visually in the graph), default is FALSE (not printed)
@@ -30,6 +31,7 @@
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
+#' @param logScale logical whether or not to use a log scale in the y axis.
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param lwd line width, a positive number, defaulting to 1
@@ -50,10 +52,10 @@
 #' INFO <- ChopINFO
 #' plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd)
 plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit = 2, legendLeft = 0, 
-                              legendTop = 0, concMax = NA, bw = FALSE, printTitle = TRUE, colors=c("black","red","green"), 
+                              legendTop = 0, concMax = NA, concMin=NA,bw = FALSE, printTitle = TRUE, colors=c("black","red","green"), 
                               printValues = FALSE, localSample = Sample, localINFO = INFO,tinyPlot=FALSE, 
                               windowY = 10, windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2, printLegend = TRUE,
-                              cex.legend = 1.2, cex=0.8, cex.axis=1.1, customPar=FALSE,lineVal=c(1,1,1),...){
+                              cex.legend = 1.2, cex=0.8, cex.axis=1.1, customPar=FALSE,lineVal=c(1,1,1),logScale=FALSE,...){
   
   if (is.numeric(qUnit)) {
     qUnit <- qConst[shortCode = qUnit][[1]]
@@ -110,12 +112,21 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
   yLab = "Concentration in mg/L"
 
   yMax <- max(y, na.rm = TRUE)
+  
   yTop <- if (is.na(concMax)) {
     yMax
   } else {
     concMax
   }
 
+  
+  if(logScale){
+    logText <- "y"
+  } else {
+    logText <- ""
+    concMin <- 0
+  }
+  
   colorVal <- if (bw) {
     c("black", "black", "black")
   } else {
@@ -130,7 +141,7 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
   
   xInfo <- generalAxis(x=x, minVal=yearStart, maxVal=yearEnd, tinyPlot=tinyPlot)  
   combinedY <- c(y[1,], y[2,],y[3,])
-  yInfo <- generalAxis(x=combinedY, minVal=0, maxVal=yTop, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=combinedY, minVal=concMin, maxVal=yTop, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=y[1, ],
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,

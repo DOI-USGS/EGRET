@@ -4,14 +4,14 @@
 \usage{
   plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart,
     yearEnd, qUnit = 2, legendLeft = 0, legendTop = 0,
-    concMax = NA, bw = FALSE, printTitle = TRUE,
-    colors = c("black", "red", "green"),
+    concMax = NA, concMin = NA, bw = FALSE,
+    printTitle = TRUE, colors = c("black", "red", "green"),
     printValues = FALSE, localSample = Sample,
     localINFO = INFO, tinyPlot = FALSE, windowY = 10,
     windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2,
     printLegend = TRUE, cex.legend = 1.2, cex = 0.8,
     cex.axis = 1.1, customPar = FALSE,
-    lineVal = c(1, 1, 1), ...)
+    lineVal = c(1, 1, 1), logScale = FALSE, ...)
 }
 \arguments{
   \item{q1}{numeric This is the discharge value for the
@@ -61,6 +61,11 @@
   causes the upper limit to be set automatically, based on
   the data)}
 
+  \item{concMin}{numeric value for lower limit on
+  concentration shown on the graph, default = NA (which
+  causes the lower limit to be set automatically, based on
+  the data)}
+
   \item{bw}{logical if TRUE graph is produced in black and
   white, default is FALSE (which means it will use color)}
 
@@ -103,6 +108,9 @@
 
   \item{cex.axis}{magnification to be used for axis
   annotation relative to the current setting of cex}
+
+  \item{logScale}{logical whether or not to use a log scale
+  in the y axis.}
 
   \item{customPar}{logical defaults to FALSE. If TRUE,
   par() should be set by user before calling this function

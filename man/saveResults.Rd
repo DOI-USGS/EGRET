@@ -18,7 +18,16 @@
 }
 \examples{
 INFO <- ChopINFO
-\dontrun{saveResults("")}
+INFO$staAbbrev <- "Chop"
+INFO$constitAbbrev <- "nitrogen"
+Daily <- ChopDaily
+Sample <- ChopSample
+surfaces <- exsurfaces
+savePath <- "C:/RData/"
+saveResults(savePath)
+
+#To load:
+load(paste(savePath,"Chop.nitrogen.RData",sep=""))
 }
 \keyword{statistics}
 \keyword{water-quality}

@@ -1,4 +1,4 @@
-#' Produces alternative 8-panel plot that is useful for determining if there is a flux bias problem
+#' Produces 8-panel plot that is useful for determining if there is a flux bias problem
 #'
 #' @description
 #' These plots use the jack-knife estimates from WRTDS to investigate the potential flux bias problem. 
@@ -8,7 +8,7 @@
 #'
 #' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
 #' contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
-#' \code{fluxBiasEight()}
+#' \code{fluxBiasMulti()}
 #'
 #' @param localSample string specifying the name of the data frame that contains the concentration data, default name is Sample
 #' @param localDaily string specifying the name of the data frame that contains the flow data, default name is Daily 
@@ -28,10 +28,10 @@
 #' Sample <- ChopSample
 #' Daily <- ChopDaily
 #' INFO <- ChopINFO
-#' pdf("fluxBiasEight.pdf", height=9, width=8)
-#' fluxBiasEight()
+#' pdf("fluxBiasMulti.pdf", height=9, width=8)
+#' fluxBiasMulti()
 #' dev.off()
-fluxBiasEight<-function (localSample = Sample, localDaily = Daily, 
+fluxBiasMulti<-function (localSample = Sample, localDaily = Daily, 
                          localINFO = INFO, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS", 
                          cex = 0.7, cex.axis = 1.1,cex.main=1.1,
                          col="black", lwd=1,...){
