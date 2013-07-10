@@ -1,6 +1,8 @@
 EGRET 1.2.4
 ===========
 * Plotting functions updated to allow users better control.
+* Fixed small leap year bug.
+* Added dataframe returns to table functions.
 
 
 EGRET 1.2.3
