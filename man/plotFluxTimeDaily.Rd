@@ -2,7 +2,7 @@
 \alias{plotFluxTimeDaily}
 \title{Plot of the time series of daily flux estimates and the sample values for the days that were sampled}
 \usage{
-  plotFluxTimeDaily(startYear, endYear,
+  plotFluxTimeDaily(startYear = NA, endYear = NA,
     localSample = Sample, localDaily = Daily,
     localINFO = INFO, tinyPlot = FALSE, fluxUnit = 3,
     fluxMax = NA, printTitle = TRUE, cex = 0.8,
@@ -73,14 +73,14 @@
   Although there are a lot of optional arguments to this
   function, most are set to a logical default. If your
   workspace contains an INFO, Daily, and Sample dataframes,
-  and a start and end year, then the following R code will
-  produce a plot: \code{plotFluxTimeDaily(startYear,
-  endYear)}
+  then the following R code will produce a plot:
+  \code{plotFluxTimeDaily()}
 }
 \examples{
 Sample <- ChopSample
 Daily <- ChopDaily
 INFO <- ChopINFO
+plotFluxTimeDaily()
 plotFluxTimeDaily(2001,2009)
 }
 \keyword{graphics}

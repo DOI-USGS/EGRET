@@ -2,7 +2,7 @@
 \alias{plotConcTimeDaily}
 \title{Plot of the time series of daily concentration estimates and the sample values for the days that were sampled}
 \usage{
-  plotConcTimeDaily(startYear, endYear,
+  plotConcTimeDaily(startYear = NA, endYear = NA,
     localSample = Sample, localDaily = Daily,
     localINFO = INFO, tinyPlot = FALSE, concMax = NA,
     printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
@@ -74,13 +74,14 @@
   function, most are set to a logical default. If your
   workspace contains an INFO, Daily, and Sample dataframes,
   then the following R code will produce a plot:
-  \code{plotConcTimeDaily(startYear,endYear)}
+  \code{plotConcTimeDaily()}
 }
 \examples{
 Sample <- ChopSample
 Daily <- ChopDaily
 INFO <- ChopINFO
-plotConcTimeDaily(1998,2001)
+plotConcTimeDaily()
+plotConcTimeDaily(startYear=1998,endYear=2001)
 }
 \keyword{graphics}
 \keyword{statistics}

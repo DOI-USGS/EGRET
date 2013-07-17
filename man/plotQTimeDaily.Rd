@@ -2,10 +2,10 @@
 \alias{plotQTimeDaily}
 \title{Plot of the discharge time series}
 \usage{
-  plotQTimeDaily(startYear, endYear, localDaily = Daily,
-    localINFO = INFO, qLower = NA, qUnit = 1,
-    tinyPlot = FALSE, printTitle = TRUE, lwd = 3,
-    col = "red", cex.main = 1.2, cex.lab = 1.2,
+  plotQTimeDaily(startYear = NA, endYear = NA,
+    localDaily = Daily, localINFO = INFO, qLower = NA,
+    qUnit = 1, tinyPlot = FALSE, printTitle = TRUE,
+    lwd = 3, col = "red", cex.main = 1.2, cex.lab = 1.2,
     customPar = FALSE, ...)
 }
 \arguments{
@@ -65,14 +65,15 @@
 
   Although there are a lot of optional arguments to this
   function, most are set to a logical default. If your
-  workspace contains an INFO and Sample dataframes, along
-  with start and end years, then the following R code will
-  produce a plot: \code{plotQTimeDaily(startYear,endYear)}
+  workspace contains an INFO and Sample dataframes, then
+  the following R code will produce a plot:
+  \code{plotQTimeDaily()}
 }
 \examples{
 Daily <- ChopDaily
 INFO <- ChopINFO
-plotQTimeDaily(1990,2000,qLower=10)
+plotQTimeDaily()
+plotQTimeDaily(startYear=1990, endYear=2000,qLower=1000)
 }
 \keyword{graphics}
 \keyword{streamflow}
