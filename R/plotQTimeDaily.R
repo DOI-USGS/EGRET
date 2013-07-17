@@ -5,8 +5,8 @@
 #' Allows discharge record to only show those discharges above a given threshold
 #' 
 #'  Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#'  contains an INFO and Sample dataframes, along with start and end years, then the following R code will produce a plot:
-#'  \code{plotQTimeDaily(startYear,endYear)}
+#'  contains an INFO and Sample dataframes, then the following R code will produce a plot:
+#'  \code{plotQTimeDaily()}
 #'
 #' @param startYear numeric indicating the starting year for the graph
 #' @param endYear numeric indicating the ending year for the graph (should be a time in decimal years that is after the last observations to be plotted)
@@ -28,8 +28,9 @@
 #' @examples
 #' Daily <- ChopDaily
 #' INFO <- ChopINFO
-#' plotQTimeDaily(1990,2000,qLower=10)
-plotQTimeDaily<-function (startYear, endYear, localDaily = Daily, 
+#' plotQTimeDaily()
+#' plotQTimeDaily(startYear=1990, endYear=2000,qLower=1000)
+plotQTimeDaily<-function (startYear=NA, endYear=NA, localDaily = Daily, 
                           localINFO = INFO, qLower = NA, qUnit = 1, 
                           tinyPlot = FALSE, printTitle = TRUE, lwd = 3, col="red", 
                           cex.main = 1.2, cex.lab = 1.2, customPar=FALSE,...)    
@@ -37,8 +38,7 @@ plotQTimeDaily<-function (startYear, endYear, localDaily = Daily,
   #########################################################
   if (is.numeric(qUnit)) {
     qUnit <- qConst[shortCode = qUnit][[1]]
-  }
-  else if (is.character(qUnit)) {
+  } else if (is.character(qUnit)) {
     qUnit <- qConst[qUnit][[1]]
   }
   #############################################################
@@ -49,6 +49,10 @@ plotQTimeDaily<-function (startYear, endYear, localDaily = Daily,
   } else {
     yLab <- qUnit@qUnitExpress
   }
+  
+  startYear <- if (is.na(startYear)) as.integer(min(localDaily$DecYear,na.rm=TRUE)) else startYear
+  endYear <- if (is.na(endYear)) as.integer(max(localDaily$DecYear,na.rm=TRUE)) else endYear
+  
   subDaily <- subset(localDaily, DecYear >= startYear)
   subDaily <- subset(subDaily, DecYear <= endYear)
   xDaily <- subDaily$DecYear
@@ -58,9 +62,12 @@ plotQTimeDaily<-function (startYear, endYear, localDaily = Daily,
 
   line2 <- if(is.na(qLower)) "Daily Discharge" else paste("Daily discharge above a threshold of\n",qLower," ",qUnit@qUnitName,sep="")
   line1 <- localINFO$shortName
-  plotTitle <- if (printTitle) 
+  
+  plotTitle <- if (printTitle) {
     paste(line1, "\n", line2)
-  else ""
+  } else {
+    ""
+  }
 
   qBottom <- if(is.na(qLower)) 0 else qLower
   

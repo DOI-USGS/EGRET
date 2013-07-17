@@ -8,7 +8,7 @@
 #' 
 #' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
 #' contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
-#' \code{plotConcTimeDaily(startYear,endYear)}
+#' \code{plotConcTimeDaily()}
 #'
 #' @param startYear numeric specifying the starting date (expressed as decimal years, for example 1989.0) for the plot
 #' @param endYear numeric specifiying the ending date for the plot 
@@ -32,12 +32,16 @@
 #' Sample <- ChopSample
 #' Daily <- ChopDaily
 #' INFO <- ChopINFO
-#' plotConcTimeDaily(1998,2001)
-plotConcTimeDaily<-function(startYear, endYear, localSample = Sample, 
+#' plotConcTimeDaily()
+#' plotConcTimeDaily(startYear=1998,endYear=2001)
+plotConcTimeDaily<-function(startYear=NA, endYear=NA, localSample = Sample, 
                             localDaily = Daily, localINFO = INFO, tinyPlot = FALSE, 
                             concMax = NA, printTitle = TRUE,cex=0.8, cex.axis=1.1,
                             cex.main=1.1, customPar=FALSE,col="black",lwd=1,...){
 
+  startYear <- if (is.na(startYear)) as.integer(min(localSample$DecYear,na.rm=TRUE)) else startYear
+  endYear <- if (is.na(endYear)) as.integer(max(localSample$DecYear,na.rm=TRUE)) else endYear
+  
   subSample<-subset(localSample,DecYear>=startYear)
   subSample<-subset(subSample,DecYear<=endYear)
   subDaily<-subset(localDaily,DecYear>=startYear)
@@ -60,7 +64,7 @@ plotConcTimeDaily<-function(startYear, endYear, localSample = Sample,
   }
   yBottom <- 0 #Not specified within script, added under assumption that it's always zero based on ylim definition in this function
   
-  xInfo <- generalAxis(x=xSample, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot)  
+  xInfo <- generalAxis(x=xSample, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot,padPercent=0)  
   yInfo <- generalAxis(x=yHigh, minVal=0, maxVal=concMax, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=xSample, y=yHigh, xTicks=xInfo$ticks, yTicks=yInfo$ticks,

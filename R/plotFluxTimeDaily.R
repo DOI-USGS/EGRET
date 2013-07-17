@@ -5,8 +5,8 @@
 #' data, as seen in a time-series perspective. 
 #' 
 #' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#' contains an INFO, Daily, and Sample dataframes, and a start and end year, then the following R code will produce a plot:
-#' \code{plotFluxTimeDaily(startYear, endYear)} 
+#' contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
+#' \code{plotFluxTimeDaily()} 
 #'
 #' @param startYear numeric specifying the starting date (expressed as decimal years, for example 1989.0) for the plot
 #' @param endYear numeric specifiying the ending date for the plot 
@@ -31,8 +31,9 @@
 #' Sample <- ChopSample
 #' Daily <- ChopDaily
 #' INFO <- ChopINFO
+#' plotFluxTimeDaily()
 #' plotFluxTimeDaily(2001,2009)
-plotFluxTimeDaily<-function (startYear, endYear, localSample = Sample, localDaily = Daily, 
+plotFluxTimeDaily<-function (startYear=NA, endYear=NA, localSample = Sample, localDaily = Daily, 
                              localINFO = INFO, tinyPlot = FALSE, fluxUnit = 3, fluxMax = NA, 
                              printTitle = TRUE, cex=0.8, cex.axis=1.1,cex.main=1.1, 
                              customPar=FALSE,col="black",lwd=1,...) {
@@ -46,6 +47,10 @@ plotFluxTimeDaily<-function (startYear, endYear, localSample = Sample, localDail
   ################################################################################    
   
   fluxFactor <- fluxUnit@unitFactor*86.40
+  
+  startYear <- if (is.na(startYear)) as.integer(min(localSample$DecYear,na.rm=TRUE)) else startYear
+  endYear <- if (is.na(endYear)) as.integer(max(localSample$DecYear,na.rm=TRUE)) else endYear
+  
   subSample <- subset(localSample, DecYear >= startYear)
   subSample <- subset(subSample, DecYear <= endYear)
   subDaily <- subset(localDaily, DecYear >= startYear)
@@ -56,28 +61,24 @@ plotFluxTimeDaily<-function (startYear, endYear, localSample = Sample, localDail
   yLow <- subSample$ConcLow*subSample$Q*fluxFactor
   yHigh <- subSample$ConcHigh*subSample$Q*fluxFactor
   Uncen <- subSample$Uncen
-  #yAll <- c(subDaily$ConcDay*subDaily$Q*fluxFactor, subSample$ConcHigh*subSample$Q*fluxFactor)
-  #maxYHigh <- if (is.na(fluxMax)) 
-  #  1.05 * max(yAll)
-  #else fluxMax
-  #yTicks <- yPretty(maxYHigh)
-  #yTop <- yTicks[length(yTicks)]
-  plotTitle <- if (printTitle) 
+
+  plotTitle <- if (printTitle) {
     paste(localINFO$shortName, "\n", localINFO$paramShortName, 
           "\n", "Observed and Estimated Flux versus Time")
-  else ""
+  } else {
+    ""
+  }
   
   ###################################
   
-  yBottom <- 0 #Not specified within script, added under assumption that it's always zero based on ylim definition in this function
+  yBottom <- 0
   
   xInfo <- generalAxis(x=xSample, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot,padPercent=0)
   yInfo <- generalAxis(x=yHigh, minVal=yBottom, maxVal=fluxMax, tinyPlot=tinyPlot,padPercent=5)
   
   if (tinyPlot) {
     yLab <- fluxUnit@unitExpressTiny
-  }
-  else {
+  } else {
     yLab <- fluxUnit@unitExpress
   }
   
