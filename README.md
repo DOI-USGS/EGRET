@@ -63,6 +63,8 @@ The manual assumes that the user understands the concepts underlying WRTDS.  Thu
 
 * [dataRetrieval User Guide](https://github.com/USGS-R/EGRET/raw/Documentation/dataRetrieval.pdf) (pdf)
 
+* [WRTDS Water Quality Seminar July 2013](https://github.com/USGS-R/EGRET/raw/Documentation/WRTDS OWQ 10July2013.pdf) (pdf)
+
 * [WRTDS NWQMC course slides 2012](https://github.com/USGS-R/EGRET/raw/Documentation/WRTDS+NWQMC+course.pdf) (pdf)
 
 * [EGRET flowHistory presentation 2012](https://github.com/USGS-R/EGRET/raw/Documentation/EGRET+flowHistory+presentation.pdf) (pdf)
@@ -72,6 +74,12 @@ Version updates
 ---------------
 
 ####EGRET
+
+* Version 1.2.4 July 10, 2013
+
+	* Fixed a small leap year bug
+	* Improved ability to modify graphic functions
+	* Added dataframe returns to table functions
 
 * Version 1.2.3 February 21, 2013
 
@@ -96,6 +104,16 @@ Version updates
 
 
 ### dataRetrieval
+
+* Version 1.2.2:        July 10, 2013
+
+	* Added getDataAvailability function to find measured parameters and period of record information for a requested station.
+
+	* Added constructNWISURL function to get the URL that is used to retrieve the data.
+
+	* Added getSampleSTORET function to get STORET data directly in Sample dataframe form.
+
+	* Fixed a small leap year bug by changing day of year by making Feb. 29 always 59, and March 1st always 60 (even in non-leap years).
 
 * Version 1.0.5:	June 27, 2012
 
