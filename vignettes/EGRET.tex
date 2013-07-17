@@ -185,7 +185,7 @@ Sample <- \hlfunctioncall{mergeReport}()
 annualSeries <- \hlfunctioncall{makeAnnualSeries}()
 \hlfunctioncall{plotFlowSingle}(istat=7,qUnit=\hlstring{"thousandCfs"})
 \hlfunctioncall{plotSDLogQ}()
-\hlfunctioncall{plotQTimeDaily}(1990,2010,qLower=1,qUnit=3)
+\hlfunctioncall{plotQTimeDaily}(qLower=1,qUnit=3)
 \hlfunctioncall{plotFour}(qUnit=3)
 \hlfunctioncall{plotFourStats}(qUnit=3)
 \hlcomment{############################}
@@ -209,12 +209,10 @@ annualSeries <- \hlfunctioncall{makeAnnualSeries}()
 
 \hlcomment{############################}
 \hlcomment{#Check model results:}
-yearStart <- 2000
-yearEnd <- 2010
 
 \hlcomment{#Require Sample + INFO:}
-\hlfunctioncall{plotConcTimeDaily}(yearStart, yearEnd)
-\hlfunctioncall{plotFluxTimeDaily}(yearStart, yearEnd)
+\hlfunctioncall{plotConcTimeDaily}()
+\hlfunctioncall{plotFluxTimeDaily}()
 \hlfunctioncall{plotConcPred}()
 \hlfunctioncall{plotFluxPred}()
 \hlfunctioncall{plotLogConcPred}()
@@ -251,9 +249,12 @@ centerDate <- \hlstring{"07-01"}
 \hlcomment{#Contour plots:}
 clevel<-\hlfunctioncall{seq}(0,2,0.5)
 maxDiff<-0.8
+yearStart <- 2000
+yearEnd <- 2010
+
 \hlfunctioncall{plotContours}(yearStart,yearEnd,qBottom,qTop, 
              contourLevels = clevel,qUnit=1)
-\hlfunctioncall{plotDiffContours}(year0=2000,yearEnd,
+\hlfunctioncall{plotDiffContours}(yearStart,yearEnd,
                  qBottom,qTop,maxDiff,qUnit=1)
 
 \end{alltt}
@@ -406,7 +407,7 @@ ColumnName & Type & Description \\
   staAbbrev & string & Abbreviation for station name, used in saveResults \\ 
   paramShortName & string & Name of constituent, suitable for use in graphical headings \\ 
   constitAbbrev & string & Abbreviation for constituent name, used in saveResults \\ 
-  drainSqKm & numeric & Drainage area in  km\verb@^@2 \\ 
+  drainSqKm & numeric & Drainage area in  km\textsuperscript{2} \\ 
   paStart \footnotemark[1] & integer (1-12) & Starting month of period of analysis \\ 
   paLong \footnotemark[1] & integer (1-12) & Length of period of analysis in months \\ 
    \hline
@@ -448,7 +449,7 @@ bottomLogQ & Lowest discharge in prediction surfaces & numeric \\
 \subsection{Units}
 \label{sec:units}
 %------------------------------------------------------------ 
-EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units. The default is that concentration is measured in mg/L, discharge is cubic meters per second (cms), flux is kg/day, and drainage area is km\verb@^@2. When discharge values are imported from USGS web services (using the dataRetrieval package), they are automatically converted from cubic feet per second (cfs) to cms unless the argument convert is set to FALSE.  This can cause confusion if not careful. 
+EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units. The default is that concentration is measured in mg/L, discharge is cubic meters per second (cms), flux is kg/day, and drainage area is km\textsuperscript{2}. When discharge values are imported from USGS web services (using the dataRetrieval package), they are automatically converted from cubic feet per second (cfs) to cms unless the argument convert is set to FALSE.  This can cause confusion if not careful. 
 
 Although the data is stored in the dataframes in SI, it is possible to report the results in a variety of units. For all functions that provide output, there are two arguments that can be defined to set the output units: qUnit and fluxUnit.  qUnit and fluxUnit can be defined by a numeric code or name.  There are two functions that can be called to see the options are printqUnitCheatSheet and printFluxUnitCheatSheet.
 
@@ -528,7 +529,7 @@ endDate <- \hlstring{""}
 Daily <- \hlfunctioncall{getDVData}(siteID,\hlstring{"00060"},startDate,endDate)
 \end{alltt}
 \begin{verbatim}
-There are  49346 data points, and  49346 days.
+There are  49354 data points, and  49354 days.
 \end{verbatim}
 \begin{alltt}
 INFO <- \hlfunctioncall{getMetaData}(siteID,\hlstring{""},interactive=FALSE)
@@ -685,7 +686,7 @@ sta<-\hlstring{"11264500"}
 Daily <-\hlfunctioncall{getDVData}(sta,\hlstring{"00060"},StartDate=\hlstring{""},EndDate=\hlstring{""})
 \end{alltt}
 \begin{verbatim}
-There are  35750 data points, and  35750 days.
+There are  35758 data points, and  35758 days.
 \end{verbatim}
 \begin{alltt}
 INFO <- \hlfunctioncall{getMetaData}(sta,\hlstring{""},interactive=FALSE)
@@ -720,14 +721,14 @@ sta<-\hlstring{"05474500"}
 Daily <-\hlfunctioncall{getDVData}(sta,\hlstring{"00060"},StartDate=\hlstring{""},EndDate=\hlstring{""})
 \end{alltt}
 \begin{verbatim}
-There are  49459 data points, and  49459 days.
+There are  49489 data points, and  49489 days.
 \end{verbatim}
 \begin{alltt}
 INFO <- \hlfunctioncall{getMetaData}(sta,\hlstring{""},interactive=FALSE)
 INFO$shortName <- \hlstring{"Mississippi River at Keokuk Iowa"}
 INFO <- \hlfunctioncall{setPA}()
 
-\hlfunctioncall{plotQTimeDaily}(startYear=1880,endYear=2010,qUnit=3,qLower=300)
+\hlfunctioncall{plotQTimeDaily}(qUnit=3,qLower=300)
 \end{alltt}
 \end{kframe}\begin{figure}[]
 
@@ -738,7 +739,7 @@ INFO <- \hlfunctioncall{setPA}()
 \end{knitrout}
 
 
-The example shown here illustrates a very long record and the long gap of more than 60 years of no discharges above 300,000 ft\verb|^|3/s, followed by the last 50 years with at least 5 events above that threshold. plotQTimeDaily requires startYear and endYear, along with some other optional arguements (see ?plotQTimeDaily for more details).
+The example shown here illustrates a very long record and the long gap of more than 60 years of no discharges above 300,000 ft\textsuperscript{3}/s, followed by the last 50 years with at least 5 events above that threshold. plotQTimeDaily requires startYear and endYear, along with some other optional arguements (see ?plotQTimeDaily for more details).
 
 \FloatBarrier
 
