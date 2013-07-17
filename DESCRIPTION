@@ -4,7 +4,7 @@ Title: Exploration and Graphics for RivEr Time-Series (EGRET), including
     functions for WRTDS (Weighted Regressions on Time, Discharge, and Season)
     analysis
 Version: 1.2.4
-Date: 2013-03-04
+Date: 2013-07-17
 Author: Robert M. Hirsch
 Maintainer: Robert M. Hirsch <rhirsch@usgs.gov>, Laura De Cicco
     <ldecicco@usgs.gov>
