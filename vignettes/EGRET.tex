@@ -529,7 +529,7 @@ endDate <- \hlstring{""}
 Daily <- \hlfunctioncall{getDVData}(siteID,\hlstring{"00060"},startDate,endDate)
 \end{alltt}
 \begin{verbatim}
-There are  49354 data points, and  49354 days.
+There are  49357 data points, and  49357 days.
 \end{verbatim}
 \begin{alltt}
 INFO <- \hlfunctioncall{getMetaData}(siteID,\hlstring{""},interactive=FALSE)
@@ -686,7 +686,7 @@ sta<-\hlstring{"11264500"}
 Daily <-\hlfunctioncall{getDVData}(sta,\hlstring{"00060"},StartDate=\hlstring{""},EndDate=\hlstring{""})
 \end{alltt}
 \begin{verbatim}
-There are  35758 data points, and  35758 days.
+There are  35761 data points, and  35761 days.
 \end{verbatim}
 \begin{alltt}
 INFO <- \hlfunctioncall{getMetaData}(sta,\hlstring{""},interactive=FALSE)
@@ -730,12 +730,9 @@ INFO <- \hlfunctioncall{setPA}()
 
 \hlfunctioncall{plotQTimeDaily}(qUnit=3,qLower=300)
 \end{alltt}
-\end{kframe}\begin{figure}[]
-
-\includegraphics[width=1\linewidth,height=1\linewidth]{figure/Mississippi} \caption[Mississippi River at Keokuk Iowa]{Mississippi River at Keokuk Iowa\label{fig:Mississippi}}
-\end{figure}
 
 
+{\ttfamily\noindent\bfseries\color{errorcolor}{Error: argument "startYear" is missing, with no default}}\end{kframe}
 \end{knitrout}
 
 
@@ -1633,7 +1630,8 @@ To install the EGRET packages and it's dependencies:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{install.packages}(\hlfunctioncall{c}(\hlstring{"zoo"},\hlstring{"survival"},\hlstring{"methods"},\hlstring{"fields"},\hlstring{"spam"}))
+\hlfunctioncall{install.packages}(\hlfunctioncall{c}(\hlstring{"zoo"},\hlstring{"survival"},\hlstring{"methods"},\hlstring{"fields"},
+                   \hlstring{"spam"},\hlstring{"XML"},\hlstring{"RCurl"}))
 \hlfunctioncall{install.packages}(\hlstring{"dataRetrieval"}, 
                  repos=\hlstring{"http://usgs-r.github.com/"}, 
                  type=\hlstring{"source"})
