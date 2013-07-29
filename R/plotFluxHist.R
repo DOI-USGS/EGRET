@@ -77,7 +77,9 @@ plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9,
   title<-if(printTitle) paste(localINFO$shortName," ",localINFO$paramShortName,"\n",periodName,title3) else ""
   
   xInfo <- generalAxis(x=subAnnualResults$DecYear, minVal=yearStart, maxVal=yearEnd,padPercent=0, tinyPlot=tinyPlot)  
-  yInfo <- generalAxis(x=annFlux, minVal=0, maxVal=fluxMax, padPercent=5, tinyPlot=tinyPlot)
+  
+  combinedY <- c(annFlux,fnFlux)
+  yInfo <- generalAxis(x=combinedY, minVal=0, maxVal=fluxMax, padPercent=5, tinyPlot=tinyPlot)
   
   ###############################################
   

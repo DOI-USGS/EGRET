@@ -74,7 +74,10 @@ plotFluxTimeDaily<-function (startYear=NA, endYear=NA, localSample = Sample, loc
   yBottom <- 0
   
   xInfo <- generalAxis(x=xSample, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot,padPercent=0)
-  yInfo <- generalAxis(x=yHigh, minVal=yBottom, maxVal=fluxMax, tinyPlot=tinyPlot,padPercent=5)
+  
+  yCombined <- c(yHigh,subDaily$ConcDay*subDaily$Q*fluxFactor)
+  
+  yInfo <- generalAxis(x=yCombined, minVal=yBottom, maxVal=fluxMax, tinyPlot=tinyPlot,padPercent=5)
   
   if (tinyPlot) {
     yLab <- fluxUnit@unitExpressTiny
