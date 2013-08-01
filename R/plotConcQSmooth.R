@@ -30,6 +30,8 @@
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 10
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
+#' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
+#' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
@@ -56,7 +58,8 @@
 #' plotConcQSmooth(date1,date2,date3,qLow,qHigh)
 plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0,legendTop = 0, 
                           concMax = NA, concMin=NA, bw = FALSE, printTitle = TRUE, printValues = FALSE, 
-                          localSample = Sample, localINFO = INFO, colors=c("black","red","green"),printLegend=TRUE,
+                          localSample = Sample, localINFO = INFO, minNumObs = 100, minNumUncen =  50,
+                          colors=c("black","red","green"),printLegend=TRUE,
                           windowY = 10, windowQ = 2, windowS = 0.5,tinyPlot=FALSE, customPar=FALSE,
                           lwd=2,cex=0.8, cex.axis=1.1,cex.main=1.1, cex.legend=1.2,lineVal=c(1,1,1),logScale=FALSE,...) {
   #########################################################
@@ -92,7 +95,7 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0
   for(iCurve in 1:numDates) {
     yrs<-rep(decYear[iCurve],48)
     result<-runSurvReg(yrs,LQ,localSample,windowY = windowY, windowQ = windowQ, 
-                       windowS = windowS,message=FALSE)
+                       windowS = windowS, minNumObs=minNumObs, minNumUncen = minNumUncen,message=FALSE)
     y[iCurve,]<-result[,3]
   }
   

@@ -72,8 +72,10 @@ plotQTimeDaily<-function (startYear=NA, endYear=NA, localDaily = Daily,
   qBottom <- if(is.na(qLower)) 0 else qLower
   
   xInfo <- generalAxis(x=xDaily, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot)
-  yInfo <- generalAxis(x=yDaily, minVal=yMin, maxVal=1.05*max(yDaily), tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yDaily, minVal=yMin, maxVal=1.05*max(yDaily), tinyPlot=tinyPlot,padPercent=0)
 
+  yDaily <- ifelse(yDaily>=qLower, yDaily, NA)
+  
   genericEGRETDotPlot(x=xDaily, y=yDaily, 
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab="", ylab=yLab, customPar=customPar,
