@@ -24,7 +24,8 @@
 #' estPtLQ<-c(1,1,1)
 #' Sample <- ChopSample
 #' resultSurvReg <- runSurvReg(estPtYear,estPtLQ,message=FALSE)
-runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2,windowS=0.5,minNumObs=100,minNumUncen=50,message=TRUE) {
+runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2,
+                     windowS=0.5,minNumObs=100,minNumUncen=50,message=TRUE) {
   # runs survival regression model
   # Sample is the Sample data frame being used
   # estPtYear is a vector of DecYear values where the model will be estimated
@@ -43,6 +44,9 @@ runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2
   resultSurvReg<-array(0,c(numEstPt,3))
   
   printUpdate <- floor(seq(1,numEstPt,numEstPt/100))
+  
+  if (minNumUncen >= nrow(localSample)) stop('minNumUncen is greater than total number of samples')
+  if (minNumObs >= nrow(localSample)) stop('minNumObs is greater than total number of samples')
   
   if (message) cat("Survival regression (% complete):\n")
 
