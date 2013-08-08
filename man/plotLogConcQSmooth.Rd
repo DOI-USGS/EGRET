@@ -6,12 +6,12 @@
     qUnit = 2, legendLeft = 0, legendTop = 0, concMax = NA,
     concMin = NA, bw = FALSE, printTitle = TRUE,
     printValues = FALSE, localSample = Sample,
-    localINFO = INFO, customPar = FALSE,
-    colors = c("black", "red", "green"), windowY = 10,
-    windowQ = 2, windowS = 0.5, tinyPlot = FALSE,
-    printLegend = TRUE, lwd = 2, cex = 0.8, cex.axis = 1.1,
-    cex.main = 1.1, cex.legend = 1.2, lineVal = c(1, 1, 1),
-    ...)
+    localINFO = INFO, minNumObs = 100, minNumUncen = 50,
+    customPar = FALSE, colors = c("black", "red", "green"),
+    windowY = 10, windowQ = 2, windowS = 0.5,
+    tinyPlot = FALSE, printLegend = TRUE, lwd = 2,
+    cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
+    cex.legend = 1.2, lineVal = c(1, 1, 1), ...)
 }
 \arguments{
   \item{date1}{string specifying the date for the first
@@ -104,6 +104,14 @@
   the best margins depending on tinyPlot.}
 
   \item{lwd}{number line width}
+
+  \item{minNumObs}{numeric specifying the miniumum number
+  of observations required to run the weighted regression,
+  default is 100}
+
+  \item{minNumUncen}{numeric specifying the minimum number
+  of uncensored observations to run the weighted
+  regression, default is 50}
 
   \item{cex.legend}{magnification to be used for legend
   annotation relative to the current setting of cex}
