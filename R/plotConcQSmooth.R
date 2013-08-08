@@ -95,7 +95,7 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0
   for(iCurve in 1:numDates) {
     yrs<-rep(decYear[iCurve],48)
     result<-runSurvReg(yrs,LQ,localSample,windowY = windowY, windowQ = windowQ, 
-                       windowS = windowS, minNumObs=minNumObs, minNumUncen = minNumUncen,message=FALSE)
+                       windowS = windowS, minNumObs=minNumObs, minNumUncen = minNumUncen,interactive=FALSE)
     y[iCurve,]<-result[,3]
   }
   

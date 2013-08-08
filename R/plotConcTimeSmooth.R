@@ -28,6 +28,8 @@
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE
+#' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
+#' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
@@ -53,7 +55,8 @@
 #' plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd)
 plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit = 2, legendLeft = 0, 
                               legendTop = 0, concMax = NA, concMin=NA,bw = FALSE, printTitle = TRUE, colors=c("black","red","green"), 
-                              printValues = FALSE, localSample = Sample, localINFO = INFO,tinyPlot=FALSE, 
+                              printValues = FALSE, localSample = Sample, localINFO = INFO,
+                              tinyPlot=FALSE, minNumObs = 100, minNumUncen =  50, 
                               windowY = 10, windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2, printLegend = TRUE,
                               cex.legend = 1.2, cex=0.8, cex.axis=1.1, customPar=FALSE,lineVal=c(1,1,1),logScale=FALSE,...){
   
@@ -95,7 +98,9 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
   dim(y) <- c(3, numX)
   for (iCurve in 1:numQ) {
     LQ <- rep(log(qVal[iCurve]),numX)
-    result <- runSurvReg(x, LQ, localSample, windowY = windowY, windowQ = windowQ, windowS = windowS)
+    result <- runSurvReg(x, LQ, localSample, windowY = windowY,
+                         windowQ = windowQ, windowS = windowS,minNumObs=minNumObs, 
+                         minNumUncen = minNumUncen, interactive=FALSE)
     y[iCurve, ] <- result[, 3]
   }
   monthCenter<- as.POSIXlt(centerDate)$mon+1
