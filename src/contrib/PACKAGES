@@ -4,7 +4,7 @@ Depends: R (>= 2.15.0)
 Imports: zoo, XML, RCurl
 Suggests: xtable, EGRET, knitr
 License: file LICENSE
-MD5sum: 03245ca26432795ff3b4931e969d1f51
+MD5sum: 2fb12140d86019f976cd1631d59e6eb7
 NeedsCompilation: no
 
 Package: EGRET
@@ -13,6 +13,6 @@ Depends: R (>= 2.13.0)
 Imports: methods, survival, fields
 Suggests: xtable, dataRetrieval, knitr, extrafont
 License: file LICENSE
-MD5sum: f3f01a0bbfde6a2bd43921245a749e66
+MD5sum: f97aa23894e8dd8d87040da77a8a56d9
 NeedsCompilation: no
 
