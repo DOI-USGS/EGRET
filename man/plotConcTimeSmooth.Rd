@@ -7,8 +7,9 @@
     concMax = NA, concMin = NA, bw = FALSE,
     printTitle = TRUE, colors = c("black", "red", "green"),
     printValues = FALSE, localSample = Sample,
-    localINFO = INFO, tinyPlot = FALSE, windowY = 10,
-    windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2,
+    localINFO = INFO, tinyPlot = FALSE, minNumObs = 100,
+    minNumUncen = 50, windowY = 10, windowQ = 2,
+    windowS = 0.5, cex.main = 1.1, lwd = 2,
     printLegend = TRUE, cex.legend = 1.2, cex = 0.8,
     cex.axis = 1.1, customPar = FALSE,
     lineVal = c(1, 1, 1), logScale = FALSE, ...)
@@ -99,6 +100,14 @@
   \item{tinyPlot}{logical variable, if TRUE plot is
   designed to be plotted small, as a part of a multipart
   figure, default is FALSE}
+
+  \item{minNumObs}{numeric specifying the miniumum number
+  of observations required to run the weighted regression,
+  default is 100}
+
+  \item{minNumUncen}{numeric specifying the minimum number
+  of uncensored observations to run the weighted
+  regression, default is 50}
 
   \item{cex}{numerical value giving the amount by which
   plotting symbols should be magnified}

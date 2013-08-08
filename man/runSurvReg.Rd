@@ -4,7 +4,7 @@
 \usage{
   runSurvReg(estPtYear, estPtLQ, localSample = Sample,
     windowY = 10, windowQ = 2, windowS = 0.5,
-    minNumObs = 100, minNumUncen = 50, message = TRUE)
+    minNumObs = 100, minNumUncen = 50, interactive = TRUE)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -35,7 +35,7 @@
   of uncensored observations to run the weighted
   regression, default is 50}
 
-  \item{message}{logical specifying whether or not to
+  \item{interactive}{logical specifying whether or not to
   display progress message}
 }
 \value{
@@ -55,7 +55,7 @@
 estPtYear<-c(2001.0,2005.0,2009.0)
 estPtLQ<-c(1,1,1)
 Sample <- ChopSample
-resultSurvReg <- runSurvReg(estPtYear,estPtLQ,message=FALSE)
+resultSurvReg <- runSurvReg(estPtYear,estPtLQ,interactive=FALSE)
 }
 \keyword{statistics}
 \keyword{water-quality}

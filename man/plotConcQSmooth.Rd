@@ -6,7 +6,8 @@
     qUnit = 2, legendLeft = 0, legendTop = 0, concMax = NA,
     concMin = NA, bw = FALSE, printTitle = TRUE,
     printValues = FALSE, localSample = Sample,
-    localINFO = INFO, colors = c("black", "red", "green"),
+    localINFO = INFO, minNumObs = 100, minNumUncen = 50,
+    colors = c("black", "red", "green"),
     printLegend = TRUE, windowY = 10, windowQ = 2,
     windowS = 0.5, tinyPlot = FALSE, customPar = FALSE,
     lwd = 2, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
@@ -87,6 +88,14 @@
   \item{windowS}{numeric specifying the half-window with in
   the seasonal dimension, in units of years, default is
   0.5}
+
+  \item{minNumObs}{numeric specifying the miniumum number
+  of observations required to run the weighted regression,
+  default is 100}
+
+  \item{minNumUncen}{numeric specifying the minimum number
+  of uncensored observations to run the weighted
+  regression, default is 50}
 
   \item{cex}{numerical value giving the amount by which
   plotting symbols should be magnified}
