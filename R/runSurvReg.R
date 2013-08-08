@@ -14,7 +14,7 @@
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
-#' @param message logical specifying whether or not to display progress message
+#' @param interactive logical specifying whether or not to display progress message
 #' @keywords water-quality statistics
 #' @import survival
 #' @return resultSurvReg numeric array containing the yHat, SE, and ConcHat values array dimensions are (numEstPts,3)
@@ -23,9 +23,9 @@
 #' estPtYear<-c(2001.0,2005.0,2009.0)
 #' estPtLQ<-c(1,1,1)
 #' Sample <- ChopSample
-#' resultSurvReg <- runSurvReg(estPtYear,estPtLQ,message=FALSE)
+#' resultSurvReg <- runSurvReg(estPtYear,estPtLQ,interactive=FALSE)
 runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2,
-                     windowS=0.5,minNumObs=100,minNumUncen=50,message=TRUE) {
+                     windowS=0.5,minNumObs=100,minNumUncen=50,interactive=TRUE) {
   # runs survival regression model
   # Sample is the Sample data frame being used
   # estPtYear is a vector of DecYear values where the model will be estimated
@@ -48,7 +48,7 @@ runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2
   if (minNumUncen >= nrow(localSample)) stop('minNumUncen is greater than total number of samples')
   if (minNumObs >= nrow(localSample)) stop('minNumObs is greater than total number of samples')
   
-  if (message) cat("Survival regression (% complete):\n")
+  if (interactive) message("Survival regression (% complete):\n")
 
   for (i in 1:numEstPt) {
     
@@ -100,11 +100,11 @@ runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2
     resultSurvReg[i,2]<-SE
     resultSurvReg[i,3]<-bias*exp(yHat)
     
-    if (i %in% printUpdate & message) cat(floor(i*100/numEstPt),"\t")
+    if (i %in% printUpdate & interactive) message(floor(i*100/numEstPt),"\t")
     
   }
   
-  if (message) cat("\nSurvival regression: Done")
+  if (interactive) message("\nSurvival regression: Done")
 
   return(resultSurvReg)
 }
