@@ -36,6 +36,8 @@
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param lwd number line width
+#' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
+#' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
 #' @param cex.legend magnification to be used for legend annotation relative to the current setting of cex
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multi-plot figure, default is FALSE.
 #' @param colors color vector of lines on plot, see ?par 'Color Specification'. Defaults to c("black","red","green")
@@ -55,7 +57,8 @@
 #' plotLogConcQSmooth(date1,date2,date3,qLow,qHigh)
 plotLogConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0,legendTop = 0, 
                              concMax = NA, concMin = NA,bw = FALSE, printTitle = TRUE, printValues = FALSE, 
-                             localSample = Sample, localINFO = INFO, customPar=FALSE, colors=c("black","red","green"),
+                             localSample = Sample, localINFO = INFO, minNumObs = 100, minNumUncen =  50,
+                             customPar=FALSE, colors=c("black","red","green"),
                              windowY = 10, windowQ = 2, windowS = 0.5,tinyPlot=FALSE,printLegend=TRUE,
                              lwd=2,cex=0.8, cex.axis=1.1,cex.main=1.1, cex.legend=1.2,lineVal=c(1,1,1),...) {
   
@@ -63,8 +66,8 @@ plotLogConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft 
                             qUnit = qUnit, legendLeft = legendLeft,legendTop =legendTop, 
                             concMax = concMax, concMin=concMin, bw = bw, printTitle = printTitle, printValues = printValues, 
                             localSample = localSample, localINFO = localINFO, colors=colors,printLegend=printLegend,
-                            windowY = windowY, windowQ = windowQ, windowS = windowS,tinyPlot=tinyPlot,
-                            lwd=lwd,cex=cex, cex.axis=cex.axis,cex.main=cex.main, cex.legend=cex.legend,
+                            windowY = windowY, windowQ = windowQ, windowS = windowS,minNumObs = minNumObs, minNumUncen =  minNumUncen,
+                            tinyPlot=tinyPlot,lwd=lwd,cex=cex, cex.axis=cex.axis,cex.main=cex.main, cex.legend=cex.legend,
                             logScale=TRUE, customPar=customPar,lineVal=lineVal,...) 
   
   
