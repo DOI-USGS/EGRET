@@ -1,3 +1,11 @@
+Package: CI
+Version: 1.0.0
+Depends: R (>= 3.0.1), EGRET
+Imports: stats
+License: file LICENSE
+MD5sum: c046de81da9104fd30018972832005c9
+NeedsCompilation: no
+
 Package: dataRetrieval
 Version: 1.2.2
 Depends: R (>= 2.15.0)
