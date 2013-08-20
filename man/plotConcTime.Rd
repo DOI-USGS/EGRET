@@ -61,9 +61,9 @@
   printed, if FALSE title is not printed (this is best for
   a multi-plot figure)}
 
-  \item{logScale}{logical, default TRUE, TRUE indicates y
-  axis is in log scale, "xy" indicates both x and y in log
-  scale, "x" is only x}
+  \item{logScale}{logical, default FALSE, FALSE creates a
+  linear scale y-axis, TRUE creates a y-axis is in log
+  scale}
 
   \item{cex}{numerical value giving the amount by which
   plotting symbols should be magnified}
