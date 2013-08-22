@@ -48,7 +48,7 @@ runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2
   if (minNumUncen >= nrow(localSample)) stop('minNumUncen is greater than total number of samples')
   if (minNumObs >= nrow(localSample)) stop('minNumObs is greater than total number of samples')
   
-  if (interactive) message("Survival regression (% complete):\n")
+  if (interactive) cat("Survival regression (% complete):\n")
 
   for (i in 1:numEstPt) {
     
@@ -100,11 +100,11 @@ runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2
     resultSurvReg[i,2]<-SE
     resultSurvReg[i,3]<-bias*exp(yHat)
     
-    if (i %in% printUpdate & interactive) message(floor(i*100/numEstPt),"\t")
+    if (i %in% printUpdate & interactive) cat(floor(i*100/numEstPt),"\t")
     
   }
   
-  if (interactive) message("\nSurvival regression: Done")
+  if (interactive) cat("\nSurvival regression: Done")
 
   return(resultSurvReg)
 }
