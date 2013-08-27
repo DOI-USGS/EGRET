@@ -8,19 +8,19 @@ NeedsCompilation: no
 
 Package: dataRetrieval
 Version: 1.2.2
-Depends: R (>= 2.15.0)
+Depends: R (>= 3.0)
 Imports: zoo, XML, RCurl
 Suggests: xtable, EGRET, knitr
 License: file LICENSE
-MD5sum: 2fb12140d86019f976cd1631d59e6eb7
+MD5sum: dbbdfd47bb1004d310ca952300a3a3a7
 NeedsCompilation: no
 
 Package: EGRET
 Version: 1.2.4
-Depends: R (>= 2.13.0)
+Depends: R (>= 3.0)
 Imports: methods, survival, fields
 Suggests: xtable, dataRetrieval, knitr, extrafont
 License: file LICENSE
-MD5sum: 3eb22ad20a9b2dd42a7bde7fe3835144
+MD5sum: 67141dbef75daa54641e28f867ae7f9f
 NeedsCompilation: no
 
