@@ -92,7 +92,7 @@ Collate:
     'boxConcThree.R'
     'fluxBiasEight.R'
 Depends:
-    R (>= 2.13.0)
+    R (>= 3.0)
 Imports:
     methods,
     survival,
