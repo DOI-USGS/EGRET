@@ -24,9 +24,9 @@
 multiPlotDataOverview<-function (localSample = Sample, localDaily = Daily, 
                                  localINFO = INFO, qUnit = 2){
   par(mfcol=c(2,2),oma=c(0,2.4,4.5,2.4),tcl=0.5)
-  plotLogConcQ(localSample = localSample, qUnit = qUnit, tinyPlot = TRUE, printTitle = FALSE,rmSciX=TRUE)
+  plotConcQ(localSample = localSample, qUnit = qUnit, tinyPlot = TRUE, printTitle = FALSE,rmSciX=TRUE,logScale=TRUE)
   boxConcMonth(localSample = localSample, printTitle = FALSE, tinyPlot=TRUE)
-  plotLogConcTime(localSample = localSample, printTitle = FALSE, tinyPlot = TRUE)
+  plotConcTime(localSample = localSample, printTitle = FALSE, tinyPlot = TRUE,logScale=TRUE)
   boxQTwice(localSample = localSample, localDaily = localDaily, printTitle = FALSE, qUnit = qUnit, tinyPlot=TRUE)
   title<-paste(localINFO$shortName,"\n",localINFO$paramShortName)
   mtext(title,cex=1.2,outer=TRUE,font=2)

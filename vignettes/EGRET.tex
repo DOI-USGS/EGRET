@@ -5,7 +5,7 @@
 %\VignetteImports{methods,survival, fields}
 %\VignettePackage{EGRET}
 
-\documentclass[a4paper,11pt]{article}\usepackage{graphicx, color}
+\documentclass[a4paper,11pt]{article}\usepackage[]{graphicx}\usepackage[]{color}
 %% maxwidth is the original width if it is less than linewidth
 %% otherwise use linewidth (to make sure the graphics do not exceed the margin)
 \makeatletter
@@ -18,21 +18,16 @@
 }
 \makeatother
 
-\definecolor{fgcolor}{rgb}{0.2, 0.2, 0.2}
-\newcommand{\hlnumber}[1]{\textcolor[rgb]{0,0,0}{#1}}%
-\newcommand{\hlfunctioncall}[1]{\textcolor[rgb]{0.501960784313725,0,0.329411764705882}{\textbf{#1}}}%
-\newcommand{\hlstring}[1]{\textcolor[rgb]{0.6,0.6,1}{#1}}%
-\newcommand{\hlkeyword}[1]{\textcolor[rgb]{0,0,0}{\textbf{#1}}}%
-\newcommand{\hlargument}[1]{\textcolor[rgb]{0.690196078431373,0.250980392156863,0.0196078431372549}{#1}}%
-\newcommand{\hlcomment}[1]{\textcolor[rgb]{0.180392156862745,0.6,0.341176470588235}{#1}}%
-\newcommand{\hlroxygencomment}[1]{\textcolor[rgb]{0.43921568627451,0.47843137254902,0.701960784313725}{#1}}%
-\newcommand{\hlformalargs}[1]{\textcolor[rgb]{0.690196078431373,0.250980392156863,0.0196078431372549}{#1}}%
-\newcommand{\hleqformalargs}[1]{\textcolor[rgb]{0.690196078431373,0.250980392156863,0.0196078431372549}{#1}}%
-\newcommand{\hlassignement}[1]{\textcolor[rgb]{0,0,0}{\textbf{#1}}}%
-\newcommand{\hlpackage}[1]{\textcolor[rgb]{0.588235294117647,0.709803921568627,0.145098039215686}{#1}}%
-\newcommand{\hlslot}[1]{\textit{#1}}%
-\newcommand{\hlsymbol}[1]{\textcolor[rgb]{0,0,0}{#1}}%
-\newcommand{\hlprompt}[1]{\textcolor[rgb]{0.2,0.2,0.2}{#1}}%
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
 
 \usepackage{framed}
 \makeatletter
@@ -157,106 +152,84 @@ Subsequent sections of this vignette will discuss the EGRET workflow steps in gr
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{library}(dataRetrieval)
-\hlfunctioncall{library}(EGRET)
-
-\hlcomment{############################}
-\hlcomment{# Gather discharge data:}
-siteID <- \hlstring{"01491000"} #Choptank River at Greensboro, MD
-startDate <- \hlstring{""} #Gets earliest date
-endDate <- \hlstring{"2011-09-30"}
-Daily <- \hlfunctioncall{getDVData}(siteID,\hlstring{"00060"},startDate,endDate)
-
-\hlcomment{# Gather sample data:}
-parameter_cd<-\hlstring{"00631"} #5 digit USGS code
-Sample <- \hlfunctioncall{getSampleData}(siteID,parameter_cd,startDate,endDate)
-
-\hlcomment{# Gather site and parameter information:}
-INFO<- \hlfunctioncall{getMetaData}(siteID,parameter_cd,interactive=FALSE)
-INFO$shortName <- \hlstring{"Choptank River at Greensboro, MD"}
-INFO <- \hlfunctioncall{setPA}()
-
-\hlcomment{# Merge discharge with sample data:}
-Sample <- \hlfunctioncall{mergeReport}()
-\hlcomment{############################}
-
-\hlcomment{############################}
-\hlcomment{# Check flow history data:}
-annualSeries <- \hlfunctioncall{makeAnnualSeries}()
-\hlfunctioncall{plotFlowSingle}(istat=7,qUnit=\hlstring{"thousandCfs"})
-\hlfunctioncall{plotSDLogQ}()
-\hlfunctioncall{plotQTimeDaily}(qLower=1,qUnit=3)
-\hlfunctioncall{plotFour}(qUnit=3)
-\hlfunctioncall{plotFourStats}(qUnit=3)
-\hlcomment{############################}
-
-\hlcomment{############################}
-\hlcomment{# Check sample data:}
-\hlfunctioncall{boxConcMonth}()
-\hlfunctioncall{boxQTwice}()
-\hlfunctioncall{plotLogConcTime}()
-\hlfunctioncall{plotConcTime}()
-\hlfunctioncall{plotConcQ}()
-\hlfunctioncall{plotLogConcQ}()
-\hlfunctioncall{plotLogFluxQ}()
-\hlfunctioncall{multiPlotDataOverview}()
-\hlcomment{############################}
-
-\hlcomment{############################}
-\hlcomment{# Run WRTDS model:}
-\hlfunctioncall{modelEstimation}()
-\hlcomment{############################}
-
-\hlcomment{############################}
-\hlcomment{#Check model results:}
-
-\hlcomment{#Require Sample + INFO:}
-\hlfunctioncall{plotConcTimeDaily}()
-\hlfunctioncall{plotFluxTimeDaily}()
-\hlfunctioncall{plotConcPred}()
-\hlfunctioncall{plotFluxPred}()
-\hlfunctioncall{plotLogConcPred}()
-\hlfunctioncall{plotLogFluxPred}()
-\hlfunctioncall{plotResidPred}()
-\hlfunctioncall{plotResidQ}()
-\hlfunctioncall{plotResidTime}()
-\hlfunctioncall{boxResidMonth}()
-\hlfunctioncall{boxConcThree}()
-
-\hlcomment{#Require annualResults + INFO:}
-\hlfunctioncall{plotConcHist}()
-\hlfunctioncall{plotFluxHist}()
-
-\hlcomment{# Multi-line plots:}
-date1 <- \hlstring{"2000-09-01"}
-date2 <- \hlstring{"2005-09-01"}
-date3 <- \hlstring{"2009-09-01"}
-qBottom<-100
-qTop<-5000
-\hlfunctioncall{plotLogConcQSmooth}(date1, date2, date3, qBottom, qTop, 
-                   concMax=2, concMin=0.1,qUnit=1)
-\hlfunctioncall{plotConcQSmooth}(date1, date2, date3, qBottom, qTop, 
-                   concMax=2,qUnit=1)
-q1 <- 10
-q2 <- 25
-q3 <- 75
-centerDate <- \hlstring{"07-01"}
-\hlfunctioncall{plotConcTimeSmooth}(q1, q2, q3, centerDate, 2000, yearEnd)
-
-\hlcomment{# Multi-plots:}
-\hlfunctioncall{fluxBiasMulti}()
-
-\hlcomment{#Contour plots:}
-clevel<-\hlfunctioncall{seq}(0,2,0.5)
-maxDiff<-0.8
-yearStart <- 2000
-yearEnd <- 2010
-
-\hlfunctioncall{plotContours}(yearStart,yearEnd,qBottom,qTop, 
-             contourLevels = clevel,qUnit=1)
-\hlfunctioncall{plotDiffContours}(yearStart,yearEnd,
-                 qBottom,qTop,maxDiff,qUnit=1)
-
+\hlkwd{library}\hlstd{(dataRetrieval)}
+\hlkwd{library}\hlstd{(EGRET)}
+\hlcom{############################}
+\hlcom{# Gather discharge data:}
+\hlstd{siteID} \hlkwb{<-} \hlstr{"01491000"} \hlcom{#Choptank River at Greensboro, MD}
+\hlstd{startDate} \hlkwb{<-} \hlstr{""} \hlcom{#Gets earliest date}
+\hlstd{endDate} \hlkwb{<-} \hlstr{"2011-09-30"}
+\hlstd{Daily} \hlkwb{<-} \hlkwd{getDVData}\hlstd{(siteID,}\hlstr{"00060"}\hlstd{,startDate,endDate)}
+\hlcom{# Gather sample data:}
+\hlstd{parameter_cd}\hlkwb{<-}\hlstr{"00631"} \hlcom{#5 digit USGS code}
+\hlstd{Sample} \hlkwb{<-} \hlkwd{getSampleData}\hlstd{(siteID,parameter_cd,startDate,endDate)}
+\hlcom{# Gather site and parameter information:}
+\hlstd{INFO}\hlkwb{<-} \hlkwd{getMetaData}\hlstd{(siteID,parameter_cd,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
+\hlstd{INFO}\hlopt{$}\hlstd{shortName} \hlkwb{<-} \hlstr{"Choptank River at Greensboro, MD"}
+\hlstd{INFO} \hlkwb{<-} \hlkwd{setPA}\hlstd{()}
+\hlcom{# Merge discharge with sample data:}
+\hlstd{Sample} \hlkwb{<-} \hlkwd{mergeReport}\hlstd{()}
+\hlcom{############################}
+\hlcom{############################}
+\hlcom{# Check flow history data:}
+\hlstd{annualSeries} \hlkwb{<-} \hlkwd{makeAnnualSeries}\hlstd{()}
+\hlkwd{plotFlowSingle}\hlstd{(}\hlkwc{istat}\hlstd{=}\hlnum{7}\hlstd{,}\hlkwc{qUnit}\hlstd{=}\hlstr{"thousandCfs"}\hlstd{)}
+\hlkwd{plotSDLogQ}\hlstd{()}
+\hlkwd{plotQTimeDaily}\hlstd{(}\hlkwc{qLower}\hlstd{=}\hlnum{1}\hlstd{,}\hlkwc{qUnit}\hlstd{=}\hlnum{3}\hlstd{)}
+\hlkwd{plotFour}\hlstd{(}\hlkwc{qUnit}\hlstd{=}\hlnum{3}\hlstd{)}
+\hlkwd{plotFourStats}\hlstd{(}\hlkwc{qUnit}\hlstd{=}\hlnum{3}\hlstd{)}
+\hlcom{############################}
+\hlcom{############################}
+\hlcom{# Check sample data:}
+\hlkwd{boxConcMonth}\hlstd{()}
+\hlkwd{boxQTwice}\hlstd{()}
+\hlkwd{plotConcTime}\hlstd{()}
+\hlkwd{plotConcQ}\hlstd{()}
+\hlkwd{multiPlotDataOverview}\hlstd{()}
+\hlcom{############################}
+\hlcom{############################}
+\hlcom{# Run WRTDS model:}
+\hlkwd{modelEstimation}\hlstd{()}
+\hlcom{############################}
+\hlcom{############################}
+\hlcom{#Check model results:}
+\hlcom{#Require Sample + INFO:}
+\hlkwd{plotConcTimeDaily}\hlstd{()}
+\hlkwd{plotFluxTimeDaily}\hlstd{()}
+\hlkwd{plotConcPred}\hlstd{()}
+\hlkwd{plotFluxPred}\hlstd{()}
+\hlkwd{plotResidPred}\hlstd{()}
+\hlkwd{plotResidQ}\hlstd{()}
+\hlkwd{plotResidTime}\hlstd{()}
+\hlkwd{boxResidMonth}\hlstd{()}
+\hlkwd{boxConcThree}\hlstd{()}
+\hlcom{#Require annualResults + INFO:}
+\hlkwd{plotConcHist}\hlstd{()}
+\hlkwd{plotFluxHist}\hlstd{()}
+\hlcom{# Multi-line plots:}
+\hlstd{date1} \hlkwb{<-} \hlstr{"2000-09-01"}
+\hlstd{date2} \hlkwb{<-} \hlstr{"2005-09-01"}
+\hlstd{date3} \hlkwb{<-} \hlstr{"2009-09-01"}
+\hlstd{qBottom}\hlkwb{<-}\hlnum{100}
+\hlstd{qTop}\hlkwb{<-}\hlnum{5000}
+\hlkwd{plotConcQSmooth}\hlstd{(date1, date2, date3, qBottom, qTop,}
+                   \hlkwc{concMax}\hlstd{=}\hlnum{2}\hlstd{,}\hlkwc{qUnit}\hlstd{=}\hlnum{1}\hlstd{)}
+\hlstd{q1} \hlkwb{<-} \hlnum{10}
+\hlstd{q2} \hlkwb{<-} \hlnum{25}
+\hlstd{q3} \hlkwb{<-} \hlnum{75}
+\hlstd{centerDate} \hlkwb{<-} \hlstr{"07-01"}
+\hlkwd{plotConcTimeSmooth}\hlstd{(q1, q2, q3, centerDate,} \hlnum{2000}\hlstd{, yearEnd)}
+\hlcom{# Multi-plots:}
+\hlkwd{fluxBiasMulti}\hlstd{()}
+\hlcom{#Contour plots:}
+\hlstd{clevel}\hlkwb{<-}\hlkwd{seq}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{2}\hlstd{,}\hlnum{0.5}\hlstd{)}
+\hlstd{maxDiff}\hlkwb{<-}\hlnum{0.8}
+\hlstd{yearStart} \hlkwb{<-} \hlnum{2000}
+\hlstd{yearEnd} \hlkwb{<-} \hlnum{2010}
+\hlkwd{plotContours}\hlstd{(yearStart,yearEnd,qBottom,qTop,}
+             \hlkwc{contourLevels} \hlstd{= clevel,}\hlkwc{qUnit}\hlstd{=}\hlnum{1}\hlstd{)}
+\hlkwd{plotDiffContours}\hlstd{(yearStart,yearEnd,}
+                 \hlstd{qBottom,qTop,maxDiff,}\hlkwc{qUnit}\hlstd{=}\hlnum{1}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -272,8 +245,8 @@ The EGRET package uses 3 default dataframes throughout the calculations, analysi
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{library}(dataRetrieval)
-\hlfunctioncall{library}(EGRET)
+\hlkwd{library}\hlstd{(dataRetrieval)}
+\hlkwd{library}\hlstd{(EGRET)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -457,7 +430,7 @@ Although the data is stored in the dataframes in SI, it is possible to report th
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{printqUnitCheatSheet}()
+\hlkwd{printqUnitCheatSheet}\hlstd{()}
 \end{alltt}
 \begin{verbatim}
 The following codes apply to the qUnit list:
@@ -475,7 +448,7 @@ When a function has an input argument qUnit, you can define the discharge units 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{printFluxUnitCheatSheet}()
+\hlkwd{printFluxUnitCheatSheet}\hlstd{()}
 \end{alltt}
 \begin{verbatim}
 The following codes apply to the fluxUnit list:
@@ -511,7 +484,7 @@ At this point it is assumed that you can load the daily discharge record into R,
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{vignette}(\hlstring{"dataRetrieval"})
+\hlkwd{vignette}\hlstd{(}\hlstr{"dataRetrieval"}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -522,18 +495,17 @@ We will walk through an example from Columbia River at The Dalles, OR.
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-siteID <- \hlstring{"14105700"}  
-startDate <- \hlstring{""}
-endDate <- \hlstring{""}
-
-Daily <- \hlfunctioncall{getDVData}(siteID,\hlstring{"00060"},startDate,endDate)
+\hlstd{siteID} \hlkwb{<-} \hlstr{"14105700"}
+\hlstd{startDate} \hlkwb{<-} \hlstr{""}
+\hlstd{endDate} \hlkwb{<-} \hlstr{""}
+\hlstd{Daily} \hlkwb{<-} \hlkwd{getDVData}\hlstd{(siteID,}\hlstr{"00060"}\hlstd{,startDate,endDate)}
 \end{alltt}
 \begin{verbatim}
-There are  49395 data points, and  49395 days.
+There are 49409 data points, and 49409 days.
 \end{verbatim}
 \begin{alltt}
-INFO <- \hlfunctioncall{getMetaData}(siteID,\hlstring{""},interactive=FALSE)
-INFO$shortName <- \hlstring{"Columbia River at The Dalles, OR"}
+\hlstd{INFO} \hlkwb{<-} \hlkwd{getMetaData}\hlstd{(siteID,}\hlstr{""}\hlstd{,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
+\hlstd{INFO}\hlopt{$}\hlstd{shortName} \hlkwb{<-} \hlstr{"Columbia River at The Dalles, OR"}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -561,7 +533,7 @@ To set a period running from December through February:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-INFO <- \hlfunctioncall{setPA}(paStart=12,paLong=3)
+\hlstd{INFO} \hlkwb{<-} \hlkwd{setPA}\hlstd{(}\hlkwc{paStart}\hlstd{=}\hlnum{12}\hlstd{,}\hlkwc{paLong}\hlstd{=}\hlnum{3}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -571,7 +543,7 @@ To set the default value (water year):
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-INFO <- \hlfunctioncall{setPA}()
+\hlstd{INFO} \hlkwb{<-} \hlkwd{setPA}\hlstd{()}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -603,7 +575,7 @@ To create the annualSeries matrix, using the function makeAnnualSeries:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-annualSeries <- \hlfunctioncall{makeAnnualSeries}()
+\hlstd{annualSeries} \hlkwb{<-} \hlkwd{makeAnnualSeries}\hlstd{()}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -626,8 +598,8 @@ Figure \ref{fig:plotSingleandSD}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{plotFlowSingle}(istat=5,qUnit=\hlstring{"thousandCfs"})
-\hlfunctioncall{plotSDLogQ}()
+\hlkwd{plotFlowSingle}\hlstd{(}\hlkwc{istat}\hlstd{=}\hlnum{5}\hlstd{,}\hlkwc{qUnit}\hlstd{=}\hlstr{"thousandCfs"}\hlstd{)}
+\hlkwd{plotSDLogQ}\hlstd{()}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 \subfloat[plotFlowSingle(istat=5,qUnit='thousandCfs')\label{fig:plotSingleandSD1}]{
@@ -644,7 +616,7 @@ Figure \ref{fig:plotFour}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{plotFour}(qUnit=3)
+\hlkwd{plotFour}\hlstd{(}\hlkwc{qUnit}\hlstd{=}\hlnum{3}\hlstd{)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 
@@ -659,7 +631,7 @@ Figure \ref{fig:plotFourStats}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{plotFourStats}(qUnit=3)
+\hlkwd{plotFourStats}\hlstd{(}\hlkwc{qUnit}\hlstd{=}\hlnum{3}\hlstd{)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 
@@ -682,22 +654,21 @@ Here is an example of looking at mean daily discharge for the full water year an
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-sta<-\hlstring{"11264500"}
-Daily <-\hlfunctioncall{getDVData}(sta,\hlstring{"00060"},StartDate=\hlstring{""},EndDate=\hlstring{""})
+\hlstd{sta}\hlkwb{<-}\hlstr{"11264500"}
+\hlstd{Daily} \hlkwb{<-}\hlkwd{getDVData}\hlstd{(sta,}\hlstr{"00060"}\hlstd{,}\hlkwc{StartDate}\hlstd{=}\hlstr{""}\hlstd{,}\hlkwc{EndDate}\hlstd{=}\hlstr{""}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-There are  35799 data points, and  35799 days.
+There are 35813 data points, and 35813 days.
 \end{verbatim}
 \begin{alltt}
-INFO <- \hlfunctioncall{getMetaData}(sta,\hlstring{""},interactive=FALSE)
-INFO$shortName <- \hlstring{"Merced River at Happy Isles Bridge, CA"}
-INFO <- \hlfunctioncall{setPA}()
-annualSeries <- \hlfunctioncall{makeAnnualSeries}()
-\hlfunctioncall{plotFlowSingle}(istat=5)
-
-INFO<-\hlfunctioncall{setPA}(paStart=12,paLong=3)
-annualSeries<-\hlfunctioncall{makeAnnualSeries}()
-\hlfunctioncall{plotFlowSingle}(istat=5)
+\hlstd{INFO} \hlkwb{<-} \hlkwd{getMetaData}\hlstd{(sta,}\hlstr{""}\hlstd{,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
+\hlstd{INFO}\hlopt{$}\hlstd{shortName} \hlkwb{<-} \hlstr{"Merced River at Happy Isles Bridge, CA"}
+\hlstd{INFO} \hlkwb{<-} \hlkwd{setPA}\hlstd{()}
+\hlstd{annualSeries} \hlkwb{<-} \hlkwd{makeAnnualSeries}\hlstd{()}
+\hlkwd{plotFlowSingle}\hlstd{(}\hlkwc{istat}\hlstd{=}\hlnum{5}\hlstd{)}
+\hlstd{INFO}\hlkwb{<-}\hlkwd{setPA}\hlstd{(}\hlkwc{paStart}\hlstd{=}\hlnum{12}\hlstd{,}\hlkwc{paLong}\hlstd{=}\hlnum{3}\hlstd{)}
+\hlstd{annualSeries}\hlkwb{<-}\hlkwd{makeAnnualSeries}\hlstd{()}
+\hlkwd{plotFlowSingle}\hlstd{(}\hlkwc{istat}\hlstd{=}\hlnum{5}\hlstd{)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 \subfloat[Water Year\label{fig:Merced1}]{
@@ -717,18 +688,17 @@ plotQTimeDaily is simply a time series plot of discharge.  But, it is most suite
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-sta<-\hlstring{"05474500"}
-Daily <-\hlfunctioncall{getDVData}(sta,\hlstring{"00060"},StartDate=\hlstring{""},EndDate=\hlstring{""})
+\hlstd{sta}\hlkwb{<-}\hlstr{"05474500"}
+\hlstd{Daily} \hlkwb{<-}\hlkwd{getDVData}\hlstd{(sta,}\hlstr{"00060"}\hlstd{,}\hlkwc{StartDate}\hlstd{=}\hlstr{""}\hlstd{,}\hlkwc{EndDate}\hlstd{=}\hlstr{""}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-There are  49520 data points, and  49520 days.
+There are 49520 data points, and 49520 days.
 \end{verbatim}
 \begin{alltt}
-INFO <- \hlfunctioncall{getMetaData}(sta,\hlstring{""},interactive=FALSE)
-INFO$shortName <- \hlstring{"Mississippi River at Keokuk Iowa"}
-INFO <- \hlfunctioncall{setPA}()
-
-\hlfunctioncall{plotQTimeDaily}(qUnit=3,qLower=300)
+\hlstd{INFO} \hlkwb{<-} \hlkwd{getMetaData}\hlstd{(sta,}\hlstr{""}\hlstd{,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
+\hlstd{INFO}\hlopt{$}\hlstd{shortName} \hlkwb{<-} \hlstr{"Mississippi River at Keokuk Iowa"}
+\hlstd{INFO} \hlkwb{<-} \hlkwd{setPA}\hlstd{()}
+\hlkwd{plotQTimeDaily}\hlstd{(}\hlkwc{qUnit}\hlstd{=}\hlnum{3}\hlstd{,}\hlkwc{qLower}\hlstd{=}\hlnum{300}\hlstd{)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 
@@ -753,7 +723,7 @@ Sometimes easier to consider the results in table formats rather than graphicall
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-seriesResult <- \hlfunctioncall{printSeries}(istat=3, qUnit=3)
+\hlstd{seriesResult} \hlkwb{<-} \hlkwd{printSeries}\hlstd{(}\hlkwc{istat}\hlstd{=}\hlnum{3}\hlstd{,} \hlkwc{qUnit}\hlstd{=}\hlnum{3}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -789,8 +759,8 @@ There is another argument that can be very useful in this function: yearPoints. 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-annualSeries <- \hlfunctioncall{makeAnnualSeries}()
-\hlfunctioncall{tableFlowChange}(istat=3, qUnit=3,yearPoints=\hlfunctioncall{c}(1890,1950,2010))
+\hlstd{annualSeries} \hlkwb{<-} \hlkwd{makeAnnualSeries}\hlstd{()}
+\hlkwd{tableFlowChange}\hlstd{(}\hlkwc{istat}\hlstd{=}\hlnum{3}\hlstd{,} \hlkwc{qUnit}\hlstd{=}\hlnum{3}\hlstd{,}\hlkwc{yearPoints}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{1890}\hlstd{,}\hlnum{1950}\hlstd{,}\hlnum{2010}\hlstd{))}
 \end{alltt}
 \begin{verbatim}
 
@@ -827,16 +797,15 @@ We will now use the Choptank River at Greensboro, MD as our example case. The Ch
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-siteID <- \hlstring{"01491000"} #Choptank River at Greensboro, MD
-startDate <- \hlstring{"1979-10-01"}
-endDate <- \hlstring{"2011-09-30"}
-param<-\hlstring{"00631"}
-Daily <- \hlfunctioncall{getDVData}(siteID,\hlstring{"00060"},startDate,endDate)
-INFO<- \hlfunctioncall{getMetaData}(siteID,param,interactive=FALSE)
-INFO$shortName <- \hlstring{"Choptank River"}
-
-Sample <- \hlfunctioncall{getSampleData}(siteID,param,startDate,endDate)
-Sample <- \hlfunctioncall{mergeReport}()
+\hlstd{siteID} \hlkwb{<-} \hlstr{"01491000"} \hlcom{#Choptank River at Greensboro, MD}
+\hlstd{startDate} \hlkwb{<-} \hlstr{"1979-10-01"}
+\hlstd{endDate} \hlkwb{<-} \hlstr{"2011-09-30"}
+\hlstd{param}\hlkwb{<-}\hlstr{"00631"}
+\hlstd{Daily} \hlkwb{<-} \hlkwd{getDVData}\hlstd{(siteID,}\hlstr{"00060"}\hlstd{,startDate,endDate)}
+\hlstd{INFO}\hlkwb{<-} \hlkwd{getMetaData}\hlstd{(siteID,param,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
+\hlstd{INFO}\hlopt{$}\hlstd{shortName} \hlkwb{<-} \hlstr{"Choptank River"}
+\hlstd{Sample} \hlkwb{<-} \hlkwd{getSampleData}\hlstd{(siteID,param,startDate,endDate)}
+\hlstd{Sample} \hlkwb{<-} \hlkwd{mergeReport}\hlstd{()}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -860,8 +829,8 @@ Figure \ref{fig:plotBoxes}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{boxConcMonth}()
-\hlfunctioncall{boxQTwice}(qUnit=1)
+\hlkwd{boxConcMonth}\hlstd{()}
+\hlkwd{boxQTwice}\hlstd{(}\hlkwc{qUnit}\hlstd{=}\hlnum{1}\hlstd{)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 \subfloat[boxConcMonth()\label{fig:plotBoxes1}]{
@@ -880,47 +849,14 @@ Figure \ref{fig:plotConcTime}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{plotConcTime}()
-\hlfunctioncall{plotLogConcTime}()
+\hlkwd{plotConcTime}\hlstd{()}
+\hlkwd{plotConcQ}\hlstd{(}\hlkwc{qUnit}\hlstd{=}\hlnum{1}\hlstd{)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 \subfloat[plotConcTime()\label{fig:plotConcTime1}]{
 \includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcTime1} }
-\subfloat[plotLogConcTime()\label{fig:plotConcTime2}]{
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcTime2} }\caption[Concentration vs time]{Concentration vs time\label{fig:plotConcTime}}
-\end{figure}
-
-
-\end{knitrout}
-
-
-Figure \ref{fig:plotConcQ}:
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlfunctioncall{plotConcQ}(qUnit=1)
-\hlfunctioncall{plotLogConcQ}(qUnit=1)
-\end{alltt}
-\end{kframe}\begin{figure}[]
-\subfloat[plotConcQ(qUnit=1)\label{fig:plotConcQ1}]{
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcQ1} }
-\subfloat[plotLogConcQ(qUnit=1)\label{fig:plotConcQ2}]{
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcQ2} }\caption[Concentration vs discharge]{Concentration vs discharge\label{fig:plotConcQ}}
-\end{figure}
-
-
-\end{knitrout}
-
-
-Figure \ref{fig:plotLogConcQ}:
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlfunctioncall{plotLogFluxQ}(qUnit=1)
-\end{alltt}
-\end{kframe}\begin{figure}[]
-
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogConcQ} \caption[plotLogFluxQ(qUnit=1)]{plotLogFluxQ(qUnit=1)\label{fig:plotLogConcQ}}
+\subfloat[plotConcQ()\label{fig:plotConcTime2}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcTime2} }\caption[Concentration vs time or discharge]{Concentration vs time or discharge\label{fig:plotConcTime}}
 \end{figure}
 
 
@@ -931,7 +867,7 @@ Figure \ref{fig:multiPlotDataOverview}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{multiPlotDataOverview}(qUnit=1)
+\hlkwd{multiPlotDataOverview}\hlstd{(}\hlkwc{qUnit}\hlstd{=}\hlnum{1}\hlstd{)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 
@@ -953,7 +889,7 @@ Another useful tool for checking the data before running the WRTDS estimations i
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{flowDuration}(qUnit=1)
+\hlkwd{flowDuration}\hlstd{(}\hlkwc{qUnit}\hlstd{=}\hlnum{1}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
 
@@ -985,7 +921,7 @@ Assuming you are using the defaults, with dataframes called Daily, Sample, and I
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{modelEstimation}()
+\hlkwd{modelEstimation}\hlstd{()}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -998,7 +934,7 @@ If you wish to change the period of analysis after comleting modelEstimation, th
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-AnnualResults<-\hlfunctioncall{setupYears}(paStart=12,paLong=3)
+\hlstd{AnnualResults}\hlkwb{<-}\hlkwd{setupYears}\hlstd{(}\hlkwc{paStart}\hlstd{=}\hlnum{12}\hlstd{,}\hlkwc{paLong}\hlstd{=}\hlnum{3}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -1010,10 +946,10 @@ Finally, it is a good idea to save your results because of the computational tim
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-savePath <- \hlstring{"C:/Users/ldecicco/WRTDS_Output/"}
-INFO$staAbbrev <- \hlstring{"Chop"}
-INFO$constitAbbrev <- \hlstring{"nitrogen"}
-\hlfunctioncall{saveResults}(savePath) 
+\hlstd{savePath} \hlkwb{<-} \hlstr{"C:/Users/ldecicco/WRTDS_Output/"}
+\hlstd{INFO}\hlopt{$}\hlstd{staAbbrev} \hlkwb{<-} \hlstr{"Chop"}
+\hlstd{INFO}\hlopt{$}\hlstd{constitAbbrev} \hlkwb{<-} \hlstr{"nitrogen"}
+\hlkwd{saveResults}\hlstd{(savePath)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -1024,12 +960,12 @@ The workspace is saved using the staAbbrev and constitAbbrev as the filename (se
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-loadPath <- \hlstring{"C:/Users/ldecicco/WRTDS_Output/"}
-staAbbrev <- \hlstring{"Chop"}
-constitAbbrev <- \hlstring{"nitrogen"}
-pathToFile <- \hlfunctioncall{paste}(loadPath,staAbbrev,\hlstring{"."},
-                    constitAbbrev,\hlstring{".RData"},sep=\hlstring{""})
-\hlfunctioncall{load}(pathToFile) 
+\hlstd{loadPath} \hlkwb{<-} \hlstr{"C:/Users/ldecicco/WRTDS_Output/"}
+\hlstd{staAbbrev} \hlkwb{<-} \hlstr{"Chop"}
+\hlstd{constitAbbrev} \hlkwb{<-} \hlstr{"nitrogen"}
+\hlstd{pathToFile} \hlkwb{<-} \hlkwd{paste}\hlstd{(loadPath,staAbbrev,}\hlstr{"."}\hlstd{,}
+                    \hlstd{constitAbbrev,}\hlstr{".RData"}\hlstd{,}\hlkwc{sep}\hlstd{=}\hlstr{""}\hlstd{)}
+\hlkwd{load}\hlstd{(pathToFile)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -1064,11 +1000,10 @@ Figure \ref{fig:plotConcTimeDaily}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-yearStart <- 2008
-yearEnd <- 2010
-
-\hlfunctioncall{plotConcTimeDaily}(yearStart, yearEnd)
-\hlfunctioncall{plotFluxTimeDaily}(yearStart, yearEnd)
+\hlstd{yearStart} \hlkwb{<-} \hlnum{2008}
+\hlstd{yearEnd} \hlkwb{<-} \hlnum{2010}
+\hlkwd{plotConcTimeDaily}\hlstd{(yearStart, yearEnd)}
+\hlkwd{plotFluxTimeDaily}\hlstd{(yearStart, yearEnd)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 \subfloat[plotConcTimeDaily(startYear=2008, endYear=2010)\label{fig:plotConcTimeDaily1}]{
@@ -1085,44 +1020,27 @@ Figure \ref{fig:plotFluxPred}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{plotConcPred}()
-\hlfunctioncall{plotLogConcPred}()
+\hlkwd{plotConcPred}\hlstd{()}
+\hlkwd{plotFluxPred}\hlstd{()}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 \subfloat[plotConcPred()\label{fig:plotFluxPred1}]{
 \includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotFluxPred1} }
-\subfloat[plotLogConcPred()\label{fig:plotFluxPred2}]{
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotFluxPred2} }\caption[Concentration predictions]{Concentration predictions\label{fig:plotFluxPred}}
+\subfloat[plotFluxPred()\label{fig:plotFluxPred2}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotFluxPred2} }\caption[Concentration and flux predictions]{Concentration and flux predictions\label{fig:plotFluxPred}}
 \end{figure}
 
 
 \end{knitrout}
 
-
-Figure \ref{fig:plotLogFluxPred}:
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlfunctioncall{plotFluxPred}()
-\hlfunctioncall{plotLogFluxPred}()
-\end{alltt}
-\end{kframe}\begin{figure}[]
-\subfloat[plotFluxPred()\label{fig:plotLogFluxPred1}]{
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogFluxPred1} }
-\subfloat[plotLogFluxPred()\label{fig:plotLogFluxPred2}]{
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogFluxPred2} }\caption[Flux predictions]{Flux predictions\label{fig:plotLogFluxPred}}
-\end{figure}
-
-
-\end{knitrout}
 
 
 Figure \ref{fig:plotResidQ}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{plotResidPred}()
-\hlfunctioncall{plotResidQ}(qUnit=1)
+\hlkwd{plotResidPred}\hlstd{()}
+\hlkwd{plotResidQ}\hlstd{(}\hlkwc{qUnit}\hlstd{=}\hlnum{1}\hlstd{)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 \subfloat[plotResidPred()\label{fig:plotResidQ1}]{
@@ -1139,8 +1057,8 @@ Figure \ref{fig:boxResidMonth}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{plotResidTime}()
-\hlfunctioncall{boxResidMonth}()
+\hlkwd{plotResidTime}\hlstd{()}
+\hlkwd{boxResidMonth}\hlstd{()}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 \subfloat[plotResidTime()\label{fig:boxResidMonth1}]{
@@ -1157,7 +1075,7 @@ Figure \ref{fig:boxConcThree}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{boxConcThree}()
+\hlkwd{boxConcThree}\hlstd{()}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 
@@ -1172,8 +1090,8 @@ Figure \ref{fig:plotFluxHist}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{plotConcHist}()
-\hlfunctioncall{plotFluxHist}()
+\hlkwd{plotConcHist}\hlstd{()}
+\hlkwd{plotFluxHist}\hlstd{()}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 \subfloat[plotConcHist()\label{fig:plotFluxHist1}]{
@@ -1186,25 +1104,25 @@ Figure \ref{fig:plotFluxHist}:
 \end{knitrout}
 
 
-Figure \ref{fig:plotLogConcQSmooth}:
+Figure \ref{fig:plotConcQSmooth}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-qBottom<-5
-qTop<-1000
-date1 <- \hlstring{"2000-09-01"}
-date2 <- \hlstring{"2005-09-01"}
-date3 <- \hlstring{"2009-09-01"}
-\hlfunctioncall{plotConcQSmooth}(date1, date2, date3,
-                qBottom, qTop, qUnit=1)
-\hlfunctioncall{plotLogConcQSmooth}(date1, date2, date3,
-                   qBottom, qTop, qUnit=1)
+\hlstd{qBottom}\hlkwb{<-}\hlnum{5}
+\hlstd{qTop}\hlkwb{<-}\hlnum{1000}
+\hlstd{date1} \hlkwb{<-} \hlstr{"2000-09-01"}
+\hlstd{date2} \hlkwb{<-} \hlstr{"2005-09-01"}
+\hlstd{date3} \hlkwb{<-} \hlstr{"2009-09-01"}
+\hlkwd{plotConcQSmooth}\hlstd{(date1, date2, date3,}
+                \hlstd{qBottom, qTop,} \hlkwc{qUnit}\hlstd{=}\hlnum{1}\hlstd{)}
+\hlkwd{plotConcQSmooth}\hlstd{(date1, date2, date3,}
+                \hlstd{qBottom, qTop,} \hlkwc{qUnit}\hlstd{=}\hlnum{1}\hlstd{,}\hlkwc{logScale}\hlstd{=}\hlnum{TRUE}\hlstd{)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
-\subfloat[plotConcQSmooth\label{fig:plotLogConcQSmooth1}]{
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogConcQSmooth1} }
-\subfloat[plotLogConcQSmooth\label{fig:plotLogConcQSmooth2}]{
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogConcQSmooth2} }\caption[Concentration vs]{Concentration vs. discharge\label{fig:plotLogConcQSmooth}}
+\subfloat[plotConcQSmooth\label{fig:plotConcQSmooth1}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcQSmooth1} }
+\subfloat[plotConcQSmooth(logScale=TRUE)\label{fig:plotConcQSmooth2}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcQSmooth2} }\caption[Concentration vs]{Concentration vs. discharge\label{fig:plotConcQSmooth}}
 \end{figure}
 
 
@@ -1215,13 +1133,13 @@ Figure \ref{fig:plotConcTimeSmooth}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-q1 <- 10
-q2 <- 25
-q3 <- 75
-centerDate <- \hlstring{"07-01"}
-\hlfunctioncall{plotConcTimeSmooth}(q1, q2, q3, centerDate, 2000, 2010)
-\hlfunctioncall{plotConcTimeSmooth}(q1, q2, q3, centerDate, 
-                   2000, 2010,logScale=TRUE)
+\hlstd{q1} \hlkwb{<-} \hlnum{10}
+\hlstd{q2} \hlkwb{<-} \hlnum{25}
+\hlstd{q3} \hlkwb{<-} \hlnum{75}
+\hlstd{centerDate} \hlkwb{<-} \hlstr{"07-01"}
+\hlkwd{plotConcTimeSmooth}\hlstd{(q1, q2, q3, centerDate,} \hlnum{2000}\hlstd{,} \hlnum{2010}\hlstd{)}
+\hlkwd{plotConcTimeSmooth}\hlstd{(q1, q2, q3, centerDate,}
+                   \hlnum{2000}\hlstd{,} \hlnum{2010}\hlstd{,}\hlkwc{logScale}\hlstd{=}\hlnum{TRUE}\hlstd{)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 \subfloat[plotConcTimeSmooth\label{fig:plotConcTimeSmooth1}]{
@@ -1234,14 +1152,14 @@ centerDate <- \hlstring{"07-01"}
 \end{knitrout}
 
 
-Figures \ref{fig:plotLogConcQSmooth} and \ref{fig:plotConcTimeSmooth} contain legends. The placement of the legend is controlled by legendLeft and legendTop. If both are set to 0, the legend is placed in the lower left corner. Otherwise, the value specified for legendLeft places the left edge of the legend, and legendTop specifies the top edge of the legend. The units for these values are those of the plot. The legend can also be turned of with printLegend=FALSE.
+Figures \ref{fig:plotConcQSmooth} and \ref{fig:plotConcTimeSmooth} contain legends. The placement of the legend is controlled by legendLeft and legendTop. If both are set to 0, the legend is placed in the lower left corner. Otherwise, the value specified for legendLeft places the left edge of the legend, and legendTop specifies the top edge of the legend. The units for these values are those of the plot. The legend can also be turned of with printLegend=FALSE.
 
 
 Figure \ref{fig:fluxBiasMulti}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{fluxBiasMulti}(qUnit=1)
+\hlkwd{fluxBiasMulti}\hlstd{(}\hlkwc{qUnit}\hlstd{=}\hlnum{1}\hlstd{)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 
@@ -1257,9 +1175,9 @@ Figure \ref{fig:plotContours}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-clevel<-\hlfunctioncall{seq}(0,2.5,0.25)
-\hlfunctioncall{plotContours}(yearStart,yearEnd,qBottom,qTop, 
-             contourLevels = clevel,qUnit=1)
+\hlstd{clevel}\hlkwb{<-}\hlkwd{seq}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{2.5}\hlstd{,}\hlnum{0.25}\hlstd{)}
+\hlkwd{plotContours}\hlstd{(yearStart,yearEnd,qBottom,qTop,}
+             \hlkwc{contourLevels} \hlstd{= clevel,}\hlkwc{qUnit}\hlstd{=}\hlnum{1}\hlstd{)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 
@@ -1274,9 +1192,9 @@ Figure \ref{fig:plotDiffContours}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-maxDiff<-1
-\hlfunctioncall{plotDiffContours}(year0=2000,yearEnd,
-                 qBottom,qTop,maxDiff,qUnit=1)
+\hlstd{maxDiff}\hlkwb{<-}\hlnum{1}
+\hlkwd{plotDiffContours}\hlstd{(}\hlkwc{year0}\hlstd{=}\hlnum{2000}\hlstd{,yearEnd,}
+                 \hlstd{qBottom,qTop,maxDiff,}\hlkwc{qUnit}\hlstd{=}\hlnum{1}\hlstd{)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 
@@ -1293,7 +1211,7 @@ To specify contourLevels the seq function in R should be used.  In general it wo
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-contourLevels = \hlfunctioncall{seq}(0,5,0.2)
+\hlstd{contourLevels} \hlkwb{=} \hlkwd{seq}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{5}\hlstd{,}\hlnum{0.2}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -1310,8 +1228,8 @@ Sometimes easier to consider the results in table formats rather than graphicall
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{tableResults}()
-returnDF <- \hlfunctioncall{tableResults}(returnDataFrame=TRUE)
+\hlkwd{tableResults}\hlstd{()}
+\hlstd{returnDF} \hlkwb{<-} \hlkwd{tableResults}\hlstd{(}\hlkwc{returnDataFrame}\hlstd{=}\hlnum{TRUE}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -1337,7 +1255,7 @@ returnDF <- \hlfunctioncall{tableResults}(returnDataFrame=TRUE)
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{head}(returnDF)
+\hlkwd{head}\hlstd{(returnDF)}
 \end{alltt}
 \begin{verbatim}
      Year Discharge [cms] Conc [mg/L] FN_Conc [mg/L]
@@ -1365,7 +1283,7 @@ The other table option is tableChange. This is a function that provides for the 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{tableChange}(yearPoints=\hlfunctioncall{c}(2000,2005,2010))
+\hlkwd{tableChange}\hlstd{(}\hlkwc{yearPoints}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{2000}\hlstd{,}\hlnum{2005}\hlstd{,}\hlnum{2010}\hlstd{))}
 \end{alltt}
 \begin{verbatim}
 
@@ -1398,8 +1316,8 @@ Finally, tableChangeSingle (Table \ref{table:tableChangeSingle}) operates exactl
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-returnDF <- \hlfunctioncall{tableChangeSingle}(yearPoints=\hlfunctioncall{c}(2000,2005,2010), 
-                              returnDataFrame=TRUE)
+\hlstd{returnDF} \hlkwb{<-} \hlkwd{tableChangeSingle}\hlstd{(}\hlkwc{yearPoints}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{2000}\hlstd{,}\hlnum{2005}\hlstd{,}\hlnum{2010}\hlstd{),}
+                              \hlkwc{returnDataFrame}\hlstd{=}\hlnum{TRUE}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -1483,13 +1401,13 @@ Figure \ref{fig:adjustSize} shows a larger title and axis number (left), and lar
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{plotLogConcQ}(cex.axis=2,cex.main=1.5)
-\hlfunctioncall{plotLogConcQ}(cex.lab=2,cex=2)
+\hlkwd{plotConcQ}\hlstd{(}\hlkwc{cex.axis}\hlstd{=}\hlnum{2}\hlstd{,}\hlkwc{cex.main}\hlstd{=}\hlnum{1.5}\hlstd{,}\hlkwc{logScale}\hlstd{=}\hlnum{TRUE}\hlstd{)}
+\hlkwd{plotConcQ}\hlstd{(}\hlkwc{cex.lab}\hlstd{=}\hlnum{2}\hlstd{,}\hlkwc{cex}\hlstd{=}\hlnum{2}\hlstd{,}\hlkwc{logScale}\hlstd{=}\hlnum{TRUE}\hlstd{)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
-\subfloat[plotLogConcQ(cex.axis=2,cex.main=1.5)\label{fig:adjustSize1}]{
+\subfloat[plotConcQ(cex.axis=2,cex.main=1.5)\label{fig:adjustSize1}]{
 \includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/adjustSize1} }
-\subfloat[plotLogConcQ(cex.lab=2,cex=2)\label{fig:adjustSize2}]{
+\subfloat[plotConcQ(cex.lab=2,cex=2)\label{fig:adjustSize2}]{
 \includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/adjustSize2} }\caption[Modifying text and point size]{Modifying text and point size\label{fig:adjustSize}}
 \end{figure}
 
@@ -1497,24 +1415,25 @@ Figure \ref{fig:adjustSize} shows a larger title and axis number (left), and lar
 \end{knitrout}
 
 
-Figure \ref{fig:plotLogConcQComparison} shows the default on the left, and several features on the right. First, the margin is adjusted to c(8,8,8,8), requiring customPar set to TRUE. The margin vector represents the margin spacing of the 4 \texttt{"}sides\texttt{"} of a plot in the order: bottom, left, top, right. Next, the text labels were adjusted, color set to \texttt{"}blue\texttt{"}, point and line size increased, and the point type changed form a solid circle(pch=20) to solid diamond (pch=18). A grid, legend, arrow, and text are added after the plot is produced.
+Figure \ref{fig:plotConcQComparison} shows the default on the left, and several features on the right. First, the margin is adjusted to c(8,8,8,8), requiring customPar set to TRUE. The margin vector represents the margin spacing of the 4 \texttt{"}sides\texttt{"} of a plot in the order: bottom, left, top, right. Next, the text labels were adjusted, color set to \texttt{"}blue\texttt{"}, point and line size increased, and the point type changed form a solid circle(pch=20) to solid diamond (pch=18). A grid, legend, arrow, and text are added after the plot is produced.
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{plotLogConcQ}()
-\hlfunctioncall{par}(mar=\hlfunctioncall{c}(8,8,8,8))
-\hlfunctioncall{plotLogConcQ}(customPar=TRUE,col=\hlstring{"blue"},cex=1.1,
-             cex.axis=1.4,cex.main=1.5,cex.lab=1.2,pch=18,lwd=2)
-\hlfunctioncall{grid}(lwd=2)
-\hlfunctioncall{legend}(4.5,.09,\hlstring{"Choptank Nitrogen"}, pch=18, col=\hlstring{"blue"},bg=\hlstring{"white"})
-\hlfunctioncall{arrows}(3, 0.14, 1, .05,lwd=2)
-\hlfunctioncall{text}(12,.14,\hlstring{"Censored Value"})
+\hlkwd{plotConcQ}\hlstd{(}\hlkwc{logScale}\hlstd{=}\hlnum{TRUE}\hlstd{)}
+\hlkwd{par}\hlstd{(}\hlkwc{mar}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{8}\hlstd{,}\hlnum{8}\hlstd{,}\hlnum{8}\hlstd{,}\hlnum{8}\hlstd{))}
+\hlkwd{plotConcQ}\hlstd{(}\hlkwc{customPar}\hlstd{=}\hlnum{TRUE}\hlstd{,}\hlkwc{col}\hlstd{=}\hlstr{"blue"}\hlstd{,}\hlkwc{cex}\hlstd{=}\hlnum{1.1}\hlstd{,}
+          \hlkwc{cex.axis}\hlstd{=}\hlnum{1.4}\hlstd{,}\hlkwc{cex.main}\hlstd{=}\hlnum{1.5}\hlstd{,}\hlkwc{cex.lab}\hlstd{=}\hlnum{1.2}\hlstd{,}
+          \hlkwc{pch}\hlstd{=}\hlnum{18}\hlstd{,}\hlkwc{lwd}\hlstd{=}\hlnum{2}\hlstd{,}\hlkwc{logScale}\hlstd{=}\hlnum{TRUE}\hlstd{)}
+\hlkwd{grid}\hlstd{(}\hlkwc{lwd}\hlstd{=}\hlnum{2}\hlstd{)}
+\hlkwd{legend}\hlstd{(}\hlnum{4.5}\hlstd{,}\hlnum{.09}\hlstd{,}\hlstr{"Choptank Nitrogen"}\hlstd{,} \hlkwc{pch}\hlstd{=}\hlnum{18}\hlstd{,} \hlkwc{col}\hlstd{=}\hlstr{"blue"}\hlstd{,}\hlkwc{bg}\hlstd{=}\hlstr{"white"}\hlstd{)}
+\hlkwd{arrows}\hlstd{(}\hlnum{3}\hlstd{,} \hlnum{0.14}\hlstd{,} \hlnum{1}\hlstd{,} \hlnum{.05}\hlstd{,}\hlkwc{lwd}\hlstd{=}\hlnum{2}\hlstd{)}
+\hlkwd{text}\hlstd{(}\hlnum{12}\hlstd{,}\hlnum{.14}\hlstd{,}\hlstr{"Censored Value"}\hlstd{)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
-\subfloat[Default\label{fig:plotLogConcQComparison1}]{
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogConcQComparison1} }
-\subfloat[Modified\label{fig:plotLogConcQComparison2}]{
-\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotLogConcQComparison2} }\caption[Modified plotLogConcQ]{Modified plotLogConcQ\label{fig:plotLogConcQComparison}}
+\subfloat[Default\label{fig:plotConcQComparison1}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcQComparison1} }
+\subfloat[Modified\label{fig:plotConcQComparison2}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotConcQComparison2} }\caption[Modified plotConcQ]{Modified plotConcQ\label{fig:plotConcQComparison}}
 \end{figure}
 
 
@@ -1526,10 +1445,10 @@ There are just a few fonts that are generally available as a default. Figure \re
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlcomment{# Switching to serif font:}
-\hlfunctioncall{par}(family=\hlstring{"serif"})
-\hlfunctioncall{plotFluxPred}(customPar=TRUE)
-\hlfunctioncall{mtext}(side=3,line=-3,\hlstring{"Serif font example"},cex=3)
+\hlcom{# Switching to serif font:}
+\hlkwd{par}\hlstd{(}\hlkwc{family}\hlstd{=}\hlstr{"serif"}\hlstd{)}
+\hlkwd{plotFluxPred}\hlstd{(}\hlkwc{customPar}\hlstd{=}\hlnum{TRUE}\hlstd{)}
+\hlkwd{mtext}\hlstd{(}\hlkwc{side}\hlstd{=}\hlnum{3}\hlstd{,}\hlkwc{line}\hlstd{=}\hlopt{-}\hlnum{3}\hlstd{,}\hlstr{"Serif font example"}\hlstd{,}\hlkwc{cex}\hlstd{=}\hlnum{3}\hlstd{)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 
@@ -1545,17 +1464,17 @@ The contour plots can also be extended. The default y-axis is determined from qT
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-yearStart <- 2001
-yearEnd <- 2010
-qBottom <- 0.1
-qTop<- 25
-clevel <- \hlfunctioncall{seq}(0,3.5,0.5)
-colors <- \hlfunctioncall{colorRampPalette}(\hlfunctioncall{c}(\hlstring{"white"},\hlstring{"red"}))
-yTicksModified <- \hlfunctioncall{c}(.1,1,10,25)
-\hlfunctioncall{plotContours}(yearStart,yearEnd,qBottom,qTop, 
-             contourLevels = clevel,
-             yTicks=yTicksModified,
-             color.palette=colors)  
+\hlstd{yearStart} \hlkwb{<-} \hlnum{2001}
+\hlstd{yearEnd} \hlkwb{<-} \hlnum{2010}
+\hlstd{qBottom} \hlkwb{<-} \hlnum{0.1}
+\hlstd{qTop}\hlkwb{<-} \hlnum{25}
+\hlstd{clevel} \hlkwb{<-} \hlkwd{seq}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{3.5}\hlstd{,}\hlnum{0.5}\hlstd{)}
+\hlstd{colors} \hlkwb{<-} \hlkwd{colorRampPalette}\hlstd{(}\hlkwd{c}\hlstd{(}\hlstr{"white"}\hlstd{,}\hlstr{"red"}\hlstd{))}
+\hlstd{yTicksModified} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlnum{.1}\hlstd{,}\hlnum{1}\hlstd{,}\hlnum{10}\hlstd{,}\hlnum{25}\hlstd{)}
+\hlkwd{plotContours}\hlstd{(yearStart,yearEnd,qBottom,qTop,}
+             \hlkwc{contourLevels} \hlstd{= clevel,}
+             \hlkwc{yTicks}\hlstd{=yTicksModified,}
+             \hlkwc{color.palette}\hlstd{=colors)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 
@@ -1569,11 +1488,11 @@ yTicksModified <- \hlfunctioncall{c}(.1,1,10,25)
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-colors <- \hlfunctioncall{colorRampPalette}(\hlfunctioncall{c}(\hlstring{"blue"},\hlstring{"white"},\hlstring{"red"}))
-maxDiff<-0.5
-\hlfunctioncall{plotDiffContours}(yearStart,yearEnd,qBottom,qTop, 
-             maxDiff,lwd=2,
-             color.palette=colors)
+\hlstd{colors} \hlkwb{<-} \hlkwd{colorRampPalette}\hlstd{(}\hlkwd{c}\hlstd{(}\hlstr{"blue"}\hlstd{,}\hlstr{"white"}\hlstd{,}\hlstr{"red"}\hlstd{))}
+\hlstd{maxDiff}\hlkwb{<-}\hlnum{0.5}
+\hlkwd{plotDiffContours}\hlstd{(yearStart,yearEnd,qBottom,qTop,}
+             \hlstd{maxDiff,}\hlkwc{lwd}\hlstd{=}\hlnum{2}\hlstd{,}
+             \hlkwc{color.palette}\hlstd{=colors)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 
@@ -1608,7 +1527,7 @@ At any time, you can get information about any function in R by typing a questio
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-?getJulian
+\hlopt{?}\hlstd{getJulian}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -1618,7 +1537,7 @@ To see the raw code for a particular code, type the name of the function:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-getJulian
+\hlstd{getJulian}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -1633,14 +1552,14 @@ To install the EGRET packages and it's dependencies:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{install.packages}(\hlfunctioncall{c}(\hlstring{"zoo"},\hlstring{"survival"},\hlstring{"methods"},\hlstring{"fields"},
-                   \hlstring{"spam"},\hlstring{"XML"},\hlstring{"RCurl"}))
-\hlfunctioncall{install.packages}(\hlstring{"dataRetrieval"}, 
-                 repos=\hlstring{"http://usgs-r.github.com/"}, 
-                 type=\hlstring{"source"})
-\hlfunctioncall{install.packages}(\hlstring{"EGRET"}, 
-                 repos=\hlstring{"http://usgs-r.github.com/"}, 
-                 type=\hlstring{"source"})
+\hlkwd{install.packages}\hlstd{(}\hlkwd{c}\hlstd{(}\hlstr{"zoo"}\hlstd{,}\hlstr{"survival"}\hlstd{,}\hlstr{"methods"}\hlstd{,}\hlstr{"fields"}\hlstd{,}
+                   \hlstr{"spam"}\hlstd{,}\hlstr{"XML"}\hlstd{,}\hlstr{"RCurl"}\hlstd{))}
+\hlkwd{install.packages}\hlstd{(}\hlstr{"dataRetrieval"}\hlstd{,}
+                 \hlkwc{repos}\hlstd{=}\hlstr{"http://usgs-r.github.com/"}\hlstd{,}
+                 \hlkwc{type}\hlstd{=}\hlstr{"source"}\hlstd{)}
+\hlkwd{install.packages}\hlstd{(}\hlstr{"EGRET"}\hlstd{,}
+                 \hlkwc{repos}\hlstd{=}\hlstr{"http://usgs-r.github.com/"}\hlstd{,}
+                 \hlkwc{type}\hlstd{=}\hlstr{"source"}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -1652,8 +1571,8 @@ After installing the package, you need to open the library each time you re-star
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{library}(dataRetrieval)
-\hlfunctioncall{library}(EGRET)
+\hlkwd{library}\hlstd{(dataRetrieval)}
+\hlkwd{library}\hlstd{(EGRET)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -1818,7 +1737,7 @@ qHigh & The discharge value that should form the right edge of the graphic in th
 legendLeft & This determines the placement of the legend on the graph.  It establishes the left edge of the legend and is expressed in the discharge units being used.  The default (which is NA) will let it be placed automatically.  The legend can end up conflicting with one or more of the curves.  Once the location of the curves is established then this can be set in a way that avoids conflict.\\
 legendTop & This determines the placement of the legend on the graph.  It establishes the top edge of the legend and is expressed according to the concentration values on the y-axis.  The default (which is NA) will let it be placed automatically.  The legend can end up conflicting with one or more of the curves.  Once the location of the curves is established then this can be set in a way that avoids conflict.\\
 concMax & Maximum value for the vertical axis of the graph.  The default is NA.  The reason to set concMax is if you want to make several plots that have the same vertical axis.\\
-concMin & [This one is only used in plotLogConcQSmooth].  Minimum value for the vertical axis of the graph.  The default is NA.  The reason to set concMin is if you want to make several plots that have the same vertical axis.\\
+concMin & [This one is only used when logScale=TRUE].  Minimum value for the vertical axis of the graph.  The default is NA.  The reason to set concMin is if you want to make several plots that have the same vertical axis.\\
 bw & Default is FALSE, which means we want a color plot.  If bw=TRUE that means it should be black and white.\\
 printTitle & If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption).\\
 printValues & If TRUE the estimated values that make up the plotted lines are printed on the console.  If FALSE they are not printed.  Default is FALSE.  This could be useful if you wanted to compute various comparisons across time periods.\\
@@ -1842,8 +1761,7 @@ There are a few steps that are required in order to create a table in a Microsof
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-
-tableData <- \hlfunctioncall{tableResults}(returnDataFrame=TRUE)
+\hlstd{tableData} \hlkwb{<-} \hlkwd{tableResults}\hlstd{(}\hlkwc{returnDataFrame}\hlstd{=}\hlnum{TRUE}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -1903,8 +1821,8 @@ First, save the dataframe as a tab delimited file (you don't want to use comma d
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{write.table}(tableData, file=\hlstring{"tableData.tsv"},sep=\hlstring{"\textbackslash{}t"}, 
-            row.names = FALSE,quote=FALSE)
+\hlkwd{write.table}\hlstd{(tableData,} \hlkwc{file}\hlstd{=}\hlstr{"tableData.tsv"}\hlstd{,}\hlkwc{sep}\hlstd{=}\hlstr{"\textbackslash{}t"}\hlstd{,}
+            \hlkwc{row.names} \hlstd{=} \hlnum{FALSE}\hlstd{,}\hlkwc{quote}\hlstd{=}\hlnum{FALSE}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -1953,30 +1871,25 @@ There are three steps to saving plots. The first is to open the 'device' (and de
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{jpeg}(\hlstring{"plotFlowSingle.jpg"})
-\hlfunctioncall{plotFlowSingle}(1)
-\hlfunctioncall{dev.off}()
-
-\hlfunctioncall{png}(\hlstring{"plotFlowSingle.png"})
-\hlfunctioncall{plotFlowSingle}(1)
-\hlfunctioncall{dev.off}()
-
-\hlfunctioncall{pdf}(\hlstring{"plotFlowSingle.pdf"})
-\hlfunctioncall{plotFlowSingle}(1)
-\hlfunctioncall{dev.off}()
-
-\hlfunctioncall{postscript}(\hlstring{"plotFlowSingle.ps"})
-\hlfunctioncall{plotFlowSingle}(1)
-\hlfunctioncall{dev.off}()
-
-\hlcomment{#Many plots saved to one pdf:}
-\hlfunctioncall{pdf}(\hlstring{"manyPlots.pdf"})
-\hlfunctioncall{plotFlowSingle}(1)
-\hlfunctioncall{plotFlowSingle}(2)
-\hlfunctioncall{plotFlowSingle}(3)
-\hlfunctioncall{plotFlowSingle}(4)
-\hlfunctioncall{dev.off}()
-
+\hlkwd{jpeg}\hlstd{(}\hlstr{"plotFlowSingle.jpg"}\hlstd{)}
+\hlkwd{plotFlowSingle}\hlstd{(}\hlnum{1}\hlstd{)}
+\hlkwd{dev.off}\hlstd{()}
+\hlkwd{png}\hlstd{(}\hlstr{"plotFlowSingle.png"}\hlstd{)}
+\hlkwd{plotFlowSingle}\hlstd{(}\hlnum{1}\hlstd{)}
+\hlkwd{dev.off}\hlstd{()}
+\hlkwd{pdf}\hlstd{(}\hlstr{"plotFlowSingle.pdf"}\hlstd{)}
+\hlkwd{plotFlowSingle}\hlstd{(}\hlnum{1}\hlstd{)}
+\hlkwd{dev.off}\hlstd{()}
+\hlkwd{postscript}\hlstd{(}\hlstr{"plotFlowSingle.ps"}\hlstd{)}
+\hlkwd{plotFlowSingle}\hlstd{(}\hlnum{1}\hlstd{)}
+\hlkwd{dev.off}\hlstd{()}
+\hlcom{#Many plots saved to one pdf:}
+\hlkwd{pdf}\hlstd{(}\hlstr{"manyPlots.pdf"}\hlstd{)}
+\hlkwd{plotFlowSingle}\hlstd{(}\hlnum{1}\hlstd{)}
+\hlkwd{plotFlowSingle}\hlstd{(}\hlnum{2}\hlstd{)}
+\hlkwd{plotFlowSingle}\hlstd{(}\hlnum{3}\hlstd{)}
+\hlkwd{plotFlowSingle}\hlstd{(}\hlnum{4}\hlstd{)}
+\hlkwd{dev.off}\hlstd{()}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -1987,9 +1900,9 @@ There are many additional options for each of these devices. See the R help file
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{postscript}(\hlstring{"fluxBiasMulti.ps"}, height=10,width=8)
-\hlfunctioncall{fluxBiasMulti}()
-\hlfunctioncall{dev.off}()
+\hlkwd{postscript}\hlstd{(}\hlstr{"fluxBiasMulti.ps"}\hlstd{,} \hlkwc{height}\hlstd{=}\hlnum{10}\hlstd{,}\hlkwc{width}\hlstd{=}\hlnum{8}\hlstd{)}
+\hlkwd{fluxBiasMulti}\hlstd{()}
+\hlkwd{dev.off}\hlstd{()}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
