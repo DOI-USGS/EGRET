@@ -180,7 +180,7 @@ plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
     plevels<-c(pval,1-pval)
     pct1<-format(plevels[1]*100,digits=2)
     pct2<-format(plevels[2]*100,digits=2)
-    plotTitle<-if(printTitle) paste(localINFO$shortName,"  ",localINFO$paramShortName,"\nEstimated",surfaceName[j],"Surface in Color\nBlack lines are",pct1,"and",pct2,"flow percentiles") else ""
+    plotTitle<-paste(localINFO$shortName,",",localINFO$paramShortName,"\nEstimated",surfaceName[j],"Surface in Color\nBlack lines are",pct1,"and",pct2,"flow percentiles")
   }
   # setting up for the possible 3 straight lines to go on the graph
   # if the lines aren't being plotted they are just located outside the plot area
@@ -191,7 +191,7 @@ plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
   
   yLab<-qUnit@qUnitExpress
   filled.contour(x,log(y,10),surft,levels=contourLevels,xlim=c(yearStart,yearEnd),
-                 ylim=c(log(yTicks[1],10),log(yTicks[nYTicks],10)),main=plotTitle,
+                 ylim=c(log(yTicks[1],10),log(yTicks[nYTicks],10)),#main=plotTitle,
                  xlab="",ylab=yLab,xaxs="i",yaxs="i",cex.main=cex.main, ...,
                  plot.axes={
                    axis(1,tcl=0.5,at=xTicks,labels=xTicks,cex.axis=cex.axis)
@@ -203,6 +203,7 @@ plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
                    segments(v2[1],v2[2],v2[3],v2[4])
                    segments(h1[1],h1[2],h1[3],h1[4])
                  })
+  if (printTitle) title(plotTitle,outer=TRUE,cex.main=cex.main,line=-3)
 # If we leave this out, we can continue to add things to plot:
 #   if(!customPar){
 #     par(oma=c(0,0,0,0))

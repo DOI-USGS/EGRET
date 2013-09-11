@@ -501,7 +501,7 @@ We will walk through an example from Columbia River at The Dalles, OR.
 \hlstd{Daily} \hlkwb{<-} \hlkwd{getDVData}\hlstd{(siteID,}\hlstr{"00060"}\hlstd{,startDate,endDate)}
 \end{alltt}
 \begin{verbatim}
-There are 49409 data points, and 49409 days.
+There are 49410 data points, and 49410 days.
 \end{verbatim}
 \begin{alltt}
 \hlstd{INFO} \hlkwb{<-} \hlkwd{getMetaData}\hlstd{(siteID,}\hlstr{""}\hlstd{,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
@@ -658,7 +658,7 @@ Here is an example of looking at mean daily discharge for the full water year an
 \hlstd{Daily} \hlkwb{<-}\hlkwd{getDVData}\hlstd{(sta,}\hlstr{"00060"}\hlstd{,}\hlkwc{StartDate}\hlstd{=}\hlstr{""}\hlstd{,}\hlkwc{EndDate}\hlstd{=}\hlstr{""}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-There are 35813 data points, and 35813 days.
+There are 35814 data points, and 35814 days.
 \end{verbatim}
 \begin{alltt}
 \hlstd{INFO} \hlkwb{<-} \hlkwd{getMetaData}\hlstd{(sta,}\hlstr{""}\hlstd{,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
@@ -1405,9 +1405,9 @@ Figure \ref{fig:adjustSize} shows a larger title and axis number (left), and lar
 \hlkwd{plotConcQ}\hlstd{(}\hlkwc{cex.lab}\hlstd{=}\hlnum{2}\hlstd{,}\hlkwc{cex}\hlstd{=}\hlnum{2}\hlstd{,}\hlkwc{logScale}\hlstd{=}\hlnum{TRUE}\hlstd{)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
-\subfloat[plotConcQ(cex.axis=2,cex.main=1.5)\label{fig:adjustSize1}]{
+\subfloat[plotConcQ(cex.axis=2,cex.main=1.5,logScale=TRUE)\label{fig:adjustSize1}]{
 \includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/adjustSize1} }
-\subfloat[plotConcQ(cex.lab=2,cex=2)\label{fig:adjustSize2}]{
+\subfloat[plotConcQ(cex.lab=2,cex=2,logScale=TRUE)\label{fig:adjustSize2}]{
 \includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/adjustSize2} }\caption[Modifying text and point size]{Modifying text and point size\label{fig:adjustSize}}
 \end{figure}
 

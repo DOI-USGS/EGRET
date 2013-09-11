@@ -5,10 +5,10 @@
   plotDiffContours(year0, year1, qBottom, qTop, maxDiff,
     whatSurface = 3, localsurfaces = surfaces,
     localINFO = INFO, localDaily = Daily, qUnit = 2,
-    span = 60, pval = 0.05, printTitle = TRUE, vert1 = NA,
-    vert2 = NA, horiz = NA, flowDuration = TRUE,
-    yTicks = NA, lwd = 1, cex.main = 0.95, cex.axis = 1,
-    customPar = FALSE, ...)
+    span = 60, pval = 0.05, printTitle = TRUE,
+    plotPercent = FALSE, vert1 = NA, vert2 = NA,
+    horiz = NA, flowDuration = TRUE, yTicks = NA, lwd = 1,
+    cex.main = 0.95, cex.axis = 1, customPar = FALSE, ...)
 }
 \arguments{
   \item{year0}{numeric value for the calendar year that is
@@ -36,6 +36,10 @@
   whatSurface=2 is SE (standard error of log
   concentration), and whatSurface=3 is ConcHat (unbiased
   estimate of concentration), default = 3}
+
+  \item{plotPercent}{logical. If TRUE, plots percent
+  difference, if FALSE, plots absolute differences.
+  Defaults to FALSE.}
 
   \item{localsurfaces}{string specifying the name of the
   matrix that contains the estimated surfaces, default is

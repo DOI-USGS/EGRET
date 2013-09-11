@@ -14,6 +14,7 @@
 #' @param qTop numeric value for the top edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit)
 #' @param maxDiff numeric value which is the absolute value of the largest change in concentration that will be shown on the figure
 #' @param whatSurface numeric value, can only accept 1, 2, or 3;  whatSurface=1 is yHat (log concentration), whatSurface=2 is SE (standard error of log concentration), and whatSurface=3 is ConcHat (unbiased estimate of concentration), default = 3
+#' @param plotPercent logical. If TRUE, plots percent difference, if FALSE, plots absolute differences. Defaults to FALSE.
 #' @param localsurfaces string specifying the name of the matrix that contains the estimated surfaces, default is surfaces
 #' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
 #' @param localDaily string specifying the name of the data frame that contains the daily data, default name is Daily
@@ -56,7 +57,7 @@
 #' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,customPar=TRUE)
 plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 3, 
                             localsurfaces = surfaces, localINFO = INFO, localDaily = Daily, 
-                            qUnit = 2, span = 60, pval = 0.05, printTitle = TRUE, 
+                            qUnit = 2, span = 60, pval = 0.05, printTitle = TRUE, plotPercent = FALSE,
                             vert1 = NA, vert2 = NA, horiz = NA, flowDuration = TRUE, yTicks=NA,
                             lwd=1,cex.main=0.95,cex.axis=1,customPar=FALSE,...) 
 {
@@ -92,7 +93,11 @@ plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 
   end0<-start0+16
   start1<-((year1-bottomYear)*16)+1
   end1<-start1+16
-  diff<-surf[,start1:end1,j] - surf[,start0:end0,j]
+  if (plotPercent) {
+    diff<-(surf[,start1:end1,j] - surf[,start0:end0,j])*100/surf[,start0:end0,j]
+  } else {
+    diff<-surf[,start1:end1,j] - surf[,start0:end0,j]
+  }
   difft<-t(diff)
   surfaceSpan <- c(-maxDiff,maxDiff)
   contourLevels <- pretty(surfaceSpan, n = 15)
@@ -158,11 +163,16 @@ plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 
     plevels <- c(pval, 1 - pval)
     pct1 <- format(plevels[1] * 100, digits = 2)
     pct2 <- format(plevels[2] * 100, digits = 2)
-    plotTitle <- if (printTitle) 
-      paste(localINFO$shortName, "  ", localINFO$paramShortName, 
-            "\nEstimated", surfaceName[j], "change from",year0,"to",year1,"\nBlack lines are", 
-            pct1, "and", pct2, "flow percentiles")
-    else ""
+
+    firstLine <- paste(localINFO$shortName,", ",localINFO$paramShortName,sep="")
+    secondLine <- if (plotPercent){
+      paste("\nEstimated", surfaceName[j], "percent change from",year0,"to",year1)
+    } else {
+      paste("\nEstimated", surfaceName[j], "change from",year0,"to",year1)
+    }
+    thirdLine <- paste("\nBlack lines are", pct1, "and", pct2, "flow percentiles")
+    plotTitle <- paste(firstLine,secondLine,thirdLine)
+
   }
   vectorNone <- c(year0, log(yTicks[1], 10) - 1, year1, 
                   log(yTicks[1], 10) - 1)
@@ -181,7 +191,7 @@ plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 
   yLab <- qUnit@qUnitExpress
   filled.contour(x, log(y, 10), difft, levels = contourLevels, 
                  xlim = c(0,1), ylim = c(log(yTicks[1], 
-                                             10), log(yTicks[nYTicks], 10)), main = plotTitle, 
+                                             10), log(yTicks[nYTicks], 10)), #main = plotTitle, 
                  xlab = "", ylab = yLab, xaxs = "i", yaxs = "i", cex.main = cex.main, 
                  plot.axes = {
                    axis(1, tcl = 0.5, at = xTicks, labels = xLabels, cex.axis=0.9*cex.axis)
@@ -195,6 +205,7 @@ plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 
                    segments(v2[1], v2[2], v2[3], v2[4])
                    segments(h1[1], h1[2], h1[3], h1[4])
                  }, ...)
+  if (printTitle) title(plotTitle,outer=TRUE,cex.main=cex.main,line=-3)
 #   par(oma = c(0, 0, 0, 0))
 #   par(mar = c(5, 4, 4, 2) + 0.1)
 }
