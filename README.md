@@ -44,21 +44,9 @@ While the EGRET and dataRetreival packages are in development (and not on CRAN),
 To install the EGRET package:
 
 	install.packages(c("zoo","survival","methods","fields","spam"))
-	install.packages("dataRetrieval", repos="http://usgs-r.github.com/", type="source")
-	install.packages("EGRET", repos="http://usgs-r.github.com/", type="source")
+	install.packages("dataRetrieval", repos="http://usgs-r.github.com/")
+	install.packages("EGRET", repos="http://usgs-r.github.com/")
 
-### Note on updating versions:
-Some users have found it necessary to delete the package folders before installing newer versions of either dataRetrieval or EGRET.  If you are experiencing an issue after updating a package, trying deleting the package folder, the default location for Windows is something like this:
-C:\Users\ldecicco\Documents\R\win-library\2.15\dataRetrieval
-the default for a Mac:
-/Users/ldecicco/Library/R/2.15/library/dataRetrieval
-Then, re-install the package using the directions above.  Moving to CRAN should solve this problem.
-
-Stable releases are archived on the packageBuild branch of this repository: 
-
-[EGRET_1.2.3](https://github.com/USGS-R/EGRET/raw/packageBuilds/EGRET_1.2.3.tar.gz)
-
-[dataRetrieval_1.2.1](https://github.com/USGS-R/dataRetrieval/raw/packageBuilds/dataRetrieval_1.2.1.tar.gz)
 
 Background Information
 ----------------------
