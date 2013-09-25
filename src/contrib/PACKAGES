@@ -9,10 +9,10 @@ NeedsCompilation: no
 Package: dataRetrieval
 Version: 1.2.2
 Depends: R (>= 3.0)
-Imports: zoo, XML, RCurl
+Imports: zoo, XML, RCurl, plyr
 Suggests: xtable, EGRET, knitr
 License: file LICENSE
-MD5sum: dbbdfd47bb1004d310ca952300a3a3a7
+MD5sum: ee9eb203942e3be246f0ee9c7559e758
 NeedsCompilation: no
 
 Package: EGRET
@@ -21,6 +21,6 @@ Depends: R (>= 3.0)
 Imports: methods, survival, fields
 Suggests: xtable, dataRetrieval, knitr, extrafont
 License: file LICENSE
-MD5sum: 3a0e6fb584c6721cc7863c82b3fd8772
+MD5sum: ffcea1c456563dec7a02c6c96a72b75e
 NeedsCompilation: no
 
