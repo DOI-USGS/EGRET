@@ -31,7 +31,7 @@ estCrossVal<-function(localSample = Sample, windowY = 10, windowQ = 2, windowS =
   SE<-rep(0,numObs)
   ConcHat<-rep(0,numObs)
   iCounter<-seq(1,numObs)
-  message("\n estCrossVal % complete:\n")
+  cat("\n estCrossVal % complete:\n")
 
   colToKeep <- c("ConcLow","ConcHigh","Uncen","DecYear","SinDY","CosDY","LogQ")
   SampleCrossV <- localSample[,which(originalColumns %in% colToKeep)]
@@ -43,7 +43,7 @@ estCrossVal<-function(localSample = Sample, windowY = 10, windowQ = 2, windowS =
 #   leaveOneOutMatrix <- matrix(rep(NA, numObs))
 
   for(i in 1:numObs) {
-    if(i %in% printUpdate) message(floor(i*100/numObs),"\t")
+    if(i %in% printUpdate) cat(floor(i*100/numObs),"\t")
 
     SampleMinusOne<-SampleCV[SampleCV$iCounter!=i,]
     
