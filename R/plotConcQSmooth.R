@@ -126,7 +126,7 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0
   yInfo <- generalAxis(combinedY, maxVal=concMax, minVal=concMin, logScale=logScale, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=y[1,],
-                      xTicks=xInfo$xTicks, yTicks=yInfo$ticks,
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$xLeft,xInfo$xRight),ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xLab, ylab=yLab, plotTitle=title,
                       type="l",lwd=lwd,col=colorVal[1],lty=lineVal[1], 
