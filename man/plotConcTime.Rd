@@ -59,23 +59,23 @@
 
   \item{printTitle}{logical variable if TRUE title is
   printed, if FALSE title is not printed (this is best for
-  a multi-plot figure)}
+  a multi-plot figure).}
 
   \item{logScale}{logical, default FALSE, FALSE creates a
   linear scale y-axis, TRUE creates a y-axis is in log
-  scale}
+  scale.}
 
   \item{cex}{numerical value giving the amount by which
-  plotting symbols should be magnified}
+  plotting symbols should be magnified.}
 
   \item{cex.main}{magnification to be used for main titles
-  relative to the current setting of cex}
+  relative to the current setting of cex.}
 
   \item{cex.axis}{magnification to be used for axis
-  annotation relative to the current setting of cex}
+  annotation relative to the current setting of cex.}
 
   \item{customPar}{logical defaults to FALSE. If TRUE,
-  par() should be set by user before calling this function
+  par() should be set by user before calling this function.
   (for example, adjusting margins with
   par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses
   the best margins depending on tinyPlot.}
@@ -83,11 +83,11 @@
   \item{col}{color of points on plot, see ?par 'Color
   Specification'}
 
-  \item{lwd}{number line width}
+  \item{lwd}{number line width.}
 
   \item{\dots}{arbitrary functions sent to the generic
   plotting function.  See ?par for details on possible
-  parameters}
+  parameters.}
 }
 \description{
   Data come from a data frame named Sample which contains
