@@ -24,16 +24,16 @@
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param concMin number specifying the minimum value to be used on the vertical axis, only appropriate for log scale.  
-#' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
-#' @param logScale logical, default FALSE, FALSE creates a linear scale y-axis, TRUE creates a y-axis is in log scale 
-#' @param cex numerical value giving the amount by which plotting symbols should be magnified
-#' @param cex.main magnification to be used for main titles relative to the current setting of cex
-#' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
-#' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+#' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure).
+#' @param logScale logical, default FALSE, FALSE creates a linear scale y-axis, TRUE creates a y-axis is in log scale.
+#' @param cex numerical value giving the amount by which plotting symbols should be magnified.
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex.
+#' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex.
+#' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function.
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
-#' @param lwd number line width
-#' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
+#' @param lwd number line width.
+#' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters.
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
