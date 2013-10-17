@@ -151,7 +151,7 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
   genericEGRETDotPlot(x=x, y=y[1, ],
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim = c(xInfo$bottom,xInfo$top),ylim = c(yInfo$bottom,yInfo$top),
-                      ylab = yLab, plotTitle=title, customPar=customPar,
+                      ylab = yLab, plotTitle=title, customPar=customPar,log=logText,
                       type = "l", lwd = lwd, col = colorVal[1], lty = lineVal[1],
                       cex.main = cex.main, tinyPlot=tinyPlot,cex=cex,cex.axis=cex.axis,...
   )
