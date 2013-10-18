@@ -53,6 +53,7 @@
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
 #' plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd)
+#' plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd,logScale=TRUE)
 plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit = 2, legendLeft = 0, 
                               legendTop = 0, concMax = NA, concMin=NA,bw = FALSE, printTitle = TRUE, colors=c("black","red","green"), 
                               printValues = FALSE, localSample = Sample, localINFO = INFO,
@@ -146,7 +147,7 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
   
   xInfo <- generalAxis(x=x, minVal=yearStart, maxVal=yearEnd, tinyPlot=tinyPlot)  
   combinedY <- c(y[1,], y[2,],y[3,])
-  yInfo <- generalAxis(x=combinedY, minVal=concMin, maxVal=yTop, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=combinedY, minVal=concMin, maxVal=yTop, tinyPlot=tinyPlot,logScale=logScale)
   
   genericEGRETDotPlot(x=x, y=y[1, ],
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,

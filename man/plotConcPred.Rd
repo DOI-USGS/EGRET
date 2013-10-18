@@ -71,6 +71,7 @@
 Sample <- ChopSample
 INFO <- ChopINFO
 plotConcPred()
+plotConcPred(logScale=TRUE)
 }
 \keyword{graphics}
 \keyword{statistics}

@@ -41,6 +41,7 @@
 #' INFO <- ChopINFO
 #' plotConcTime(qUnit = 1, qLower = 100, qUpper = 10000, paLong = 3, paStart = 4)
 #' plotConcTime()
+#' plotConcTime(logScale=TRUE)
 plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2, 
                        qLower = NA, qUpper = NA, paLong = 12, paStart = 10, 
                        tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale=FALSE, 

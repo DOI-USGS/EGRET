@@ -56,6 +56,7 @@
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
 #' plotConcQSmooth(date1,date2,date3,qLow,qHigh)
+#' #' plotConcQSmooth(date1,date2,date3,qLow,qHigh,logScale=TRUE)
 plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0,legendTop = 0, 
                           concMax = NA, concMin=NA, bw = FALSE, printTitle = TRUE, printValues = FALSE, 
                           localSample = Sample, localINFO = INFO, minNumObs = 100, minNumUncen =  50,

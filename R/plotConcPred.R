@@ -28,6 +28,7 @@
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
 #' plotConcPred()
+#' plotConcPred(logScale=TRUE)
 plotConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA, logScale=FALSE,
                        printTitle = TRUE,tinyPlot=FALSE,cex=0.8, cex.axis=1.1,
                        cex.main=1.1, customPar=FALSE,col="black",lwd=1,...){

@@ -85,6 +85,7 @@
 Sample <- ChopSample
 INFO <- ChopINFO
 plotConcQ()
+plotConcQ(logScale=TRUE)
 }
 \keyword{graphics}
 \keyword{statistics}

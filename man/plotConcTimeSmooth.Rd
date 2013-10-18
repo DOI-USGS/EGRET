@@ -167,6 +167,7 @@ yearEnd <- 2010
 Sample <- ChopSample
 INFO <- ChopINFO
 plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd)
+plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd,logScale=TRUE)
 }
 \keyword{graphics}
 \keyword{statistics}

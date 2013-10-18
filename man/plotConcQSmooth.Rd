@@ -165,6 +165,7 @@ qHigh<-100
 Sample <- ChopSample
 INFO <- ChopINFO
 plotConcQSmooth(date1,date2,date3,qLow,qHigh)
+#' plotConcQSmooth(date1,date2,date3,qLow,qHigh,logScale=TRUE)
 }
 \keyword{graphics}
 \keyword{statistics}

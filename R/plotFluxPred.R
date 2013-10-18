@@ -31,6 +31,7 @@
 #' INFO <- ChopINFO
 #' plotFluxPred()
 #' plotFluxPred(fluxUnit = 'poundsDay')
+#' plotFluxPred(logScale=TRUE)
 plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, fluxMax = NA, 
                        printTitle = TRUE, oneToOneLine=TRUE, customPar=FALSE,col="black", lwd=1,
                        cex=0.8, cex.axis=1.1,cex.main=1.1,tinyPlot=FALSE,logScale=FALSE,...){

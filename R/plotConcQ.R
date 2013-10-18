@@ -33,6 +33,7 @@
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
 #' plotConcQ()
+#' plotConcQ(logScale=TRUE)
 plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot = FALSE, logScale=FALSE,
                     concMax = NA, concMin =NA, printTitle = TRUE, cex=0.8, cex.axis=1.1,cex.main=1.1,
                     rmSciX=FALSE,rmSciY=FALSE, customPar=FALSE,col="black",lwd=1,...){

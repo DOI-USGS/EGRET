@@ -76,6 +76,7 @@ Sample <- ChopSample
 INFO <- ChopINFO
 plotFluxPred()
 plotFluxPred(fluxUnit = 'poundsDay')
+plotFluxPred(logScale=TRUE)
 }
 \keyword{graphics}
 \keyword{statistics}
