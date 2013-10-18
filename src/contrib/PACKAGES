@@ -21,6 +21,6 @@ Depends: R (>= 3.0)
 Imports: methods, survival, fields
 Suggests: xtable, dataRetrieval, knitr, extrafont
 License: file LICENSE
-MD5sum: 4e2eb34e59f93508fe815c137ed70ef9
+MD5sum: 485aafcabddaec3a1281d99498eee0b2
 NeedsCompilation: no
 
