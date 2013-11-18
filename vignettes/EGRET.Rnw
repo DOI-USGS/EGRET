@@ -87,7 +87,7 @@ Exploration and Graphics for RivEr Trends (EGRET): An R-package for the analysis
 (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}) 
 \textbf{for more information on the EGRET package.}
 
-For information on getting started in R, downloading and installing the package, see Appendix \ref{sec:appendix1}.
+For information on getting started in R, downloading and installing the package, see \ref{sec:appendix1}.
 
 The best way to learn about the WRTDS approach and to see examples of its application to multiple large data sets is to read two journal articles.  They are available, for free, from the journals in which they were published.
 
@@ -211,7 +211,7 @@ plotDiffContours(yearStart,yearEnd,
 \section{EGRET Dataframes and Units}
 \label{sec:dataframes}
 %------------------------------------------------------------ 
-The EGRET package uses 3 default dataframes throughout the calculations, analysis, and graphing. These dataframes are Daily (\ref{sec:dataframesDaily}), Sample (\ref{sec:dataframesSample}), and INFO (\ref{sec:dataframesINFO}). EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units, which will be discussed in (\ref{sec:units}). To start our exploration, the packages must be installed (check the appendix for detailed instructions (\ref{sec:appendix1})), then opened with the following command:
+The EGRET package uses 3 default dataframes throughout the calculations, analysis, and graphing. These dataframes are Daily (\ref{sec:dataframesDaily}), Sample (\ref{sec:dataframesSample}), and INFO (\ref{sec:dataframesINFO}). EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units, which will be discussed in (\ref{sec:units}). To start our exploration, the packages must be installed (check \ref{sec:appendix1}) for detailed instructions, then opened with the following command:
 
 <<openlibraries, echo=TRUE,eval=TRUE>>=
 library(dataRetrieval)
@@ -497,7 +497,7 @@ Once the annualSeries matrix is created, the plots of any of the stored statisti
 
 \FloatBarrier
 
-This section will give examples of the available plots appropriate for studying discharge history once the annualSeries has been created. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See Appendix \ref{sec:flowHistoryVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}). Finally, see section \ref{app:savingPlots} for information on saving plots.
+This section will give examples of the available plots appropriate for studying discharge history once the annualSeries has been created. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See \ref{sec:flowHistoryVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}). Finally, see section \ref{app:savingPlots} for information on saving plots.
 
 Figure \ref{fig:plotSingleandSD}:
 <<plotSingleandSD, echo=TRUE, fig.cap="Discharge statistics",fig.subcap=c("plotFlowSingle(istat=5,qUnit='thousandCfs')","plotSDLogQ()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
@@ -601,7 +601,7 @@ annualSeries <- makeAnnualSeries()
 tableFlowChange(istat=3, qUnit=3,yearPoints=c(1890,1950,2010))
 @
 
-See Appendix \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft. 
+See \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft. 
 
 \FloatBarrier
 
@@ -647,7 +647,7 @@ annualSeries <- makeAnnualSeries()
 %------------------------------------------------------------ 
 \FloatBarrier
 
-This section will give examples of the available plots appropriate for analyzing the data prior to performing a WRTDS analysis. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See Appendix \ref{sec:wqVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}).
+This section will give examples of the available plots appropriate for analyzing the data prior to performing a WRTDS analysis. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See \ref{sec:wqVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}).
 
 One note about any of the plotting functions that show the sample data:  If a value in the data set is a non-detect, it is displayed on a graph as a vertical line.  The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values, the minimum value on the y-axis.  This line is an 'honest' representation of what we know about that observation and doesn't involve us using a statistical model to fill in what we don't know. 
 
@@ -689,7 +689,7 @@ flowDuration(qUnit=1)
 %------------------------------------------------------------ 
 Weighted Regressions on Time, Discharge and Season (WRTDS) creates model of the behavior of concentration as a function of three components: time trend, discharge and season.  It can be used to estimate annual or seasonal mean concentrations and fluxes as well as describe long-term trends in the behavior of the system. In this section, we will step though the process require for a WRTDS analysis. The next section (\ref{sec:wrtdsResults}) will detail the available methods to view and evaluate the model results. 
 
-Once you have looked at your data using the tools described in section \ref{sec:wqa}, and have determined there is sufficient representative data, it is time to run the WRTDS model. There are a few inputs that can be defined before running the model (see Appendix \ref{sec:wrtdsInputVariables}).
+Once you have looked at your data using the tools described in section \ref{sec:wqa}, and have determined there is sufficient representative data, it is time to run the WRTDS model. There are a few inputs that can be defined before running the model (see \ref{sec:wrtdsInputVariables}).
 
 Assuming you are using the defaults, with dataframes called Daily, Sample, and INFO, the modelEstimation function will run the WRTDS modeling algorithm:
 
@@ -735,7 +735,7 @@ This will now save all of the objects in your workspace. If you have saved works
 \section{WRTDS Results}
 \label{sec:wrtdsResults}
 %------------------------------------------------------------ 
-At this point (after having run modelEstimation) we can start considering how to view the annual averages for the variables that have been calculated.  See Appendix \ref{sec:wrtdsOutputVariables} for common input variables for these functions. Additionally, check the help files (in the R console, type ? followed by the function name).
+At this point (after having run modelEstimation) we can start considering how to view the annual averages for the variables that have been calculated.  See \ref{sec:wrtdsOutputVariables} for common input variables for these functions. Additionally, check the help files (in the R console, type ? followed by the function name).
 
 %------------------------------------------------------------ 
 \subsection{Plotting Options}
@@ -891,7 +891,7 @@ The other table option is tableChange. This is a function that provides for the 
 tableChange(yearPoints=c(2000,2005,2010))
 @
 
-Finally, tableChangeSingle (Table \ref{table:tableChangeSingle}) operates exactly the same as tableChange except for the addition of two arguments: returnDataFrame and flux. This functions provides either concentration results or flux results, but not both.  This can be useful when producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except that the final two arguments.  The first is a logical argument to indicate if a dataframe of output should be returned (for later manipulation or printing through other programs such as Excel), this argument is returnDataFrame, and its default is FALSE.  The final argument is flux, and the default is TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  Additionally, this function allows for the return of a dataframe.  See Appendix \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft.
+Finally, tableChangeSingle (Table \ref{table:tableChangeSingle}) operates exactly the same as tableChange except for the addition of two arguments: returnDataFrame and flux. This functions provides either concentration results or flux results, but not both.  This can be useful when producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except that the final two arguments.  The first is a logical argument to indicate if a dataframe of output should be returned (for later manipulation or printing through other programs such as Excel), this argument is returnDataFrame, and its default is FALSE.  The final argument is flux, and the default is TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  Additionally, this function allows for the return of a dataframe.  See \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft.
 
 <<tableChangeSingle, eval=FALSE, echo=TRUE,results='hide'>>=
 returnDF <- tableChangeSingle(yearPoints=c(2000,2005,2010), 
@@ -909,7 +909,7 @@ Year1 & Year2 & change [mg/L] & slope [mg/L/yr] & change[\%] & slope [\%/yr] \\
 2005 & 2010 & 0.10 & 0.02 & 7.30 & 1.50 \\ 
    \hline
 \end{tabular}
-\caption{Table created from tableChangeSingle function using Microsoft Excel (see Appendix \ref{app:createWordTable})} 
+\caption{Table created from tableChangeSingle function using Microsoft Excel (see \ref{app:createWordTable})} 
 \label{table:tableChangeSingle}
 \end{table}
 
@@ -1028,10 +1028,8 @@ plotDiffContours(yearStart,yearEnd,qBottom,qTop,
 \FloatBarrier
 
 
-
-\appendix
 %------------------------------------------------------------ 
-\section{Getting Started}
+\section{Getting Started in R}
 \label{sec:appendix1}
 %------------------------------------------------------------ 
 This section describes the options for downloading and installing the dataRetrieval package.
@@ -1085,6 +1083,8 @@ library(EGRET)
 \section{Common Function Variables}
 \label{sec:appendixPlot}
 %------------------------------------------------------------ 
+This section describes variables that are common for a variety of function types. 
+
 %------------------------------------------------------------ 
 \subsection{flowHistory Plotting Input}
 \label{sec:flowHistoryVariables}

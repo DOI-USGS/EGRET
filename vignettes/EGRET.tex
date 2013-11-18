@@ -126,7 +126,7 @@ Exploration and Graphics for RivEr Trends (EGRET): An R-package for the analysis
 (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}) 
 \textbf{for more information on the EGRET package.}
 
-For information on getting started in R, downloading and installing the package, see Appendix \ref{sec:appendix1}.
+For information on getting started in R, downloading and installing the package, see \ref{sec:appendix1}.
 
 The best way to learn about the WRTDS approach and to see examples of its application to multiple large data sets is to read two journal articles.  They are available, for free, from the journals in which they were published.
 
@@ -154,22 +154,27 @@ Subsequent sections of this vignette will discuss the EGRET workflow steps in gr
 \begin{alltt}
 \hlkwd{library}\hlstd{(dataRetrieval)}
 \hlkwd{library}\hlstd{(EGRET)}
+
 \hlcom{############################}
 \hlcom{# Gather discharge data:}
 \hlstd{siteID} \hlkwb{<-} \hlstr{"01491000"} \hlcom{#Choptank River at Greensboro, MD}
 \hlstd{startDate} \hlkwb{<-} \hlstr{""} \hlcom{#Gets earliest date}
 \hlstd{endDate} \hlkwb{<-} \hlstr{"2011-09-30"}
 \hlstd{Daily} \hlkwb{<-} \hlkwd{getDVData}\hlstd{(siteID,}\hlstr{"00060"}\hlstd{,startDate,endDate)}
+
 \hlcom{# Gather sample data:}
 \hlstd{parameter_cd}\hlkwb{<-}\hlstr{"00631"} \hlcom{#5 digit USGS code}
 \hlstd{Sample} \hlkwb{<-} \hlkwd{getSampleData}\hlstd{(siteID,parameter_cd,startDate,endDate)}
+
 \hlcom{# Gather site and parameter information:}
 \hlstd{INFO}\hlkwb{<-} \hlkwd{getMetaData}\hlstd{(siteID,parameter_cd,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
 \hlstd{INFO}\hlopt{$}\hlstd{shortName} \hlkwb{<-} \hlstr{"Choptank River at Greensboro, MD"}
 \hlstd{INFO} \hlkwb{<-} \hlkwd{setPA}\hlstd{()}
+
 \hlcom{# Merge discharge with sample data:}
 \hlstd{Sample} \hlkwb{<-} \hlkwd{mergeReport}\hlstd{()}
 \hlcom{############################}
+
 \hlcom{############################}
 \hlcom{# Check flow history data:}
 \hlstd{annualSeries} \hlkwb{<-} \hlkwd{makeAnnualSeries}\hlstd{()}
@@ -179,6 +184,7 @@ Subsequent sections of this vignette will discuss the EGRET workflow steps in gr
 \hlkwd{plotFour}\hlstd{(}\hlkwc{qUnit}\hlstd{=}\hlnum{3}\hlstd{)}
 \hlkwd{plotFourStats}\hlstd{(}\hlkwc{qUnit}\hlstd{=}\hlnum{3}\hlstd{)}
 \hlcom{############################}
+
 \hlcom{############################}
 \hlcom{# Check sample data:}
 \hlkwd{boxConcMonth}\hlstd{()}
@@ -187,12 +193,15 @@ Subsequent sections of this vignette will discuss the EGRET workflow steps in gr
 \hlkwd{plotConcQ}\hlstd{()}
 \hlkwd{multiPlotDataOverview}\hlstd{()}
 \hlcom{############################}
+
 \hlcom{############################}
 \hlcom{# Run WRTDS model:}
 \hlkwd{modelEstimation}\hlstd{()}
 \hlcom{############################}
+
 \hlcom{############################}
 \hlcom{#Check model results:}
+
 \hlcom{#Require Sample + INFO:}
 \hlkwd{plotConcTimeDaily}\hlstd{()}
 \hlkwd{plotFluxTimeDaily}\hlstd{()}
@@ -203,9 +212,11 @@ Subsequent sections of this vignette will discuss the EGRET workflow steps in gr
 \hlkwd{plotResidTime}\hlstd{()}
 \hlkwd{boxResidMonth}\hlstd{()}
 \hlkwd{boxConcThree}\hlstd{()}
+
 \hlcom{#Require annualResults + INFO:}
 \hlkwd{plotConcHist}\hlstd{()}
 \hlkwd{plotFluxHist}\hlstd{()}
+
 \hlcom{# Multi-line plots:}
 \hlstd{date1} \hlkwb{<-} \hlstr{"2000-09-01"}
 \hlstd{date2} \hlkwb{<-} \hlstr{"2005-09-01"}
@@ -219,13 +230,16 @@ Subsequent sections of this vignette will discuss the EGRET workflow steps in gr
 \hlstd{q3} \hlkwb{<-} \hlnum{75}
 \hlstd{centerDate} \hlkwb{<-} \hlstr{"07-01"}
 \hlkwd{plotConcTimeSmooth}\hlstd{(q1, q2, q3, centerDate,} \hlnum{2000}\hlstd{, yearEnd)}
+
 \hlcom{# Multi-plots:}
 \hlkwd{fluxBiasMulti}\hlstd{()}
+
 \hlcom{#Contour plots:}
 \hlstd{clevel}\hlkwb{<-}\hlkwd{seq}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{2}\hlstd{,}\hlnum{0.5}\hlstd{)}
 \hlstd{maxDiff}\hlkwb{<-}\hlnum{0.8}
 \hlstd{yearStart} \hlkwb{<-} \hlnum{2000}
 \hlstd{yearEnd} \hlkwb{<-} \hlnum{2010}
+
 \hlkwd{plotContours}\hlstd{(yearStart,yearEnd,qBottom,qTop,}
              \hlkwc{contourLevels} \hlstd{= clevel,}\hlkwc{qUnit}\hlstd{=}\hlnum{1}\hlstd{)}
 \hlkwd{plotDiffContours}\hlstd{(yearStart,yearEnd,}
@@ -240,7 +254,7 @@ Subsequent sections of this vignette will discuss the EGRET workflow steps in gr
 \section{EGRET Dataframes and Units}
 \label{sec:dataframes}
 %------------------------------------------------------------ 
-The EGRET package uses 3 default dataframes throughout the calculations, analysis, and graphing. These dataframes are Daily (\ref{sec:dataframesDaily}), Sample (\ref{sec:dataframesSample}), and INFO (\ref{sec:dataframesINFO}). EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units, which will be discussed in (\ref{sec:units}). To start our exploration, the packages must be installed (check the appendix for detailed instructions (\ref{sec:appendix1})), then opened with the following command:
+The EGRET package uses 3 default dataframes throughout the calculations, analysis, and graphing. These dataframes are Daily (\ref{sec:dataframesDaily}), Sample (\ref{sec:dataframesSample}), and INFO (\ref{sec:dataframesINFO}). EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units, which will be discussed in (\ref{sec:units}). To start our exploration, the packages must be installed (check \ref{sec:appendix1}) for detailed instructions, then opened with the following command:
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -498,10 +512,13 @@ We will walk through an example from Columbia River at The Dalles, OR.
 \hlstd{siteID} \hlkwb{<-} \hlstr{"14105700"}
 \hlstd{startDate} \hlkwb{<-} \hlstr{""}
 \hlstd{endDate} \hlkwb{<-} \hlstr{""}
+
 \hlstd{Daily} \hlkwb{<-} \hlkwd{getDVData}\hlstd{(siteID,}\hlstr{"00060"}\hlstd{,startDate,endDate)}
 \end{alltt}
 \begin{verbatim}
-There are 49410 data points, and 49410 days.
+There are 49465 data points, and 49466 days.
+
+ discharge data jumps from 2013-09-18 to 2013-09-20
 \end{verbatim}
 \begin{alltt}
 \hlstd{INFO} \hlkwb{<-} \hlkwd{getMetaData}\hlstd{(siteID,}\hlstr{""}\hlstd{,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
@@ -592,7 +609,7 @@ Once the annualSeries matrix is created, the plots of any of the stored statisti
 
 \FloatBarrier
 
-This section will give examples of the available plots appropriate for studying discharge history once the annualSeries has been created. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See Appendix \ref{sec:flowHistoryVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}). Finally, see section \ref{app:savingPlots} for information on saving plots.
+This section will give examples of the available plots appropriate for studying discharge history once the annualSeries has been created. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See \ref{sec:flowHistoryVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}). Finally, see section \ref{app:savingPlots} for information on saving plots.
 
 Figure \ref{fig:plotSingleandSD}:
 \begin{knitrout}
@@ -658,7 +675,7 @@ Here is an example of looking at mean daily discharge for the full water year an
 \hlstd{Daily} \hlkwb{<-}\hlkwd{getDVData}\hlstd{(sta,}\hlstr{"00060"}\hlstd{,}\hlkwc{StartDate}\hlstd{=}\hlstr{""}\hlstd{,}\hlkwc{EndDate}\hlstd{=}\hlstr{""}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-There are 35814 data points, and 35814 days.
+There are 35870 data points, and 35870 days.
 \end{verbatim}
 \begin{alltt}
 \hlstd{INFO} \hlkwb{<-} \hlkwd{getMetaData}\hlstd{(sta,}\hlstr{""}\hlstd{,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
@@ -666,6 +683,7 @@ There are 35814 data points, and 35814 days.
 \hlstd{INFO} \hlkwb{<-} \hlkwd{setPA}\hlstd{()}
 \hlstd{annualSeries} \hlkwb{<-} \hlkwd{makeAnnualSeries}\hlstd{()}
 \hlkwd{plotFlowSingle}\hlstd{(}\hlkwc{istat}\hlstd{=}\hlnum{5}\hlstd{)}
+
 \hlstd{INFO}\hlkwb{<-}\hlkwd{setPA}\hlstd{(}\hlkwc{paStart}\hlstd{=}\hlnum{12}\hlstd{,}\hlkwc{paLong}\hlstd{=}\hlnum{3}\hlstd{)}
 \hlstd{annualSeries}\hlkwb{<-}\hlkwd{makeAnnualSeries}\hlstd{()}
 \hlkwd{plotFlowSingle}\hlstd{(}\hlkwc{istat}\hlstd{=}\hlnum{5}\hlstd{)}
@@ -692,12 +710,13 @@ plotQTimeDaily is simply a time series plot of discharge.  But, it is most suite
 \hlstd{Daily} \hlkwb{<-}\hlkwd{getDVData}\hlstd{(sta,}\hlstr{"00060"}\hlstd{,}\hlkwc{StartDate}\hlstd{=}\hlstr{""}\hlstd{,}\hlkwc{EndDate}\hlstd{=}\hlstr{""}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-There are 49520 data points, and 49520 days.
+There are 49612 data points, and 49612 days.
 \end{verbatim}
 \begin{alltt}
 \hlstd{INFO} \hlkwb{<-} \hlkwd{getMetaData}\hlstd{(sta,}\hlstr{""}\hlstd{,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
 \hlstd{INFO}\hlopt{$}\hlstd{shortName} \hlkwb{<-} \hlstr{"Mississippi River at Keokuk Iowa"}
 \hlstd{INFO} \hlkwb{<-} \hlkwd{setPA}\hlstd{()}
+
 \hlkwd{plotQTimeDaily}\hlstd{(}\hlkwc{qUnit}\hlstd{=}\hlnum{3}\hlstd{,}\hlkwc{qLower}\hlstd{=}\hlnum{300}\hlstd{)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
@@ -779,7 +798,7 @@ There is another argument that can be very useful in this function: yearPoints. 
 \end{knitrout}
 
 
-See Appendix \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft. 
+See \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft. 
 
 \FloatBarrier
 
@@ -804,6 +823,7 @@ We will now use the Choptank River at Greensboro, MD as our example case. The Ch
 \hlstd{Daily} \hlkwb{<-} \hlkwd{getDVData}\hlstd{(siteID,}\hlstr{"00060"}\hlstd{,startDate,endDate)}
 \hlstd{INFO}\hlkwb{<-} \hlkwd{getMetaData}\hlstd{(siteID,param,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
 \hlstd{INFO}\hlopt{$}\hlstd{shortName} \hlkwb{<-} \hlstr{"Choptank River"}
+
 \hlstd{Sample} \hlkwb{<-} \hlkwd{getSampleData}\hlstd{(siteID,param,startDate,endDate)}
 \hlstd{Sample} \hlkwb{<-} \hlkwd{mergeReport}\hlstd{()}
 \end{alltt}
@@ -821,7 +841,7 @@ We will now use the Choptank River at Greensboro, MD as our example case. The Ch
 %------------------------------------------------------------ 
 \FloatBarrier
 
-This section will give examples of the available plots appropriate for analyzing the data prior to performing a WRTDS analysis. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See Appendix \ref{sec:wqVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}).
+This section will give examples of the available plots appropriate for analyzing the data prior to performing a WRTDS analysis. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See \ref{sec:wqVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}).
 
 One note about any of the plotting functions that show the sample data:  If a value in the data set is a non-detect, it is displayed on a graph as a vertical line.  The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values, the minimum value on the y-axis.  This line is an 'honest' representation of what we know about that observation and doesn't involve us using a statistical model to fill in what we don't know. 
 
@@ -914,7 +934,7 @@ Discharge units are Cubic Feet per Second
 %------------------------------------------------------------ 
 Weighted Regressions on Time, Discharge and Season (WRTDS) creates model of the behavior of concentration as a function of three components: time trend, discharge and season.  It can be used to estimate annual or seasonal mean concentrations and fluxes as well as describe long-term trends in the behavior of the system. In this section, we will step though the process require for a WRTDS analysis. The next section (\ref{sec:wrtdsResults}) will detail the available methods to view and evaluate the model results. 
 
-Once you have looked at your data using the tools described in section \ref{sec:wqa}, and have determined there is sufficient representative data, it is time to run the WRTDS model. There are a few inputs that can be defined before running the model (see Appendix \ref{sec:wrtdsInputVariables}).
+Once you have looked at your data using the tools described in section \ref{sec:wqa}, and have determined there is sufficient representative data, it is time to run the WRTDS model. There are a few inputs that can be defined before running the model (see \ref{sec:wrtdsInputVariables}).
 
 Assuming you are using the defaults, with dataframes called Daily, Sample, and INFO, the modelEstimation function will run the WRTDS modeling algorithm:
 
@@ -980,7 +1000,7 @@ This will now save all of the objects in your workspace. If you have saved works
 \section{WRTDS Results}
 \label{sec:wrtdsResults}
 %------------------------------------------------------------ 
-At this point (after having run modelEstimation) we can start considering how to view the annual averages for the variables that have been calculated.  See Appendix \ref{sec:wrtdsOutputVariables} for common input variables for these functions. Additionally, check the help files (in the R console, type ? followed by the function name).
+At this point (after having run modelEstimation) we can start considering how to view the annual averages for the variables that have been calculated.  See \ref{sec:wrtdsOutputVariables} for common input variables for these functions. Additionally, check the help files (in the R console, type ? followed by the function name).
 
 %------------------------------------------------------------ 
 \subsection{Plotting Options}
@@ -1002,6 +1022,7 @@ Figure \ref{fig:plotConcTimeDaily}:
 \begin{alltt}
 \hlstd{yearStart} \hlkwb{<-} \hlnum{2008}
 \hlstd{yearEnd} \hlkwb{<-} \hlnum{2010}
+
 \hlkwd{plotConcTimeDaily}\hlstd{(yearStart, yearEnd)}
 \hlkwd{plotFluxTimeDaily}\hlstd{(yearStart, yearEnd)}
 \end{alltt}
@@ -1311,7 +1332,7 @@ The other table option is tableChange. This is a function that provides for the 
 \end{knitrout}
 
 
-Finally, tableChangeSingle (Table \ref{table:tableChangeSingle}) operates exactly the same as tableChange except for the addition of two arguments: returnDataFrame and flux. This functions provides either concentration results or flux results, but not both.  This can be useful when producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except that the final two arguments.  The first is a logical argument to indicate if a dataframe of output should be returned (for later manipulation or printing through other programs such as Excel), this argument is returnDataFrame, and its default is FALSE.  The final argument is flux, and the default is TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  Additionally, this function allows for the return of a dataframe.  See Appendix \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft.
+Finally, tableChangeSingle (Table \ref{table:tableChangeSingle}) operates exactly the same as tableChange except for the addition of two arguments: returnDataFrame and flux. This functions provides either concentration results or flux results, but not both.  This can be useful when producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except that the final two arguments.  The first is a logical argument to indicate if a dataframe of output should be returned (for later manipulation or printing through other programs such as Excel), this argument is returnDataFrame, and its default is FALSE.  The final argument is flux, and the default is TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  Additionally, this function allows for the return of a dataframe.  See \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -1334,7 +1355,7 @@ Year1 & Year2 & change [mg/L] & slope [mg/L/yr] & change[\%] & slope [\%/yr] \\
 2005 & 2010 & 0.10 & 0.02 & 7.30 & 1.50 \\ 
    \hline
 \end{tabular}
-\caption{Table created from tableChangeSingle function using Microsoft Excel (see Appendix \ref{app:createWordTable})} 
+\caption{Table created from tableChangeSingle function using Microsoft Excel (see \ref{app:createWordTable})} 
 \label{table:tableChangeSingle}
 \end{table}
 
@@ -1507,10 +1528,8 @@ The contour plots can also be extended. The default y-axis is determined from qT
 \FloatBarrier
 
 
-
-\appendix
 %------------------------------------------------------------ 
-\section{Getting Started}
+\section{Getting Started in R}
 \label{sec:appendix1}
 %------------------------------------------------------------ 
 This section describes the options for downloading and installing the dataRetrieval package.
@@ -1584,6 +1603,8 @@ After installing the package, you need to open the library each time you re-star
 \section{Common Function Variables}
 \label{sec:appendixPlot}
 %------------------------------------------------------------ 
+This section describes variables that are common for a variety of function types. 
+
 %------------------------------------------------------------ 
 \subsection{flowHistory Plotting Input}
 \label{sec:flowHistoryVariables}
@@ -1874,15 +1895,19 @@ There are three steps to saving plots. The first is to open the 'device' (and de
 \hlkwd{jpeg}\hlstd{(}\hlstr{"plotFlowSingle.jpg"}\hlstd{)}
 \hlkwd{plotFlowSingle}\hlstd{(}\hlnum{1}\hlstd{)}
 \hlkwd{dev.off}\hlstd{()}
+
 \hlkwd{png}\hlstd{(}\hlstr{"plotFlowSingle.png"}\hlstd{)}
 \hlkwd{plotFlowSingle}\hlstd{(}\hlnum{1}\hlstd{)}
 \hlkwd{dev.off}\hlstd{()}
+
 \hlkwd{pdf}\hlstd{(}\hlstr{"plotFlowSingle.pdf"}\hlstd{)}
 \hlkwd{plotFlowSingle}\hlstd{(}\hlnum{1}\hlstd{)}
 \hlkwd{dev.off}\hlstd{()}
+
 \hlkwd{postscript}\hlstd{(}\hlstr{"plotFlowSingle.ps"}\hlstd{)}
 \hlkwd{plotFlowSingle}\hlstd{(}\hlnum{1}\hlstd{)}
 \hlkwd{dev.off}\hlstd{()}
+
 \hlcom{#Many plots saved to one pdf:}
 \hlkwd{pdf}\hlstd{(}\hlstr{"manyPlots.pdf"}\hlstd{)}
 \hlkwd{plotFlowSingle}\hlstd{(}\hlnum{1}\hlstd{)}
