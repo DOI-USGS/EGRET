@@ -5,17 +5,18 @@
   modelEstimation(localDaily = Daily, localSample = Sample,
     localINFO = INFO, windowY = 10, windowQ = 2,
     windowS = 0.5, minNumObs = 100, minNumUncen = 50,
-    env = parent.frame())
+    env = parent.frame(), localSurface = NA,
+    localAnnualResults = NA)
 }
 \arguments{
-  \item{localDaily}{string specifying the name of the data
-  frame containing the daily values, default is Daily}
+  \item{localDaily}{data frame containing the daily values,
+  default is Daily}
 
-  \item{localSample}{string specifying the name of the data
-  frame containing the sample values, default is Sample}
+  \item{localSample}{data frame containing the sample
+  values, default is Sample}
 
-  \item{localINFO}{string specifying the name of the data
-  frame containing the metadata, default is INFO}
+  \item{localINFO}{data frame containing the metadata,
+  default is INFO}
 
   \item{windowY}{numeric specifying the half-window width
   in the time dimension, in units of years, default is 10}
@@ -36,7 +37,18 @@
   of uncensored observations to run the weighted
   regression, default is 50}
 
-  \item{env}{environment to set variables in}
+  \item{env}{environment to set returning variables,
+  defaults to parent.frame()}
+
+  \item{localSurface}{string specifying the name of the
+  returned surface array. If NA (default), array is
+  returned named 'surface'}
+
+  \item{localAnnualResults}{string specifying the name of
+  the returned AnnualResults calculation. If NA (default),
+  data frame is returned named 'AnnualResults'. setupYears
+  is performed with the water year, and results are saved
+  in this data frame.}
 }
 \description{
   This one function does a jack-knife cross-validation of a
