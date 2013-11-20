@@ -12,7 +12,7 @@ Depends: R (>= 3.0)
 Imports: zoo, XML, RCurl, plyr
 Suggests: xtable, EGRET, knitr
 License: file LICENSE
-MD5sum: ef93ec7f1c8ea54efcf5668f326414c9
+MD5sum: cb4c50340730c675257d018137073885
 NeedsCompilation: no
 
 Package: EGRET
