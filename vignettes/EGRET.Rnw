@@ -665,6 +665,13 @@ plotConcTime()
 plotConcQ(qUnit=1)
 @
 
+Figure \ref{fig:plotFluxQ}:
+<<plotFluxQ,echo=TRUE, fig.cap="Flux discharge",,out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+plotFluxQ(fluxUnit=4)
+@
+
+\FloatBarrier
+
 Figure \ref{fig:multiPlotDataOverview}:
 <<multiPlotDataOverview, echo=TRUE, fig.cap="multiPlotDataOverview(qUnit=1)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 multiPlotDataOverview(qUnit=1)

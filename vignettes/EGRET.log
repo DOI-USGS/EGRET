@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.6)  6 NOV 2013 11:44
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.6)  2 DEC 2013 14:25
 entering extended mode
 **EGRET.tex
 (D:\LADData\RCode\EGRET\vignettes\EGRET.tex
@@ -764,438 +764,450 @@ Package color Info: Redefining color shadecolor on input line 888.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 892.
 
-<figure/multiPlotDataOverview.pdf, id=369, 505.89pt x 505.89pt>
-File: figure/multiPlotDataOverview.pdf Graphic file (type pdf)
-
-<use figure/multiPlotDataOverview.pdf>
-Package pdftex.def Info: figure/multiPlotDataOverview.pdf used on input line 89
-4.
-(pdftex.def)             Requested size: 448.07928pt x 448.07928pt.
+<figure/plotFluxQ.pdf, id=369, 505.89pt x 505.89pt>
+File: figure/plotFluxQ.pdf Graphic file (type pdf)
+ <use figure/plotFluxQ.pdf>
+Package pdftex.def Info: figure/plotFluxQ.pdf used on input line 894.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
 [21 <D:/LADData/RCode/EGRET/vignettes/figure/plotConcTime1.pdf> <D:/LADData/RCo
 de/EGRET/vignettes/figure/plotConcTime2.pdf>]
+Package color Info: Redefining color shadecolor on input line 905.
+
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 909.
+
+<figure/multiPlotDataOverview.pdf, id=390, 505.89pt x 505.89pt>
+File: figure/multiPlotDataOverview.pdf Graphic file (type pdf)
+
+<use figure/multiPlotDataOverview.pdf>
+Package pdftex.def Info: figure/multiPlotDataOverview.pdf used on input line 91
+1.
+(pdftex.def)             Requested size: 448.07928pt x 448.07928pt.
+
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[22 <D:/LADData/RCode/EGRET/vignettes/figure/multiPlotDataOverview.pdf>]
-Package color Info: Redefining color shadecolor on input line 910.
-Package color Info: Redefining color shadecolor on input line 942.
-
+[22 <D:/LADData/RCode/EGRET/vignettes/figure/plotFluxQ.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[23]
-Package color Info: Redefining color shadecolor on input line 955.
-Package color Info: Redefining color shadecolor on input line 967.
-Package color Info: Redefining color shadecolor on input line 981.
-Package color Info: Redefining color shadecolor on input line 1021.
+[23 <D:/LADData/RCode/EGRET/vignettes/figure/multiPlotDataOverview.pdf>]
+Package color Info: Redefining color shadecolor on input line 927.
+Package color Info: Redefining color shadecolor on input line 959.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
 [24]
-
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 1029.
-
-<figure/plotConcTimeDaily1.pdf, id=414, 505.89pt x 505.89pt>
-File: figure/plotConcTimeDaily1.pdf Graphic file (type pdf)
-
-<use figure/plotConcTimeDaily1.pdf>
-Package pdftex.def Info: figure/plotConcTimeDaily1.pdf used on input line 1031.
-
-(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
-
-<figure/plotConcTimeDaily2.pdf, id=415, 505.89pt x 505.89pt>
-File: figure/plotConcTimeDaily2.pdf Graphic file (type pdf)
-
-<use figure/plotConcTimeDaily2.pdf>
-Package pdftex.def Info: figure/plotConcTimeDaily2.pdf used on input line 1033.
-
-(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
-
-Overfull \hbox (10.94774pt too wide) in paragraph at lines 1031--1033
-[][][][] 
- []
-
-Package color Info: Redefining color shadecolor on input line 1042.
-
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 1047.
-
-<figure/plotFluxPred1.pdf, id=417, 505.89pt x 505.89pt>
-File: figure/plotFluxPred1.pdf Graphic file (type pdf)
-
-<use figure/plotFluxPred1.pdf>
-Package pdftex.def Info: figure/plotFluxPred1.pdf used on input line 1049.
-(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
-
-<figure/plotFluxPred2.pdf, id=418, 505.89pt x 505.89pt>
-File: figure/plotFluxPred2.pdf Graphic file (type pdf)
-
-<use figure/plotFluxPred2.pdf>
-Package pdftex.def Info: figure/plotFluxPred2.pdf used on input line 1051.
-(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
-
-Overfull \hbox (10.94774pt too wide) in paragraph at lines 1049--1051
-[][][][] 
- []
-
-Package color Info: Redefining color shadecolor on input line 1061.
-
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 1066.
-
-<figure/plotResidQ1.pdf, id=420, 505.89pt x 505.89pt>
-File: figure/plotResidQ1.pdf Graphic file (type pdf)
-
-<use figure/plotResidQ1.pdf>
-Package pdftex.def Info: figure/plotResidQ1.pdf used on input line 1068.
-(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
-
-<figure/plotResidQ2.pdf, id=421, 505.89pt x 505.89pt>
-File: figure/plotResidQ2.pdf Graphic file (type pdf)
-
-<use figure/plotResidQ2.pdf>
-Package pdftex.def Info: figure/plotResidQ2.pdf used on input line 1070.
-(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
-
-Overfull \hbox (10.94774pt too wide) in paragraph at lines 1068--1070
-[][][][] 
- []
-
-Package color Info: Redefining color shadecolor on input line 1079.
+Package color Info: Redefining color shadecolor on input line 972.
+Package color Info: Redefining color shadecolor on input line 984.
+Package color Info: Redefining color shadecolor on input line 998.
+Package color Info: Redefining color shadecolor on input line 1038.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[25 <D:/LADData/RCode/EGRET/vignettes/figure/plotConcTimeDaily1.pdf> <D:/LADDat
+[25]
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 1046.
+
+<figure/plotConcTimeDaily1.pdf, id=428, 505.89pt x 505.89pt>
+File: figure/plotConcTimeDaily1.pdf Graphic file (type pdf)
+
+<use figure/plotConcTimeDaily1.pdf>
+Package pdftex.def Info: figure/plotConcTimeDaily1.pdf used on input line 1048.
+
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+<figure/plotConcTimeDaily2.pdf, id=429, 505.89pt x 505.89pt>
+File: figure/plotConcTimeDaily2.pdf Graphic file (type pdf)
+
+<use figure/plotConcTimeDaily2.pdf>
+Package pdftex.def Info: figure/plotConcTimeDaily2.pdf used on input line 1050.
+
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+Overfull \hbox (10.94774pt too wide) in paragraph at lines 1048--1050
+[][][][] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 1059.
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 1064.
+
+<figure/plotFluxPred1.pdf, id=431, 505.89pt x 505.89pt>
+File: figure/plotFluxPred1.pdf Graphic file (type pdf)
+
+<use figure/plotFluxPred1.pdf>
+Package pdftex.def Info: figure/plotFluxPred1.pdf used on input line 1066.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+<figure/plotFluxPred2.pdf, id=432, 505.89pt x 505.89pt>
+File: figure/plotFluxPred2.pdf Graphic file (type pdf)
+
+<use figure/plotFluxPred2.pdf>
+Package pdftex.def Info: figure/plotFluxPred2.pdf used on input line 1068.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+Overfull \hbox (10.94774pt too wide) in paragraph at lines 1066--1068
+[][][][] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 1078.
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 1083.
+
+<figure/plotResidQ1.pdf, id=434, 505.89pt x 505.89pt>
+File: figure/plotResidQ1.pdf Graphic file (type pdf)
+
+<use figure/plotResidQ1.pdf>
+Package pdftex.def Info: figure/plotResidQ1.pdf used on input line 1085.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+<figure/plotResidQ2.pdf, id=435, 505.89pt x 505.89pt>
+File: figure/plotResidQ2.pdf Graphic file (type pdf)
+
+<use figure/plotResidQ2.pdf>
+Package pdftex.def Info: figure/plotResidQ2.pdf used on input line 1087.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+Overfull \hbox (10.94774pt too wide) in paragraph at lines 1085--1087
+[][][][] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 1096.
+
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[26 <D:/LADData/RCode/EGRET/vignettes/figure/plotConcTimeDaily1.pdf> <D:/LADDat
 a/RCode/EGRET/vignettes/figure/plotConcTimeDaily2.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[26 <D:/LADData/RCode/EGRET/vignettes/figure/plotFluxPred1.pdf> <D:/LADData/RCo
+[27 <D:/LADData/RCode/EGRET/vignettes/figure/plotFluxPred1.pdf> <D:/LADData/RCo
 de/EGRET/vignettes/figure/plotFluxPred2.pdf> <D:/LADData/RCode/EGRET/vignettes/
 figure/plotResidQ1.pdf> <D:/LADData/RCode/EGRET/vignettes/figure/plotResidQ2.pd
 f>]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 1084.
+               Default added (so using `tbp') on input line 1101.
 
-<figure/boxResidMonth1.pdf, id=478, 505.89pt x 505.89pt>
+<figure/boxResidMonth1.pdf, id=491, 505.89pt x 505.89pt>
 File: figure/boxResidMonth1.pdf Graphic file (type pdf)
 
 <use figure/boxResidMonth1.pdf>
-Package pdftex.def Info: figure/boxResidMonth1.pdf used on input line 1086.
+Package pdftex.def Info: figure/boxResidMonth1.pdf used on input line 1103.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/boxResidMonth2.pdf, id=479, 505.89pt x 505.89pt>
+<figure/boxResidMonth2.pdf, id=492, 505.89pt x 505.89pt>
 File: figure/boxResidMonth2.pdf Graphic file (type pdf)
 
 <use figure/boxResidMonth2.pdf>
-Package pdftex.def Info: figure/boxResidMonth2.pdf used on input line 1088.
+Package pdftex.def Info: figure/boxResidMonth2.pdf used on input line 1105.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-Overfull \hbox (10.94774pt too wide) in paragraph at lines 1086--1088
+Overfull \hbox (10.94774pt too wide) in paragraph at lines 1103--1105
 [][][][] 
  []
 
-Package color Info: Redefining color shadecolor on input line 1097.
+Package color Info: Redefining color shadecolor on input line 1114.
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 1101.
+               Default added (so using `tbp') on input line 1118.
 
-<figure/boxConcThree.pdf, id=481, 505.89pt x 505.89pt>
+<figure/boxConcThree.pdf, id=494, 505.89pt x 505.89pt>
 File: figure/boxConcThree.pdf Graphic file (type pdf)
 
 <use figure/boxConcThree.pdf>
-Package pdftex.def Info: figure/boxConcThree.pdf used on input line 1103.
+Package pdftex.def Info: figure/boxConcThree.pdf used on input line 1120.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
-Package color Info: Redefining color shadecolor on input line 1112.
+Package color Info: Redefining color shadecolor on input line 1129.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 1117.
+               Default added (so using `tbp') on input line 1134.
 
-<figure/plotFluxHist1.pdf, id=483, 505.89pt x 505.89pt>
+<figure/plotFluxHist1.pdf, id=496, 505.89pt x 505.89pt>
 File: figure/plotFluxHist1.pdf Graphic file (type pdf)
 
 <use figure/plotFluxHist1.pdf>
-Package pdftex.def Info: figure/plotFluxHist1.pdf used on input line 1119.
+Package pdftex.def Info: figure/plotFluxHist1.pdf used on input line 1136.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/plotFluxHist2.pdf, id=484, 505.89pt x 505.89pt>
+<figure/plotFluxHist2.pdf, id=497, 505.89pt x 505.89pt>
 File: figure/plotFluxHist2.pdf Graphic file (type pdf)
 
 <use figure/plotFluxHist2.pdf>
-Package pdftex.def Info: figure/plotFluxHist2.pdf used on input line 1121.
+Package pdftex.def Info: figure/plotFluxHist2.pdf used on input line 1138.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-Overfull \hbox (10.94774pt too wide) in paragraph at lines 1119--1121
+Overfull \hbox (10.94774pt too wide) in paragraph at lines 1136--1138
 [][][][] 
  []
 
-Package color Info: Redefining color shadecolor on input line 1130.
+Package color Info: Redefining color shadecolor on input line 1147.
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 1142.
+               Default added (so using `tbp') on input line 1159.
 
-<figure/plotConcQSmooth1.pdf, id=486, 505.89pt x 505.89pt>
+<figure/plotConcQSmooth1.pdf, id=499, 505.89pt x 505.89pt>
 File: figure/plotConcQSmooth1.pdf Graphic file (type pdf)
 
 <use figure/plotConcQSmooth1.pdf>
-Package pdftex.def Info: figure/plotConcQSmooth1.pdf used on input line 1144.
+Package pdftex.def Info: figure/plotConcQSmooth1.pdf used on input line 1161.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/plotConcQSmooth2.pdf, id=487, 505.89pt x 505.89pt>
+<figure/plotConcQSmooth2.pdf, id=500, 505.89pt x 505.89pt>
 File: figure/plotConcQSmooth2.pdf Graphic file (type pdf)
 
 <use figure/plotConcQSmooth2.pdf>
-Package pdftex.def Info: figure/plotConcQSmooth2.pdf used on input line 1146.
+Package pdftex.def Info: figure/plotConcQSmooth2.pdf used on input line 1163.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-Overfull \hbox (10.94774pt too wide) in paragraph at lines 1144--1146
+Overfull \hbox (10.94774pt too wide) in paragraph at lines 1161--1163
 [][][][] 
  []
 
-Package color Info: Redefining color shadecolor on input line 1155.
+Package color Info: Redefining color shadecolor on input line 1172.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[27 <D:/LADData/RCode/EGRET/vignettes/figure/boxResidMonth1.pdf> <D:/LADData/RC
+[28 <D:/LADData/RCode/EGRET/vignettes/figure/boxResidMonth1.pdf> <D:/LADData/RC
 ode/EGRET/vignettes/figure/boxResidMonth2.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[28 <D:/LADData/RCode/EGRET/vignettes/figure/boxConcThree.pdf> <D:/LADData/RCod
+[29 <D:/LADData/RCode/EGRET/vignettes/figure/boxConcThree.pdf> <D:/LADData/RCod
 e/EGRET/vignettes/figure/plotFluxHist1.pdf> <D:/LADData/RCode/EGRET/vignettes/f
 igure/plotFluxHist2.pdf>]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 1165.
+               Default added (so using `tbp') on input line 1182.
 
-<figure/plotConcTimeSmooth1.pdf, id=534, 505.89pt x 505.89pt>
+<figure/plotConcTimeSmooth1.pdf, id=547, 505.89pt x 505.89pt>
 File: figure/plotConcTimeSmooth1.pdf Graphic file (type pdf)
 
 <use figure/plotConcTimeSmooth1.pdf>
-Package pdftex.def Info: figure/plotConcTimeSmooth1.pdf used on input line 1167
+Package pdftex.def Info: figure/plotConcTimeSmooth1.pdf used on input line 1184
 .
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/plotConcTimeSmooth2.pdf, id=535, 505.89pt x 505.89pt>
+<figure/plotConcTimeSmooth2.pdf, id=548, 505.89pt x 505.89pt>
 File: figure/plotConcTimeSmooth2.pdf Graphic file (type pdf)
 
 <use figure/plotConcTimeSmooth2.pdf>
-Package pdftex.def Info: figure/plotConcTimeSmooth2.pdf used on input line 1169
+Package pdftex.def Info: figure/plotConcTimeSmooth2.pdf used on input line 1186
 .
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-Overfull \hbox (10.94774pt too wide) in paragraph at lines 1167--1169
+Overfull \hbox (10.94774pt too wide) in paragraph at lines 1184--1186
 [][][][] 
  []
 
-Package color Info: Redefining color shadecolor on input line 1181.
+Package color Info: Redefining color shadecolor on input line 1198.
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 1185.
+               Default added (so using `tbp') on input line 1202.
 
-<figure/fluxBiasMulti.pdf, id=539, 578.16pt x 722.7pt>
+<figure/fluxBiasMulti.pdf, id=552, 578.16pt x 722.7pt>
 File: figure/fluxBiasMulti.pdf Graphic file (type pdf)
 
 <use figure/fluxBiasMulti.pdf>
-Package pdftex.def Info: figure/fluxBiasMulti.pdf used on input line 1187.
+Package pdftex.def Info: figure/fluxBiasMulti.pdf used on input line 1204.
 (pdftex.def)             Requested size: 448.07378pt x 560.0867pt.
-Package color Info: Redefining color shadecolor on input line 1197.
+Package color Info: Redefining color shadecolor on input line 1214.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[29 <D:/LADData/RCode/EGRET/vignettes/figure/plotConcQSmooth1.pdf> <D:/LADData/
+[30 <D:/LADData/RCode/EGRET/vignettes/figure/plotConcQSmooth1.pdf> <D:/LADData/
 RCode/EGRET/vignettes/figure/plotConcQSmooth2.pdf>]
-
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 1203.
-
-<figure/plotContours.pdf, id=562, 505.89pt x 505.89pt>
-File: figure/plotContours.pdf Graphic file (type pdf)
-
-<use figure/plotContours.pdf>
-Package pdftex.def Info: figure/plotContours.pdf used on input line 1205.
-(pdftex.def)             Requested size: 448.07928pt x 448.07928pt.
-Package color Info: Redefining color shadecolor on input line 1214.
-
 
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1220.
 
-<figure/plotDiffContours.pdf, id=564, 505.89pt x 505.89pt>
+<figure/plotContours.pdf, id=575, 505.89pt x 505.89pt>
+File: figure/plotContours.pdf Graphic file (type pdf)
+
+<use figure/plotContours.pdf>
+Package pdftex.def Info: figure/plotContours.pdf used on input line 1222.
+(pdftex.def)             Requested size: 448.07928pt x 448.07928pt.
+Package color Info: Redefining color shadecolor on input line 1231.
+
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 1237.
+
+<figure/plotDiffContours.pdf, id=577, 505.89pt x 505.89pt>
 File: figure/plotDiffContours.pdf Graphic file (type pdf)
 
 <use figure/plotDiffContours.pdf>
-Package pdftex.def Info: figure/plotDiffContours.pdf used on input line 1222.
+Package pdftex.def Info: figure/plotDiffContours.pdf used on input line 1239.
 (pdftex.def)             Requested size: 448.07928pt x 448.07928pt.
-Package color Info: Redefining color shadecolor on input line 1233.
+Package color Info: Redefining color shadecolor on input line 1250.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[30 <D:/LADData/RCode/EGRET/vignettes/figure/plotConcTimeSmooth1.pdf> <D:/LADDa
+[31 <D:/LADData/RCode/EGRET/vignettes/figure/plotConcTimeSmooth1.pdf> <D:/LADDa
 ta/RCode/EGRET/vignettes/figure/plotConcTimeSmooth2.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[31 <D:/LADData/RCode/EGRET/vignettes/figure/fluxBiasMulti.pdf>]
+[32 <D:/LADData/RCode/EGRET/vignettes/figure/fluxBiasMulti.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[32 <D:/LADData/RCode/EGRET/vignettes/figure/plotContours.pdf>]
+[33 <D:/LADData/RCode/EGRET/vignettes/figure/plotContours.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[33 <D:/LADData/RCode/EGRET/vignettes/figure/plotDiffContours.pdf>]
-Package color Info: Redefining color shadecolor on input line 1250.
-Package color Info: Redefining color shadecolor on input line 1277.
-Package color Info: Redefining color shadecolor on input line 1305.
-
-Overfull \vbox (21.68121pt too high) has occurred while \output is active []
-
-
-[34]
-Package color Info: Redefining color shadecolor on input line 1338.
+[34 <D:/LADData/RCode/EGRET/vignettes/figure/plotDiffContours.pdf>]
+Package color Info: Redefining color shadecolor on input line 1267.
+Package color Info: Redefining color shadecolor on input line 1294.
+Package color Info: Redefining color shadecolor on input line 1322.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
 [35]
-Package color Info: Redefining color shadecolor on input line 1423.
-
-
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 1428.
-
-<figure/adjustSize1.pdf, id=632, 505.89pt x 505.89pt>
-File: figure/adjustSize1.pdf Graphic file (type pdf)
-
-<use figure/adjustSize1.pdf>
-Package pdftex.def Info: figure/adjustSize1.pdf used on input line 1430.
-(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
-
-<figure/adjustSize2.pdf, id=633, 505.89pt x 505.89pt>
-File: figure/adjustSize2.pdf Graphic file (type pdf)
-
-<use figure/adjustSize2.pdf>
-Package pdftex.def Info: figure/adjustSize2.pdf used on input line 1432.
-(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
-
-Overfull \hbox (10.94774pt too wide) in paragraph at lines 1430--1432
-[][][][] 
- []
-
-Package color Info: Redefining color shadecolor on input line 1441.
+Package color Info: Redefining color shadecolor on input line 1355.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[36
+[36]
+Package color Info: Redefining color shadecolor on input line 1440.
+
+
+LaTeX Warning: No positions in optional float specifier.
+               Default added (so using `tbp') on input line 1445.
+
+<figure/adjustSize1.pdf, id=645, 505.89pt x 505.89pt>
+File: figure/adjustSize1.pdf Graphic file (type pdf)
+
+<use figure/adjustSize1.pdf>
+Package pdftex.def Info: figure/adjustSize1.pdf used on input line 1447.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+<figure/adjustSize2.pdf, id=646, 505.89pt x 505.89pt>
+File: figure/adjustSize2.pdf Graphic file (type pdf)
+
+<use figure/adjustSize2.pdf>
+Package pdftex.def Info: figure/adjustSize2.pdf used on input line 1449.
+(pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
+
+Overfull \hbox (10.94774pt too wide) in paragraph at lines 1447--1449
+[][][][] 
+ []
+
+Package color Info: Redefining color shadecolor on input line 1458.
+
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[37
 
 ]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 1453.
+               Default added (so using `tbp') on input line 1470.
 
-<figure/plotConcQComparison1.pdf, id=641, 505.89pt x 505.89pt>
+<figure/plotConcQComparison1.pdf, id=655, 505.89pt x 505.89pt>
 File: figure/plotConcQComparison1.pdf Graphic file (type pdf)
 
 <use figure/plotConcQComparison1.pdf>
-Package pdftex.def Info: figure/plotConcQComparison1.pdf used on input line 145
-5.
+Package pdftex.def Info: figure/plotConcQComparison1.pdf used on input line 147
+2.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/plotConcQComparison2.pdf, id=642, 505.89pt x 505.89pt>
+<figure/plotConcQComparison2.pdf, id=656, 505.89pt x 505.89pt>
 File: figure/plotConcQComparison2.pdf Graphic file (type pdf)
 
 <use figure/plotConcQComparison2.pdf>
-Package pdftex.def Info: figure/plotConcQComparison2.pdf used on input line 145
-7.
+Package pdftex.def Info: figure/plotConcQComparison2.pdf used on input line 147
+4.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-Overfull \hbox (10.94774pt too wide) in paragraph at lines 1455--1457
+Overfull \hbox (10.94774pt too wide) in paragraph at lines 1472--1474
 [][][][] 
  []
 
-Package color Info: Redefining color shadecolor on input line 1467.
+Package color Info: Redefining color shadecolor on input line 1484.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[37 <D:/LADData/RCode/EGRET/vignettes/figure/adjustSize1.pdf> <D:/LADData/RCode
+[38 <D:/LADData/RCode/EGRET/vignettes/figure/adjustSize1.pdf> <D:/LADData/RCode
 /EGRET/vignettes/figure/adjustSize2.pdf>]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 1474.
+               Default added (so using `tbp') on input line 1491.
 
-<figure/easyFontChange.pdf, id=665, 505.89pt x 505.89pt>
+<figure/easyFontChange.pdf, id=678, 505.89pt x 505.89pt>
 File: figure/easyFontChange.pdf Graphic file (type pdf)
 
 <use figure/easyFontChange.pdf>
-Package pdftex.def Info: figure/easyFontChange.pdf used on input line 1476.
+Package pdftex.def Info: figure/easyFontChange.pdf used on input line 1493.
 (pdftex.def)             Requested size: 448.07928pt x 448.07928pt.
-Package color Info: Redefining color shadecolor on input line 1486.
+Package color Info: Redefining color shadecolor on input line 1503.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 1500.
+               Default added (so using `tbp') on input line 1517.
 
-<figure/modifiedContour1.pdf, id=666, 505.89pt x 505.89pt>
+<figure/modifiedContour1.pdf, id=679, 505.89pt x 505.89pt>
 File: figure/modifiedContour1.pdf Graphic file (type pdf)
 
 <use figure/modifiedContour1.pdf>
-Package pdftex.def Info: figure/modifiedContour1.pdf used on input line 1502.
+Package pdftex.def Info: figure/modifiedContour1.pdf used on input line 1519.
 (pdftex.def)             Requested size: 448.07928pt x 448.07928pt.
-Package color Info: Redefining color shadecolor on input line 1510.
+Package color Info: Redefining color shadecolor on input line 1527.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[38 <D:/LADData/RCode/EGRET/vignettes/figure/plotConcQComparison1.pdf> <D:/LADD
+[39 <D:/LADData/RCode/EGRET/vignettes/figure/plotConcQComparison1.pdf> <D:/LADD
 ata/RCode/EGRET/vignettes/figure/plotConcQComparison2.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[39 <D:/LADData/RCode/EGRET/vignettes/figure/easyFontChange.pdf>]
+[40 <D:/LADData/RCode/EGRET/vignettes/figure/easyFontChange.pdf>]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[40 <D:/LADData/RCode/EGRET/vignettes/figure/modifiedContour1.pdf>]
+[41 <D:/LADData/RCode/EGRET/vignettes/figure/modifiedContour1.pdf>]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 1518.
+               Default added (so using `tbp') on input line 1535.
 
-<figure/modifiedDiffContour.pdf, id=706, 505.89pt x 505.89pt>
+<figure/modifiedDiffContour.pdf, id=719, 505.89pt x 505.89pt>
 File: figure/modifiedDiffContour.pdf Graphic file (type pdf)
 
 <use figure/modifiedDiffContour.pdf>
-Package pdftex.def Info: figure/modifiedDiffContour.pdf used on input line 1520
+Package pdftex.def Info: figure/modifiedDiffContour.pdf used on input line 1537
 .
 (pdftex.def)             Requested size: 448.07928pt x 448.07928pt.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[41 <D:/LADData/RCode/EGRET/vignettes/figure/modifiedDiffContour.pdf>]
-Package color Info: Redefining color shadecolor on input line 1547.
-Package color Info: Redefining color shadecolor on input line 1557.
-Package color Info: Redefining color shadecolor on input line 1572.
-Package color Info: Redefining color shadecolor on input line 1591.
+[42 <D:/LADData/RCode/EGRET/vignettes/figure/modifiedDiffContour.pdf>]
+Package color Info: Redefining color shadecolor on input line 1564.
+Package color Info: Redefining color shadecolor on input line 1574.
+Package color Info: Redefining color shadecolor on input line 1589.
+Package color Info: Redefining color shadecolor on input line 1608.
 
-Overfull \vbox (21.68121pt too high) has occurred while \output is active []
-
-
-[42]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
@@ -1207,9 +1219,7 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[45
-
-]
+[45]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
@@ -1225,92 +1235,98 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[48]
+[48
+
+]
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
 [49]
-Package color Info: Redefining color shadecolor on input line 1783.
-Package color Info: Redefining color shadecolor on input line 1792.
+Overfull \vbox (21.68121pt too high) has occurred while \output is active []
+
+
+[50]
+Package color Info: Redefining color shadecolor on input line 1800.
+Package color Info: Redefining color shadecolor on input line 1809.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[50
+[51
 
 ]
-Package color Info: Redefining color shadecolor on input line 1843.
-LaTeX Font Info:    Try loading font information for OMS+pcr on input line 1845
+Package color Info: Redefining color shadecolor on input line 1860.
+LaTeX Font Info:    Try loading font information for OMS+pcr on input line 1862
 .
  ("C:\Program Files (x86)\MiKTeX 2.9\tex\latex\psnfss\omspcr.fd"
 File: omspcr.fd 
 )
 LaTeX Font Info:    Font shape `OMS/pcr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1845.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1862.
 
 
-Overfull \hbox (110.37555pt too wide) in paragraph at lines 1860--1860
+Overfull \hbox (110.37555pt too wide) in paragraph at lines 1877--1877
 []\OT1/pcr/m/n/10.95 Year  Discharge [cms] Conc [mg/L] FN_Conc [mg/L] Flux [10^
 6kg/yr] FN_Flux [10^6kg/yr][] 
  []
 
-<table1.png, id=785, 492.33937pt x 498.36188pt>
+<table1.png, id=798, 492.33937pt x 498.36188pt>
 File: table1.png Graphic file (type png)
  <use table1.png>
-Package pdftex.def Info: table1.png used on input line 1879.
+Package pdftex.def Info: table1.png used on input line 1896.
 (pdftex.def)             Requested size: 492.33815pt x 498.36066pt.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[51]
-Package color Info: Redefining color shadecolor on input line 1893.
+[52]
+Package color Info: Redefining color shadecolor on input line 1910.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[52 <D:/LADData/RCode/EGRET/vignettes/table1.png>]
-Package color Info: Redefining color shadecolor on input line 1926.
+[53 <D:/LADData/RCode/EGRET/vignettes/table1.png>]
+Package color Info: Redefining color shadecolor on input line 1943.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[53]
-Underfull \hbox (badness 1983) in paragraph at lines 1948--1949
+[54]
+Underfull \hbox (badness 1983) in paragraph at lines 1965--1966
 []\OT1/ptm/m/n/10.95 Hirsch, R. M., Moyer, D. L. and Arch-field, S. A. (2010), 
 Weighted Re-gres-sions on
  []
 
 
-Underfull \hbox (badness 1221) in paragraph at lines 1948--1949
+Underfull \hbox (badness 1221) in paragraph at lines 1965--1966
 \OT1/ptm/m/n/10.95 Time, Dis-charge, and Sea-son (WRTDS), with an Ap-pli-ca-tio
 n to Chesa-peake Bay River
  []
 
 
-Underfull \hbox (badness 2443) in paragraph at lines 1948--1949
+Underfull \hbox (badness 2443) in paragraph at lines 1965--1966
 \OT1/ptm/m/n/10.95 In-puts. JAWRA Jour-nal of the Amer-i-can Wa-ter Re-sources 
 As-so-ci-a-tion, 46: 857-880.
  []
 
 
-Underfull \hbox (badness 3690) in paragraph at lines 1948--1949
+Underfull \hbox (badness 3690) in paragraph at lines 1965--1966
 \OT1/ptm/m/n/10.95 doi: 10.1111/j.1752-1688.2010.00482.x []$\OT1/pcr/m/n/10.95 
 http : / / onlinelibrary . wiley . com / doi /$
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1962.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1979.
 
 Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 
 
-[54
+[55
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1962.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1979.
  (D:\LADData\RCode\EGRET\vignettes\EGRET.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1962.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1962.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1979.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1979.
 
 Package rerunfilecheck Info: File `EGRET.out' has not changed.
 (rerunfilecheck)             Checksum: 8C7F459759F355C1F5A04EC20C0B050C;1818.
@@ -1320,10 +1336,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 8590 strings out of 494045
- 130358 string characters out of 3145961
- 225773 words of memory out of 3000000
- 11549 multiletter control sequences out of 15000+200000
+ 8598 strings out of 494045
+ 130511 string characters out of 3145961
+ 225831 words of memory out of 3000000
+ 11554 multiletter control sequences out of 15000+200000
  31002 words of font info for 68 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
  44i,15n,48p,1087b,468s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1335,9 +1351,9 @@ Files (x86)/MiKTeX 2.9/fonts/type1/urw/courier/ucrb8a.pfb><C:/Program Files (x8
 ts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/ur
 w/times/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utm
 ri8a.pfb>
-Output written on EGRET.pdf (54 pages, 1284716 bytes).
+Output written on EGRET.pdf (55 pages, 1325224 bytes).
 PDF statistics:
- 888 PDF objects out of 1000 (max. 8388607)
- 167 named destinations out of 1000 (max. 500000)
- 415 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 903 PDF objects out of 1000 (max. 8388607)
+ 169 named destinations out of 1000 (max. 500000)
+ 420 words of extra memory for PDF output out of 10000 (max. 10000000)
 

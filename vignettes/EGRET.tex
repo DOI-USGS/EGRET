@@ -516,7 +516,7 @@ We will walk through an example from Columbia River at The Dalles, OR.
 \hlstd{Daily} \hlkwb{<-} \hlkwd{getDVData}\hlstd{(siteID,}\hlstr{"00060"}\hlstd{,startDate,endDate)}
 \end{alltt}
 \begin{verbatim}
-There are 49465 data points, and 49466 days.
+There are 49491 data points, and 49492 days.
 
  discharge data jumps from 2013-09-18 to 2013-09-20
 \end{verbatim}
@@ -675,7 +675,7 @@ Here is an example of looking at mean daily discharge for the full water year an
 \hlstd{Daily} \hlkwb{<-}\hlkwd{getDVData}\hlstd{(sta,}\hlstr{"00060"}\hlstd{,}\hlkwc{StartDate}\hlstd{=}\hlstr{""}\hlstd{,}\hlkwc{EndDate}\hlstd{=}\hlstr{""}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-There are 35870 data points, and 35870 days.
+There are 35896 data points, and 35896 days.
 \end{verbatim}
 \begin{alltt}
 \hlstd{INFO} \hlkwb{<-} \hlkwd{getMetaData}\hlstd{(sta,}\hlstr{""}\hlstd{,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
@@ -882,6 +882,23 @@ Figure \ref{fig:plotConcTime}:
 
 \end{knitrout}
 
+
+Figure \ref{fig:plotFluxQ}:
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{plotFluxQ}\hlstd{(}\hlkwc{fluxUnit}\hlstd{=}\hlnum{4}\hlstd{)}
+\end{alltt}
+\end{kframe}\begin{figure}[]
+
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotFluxQ} \caption[Flux discharge]{Flux discharge\label{fig:plotFluxQ}}
+\end{figure}
+
+
+\end{knitrout}
+
+
+\FloatBarrier
 
 Figure \ref{fig:multiPlotDataOverview}:
 \begin{knitrout}

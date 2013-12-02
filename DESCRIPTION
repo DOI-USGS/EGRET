@@ -85,6 +85,7 @@ Collate:
     'generalAxis.R'
     'boxConcThree.R'
     'fluxBiasEight.R'
+    'plotFluxQ.R'
 Depends:
     R (>= 3.0)
 Imports:
