@@ -518,7 +518,7 @@ plotFourStats(qUnit=3)
 
 \FloatBarrier
 
-The simplest way to look at these time series is with the function plotFlowSingle. The statistic index (istat) must be defined, but other input arguements can defined. To see a list of these optional arguments and other information about the function, type ?plotFlowSingle in the R console. All of the graphs in plotFlowSingle, plotFourStats, and all but one of the graphs in plotFour, show both the individual annual values of the selected discharge statistic (e.g. the annual mean or 7-day minimum), but they also show a curve that is a smooth fit to those data.  The curve is a LOWESS (locally weighted scatterplot smooth).  The algorithm for computing it is provided in \cite{HirschV}:\url{http://pubs.usgs.gov/sir/2012/5151/}  (pages 6 and 7).  The default is that they are smoothed with a "half-window width" of 30 years.  The smoothing window is a user-defined option. 
+The simplest way to look at these time series is with the function plotFlowSingle. The statistic index (istat) must be defined by the user, but for all other arguments there are default values so the user isn't required to specify anything else. To see a list of these optional arguments and other information about the function, type ?plotFlowSingle in the R console. All of the graphs in plotFlowSingle, plotFourStats, and all but one of the graphs in plotFour, show both the individual annual values of the selected discharge statistic (e.g. the annual mean or 7-day minimum), but they also show a curve that is a smooth fit to those data.  The curve is a LOWESS (locally weighted scatterplot smooth).  The algorithm for computing it is provided in \cite{HirschV}:\url{http://pubs.usgs.gov/sir/2012/5151/}  (pages 6 and 7).  The default is that they are smoothed with a "half-window width" of 30 years.  The smoothing window is a user-defined option. 
 
 plotSDLogQ produces a graphic of the running standard deviation of the log of daily discharge over time.  The idea is to get some idea of how variability of daily discharge is changing over time.  By using the standard deviation of the log discharge the statistic becomes dimensionless.  It also means that it is a way of looking at variability quite aside from average values, so, in the case of a system where discharge might be increasing over a period of years, this provides a way of looking at the variability relative to that changing mean value.  It is much like a coefficient of variation, but it has sample properties that make it a smoother measure of variability.  There are often comments about how things like urbanization or enhanced greenhouse gases in the atmosphere are bringing about an increase in variability, this is one way to explore that idea. plotFour, plotFourStats, and plot15 are all designed to plot several graphs from the other functions all in a single figure. 
 
@@ -562,7 +562,7 @@ The example shown here illustrates a very long record and the long gap of more t
 \subsection{Table Options}
 \label{sec:tableOptions}
 %------------------------------------------------------------ 
-Sometimes easier to consider the results in table formats rather than graphically. Similar to the function plotFlowSingle, the printSeries will print the requested discharge statistics (Table \ref{table:istat}), as well as return the results in a dataframe. A small sample of the output is printed below.
+Sometimes it is easier to consider the results in table formats rather than graphically. Similar to the function plotFlowSingle, the printSeries will print the requested discharge statistics (Table \ref{table:istat}), as well as return the results in a dataframe. A small sample of the output is printed below.
 
 
 <<printSeries, eval=FALSE,echo=TRUE>>=
@@ -826,7 +826,7 @@ plotConcTimeSmooth(q1, q2, q3, centerDate,
                    2000, 2010,logScale=TRUE)
 @
 
-Figures \ref{fig:plotConcQSmooth} and \ref{fig:plotConcTimeSmooth} contain legends. The placement of the legend is controlled by legendLeft and legendTop. If both are set to 0, the legend is placed in the lower left corner. Otherwise, the value specified for legendLeft places the left edge of the legend, and legendTop specifies the top edge of the legend. The units for these values are those of the plot. The legend can also be turned of with printLegend=FALSE.
+Figures \ref{fig:plotConcQSmooth} and \ref{fig:plotConcTimeSmooth} contain legends. The placement of the legend is controlled by legendLeft and legendTop. If both are set to 0, the legend is placed in the lower left corner. Otherwise, the value specified for legendLeft places the left edge of the legend, and legendTop specifies the top edge of the legend. The units for these values are those of the plot. The legend can also be turned off with printLegend=FALSE.
 
 
 Figure \ref{fig:fluxBiasMulti}:
@@ -862,7 +862,7 @@ contourLevels = seq(0,5,0.2)
 \subsection{Table Options}
 \label{sec:wrtdsTable}
 %------------------------------------------------------------ 
-Sometimes easier to consider the results in table formats rather than graphically. The function tableResults produces a simple text table that contains the annual values for the results.  Each row of the output represents a year and it prints: year, average discharge, average concentration, flow-normalized concentration, average flux, and flow-normalized flux.  A small sample of the output is printed below.This function can also return a data frame if returnDataFrame is set to TRUE.
+Sometimes it is easier to consider the results in table formats rather than graphically. The function tableResults produces a simple text table that contains the annual values for the results.  Each row of the output represents a year and it prints: year, average discharge, average concentration, flow-normalized concentration, average flux, and flow-normalized flux.  A small sample of the output is printed below.This function can also return a data frame if returnDataFrame is set to TRUE.
 
 <<tableResults1, echo=TRUE, eval=FALSE>>=
 tableResults()

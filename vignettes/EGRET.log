@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.6)  2 DEC 2013 14:25
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.6)  16 DEC 2013 10:28
 entering extended mode
 **EGRET.tex
 (D:\LADData\RCode\EGRET\vignettes\EGRET.tex
@@ -671,7 +671,7 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 722.
 
-<figure/Mississippi.pdf, id=298, 505.89pt x 505.89pt>
+<figure/Mississippi.pdf, id=297, 505.89pt x 505.89pt>
 File: figure/Mississippi.pdf Graphic file (type pdf)
 
 <use figure/Mississippi.pdf>
@@ -712,14 +712,14 @@ Package color Info: Redefining color shadecolor on input line 850.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 855.
 
-<figure/plotBoxes1.pdf, id=343, 505.89pt x 505.89pt>
+<figure/plotBoxes1.pdf, id=342, 505.89pt x 505.89pt>
 File: figure/plotBoxes1.pdf Graphic file (type pdf)
 
 <use figure/plotBoxes1.pdf>
 Package pdftex.def Info: figure/plotBoxes1.pdf used on input line 857.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/plotBoxes2.pdf, id=344, 505.89pt x 505.89pt>
+<figure/plotBoxes2.pdf, id=343, 505.89pt x 505.89pt>
 File: figure/plotBoxes2.pdf Graphic file (type pdf)
 
 <use figure/plotBoxes2.pdf>
@@ -741,14 +741,14 @@ EGRET/vignettes/figure/plotBoxes2.pdf>]
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 875.
 
-<figure/plotConcTime1.pdf, id=366, 505.89pt x 505.89pt>
+<figure/plotConcTime1.pdf, id=365, 505.89pt x 505.89pt>
 File: figure/plotConcTime1.pdf Graphic file (type pdf)
 
 <use figure/plotConcTime1.pdf>
 Package pdftex.def Info: figure/plotConcTime1.pdf used on input line 877.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/plotConcTime2.pdf, id=367, 505.89pt x 505.89pt>
+<figure/plotConcTime2.pdf, id=366, 505.89pt x 505.89pt>
 File: figure/plotConcTime2.pdf Graphic file (type pdf)
 
 <use figure/plotConcTime2.pdf>
@@ -764,7 +764,7 @@ Package color Info: Redefining color shadecolor on input line 888.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 892.
 
-<figure/plotFluxQ.pdf, id=369, 505.89pt x 505.89pt>
+<figure/plotFluxQ.pdf, id=368, 505.89pt x 505.89pt>
 File: figure/plotFluxQ.pdf Graphic file (type pdf)
  <use figure/plotFluxQ.pdf>
 Package pdftex.def Info: figure/plotFluxQ.pdf used on input line 894.
@@ -781,7 +781,7 @@ Package color Info: Redefining color shadecolor on input line 905.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 909.
 
-<figure/multiPlotDataOverview.pdf, id=390, 505.89pt x 505.89pt>
+<figure/multiPlotDataOverview.pdf, id=389, 505.89pt x 505.89pt>
 File: figure/multiPlotDataOverview.pdf Graphic file (type pdf)
 
 <use figure/multiPlotDataOverview.pdf>
@@ -817,7 +817,7 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1046.
 
-<figure/plotConcTimeDaily1.pdf, id=428, 505.89pt x 505.89pt>
+<figure/plotConcTimeDaily1.pdf, id=427, 505.89pt x 505.89pt>
 File: figure/plotConcTimeDaily1.pdf Graphic file (type pdf)
 
 <use figure/plotConcTimeDaily1.pdf>
@@ -825,7 +825,7 @@ Package pdftex.def Info: figure/plotConcTimeDaily1.pdf used on input line 1048.
 
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/plotConcTimeDaily2.pdf, id=429, 505.89pt x 505.89pt>
+<figure/plotConcTimeDaily2.pdf, id=428, 505.89pt x 505.89pt>
 File: figure/plotConcTimeDaily2.pdf Graphic file (type pdf)
 
 <use figure/plotConcTimeDaily2.pdf>
@@ -842,14 +842,14 @@ Package color Info: Redefining color shadecolor on input line 1059.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1064.
 
-<figure/plotFluxPred1.pdf, id=431, 505.89pt x 505.89pt>
+<figure/plotFluxPred1.pdf, id=430, 505.89pt x 505.89pt>
 File: figure/plotFluxPred1.pdf Graphic file (type pdf)
 
 <use figure/plotFluxPred1.pdf>
 Package pdftex.def Info: figure/plotFluxPred1.pdf used on input line 1066.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/plotFluxPred2.pdf, id=432, 505.89pt x 505.89pt>
+<figure/plotFluxPred2.pdf, id=431, 505.89pt x 505.89pt>
 File: figure/plotFluxPred2.pdf Graphic file (type pdf)
 
 <use figure/plotFluxPred2.pdf>
@@ -865,14 +865,14 @@ Package color Info: Redefining color shadecolor on input line 1078.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1083.
 
-<figure/plotResidQ1.pdf, id=434, 505.89pt x 505.89pt>
+<figure/plotResidQ1.pdf, id=433, 505.89pt x 505.89pt>
 File: figure/plotResidQ1.pdf Graphic file (type pdf)
 
 <use figure/plotResidQ1.pdf>
 Package pdftex.def Info: figure/plotResidQ1.pdf used on input line 1085.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/plotResidQ2.pdf, id=435, 505.89pt x 505.89pt>
+<figure/plotResidQ2.pdf, id=434, 505.89pt x 505.89pt>
 File: figure/plotResidQ2.pdf Graphic file (type pdf)
 
 <use figure/plotResidQ2.pdf>
@@ -901,14 +901,14 @@ f>]
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1101.
 
-<figure/boxResidMonth1.pdf, id=491, 505.89pt x 505.89pt>
+<figure/boxResidMonth1.pdf, id=490, 505.89pt x 505.89pt>
 File: figure/boxResidMonth1.pdf Graphic file (type pdf)
 
 <use figure/boxResidMonth1.pdf>
 Package pdftex.def Info: figure/boxResidMonth1.pdf used on input line 1103.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/boxResidMonth2.pdf, id=492, 505.89pt x 505.89pt>
+<figure/boxResidMonth2.pdf, id=491, 505.89pt x 505.89pt>
 File: figure/boxResidMonth2.pdf Graphic file (type pdf)
 
 <use figure/boxResidMonth2.pdf>
@@ -924,7 +924,7 @@ Package color Info: Redefining color shadecolor on input line 1114.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1118.
 
-<figure/boxConcThree.pdf, id=494, 505.89pt x 505.89pt>
+<figure/boxConcThree.pdf, id=493, 505.89pt x 505.89pt>
 File: figure/boxConcThree.pdf Graphic file (type pdf)
 
 <use figure/boxConcThree.pdf>
@@ -936,14 +936,14 @@ Package color Info: Redefining color shadecolor on input line 1129.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1134.
 
-<figure/plotFluxHist1.pdf, id=496, 505.89pt x 505.89pt>
+<figure/plotFluxHist1.pdf, id=495, 505.89pt x 505.89pt>
 File: figure/plotFluxHist1.pdf Graphic file (type pdf)
 
 <use figure/plotFluxHist1.pdf>
 Package pdftex.def Info: figure/plotFluxHist1.pdf used on input line 1136.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/plotFluxHist2.pdf, id=497, 505.89pt x 505.89pt>
+<figure/plotFluxHist2.pdf, id=496, 505.89pt x 505.89pt>
 File: figure/plotFluxHist2.pdf Graphic file (type pdf)
 
 <use figure/plotFluxHist2.pdf>
@@ -959,14 +959,14 @@ Package color Info: Redefining color shadecolor on input line 1147.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1159.
 
-<figure/plotConcQSmooth1.pdf, id=499, 505.89pt x 505.89pt>
+<figure/plotConcQSmooth1.pdf, id=498, 505.89pt x 505.89pt>
 File: figure/plotConcQSmooth1.pdf Graphic file (type pdf)
 
 <use figure/plotConcQSmooth1.pdf>
 Package pdftex.def Info: figure/plotConcQSmooth1.pdf used on input line 1161.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/plotConcQSmooth2.pdf, id=500, 505.89pt x 505.89pt>
+<figure/plotConcQSmooth2.pdf, id=499, 505.89pt x 505.89pt>
 File: figure/plotConcQSmooth2.pdf Graphic file (type pdf)
 
 <use figure/plotConcQSmooth2.pdf>
@@ -994,7 +994,7 @@ igure/plotFluxHist2.pdf>]
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1182.
 
-<figure/plotConcTimeSmooth1.pdf, id=547, 505.89pt x 505.89pt>
+<figure/plotConcTimeSmooth1.pdf, id=546, 505.89pt x 505.89pt>
 File: figure/plotConcTimeSmooth1.pdf Graphic file (type pdf)
 
 <use figure/plotConcTimeSmooth1.pdf>
@@ -1002,7 +1002,7 @@ Package pdftex.def Info: figure/plotConcTimeSmooth1.pdf used on input line 1184
 .
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/plotConcTimeSmooth2.pdf, id=548, 505.89pt x 505.89pt>
+<figure/plotConcTimeSmooth2.pdf, id=547, 505.89pt x 505.89pt>
 File: figure/plotConcTimeSmooth2.pdf Graphic file (type pdf)
 
 <use figure/plotConcTimeSmooth2.pdf>
@@ -1019,7 +1019,7 @@ Package color Info: Redefining color shadecolor on input line 1198.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1202.
 
-<figure/fluxBiasMulti.pdf, id=552, 578.16pt x 722.7pt>
+<figure/fluxBiasMulti.pdf, id=551, 578.16pt x 722.7pt>
 File: figure/fluxBiasMulti.pdf Graphic file (type pdf)
 
 <use figure/fluxBiasMulti.pdf>
@@ -1036,7 +1036,7 @@ RCode/EGRET/vignettes/figure/plotConcQSmooth2.pdf>]
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1220.
 
-<figure/plotContours.pdf, id=575, 505.89pt x 505.89pt>
+<figure/plotContours.pdf, id=574, 505.89pt x 505.89pt>
 File: figure/plotContours.pdf Graphic file (type pdf)
 
 <use figure/plotContours.pdf>
@@ -1048,7 +1048,7 @@ Package color Info: Redefining color shadecolor on input line 1231.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1237.
 
-<figure/plotDiffContours.pdf, id=577, 505.89pt x 505.89pt>
+<figure/plotDiffContours.pdf, id=576, 505.89pt x 505.89pt>
 File: figure/plotDiffContours.pdf Graphic file (type pdf)
 
 <use figure/plotDiffContours.pdf>
@@ -1093,14 +1093,14 @@ Package color Info: Redefining color shadecolor on input line 1440.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1445.
 
-<figure/adjustSize1.pdf, id=645, 505.89pt x 505.89pt>
+<figure/adjustSize1.pdf, id=644, 505.89pt x 505.89pt>
 File: figure/adjustSize1.pdf Graphic file (type pdf)
 
 <use figure/adjustSize1.pdf>
 Package pdftex.def Info: figure/adjustSize1.pdf used on input line 1447.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/adjustSize2.pdf, id=646, 505.89pt x 505.89pt>
+<figure/adjustSize2.pdf, id=645, 505.89pt x 505.89pt>
 File: figure/adjustSize2.pdf Graphic file (type pdf)
 
 <use figure/adjustSize2.pdf>
@@ -1123,7 +1123,7 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1470.
 
-<figure/plotConcQComparison1.pdf, id=655, 505.89pt x 505.89pt>
+<figure/plotConcQComparison1.pdf, id=654, 505.89pt x 505.89pt>
 File: figure/plotConcQComparison1.pdf Graphic file (type pdf)
 
 <use figure/plotConcQComparison1.pdf>
@@ -1131,7 +1131,7 @@ Package pdftex.def Info: figure/plotConcQComparison1.pdf used on input line 147
 2.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/plotConcQComparison2.pdf, id=656, 505.89pt x 505.89pt>
+<figure/plotConcQComparison2.pdf, id=655, 505.89pt x 505.89pt>
 File: figure/plotConcQComparison2.pdf Graphic file (type pdf)
 
 <use figure/plotConcQComparison2.pdf>
@@ -1154,7 +1154,7 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1491.
 
-<figure/easyFontChange.pdf, id=678, 505.89pt x 505.89pt>
+<figure/easyFontChange.pdf, id=677, 505.89pt x 505.89pt>
 File: figure/easyFontChange.pdf Graphic file (type pdf)
 
 <use figure/easyFontChange.pdf>
@@ -1166,7 +1166,7 @@ Package color Info: Redefining color shadecolor on input line 1503.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1517.
 
-<figure/modifiedContour1.pdf, id=679, 505.89pt x 505.89pt>
+<figure/modifiedContour1.pdf, id=678, 505.89pt x 505.89pt>
 File: figure/modifiedContour1.pdf Graphic file (type pdf)
 
 <use figure/modifiedContour1.pdf>
@@ -1191,7 +1191,7 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1535.
 
-<figure/modifiedDiffContour.pdf, id=719, 505.89pt x 505.89pt>
+<figure/modifiedDiffContour.pdf, id=718, 505.89pt x 505.89pt>
 File: figure/modifiedDiffContour.pdf Graphic file (type pdf)
 
 <use figure/modifiedDiffContour.pdf>
@@ -1270,7 +1270,7 @@ Overfull \hbox (110.37555pt too wide) in paragraph at lines 1877--1877
 6kg/yr] FN_Flux [10^6kg/yr][] 
  []
 
-<table1.png, id=798, 492.33937pt x 498.36188pt>
+<table1.png, id=797, 492.33937pt x 498.36188pt>
 File: table1.png Graphic file (type png)
  <use table1.png>
 Package pdftex.def Info: table1.png used on input line 1896.
@@ -1351,9 +1351,9 @@ Files (x86)/MiKTeX 2.9/fonts/type1/urw/courier/ucrb8a.pfb><C:/Program Files (x8
 ts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/ur
 w/times/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utm
 ri8a.pfb>
-Output written on EGRET.pdf (55 pages, 1325224 bytes).
+Output written on EGRET.pdf (55 pages, 1325123 bytes).
 PDF statistics:
- 903 PDF objects out of 1000 (max. 8388607)
+ 902 PDF objects out of 1000 (max. 8388607)
  169 named destinations out of 1000 (max. 500000)
  420 words of extra memory for PDF output out of 10000 (max. 10000000)
 
