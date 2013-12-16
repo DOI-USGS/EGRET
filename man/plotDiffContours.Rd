@@ -79,8 +79,8 @@
   default is NA (no horizontal line is drawn)}
 
   \item{flowDuration}{logical variable if TRUE plot the
-  flow duration lines, if FALSE do not plot them, default =
-  TRUE}
+  flow duration lines (5 and 95 flow percentiles), if FALSE
+  do not plot them, default = TRUE}
 
   \item{yTicks}{vector of yTick labels and marks that will
   be plotted in log space. If NA, will be automatically

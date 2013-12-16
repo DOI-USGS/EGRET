@@ -97,8 +97,8 @@
   parameters}
 
   \item{flowDuration}{logical variable if TRUE plot the
-  flow duration lines, if FALSE do not plot them, default =
-  TRUE}
+  flow duration lines (5 and 95 flow percentiles), if FALSE
+  do not plot them, default = TRUE}
 }
 \description{
   These plots are normally used for plotting the estimated
