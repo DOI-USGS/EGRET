@@ -47,7 +47,7 @@ boxConcThree<-function (localSample = Sample, localDaily = Daily, localINFO = IN
     ""
   }
   
-  yMax<-max(concV)
+  yMax<-max(concV,na.rm=TRUE)
   yTicks<-yPretty(yMax)
   yTop<-yTicks[length(yTicks)]
   
