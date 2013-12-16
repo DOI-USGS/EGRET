@@ -33,7 +33,7 @@
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param lwd number line width
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
-#' @param flowDuration logical variable if TRUE plot the flow duration lines, if FALSE do not plot them, default = TRUE
+#' @param flowDuration logical variable if TRUE plot the flow duration lines (5 and 95 flow percentiles), if FALSE do not plot them, default = TRUE
 #' @keywords water-quality statistics graphics
 #' @export
 #' @examples 
