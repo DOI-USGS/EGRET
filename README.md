@@ -36,7 +36,7 @@ Package Installation
 
 To install the EGRET and dataRetrieval packages you need to be using R 3.0 or greater. Then use the following commands:
 
-	install.packages(c("zoo","survival","fields","spam","XML","RCurl","plyr"))
+	install.packages(c("zoo","survival","fields","spam","XML","RCurl","plyr","reshape2"))
 	install.packages("dataRetrieval", repos="http://usgs-r.github.com")
 	install.packages("EGRET", repos="http://usgs-r.github.com")
 
