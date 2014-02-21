@@ -32,6 +32,8 @@
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param lwd number line width
+#' @param color.palette a function that creates a color palette for the contour plot. Default goes from white to gray to blue to red 
+#' using the function \code{colorRampPalette(c("white","gray","blue","red"))}. A few preset options are heat.colors, topo.colors, and terrain.colors.
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @param flowDuration logical variable if TRUE plot the flow duration lines (5 and 95 flow percentiles), if FALSE do not plot them, default = TRUE
 #' @keywords water-quality statistics graphics
@@ -61,7 +63,7 @@ plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
                        qUnit = 2, contourLevels = NA, span = 60, pval = 0.05, 
                        printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA, 
                        flowDuration = TRUE, customPar=FALSE, yTicks=NA,
-                       lwd=1,cex.main=1,cex.axis=1,...) {
+                       lwd=1,cex.main=1,cex.axis=1,color.palette=colorRampPalette(c("white","gray","blue","red")),...) {
   #  This funtion makes a contour plot 
   #  x-axis is bounded by yearStart and yearEnd
   #  y-axis is bounded by qBottom and qTop (in whatever discharge units are specified by qUnit)
@@ -134,9 +136,19 @@ plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
     yTicks<-logPretty3(qBottom,qTop)
   }
   
-  xSpan<-c(yearStart,yearEnd)
-  xTicks<-pretty(xSpan,n=5)
-  
+  if(yearEnd-yearStart >= 4){
+    xSpan<-c(yearStart,yearEnd)
+    xTicks<-pretty(xSpan,n=5)
+    xlabels <- xTicks
+  } else {
+    xlabels <- c(as.Date(paste(yearStart,"-01-01",sep="")), as.Date(paste(yearEnd,"-01-01",sep="")))
+    xlabels <- pretty(xlabels,n=5)
+    xTicksDates <- as.POSIXlt(xlabels)
+    years <- xTicksDates$year + 1900 
+    day <- xTicksDates$yday
+    xTicks <- years + day/365
+    xlabels <- format(xlabels, "%Y-%b")
+  }
   
   nYTicks<-length(yTicks)
   surfj<-surf[,,j]
@@ -192,9 +204,10 @@ plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
   yLab<-qUnit@qUnitExpress
   filled.contour(x,log(y,10),surft,levels=contourLevels,xlim=c(yearStart,yearEnd),
                  ylim=c(log(yTicks[1],10),log(yTicks[nYTicks],10)),#main=plotTitle,
-                 xlab="",ylab=yLab,xaxs="i",yaxs="i",cex.main=cex.main, ...,
+                 xlab="",ylab=yLab,xaxs="i",yaxs="i",cex.main=cex.main, 
+                 color.palette=color.palette, ...,
                  plot.axes={
-                   axis(1,tcl=0.5,at=xTicks,labels=xTicks,cex.axis=cex.axis)
+                   axis(1,tcl=0.5,at=xTicks,labels=xlabels,cex.axis=cex.axis)
                    axis(2,tcl=0.5,las=1,at=log(yTicks,10),labels=yTicks,cex.axis=cex.axis)
                    axis(3, tcl = 0.5, at = xTicks, labels =FALSE,cex.axis=cex.axis)
                    axis(4, tcl = 0.5, at = log(yTicks, 10), labels=FALSE,cex.axis=cex.axis)
