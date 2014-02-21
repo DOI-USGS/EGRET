@@ -73,7 +73,7 @@ plotConcTimeDaily<-function(startYear=NA, endYear=NA, localSample = Sample,
   genericEGRETDotPlot(x=xSample, y=yHigh, xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       ylab=yLab,plotTitle=plotTitle,cex.axis=cex.axis,col=col,lwd=lwd,cex=cex,
-                      cex.main=cex.main, tinyPlot=tinyPlot,customPar=customPar, ...
+                      cex.main=cex.main, tinyPlot=tinyPlot,customPar=customPar, xDate=TRUE,...
   )
 
   lines(x=xDaily, y=subDaily$ConcDay, type="l",col=col,lwd=lwd)
