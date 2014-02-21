@@ -22,14 +22,16 @@
 #' @param span numeric, it is the half-width (in days) of the smoothing window for computing the flow duration information, default = 60
 #' @param pval numeric, the probability value for the lower flow frequency line on the graph
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed 
-#' @param vert1 numeric, the location in time for a black vertical line on the figure, yearStart<vert1<yearEnd, default is NA (vertical line is not drawn) 
-#' @param vert2 numeric, the location in time for a black vertical line on the figure, yearStart<vert2<yearEnd, default is NA (vertical line is not drawn)
+#' @param vert1 numeric, the location in time for a black vertical line on the figure, yearStart < vert1 < yearEnd, default is NA (vertical line is not drawn) 
+#' @param vert2 numeric, the location in time for a black vertical line on the figure, yearStart < vert2 < yearEnd, default is NA (vertical line is not drawn)
 #' @param horiz numeric, the location in discharge for a black horizontal line on the figure, qBottom<vert1<qTop, default is NA (no horizontal line is drawn)
 #' @param flowDuration logical variable if TRUE plot the flow duration lines (5 and 95 flow percentiles), if FALSE do not plot them, default = TRUE
 #' @param yTicks vector of yTick labels and marks that will be plotted in log space. If NA, will be automatically generated. 
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param lwd number line width
+#' @param color.palette a function that creates a color palette for the contour plot. Default goes from blue to white to red 
+#' using the function \code{colorRampPalette(c("blue","white","red"))}. A few preset options are heat.colors, topo.colors, and terrain.colors.
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins.
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
@@ -59,7 +61,7 @@ plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 
                             localsurfaces = surfaces, localINFO = INFO, localDaily = Daily, 
                             qUnit = 2, span = 60, pval = 0.05, printTitle = TRUE, plotPercent = FALSE,
                             vert1 = NA, vert2 = NA, horiz = NA, flowDuration = TRUE, yTicks=NA,
-                            lwd=1,cex.main=0.95,cex.axis=1,customPar=FALSE,...) 
+                            lwd=1,cex.main=0.95,cex.axis=1,customPar=FALSE,color.palette=colorRampPalette(c("blue","white","red")),...) 
 {
   if (is.numeric(qUnit)) {
     qUnit <- qConst[shortCode = qUnit][[1]]
@@ -204,7 +206,7 @@ plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 
                    segments(v1[1], v1[2], v1[3], v1[4])
                    segments(v2[1], v2[2], v2[3], v2[4])
                    segments(h1[1], h1[2], h1[3], h1[4])
-                 }, ...)
+                 }, color.palette=color.palette,...)
   if (printTitle) title(plotTitle,outer=TRUE,cex.main=cex.main,line=-3)
 #   par(oma = c(0, 0, 0, 0))
 #   par(mar = c(5, 4, 4, 2) + 0.1)
