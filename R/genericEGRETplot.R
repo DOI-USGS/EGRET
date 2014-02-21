@@ -30,6 +30,7 @@
 #' @param oneToOneLine logical defaults to FALSE, inserts 1:1 line
 #' @param rmSciX logical defaults to FALSE, changes x label from scientific to fixed
 #' @param rmSciY logical defaults to FALSE, changes y label from scientific to fixed
+#' @param xDate logical defaults to FALSE, changes x label to "year-month" format if set to TRUE and total years less than 4.
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' @param \dots additional graphical parameters can be adjusted
 #' @keywords graphics water-quality statistics
@@ -53,7 +54,7 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
                                 printTitle=TRUE,
                                 xaxs="i",xlab="",yaxs="i",ylab="",plotTitle="",
                                 pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2,
-                                tcl=0.5,cex.axis=1,las=1,
+                                tcl=0.5,cex.axis=1,las=1,xDate=FALSE,
                                 tinyPlot=FALSE,hLine=FALSE,oneToOneLine=FALSE, 
                                 rmSciX=FALSE,rmSciY=FALSE,customPar=FALSE,col="black",lwd=1,...){
   
@@ -83,6 +84,25 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
     yTicksLab <- prettyNum(yTicks)
   } else {
     yTicksLab <- yTicks
+  }
+  
+  if(xDate){
+    yearStart <- floor(min(xlim))
+    yearEnd <- ceiling(max(xlim))
+    
+    if(yearEnd-yearStart >= 4){
+      xSpan<-c(yearStart,yearEnd)
+      xTicks<-pretty(xSpan,n=5)
+      xTicksLab <- xTicks
+    } else {
+      xlabels <- c(as.Date(paste(yearStart,"-01-01",sep="")), as.Date(paste(yearEnd,"-01-01",sep="")))
+      xlabels <- pretty(xlabels,n=5)
+      xTicksDates <- as.POSIXlt(xlabels)
+      years <- xTicksDates$year + 1900 
+      day <- xTicksDates$yday
+      xTicks <- years + day/365
+      xTicksLab <- format(xlabels, "%Y-%b")
+    }
   }
   
   axis(1,tcl=tcl,at=xTicks,cex.axis=cex.axis,labels=xTicksLab)   
