@@ -36,6 +36,11 @@
 #' @examples
 #' INFO <- ChopINFO
 #' Daily <- ChopDaily
+#' # Water year:
+#' annualSeries <- makeAnnualSeries()
+#' plotFlowSingle(1)
+#' # Graphs consisting of Jun-Aug
+#' INFO <- setPA(paStart=6,paLong=3)
 #' annualSeries <- makeAnnualSeries()
 #' plotFlowSingle(1)
 plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA, 
