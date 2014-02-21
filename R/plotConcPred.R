@@ -27,8 +27,13 @@
 #' @examples
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
+#' # Water year:
+#' INFO <- setPA()
 #' plotConcPred()
 #' plotConcPred(logScale=TRUE)
+#' # Graphs consisting of Jun-Aug
+#' INFO <- setPA(paStart=6,paLong=3)
+#' plotConcPred()
 plotConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA, logScale=FALSE,
                        printTitle = TRUE,tinyPlot=FALSE,cex=0.8, cex.axis=1.1,
                        cex.main=1.1, customPar=FALSE,col="black",lwd=1,...){
@@ -36,6 +41,12 @@ plotConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA, log
   # predicted concentration on the x-axis (these include the bias correction), 
   # observed concentration on y-axis 
   # these predictions are from a "leave-one-out" cross validation application of WRTDS 
+  
+  paLong <- localINFO$paLong
+  paStart <- localINFO$paStart  
+  localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
+  
+  title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   
   x<-localSample$ConcHat
   yLow<-localSample$ConcLow
@@ -77,5 +88,6 @@ plotConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA, log
     )
 
   censoredSegments(yBottom=yInfo$bottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen,col=col,lwd=lwd)
+  mtext(title2,side=3,line=-1.5)
 
 }
