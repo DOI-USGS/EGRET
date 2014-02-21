@@ -18,9 +18,6 @@
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param qLower numeric the lower bound on values of discharge used to select the data points to be plotted, units are those specified by qUnit, default = NA which is equivalent to a lower bound of zero but if the desired lower bound is zero use qLower = NA
 #' @param qUpper numeric the upper bound on values of discharge for selection of data points to be plotted, units are those specified by qUnit, default = NA which is equivalent to an upper bound of infinity
-#' @param paLong numeric, this is the length of the portion of the year from which data should be included in the plot, paLong must be an integer between 1 and 12.  The default is 12, which prints data from all months.
-#' @param paStart numeric, this is the starting month of the portion of the year from which data should be included in the plot, paStart must be an integer between 1 and 12.  
-#' The default is 10, which corresponds to the water year, which starts in October.  If paLong = 12 then the choice of paStart is of no consequence.  All months will be included.
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param concMin number specifying the minimum value to be used on the vertical axis, only appropriate for log scale.  
@@ -39,17 +36,23 @@
 #' @examples
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
-#' plotConcTime(qUnit = 1, qLower = 100, qUpper = 10000, paLong = 3, paStart = 4)
+#' # Water year:
+#' INFO <- setPA()
 #' plotConcTime()
+#' # Graphs consisting of Jun-Aug
+#' INFO <- setPA(paStart=6,paLong=3)
+#' plotConcTime(qUnit = 1, qLower = 100, qUpper = 10000)
 #' plotConcTime(logScale=TRUE)
 plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2, 
-                       qLower = NA, qUpper = NA, paLong = 12, paStart = 10, 
+                       qLower = NA, qUpper = NA, 
                        tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale=FALSE, 
                        cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,col="black",lwd=1,...){
   # this function shows the sample data,
   # time on x-axis, concentration on y-axis
   
-#   originalPar <-  par(no.readonly = TRUE)
+  paLong <- localINFO$paLong
+  paStart <- localINFO$paStart  
+  
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(qUnit)){
@@ -83,10 +86,10 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   codeUpper<-if(is.na(qUpper)) 0 else 2
   codeSum<-codeLower+codeUpper+1
   qText<-rep("",4)
-  qText[1]<-"\n"
-  qText[2]<-paste("\nFor Discharge >",qLower,qUnit@qUnitName)
-  qText[3]<-paste("\nFor Discharge <",qUpper,qUnit@qUnitName)
-  qText[4]<-paste("\nFor Discharge between",qLower,"and",qUpper,qUnit@qUnitName)
+  qText[1]<-"Concentration versus Time"
+  qText[2]<-paste("For Discharge >",qLower,qUnit@qUnitName)
+  qText[3]<-paste("For Discharge <",qUpper,qUnit@qUnitName)
+  qText[4]<-paste("For Discharge between",qLower,"and",qUpper,qUnit@qUnitName)
   title3<-qText[codeSum]
   subSample<-subset(subSample,Q>qLowerBound)
   subSample<-subset(subSample,Q<qUpperBound)
@@ -102,7 +105,7 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   subSample<-data.frame(subSample,isGood)
   subSample<-subset(subSample,isGood)
   # the next section of code sets up the seasonal part of the plot title
-  title2<-if(paLong==12) "\n" else paste("\n",setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong))
+  title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   yLow<-subSample$ConcLow
   yHigh<-subSample$ConcHigh
   Uncen<-subSample$Uncen
@@ -118,7 +121,7 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   }  
   #########################################################
 
-  plotTitle<-if(printTitle) paste(localINFO$shortName,",",localINFO$paramShortName,title2,title3) else ""
+  plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n",title3,sep="") else ""
   
   xInfo <- generalAxis(x=x, minVal=min(x), maxVal=max(x), tinyPlot=tinyPlot)  
   yInfo <- generalAxis(x=yHigh, minVal=minYLow, maxVal=concMax, logScale=logScale, tinyPlot=tinyPlot)
@@ -131,5 +134,6 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
                       cex.axis=cex.axis,cex.main=cex.main,tinyPlot=tinyPlot,col=col,customPar=customPar, ...
   )
   censoredSegments(yBottom=yInfo$ticks[1],yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen,col=col,lwd=lwd)
+  mtext(title2,side=3,line=-1.5)
 
 }
