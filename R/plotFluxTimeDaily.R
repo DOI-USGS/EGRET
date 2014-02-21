@@ -90,7 +90,7 @@ plotFluxTimeDaily<-function (startYear=NA, endYear=NA, localSample = Sample, loc
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       ylab = yLab, customPar=customPar,cex=cex,
                       plotTitle=plotTitle, tinyPlot=tinyPlot,cex.axis=cex.axis,
-                      cex.main=cex.main,col=col,lwd=lwd,...
+                      cex.main=cex.main,col=col,lwd=lwd, xDate=TRUE,...
     )
 
   lines(xDaily, subDaily$ConcDay*subDaily$Q*fluxFactor,col=col,lwd=lwd)
