@@ -2,10 +2,10 @@
 \alias{plotResidTime}
 \title{Plot of the residuals from WRTDS (in log concentration units) versus time}
 \usage{
-  plotResidTime(localSample = Sample, localINFO = INFO,
-    stdResid = FALSE, printTitle = TRUE, hLine = TRUE,
-    tinyPlot = FALSE, col = "black", lwd = 1, cex = 0.8,
-    cex.axis = 1.1, cex.main = 1.1, customPar = FALSE, ...)
+plotResidTime(localSample = Sample, localINFO = INFO, stdResid = FALSE,
+  printTitle = TRUE, hLine = TRUE, tinyPlot = FALSE, col = "black",
+  lwd = 1, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
+  customPar = FALSE, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -54,17 +54,17 @@
   options)}
 }
 \description{
-  This function produces a plot of the residuals from
-  WRTDS, expressed in natural log concentration units
-  versus time. It also provides an alternative for viewing
-  the standardized residuals, where the each residual is
-  divided by its estimated standard error.
+This function produces a plot of the residuals from WRTDS,
+expressed in natural log concentration units versus time.
+It also provides an alternative for viewing the
+standardized residuals, where the each residual is divided
+by its estimated standard error.
 
-  Although there are a lot of optional arguments to this
-  function, most are set to a logical default. If your
-  workspace contains an INFO and Sample dataframes, then
-  the following R code will produce a plot:
-  \code{plotResidTime()}
+Although there are a lot of optional arguments to this
+function, most are set to a logical default. If your
+workspace contains an INFO and Sample dataframes, then the
+following R code will produce a plot:
+\code{plotResidTime()}
 }
 \examples{
 Sample <- ChopSample

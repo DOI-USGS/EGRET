@@ -2,8 +2,8 @@
 \alias{tableChange}
 \title{Create a table of the changes in flow-normalized values between various points in time in the record}
 \usage{
-  tableChange(localAnnualResults = AnnualResults,
-    localINFO = INFO, fluxUnit = 9, yearPoints = NA)
+tableChange(localAnnualResults = AnnualResults, localINFO = INFO,
+  fluxUnit = 9, yearPoints = NA)
 }
 \arguments{
   \item{localAnnualResults}{string specifying the name of
@@ -24,14 +24,14 @@
   allows the program to set yearPoints automatically)}
 }
 \description{
-  These tables describe trends in flow-normalized
-  concentration and in flow-normalized flux. They are
-  described as changes in real units or in percent and als
-  as slopes in real units per year or in percent per year.
-  They are computed over pairs of time points.  These time
-  points can be user-defined or they can be set by the
-  program to be the final year of the record and a set of
-  years that are multiple of 5 years prior to that.
+These tables describe trends in flow-normalized
+concentration and in flow-normalized flux. They are
+described as changes in real units or in percent and als as
+slopes in real units per year or in percent per year. They
+are computed over pairs of time points.  These time points
+can be user-defined or they can be set by the program to be
+the final year of the record and a set of years that are
+multiple of 5 years prior to that.
 }
 \examples{
 Daily <- ChopDaily

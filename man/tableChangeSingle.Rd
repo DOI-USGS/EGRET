@@ -2,9 +2,8 @@
 \alias{tableChangeSingle}
 \title{Create a table of the changes in flow-normalized concentration or flux values between various points in time in the record}
 \usage{
-  tableChangeSingle(localAnnualResults = AnnualResults,
-    localINFO = INFO, fluxUnit = 9, yearPoints = NA,
-    returnDataFrame = FALSE, flux = FALSE)
+tableChangeSingle(localAnnualResults = AnnualResults, localINFO = INFO,
+  fluxUnit = 9, yearPoints = NA, returnDataFrame = FALSE, flux = FALSE)
 }
 \arguments{
   \item{localAnnualResults}{string specifying the name of
@@ -32,23 +31,23 @@
   default is FALSE}
 }
 \value{
-  resultsDF dataframe describing trends in flow-normalized
-  concentration or flux if returnDataFrame is TRUE
+resultsDF dataframe describing trends in flow-normalized
+concentration or flux if returnDataFrame is TRUE
 
-  dataframe with Year1, Year2, change[mg/L], slope[mg/L],
-  change[percent], slope[percent] columns. The data in each
-  row is the change or slope calculated from Year1 to Year2
+dataframe with Year1, Year2, change[mg/L], slope[mg/L],
+change[percent], slope[percent] columns. The data in each
+row is the change or slope calculated from Year1 to Year2
 }
 \description{
-  This table describe trends in flow-normalized
-  concentration or flux depending on if flux is defined as
-  TRUE or FALSE. The results are described as changes in
-  real units or in percent and als as slopes in real units
-  per year or in percent per year. They are computed over
-  pairs of time points (Year1 to Year2).  These time points
-  can be user-defined or they can be set by the program to
-  be the final year of the record and a set of years that
-  are multiple of 5 years prior to that.
+This table describe trends in flow-normalized concentration
+or flux depending on if flux is defined as TRUE or FALSE.
+The results are described as changes in real units or in
+percent and als as slopes in real units per year or in
+percent per year. They are computed over pairs of time
+points (Year1 to Year2).  These time points can be
+user-defined or they can be set by the program to be the
+final year of the record and a set of years that are
+multiple of 5 years prior to that.
 }
 \examples{
 Daily <- ChopDaily

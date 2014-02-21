@@ -2,14 +2,12 @@
 \alias{genericEGRETDotPlot}
 \title{Generic EGRET plotting function}
 \usage{
-  genericEGRETDotPlot(x, y, xlim, ylim, xTicks, yTicks,
-    printTitle = TRUE, xaxs = "i", xlab = "", yaxs = "i",
-    ylab = "", plotTitle = "", pch = 20, cex = 0.7,
-    cex.main = 1.3, font.main = 2, cex.lab = 1.2,
-    tcl = 0.5, cex.axis = 1, las = 1, tinyPlot = FALSE,
-    hLine = FALSE, oneToOneLine = FALSE, rmSciX = FALSE,
-    rmSciY = FALSE, customPar = FALSE, col = "black",
-    lwd = 1, ...)
+genericEGRETDotPlot(x, y, xlim, ylim, xTicks, yTicks, printTitle = TRUE,
+  xaxs = "i", xlab = "", yaxs = "i", ylab = "", plotTitle = "",
+  pch = 20, cex = 0.7, cex.main = 1.3, font.main = 2, cex.lab = 1.2,
+  tcl = 0.5, cex.axis = 1, las = 1, xDate = FALSE, tinyPlot = FALSE,
+  hLine = FALSE, oneToOneLine = FALSE, rmSciX = FALSE, rmSciY = FALSE,
+  customPar = FALSE, col = "black", lwd = 1, ...)
 }
 \arguments{
   \item{x}{vector specifying the x data (required)}
@@ -86,6 +84,10 @@
   \item{rmSciY}{logical defaults to FALSE, changes y label
   from scientific to fixed}
 
+  \item{xDate}{logical defaults to FALSE, changes x label
+  to "year-month" format if set to TRUE and total years
+  less than 4.}
+
   \item{customPar}{logical defaults to FALSE. If TRUE,
   par() should be set by user before calling this function}
 
@@ -93,10 +95,10 @@
   adjusted}
 }
 \description{
-  Basic plotting framework for EGRET dot plots. Graphical
-  parameters default to values that work well with most
-  plots, but all can be re-assigned. See ?par for complete
-  definitions of most optional input variables.
+Basic plotting framework for EGRET dot plots. Graphical
+parameters default to values that work well with most
+plots, but all can be re-assigned. See ?par for complete
+definitions of most optional input variables.
 }
 \examples{
 x <- ChopDaily$Date

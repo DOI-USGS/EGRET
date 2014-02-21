@@ -2,13 +2,13 @@
 \alias{plotDiffContours}
 \title{Plots the difference between two years from a contour plot created by plotContours}
 \usage{
-  plotDiffContours(year0, year1, qBottom, qTop, maxDiff,
-    whatSurface = 3, localsurfaces = surfaces,
-    localINFO = INFO, localDaily = Daily, qUnit = 2,
-    span = 60, pval = 0.05, printTitle = TRUE,
-    plotPercent = FALSE, vert1 = NA, vert2 = NA,
-    horiz = NA, flowDuration = TRUE, yTicks = NA, lwd = 1,
-    cex.main = 0.95, cex.axis = 1, customPar = FALSE, ...)
+plotDiffContours(year0, year1, qBottom, qTop, maxDiff, whatSurface = 3,
+  localsurfaces = surfaces, localINFO = INFO, localDaily = Daily,
+  qUnit = 2, span = 60, pval = 0.05, printTitle = TRUE,
+  plotPercent = FALSE, vert1 = NA, vert2 = NA, horiz = NA,
+  flowDuration = TRUE, yTicks = NA, lwd = 1, cex.main = 0.95,
+  cex.axis = 1, customPar = FALSE,
+  color.palette = colorRampPalette(c("blue", "white", "red")), ...)
 }
 \arguments{
   \item{year0}{numeric value for the calendar year that is
@@ -67,11 +67,11 @@
   printed, if FALSE not printed}
 
   \item{vert1}{numeric, the location in time for a black
-  vertical line on the figure, yearStart<vert1<yearEnd,
+  vertical line on the figure, yearStart < vert1 < yearEnd,
   default is NA (vertical line is not drawn)}
 
   \item{vert2}{numeric, the location in time for a black
-  vertical line on the figure, yearStart<vert2<yearEnd,
+  vertical line on the figure, yearStart < vert2 < yearEnd,
   default is NA (vertical line is not drawn)}
 
   \item{horiz}{numeric, the location in discharge for a
@@ -94,6 +94,13 @@
 
   \item{lwd}{number line width}
 
+  \item{color.palette}{a function that creates a color
+  palette for the contour plot. Default goes from blue to
+  white to red using the function
+  \code{colorRampPalette(c("blue","white","red"))}. A few
+  preset options are heat.colors, topo.colors, and
+  terrain.colors.}
+
   \item{customPar}{logical defaults to FALSE. If TRUE,
   par() should be set by user before calling this function
   (for example, adjusting margins with
@@ -105,19 +112,19 @@
   parameters}
 }
 \description{
-  These plots are normally used for plotting changes in the
-  estimated concentration surface (whatSurface=3) but can
-  be used to explore the changes in estimated surfaces for
-  the log of concentration or for the standard error (in
-  log space) which is what determines the bias correction.
+These plots are normally used for plotting changes in the
+estimated concentration surface (whatSurface=3) but can be
+used to explore the changes in estimated surfaces for the
+log of concentration or for the standard error (in log
+space) which is what determines the bias correction.
 
-  Although there are a lot of optional arguments to this
-  function, most are set to a logical default. If your
-  workspace contains an INFO, and Daily dataframes, surface
-  array from modelEstimation, the max change in
-  concentration to plot, year and flow limits, then the
-  following R code will produce a plot:
-  \code{plotDiffContours(year0,year1,qBottom,qTop,maxDiff)}
+Although there are a lot of optional arguments to this
+function, most are set to a logical default. If your
+workspace contains an INFO, and Daily dataframes, surface
+array from modelEstimation, the max change in concentration
+to plot, year and flow limits, then the following R code
+will produce a plot:
+\code{plotDiffContours(year0,year1,qBottom,qTop,maxDiff)}
 }
 \examples{
 year0<-2001

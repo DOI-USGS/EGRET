@@ -2,12 +2,11 @@
 \alias{plotConcQ}
 \title{Plot of Observed Concentration versus Discharge}
 \usage{
-  plotConcQ(localSample = Sample, localINFO = INFO,
-    qUnit = 2, tinyPlot = FALSE, logScale = FALSE,
-    concMax = NA, concMin = NA, printTitle = TRUE,
-    cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
-    rmSciX = FALSE, rmSciY = FALSE, customPar = FALSE,
-    col = "black", lwd = 1, ...)
+plotConcQ(localSample = Sample, localINFO = INFO, qUnit = 2,
+  tinyPlot = FALSE, logScale = FALSE, concMax = NA, concMin = NA,
+  printTitle = TRUE, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
+  rmSciX = FALSE, rmSciY = FALSE, customPar = FALSE, col = "black",
+  lwd = 1, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -71,15 +70,14 @@
   options)}
 }
 \description{
-  Data come from a data frame named Sample which contains
-  the sample data. The metadata come from a data frame
-  named INFO. Discharge is plotted on a log scale.
+Data come from a data frame named Sample which contains the
+sample data. The metadata come from a data frame named
+INFO. Discharge is plotted on a log scale.
 
-  Although there are a lot of optional arguments to this
-  function, most are set to a logical default. If your
-  workspace contains an INFO and Sample dataframes, then
-  the following R code will produce a plot:
-  \code{plotConcQ()}
+Although there are a lot of optional arguments to this
+function, most are set to a logical default. If your
+workspace contains an INFO and Sample dataframes, then the
+following R code will produce a plot: \code{plotConcQ()}
 }
 \examples{
 Sample <- ChopSample

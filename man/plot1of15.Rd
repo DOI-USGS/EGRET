@@ -2,9 +2,8 @@
 \alias{plot1of15}
 \title{plots 1 of the 15 graphs of streamflow statistics on a single page}
 \usage{
-  plot1of15(yearStart, yearEnd, qf, istat,
-    localAnnualSeries = annualSeries, localINFO = INFO,
-    isBottom = FALSE)
+plot1of15(yearStart, yearEnd, qf, istat, localAnnualSeries = annualSeries,
+  localINFO = INFO, isBottom = FALSE)
 }
 \arguments{
   \item{yearStart}{A numeric value for the year in which
@@ -31,9 +30,9 @@
   not need labels}
 }
 \description{
-  Part of the flowHistory system.  The 15 graphs include
-  annual and four seasonal graphs for each of 3 flow
-  statistics: 1-day maximum, mean, and 7-day minimum
+Part of the flowHistory system.  The 15 graphs include
+annual and four seasonal graphs for each of 3 flow
+statistics: 1-day maximum, mean, and 7-day minimum
 }
 \examples{
 INFO <- ChopINFO

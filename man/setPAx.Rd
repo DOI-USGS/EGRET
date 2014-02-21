@@ -2,8 +2,7 @@
 \alias{setPAx}
 \title{A special version of setPA for use inside the plot15 function}
 \usage{
-  setPAx(paStart = 10, paLong = 12, window = 30,
-    localINFO = INFO)
+setPAx(paStart = 10, paLong = 12, window = 30, localINFO = INFO)
 }
 \arguments{
   \item{paStart}{A numeric value for the starting month of
@@ -20,11 +19,11 @@
   of the metadata data frame}
 }
 \value{
-  localInfo A data frame containing the metadata
+localInfo A data frame containing the metadata
 }
 \description{
-  Part of the flowHistory system Users should not need to
-  call this function
+Part of the flowHistory system Users should not need to
+call this function
 }
 \examples{
 INFO <- ChopINFO

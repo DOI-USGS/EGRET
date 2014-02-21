@@ -2,12 +2,10 @@
 \alias{plotConcTimeDaily}
 \title{Plot of the time series of daily concentration estimates and the sample values for the days that were sampled}
 \usage{
-  plotConcTimeDaily(startYear = NA, endYear = NA,
-    localSample = Sample, localDaily = Daily,
-    localINFO = INFO, tinyPlot = FALSE, concMax = NA,
-    printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
-    cex.main = 1.1, customPar = FALSE, col = "black",
-    lwd = 1, ...)
+plotConcTimeDaily(startYear = NA, endYear = NA, localSample = Sample,
+  localDaily = Daily, localINFO = INFO, tinyPlot = FALSE, concMax = NA,
+  printTitle = TRUE, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
+  customPar = FALSE, col = "black", lwd = 1, ...)
 }
 \arguments{
   \item{startYear}{numeric specifying the starting date
@@ -63,18 +61,18 @@
   parameters}
 }
 \description{
-  This plot is useful for visual examination of the ability
-  of the WRTDS, or other model, to fit the data, seen in a
-  time-series perspective. The graph is most useful when it
-  covers a period of just a few years and not the complete
-  record but a complete record can be done by repeated use
-  over a series of segments.
+This plot is useful for visual examination of the ability
+of the WRTDS, or other model, to fit the data, seen in a
+time-series perspective. The graph is most useful when it
+covers a period of just a few years and not the complete
+record but a complete record can be done by repeated use
+over a series of segments.
 
-  Although there are a lot of optional arguments to this
-  function, most are set to a logical default. If your
-  workspace contains an INFO, Daily, and Sample dataframes,
-  then the following R code will produce a plot:
-  \code{plotConcTimeDaily()}
+Although there are a lot of optional arguments to this
+function, most are set to a logical default. If your
+workspace contains an INFO, Daily, and Sample dataframes,
+then the following R code will produce a plot:
+\code{plotConcTimeDaily()}
 }
 \examples{
 Sample <- ChopSample

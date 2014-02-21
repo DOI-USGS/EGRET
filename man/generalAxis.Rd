@@ -2,8 +2,8 @@
 \alias{generalAxis}
 \title{Axis generation for log discharge}
 \usage{
-  generalAxis(x, maxVal, minVal, logScale = FALSE,
-    tinyPlot = FALSE, padPercent = 5)
+generalAxis(x, maxVal, minVal, logScale = FALSE, tinyPlot = FALSE,
+  padPercent = 5)
 }
 \arguments{
   \item{x}{vector to create scale about}
@@ -21,7 +21,7 @@
   not specified}
 }
 \description{
-  Discharge axis tick generation
+Discharge axis tick generation
 }
 \examples{
 Daily <- ChopDaily

@@ -2,17 +2,14 @@
 \alias{plotConcTimeSmooth}
 \title{Plot up to three curves representing the concentration versus time relationship, each curve representing a different flow.}
 \usage{
-  plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart,
-    yearEnd, qUnit = 2, legendLeft = 0, legendTop = 0,
-    concMax = NA, concMin = NA, bw = FALSE,
-    printTitle = TRUE, colors = c("black", "red", "green"),
-    printValues = FALSE, localSample = Sample,
-    localINFO = INFO, tinyPlot = FALSE, minNumObs = 100,
-    minNumUncen = 50, windowY = 10, windowQ = 2,
-    windowS = 0.5, cex.main = 1.1, lwd = 2,
-    printLegend = TRUE, cex.legend = 1.2, cex = 0.8,
-    cex.axis = 1.1, customPar = FALSE,
-    lineVal = c(1, 1, 1), logScale = FALSE, ...)
+plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd, qUnit = 2,
+  legendLeft = 0, legendTop = 0, concMax = NA, concMin = NA,
+  bw = FALSE, printTitle = TRUE, colors = c("black", "red", "green"),
+  printValues = FALSE, localSample = Sample, localINFO = INFO,
+  tinyPlot = FALSE, minNumObs = 100, minNumUncen = 50, windowY = 10,
+  windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2,
+  printLegend = TRUE, cex.legend = 1.2, cex = 0.8, cex.axis = 1.1,
+  customPar = FALSE, lineVal = c(1, 1, 1), logScale = FALSE, ...)
 }
 \arguments{
   \item{q1}{numeric This is the discharge value for the
@@ -146,16 +143,16 @@
   parameters}
 }
 \description{
-  These plots show how the concentration-time relationship
-  is changing over flow.
+These plots show how the concentration-time relationship is
+changing over flow.
 
-  Although there are a lot of optional arguments to this
-  function, most are set to a logical default. If your
-  workspace contains an INFO, and Sample dataframes, 3
-  discharge values, a center date, and start and end years,
-  then the following R code will produce a plot:
-  \code{plotConcTimeSmooth(q1, q2, q3, centerDate,
-  yearStart, yearEnd)}
+Although there are a lot of optional arguments to this
+function, most are set to a logical default. If your
+workspace contains an INFO, and Sample dataframes, 3
+discharge values, a center date, and start and end years,
+then the following R code will produce a plot:
+\code{plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart,
+yearEnd)}
 }
 \examples{
 q1 <- 10

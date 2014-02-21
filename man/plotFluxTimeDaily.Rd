@@ -2,12 +2,10 @@
 \alias{plotFluxTimeDaily}
 \title{Plot of the time series of daily flux estimates and the sample values for the days that were sampled}
 \usage{
-  plotFluxTimeDaily(startYear = NA, endYear = NA,
-    localSample = Sample, localDaily = Daily,
-    localINFO = INFO, tinyPlot = FALSE, fluxUnit = 3,
-    fluxMax = NA, printTitle = TRUE, cex = 0.8,
-    cex.axis = 1.1, cex.main = 1.1, customPar = FALSE,
-    col = "black", lwd = 1, ...)
+plotFluxTimeDaily(startYear = NA, endYear = NA, localSample = Sample,
+  localDaily = Daily, localINFO = INFO, tinyPlot = FALSE, fluxUnit = 3,
+  fluxMax = NA, printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
+  cex.main = 1.1, customPar = FALSE, col = "black", lwd = 1, ...)
 }
 \arguments{
   \item{startYear}{numeric specifying the starting date
@@ -66,15 +64,15 @@
   options)}
 }
 \description{
-  This plot is useful for visual examination of the ability
-  of the WRTDS, or other model, to fit the data, as seen in
-  a time-series perspective.
+This plot is useful for visual examination of the ability
+of the WRTDS, or other model, to fit the data, as seen in a
+time-series perspective.
 
-  Although there are a lot of optional arguments to this
-  function, most are set to a logical default. If your
-  workspace contains an INFO, Daily, and Sample dataframes,
-  then the following R code will produce a plot:
-  \code{plotFluxTimeDaily()}
+Although there are a lot of optional arguments to this
+function, most are set to a logical default. If your
+workspace contains an INFO, Daily, and Sample dataframes,
+then the following R code will produce a plot:
+\code{plotFluxTimeDaily()}
 }
 \examples{
 Sample <- ChopSample

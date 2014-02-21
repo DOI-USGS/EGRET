@@ -2,9 +2,8 @@
 \alias{tableResults}
 \title{Table of annual results for discharge, concentration and flux}
 \usage{
-  tableResults(localAnnualResults = AnnualResults,
-    localINFO = INFO, qUnit = 2, fluxUnit = 9,
-    returnDataFrame = FALSE)
+tableResults(localAnnualResults = AnnualResults, localINFO = INFO,
+  qUnit = 2, fluxUnit = 9, returnDataFrame = FALSE)
 }
 \arguments{
   \item{localAnnualResults}{string specifying the name of
@@ -27,17 +26,17 @@
   FALSE.}
 }
 \value{
-  results dataframe, if returnDataFrame=TRUE
+results dataframe, if returnDataFrame=TRUE
 
-  dataframe with year, discharge, concentration,
-  flow-normalized concentration, flux, and flow-normalized
-  concentration columns.
+dataframe with year, discharge, concentration,
+flow-normalized concentration, flux, and flow-normalized
+concentration columns.
 }
 \description{
-  Produce an ASCII table showing: year, mean discharge,
-  mean concentration, flow-normalized concentration, mean
-  flux, and flow-normalized flux. Uses results stored in
-  AnnualResults and INFO data frames.
+Produce an ASCII table showing: year, mean discharge, mean
+concentration, flow-normalized concentration, mean flux,
+and flow-normalized flux. Uses results stored in
+AnnualResults and INFO data frames.
 }
 \examples{
 Daily <- ChopDaily

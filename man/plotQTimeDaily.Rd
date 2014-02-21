@@ -2,11 +2,10 @@
 \alias{plotQTimeDaily}
 \title{Plot of the discharge time series}
 \usage{
-  plotQTimeDaily(startYear = NA, endYear = NA,
-    localDaily = Daily, localINFO = INFO, qLower = NA,
-    qUnit = 1, tinyPlot = FALSE, printTitle = TRUE,
-    lwd = 3, col = "red", cex.main = 1.2, cex.lab = 1.2,
-    customPar = FALSE, ...)
+plotQTimeDaily(startYear = NA, endYear = NA, localDaily = Daily,
+  localINFO = INFO, qLower = NA, qUnit = 1, tinyPlot = FALSE,
+  printTitle = TRUE, lwd = 3, col = "red", cex.main = 1.2,
+  cex.lab = 1.2, customPar = FALSE, ...)
 }
 \arguments{
   \item{startYear}{numeric indicating the starting year for
@@ -60,14 +59,14 @@
   options)}
 }
 \description{
-  Part of flowHistory component. Allows discharge record to
-  only show those discharges above a given threshold
+Part of flowHistory component. Allows discharge record to
+only show those discharges above a given threshold
 
-  Although there are a lot of optional arguments to this
-  function, most are set to a logical default. If your
-  workspace contains an INFO and Sample dataframes, then
-  the following R code will produce a plot:
-  \code{plotQTimeDaily()}
+Although there are a lot of optional arguments to this
+function, most are set to a logical default. If your
+workspace contains an INFO and Sample dataframes, then the
+following R code will produce a plot:
+\code{plotQTimeDaily()}
 }
 \examples{
 Daily <- ChopDaily

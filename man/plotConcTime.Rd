@@ -2,12 +2,11 @@
 \alias{plotConcTime}
 \title{Plot of Observed Concentration versus Time}
 \usage{
-  plotConcTime(localSample = Sample, localINFO = INFO,
-    qUnit = 2, qLower = NA, qUpper = NA, paLong = 12,
-    paStart = 10, tinyPlot = FALSE, concMax = NA,
-    concMin = NA, printTitle = TRUE, logScale = FALSE,
-    cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
-    customPar = FALSE, col = "black", lwd = 1, ...)
+plotConcTime(localSample = Sample, localINFO = INFO, qUnit = 2,
+  qLower = NA, qUpper = NA, tinyPlot = FALSE, concMax = NA,
+  concMin = NA, printTitle = TRUE, logScale = FALSE, cex = 0.8,
+  cex.axis = 1.1, cex.main = 1.1, customPar = FALSE, col = "black",
+  lwd = 1, ...)
 }
 \arguments{
   \item{localSample}{string specifying the name of the data
@@ -31,19 +30,6 @@
   discharge for selection of data points to be plotted,
   units are those specified by qUnit, default = NA which is
   equivalent to an upper bound of infinity}
-
-  \item{paLong}{numeric, this is the length of the portion
-  of the year from which data should be included in the
-  plot, paLong must be an integer between 1 and 12.  The
-  default is 12, which prints data from all months.}
-
-  \item{paStart}{numeric, this is the starting month of the
-  portion of the year from which data should be included in
-  the plot, paStart must be an integer between 1 and 12.
-  The default is 10, which corresponds to the water year,
-  which starts in October.  If paLong = 12 then the choice
-  of paStart is of no consequence.  All months will be
-  included.}
 
   \item{tinyPlot}{logical variable, if TRUE plot is
   designed to be plotted small as part of a multipart
@@ -90,29 +76,32 @@
   parameters.}
 }
 \description{
-  Data come from a data frame named Sample which contains
-  the sample data. The metadata come from a data frame
-  named INFO. This function allows the user to plot all of
-  the data, but also to limit it in two ways.  The data can
-  be limited to only those observed concentrations
-  collected in a specified discharge range.  The data can
-  also be limited to only those observed in certain months
-  of the year.  These two selection criteria can be
-  combined. For example, we may only want to plot data for
-  discharges between 100 and 500 cubic feet per second in
-  the months of March, April and May.
+Data come from a data frame named Sample which contains the
+sample data. The metadata come from a data frame named
+INFO. This function allows the user to plot all of the
+data, but also to limit it in two ways.  The data can be
+limited to only those observed concentrations collected in
+a specified discharge range.  The data can also be limited
+to only those observed in certain months of the year.
+These two selection criteria can be combined. For example,
+we may only want to plot data for discharges between 100
+and 500 cubic feet per second in the months of March, April
+and May.
 
-  Although there are a lot of optional arguments to this
-  function, most are set to a logical default. If your
-  workspace contains an INFO and Sample dataframes, then
-  the following R code will produce a plot:
-  \code{plotConcTime()}
+Although there are a lot of optional arguments to this
+function, most are set to a logical default. If your
+workspace contains an INFO and Sample dataframes, then the
+following R code will produce a plot: \code{plotConcTime()}
 }
 \examples{
 Sample <- ChopSample
 INFO <- ChopINFO
-plotConcTime(qUnit = 1, qLower = 100, qUpper = 10000, paLong = 3, paStart = 4)
+# Water year:
+INFO <- setPA()
 plotConcTime()
+# Graphs consisting of Jun-Aug
+INFO <- setPA(paStart=6,paLong=3)
+plotConcTime(qUnit = 1, qLower = 100, qUpper = 10000)
 plotConcTime(logScale=TRUE)
 }
 \keyword{graphics}
