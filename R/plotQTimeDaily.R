@@ -79,7 +79,7 @@ plotQTimeDaily<-function (startYear=NA, endYear=NA, localDaily = Daily,
                       xlab="", ylab=yLab, customPar=customPar,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks, tinyPlot=tinyPlot,
                       plotTitle=plotTitle, cex.main=cex.main,cex.lab=cex.lab,
-                      type="l",col=col,lwd=lwd,...
+                      type="l",col=col,lwd=lwd, xDate=TRUE,...
   )
 
 }
