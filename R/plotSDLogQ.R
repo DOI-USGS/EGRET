@@ -32,7 +32,13 @@
 #' @examples
 #' Daily <- ChopDaily
 #' INFO <- ChopINFO
-#' plotSDLogQ()  
+#' # Water year:
+#' INFO <- setPA()
+#' plotSDLogQ() 
+#' plotSDLogQ(1998,2000) 
+#' # Graphs consisting of Jun-Aug
+#' INFO <- setPA(paStart=6,paLong=3)
+#' plotSDLogQ() 
 plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
                      localINFO=INFO,sdMax=NA,printTitle = TRUE, tinyPlot = FALSE, 
                      printStaName = TRUE, printPA = TRUE, cex=0.8,
@@ -49,7 +55,6 @@ plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
   numResults<-length(startDays)
   y<-rep(NA,numResults)
   xmid<-startDays+(window/2)
-  
   
   for (i in 1:numResults){
     firstDay<-startDays[i]
@@ -81,7 +86,7 @@ plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
   genericEGRETDotPlot(x=xmid,#localDaily$DecYear,
                       y=y,
                       xlim=c(xInfo$bottom,xInfo$top),ylim=c(yInfo$bottom,yInfo$top),
-                      xlab="",ylab="Dimensionless",
+                      xlab="",ylab="Dimensionless",xDate=TRUE,
                       xTicks=xInfo$ticks,yTicks=yInfo$ticks,cex=cex,tinyPlot=tinyPlot,
                       plotTitle=title, cex.main=cex.main, cex.axis = cex.axis,
                       type="l", lwd=lwd, customPar=customPar, ...
