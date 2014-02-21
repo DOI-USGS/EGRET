@@ -28,8 +28,13 @@
 #' @examples
 #' INFO <- ChopINFO
 #' Daily <- ChopDaily
+#' #Water year:
 #' annualSeries <- makeAnnualSeries()
-#' plotFour(window=2)
+#' plotFour()
+#' # Graphs consisting of Jun-Aug
+#' INFO <- setPA(paStart=6,paLong=3)
+#' annualSeries <- makeAnnualSeries()
+#' plotFour() 
 plotFour<-function (localINFO = INFO, localAnnualSeries = annualSeries, localDaily = Daily, 
                     yearStart = NA, yearEnd = NA, printTitle = TRUE, runoff = FALSE, 
                     qUnit = 1, window=15, cex = 0.8, cex.axis = 1.2,cex.main=1.2,
