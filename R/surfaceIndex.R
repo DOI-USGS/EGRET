@@ -2,7 +2,7 @@
 #'
 #'     The code here is a repetition of the first part of the code for estSurfaces
 #'
-#' @param localDaily string specifying the name of the data frame containing the daily values, default is Daily
+#' @param localDaily data frame containing the daily values, default is Daily
 #' @keywords water-quality statistics
 #' @return surfaceIndexParameters a numeric vector of length 6, defining the grid for the surfaces
 #' @export

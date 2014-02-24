@@ -5,11 +5,10 @@
 makeAnnualSeries(localDaily = Daily, localINFO = INFO)
 }
 \arguments{
-  \item{localDaily}{string specifying the name of a data
-  frame that contains the daily streamflow data}
+  \item{localDaily}{data frame that contains the daily
+  streamflow data}
 
-  \item{localINFO}{string specifying the name of a data
-  frame that contains the metadata}
+  \item{localINFO}{data frame that contains the metadata}
 }
 \value{
 annualSeries data frame that contains the annual series of

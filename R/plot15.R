@@ -4,8 +4,8 @@
 #'
 #' @param yearStart A numeric value for year in which the graph should start, default is NA, which indicates that the graph should start with first annual value
 #' @param yearEnd A numeric value for year in which the graph should end, default is NA, which indicates that the graph should end with last annual value
-#' @param localDaily string specifying the name of the data frame that contains the daily data, default is Daily
-#' @param localINFO string specifying the name of the data frame that contains the metadata, default is INFO
+#' @param localDaily data frame that contains the daily data, default is Daily
+#' @param localINFO data frame that contains the metadata, default is INFO
 #' @keywords graphics streamflow statistics
 #' @export
 #' @examples

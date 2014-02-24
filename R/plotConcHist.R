@@ -14,8 +14,8 @@
 #'
 #' @param yearStart numeric is the calendar year containing the first estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)
 #' @param yearEnd numeric is the calendar year just after the last estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)
-#' @param localAnnualResults string specifying the name of the data frame that contains the annual results, default name is AnnualResults
-#' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
+#' @param localDaily data frame that contains the flow data, default name is Daily
+#' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
 #' @param plotFlowNorm logical variable if TRUE flow normalized line is plotted, if FALSE not plotted 
@@ -37,9 +37,13 @@
 #' yearEnd <- 2010
 #' INFO <- ChopINFO
 #' Daily <- ChopDaily
-#' AnnualResults <- setupYears()
+#' # Water year:
+#' INFO <- setPA()
 #' plotConcHist(yearStart, yearEnd)
-plotConcHist<-function(yearStart = NA, yearEnd = NA, localAnnualResults = AnnualResults, 
+#' # Graphs consisting of Jun-Aug
+#' INFO <- setPA(paStart=6,paLong=3)
+#' plotConcHist(yearStart, yearEnd)
+plotConcHist<-function(yearStart = NA, yearEnd = NA, localDaily = Daily, 
         localINFO = INFO, concMax = NA, printTitle = TRUE, tinyPlot = FALSE,plotFlowNorm = TRUE,
         cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2, col="black", col.pred="green", customPar=FALSE,...){
   # produces a graph of annual mean concentration and flow normalized concentration versus year
@@ -49,6 +53,8 @@ plotConcHist<-function(yearStart = NA, yearEnd = NA, localAnnualResults = Annual
   # yearEnd is the start of the calendar year after the last estimated annual value
   # if you want to specify the maximum value, you can do so with the argument concMax, otherwise it will be automatic
 
+  localAnnualResults <- setupYears(paStart=localINFO$paStart,paLong=localINFO$paLong, localDaily = localDaily)
+  
   periodName<-setSeasonLabel(localAnnualResults=localAnnualResults)
   title3<-if(plotFlowNorm) "\nMean Concentration (dots) & Flow Normalized Concentration (line)" else "\nAnnual Mean Concentration"
   title<-if(printTitle) paste(localINFO$shortName," ",localINFO$paramShortName,"\n",periodName,title3) else ""
@@ -62,7 +68,7 @@ plotConcHist<-function(yearStart = NA, yearEnd = NA, localAnnualResults = Annual
   yInfo <- generalAxis(x=combinedY, minVal=0, maxVal=concMax, padPercent=5, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=localAnnualResults$DecYear, y=localAnnualResults$Conc,
-                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,xDate=TRUE,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       ylab="Concentration in mg/L", col=col,cex=cex,
                       plotTitle=title, cex.axis=cex.axis,cex.main=cex.main,

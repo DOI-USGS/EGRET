@@ -7,15 +7,14 @@ boxQTwice(localSample = Sample, localDaily = Daily, localINFO = INFO,
   cex.axis = 1.1, tinyPlot = FALSE, customPar = FALSE, ...)
 }
 \arguments{
-  \item{localSample}{string specifying the name of the data
-  frame that contains the concentration data, default name
-  is Sample}
+  \item{localSample}{data frame that contains the
+  concentration data, default name is Sample}
 
-  \item{localDaily}{string specifying the name of the data
-  frame that contains the flow data, default name is Daily}
+  \item{localDaily}{data frame that contains the flow data,
+  default name is Daily}
 
-  \item{localINFO}{string specifying the name of the data
-  frame that contains the metadata, default name is INFO}
+  \item{localINFO}{data frame that contains the metadata,
+  default name is INFO}
 
   \item{printTitle}{logical variable if TRUE title is
   printed, if FALSE not printed (this is best for a
@@ -64,9 +63,14 @@ then the following R code will produce a plot:
 Sample <- ChopSample
 Daily <- ChopDaily
 INFO <- ChopINFO
+# Water year:
+INFO <- setPA()
 boxQTwice()
 boxQTwice(qUnit=1)
 boxQTwice(qUnit='cfs')
+# Graphs consisting of Jun-Aug
+INFO <- setPA(paStart=6,paLong=3)
+boxQTwice()
 }
 \keyword{graphics}
 \keyword{statistics}

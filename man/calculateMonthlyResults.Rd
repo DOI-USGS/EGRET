@@ -5,8 +5,8 @@
 calculateMonthlyResults(localDaily = Daily)
 }
 \arguments{
-  \item{localDaily}{string specifying the name of the data
-  frame containing the daily values, default is Daily}
+  \item{localDaily}{data frame containing the daily values,
+  default is Daily}
 }
 \value{
 MonthlyResults data frame of numeric values describing the

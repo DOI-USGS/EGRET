@@ -10,25 +10,45 @@
 #' contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
 #' \code{multiPlotDataOverview()}
 #'
-#' @param localSample string specifying the name of the data frame that contains the concentration data, default name is Sample
-#' @param localDaily string specifying the name of the data frame that contains the flow data, default name is Daily 
-#' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
+#' @param localSample data frame that contains the concentration data, default name is Sample
+#' @param localDaily data frame that contains the flow data, default name is Daily 
+#' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
+#' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
 #' Sample <- ChopSample
 #' Daily <- ChopDaily
 #' INFO <- ChopINFO
+#' # Water year:
+#' INFO <- setPA()
 #' multiPlotDataOverview(qUnit=1)
+#' # Graphs consisting of Jun-Aug
+#' INFO <- setPA(paStart=6,paLong=3)
+#' multiPlotDataOverview(qUnit=1) 
 multiPlotDataOverview<-function (localSample = Sample, localDaily = Daily, 
-                                 localINFO = INFO, qUnit = 2){
+                                 localINFO = INFO, qUnit = 2,cex.main=1.2){
+  
+  paLong <- localINFO$paLong
+  paStart <- localINFO$paStart
+  title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
+  
   par(mfcol=c(2,2),oma=c(0,2.4,4.5,2.4),tcl=0.5)
   plotConcQ(localSample = localSample, qUnit = qUnit, tinyPlot = TRUE, printTitle = FALSE,rmSciX=TRUE,logScale=TRUE)
   boxConcMonth(localSample = localSample, printTitle = FALSE, tinyPlot=TRUE)
   plotConcTime(localSample = localSample, printTitle = FALSE, tinyPlot = TRUE,logScale=TRUE)
   boxQTwice(localSample = localSample, localDaily = localDaily, printTitle = FALSE, qUnit = qUnit, tinyPlot=TRUE)
   title<-paste(localINFO$shortName,"\n",localINFO$paramShortName)
-  mtext(title,cex=1.2,outer=TRUE,font=2)
+  
+  if("" == title2){
+    mtext(title,cex=cex.main,outer=TRUE,font=2)
+  } else {
+    title <- paste(title, title2, sep="\n")
+    mtext(title, cex = cex.main*.75, outer = TRUE, font = 2)    
+  }
+  
+  
+  
   par(mfcol=c(1,1),oma=c(0,0,0,0))
 }

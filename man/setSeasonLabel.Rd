@@ -5,9 +5,8 @@
 setSeasonLabel(localAnnualResults = AnnualResults)
 }
 \arguments{
-  \item{localAnnualResults}{string specifying the name of
-  the data frame that contains the annual results, default
-  is AnnualResults}
+  \item{localAnnualResults}{data frame that contains the
+  annual results, default is AnnualResults}
 }
 \value{
 periodName string which describes the period of analysis

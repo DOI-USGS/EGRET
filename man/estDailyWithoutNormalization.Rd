@@ -6,11 +6,11 @@ estDailyWithoutNormalization(localDaily = Daily, localINFO = INFO,
   localsurfaces = surfaces)
 }
 \arguments{
-  \item{localDaily}{string specifying the name of the data
-  frame containing the daily values, default is Daily}
+  \item{localDaily}{data frame containing the daily values,
+  default is Daily}
 
-  \item{localINFO}{string specifying the name of the data
-  frame containing the meta-data, default is INFO}
+  \item{localINFO}{data frame containing the meta-data,
+  default is INFO}
 
   \item{localsurfaces}{string specifying the name of the
   array containing the three surfaces, default is surfaces}

@@ -15,9 +15,9 @@
 #' @param qBottom numeric value for the bottom edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit)
 #' @param qTop numeric value for the top edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit)
 #' @param whatSurface numeric value, can only accept 1, 2, or 3;  whatSurface=1 is yHat (log concentration), whatSurface=2 is SE (standard error of log concentration), and whatSurface=3 is ConcHat (unbiased estimate of concentration), default = 3
-#' @param localsurfaces string specifying the name of the matrix that contains the estimated surfaces, default is surfaces
-#' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
-#' @param localDaily string specifying the name of the data frame that contains the daily data, default name is Daily
+#' @param localsurfaces matrix that contains the estimated surfaces, default is surfaces
+#' @param localINFO data frame that contains the metadata, default name is INFO
+#' @param localDaily data frame that contains the daily data, default name is Daily
 #' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param contourLevels numeric vector containing the contour levels for the contour plot, arranged in ascending order, default is NA (which causes the contour levels to be set automatically, based on the data)
 #' @param span numeric, it is the half-width (in days) of the smoothing window for computing the flow duration information, default = 60

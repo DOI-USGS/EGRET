@@ -20,11 +20,11 @@ plotFlowSingle(istat, yearStart = NA, yearEnd = NA, localINFO = INFO,
   graph should end, default is NA, which indicates that the
   graph should end with last annual value}
 
-  \item{localINFO}{A character string specifying the name
-  of the metadata data frame}
+  \item{localINFO}{data frame that contains the metadata,
+  default name is INFO}
 
-  \item{localAnnualSeries}{A character string specifying
-  the name of a data frame containing the annual series}
+  \item{localAnnualSeries}{data frame containing the annual
+  series, default is AnnualSeries}
 
   \item{qMax}{A numeric value for the maximum value to be
   used for y-axis of graph, default is NA means that graph

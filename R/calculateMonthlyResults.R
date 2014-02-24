@@ -4,7 +4,7 @@
 #'     It also saves (for each month) the month sequence number (months starting with January, 1850) and the average value of DecYear.
 #'     It returns a data frame containing MonthSeq and average values of DecYear, Q, Conc, Flux, FNConc, and FNFlux.
 #'
-#' @param localDaily string specifying the name of the data frame containing the daily values, default is Daily
+#' @param localDaily data frame containing the daily values, default is Daily
 #' @keywords water-quality statistics
 #' @return MonthlyResults data frame of numeric values describing the monthly average values
 #' @export

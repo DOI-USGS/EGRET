@@ -3,22 +3,24 @@
 \title{Produces a 4 panel plot that gives an overview of the data set prior to any processing}
 \usage{
 multiPlotDataOverview(localSample = Sample, localDaily = Daily,
-  localINFO = INFO, qUnit = 2)
+  localINFO = INFO, qUnit = 2, cex.main = 1.2)
 }
 \arguments{
-  \item{localSample}{string specifying the name of the data
-  frame that contains the concentration data, default name
-  is Sample}
+  \item{localSample}{data frame that contains the
+  concentration data, default name is Sample}
 
-  \item{localDaily}{string specifying the name of the data
-  frame that contains the flow data, default name is Daily}
+  \item{localDaily}{data frame that contains the flow data,
+  default name is Daily}
 
-  \item{localINFO}{string specifying the name of the data
-  frame that contains the metadata, default name is INFO}
+  \item{localINFO}{data frame that contains the metadata,
+  default name is INFO}
 
   \item{qUnit}{object of qUnit class \code{\link{qConst}},
   or numeric represented the short code, or character
   representing the descriptive name.}
+
+  \item{cex.main}{magnification to be used for main titles
+  relative to the current setting of cex}
 }
 \description{
 The four plots produced are 1) log concentration versus log
@@ -38,6 +40,11 @@ then the following R code will produce a plot:
 Sample <- ChopSample
 Daily <- ChopDaily
 INFO <- ChopINFO
+# Water year:
+INFO <- setPA()
+multiPlotDataOverview(qUnit=1)
+# Graphs consisting of Jun-Aug
+INFO <- setPA(paStart=6,paLong=3)
 multiPlotDataOverview(qUnit=1)
 }
 \keyword{graphics}

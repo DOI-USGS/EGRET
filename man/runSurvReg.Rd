@@ -7,8 +7,8 @@ runSurvReg(estPtYear, estPtLQ, localSample = Sample, windowY = 10,
   interactive = TRUE)
 }
 \arguments{
-  \item{localSample}{string specifying the name of the data
-  frame containing the sample values, default is Sample}
+  \item{localSample}{data frame containing the sample
+  values, default is Sample}
 
   \item{estPtYear}{numeric vector of Decimal Year values at
   the estimation points}

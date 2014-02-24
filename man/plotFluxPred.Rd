@@ -9,12 +9,11 @@ plotFluxPred(localSample = Sample, localINFO = INFO, fluxUnit = 3,
   ...)
 }
 \arguments{
-  \item{localSample}{string specifying the name of the data
-  frame that contains the concentration data, default name
-  is Sample}
+  \item{localSample}{data frame that contains the
+  concentration data, default name is Sample}
 
-  \item{localINFO}{string specifying the name of the data
-  frame that contains the metadata, default name is INFO}
+  \item{localINFO}{data frame that contains the metadata,
+  default name is INFO}
 
   \item{fluxUnit}{number representing entry in pre-defined
   fluxUnit class array. \code{\link{fluxConst}}}
@@ -73,9 +72,14 @@ following R code will produce a plot: \code{plotFluxPred()}
 \examples{
 Sample <- ChopSample
 INFO <- ChopINFO
+# Water year:
+INFO <- setPA()
 plotFluxPred()
 plotFluxPred(fluxUnit = 'poundsDay')
 plotFluxPred(logScale=TRUE)
+# Graphs consisting of Jun-Aug
+INFO <- setPA(paStart=6,paLong=3)
+plotFluxPred()
 }
 \keyword{graphics}
 \keyword{statistics}

@@ -9,8 +9,8 @@
 #' @param istat A numeric value for the flow statistic to be graphed (possible values are 1 through 8)
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param runoff logical variable, if TRUE the streamflow data are converted to runoff values in mm/day
-#' @param localINFO A character string specifying the name of the metadata data frame
-#' @param localAnnualSeries A character string specifying the name of a data frame containing the annual series
+#' @param localINFO data frame that contains the metadata, default is INFO
+#' @param localAnnualSeries data frame containing the annual series, default is AnnualSeries
 #' @keywords streamflow statistics
 #' @export
 #' @examples

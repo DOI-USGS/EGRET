@@ -15,11 +15,11 @@ plotQTimeDaily(startYear = NA, endYear = NA, localDaily = Daily,
   graph (should be a time in decimal years that is after
   the last observations to be plotted)}
 
-  \item{localDaily}{string specifying the name of the data
-  frame that contains the flow data, default name is Daily}
+  \item{localDaily}{data frame that contains the flow data,
+  default name is Daily}
 
-  \item{localINFO}{string specifying the name of the data
-  frame that contains the metadata, default name is INFO}
+  \item{localINFO}{data frame that contains the metadata,
+  default name is INFO}
 
   \item{qLower}{numeric specifying the lower bound on
   discharges that are to be plotted, must be in the units
@@ -71,8 +71,13 @@ following R code will produce a plot:
 \examples{
 Daily <- ChopDaily
 INFO <- ChopINFO
+# Water year:
+INFO <- setPA()
 plotQTimeDaily()
 plotQTimeDaily(startYear=1990, endYear=2000,qLower=1000)
+# Graphs consisting of Jun-Aug
+INFO <- setPA(paStart=6,paLong=3)
+plotQTimeDaily()
 }
 \keyword{graphics}
 \keyword{streamflow}

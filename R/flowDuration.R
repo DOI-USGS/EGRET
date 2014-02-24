@@ -5,8 +5,8 @@
 #' This is particularly useful in setting up discharge scales for various other plots in this package. 
 #'
 #' @param centerDate string specifying the center date of the part of the year for which the flow duration is to be calculated, it is in the form "mm-dd" (it must be in quotes), default is "09-30"
-#' @param localDaily string specifying the name of the data frame that contains the daily discharge data, default name is Daily
-#' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
+#' @param localDaily data frame that contains the daily discharge data, default name is Daily
+#' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param span number this is the half-width of the window over which the discharge values are to be used in constructing the flow-duration curve. If the full year is desired any value greater than 182 will provide serve. Note that for a window of about 2-months width, a span value shoud be about 30.
 #' @return qDuration A named vector with flow duration information.

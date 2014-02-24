@@ -9,7 +9,7 @@
 #' This might arise in a call from plotConcTime or plotLogConcTime. 
 #' That function is called setSeasonLabelByUser. 
 #'
-#' @param localAnnualResults string specifying the name of the data frame that contains the annual results, default is AnnualResults
+#' @param localAnnualResults data frame that contains the annual results, default is AnnualResults
 #' @keywords water quality graphics
 #' @export
 #' @return periodName string which describes the period of analysis

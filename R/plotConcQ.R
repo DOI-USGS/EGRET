@@ -9,8 +9,8 @@
 #' contains an INFO and Sample dataframes, then the following R code will produce a plot:
 #' \code{plotConcQ()}
 #'
-#' @param localSample string specifying the name of the data frame that contains the concentration data, default name is Sample
-#' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
+#' @param localSample data frame that contains the concentration data, default name is Sample
+#' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param logScale logical if TRUE x and y plotted in log axis
@@ -32,13 +32,23 @@
 #' @examples
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
+#' # Water year:
+#' INFO <- setPA()
 #' plotConcQ()
 #' plotConcQ(logScale=TRUE)
+#' # Graphs consisting of Jun-Aug
+#' INFO <- setPA(paStart=6,paLong=3)
+#' plotConcQ()
 plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot = FALSE, logScale=FALSE,
                     concMax = NA, concMin =NA, printTitle = TRUE, cex=0.8, cex.axis=1.1,cex.main=1.1,
                     rmSciX=FALSE,rmSciY=FALSE, customPar=FALSE,col="black",lwd=1,...){
   # this function shows the sample data,
   # discharge on x-axis on a log scale, concentration on y-axis
+  
+  paLong <- localINFO$paLong
+  paStart <- localINFO$paStart  
+  localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
+  title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
@@ -86,5 +96,6 @@ plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot 
   )
   
   censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen,col=col,lwd=lwd)
+  if (!tinyPlot) mtext(title2,side=3,line=-1.5)
 
 }

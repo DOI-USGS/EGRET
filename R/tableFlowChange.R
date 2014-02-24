@@ -7,8 +7,8 @@
 #'  User must have run setPA and makeAnnualSeries before this function.
 #'
 #' @param istat A numeric value for the flow statistic to be graphed (possible values are 1 through 8)
-#' @param localINFO A character string specifying the name of the metadata data frame
-#' @param localAnnualSeries A character string specifying the name of a data frame containing the annual series
+#' @param localINFO data frame that contains the metadata, default is INFO
+#' @param localAnnualSeries data frame containing the annual series, default is AnnualSeries
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param runoff logical variable, if TRUE the streamflow data are converted to runoff values in mm/day
 #' @param yearPoints A vector of numeric values, specifying the years at which change metrics are to be calculated, default is NA (which allows the function to set these automatically), yearPoints must be in ascending order

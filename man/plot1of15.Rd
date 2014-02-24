@@ -18,12 +18,11 @@ plot1of15(yearStart, yearEnd, qf, istat, localAnnualSeries = annualSeries,
   \item{istat}{A numeric value selecting the flow statistic
   to be plotted, must be an integer from 1 to 8}
 
-  \item{localAnnualSeries}{string indicating the name of
-  the data frame that contains the annual series data for
-  all 8 statistics for the given period of analysis}
+  \item{localAnnualSeries}{data frame that contains the
+  annual series data for all 8 statistics for the given
+  period of analysis}
 
-  \item{localINFO}{string indicating the name of the data
-  frame that contains the meta data}
+  \item{localINFO}{data frame that contains the meta data}
 
   \item{isBottom}{logical, if TRUE the graph is from the
   bottom row and thus needs x axis labels, if FALSE it does

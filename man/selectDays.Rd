@@ -11,8 +11,8 @@ selectDays(paLong, paStart, localDaily = Daily)
   \item{paStart}{a numeric value for the starting month of
   the period of analysis, must be an integer from 1 to 12}
 
-  \item{localDaily}{a character string specifying the name
-  of the daily data frame to be used}
+  \item{localDaily}{data frame that contains the daily
+  streamflow data, default is Daily}
 }
 \value{
 localDaily a data frame containing the daily data but only

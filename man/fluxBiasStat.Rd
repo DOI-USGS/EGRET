@@ -5,9 +5,8 @@
 fluxBiasStat(localSample = Sample)
 }
 \arguments{
-  \item{localSample}{string specifying the name of the data
-  frame that contains the concentration data, default name
-  is Sample}
+  \item{localSample}{data frame that contains the
+  concentration data, default name is Sample}
 }
 \value{
 fluxBias a vector of three numerical values, a lower bound,

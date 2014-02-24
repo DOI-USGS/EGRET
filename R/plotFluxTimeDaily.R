@@ -10,9 +10,9 @@
 #'
 #' @param startYear numeric specifying the starting date (expressed as decimal years, for example 1989.0) for the plot
 #' @param endYear numeric specifiying the ending date for the plot 
-#' @param localSample string specifying the name of the data frame that contains the concentration data, default name is Sample
-#' @param localDaily string specifying the name of the data frame that contains the flow data, default name is Daily 
-#' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
+#' @param localSample data frame that contains the concentration data, default name is Sample
+#' @param localDaily data frame that contains the flow data, default name is Daily 
+#' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param tinyPlot logical variable, if TRUE plot is designed to be short and wide, default is FALSE.
 #' @param fluxUnit number representing in pre-defined fluxUnit class array. \code{\link{fluxConst}}
 #' @param fluxMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
@@ -31,12 +31,27 @@
 #' Sample <- ChopSample
 #' Daily <- ChopDaily
 #' INFO <- ChopINFO
+#' # Water year:
+#' INFO <- setPA()
 #' plotFluxTimeDaily()
 #' plotFluxTimeDaily(2001,2009)
+#' # Graphs consisting of Jun-Aug
+#' INFO <- setPA(paStart=6,paLong=3)
+#' plotFluxTimeDaily()
 plotFluxTimeDaily<-function (startYear=NA, endYear=NA, localSample = Sample, localDaily = Daily, 
                              localINFO = INFO, tinyPlot = FALSE, fluxUnit = 3, fluxMax = NA, 
                              printTitle = TRUE, cex=0.8, cex.axis=1.1,cex.main=1.1, 
                              customPar=FALSE,col="black",lwd=1,...) {
+  
+  
+  paLong <- localINFO$paLong
+  paStart <- localINFO$paStart  
+  
+  localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
+  localDaily <- if(paLong == 12) localDaily else selectDays(paLong,paStart,localDaily=localDaily)
+  
+  title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
+  
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(fluxUnit)){
@@ -95,5 +110,6 @@ plotFluxTimeDaily<-function (startYear=NA, endYear=NA, localSample = Sample, loc
 
   lines(xDaily, subDaily$ConcDay*subDaily$Q*fluxFactor,col=col,lwd=lwd)
   censoredSegments(yBottom=yInfo$bottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen,col=col,lwd=lwd)
+  if (!tinyPlot) mtext(title2,side=3,line=-1.5)
 
 }

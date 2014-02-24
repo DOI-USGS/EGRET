@@ -13,8 +13,8 @@
 #' @param yearStart numeric is the calendar year of the first value to be included in graph, default is NA, which plots from the start of the period of record
 #' @param yearEnd numeric is the calendar year of the last value to be included in graph, default is NA, which plots to the end of the period of record
 #' @param window numeric which is the full width, in years, of the time window over which the standard deviation is computed, default = 15
-#' @param localDaily string specifying the name of the data frame that contains the daily streamflow data, default name is Daily
-#' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
+#' @param localDaily data frame that contains the daily streamflow data, default is Daily
+#' @param localINFO data frame that contains the metadata, default is INFO
 #' @param sdMax numeric is the maximum value to be used on the vertical axis of the graph, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure), default is TRUE
 #' @param tinyPlot logical variable if TRUE plot is designed to be small, if FALSE it is designed for page size, default is FALSE (not fully implemented yet)

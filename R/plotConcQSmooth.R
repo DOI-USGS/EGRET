@@ -25,8 +25,8 @@
 #' @param bw logical if TRUE graph is produced in black and white, default is FALSE (which means it will use color)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed 
 #' @param printValues logical variable if TRUE the results shown on the graph are also printed to the console and returned in a dataframe (this can be useful for quantifying the changes seen visually in the graph), default is FALSE (not printed)
-#' @param localSample string specifying the name of the data frame that contains the Sample data, default name is Sample
-#' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
+#' @param localSample data frame that contains the Sample data, default name is Sample
+#' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 10
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
@@ -56,7 +56,7 @@
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
 #' plotConcQSmooth(date1,date2,date3,qLow,qHigh)
-#' #' plotConcQSmooth(date1,date2,date3,qLow,qHigh,logScale=TRUE)
+#' plotConcQSmooth(date1,date2,date3,qLow,qHigh,logScale=TRUE)
 plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0,legendTop = 0, 
                           concMax = NA, concMin=NA, bw = FALSE, printTitle = TRUE, printValues = FALSE, 
                           localSample = Sample, localINFO = INFO, minNumObs = 100, minNumUncen =  50,

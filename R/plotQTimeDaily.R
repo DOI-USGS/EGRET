@@ -10,8 +10,8 @@
 #'
 #' @param startYear numeric indicating the starting year for the graph
 #' @param endYear numeric indicating the ending year for the graph (should be a time in decimal years that is after the last observations to be plotted)
-#' @param localDaily string specifying the name of the data frame that contains the flow data, default name is Daily 
-#' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
+#' @param localDaily data frame that contains the flow data, default name is Daily 
+#' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param qLower numeric specifying the lower bound on discharges that are to be plotted, must be in the units specified by qUnit, default is NA (lower bound is zero)
 #' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.  Default is qUnit=1 (cubic feet per second)
 #' @param tinyPlot logical variable, if TRUE plot is designed to be short and wide, default is FALSE.
@@ -28,13 +28,24 @@
 #' @examples
 #' Daily <- ChopDaily
 #' INFO <- ChopINFO
+#' # Water year:
+#' INFO <- setPA()
 #' plotQTimeDaily()
 #' plotQTimeDaily(startYear=1990, endYear=2000,qLower=1000)
+#' # Graphs consisting of Jun-Aug
+#' INFO <- setPA(paStart=6,paLong=3)
+#' plotQTimeDaily()
 plotQTimeDaily<-function (startYear=NA, endYear=NA, localDaily = Daily, 
                           localINFO = INFO, qLower = NA, qUnit = 1, 
                           tinyPlot = FALSE, printTitle = TRUE, lwd = 3, col="red", 
-                          cex.main = 1.2, cex.lab = 1.2, customPar=FALSE,...)    
-{
+                          cex.main = 1.2, cex.lab = 1.2, customPar=FALSE,...){
+  
+  paLong <- localINFO$paLong
+  paStart <- localINFO$paStart  
+
+  localDaily <- if(paLong == 12) localDaily else selectDays(paLong,paStart,localDaily=localDaily)
+  
+  title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   #########################################################
   if (is.numeric(qUnit)) {
     qUnit <- qConst[shortCode = qUnit][[1]]
@@ -81,5 +92,6 @@ plotQTimeDaily<-function (startYear=NA, endYear=NA, localDaily = Daily,
                       plotTitle=plotTitle, cex.main=cex.main,cex.lab=cex.lab,
                       type="l",col=col,lwd=lwd, xDate=TRUE,...
   )
+  if (!tinyPlot) mtext(title2,side=3,line=-1.5)
 
 }

@@ -9,12 +9,11 @@ plotConcTime(localSample = Sample, localINFO = INFO, qUnit = 2,
   lwd = 1, ...)
 }
 \arguments{
-  \item{localSample}{string specifying the name of the data
-  frame that contains the concentration data, default name
-  is Sample}
+  \item{localSample}{data frame that contains the
+  concentration data, default name is Sample}
 
-  \item{localINFO}{string specifying the name of the data
-  frame that contains the metadata, default name is INFO}
+  \item{localINFO}{data frame that contains the metadata,
+  default name is INFO}
 
   \item{qUnit}{object of qUnit class \code{\link{qConst}},
   or numeric represented the short code, or character

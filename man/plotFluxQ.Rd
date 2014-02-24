@@ -8,12 +8,11 @@ plotFluxQ(localSample = Sample, localINFO = INFO, qUnit = 2,
   cex.axis = 1.1, cex.main = 1.1, customPar = FALSE, ...)
 }
 \arguments{
-  \item{localSample}{string specifying the name of the data
-  frame that contains the concentration and discharge data,
-  default name is Sample}
+  \item{localSample}{data frame that contains the
+  concentration and discharge data, default name is Sample}
 
-  \item{localINFO}{string specifying the name of the data
-  frame that contains the metadata, default name is INFO}
+  \item{localINFO}{data frame that contains the metadata,
+  default name is INFO}
 
   \item{qUnit}{object of qUnit class. \code{\link{qConst}},
   or numeric represented the short code, or character
@@ -75,8 +74,13 @@ following R code will produce a plot: \code{plotLogFluxQ()}
 \examples{
 Sample <- ChopSample
 INFO <- ChopINFO
+# Water year:
+INFO <- setPA()
 plotFluxQ(qUnit = 1, fluxUnit = 1)
 plotFluxQ(fluxUnit = 'kgDay')
+plotFluxQ()
+# Graphs consisting of Jun-Aug
+INFO <- setPA(paStart=6,paLong=3)
 plotFluxQ()
 }
 \keyword{graphics}

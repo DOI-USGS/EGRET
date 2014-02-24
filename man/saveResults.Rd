@@ -9,8 +9,8 @@ saveResults(savePath, localINFO = INFO)
   the folder where the file is to be saved ending with the
   final slash}
 
-  \item{localINFO}{string specifying the name of the INFO
-  database}
+  \item{localINFO}{data frame that contains the metadata,
+  default is INFO}
 }
 \description{
 This function saves the workspace.  It assigns the file a

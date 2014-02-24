@@ -7,12 +7,11 @@ plotResidPred(localSample = Sample, localINFO = INFO, stdResid = FALSE,
   cex = 0.8, cex.axis = 1.1, cex.main = 1.1, customPar = FALSE, ...)
 }
 \arguments{
-  \item{localSample}{string specifying the name of the data
-  frame that contains the concentration data, default name
-  is Sample}
+  \item{localSample}{data frame that contains the
+  concentration data, default name is Sample}
 
-  \item{localINFO}{string specifying the name of the data
-  frame that contains the metadata, default name is INFO}
+  \item{localINFO}{data frame that contains the metadata,
+  default name is INFO}
 
   \item{stdResid}{logical variable, if TRUE it uses the
   standardized residual, if FALSE it uses the actual,
@@ -68,6 +67,11 @@ following R code will produce a plot:
 \examples{
 Sample <- ChopSample
 INFO <- ChopINFO
+# Water year:
+INFO <- setPA()
+plotResidPred()
+# Graphs consisting of Jun-Aug
+INFO <- setPA(paStart=6,paLong=3)
 plotResidPred()
 }
 \keyword{graphics}

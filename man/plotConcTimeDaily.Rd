@@ -15,15 +15,14 @@ plotConcTimeDaily(startYear = NA, endYear = NA, localSample = Sample,
   \item{endYear}{numeric specifiying the ending date for
   the plot}
 
-  \item{localSample}{string specifying the name of the data
-  frame that contains the concentration data, default name
-  is Sample}
+  \item{localSample}{data frame that contains the
+  concentration data, default name is Sample}
 
-  \item{localDaily}{string specifying the name of the data
-  frame that contains the flow data, default name is Daily}
+  \item{localDaily}{data frame that contains the flow data,
+  default name is Daily}
 
-  \item{localINFO}{string specifying the name of the data
-  frame that contains the metadata, default name is INFO}
+  \item{localINFO}{data frame that contains the metadata,
+  default name is INFO}
 
   \item{tinyPlot}{logical variable, if TRUE plot is
   designed to be short and wide, default is FALSE.}
@@ -78,8 +77,13 @@ then the following R code will produce a plot:
 Sample <- ChopSample
 Daily <- ChopDaily
 INFO <- ChopINFO
+# Water year:
+INFO <- setPA()
 plotConcTimeDaily()
 plotConcTimeDaily(startYear=1998,endYear=2001)
+# Graphs consisting of Jun-Aug
+INFO <- setPA(paStart=6,paLong=3)
+plotConcTimeDaily()
 }
 \keyword{graphics}
 \keyword{statistics}

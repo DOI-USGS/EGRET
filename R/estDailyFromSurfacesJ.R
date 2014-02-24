@@ -4,8 +4,8 @@
 #'    in addition to the time series for standard error and yHat (estimated log concentration). 
 #'    The results are stored in an augmented version of the Daily data frame, which is returned. 
 #'
-#' @param localDaily string specifying the name of the data frame containing the daily values, default is Daily
-#' @param localINFO string specifying the name of the data frame containing the meta-data, default is INFO
+#' @param localDaily data frame containing the daily values, default is Daily
+#' @param localINFO data frame containing the meta-data, default is INFO
 #' @param localsurfaces string specifying the name of the array containing the three surfaces, default is surfaces
 #' @keywords water-quality statistics
 #' @return localDaily string specifying the name of the data frame containing the daily values and these estimates

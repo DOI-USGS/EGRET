@@ -12,8 +12,8 @@
 #'  It returns the 3 dimensional array called surfaces.
 #'  This array will be used to estimate these 3 quantities for any given day in the daily values record. 
 #'
-#' @param localDaily string specifying the name of the data frame containing the daily values, default is Daily
-#' @param localSample string specifying the name of the data frame containing the sample values, default is Sample
+#' @param localDaily data frame containing the daily values, default is Daily
+#' @param localSample data frame containing the sample values, default is Sample
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 10
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5

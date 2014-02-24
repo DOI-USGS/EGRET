@@ -13,8 +13,8 @@ setupYears(paLong = 12, paStart = 10, localDaily = Daily)
   month for the period of analysis, 1<=paStart<=12, default
   is 10}
 
-  \item{localDaily}{string specifying the name of the data
-  frame containing the daily values, default is Daily}
+  \item{localDaily}{data frame containing the daily values,
+  default is Daily}
 }
 \value{
 AnnualResults data frame with one row per year

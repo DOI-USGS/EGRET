@@ -68,12 +68,11 @@ plotConcQSmooth(date1, date2, date3, qLow, qHigh, qUnit = 2, legendLeft = 0,
   quantifying the changes seen visually in the graph),
   default is FALSE (not printed)}
 
-  \item{localSample}{string specifying the name of the data
-  frame that contains the Sample data, default name is
-  Sample}
+  \item{localSample}{data frame that contains the Sample
+  data, default name is Sample}
 
-  \item{localINFO}{string specifying the name of the data
-  frame that contains the metadata, default name is INFO}
+  \item{localINFO}{data frame that contains the metadata,
+  default name is INFO}
 
   \item{windowY}{numeric specifying the half-window width
   in the time dimension, in units of years, default is 10}
@@ -161,7 +160,7 @@ qHigh<-100
 Sample <- ChopSample
 INFO <- ChopINFO
 plotConcQSmooth(date1,date2,date3,qLow,qHigh)
-#' plotConcQSmooth(date1,date2,date3,qLow,qHigh,logScale=TRUE)
+plotConcQSmooth(date1,date2,date3,qLow,qHigh,logScale=TRUE)
 }
 \keyword{graphics}
 \keyword{statistics}

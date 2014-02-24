@@ -76,12 +76,11 @@ plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd, qUnit = 2,
   quantifying the changes seen visually in the graph),
   default is FALSE (not printed)}
 
-  \item{localSample}{string specifying the name of the data
-  frame that contains the Sample data, default name is
-  Sample}
+  \item{localSample}{data frame that contains the Sample
+  data, default name is Sample}
 
-  \item{localINFO}{string specifying the name of the data
-  frame that contains the metadata, default name is INFO}
+  \item{localINFO}{data frame that contains the metadata,
+  default name is INFO}
 
   \item{windowY}{numeric specifying the half-window width
   in the time dimension, in units of years, default is 10}

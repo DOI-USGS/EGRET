@@ -12,9 +12,9 @@
 #'
 #' @param startYear numeric specifying the starting date (expressed as decimal years, for example 1989.0) for the plot
 #' @param endYear numeric specifiying the ending date for the plot 
-#' @param localSample string specifying the name of the data frame that contains the concentration data, default name is Sample
-#' @param localDaily string specifying the name of the data frame that contains the flow data, default name is Daily 
-#' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
+#' @param localSample data frame that contains the concentration data, default name is Sample
+#' @param localDaily data frame that contains the flow data, default name is Daily 
+#' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param tinyPlot logical variable, if TRUE plot is designed to be short and wide, default is FALSE.
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
@@ -32,8 +32,13 @@
 #' Sample <- ChopSample
 #' Daily <- ChopDaily
 #' INFO <- ChopINFO
+#' # Water year:
+#' INFO <- setPA()
 #' plotConcTimeDaily()
 #' plotConcTimeDaily(startYear=1998,endYear=2001)
+#' # Graphs consisting of Jun-Aug
+#' INFO <- setPA(paStart=6,paLong=3)
+#' plotConcTimeDaily()
 plotConcTimeDaily<-function(startYear=NA, endYear=NA, localSample = Sample, 
                             localDaily = Daily, localINFO = INFO, tinyPlot = FALSE, 
                             concMax = NA, printTitle = TRUE,cex=0.8, cex.axis=1.1,
@@ -41,6 +46,14 @@ plotConcTimeDaily<-function(startYear=NA, endYear=NA, localSample = Sample,
 
   startYear <- if (is.na(startYear)) as.integer(min(localSample$DecYear,na.rm=TRUE)) else startYear
   endYear <- if (is.na(endYear)) as.integer(max(localSample$DecYear,na.rm=TRUE)) else endYear
+  
+  paLong <- localINFO$paLong
+  paStart <- localINFO$paStart  
+  
+  localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
+  localDaily <- if(paLong == 12) localDaily else selectDays(paLong,paStart,localDaily=localDaily)
+  
+  title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   
   subSample<-subset(localSample,DecYear>=startYear)
   subSample<-subset(subSample,DecYear<=endYear)
@@ -79,5 +92,6 @@ plotConcTimeDaily<-function(startYear=NA, endYear=NA, localSample = Sample,
   lines(x=xDaily, y=subDaily$ConcDay, type="l",col=col,lwd=lwd)
 
   censoredSegments(yInfo$bottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen,col=col,lwd=lwd)
+  if (!tinyPlot) mtext(title2,side=3,line=-1.5)
 
 }

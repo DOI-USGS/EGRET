@@ -11,7 +11,7 @@
 #'
 #' @param paLong numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12, default is 12
 #' @param paStart numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12, default is 10 
-#' @param localDaily string specifying the name of the data frame containing the daily values, default is Daily
+#' @param localDaily data frame containing the daily values, default is Daily
 #' @keywords water-quality statistics
 #' @return AnnualResults data frame with one row per year
 #' @export

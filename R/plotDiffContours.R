@@ -15,9 +15,9 @@
 #' @param maxDiff numeric value which is the absolute value of the largest change in concentration that will be shown on the figure
 #' @param whatSurface numeric value, can only accept 1, 2, or 3;  whatSurface=1 is yHat (log concentration), whatSurface=2 is SE (standard error of log concentration), and whatSurface=3 is ConcHat (unbiased estimate of concentration), default = 3
 #' @param plotPercent logical. If TRUE, plots percent difference, if FALSE, plots absolute differences. Defaults to FALSE.
-#' @param localsurfaces string specifying the name of the matrix that contains the estimated surfaces, default is surfaces
-#' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
-#' @param localDaily string specifying the name of the data frame that contains the daily data, default name is Daily
+#' @param localsurfaces matrix that contains the estimated surfaces, default is surfaces
+#' @param localINFO data frame that contains the metadata, default name is INFO
+#' @param localDaily data frame that contains the daily data, default name is Daily
 #' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param span numeric, it is the half-width (in days) of the smoothing window for computing the flow duration information, default = 60
 #' @param pval numeric, the probability value for the lower flow frequency line on the graph

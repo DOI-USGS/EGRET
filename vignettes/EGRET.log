@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.6)  21 FEB 2014 16:53
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.1.6)  24 FEB 2014 15:14
 entering extended mode
 **EGRET.tex
 (D:\LADData\RCode\EGRET\vignettes\EGRET.tex
@@ -1122,14 +1122,14 @@ Package color Info: Redefining color shadecolor on input line 1463.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1468.
 
-<figure/adjustSize1.pdf, id=654, 505.89pt x 505.89pt>
+<figure/adjustSize1.pdf, id=653, 505.89pt x 505.89pt>
 File: figure/adjustSize1.pdf Graphic file (type pdf)
 
 <use figure/adjustSize1.pdf>
 Package pdftex.def Info: figure/adjustSize1.pdf used on input line 1470.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/adjustSize2.pdf, id=655, 505.89pt x 505.89pt>
+<figure/adjustSize2.pdf, id=654, 505.89pt x 505.89pt>
 File: figure/adjustSize2.pdf Graphic file (type pdf)
 
 <use figure/adjustSize2.pdf>
@@ -1152,7 +1152,7 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1493.
 
-<figure/plotConcQComparison1.pdf, id=663, 505.89pt x 505.89pt>
+<figure/plotConcQComparison1.pdf, id=662, 505.89pt x 505.89pt>
 File: figure/plotConcQComparison1.pdf Graphic file (type pdf)
 
 <use figure/plotConcQComparison1.pdf>
@@ -1160,7 +1160,7 @@ Package pdftex.def Info: figure/plotConcQComparison1.pdf used on input line 149
 5.
 (pdftex.def)             Requested size: 224.03578pt x 224.03578pt.
 
-<figure/plotConcQComparison2.pdf, id=664, 505.89pt x 505.89pt>
+<figure/plotConcQComparison2.pdf, id=663, 505.89pt x 505.89pt>
 File: figure/plotConcQComparison2.pdf Graphic file (type pdf)
 
 <use figure/plotConcQComparison2.pdf>
@@ -1191,7 +1191,7 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1514.
 
-<figure/easyFontChange.pdf, id=686, 505.89pt x 505.89pt>
+<figure/easyFontChange.pdf, id=685, 505.89pt x 505.89pt>
 File: figure/easyFontChange.pdf Graphic file (type pdf)
 
 <use figure/easyFontChange.pdf>
@@ -1203,7 +1203,7 @@ Package color Info: Redefining color shadecolor on input line 1526.
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1541.
 
-<figure/modifiedContour1.pdf, id=687, 505.89pt x 505.89pt>
+<figure/modifiedContour1.pdf, id=686, 505.89pt x 505.89pt>
 File: figure/modifiedContour1.pdf Graphic file (type pdf)
 
 <use figure/modifiedContour1.pdf>
@@ -1228,7 +1228,7 @@ Overfull \vbox (21.68121pt too high) has occurred while \output is active []
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 1560.
 
-<figure/modifiedDiffContour.pdf, id=727, 505.89pt x 505.89pt>
+<figure/modifiedDiffContour.pdf, id=726, 505.89pt x 505.89pt>
 File: figure/modifiedDiffContour.pdf Graphic file (type pdf)
 
 <use figure/modifiedDiffContour.pdf>
@@ -1307,7 +1307,7 @@ Overfull \hbox (110.37555pt too wide) in paragraph at lines 1903--1903
 6kg/yr] FN_Flux [10^6kg/yr][] 
  []
 
-<table1.png, id=803, 492.33937pt x 498.36188pt>
+<table1.png, id=802, 492.33937pt x 498.36188pt>
 File: table1.png Graphic file (type png)
  <use table1.png>
 Package pdftex.def Info: table1.png used on input line 1922.
@@ -1388,9 +1388,9 @@ Files (x86)/MiKTeX 2.9/fonts/type1/urw/courier/ucrb8a.pfb><C:/Program Files (x8
 ts/type1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/ur
 w/times/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utm
 ri8a.pfb>
-Output written on EGRET.pdf (55 pages, 1300990 bytes).
+Output written on EGRET.pdf (55 pages, 1300738 bytes).
 PDF statistics:
- 908 PDF objects out of 1000 (max. 8388607)
+ 907 PDF objects out of 1000 (max. 8388607)
  173 named destinations out of 1000 (max. 500000)
  420 words of extra memory for PDF output out of 10000 (max. 10000000)
 

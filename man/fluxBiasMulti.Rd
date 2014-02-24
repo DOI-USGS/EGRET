@@ -7,12 +7,11 @@ fluxBiasMulti(localSample = Sample, localDaily = Daily, localINFO = INFO,
   cex.axis = 1.1, cex.main = 1.1, col = "black", lwd = 1, ...)
 }
 \arguments{
-  \item{localSample}{string specifying the name of the data
-  frame that contains the concentration data, default name
-  is Sample}
+  \item{localSample}{data frame that contains the
+  concentration data, default name is Sample}
 
-  \item{localDaily}{string specifying the name of the data
-  frame that contains the flow data, default name is Daily}
+  \item{localDaily}{data frame that contains the flow data,
+  default name is Daily}
 
   \item{localINFO}{string specifying the name of the data
   frame that contains the metadata, default name is INFO}
@@ -66,7 +65,14 @@ then the following R code will produce a plot:
 Sample <- ChopSample
 Daily <- ChopDaily
 INFO <- ChopINFO
+# Water year:
+INFO <- setPA()
 pdf("fluxBiasMulti.pdf", height=9, width=8)
+fluxBiasMulti()
+dev.off()
+# Graphs consisting of Jun-Aug
+INFO <- setPA(paStart=6,paLong=3)
+pdf("fluxBiasMultiSummer.pdf", height=9, width=8)
 fluxBiasMulti()
 dev.off()
 }

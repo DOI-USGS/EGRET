@@ -8,9 +8,9 @@
 #'  contains an INFO and Daily dataframes, annualSeries array, then the following R code will produce a plot:
 #'  \code{plotFour(window=2)}
 #'
-#' @param localINFO string specifying the name of the data frame that contains the metadata, defoult name is INFO
-#' @param localAnnualSeries string specifying the name of the data frame that contains the annual series of statistics, default is annualSeries
-#' @param localDaily string specifying the name of the data frame that contains the daily values, default is Daily
+#' @param localINFO data frame that contains the metadata, defoult name is INFO
+#' @param localAnnualSeries data frame that contains the annual series of statistics, default is annualSeries
+#' @param localDaily data frame that contains the flow data, default name is Daily
 #' @param yearStart A numeric value for year in which the graph should start, default is NA, which indicates that the graph should start with first annual value
 #' @param yearEnd A numeric value for year in which the graph should end, default is NA, which indicates that the graph should end with last annual value
 #' @param printTitle logical variable, if TRUE title is printed, if FALSE title is not printed, default is TRUE

@@ -11,12 +11,11 @@ flowDuration(centerDate = "09-30", localDaily = Daily, localINFO = INFO,
   calculated, it is in the form "mm-dd" (it must be in
   quotes), default is "09-30"}
 
-  \item{localDaily}{string specifying the name of the data
-  frame that contains the daily discharge data, default
-  name is Daily}
+  \item{localDaily}{data frame that contains the daily
+  discharge data, default name is Daily}
 
-  \item{localINFO}{string specifying the name of the data
-  frame that contains the metadata, default name is INFO}
+  \item{localINFO}{data frame that contains the metadata,
+  default name is INFO}
 
   \item{qUnit}{object of qUnit class \code{\link{qConst}},
   or numeric represented the short code, or character

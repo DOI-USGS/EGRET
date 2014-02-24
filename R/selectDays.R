@@ -4,7 +4,7 @@
 #'
 #' @param paLong a numeric value for the length of the period of Analysis, must be an integer from 1 to 12
 #' @param paStart a numeric value for the starting month of the period of analysis, must be an integer from 1 to 12
-#' @param localDaily a character string specifying the name of the daily data frame to be used
+#' @param localDaily data frame that contains the daily streamflow data, default is Daily
 #' @keywords statistics streamflow
 #' @export
 #' @return localDaily a data frame containing the daily data but only for the period of analysis (not all months)

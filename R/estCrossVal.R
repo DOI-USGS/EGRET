@@ -6,7 +6,7 @@
 #' Thus it provides for a more "honest" estimate of model performance than a traditional 
 #' error analysis that uses all the data. 
 #'
-#' @param localSample string specifying the name of the data frame containing the sample values, default is Sample
+#' @param localSample data frame containing the sample values, default is Sample
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 10
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5

@@ -6,12 +6,11 @@ tableResults(localAnnualResults = AnnualResults, localINFO = INFO,
   qUnit = 2, fluxUnit = 9, returnDataFrame = FALSE)
 }
 \arguments{
-  \item{localAnnualResults}{string specifying the name of
-  the data frame that contains the results, default name is
-  AnnualResults}
+  \item{localAnnualResults}{data frame that contains the
+  results, default name is AnnualResults}
 
-  \item{localINFO}{string specifying the name of the data
-  frame that contains the metadata, default name is INFO}
+  \item{localINFO}{data frame that contains the metadata,
+  default name is INFO}
 
   \item{qUnit}{object of qUnit class. \code{\link{qConst}},
   or numeric represented the short code, or character

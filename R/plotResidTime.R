@@ -9,8 +9,8 @@
 #'  contains an INFO and Sample dataframes, then the following R code will produce a plot:
 #'  \code{plotResidTime()}
 #'
-#' @param localSample string specifying the name of the data frame that contains the concentration data, default name is Sample
-#' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
+#' @param localSample data frame that contains the concentration data, default name is Sample
+#' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
 #' @param hLine inserts horizontal line at zero
@@ -28,6 +28,11 @@
 #' @examples
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
+#' # Water year:
+#' INFO <- setPA()
+#' plotResidTime()
+#' # Graphs consisting of Jun-Aug
+#' INFO <- setPA(paStart=6,paLong=3)
 #' plotResidTime()
 plotResidTime<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, 
                         printTitle = TRUE, hLine=TRUE, tinyPlot=FALSE,col="black",lwd=1,
@@ -38,6 +43,14 @@ plotResidTime<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   # these residuals are from a "leave-one-out" cross validation application of WRTDS
   # if stdResid=FALSE it just works with the regular residuals
   # if stdResid=TRUE it computes the standardized residual which is the residual/Sample$SE  
+  
+  paLong <- localINFO$paLong
+  paStart <- localINFO$paStart  
+  
+  localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
+  
+  title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
+  
   x<-localSample$DecYear
   yLow<-log(localSample$ConcLow)-localSample$yHat
   yHigh<-log(localSample$ConcHigh)-localSample$yHat
@@ -67,5 +80,6 @@ plotResidTime<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
                       cex.axis=cex.axis,cex.main=cex.main, hLine=hLine, tinyPlot=tinyPlot,...
   )
   censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen,col=col,lwd=lwd)
+  if (!tinyPlot) mtext(title2,side=3,line=-1.5)
 
 }

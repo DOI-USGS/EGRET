@@ -8,12 +8,11 @@ plotResidQ(localSample = Sample, localINFO = INFO, qUnit = 2,
   customPar = FALSE, ...)
 }
 \arguments{
-  \item{localSample}{string specifying the name of the data
-  frame that contains the concentration data, default name
-  is Sample}
+  \item{localSample}{data frame that contains the
+  concentration data, default name is Sample}
 
-  \item{localINFO}{string specifying the name of the data
-  frame that contains the metadata, default name is INFO}
+  \item{localINFO}{data frame that contains the metadata,
+  default name is INFO}
 
   \item{qUnit}{object of qUnit class \code{\link{qConst}},
   or numeric represented the short code, or character
@@ -74,6 +73,11 @@ following R code will produce a plot: \code{plotResidQ()}
 \examples{
 Sample <- ChopSample
 INFO <- ChopINFO
+# Water year:
+INFO <- setPA()
+plotResidQ()
+# Graphs consisting of Jun-Aug
+INFO <- setPA(paStart=6,paLong=3)
 plotResidQ()
 }
 \keyword{graphics}

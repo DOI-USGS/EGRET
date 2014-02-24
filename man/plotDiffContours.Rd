@@ -41,16 +41,14 @@ plotDiffContours(year0, year1, qBottom, qTop, maxDiff, whatSurface = 3,
   difference, if FALSE, plots absolute differences.
   Defaults to FALSE.}
 
-  \item{localsurfaces}{string specifying the name of the
-  matrix that contains the estimated surfaces, default is
-  surfaces}
+  \item{localsurfaces}{matrix that contains the estimated
+  surfaces, default is surfaces}
 
-  \item{localINFO}{string specifying the name of the data
-  frame that contains the metadata, default name is INFO}
+  \item{localINFO}{data frame that contains the metadata,
+  default name is INFO}
 
-  \item{localDaily}{string specifying the name of the data
-  frame that contains the daily data, default name is
-  Daily}
+  \item{localDaily}{data frame that contains the daily
+  data, default name is Daily}
 
   \item{qUnit}{object of qUnit class. \code{\link{qConst}},
   or numeric represented the short code, or character

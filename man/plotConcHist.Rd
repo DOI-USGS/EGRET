@@ -2,11 +2,10 @@
 \alias{plotConcHist}
 \title{Graph of annual concentration and flow normalized concentration versus year}
 \usage{
-plotConcHist(yearStart = NA, yearEnd = NA,
-  localAnnualResults = AnnualResults, localINFO = INFO, concMax = NA,
-  printTitle = TRUE, tinyPlot = FALSE, plotFlowNorm = TRUE, cex = 0.8,
-  cex.axis = 1.1, cex.main = 1.1, lwd = 2, col = "black",
-  col.pred = "green", customPar = FALSE, ...)
+plotConcHist(yearStart = NA, yearEnd = NA, localDaily = Daily,
+  localINFO = INFO, concMax = NA, printTitle = TRUE, tinyPlot = FALSE,
+  plotFlowNorm = TRUE, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
+  lwd = 2, col = "black", col.pred = "green", customPar = FALSE, ...)
 }
 \arguments{
   \item{yearStart}{numeric is the calendar year containing
@@ -18,12 +17,11 @@ plotConcHist(yearStart = NA, yearEnd = NA,
   the last estimated annual value to be plotted, default is
   NA (which allows it to be set automatically by the data)}
 
-  \item{localAnnualResults}{string specifying the name of
-  the data frame that contains the annual results, default
-  name is AnnualResults}
+  \item{localDaily}{data frame that contains the flow data,
+  default name is Daily}
 
-  \item{localINFO}{string specifying the name of the data
-  frame that contains the metadata, default name is INFO}
+  \item{localINFO}{data frame that contains the metadata,
+  default name is INFO}
 
   \item{concMax}{number specifying the maximum value to be
   used on the vertical axis, default is NA (which allows it
@@ -88,7 +86,11 @@ yearStart <- 2001
 yearEnd <- 2010
 INFO <- ChopINFO
 Daily <- ChopDaily
-AnnualResults <- setupYears()
+# Water year:
+INFO <- setPA()
+plotConcHist(yearStart, yearEnd)
+# Graphs consisting of Jun-Aug
+INFO <- setPA(paStart=6,paLong=3)
 plotConcHist(yearStart, yearEnd)
 }
 \seealso{

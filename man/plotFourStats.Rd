@@ -8,12 +8,11 @@ plotFourStats(localINFO = INFO, localAnnualSeries = annualSeries,
   lwd = 1, ...)
 }
 \arguments{
-  \item{localINFO}{string specifying the name of the data
-  frame that contains the metadata, defoult name is INFO}
+  \item{localINFO}{data frame that contains the metadata,
+  defoult name is INFO}
 
-  \item{localAnnualSeries}{string specifying the name of
-  the data frame that contains the annual series of
-  statistics, default is annualSeries}
+  \item{localAnnualSeries}{data frame that contains the
+  annual series of statistics, default is annualSeries}
 
   \item{yearStart}{A numeric value for year in which the
   graph should start, default is NA, which indicates that

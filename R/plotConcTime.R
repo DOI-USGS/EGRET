@@ -13,8 +13,8 @@
 #' contains an INFO and Sample dataframes, then the following R code will produce a plot:
 #' \code{plotConcTime()}
 #'
-#' @param localSample string specifying the name of the data frame that contains the concentration data, default name is Sample
-#' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
+#' @param localSample data frame that contains the concentration data, default name is Sample
+#' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param qLower numeric the lower bound on values of discharge used to select the data points to be plotted, units are those specified by qUnit, default = NA which is equivalent to a lower bound of zero but if the desired lower bound is zero use qLower = NA
 #' @param qUpper numeric the upper bound on values of discharge for selection of data points to be plotted, units are those specified by qUnit, default = NA which is equivalent to an upper bound of infinity
@@ -134,6 +134,6 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
                       cex.axis=cex.axis,cex.main=cex.main,tinyPlot=tinyPlot,col=col,customPar=customPar, ...
   )
   censoredSegments(yBottom=yInfo$ticks[1],yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen,col=col,lwd=lwd)
-  mtext(title2,side=3,line=-1.5)
+  if (!tinyPlot) mtext(title2,side=3,line=-1.5)
 
 }

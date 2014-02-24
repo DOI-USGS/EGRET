@@ -3,10 +3,10 @@
 \title{Graph of annual flux and flow normalized flux versus year}
 \usage{
 plotFluxHist(yearStart = NA, yearEnd = NA, fluxUnit = 9,
-  localAnnualResults = AnnualResults, localINFO = INFO, fluxMax = NA,
-  printTitle = TRUE, plotFlowNorm = TRUE, tinyPlot = FALSE,
-  col = "black", col.pred = "green", cex = 0.8, cex.axis = 1.1,
-  cex.main = 1.1, lwd = 2, customPar = FALSE, ...)
+  localDaily = Daily, localINFO = INFO, fluxMax = NA, printTitle = TRUE,
+  plotFlowNorm = TRUE, tinyPlot = FALSE, col = "black",
+  col.pred = "green", cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
+  lwd = 2, customPar = FALSE, ...)
 }
 \arguments{
   \item{yearStart}{numeric is the calendar year containing
@@ -18,12 +18,11 @@ plotFluxHist(yearStart = NA, yearEnd = NA, fluxUnit = 9,
   the last estimated annual value to be plotted, default is
   NA (which allows it to be set automatically by the data)}
 
-  \item{localAnnualResults}{string specifying the name of
-  the data frame that contains the annual results, default
-  name is AnnualResults}
+  \item{localDaily}{data frame that contains the flow data,
+  default name is Daily}
 
-  \item{localINFO}{string specifying the name of the data
-  frame that contains the metadata, default name is INFO}
+  \item{localINFO}{data frame that contains the metadata,
+  default name is INFO}
 
   \item{fluxUnit}{number representing entry in pre-defined
   fluxUnit class array. \code{\link{fluxConst}}}
@@ -89,11 +88,15 @@ code will produce a plot: \code{plotFluxHist()}
 yearStart <- 2001
 yearEnd <- 2010
 Daily <- ChopDaily
-AnnualResults <- setupYears()
 INFO <- ChopINFO
+# Water year:
+INFO <- setPA()
 plotFluxHist()
 plotFluxHist(yearStart, yearEnd, fluxUnit = 1)
 plotFluxHist(yearStart, yearEnd, fluxUnit = 'kgDay')
+# Graphs consisting of Jun-Aug
+INFO <- setPA(paStart=6,paLong=3)
+plotFluxHist()
 }
 \seealso{
 \code{\link{setupYears}}

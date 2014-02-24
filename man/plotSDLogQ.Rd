@@ -20,12 +20,11 @@ plotSDLogQ(yearStart = NA, yearEnd = NA, window = 15,
   of the time window over which the standard deviation is
   computed, default = 15}
 
-  \item{localDaily}{string specifying the name of the data
-  frame that contains the daily streamflow data, default
-  name is Daily}
+  \item{localDaily}{data frame that contains the daily
+  streamflow data, default is Daily}
 
-  \item{localINFO}{string specifying the name of the data
-  frame that contains the metadata, default name is INFO}
+  \item{localINFO}{data frame that contains the metadata,
+  default is INFO}
 
   \item{sdMax}{numeric is the maximum value to be used on
   the vertical axis of the graph, default is NA (which

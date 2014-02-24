@@ -6,8 +6,8 @@
 #'    This code is identical to estDailyFromSurfaces but it lacks the flow normalization process.
 #'    The exclusion of the flow-normalization process saves a large amount of computer time.
 #'
-#' @param localDaily string specifying the name of the data frame containing the daily values, default is Daily
-#' @param localINFO string specifying the name of the data frame containing the meta-data, default is INFO
+#' @param localDaily data frame containing the daily values, default is Daily
+#' @param localINFO data frame containing the meta-data, default is INFO
 #' @param localsurfaces string specifying the name of the array containing the three surfaces, default is surfaces
 #' @keywords water-quality statistics
 #' @return localDaily string specifying the name of the data frame containing the daily values and these esimates

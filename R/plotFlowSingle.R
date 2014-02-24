@@ -13,8 +13,8 @@
 #' @param istat A numeric value for the flow statistic to be graphed (possible values are 1 through 8)
 #' @param yearStart A numeric value for year in which the graph should start, default is NA, which indicates that the graph should start with first annual value
 #' @param yearEnd A numeric value for year in which the graph should end, default is NA, which indicates that the graph should end with last annual value
-#' @param localINFO A character string specifying the name of the metadata data frame
-#' @param localAnnualSeries A character string specifying the name of a data frame containing the annual series
+#' @param localINFO data frame that contains the metadata, default name is INFO
+#' @param localAnnualSeries data frame containing the annual series, default is AnnualSeries
 #' @param qMax A numeric value for the maximum value to be used for y-axis of graph, default is NA means that graph is self-scaling
 #' @param printTitle logical variable, if TRUE title is printed, if FALSE title is not printed, default is TRUE
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE

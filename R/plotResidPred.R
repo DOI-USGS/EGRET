@@ -10,8 +10,8 @@
 #'  contains an INFO and Sample dataframes, then the following R code will produce a plot:
 #'  \code{plotResidPred()}
 #'
-#' @param localSample string specifying the name of the data frame that contains the concentration data, default name is Sample
-#' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
+#' @param localSample data frame that contains the concentration data, default name is Sample
+#' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
@@ -28,6 +28,11 @@
 #' @examples
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
+#' # Water year:
+#' INFO <- setPA()
+#' plotResidPred()
+#' # Graphs consisting of Jun-Aug
+#' INFO <- setPA(paStart=6,paLong=3)
 #' plotResidPred()
 plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, 
                         tinyPlot = FALSE, printTitle = TRUE, col="black",lwd=1,
@@ -38,6 +43,13 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   # these estimates are from a "leave-one-out" cross validation application of WRTDS
   # if stdResid=FALSE it just works with the regular residuals
   # if stdResid=TRUE it computes the standardized residual which is the residual/Sample$SE  
+  
+  paLong <- localINFO$paLong
+  paStart <- localINFO$paStart  
+  
+  localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
+  
+  title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   
   x<-exp(localSample$yHat)
   yLow<-log(localSample$ConcLow)-localSample$yHat
@@ -69,5 +81,6 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
     )
 
   censoredSegments(yInfo$bottom, yLow, yHigh, log(x), Uncen, col=col, lwd=lwd )
+  if (!tinyPlot) mtext(title2,side=3,line=-1.5)
 
 }

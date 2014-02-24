@@ -15,8 +15,8 @@
 #' 8 \tab 1-day maximum discharge \cr  
 #' }
 #'
-#' @param localDaily string specifying the name of a data frame that contains the daily streamflow data
-#' @param localINFO string specifying the name of a data frame that contains the metadata
+#' @param localDaily data frame that contains the daily streamflow data
+#' @param localINFO data frame that contains the metadata
 #' @keywords statistics streamflow trends
 #' @export
 #' @return annualSeries data frame that contains the annual series of streamflow statistics

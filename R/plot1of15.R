@@ -6,8 +6,8 @@
 #' @param yearEnd A numeric value for the year in which the graph should end
 #' @param qf a scale factor to convert discharge in cubic feet per second to mm/day
 #' @param istat A numeric value selecting the flow statistic to be plotted, must be an integer from 1 to 8
-#' @param localAnnualSeries string indicating the name of the data frame that contains the annual series data for all 8 statistics for the given period of analysis
-#' @param localINFO string indicating the name of the data frame that contains the meta data
+#' @param localAnnualSeries data frame that contains the annual series data for all 8 statistics for the given period of analysis
+#' @param localINFO data frame that contains the meta data
 #' @param isBottom logical, if TRUE the graph is from the bottom row and thus needs x axis labels, if FALSE it does not need labels
 #' @keywords graphics streamflow
 #' @export

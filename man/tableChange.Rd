@@ -6,12 +6,12 @@ tableChange(localAnnualResults = AnnualResults, localINFO = INFO,
   fluxUnit = 9, yearPoints = NA)
 }
 \arguments{
-  \item{localAnnualResults}{string specifying the name of
-  the data frame that contains the concentration and
-  discharge data, default name is AnnualResults}
+  \item{localAnnualResults}{data frame that contains the
+  concentration and discharge data, default name is
+  AnnualResults}
 
-  \item{localINFO}{string specifying the name of the data
-  frame that contains the metadata, default name is INFO}
+  \item{localINFO}{data frame that contains the metadata,
+  default name is INFO}
 
   \item{fluxUnit}{object of fluxUnit class.
   \code{\link{fluxConst}}, or numeric represented the short

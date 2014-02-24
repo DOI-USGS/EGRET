@@ -13,8 +13,8 @@
 #'
 #' @param yearStart numeric is the calendar year containing the first estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)
 #' @param yearEnd numeric is the calendar year just after the last estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)
-#' @param localAnnualResults string specifying the name of the data frame that contains the annual results, default name is AnnualResults
-#' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
+#' @param localDaily data frame that contains the flow data, default name is Daily
+#' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param fluxUnit number representing entry in pre-defined fluxUnit class array. \code{\link{fluxConst}}
 #' @param fluxMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
@@ -36,13 +36,17 @@
 #' yearStart <- 2001
 #' yearEnd <- 2010
 #' Daily <- ChopDaily
-#' AnnualResults <- setupYears()
 #' INFO <- ChopINFO
+#' # Water year:
+#' INFO <- setPA()
 #' plotFluxHist()
 #' plotFluxHist(yearStart, yearEnd, fluxUnit = 1)
 #' plotFluxHist(yearStart, yearEnd, fluxUnit = 'kgDay')
+#' # Graphs consisting of Jun-Aug
+#' INFO <- setPA(paStart=6,paLong=3)
+#' plotFluxHist() 
 plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9, 
-    localAnnualResults = AnnualResults, localINFO = INFO, fluxMax = NA, 
+    localDaily = Daily, localINFO = INFO, fluxMax = NA, 
     printTitle = TRUE, plotFlowNorm = TRUE,tinyPlot=FALSE,col="black",col.pred="green",
     cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2, customPar=FALSE, ...){
   # produces a graph of annual flux and flow normalized flux versus year
@@ -53,6 +57,8 @@ plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9,
   # if you want to specify the maximum value, you can do so with the argument fluxMax, otherwise it will be automatic
   # fluxUnit is the units you want the results displayed in, see manual for list of all possible units  
 
+  localAnnualResults <- setupYears(paStart=localINFO$paStart,paLong=localINFO$paLong, localDaily = localDaily)
+  
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(fluxUnit)){
@@ -84,7 +90,7 @@ plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9,
   ###############################################
   
   genericEGRETDotPlot(x=subAnnualResults$DecYear, y = annFlux,
-                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,xDate=TRUE,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(0,yInfo$top),col=col,
                       ylab=ylabel, plotTitle=title, customPar=customPar,cex=cex,
                       cex.axis=cex.axis,cex.main=cex.main, tinyPlot=tinyPlot,...

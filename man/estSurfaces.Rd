@@ -6,11 +6,11 @@ estSurfaces(localDaily = Daily, localSample = Sample, windowY = 10,
   windowQ = 2, windowS = 0.5, minNumObs = 100, minNumUncen = 50)
 }
 \arguments{
-  \item{localDaily}{string specifying the name of the data
-  frame containing the daily values, default is Daily}
+  \item{localDaily}{data frame containing the daily values,
+  default is Daily}
 
-  \item{localSample}{string specifying the name of the data
-  frame containing the sample values, default is Sample}
+  \item{localSample}{data frame containing the sample
+  values, default is Sample}
 
   \item{windowY}{numeric specifying the half-window width
   in the time dimension, in units of years, default is 10}

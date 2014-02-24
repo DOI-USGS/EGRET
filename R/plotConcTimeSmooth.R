@@ -22,8 +22,8 @@
 #' @param bw logical if TRUE graph is produced in black and white, default is FALSE (which means it will use color)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed 
 #' @param printValues logical variable if TRUE the results shown on the graph are printed to the console and returned in a dataframe (this can be useful for quantifying the changes seen visually in the graph), default is FALSE (not printed)
-#' @param localSample string specifying the name of the data frame that contains the Sample data, default name is Sample
-#' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
+#' @param localSample data frame that contains the Sample data, default name is Sample
+#' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 10
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
@@ -153,7 +153,7 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim = c(xInfo$bottom,xInfo$top),ylim = c(yInfo$bottom,yInfo$top),
                       ylab = yLab, plotTitle=title, customPar=customPar,log=logText,
-                      type = "l", lwd = lwd, col = colorVal[1], lty = lineVal[1],
+                      type = "l", lwd = lwd, col = colorVal[1], lty = lineVal[1],xDate=TRUE,
                       cex.main = cex.main, tinyPlot=tinyPlot,cex=cex,cex.axis=cex.axis,...
   )
 

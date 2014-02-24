@@ -9,8 +9,8 @@
 #'  contains an INFO and Sample dataframes, then the following R code will produce a plot:
 #'  \code{plotResidQ()}
 #'
-#' @param localSample string specifying the name of the data frame that contains the concentration data, default name is Sample
-#' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
+#' @param localSample data frame that contains the concentration data, default name is Sample
+#' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
@@ -29,39 +29,50 @@
 #' @examples
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
+#' # Water year:
+#' INFO <- setPA()
+#' plotResidQ()
+#' # Graphs consisting of Jun-Aug
+#' INFO <- setPA(paStart=6,paLong=3)
 #' plotResidQ()
 plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2, 
                       tinyPlot = FALSE, stdResid = FALSE, printTitle = TRUE,col="black",lwd=1,
-                      cex=0.8, cex.axis=1.1,cex.main=1.1,rmSciX=FALSE, customPar=FALSE,...) 
-{  
+                      cex=0.8, cex.axis=1.1,cex.main=1.1,rmSciX=FALSE, customPar=FALSE,...){  
    
-   if (is.numeric(qUnit)) {
+  paLong <- localINFO$paLong
+  paStart <- localINFO$paStart  
+  
+  localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
+  
+  title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
+  
+  if (is.numeric(qUnit)) {
      qUnit <- qConst[shortCode = qUnit][[1]]
-   } else if (is.character(qUnit)) {
+  } else if (is.character(qUnit)) {
      qUnit <- qConst[qUnit][[1]]
-   }
+  }
    
-   qFactor <- qUnit@qUnitFactor
-   x <- localSample$Q * qFactor
+  qFactor <- qUnit@qUnitFactor
+  x <- localSample$Q * qFactor
    
-   yLow <- log(localSample$ConcLow) - localSample$yHat
-   yHigh <- log(localSample$ConcHigh) - localSample$yHat
+  yLow <- log(localSample$ConcLow) - localSample$yHat
+  yHigh <- log(localSample$ConcHigh) - localSample$yHat
    
-   yLow <- if(stdResid){
+  yLow <- if(stdResid){
      yLow/localSample$SE
-   } else {
+  } else {
        yLow
-   }
+  }
    
-   yHigh <- if(stdResid){
+  yHigh <- if(stdResid){
      yHigh/localSample$SE
-   } else {
+  } else {
        yHigh
-   }
+  }
    
-   Uncen <- localSample$Uncen
-
-   if (tinyPlot){
+  Uncen <- localSample$Uncen
+  
+  if (tinyPlot){
      xLab <- qUnit@qUnitTiny
      yLab <- ifelse(stdResid, "Standardized Residual", "Residual")
   } else {
@@ -74,18 +85,19 @@ plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2,
    
    #######################
    
-   xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot,padPercent=5)   
-#    yInfo <- generalAxis(x=yHigh, minVal=(min(yLow, na.rm = TRUE) - 0.5), maxVal=(max(yHigh) + 0.1), tinyPlot=tinyPlot)
-   yInfo <- generalAxis(x=yHigh, minVal=NA, maxVal=NA, tinyPlot=tinyPlot,padPercent=5)
+  xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot,padPercent=5)   
+  #    yInfo <- generalAxis(x=yHigh, minVal=(min(yLow, na.rm = TRUE) - 0.5), maxVal=(max(yHigh) + 0.1), tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yHigh, minVal=NA, maxVal=NA, tinyPlot=tinyPlot,padPercent=5)
    
-   genericEGRETDotPlot(x=x, y=yHigh,
+  genericEGRETDotPlot(x=x, y=yHigh,
                        xTicks=xInfo$ticks, yTicks=yInfo$ticks,hLine=TRUE,
                        xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
                        xlab = xLab, ylab = yLab, plotTitle=plotTitle,cex=cex,
                        log = "x", cex.axis=cex.axis,cex.main=cex.main, col=col,
                        tinyPlot=tinyPlot,rmSciX=rmSciX, customPar=customPar,...
-     )
-
-   censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen,col=col, lwd=lwd )
+  )
+  
+  censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen,col=col, lwd=lwd )
+  if (!tinyPlot) mtext(title2,side=3,line=-1.5)
    
 }

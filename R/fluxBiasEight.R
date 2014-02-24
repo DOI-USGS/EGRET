@@ -10,8 +10,8 @@
 #' contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
 #' \code{fluxBiasMulti()}
 #'
-#' @param localSample string specifying the name of the data frame that contains the concentration data, default name is Sample
-#' @param localDaily string specifying the name of the data frame that contains the flow data, default name is Daily 
+#' @param localSample data frame that contains the concentration data, default name is Sample
+#' @param localDaily data frame that contains the flow data, default name is Daily 
 #' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
 #' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param fluxUnit object of fluxUnit class. \code{\link{fluxConst}}, or numeric represented the short code, or character representing the descriptive name. 
@@ -28,13 +28,24 @@
 #' Sample <- ChopSample
 #' Daily <- ChopDaily
 #' INFO <- ChopINFO
+#' # Water year:
+#' INFO <- setPA()
 #' pdf("fluxBiasMulti.pdf", height=9, width=8)
+#' fluxBiasMulti()
+#' dev.off()
+#' # Graphs consisting of Jun-Aug
+#' INFO <- setPA(paStart=6,paLong=3)
+#' pdf("fluxBiasMultiSummer.pdf", height=9, width=8)
 #' fluxBiasMulti()
 #' dev.off()
 fluxBiasMulti<-function (localSample = Sample, localDaily = Daily, 
                          localINFO = INFO, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS", 
                          cex = 0.7, cex.axis = 1.1,cex.main=1.1,
                          col="black", lwd=1,...){
+  
+  paLong <- localINFO$paLong
+  paStart <- localINFO$paStart
+  title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   
   par(oma = c(0, 10, 4, 10),mfrow=c(4,2))
   plotResidPred(localSample = localSample, localINFO = localINFO, 
@@ -64,8 +75,15 @@ fluxBiasMulti<-function (localSample = Sample, localDaily = Daily,
   fluxBias <- fluxBiasStat(localSample = localSample)
   fB <- as.numeric(fluxBias[3])
   fB <- format(fB, digits = 3)
-  title <- paste(localINFO$shortName, " ", localINFO$paramShortName, 
-                 "\nModel is",moreTitle, "  Flux Bias Statistic", fB)
-  mtext(title, cex = cex.main, outer = TRUE, font = 2)
+  title <- paste(localINFO$shortName, ", ", localINFO$paramShortName, 
+                 "\nModel is ",moreTitle, " Flux Bias Statistic", fB, sep="")
+  if("" == title2){
+    mtext(title, cex = cex.main, outer = TRUE, font = 1.8)
+  } else {
+    title <- paste(title, title2, sep="\n")
+    mtext(title, cex = cex.main*.75, outer = TRUE, font = 1.8)    
+  }
+  
   par(mfcol = c(1, 1), oma = c(0, 0, 0, 0))
+  
 }

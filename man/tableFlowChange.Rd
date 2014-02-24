@@ -9,11 +9,11 @@ tableFlowChange(istat, localAnnualSeries = annualSeries, localINFO = INFO,
   \item{istat}{A numeric value for the flow statistic to be
   graphed (possible values are 1 through 8)}
 
-  \item{localINFO}{A character string specifying the name
-  of the metadata data frame}
+  \item{localINFO}{data frame that contains the metadata,
+  default is INFO}
 
-  \item{localAnnualSeries}{A character string specifying
-  the name of a data frame containing the annual series}
+  \item{localAnnualSeries}{data frame containing the annual
+  series, default is AnnualSeries}
 
   \item{qUnit}{object of qUnit class \code{\link{qConst}},
   or numeric represented the short code, or character

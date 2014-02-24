@@ -15,8 +15,8 @@ setPA(paStart = 10, paLong = 12, window = 30, localINFO = INFO)
   smoothing window for annual streamflow values, default is
   30}
 
-  \item{localINFO}{A character string specifying the name
-  of the metadata data frame}
+  \item{localINFO}{data frame that contains the metadata,
+  default is INFO}
 }
 \value{
 localInfo A data frame containing the metadata

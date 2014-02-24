@@ -13,11 +13,11 @@ plot15(yearStart, yearEnd, localDaily = Daily, localINFO = INFO)
   graph should end, default is NA, which indicates that the
   graph should end with last annual value}
 
-  \item{localDaily}{string specifying the name of the data
-  frame that contains the daily data, default is Daily}
+  \item{localDaily}{data frame that contains the daily
+  data, default is Daily}
 
-  \item{localINFO}{string specifying the name of the data
-  frame that contains the metadata, default is INFO}
+  \item{localINFO}{data frame that contains the metadata,
+  default is INFO}
 }
 \description{
 Part of flowHistory system.

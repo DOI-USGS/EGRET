@@ -16,11 +16,11 @@ printSeries(istat, qUnit = 1, runoff = FALSE, localINFO = INFO,
   \item{runoff}{logical variable, if TRUE the streamflow
   data are converted to runoff values in mm/day}
 
-  \item{localINFO}{A character string specifying the name
-  of the metadata data frame}
+  \item{localINFO}{data frame that contains the metadata,
+  default is INFO}
 
-  \item{localAnnualSeries}{A character string specifying
-  the name of a data frame containing the annual series}
+  \item{localAnnualSeries}{data frame containing the annual
+  series, default is AnnualSeries}
 }
 \description{
 Part of the flowHistory system. The index of the flow

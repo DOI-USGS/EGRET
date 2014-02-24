@@ -6,7 +6,7 @@
 #' @param paStart A numeric value for the starting month of the Period of Analysis, default is 10
 #' @param paLong A numeric value for the length of the Period of Analysis in months, default is 12
 #' @param window A numeric value for the half-width of a smoothing window for annual streamflow values, default is 30
-#' @param localINFO A character string specifying the name of the metadata data frame
+#' @param localINFO data frame that contains the metadata, default is INFO
 #' @keywords statistics streamflow
 #' @export
 #' @return localInfo A data frame containing the metadata

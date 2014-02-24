@@ -11,8 +11,8 @@
 #' contains an INFO and Sample dataframes, then the following R code will produce a plot:
 #' \code{boxResidMonth()}
 #'
-#' @param localSample string specifying the name of the data frame that contains the concentration data, default name is Sample
-#' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
+#' @param localSample data frame that contains the concentration data, default name is Sample
+#' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE
@@ -28,6 +28,11 @@
 #' @examples
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
+#' # Water year:
+#' INFO <- setPA()
+#' boxResidMonth()
+#' # Graphs consisting of Jun-Aug
+#' INFO <- setPA(paStart=6,paLong=3)
 #' boxResidMonth()
 boxResidMonth<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, las=1,
                         printTitle = TRUE, cex=0.8, cex.axis=1.1, cex.main=1.1,
@@ -35,6 +40,14 @@ boxResidMonth<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   #This function makes a boxplot of Residual by month
   #  if stdResid=TRUE, they will be standardized residuals
   #Box width is proportional to the square root of the sample size
+  
+  paLong <- localINFO$paLong
+  paStart <- localINFO$paStart  
+  
+  localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
+  
+  title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
+  
   if (tinyPlot){
     if (!customPar) par(mar=c(4,5,1,0.1),cex.lab=cex.axis,mgp=c(2.5,0.5,0),tcl=0.5)
     yLab<-if(stdResid) "Standardized Residuals" else "Residuals"
@@ -68,4 +81,5 @@ boxResidMonth<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
           las=las,
           ...)
   abline(h=0)  
+  if (!tinyPlot) mtext(title2,side=3,line=-1.5)
 }

@@ -8,8 +8,8 @@
 #' contains an INFO and Sample dataframes, then the following R code will produce a plot:
 #' \code{plotFluxPred()} 
 #'
-#' @param localSample string specifying the name of the data frame that contains the concentration data, default name is Sample
-#' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
+#' @param localSample data frame that contains the concentration data, default name is Sample
+#' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param fluxUnit number representing entry in pre-defined fluxUnit class array. \code{\link{fluxConst}}
 #' @param fluxMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
@@ -29,9 +29,14 @@
 #' @examples
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
+#' # Water year:
+#' INFO <- setPA()
 #' plotFluxPred()
 #' plotFluxPred(fluxUnit = 'poundsDay')
 #' plotFluxPred(logScale=TRUE)
+#' # Graphs consisting of Jun-Aug
+#' INFO <- setPA(paStart=6,paLong=3)
+#' plotFluxPred()
 plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, fluxMax = NA, 
                        printTitle = TRUE, oneToOneLine=TRUE, customPar=FALSE,col="black", lwd=1,
                        cex=0.8, cex.axis=1.1,cex.main=1.1,tinyPlot=FALSE,logScale=FALSE,...){
@@ -39,6 +44,12 @@ plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, flu
   # estimated flux on the x-axis (these include the bias correction), 
   # observed flux on y-axis 
   # these estimates are from a jack-knife, "leave-one-out", cross validation application of WRTDS
+  
+  paLong <- localINFO$paLong
+  paStart <- localINFO$paStart  
+  localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
+  
+  title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
@@ -90,5 +101,6 @@ plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, flu
   )
   
   censoredSegments(yBottom=yInfo$bottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen,col=col,lwd=lwd)
-
+  if (!tinyPlot) mtext(title2,side=3,line=-1.5)
+  
 }

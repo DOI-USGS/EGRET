@@ -4,8 +4,8 @@
 #' mean flux, and flow-normalized flux. 
 #' Uses results stored in AnnualResults and INFO data frames.
 #'
-#' @param localAnnualResults string specifying the name of the data frame that contains the results, default name is AnnualResults
-#' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
+#' @param localAnnualResults data frame that contains the results, default name is AnnualResults
+#' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param fluxUnit object of fluxUnit class. \code{\link{fluxConst}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param returnDataFrame logical.  If a dataframe is required, set this to TRUE.  Otherwise, the default is FALSE.

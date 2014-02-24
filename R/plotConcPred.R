@@ -8,8 +8,8 @@
 #' contains an INFO and Sample dataframes, then the following R code will produce a plot:
 #' \code{plotConcPred()}
 #'
-#' @param localSample string specifying the name of the data frame that contains the concentration data, default name is Sample
-#' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
+#' @param localSample data frame that contains the concentration data, default name is Sample
+#' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE
@@ -88,6 +88,6 @@ plotConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA, log
     )
 
   censoredSegments(yBottom=yInfo$bottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen,col=col,lwd=lwd)
-  mtext(title2,side=3,line=-1.5)
+  if (!tinyPlot) mtext(title2,side=3,line=-1.5)
 
 }
