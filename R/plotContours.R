@@ -31,7 +31,8 @@
 #' @param yTicks vector of yTick labels and marks that will be plotted in log space. If NA, will be automatically generated. 
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
-#' @param lwd number line width
+#' @param tick.lwd line width for axis ticks, default is 2
+#' @param lwd number line width, default is 1
 #' @param color.palette a function that creates a color palette for the contour plot. Default goes from white to gray to blue to red 
 #' using the function \code{colorRampPalette(c("white","gray","blue","red"))}. A few preset options are heat.colors, topo.colors, and terrain.colors.
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
@@ -49,7 +50,7 @@
 #' surfaces <- exsurfaces
 #' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel)  
 #' yTicksModified <- c(.1,1,10,25)
-#' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,yTicks=yTicksModified)  
+#' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,yTicks=yTicksModified,flowDuration=FALSE)  
 #' colors <- colorRampPalette(c("white","red"))
 #' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,yTicks=yTicksModified,color.palette=colors)
 #' colors2 <- heat.colors # Some other options: topo.colors, terrain.colors, cm.colors
@@ -62,7 +63,7 @@ plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
                        localsurfaces = surfaces, localINFO = INFO, localDaily = Daily, 
                        qUnit = 2, contourLevels = NA, span = 60, pval = 0.05, 
                        printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA, 
-                       flowDuration = TRUE, customPar=FALSE, yTicks=NA,
+                       flowDuration = TRUE, customPar=FALSE, yTicks=NA,tick.lwd=2,
                        lwd=1,cex.main=1,cex.axis=1,color.palette=colorRampPalette(c("white","gray","blue","red")),...) {
   #  This funtion makes a contour plot 
   #  x-axis is bounded by yearStart and yearEnd
@@ -154,7 +155,7 @@ plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
   surfj<-surf[,,j]
   surft<-t(surfj)
   # the next section does the flow duration information, using the whole period of record in Daily, not just the graph period
-  plotTitle<-if(printTitle) paste(localINFO$shortName,"  ",localINFO$paramShortName,"\nEstimated",surfaceName[j],"Surface in Color") else ""
+  plotTitle<-if(printTitle) paste(localINFO$shortName,", ",localINFO$paramShortName,"\nEstimated",surfaceName[j],"Surface in Color", sep="") else ""
   if(flowDuration) {
     numDays<-length(localDaily$Day)
     freq<-rep(0,nVectorLogQ)
@@ -201,6 +202,9 @@ plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
   v2<-if(is.na(vert2)) vectorNone else c(vert2,log(yTicks[1],10),vert2,log(yTicks[nYTicks],10))
   h1<-if(is.na(horiz)) vectorNone else c(yearStart,log(horiz,10),yearEnd,log(horiz,10))
   
+  deltaY <- (log(yTicks[length(yTicks)],10)-log(yTicks[1],10))/25
+  deltaX <- (yearEnd-yearStart)/25
+  
   yLab<-qUnit@qUnitExpress
   filled.contour(x,log(y,10),surft,levels=contourLevels,xlim=c(yearStart,yearEnd),
                  ylim=c(log(yTicks[1],10),log(yTicks[nYTicks],10)),#main=plotTitle,
@@ -215,11 +219,12 @@ plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
                    segments(v1[1],v1[2],v1[3],v1[4])
                    segments(v2[1],v2[2],v2[3],v2[4])
                    segments(h1[1],h1[2],h1[3],h1[4])
+                   
+                   segments(xTicks, rep(log(yTicks[1],10),length(xTicks)), xTicks, rep(log(yTicks[1],10),length(xTicks))+deltaY , lwd = tick.lwd)
+                   segments(xTicks, rep(log(yTicks[nYTicks],10),length(xTicks)), xTicks, rep(log(yTicks[nYTicks],10),length(xTicks))-deltaY, lwd = tick.lwd)
+                   segments(rep(yearStart,length(yTicks)), log(yTicks,10), rep(yearStart,length(yTicks))+deltaX,log(yTicks,10), lwd = tick.lwd)
+                   segments(rep(yearEnd,length(yTicks)), log(yTicks,10), rep(yearEnd,length(yTicks))-deltaX,log(yTicks,10), lwd = tick.lwd)
                  })
   if (printTitle) title(plotTitle,outer=TRUE,cex.main=cex.main,line=-3)
-# If we leave this out, we can continue to add things to plot:
-#   if(!customPar){
-#     par(oma=c(0,0,0,0))
-#     par(mar=c(5,4,4,2)+0.1)
-#   }
+
 }

@@ -12,7 +12,8 @@
 #' @param year1 numeric value for the calendar year that is the second year of the pair of years for the analysis, should be a whole number
 #' @param qBottom numeric value for the bottom edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit)
 #' @param qTop numeric value for the top edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit)
-#' @param maxDiff numeric value which is the absolute value of the largest change in concentration that will be shown on the figure
+#' @param maxDiff numeric value which is the absolute value of the largest change in concentration that will be shown on the figure. Alternatively, 
+#' a vector with the minimum and maximum values in the change in concentration scale.
 #' @param whatSurface numeric value, can only accept 1, 2, or 3;  whatSurface=1 is yHat (log concentration), whatSurface=2 is SE (standard error of log concentration), and whatSurface=3 is ConcHat (unbiased estimate of concentration), default = 3
 #' @param plotPercent logical. If TRUE, plots percent difference, if FALSE, plots absolute differences. Defaults to FALSE.
 #' @param localsurfaces matrix that contains the estimated surfaces, default is surfaces
@@ -30,6 +31,7 @@
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param lwd number line width
+#' @param tick.lwd line width for axis ticks, default is 2
 #' @param color.palette a function that creates a color palette for the contour plot. Default goes from blue to white to red 
 #' using the function \code{colorRampPalette(c("blue","white","red"))}. A few preset options are heat.colors, topo.colors, and terrain.colors.
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
@@ -60,7 +62,7 @@
 plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 3, 
                             localsurfaces = surfaces, localINFO = INFO, localDaily = Daily, 
                             qUnit = 2, span = 60, pval = 0.05, printTitle = TRUE, plotPercent = FALSE,
-                            vert1 = NA, vert2 = NA, horiz = NA, flowDuration = TRUE, yTicks=NA,
+                            vert1 = NA, vert2 = NA, horiz = NA, flowDuration = TRUE, yTicks=NA,tick.lwd=2,
                             lwd=1,cex.main=0.95,cex.axis=1,customPar=FALSE,color.palette=colorRampPalette(c("blue","white","red")),...) 
 {
   if (is.numeric(qUnit)) {
@@ -101,7 +103,12 @@ plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 
     diff<-surf[,start1:end1,j] - surf[,start0:end0,j]
   }
   difft<-t(diff)
-  surfaceSpan <- c(-maxDiff,maxDiff)
+  if(length(maxDiff) == 1){
+    surfaceSpan <- c(-maxDiff,maxDiff)
+  } else {
+    surfaceSpan <- range(maxDiff)
+  }
+  
   contourLevels <- pretty(surfaceSpan, n = 15)
   x <- seq(0,1,stepYear)
   y <- ((1:nVectorLogQ) * stepLogQ) + (bottomLogQ - stepLogQ)
@@ -125,8 +132,8 @@ plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 
   numDays <- length(localDaily$Day)
   freq <- rep(0, nVectorLogQ)
   plotTitle <- if (printTitle) 
-    paste(localINFO$shortName, "  ", localINFO$paramShortName, 
-          "\nEstimated", surfaceName[j], "change from",year0,"to",year1)
+    paste(localINFO$shortName, ", ", localINFO$paramShortName, 
+          "\nEstimated", surfaceName[j], "change from",year0,"to",year1,sep="")
   else ""
   
   if(flowDuration) {
@@ -190,6 +197,9 @@ plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 
     vectorNone
   else c(year0, log(horiz, 10), year1, log(horiz, 10))
   
+  deltaY <- (log(yTicks[length(yTicks)],10)-log(yTicks[1],10))/25
+  deltaX <- (1)/25
+  
   yLab <- qUnit@qUnitExpress
   filled.contour(x, log(y, 10), difft, levels = contourLevels, 
                  xlim = c(0,1), ylim = c(log(yTicks[1], 
@@ -206,6 +216,11 @@ plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 
                    segments(v1[1], v1[2], v1[3], v1[4])
                    segments(v2[1], v2[2], v2[3], v2[4])
                    segments(h1[1], h1[2], h1[3], h1[4])
+                   
+                   segments(xTicks, rep(log(yTicks[1],10),length(xTicks)), xTicks, rep(log(yTicks[1],10),length(xTicks))+deltaY , lwd = tick.lwd)
+                   segments(xTicks, rep(log(yTicks[nYTicks],10),length(xTicks)), xTicks, rep(log(yTicks[nYTicks],10),length(xTicks))-deltaY, lwd = tick.lwd)
+                   segments(rep(0,length(yTicks)), log(yTicks,10), rep(0,length(yTicks))+deltaX,log(yTicks,10), lwd = tick.lwd)
+                   segments(rep(1,length(yTicks)), log(yTicks,10), rep(1,length(yTicks))-deltaX,log(yTicks,10), lwd = tick.lwd)
                  }, color.palette=color.palette,...)
   if (printTitle) title(plotTitle,outer=TRUE,cex.main=cex.main,line=-3)
 #   par(oma = c(0, 0, 0, 0))
