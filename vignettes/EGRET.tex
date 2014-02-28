@@ -530,7 +530,7 @@ We will walk through an example from Columbia River at The Dalles, OR.
 \hlstd{Daily} \hlkwb{<-} \hlkwd{getDVData}\hlstd{(siteID,}\hlstr{"00060"}\hlstd{,startDate,endDate)}
 \end{alltt}
 \begin{verbatim}
-There are 49575 data points, and 49576 days.
+There are 49578 data points, and 49579 days.
 
  discharge data jumps from 2013-12-28 to 2013-12-30
 \end{verbatim}
@@ -658,7 +658,7 @@ Here is an example of looking at mean daily discharge for the full water year an
 \hlstd{Daily} \hlkwb{<-}\hlkwd{getDVData}\hlstd{(sta,}\hlstr{"00060"}\hlstd{,}\hlkwc{StartDate}\hlstd{=}\hlstr{""}\hlstd{,}\hlkwc{EndDate}\hlstd{=}\hlstr{""}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-There are 35980 data points, and 35980 days.
+There are 24169 data points, and 24169 days.
 \end{verbatim}
 \begin{alltt}
 \hlstd{INFO} \hlkwb{<-} \hlkwd{getMetaData}\hlstd{(sta,}\hlstr{""}\hlstd{,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
@@ -793,7 +793,7 @@ Another way to look at the results is to consider how much the smoothed values c
   \item As a slope between the first and last year of the pair, expressed as a percentage change per year (a percentage based on the value in the first year).
 \end{itemize}
 
-There is another argument that can be very useful in this function: yearPoints.  In the default case, the set of years that are compared are at 5 year intervals along the whole data set.  If the data set was quite long this can be a daunting number of comparisons.  For example, in an 80 year record, there would be 136 such pairs. Instead, we could look at changes to just show 3 years: 1890, 1950, and 2010: 
+There is another argument that can be very useful in this function: yearPoints.  In the default case, the set of years that are compared are at 5 year intervals along the whole data set.  If the data set was quite long this can be a daunting number of comparisons.  For example, in an 80 year record, there would be 136 such pairs. Instead, we could look at changes between only 3 year points: 1890, 1950, and 2010: 
 
 
 \begin{knitrout}
@@ -830,9 +830,9 @@ See section \ref{app:createWordTable} for instructions on converting an R datafr
 %------------------------------------------------------------ 
 \FloatBarrier
 
-Before running the WRTDS model, it is very helpful to take a look at the measured water quality data in a graphical way to understand its behavior and to identify things that might be errors in the data set or learn about the temporal distribution of the data (identify gaps) prior to running the model.  It is always best to clear up these issues before moving forward.
+Before running the WRTDS model, it is helpful to examine the measured water quality data graphically to better understand its behavior, identify possible data errors, and visualize the temporal distribution of the data (identify gaps).  It is always best to clear up these issues before moving forward.
 
-We will now use the Choptank River at Greensboro, MD as our example case. The Choptank River is a small tributary of the Chesapeake Bay. Inorganic nitrogen (nitrate and nitrite) has been measured from 1979 onward. First, we need to get the discharge and nitrate data into R, then use the mergeReport function to associate discharge with the discrete measured water quality data. Before the data can be graphed or entered into any of the WRTDS analysis the discharge data must be brought into the Sample dataframe.  This is done with the mergeReport function which does this merger of the discharge information and also provides a compact report about some major features of the data set.
+We will use the Choptank River at Greensboro, MD as our example case. The Choptank River is a small tributary of the Chesapeake Bay. Inorganic nitrogen (nitrate and nitrite) has been measured from 1979 onward. First, we need to load the discharge and nitrate data into R. Before the data can be graphed or used for WRTDS analysis, the discharge data must be brought into the Sample dataframe.  This is done with the mergeReport function which performs the merger of the discharge information and also provides a compact report about some major features of the data set.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -862,9 +862,9 @@ We will now use the Choptank River at Greensboro, MD as our example case. The Ch
 %------------------------------------------------------------ 
 \FloatBarrier
 
-This section will give examples of the available plots appropriate for analyzing the data prior to performing a WRTDS analysis. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See section \ref{sec:wqVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}).
+This section will give examples of the available plots appropriate for analyzing data prior to performing a WRTDS analysis. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See section \ref{sec:wqVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}).
 
-One note about any of the plotting functions that show the sample data:  If a value in the data set is a non-detect, it is displayed on a graph as a vertical line.  The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values, the minimum value on the y-axis.  This line is an 'honest' representation of what we know about that observation and doesn't involve us using a statistical model to fill in what we don't know. 
+One note about any of the plotting functions that show the sample data: if a value in the data set is a non-detect (censored), it is displayed on the graph as a vertical line.  The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values, the minimum value on the y-axis.  This line is an 'honest' representation of what we know about that observation and doesn't involve us using a statistical model to fill in what we don't know. 
 
 Figure \ref{fig:plotBoxes}:
 \begin{knitrout}
@@ -942,7 +942,7 @@ Figure \ref{fig:multiPlotDataOverview}:
 \subsection{Table Options}
 \label{sec:tableOptionsWQ}
 %------------------------------------------------------------ 
-Another useful tool for checking the data before running the WRTDS estimations is flowDuration. This is a utility function that can help define the discharge ranges that we want to explore.  It prints out key points on the discharge duration curve.  They are defined for a particular part of the year, although they can be done for the entire year.  
+Another useful tool for checking the data before running the WRTDS estimations is flowDuration. This is a utility function that can help define the discharge ranges that we want to explore.  It prints out key points on the discharge duration curve.  They are defined for a particular part of the year using the `centerDate' and `span' arguments, although they can be done for the entire year (default).  
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -961,6 +961,22 @@ Discharge units are Cubic Feet per Second
     95%     max 
  462.00 8700.00 
 \end{verbatim}
+\begin{alltt}
+\hlkwd{flowDuration}\hlstd{(}\hlkwc{qUnit}\hlstd{=}\hlnum{1}\hlstd{,} \hlkwc{centerDate}\hlstd{=}\hlstr{"09-30"}\hlstd{,} \hlkwc{span}\hlstd{=}\hlnum{30}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+
+Flow Duration for Choptank River 
+
+Flow duration period is centered on September 30 
+And spans the period from August 31  To October 30
+
+Discharge units are Cubic Feet per Second 
+   min     5%    10%    25%    50%    75%    90%    95% 
+   2.5    8.8   11.0   15.0   27.0   67.0  138.0  223.0 
+   max 
+5600.0 
+\end{verbatim}
 \end{kframe}
 \end{knitrout}
 
@@ -970,11 +986,9 @@ Discharge units are Cubic Feet per Second
 \section{WRTDS Analysis}
 \label{sec:wrtds}
 %------------------------------------------------------------ 
-Weighted Regressions on Time, Discharge and Season (WRTDS) creates model of the behavior of concentration as a function of three components: time trend, discharge and season.  It can be used to estimate annual or seasonal mean concentrations and fluxes as well as describe long-term trends in the behavior of the system. In this section, we will step though the process required for a WRTDS analysis. The next section (\ref{sec:wrtdsResults}) will detail the available methods to view and evaluate the model results. 
+Weighted Regressions on Time, Discharge and Season (WRTDS) creates a model of the behavior of concentration as a function of three components: time trend, discharge and season.  It can be used to estimate annual or seasonal mean concentrations and fluxes as well as describe long-term trends in the behavior of the system. In this section, we will step though the process required for a WRTDS analysis. The next section (\ref{sec:wrtdsResults}) will detail the available methods to view and evaluate the model results. 
 
-Once you have looked at your data using the tools described in section \ref{sec:wqa}, and have determined there is sufficient representative data, it is time to run the WRTDS model. There are a few inputs that can be defined before running the model (see section \ref{sec:wrtdsInputVariables}).
-
-Assuming you are using the defaults, with dataframes called Daily, Sample, and INFO, the modelEstimation function will run the WRTDS modeling algorithm:
+Once you have looked at your data using the tools described in section \ref{sec:wqa}, and have determined there is sufficient representative data, it is time to run the WRTDS model. Assuming you are using the defaults, with dataframes called Daily, Sample, and INFO, the modelEstimation function will run the WRTDS modeling algorithm:
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -985,26 +999,26 @@ Assuming you are using the defaults, with dataframes called Daily, Sample, and I
 \end{knitrout}
 
 
-This function is slow, and shows the progress in percent complete. See the references and manual for more information. It's important to understand that this is the one function that will globally change your Daily, Sample, and INFO dataframes. It also creates a new matrix: surfaces, and a new dataframe: AnnualResults. It is unusual R programming behavior (and generally considered poor practice), but was chosen to make it easy for the user.
+Details of the options available when running modelEstimation() can be found in Section \ref{sec:wrtdsInputVariables}. This function is slow, and shows the progress in percent complete. See the references and manual for more information. It's important to understand that this is the one function that will globally change your Daily, Sample, and INFO dataframes. It also creates a new matrix: surfaces, and a new dataframe: AnnualResults. It is unusual R programming behavior to create global variables, but was chosen to make it easy for the user.
 
-If you wish to change the period of analysis after completing modelEstimation, there is one more step that needs to happen.  For example, if we want to consider a 3 month season that runs from December through Feburary, we would set paStart = 12 and paLong = 3.  (Note that the period of analysis and the arguments paStart and paLong are introduced at the begining of section \ref{sec:flowHistory} of this document.) After running modelEstimation run the command:
+If you wish to change the period of analysis after completing modelEstimation, there is one more step.  For example, if we want to consider a 3 month season that runs from December through Feburary, we would set paStart = 12 and paLong = 3.  (Note that the period of analysis and the arguments paStart and paLong are introduced at the begining of section \ref{sec:flowHistory} of this document.) After running modelEstimation we would then run the command:
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
+\hlstd{INFO} \hlkwb{<-} \hlkwd{setPA}\hlstd{(}\hlkwc{paStart}\hlstd{=}\hlnum{12}\hlstd{,}\hlkwc{paLong}\hlstd{=}\hlnum{3}\hlstd{)}
 \hlstd{AnnualResults}\hlkwb{<-}\hlkwd{setupYears}\hlstd{(}\hlkwc{paStart}\hlstd{=}\hlnum{12}\hlstd{,}\hlkwc{paLong}\hlstd{=}\hlnum{3}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
 
 
-
-Finally, it is a good idea to save your results because of the computational time that has been invested in producing these results. Assuming that you have already created the object savePath, the command is:
+Finally, it is a good idea to save your results because of the computational time that has been invested in producing these results. The command for saving the workspace is:
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{savePath} \hlkwb{<-} \hlstr{"C:/Users/ldecicco/WRTDS_Output/"}
+\hlstd{savePath} \hlkwb{<-} \hlstr{"C:/Users/egretUser/WRTDS_Output/"}
 \hlstd{INFO}\hlopt{$}\hlstd{staAbbrev} \hlkwb{<-} \hlstr{"Chop"}
 \hlstd{INFO}\hlopt{$}\hlstd{constitAbbrev} \hlkwb{<-} \hlstr{"nitrogen"}
 \hlkwd{saveResults}\hlstd{(savePath)}
@@ -1013,12 +1027,14 @@ Finally, it is a good idea to save your results because of the computational tim
 \end{knitrout}
 
 
-The workspace is saved using the staAbbrev and constitAbbrev as the filename (seperated by a period), and the extension .RData. To load:
+This will now save all of the objects in your workspace. If you have saved workspaces from R versions earlier than 3.0, there will be a warning when opening them in R 3.0 (or later). Re-saving the workspace using R 3.0 (or later) should get rid of the warning.
+
+The workspace is saved using the staAbbrev and constitAbbrev as the filename (separated by a period), and the extension .RData. To load the data:
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{loadPath} \hlkwb{<-} \hlstr{"C:/Users/ldecicco/WRTDS_Output/"}
+\hlstd{loadPath} \hlkwb{<-} \hlstr{"C:/Users/egretUser/WRTDS_Output/"}
 \hlstd{staAbbrev} \hlkwb{<-} \hlstr{"Chop"}
 \hlstd{constitAbbrev} \hlkwb{<-} \hlstr{"nitrogen"}
 \hlstd{pathToFile} \hlkwb{<-} \hlkwd{paste}\hlstd{(loadPath,staAbbrev,}\hlstr{"."}\hlstd{,}
@@ -1029,7 +1045,6 @@ The workspace is saved using the staAbbrev and constitAbbrev as the filename (se
 \end{knitrout}
 
 
-This will now save all of the objects in your workspace. If you have saved workspaces from R versions earlier than 3.0, there will be a warning when opening them in R 3.0 (or later). Re-saving the workspace using R 3.0 (or later) should get rid of the warning.
 
 
 \FloatBarrier
@@ -1038,7 +1053,7 @@ This will now save all of the objects in your workspace. If you have saved works
 \section{WRTDS Results}
 \label{sec:wrtdsResults}
 %------------------------------------------------------------ 
-At this point (after having run modelEstimation) we can start considering how to view the annual averages for the variables that have been calculated.  See section \ref{sec:wrtdsOutputVariables} for common input variables for these functions. Additionally, check the help files (in the R console, type ? followed by the function name).
+At this point (after having run modelEstimation) we can start considering how to view the annual averages for the variables that have been calculated.  See section \ref{sec:wrtdsOutputVariables} for common input variables for these functions. Additionally, check the help files (in the R console, type ? followed by the function name). 
 
 %------------------------------------------------------------ 
 \subsection{Plotting Options}
@@ -1047,7 +1062,7 @@ At this point (after having run modelEstimation) we can start considering how to
 
 \FloatBarrier
 
-Check the help files or manual for more details on the following functions.  See section \ref{app:savingPlots} for information on saving plots.
+Check the help files or manual for more details on the following functions.  See section \ref{app:savingPlots} for information on saving plots. In these examples, we will return to looking at the data in the water year by using the setPA function. Most plotting functions will use the period of analysis information in the INFO dataframe to determine what data is plotted. There are a few exceptions that will be explained below: plotContour, plotDiffContour, plotConcTimeSmooth, plotConcQSmooth.
 
 
 
@@ -1058,6 +1073,10 @@ Figure \ref{fig:plotConcTimeDaily}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
+\hlcom{# Return to water year:}
+\hlstd{INFO} \hlkwb{<-} \hlkwd{setPA}\hlstd{()}
+\hlstd{AnnualResults}\hlkwb{<-}\hlkwd{setupYears}\hlstd{()}
+
 \hlstd{yearStart} \hlkwb{<-} \hlnum{2008}
 \hlstd{yearEnd} \hlkwb{<-} \hlnum{2010}
 
@@ -1211,7 +1230,7 @@ Figure \ref{fig:plotConcTimeSmooth}:
 \end{knitrout}
 
 
-Figures \ref{fig:plotConcQSmooth} and \ref{fig:plotConcTimeSmooth} contain legends. The placement of the legend is controlled by legendLeft and legendTop. If both are set to 0, the legend is placed in the lower left corner. Otherwise, the value specified for legendLeft places the left edge of the legend, and legendTop specifies the top edge of the legend. The units for legendLeft and legendTop are discharge (in units specified by qUnit) and concentration, respectively. The legend can also be turned off with printLegend=FALSE.
+Figures \ref{fig:plotConcQSmooth} and \ref{fig:plotConcTimeSmooth} contain legends. The placement of the legend is controlled by legendLeft and legendTop. If both are set to 0, the legend is placed in the lower left corner. Otherwise, the value specified for legendLeft places the left edge of the legend, and legendTop specifies the top edge of the legend. The units for legendLeft and legendTop are discharge (in units specified by qUnit) and concentration, respectively. The legend can also be turned off with printLegend=FALSE. These are also functions that do not recognize the period of analysis in the INFO dataframe. However, by choosing centering dates and appropriate half-windows, seasonal behavior can easily be observed in these plots. 
 
 
 Figure \ref{fig:fluxBiasMulti}:
@@ -1229,6 +1248,7 @@ Figure \ref{fig:fluxBiasMulti}:
 \end{knitrout}
 
 
+The contour plot functions also do not recognize the period of analysis in the INFO dataframe. They represent the overall results of the WRTDS analysis. 
 
 Figure \ref{fig:plotContours}:
 \begin{knitrout}
@@ -1247,6 +1267,8 @@ Figure \ref{fig:plotContours}:
 
 \end{knitrout}
 
+
+To specify contourLevels in the contour plots, the seq function in R should be used (type `?seq' for details on this function).  In general it would look like this: contourLevels = seq(from,to,by).  For example, if we want contours to run from 0 to 5 in steps of 0.2 we would say:  
 
 Figure \ref{fig:plotDiffContours}:
 \begin{knitrout}
@@ -1267,7 +1289,7 @@ Figure \ref{fig:plotDiffContours}:
 
 
 
-To specify contourLevels the seq function in R should be used (type `?seq' for details on this function).  In general it would look like this: contourLevels = seq(from,to,by).  For example, if we want contours to run from 0 to 5 in steps of 0.2 we would say:  
+
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -1284,7 +1306,7 @@ To specify contourLevels the seq function in R should be used (type `?seq' for d
 \subsection{Table Options}
 \label{sec:wrtdsTable}
 %------------------------------------------------------------ 
-Sometimes it is easier to consider the results in table formats rather than graphically. The function tableResults produces a simple text table that contains the annual values for the results.  Each row of the output represents a year and it prints: year, average discharge, average concentration, flow-normalized concentration, average flux, and flow-normalized flux.  A small sample of the output is printed below.This function can also return a data frame if returnDataFrame is set to TRUE.
+Sometimes it is easier to consider the results in table form rather than graphically. The function tableResults produces a simple text table that contains the annual values for the results.  Each row of the output represents a year and includes: year, average discharge, average concentration, flow-normalized concentration, average flux, and flow-normalized flux.  A small sample of the output is printed below. This function can also return a data frame if returnDataFrame is set to TRUE.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -1339,7 +1361,8 @@ Sometimes it is easier to consider the results in table formats rather than grap
 
 
 
-The other table option is tableChange. This is a function that provides for the computation of changes or slopes between any selected pairs of time points.  These computations are made only on the flow-normalized results.
+The other table option is tableChange. This is a function that provides for the computation of changes or slopes between any selected pairs of time points.  These computations are made only on the flow-normalized results. A detailed explaination of `flow-normalized' result can be found in the official EGRET manual.
+
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -1372,7 +1395,7 @@ The other table option is tableChange. This is a function that provides for the 
 \end{knitrout}
 
 
-Finally, tableChangeSingle (Table \ref{table:tableChangeSingle}) operates exactly the same as tableChange except for the addition of two arguments: returnDataFrame and flux. This functions provides either concentration results or flux results, but not both.  This can be useful when producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except for the final two arguments.  The first, `returnDataFrame' is a logical argument to indicate if a dataframe of output should be returned (for later manipulation or printing through other programs such as Excel), and its default is FALSE.  The second argument is `flux', and the default is TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  See section \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft.
+Finally, tableChangeSingle (Table \ref{table:tableChangeSingle}) operates exactly the same as tableChange except for the addition of two arguments: returnDataFrame and flux. This function provides either concentration results or flux results, but not both.  This can be useful when producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except for the final two arguments.  The first, `returnDataFrame' is a logical argument to indicate if a dataframe of output should be returned (for later manipulation or printing through other programs such as Excel), and its default is FALSE.  The second argument is `flux', and the default is TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  See section \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft.
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -1436,7 +1459,7 @@ lty & Line type number (such as dash or dot) & integer values\\
 \label{table:tableChangeSingle}
 \end{table}
 
-There are many other functions that might be useful to call after the plot was made to add text, legend, lines, etc. Table \ref{table:addOns} lists a few common ones that might be useful.
+There are many other functions that might be useful to call after the plot was made to add text, legend, lines, etc. Table \ref{table:addOns} lists a few common options.
 
 \begin{table}[ht]
 \centering
@@ -1581,7 +1604,7 @@ This section describes the options for installing the EGRET package.
 %------------------------------------------------------------ 
 If you are new to R, you will need to first install the latest version of R, which can be found here: \url{http://www.r-project.org/}.
 
-There are many options for running and editing R code, one nice environment to learn R is RStudio. RStudio can be downloaded here: \url{http://rstudio.org/}. Once R and RStudio are installed, the environment package needs to be installed as described in the next section.
+There are many options for running and editing R code, one nice environment to learn R is RStudio. RStudio can be downloaded here: \url{http://rstudio.org/}. Once R and RStudio are installed, the EGRET package needs to be installed as described in the next section.
 
 At any time, you can get information about any function in R by typing a question mark before the function's name.  This will open a file (in RStudio, in the Help window) that describes the function, the required arguments, and provides working examples.
 
@@ -1653,26 +1676,26 @@ This section describes variables that are common for a variety of function types
   \centering
   \begin{threeparttable}[b]
 \caption{Variables used in flow history plots  \label{tab:flowHistoryVariables}}
-\begin{tabularx}{\textwidth}{lX}
+\begin{tabularx}{\textwidth}{lXl}
 \hline
-  \textbf{Argument} & \textbf{Definition} \\
+  \textbf{Argument} & \textbf{Definition} & \textbf{Default} \\
 \hline
-istat & Which discharge statistic to plot: 1-8.  Must be specified, see Table \ref{table:istat}. \\
-yearStart\tnote{1} & What is the decYear value where you want the graph to start? \\
-yearEnd\tnote{1} & What is the decYear value where you want the graph to end? \\
-qMax & User specified upper limit on y axis (can be used when we want several graphs to all share the same scale). Value is specified in the discharge units that the user selects. \\
-printTitle & can be TRUE or FALSE, you may want FALSE if it is going to be a figure with a caption or if it is a part of a multipanel plot. \\
-tinyPlot & Can be TRUE or FALSE, the TRUE option assures that there will be a small number of tick marks, consistent with printing in a small space \\
-runoff & Can be TRUE or FALSE.  If true then discharge values are reported as runoff in mm/day.  This can be very useful in multi-site analyses. \\
-qUnit & An index indicating what discharge units to use.  Options run from 1 to 6 (see section \ref{sec:units}).  The choice should be based on the units that are customary for the audience but also, the choice should be made so that the discharge values don't have too many digits to the right or left of the decimal point.\\
-printStaName\tnote{2} & Can be TRUE or FALSE, if TRUE the name of the streamgage is stated in the plot title. \\
-printPA\tnote{2} & Can be TRUE or FALSE, if TRUE the period of analysis is stated in the plot title. \\
-printIstat\tnote{2} & Can be TRUE or FALSE, if TRUE the name of the statistic (e.g. 7-day minimum discharge) is stated in the plot title. \\
+istat & Which discharge statistic to plot: 1-8.  Must be specified, see Table \ref{table:istat}. & \\
+yearStart\tnote{1} & What is the decYear value where you want the graph to start? & NA\\
+yearEnd\tnote{1} & What is the decYear value where you want the graph to end? & NA\\
+qMax & User specified upper limit on y axis (can be used when we want several graphs to all share the same scale). Value is specified in the discharge units that the user selects. & NA\\
+printTitle & can be TRUE or FALSE, you may want FALSE if it is going to be a figure with a caption or if it is a part of a multipanel plot. & TRUE\\
+tinyPlot & Can be TRUE or FALSE, the TRUE option assures that there will be a small number of tick marks, consistent with printing in a small space & FALSE\\
+runoff & Can be TRUE or FALSE.  If true then discharge values are reported as runoff in mm/day.  This can be very useful in multi-site analyses. & FALSE\\
+qUnit & An index indicating what discharge units to use.  Options run from 1 to 6 (see section \ref{sec:units}).  The choice should be based on the units that are customary for the audience but also, the choice should be made so that the discharge values don't have too many digits to the right or left of the decimal point. & 1\\
+printStaName\tnote{2} & Can be TRUE or FALSE, if TRUE the name of the streamgage is stated in the plot title. & TRUE\\
+printPA\tnote{2} & Can be TRUE or FALSE, if TRUE the period of analysis is stated in the plot title. & TRUE\\
+printIstat\tnote{2} & Can be TRUE or FALSE, if TRUE the name of the statistic (e.g. 7-day minimum discharge) is stated in the plot title. & TRUE\\
 
 \hline
 \end{tabularx}
   \begin{tablenotes}
-    \item[1] Setting yearStart and yearEnd will determine where the graphs start and end, but they don't determine where the smoothing analysis starts and ends.  There are situations, typically where many sites are be analyzed together, where you may want to run the smoothing on a consistent period of record across all sites.  Doing this requires modifying the Daily data frame before running makeAnnualSeries.
+    \item[1] Setting yearStart and yearEnd will determine where the graphs start and end, but they don't determine where the smoothing analysis starts and ends.  There are situations, typically where many sites are be analyzed together, where you may want to run the smoothing on a consistent period of record across all sites.  Doing this requires subsetting the Daily data frame before running makeAnnualSeries (see ?subset).
     \item[2] If the printTitle argument is set to FALSE, then it really makes no difference what you do with printSta, printPA, or printIstat.  They can all be left as their default values and thus there is no need to include them in the call for the function.
   \end{tablenotes}
  \end{threeparttable}
@@ -1687,21 +1710,21 @@ printIstat\tnote{2} & Can be TRUE or FALSE, if TRUE the name of the statistic (e
 %------------------------------------------------------------
 
 \begin{table}[ht]
-\caption{Variables used in water quality analysis plots  \label{tab:wqVariables}}
-\begin{tabularx}{\textwidth}{lX}
+\caption{Selected variables used in water quality analysis plots  \label{tab:wqVariables}}
+\begin{tabularx}{\textwidth}{lXl}
 \hline
-  \textbf{Argument} & \textbf{Definition} \\
+  \textbf{Argument} & \textbf{Definition} & \textbf{Default} \\
 \hline
-qUnit & Determines what units will be used for discharge, see section \ref{sec:units}\\
-printTitle & If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption)\\
-qLower & The lower bound on the discharge on the day of sampling that will be used in forming a subset of the sample data set that will be displayed in the graph.  It is expressed in the units specified in qUnit.  If qLower = NA, then the lower bound is set to zero.\\
-qUpper & The upper bound on the discharge on the day of sampling that will be used in forming a subset of the sample data set that will be displayed in the graph.  It is expressed in the units specified in qUnit.  If qUpper = NA, then the upper bound is set to infinity.\\
-paLong & The length of the time period that will be used in forming a subset of the sample data set that will be displayed in the graph, expressed in months. \\ 
-paStart & The starting month for the time period that will be used in forming a subset of the sample data set that will be displayed in the graph.  It is expressed in months (calendar months).\\
-concMax & The upper limit on the vertical axis of graphs showing concentration values in mg/L (NA sets value to just above maximum).  \\
-concMin & The lower limit on the vertical axis of graphs showing concentration values in mg/L (NA sets value to just below minimum for log scales, zero for linear).  \\
-fluxUnit & Determines what units will be used for flux (see Section \ref{sec:units}).\\
-fluxMax & The upper limit on the vertical axis of graphs showing flux values.  \\
+qUnit & Determines what units will be used for discharge, see section \ref{sec:units} & 2\\
+printTitle & If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption) & TRUE\\
+qLower & The lower bound on the discharge on the day of sampling that will be used in forming a subset of the sample data set that will be displayed in the graph.  It is expressed in the units specified in qUnit.  If qLower = NA, then the lower bound is set to zero. & \\
+qUpper & The upper bound on the discharge on the day of sampling that will be used in forming a subset of the sample data set that will be displayed in the graph.  It is expressed in the units specified in qUnit.  If qUpper = NA, then the upper bound is set to infinity. & \\
+% paLong & The length of the time period that will be used in forming a subset of the sample data set that will be displayed in the graph, expressed in months. & 12\\ 
+% paStart & The starting month for the time period that will be used in forming a subset of the sample data set that will be displayed in the graph.  It is expressed in months (calendar months). & 10\\
+concMax & The upper limit on the vertical axis of graphs showing concentration values in mg/L (NA sets value to just above maximum).  & NA\\
+concMin & The lower limit on the vertical axis of graphs showing concentration values in mg/L (NA sets value to just below minimum for log scales, zero for linear). & NA\\
+fluxUnit & Determines what units will be used for flux (see Section \ref{sec:units}). & 9\\
+fluxMax & The upper limit on the vertical axis of graphs showing flux values. & \\
 \hline
 \end{tabularx}
 
@@ -1716,7 +1739,7 @@ fluxMax & The upper limit on the vertical axis of graphs showing flux values.  \
 \label{sec:wrtdsInputVariables}
 %------------------------------------------------------------
 \begin{table}[ht]
-\caption{Variables in WRTDS  \label{tab:WRTDS}}
+\caption{Selected variables in WRTDS  \label{tab:WRTDS}}
 \begin{tabularx}{\textwidth}{lXl}
 \hline
   \textbf{Argument} & \textbf{Definition} & \textbf{Default} \\
@@ -1740,20 +1763,20 @@ minNumUncen & This is the minimum number of uncensored observations with non-zer
 %------------------------------------------------------------
 
 \begin{table}[ht]
-\caption{Variables used in WRTDS analysis plots  \label{tab:wrtdsVariables}}
-\begin{tabularx}{\textwidth}{lX}
+\caption{Selected variables used in WRTDS analysis plots  \label{tab:wrtdsVariables}}
+\begin{tabularx}{\textwidth}{lXl}
 \hline
-  \textbf{Argument} & \textbf{Definition} \\
+  \textbf{Argument} & \textbf{Definition} & \textbf{Default} \\
 \hline
-qUnit & Determines what units will be used for discharge, see section \ref{sec:units}\\
-fluxUnit & An index indicating what flux units will be used , see section \ref{sec:units}\\
-stdResid & This is an option.  If FALSE, it prints the regular residuals (they are in ln concentration units).  If TRUE, it is the standardized residuals.  These are the residuals divided by their estimated standard error (each residual has its own unique standard error).  In theory, the standardized residuals should have mean zero and standard deviation of 1 \\
-printTitle & If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption) \\
-startYear & The starting date for the graph, expressed as decimal years, for example, 1989.0 \\
-endYear & The ending date for the graph, expressed as decimal years, for example, 1996.0 \\
+qUnit & Determines what units will be used for discharge, see section \ref{sec:units} & 2\\
+fluxUnit & An index indicating what flux units will be used , see section \ref{sec:units} & 3\\
+stdResid & This is an option.  If FALSE, it prints the regular residuals (they are in ln concentration units).  If TRUE, it is the standardized residuals.  These are the residuals divided by their estimated standard error (each residual has its own unique standard error).  In theory, the standardized residuals should have mean zero and standard deviation of 1 & FALSE\\
+printTitle & If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption) & TRUE\\
+startYear & The starting date for the graph, expressed as decimal years, for example, 1989 & NA\\
+endYear & The ending date for the graph, expressed as decimal years, for example, 1996 & NA\\
 moreTitle & A character variable that adds additional information to the graphic title.  Typically used to indicate what the estimation method was (e.g. WRTDS or or another load estimation method; only WRTDS is available in the current version of EGRET).  Default is \texttt{"}WRTDS\texttt{"} which indicates that nothing is added to title \\
-fluxMax & The upper limit on the vertical axis of graphs showing flux values.  \\
-plotFlowNorm & If TRUE the graph shows the annual flux values as circles and the flow-normalized values as a green curve.  If false, it only shows the annual flux values.\\
+fluxMax & The upper limit on the vertical axis of graphs showing flux values. & \texttt{"}WRTDS\texttt{"}\\
+plotFlowNorm & If TRUE the graph shows the annual flux values as circles and the flow-normalized values as a green curve.  If false, it only shows the annual flux values. & TRUE\\
 \hline
 \end{tabularx}
 
@@ -1761,25 +1784,25 @@ plotFlowNorm & If TRUE the graph shows the annual flux values as circles and the
 
 \begin{table}[ht]
 \caption{Variables used in WRTDS contour plots: plotContours and plotDiffContours \label{tab:wrtdsContourVariables}}
-\begin{tabularx}{\textwidth}{lX}
+\begin{tabularx}{\textwidth}{lXl}
 \hline
-  \textbf{Argument} & \textbf{Definition} \\
+  \textbf{Argument} & \textbf{Definition} & \textbf{Defaults}\\
 \hline
-qUnit & Determines what units will be used for discharge, see section \ref{sec:units}\\
-qBottom & The lower limit of the discharge value for the graphs in the units specified by qUnit \\
-qTop & The upper limit of the discharge value for the graphs in the units specified by qUnit \\
-printTitle & If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption) \\
-yearStart & The starting date for the graph, expressed as decimal years, for example, 1989.0 \\
-yearEnd & The ending date for the graph, expressed as decimal years, for example, 1996.0 \\
-whatSurface & default = 3.  This should generally be at its default value.  At whatSurface = 3, the plotted surface shows the expected value of concentration.  For whatSurface = 1, it shows the yHat surface (natural log of concentration).  For whatSurface = 2, it shows the SE surface (the standard error in log concentration).    \\
-contourLevels & Default value is NA.  With the default value the contour intervals are set automatically.  These will generally NOT be a very good choice, but they may provide a starting point.  To specify contourLevels the seq function in R should be used.  In general it would look like this: contourLevels = seq(from,to,by).\\
-maxDiff & In the plotDiffCountours function instead of using contourLevels, the contours are set by maxDiff which is the absolute value of the maximum difference to be plotted.  Contour intervals are set to run from -maxDiff to maxDiff.\\
-span & Default value = 60.  Specifies the smoothness of the discharge duration information that goes on this graph.  A larger value will make it smoother.  The default should work well in most cases.\\
-pval & Default value = 0.05.  The probability value for the discharge frequency information shown on the plot.  When flowDuration=TRUE, the plot has two black curves on it.  In the default value case these are at the 5 and 95 percent levels on the seasonal discharge duration curve.  pval = 0.01 would place these at the 1 and 99 percent points.  pval = 0.1 would place them at 10  and 90.\\
-vert1 & Default = NA.  This simply plots a vertical black line on the graph at a particular time (defined in decimal years).  It is used to illustrate the idea of a 'vertical slice' through the contour plot, which might then be shown in a subsequent use of plotConcQSmooth.  \\
-vert2 & Default = NA.  This gives the location of a second vertical black line on the graph at a particular time (defined in decimal years). \\
-horiz & Default = NA.  This simply plots a horizontal black line on the graph at a particular discharge value (defined in the units specified by qUnit).  It is used to illustrate the idea of the seasonal cycle in concentrations for a given discharge and the long-term change in this cycle.  \\
-flowDuration & Default = TRUE.  If TRUE it draws the discharge duration lines at the specified probabilities.  If FALSE, the discharge duration lines are left off.\\
+qUnit & Determines what units will be used for discharge, see section \ref{sec:units} & 2\\
+qBottom & The lower limit of the discharge value for the graphs in the units specified by qUnit &\\
+qTop & The upper limit of the discharge value for the graphs in the units specified by qUnit &\\
+printTitle & If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption) & TRUE \\
+yearStart & The starting date for the graph, expressed as decimal years, for example, 1989 & \\
+yearEnd & The ending date for the graph, expressed as decimal years, for example, 1996 & \\
+whatSurface & This should generally be at its default value.  At whatSurface = 3, the plotted surface shows the expected value of concentration.  For whatSurface = 1, it shows the yHat surface (natural log of concentration).  For whatSurface = 2, it shows the SE surface (the standard error in log concentration). & 3\\
+contourLevels & With the default value the contour intervals are set automatically.  These will generally NOT be a very good choice, but they may provide a starting point.  To specify contourLevels the seq function in R should be used.  In general it would look like this: contourLevels = seq(from,to,by). & NA\\
+maxDiff & In the plotDiffCountours function instead of using contourLevels, the contours are set by maxDiff which is the absolute value of the maximum difference to be plotted.  Contour intervals are set to run from -maxDiff to maxDiff. &\\
+span & Specifies the smoothness of the discharge duration information that goes on this graph.  A larger value will make it smoother.  The default should work well in most cases. & 60\\
+pval & The probability value for the discharge frequency information shown on the plot.  When flowDuration=TRUE, the plot has two black curves on it.  In the default value case these are at the 5 and 95 percent levels on the seasonal discharge duration curve.  pval = 0.01 would place these at the 1 and 99 percent points.  pval = 0.1 would place them at 10  and 90. & 0.05\\
+vert1 & This simply plots a vertical black line on the graph at a particular time (defined in decimal years).  It is used to illustrate the idea of a 'vertical slice' through the contour plot, which might then be shown in a subsequent use of plotConcQSmooth. & NA  \\
+vert2 & This gives the location of a second vertical black line on the graph at a particular time (defined in decimal years). & NA\\
+horiz & This simply plots a horizontal black line on the graph at a particular discharge value (defined in the units specified by qUnit).  It is used to illustrate the idea of the seasonal cycle in concentrations for a given discharge and the long-term change in this cycle.  & NA\\
+flowDuration & If TRUE it draws the discharge duration lines at the specified probabilities.  If FALSE, the discharge duration lines are left off. & NA\\
 \hline
 \end{tabularx}
 
@@ -1788,26 +1811,26 @@ flowDuration & Default = TRUE.  If TRUE it draws the discharge duration lines at
 
 \begin{table}[ht]
 \caption{Variables used in WRTDS plotConcQSmooth and plotConcTimeSmooth \label{tab:wrtdsMultiVariables}}
-\begin{tabularx}{\textwidth}{lX}
+\begin{tabularx}{\textwidth}{lXl}
 \hline
-  \textbf{Argument} & \textbf{Definition} \\
+  \textbf{Argument} & \textbf{Definition} & \textbf{Default}\\
 \hline
-date1 & This is the date for the first curve to be shown on the plot.  It must be in the form 'yyyy-mm-dd' (it must be in quotes)\\
-date2 & This is the date for the second curve to be shown on the plot ('yyyy-mm-dd'), If you don't want a second curve then the argument must be date2=NA\\
-date3 & This is the date for the third curve to be shown on the plot ('yyyy-mm-dd'), If you don't want a third curve then the argument must be date3=NA\\
-qUnit & Determines what units will be used for discharge, see printqUnitCheatSheet() \\
-qLow & The discharge value that should form the left edge of the graphic in the user-selected discharge units. \\
-qHigh & The discharge value that should form the right edge of the graphic in the user-selected discharge units. \\
-legendLeft & This determines the placement of the legend on the graph.  It establishes the left edge of the legend and is expressed in the discharge units being used.  The default (which is NA) will let it be placed automatically.  The legend can end up conflicting with one or more of the curves.  Once the location of the curves is established then this can be set in a way that avoids conflict.\\
-legendTop & This determines the placement of the legend on the graph.  It establishes the top edge of the legend and is expressed according to the concentration values on the y-axis.  The default (which is NA) will let it be placed automatically.  The legend can end up conflicting with one or more of the curves.  Once the location of the curves is established then this can be set in a way that avoids conflict.\\
-concMax & Maximum value for the vertical axis of the graph.  The default is NA.  The reason to set concMax is if you want to make several plots that have the same vertical axis.\\
-concMin & [This one is only used when logScale=TRUE].  Minimum value for the vertical axis of the graph.  The default is NA.  The reason to set concMin is if you want to make several plots that have the same vertical axis.\\
+date1 & This is the date for the first curve to be shown on the plot.  It must be in the form 'yyyy-mm-dd' (it must be in quotes) &\\
+date2 & This is the date for the second curve to be shown on the plot ('yyyy-mm-dd'), If you don't want a second curve then the argument must be date2=NA &\\
+date3 & This is the date for the third curve to be shown on the plot ('yyyy-mm-dd'), If you don't want a third curve then the argument must be date3=NA &\\
+qUnit & Determines what units will be used for discharge, see printqUnitCheatSheet() & 2\\
+qLow & The discharge value that should form the left edge of the graphic in the user-selected discharge units. & \\
+qHigh & The discharge value that should form the right edge of the graphic in the user-selected discharge units. & \\
+legendLeft & This determines the placement of the legend on the graph.  It establishes the left edge of the legend and is expressed in the discharge units being used.  The default (which is NA) will let it be placed automatically.  The legend can end up conflicting with one or more of the curves.  Once the location of the curves is established then this can be set in a way that avoids conflict. & 0\\
+legendTop & This determines the placement of the legend on the graph.  It establishes the top edge of the legend and is expressed according to the concentration values on the y-axis.  The default (which is NA) will let it be placed automatically.  The legend can end up conflicting with one or more of the curves.  Once the location of the curves is established then this can be set in a way that avoids conflict. & 0\\
+concMax & Maximum value for the vertical axis of the graph.  The reason to set concMax is if you want to make several plots that have the same vertical axis. & NA\\
+concMin & [This one is only used when logScale=TRUE].  Minimum value for the vertical axis of the graph. The reason to set concMin is if you want to make several plots that have the same vertical axis. & NA\\
 bw & Default is FALSE, which means we want a color plot.  If bw=TRUE that means it should be black and white.\\
-printTitle & If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption).\\
-printValues & If TRUE the estimated values that make up the plotted lines are printed on the console.  If FALSE they are not printed.  Default is FALSE.  This could be useful if you wanted to compute various comparisons across time periods.\\
-windowY & This is the half-window width for time in WRTDS.  It has units of years.  The default value is 10. \\
-windowQ & This is the half-window width for discharge in WRTDS.  It has units of ln(discharge).  The default value is 2. \\
-windowS & This is the half-window width for seasons in WRTDS.  It has units of years.  The default value is 0.5. \\
+printTitle & If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption). & FALSE\\
+printValues & If TRUE the estimated values that make up the plotted lines are printed on the console.  If FALSE they are not printed.  This could be useful if you wanted to compute various comparisons across time periods. & FALSE\\
+windowY & This is the half-window width for time in WRTDS.  It has units of years.  & 10 \\
+windowQ & This is the half-window width for discharge in WRTDS.  It has units of ln(discharge).  & 2 \\
+windowS & This is the half-window width for seasons in WRTDS.  It has units of years.  & 0.5 \\
 \hline
 \end{tabularx}
 
@@ -1820,7 +1843,7 @@ windowS & This is the half-window width for seasons in WRTDS.  It has units of y
 \section{Creating tables in Microsoft from R}
 \label{app:createWordTable}
 %------------------------------------------------------------
-There are a few steps that are required in order to create a table in a Microsoft product (Excel, Word, Powerpoint, etc.) from an R dataframe. There are a variety of good methods, one of which is detailed here. The example we will step through here will be to create a table in Microsoft Word based on the dataframe tableData:
+A few steps that are required to create a table in a Microsoft product (Excel, Word, Powerpoint, etc.) from an R dataframe. There are a variety of good methods, one of which is detailed here. The example we will step through is creation of a table in Microsoft Word based on the dataframe tableData:
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -1928,7 +1951,7 @@ From Excel, it is simple to copy and paste the tables in other Microsoft product
 \section{Saving Plots}
 \label{app:savingPlots}
 %------------------------------------------------------------
-There are a variety of options for saving plots in R. Plots can be saved in JPG, PNG, PDF, and Postscript. JPG and PNG are easy to input into any number of programs (Microsoft Word or Powerpoint for example), but the images cannot be resized later. PDF and Postscript are easily re-sizable.
+There are a variety of options for saving plots in R. Plots can be saved in JPG, PNG, PDF, and Postscript. JPG and PNG are easy to use in any number of programs (Microsoft Word or PowerPoint for example), but the images cannot be resized later. PDF and Postscript images are easily re-sizable.
 
 There are three steps to saving plots. The first is to open the 'device' (and declare the output type and file name). The second step is to execute the function just as you would when plotting to the screen, but no output will appear. The third step is to turn off the device. It is also possible to put many plots within the same pdf.  Some simple examples should demonstrate this easily:
 

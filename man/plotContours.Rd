@@ -6,9 +6,9 @@ plotContours(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
   localsurfaces = surfaces, localINFO = INFO, localDaily = Daily,
   qUnit = 2, contourLevels = NA, span = 60, pval = 0.05,
   printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA,
-  flowDuration = TRUE, customPar = FALSE, yTicks = NA, lwd = 1,
-  cex.main = 1, cex.axis = 1, color.palette = colorRampPalette(c("white",
-  "gray", "blue", "red")), ...)
+  flowDuration = TRUE, customPar = FALSE, yTicks = NA, tick.lwd = 2,
+  lwd = 1, cex.main = 1, cex.axis = 1,
+  color.palette = colorRampPalette(c("white", "gray", "blue", "red")), ...)
 }
 \arguments{
   \item{yearStart}{numeric value for the starting date for
@@ -88,7 +88,9 @@ plotContours(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
   \item{cex.axis}{magnification to be used for axis
   annotation relative to the current setting of cex}
 
-  \item{lwd}{number line width}
+  \item{tick.lwd}{line width for axis ticks, default is 2}
+
+  \item{lwd}{number line width, default is 1}
 
   \item{color.palette}{a function that creates a color
   palette for the contour plot. Default goes from white to
@@ -137,7 +139,7 @@ Daily <- ChopDaily
 surfaces <- exsurfaces
 plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel)
 yTicksModified <- c(.1,1,10,25)
-plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,yTicks=yTicksModified)
+plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,yTicks=yTicksModified,flowDuration=FALSE)
 colors <- colorRampPalette(c("white","red"))
 plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,yTicks=yTicksModified,color.palette=colors)
 colors2 <- heat.colors # Some other options: topo.colors, terrain.colors, cm.colors

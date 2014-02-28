@@ -6,8 +6,8 @@ plotDiffContours(year0, year1, qBottom, qTop, maxDiff, whatSurface = 3,
   localsurfaces = surfaces, localINFO = INFO, localDaily = Daily,
   qUnit = 2, span = 60, pval = 0.05, printTitle = TRUE,
   plotPercent = FALSE, vert1 = NA, vert2 = NA, horiz = NA,
-  flowDuration = TRUE, yTicks = NA, lwd = 1, cex.main = 0.95,
-  cex.axis = 1, customPar = FALSE,
+  flowDuration = TRUE, yTicks = NA, tick.lwd = 2, lwd = 1,
+  cex.main = 0.95, cex.axis = 1, customPar = FALSE,
   color.palette = colorRampPalette(c("blue", "white", "red")), ...)
 }
 \arguments{
@@ -91,6 +91,8 @@ plotDiffContours(year0, year1, qBottom, qTop, maxDiff, whatSurface = 3,
   annotation relative to the current setting of cex}
 
   \item{lwd}{number line width}
+
+  \item{tick.lwd}{line width for axis ticks, default is 2}
 
   \item{color.palette}{a function that creates a color
   palette for the contour plot. Default goes from blue to
