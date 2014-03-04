@@ -445,7 +445,7 @@ INFO <- getMetaData(siteID,"",interactive=FALSE)
 INFO$shortName <- "Columbia River at The Dalles, OR"
 @
 
-The first choice you need to make is what period of analysis to use (pa). What is the period of analysis?  If we want to examine our data set as a time series of water years, then the period of analysis is October through September.  If we want to examine the data set as calendar years then the period of analysis should be January through December.  We might want to examine the winter season, which we could define as December through February, then those 3 months become the period of analysis. The only constraints on the definition of a period of analysis are these: it must be defined in terms of whole months; it must be a set of contiguous months (like March-April-May); and have a length that is no less than 1 month and no more than 12 months.  The PA is defined by two arguments: paLong and paStart.  paLong is the length of the period of analysis, and paStart is the first month of the period of analysis. Table \ref{table:paINFO} summarizes paLong and paStart.
+The first choice you need to make is what period of analysis to use (pa). What is the period of analysis?  If we want to examine our data set as a time series of water years, then the period of analysis is October through September.  If we want to examine the data set as calendar years then the period of analysis should be January through December.  We might want to examine the winter season, which we could define as December through February, then those 3 months become the period of analysis. The only constraints on the definition of a period of analysis are these: it must be defined in terms of whole months; it must be a set of contiguous months (like March-April-May), and have a length that is no less than 1 month and no more than 12 months.  The PA is defined by two arguments: paLong and paStart.  paLong is the length of the period of analysis, and paStart is the first month of the period of analysis. Table \ref{table:paINFO} summarizes paLong and paStart.
 
 \begin{table}[!ht]
 \centering
@@ -1321,13 +1321,16 @@ write.table(tableData, file="tableData.tsv",sep="\t",
 
 This will save a file in your working directory called tableData.tsv.  You can see your working directory by typing getwd() in the R console. Opening the file in a general-purpose text editor, you should see the following:
 
+\begingroup
+    \fontsize{8pt}{10pt}
 \begin{verbatim}
 Year  Discharge [cms]	Conc [mg/L]	FN_Conc [mg/L]	Flux [10^6kg/yr]	FN_Flux [10^6kg/yr]
-   1980	     4.25	    0.949	    1.003	   0.1154	    0.106
-   1981	     2.22	    1.035	    0.999	   0.0675	    0.108
-   1982	     3.05	    1.036	    0.993	   0.0985	    0.110
+1980	   4.25	           0.949	      1.003	         0.1154	            0.106  
+1981	   2.22	           1.035	      0.999	         0.0675	            0.108 
+1982	   3.05	           1.036	      0.993	         0.0985	            0.110 
 ...
 \end{verbatim}
+\endgroup
 
 To open this file in Excel:
 \begin{enumerate}
