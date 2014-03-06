@@ -2,13 +2,12 @@
 \alias{tableChangeSingle}
 \title{Create a table of the changes in flow-normalized concentration or flux values between various points in time in the record}
 \usage{
-tableChangeSingle(localAnnualResults = AnnualResults, localINFO = INFO,
-  fluxUnit = 9, yearPoints = NA, returnDataFrame = FALSE, flux = FALSE)
+tableChangeSingle(localDaily = Daily, localINFO = INFO, fluxUnit = 9,
+  yearPoints = NA, returnDataFrame = FALSE, flux = FALSE)
 }
 \arguments{
-  \item{localAnnualResults}{data frame that contains the
-  concentration and discharge data, default name is
-  AnnualResults}
+  \item{localDaily}{data frame that contains the flow data,
+  default name is Daily}
 
   \item{localINFO}{data frame that contains the metadata,
   default name is INFO}
@@ -51,12 +50,15 @@ multiple of 5 years prior to that.
 }
 \examples{
 Daily <- ChopDaily
-AnnualResults <- setupYears()
 INFO <- ChopINFO
+# Water Year:
 tableChangeSingle(fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)  #This returns concentration ASCII table in the console
 tableChangeSingle(fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=TRUE)  #This returns flux values ASCII table in the console
 tableChangeConc <-tableChangeSingle(fluxUnit=9, returnDataFrame = TRUE, flux=FALSE)    #This returns concentration values in a dataframe
 tableChangeFlux <-tableChangeSingle(fluxUnit=9, returnDataFrame = TRUE, flux=TRUE)  #This returns flux values in a dataframe
+# Winter:
+INFO <- setPA(paStart=12,paLong=3)
+tableChangeSingle(fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)
 }
 \keyword{statistics}
 \keyword{water-quality}

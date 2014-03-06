@@ -4,7 +4,7 @@
 \usage{
 boxConcMonth(localSample = Sample, localINFO = INFO, printTitle = TRUE,
   cex = 0.8, cex.axis = 1.1, cex.main = 1.1, las = 1,
-  tinyPlot = FALSE, customPar = FALSE, ...)
+  logScale = FALSE, tcl = 0.5, tinyPlot = FALSE, customPar = FALSE, ...)
 }
 \arguments{
   \item{localSample}{data frame that contains the
@@ -26,15 +26,20 @@ boxConcMonth(localSample = Sample, localINFO = INFO, printTitle = TRUE,
   \item{cex.main}{magnification to be used for main titles
   relative to the current setting of cex}
 
+  \item{tcl}{number defaults to 0.5, specifies length of
+  tick marks as fraction of height of a line of text}
+
   \item{tinyPlot}{logical variable, if TRUE plot is
   designed to be plotted small as part of a multi-plot
   figure, default is FALSE.}
+
+  \item{logScale}{logical if TRUE y plotted in log axis}
 
   \item{customPar}{logical defaults to FALSE. If TRUE,
   par() should be set by user before calling this function}
 
   \item{las}{numeric in {0,1,2,3}; the style of axis
-  labels}
+  labels, see ?par}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

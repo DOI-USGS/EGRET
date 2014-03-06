@@ -2,13 +2,12 @@
 \alias{tableChange}
 \title{Create a table of the changes in flow-normalized values between various points in time in the record}
 \usage{
-tableChange(localAnnualResults = AnnualResults, localINFO = INFO,
-  fluxUnit = 9, yearPoints = NA)
+tableChange(localDaily = Daily, localINFO = INFO, fluxUnit = 9,
+  yearPoints = NA)
 }
 \arguments{
-  \item{localAnnualResults}{data frame that contains the
-  concentration and discharge data, default name is
-  AnnualResults}
+  \item{localDaily}{data frame that contains the flow data,
+  default name is Daily}
 
   \item{localINFO}{data frame that contains the metadata,
   default name is INFO}
@@ -35,10 +34,13 @@ multiple of 5 years prior to that.
 }
 \examples{
 Daily <- ChopDaily
-AnnualResults <- setupYears()
 INFO <- ChopINFO
+# Water Year:
 tableChange(fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
 tableChange(fluxUnit=9)
+# Winter:
+INFO <- setPA(paStart=12,paLong=3)
+tableChange(fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
 }
 \keyword{statistics}
 \keyword{water-quality}

@@ -530,7 +530,7 @@ We will walk through an example from Columbia River at The Dalles, OR.
 \hlstd{Daily} \hlkwb{<-} \hlkwd{getDVData}\hlstd{(siteID,}\hlstr{"00060"}\hlstd{,startDate,endDate)}
 \end{alltt}
 \begin{verbatim}
-There are 49578 data points, and 49579 days.
+There are 49585 data points, and 49586 days.
 
  discharge data jumps from 2013-12-28 to 2013-12-30
 \end{verbatim}
@@ -542,7 +542,7 @@ There are 49578 data points, and 49579 days.
 \end{knitrout}
 
 
-The first choice you need to make is what period of analysis to use (pa). What is the period of analysis?  If we want to examine our data set as a time series of water years, then the period of analysis is October through September.  If we want to examine the data set as calendar years then the period of analysis should be January through December.  We might want to examine the winter season, which we could define as December through February, then those 3 months become the period of analysis. The only constraints on the definition of a period of analysis are these: it must be defined in terms of whole months; it must be a set of contiguous months (like March-April-May); and have a length that is no less than 1 month and no more than 12 months.  The PA is defined by two arguments: paLong and paStart.  paLong is the length of the period of analysis, and paStart is the first month of the period of analysis. Table \ref{table:paINFO} summarizes paLong and paStart.
+The first choice you need to make is what period of analysis to use (pa). What is the period of analysis?  If we want to examine our data set as a time series of water years, then the period of analysis is October through September.  If we want to examine the data set as calendar years then the period of analysis should be January through December.  We might want to examine the winter season, which we could define as December through February, then those 3 months become the period of analysis. The only constraints on the definition of a period of analysis are these: it must be defined in terms of whole months; it must be a set of contiguous months (like March-April-May), and have a length that is no less than 1 month and no more than 12 months.  The PA is defined by two arguments: paLong and paStart.  paLong is the length of the period of analysis, and paStart is the first month of the period of analysis. Table \ref{table:paINFO} summarizes paLong and paStart.
 
 \begin{table}[!ht]
 \centering
@@ -658,7 +658,7 @@ Here is an example of looking at mean daily discharge for the full water year an
 \hlstd{Daily} \hlkwb{<-}\hlkwd{getDVData}\hlstd{(sta,}\hlstr{"00060"}\hlstd{,}\hlkwc{StartDate}\hlstd{=}\hlstr{""}\hlstd{,}\hlkwc{EndDate}\hlstd{=}\hlstr{""}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-There are 24169 data points, and 24169 days.
+There are 35990 data points, and 35990 days.
 \end{verbatim}
 \begin{alltt}
 \hlstd{INFO} \hlkwb{<-} \hlkwd{getMetaData}\hlstd{(sta,}\hlstr{""}\hlstd{,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
@@ -672,7 +672,7 @@ There are 24169 data points, and 24169 days.
 
 \hlstd{INFO}\hlkwb{<-}\hlkwd{setPA}\hlstd{(}\hlkwc{paStart}\hlstd{=}\hlnum{12}\hlstd{,}\hlkwc{paLong}\hlstd{=}\hlnum{3}\hlstd{)}
 \hlstd{annualSeries}\hlkwb{<-}\hlkwd{makeAnnualSeries}\hlstd{()}
-\hlkwd{plotFlowSingle}\hlstd{(}\hlkwc{istat}\hlstd{=}\hlnum{5}\hlstd{)}
+\hlkwd{plotFlowSingle}\hlstd{(}\hlkwc{istat}\hlstd{=}\hlnum{5}\hlstd{,}\hlkwc{qMax}\hlstd{=}\hlnum{200}\hlstd{)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 \subfloat[Water Year\label{fig:Merced1}]{
@@ -728,7 +728,7 @@ Figure \ref{fig:plotFourStats}:
 \hlstd{Daily} \hlkwb{<-}\hlkwd{getDVData}\hlstd{(sta,}\hlstr{"00060"}\hlstd{,}\hlkwc{StartDate}\hlstd{=}\hlstr{""}\hlstd{,}\hlkwc{EndDate}\hlstd{=}\hlstr{""}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-There are 49704 data points, and 49704 days.
+There are 49732 data points, and 49732 days.
 \end{verbatim}
 \begin{alltt}
 \hlstd{INFO} \hlkwb{<-} \hlkwd{getMetaData}\hlstd{(sta,}\hlstr{""}\hlstd{,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
@@ -812,8 +812,8 @@ There is another argument that can be very useful in this function: yearPoints. 
    time span          change        slope       change        slope
                      10^3 cfs   10^3cfs/yr        %            %/yr
  1890  to  1950         0.54       0.0091          2.4         0.04
- 1890  to  2010          9.8        0.082           43         0.36
- 1950  to  2010          9.3         0.15           40         0.66
+ 1890  to  2010          9.4        0.078           41         0.34
+ 1950  to  2010          8.8         0.15           38         0.63
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -904,6 +904,8 @@ Figure \ref{fig:plotConcTime}:
 \end{knitrout}
 
 
+It is interesting to note in Figure \ref{fig:plotConcTime} the change in data resolution that occurred around  1995.
+
 Figure \ref{fig:plotFluxQ}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -918,6 +920,8 @@ Figure \ref{fig:plotFluxQ}:
 
 \end{knitrout}
 
+
+The plotFluxQ (Figure \ref{fig:plotFluxQ}) function only plots in a log-log scale.
 
 \FloatBarrier
 
@@ -935,6 +939,8 @@ Figure \ref{fig:multiPlotDataOverview}:
 
 \end{knitrout}
 
+
+The multiPlotDataOverview (Figure \ref{fig:multiPlotDataOverview}) function uses a log scale as default. To change the concentration axes to an arithmetic scale, use logScaleConc=FALSE in the multiPlotDataOverview function call. To change the discharge axis to an arithmetic scale, use logScaleQ=FALSE in the multiPlotDataOverview function call.
 
 \FloatBarrier
 
@@ -999,19 +1005,7 @@ Once you have looked at your data using the tools described in section \ref{sec:
 \end{knitrout}
 
 
-Details of the options available when running modelEstimation() can be found in Section \ref{sec:wrtdsInputVariables}. This function is slow, and shows the progress in percent complete. See the references and manual for more information. It's important to understand that this is the one function that will globally change your Daily, Sample, and INFO dataframes. It also creates a new matrix: surfaces, and a new dataframe: AnnualResults. It is unusual R programming behavior to create global variables, but was chosen to make it easy for the user.
-
-If you wish to change the period of analysis after completing modelEstimation, there is one more step.  For example, if we want to consider a 3 month season that runs from December through Feburary, we would set paStart = 12 and paLong = 3.  (Note that the period of analysis and the arguments paStart and paLong are introduced at the begining of section \ref{sec:flowHistory} of this document.) After running modelEstimation we would then run the command:
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{INFO} \hlkwb{<-} \hlkwd{setPA}\hlstd{(}\hlkwc{paStart}\hlstd{=}\hlnum{12}\hlstd{,}\hlkwc{paLong}\hlstd{=}\hlnum{3}\hlstd{)}
-\hlstd{AnnualResults}\hlkwb{<-}\hlkwd{setupYears}\hlstd{(}\hlkwc{paStart}\hlstd{=}\hlnum{12}\hlstd{,}\hlkwc{paLong}\hlstd{=}\hlnum{3}\hlstd{)}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-
+Details of the options available when running modelEstimation() can be found in Section \ref{sec:wrtdsInputVariables}. This function is slow, and shows the progress in percent complete. See the references and manual for more information. It's important to understand that this is the one function that will globally change your Daily, Sample, and INFO dataframes. It also creates a new matrix `surfaces', and a new dataframe `AnnualResults'. It is unusual R programming behavior to create global variables, but was chosen to make it easy for the user.
 
 Finally, it is a good idea to save your results because of the computational time that has been invested in producing these results. The command for saving the workspace is:
 
@@ -1917,13 +1911,16 @@ First, save the dataframe as a tab delimited file (you don't want to use comma d
 
 This will save a file in your working directory called tableData.tsv.  You can see your working directory by typing getwd() in the R console. Opening the file in a general-purpose text editor, you should see the following:
 
+\begingroup
+    \fontsize{8pt}{10pt}
 \begin{verbatim}
 Year  Discharge [cms]	Conc [mg/L]	FN_Conc [mg/L]	Flux [10^6kg/yr]	FN_Flux [10^6kg/yr]
-   1980	     4.25	    0.949	    1.003	   0.1154	    0.106
-   1981	     2.22	    1.035	    0.999	   0.0675	    0.108
-   1982	     3.05	    1.036	    0.993	   0.0985	    0.110
+1980	   4.25	           0.949	      1.003	         0.1154	            0.106  
+1981	   2.22	           1.035	      0.999	         0.0675	            0.108 
+1982	   3.05	           1.036	      0.993	         0.0985	            0.110 
 ...
 \end{verbatim}
+\endgroup
 
 To open this file in Excel:
 \begin{enumerate}

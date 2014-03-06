@@ -29,7 +29,8 @@ plotDiffContours(year0, year1, qBottom, qTop, maxDiff, whatSurface = 3,
 
   \item{maxDiff}{numeric value which is the absolute value
   of the largest change in concentration that will be shown
-  on the figure}
+  on the figure. Alternatively, a vector with the minimum
+  and maximum values in the change in concentration scale.}
 
   \item{whatSurface}{numeric value, can only accept 1, 2,
   or 3; whatSurface=1 is yHat (log concentration),

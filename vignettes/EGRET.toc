@@ -14,7 +14,7 @@
 \contentsline {subsection}{\numberline {5.2}Table Options}{25}{subsection.5.2}
 \contentsline {section}{\numberline {6}WRTDS Analysis}{25}{section.6}
 \contentsline {section}{\numberline {7}WRTDS Results}{26}{section.7}
-\contentsline {subsection}{\numberline {7.1}Plotting Options}{27}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.1}Plotting Options}{26}{subsection.7.1}
 \contentsline {subsection}{\numberline {7.2}Table Options}{36}{subsection.7.2}
 \contentsline {section}{\numberline {8}Extending Plots Past Defaults}{38}{section.8}
 \contentsline {section}{\numberline {9}Getting Started in R}{44}{section.9}

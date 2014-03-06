@@ -4,7 +4,8 @@
 \usage{
 boxQTwice(localSample = Sample, localDaily = Daily, localINFO = INFO,
   printTitle = TRUE, qUnit = 2, cex = 0.8, cex.main = 1.1,
-  cex.axis = 1.1, tinyPlot = FALSE, customPar = FALSE, ...)
+  logScale = TRUE, cex.axis = 1.1, tcl = 0.5, las = 1,
+  tinyPlot = FALSE, customPar = FALSE, ...)
 }
 \arguments{
   \item{localSample}{data frame that contains the
@@ -33,12 +34,21 @@ boxQTwice(localSample = Sample, localDaily = Daily, localINFO = INFO,
   \item{cex}{numerical value giving the amount by which
   plotting symbols should be magnified}
 
+  \item{tcl}{number defaults to 0.5, specifies length of
+  tick marks as fraction of height of a line of text}
+
+  \item{logScale}{logical if TRUE y plotted in log axis.
+  Defaults to TRUE.}
+
   \item{tinyPlot}{logical variable, if TRUE plot is
   designed to be plotted small as part of a multi-plot
   figure, default is FALSE.}
 
   \item{customPar}{logical defaults to FALSE. If TRUE,
   par() should be set by user before calling this function}
+
+  \item{las}{numeric in {0,1,2,3}; the style of axis
+  labels, see ?par}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

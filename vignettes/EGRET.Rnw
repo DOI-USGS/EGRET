@@ -541,7 +541,7 @@ plotFlowSingle(istat=5)
 
 INFO<-setPA(paStart=12,paLong=3)
 annualSeries<-makeAnnualSeries()
-plotFlowSingle(istat=5)
+plotFlowSingle(istat=5,qMax=200)
 
 @
 
@@ -686,10 +686,14 @@ plotConcTime()
 plotConcQ(qUnit=1)
 @
 
+It is interesting to note in Figure \ref{fig:plotConcTime} the change in data resolution that occurred around  1995.
+
 Figure \ref{fig:plotFluxQ}:
 <<plotFluxQ,echo=TRUE, fig.cap="Flux vs discharge",,out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 plotFluxQ(fluxUnit=4)
 @
+
+The plotFluxQ (Figure \ref{fig:plotFluxQ}) function only plots in a log-log scale.
 
 \FloatBarrier
 
@@ -697,6 +701,8 @@ Figure \ref{fig:multiPlotDataOverview}:
 <<multiPlotDataOverview, echo=TRUE, fig.cap="multiPlotDataOverview(qUnit=1)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 multiPlotDataOverview(qUnit=1)
 @
+
+The multiPlotDataOverview (Figure \ref{fig:multiPlotDataOverview}) function uses a log scale as default. To change the concentration axes to an arithmetic scale, use logScaleConc=FALSE in the multiPlotDataOverview function call. To change the discharge axis to an arithmetic scale, use logScaleQ=FALSE in the multiPlotDataOverview function call.
 
 \FloatBarrier
 
@@ -725,14 +731,7 @@ Once you have looked at your data using the tools described in section \ref{sec:
 modelEstimation()
 @
 
-Details of the options available when running modelEstimation() can be found in Section \ref{sec:wrtdsInputVariables}. This function is slow, and shows the progress in percent complete. See the references and manual for more information. It's important to understand that this is the one function that will globally change your Daily, Sample, and INFO dataframes. It also creates a new matrix: surfaces, and a new dataframe: AnnualResults. It is unusual R programming behavior to create global variables, but was chosen to make it easy for the user.
-
-If you wish to change the period of analysis after completing modelEstimation, there is one more step.  For example, if we want to consider a 3 month season that runs from December through Feburary, we would set paStart = 12 and paLong = 3.  (Note that the period of analysis and the arguments paStart and paLong are introduced at the begining of section \ref{sec:flowHistory} of this document.) After running modelEstimation we would then run the command:
-
-<<wrtds4, eval=FALSE, echo=TRUE>>=
-INFO <- setPA(paStart=12,paLong=3)
-AnnualResults<-setupYears(paStart=12,paLong=3)
-@
+Details of the options available when running modelEstimation() can be found in Section \ref{sec:wrtdsInputVariables}. This function is slow, and shows the progress in percent complete. See the references and manual for more information. It's important to understand that this is the one function that will globally change your Daily, Sample, and INFO dataframes. It also creates a new matrix `surfaces', and a new dataframe `AnnualResults'. It is unusual R programming behavior to create global variables, but was chosen to make it easy for the user.
 
 Finally, it is a good idea to save your results because of the computational time that has been invested in producing these results. The command for saving the workspace is:
 

@@ -3,7 +3,8 @@
 \title{Produces a 4 panel plot that gives an overview of the data set prior to any processing}
 \usage{
 multiPlotDataOverview(localSample = Sample, localDaily = Daily,
-  localINFO = INFO, qUnit = 2, cex.main = 1.2)
+  localINFO = INFO, qUnit = 2, cex.main = 1.2, logScaleConc = TRUE,
+  logScaleQ = TRUE)
 }
 \arguments{
   \item{localSample}{data frame that contains the
@@ -21,6 +22,12 @@ multiPlotDataOverview(localSample = Sample, localDaily = Daily,
 
   \item{cex.main}{magnification to be used for main titles
   relative to the current setting of cex}
+
+  \item{logScaleConc}{logical if TRUE y in concentration
+  graphs plotted in log axis. Default is TRUE.}
+
+  \item{logScaleQ}{logical if TRUE y in streamflow graphs
+  plotted in log axis. Default is TRUE.}
 }
 \description{
 The four plots produced are 1) log concentration versus log
