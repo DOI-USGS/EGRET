@@ -15,6 +15,8 @@
 #' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param logScaleConc logical if TRUE y in concentration graphs plotted in log axis. Default is TRUE.
+#' @param logScaleQ logical if TRUE y in streamflow graphs plotted in log axis. Default is TRUE.
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
@@ -28,17 +30,24 @@
 #' INFO <- setPA(paStart=6,paLong=3)
 #' multiPlotDataOverview(qUnit=1) 
 multiPlotDataOverview<-function (localSample = Sample, localDaily = Daily, 
-                                 localINFO = INFO, qUnit = 2,cex.main=1.2){
+                                 localINFO = INFO, qUnit = 2,cex.main=1.2,
+                                 logScaleConc=TRUE, logScaleQ=TRUE){
   
-  paLong <- localINFO$paLong
-  paStart <- localINFO$paStart
+  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart  
+  } else {
+    paLong <- 12
+    paStart <- 10
+  }
+  
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   
   par(mfcol=c(2,2),oma=c(0,2.4,4.5,2.4),tcl=0.5)
-  plotConcQ(localSample = localSample, qUnit = qUnit, tinyPlot = TRUE, printTitle = FALSE,rmSciX=TRUE,logScale=TRUE)
-  boxConcMonth(localSample = localSample, printTitle = FALSE, tinyPlot=TRUE)
-  plotConcTime(localSample = localSample, printTitle = FALSE, tinyPlot = TRUE,logScale=TRUE)
-  boxQTwice(localSample = localSample, localDaily = localDaily, printTitle = FALSE, qUnit = qUnit, tinyPlot=TRUE)
+  plotConcQ(localSample = localSample, qUnit = qUnit, tinyPlot = TRUE, printTitle = FALSE,rmSciX=TRUE,logScale=logScaleConc)
+  boxConcMonth(localSample = localSample, printTitle = FALSE, tinyPlot=TRUE,logScale=logScaleConc)
+  plotConcTime(localSample = localSample, printTitle = FALSE, tinyPlot = TRUE,logScale=logScaleConc)
+  boxQTwice(localSample = localSample, localDaily = localDaily, printTitle = FALSE, qUnit = qUnit, tinyPlot=TRUE,logScale=logScaleQ)
   title<-paste(localINFO$shortName,"\n",localINFO$paramShortName)
   
   if("" == title2){
