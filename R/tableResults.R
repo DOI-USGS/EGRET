@@ -4,7 +4,7 @@
 #' mean flux, and flow-normalized flux. 
 #' Uses results stored in AnnualResults and INFO data frames.
 #'
-#' @param localAnnualResults data frame that contains the results, default name is AnnualResults
+#' @param localDaily data frame that contains the flow data, default name is Daily
 #' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param fluxUnit object of fluxUnit class. \code{\link{fluxConst}}, or numeric represented the short code, or character representing the descriptive name. 
@@ -15,12 +15,26 @@
 #' @return dataframe with year, discharge, concentration, flow-normalized concentration, flux, and flow-normalized concentration columns. 
 #' @examples
 #' Daily <- ChopDaily
-#' AnnualResults <- setupYears()
 #' INFO <- ChopINFO
+#' # Water Year:
 #' tableResults(fluxUnit = 1)
 #' tableResults(fluxUnit = 'kgDay', qUnit = 'cms')
 #' returnedTable <- tableResults(fluxUnit = 1, returnDataFrame = TRUE)
-tableResults<-function(localAnnualResults = AnnualResults, localINFO = INFO, qUnit = 2, fluxUnit = 9, returnDataFrame = FALSE) {
+#' # Winter:
+#' INFO <- setPA(paLong=3,paStart=12)
+#' tableResults(fluxUnit = 1)
+tableResults<-function(localDaily = Daily, localINFO = INFO, qUnit = 2, fluxUnit = 9, returnDataFrame = FALSE) {
+  
+  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart  
+  } else {
+    paLong <- 12
+    paStart <- 10
+  }
+  
+  localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
+  
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(qUnit)){

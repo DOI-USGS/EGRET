@@ -5,7 +5,7 @@
 #' They are computed over pairs of time points.  These time points can be user-defined or
 #' they can be set by the program to be the final year of the record and a set of years that are multiple of 5 years prior to that.
 #'
-#' @param localAnnualResults data frame that contains the concentration and discharge data, default name is AnnualResults
+#' @param localDaily data frame that contains the flow data, default name is Daily
 #' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param fluxUnit object of fluxUnit class. \code{\link{fluxConst}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param yearPoints numeric vector listing the years for which the change or slope computations are made, they need to be in chronological order.  For example yearPoints=c(1975,1985,1995,2005), default is NA (which allows the program to set yearPoints automatically)
@@ -13,11 +13,25 @@
 #' @export
 #' @examples
 #' Daily <- ChopDaily
-#' AnnualResults <- setupYears()
 #' INFO <- ChopINFO
+#' # Water Year:
 #' tableChange(fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
 #' tableChange(fluxUnit=9) 
-tableChange<-function(localAnnualResults = AnnualResults, localINFO = INFO, fluxUnit = 9, yearPoints = NA) {
+#' # Winter:
+#' INFO <- setPA(paStart=12,paLong=3)
+#' tableChange(fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
+tableChange<-function(localDaily = Daily, localINFO = INFO, fluxUnit = 9, yearPoints = NA) {
+  
+  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart  
+  } else {
+    paLong <- 12
+    paStart <- 10
+  }
+  
+  localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
+  
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(fluxUnit)){
