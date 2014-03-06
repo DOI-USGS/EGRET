@@ -132,8 +132,8 @@ plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 
   numDays <- length(localDaily$Day)
   freq <- rep(0, nVectorLogQ)
   plotTitle <- if (printTitle) 
-    paste(localINFO$shortName, ", ", localINFO$paramShortName, 
-          "\nEstimated", surfaceName[j], "change from",year0,"to",year1,sep="")
+    paste(localINFO$shortName, " ", localINFO$paramShortName, 
+          "\nEstimated", surfaceName[j], "change from",year0,"to",year1)
   else ""
   
   if(flowDuration) {

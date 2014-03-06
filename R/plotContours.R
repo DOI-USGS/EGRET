@@ -155,7 +155,7 @@ plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
   surfj<-surf[,,j]
   surft<-t(surfj)
   # the next section does the flow duration information, using the whole period of record in Daily, not just the graph period
-  plotTitle<-if(printTitle) paste(localINFO$shortName,", ",localINFO$paramShortName,"\nEstimated",surfaceName[j],"Surface in Color", sep="") else ""
+  plotTitle<-if(printTitle) paste(localINFO$shortName," ",localINFO$paramShortName,"\nEstimated",surfaceName[j],"Surface in Color") else ""
   if(flowDuration) {
     numDays<-length(localDaily$Day)
     freq<-rep(0,nVectorLogQ)
