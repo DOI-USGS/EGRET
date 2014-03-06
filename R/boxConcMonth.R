@@ -15,9 +15,11 @@
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
+#' @param tcl number defaults to 0.5, specifies length of tick marks as fraction of height of a line of text
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multi-plot figure, default is FALSE.
+#' @param logScale logical if TRUE y plotted in log axis
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
-#' @param las numeric in {0,1,2,3}; the style of axis labels
+#' @param las numeric in {0,1,2,3}; the style of axis labels, see ?par
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -31,11 +33,16 @@
 #' INFO <- setPA(paStart=6,paLong=3)
 #' boxConcMonth()
 boxConcMonth<-function(localSample = Sample, localINFO = INFO, printTitle = TRUE,
-                       cex=0.8, cex.axis=1.1, cex.main=1.1, las=1,
+                       cex=0.8, cex.axis=1.1, cex.main=1.1, las=1,logScale=FALSE,tcl=0.5,
                        tinyPlot = FALSE, customPar=FALSE,...) {
   
-  paLong <- localINFO$paLong
-  paStart <- localINFO$paStart  
+  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart  
+  } else {
+    paLong <- 12
+    paStart <- 10
+  } 
   
   localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
   
@@ -51,10 +58,16 @@ boxConcMonth<-function(localSample = Sample, localINFO = INFO, printTitle = TRUE
   monthList <- factor(monthList, namesListFactor)
   tempDF <- data.frame(month=monthList, conc=localSample$ConcAve)
   
-  maxY<-1.02*max(localSample$ConcHigh)
+  maxY<-1.02*max(localSample$ConcHigh, na.rm=TRUE)
   ySpan<-c(0,maxY)
-  yTicks<-pretty(ySpan, n = 7)
-  yMax<-yTicks[length(yTicks)]
+#   yTicks<-pretty(ySpan, n = 7)
+#   yMax<-yTicks[length(yTicks)]
+  
+  if(logScale){
+    logScaleText <- "y"
+  } else {
+    logScaleText <- ""
+  }
   
   if (tinyPlot) {
     yLabel <- "Conc. (mg/L)"
@@ -66,17 +79,23 @@ boxConcMonth<-function(localSample = Sample, localINFO = INFO, printTitle = TRUE
     names <- sapply(c(1:12),function(x){monthInfo[[x]]@monthAbbrev})
   }
     
+  yInfo <- generalAxis(x=tempDF$conc, maxVal=maxY, minVal=min(localSample$ConcHigh, na.rm=TRUE), tinyPlot=tinyPlot,logScale=logScale)
+  yTicksLab <- prettyNum(yInfo$ticks)
+  
   boxplot(tempDF$conc ~ tempDF$month,
           #     localSample$ConcAve~localSample$Month,
-          ylim=c(0,yMax),yaxs="i",
-          varwidth=TRUE,
+          ylim=c(yInfo$bottom,yInfo$top),yaxs="i", yTicks=yInfo$ticks,
+          varwidth=TRUE,yaxt="n", 
           names=names,
           xlab="Month",
           ylab=yLabel,
           main=plotTitle,
           cex=cex,cex.axis=cex.axis,cex.main=cex.main,
-          las=las,
+          las=las,tcl=tcl,
+          log=logScaleText,
           ...)  
+  axis(2,tcl=tcl,las=las,at=yInfo$ticks,cex.axis=cex.axis,labels=yTicksLab)
+  
   if (!tinyPlot) mtext(title2,side=3,line=-1.5)
 
 }
