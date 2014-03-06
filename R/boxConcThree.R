@@ -36,8 +36,13 @@ boxConcThree<-function (localSample = Sample, localDaily = Daily, localINFO = IN
                         printTitle = TRUE, moreTitle = "WRTDS",customPar=FALSE,
                         font.main=2,cex=0.8,cex.main = 1.1, cex.axis = 1.1,...){
   
-  paLong <- localINFO$paLong
-  paStart <- localINFO$paStart  
+  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart  
+  } else {
+    paLong <- 12
+    paStart <- 10
+  } 
   
   localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
   localDaily <- if(paLong == 12) localDaily else selectDays(paLong,paStart,localDaily=localDaily)
