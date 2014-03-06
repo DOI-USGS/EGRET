@@ -19,8 +19,11 @@
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
+#' @param tcl number defaults to 0.5, specifies length of tick marks as fraction of height of a line of text
+#' @param logScale logical if TRUE y plotted in log axis. Defaults to TRUE.
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multi-plot figure, default is FALSE.
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+#' @param las numeric in {0,1,2,3}; the style of axis labels, see ?par
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -37,14 +40,19 @@
 #' INFO <- setPA(paStart=6,paLong=3)
 #' boxQTwice()
 boxQTwice<-function(localSample = Sample, localDaily = Daily, localINFO = INFO, 
-                    printTitle = TRUE, qUnit = 2, cex=0.8,cex.main=1.1, 
-                    cex.axis=1.1, tinyPlot = FALSE, customPar=FALSE,...){
+                    printTitle = TRUE, qUnit = 2, cex=0.8,cex.main=1.1,logScale=TRUE, 
+                    cex.axis=1.1, tcl=0.5, las=1, tinyPlot = FALSE, customPar=FALSE,...){
   # This function does two boxplots side by side
   # The first is for the discharges on the sampled days
   # The second is for the discharges on all of the days  
 
-  paLong <- localINFO$paLong
-  paStart <- localINFO$paStart  
+  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart  
+  } else {
+    paLong <- 12
+    paStart <- 10
+  }
   
   localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
   localDaily <- if(paLong == 12) localDaily else selectDays(paLong,paStart,localDaily=localDaily)
@@ -67,7 +75,6 @@ boxQTwice<-function(localSample = Sample, localDaily = Daily, localINFO = INFO,
   index1<-rep(1,nS)
   index2<-rep(2,nD)
   index<-c(index1,index2)
-
   
   plotTitle<-if(printTitle) paste(localINFO$shortName,",",localINFO$paramShortName,"\nComparison of distribution of\nSampled Discharges and All Daily Discharges") else ""
  
@@ -75,29 +82,35 @@ boxQTwice<-function(localSample = Sample, localDaily = Daily, localINFO = INFO,
   yMax <- 1.01 * max(bigQ)
   
   if (tinyPlot) {
-    yLabel <- qUnit@qUnitTiny
-    if (!customPar) par(mar=c(4,5,1,0.1),tcl=0.5,cex.lab=cex.axis)
+    if (!customPar) par(mar=c(4,5,1,0.1),tcl=tcl,cex.lab=cex.axis)
     groupNames<-c("Sampled","All")
-    yTicks <- logPretty1(yMin,yMax)
   } else {
-    yLabel <- qUnit@qUnitExpress
-    if (!customPar) par(mar=c(5,6,4,2)+0.1,tcl=0.5,cex.lab=cex.axis)
+    if (!customPar) par(mar=c(5,6,4,2)+0.1,tcl=tcl,cex.lab=cex.axis)
     groupNames<-c("Sampled Days","All Days")
-    yTicks <- logPretty1(yMin,yMax)
   }
     
-  numYTicks <- length(yTicks)
-  yBottom <- yTicks[1]
-  yTop <- yTicks[numYTicks]
+#   numYTicks <- length(yTicks)
+#   yBottom <- yTicks[1]
+#   yTop <- yTicks[numYTicks]
   
-  boxplot(log(bigQ,10)~index,varwidth=TRUE,
-          names=groupNames,xlab="",ylab=yLabel,
-          ylim=c(log(yBottom,10),log(yTop,10)),
+  yInfo <- generalAxis(x=bigQ, maxVal=yMax, minVal=yMin, tinyPlot=tinyPlot,logScale=logScale)
+  yTicksLab <- prettyNum(yInfo$ticks)
+  
+  if(logScale){
+    logScaleText <- "y"
+  } else {
+    logScaleText <- ""
+  }
+  
+  boxplot(bigQ~index,varwidth=TRUE,
+          names=groupNames,xlab="",
+          ylim=c(yInfo$bottom,yInfo$top),
           main=plotTitle,cex=cex,
           cex.main=cex.main,
-          cex.axis=cex.axis, las=1,yaxt = "n",yaxs="i",
+          cex.axis=cex.axis, las=las,yaxt = "n",yaxs="i",
+          log=logScaleText,yaxt="n",
           ...)
-  axis(2, tcl = 0.5, las = 1, at = log(yTicks,10), labels = yTicks, cex.axis=cex.axis, cex=cex.axis)
+  axis(2,tcl=tcl,las=las,at=yInfo$ticks,cex.axis=cex.axis,labels=yTicksLab)
   if (!tinyPlot) mtext(title2,side=3,line=-1.5)
   
 }
