@@ -1,3 +1,10 @@
+EGRET 1.2.5
+===========
+* Added period of record control to all graphs and tables (with execption of plotContours, plotDiffContours, plotConcQSmooth, and plotConcTimeSmooth),
+* Updated vignette.
+* Added setupYears call within functions to generally eliminate the need for AnnualResults.
+* Continued to improve documentation.
+
 EGRET 1.2.4
 ===========
 * Plotting functions updated to allow users better control.
