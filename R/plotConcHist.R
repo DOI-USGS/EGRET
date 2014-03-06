@@ -53,7 +53,15 @@ plotConcHist<-function(yearStart = NA, yearEnd = NA, localDaily = Daily,
   # yearEnd is the start of the calendar year after the last estimated annual value
   # if you want to specify the maximum value, you can do so with the argument concMax, otherwise it will be automatic
 
-  localAnnualResults <- setupYears(paStart=localINFO$paStart,paLong=localINFO$paLong, localDaily = localDaily)
+  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart  
+  } else {
+    paLong <- 12
+    paStart <- 10
+  }
+  
+  localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
   
   periodName<-setSeasonLabel(localAnnualResults=localAnnualResults)
   title3<-if(plotFlowNorm) "\nMean Concentration (dots) & Flow Normalized Concentration (line)" else "\nAnnual Mean Concentration"

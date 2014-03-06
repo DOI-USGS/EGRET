@@ -43,8 +43,14 @@ fluxBiasMulti<-function (localSample = Sample, localDaily = Daily,
                          cex = 0.7, cex.axis = 1.1,cex.main=1.1,
                          col="black", lwd=1,...){
   
-  paLong <- localINFO$paLong
-  paStart <- localINFO$paStart
+  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart  
+  } else {
+    paLong <- 12
+    paStart <- 10
+  }
+  
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   
   par(oma = c(0, 10, 4, 10),mfrow=c(4,2))

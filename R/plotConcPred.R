@@ -42,8 +42,14 @@ plotConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA, log
   # observed concentration on y-axis 
   # these predictions are from a "leave-one-out" cross validation application of WRTDS 
   
-  paLong <- localINFO$paLong
-  paStart <- localINFO$paStart  
+  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart  
+  } else {
+    paLong <- 12
+    paStart <- 10
+  } 
+  
   localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
   
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)

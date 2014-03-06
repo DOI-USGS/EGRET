@@ -45,8 +45,14 @@ plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot 
   # this function shows the sample data,
   # discharge on x-axis on a log scale, concentration on y-axis
   
-  paLong <- localINFO$paLong
-  paStart <- localINFO$paStart  
+  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart  
+  } else {
+    paLong <- 12
+    paStart <- 10
+  }
+  
   localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   

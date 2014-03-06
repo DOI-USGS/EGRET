@@ -50,8 +50,13 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   # this function shows the sample data,
   # time on x-axis, concentration on y-axis
   
-  paLong <- localINFO$paLong
-  paStart <- localINFO$paStart  
+  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart  
+  } else {
+    paLong <- 12
+    paStart <- 10
+  } 
   
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:

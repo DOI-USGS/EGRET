@@ -57,7 +57,15 @@ plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9,
   # if you want to specify the maximum value, you can do so with the argument fluxMax, otherwise it will be automatic
   # fluxUnit is the units you want the results displayed in, see manual for list of all possible units  
 
-  localAnnualResults <- setupYears(paStart=localINFO$paStart,paLong=localINFO$paLong, localDaily = localDaily)
+  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart  
+  } else {
+    paLong <- 12
+    paStart <- 10
+  }
+  
+  localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
   
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:

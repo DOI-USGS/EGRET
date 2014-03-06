@@ -45,8 +45,14 @@ plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, flu
   # observed flux on y-axis 
   # these estimates are from a jack-knife, "leave-one-out", cross validation application of WRTDS
   
-  paLong <- localINFO$paLong
-  paStart <- localINFO$paStart  
+  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart  
+  } else {
+    paLong <- 12
+    paStart <- 10
+  }
+  
   localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
   
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
@@ -68,10 +74,10 @@ plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, flu
 
   if (tinyPlot) {
     xLab <- fluxUnit@unitEstimateTiny
-    yLab <- fluxUnit@unitExpressTiny
+    yLab <- paste("Obs.", fluxUnit@unitExpressTiny)
   } else {
     xLab <- fluxUnit@unitEstimate
-    yLab <- fluxUnit@unitExpress
+    yLab <- paste("Observed", fluxUnit@unitExpress)
   }
   
   if(logScale){

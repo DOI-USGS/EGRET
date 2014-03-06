@@ -44,8 +44,13 @@ plotResidTime<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   # if stdResid=FALSE it just works with the regular residuals
   # if stdResid=TRUE it computes the standardized residual which is the residual/Sample$SE  
   
-  paLong <- localINFO$paLong
-  paStart <- localINFO$paStart  
+  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart  
+  } else {
+    paLong <- 12
+    paStart <- 10
+  } 
   
   localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
   

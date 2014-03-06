@@ -47,8 +47,13 @@ plotConcTimeDaily<-function(startYear=NA, endYear=NA, localSample = Sample,
   startYear <- if (is.na(startYear)) as.integer(min(localSample$DecYear,na.rm=TRUE)) else startYear
   endYear <- if (is.na(endYear)) as.integer(max(localSample$DecYear,na.rm=TRUE)) else endYear
   
-  paLong <- localINFO$paLong
-  paStart <- localINFO$paStart  
+  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart  
+  } else {
+    paLong <- 12
+    paStart <- 10
+  } 
   
   localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
   localDaily <- if(paLong == 12) localDaily else selectDays(paLong,paStart,localDaily=localDaily)

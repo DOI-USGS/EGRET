@@ -40,8 +40,13 @@ plotQTimeDaily<-function (startYear=NA, endYear=NA, localDaily = Daily,
                           tinyPlot = FALSE, printTitle = TRUE, lwd = 3, col="red", 
                           cex.main = 1.2, cex.lab = 1.2, customPar=FALSE,...){
   
-  paLong <- localINFO$paLong
-  paStart <- localINFO$paStart  
+  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart  
+  } else {
+    paLong <- 12
+    paStart <- 10
+  } 
 
   localDaily <- if(paLong == 12) localDaily else selectDays(paLong,paStart,localDaily=localDaily)
   

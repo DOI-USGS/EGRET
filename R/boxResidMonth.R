@@ -41,8 +41,13 @@ boxResidMonth<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   #  if stdResid=TRUE, they will be standardized residuals
   #Box width is proportional to the square root of the sample size
   
-  paLong <- localINFO$paLong
-  paStart <- localINFO$paStart  
+  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart  
+  } else {
+    paLong <- 12
+    paStart <- 10
+  } 
   
   localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
   

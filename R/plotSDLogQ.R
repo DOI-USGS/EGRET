@@ -45,8 +45,15 @@ plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
                      cex.main=1.1,cex.axis = 1.1,lwd=2, customPar=FALSE, ...){
 
   numDays<-length(localDaily$LogQ)
-  paLong <- localINFO$paLong
-  paStart <- localINFO$paStart
+  
+  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart  
+  } else {
+    paLong <- 12
+    paStart <- 10
+  }
+  
   localDaily <- if(paLong == 12) localDaily else selectDays(paLong,paStart,localDaily)
   numDays<-length(localDaily$LogQ)
   startDec<-localDaily$DecYear[1]
