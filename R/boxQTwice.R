@@ -82,9 +82,11 @@ boxQTwice<-function(localSample = Sample, localDaily = Daily, localINFO = INFO,
   yMax <- 1.01 * max(bigQ)
   
   if (tinyPlot) {
+    yLabel <- qUnit@qUnitTiny
     if (!customPar) par(mar=c(4,5,1,0.1),tcl=tcl,cex.lab=cex.axis)
     groupNames<-c("Sampled","All")
   } else {
+    yLabel <- qUnit@qUnitExpress
     if (!customPar) par(mar=c(5,6,4,2)+0.1,tcl=tcl,cex.lab=cex.axis)
     groupNames<-c("Sampled Days","All Days")
   }
@@ -105,7 +107,7 @@ boxQTwice<-function(localSample = Sample, localDaily = Daily, localINFO = INFO,
   boxplot(bigQ~index,varwidth=TRUE,
           names=groupNames,xlab="",
           ylim=c(yInfo$bottom,yInfo$top),
-          main=plotTitle,cex=cex,
+          main=plotTitle,cex=cex,ylab=yLabel,
           cex.main=cex.main,
           cex.axis=cex.axis, las=las,yaxt = "n",yaxs="i",
           log=logScaleText,yaxt="n",
