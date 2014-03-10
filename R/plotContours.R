@@ -32,7 +32,8 @@
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param tick.lwd line width for axis ticks, default is 2
-#' @param lwd number line width, default is 1
+#' @param lwd numeric, line width of flowDuration curve, default is 1
+#' @param tcl numeric, length of tick marks in inches, default is 0.1
 #' @param color.palette a function that creates a color palette for the contour plot. Default goes from white to gray to blue to red 
 #' using the function \code{colorRampPalette(c("white","gray","blue","red"))}. A few preset options are heat.colors, topo.colors, and terrain.colors.
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
@@ -52,13 +53,12 @@
 #' yTicksModified <- c(.1,1,10,25)
 #' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,yTicks=yTicksModified,flowDuration=FALSE)  
 #' colors <- colorRampPalette(c("white","red"))
-#' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,yTicks=yTicksModified,color.palette=colors)
+#' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,yTicks=yTicksModified,color.palette=colors,flowDuration=FALSE)
 #' colors2 <- heat.colors # Some other options: topo.colors, terrain.colors, cm.colors
-#' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,color.palette=colors2,lwd=2)
-#' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,cex.axis=2)
-#' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,cex.lab=2)
+#' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,color.palette=colors2,lwd=2,flowDuration=FALSE)
+#' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,cex.axis=2,flowDuration=FALSE)
 #' par(mar=c(5,8,5,8))
-#' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,customPar=TRUE,printTitle=FALSE)
+#' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,customPar=TRUE,printTitle=FALSE,flowDuration=FALSE)
 plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3, 
                        localsurfaces = surfaces, localINFO = INFO, localDaily = Daily, 
                        qUnit = 2, contourLevels = NA, span = 60, pval = 0.05,

@@ -30,7 +30,8 @@
 #' @param yTicks vector of yTick labels and marks that will be plotted in log space. If NA, will be automatically generated. 
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
-#' @param lwd number line width
+#' @param lwd numeric, line width of flowDuration curve, default is 1
+#' @param tcl numeric, length of tick marks in inches, default is 0.1
 #' @param tick.lwd line width for axis ticks, default is 2
 #' @param color.palette a function that creates a color palette for the contour plot. Default goes from blue to white to red 
 #' using the function \code{colorRampPalette(c("blue","white","red"))}. A few preset options are heat.colors, topo.colors, and terrain.colors.
@@ -50,15 +51,14 @@
 #' Daily <- ChopDaily
 #' plotDiffContours(year0,year1,qBottom,qTop,maxDiff)
 #' yTicksModified <- c(.1,1,10,25)
-#' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,yTicks=yTicksModified)
+#' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,yTicks=yTicksModified,flowDuration=FALSE)
 #' colors <-colorRampPalette(c("blue","white","red"))
-#' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,color.palette=colors)
+#' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,color.palette=colors,flowDuration=FALSE)
 #' colors2 <- heat.colors # Some other options: topo.colors, terrain.colors, cm.colors
-#' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,lwd=2,color.palette=colors2)
-#' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,cex.lab=2)
-#' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,cex.axis=2)
+#' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,lwd=2,color.palette=colors2,flowDuration=FALSE)
+#' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,cex.lab=2,flowDuration=FALSE)
 #' par(mar=c(5,8,5,8))
-#' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,customPar=TRUE)
+#' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,customPar=TRUE,flowDuration=FALSE)
 plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 3, 
                             localsurfaces = surfaces, localINFO = INFO, localDaily = Daily, tcl=0.1,
                             qUnit = 2, span = 60, pval = 0.05, printTitle = TRUE, plotPercent = FALSE,
@@ -173,7 +173,7 @@ plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 
     pct1 <- format(plevels[1] * 100, digits = 2)
     pct2 <- format(plevels[2] * 100, digits = 2)
 
-    firstLine <- paste(localINFO$shortName,", ",localINFO$paramShortName,sep="")
+    firstLine <- paste(localINFO$shortName,"  ",localINFO$paramShortName,sep="")
     secondLine <- if (plotPercent){
       paste("\nEstimated", surfaceName[j], "percent change from",year0,"to",year1)
     } else {
@@ -206,21 +206,16 @@ plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 
                                              10), log(yTicks[nYTicks], 10)), #main = plotTitle, 
                  xlab = "", ylab = yLab, xaxs = "i", yaxs = "i", cex.main = cex.main, 
                  plot.axes = {
-                   axis(1, tcl = 0.5, at = xTicks, labels = xLabels, cex.axis=0.9*cex.axis)
-                   axis(2, tcl = 0.5, las = 1, at = log(yTicks, 10), 
+                   axis(1, tcl = 0, at = xTicks, labels = xLabels, cex.axis=0.9*cex.axis)
+                   axis(2, tcl = 0, las = 1, at = log(yTicks, 10), 
                         labels = yTicks, cex.axis=cex.axis)
-                   axis(3, tcl = 0.5, at = xTicks, labels =FALSE)
-                   axis(4, tcl = 0.5, at = log(yTicks, 10), labels=FALSE)
+                   axis(3, tcl = 0, at = xTicks, labels =FALSE)
+                   axis(4, tcl = 0, at = log(yTicks, 10), labels=FALSE)
                    if(flowDuration) contour(x, log(y, 10), durSurf, add = TRUE, drawlabels = FALSE, 
                                             levels = plevels,lwd=lwd)
                    segments(v1[1], v1[2], v1[3], v1[4])
                    segments(v2[1], v2[2], v2[3], v2[4])
                    segments(h1[1], h1[2], h1[3], h1[4])
-                   
-#                    segments(xTicks, rep(log(yTicks[1],10),length(xTicks)), xTicks, rep(log(yTicks[1],10),length(xTicks))+deltaY , lwd = tick.lwd)
-#                    segments(xTicks, rep(log(yTicks[nYTicks],10),length(xTicks)), xTicks, rep(log(yTicks[nYTicks],10),length(xTicks))-deltaY, lwd = tick.lwd)
-#                    segments(rep(0,length(yTicks)), log(yTicks,10), rep(0,length(yTicks))+deltaX,log(yTicks,10), lwd = tick.lwd)
-#                    segments(rep(1,length(yTicks)), log(yTicks,10), rep(1,length(yTicks))-deltaX,log(yTicks,10), lwd = tick.lwd)
                    
                    segments(xTicks, rep(log(yTicks[1],10),length(xTicks)), xTicks, rep(grconvertY(grconvertY(par("usr")[3],from="user",to="inches")+tcl,from="inches",to="user"),length(xTicks)), lwd = tick.lwd)
                    segments(xTicks, rep(log(yTicks[nYTicks],10),length(xTicks)), xTicks, rep(grconvertY(grconvertY(par("usr")[4],from="user",to="inches")-tcl,from="inches",to="user"),length(xTicks)), lwd = tick.lwd)
