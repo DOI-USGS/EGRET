@@ -42,8 +42,8 @@
 #' @examples 
 #' yearStart <- 2001
 #' yearEnd <- 2010
-#' qBottom <- 0.1
-#' qTop<- 25
+#' qBottom <- 0.5
+#' qTop<- 20
 #' clevel <- seq(0,3.5,0.5)
 #' INFO <- ChopINFO
 #' Daily <- ChopDaily
@@ -61,8 +61,8 @@
 #' plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,customPar=TRUE,printTitle=FALSE)
 plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3, 
                        localsurfaces = surfaces, localINFO = INFO, localDaily = Daily, 
-                       qUnit = 2, contourLevels = NA, span = 60, pval = 0.05, 
-                       printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA, 
+                       qUnit = 2, contourLevels = NA, span = 60, pval = 0.05,
+                       printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA, tcl=0.1,
                        flowDuration = TRUE, customPar=FALSE, yTicks=NA,tick.lwd=2,
                        lwd=1,cex.main=1,cex.axis=1,color.palette=colorRampPalette(c("white","gray","blue","red")),...) {
   #  This funtion makes a contour plot 
@@ -209,21 +209,25 @@ plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
   filled.contour(x,log(y,10),surft,levels=contourLevels,xlim=c(yearStart,yearEnd),
                  ylim=c(log(yTicks[1],10),log(yTicks[nYTicks],10)),#main=plotTitle,
                  xlab="",ylab=yLab,xaxs="i",yaxs="i",cex.main=cex.main, 
-                 color.palette=color.palette, ...,
+                 color.palette=color.palette, # ...,
                  plot.axes={
-                   axis(1,tcl=0.5,at=xTicks,labels=xlabels,cex.axis=cex.axis)
-                   axis(2,tcl=0.5,las=1,at=log(yTicks,10),labels=yTicks,cex.axis=cex.axis)
-                   axis(3, tcl = 0.5, at = xTicks, labels =FALSE,cex.axis=cex.axis)
-                   axis(4, tcl = 0.5, at = log(yTicks, 10), labels=FALSE,cex.axis=cex.axis)
+                   
+                   width <- grconvertX(par("usr")[2],from="user",to="inches") - grconvertX(par("usr")[1],from="user",to="inches")
+                   height <- grconvertY(par("usr")[4],from="user",to="inches") - grconvertY(par("usr")[3],from="user",to="inches")
+                   
+                   axis(1,tcl=0,at=xTicks,labels=xlabels,cex.axis=cex.axis)
+                   axis(2,tcl=0,las=1,at=log(yTicks,10),labels=yTicks,cex.axis=cex.axis)
+                   axis(3, tcl = 0, at = xTicks, labels =FALSE,cex.axis=cex.axis)
+                   axis(4, tcl = 0, at = log(yTicks, 10), labels=FALSE,cex.axis=cex.axis)
                    if(flowDuration) contour(x,log(y,10),durSurf,add=TRUE,drawlabels=FALSE,levels=plevels,lwd=lwd)
                    segments(v1[1],v1[2],v1[3],v1[4])
                    segments(v2[1],v2[2],v2[3],v2[4])
                    segments(h1[1],h1[2],h1[3],h1[4])
                    
-                   segments(xTicks, rep(log(yTicks[1],10),length(xTicks)), xTicks, rep(log(yTicks[1],10),length(xTicks))+deltaY , lwd = tick.lwd)
-                   segments(xTicks, rep(log(yTicks[nYTicks],10),length(xTicks)), xTicks, rep(log(yTicks[nYTicks],10),length(xTicks))-deltaY, lwd = tick.lwd)
-                   segments(rep(yearStart,length(yTicks)), log(yTicks,10), rep(yearStart,length(yTicks))+deltaX,log(yTicks,10), lwd = tick.lwd)
-                   segments(rep(yearEnd,length(yTicks)), log(yTicks,10), rep(yearEnd,length(yTicks))-deltaX,log(yTicks,10), lwd = tick.lwd)
+                   segments(xTicks, rep(log(yTicks[1],10),length(xTicks)), xTicks, rep(grconvertY(grconvertY(par("usr")[3],from="user",to="inches")+tcl,from="inches",to="user"),length(xTicks)), lwd = tick.lwd)
+                   segments(xTicks, rep(log(yTicks[nYTicks],10),length(xTicks)), xTicks, rep(grconvertY(grconvertY(par("usr")[4],from="user",to="inches")-tcl,from="inches",to="user"),length(xTicks)), lwd = tick.lwd)
+                   segments(rep(yearStart,length(yTicks)), log(yTicks,10), rep(grconvertX(grconvertX(par("usr")[1],from="user",to="inches")+tcl,from="inches",to="user"),length(yTicks)),log(yTicks,10), lwd = tick.lwd)
+                   segments(rep(grconvertX(grconvertX(par("usr")[2],from="user",to="inches")-tcl,from="inches",to="user"),length(yTicks)), log(yTicks,10), rep(yearEnd,length(yTicks)),log(yTicks,10), lwd = tick.lwd)
                  })
   if (printTitle) title(plotTitle,outer=TRUE,cex.main=cex.main,line=-3)
 
