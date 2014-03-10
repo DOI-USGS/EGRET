@@ -42,8 +42,8 @@
 #' @examples 
 #' year0<-2001
 #' year1<-2009
-#' qBottom<-0.1
-#' qTop<-25
+#' qBottom<-0.5
+#' qTop<-20
 #' maxDiff<-0.5
 #' surfaces <- exsurfaces
 #' INFO <- ChopINFO
@@ -60,7 +60,7 @@
 #' par(mar=c(5,8,5,8))
 #' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,customPar=TRUE)
 plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 3, 
-                            localsurfaces = surfaces, localINFO = INFO, localDaily = Daily, 
+                            localsurfaces = surfaces, localINFO = INFO, localDaily = Daily, tcl=0.1,
                             qUnit = 2, span = 60, pval = 0.05, printTitle = TRUE, plotPercent = FALSE,
                             vert1 = NA, vert2 = NA, horiz = NA, flowDuration = TRUE, yTicks=NA,tick.lwd=2,
                             lwd=1,cex.main=0.95,cex.axis=1,customPar=FALSE,color.palette=colorRampPalette(c("blue","white","red")),...) 
@@ -217,10 +217,16 @@ plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 
                    segments(v2[1], v2[2], v2[3], v2[4])
                    segments(h1[1], h1[2], h1[3], h1[4])
                    
-                   segments(xTicks, rep(log(yTicks[1],10),length(xTicks)), xTicks, rep(log(yTicks[1],10),length(xTicks))+deltaY , lwd = tick.lwd)
-                   segments(xTicks, rep(log(yTicks[nYTicks],10),length(xTicks)), xTicks, rep(log(yTicks[nYTicks],10),length(xTicks))-deltaY, lwd = tick.lwd)
-                   segments(rep(0,length(yTicks)), log(yTicks,10), rep(0,length(yTicks))+deltaX,log(yTicks,10), lwd = tick.lwd)
-                   segments(rep(1,length(yTicks)), log(yTicks,10), rep(1,length(yTicks))-deltaX,log(yTicks,10), lwd = tick.lwd)
+#                    segments(xTicks, rep(log(yTicks[1],10),length(xTicks)), xTicks, rep(log(yTicks[1],10),length(xTicks))+deltaY , lwd = tick.lwd)
+#                    segments(xTicks, rep(log(yTicks[nYTicks],10),length(xTicks)), xTicks, rep(log(yTicks[nYTicks],10),length(xTicks))-deltaY, lwd = tick.lwd)
+#                    segments(rep(0,length(yTicks)), log(yTicks,10), rep(0,length(yTicks))+deltaX,log(yTicks,10), lwd = tick.lwd)
+#                    segments(rep(1,length(yTicks)), log(yTicks,10), rep(1,length(yTicks))-deltaX,log(yTicks,10), lwd = tick.lwd)
+                   
+                   segments(xTicks, rep(log(yTicks[1],10),length(xTicks)), xTicks, rep(grconvertY(grconvertY(par("usr")[3],from="user",to="inches")+tcl,from="inches",to="user"),length(xTicks)), lwd = tick.lwd)
+                   segments(xTicks, rep(log(yTicks[nYTicks],10),length(xTicks)), xTicks, rep(grconvertY(grconvertY(par("usr")[4],from="user",to="inches")-tcl,from="inches",to="user"),length(xTicks)), lwd = tick.lwd)
+                   segments(rep(0,length(yTicks)), log(yTicks,10), rep(grconvertX(grconvertX(par("usr")[1],from="user",to="inches")+tcl,from="inches",to="user"),length(yTicks)),log(yTicks,10), lwd = tick.lwd)
+                   segments(rep(grconvertX(grconvertX(par("usr")[2],from="user",to="inches")-tcl,from="inches",to="user"),length(yTicks)), log(yTicks,10), rep(1,length(yTicks)),log(yTicks,10), lwd = tick.lwd)
+                   
                  }, color.palette=color.palette,...)
   if (printTitle) title(plotTitle,outer=TRUE,cex.main=cex.main,line=-3)
 #   par(oma = c(0, 0, 0, 0))
