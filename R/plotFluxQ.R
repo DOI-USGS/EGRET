@@ -21,6 +21,7 @@
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
+#' @param logScale logical, default TRUE, TRUE creates a log-log scale, FALSE creates an arithmatic scale.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
@@ -37,7 +38,7 @@
 #' # Graphs consisting of Jun-Aug
 #' INFO <- setPA(paStart=6,paLong=3)
 #' plotFluxQ()
-plotFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2,
+plotFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2,logScale=TRUE,
                        fluxUnit = 3, tinyPlot = FALSE, fluxMax = NA, fluxMin = NA, col="black",lwd=1,
                        printTitle = TRUE,cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,...){
   # this function shows the sample data,
@@ -89,18 +90,26 @@ plotFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2,
     yLab<-fluxUnit@unitExpress
   }
   
+  if(logScale){
+    logText <- "xy"
+    yMin <- fluxMin
+  } else {
+    logText <- ""
+    yMin <- 0
+  }
+  
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Flux versus Discharge") else ""
   
   ##############################################
   
-  xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot, padPercent=5)
-  yInfo <- generalAxis(x=yHigh, minVal=fluxMin, maxVal=fluxMax, logScale=TRUE, tinyPlot=tinyPlot, padPercent=5)
+  xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=logScale, tinyPlot=tinyPlot, padPercent=5)
+  yInfo <- generalAxis(x=yHigh, minVal=fluxMin, maxVal=fluxMax, logScale=logScale, tinyPlot=tinyPlot, padPercent=5)
   
   genericEGRETDotPlot(x=x, y=yHigh,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       xlab=xLab, ylab=yLab,cex=cex,col=col,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks, tinyPlot=tinyPlot, customPar=customPar,
-                      plotTitle=plotTitle, log="xy",cex.axis=cex.axis,cex.main=cex.main, ...
+                      plotTitle=plotTitle, log=logText,cex.axis=cex.axis,cex.main=cex.main, ...
   )
   
   censoredSegments(yInfo$bottom,yLow,yHigh,x,Uncen,col=col,lwd=lwd)

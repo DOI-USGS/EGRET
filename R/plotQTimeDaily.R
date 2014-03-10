@@ -22,6 +22,7 @@
 #' @param cex.lab magnification to be used for x and y labels relative to the current setting of cex
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
+#' @param logScale logical whether or not to use a log scale in the y axis. Default is FALSE.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow
 #' @export
@@ -36,7 +37,7 @@
 #' INFO <- setPA(paStart=6,paLong=3)
 #' plotQTimeDaily()
 plotQTimeDaily<-function (startYear=NA, endYear=NA, localDaily = Daily, 
-                          localINFO = INFO, qLower = NA, qUnit = 1, 
+                          localINFO = INFO, qLower = NA, qUnit = 1, logScale=FALSE,
                           tinyPlot = FALSE, printTitle = TRUE, lwd = 3, col="red", 
                           cex.main = 1.2, cex.lab = 1.2, customPar=FALSE,...){
   
@@ -74,7 +75,7 @@ plotQTimeDaily<-function (startYear=NA, endYear=NA, localDaily = Daily,
   xDaily <- subDaily$DecYear
   
   yDaily <- qFactor * subDaily$Q
-  yMin <- if(is.na(qLower)) 0 else qLower
+#   yMin <- if(is.na(qLower)) 0 else qLower
 
   line2 <- if(is.na(qLower)) "Daily Discharge" else paste("Daily discharge above a threshold of\n",qLower," ",qUnit@qUnitName,sep="")
   line1 <- localINFO$shortName
@@ -84,15 +85,19 @@ plotQTimeDaily<-function (startYear=NA, endYear=NA, localDaily = Daily,
   } else {
     ""
   }
-
-  qBottom <- if(is.na(qLower)) 0 else qLower
+  
+  if(logScale){
+    logText <- "y"
+  } else {
+    logText <- ""
+  }
   
   xInfo <- generalAxis(x=xDaily, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot)
-  yInfo <- generalAxis(x=yDaily, minVal=yMin, maxVal=1.05*max(yDaily), tinyPlot=tinyPlot,padPercent=0)
+  yInfo <- generalAxis(x=yDaily, minVal=qLower, maxVal=1.05*max(yDaily), tinyPlot=tinyPlot,padPercent=0,logScale=logScale)
 
   genericEGRETDotPlot(x=xDaily, y=yDaily, 
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                      xlab="", ylab=yLab, customPar=customPar,
+                      xlab="", ylab=yLab, customPar=customPar,log=logText,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks, tinyPlot=tinyPlot,
                       plotTitle=plotTitle, cex.main=cex.main,cex.lab=cex.lab,
                       type="l",col=col,lwd=lwd, xDate=TRUE,...
