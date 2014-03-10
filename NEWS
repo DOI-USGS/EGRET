@@ -1,15 +1,19 @@
 EGRET 1.2.5
 ===========
-* Added period of record control to all graphs and tables (with execption of plotContours, plotDiffContours, plotConcQSmooth, and plotConcTimeSmooth),
+* March 10, 2014
+* Added period of record control to all graphs and tables (with execption of plotContours, plotDiffContours, plotConcQSmooth, and plotConcTimeSmooth).
+* Changed default color palette for contour plots
 * Updated vignette.
 * Added setupYears call within functions to generally eliminate the need for AnnualResults.
 * Continued to improve documentation.
 
 EGRET 1.2.4
 ===========
+* September 25, 2013
 * Plotting functions updated to allow users better control.
 * Fixed small leap year bug.
 * Added dataframe returns to table functions.
+* plotLogXXX functions were removed, logScale argument was added to linear plots
 
 
 EGRET 1.2.3
