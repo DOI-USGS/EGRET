@@ -3,9 +3,9 @@
 \title{Plot of the discharge time series}
 \usage{
 plotQTimeDaily(startYear = NA, endYear = NA, localDaily = Daily,
-  localINFO = INFO, qLower = NA, qUnit = 1, tinyPlot = FALSE,
-  printTitle = TRUE, lwd = 3, col = "red", cex.main = 1.2,
-  cex.lab = 1.2, customPar = FALSE, ...)
+  localINFO = INFO, qLower = NA, qUnit = 1, logScale = FALSE,
+  tinyPlot = FALSE, printTitle = TRUE, lwd = 3, col = "red",
+  cex.main = 1.2, cex.lab = 1.2, customPar = FALSE, ...)
 }
 \arguments{
   \item{startYear}{numeric indicating the starting year for
@@ -53,6 +53,9 @@ plotQTimeDaily(startYear = NA, endYear = NA, localDaily = Daily,
   (for example, adjusting margins with
   par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses
   the best margins depending on tinyPlot.}
+
+  \item{logScale}{logical whether or not to use a log scale
+  in the y axis. Default is FALSE.}
 
   \item{\dots}{arbitrary graphical parameters that will be
   passed to genericEGRETDotPlot function (see ?par for

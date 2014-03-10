@@ -3,8 +3,8 @@
 \title{Sample data plot: observed log flux vs log discharge}
 \usage{
 plotFluxQ(localSample = Sample, localINFO = INFO, qUnit = 2,
-  fluxUnit = 3, tinyPlot = FALSE, fluxMax = NA, fluxMin = NA,
-  col = "black", lwd = 1, printTitle = TRUE, cex = 0.8,
+  logScale = TRUE, fluxUnit = 3, tinyPlot = FALSE, fluxMax = NA,
+  fluxMin = NA, col = "black", lwd = 1, printTitle = TRUE, cex = 0.8,
   cex.axis = 1.1, cex.main = 1.1, customPar = FALSE, ...)
 }
 \arguments{
@@ -51,6 +51,9 @@ plotFluxQ(localSample = Sample, localINFO = INFO, qUnit = 2,
   (for example, adjusting margins with
   par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses
   the best margins depending on tinyPlot.}
+
+  \item{logScale}{logical, default TRUE, TRUE creates a
+  log-log scale, FALSE creates an arithmatic scale.}
 
   \item{col}{color of points on plot, see ?par 'Color
   Specification'}

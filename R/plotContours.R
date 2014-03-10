@@ -193,7 +193,7 @@ plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
     plevels<-c(pval,1-pval)
     pct1<-format(plevels[1]*100,digits=2)
     pct2<-format(plevels[2]*100,digits=2)
-    plotTitle<-paste(localINFO$shortName,",",localINFO$paramShortName,"\nEstimated",surfaceName[j],"Surface in Color\nBlack lines are",pct1,"and",pct2,"flow percentiles")
+    plotTitle<-paste(localINFO$shortName,"  ",localINFO$paramShortName,"\nEstimated",surfaceName[j],"Surface in Color\nBlack lines are",pct1,"and",pct2,"flow percentiles")
   }
   # setting up for the possible 3 straight lines to go on the graph
   # if the lines aren't being plotted they are just located outside the plot area

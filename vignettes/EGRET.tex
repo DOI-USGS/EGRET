@@ -530,7 +530,7 @@ We will walk through an example from Columbia River at The Dalles, OR.
 \hlstd{Daily} \hlkwb{<-} \hlkwd{getDVData}\hlstd{(siteID,}\hlstr{"00060"}\hlstd{,startDate,endDate)}
 \end{alltt}
 \begin{verbatim}
-There are 49585 data points, and 49586 days.
+There are 49589 data points, and 49590 days.
 
  discharge data jumps from 2013-12-28 to 2013-12-30
 \end{verbatim}
@@ -657,10 +657,9 @@ Here is an example of looking at mean daily discharge for the full water year an
 \hlstd{sta}\hlkwb{<-}\hlstr{"11264500"}
 \hlstd{Daily} \hlkwb{<-}\hlkwd{getDVData}\hlstd{(sta,}\hlstr{"00060"}\hlstd{,}\hlkwc{StartDate}\hlstd{=}\hlstr{""}\hlstd{,}\hlkwc{EndDate}\hlstd{=}\hlstr{""}\hlstd{)}
 \end{alltt}
-\begin{verbatim}
-There are 35990 data points, and 35990 days.
-\end{verbatim}
-\begin{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{Error: NAs are not allowed in subscripted assignments}}\begin{alltt}
 \hlstd{INFO} \hlkwb{<-} \hlkwd{getMetaData}\hlstd{(sta,}\hlstr{""}\hlstd{,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
 \hlstd{INFO}\hlopt{$}\hlstd{shortName} \hlkwb{<-} \hlstr{"Merced River at Happy Isles Bridge, CA"}
 \hlstd{INFO} \hlkwb{<-} \hlkwd{setPA}\hlstd{()}
@@ -1069,7 +1068,6 @@ Figure \ref{fig:plotConcTimeDaily}:
 \begin{alltt}
 \hlcom{# Return to water year:}
 \hlstd{INFO} \hlkwb{<-} \hlkwd{setPA}\hlstd{()}
-\hlstd{AnnualResults}\hlkwb{<-}\hlkwd{setupYears}\hlstd{()}
 
 \hlstd{yearStart} \hlkwb{<-} \hlnum{2008}
 \hlstd{yearEnd} \hlkwb{<-} \hlnum{2010}
@@ -1180,8 +1178,8 @@ Figure \ref{fig:plotConcQSmooth}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{qBottom}\hlkwb{<-}\hlnum{5}
-\hlstd{qTop}\hlkwb{<-}\hlnum{1000}
+\hlstd{qBottom}\hlkwb{<-}\hlnum{20}
+\hlstd{qTop}\hlkwb{<-}\hlnum{700}
 \hlstd{date1} \hlkwb{<-} \hlstr{"2000-09-01"}
 \hlstd{date2} \hlkwb{<-} \hlstr{"2005-09-01"}
 \hlstd{date3} \hlkwb{<-} \hlstr{"2009-09-01"}
@@ -1553,7 +1551,8 @@ The contour plots can also be extended. The default y-axis is determined from qT
              \hlkwc{contourLevels} \hlstd{= clevel,}
              \hlkwc{yTicks}\hlstd{=yTicksModified,}
              \hlkwc{color.palette}\hlstd{=colors,}
-             \hlkwc{flowDuration}\hlstd{=}\hlnum{FALSE}\hlstd{)}
+             \hlkwc{flowDuration}\hlstd{=}\hlnum{FALSE}\hlstd{,}
+             \hlkwc{tcl}\hlstd{=}\hlnum{0.2}\hlstd{,}\hlkwc{tick.lwd}\hlstd{=}\hlnum{2.5}\hlstd{)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 

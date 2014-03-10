@@ -4,7 +4,7 @@
 \usage{
 plotDiffContours(year0, year1, qBottom, qTop, maxDiff, whatSurface = 3,
   localsurfaces = surfaces, localINFO = INFO, localDaily = Daily,
-  qUnit = 2, span = 60, pval = 0.05, printTitle = TRUE,
+  tcl = 0.1, qUnit = 2, span = 60, pval = 0.05, printTitle = TRUE,
   plotPercent = FALSE, vert1 = NA, vert2 = NA, horiz = NA,
   flowDuration = TRUE, yTicks = NA, tick.lwd = 2, lwd = 1,
   cex.main = 0.95, cex.axis = 1, customPar = FALSE,
@@ -91,7 +91,11 @@ plotDiffContours(year0, year1, qBottom, qTop, maxDiff, whatSurface = 3,
   \item{cex.axis}{magnification to be used for axis
   annotation relative to the current setting of cex}
 
-  \item{lwd}{number line width}
+  \item{lwd}{numeric, line width of flowDuration curve,
+  default is 1}
+
+  \item{tcl}{numeric, length of tick marks in inches,
+  default is 0.1}
 
   \item{tick.lwd}{line width for axis ticks, default is 2}
 
@@ -130,23 +134,22 @@ will produce a plot:
 \examples{
 year0<-2001
 year1<-2009
-qBottom<-0.1
-qTop<-25
+qBottom<-0.5
+qTop<-20
 maxDiff<-0.5
 surfaces <- exsurfaces
 INFO <- ChopINFO
 Daily <- ChopDaily
 plotDiffContours(year0,year1,qBottom,qTop,maxDiff)
 yTicksModified <- c(.1,1,10,25)
-plotDiffContours(year0,year1,qBottom,qTop,maxDiff,yTicks=yTicksModified)
+plotDiffContours(year0,year1,qBottom,qTop,maxDiff,yTicks=yTicksModified,flowDuration=FALSE)
 colors <-colorRampPalette(c("blue","white","red"))
-plotDiffContours(year0,year1,qBottom,qTop,maxDiff,color.palette=colors)
+plotDiffContours(year0,year1,qBottom,qTop,maxDiff,color.palette=colors,flowDuration=FALSE)
 colors2 <- heat.colors # Some other options: topo.colors, terrain.colors, cm.colors
-plotDiffContours(year0,year1,qBottom,qTop,maxDiff,lwd=2,color.palette=colors2)
-plotDiffContours(year0,year1,qBottom,qTop,maxDiff,cex.lab=2)
-plotDiffContours(year0,year1,qBottom,qTop,maxDiff,cex.axis=2)
+plotDiffContours(year0,year1,qBottom,qTop,maxDiff,lwd=2,color.palette=colors2,flowDuration=FALSE)
+plotDiffContours(year0,year1,qBottom,qTop,maxDiff,cex.lab=2,flowDuration=FALSE)
 par(mar=c(5,8,5,8))
-plotDiffContours(year0,year1,qBottom,qTop,maxDiff,customPar=TRUE)
+plotDiffContours(year0,year1,qBottom,qTop,maxDiff,customPar=TRUE,flowDuration=FALSE)
 }
 \keyword{graphics}
 \keyword{statistics}

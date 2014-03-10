@@ -5,7 +5,7 @@
 plotContours(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
   localsurfaces = surfaces, localINFO = INFO, localDaily = Daily,
   qUnit = 2, contourLevels = NA, span = 60, pval = 0.05,
-  printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA,
+  printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA, tcl = 0.1,
   flowDuration = TRUE, customPar = FALSE, yTicks = NA, tick.lwd = 2,
   lwd = 1, cex.main = 1, cex.axis = 1,
   color.palette = colorRampPalette(c("white", "gray", "blue", "red")), ...)
@@ -90,7 +90,11 @@ plotContours(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
 
   \item{tick.lwd}{line width for axis ticks, default is 2}
 
-  \item{lwd}{number line width, default is 1}
+  \item{lwd}{numeric, line width of flowDuration curve,
+  default is 1}
+
+  \item{tcl}{numeric, length of tick marks in inches,
+  default is 0.1}
 
   \item{color.palette}{a function that creates a color
   palette for the contour plot. Default goes from white to
@@ -131,8 +135,8 @@ contourLevels = clevel)}
 \examples{
 yearStart <- 2001
 yearEnd <- 2010
-qBottom <- 0.1
-qTop<- 25
+qBottom <- 0.5
+qTop<- 20
 clevel <- seq(0,3.5,0.5)
 INFO <- ChopINFO
 Daily <- ChopDaily
@@ -141,13 +145,12 @@ plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel)
 yTicksModified <- c(.1,1,10,25)
 plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,yTicks=yTicksModified,flowDuration=FALSE)
 colors <- colorRampPalette(c("white","red"))
-plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,yTicks=yTicksModified,color.palette=colors)
+plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,yTicks=yTicksModified,color.palette=colors,flowDuration=FALSE)
 colors2 <- heat.colors # Some other options: topo.colors, terrain.colors, cm.colors
-plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,color.palette=colors2,lwd=2)
-plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,cex.axis=2)
-plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,cex.lab=2)
+plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,color.palette=colors2,lwd=2,flowDuration=FALSE)
+plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,cex.axis=2,flowDuration=FALSE)
 par(mar=c(5,8,5,8))
-plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,customPar=TRUE,printTitle=FALSE)
+plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,customPar=TRUE,printTitle=FALSE,flowDuration=FALSE)
 }
 \keyword{graphics}
 \keyword{statistics}

@@ -779,7 +779,6 @@ Check the help files or manual for more details on the following functions.  See
 Sample <- ChopSample
 Daily <- ChopDaily
 INFO <- ChopINFO
-AnnualResults <- setupYears()
 surfaces <- exsurfaces
 @
 
@@ -788,7 +787,6 @@ Figure \ref{fig:plotConcTimeDaily}:
 <<plotConcTimeDaily, echo=TRUE, fig.cap="Concentration and flux vs time",fig.subcap=c("plotConcTimeDaily(startYear=2008, endYear=2010)","plotFluxTimeDaily(startYear=2008, endYear=2010)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
 # Return to water year:
 INFO <- setPA()
-AnnualResults<-setupYears()
 
 yearStart <- 2008
 yearEnd <- 2010
@@ -829,8 +827,8 @@ plotFluxHist()
 
 Figure \ref{fig:plotConcQSmooth}:
 <<plotConcQSmooth, echo=TRUE, fig.cap="Concentration vs. discharge",fig.subcap=c("plotConcQSmooth","plotConcQSmooth(logScale=TRUE)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
-qBottom<-5
-qTop<-1000
+qBottom<-20
+qTop<-700
 date1 <- "2000-09-01"
 date2 <- "2005-09-01"
 date3 <- "2009-09-01"
@@ -1052,7 +1050,8 @@ plotContours(yearStart,yearEnd,qBottom,qTop,
              contourLevels = clevel,
              yTicks=yTicksModified,
              color.palette=colors,
-             flowDuration=FALSE)  
+             flowDuration=FALSE,
+             tcl=0.2,tick.lwd=2.5)  
 @
 
 <<modifiedDiffContour,echo=TRUE,eval=TRUE,fig.cap="Difference contour plot with modified color scheme",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
