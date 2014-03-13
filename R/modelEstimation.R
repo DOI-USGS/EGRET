@@ -89,6 +89,7 @@ modelEstimation<-function(localDaily = Daily,localSample = Sample, localINFO = I
     assign(as.character(matchReturn$localAnnualResults), annualResults1 , envir=env)
   }
   
-  cat("\nDone with modelEstimation,\nif you want to use a period of analysis other than water year\nnow do AnnualResults<-setupYears(paLong,paStart)\n")
+  cat("\nDone with modelEstimation,\nThe AnnualResults data frame that has been created is for water years.  If you want a data frame of results for some other period of analysis then give the command:\n
+AnnualResults <- setupYears(paLong,paStart)\n")
   
 }

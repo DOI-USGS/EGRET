@@ -1,0 +1,29 @@
+\name{fixSampleFrame}
+\alias{fixSampleFrame}
+\title{Update Sample dataframe}
+\usage{
+fixSampleFrame(localSample = Sample)
+}
+\arguments{
+  \item{localSample}{data frame that contains the
+  concentration data, default name is Sample}
+}
+\value{
+localSample data frame
+}
+\description{
+Used for updating the Sample dataframe if ConcLow or
+ConcHigh is manually adjusted. Adjusts ConcAve and Uncen
+columns.
+}
+\examples{
+Sample <- ChopSample
+Sample[1,c("ConcLow","ConcHigh")] <- c(NA, 0.01) # Adjusted to left-censored
+Sample[2,c("ConcLow","ConcHigh")] <- c(1.1, 1.3) # Adjusted to interval-censored
+Sample[3,c("ConcLow","ConcHigh")] <- c(1.3, 1.3) # Simple adjustment
+Sample <- fixSampleFrame()
+Sample[1:3,]
+}
+\keyword{WRTDS}
+\keyword{flow}
+

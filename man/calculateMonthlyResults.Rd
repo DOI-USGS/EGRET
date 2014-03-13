@@ -1,6 +1,6 @@
 \name{calculateMonthlyResults}
 \alias{calculateMonthlyResults}
-\title{Calculates monthly values of Discharge, Concentration, Flux, Flow Normalized Concentration and Flow Normalized Flux for the entire record}
+\title{Calculates monthly values of Q, Conc, Flux, FNConc, and FNFlux for the entire record}
 \usage{
 calculateMonthlyResults(localDaily = Daily)
 }
@@ -13,13 +13,13 @@ MonthlyResults data frame of numeric values describing the
 monthly average values
 }
 \description{
-Computes the monthly average values of these five
-quantities (Q, Conc, Flux, FNConc, and FNFlux).  It also
-saves (for each month) the month sequence number (months
-starting with January, 1850) and the average value of
-DecYear.  It returns a data frame containing MonthSeq and
-average values of DecYear, Q, Conc, Flux, FNConc, and
-FNFlux.
+Computes the monthly mean values of discharge,
+concentration, flux, flow-normalized concentration and
+flow-normalized flux (Q, Conc, Flux, FNConc, and FNFlux) in
+SI units (For discharge they are in m3/s, concentration is
+mg/L, and flux is kg/day). It returns a data frame
+containing month, year, decimal year, and mean values of
+DecYear, Q, Conc, Flux, FNConc, and FNFlux.
 }
 \examples{
 Daily <- ChopDaily

@@ -1,8 +1,8 @@
-#'    Calculates monthly values of Discharge, Concentration, Flux, Flow Normalized Concentration and Flow Normalized Flux for the entire record
+#' Calculates monthly values of Q, Conc, Flux, FNConc, and FNFlux for the entire record
 #'
-#'     Computes the monthly average values of these five quantities (Q, Conc, Flux, FNConc, and FNFlux).
-#'     It also saves (for each month) the month sequence number (months starting with January, 1850) and the average value of DecYear.
-#'     It returns a data frame containing MonthSeq and average values of DecYear, Q, Conc, Flux, FNConc, and FNFlux.
+#' Computes the monthly mean values of discharge, concentration, flux, flow-normalized concentration and flow-normalized flux (Q, Conc, Flux, FNConc, and FNFlux) in SI units 
+#' (For discharge they are in m3/s, concentration is mg/L, and flux is kg/day).
+#' It returns a data frame containing month, year, decimal year, and mean values of DecYear, Q, Conc, Flux, FNConc, and FNFlux.
 #'
 #' @param localDaily data frame containing the daily values, default is Daily
 #' @keywords water-quality statistics
@@ -16,30 +16,21 @@ calculateMonthlyResults<-function(localDaily = Daily){
   # it requires that there be at least 15 valid values in the month
   # to compute those results
   # it returns the data frame called MonthlyResults
-  #
-  firstMonthSeq<-localDaily$MonthSeq[1]
-  numDays<-length(localDaily$MonthSeq)
-  lastMonthSeq<-localDaily$MonthSeq[numDays]
-  numMonths<-lastMonthSeq-firstMonthSeq+1
-  DecYear<-rep(NA,numMonths)
-  Q<-rep(NA,numMonths)
-  MonthSeq<-seq(firstMonthSeq,lastMonthSeq)
-  Conc<-rep(NA,numMonths)
-  Flux<-rep(NA,numMonths)
-  FNConc<-rep(NA,numMonths)
-  FNFlux<-rep(NA,numMonths)
-  for(i in 1:numMonths) {
-    thisMonthSeq<-MonthSeq[i]
-    DailyM<-subset(localDaily,MonthSeq==thisMonthSeq)
-    UseIt<-ifelse(is.na(DailyM$ConcDay),0,1)
-    Keep<-if(sum(UseIt)>15) TRUE else FALSE
-    Q[i]<-if(Keep) mean(DailyM$Q) else NA
-    DecYear[i]<-if(Keep) mean(DailyM$DecYear) else NA
-    Conc[i]<-if(Keep) mean(DailyM$ConcDay) else NA
-    Flux[i]<-if(Keep) mean(DailyM$FluxDay) else NA
-    FNConc[i]<-if(Keep) mean(DailyM$FNConc) else NA
-    FNFlux[i]<-if(Keep) mean(DailyM$FNFlux) else NA
-  }
-  MonthlyResults<-data.frame(MonthSeq,DecYear,Q,Conc,Flux,FNConc,FNFlux)
-  return(MonthlyResults)	
+
+  UseIt <- aggregate(localDaily$ConcDay, by=list(localDaily$MonthSeq), function(x) sum(!is.na(x)))$x
+
+  Q <- aggregate(localDaily$Q, by=list(localDaily$MonthSeq), mean)$x
+  DecYear <- aggregate(localDaily$DecYear, by=list(localDaily$MonthSeq), mean)$x
+  Year <- trunc(DecYear)
+  Month <- aggregate(localDaily$Month, by=list(localDaily$MonthSeq), mean)$x
+  Conc <- aggregate(localDaily$ConcDay, by=list(localDaily$MonthSeq), mean)$x
+  Flux <- aggregate(localDaily$FluxDay, by=list(localDaily$MonthSeq), mean)$x
+  FNConc <- aggregate(localDaily$FNConc, by=list(localDaily$MonthSeq), mean)$x
+  FNFlux <- aggregate(localDaily$FNFlux, by=list(localDaily$MonthSeq), mean)$x
+  
+  MonthlyResults <- data.frame(Month, Year, DecYear, Q, Conc, 
+                               Flux, FNConc, FNFlux)
+  MonthlyResults <- MonthlyResults[(UseIt > 15),]
+  
+  return(MonthlyResults)
 }
