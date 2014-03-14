@@ -75,6 +75,15 @@ Version updates
 
 ####EGRET
 
+* Version 1.2.5 March14, 2014
+
+	* Added period of record control to all graphs and tables (with execption of plotContours, plotDiffContours, plotConcQSmooth, and plotConcTimeSmooth).
+	* Changed default color palette for contour plots
+	* Updated vignette.
+	* Added setupYears call within functions to generally eliminate the need for AnnualResults.
+	* Updated calculateMonthlyResults to give month, year, and decimal year.
+	* Continued to improve documentation.
+
 * Version 1.2.4 July 10, 2013
 
 	* Fixed a small leap year bug
