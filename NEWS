@@ -1,8 +1,11 @@
 EGRET 1.2.5
 ===========
 * March 10, 2014
-* Added period of record control to all graphs and tables (with execption of plotContours, plotDiffContours, plotConcQSmooth, and plotConcTimeSmooth).
-* Changed default color palette for contour plots
+* Added period of analysis control to all graphs and tables so they can present outputs by season as well as the full year. The only graph or table functions without this capability are now: plotContours, plotDiffContours, plotConcQSmooth, and plotConcTimeSmooth. 
+* Changed the way that period of analysis is now specified: by using the function setupYears. It sets paLong and paStart and applies to all subsequent functions until setupYears is used again.
+* For plots where time is on the x-axis and the length is 4-years or less, the axis labels now give more date information. 
+* Added more flexibility in character sizes, colors, line weights and other features and graphics. 
+* Changed default color palette for plotContours and plotDiffContours.
 * Updated vignette.
 * Added setupYears call within functions to generally eliminate the need for AnnualResults.
 * Continued to improve documentation.
