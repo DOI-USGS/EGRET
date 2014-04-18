@@ -25,8 +25,8 @@
 \renewcommand{\textfraction}{0.1}
 \usepackage{graphicx}
 
-\textwidth=6.2in
-\textheight=8.5in
+\textwidth=6.5in
+\textheight=9.2in
 \parskip=.3cm
 \oddsidemargin=.1in
 \evensidemargin=.1in
@@ -858,32 +858,23 @@ fluxBiasMulti(qUnit=1)
 The contour plot functions also do not recognize the period of analysis in the INFO dataframe. They represent the overall results of the WRTDS analysis. 
 
 Figure \ref{fig:plotContours}:
-<<plotContours, echo=TRUE, fig.cap="plotContours(yearStart=2008,yearEnd=2010,qBottom=20,qtop=1000,clevel=seq(0,2.5,0.25),qUnit=1)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
-clevel<-seq(0,2.5,0.25)
-plotContours(yearStart=2008,yearEnd=2010,qBottom=20,qTop, 
+<<plotContours, echo=TRUE,fig.cap="plotContours(yearStart=2008,yearEnd=2010,qBottom=20,qtop=1000,contourLevels=seq(0,2,0.2),\r\nqUnit=1,flowDuration=FALSE)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+clevel<-seq(0,2,0.2)
+plotContours(yearStart=2008,yearEnd=2010,qBottom=20,qTop=1000, 
              contourLevels = clevel,qUnit=1,
              flowDuration=FALSE)
 @
 
-To specify contourLevels in the contour plots, the seq function in R should be used (type `?seq' for details on this function).  In general it would look like this: contourLevels = seq(from,to,by).  In the example shown above we are requesting contour levels that run from 0 to 2.5 in steps of 0.25.
+To specify contourLevels in the contour plots, the seq function in R should be used (type `?seq' for details on this function).  In general it would look like this: contourLevels = seq(from,to,by).  In the example shown above we are requesting contour levels that run from 0 to 2 in steps of 0.2.
 
 The function plotDiffContours plots the difference between two selected years (year0 and year1). It can help clarify what combinations of seasons and flow conditions have been showing increases and decreases over the period covered.
 
 Figure \ref{fig:plotDiffContours}:
-<<plotDiffContours, echo=TRUE, fig.cap="plotDiffContours(year0=2000,year1=2010,qBottom=1,qTop=5000,maxDiff=0.6,qUnit=1)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
-maxDiff<-0.6
+<<plotDiffContours, echo=TRUE, fig.cap="plotDiffContours(year0=2000,year1=2010,qBottom=20,qTop=1000,maxDiff=0.6,\r\nqUnit=1,flowDuration=FALSE)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 plotDiffContours(year0=2000,year1=2010,
-                 qBottom,qTop,maxDiff,qUnit=1,
+                 qBottom=20,qTop=1000,maxDiff=0.6,qUnit=1,
              flowDuration=FALSE)
 @
-
-
-
-
-<<setcontours, echo=TRUE, eval=FALSE>>=
-contourLevels = seq(0,5,0.2)
-@
-
 
 \FloatBarrier
 %------------------------------------------------------------ 
@@ -1036,18 +1027,18 @@ plotFluxPred(customPar=TRUE)
 mtext(side=3,line=-3,"Serif font example",cex=3)
 @
 
-The contour plots can also be extended. The default y-axis is determined from qTop and qBottom. Occasionally, it is necessary to use a custom axis. This can be done by specifying yTicks. It is also nice to be able to adjust the color scheme of the contour plots. There are some color schemes built into base R such as heat.colors, topo.colors, terrain.colors, and cm.colors. Alternatively, colors can be set using the colorRampPalette function. For example, it might make more sense to use a scheme that goes from white to red for low to high concentrations. For the plotDiffContours, it might make more sense to go from blue to white for the negative values, and white to red for the positive values. Examples are shown below.
+The contour plots can also be extended. The default y-axis is determined from qTop and qBottom. Occasionally, it is necessary to use a custom axis. This can be done by specifying yTicks. It is also nice to be able to adjust the color scheme of the contour plots. There are some color schemes built into base R such as heat.colors, topo.colors, terrain.colors, and cm.colors. Alternatively, colors can be set using the colorRampPalette function. For example, it might make more sense to use a scheme that goes from white to red for low to high concentrations. For the plotDiffContours, it might make more sense to go from blue to white for the negative values, and white to red for the positive values. Examples are shown below for modifying a contour plot in Figure \ref{fig:modifiedContour1} and modifying a difference contour plot in Figure \ref{fig:modifiedDiffContour}. 
 
 <<modifiedContour1,echo=TRUE,eval=TRUE,fig.cap="Contour plot with modified axis and color scheme",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 yearStart <- 2001
 yearEnd <- 2010
 qBottom <- 0.5
 qTop<- 50
-clevel <- seq(0,3.5,0.5)
+clevel <- seq(0,2.5,0.5)
 colors <- colorRampPalette(c("white","red"))
-yTicksModified <- c(.1,1,10,25)
+yTicksModified <- c(.5,1,10,25)
 plotContours(yearStart,yearEnd,qBottom,qTop, 
-             contourLevels = clevel,
+             contourLevels = clevel,qUnit=2,
              yTicks=yTicksModified,
              color.palette=colors,
              flowDuration=FALSE,
@@ -1056,7 +1047,7 @@ plotContours(yearStart,yearEnd,qBottom,qTop,
 
 <<modifiedDiffContour,echo=TRUE,eval=TRUE,fig.cap="Difference contour plot with modified color scheme",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
 colors <- colorRampPalette(c("cadetblue1","azure","firebrick1"))
-maxDiff<-0.5
+maxDiff<-0.6
 plotDiffContours(year0=2001,year1=2010,qBottom=0.5,qTop=50, 
              maxDiff,lwd=2,qUnit=2,
              color.palette=colors,
@@ -1099,7 +1090,7 @@ To install the EGRET packages and its dependencies:
 
 <<installFromCran,eval = FALSE>>=
 install.packages(c("zoo","survival","methods","fields",
-                   "spam","XML","RCurl"))
+                   "spam","XML","RCurl","plyr","reshape2"))
 install.packages("dataRetrieval", 
                  repos="http://usgs-r.github.com/")
 install.packages("EGRET", 

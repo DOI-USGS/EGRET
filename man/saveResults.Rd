@@ -23,7 +23,7 @@ INFO$constitAbbrev <- "nitrogen"
 Daily <- ChopDaily
 Sample <- ChopSample
 surfaces <- exsurfaces
-savePath <- "~/RData/"
+savePath <- "~/R/"
 saveResults(savePath)
 
 #To load:

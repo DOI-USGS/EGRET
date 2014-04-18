@@ -74,8 +74,8 @@
 \renewcommand{\textfraction}{0.1}
 \usepackage{graphicx}
 
-\textwidth=6.2in
-\textheight=8.5in
+\textwidth=6.5in
+\textheight=9.2in
 \parskip=.3cm
 \oddsidemargin=.1in
 \evensidemargin=.1in
@@ -530,7 +530,7 @@ We will walk through an example from Columbia River at The Dalles, OR.
 \hlstd{Daily} \hlkwb{<-} \hlkwd{getDVData}\hlstd{(siteID,}\hlstr{"00060"}\hlstd{,startDate,endDate)}
 \end{alltt}
 \begin{verbatim}
-There are 49622 data points, and 49622 days.
+There are 49628 data points, and 49628 days.
 \end{verbatim}
 \begin{alltt}
 \hlstd{INFO} \hlkwb{<-} \hlkwd{getMetaData}\hlstd{(siteID,}\hlstr{""}\hlstd{,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
@@ -656,7 +656,7 @@ Here is an example of looking at mean daily discharge for the full water year an
 \hlstd{Daily} \hlkwb{<-}\hlkwd{getDVData}\hlstd{(sta,}\hlstr{"00060"}\hlstd{,}\hlkwc{StartDate}\hlstd{=}\hlstr{""}\hlstd{,}\hlkwc{EndDate}\hlstd{=}\hlstr{""}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-There are 36026 data points, and 36026 days.
+There are 36032 data points, and 36032 days.
 \end{verbatim}
 \begin{alltt}
 \hlstd{INFO} \hlkwb{<-} \hlkwd{getMetaData}\hlstd{(sta,}\hlstr{""}\hlstd{,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
@@ -1158,15 +1158,16 @@ Figure \ref{fig:plotFluxHist}:
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{plotConcHist}\hlstd{()}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{Error: object 'AnnualResults' not found}}\begin{alltt}
 \hlkwd{plotFluxHist}\hlstd{()}
 \end{alltt}
+\end{kframe}\begin{figure}[]
+\subfloat[plotConcHist()\label{fig:plotFluxHist1}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotFluxHist1} }
+\subfloat[plotFluxHist()\label{fig:plotFluxHist2}]{
+\includegraphics[width=.5\linewidth,height=.5\linewidth]{figure/plotFluxHist2} }\caption[Concentration and flux history]{Concentration and flux history\label{fig:plotFluxHist}}
+\end{figure}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{Error: object 'AnnualResults' not found}}\end{kframe}
 \end{knitrout}
 
 
@@ -1242,21 +1243,22 @@ Figure \ref{fig:plotContours}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{clevel}\hlkwb{<-}\hlkwd{seq}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{2.5}\hlstd{,}\hlnum{0.25}\hlstd{)}
-\hlkwd{plotContours}\hlstd{(}\hlkwc{yearStart}\hlstd{=}\hlnum{2008}\hlstd{,}\hlkwc{yearEnd}\hlstd{=}\hlnum{2010}\hlstd{,}\hlkwc{qBottom}\hlstd{=}\hlnum{20}\hlstd{,qTop,}
+\hlstd{clevel}\hlkwb{<-}\hlkwd{seq}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{2}\hlstd{,}\hlnum{0.2}\hlstd{)}
+\hlkwd{plotContours}\hlstd{(}\hlkwc{yearStart}\hlstd{=}\hlnum{2008}\hlstd{,}\hlkwc{yearEnd}\hlstd{=}\hlnum{2010}\hlstd{,}\hlkwc{qBottom}\hlstd{=}\hlnum{20}\hlstd{,}\hlkwc{qTop}\hlstd{=}\hlnum{1000}\hlstd{,}
              \hlkwc{contourLevels} \hlstd{= clevel,}\hlkwc{qUnit}\hlstd{=}\hlnum{1}\hlstd{,}
              \hlkwc{flowDuration}\hlstd{=}\hlnum{FALSE}\hlstd{)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 
-\includegraphics[width=1\linewidth,height=1\linewidth]{figure/plotContours} \caption[plotContours(yearStart=2008,yearEnd=2010,qBottom=20,qtop=1000,clevel=seq(0,2]{plotContours(yearStart=2008,yearEnd=2010,qBottom=20,qtop=1000,clevel=seq(0,2.5,0.25),qUnit=1)\label{fig:plotContours}}
+\includegraphics[width=1\linewidth,height=1\linewidth]{figure/plotContours} \caption[plotContours(yearStart=2008,yearEnd=2010,qBottom=20,qtop=1000,contourLevels=seq(0,2,0]{plotContours(yearStart=2008,yearEnd=2010,qBottom=20,qtop=1000,contourLevels=seq(0,2,0.2),
+qUnit=1,flowDuration=FALSE)\label{fig:plotContours}}
 \end{figure}
 
 
 \end{knitrout}
 
 
-To specify contourLevels in the contour plots, the seq function in R should be used (type `?seq' for details on this function).  In general it would look like this: contourLevels = seq(from,to,by).  In the example shown above we are requesting contour levels that run from 0 to 2.5 in steps of 0.25.
+To specify contourLevels in the contour plots, the seq function in R should be used (type `?seq' for details on this function).  In general it would look like this: contourLevels = seq(from,to,by).  In the example shown above we are requesting contour levels that run from 0 to 2 in steps of 0.2.
 
 The function plotDiffContours plots the difference between two selected years (year0 and year1). It can help clarify what combinations of seasons and flow conditions have been showing increases and decreases over the period covered.
 
@@ -1264,31 +1266,18 @@ Figure \ref{fig:plotDiffContours}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{maxDiff}\hlkwb{<-}\hlnum{0.6}
 \hlkwd{plotDiffContours}\hlstd{(}\hlkwc{year0}\hlstd{=}\hlnum{2000}\hlstd{,}\hlkwc{year1}\hlstd{=}\hlnum{2010}\hlstd{,}
-                 \hlstd{qBottom,qTop,maxDiff,}\hlkwc{qUnit}\hlstd{=}\hlnum{1}\hlstd{,}
+                 \hlkwc{qBottom}\hlstd{=}\hlnum{20}\hlstd{,}\hlkwc{qTop}\hlstd{=}\hlnum{1000}\hlstd{,}\hlkwc{maxDiff}\hlstd{=}\hlnum{0.6}\hlstd{,}\hlkwc{qUnit}\hlstd{=}\hlnum{1}\hlstd{,}
              \hlkwc{flowDuration}\hlstd{=}\hlnum{FALSE}\hlstd{)}
 \end{alltt}
 \end{kframe}\begin{figure}[]
 
-\includegraphics[width=1\linewidth,height=1\linewidth]{figure/plotDiffContours} \caption[plotDiffContours(year0=2000,year1=2010,qBottom=1,qTop=5000,maxDiff=0]{plotDiffContours(year0=2000,year1=2010,qBottom=1,qTop=5000,maxDiff=0.6,qUnit=1)\label{fig:plotDiffContours}}
+\includegraphics[width=1\linewidth,height=1\linewidth]{figure/plotDiffContours} \caption[plotDiffContours(year0=2000,year1=2010,qBottom=20,qTop=1000,maxDiff=0]{plotDiffContours(year0=2000,year1=2010,qBottom=20,qTop=1000,maxDiff=0.6,
+qUnit=1,flowDuration=FALSE)\label{fig:plotDiffContours}}
 \end{figure}
 
 
 \end{knitrout}
-
-
-
-
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{contourLevels} \hlkwb{=} \hlkwd{seq}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{5}\hlstd{,}\hlnum{0.2}\hlstd{)}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-
 
 
 \FloatBarrier
@@ -1322,12 +1311,7 @@ Sometimes it is easier to consider the results in table form rather than graphic
    2011      5.24     1.438     1.457    0.1554     0.148
 \end{verbatim}
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{Error: object 'AnnualResults' not found}}\end{kframe}
-\end{knitrout}
 
 
 \begin{knitrout}
@@ -1335,9 +1319,23 @@ Sometimes it is easier to consider the results in table form rather than graphic
 \begin{alltt}
 \hlkwd{head}\hlstd{(returnDF)}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{Error: object 'returnDF' not found}}\end{kframe}
+\begin{verbatim}
+     Year Discharge [cms] Conc [mg/L] FN_Conc [mg/L]
+1    1980            4.25       0.949          1.003
+2    1981            2.22       1.035          0.999
+3    1982            3.05       1.036          0.993
+4    1983            4.99       1.007          0.993
+5    1984            5.72       0.990          1.002
+6    1985            1.52       1.057          1.017
+  Flux [10^6kg/yr] FN_Flux [10^6kg/yr]
+1           0.1154               0.106
+2           0.0675               0.108
+3           0.0985               0.110
+4           0.1329               0.112
+5           0.1597               0.114
+6           0.0489               0.116
+\end{verbatim}
+\end{kframe}
 \end{knitrout}
 
 
@@ -1350,9 +1348,29 @@ The other table option is tableChange. This is a function that provides for the 
 \begin{alltt}
 \hlkwd{tableChange}\hlstd{(}\hlkwc{yearPoints}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{2000}\hlstd{,}\hlnum{2005}\hlstd{,}\hlnum{2010}\hlstd{))}
 \end{alltt}
+\begin{verbatim}
+
+   Choptank River 
+   Inorganic nitrogen (nitrate and nitrite)
+   Water Year 
+
+           Concentration trends
+   time span       change     slope    change     slope
+                     mg/L   mg/L/yr        %       %/yr
+
+ 2000  to  2005     0.088     0.018         7       1.4
+ 2000  to  2010      0.19     0.019        15       1.5
+ 2005  to  2010     0.098      0.02       7.3       1.5
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{Error: object 'AnnualResults' not found}}\end{kframe}
+                 Flux Trends
+   time span          change        slope       change        slope
+                  10^6 kg/yr    10^6 kg/yr /yr      %         %/yr
+ 2000  to  2005       0.0065       0.0013          4.7         0.93
+ 2000  to  2010       0.0097      0.00097          6.9         0.69
+ 2005  to  2010       0.0032      0.00063          2.2         0.43
+\end{verbatim}
+\end{kframe}
 \end{knitrout}
 
 
@@ -1504,7 +1522,7 @@ There are just a few fonts that are generally available as a default. Figure \re
 \end{knitrout}
 
 
-The contour plots can also be extended. The default y-axis is determined from qTop and qBottom. Occasionally, it is necessary to use a custom axis. This can be done by specifying yTicks. It is also nice to be able to adjust the color scheme of the contour plots. There are some color schemes built into base R such as heat.colors, topo.colors, terrain.colors, and cm.colors. Alternatively, colors can be set using the colorRampPalette function. For example, it might make more sense to use a scheme that goes from white to red for low to high concentrations. For the plotDiffContours, it might make more sense to go from blue to white for the negative values, and white to red for the positive values. Examples are shown below.
+The contour plots can also be extended. The default y-axis is determined from qTop and qBottom. Occasionally, it is necessary to use a custom axis. This can be done by specifying yTicks. It is also nice to be able to adjust the color scheme of the contour plots. There are some color schemes built into base R such as heat.colors, topo.colors, terrain.colors, and cm.colors. Alternatively, colors can be set using the colorRampPalette function. For example, it might make more sense to use a scheme that goes from white to red for low to high concentrations. For the plotDiffContours, it might make more sense to go from blue to white for the negative values, and white to red for the positive values. Examples are shown below for modifying a contour plot in Figure \ref{fig:modifiedContour1} and modifying a difference contour plot in Figure \ref{fig:modifiedDiffContour}. 
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -1513,19 +1531,17 @@ The contour plots can also be extended. The default y-axis is determined from qT
 \hlstd{yearEnd} \hlkwb{<-} \hlnum{2010}
 \hlstd{qBottom} \hlkwb{<-} \hlnum{0.5}
 \hlstd{qTop}\hlkwb{<-} \hlnum{50}
-\hlstd{clevel} \hlkwb{<-} \hlkwd{seq}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{3.5}\hlstd{,}\hlnum{0.5}\hlstd{)}
+\hlstd{clevel} \hlkwb{<-} \hlkwd{seq}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{2.5}\hlstd{,}\hlnum{0.5}\hlstd{)}
 \hlstd{colors} \hlkwb{<-} \hlkwd{colorRampPalette}\hlstd{(}\hlkwd{c}\hlstd{(}\hlstr{"white"}\hlstd{,}\hlstr{"red"}\hlstd{))}
-\hlstd{yTicksModified} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlnum{.1}\hlstd{,}\hlnum{1}\hlstd{,}\hlnum{10}\hlstd{,}\hlnum{25}\hlstd{)}
+\hlstd{yTicksModified} \hlkwb{<-} \hlkwd{c}\hlstd{(}\hlnum{.5}\hlstd{,}\hlnum{1}\hlstd{,}\hlnum{10}\hlstd{,}\hlnum{25}\hlstd{)}
 \hlkwd{plotContours}\hlstd{(yearStart,yearEnd,qBottom,qTop,}
-             \hlkwc{contourLevels} \hlstd{= clevel,}
+             \hlkwc{contourLevels} \hlstd{= clevel,}\hlkwc{qUnit}\hlstd{=}\hlnum{2}\hlstd{,}
              \hlkwc{yTicks}\hlstd{=yTicksModified,}
              \hlkwc{color.palette}\hlstd{=colors,}
              \hlkwc{flowDuration}\hlstd{=}\hlnum{FALSE}\hlstd{,}
              \hlkwc{tcl}\hlstd{=}\hlnum{0.2}\hlstd{,}\hlkwc{tick.lwd}\hlstd{=}\hlnum{2.5}\hlstd{)}
 \end{alltt}
-
-
-{\ttfamily\noindent\color{warningcolor}{Warning: "{}tick.lwd"{} is not a graphical parameter}}\end{kframe}\begin{figure}[]
+\end{kframe}\begin{figure}[]
 
 \includegraphics[width=1\linewidth,height=1\linewidth]{figure/modifiedContour1} \caption[Contour plot with modified axis and color scheme]{Contour plot with modified axis and color scheme\label{fig:modifiedContour1}}
 \end{figure}
@@ -1538,7 +1554,7 @@ The contour plots can also be extended. The default y-axis is determined from qT
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{colors} \hlkwb{<-} \hlkwd{colorRampPalette}\hlstd{(}\hlkwd{c}\hlstd{(}\hlstr{"cadetblue1"}\hlstd{,}\hlstr{"azure"}\hlstd{,}\hlstr{"firebrick1"}\hlstd{))}
-\hlstd{maxDiff}\hlkwb{<-}\hlnum{0.5}
+\hlstd{maxDiff}\hlkwb{<-}\hlnum{0.6}
 \hlkwd{plotDiffContours}\hlstd{(}\hlkwc{year0}\hlstd{=}\hlnum{2001}\hlstd{,}\hlkwc{year1}\hlstd{=}\hlnum{2010}\hlstd{,}\hlkwc{qBottom}\hlstd{=}\hlnum{0.5}\hlstd{,}\hlkwc{qTop}\hlstd{=}\hlnum{50}\hlstd{,}
              \hlstd{maxDiff,}\hlkwc{lwd}\hlstd{=}\hlnum{2}\hlstd{,}\hlkwc{qUnit}\hlstd{=}\hlnum{2}\hlstd{,}
              \hlkwc{color.palette}\hlstd{=colors,}
@@ -1601,7 +1617,7 @@ To install the EGRET packages and its dependencies:
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{install.packages}\hlstd{(}\hlkwd{c}\hlstd{(}\hlstr{"zoo"}\hlstd{,}\hlstr{"survival"}\hlstd{,}\hlstr{"methods"}\hlstd{,}\hlstr{"fields"}\hlstd{,}
-                   \hlstr{"spam"}\hlstd{,}\hlstr{"XML"}\hlstd{,}\hlstr{"RCurl"}\hlstd{))}
+                   \hlstr{"spam"}\hlstd{,}\hlstr{"XML"}\hlstd{,}\hlstr{"RCurl"}\hlstd{,}\hlstr{"plyr"}\hlstd{,}\hlstr{"reshape2"}\hlstd{))}
 \hlkwd{install.packages}\hlstd{(}\hlstr{"dataRetrieval"}\hlstd{,}
                  \hlkwc{repos}\hlstd{=}\hlstr{"http://usgs-r.github.com/"}\hlstd{)}
 \hlkwd{install.packages}\hlstd{(}\hlstr{"EGRET"}\hlstd{,}
@@ -1830,9 +1846,49 @@ A few steps that are required to create a table in a Microsoft product (Excel, W
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
 
+   Choptank River 
+   Inorganic nitrogen (nitrate and nitrite)
+   Water Year 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{Error: object 'AnnualResults' not found}}\end{kframe}
+   Year   Discharge    Conc    FN_Conc     Flux    FN_Flux
+             cms            mg/L             10^6 kg/yr 
+
+   1980      4.25     0.949     1.003    0.1154     0.106
+   1981      2.22     1.035     0.999    0.0675     0.108
+   1982      3.05     1.036     0.993    0.0985     0.110
+   1983      4.99     1.007     0.993    0.1329     0.112
+   1984      5.72     0.990     1.002    0.1597     0.114
+   1985      1.52     1.057     1.017    0.0489     0.116
+   1986      2.63     1.062     1.038    0.0903     0.119
+   1987      3.37     1.079     1.062    0.1142     0.122
+   1988      1.87     1.120     1.085    0.0660     0.125
+   1989      5.61     1.055     1.105    0.1638     0.127
+   1990      4.01     1.115     1.125    0.1349     0.129
+   1991      2.75     1.172     1.143    0.0980     0.130
+   1992      2.19     1.203     1.159    0.0810     0.132
+   1993      3.73     1.215     1.173    0.1306     0.132
+   1994      5.48     1.144     1.187    0.1634     0.133
+   1995      2.41     1.266     1.201    0.0928     0.134
+   1996      6.24     1.134     1.213    0.1980     0.135
+   1997      5.83     1.180     1.221    0.1884     0.136
+   1998      4.88     1.236     1.229    0.1593     0.137
+   1999      2.90     1.277     1.238    0.0919     0.138
+   2000      4.72     1.213     1.253    0.1627     0.139
+   2001      4.88     1.251     1.268    0.1655     0.140
+   2002      1.24     1.321     1.285    0.0483     0.141
+   2003      8.64     1.140     1.303    0.2664     0.143
+   2004      5.28     1.274     1.321    0.1832     0.144
+   2005      3.81     1.360     1.341    0.1444     0.146
+   2006      3.59     1.382     1.362    0.1409     0.147
+   2007      4.28     1.408     1.382    0.1593     0.149
+   2008      2.56     1.477     1.401    0.1008     0.149
+   2009      3.68     1.409     1.419    0.1328     0.149
+   2010      7.19     1.323     1.438    0.2236     0.149
+   2011      5.24     1.438     1.457    0.1554     0.148
+\end{verbatim}
+\end{kframe}
 \end{knitrout}
 
 

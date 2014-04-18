@@ -2,12 +2,12 @@ EGRET 1.2.5
 ===========
 * March 10, 2014
 * Added period of analysis control to all graphs and tables so they can present outputs by season as well as the full year. The only graph or table functions without this capability are now: plotContours, plotDiffContours, plotConcQSmooth, and plotConcTimeSmooth. 
-* Changed the way that period of analysis is now specified: by using the function setupYears. It sets paLong and paStart and applies to all subsequent functions until setupYears is used again.
+* Changed the way that period of analysis is now specified: by using the function setPA. It sets paLong and paStart and applies to all subsequent functions until setPA is used again.
 * For plots where time is on the x-axis and the length is 4-years or less, the axis labels now give more date information. 
 * Added more flexibility in character sizes, colors, line weights and other features and graphics. 
 * Changed default color palette for plotContours and plotDiffContours.
 * Updated vignette.
-* Added setupYears call within functions to generally eliminate the need for AnnualResults.
+* Added setupYears call within most graphic and table functions to generally eliminate the need to create an AnnualResults data frame.
 * Continued to improve documentation.
 
 EGRET 1.2.4
