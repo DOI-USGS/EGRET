@@ -2,10 +2,10 @@
 \alias{boxConcThree}
 \title{Three box plots side-by-side}
 \usage{
-  boxConcThree(localSample = Sample, localDaily = Daily,
-    localINFO = INFO, tinyPlot = FALSE, printTitle = TRUE,
-    moreTitle = "WRTDS", customPar = FALSE, font.main = 2,
-    cex = 0.8, cex.main = 1.1, cex.axis = 1.1, ...)
+boxConcThree(localSample = Sample, localDaily = Daily, localINFO = INFO,
+  tinyPlot = FALSE, printTitle = TRUE, moreTitle = "WRTDS",
+  customPar = FALSE, font.main = 2, cex = 0.8, cex.main = 1.1,
+  cex.axis = 1.1, ...)
 }
 \arguments{
   \item{localSample}{data frame that contains the
@@ -49,16 +49,16 @@
   options)}
 }
 \description{
-  This function is used to compare the distribution of
-  concentration in the sample and predicted data set. Data
-  come from three data frames created by the dataRetrieval
-  package.
+This function is used to compare the distribution of
+concentration in the sample and predicted data set. Data
+come from three data frames created by the dataRetrieval
+package.
 
-  Although there are a lot of optional arguments to this
-  function, most are set to a logical default. If your
-  workspace contains an INFO, Daily, and Sample dataframes,
-  then the following R code will produce a plot:
-  \code{boxConcThree()}
+Although there are a lot of optional arguments to this
+function, most are set to a logical default. If your
+workspace contains an INFO, Daily, and Sample dataframes,
+then the following R code will produce a plot:
+\code{boxConcThree()}
 }
 \examples{
 Sample <- ChopSample

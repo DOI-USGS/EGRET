@@ -2,19 +2,19 @@
 \alias{fixSampleFrame}
 \title{Update Sample dataframe}
 \usage{
-  fixSampleFrame(localSample = Sample)
+fixSampleFrame(localSample = Sample)
 }
 \arguments{
   \item{localSample}{data frame that contains the
   concentration data, default name is Sample}
 }
 \value{
-  localSample data frame
+localSample data frame
 }
 \description{
-  Used for updating the Sample dataframe if ConcLow or
-  ConcHigh is manually adjusted. Adjusts ConcAve and Uncen
-  columns.
+Used for updating the Sample dataframe if ConcLow or
+ConcHigh is manually adjusted. Adjusts ConcAve and Uncen
+columns.
 }
 \examples{
 Sample <- ChopSample

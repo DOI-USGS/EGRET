@@ -2,11 +2,10 @@
 \alias{plotFluxQ}
 \title{Sample data plot: observed log flux vs log discharge}
 \usage{
-  plotFluxQ(localSample = Sample, localINFO = INFO,
-    qUnit = 2, logScale = TRUE, fluxUnit = 3,
-    tinyPlot = FALSE, fluxMax = NA, fluxMin = NA,
-    col = "black", lwd = 1, printTitle = TRUE, cex = 0.8,
-    cex.axis = 1.1, cex.main = 1.1, customPar = FALSE, ...)
+plotFluxQ(localSample = Sample, localINFO = INFO, qUnit = 2,
+  logScale = TRUE, fluxUnit = 3, tinyPlot = FALSE, fluxMax = NA,
+  fluxMin = NA, col = "black", lwd = 1, printTitle = TRUE, cex = 0.8,
+  cex.axis = 1.1, cex.main = 1.1, customPar = FALSE, ...)
 }
 \arguments{
   \item{localSample}{data frame that contains the
@@ -66,16 +65,14 @@
   options)}
 }
 \description{
-  Concentration and discharge data used to compute flux
-  come from a data frame named Sample which contains the
-  sample data. The metadata come from a data frame named
-  INFO.
+Concentration and discharge data used to compute flux come
+from a data frame named Sample which contains the sample
+data. The metadata come from a data frame named INFO.
 
-  Although there are a lot of optional arguments to this
-  function, most are set to a logical default. If your
-  workspace contains an INFO and Sample dataframes, then
-  the following R code will produce a plot:
-  \code{plotLogFluxQ()}
+Although there are a lot of optional arguments to this
+function, most are set to a logical default. If your
+workspace contains an INFO and Sample dataframes, then the
+following R code will produce a plot: \code{plotLogFluxQ()}
 }
 \examples{
 Sample <- ChopSample

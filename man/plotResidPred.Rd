@@ -2,10 +2,9 @@
 \alias{plotResidPred}
 \title{Plot of the residuals from WRTDS versus the estimated values (all in log concentration units)}
 \usage{
-  plotResidPred(localSample = Sample, localINFO = INFO,
-    stdResid = FALSE, tinyPlot = FALSE, printTitle = TRUE,
-    col = "black", lwd = 1, cex = 0.8, cex.axis = 1.1,
-    cex.main = 1.1, customPar = FALSE, ...)
+plotResidPred(localSample = Sample, localINFO = INFO, stdResid = FALSE,
+  tinyPlot = FALSE, printTitle = TRUE, col = "black", lwd = 1,
+  cex = 0.8, cex.axis = 1.1, cex.main = 1.1, customPar = FALSE, ...)
 }
 \arguments{
   \item{localSample}{data frame that contains the
@@ -51,20 +50,19 @@
   options)}
 }
 \description{
-  This function produces a plot of the residuals from
-  WRTDS, expressed in natural log concentration units
-  versus the estimated values, also in natural log
-  concentration units.  These estimates are the log-space
-  estimates prior to bias-correction. The function provides
-  an alternative for viewing the standardized residuals,
-  where the each residual is divided by its estimated
-  standard error.
+This function produces a plot of the residuals from WRTDS,
+expressed in natural log concentration units versus the
+estimated values, also in natural log concentration units.
+These estimates are the log-space estimates prior to
+bias-correction. The function provides an alternative for
+viewing the standardized residuals, where the each residual
+is divided by its estimated standard error.
 
-  Although there are a lot of optional arguments to this
-  function, most are set to a logical default. If your
-  workspace contains an INFO and Sample dataframes, then
-  the following R code will produce a plot:
-  \code{plotResidPred()}
+Although there are a lot of optional arguments to this
+function, most are set to a logical default. If your
+workspace contains an INFO and Sample dataframes, then the
+following R code will produce a plot:
+\code{plotResidPred()}
 }
 \examples{
 Sample <- ChopSample

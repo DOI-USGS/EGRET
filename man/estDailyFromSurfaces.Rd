@@ -2,8 +2,8 @@
 \alias{estDailyFromSurfaces}
 \title{Estimates all daily values of Concentration, Flux, Flow Normalized Concentration, and Flow Normalized Flux}
 \usage{
-  estDailyFromSurfaces(localDaily = Daily,
-    localINFO = INFO, localsurfaces = surfaces)
+estDailyFromSurfaces(localDaily = Daily, localINFO = INFO,
+  localsurfaces = surfaces)
 }
 \arguments{
   \item{localDaily}{data frame containing the daily values,
@@ -16,15 +16,15 @@
   array containing the three surfaces, default is surfaces}
 }
 \value{
-  localDaily string specifying the name of the data frame
-  containing the daily values and these estimates
+localDaily string specifying the name of the data frame
+containing the daily values and these estimates
 }
 \description{
-  Uses the surfaces estimated in estSurfaces to estimate
-  these four time series in addition to the time series for
-  standard error and yHat (estimated log concentration).
-  The results are stored in an augmented version of the
-  Daily data frame, which is returned.
+Uses the surfaces estimated in estSurfaces to estimate
+these four time series in addition to the time series for
+standard error and yHat (estimated log concentration).  The
+results are stored in an augmented version of the Daily
+data frame, which is returned.
 }
 \examples{
 Daily <- ChopDaily

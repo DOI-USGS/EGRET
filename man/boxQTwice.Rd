@@ -2,11 +2,10 @@
 \alias{boxQTwice}
 \title{Two box plots side-by-side, discharge on sample days, and discharge on all days}
 \usage{
-  boxQTwice(localSample = Sample, localDaily = Daily,
-    localINFO = INFO, printTitle = TRUE, qUnit = 2,
-    cex = 0.8, cex.main = 1.1, logScale = TRUE,
-    cex.axis = 1.1, tcl = 0.5, las = 1, tinyPlot = FALSE,
-    customPar = FALSE, ...)
+boxQTwice(localSample = Sample, localDaily = Daily, localINFO = INFO,
+  printTitle = TRUE, qUnit = 2, cex = 0.8, cex.main = 1.1,
+  logScale = TRUE, cex.axis = 1.1, tcl = 0.5, las = 1,
+  tinyPlot = FALSE, customPar = FALSE, ...)
 }
 \arguments{
   \item{localSample}{data frame that contains the
@@ -56,19 +55,19 @@
   options)}
 }
 \description{
-  This function is used to compare the distribution of
-  discharges in the sample data set and the discharges in
-  the full daily data set. Data come from three data frames
-  created by the dataRetrieval package: Sample, Daily, and
-  INFO. Note that discharge is plotted on a logarithmic
-  axis. The data is logged before the statistics are
-  performed to determine the output of the boxplot.
+This function is used to compare the distribution of
+discharges in the sample data set and the discharges in the
+full daily data set. Data come from three data frames
+created by the dataRetrieval package: Sample, Daily, and
+INFO. Note that discharge is plotted on a logarithmic axis.
+The data is logged before the statistics are performed to
+determine the output of the boxplot.
 
-  Although there are a lot of optional arguments to this
-  function, most are set to a logical default. If your
-  workspace contains an INFO, Daily, and Sample dataframes,
-  then the following R code will produce a plot:
-  \code{boxQTwice()}
+Although there are a lot of optional arguments to this
+function, most are set to a logical default. If your
+workspace contains an INFO, Daily, and Sample dataframes,
+then the following R code will produce a plot:
+\code{boxQTwice()}
 }
 \examples{
 Sample <- ChopSample

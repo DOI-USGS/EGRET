@@ -2,7 +2,7 @@
 \alias{selectDays}
 \title{Creates a subset of the Daily data frame that only contains data for the specified period of analysis}
 \usage{
-  selectDays(paLong, paStart, localDaily = Daily)
+selectDays(paLong, paStart, localDaily = Daily)
 }
 \arguments{
   \item{paLong}{a numeric value for the length of the
@@ -15,12 +15,11 @@
   streamflow data, default is Daily}
 }
 \value{
-  localDaily a data frame containing the daily data but
-  only for the period of analysis (not all months)
+localDaily a data frame containing the daily data but only
+for the period of analysis (not all months)
 }
 \description{
-  Function is not called by user, but is called by
-  plotSDLogQ
+Function is not called by user, but is called by plotSDLogQ
 }
 \examples{
 Daily <- ChopDaily

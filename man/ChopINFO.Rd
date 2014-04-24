@@ -14,24 +14,22 @@ paStart \tab integer (1-12) \tab Starting month of period of analysis \cr
 paLong \tab integer (1-12) \tab Length of period of analysis in months \cr
 }}
 \source{
-  Parameter information (Nitrate/nitrite, USGS parameter
-  code 00631) is found from NWISweb
-  (\url{http://nwis.waterdata.usgs.gov/nwis/pmcodes/}), and
-  station information is retrieved from NWIS water services
-  (\url{http://waterservices.usgs.gov/}), both via the
-  dataRetrieval R package. The USGS site id is 01491000.
+Parameter information (Nitrate/nitrite, USGS parameter code
+00631) is found from NWISweb
+(\url{http://nwis.waterdata.usgs.gov/nwis/pmcodes/}), and
+station information is retrieved from NWIS water services
+(\url{http://waterservices.usgs.gov/}), both via the
+dataRetrieval R package. The USGS site id is 01491000.
 }
 \description{
-  Example data representing meta-data from the Choptank
-  River at Greensboro, MD, USGS data as augmented by the
-  functions setupYears (for WRTDS) and setPA (for
-  flowHistory).
+Example data representing meta-data from the Choptank River
+at Greensboro, MD, USGS data as augmented by the functions
+setupYears (for WRTDS) and setPA (for flowHistory).
 }
 \author{
-  Robert M. Hirsch \email{rhirsch@usgs.gov}
+Robert M. Hirsch \email{rhirsch@usgs.gov}
 }
 \keyword{data}
-\keyword{datasets}
 \keyword{quality}
 \keyword{water}
 

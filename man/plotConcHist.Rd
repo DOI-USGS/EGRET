@@ -2,12 +2,10 @@
 \alias{plotConcHist}
 \title{Graph of annual concentration and flow normalized concentration versus year}
 \usage{
-  plotConcHist(yearStart = NA, yearEnd = NA,
-    localDaily = Daily, localINFO = INFO, concMax = NA,
-    printTitle = TRUE, tinyPlot = FALSE,
-    plotFlowNorm = TRUE, cex = 0.8, cex.axis = 1.1,
-    cex.main = 1.1, lwd = 2, col = "black",
-    col.pred = "green", customPar = FALSE, ...)
+plotConcHist(yearStart = NA, yearEnd = NA, localDaily = Daily,
+  localINFO = INFO, concMax = NA, printTitle = TRUE, tinyPlot = FALSE,
+  plotFlowNorm = TRUE, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
+  lwd = 2, col = "black", col.pred = "green", customPar = FALSE, ...)
 }
 \arguments{
   \item{yearStart}{numeric is the calendar year containing
@@ -68,21 +66,20 @@
   options)}
 }
 \description{
-  Data come from a data frame named AnnualResults. The
-  metadata come from a data frame named INFO. The annual
-  concentrations are "time-weighted" mean concentrations
-  (as opposed to "flow-weighted"). The annual results
-  reported are for a specified "period of analysis" which
-  can be an entire water year, a calendar, a season or even
-  an individual month. User specifies this period of
-  analysis in the call to \code{setupYears}.
+Data come from a data frame named AnnualResults. The
+metadata come from a data frame named INFO. The annual
+concentrations are "time-weighted" mean concentrations (as
+opposed to "flow-weighted"). The annual results reported
+are for a specified "period of analysis" which can be an
+entire water year, a calendar, a season or even an
+individual month. User specifies this period of analysis in
+the call to \code{setupYears}.
 
-  Although there are a lot of optional arguments to this
-  function, most are set to a logical default. If your
-  workspace contains an INFO, Daily, and AnnualResults
-  (from either modelEstimation or setupYears) dataframes,
-  then the following R code will produce a plot:
-  \code{plotConcHist()}
+Although there are a lot of optional arguments to this
+function, most are set to a logical default. If your
+workspace contains an INFO, Daily, and AnnualResults (from
+either modelEstimation or setupYears) dataframes, then the
+following R code will produce a plot: \code{plotConcHist()}
 }
 \examples{
 yearStart <- 2001
@@ -97,7 +94,7 @@ INFO <- setPA(paStart=6,paLong=3)
 plotConcHist(yearStart, yearEnd)
 }
 \seealso{
-  \code{\link{setupYears}}
+\code{\link{setupYears}}
 }
 \keyword{graphics}
 \keyword{statistics}

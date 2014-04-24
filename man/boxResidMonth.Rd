@@ -2,11 +2,10 @@
 \alias{boxResidMonth}
 \title{A box plot of WRTDS residuals by month}
 \usage{
-  boxResidMonth(localSample = Sample, localINFO = INFO,
-    stdResid = FALSE, las = 1, printTitle = TRUE,
-    cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
-    font.main = 2, tinyPlot = FALSE, customPar = FALSE,
-    ...)
+boxResidMonth(localSample = Sample, localINFO = INFO, stdResid = FALSE,
+  las = 1, printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
+  cex.main = 1.1, font.main = 2, tinyPlot = FALSE, customPar = FALSE,
+  ...)
 }
 \arguments{
   \item{localSample}{data frame that contains the
@@ -49,22 +48,22 @@
   options)}
 }
 \description{
-  This function produces a boxplot of the residuals from
-  WRTDS, expressed in natural log concentration units. It
-  provides an alternative for viewing the standardized
-  residuals, where the each residual is divided by its
-  estimated standard error. The monthly boxplot widths are
-  proportional to the square root of the sample size. The
-  residuals for a censored value are determined as the
-  difference between the natural log of the average of the
-  upper and lower.  bounds on the sample value, minus the
-  log space estimate of concentration.
+This function produces a boxplot of the residuals from
+WRTDS, expressed in natural log concentration units. It
+provides an alternative for viewing the standardized
+residuals, where the each residual is divided by its
+estimated standard error. The monthly boxplot widths are
+proportional to the square root of the sample size. The
+residuals for a censored value are determined as the
+difference between the natural log of the average of the
+upper and lower.  bounds on the sample value, minus the log
+space estimate of concentration.
 
-  Although there are a lot of optional arguments to this
-  function, most are set to a logical default. If your
-  workspace contains an INFO and Sample dataframes, then
-  the following R code will produce a plot:
-  \code{boxResidMonth()}
+Although there are a lot of optional arguments to this
+function, most are set to a logical default. If your
+workspace contains an INFO and Sample dataframes, then the
+following R code will produce a plot:
+\code{boxResidMonth()}
 }
 \examples{
 Sample <- ChopSample

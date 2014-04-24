@@ -2,7 +2,7 @@
 \alias{logPretty1}
 \title{Sets up tick marks for an axis with a log scale, where the graph is small}
 \usage{
-  logPretty1(xMin, xMax)
+logPretty1(xMin, xMax)
 }
 \arguments{
   \item{xMin}{A numeric value for the minimum value to be
@@ -12,14 +12,13 @@
   plotted, it must be >xMax}
 }
 \value{
-  xTicks A vector representing the values for each of the
-  tick marks
+xTicks A vector representing the values for each of the
+tick marks
 }
 \description{
-  Axis tick marks for a log scale for cases where the data
-  cover many orders of magnitude and the graph is small.
-  These tick marks are designed to progress by factors of
-  10.
+Axis tick marks for a log scale for cases where the data
+cover many orders of magnitude and the graph is small.
+These tick marks are designed to progress by factors of 10.
 }
 \examples{
 xMin<-0.7

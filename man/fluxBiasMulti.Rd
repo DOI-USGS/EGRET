@@ -2,10 +2,9 @@
 \alias{fluxBiasMulti}
 \title{Produces 8-panel plot that is useful for determining if there is a flux bias problem}
 \usage{
-  fluxBiasMulti(localSample = Sample, localDaily = Daily,
-    localINFO = INFO, qUnit = 2, fluxUnit = 3,
-    moreTitle = "WRTDS", cex = 0.7, cex.axis = 1.1,
-    cex.main = 1.1, col = "black", lwd = 1, ...)
+fluxBiasMulti(localSample = Sample, localDaily = Daily, localINFO = INFO,
+  qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS", cex = 0.7,
+  cex.axis = 1.1, cex.main = 1.1, col = "black", lwd = 1, ...)
 }
 \arguments{
   \item{localSample}{data frame that contains the
@@ -49,19 +48,18 @@
   options)}
 }
 \description{
-  These plots use the jack-knife estimates from WRTDS to
-  investigate the potential flux bias problem. It can also
-  be used for estimates constructed by other methods (such
-  as LOADEST) if the results are stored in a data frame
-  organized like the Sample data frame.  It allows
-  additional label information to indicate what method is
-  used.
+These plots use the jack-knife estimates from WRTDS to
+investigate the potential flux bias problem. It can also be
+used for estimates constructed by other methods (such as
+LOADEST) if the results are stored in a data frame
+organized like the Sample data frame.  It allows additional
+label information to indicate what method is used.
 
-  Although there are a lot of optional arguments to this
-  function, most are set to a logical default. If your
-  workspace contains an INFO, Daily, and Sample dataframes,
-  then the following R code will produce a plot:
-  \code{fluxBiasMulti()}
+Although there are a lot of optional arguments to this
+function, most are set to a logical default. If your
+workspace contains an INFO, Daily, and Sample dataframes,
+then the following R code will produce a plot:
+\code{fluxBiasMulti()}
 }
 \examples{
 Sample <- ChopSample

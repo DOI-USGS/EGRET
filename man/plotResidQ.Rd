@@ -2,11 +2,10 @@
 \alias{plotResidQ}
 \title{Plot of the residuals from WRTDS (in log concentration units) versus the discharge}
 \usage{
-  plotResidQ(localSample = Sample, localINFO = INFO,
-    qUnit = 2, tinyPlot = FALSE, stdResid = FALSE,
-    printTitle = TRUE, col = "black", lwd = 1, cex = 0.8,
-    cex.axis = 1.1, cex.main = 1.1, rmSciX = FALSE,
-    customPar = FALSE, ...)
+plotResidQ(localSample = Sample, localINFO = INFO, qUnit = 2,
+  tinyPlot = FALSE, stdResid = FALSE, printTitle = TRUE, col = "black",
+  lwd = 1, cex = 0.8, cex.axis = 1.1, cex.main = 1.1, rmSciX = FALSE,
+  customPar = FALSE, ...)
 }
 \arguments{
   \item{localSample}{data frame that contains the
@@ -59,18 +58,17 @@
   options)}
 }
 \description{
-  This function produces a plot of the residuals from
-  WRTDS, expressed in natural log concentration units
-  versus the discharge shown on a log scale. The function
-  also provides an alternative for viewing the standardized
-  residuals, where the each residual is divided by its
-  estimated standard error
+This function produces a plot of the residuals from WRTDS,
+expressed in natural log concentration units versus the
+discharge shown on a log scale. The function also provides
+an alternative for viewing the standardized residuals,
+where the each residual is divided by its estimated
+standard error
 
-  Although there are a lot of optional arguments to this
-  function, most are set to a logical default. If your
-  workspace contains an INFO and Sample dataframes, then
-  the following R code will produce a plot:
-  \code{plotResidQ()}
+Although there are a lot of optional arguments to this
+function, most are set to a logical default. If your
+workspace contains an INFO and Sample dataframes, then the
+following R code will produce a plot: \code{plotResidQ()}
 }
 \examples{
 Sample <- ChopSample

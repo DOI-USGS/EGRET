@@ -2,12 +2,11 @@
 \alias{plotFluxHist}
 \title{Graph of annual flux and flow normalized flux versus year}
 \usage{
-  plotFluxHist(yearStart = NA, yearEnd = NA, fluxUnit = 9,
-    localDaily = Daily, localINFO = INFO, fluxMax = NA,
-    printTitle = TRUE, plotFlowNorm = TRUE,
-    tinyPlot = FALSE, col = "black", col.pred = "green",
-    cex = 0.8, cex.axis = 1.1, cex.main = 1.1, lwd = 2,
-    customPar = FALSE, ...)
+plotFluxHist(yearStart = NA, yearEnd = NA, fluxUnit = 9,
+  localDaily = Daily, localINFO = INFO, fluxMax = NA, printTitle = TRUE,
+  plotFlowNorm = TRUE, tinyPlot = FALSE, col = "black",
+  col.pred = "green", cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
+  lwd = 2, customPar = FALSE, ...)
 }
 \arguments{
   \item{yearStart}{numeric is the calendar year containing
@@ -71,20 +70,19 @@
   options)}
 }
 \description{
-  Data come from a data frame named AnnualResults. The
-  metadata come from a data frame named INFO. The annual
-  results reported are for a specified "period of analysis"
-  which can be an entire water year, a calendar, a season
-  or even an individual month. The user specifies this
-  period of analysis in the call to setupYears.
+Data come from a data frame named AnnualResults. The
+metadata come from a data frame named INFO. The annual
+results reported are for a specified "period of analysis"
+which can be an entire water year, a calendar, a season or
+even an individual month. The user specifies this period of
+analysis in the call to setupYears.
 
-  Although there are a lot of optional arguments to this
-  function, most are set to a logical default. If your
-  workspace contains an INFO and AnnualResults (from either
-  modelEstimation or setupYears) dataframes, an
-  annualSeries array, and the istat number (1-8), then the
-  following R code will produce a plot:
-  \code{plotFluxHist()}
+Although there are a lot of optional arguments to this
+function, most are set to a logical default. If your
+workspace contains an INFO and AnnualResults (from either
+modelEstimation or setupYears) dataframes, an annualSeries
+array, and the istat number (1-8), then the following R
+code will produce a plot: \code{plotFluxHist()}
 }
 \examples{
 yearStart <- 2001
@@ -101,7 +99,7 @@ INFO <- setPA(paStart=6,paLong=3)
 plotFluxHist()
 }
 \seealso{
-  \code{\link{setupYears}}
+\code{\link{setupYears}}
 }
 \keyword{graphics}
 \keyword{statistics}

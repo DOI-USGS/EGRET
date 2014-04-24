@@ -2,12 +2,10 @@
 \alias{plotFour}
 \title{Makes four graphs of streamflow statistics on a single page}
 \usage{
-  plotFour(localINFO = INFO,
-    localAnnualSeries = annualSeries, localDaily = Daily,
-    yearStart = NA, yearEnd = NA, printTitle = TRUE,
-    runoff = FALSE, qUnit = 1, window = 15, cex = 0.8,
-    cex.axis = 1.2, cex.main = 1.2, col = "black", lwd = 1,
-    ...)
+plotFour(localINFO = INFO, localAnnualSeries = annualSeries,
+  localDaily = Daily, yearStart = NA, yearEnd = NA, printTitle = TRUE,
+  runoff = FALSE, qUnit = 1, window = 15, cex = 0.8, cex.axis = 1.2,
+  cex.main = 1.2, col = "black", lwd = 1, ...)
 }
 \arguments{
   \item{localINFO}{data frame that contains the metadata,
@@ -60,18 +58,18 @@
   options)}
 }
 \description{
-  Part of the flowHistory system.  The four statistics are
-  1-day maximum, annual mean, annual 7-day minimum, and the
-  running standard deviation of the log daily discharge
-  values.  Prior to running this code user must have run
-  \code{INFO <- setPA} and \code{annualSeries <-
-  makeAnnualSeries()}.
+Part of the flowHistory system.  The four statistics are
+1-day maximum, annual mean, annual 7-day minimum, and the
+running standard deviation of the log daily discharge
+values.  Prior to running this code user must have run
+\code{INFO <- setPA} and \code{annualSeries <-
+makeAnnualSeries()}.
 
-  Although there are a lot of optional arguments to this
-  function, most are set to a logical default. If your
-  workspace contains an INFO and Daily dataframes,
-  annualSeries array, then the following R code will
-  produce a plot: \code{plotFour(window=2)}
+Although there are a lot of optional arguments to this
+function, most are set to a logical default. If your
+workspace contains an INFO and Daily dataframes,
+annualSeries array, then the following R code will produce
+a plot: \code{plotFour(window=2)}
 }
 \examples{
 INFO <- ChopINFO

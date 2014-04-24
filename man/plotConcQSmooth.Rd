@@ -2,17 +2,14 @@
 \alias{plotConcQSmooth}
 \title{Plot up to three curves representing the concentration versus discharge relationship. Each curve is a different point in time.}
 \usage{
-  plotConcQSmooth(date1, date2, date3, qLow, qHigh,
-    qUnit = 2, legendLeft = 0, legendTop = 0, concMax = NA,
-    concMin = NA, bw = FALSE, printTitle = TRUE,
-    printValues = FALSE, localSample = Sample,
-    localINFO = INFO, minNumObs = 100, minNumUncen = 50,
-    colors = c("black", "red", "green"),
-    printLegend = TRUE, windowY = 10, windowQ = 2,
-    windowS = 0.5, tinyPlot = FALSE, customPar = FALSE,
-    lwd = 2, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
-    cex.legend = 1.2, lineVal = c(1, 1, 1),
-    logScale = FALSE, ...)
+plotConcQSmooth(date1, date2, date3, qLow, qHigh, qUnit = 2, legendLeft = 0,
+  legendTop = 0, concMax = NA, concMin = NA, bw = FALSE,
+  printTitle = TRUE, printValues = FALSE, localSample = Sample,
+  localINFO = INFO, minNumObs = 100, minNumUncen = 50,
+  colors = c("black", "red", "green"), printLegend = TRUE, windowY = 10,
+  windowQ = 2, windowS = 0.5, tinyPlot = FALSE, customPar = FALSE,
+  lwd = 2, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
+  cex.legend = 1.2, lineVal = c(1, 1, 1), logScale = FALSE, ...)
 }
 \arguments{
   \item{date1}{string specifying the date for the first
@@ -137,23 +134,22 @@
   options)}
 }
 \description{
-  These plots are like a vertical slice of the estimated
-  concentration surface that is seen in the plotContours
-  function. These plots show how the
-  concentration-discharge relationship is changing over
-  time. Typically the time points selected would be in
-  three years at the same time of year spaced out over the
-  period of record.  But that is not necessary. Another
-  possibility is to use this to explore seasonal
-  differences.  In this case the three dates would be in
-  the same year but different times during the year.
+These plots are like a vertical slice of the estimated
+concentration surface that is seen in the plotContours
+function. These plots show how the concentration-discharge
+relationship is changing over time. Typically the time
+points selected would be in three years at the same time of
+year spaced out over the period of record.  But that is not
+necessary. Another possibility is to use this to explore
+seasonal differences.  In this case the three dates would
+be in the same year but different times during the year.
 
-  Although there are a lot of optional arguments to this
-  function, most are set to a logical default. If your
-  workspace contains an INFO and Sample dataframes, 3
-  dates, and the discharge lower and upper limits, then the
-  following R code will produce a plot:
-  \code{plotConcQSmooth(date1,date2,date3,qLow,qHigh)}
+Although there are a lot of optional arguments to this
+function, most are set to a logical default. If your
+workspace contains an INFO and Sample dataframes, 3 dates,
+and the discharge lower and upper limits, then the
+following R code will produce a plot:
+\code{plotConcQSmooth(date1,date2,date3,qLow,qHigh)}
 }
 \examples{
 date1<-"2001-06-01"

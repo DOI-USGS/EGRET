@@ -2,7 +2,7 @@
 \alias{makeAnnualSeries}
 \title{Produces annual series of 8 streamflow statistics (and a lowess smooth of them) from daily streamflow data}
 \usage{
-  makeAnnualSeries(localDaily = Daily, localINFO = INFO)
+makeAnnualSeries(localDaily = Daily, localINFO = INFO)
 }
 \arguments{
   \item{localDaily}{data frame that contains the daily
@@ -11,22 +11,22 @@
   \item{localINFO}{data frame that contains the metadata}
 }
 \value{
-  annualSeries data frame that contains the annual series
-  of streamflow statistics
+annualSeries data frame that contains the annual series of
+streamflow statistics
 }
 \description{
-  Part of the flowHistory system.  The data come from Daily
-  and INFO data frames. Note that the function setPA must
-  be run before this to establish the period of analysis
-  (e.g. water year).
+Part of the flowHistory system.  The data come from Daily
+and INFO data frames. Note that the function setPA must be
+run before this to establish the period of analysis (e.g.
+water year).
 }
 \details{
-  \tabular{ll}{ istat \tab Name \cr 1 \tab 1-day minimum
-  discharge \cr 2 \tab 7-day minimum discharge \cr 3 \tab
-  30-day minimum discharge \cr 4 \tab median discharge \cr
-  5 \tab mean discharge \cr 6 \tab 30-day maximum discharge
-  \cr 7 \tab 7-day maximum discharge \cr 8 \tab 1-day
-  maximum discharge \cr }
+\tabular{ll}{ istat \tab Name \cr 1 \tab 1-day minimum
+discharge \cr 2 \tab 7-day minimum discharge \cr 3 \tab
+30-day minimum discharge \cr 4 \tab median discharge \cr 5
+\tab mean discharge \cr 6 \tab 30-day maximum discharge \cr
+7 \tab 7-day maximum discharge \cr 8 \tab 1-day maximum
+discharge \cr }
 }
 \examples{
 Daily <- ChopDaily

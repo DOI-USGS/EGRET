@@ -125,7 +125,7 @@ Exploration and Graphics for RivEr Trends (EGRET): An R-package for the analysis
 
 
 \textbf{Please see the official EGRET manual:}
-(\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}) 
+(\href{https://github.com/USGS-R/EGRET/raw/Documentation/draft+user+guide+for+EGRET+and+dataRetrieval+2014-04-14.pdf}{link to download}) 
 \textbf{for more information on the EGRET package.}
 
 For information on getting started in R, downloading and installing the package, see section \ref{sec:appendix1}.
@@ -144,7 +144,7 @@ This vignette will walk through the major functions provided by the EGRET packag
 
 Installing dataRetrieval will provide a vignette similar to this document, with complete working examples of the main dataRetrieval functions.
 
-This document assumes the reader is familiar with the dataRetrieval package. Further details can be found in the user guide available on gitHub: \url{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}
+This document assumes the reader is familiar with the dataRetrieval package. Further details can be found in the user guide available on gitHub: \url{https://github.com/USGS-R/EGRET/raw/Documentation/draft+user+guide+for+EGRET+and+dataRetrieval+2014-04-14.pdf}
 
 %------------------------------------------------------------
 \section{EGRET Workflow}
@@ -530,7 +530,9 @@ We will walk through an example from Columbia River at The Dalles, OR.
 \hlstd{Daily} \hlkwb{<-} \hlkwd{getDVData}\hlstd{(siteID,}\hlstr{"00060"}\hlstd{,startDate,endDate)}
 \end{alltt}
 \begin{verbatim}
-There are 49628 data points, and 49628 days.
+There are 49630 data points, and 49635 days.
+
+ discharge data jumps from 2014-04-17 to 2014-04-23
 \end{verbatim}
 \begin{alltt}
 \hlstd{INFO} \hlkwb{<-} \hlkwd{getMetaData}\hlstd{(siteID,}\hlstr{""}\hlstd{,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
@@ -621,7 +623,7 @@ Once the annualSeries matrix is created, the plots of any of the stored statisti
 
 \FloatBarrier
 
-This section will give examples of the available plots appropriate for studying discharge history once the annualSeries has been created. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See section \ref{sec:flowHistoryVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/EGRET%2Bmanual_4.doc}{link to download}). Finally, see section \ref{app:savingPlots} for information on saving plots.
+This section will give examples of the available plots appropriate for studying discharge history once the annualSeries has been created. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See section \ref{sec:flowHistoryVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/draft+user+guide+for+EGRET+and+dataRetrieval+2014-04-14.pdf}{link to download}). Finally, see section \ref{app:savingPlots} for information on saving plots.
 
 The simplest way to look at these time series is with the function plotFlowSingle. The statistic index (istat) must be defined by the user, but for all other arguments there are default values so the user isn't required to specify anything else. To see a list of these optional arguments and other information about the function, type ?plotFlowSingle in the R console. All of the graphs in plotFlowSingle, plotFourStats, and all but one of the graphs in plotFour, show both the individual annual values of the selected discharge statistic (e.g. the annual mean or 7-day minimum), but they also show a curve that is a smooth fit to those data.  The curve is a LOWESS (locally weighted scatterplot smooth).  The algorithm for computing it is provided in \cite{HirschV}:\url{http://pubs.usgs.gov/sir/2012/5151/}  (pages 6 and 7).  The default is that they are smoothed with a "half-window width" of 30 years.  The smoothing window is an optional user-defined option. 
 
@@ -656,7 +658,7 @@ Here is an example of looking at mean daily discharge for the full water year an
 \hlstd{Daily} \hlkwb{<-}\hlkwd{getDVData}\hlstd{(sta,}\hlstr{"00060"}\hlstd{,}\hlkwc{StartDate}\hlstd{=}\hlstr{""}\hlstd{,}\hlkwc{EndDate}\hlstd{=}\hlstr{""}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-There are 36032 data points, and 36032 days.
+There are 36039 data points, and 36039 days.
 \end{verbatim}
 \begin{alltt}
 \hlstd{INFO} \hlkwb{<-} \hlkwd{getMetaData}\hlstd{(sta,}\hlstr{""}\hlstd{,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
@@ -1616,12 +1618,12 @@ To install the EGRET packages and its dependencies:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlkwd{install.packages}\hlstd{(}\hlkwd{c}\hlstd{(}\hlstr{"zoo"}\hlstd{,}\hlstr{"survival"}\hlstd{,}\hlstr{"methods"}\hlstd{,}\hlstr{"fields"}\hlstd{,}
+\hlkwd{install.packages}\hlstd{(}\hlkwd{c}\hlstd{(}\hlstr{"zoo"}\hlstd{,}\hlstr{"survival"}\hlstd{,}\hlstr{"stringr"}\hlstd{,}\hlstr{"fields"}\hlstd{,}
                    \hlstr{"spam"}\hlstd{,}\hlstr{"XML"}\hlstd{,}\hlstr{"RCurl"}\hlstd{,}\hlstr{"plyr"}\hlstd{,}\hlstr{"reshape2"}\hlstd{))}
 \hlkwd{install.packages}\hlstd{(}\hlstr{"dataRetrieval"}\hlstd{,}
-                 \hlkwc{repos}\hlstd{=}\hlstr{"http://usgs-r.github.com/"}\hlstd{)}
+                 \hlkwc{repos}\hlstd{=}\hlstr{"http://usgs-r.github.com/"}\hlstd{,}\hlkwc{type}\hlstd{=}\hlstr{"both"}\hlstd{)}
 \hlkwd{install.packages}\hlstd{(}\hlstr{"EGRET"}\hlstd{,}
-                 \hlkwc{repos}\hlstd{=}\hlstr{"http://usgs-r.github.com/"}\hlstd{)}
+                 \hlkwc{repos}\hlstd{=}\hlstr{"http://usgs-r.github.com/"}\hlstd{,}\hlkwc{type}\hlstd{=}\hlstr{"both"}\hlstd{)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
