@@ -2,10 +2,11 @@
 \alias{plotConcPred}
 \title{Plot of Observed Concentration versus Estimated Concentration}
 \usage{
-plotConcPred(localSample = Sample, localINFO = INFO, concMax = NA,
-  logScale = FALSE, printTitle = TRUE, tinyPlot = FALSE, cex = 0.8,
-  cex.axis = 1.1, cex.main = 1.1, customPar = FALSE, col = "black",
-  lwd = 1, ...)
+  plotConcPred(localSample = Sample, localINFO = INFO,
+    concMax = NA, logScale = FALSE, printTitle = TRUE,
+    tinyPlot = FALSE, cex = 0.8, cex.axis = 1.1,
+    cex.main = 1.1, customPar = FALSE, col = "black",
+    lwd = 1, ...)
 }
 \arguments{
   \item{localSample}{data frame that contains the
@@ -55,14 +56,15 @@ plotConcPred(localSample = Sample, localINFO = INFO, concMax = NA,
   options)}
 }
 \description{
-Data come from a data frame named Sample which contains the
-Sample Data. The metadata come from a data frame named
-INFO.
+  Data come from a data frame named Sample which contains
+  the Sample Data. The metadata come from a data frame
+  named INFO.
 
-Although there are a lot of optional arguments to this
-function, most are set to a logical default. If your
-workspace contains an INFO and Sample dataframes, then the
-following R code will produce a plot: \code{plotConcPred()}
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO and Sample dataframes, then
+  the following R code will produce a plot:
+  \code{plotConcPred()}
 }
 \examples{
 Sample <- ChopSample

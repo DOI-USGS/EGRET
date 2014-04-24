@@ -2,11 +2,11 @@
 \alias{plotFluxPred}
 \title{Graph of observed versus estimated flux}
 \usage{
-plotFluxPred(localSample = Sample, localINFO = INFO, fluxUnit = 3,
-  fluxMax = NA, printTitle = TRUE, oneToOneLine = TRUE,
-  customPar = FALSE, col = "black", lwd = 1, cex = 0.8,
-  cex.axis = 1.1, cex.main = 1.1, tinyPlot = FALSE, logScale = FALSE,
-  ...)
+  plotFluxPred(localSample = Sample, localINFO = INFO,
+    fluxUnit = 3, fluxMax = NA, printTitle = TRUE,
+    oneToOneLine = TRUE, customPar = FALSE, col = "black",
+    lwd = 1, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
+    tinyPlot = FALSE, logScale = FALSE, ...)
 }
 \arguments{
   \item{localSample}{data frame that contains the
@@ -60,14 +60,15 @@ plotFluxPred(localSample = Sample, localINFO = INFO, fluxUnit = 3,
   options)}
 }
 \description{
-Data come from a data frame named Sample which contains the
-Sample Data. The metadata come from a data frame named
-INFO.
+  Data come from a data frame named Sample which contains
+  the Sample Data. The metadata come from a data frame
+  named INFO.
 
-Although there are a lot of optional arguments to this
-function, most are set to a logical default. If your
-workspace contains an INFO and Sample dataframes, then the
-following R code will produce a plot: \code{plotFluxPred()}
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO and Sample dataframes, then
+  the following R code will produce a plot:
+  \code{plotFluxPred()}
 }
 \examples{
 Sample <- ChopSample

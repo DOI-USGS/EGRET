@@ -2,8 +2,9 @@
 \alias{estCrossVal}
 \title{Jack-Knife cross validation of the WRTDS (Weighted Regressions on Time, Discharge, and Season)}
 \usage{
-estCrossVal(localSample = Sample, windowY = 10, windowQ = 2,
-  windowS = 0.5, minNumObs = 100, minNumUncen = 50)
+  estCrossVal(localSample = Sample, windowY = 10,
+    windowQ = 2, windowS = 0.5, minNumObs = 100,
+    minNumUncen = 50)
 }
 \arguments{
   \item{localSample}{data frame containing the sample
@@ -29,17 +30,17 @@ estCrossVal(localSample = Sample, windowY = 10, windowQ = 2,
   regression, default is 50}
 }
 \value{
-SampleCrossV data frame containing the sample data
-augmented by the results of the cross-validation exercise
+  SampleCrossV data frame containing the sample data
+  augmented by the results of the cross-validation exercise
 }
 \description{
-This function fits the WRTDS model n times (where n is the
-number of observations). For each fit, the data value being
-estimated is eliminated from the record. This gives
-predictions that do not depend on knowing the actual result
-for that day. Thus it provides for a more "honest" estimate
-of model performance than a traditional error analysis that
-uses all the data.
+  This function fits the WRTDS model n times (where n is
+  the number of observations). For each fit, the data value
+  being estimated is eliminated from the record. This gives
+  predictions that do not depend on knowing the actual
+  result for that day. Thus it provides for a more "honest"
+  estimate of model performance than a traditional error
+  analysis that uses all the data.
 }
 \examples{
 Sample <- ChopSample

@@ -2,9 +2,10 @@
 \alias{boxConcMonth}
 \title{Box plot of the water quality data by month}
 \usage{
-boxConcMonth(localSample = Sample, localINFO = INFO, printTitle = TRUE,
-  cex = 0.8, cex.axis = 1.1, cex.main = 1.1, las = 1,
-  logScale = FALSE, tcl = 0.5, tinyPlot = FALSE, customPar = FALSE, ...)
+  boxConcMonth(localSample = Sample, localINFO = INFO,
+    printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
+    cex.main = 1.1, las = 1, logScale = FALSE, tcl = 0.5,
+    tinyPlot = FALSE, customPar = FALSE, ...)
 }
 \arguments{
   \item{localSample}{data frame that contains the
@@ -46,15 +47,16 @@ boxConcMonth(localSample = Sample, localINFO = INFO, printTitle = TRUE,
   options)}
 }
 \description{
-Data come from a data frame named Sample which contains the
-Sample Data. The metadata come from a data frame named
-INFO. These data frames must have been created by the
-dataRetrieval package.
+  Data come from a data frame named Sample which contains
+  the Sample Data. The metadata come from a data frame
+  named INFO. These data frames must have been created by
+  the dataRetrieval package.
 
-Although there are a lot of optional arguments to this
-function, most are set to a logical default. If your
-workspace contains an INFO and Sample dataframes, then the
-following R code will produce a plot: \code{boxConcMonth()}
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO and Sample dataframes, then
+  the following R code will produce a plot:
+  \code{boxConcMonth()}
 }
 \examples{
 Sample <- ChopSample

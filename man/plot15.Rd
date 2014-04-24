@@ -2,7 +2,8 @@
 \alias{plot15}
 \title{Makes 15 graphs of streamflow statistics on a single page}
 \usage{
-plot15(yearStart, yearEnd, localDaily = Daily, localINFO = INFO)
+  plot15(yearStart, yearEnd, localDaily = Daily,
+    localINFO = INFO)
 }
 \arguments{
   \item{yearStart}{A numeric value for year in which the
@@ -20,7 +21,7 @@ plot15(yearStart, yearEnd, localDaily = Daily, localINFO = INFO)
   default is INFO}
 }
 \description{
-Part of flowHistory system.
+  Part of flowHistory system.
 }
 \examples{
 Daily <- ChopDaily

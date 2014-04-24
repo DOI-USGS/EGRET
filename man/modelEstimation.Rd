@@ -2,10 +2,11 @@
 \alias{modelEstimation}
 \title{Estimation process for the WRTDS (Weighted Regressions on Time, Discharge, and Season)}
 \usage{
-modelEstimation(localDaily = Daily, localSample = Sample,
-  localINFO = INFO, windowY = 10, windowQ = 2, windowS = 0.5,
-  minNumObs = 100, minNumUncen = 50, env = parent.frame(),
-  localSurface = NA, localAnnualResults = NA)
+  modelEstimation(localDaily = Daily, localSample = Sample,
+    localINFO = INFO, windowY = 10, windowQ = 2,
+    windowS = 0.5, minNumObs = 100, minNumUncen = 50,
+    env = parent.frame(), localSurface = NA,
+    localAnnualResults = NA)
 }
 \arguments{
   \item{localDaily}{data frame containing the daily values,
@@ -50,15 +51,15 @@ modelEstimation(localDaily = Daily, localSample = Sample,
   in this data frame.}
 }
 \description{
-This one function does a jack-knife cross-validation of a
-WRTDS model, fits the surface (concentration as a function
-of discharge and time), estimates daily values of
-concentration and flux, and flow normalized values. It
-returns several data frames or matrices (Daily, INFO,
-Sample, AnnualResults, and surfaces). AnnualResults is
-calculated for water year. To use a period of analysis
-other than water year:
-AnnualResults<-setupYears(paLong,paStart).
+  This one function does a jack-knife cross-validation of a
+  WRTDS model, fits the surface (concentration as a
+  function of discharge and time), estimates daily values
+  of concentration and flux, and flow normalized values. It
+  returns several data frames or matrices (Daily, INFO,
+  Sample, AnnualResults, and surfaces). AnnualResults is
+  calculated for water year. To use a period of analysis
+  other than water year:
+  AnnualResults<-setupYears(paLong,paStart).
 }
 \examples{
 Daily <- ChopDaily

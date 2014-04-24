@@ -2,10 +2,12 @@
 \alias{plotSDLogQ}
 \title{Graph of the standard deviation of the log of daily discharge versus year}
 \usage{
-plotSDLogQ(yearStart = NA, yearEnd = NA, window = 15,
-  localDaily = Daily, localINFO = INFO, sdMax = NA, printTitle = TRUE,
-  tinyPlot = FALSE, printStaName = TRUE, printPA = TRUE, cex = 0.8,
-  cex.main = 1.1, cex.axis = 1.1, lwd = 2, customPar = FALSE, ...)
+  plotSDLogQ(yearStart = NA, yearEnd = NA, window = 15,
+    localDaily = Daily, localINFO = INFO, sdMax = NA,
+    printTitle = TRUE, tinyPlot = FALSE,
+    printStaName = TRUE, printPA = TRUE, cex = 0.8,
+    cex.main = 1.1, cex.axis = 1.1, lwd = 2,
+    customPar = FALSE, ...)
 }
 \arguments{
   \item{yearStart}{numeric is the calendar year of the
@@ -68,17 +70,17 @@ plotSDLogQ(yearStart = NA, yearEnd = NA, window = 15,
   options)}
 }
 \description{
-Data come from data frame named Daily. The metadata come
-from a data frame named INFO. User must have already run
-the function, \code{INFO<-setPA()} Can be used to analyze a
-specific period of analysis by Running
-\code{INFO<-setPA(paStart,paLong)}
+  Data come from data frame named Daily. The metadata come
+  from a data frame named INFO. User must have already run
+  the function, \code{INFO<-setPA()} Can be used to analyze
+  a specific period of analysis by Running
+  \code{INFO<-setPA(paStart,paLong)}
 }
 \details{
-Although there are a lot of optional arguments to this
-function, most are set to a logical default. If your
-workspace contains an INFO and Daily dataframes, then the
-following R code will produce a plot: \code{plotSDLogQ()}
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO and Daily dataframes, then the
+  following R code will produce a plot: \code{plotSDLogQ()}
 }
 \examples{
 Daily <- ChopDaily

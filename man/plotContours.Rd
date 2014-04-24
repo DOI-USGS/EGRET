@@ -2,13 +2,16 @@
 \alias{plotContours}
 \title{Color contour plot of the estimated surfaces as a function of discharge and time (surfaces include log concentration, standard error, and concentration)}
 \usage{
-plotContours(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
-  localsurfaces = surfaces, localINFO = INFO, localDaily = Daily,
-  qUnit = 2, contourLevels = NA, span = 60, pval = 0.05,
-  printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA, tcl = 0.1,
-  flowDuration = TRUE, customPar = FALSE, yTicks = NA, tick.lwd = 2,
-  lwd = 1, cex.main = 1, cex.axis = 1,
-  color.palette = colorRampPalette(c("white", "gray", "blue", "red")), ...)
+  plotContours(yearStart, yearEnd, qBottom, qTop,
+    whatSurface = 3, localsurfaces = surfaces,
+    localINFO = INFO, localDaily = Daily, qUnit = 2,
+    contourLevels = NA, span = 60, pval = 0.05,
+    printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA,
+    tcl = 0.1, flowDuration = TRUE, customPar = FALSE,
+    yTicks = NA, tick.lwd = 2, lwd = 1, cex.main = 1,
+    cex.axis = 1,
+    color.palette = colorRampPalette(c("white", "gray", "blue", "red")),
+    ...)
 }
 \arguments{
   \item{yearStart}{numeric value for the starting date for
@@ -112,25 +115,25 @@ plotContours(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
   do not plot them, default = TRUE}
 }
 \description{
-These plots are normally used for plotting the estimated
-concentration surface (whatSurface=3) but can be used to
-explore the estimated surfaces for the log of concentration
-or for the standard error (in log space) which is what
-determines the bias correction. The plots are often more
-interpretable when the time limits are only about 4 years
-apart. To explore changes over a long time period it is
-best to do this multiple times, for various time slices of
-4 years (for example) or to use the function
-\code{plotDiffContours}.
+  These plots are normally used for plotting the estimated
+  concentration surface (whatSurface=3) but can be used to
+  explore the estimated surfaces for the log of
+  concentration or for the standard error (in log space)
+  which is what determines the bias correction. The plots
+  are often more interpretable when the time limits are
+  only about 4 years apart. To explore changes over a long
+  time period it is best to do this multiple times, for
+  various time slices of 4 years (for example) or to use
+  the function \code{plotDiffContours}.
 
-Although there are a lot of optional arguments to this
-function, most are set to a logical default. If your
-workspace contains an INFO, and Daily dataframes, surface
-array from modelEstimation, a vector of contour levels,
-year and flow limits, then the following R code will
-produce a plot:
-\code{plotContours(yearStart,yearEnd,qBottom,qTop,
-contourLevels = clevel)}
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO, and Daily dataframes, surface
+  array from modelEstimation, a vector of contour levels,
+  year and flow limits, then the following R code will
+  produce a plot:
+  \code{plotContours(yearStart,yearEnd,qBottom,qTop,
+  contourLevels = clevel)}
 }
 \examples{
 yearStart <- 2001

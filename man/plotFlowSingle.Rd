@@ -2,11 +2,13 @@
 \alias{plotFlowSingle}
 \title{Creates a plot of a time series of a particular flow statistic and a lowess smooth of that flow statistic}
 \usage{
-plotFlowSingle(istat, yearStart = NA, yearEnd = NA, localINFO = INFO,
-  localAnnualSeries = annualSeries, qMax = NA, printTitle = TRUE,
-  tinyPlot = FALSE, customPar = FALSE, runoff = FALSE, qUnit = 1,
-  printStaName = TRUE, printPA = TRUE, printIstat = TRUE, cex = 0.8,
-  cex.axis = 1.1, cex.main = 1.1, lwd = 2, col = "black", ...)
+  plotFlowSingle(istat, yearStart = NA, yearEnd = NA,
+    localINFO = INFO, localAnnualSeries = annualSeries,
+    qMax = NA, printTitle = TRUE, tinyPlot = FALSE,
+    customPar = FALSE, runoff = FALSE, qUnit = 1,
+    printStaName = TRUE, printPA = TRUE, printIstat = TRUE,
+    cex = 0.8, cex.axis = 1.1, cex.main = 1.1, lwd = 2,
+    col = "black", ...)
 }
 \arguments{
   \item{istat}{A numeric value for the flow statistic to be
@@ -81,18 +83,18 @@ plotFlowSingle(istat, yearStart = NA, yearEnd = NA, localINFO = INFO,
   options)}
 }
 \description{
-A part of the flowHistory system. The index of the flow
-statistics is istat.  These statistics are: (1) 1-day
-minimum, (2) 7-day minimum, (3) 30-day minimum, (4) median
-(5) mean, (6) 30-day maximum, (7) 7-day maximum, and (8)
-1-day maximum
+  A part of the flowHistory system. The index of the flow
+  statistics is istat.  These statistics are: (1) 1-day
+  minimum, (2) 7-day minimum, (3) 30-day minimum, (4)
+  median (5) mean, (6) 30-day maximum, (7) 7-day maximum,
+  and (8) 1-day maximum
 
-Although there are a lot of optional arguments to this
-function, most are set to a logical default. If your
-workspace contains an INFO, and Daily dataframes, an
-annualSeries array, and the istat number (1-8), then the
-following R code will produce a plot:
-\code{plotFlowSingle(1)}
+  Although there are a lot of optional arguments to this
+  function, most are set to a logical default. If your
+  workspace contains an INFO, and Daily dataframes, an
+  annualSeries array, and the istat number (1-8), then the
+  following R code will produce a plot:
+  \code{plotFlowSingle(1)}
 }
 \examples{
 INFO <- ChopINFO

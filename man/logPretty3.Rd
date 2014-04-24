@@ -2,7 +2,7 @@
 \alias{logPretty3}
 \title{Sets up tick marks for an axis with a log scale}
 \usage{
-logPretty3(xMin, xMax)
+  logPretty3(xMin, xMax)
 }
 \arguments{
   \item{xMin}{A numeric value for the minimum value to be
@@ -12,13 +12,13 @@ logPretty3(xMin, xMax)
   plotted, it must be >xMax}
 }
 \value{
-xTicks A vector representing the values for each of the
-tick marks
+  xTicks A vector representing the values for each of the
+  tick marks
 }
 \description{
-Axis tick marks for a log scale. These tick marks are
-designed to progress with 3 tick marks for every factor of
-10. For example: 2,5,10,20,50,100,200,500.
+  Axis tick marks for a log scale. These tick marks are
+  designed to progress with 3 tick marks for every factor
+  of 10. For example: 2,5,10,20,50,100,200,500.
 }
 \examples{
 logPretty3(0.7,990000)

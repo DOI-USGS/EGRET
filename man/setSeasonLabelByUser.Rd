@@ -2,7 +2,7 @@
 \alias{setSeasonLabelByUser}
 \title{Creates a character string that describes the period of analysis, when the period of analysis is being set by the user and not from AnnualResults}
 \usage{
-setSeasonLabelByUser(paStartInput = 10, paLongInput = 12)
+  setSeasonLabelByUser(paStartInput = 10, paLongInput = 12)
 }
 \arguments{
   \item{paStartInput}{numeric the month which is the start
@@ -14,19 +14,19 @@ setSeasonLabelByUser(paStartInput = 10, paLongInput = 12)
   case if the period of analysis is the water year}
 }
 \value{
-periodName string which describes the period of analysis
+  periodName string which describes the period of analysis
 }
 \description{
-The period of analysis can be of any length from 1 month to
-12 months. The period of analysis can have any starting
-month from 1 (January) through 12 (December). This function
-produces a character string that describes this period of
-analysis. For example "water year", "calendar year", "year
-starting with April", or "Season consisting of April, May,
-June". There is an alternative version of this function for
-the case where AnnualResults exists. And we want to use the
-period of analysis defined there. That function is called
-setSeasonLabel.
+  The period of analysis can be of any length from 1 month
+  to 12 months. The period of analysis can have any
+  starting month from 1 (January) through 12 (December).
+  This function produces a character string that describes
+  this period of analysis. For example "water year",
+  "calendar year", "year starting with April", or "Season
+  consisting of April, May, June". There is an alternative
+  version of this function for the case where AnnualResults
+  exists. And we want to use the period of analysis defined
+  there. That function is called setSeasonLabel.
 }
 \examples{
 setSeasonLabelByUser(paStartInput=1,paLongInput=12)

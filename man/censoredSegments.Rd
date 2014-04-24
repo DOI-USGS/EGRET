@@ -2,7 +2,8 @@
 \alias{censoredSegments}
 \title{Generic plotting function to create censored line segments}
 \usage{
-censoredSegments(yBottom, yLow, yHigh, x, Uncen, col = "black", lwd = 1)
+  censoredSegments(yBottom, yLow, yHigh, x, Uncen,
+    col = "black", lwd = 1)
 }
 \arguments{
   \item{yBottom}{number specifying minimum flux (required)}
@@ -24,10 +25,10 @@ censoredSegments(yBottom, yLow, yHigh, x, Uncen, col = "black", lwd = 1)
   \item{lwd}{number line width}
 }
 \description{
-Basic plotting framework for EGRET dot plots. Graphical
-parameters default to values that work well with most
-plots, but all can be re-assigned. See ?par for complete
-definitions of most optional input variables.
+  Basic plotting framework for EGRET dot plots. Graphical
+  parameters default to values that work well with most
+  plots, but all can be re-assigned. See ?par for complete
+  definitions of most optional input variables.
 }
 \examples{
 x <- c(1,2,3,4,5,6)

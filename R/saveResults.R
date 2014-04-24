@@ -14,7 +14,7 @@
 #' Daily <- ChopDaily
 #' Sample <- ChopSample
 #' surfaces <- exsurfaces
-#' savePath <- "~/R/"
+#' savePath <- "~/"
 #' saveResults(savePath)
 #' 
 #' #To load:

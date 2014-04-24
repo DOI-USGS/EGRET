@@ -2,8 +2,8 @@
 \alias{flowDuration}
 \title{Computes several values of the flow duration curve for streamflow centered on a specific date of the year}
 \usage{
-flowDuration(centerDate = "09-30", localDaily = Daily, localINFO = INFO,
-  qUnit = 2, span = 365)
+  flowDuration(centerDate = "09-30", localDaily = Daily,
+    localINFO = INFO, qUnit = 2, span = 365)
 }
 \arguments{
   \item{centerDate}{string specifying the center date of
@@ -29,14 +29,14 @@ flowDuration(centerDate = "09-30", localDaily = Daily, localINFO = INFO,
   value shoud be about 30.}
 }
 \value{
-qDuration A named vector with flow duration information.
+  qDuration A named vector with flow duration information.
 }
 \description{
-This function is useful for helping the analyst determine
-the empirical probability distribution of streamflow for a
-particular part of the year or for the whole year. This is
-particularly useful in setting up discharge scales for
-various other plots in this package.
+  This function is useful for helping the analyst determine
+  the empirical probability distribution of streamflow for
+  a particular part of the year or for the whole year. This
+  is particularly useful in setting up discharge scales for
+  various other plots in this package.
 }
 \examples{
 Daily <- ChopDaily

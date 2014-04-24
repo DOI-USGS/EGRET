@@ -2,9 +2,9 @@
 \alias{runSurvReg}
 \title{Run the weighted survival regression for a set of estimation points (defined by DecYear and Log(Q))}
 \usage{
-runSurvReg(estPtYear, estPtLQ, localSample = Sample, windowY = 10,
-  windowQ = 2, windowS = 0.5, minNumObs = 100, minNumUncen = 50,
-  interactive = TRUE)
+  runSurvReg(estPtYear, estPtLQ, localSample = Sample,
+    windowY = 10, windowQ = 2, windowS = 0.5,
+    minNumObs = 100, minNumUncen = 50, interactive = TRUE)
 }
 \arguments{
   \item{localSample}{data frame containing the sample
@@ -39,17 +39,17 @@ runSurvReg(estPtYear, estPtLQ, localSample = Sample, windowY = 10,
   display progress message}
 }
 \value{
-resultSurvReg numeric array containing the yHat, SE, and
-ConcHat values array dimensions are (numEstPts,3)
+  resultSurvReg numeric array containing the yHat, SE, and
+  ConcHat values array dimensions are (numEstPts,3)
 }
 \description{
-This function runs the survival regression which is the
-concentration estimation method of WRTDS.  It uses sample
-data from the data frame Sample.  It does the estimation
-for a set of data points defined by two vectors: estPtYear
-and estPtLQ.  It returns an array of results for the
-estimation points.  The array returned contains yHat, SE
-and ConcHat (in that order).
+  This function runs the survival regression which is the
+  concentration estimation method of WRTDS.  It uses sample
+  data from the data frame Sample.  It does the estimation
+  for a set of data points defined by two vectors:
+  estPtYear and estPtLQ.  It returns an array of results
+  for the estimation points.  The array returned contains
+  yHat, SE and ConcHat (in that order).
 }
 \examples{
 estPtYear<-c(2001.0,2005.0,2009.0)

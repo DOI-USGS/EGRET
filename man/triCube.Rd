@@ -2,7 +2,7 @@
 \alias{triCube}
 \title{Tukey's Tricube weight function}
 \usage{
-triCube(d, h)
+  triCube(d, h)
 }
 \arguments{
   \item{d}{numeric vector of distances from the point of
@@ -12,12 +12,13 @@ triCube(d, h)
   in the same units as d}
 }
 \value{
-w numeric vector of weights, all 0<=w<=1
+  w numeric vector of weights, all 0<=w<=1
 }
 \description{
-Computes the tricube weight function on a vector of
-distance values (d), based on a half-window width of h, and
-returns a vector of weights that range from zero to 1.
+  Computes the tricube weight function on a vector of
+  distance values (d), based on a half-window width of h,
+  and returns a vector of weights that range from zero to
+  1.
 }
 \examples{
 h<-10
