@@ -1089,7 +1089,7 @@ getJulian
 To install the EGRET packages and its dependencies:
 
 <<installFromCran,eval = FALSE>>=
-install.packages(c("zoo","survival","methods","fields",
+install.packages(c("zoo","survival","stringr","fields",
                    "spam","XML","RCurl","plyr","reshape2"))
 install.packages("dataRetrieval", 
                  repos="http://usgs-r.github.com/",type="both")
