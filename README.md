@@ -37,8 +37,8 @@ Package Installation
 To install the EGRET and dataRetrieval packages you need to be using R 3.0 or greater. Then use the following commands:
 
 	install.packages(c("zoo","survival","fields","spam","XML","RCurl","plyr","reshape2"))
-	install.packages("dataRetrieval", repos="http://usgs-r.github.com")
-	install.packages("EGRET", repos="http://usgs-r.github.com")
+	install.packages("dataRetrieval", repos="http://usgs-r.github.com",type="both")
+	install.packages("EGRET", repos="http://usgs-r.github.com",type="both")
 
 
 Background Information
@@ -75,7 +75,7 @@ Version updates
 
 ####EGRET
 
-* Version 1.2.5 March14, 2014
+* Version 1.2.5 March 14, 2014
 
 	* Added period of record control to all graphs and tables (with execption of plotContours, plotDiffContours, plotConcQSmooth, and plotConcTimeSmooth).
 	* Changed default color palette for contour plots
