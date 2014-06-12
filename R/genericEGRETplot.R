@@ -7,8 +7,8 @@
 #' @param y vector specifying the y data (required)
 #' @param xlim vector specifying the x plotting range (required)
 #' @param ylim vector specifying the y plotting range (required)
-#' @param xTicks vector specifying x axis tick placement
-#' @param yTicks vector specifying y axis tick placement
+#' @param xTicks vector specifying x axis tick placement (required)
+#' @param yTicks vector specifying y axis tick placement (required)
 #' @param printTitle logical defaults to TRUE, plotting parameter to control whether to have title
 #' @param xaxs string defaults to "i", defines the style of x-axis interval calculation.  Possible values are i, r, e, s, d.
 #' @param xlab string defaults to "", defines the x label
