@@ -48,20 +48,19 @@ Once you have set up your R environment, proceed to the next section to install 
 
 <h4> - R User?</h4>
 
-<p>To install the package, first install the required packages from CRAN:</p>
+<p>To install the package, use the following command:</p>
 <pre>
 <code>
-install.packages(c("zoo", "fields", "survival", "spam","plyr","XML","RCurl"))
+install.packages(c("dataRetrieval","EGRET"), 
+repos=c("http://usgs-r.github.com","http://cran.us.r-project.org"),
+dependencies=TRUE,
+type="both")
 </code>
 </pre>
 
-<p>Then use the following command:</p>
-<pre><code>
-install.packages("dataRetrieval", repos="http://usgs-r.github.com", type="source")
-install.packages("EGRET", repos="http://usgs-r.github.com", type="source")
-</code></pre>
 <p>Further instructions on installation can be found <a href="https://github.com/USGS-R/EGRET/wiki" target="_blank">here</a>.</p>
 
+<!--
 <h4> - R Developer?</h4>
 <p>If you are an experienced R developer, and have the package 'devtools' and all the required LaTex tools installed to create packages, you can build the working version of this package directly from gitHub.
 
@@ -74,7 +73,7 @@ install_github("dataRetrieval", "USGS-R")
 </code></pre>
 This will install the latest code that is currently committed to gitHub.
 </p>
-
+-->
 
 <h3>Authors and Contributors</h3>
 
