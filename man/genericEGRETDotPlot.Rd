@@ -8,7 +8,8 @@ genericEGRETDotPlot(x, y, xlim, ylim, xTicks, yTicks, printTitle = TRUE,
   pch = 20, cex = 0.7, cex.main = 1.3, font.main = 2, cex.lab = 1.2,
   tcl = 0.5, cex.axis = 1, las = 1, xDate = FALSE, tinyPlot = FALSE,
   hLine = FALSE, oneToOneLine = FALSE, rmSciX = FALSE, rmSciY = FALSE,
-  customPar = FALSE, col = "black", lwd = 1, ...)
+  customPar = FALSE, col = "black", lwd = 1, showXLabels = TRUE,
+  showYLabels = TRUE, ...)
 }
 \arguments{
 \item{x}{vector specifying the x data (required)}
@@ -19,9 +20,9 @@ genericEGRETDotPlot(x, y, xlim, ylim, xTicks, yTicks, printTitle = TRUE,
 
 \item{ylim}{vector specifying the y plotting range (required)}
 
-\item{xTicks}{vector specifying x axis tick placement}
+\item{xTicks}{vector specifying x axis tick placement (required)}
 
-\item{yTicks}{vector specifying y axis tick placement}
+\item{yTicks}{vector specifying y axis tick placement (required)}
 
 \item{printTitle}{logical defaults to TRUE, plotting parameter to control whether to have title}
 
@@ -68,6 +69,10 @@ genericEGRETDotPlot(x, y, xlim, ylim, xTicks, yTicks, printTitle = TRUE,
 \item{xDate}{logical defaults to FALSE, changes x label to "year-month" format if set to TRUE and total years less than 4.}
 
 \item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function}
+
+\item{showXLabels}{logical defaults to TRUE. If FALSE, both the x axis and x axis label are not plotted.}
+
+\item{showYLabels}{logical defaults to TRUE. If FALSE, both the y axis and y axis label are not plotted.}
 
 \item{\dots}{additional graphical parameters can be adjusted}
 }
