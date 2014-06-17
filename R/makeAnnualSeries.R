@@ -25,9 +25,17 @@
 #' INFO <- ChopINFO
 #' annualSeries <- makeAnnualSeries()
 makeAnnualSeries<-function(localDaily = Daily, localINFO = INFO) {
-  paStart<-localINFO$paStart
-  paLong<-localINFO$paLong
-  window<-localINFO$window
+  
+  if(sum(c("paStart","paLong","window") %in% names(localINFO)) == 3){
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart  
+    window <- localINFO$window
+  } else {
+    paLong <- 12
+    paStart <- 10
+    window <- 30
+  }
+  
   numDays<-length(localDaily$DecYear)
   yearFirst<-trunc(localDaily$DecYear[1])
   yearLast<-trunc(localDaily$DecYear[numDays])
