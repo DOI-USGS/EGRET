@@ -121,16 +121,16 @@ library(EGRET)
 siteID <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "" #Gets earliest date
 endDate <- "2011-09-30"
-Daily <- getDVData(siteID,"00060",startDate,endDate)
-
 # Gather sample data:
 parameter_cd<-"00631" #5 digit USGS code
 Sample <- getSampleData(siteID,parameter_cd,startDate,endDate)
-
+startDate <- min(as.character(Sample$Date)) #Gets earliest date from Sample record
+# Gather discharge data:
+Daily <- getDVData(siteID,"00060",startDate,endDate)
 # Gather site and parameter information:
-INFO<- getMetaData(siteID,parameter_cd,interactive=FALSE)
+INFO<- getMetaData(siteID,parameter_cd)
+# Here user must input some values for the default behavior interactive=TRUE
 INFO$shortName <- "Choptank River at Greensboro, MD"
-INFO <- setPA()
 
 # Merge discharge with sample data:
 Sample <- mergeReport()
