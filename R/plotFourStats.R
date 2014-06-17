@@ -61,6 +61,6 @@ plotFourStats<-function(localINFO = INFO, localAnnualSeries = annualSeries, year
                  cex.axis=cex.axis,cex=cex, col=col,lwd=lwd, cex.main=1, ...)
   textPA<-setSeasonLabelByUser(paStartInput=localINFO$paStart, paLongInput=localINFO$paLong)
   title<-if(printTitle) paste(localINFO$shortName,"\n",textPA)
-  mtext(title,cex=1.2,outer=TRUE,font=cex.main)
+  mtext(title, outer = TRUE, font = 2,cex=cex.main)
   par(mfcol=c(1,1),oma=c(0,0,0,0))	
 }
