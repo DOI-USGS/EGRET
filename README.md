@@ -1,4 +1,4 @@
-Exploration and Graphics for RivEr Time-series (EGRET)
+Exploration and Graphics for RivEr Trends (EGRET)
 =============
 
 Exploration and Graphics for RivEr Trends (EGRET): 
@@ -147,15 +147,6 @@ Version updates
 
 	* First full package for retrieving data for use in EGRET.  Includes data entry from USGS web services for water quality sample data, daily streamflow data, and metadata.
 
-### Manual
-* manual_4.doc:    June 8, 2012  
-	* Compared to previous versions (posted in April, 2012) this version has 
-		* Updated installation instructions (as of May 24, 2012)
-		* Information on four new functions in flowHistory, found in Sections 3 F,G,and H
-		* New text on Troubleshooting (Section 5)
-		* New text on Working with multiple versions of a data frame (Section 6)
-		* New text on sums of multiple analyses (Section 7)
-		* Guidance about running batch jobs (Section 8)
 
 
 Sample Workflow
@@ -215,7 +206,6 @@ This is a sample workflow for a flowHistory application for the Mississippi Rive
 	Daily<-getDVData(sta,param,"","")
 	summary(Daily)
 	INFO<-getMetaData(sta,param)
-	INFO<-setPA()
 	annualSeries<-makeAnnualSeries()
 	plotFlowSingle(istat=5,qUnit=4)
 	printSeries(istat=5,qUnit=4)
