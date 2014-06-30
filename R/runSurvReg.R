@@ -49,7 +49,10 @@ runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2
   if (minNumObs >= nrow(localSample)) stop('minNumObs is greater than total number of samples')
   
   if (interactive) cat("Survival regression (% complete):\n")
-
+  
+#   options(warn=1) #warn=0 is default
+  warningFlag <- 0
+  
   for (i in 1:numEstPt) {
     
     # This loop takes us through all the estimation points
@@ -90,20 +93,36 @@ runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2
     aveWeight<-sum(weight)/numPosWt
     weight<-weight/aveWeight
     Sam <- data.frame(Sam)
-    survModel<-survreg(Surv(log(ConcLow),log(ConcHigh),type="interval2")~DecYear+LogQ+SinDY+CosDY,data=Sam,weights=weight,dist="gaus")
-    new<-data.frame(DecYear=estY,LogQ=estLQ,SinDY=sin(2*pi*estY),CosDY=cos(2*pi*estY))
-    #   extract results at estimation point
-    yHat<-predict(survModel,new)
-    SE<-survModel$scale
-    bias<-exp((SE^2)/2)
-    resultSurvReg[i,1]<-yHat
-    resultSurvReg[i,2]<-SE
-    resultSurvReg[i,3]<-bias*exp(yHat)
     
-    if (i %in% printUpdate & interactive) cat(floor(i*100/numEstPt),"\t")
+    x <- tryCatch({
+      survModel<-survreg(Surv(log(ConcLow),log(ConcHigh),type="interval2") ~ 
+                           DecYear+LogQ+SinDY+CosDY,data=Sam,weights=weight,dist="gaus")
+      
+    }, warning=function(w) {
+      #       message("Survival regression model did not converge at iteration: ", i)
+      return(NULL)
+    }, finally={
+      new<-data.frame(DecYear=estY,LogQ=estLQ,SinDY=sin(2*pi*estY),CosDY=cos(2*pi*estY))
+      #   extract results at estimation point
+      yHat<-predict(survModel,new)
+      SE<-survModel$scale
+      bias<-exp((SE^2)/2)
+      resultSurvReg[i,1]<-yHat
+      resultSurvReg[i,2]<-SE
+      resultSurvReg[i,3]<-bias*exp(yHat)
+      
+      if (i %in% printUpdate & interactive) cat(floor(i*100/numEstPt),"\t")
+    })
     
+    if(is.null(x)){
+      warningFlag <- warningFlag + 1
+    }
   }
-  
+
+  if (warningFlag > 0){
+    message(warningFlag, " out of ", numEstPt, " did not properly converge. This is generally acceptable, but you may want to check for outliers, repeated values on a single date, or something else unusal about the data.")
+  }
+#   options(warn=0) 
   if (interactive) cat("\nSurvival regression: Done")
 
   return(resultSurvReg)
