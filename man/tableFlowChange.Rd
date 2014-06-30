@@ -4,7 +4,7 @@
 \title{Prints table of change metrics for a given streamflow statistic}
 \usage{
 tableFlowChange(istat, localAnnualSeries = annualSeries, localINFO = INFO,
-  qUnit = 1, runoff = FALSE, yearPoints = NA)
+  qUnit = 1, runoff = FALSE, yearPoints = NA, returnDataFrame = FALSE)
 }
 \arguments{
 \item{istat}{A numeric value for the flow statistic to be graphed (possible values are 1 through 8)}
@@ -18,6 +18,8 @@ tableFlowChange(istat, localAnnualSeries = annualSeries, localINFO = INFO,
 \item{runoff}{logical variable, if TRUE the streamflow data are converted to runoff values in mm/day}
 
 \item{yearPoints}{A vector of numeric values, specifying the years at which change metrics are to be calculated, default is NA (which allows the function to set these automatically), yearPoints must be in ascending order}
+
+\item{returnDataFrame}{logical, if a dataframe is required to be returned set this to TRUE.  Otherwise, the default is FALSE}
 }
 \description{
 Part of the flowHistory system.
@@ -32,6 +34,7 @@ INFO <- setPA(paStart=12, paLong=3)
 Daily <- ChopDaily
 annualSeries <- makeAnnualSeries()
 tableFlowChange(istat=5,yearPoints=c(2001,2005,2009))
+df <- tableFlowChange(istat=5,yearPoints=c(2001,2005,2009),returnDataFrame=TRUE)
 }
 \keyword{statistics}
 \keyword{streamflow}

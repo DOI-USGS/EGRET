@@ -53,7 +53,6 @@ contains an INFO and Sample dataframes, then the following R code will produce a
 Sample <- ChopSample
 INFO <- ChopINFO
 # Water year:
-INFO <- setPA()
 plotFluxPred()
 plotFluxPred(fluxUnit = 'poundsDay')
 plotFluxPred(logScale=TRUE)
