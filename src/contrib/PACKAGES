@@ -16,11 +16,11 @@ MD5sum: cb4c50340730c675257d018137073885
 NeedsCompilation: no
 
 Package: EGRET
-Version: 1.2.4
+Version: 1.2.5
 Depends: R (>= 3.0)
 Imports: methods, survival, fields
 Suggests: xtable, dataRetrieval, knitr, extrafont
 License: file LICENSE
-MD5sum: ea2a39975d90d15f49977125026b0d32
+MD5sum: b46993dca978eace4114889a69b0a4f6
 NeedsCompilation: no
 
