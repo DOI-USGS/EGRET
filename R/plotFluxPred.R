@@ -30,7 +30,6 @@
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
 #' # Water year:
-#' INFO <- setPA()
 #' plotFluxPred()
 #' plotFluxPred(fluxUnit = 'poundsDay')
 #' plotFluxPred(logScale=TRUE)
@@ -74,10 +73,12 @@ plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, flu
 
   if (tinyPlot) {
     xLab <- fluxUnit@unitEstimateTiny
-    yLab <- paste("Obs.", fluxUnit@unitExpressTiny)
+#     yLab <- paste("Obs.", fluxUnit@unitExpressTiny)
+    yLab <- substitute(a ~ b, list(a="Obs.",b= fluxUnit@unitExpressTiny[[1]]))
   } else {
     xLab <- fluxUnit@unitEstimate
-    yLab <- paste("Observed", fluxUnit@unitExpress)
+    yLab <- substitute(a ~ b, list(a="Observed",b= fluxUnit@unitExpress[[1]]))
+#     yLab <- paste("Observed", fluxUnit@unitExpress)
   }
   
   if(logScale){
