@@ -110,9 +110,44 @@ This document assumes the reader is familiar with the dataRetrieval package. Fur
 %------------------------------------------------------------
 \section{EGRET Workflow}
 %------------------------------------------------------------ 
-Subsequent sections of this vignette will discuss the EGRET workflow steps in greater detail. This section provides a handy cheat sheet for diving into an EGRET analysis.
+Subsequent sections of this vignette will discuss the EGRET workflow steps in greater detail. This section provides a handy cheat sheet for diving into an EGRET analysis. The first example is for a flow history analysis:
 
-<<workflow, echo=TRUE,eval=FALSE>>=
+
+<<workflowFlowHistory, echo=TRUE,eval=FALSE>>=
+library(dataRetrieval)
+library(EGRET)
+
+# Flow history analysis
+
+############################
+# Gather discharge data:
+siteID <- "01491000" #Choptank River at Greensboro, MD
+startDate <- "" # Get earliest date
+endDate <- "" # Get latest date
+Daily <- getDVData(siteID,"00060",startDate,endDate)
+# Gather site and parameter information:
+# Here user must input some values for
+# the default (interactive=TRUE)
+INFO<- getMetaData(siteID,"00060")
+INFO$shortName <- "Choptank River at Greensboro, MD"
+############################
+
+############################
+# Check flow history data:
+annualSeries <- makeAnnualSeries()
+plotFlowSingle(istat=7,qUnit="thousandCfs")
+plotSDLogQ()
+plotQTimeDaily(qLower=1,qUnit=3)
+plotFour(qUnit=3)
+plotFourStats(qUnit=3)
+############################
+
+@
+
+The second workflow example is for a water quality analysis. It includes data retrieval, merging of water quality and streamflow data, running the WRTDS estimation, and various plotting functions available in the EGRET package.
+
+
+<<workflowWaterQuality, echo=TRUE,eval=FALSE>>=
 library(dataRetrieval)
 library(EGRET)
 
@@ -124,26 +159,21 @@ endDate <- "2011-09-30"
 # Gather sample data:
 parameter_cd<-"00631" #5 digit USGS code
 Sample <- getSampleData(siteID,parameter_cd,startDate,endDate)
-startDate <- min(as.character(Sample$Date)) #Gets earliest date from Sample record
+#Gets earliest date from Sample record:
+#This is just one of many ways to assure the Daily record
+#spans the Sample record
+startDate <- min(as.character(Sample$Date)) 
 # Gather discharge data:
 Daily <- getDVData(siteID,"00060",startDate,endDate)
 # Gather site and parameter information:
+
+# Here user must input some values for
+# the default (interactive=TRUE)
 INFO<- getMetaData(siteID,parameter_cd)
-# Here user must input some values for the default behavior interactive=TRUE
 INFO$shortName <- "Choptank River at Greensboro, MD"
 
 # Merge discharge with sample data:
 Sample <- mergeReport()
-############################
-
-############################
-# Check flow history data:
-annualSeries <- makeAnnualSeries()
-plotFlowSingle(istat=7,qUnit="thousandCfs")
-plotSDLogQ()
-plotQTimeDaily(qLower=1,qUnit=3)
-plotFour(qUnit=3)
-plotFourStats(qUnit=3)
 ############################
 
 ############################
@@ -207,7 +237,6 @@ plotContours(yearStart,yearEnd,qBottom,qTop,
              contourLevels = clevel,qUnit=1)
 plotDiffContours(yearStart,yearEnd,
                  qBottom,qTop,maxDiff,qUnit=1)
-
 @
 
 
@@ -1352,6 +1381,8 @@ From Excel, it is simple to copy and paste the tables in other word processing o
 \caption{A simple table produced in Microsoft Excel}
 \label{overflow}
 \end{figure}
+
+\FloatBarrier
 
 %------------------------------------------------------------ 
 \section{Saving Plots}

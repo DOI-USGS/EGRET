@@ -94,10 +94,7 @@
 \newcommand{\Rmethod}[1]{{\texttt{#1}}}
 \newcommand{\Rfunarg}[1]{{\texttt{#1}}}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-
 \begin{document}
-
-
 
 
 
@@ -149,7 +146,45 @@ This document assumes the reader is familiar with the dataRetrieval package. Fur
 %------------------------------------------------------------
 \section{EGRET Workflow}
 %------------------------------------------------------------ 
-Subsequent sections of this vignette will discuss the EGRET workflow steps in greater detail. This section provides a handy cheat sheet for diving into an EGRET analysis.
+Subsequent sections of this vignette will discuss the EGRET workflow steps in greater detail. This section provides a handy cheat sheet for diving into an EGRET analysis. The first example is for a flow history analysis:
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hlstd{(dataRetrieval)}
+\hlkwd{library}\hlstd{(EGRET)}
+
+\hlcom{# Flow history analysis}
+
+\hlcom{############################}
+\hlcom{# Gather discharge data:}
+\hlstd{siteID} \hlkwb{<-} \hlstr{"01491000"} \hlcom{#Choptank River at Greensboro, MD}
+\hlstd{startDate} \hlkwb{<-} \hlstr{""} \hlcom{# Get earliest date}
+\hlstd{endDate} \hlkwb{<-} \hlstr{""} \hlcom{# Get latest date}
+\hlstd{Daily} \hlkwb{<-} \hlkwd{getDVData}\hlstd{(siteID,}\hlstr{"00060"}\hlstd{,startDate,endDate)}
+\hlcom{# Gather site and parameter information:}
+\hlcom{# Here user must input some values for}
+\hlcom{# the default (interactive=TRUE)}
+\hlstd{INFO}\hlkwb{<-} \hlkwd{getMetaData}\hlstd{(siteID,}\hlstr{"00060"}\hlstd{)}
+\hlstd{INFO}\hlopt{$}\hlstd{shortName} \hlkwb{<-} \hlstr{"Choptank River at Greensboro, MD"}
+\hlcom{############################}
+
+\hlcom{############################}
+\hlcom{# Check flow history data:}
+\hlstd{annualSeries} \hlkwb{<-} \hlkwd{makeAnnualSeries}\hlstd{()}
+\hlkwd{plotFlowSingle}\hlstd{(}\hlkwc{istat}\hlstd{=}\hlnum{7}\hlstd{,}\hlkwc{qUnit}\hlstd{=}\hlstr{"thousandCfs"}\hlstd{)}
+\hlkwd{plotSDLogQ}\hlstd{()}
+\hlkwd{plotQTimeDaily}\hlstd{(}\hlkwc{qLower}\hlstd{=}\hlnum{1}\hlstd{,}\hlkwc{qUnit}\hlstd{=}\hlnum{3}\hlstd{)}
+\hlkwd{plotFour}\hlstd{(}\hlkwc{qUnit}\hlstd{=}\hlnum{3}\hlstd{)}
+\hlkwd{plotFourStats}\hlstd{(}\hlkwc{qUnit}\hlstd{=}\hlnum{3}\hlstd{)}
+\hlcom{############################}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+The second workflow example is for a water quality analysis. It includes data retrieval, merging of water quality and streamflow data, running the WRTDS estimation, and various plotting functions available in the EGRET package.
+
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -162,29 +197,24 @@ Subsequent sections of this vignette will discuss the EGRET workflow steps in gr
 \hlstd{siteID} \hlkwb{<-} \hlstr{"01491000"} \hlcom{#Choptank River at Greensboro, MD}
 \hlstd{startDate} \hlkwb{<-} \hlstr{""} \hlcom{#Gets earliest date}
 \hlstd{endDate} \hlkwb{<-} \hlstr{"2011-09-30"}
-\hlstd{Daily} \hlkwb{<-} \hlkwd{getDVData}\hlstd{(siteID,}\hlstr{"00060"}\hlstd{,startDate,endDate)}
-
 \hlcom{# Gather sample data:}
 \hlstd{parameter_cd}\hlkwb{<-}\hlstr{"00631"} \hlcom{#5 digit USGS code}
 \hlstd{Sample} \hlkwb{<-} \hlkwd{getSampleData}\hlstd{(siteID,parameter_cd,startDate,endDate)}
-
+\hlcom{#Gets earliest date from Sample record:}
+\hlcom{#This is just one of many ways to assure the Daily record}
+\hlcom{#spans the Sample record}
+\hlstd{startDate} \hlkwb{<-} \hlkwd{min}\hlstd{(}\hlkwd{as.character}\hlstd{(Sample}\hlopt{$}\hlstd{Date))}
+\hlcom{# Gather discharge data:}
+\hlstd{Daily} \hlkwb{<-} \hlkwd{getDVData}\hlstd{(siteID,}\hlstr{"00060"}\hlstd{,startDate,endDate)}
 \hlcom{# Gather site and parameter information:}
-\hlstd{INFO}\hlkwb{<-} \hlkwd{getMetaData}\hlstd{(siteID,parameter_cd,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
+
+\hlcom{# Here user must input some values for}
+\hlcom{# the default (interactive=TRUE)}
+\hlstd{INFO}\hlkwb{<-} \hlkwd{getMetaData}\hlstd{(siteID,parameter_cd)}
 \hlstd{INFO}\hlopt{$}\hlstd{shortName} \hlkwb{<-} \hlstr{"Choptank River at Greensboro, MD"}
-\hlstd{INFO} \hlkwb{<-} \hlkwd{setPA}\hlstd{()}
 
 \hlcom{# Merge discharge with sample data:}
 \hlstd{Sample} \hlkwb{<-} \hlkwd{mergeReport}\hlstd{()}
-\hlcom{############################}
-
-\hlcom{############################}
-\hlcom{# Check flow history data:}
-\hlstd{annualSeries} \hlkwb{<-} \hlkwd{makeAnnualSeries}\hlstd{()}
-\hlkwd{plotFlowSingle}\hlstd{(}\hlkwc{istat}\hlstd{=}\hlnum{7}\hlstd{,}\hlkwc{qUnit}\hlstd{=}\hlstr{"thousandCfs"}\hlstd{)}
-\hlkwd{plotSDLogQ}\hlstd{()}
-\hlkwd{plotQTimeDaily}\hlstd{(}\hlkwc{qLower}\hlstd{=}\hlnum{1}\hlstd{,}\hlkwc{qUnit}\hlstd{=}\hlnum{3}\hlstd{)}
-\hlkwd{plotFour}\hlstd{(}\hlkwc{qUnit}\hlstd{=}\hlnum{3}\hlstd{)}
-\hlkwd{plotFourStats}\hlstd{(}\hlkwc{qUnit}\hlstd{=}\hlnum{3}\hlstd{)}
 \hlcom{############################}
 
 \hlcom{############################}
@@ -253,7 +283,6 @@ Subsequent sections of this vignette will discuss the EGRET workflow steps in gr
 \end{knitrout}
 
 
-
 %------------------------------------------------------------ 
 \section{EGRET Dataframes and Units}
 \label{sec:dataframes}
@@ -268,7 +297,6 @@ The EGRET package uses 3 default dataframes throughout the calculations, analysi
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-
 
 %------------------------------------------------------------ 
 \subsection{Daily}
@@ -470,7 +498,6 @@ The following codes apply to the qUnit list:
 \end{kframe}
 \end{knitrout}
 
-
 When a function has an input argument qUnit, you can define the discharge units that will be used in the figure or table that is generated by the function with the index (1-4) as shown above. The choice should be based on the units that are customary for the audience, but also so that the discharge values don't have too many digits to the right or left of the decimal point.
 
 \begin{knitrout}
@@ -496,7 +523,6 @@ The following codes apply to the fluxUnit list:
 \end{kframe}
 \end{knitrout}
 
-
 When a function has an input argument fluxUnit, you can define the flux units with the index (1-12) as shown above. The choice should be based on the units that are customary for the audience, but also so that the flux values don't have too many digits to the right or left of the decimal point. Tons are always 'short tons' and not 'metric tons'.
 
 \FloatBarrier
@@ -517,7 +543,6 @@ At this point it is assumed that you can load the daily discharge record into R,
 \end{kframe}
 \end{knitrout}
 
-
 We will walk through an example from Columbia River at The Dalles, OR.
 
 \begin{knitrout}
@@ -530,9 +555,9 @@ We will walk through an example from Columbia River at The Dalles, OR.
 \hlstd{Daily} \hlkwb{<-} \hlkwd{getDVData}\hlstd{(siteID,}\hlstr{"00060"}\hlstd{,startDate,endDate)}
 \end{alltt}
 \begin{verbatim}
-There are 49630 data points, and 49635 days.
+There are 49701 data points, and 49702 days.
 
- discharge data jumps from 2014-04-17 to 2014-04-23
+ discharge data jumps from 2014-05-12 to 2014-05-14
 \end{verbatim}
 \begin{alltt}
 \hlstd{INFO} \hlkwb{<-} \hlkwd{getMetaData}\hlstd{(siteID,}\hlstr{""}\hlstd{,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
@@ -540,7 +565,6 @@ There are 49630 data points, and 49635 days.
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-
 
 The first choice you need to make is what period of analysis to use (PA). What is the period of analysis?  If we want to examine our data set as a time series of water years, then the period of analysis is October through September.  If we want to examine the data set as calendar years then the period of analysis should be January through December.  We might want to examine the winter season, which we could define as December through February, then those 3 months become the period of analysis. The only constraints on the definition of a period of analysis are these: it must be defined in terms of whole months; it must be a set of contiguous months (like March-April-May), and have a length that is no less than 1 month and no more than 12 months.  The PA is defined by two arguments: paLong and paStart.  paLong is the length of the period of analysis, and paStart is the first month of the period of analysis. Table \ref{table:paINFO} summarizes paLong and paStart.
 
@@ -569,7 +593,6 @@ To set a period running from December through February:
 \end{kframe}
 \end{knitrout}
 
-
 To set the default value (water year):
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -578,7 +601,6 @@ To set the default value (water year):
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-
 
 The next step is to create the annual series of discharge statistics.  These will be stored in a matrix called annualSeries that contain the statistics described in table \ref{table:istat}. The statistics are based on the period of analysis set with the setPA function.
 
@@ -610,7 +632,6 @@ To create the annualSeries matrix, using the function makeAnnualSeries:
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-
 
 Once the annualSeries matrix is created, the plots of any of the stored statistics can be generated with the plotFlowSingle function.
 
@@ -646,7 +667,6 @@ Figure \ref{fig:plotSingleandSD}:
 
 \end{knitrout}
 
-
 \FloatBarrier
 
 Here is an example of looking at mean daily discharge for the full water year and then looking at mean daily discharge for the winter season only.  The site being considered is the Merced River at Happy Isles Bridge in Yosemite National Park in California.  First, we can look at the mean daily discharge for the full year (after having read in the data and metadata):
@@ -658,7 +678,7 @@ Here is an example of looking at mean daily discharge for the full water year an
 \hlstd{Daily} \hlkwb{<-}\hlkwd{getDVData}\hlstd{(sta,}\hlstr{"00060"}\hlstd{,}\hlkwc{StartDate}\hlstd{=}\hlstr{""}\hlstd{,}\hlkwc{EndDate}\hlstd{=}\hlstr{""}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-There are 36039 data points, and 36039 days.
+There are 36106 data points, and 36106 days.
 \end{verbatim}
 \begin{alltt}
 \hlstd{INFO} \hlkwb{<-} \hlkwd{getMetaData}\hlstd{(sta,}\hlstr{""}\hlstd{,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
@@ -684,7 +704,6 @@ There are 36039 data points, and 36039 days.
 
 \end{knitrout}
 
-
 What these figures show us is that on an annual basis there is very little indication of a long-term trend in mean discharge, but for the winter months there is a pretty strong indication of an upward trend.  This could well be related to the climate warming in the Sierra Nevada, resulting in a general increase in the ratio of rain to snow in the winter and more thawing events.
 
 
@@ -702,7 +721,6 @@ Figure \ref{fig:plotFour}:
 
 \end{knitrout}
 
-
 Figure \ref{fig:plotFourStats}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -717,7 +735,6 @@ Figure \ref{fig:plotFourStats}:
 
 \end{knitrout}
 
-
 \FloatBarrier
 
 
@@ -728,7 +745,7 @@ Figure \ref{fig:plotFourStats}:
 \hlstd{Daily} \hlkwb{<-}\hlkwd{getDVData}\hlstd{(sta,}\hlstr{"00060"}\hlstd{,}\hlkwc{StartDate}\hlstd{=}\hlstr{""}\hlstd{,}\hlkwc{EndDate}\hlstd{=}\hlstr{""}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-There are 49763 data points, and 49763 days.
+There are 49824 data points, and 49824 days.
 \end{verbatim}
 \begin{alltt}
 \hlstd{INFO} \hlkwb{<-} \hlkwd{getMetaData}\hlstd{(sta,}\hlstr{""}\hlstd{,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}
@@ -744,7 +761,6 @@ There are 49763 data points, and 49763 days.
 
 
 \end{knitrout}
-
 
 plotQTimeDaily is simply a time series plot of discharge.  But, it is most suited for showing events above some discharge threshold.  In the simplest case, it can plot the entire record, but given the line weight and use of an arithmetic scale it will primarily provide a visual focus on the higher values.
 
@@ -767,7 +783,6 @@ Sometimes it is easier to consider results in table formats rather than graphica
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-
 
 \begin{verbatim}
 Mississippi River at Keokuk Iowa
@@ -814,10 +829,10 @@ There is another argument that can be very useful in this function: yearPoints. 
  1890  to  1950         0.54       0.0091          2.4         0.04
  1890  to  2010          9.4        0.078           41         0.34
  1950  to  2010          8.8         0.15           38         0.63
+NULL
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
-
 
 See section \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft. 
 
@@ -854,8 +869,6 @@ We will use the Choptank River at Greensboro, MD as our example case. The Chopta
 
 
 
-
-
 %------------------------------------------------------------ 
 \subsection{Plotting Options}
 \label{sec:plotOptionsWQ}
@@ -883,7 +896,6 @@ Figure \ref{fig:plotBoxes}:
 
 \end{knitrout}
 
-
 Note that the statistics to create the boxplot in boxQTwice are performed after the data are log-transformed.
 
 Figure \ref{fig:plotConcTime}:
@@ -903,7 +915,6 @@ Figure \ref{fig:plotConcTime}:
 
 \end{knitrout}
 
-
 It is interesting to note in Figure \ref{fig:plotConcTime} the change in the convention for rounding of data values that occurred around 1995.
 
 Figure \ref{fig:plotFluxQ}:
@@ -919,7 +930,6 @@ Figure \ref{fig:plotFluxQ}:
 
 
 \end{knitrout}
-
 
 The plotFluxQ (Figure \ref{fig:plotFluxQ}) function only plots in a log-log scale.
 
@@ -938,7 +948,6 @@ Figure \ref{fig:multiPlotDataOverview}:
 
 
 \end{knitrout}
-
 
 The multiPlotDataOverview (Figure \ref{fig:multiPlotDataOverview}) function uses a log scale as default. To change the concentration axes to an arithmetic scale, use logScaleConc=FALSE in the multiPlotDataOverview function call.
 
@@ -986,7 +995,6 @@ Discharge units are Cubic Feet per Second
 \end{kframe}
 \end{knitrout}
 
-
 \FloatBarrier
 %------------------------------------------------------------ 
 \section{WRTDS Analysis}
@@ -1004,7 +1012,6 @@ Once you have looked at your data using the tools described in section \ref{sec:
 \end{kframe}
 \end{knitrout}
 
-
 Details of the options available when running modelEstimation() can be found in Section \ref{sec:wrtdsInputVariables}. This function is slow, and shows the progress in percent complete. See the references and manual for more information. It's important to understand that this is the one function that will globally change your Daily, Sample, and INFO dataframes. It also creates a new matrix `surfaces', and a new dataframe `AnnualResults'. It is unusual R programming behavior to create global variables, but was chosen to make it easy for the user.
 
 Finally, it is a good idea to save your results because of the computational time that has been invested in producing these results. The workspace is saved to a directory that has been designated by the user as savePath and the file name is determined by the abbreviations for station and constituent that were required entries when the getMetaData function was used. The command for saving the workspace is:
@@ -1017,7 +1024,6 @@ Finally, it is a good idea to save your results because of the computational tim
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-
 
 This will now save all of the objects in your workspace. If you have saved workspaces from R versions earlier than 3.0, there will be a warning when opening them in R 3.0 (or later). Re-saving the workspace using R 3.0 (or later) should get rid of the warning.
 
@@ -1038,7 +1044,6 @@ The workspace is saved using INFO$staAbbrev and INFO$constitAbbrev as the filena
 
 
 
-
 \FloatBarrier
 
 %------------------------------------------------------------ 
@@ -1055,7 +1060,6 @@ At this point (after having run modelEstimation) we can start considering how to
 \FloatBarrier
 
 Check the help files or manual for more details on the following functions.  See section \ref{app:savingPlots} for information on saving plots. In these examples, we will return to looking at the data in the water year by using the setPA function. Most plotting functions will use the period of analysis information in the INFO dataframe to determine what data is plotted. There are only four graph or table functions that don't allow the user to specify a Period of Analysis (PA). These are: plotContour, plotDiffContour, plotConcTimeSmooth, plotConcQSmooth.
-
 
 
 
@@ -1084,7 +1088,6 @@ Figure \ref{fig:plotConcTimeDaily}:
 
 \end{knitrout}
 
-
 Figure \ref{fig:plotFluxPred}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -1101,7 +1104,6 @@ Figure \ref{fig:plotFluxPred}:
 
 
 \end{knitrout}
-
 
 
 Figure \ref{fig:plotResidQ}:
@@ -1121,7 +1123,6 @@ Figure \ref{fig:plotResidQ}:
 
 \end{knitrout}
 
-
 Figure \ref{fig:boxResidMonth}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -1139,7 +1140,6 @@ Figure \ref{fig:boxResidMonth}:
 
 \end{knitrout}
 
-
 Figure \ref{fig:boxConcThree}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -1153,7 +1153,6 @@ Figure \ref{fig:boxConcThree}:
 
 
 \end{knitrout}
-
 
 Figure \ref{fig:plotFluxHist}:
 \begin{knitrout}
@@ -1171,7 +1170,6 @@ Figure \ref{fig:plotFluxHist}:
 
 
 \end{knitrout}
-
 
 Figure \ref{fig:plotConcQSmooth}:
 \begin{knitrout}
@@ -1197,7 +1195,6 @@ Figure \ref{fig:plotConcQSmooth}:
 
 \end{knitrout}
 
-
 Figure \ref{fig:plotConcTimeSmooth}:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -1220,7 +1217,6 @@ Figure \ref{fig:plotConcTimeSmooth}:
 
 \end{knitrout}
 
-
 Figures \ref{fig:plotConcQSmooth} and \ref{fig:plotConcTimeSmooth} contain legends. The placement of the legend is controlled by legendLeft and legendTop. If both are set to 0 (the default values), the legend is placed near the lower left corner of the graphic. Otherwise, the value specified for legendLeft places the left edge of the legend, and legendTop specifies the top edge of the legend. The units for legendLeft and legendTop are discharge (in units specified by qUnit) and concentration, respectively. The legend can also be turned off with printLegend=FALSE. These are also functions that do not recognize the period of analysis in the INFO dataframe. However, by choosing centering dates and appropriate half-windows, seasonal behavior can easily be observed in these plots. 
 
 
@@ -1237,7 +1233,6 @@ Figure \ref{fig:fluxBiasMulti}:
 
 
 \end{knitrout}
-
 
 The contour plot functions also do not recognize the period of analysis in the INFO dataframe. They represent the overall results of the WRTDS analysis. 
 
@@ -1258,7 +1253,6 @@ qUnit=1,flowDuration=FALSE)\label{fig:plotContours}}
 
 
 \end{knitrout}
-
 
 To specify contourLevels in the contour plots, the seq function in R should be used (type `?seq' for details on this function).  In general it would look like this: contourLevels = seq(from,to,by).  In the example shown above we are requesting contour levels that run from 0 to 2 in steps of 0.2.
 
@@ -1281,7 +1275,6 @@ qUnit=1,flowDuration=FALSE)\label{fig:plotDiffContours}}
 
 \end{knitrout}
 
-
 \FloatBarrier
 %------------------------------------------------------------ 
 \subsection{Table Options}
@@ -1298,7 +1291,6 @@ Sometimes it is easier to consider the results in table form rather than graphic
 \end{kframe}
 \end{knitrout}
 
-
 \begin{verbatim}
    Choptank River 
    Inorganic nitrogen (nitrate and nitrite)
@@ -1312,7 +1304,6 @@ Sometimes it is easier to consider the results in table form rather than graphic
    2010      7.19     1.323     1.438    0.2236     0.149
    2011      5.24     1.438     1.457    0.1554     0.148
 \end{verbatim}
-
 
 
 
@@ -1339,7 +1330,6 @@ Sometimes it is easier to consider the results in table form rather than graphic
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
-
 
 
 The other table option is tableChange. This is a function that provides for the computation of changes or slopes between any selected pairs of time points.  These computations are made only on the flow-normalized results. A detailed explaination of `flow-normalized' result can be found in the official EGRET manual.
@@ -1375,7 +1365,6 @@ The other table option is tableChange. This is a function that provides for the 
 \end{kframe}
 \end{knitrout}
 
-
 Finally, tableChangeSingle (Table \ref{table:tableChangeSingle}) operates exactly the same as tableChange except for the addition of two arguments: returnDataFrame and flux. This function provides either concentration results or flux results, but not both.  This can be useful when producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except for the final two arguments.  The first, `returnDataFrame' is a logical argument to indicate if a dataframe of output should be returned (for later manipulation or printing through other programs such as Excel), and its default is FALSE.  The second argument is `flux', and the default is TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  See section \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft.
 
 \begin{knitrout}
@@ -1386,7 +1375,6 @@ Finally, tableChangeSingle (Table \ref{table:tableChangeSingle}) operates exactl
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-
 
 \begin{table}[ht]
 \centering
@@ -1479,7 +1467,6 @@ Figure \ref{fig:adjustSize} shows a larger title and axis number (left), and lar
 
 \end{knitrout}
 
-
 Figure \ref{fig:plotConcQComparison} shows the default on the left, and several features on the right. First, the margin is adjusted to c(8,8,8,8), requiring customPar set to TRUE. The margin vector represents the margin spacing of the 4 \texttt{"}sides\texttt{"} of a plot in the order: bottom, left, top, right. Next, the text labels were adjusted, color set to \texttt{"}blue\texttt{"}, point and line size increased, and the point type changed form a solid circle(pch=20) to solid diamond (pch=18). A grid, legend, arrow, and text are added after the plot is produced.
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -1504,7 +1491,6 @@ Figure \ref{fig:plotConcQComparison} shows the default on the left, and several 
 
 \end{knitrout}
 
-
 There are just a few fonts that are generally available as a default. Figure \ref{fig:easyFontChange} shows how to change to the Serif font, as well as how to use the mtext function. To see the available fonts for pdf output on your computer, type names(pdfFonts()).The available fonts are quite limited in base R. To expand the font choices, there is a nice R library 'extrafont' that can help.
 
 \begin{knitrout}
@@ -1522,7 +1508,6 @@ There are just a few fonts that are generally available as a default. Figure \re
 
 
 \end{knitrout}
-
 
 The contour plots can also be extended. The default y-axis is determined from qTop and qBottom. Occasionally, it is necessary to use a custom axis. This can be done by specifying yTicks. It is also nice to be able to adjust the color scheme of the contour plots. There are some color schemes built into base R such as heat.colors, topo.colors, terrain.colors, and cm.colors. Alternatively, colors can be set using the colorRampPalette function. For example, it might make more sense to use a scheme that goes from white to red for low to high concentrations. For the plotDiffContours, it might make more sense to go from blue to white for the negative values, and white to red for the positive values. Examples are shown below for modifying a contour plot in Figure \ref{fig:modifiedContour1} and modifying a difference contour plot in Figure \ref{fig:modifiedDiffContour}. 
 
@@ -1551,7 +1536,6 @@ The contour plots can also be extended. The default y-axis is determined from qT
 
 \end{knitrout}
 
-
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
@@ -1569,7 +1553,6 @@ The contour plots can also be extended. The default y-axis is determined from qT
 
 
 \end{knitrout}
-
 
 
 \FloatBarrier
@@ -1598,7 +1581,6 @@ At any time, you can get information about any function in R by typing a questio
 \end{kframe}
 \end{knitrout}
 
-
 To see the raw code for a particular function, type the name of the function, without parentheses:
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
@@ -1607,7 +1589,6 @@ To see the raw code for a particular function, type the name of the function, wi
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-
 
 
 %------------------------------------------------------------
@@ -1628,7 +1609,6 @@ To install the EGRET packages and its dependencies:
 \end{kframe}
 \end{knitrout}
 
-
 It is a good idea to re-start R after installing the package if installing an updated version. 
 
 After installing the package, you need to open the library each time you re-start R.  This is done with the simple command:
@@ -1640,7 +1620,6 @@ After installing the package, you need to open the library each time you re-star
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-
 
 \newpage
 \FloatBarrier
@@ -1845,7 +1824,6 @@ A few steps that are required to create a table in a Microsoft product (Excel, W
 \end{kframe}
 \end{knitrout}
 
-
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
@@ -1893,7 +1871,6 @@ A few steps that are required to create a table in a Microsoft product (Excel, W
 \end{kframe}
 \end{knitrout}
 
-
 First, save the dataframe as a tab delimited file (you don't want to use comma delimited because there are commas in some of the data elements):
 
 
@@ -1905,7 +1882,6 @@ First, save the dataframe as a tab delimited file (you don't want to use comma d
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-
 
 This will save a file in your working directory called tableData.tsv.  You can see your working directory by typing getwd() in the R console. Opening the file in a general-purpose text editor, you should see the following:
 
@@ -1941,6 +1917,8 @@ From Excel, it is simple to copy and paste the tables in other word processing o
 \caption{A simple table produced in Microsoft Excel}
 \label{overflow}
 \end{figure}
+
+\FloatBarrier
 
 %------------------------------------------------------------ 
 \section{Saving Plots}
@@ -1980,7 +1958,6 @@ There are three steps to saving plots. The first is to open the 'device' (and de
 \end{kframe}
 \end{knitrout}
 
-
 There are many additional options for each of these devices. See the R help files for more information. One option that would be useful for the larger fluxBiasMulti graph is to adjust the height and width of the output. The output of fluxBiasMulti is larger than the default pdf or postscript devices. Therefore, specifying the height and width eliminates R having to re-size the graphic:
 
 \begin{knitrout}
@@ -1992,7 +1969,6 @@ There are many additional options for each of these devices. See the R help file
 \end{alltt}
 \end{kframe}
 \end{knitrout}
-
 
 
 
