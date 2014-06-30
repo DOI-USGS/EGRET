@@ -12,6 +12,7 @@
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param runoff logical variable, if TRUE the streamflow data are converted to runoff values in mm/day
 #' @param yearPoints A vector of numeric values, specifying the years at which change metrics are to be calculated, default is NA (which allows the function to set these automatically), yearPoints must be in ascending order
+#' @param returnDataFrame logical, if a dataframe is required to be returned set this to TRUE.  Otherwise, the default is FALSE
 #' @keywords streamflow statistics
 #' @export
 #' @examples
@@ -20,7 +21,9 @@
 #' Daily <- ChopDaily
 #' annualSeries <- makeAnnualSeries()
 #' tableFlowChange(istat=5,yearPoints=c(2001,2005,2009))
-tableFlowChange<-function(istat, localAnnualSeries = annualSeries, localINFO = INFO, qUnit = 1, runoff = FALSE, yearPoints = NA) {
+#' df <- tableFlowChange(istat=5,yearPoints=c(2001,2005,2009),returnDataFrame=TRUE)
+tableFlowChange<-function(istat, localAnnualSeries = annualSeries, localINFO = INFO, 
+                          qUnit = 1, runoff = FALSE, yearPoints = NA,returnDataFrame=FALSE) {
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(qUnit)){
@@ -67,7 +70,9 @@ tableFlowChange<-function(istat, localAnnualSeries = annualSeries, localINFO = I
     formatSpacing <- if (3 == nchar(gsub(" ", "",unitsText))) "       " else "   "
     cat("                     ",unitsText,formatSpacing,gsub(" ", "",unitsText),"/yr        %            %/yr",sep="")
   }
-  
+  header<-c("year1","year2",paste("change[",gsub(" ", "",unitsText),"]",sep=""),paste("slope[",gsub(" ", "",unitsText),"/yr]",sep=""),"change[%]","slope[%/yr]")
+  resultDF <- as.data.frame(sapply(1:6, function(x) data.frame(x)))
+  colnames(resultDF) <- header
   for(iFirst in 1:numPointsMinusOne) {
     xFirst<-indexPoints[iFirst]
     yFirst<-qSmooth[indexPoints[iFirst]]
@@ -82,6 +87,18 @@ tableFlowChange<-function(istat, localAnnualSeries = annualSeries, localINFO = I
       results[3]<-if(is.na(yDif)) blankHolder else format(100*yDif/yFirst,digits=2,width=12)
       results[4]<-if(is.na(yDif)) blankHolder else format(100*yDif/yFirst/xDif,digits=2,width=12)
       cat("\n",yearPoints[iFirst]," to ",yearPoints[iLast],results)
+      resultDF <- rbind(resultDF, c(yearPoints[iFirst], yearPoints[iLast],results))
     }
   }
+  cat("\n")
+  resultDF <- resultDF[-1,]
+  row.names(resultDF) <- NULL
+  resultDF <- as.data.frame(lapply(resultDF,as.numeric))
+  colnames(resultDF) <- header
+  
+  if (!returnDataFrame) {
+    return()
+  }
+  
+  return(resultDF)
 }
