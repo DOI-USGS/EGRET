@@ -69,8 +69,8 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
     }
   }
   
-  plot(x,y,xlim=xlim,xaxs=xaxs,xlab=ifelse(showXLabels,xlab,""),axes=FALSE,
-       ylim=ylim,yaxs=yaxs,ylab=ifelse(showYLabels,ylab,""),main=plotTitle,col=col,lwd=lwd,
+  plot(x,y,xlim=xlim,xaxs=xaxs,xlab=if(showXLabels) xlab,axes=FALSE,
+       ylim=ylim,yaxs=yaxs,ylab=if(showYLabels) ylab, main=plotTitle,col=col,lwd=lwd,
        pch=pch,cex=cex,cex.main=cex.main,font.main=font.main,cex.lab=cex.lab,...)
   
   box()
