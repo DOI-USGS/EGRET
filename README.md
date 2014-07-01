@@ -259,4 +259,4 @@ Version updates
 
 * Version 1.0.2:	May 24, 2012
 
-* Version 1.0:	Feburary 23, 2012
+* Version 1.0.0:	February 23, 2012
