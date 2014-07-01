@@ -72,56 +72,6 @@ The manual assumes that the user understands the concepts underlying WRTDS.  Thu
 * [EGRET flowHistory presentation 2012](https://github.com/USGS-R/EGRET/raw/Documentation/EGRET+flowHistory+presentation.pdf) (pdf)
 
 
-Version updates
----------------
-
-####EGRET
-
-* Version 1.2.5 March 14, 2014
-
-	* Added period of record control to all graphs and tables (with execption of plotContours, plotDiffContours, plotConcQSmooth, and plotConcTimeSmooth).
-	* Changed default color palette for contour plots
-	* Updated vignette.
-	* Added setupYears call within functions to generally eliminate the need for AnnualResults.
-	* Updated calculateMonthlyResults to give month, year, and decimal year.
-	* Continued to improve documentation.
-
-* Version 1.2.4 July 10, 2013
-
-* Version 1.2.3 February 21, 2013
-
-* Version 1.2.1 June 8, 2012
-
-* Version 1.1.3	April 26, 2012
-
-* Version 1.0.0	March 16, 2012
-
-
-
-
-### dataRetrieval
-
-* Version 1.2.2:        July 10, 2013
-
-	* Added getDataAvailability function to find measured parameters and period of record information for a requested station.
-
-	* Added constructNWISURL function to get the URL that is used to retrieve the data.
-
-	* Added getSampleSTORET function to get STORET data directly in Sample dataframe form.
-
-	* Fixed a small leap year bug by changing day of year by making Feb. 29 always 59, and March 1st always 60 (even in non-leap years).
-
-* Version 1.0.5:	June 27, 2012
-
-* Version 1.0.4:	June 19, 2012
-
-* Version 1.0.3:	May 30, 2012
-
-* Version 1.0.2:	May 24, 2012
-
-* Version 1.0:	Feburary 23, 2012
-
-
 Sample Workflow
 ---------------
 
@@ -262,4 +212,51 @@ This is a sample workflow for a flowHistory application for the Mississippi Rive
 	saveResults(savePath)
 
 
- 
+Version updates
+---------------
+
+####EGRET
+
+* Version 1.2.5 March 14, 2014
+
+	* Added period of record control to all graphs and tables (with execption of plotContours, plotDiffContours, plotConcQSmooth, and plotConcTimeSmooth).
+	* Changed default color palette for contour plots
+	* Updated vignette.
+	* Added setupYears call within functions to generally eliminate the need for AnnualResults.
+	* Updated calculateMonthlyResults to give month, year, and decimal year.
+	* Continued to improve documentation.
+
+* Version 1.2.4 July 10, 2013
+
+* Version 1.2.3 February 21, 2013
+
+* Version 1.2.1 June 8, 2012
+
+* Version 1.1.3	April 26, 2012
+
+* Version 1.0.0	March 16, 2012
+
+
+
+
+### dataRetrieval
+
+* Version 1.2.2:        July 10, 2013
+
+	* Added getDataAvailability function to find measured parameters and period of record information for a requested station.
+
+	* Added constructNWISURL function to get the URL that is used to retrieve the data.
+
+	* Added getSampleSTORET function to get STORET data directly in Sample dataframe form.
+
+	* Fixed a small leap year bug by changing day of year by making Feb. 29 always 59, and March 1st always 60 (even in non-leap years).
+
+* Version 1.0.5:	June 27, 2012
+
+* Version 1.0.4:	June 19, 2012
+
+* Version 1.0.3:	May 30, 2012
+
+* Version 1.0.2:	May 24, 2012
+
+* Version 1.0:	Feburary 23, 2012
