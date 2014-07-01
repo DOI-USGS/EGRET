@@ -88,30 +88,15 @@ Version updates
 
 * Version 1.2.4 July 10, 2013
 
-	* Fixed a small leap year bug
-	* Improved ability to modify graphic functions
-	* Added dataframe returns to table functions
-
 * Version 1.2.3 February 21, 2013
 
-	* New estDailyFromSurfaces function utilizing "fields" package, written by Jeffrey Chanat. Greatly increases the speed of computations of the daily results. Two additional R packages are needed: fields and spam
-	* Improved documentation, especially example functions.
-	* runSurvReg modified to include the option of a very wide seasonal window (windowS), which has the effect of eliminating the influence of the seasonal weights.
-	* Progress indicators modified to be more informative.
-	* Fixed a calculation bug in function plotLogFluxPred.
-
 * Version 1.2.1 June 8, 2012
- 
-	* Differs only from 1.1.3 in two respects.  It adds four new functions to the flowHistory capability and makes one bug fix to WRTDS.  The four new flow History functions are: plot15 (makes an array of 15 plots for a given site - a matrix of 3 flow statistics (7-day min, mean, and 1-day max) versus 5 periods of analysis (annual, fall, winter, spring, and summer), plotSDLogQ (makes a plot of the running standard deviation of the Log Discharge versus time), plotFour (makes a set of four graphs: 1-day max, mean, 7-day min, and running standard deviation of the logs), and plotQTimeDaily (a way to plot discharge versus time, setup particularly to show flows above some threshold discharge).  The bug fix in WRTDS made no changes to calculations, it just prevents a crash in a situation where the user has shortened the length of the daily record.
 
 * Version 1.1.3	April 26, 2012
-	
-	* Differs only from the March 16, 2012 version 1.0.0 in a few small bug fixes and cosmetic changes in some graphics, improved saveResults function, and better formatting of help pages for the functions.
-
 
 * Version 1.0.0	March 16, 2012
 
-	* Contains the code for all WRTDS and flowHistory analysis, plus graph and tabular output.
+
 
 
 ### dataRetrieval
@@ -128,25 +113,13 @@ Version updates
 
 * Version 1.0.5:	June 27, 2012
 
-	* Fixed a bug that caused problems if not explicitly defining Daily and Sample in mergeReport().
-
 * Version 1.0.4:	June 19, 2012
-
-	* Censored QW data retrieval bug fixed
 
 * Version 1.0.3:	May 30, 2012
 
-	* R 2.15.0 bug fixed
-
 * Version 1.0.2:	May 24, 2012
 
-	* Sample data included modified to match the data in the EGRET package
-	* Bug fixed in populateData function.  
-
 * Version 1.0:	Feburary 23, 2012
-
-	* First full package for retrieving data for use in EGRET.  Includes data entry from USGS web services for water quality sample data, daily streamflow data, and metadata.
-
 
 
 Sample Workflow
@@ -164,60 +137,128 @@ This is a sample workflow for using WRTDS on the Choptank River at Greensboro MD
 
 	library(dataRetrieval)
 	library(EGRET)
-	sta<-"01491000"
-	param<-"00631"
-	StartDate<-"1979-09-01"
-	EndDate<-"2011-09-30"
-	Sample<-getSampleData(sta,param,StartDate,EndDate)
-	summary(Sample)
-	length(Sample$Date)
-	Sample<-removeDuplicates(Sample)
-	length(Sample$Date)
-	Daily<-getDVData(sta,"00060",StartDate,EndDate)
-	summary(Daily)
-	Sample<-mergeReport()
-	INFO<-getMetaData(sta,param)
-	INFO
+	
+	############################
+	# Gather discharge data:
+	siteID <- "01491000" #Choptank River at Greensboro, MD
+	startDate <- "" #Gets earliest date
+	endDate <- "2011-09-30"
+	# Gather sample data:
+	parameter_cd<-"00631" #5 digit USGS code
+	Sample <- getSampleData(siteID,parameter_cd,startDate,endDate)
+	#Gets earliest date from Sample record:
+	#This is just one of many ways to assure the Daily record
+	#spans the Sample record
+	startDate <- min(as.character(Sample$Date)) 
+	# Gather discharge data:
+	Daily <- getDVData(siteID,"00060",startDate,endDate)
+	# Gather site and parameter information:
+	
+	# Here user must input some values for
+	# the default (interactive=TRUE)
+	INFO<- getMetaData(siteID,parameter_cd)
+	INFO$shortName <- "Choptank River at Greensboro, MD"
+	
+	# Merge discharge with sample data:
+	Sample <- mergeReport()
+	############################
+	
+	############################
+	# Check sample data:
+	boxConcMonth()
+	boxQTwice()
+	plotConcTime()
+	plotConcQ()
 	multiPlotDataOverview()
+	############################
+	
+	############################
+	# Run WRTDS model:
 	modelEstimation()
-	AnnualResults<-setupYears()
-	plotConcHist(1975,2012)
-	plotFluxHist(1975,2012,fluxUnit=5)
-	tableResults(qUnit=1,fluxUnit=5)
-	tableChange(fluxUnit=5,yearPoints=c(1980,1995,2011))
-	fluxBiasMulti(qUnit=1,fluxUnit=1,moreTitle="WRTDS")
-	plotFluxTimeDaily(1998,2005)
-	plotFluxTimeDaily(2010,2011.75)
-	plotContours(1980,2012,5,1000,qUnit=1,contourLevels=seq(0,2,0.25))
-	plotDiffContours(1980,2011,5,1000,1,qUnit=1)
-	plotConcQSmooth("1984-04-01","1995-04-01","2008-04-01",30,2000,qUnit=1)
-	plotContours(1980,2012,5,1000,qUnit=1,whatSurface=2)
+	############################
+	
+	############################
+	#Check model results:
+	
+	#Require Sample + INFO:
+	plotConcTimeDaily()
+	plotFluxTimeDaily()
+	plotConcPred()
+	plotFluxPred()
 	plotResidPred()
 	plotResidQ()
-	savePath<-"/Users/rhirsch/Desktop/" #### modify this for your own computer file structure ####
+	plotResidTime()
+	boxResidMonth()
+	boxConcThree()
+	
+	#Require Daily + INFO:
+	plotConcHist()
+	plotFluxHist()
+	
+	# Multi-line plots:
+	date1 <- "2000-09-01"
+	date2 <- "2005-09-01"
+	date3 <- "2009-09-01"
+	qBottom<-100
+	qTop<-5000
+	plotConcQSmooth(date1, date2, date3, qBottom, qTop, 
+	                   concMax=2,qUnit=1)
+	q1 <- 10
+	q2 <- 25
+	q3 <- 75
+	centerDate <- "07-01"
+	yearEnd <- 2009
+	yearStart <- 2000
+	plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd)
+	
+	# Multi-plots:
+	fluxBiasMulti()
+	
+	#Contour plots:
+	clevel<-seq(0,2,0.5)
+	maxDiff<-0.8
+	yearStart <- 2000
+	yearEnd <- 2010
+	
+	plotContours(yearStart,yearEnd,qBottom,qTop, 
+	             contourLevels = clevel,qUnit=1)
+	plotDiffContours(yearStart,yearEnd,
+	                 qBottom,qTop,maxDiff,qUnit=1)
+	# modify this for your own computer file structure
+	savePath<-"/Users/rhirsch/Desktop/" 
 	saveResults(savePath)
 
 This is a sample workflow for a flowHistory application for the Mississippi River at Keokuk, Iowa for the entire record.
 
 	library(dataRetrieval)
 	library(EGRET)
-	sta<-"05474500"
-	param<-"00060"
-	Daily<-getDVData(sta,param,"","")
-	summary(Daily)
-	INFO<-getMetaData(sta,param)
-	annualSeries<-makeAnnualSeries()
-	plotFlowSingle(istat=5,qUnit=4)
-	printSeries(istat=5,qUnit=4)
-	tableFlowChange(istat=5,yearPoints=c(1880,1930,1970,2010))
-	plotFourStats(qUnit=4)
-	INFO<-setPA(paStart=12,paLong=3)
-	annualSeries<-makeAnnualSeries()
-	plotFlowSingle(istat=1,qUnit=4)
-	plotFlowSingle(istat=7,qUnit=4)
-	tableFlowChange(istat=5,yearPoints=c(1880,1930,1970,2010))
-	plotFourStats(qUnit=4)
-	savePath<-"/Users/rhirsch/Desktop/" #### modify this for your own computer file structure ####
+	
+	# Flow history analysis
+	############################
+	# Gather discharge data:
+	siteID <- "01491000" #Choptank River at Greensboro, MD
+	startDate <- "" # Get earliest date
+	endDate <- "" # Get latest date
+	Daily <- getDVData(siteID,"00060",startDate,endDate)
+	# Gather site and parameter information:
+	# Here user must input some values for
+	# the default (interactive=TRUE)
+	INFO<- getMetaData(siteID,"00060")
+	INFO$shortName <- "Choptank River at Greensboro, MD"
+	############################
+	
+	############################
+	# Check flow history data:
+	annualSeries <- makeAnnualSeries()
+	plotFlowSingle(istat=7,qUnit="thousandCfs")
+	plotSDLogQ()
+	plotQTimeDaily(qLower=1,qUnit=3)
+	plotFour(qUnit=3)
+	plotFourStats(qUnit=3)
+	############################
+
+	# modify this for your own computer file structure:
+	savePath<-"/Users/rhirsch/Desktop/" 
 	saveResults(savePath)
 
 
