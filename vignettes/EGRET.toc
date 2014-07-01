@@ -2,7 +2,7 @@
 \contentsline {section}{\numberline {1}Introduction to Exploration and Graphics for RivEr Trends (EGRET)}{2}{section.1}
 \contentsline {section}{\numberline {2}EGRET Workflow}{3}{section.2}
 \contentsline {section}{\numberline {3}EGRET Dataframes and Units}{5}{section.3}
-\contentsline {subsection}{\numberline {3.1}Daily}{5}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.1}Daily}{6}{subsection.3.1}
 \contentsline {subsection}{\numberline {3.2}Sample}{7}{subsection.3.2}
 \contentsline {subsection}{\numberline {3.3}INFO}{8}{subsection.3.3}
 \contentsline {subsection}{\numberline {3.4}Units}{9}{subsection.3.4}

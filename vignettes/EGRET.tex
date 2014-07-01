@@ -179,6 +179,10 @@ Subsequent sections of this vignette will discuss the EGRET workflow steps in gr
 \hlkwd{plotFour}\hlstd{(}\hlkwc{qUnit}\hlstd{=}\hlnum{3}\hlstd{)}
 \hlkwd{plotFourStats}\hlstd{(}\hlkwc{qUnit}\hlstd{=}\hlnum{3}\hlstd{)}
 \hlcom{############################}
+
+\hlcom{# modify this for your own computer file structure:}
+\hlstd{savePath}\hlkwb{<-}\hlstr{"/Users/rhirsch/Desktop/"}
+\hlkwd{saveResults}\hlstd{(savePath)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -278,6 +282,10 @@ The second workflow example is for a water quality analysis. It includes data re
              \hlkwc{contourLevels} \hlstd{= clevel,}\hlkwc{qUnit}\hlstd{=}\hlnum{1}\hlstd{)}
 \hlkwd{plotDiffContours}\hlstd{(yearStart,yearEnd,}
                  \hlstd{qBottom,qTop,maxDiff,}\hlkwc{qUnit}\hlstd{=}\hlnum{1}\hlstd{)}
+
+\hlcom{# modify this for your own computer file structure:}
+\hlstd{savePath}\hlkwb{<-}\hlstr{"/Users/rhirsch/Desktop/"}
+\hlkwd{saveResults}\hlstd{(savePath)}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -555,7 +563,7 @@ We will walk through an example from Columbia River at The Dalles, OR.
 \hlstd{Daily} \hlkwb{<-} \hlkwd{getDVData}\hlstd{(siteID,}\hlstr{"00060"}\hlstd{,startDate,endDate)}
 \end{alltt}
 \begin{verbatim}
-There are 49701 data points, and 49702 days.
+There are 49702 data points, and 49703 days.
 
  discharge data jumps from 2014-05-12 to 2014-05-14
 \end{verbatim}
@@ -678,7 +686,7 @@ Here is an example of looking at mean daily discharge for the full water year an
 \hlstd{Daily} \hlkwb{<-}\hlkwd{getDVData}\hlstd{(sta,}\hlstr{"00060"}\hlstd{,}\hlkwc{StartDate}\hlstd{=}\hlstr{""}\hlstd{,}\hlkwc{EndDate}\hlstd{=}\hlstr{""}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-There are 36106 data points, and 36106 days.
+There are 36107 data points, and 36107 days.
 \end{verbatim}
 \begin{alltt}
 \hlstd{INFO} \hlkwb{<-} \hlkwd{getMetaData}\hlstd{(sta,}\hlstr{""}\hlstd{,}\hlkwc{interactive}\hlstd{=}\hlnum{FALSE}\hlstd{)}

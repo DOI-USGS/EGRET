@@ -241,6 +241,10 @@ plotContours(yearStart,yearEnd,qBottom,qTop,
              contourLevels = clevel,qUnit=1)
 plotDiffContours(yearStart,yearEnd,
                  qBottom,qTop,maxDiff,qUnit=1)
+
+# modify this for your own computer file structure:
+savePath<-"/Users/rhirsch/Desktop/" 
+saveResults(savePath)
 @
 
 
