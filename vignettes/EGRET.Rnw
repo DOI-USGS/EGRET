@@ -142,6 +142,10 @@ plotFour(qUnit=3)
 plotFourStats(qUnit=3)
 ############################
 
+# modify this for your own computer file structure:
+savePath<-"/Users/rhirsch/Desktop/" 
+saveResults(savePath)
+
 @
 
 The second workflow example is for a water quality analysis. It includes data retrieval, merging of water quality and streamflow data, running the WRTDS estimation, and various plotting functions available in the EGRET package.
