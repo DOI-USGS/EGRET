@@ -178,7 +178,7 @@ This is a sample workflow for using WRTDS on the Choptank River at Greensboro MD
 	savePath<-"/Users/rhirsch/Desktop/" 
 	saveResults(savePath)
 
-This is a sample workflow for a flowHistory application for the Mississippi River at Keokuk, Iowa for the entire record.
+This is a sample workflow for a flowHistory application for the entire record.
 
 	library(dataRetrieval)
 	library(EGRET)
