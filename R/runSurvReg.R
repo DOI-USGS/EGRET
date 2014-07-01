@@ -120,7 +120,7 @@ runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2
   }
 
   if (warningFlag > 0){
-    message(warningFlag, " out of ", numEstPt, " did not properly converge. This is generally acceptable, but you may want to check for outliers, repeated values on a single date, or something else unusal about the data.")
+    message("\nIn model estimation the survival regression function was run ", numEstPt, " times (for different combinations of discharge and time).  In ", warningFlag, " of these runs it did not properly converge. This does not mean that the model is unacceptable, but it is a suggestion that there may be something odd about the data set. You may want to check for outliers, repeated values on a single date, or something else unusual about the data.")
   }
 #   options(warn=0) 
   if (interactive) cat("\nSurvival regression: Done")
