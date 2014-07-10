@@ -21,9 +21,86 @@
 \usepackage{threeparttable}
 \renewcommand\Affilfont{\itshape\small}
 
+\usepackage{csquotes}
+\usepackage{setspace}
+
+\doublespacing
+
 \renewcommand{\topfraction}{0.85}
 \renewcommand{\textfraction}{0.1}
 \usepackage{graphicx}
+
+
+\usepackage{mathptmx}% Times Roman font
+\usepackage[scaled=.90]{helvet}% Helvetica, served as a model for arial
+
+\usepackage{indentfirst}
+\setlength{\parskip}{0pt}
+
+\usepackage{courier}
+
+\usepackage{titlesec}
+\usepackage{titletoc}
+
+\titleformat{\section}
+  {\normalfont\sffamily\bfseries\LARGE}
+  {\thesection}{0.5em}{}
+\titleformat{\subsection}
+  {\normalfont\sffamily\bfseries\Large}
+  {\thesubsection}{0.5em}{}
+\titleformat{\subsubsection}
+  {\normalfont\sffamily\large}
+  {\thesubsubsection}{0.5em}{}
+  
+\titlecontents{section}
+[2.3em]                 % adjust left margin
+{\sffamily}             % font formatting
+{\contentslabel{2.3em}} % section label and offset
+{\hspace*{-2.3em}}
+{\titlerule*[0.25pc]{.}\contentspage}
+  
+\titlecontents{subsection}
+[4.6em]                 % adjust left margin
+{\sffamily}             % font formatting
+{\contentslabel{2.3em}} % section label and offset
+{\hspace*{-2.3em}}
+{\titlerule*[0.25pc]{.}\contentspage}
+  
+\titlecontents{subsubsection}
+[6.9em]                 % adjust left margin
+{\sffamily}             % font formatting
+{\contentslabel{2.3em}} % section label and offset
+{\hspace*{-2.3em}}
+{\titlerule*[0.25pc]{.}\contentspage}
+
+\titlecontents{table}
+[-2.3em]                 % adjust left margin
+{\sffamily}             % font formatting
+{\textbf{Table}\hspace*{2em} \contentslabel {2em}} % section label and offset
+{\hspace*{4em}}
+{\titlerule*[0.25pc]{.}\contentspage}
+
+\titlecontents{figure}
+[-2.3em]                 % adjust left margin
+{\sffamily}             % font formatting
+{\textbf{Figure}\hspace*{2em} \contentslabel {2em}} % section label and offset
+{\hspace*{4em}}
+{\titlerule*[0.25pc]{.}\contentspage}
+
+%Italisize and change font of urls:
+\urlstyle{sf}
+\renewcommand\UrlFont\itshape
+
+\usepackage{caption}
+\captionsetup{
+  font={sf},
+  labelfont={bf,sf},
+  labelsep=period,
+  justification=justified,
+  singlelinecheck=false
+}
+
+\setlength\parindent{20pt}
 
 \textwidth=6.5in
 \textheight=9.2in
@@ -47,6 +124,10 @@
 
 \begin{document}
 
+\renewenvironment{knitrout}{\begin{singlespace}}{\end{singlespace}}
+\renewcommand*\listfigurename{Figures}
+\renewcommand*\listtablename{Tables}
+
 <<openLibrary, echo=FALSE>>=
 library(xtable)
 options(continue=" ")
@@ -63,6 +144,9 @@ knit_hooks$set(inline = function(x) {
    if (is.numeric(x)) round(x, 3)})
 knit_hooks$set(crop = hook_pdfcrop)
 
+bold.colHeaders <- function(x) paste("\\multicolumn{1}{c}{\\textbf{\\textsf{", x, "}}}", sep = "")
+addSpace <- function(x) ifelse(x != "1", "[5pt]","")
+
 @
 
 %------------------------------------------------------------
@@ -74,43 +158,32 @@ knit_hooks$set(crop = hook_pdfcrop)
 
 \maketitle
 
-Exploration and Graphics for RivEr Trends (EGRET): An R-package for the analysis of long-term changes in water quality and discharge, including the water-quality method Weighted Regressions on Time, Discharge, and Season (WRTDS)
+\newpage 
 
 \tableofcontents
+\listoffigures
+\listoftables
+
+\newpage
+
 
 %------------------------------------------------------------
 \section{Introduction to Exploration and Graphics for RivEr Trends (EGRET)}
 %------------------------------------------------------------ 
 
-Exploration and Graphics for RivEr Trends (EGRET): An R-package for the analysis of long-term changes in water quality and discharge. EGRET includes statistics and graphics for streamflow history, water quality trends, and the modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS). 
+EGRET includes statistics and graphics for streamflow history, water quality trends, and the modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS). \textbf{Please see the official EGRET manual:} (\href{https://github.com/USGS-R/EGRET/raw/master/inst/doc/EGRET.pdf}{link to download}) \textbf{for more information on the EGRET package.} For information on getting started in R, downloading and installing the package, see section \ref{sec:appendix1}.
 
+The best way to learn about the WRTDS approach and to see examples of its application to multiple large data sets is to read two journal articles.  They are available, for free, from the journals in which they were published. The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay.  The URL is \cite{HirschII}: \url{http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full}. The second is an application  to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries \cite{HirschIII}.  The URL is: \url{http://pubs.acs.org/doi/abs/10.1021/es201221s}
 
-\textbf{Please see the official EGRET manual:}
-(\href{https://github.com/USGS-R/EGRET/raw/Documentation/draft+user+guide+for+EGRET+and+dataRetrieval+2014-04-14.pdf}{link to download}) 
-\textbf{for more information on the EGRET package.}
+This vignette assumes that you understand the concepts underlying WRTDS, and reading at least the first of these papers is necessary for that understanding.  The method has been enhanced beyond what was previously published, and it now properly handles censored data by using survival regression rather than ordinary regression.  The details of this change are in a report on Chesapeake Bay river input trends \cite{HirschIV}:\url{http://pubs.usgs.gov/sir/2012/5244/}.  The specific enhancements for handling censored data are on pages 9-11 of the report.
 
-For information on getting started in R, downloading and installing the package, see section \ref{sec:appendix1}.
-
-The best way to learn about the WRTDS approach and to see examples of its application to multiple large data sets is to read two journal articles.  They are available, for free, from the journals in which they were published.
-
-The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay.  The URL is \cite{HirschII}: 
-\url{http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full}
-
-The second is an application  to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries \cite{HirschIII}.  The URL is: \url{http://pubs.acs.org/doi/abs/10.1021/es201221s}
-
-This vignette assumes that the user understands the concepts underlying WRTDS.  Reading at least the first of these papers is necessary for understanding.  The method has been enhanced beyond what was previously published, and now properly handles censored data by using survival regression rather than ordinary regression.  The details of this change are in a report on Chesapeake Bay river input trends \cite{HirschIV}:\url{http://pubs.usgs.gov/sir/2012/5244/}.  The specific enhancements for handling censored data are on pages 9-11 of the report.
-
-This vignette will walk through the major functions provided by the EGRET package. The package dataRetrieval is required for importing data in an EGRET-friendly format. The dataRetrieval package, along with installation instructions can be found at:
-\url{https://github.com/USGS-R/dataRetrieval}
-
-Installing dataRetrieval will provide a vignette similar to this document, with complete working examples of the main dataRetrieval functions.
-
-This document assumes the reader is familiar with the dataRetrieval package. Further details can be found in the user guide available on gitHub: \url{https://github.com/USGS-R/EGRET/raw/Documentation/draft+user+guide+for+EGRET+and+dataRetrieval+2014-04-14.pdf}
+This vignette guides you through the major functions provided by the EGRET package. The package dataRetrieval is required for importing data in an EGRET-friendly format. The dataRetrieval package and installation instructions are at:
+\url{https://github.com/USGS-R/dataRetrieval}. Installing dataRetrieval will provide a vignette similar to this document, with complete working examples of the main dataRetrieval functions. This document assumes you are familiar with the dataRetrieval package. Further details are in the user guide available on gitHub: \url{https://github.com/USGS-R/EGRET/raw/master/inst/doc/EGRET.pdf}
 
 %------------------------------------------------------------
 \section{EGRET Workflow}
 %------------------------------------------------------------ 
-Subsequent sections of this vignette will discuss the EGRET workflow steps in greater detail. This section provides a handy cheat sheet for diving into an EGRET analysis. The first example is for a flow history analysis:
+Subsequent sections of this vignette discuss the EGRET workflow steps in greater detail. This section provides a handy cheat sheet for diving into an EGRET analysis. The first example is for a flow history analysis:
 
 
 <<workflowFlowHistory, echo=TRUE,eval=FALSE>>=
@@ -252,7 +325,7 @@ saveResults(savePath)
 \section{EGRET Dataframes and Units}
 \label{sec:dataframes}
 %------------------------------------------------------------ 
-The EGRET package uses 3 default dataframes throughout the calculations, analysis, and graphing. These dataframes are Daily (\ref{sec:dataframesDaily}), Sample (\ref{sec:dataframesSample}), and INFO (\ref{sec:dataframesINFO}). EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units, which will be discussed in (\ref{sec:units}). To start our exploration, the packages must be installed (check Section \ref{sec:appendix1} for detailed instructions), then opened with the following command:
+The EGRET package uses 3 default dataframes throughout the calculations, analysis, and graphing. These dataframes are Daily (\ref{sec:dataframesDaily}), Sample (\ref{sec:dataframesSample}), and INFO (\ref{sec:dataframesINFO}). EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units, which will be discussed in (\ref{sec:units}). To start our exploration, you must install the packages (check Section \ref{sec:appendix1} for detailed instructions), and then open EGRET with the following command:
 
 <<openlibraries, echo=TRUE,eval=TRUE>>=
 library(dataRetrieval)
@@ -263,198 +336,220 @@ library(EGRET)
 \subsection{Daily}
 \label{sec:dataframesDaily}
 %------------------------------------------------------------ 
-The Daily dataframe initially is populated with columns generated by the dataRetrieval package (Table \ref{table:Daily1}).  After running the WRTDS calculations using the function modelEstimation() (as will be described in section \ref{sec:wrtds}), additional columns are inserted (Table \ref{table:Daily2}).
+The Daily dataframe initially is populated with columns generated by the dataRetrieval package (Table \ref{table:Daily1}).  After you run the WRTDS calculations by using the function \texttt{modelEstimation} (as will be described in section \ref{sec:wrtds}), additional columns are inserted (Table \ref{table:Daily2}).
 
 \begin{table}[!ht]
-\centering
+{\footnotesize
 \caption{Daily dataframe} 
 \label{table:Daily1}
 \begin{tabular}{llll}
   \hline
-ColumnName & Type & Description & Units \\ 
+\multicolumn{1}{c}{\textbf{\textsf{ColumnName}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Type}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Description}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Units}}} \\ 
   \hline
   Date & Date & Date & date \\ 
-  Q & number & Discharge in cms & cms \\ 
-  Julian & number & Number of days since January 1, 1850 & days \\ 
-  Month & integer & Month of the year [1-12] & months \\ 
-  Day & integer & Day of the year [1-366] & days \\ 
-  DecYear & number & Decimal year & years \\ 
-  MonthSeq & integer & Number of months since January 1, 1850 & months \\ 
-  Qualifier & string & Qualifing code & character \\ 
-  i & integer & Index of days, starting with 1 & days \\ 
-  LogQ & number & Natural logarithm of Q & numeric \\ 
-  Q7 & number & 7 day running average of Q & cms \\ 
-  Q30 & number & 30 running average of Q & cms \\ 
+  [5pt]Q & number & Discharge in m\textsuperscript{3}/s & m\textsuperscript{3}/s \\ 
+  [5pt]Julian & number & Number of days since January 1, 1850 & days \\ 
+  [5pt]Month & integer & Month of the year [1-12] & months \\ 
+  [5pt]Day & integer & Day of the year [1-366] & days \\ 
+  [5pt]DecYear & number & Decimal year & years \\ 
+  [5pt]MonthSeq & integer & Number of months since January 1, 1850 & months \\ 
+  [5pt]Qualifier & string & Qualifing code & character \\ 
+  [5pt]i & integer & Index of days, starting with 1 & days \\ 
+  [5pt]LogQ & number & Natural logarithm of Q & numeric \\ 
+  [5pt]Q7 & number & 7 day running average of Q & m\textsuperscript{3}/s \\ 
+  [5pt]Q30 & number & 30 running average of Q & m\textsuperscript{3}/s \\ 
    \hline
 \end{tabular}
+}
 \end{table}
 
 \begin{table}[!ht]
-\centering
-\caption{Columns added to Daily dataframe after running modelEstimation()} 
+{\footnotesize
+\caption{Columns added to Daily dataframe after running \texttt{modelEstimation} }
 \label{table:Daily2}
 \begin{tabular}{llll}
   \hline
-ColumnName & Type & Description & Units \\ 
+\multicolumn{1}{c}{\textbf{\textsf{ColumnName}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Type}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Description}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Units}}} \\ 
   \hline
 yHat & number & The WRTDS estimate of the log of concentration & numeric \\ 
-  SE & number & The WRTDS estimate of the standard error of yHat & numeric \\ 
-  ConcDay & number & The WRTDS estimate of concentration & mg/L \\ 
-  FluxDay & number & The WRTDS estimate of flux & kg/day \\ 
-  FNConc & number & Flow normalized estimate of concentration & mg/L \\ 
-  FNFlux & number & Flow Normalized estimate of flux & kg/day \\ 
+  [5pt]SE & number & The WRTDS estimate of the standard error of yHat & numeric \\ 
+  [5pt]ConcDay & number & The WRTDS estimate of concentration & mg/L \\ 
+  [5pt]FluxDay & number & The WRTDS estimate of flux & kg/day \\ 
+  [5pt]FNConc & number & Flow-normalized estimate of concentration & mg/L \\ 
+  [5pt]FNFlux & number & Flow-normalized estimate of flux & kg/day \\ 
    \hline
 \end{tabular}
+}
 \end{table}
 
 \FloatBarrier
-\pagebreak
+
+Notice that the \enquote{Day of the year} column can span from 1 to 366. The 366 accounts for leap years. Every day has a consistent day of the year. This means, February 28\textsuperscript{th} is always the 59\textsuperscript{th} day of the year, Feb. 29\textsuperscript{th} is always the 60\textsuperscript{th} day of the year, and March 1\textsuperscript{st} is always the 61\textsuperscript{st} day of the year whether or not it is a leap year.
 
 
 %------------------------------------------------------------ 
 \subsection{Sample}
 \label{sec:dataframesSample}
 %------------------------------------------------------------ 
-The Sample dataframe initially is populated with columns generated by the dataRetrieval package (Table \ref{table:Sample1}). After running the WRTDS calculations using the modelEstimation function (as will be described in section \ref{sec:wrtds}), additional columns are inserted (Table \ref{table:Sample2}):
+The Sample dataframe initially is populated with columns generated by the dataRetrieval package (Table \ref{table:Sample1}). After you run the WRTDS calculations using the \texttt{modelEstimation} function (as described in section \ref{sec:wrtds}), additional columns are inserted (Table \ref{table:Sample2}):
 
 \begin{table}[!ht]
-  \centering
+{\footnotesize
   \begin{threeparttable}[b]
 \caption{Sample dataframe} 
 \label{table:Sample1}
 \begin{tabular}{llll}
   \hline
-ColumnName & Type & Description & Units \\ 
+\multicolumn{1}{c}{\textbf{\textsf{ColumnName}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Type}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Description}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Units}}} \\ 
   \hline
 Date & Date & Date & date \\ 
-  ConcLow & number & Lower limit of concentration & mg/L \\ 
-  ConcHigh & number & Upper limit of concentration & mg/L \\ 
-  Uncen & integer & Uncensored data (1=true, 0=false) & integer \\ 
-  ConcAve & number & Average concentration & mg/L \\ 
-  Julian & number & Number of days since January 1, 1850 & days \\ 
-  Month & integer & Month of the year [1-12] & months \\ 
-  Day & integer & Day of the year [1-366] & days \\ 
-  DecYear & number & Decimal year & years \\ 
-  MonthSeq & integer & Number of months since January 1, 1850 & months \\ 
-  SinDY & number & Sine of DecYear & numeric \\ 
-  CosDY & number & Cosine of DecYear & numeric \\ 
-  Q \tnote{1} & number & Discharge & cms \\ 
-  LogQ \tnote{1} & number & Natural logarithm of discharge & numeric \\ 
+  [5pt]ConcLow & number & Lower limit of concentration & mg/L \\ 
+  [5pt]ConcHigh & number & Upper limit of concentration & mg/L \\ 
+  [5pt]Uncen & integer & Uncensored data (1=true, 0=false) & integer \\ 
+  [5pt]ConcAve & number & Average concentration & mg/L \\ 
+  [5pt]Julian & number & Number of days since January 1, 1850 & days \\ 
+  [5pt]Month & integer & Month of the year [1-12] & months \\ 
+  [5pt]Day & integer & Day of the year [1-366] & days \\ 
+  [5pt]DecYear & number & Decimal year & years \\ 
+  [5pt]MonthSeq & integer & Number of months since January 1, 1850 & months \\ 
+  [5pt]SinDY & number & Sine of DecYear & numeric \\ 
+  [5pt]CosDY & number & Cosine of DecYear & numeric \\ 
+  [5pt]Q \tnote{1} & number & Discharge & cms \\ 
+  [5pt]LogQ \tnote{1} & number & Natural logarithm of discharge & numeric \\ 
    \hline
 \end{tabular}
   \begin{tablenotes}
-    \item[1] Populated after calling mergeReport.
+    \item[1] Populated after calling \texttt{mergeReport}.
   \end{tablenotes}
  \end{threeparttable}
+}
 \end{table}
 
 
 \begin{table}[!ht]
-\centering
+{\footnotesize
 \begin{threeparttable}[b]
-\caption{Columns added to Sample dataframe after running modelEstimation()} 
+\caption{Columns added to Sample dataframe after running \texttt{modelEstimation()}}
 \label{table:Sample2}
 \begin{tabular}{llll}
   \hline
-ColumnName & Type & Description & Units \\ 
+\multicolumn{1}{c}{\textbf{\textsf{ColumnName}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Type}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Description}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Units}}} \\ 
   \hline
 yHat\tnote{1} & number & estimate of the log of concentration & numeric \\ 
-  SE\tnote{1} & number & estimate of the standard error of yHat & numeric \\ 
-  ConcHat\tnote{1} & number & unbiased estimate of concentration & mg/L \\ 
+  [5pt]SE\tnote{1} & number & estimate of the standard error of yHat & numeric \\ 
+  [5pt]ConcHat\tnote{1} & number & unbiased estimate of concentration & mg/L \\ 
    \hline
 \end{tabular}
 
   \begin{tablenotes}
-    \item[1] These estimates are `leave-one-out cross validation' estimates.  See the EGRET Manual for more details.
+    \item[1] These estimates are \enquote{leave-one-out cross validation} estimates.  See the EGRET Manual for more details.
   \end{tablenotes}
  \end{threeparttable}
+}
 \end{table}
 
 
 
 \FloatBarrier
-\pagebreak
 
 
 %------------------------------------------------------------ 
 \subsection{INFO}
 \label{sec:dataframesINFO}
 %------------------------------------------------------------ 
-The INFO dataframe is used to store information about the measurements, such as station name, parameter name, drainage area, etc. There can be many additional, optional columns, but the columns in Table \ref{table:Info1} are required to initiate the EGRET analysis. After running the WRTDS calculations (as will be described in section \ref{sec:wrtds}), additional columns (Table \ref{table:Info2}) are automatically inserted into the INFO dataframe (see the EGRET Manual for complete description of each term):
+The INFO dataframe stores information about the measurements, such as station name, parameter name, drainage area, and so forth. There can be many additional, optional columns, but the columns in Table \ref{table:Info1} are required to initiate the EGRET analysis. After you run the WRTDS calculations (as described in section \ref{sec:wrtds}), additional columns (Table \ref{table:Info2}) are automatically inserted into the INFO dataframe (see the EGRET Manual for complete description of each term):
 
 \begin{table}[!ht]
-\centering
+{\footnotesize
 \begin{threeparttable}[b]
 \caption{INFO dataframe}
 \label{table:Info1}
 \begin{tabular}{lll}
   \hline
-ColumnName & Type & Description \\ 
+\multicolumn{1}{c}{\textbf{\textsf{ColumnName}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Type}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Description}}} \\ 
   \hline
   shortName & string & Name of site, suitable for use in graphical headings \\ 
-  staAbbrev & string & Abbreviation for station name, used in saveResults \\ 
-  paramShortName & string & Name of constituent, suitable for use in graphical headings \\ 
-  constitAbbrev & string & Abbreviation for constituent name, used in saveResults \\ 
-  drainSqKm & numeric & Drainage area in  km\textsuperscript{2} \\ 
-  paStart \tnote{1} & integer (1-12) & Starting month of period of analysis \\ 
-  paLong \tnote{1} & integer (1-12) & Length of period of analysis in months \\ 
+  [5pt]staAbbrev & string & Abbreviation for station name, used in saveResults \\ 
+  [5pt]paramShortName & string & Name of constituent, suitable for use in graphical headings \\ 
+  [5pt]constitAbbrev & string & Abbreviation for constituent name, used in saveResults \\ 
+  [5pt]drainSqKm & numeric & Drainage area in  km\textsuperscript{2} \\ 
+  [5pt]paStart \tnote{1} & integer (1-12) & Starting month of period of analysis \\ 
+  [5pt]paLong \tnote{1} & integer (1-12) & Length of period of analysis in months \\ 
    \hline
 \end{tabular}
 
 \begin{tablenotes}
-    \item[1] Inserted with the setPA function.
+    \item[1] Inserted with the \texttt{setPA} function.
   \end{tablenotes}
  \end{threeparttable}
+}
 \end{table}
 
 
 \begin{table}[!ht]
-\centering
-\caption{INFO dataframe after running modelEstimation()} 
+{\footnotesize
+\caption{INFO dataframe after running \texttt{modelEstimation()}} 
 \label{table:Info2}
 \begin{tabular}{lll}
   \hline
-ColumnName & Description & Units \\ 
+\multicolumn{1}{c}{\textbf{\textsf{ColumnName}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Description}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Units}}} \\ 
   \hline
 bottomLogQ & Lowest discharge in prediction surfaces & numeric \\ 
-  stepLogQ & Step size in log discharge in prediction surfaces & numeric \\ 
-  nVectorLogQ & Number of steps in discharge, prediction surfaces & numeric \\ 
-  bottomYear & Starting year in prediction surfaces & numeric \\ 
-  stepYear & Step size in years in prediction surfaces & numeric \\ 
-  nVectorYear & Number of steps in years in prediction surfaces & numeric \\ 
-  windowY & Half-window width in the time dimension & years \\ 
-  windowQ & Half-window width in the log discharge dimension & numeric \\ 
-  windowS & Half-window width in the seasonal dimension & years \\ 
-  minNumObs & Minimum number of observations for regression & integer \\ 
-  minNumUncen & Minimum number of uncensored observations & integer \\ 
+  [5pt]stepLogQ & Step size in log discharge in prediction surfaces & numeric \\ 
+  [5pt]nVectorLogQ & Number of steps in discharge, prediction surfaces & numeric \\ 
+  [5pt]bottomYear & Starting year in prediction surfaces & numeric \\ 
+  [5pt]stepYear & Step size in years in prediction surfaces & numeric \\ 
+  [5pt]nVectorYear & Number of steps in years in prediction surfaces & numeric \\ 
+  [5pt]windowY & Half-window width in the time dimension & years \\ 
+  [5pt]windowQ & Half-window width in the log discharge dimension & numeric \\ 
+  [5pt]windowS & Half-window width in the seasonal dimension & years \\ 
+  [5pt]minNumObs & Minimum number of observations for regression & integer \\ 
+  [5pt]minNumUncen & Minimum number of uncensored observations & integer \\ 
    \hline
 \end{tabular}
+}
 \end{table}
 
+
 \FloatBarrier
-\pagebreak
 
 
 %------------------------------------------------------------ 
 \subsection{Units}
 \label{sec:units}
 %------------------------------------------------------------ 
-EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units. The defaults are mg/L for concentration, cubic meters per second (cms) for discharge, kg/day for flux, and km\textsuperscript{2} for drainage area. When discharge values are imported from USGS web services (using the dataRetrieval package), they are automatically converted from cubic feet per second (cfs) to cms unless the argument `convert' in function getDVData() is set to FALSE.  This can cause confusion if the user is not careful. 
+EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units. The defaults are mg/L for concentration, cubic meters per second (m$^3$/s) for discharge, kg/day for flux, and km\textsuperscript{2} for drainage area. When discharge values are imported from USGS web services (using the dataRetrieval package), they are automatically converted from cubic feet per second (cfs) to cms unless the argument \texttt{"}convert\texttt{"} in function \texttt{getDVData} is set to FALSE.  This can cause confusion if you are not careful. 
 
-For all functions that provide output, there are two arguments that can be defined to set the output units: qUnit and fluxUnit.  qUnit and fluxUnit can be defined by a numeric code or name.  There are two functions that can be called to see the options: printqUnitCheatSheet and printFluxUnitCheatSheet.
+For all functions that provide output, you can define two arguments to set the output units: qUnit and fluxUnit.  qUnit and fluxUnit are defined by either a numeric code or name.  You can call two functions that can be called to see the options: \texttt{printqUnitCheatSheet} and \texttt{printFluxUnitCheatSheet}.
 
 
 <<cheatSheets,echo=TRUE,eval=TRUE,results='markup'>>=
 printqUnitCheatSheet()
 @
 
-When a function has an input argument qUnit, you can define the discharge units that will be used in the figure or table that is generated by the function with the index (1-4) as shown above. The choice should be based on the units that are customary for the audience, but also so that the discharge values don't have too many digits to the right or left of the decimal point.
+When a function has an input argument qUnit, you can define the discharge units that will be used in the figure or table that is generated by the function with the index (1-4) as shown above. Base your choice on the units that are customary for your intended audience, but also so that the discharge values don't have too many digits to the right or left of the decimal point.
 
 <<cheatSheets2,echo=TRUE,eval=TRUE,results='markup'>>=
 printFluxUnitCheatSheet()
 @
 
-When a function has an input argument fluxUnit, you can define the flux units with the index (1-12) as shown above. The choice should be based on the units that are customary for the audience, but also so that the flux values don't have too many digits to the right or left of the decimal point. Tons are always 'short tons' and not 'metric tons'.
+When a function has an input argument fluxUnit, you can define the flux units with the index (1-12) as shown above. Base the choice on the units that are customary for your intended audience, but also so that the flux values don't have too many digits to the right or left of the decimal point. Tons are always \enquote{short tons} and not \enquote{metric tons}.
 
 \FloatBarrier
 
@@ -462,7 +557,7 @@ When a function has an input argument fluxUnit, you can define the flux units wi
 \section{Flow History}
 \label{sec:flowHistory}
 %------------------------------------------------------------ 
-This section describes functions included in the EGRET package that provide a variety of table and graphical outputs for examining discharge statistics based on time-series smoothing. These functions were designed for studies of long-term change and work best for daily discharge data sets of 50 years or longer. This type of analysis might be useful for studying issues such as the influence of land use change, water management change, or climate change on discharge conditions.  This includes potential impacts on average discharges, high discharges, and low discharges, at annual time scales as well as seasonal or monthly time scales. 
+This section describes functions included in the EGRET package that provide a variety of table and graphical outputs for examining discharge statistics based on time-series smoothing. These functions are designed for studies of long-term change and work best for daily discharge data sets of 50 years or longer. This type of analysis might be useful for studying issues such as the influence of land use change, water management change, or climate change on discharge conditions.  This includes potential impacts on average discharges, high discharges, and low discharges, at annual time scales as well as seasonal or monthly time scales. 
 
 At this point it is assumed that you can load the daily discharge record into R, create the Daily dataframe, and enter the required meta-data into the INFO dataframe. If not, see the dataRetrieval vignette:
 
@@ -482,22 +577,25 @@ INFO <- getMetaData(siteID,"",interactive=FALSE)
 INFO$shortName <- "Columbia River at The Dalles, OR"
 @
 
-The first choice you need to make is what period of analysis to use (PA). What is the period of analysis?  If we want to examine our data set as a time series of water years, then the period of analysis is October through September.  If we want to examine the data set as calendar years then the period of analysis should be January through December.  We might want to examine the winter season, which we could define as December through February, then those 3 months become the period of analysis. The only constraints on the definition of a period of analysis are these: it must be defined in terms of whole months; it must be a set of contiguous months (like March-April-May), and have a length that is no less than 1 month and no more than 12 months.  The PA is defined by two arguments: paLong and paStart.  paLong is the length of the period of analysis, and paStart is the first month of the period of analysis. Table \ref{table:paINFO} summarizes paLong and paStart.
+You first must determine the period of analysis to use (PA). What is the period of analysis?  If you want to examine your data set as a time series of water years, then the period of analysis is October through September.  If you want to examine the data set as calendar years then the period of analysis is January through December.  You might want to examine the winter season, which you could define as December through February, then those 3 months become the period of analysis. The only constraints on the definition of a period of analysis are these: it must be defined in terms of whole months; it must be a set of contiguous months (like March-April-May), and have a length that is no less than 1 month and no more than 12 months.  Define the PA by using two arguments: paLong and paStart.  paLong is the length of the PA, and paStart is the first month of the PA. Table \ref{table:paINFO} summarizes paLong and paStart.
 
 \begin{table}[!ht]
-\centering
+{\footnotesize
 \caption{Period of Analysis Information} 
 \label{table:paINFO}
 \begin{tabular}{lll}
   \hline
-PeriodOfAnalysis & paStart & paLong \\ 
+\multicolumn{1}{c}{\textbf{\textsf{Period of Analysis}}} &
+\multicolumn{1}{c}{\textbf{\textsf{paStart}}} &
+\multicolumn{1}{c}{\textbf{\textsf{paLong}}} \\ 
   \hline
 Calendar Year & 1 & 12 \\ 
-  Water Year & 10 & 12 \\ 
-  Winter & 12 & 3 \\ 
-  September & 9 & 1 \\ 
+  [5pt]Water Year & 10 & 12 \\ 
+  [5pt]Winter & 12 & 3 \\ 
+  [5pt]September & 9 & 1 \\ 
    \hline
 \end{tabular}
+}
 \end{table}
 
 To set a period running from December through February:
@@ -510,34 +608,36 @@ To set the default value (water year):
 INFO <- setPA()
 @
 
-The next step is to create the annual series of discharge statistics.  These will be stored in a matrix called annualSeries that contain the statistics described in table \ref{table:istat}. The statistics are based on the period of analysis set with the setPA function.
+The next step is to create the annual series of discharge statistics.  These will be stored in a matrix called annualSeries that contain the statistics described in table \ref{table:istat}. The statistics are based on the period of analysis set with the \texttt{setPA} function.
 
 \begin{table}[!ht]
-\centering
-\caption{Index of Statistics Information} 
+{\footnotesize
+\caption{Index of discharge statistics information} 
 \label{table:istat}
 \begin{tabular}{ll}
   \hline
-istat & Name \\ 
+\multicolumn{1}{c}{\textbf{\textsf{istat}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Name}}} \\ 
   \hline
 1 & 1-day minimum discharge \\ 
-  2 & 7-day minimum discharge \\ 
-  3 & 30-day minimum discharge \\ 
-  4 & median discharge \\ 
-  5 & mean discharge \\ 
-  6 & 30-day maximum discharge \\ 
-  7 & 7-day maximum discharge \\ 
-  8 & 1-day maximum discharge \\ 
+  [5pt]2 & 7-day minimum discharge \\ 
+  [5pt]3 & 30-day minimum discharge \\ 
+  [5pt]4 & median discharge \\ 
+  [5pt]5 & mean discharge \\ 
+  [5pt]6 & 30-day maximum discharge \\ 
+  [5pt]7 & 7-day maximum discharge \\ 
+  [5pt]8 & 1-day maximum discharge \\ 
    \hline
 \end{tabular}
+}
 \end{table}
 
-To create the annualSeries matrix, using the function makeAnnualSeries:
+To create the annualSeries matrix, using the function \texttt{makeAnnualSeries}:
 <<newChunckAS, echo=TRUE,eval=TRUE>>=
 annualSeries <- makeAnnualSeries()
 @
 
-Once the annualSeries matrix is created, the plots of any of the stored statistics can be generated with the plotFlowSingle function.
+After you create the annualSeries matrix, you can generate the plots of any of the stored statistics by using the \texttt{plotFlowSingle} function.
 
 \FloatBarrier
 
@@ -546,25 +646,26 @@ Once the annualSeries matrix is created, the plots of any of the stored statisti
 \label{sec:plotOptions}
 %------------------------------------------------------------ 
 
+This section shows examples of the available plots appropriate for studying discharge history once the annualSeries has been created. The plots here use the default variable input options.  For any function, you can get a complete list of input variables (as described in section \ref{sec:flowHistoryVariables}) in a help file by typing a ? before the function name in the R console. The EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/draft+user+guide+for+EGRET+and+dataRetrieval+2014-04-14.pdf}{link to download}). Finally, see section \ref{app:savingPlots} for information on saving plots.
+
+The simplest way to look at these time series is with the function \texttt{plotFlowSingle}. The statistic index (istat) must be defined by the user, but for all other arguments there are default values so the user isn't required to specify anything else. To see a list of these optional arguments and other information about the function, type \text{?plotFlowSingle} in the R console. All of the graphs in \texttt{plotFlowSingle}, \texttt{plotFourStats}, and all but one of the graphs in plotFour, show both the individual annual values of the selected discharge statistic (e.g. the annual mean or 7-day minimum), but they also show a curve that is a smooth fit to those data.  The curve is a LOWESS (locally weighted scatterplot smooth).  The algorithm for computing it is provided in \cite{HirschV}:\url{http://pubs.usgs.gov/sir/2012/5151/}  (pages 6 and 7).  The default is that the annual values of the selected discharge statistics are smoothed with a \enquote{half-window width} of 30 years.  The smoothing window is an optional user-defined option. 
+
+\texttt{plotSDLogQ} produces a graphic of the running standard deviation of the log of daily discharge over time to visualize how variability of daily discharge is changing over time.  By using the standard deviation of the log discharge the statistic becomes dimensionless.  The standard deviation plot is a way of looking at variability quite aside from average values, so, in the case of a system where discharge might be increasing over a period of years, this graphic provides a way of looking at the variability relative to that changing mean value.  The standard deviation is much like a coefficient of variation, but it has sample properties that make it a smoother measure of variability.  People often comments about how things like urbanization or enhanced greenhouse gases in the atmosphere are bringing about an increase in variability, and this analysis is one way to explore that idea. \texttt{plotFour}, \text{plotFourStats}, and \texttt{plot15} are all designed to plot several graphs from the other functions in a single figure. 
+
+\newpage
 \FloatBarrier
-
-This section will give examples of the available plots appropriate for studying discharge history once the annualSeries has been created. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See section \ref{sec:flowHistoryVariables} for information on the available input variables for these plotting functions. Also, the complete EGRET manual has more detailed information for each plot type (\href{https://github.com/USGS-R/EGRET/raw/Documentation/draft+user+guide+for+EGRET+and+dataRetrieval+2014-04-14.pdf}{link to download}). Finally, see section \ref{app:savingPlots} for information on saving plots.
-
-The simplest way to look at these time series is with the function plotFlowSingle. The statistic index (istat) must be defined by the user, but for all other arguments there are default values so the user isn't required to specify anything else. To see a list of these optional arguments and other information about the function, type ?plotFlowSingle in the R console. All of the graphs in plotFlowSingle, plotFourStats, and all but one of the graphs in plotFour, show both the individual annual values of the selected discharge statistic (e.g. the annual mean or 7-day minimum), but they also show a curve that is a smooth fit to those data.  The curve is a LOWESS (locally weighted scatterplot smooth).  The algorithm for computing it is provided in \cite{HirschV}:\url{http://pubs.usgs.gov/sir/2012/5151/}  (pages 6 and 7).  The default is that they are smoothed with a "half-window width" of 30 years.  The smoothing window is an optional user-defined option. 
-
-plotSDLogQ produces a graphic of the running standard deviation of the log of daily discharge over time.  The idea is to visualize how variability of daily discharge is changing over time.  By using the standard deviation of the log discharge the statistic becomes dimensionless.  It also means that it is a way of looking at variability quite aside from average values, so, in the case of a system where discharge might be increasing over a period of years, this provides a way of looking at the variability relative to that changing mean value.  It is much like a coefficient of variation, but it has sample properties that make it a smoother measure of variability.  There are often comments about how things like urbanization or enhanced greenhouse gases in the atmosphere are bringing about an increase in variability, this is one way to explore that idea. plotFour, plotFourStats, and plot15 are all designed to plot several graphs from the other functions in a single figure. 
-
-Figure \ref{fig:plotSingleandSD}:
-<<plotSingleandSD, echo=TRUE, fig.cap="Discharge statistics",fig.subcap=c("plotFlowSingle(istat=5,qUnit='thousandCfs')","plotSDLogQ()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotSingleandSD, echo=TRUE, fig.cap="Plots of discharge statistics",fig.subcap=c("plotFlowSingle(istat=5,qUnit='thousandCfs')","plotSDLogQ()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotFlowSingle(istat=5,qUnit="thousandCfs")
 plotSDLogQ()
 @
 
+\newpage
 \FloatBarrier
 
-Here is an example of looking at mean daily discharge for the full water year and then looking at mean daily discharge for the winter season only.  The site being considered is the Merced River at Happy Isles Bridge in Yosemite National Park in California.  First, we can look at the mean daily discharge for the full year (after having read in the data and metadata):
+Here is an example of looking at mean daily discharge for the full water year and then looking at mean daily discharge for the winter season only for the Merced River at Happy Isles Bridge in Yosemite National Park in California.  First, we look at the mean daily discharge for the full year (after having read in the data and metadata):
 
-<<Merced, echo=TRUE,eval=TRUE,fig.cap="Merced River Winter Trend",fig.subcap=c("Water Year", "Dec-Feb"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+
+<<Merced, echo=TRUE,eval=TRUE,fig.cap="Merced River Winter Trend",fig.subcap=c("Water Year", "Dec-Feb"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 sta<-"11264500"
 Daily <-getDVData(sta,"00060",StartDate="",EndDate="")
 INFO <- getMetaData(sta,"",interactive=FALSE)
@@ -584,21 +685,21 @@ plotFlowSingle(istat=5,qMax=200)
 
 What these figures show us is that on an annual basis there is very little indication of a long-term trend in mean discharge, but for the winter months there is a pretty strong indication of an upward trend.  This could well be related to the climate warming in the Sierra Nevada, resulting in a general increase in the ratio of rain to snow in the winter and more thawing events.
 
-
-Figure \ref{fig:plotFour}:
-<<plotFour, echo=TRUE, fig.cap="plotFour(qUnit=3)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+\newpage
+\FloatBarrier
+<<plotFour, echo=TRUE, fig.cap="plotFour(qUnit=3)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
 plotFour(qUnit=3)
 @
 
-Figure \ref{fig:plotFourStats}:
-<<plotFourStats,echo=TRUE, fig.cap="plotFourStats(qUnit=3)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+\newpage
+\FloatBarrier
+<<plotFourStats,echo=TRUE, fig.cap="plotFourStats(qUnit=3)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
 plotFourStats(qUnit=3)
 @
 
+\newpage
 \FloatBarrier
-
-
-<<Mississippi, echo=TRUE,eval=TRUE,fig.cap="Mississippi River at Keokuk Iowa",fig.subcap=c("Water Year", "Dec-Feb"),out.width='1\\linewidth',out.height='1\\linewidth',fig.show='hold'>>=
+<<Mississippi, echo=TRUE,eval=TRUE,fig.cap="Mississippi River at Keokuk Iowa",fig.subcap=c("Water Year", "Dec-Feb"),out.width='1\\linewidth',out.height='1\\linewidth',fig.show='hold',fig.pos="h">>=
 sta<-"05474500"
 Daily <-getDVData(sta,"00060",StartDate="",EndDate="")
 INFO <- getMetaData(sta,"",interactive=FALSE)
@@ -609,9 +710,9 @@ plotQTimeDaily(qUnit=3,qLower=300)
 
 @
 
-plotQTimeDaily is simply a time series plot of discharge.  But, it is most suited for showing events above some discharge threshold.  In the simplest case, it can plot the entire record, but given the line weight and use of an arithmetic scale it will primarily provide a visual focus on the higher values.
+\texttt{plotQTimeDaily} is simply a time series plot of discharge.  But, it is most suited for showing events above some discharge threshold.  In the simplest case, it can plot the entire record, but given the line weight and use of an arithmetic scale it will primarily provide a visual focus on the higher values.
 
-The example shown here illustrates a very long record with a long gap of more than 60 years with no discharges above 300,000 cfs, followed by the last 50 years with at least 5 events above that threshold. plotQTimeDaily requires startYear and endYear, along with some other optional arguements (see ?plotQTimeDaily for more details).
+The example shown in Figure \ref{fig:Mississippi} illustrates a very long record with a long gap of more than 60 years with no discharges above 300,000 cfs, followed by the last 50 years with at least 5 events above that threshold. \texttt{plotQTimeDaily} requires startYear and endYear, along with some other optional arguements (see \texttt{?plotQTimeDaily} for more details).
 
 \FloatBarrier
 
@@ -619,7 +720,7 @@ The example shown here illustrates a very long record with a long gap of more th
 \subsection{Table Options}
 \label{sec:tableOptions}
 %------------------------------------------------------------ 
-Sometimes it is easier to consider results in table formats rather than graphically. Similar to the function plotFlowSingle, the printSeries will print the requested discharge statistics (Table \ref{table:istat}), as well as return the results in a dataframe. A small sample of the output is printed below.
+Sometimes it is easier to consider results in table formats rather than graphically. Similar to the function \texttt{plotFlowSingle}, the \texttt{printSeries} will print the requested discharge statistics (Table \ref{table:istat}), as well as return the results in a dataframe. A small sample of the output is printed below.
 
 
 <<printSeries, eval=FALSE,echo=TRUE>>=
@@ -627,6 +728,7 @@ annualSeries<-makeAnnualSeries()
 seriesResult <- printSeries(istat=3, qUnit=3)
 @
 
+\singlespacing
 \begin{verbatim}
 Mississippi River at Keokuk Iowa
  Water Year
@@ -642,6 +744,8 @@ Mississippi River at Keokuk Iowa
    2012     34.3     32.1
    2013     16.2     31.8
 \end{verbatim}
+\doublespacing
+
 
 Another way to look at the results is to consider how much the smoothed values change between various pairs of years.  These changes can be represented in four different ways.  
 \begin{itemize}
@@ -651,7 +755,7 @@ Another way to look at the results is to consider how much the smoothed values c
   \item As a slope between the first and last year of the pair, expressed as a percentage change per year (a percentage based on the value in the first year).
 \end{itemize}
 
-There is another argument that can be very useful in this function: yearPoints.  In the default case, the set of years that are compared are at 5 year intervals along the whole data set.  If the data set was quite long this can be a daunting number of comparisons.  For example, in an 80 year record, there would be 136 such pairs. Instead, we could look at changes between only 3 year points: 1890, 1950, and 2010: 
+Another argument can be very useful in this function: yearPoints.  In the default case, the set of years that are compared are at 5 year intervals along the whole data set.  If the data set was quite long this can be a daunting number of comparisons.  For example, in an 80 year record, there would be 136 such pairs. Instead, we could look at changes between only 3 year points: 1890, 1950, and 2010: 
 
 
 <<tfc, eval=TRUE,echo=TRUE>>=
@@ -670,9 +774,9 @@ See section \ref{app:createWordTable} for instructions on converting an R datafr
 %------------------------------------------------------------ 
 \FloatBarrier
 
-Before running the WRTDS model, it is helpful to examine the measured water quality data graphically to better understand its behavior, identify possible data errors, and visualize the temporal distribution of the data (identify gaps).  It is always best to clear up these issues before moving forward.
+Before you run the WRTDS model, it is helpful to examine the measured water quality data graphically to better understand its behavior, identify possible data errors, and visualize the temporal distribution of the data (identify gaps).  It is always best to clear up these issues before moving forward.
 
-We will use the Choptank River at Greensboro, MD as our example case. The Choptank River is a small tributary of the Chesapeake Bay. Inorganic nitrogen (nitrate and nitrite) has been measured from 1979 onward. First, we need to load the discharge and nitrate data into R. Before the data can be graphed or used for WRTDS analysis, the discharge data must be brought into the Sample dataframe.  This is done with the mergeReport function which performs the merger of the discharge information and also provides a compact report about some major features of the data set.
+The examples below use the Choptank River at Greensboro, MD. The Choptank River is a small tributary of the Chesapeake Bay. Inorganic nitrogen (nitrate and nitrite) has been measured from 1979 onward. First, we need to load the discharge and nitrate data into R. Before we can graph or use it for WRTDS analysis, we must bring the discharge data into the Sample dataframe.  We do this by using the \texttt{mergeReport} function which merges the discharge information and also provides a compact report about some major features of the data set.
 
 <<wrtds1,eval=FALSE,echo=TRUE>>=
 siteID <- "01491000" #Choptank River at Greensboro, MD
@@ -705,41 +809,43 @@ annualSeries <- makeAnnualSeries()
 %------------------------------------------------------------ 
 \FloatBarrier
 
-This section will give examples of the available plots appropriate for analyzing data prior to performing a WRTDS analysis. The plots here will use the default variable input options.  For any function, you can get a complete list of input variables (as described in the previous section) in a help file by typing a ? before the function name in the R console. See section \ref{sec:wqVariables} for information on the available input variables for these plotting functions.
+This section shows examples of the available plots appropriate for analyzing data prior to performing a WRTDS analysis. The plots here use the default variable input options.  For any function, you can get a complete list of input variables in a help file by typing a ? before the function name in the R console. See section \ref{sec:wqVariables} for information on the available input variables for these plotting functions.
 
-One note about any of the plotting functions that show the sample data: if a value in the data set is a non-detect (censored), it is displayed on the graph as a vertical line.  The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values, the minimum value on the y-axis.  This line is an 'honest' representation of what we know about that observation and doesn't involve us using a statistical model to fill in what we don't know. 
+Note that for any of the plotting functions that show the sample data, if a value in the data set is a non-detect (censored), it is displayed on the graph as a vertical line.  The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values, or the minimum value on the y-axis.  This line is an \enquote{honest} representation of what we know about that observation and thus we need not become involved in using a statistical model to fill in what we don't know. 
 
-Figure \ref{fig:plotBoxes}:
-<<plotBoxes, echo=TRUE, fig.cap="Concentration box plots",fig.subcap=c("boxConcMonth()","boxQTwice(qUnit=1)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+\newpage
+\FloatBarrier
+<<plotBoxes, echo=TRUE, fig.cap="Concentration box plots",fig.subcap=c("boxConcMonth()","boxQTwice(qUnit=1)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 boxConcMonth()
 boxQTwice(qUnit=1)
 @
 
-Note that the statistics to create the boxplot in boxQTwice are performed after the data are log-transformed.
+Note that the statistics to create the boxplot in \texttt{boxQTwice} are performed after the data are log-transformed.
 
-Figure \ref{fig:plotConcTime}:
-<<plotConcTime,echo=TRUE, fig.cap="Concentration vs time or discharge",fig.subcap=c("plotConcTime()","plotConcQ()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+\newpage
+\FloatBarrier
+<<plotConcTime,echo=TRUE, fig.cap="The relation of concentration vs time or discharge",fig.subcap=c("plotConcTime()","plotConcQ()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotConcTime()
 plotConcQ(qUnit=1)
 @
 
 It is interesting to note in Figure \ref{fig:plotConcTime} the change in the convention for rounding of data values that occurred around 1995.
 
-Figure \ref{fig:plotFluxQ}:
-<<plotFluxQ,echo=TRUE, fig.cap="Flux vs discharge",,out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+\newpage
+\FloatBarrier
+<<plotFluxQ,echo=TRUE, fig.cap="The relation of flux vs discharge",,out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotFluxQ(fluxUnit=4)
 @
 
-The plotFluxQ (Figure \ref{fig:plotFluxQ}) function only plots in a log-log scale.
+The \texttt{plotFluxQ} (Figure \ref{fig:plotFluxQ}) function only plots in a log-log scale.
 
+\newpage
 \FloatBarrier
-
-Figure \ref{fig:multiPlotDataOverview}:
-<<multiPlotDataOverview, echo=TRUE, fig.cap="multiPlotDataOverview(qUnit=1)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+<<multiPlotDataOverview, echo=TRUE, fig.cap="multiPlotDataOverview(qUnit=1)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
 multiPlotDataOverview(qUnit=1)
 @
 
-The multiPlotDataOverview (Figure \ref{fig:multiPlotDataOverview}) function uses a log scale as default. To change the concentration axes to an arithmetic scale, use logScaleConc=FALSE in the multiPlotDataOverview function call.
+The \texttt{multiPlotDataOverview} (Figure \ref{fig:multiPlotDataOverview}) function uses a log scale as default. To change the concentration axes to an arithmetic scale, use logScaleConc=FALSE in the \texttt{multiPlotDataOverview} function call.
 
 \FloatBarrier
 
@@ -747,7 +853,7 @@ The multiPlotDataOverview (Figure \ref{fig:multiPlotDataOverview}) function uses
 \subsection{Table Options}
 \label{sec:tableOptionsWQ}
 %------------------------------------------------------------ 
-Another useful tool for checking the data before running the WRTDS estimations is flowDuration. This is a utility function that can help define the discharge ranges that we want to explore.  It prints out key points on the discharge duration curve.  They are defined for a particular part of the year using the `centerDate' and `span' arguments, although they can be done for the entire year (default).  
+Another useful tool for checking the data before running the WRTDS estimations is \texttt{flowDuration}. This is a utility function that can help you define the discharge ranges that we want to explore.  It prints out key points on the discharge duration curve.  Define the points for a particular part of the year using the \texttt{"}centerDate\texttt{"} and \texttt{"}span\texttt{"} arguments, although the points can be defined for the entire year (default).  
 
 <<flowDuration, eval=TRUE, echo=TRUE>>=
 flowDuration(qUnit=1)
@@ -757,29 +863,29 @@ flowDuration(qUnit=1, centerDate="09-30", span=30)
 
 \FloatBarrier
 %------------------------------------------------------------ 
-\section{WRTDS Analysis}
+\section{Weighted Regressions on Time, Discharge and Season (WRTDS) Analysis}
 \label{sec:wrtds}
 %------------------------------------------------------------ 
-Weighted Regressions on Time, Discharge and Season (WRTDS) creates a model of the behavior of concentration as a function of three components: time trend, discharge and season.  It can be used to estimate annual or seasonal mean concentrations and fluxes as well as describe long-term trends in the behavior of the system. In this section, we will step though the process required for a WRTDS analysis. The next section (\ref{sec:wrtdsResults}) will detail the available methods to view and evaluate the model results. 
+WRTDS creates a model of the behavior of concentration as a function of three components: time trend, discharge and season.  You can use WRTDS to estimate annual or seasonal mean concentrations and fluxes as well as describe long-term trends in the behavior of the system. In this section, we will step though the process required for a WRTDS analysis. Section (\ref{sec:wrtdsResults}) provides details about the available methods for viewing and evaluating the model results. 
 
-Once you have looked at your data using the tools described in section \ref{sec:wqa}, and have determined there is sufficient representative data, it is time to run the WRTDS model. Assuming you are using the defaults, with dataframes called Daily, Sample, and INFO, the modelEstimation function will run the WRTDS modeling algorithm:
+Once you have looked at your data using the tools described in section \ref{sec:wqa}, and have determined there is sufficient representative data, it is time to run the WRTDS model. Assuming you are using the defaults, with dataframes called Daily, Sample, and INFO, the \texttt{modelEstimation} function will run the WRTDS modeling algorithm:
 
 <<wrtds3, eval=FALSE, echo=TRUE>>=
 modelEstimation()
 @
 
-Details of the options available when running modelEstimation() can be found in Section \ref{sec:wrtdsInputVariables}. This function is slow, and shows the progress in percent complete. See the references and manual for more information. It's important to understand that this is the one function that will globally change your Daily, Sample, and INFO dataframes. It also creates a new matrix `surfaces', and a new dataframe `AnnualResults'. It is unusual R programming behavior to create global variables, but was chosen to make it easy for the user.
+Details of the options available when running \texttt{modelEstimation} can be found in Section \ref{sec:wrtdsInputVariables}. This function is slow, and shows the progress in percent complete. See the references and manual for more information. It's important to understand that this is the one function that will globally change your Daily, Sample, and INFO dataframes. It also creates a new matrix \texttt{"}surfaces\texttt{"}, and a new dataframe \texttt{"}AnnualResults\texttt{"}. It is unusual R programming behavior to create global variables, but global variables were chosen to make it easy for you.
 
-Finally, it is a good idea to save your results because of the computational time that has been invested in producing these results. The workspace is saved to a directory that has been designated by the user as savePath and the file name is determined by the abbreviations for station and constituent that were required entries when the getMetaData function was used. The command for saving the workspace is:
+Finally, it is a good idea to save your results because of the computational time that has been invested in producing these results. The workspace is saved to a directory that you designate savePath and the file name is determined by the abbreviations for station and constituent that were required entries when the \texttt{getMetaData} function was used. The command for saving the workspace is:
 
 <<wrtds5, eval=FALSE, echo=TRUE>>=
 savePath <- "C:/Users/egretUser/WRTDS_Output/" #An example directory name
 saveResults(savePath) 
 @
 
-This will now save all of the objects in your workspace. If you have saved workspaces from R versions earlier than 3.0, there will be a warning when opening them in R 3.0 (or later). Re-saving the workspace using R 3.0 (or later) should get rid of the warning.
+This will now save all of the objects in your workspace. If you have saved workspaces from R versions earlier than 3.0, a warning will appear when you open them in R 3.0 (or later). Re-saving the workspace using R 3.0 (or later) should get rid of the warning.
 
-The workspace is saved using INFO$staAbbrev and INFO$constitAbbrev as the filename (separated by a period), and the extension .RData. So, if staAbbrev was "Chop" and the constitAbbrev was "NO3" the file name would be "Chop.NO3.RData. To load the data in some future session the commands could be:
+Using \texttt{saveResults}, the workspace is saved with INFO$staAbbrev and INFO$constitAbbrev as the filename (separated by a period), and the extension .RData. So, if staAbbrev was \enquote{Chop} and the constitAbbrev was \enquote{NO3} the file name would be \enquote{Chop.NO3.RData}. To load the data in some future session the commands could be:
 
 <<wrtds8, eval=FALSE, echo=TRUE>>=
 loadPath <- "C:/Users/egretUser/WRTDS_Output/"
@@ -798,7 +904,7 @@ load(pathToFile)
 \section{WRTDS Results}
 \label{sec:wrtdsResults}
 %------------------------------------------------------------ 
-At this point (after having run modelEstimation) we can start considering how to view the annual averages for the variables that have been calculated.  See section \ref{sec:wrtdsOutputVariables} for common input variables for these functions. Additionally, check the help files (in the R console, type ? followed by the function name). 
+At this point (after having run \texttt{modelEstimation}) we can start considering how to view the annual averages for the variables that have been calculated.  See section \ref{sec:wrtdsOutputVariables} for common input variables for these functions. Additionally, check the help files (in the R console, type ? followed by the function name). 
 
 %------------------------------------------------------------ 
 \subsection{Plotting Options}
@@ -807,7 +913,7 @@ At this point (after having run modelEstimation) we can start considering how to
 
 \FloatBarrier
 
-Check the help files or manual for more details on the following functions.  See section \ref{app:savingPlots} for information on saving plots. In these examples, we will return to looking at the data in the water year by using the setPA function. Most plotting functions will use the period of analysis information in the INFO dataframe to determine what data is plotted. There are only four graph or table functions that don't allow the user to specify a Period of Analysis (PA). These are: plotContour, plotDiffContour, plotConcTimeSmooth, plotConcQSmooth.
+Check the help files or manual for more details on the following functions.  See section \ref{app:savingPlots} for information on saving plots. In these examples, we will return to looking at the data in the water year by using the \texttt{setPA} function. Most plotting functions will use the period of analysis information in the INFO dataframe to determine what data is plotted. There are only four graph or table functions that don't allow the user to specify a Period of Analysis (PA). These are: \texttt{plotContour}, \texttt{plotDiffContour}, \texttt{plotConcTimeSmooth}, \texttt{plotConcQSmooth}.
 
 
 <<getChopData1,echo=FALSE,eval=TRUE>>=
@@ -817,9 +923,8 @@ INFO <- ChopINFO
 surfaces <- exsurfaces
 @
 
-
-Figure \ref{fig:plotConcTimeDaily}:
-<<plotConcTimeDaily, echo=TRUE, fig.cap="Concentration and flux vs time",fig.subcap=c("plotConcTimeDaily(startYear=2008, endYear=2010)","plotFluxTimeDaily(startYear=2008, endYear=2010)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+\clearpage
+<<plotConcTimeDaily, echo=TRUE, fig.cap="Concentration and flux vs time",fig.subcap=c("plotConcTimeDaily(startYear=2008, endYear=2010)","plotFluxTimeDaily(startYear=2008, endYear=2010)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 # Return to water year:
 INFO <- setPA()
 
@@ -830,38 +935,40 @@ plotConcTimeDaily(yearStart, yearEnd)
 plotFluxTimeDaily(yearStart, yearEnd)
 @
 
-Figure \ref{fig:plotFluxPred}:
-<<plotFluxPred, echo=TRUE, fig.cap="Concentration and flux predictions",fig.subcap=c('plotConcPred()','plotFluxPred()'),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+\clearpage
+<<plotFluxPred, echo=TRUE, fig.cap="Concentration and flux predictions",fig.subcap=c('plotConcPred()','plotFluxPred()'),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotConcPred()
 plotFluxPred()
 @
 
-
-Figure \ref{fig:plotResidQ}:
-<<plotResidQ, echo=TRUE, fig.cap="Residuals",fig.subcap=c("plotResidPred()","plotResidQ(qUnit=1)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+\clearpage
+<<plotResidQ, echo=TRUE, fig.cap="Residuals",fig.subcap=c("plotResidPred()","plotResidQ(qUnit=1)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotResidPred()
 plotResidQ(qUnit=1)
 @
 
-Figure \ref{fig:boxResidMonth}:
-<<boxResidMonth, echo=TRUE, fig.cap="Residuals with respect to time",fig.subcap=c("plotResidTime()","boxResidMonth()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+\clearpage
+<<boxResidMonth, echo=TRUE, fig.cap="Residuals with respect to time",fig.subcap=c("plotResidTime()","boxResidMonth()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotResidTime()
 boxResidMonth()
 @
 
-Figure \ref{fig:boxConcThree}:
-<<boxConcThree, echo=TRUE, fig.cap="Default boxConcThree()",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='asis',results='hide'>>=
+\clearpage
+<<boxConcThree, echo=TRUE, fig.cap="Default boxConcThree()",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='asis',results='hide',fig.pos="h">>=
 boxConcThree()
 @
 
-Figure \ref{fig:plotFluxHist}:
-<<plotFluxHist, echo=TRUE, fig.cap="Concentration and flux history",fig.subcap=c("plotConcHist()", "plotFluxHist()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+\clearpage
+<<plotFluxHist, echo=TRUE, fig.cap="Concentration and flux history",fig.subcap=c("plotConcHist()", "plotFluxHist()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotConcHist()
 plotFluxHist()
 @
 
-Figure \ref{fig:plotConcQSmooth}:
-<<plotConcQSmooth, echo=TRUE, fig.cap="Concentration vs. discharge",fig.subcap=c("plotConcQSmooth","plotConcQSmooth(logScale=TRUE)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+\clearpage
+
+Figures \ref{fig:plotConcQSmooth} and \ref{fig:plotConcTimeSmooth} contain legends. The placement of the legend is controlled by legendLeft and legendTop. If both are set to 0 (the default values), the legend is placed near the lower left corner of the graphic. Otherwise, the value specified for legendLeft places the left edge of the legend, and legendTop specifies the top edge of the legend. The units for legendLeft and legendTop are discharge (in units specified by qUnit) and concentration, respectively. The legend can also be turned off with printLegend=FALSE. These are also functions that do not recognize the period of analysis in the INFO data frame. However, by choosing centering dates and appropriate half-windows, seasonal behavior can easily be observed in these plots. 
+
+<<plotConcQSmooth, echo=TRUE, fig.cap="Concentration vs. discharge",fig.subcap=c("plotConcQSmooth","plotConcQSmooth(logScale=TRUE)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 qBottom<-20
 qTop<-700
 date1 <- "2000-09-01"
@@ -873,8 +980,8 @@ plotConcQSmooth(date1, date2, date3,
                 qBottom, qTop, qUnit=1,logScale=TRUE)
 @
 
-Figure \ref{fig:plotConcTimeSmooth}:
-<<plotConcTimeSmooth, echo=TRUE, fig.cap="plotConcTimeSmooth",fig.subcap=c("plotConcTimeSmooth","plotConcTimeSmooth(logScale=TRUE)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',results='hide'>>=
+\clearpage
+<<plotConcTimeSmooth, echo=TRUE, fig.cap="plotConcTimeSmooth",fig.subcap=c("plotConcTimeSmooth","plotConcTimeSmooth(logScale=TRUE)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',results='hide',fig.pos="h">>=
 q1 <- 10
 q2 <- 25
 q3 <- 75
@@ -884,47 +991,49 @@ plotConcTimeSmooth(q1, q2, q3, centerDate,
                    2000, 2010,logScale=TRUE)
 @
 
-Figures \ref{fig:plotConcQSmooth} and \ref{fig:plotConcTimeSmooth} contain legends. The placement of the legend is controlled by legendLeft and legendTop. If both are set to 0 (the default values), the legend is placed near the lower left corner of the graphic. Otherwise, the value specified for legendLeft places the left edge of the legend, and legendTop specifies the top edge of the legend. The units for legendLeft and legendTop are discharge (in units specified by qUnit) and concentration, respectively. The legend can also be turned off with printLegend=FALSE. These are also functions that do not recognize the period of analysis in the INFO dataframe. However, by choosing centering dates and appropriate half-windows, seasonal behavior can easily be observed in these plots. 
+Figure \ref{fig:fluxBiasMulti} shows a predefined multipanel graph using \texttt{fluxBiasMulti}.
 
-
-Figure \ref{fig:fluxBiasMulti}:
-<<fluxBiasMulti, echo=TRUE, fig.cap="fluxBiasMulti(qUnit=1)",fig.show='asis',fig.width=8, fig.height=10>>=
+<<fluxBiasMulti, echo=TRUE, fig.cap="fluxBiasMulti(qUnit=1)",fig.show='asis',fig.width=8, fig.height=10,fig.pos="h">>=
 fluxBiasMulti(qUnit=1)
 @
 
-The contour plot functions also do not recognize the period of analysis in the INFO dataframe. They represent the overall results of the WRTDS analysis. 
+\clearpage
 
-Figure \ref{fig:plotContours}:
-<<plotContours, echo=TRUE,fig.cap="plotContours(yearStart=2008,yearEnd=2010,qBottom=20,qtop=1000,contourLevels=seq(0,2,0.2),\r\nqUnit=1,flowDuration=FALSE)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+The contour plot functions also do not recognize the PA from the INFO dataframe. They represent the overall results of the WRTDS analysis. To specify contourLevels in the contour plots use the \texttt{seq} function (type \texttt{?seq} for details).  In general, use of the \texttt{seq} function would look like this: \texttt{contourLevels = seq(from,to,by)}.  In the example shown above we are requesting contour levels that run from 0 to 2 in steps of 0.2.
+
+
+<<plotContours, echo=TRUE,fig.cap="plotContours(yearStart=2008,yearEnd=2010,qBottom=20,qtop=1000,contourLevels=seq(0,2,0.2),\r\nqUnit=1,flowDuration=FALSE)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
 clevel<-seq(0,2,0.2)
 plotContours(yearStart=2008,yearEnd=2010,qBottom=20,qTop=1000, 
              contourLevels = clevel,qUnit=1,
              flowDuration=FALSE)
 @
 
-To specify contourLevels in the contour plots, the seq function in R should be used (type `?seq' for details on this function).  In general it would look like this: contourLevels = seq(from,to,by).  In the example shown above we are requesting contour levels that run from 0 to 2 in steps of 0.2.
+\clearpage
 
-The function plotDiffContours plots the difference between two selected years (year0 and year1). It can help clarify what combinations of seasons and flow conditions have been showing increases and decreases over the period covered.
+The function \texttt{plotDiffContours} plots the difference between two selected years (year0 and year1). It can help clarify what combinations of seasons and flow conditions have been showing increases and decreases over the period covered.
 
-Figure \ref{fig:plotDiffContours}:
-<<plotDiffContours, echo=TRUE, fig.cap="plotDiffContours(year0=2000,year1=2010,qBottom=20,qTop=1000,maxDiff=0.6,\r\nqUnit=1,flowDuration=FALSE)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+
+<<plotDiffContours, echo=TRUE, fig.cap="plotDiffContours(year0=2000,year1=2010,qBottom=20,qTop=1000,maxDiff=0.6,\r\nqUnit=1,flowDuration=FALSE)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
 plotDiffContours(year0=2000,year1=2010,
                  qBottom=20,qTop=1000,maxDiff=0.6,qUnit=1,
              flowDuration=FALSE)
 @
 
-\FloatBarrier
+\clearpage
+
 %------------------------------------------------------------ 
 \subsection{Table Options}
 \label{sec:wrtdsTable}
 %------------------------------------------------------------ 
-Sometimes it is easier to consider the results in table form rather than graphically. The function tableResults produces a simple text table that contains the annual values for the results.  Each row of the output represents a year and includes: year, average discharge, average concentration, flow-normalized concentration, average flux, and flow-normalized flux.  A small sample of the output is printed below. This function can also return a data frame if returnDataFrame is set to TRUE.
+Sometimes it is easier to consider the results in table form rather than graphically. The function \texttt{tableResults} produces a simple text table that contains the annual values for the results.  Each row of the output represents a year and includes: year, average discharge, average concentration, flow-normalized concentration, average flux, and flow-normalized flux.  A small sample of the output is printed below. This function can also return a data frame if returnDataFrame is set to TRUE.
 
 <<tableResults1, echo=TRUE, eval=FALSE>>=
 tableResults()
 returnDF <- tableResults(returnDataFrame=TRUE)
 @
 
+\singlespacing
 \begin{verbatim}
    Choptank River 
    Inorganic nitrogen (nitrate and nitrite)
@@ -938,6 +1047,7 @@ returnDF <- tableResults(returnDataFrame=TRUE)
    2010      7.19     1.323     1.438    0.2236     0.149
    2011      5.24     1.438     1.457    0.1554     0.148
 \end{verbatim}
+\doublespacing
 
 <<tableResults2, echo=FALSE, eval=TRUE,results='hide'>>=
 returnDF <- tableResults(returnDataFrame=TRUE)
@@ -948,14 +1058,14 @@ head(returnDF)
 @
 
 
-The other table option is tableChange. This is a function that provides for the computation of changes or slopes between any selected pairs of time points.  These computations are made only on the flow-normalized results. A detailed explaination of `flow-normalized' result can be found in the official EGRET manual.
+The other table option is \texttt{tableChange}. This is a function that provides for the computation of changes or slopes between any selected pairs of time points.  These computations are made only on the flow-normalized results. A detailed explaination of \enquote{flow-normalized} result is in the official EGRET manual.
 
 
 <<tableChange1, eval=TRUE, echo=TRUE>>=
 tableChange(yearPoints=c(2000,2005,2010))
 @
 
-Finally, tableChangeSingle (Table \ref{table:tableChangeSingle}) operates exactly the same as tableChange except for the addition of two arguments: returnDataFrame and flux. This function provides either concentration results or flux results, but not both.  This can be useful when producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except for the final two arguments.  The first, `returnDataFrame' is a logical argument to indicate if a dataframe of output should be returned (for later manipulation or printing through other programs such as Excel), and its default is FALSE.  The second argument is `flux', and the default is TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  See section \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft.
+Finally, \texttt{tableChangeSingle} (Table \ref{table:tableChangeSingle}) operates exactly the same as \texttt{tableChange} except for the addition of two arguments: returnDataFrame and flux. This function provides either concentration results or flux results, but not both.  This can be useful when you are producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except for the final two arguments.  The first, \texttt{"}returnDataFrame\texttt{"} is a logical argument to indicate if a dataframe of output should be returned (for later manipulation or printing through other programs such as Excel), and its default is FALSE.  The second argument is \texttt{"}flux\texttt{"}, and the default is TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  See section \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft.
 
 <<tableChangeSingle, eval=FALSE, echo=TRUE,results='hide'>>=
 returnDF <- tableChangeSingle(yearPoints=c(2000,2005,2010), 
@@ -963,18 +1073,24 @@ returnDF <- tableChangeSingle(yearPoints=c(2000,2005,2010),
 @
 
 \begin{table}[ht]
-\centering
+{\footnotesize
 \begin{tabular}{rrrrrrr}
   \hline
-Year1 & Year2 & change [mg/L] & slope [mg/L/yr] & change[\%] & slope [\%/yr] \\ 
+\multicolumn{1}{c}{\textbf{\textsf{Year1}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Year2}}} &
+\multicolumn{1}{c}{\textbf{\textsf{change [mg/L]}}} &
+\multicolumn{1}{c}{\textbf{\textsf{slope [mg/L/yr]}}} &
+\multicolumn{1}{c}{\textbf{\textsf{change[\%]}}} &
+\multicolumn{1}{c}{\textbf{\textsf{slope [\%/yr]}}} \\ 
   \hline
 2000 & 2005 & 0.09 & 0.02 & 7.00 & 1.40 \\ 
-2000 & 2010 & 0.19 & 0.02 & 15.00 & 1.50 \\ 
-2005 & 2010 & 0.10 & 0.02 & 7.30 & 1.50 \\ 
+[5pt]2000 & 2010 & 0.19 & 0.02 & 15.00 & 1.50 \\ 
+[5pt]2005 & 2010 & 0.10 & 0.02 & 7.30 & 1.50 \\ 
    \hline
 \end{tabular}
-\caption{Table created from tableChangeSingle function using Microsoft Excel (see section \ref{app:createWordTable})} 
+\caption{Table created from \texttt{tableChangeSingle} function using Microsoft Excel (see section \ref{app:createWordTable})} 
 \label{table:tableChangeSingle}
+}
 \end{table}
 
 
@@ -990,60 +1106,67 @@ Year1 & Year2 & change [mg/L] & slope [mg/L/yr] & change[\%] & slope [\%/yr] \\
 
 \FloatBarrier
 
-The basic plotting options were shown in the previous section.  This section demonstrates some ideas on how to extend the capabilities of the EGRET plots. EGRET plots use R's base plotting options. Many of the formatting details of plotting routines in R are set using \texttt{"}Graphical Parameters\texttt{"}.  To read about all of these graphical parameters see ?par.  In coding the graphical functions in EGRET, a set of default values for many of these parameters were chosen, but all of these can be overridden by the user. Additionally, features can be added to a plot after calling the plot function. To change the plot margins (mar), font, or other graphical parameters initially assigned, set the argument customPar to TRUE.
+The basic plotting options were shown in the section \ref{sec:wrtdsResults}.  This section demonstrates some ways to extend the capabilities of the EGRET plots. EGRET plots use R's basic plotting options. You set many of the formatting details of plotting routines in R by using \enquote{Graphical Parameters}.  To read about all of these graphical parameters see \texttt{?par}.  When the graphical functions in EGRET are coded, a set of default values for many of these parameters are chosen, but you can override all of these default values. Additionally, you can add features to a plot after calling the plot function. To change the plot margins (mar), font, or other graphical parameters initially assigned, set the argument customPar to TRUE.
 
-There are a few of R's base graphical parameters that are that are especially useful within the plot functions. These are shown in Table \ref{table:tableChangeSingle}.
+A few of R's base graphical parameters are especially useful within the plot functions. These are shown in Table \ref{table:tableChangeSingle}.
 
 \begin{table}[ht]
-\centering
+{\footnotesize
 \begin{tabular}{rrr}
   \hline
-Argument & Description & Values  \\ 
+\multicolumn{1}{c}{\textbf{\textsf{Argument}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Description}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Values}}}  \\ 
   \hline
 cex &  Size of data point symbols, relative to default & decimal number \\ 
-cex.main & Size of font for plot title, relative to default & decimal number \\ 
-cex.lab &  Size of font for axis label text, relative to default & decimal number \\ 
-cex.axis & Size of font for axis annotation (numbers), relative to default & decimal number\\
-col & Color of data point symbols or lines & color name in \texttt{"}\texttt{"} \\
-lwd & Width of lines, relative to default & decimal number\\
-pch & Type of symbol to use for data points & integer values\\
-lty & Line type number (such as dash or dot) & integer values\\
+[5pt]cex.main & Size of font for plot title, relative to default & decimal number \\ 
+[5pt]cex.lab &  Size of font for axis label text, relative to default & decimal number \\ 
+[5pt]cex.axis & Size of font for axis annotation (numbers), relative to default & decimal number\\
+[5pt]col & Color of data point symbols or lines & color name in \texttt{"}\texttt{"} \\
+[5pt]lwd & Width of lines, relative to default & decimal number\\
+[5pt]pch & Type of symbol to use for data points & integer values\\
+[5pt]lty & Line type number (such as dash or dot) & integer values\\
    \hline
 \end{tabular}
 \caption{Useful plotting parameters to adjust in EGRET plotting functions.  For details of any of these see ?par.} 
 \label{table:tableChangeSingle}
+}
 \end{table}
 
-There are many other functions that might be useful to call after the plot was made to add text, legend, lines, etc. Table \ref{table:addOns} lists a few common options.
+After the plot is made, many other functions that might be useful to call, such as to add text, legend, lines, etc. Table \ref{table:addOns} lists a few common options.
 
 \begin{table}[ht]
-\centering
+{\footnotesize
 \begin{tabular}{rr}
   \hline
-Function & Description  \\ 
+\multicolumn{1}{c}{\textbf{\textsf{Function}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Description}}}  \\ 
   \hline
 mtext & add text based on specified side of plot\\
-text & add text to a specific point on plot\\
-legend & add a legend \\ 
-grid & add grid\\ 
-abline & add line \\
-arrows & add arrow \\ 
+[5pt]text & add text to a specific point on plot\\
+[5pt]legend & add a legend \\ 
+[5pt]grid & add grid\\ 
+[5pt]abline & add line \\
+[5pt]arrows & add arrow \\ 
    \hline
 \end{tabular}
-\caption{Useful functions to add on to default plots. Type ? then the function name to get help on the individual function.} 
+\caption{Useful functions to add on to default plots. [Type ? then the function name to get help on the individual function].} 
 \label{table:addOns}
+}
 \end{table}
 
 Some basic examples are shown below.
 
 Figure \ref{fig:adjustSize} shows a larger title and axis number (left), and larger axis labels and point size (right).
-<<adjustSize,echo=TRUE,eval=TRUE,fig.cap="Modifying text and point size", fig.subcap=c("plotConcQ(cex.axis=2,cex.main=1.5,logScale=TRUE)","plotConcQ(cex.lab=2,cex=2,logScale=TRUE)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<adjustSize,echo=TRUE,eval=TRUE,fig.cap="Modifying text and point size", fig.subcap=c("plotConcQ(cex.axis=2,cex.main=1.5,logScale=TRUE)","plotConcQ(cex.lab=2,cex=2,logScale=TRUE)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotConcQ(cex.axis=2,cex.main=1.5,logScale=TRUE)
 plotConcQ(cex.lab=2,cex=2,logScale=TRUE)
 @
+\newpage
+\FloatBarrier
 
 Figure \ref{fig:plotConcQComparison} shows the default on the left, and several features on the right. First, the margin is adjusted to c(8,8,8,8), requiring customPar set to TRUE. The margin vector represents the margin spacing of the 4 \texttt{"}sides\texttt{"} of a plot in the order: bottom, left, top, right. Next, the text labels were adjusted, color set to \texttt{"}blue\texttt{"}, point and line size increased, and the point type changed form a solid circle(pch=20) to solid diamond (pch=18). A grid, legend, arrow, and text are added after the plot is produced.
-<<plotConcQComparison,echo=TRUE,eval=TRUE,fig.cap="Modified plotConcQ", fig.subcap=c("Default","Modified"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold'>>=
+<<plotConcQComparison,echo=TRUE,eval=TRUE,fig.cap="Modified plotConcQ", fig.subcap=c("Default","Modified"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotConcQ(logScale=TRUE)
 par(mar=c(8,8,8,8))
 plotConcQ(customPar=TRUE,col="blue",cex=1.1,
@@ -1055,44 +1178,49 @@ arrows(3, 0.14, 1, .05,lwd=2)
 text(12,.14,"Censored Value")
 @
 
-There are just a few fonts that are generally available as a default. Figure \ref{fig:easyFontChange} shows how to change to the Serif font, as well as how to use the mtext function. To see the available fonts for pdf output on your computer, type names(pdfFonts()).The available fonts are quite limited in base R. To expand the font choices, there is a nice R library 'extrafont' that can help.
+\newpage
+\FloatBarrier
+Only a few fonts are consistent on all operating systems. Figure \ref{fig:easyFontChange} shows how to change to the Serif font, as well as how to use the mtext function. To see the available fonts for pdf output on your computer, type \texttt{names(pdfFonts())}.The available fonts are quite limited in base R. To expand the font choices, a useful R library, \enquote{extrafont} can help.
 
-<<easyFontChange,echo=TRUE,eval=TRUE,fig.cap="Serif font",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
+<<easyFontChange,echo=TRUE,eval=TRUE,fig.cap="Serif font",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth', fig.pos="h">>=
 # Switching to serif font:
 par(family="serif")
 plotFluxPred(customPar=TRUE)
 mtext(side=3,line=-3,"Serif font example",cex=3)
 @
 
-The contour plots can also be extended. The default y-axis is determined from qTop and qBottom. Occasionally, it is necessary to use a custom axis. This can be done by specifying yTicks. It is also nice to be able to adjust the color scheme of the contour plots. There are some color schemes built into base R such as heat.colors, topo.colors, terrain.colors, and cm.colors. Alternatively, colors can be set using the colorRampPalette function. For example, it might make more sense to use a scheme that goes from white to red for low to high concentrations. For the plotDiffContours, it might make more sense to go from blue to white for the negative values, and white to red for the positive values. Examples are shown below for modifying a contour plot in Figure \ref{fig:modifiedContour1} and modifying a difference contour plot in Figure \ref{fig:modifiedDiffContour}. 
+\newpage
+\FloatBarrier
 
-<<modifiedContour1,echo=TRUE,eval=TRUE,fig.cap="Contour plot with modified axis and color scheme",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
-yearStart <- 2001
-yearEnd <- 2010
-qBottom <- 0.5
-qTop<- 50
-clevel <- seq(0,2.5,0.5)
-colors <- colorRampPalette(c("white","red"))
+You can also extend the contour plots. The default y-axis is determined from qTop and qBottom. Occasionally, you may need to use a custom axis by specifying yTicks. It is also nice to be able to adjust the color scheme of the contour plots. There are some color schemes built into base R such as heat.colors, topo.colors, terrain.colors, and cm.colors. Alternatively, you can set colors by using the \texttt{colorRampPalette} function. For example, a black and white color scheme might be required. In another example, the \texttt{plotDiffContours} might make more sense to go from yellow to white for the negative values, and white to blue for the positive values. Examples are shown below for modifying a contour plot in Figure \ref{fig:modifiedContour1} and modifying a difference contour plot in Figure \ref{fig:modifiedDiffContour}. 
+
+\clearpage
+
+<<modifiedContour1,echo=TRUE,eval=TRUE,fig.cap="Contour plot with modified axis and color scheme",fig.show='hold',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
+colors <- colorRampPalette(c("white","black"))
 yTicksModified <- c(.5,1,10,25)
-plotContours(yearStart,yearEnd,qBottom,qTop, 
-             contourLevels = clevel,qUnit=2,
+plotContours(2001,2010,0.5,50, 
+             contourLevels = seq(0,2.5,0.5),qUnit=2,
              yTicks=yTicksModified,
              color.palette=colors,
              flowDuration=FALSE,
              tcl=0.2,tick.lwd=2.5)  
 @
 
-<<modifiedDiffContour,echo=TRUE,eval=TRUE,fig.cap="Difference contour plot with modified color scheme",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth'>>=
-colors <- colorRampPalette(c("cadetblue1","azure","firebrick1"))
+\clearpage
+
+<<modifiedDiffContour,echo=TRUE,eval=TRUE,fig.cap="Difference contour plot with modified color scheme",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
+colors <- colorRampPalette(c("yellow","white","blue"))
 maxDiff<-0.6
+par(oma=c(1,1,1,1))
 plotDiffContours(year0=2001,year1=2010,qBottom=0.5,qTop=50, 
              maxDiff,lwd=2,qUnit=2,
              color.palette=colors,
-             flowDuration=FALSE)
+             flowDuration=FALSE, customPar=TRUE)
 @
 
 
-\FloatBarrier
+\clearpage
 
 
 %------------------------------------------------------------ 
@@ -1106,9 +1234,7 @@ This section describes the options for installing the EGRET package.
 %------------------------------------------------------------ 
 If you are new to R, you will need to first install the latest version of R, which can be found here: \url{http://www.r-project.org/}.
 
-There are many options for running and editing R code, one nice environment to learn R is RStudio. RStudio can be downloaded here: \url{http://rstudio.org/}. Once R and RStudio are installed, the EGRET package needs to be installed as described in the next section.
-
-At any time, you can get information about any function in R by typing a question mark before the function's name.  This will open a file (in RStudio, in the Help window) that describes the function, the required arguments, and provides working examples.
+At any time, you can get information about any function in R by typing a question mark before the function's name.  This will open a file that describes the function, the required arguments, and provides working examples.
 
 <<helpFunc,eval = FALSE>>=
 ?getJulian
@@ -1126,12 +1252,10 @@ getJulian
 To install the EGRET packages and its dependencies:
 
 <<installFromCran,eval = FALSE>>=
-install.packages(c("zoo","survival","stringr","fields",
-                   "spam","XML","RCurl","plyr","reshape2"))
-install.packages("dataRetrieval", 
-                 repos="http://usgs-r.github.com/",type="both")
-install.packages("EGRET", 
-                 repos="http://usgs-r.github.com/",type="both")
+install.packages(c("dataRetrieval","EGRET"), 
+repos=c("http://usgs-r.github.com","http://cran.us.r-project.org"),
+dependencies=TRUE,
+type="both")
 @
 
 It is a good idea to re-start R after installing the package if installing an updated version. 
@@ -1155,17 +1279,19 @@ This section describes variables that are common for a variety of function types
 \label{sec:flowHistoryVariables}
 %------------------------------------------------------------
 \begin{table}[ht]
-  \centering
+{\footnotesize
   \begin{threeparttable}[b]
 \caption{Variables used in flow history plots (plot15, plotFour, plotFourStats, plotQTimeDaily, plotSDLogQ) 
 \label{tab:flowHistoryVariables}}
 \begin{tabularx}{\textwidth}{lXl}
 \hline
-  \textbf{Argument} & \textbf{Definition} & \textbf{Default} \\
+\multicolumn{1}{c}{\textbf{\textsf{Argument}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Definition}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Default}}} \\
 \hline
-istat & Which discharge statistic to plot: 1-8.  Must be specified, see Table \ref{table:istat}. & \\
-yearStart\tnote{1} & What is the decYear value where you want the graph to start? & NA\\
-yearEnd\tnote{1} & What is the decYear value where you want the graph to end? & NA\\
+istat & The discharge statistic to be plotted: 1-8.  Must be specified, see Table \ref{table:istat}. & \\
+yearStart\tnote{1} & The decimal year (decYear) value where you want the graph to start & NA\\
+yearEnd\tnote{1} & The decimal year (decYear) value where you want the graph to end & NA\\
 qMax & User specified upper limit on y axis (can be used when we want several graphs to all share the same scale). Value is specified in the discharge units that the user selects. & NA\\
 printTitle & can be TRUE or FALSE, you may want FALSE if it is going to be a figure with a caption or if it is a part of a multipanel plot. & TRUE\\
 tinyPlot & Can be TRUE or FALSE, the TRUE option assures that there will be a small number of tick marks, consistent with printing in a small space & FALSE\\
@@ -1178,10 +1304,11 @@ printIstat\tnote{2} & Can be TRUE or FALSE, if TRUE the name of the statistic (e
 \hline
 \end{tabularx}
   \begin{tablenotes}
-    \item[1] Setting yearStart and yearEnd will determine where the graphs start and end, but they don't determine where the smoothing analysis starts and ends.  There are situations, typically where many sites are be analyzed together, where you may want to run the smoothing on a consistent period of record across all sites.  Doing this requires subsetting the Daily data frame before running makeAnnualSeries (see ?subset).
+    \item[1] Setting yearStart and yearEnd will determine where the graphs start and end, but they don't determine where the smoothing analysis starts and ends.  There are situations, typically where many sites are be analyzed together, where you may want to run the smoothing on a consistent period of record across all sites, which requires subsetting the Daily data frame before running \texttt{makeAnnualSeries} (see \texttt{?subset}).
     \item[2] If the printTitle argument is set to FALSE, then it really makes no difference what you do with printSta, printPA, or printIstat.  They can all be left as their default values and thus there is no need to include them in the call for the function.
   \end{tablenotes}
  \end{threeparttable}
+}
 \end{table}
 
 \FloatBarrier
@@ -1193,10 +1320,13 @@ printIstat\tnote{2} & Can be TRUE or FALSE, if TRUE the name of the statistic (e
 %------------------------------------------------------------
 
 \begin{table}[ht]
+{\footnotesize
 \caption{Selected variables used in water quality analysis plots  \label{tab:wqVariables}}
 \begin{tabularx}{\textwidth}{lXl}
 \hline
-  \textbf{Argument} & \textbf{Definition} & \textbf{Default} \\
+\multicolumn{1}{c}{\textbf{\textsf{Argument}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Definition}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Default}}} \\
 \hline
 qUnit & Determines what units will be used for discharge, see section \ref{sec:units} & 2\\
 printTitle & If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption) & TRUE\\
@@ -1210,7 +1340,7 @@ fluxUnit & Determines what units will be used for flux (see Section \ref{sec:uni
 fluxMax & The upper limit on the vertical axis of graphs showing flux values. & \\
 \hline
 \end{tabularx}
-
+}
 \end{table}
 
 \FloatBarrier
@@ -1222,19 +1352,22 @@ fluxMax & The upper limit on the vertical axis of graphs showing flux values. & 
 \label{sec:wrtdsInputVariables}
 %------------------------------------------------------------
 \begin{table}[ht]
+{\footnotesize
 \caption{Selected variables in WRTDS  \label{tab:WRTDS}}
 \begin{tabularx}{\textwidth}{lXl}
 \hline
-  \textbf{Argument} & \textbf{Definition} & \textbf{Default} \\
+\multicolumn{1}{c}{\textbf{\textsf{Argument}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Definition}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Default}}} \\
 \hline
 windowY & The half window width for the time weighting, measured in years.  Values much shorter than 10 usually result in a good deal of oscillations in the system that are likely not very realistic & 10\\
 windowQ & The half window width for the weighting in terms of ln(Q).  For very large rivers (average discharge values in the range of many tens of thousands of cfs) a smaller value than 2 may be appropriate, but probably not less than 1 & 2 \\
 windowS & The half window width for the seasonal weighting, measured in years.  Any value \texttt{>}0.5 will make data from all seasons have some weight.  Values should probably not be lower than 0.3 & 0.5 \\
-minNumObs & This is the minimum number of observations with non-zero weight that the individual regressions will require before they will be used.  If there too few observations the program will iterate, making the windows wider until the number increases above this minimum.  The only reason to lower this is in cases where the data set is rather small.  It should always be set to a number at least slightly smaller than the sample size.  Any value lower than about 60 is probably in the 'dangerous' range, in terms of the reliability of the regression & 100 \\ 
+minNumObs & This is the minimum number of observations with non-zero weight that the individual regressions will require before they will be used.  If there too few observations the program will iterate, making the windows wider until the number increases above this minimum.  The only reason to lower this is in cases where the data set is rather small.  It should always be set to a number at least slightly smaller than the sample size.  Any value less than about 60 is probably in the \enquote{dangerous} range, in terms of the reliability of the regression & 100 \\ 
 minNumUncen & This is the minimum number of uncensored observations with non-zero weight that the individual regressions will require before they will be used.  If there are too few uncensored observations the program will iterate, making the windows wider until the number increases above this minimum.  The only reason to lower this is in cases where the number of uncensored values is rather small.  The method has never been tested in situations where there are very few uncensored values & 50 \\
 \hline
 \end{tabularx}
-
+}
 \end{table}
 
 \FloatBarrier
@@ -1246,11 +1379,14 @@ minNumUncen & This is the minimum number of uncensored observations with non-zer
 %------------------------------------------------------------
 
 \begin{table}[ht]
+{\footnotesize
 \caption{Selected variables used in plots for analysis of WRTDS results 
 \label{tab:wrtdsVariables}}
 \begin{tabularx}{\textwidth}{lXl}
 \hline
-  \textbf{Argument} & \textbf{Definition} & \textbf{Default} \\
+\multicolumn{1}{c}{\textbf{\textsf{Argument}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Definition}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Default}}} \\
 \hline
 qUnit & Determines what units will be used for discharge, see section \ref{sec:units} & 2\\
 fluxUnit & An index indicating what flux units will be used , see section \ref{sec:units} & 3\\
@@ -1258,20 +1394,23 @@ stdResid & This is an option.  If FALSE, it prints the regular residuals (they a
 printTitle & If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption) & TRUE\\
 startYear & The starting date for the graph, expressed as decimal years, for example, 1989 & NA\\
 endYear & The ending date for the graph, expressed as decimal years, for example, 1996 & NA\\
-moreTitle & A character variable that adds additional information to the graphic title.  Typically used to indicate what the estimation method was (e.g. WRTDS or another load estimation method; only WRTDS is available in the current version of EGRET & \texttt{"}WRTDS\texttt{"}\\
+moreTitle & A character variable that adds additional information to the graphic title.  Typically used to indicate the estimation method.\\
 fluxMax & The upper limit on the vertical axis of graphs showing flux values. & NA\\
 concMax & The upper limit on the vertical axis of graphs showing concentration values. & NA\\
 plotFlowNorm & If TRUE the graph shows the annual values as circles and the flow-normalized values as a green curve.  If false, it only shows the annual values. & TRUE\\
 \hline
 \end{tabularx}
-
+}
 \end{table}
 
 \begin{table}[ht]
-\caption{Variables used in WRTDS contour plots: plotContours and plotDiffContours \label{tab:wrtdsContourVariables}}
+{\footnotesize
+\caption{Variables used in WRTDS contour plots: \texttt{plotContours} and \texttt{plotDiffContours} \label{tab:wrtdsContourVariables}}
 \begin{tabularx}{\textwidth}{lXl}
 \hline
-  \textbf{Argument} & \textbf{Definition} & \textbf{Defaults}\\
+\multicolumn{1}{c}{\textbf{\textsf{Argument}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Definition}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Defaults}}}\\
 \hline
 qUnit & Determines what units will be used for discharge, see section \ref{sec:units} & 2\\
 qBottom & The lower limit of the discharge value for the graphs in the units specified by qUnit &\\
@@ -1280,38 +1419,41 @@ printTitle & If TRUE the plot has a title.  If FALSE no title (useful for public
 yearStart & The starting date for the graph, expressed as decimal years, for example, 1989 & \\
 yearEnd & The ending date for the graph, expressed as decimal years, for example, 1996 & \\
 whatSurface & This should generally be at its default value.  At whatSurface = 3, the plotted surface shows the expected value of concentration.  For whatSurface = 1, it shows the yHat surface (natural log of concentration).  For whatSurface = 2, it shows the SE surface (the standard error in log concentration). & 3\\
-contourLevels & With the default value the contour intervals are set automatically.  These will generally NOT be a very good choice, but they may provide a starting point.  To specify contourLevels the seq function in R should be used.  In general it would look like this: contourLevels = seq(from,to,by). & NA\\
-maxDiff & In the plotDiffCountours function instead of using contourLevels, the contours are set by maxDiff which is the absolute value of the maximum difference to be plotted.  Contour intervals are set to run from -maxDiff to maxDiff. &\\
+contourLevels & With the default value the contour intervals are set automatically, which generally will NOT be a very good choice, but they may provide a starting point.  If you want to specify contourLevels, use the \texttt{seq} function.  In general it would look like: contourLevels = seq(from,to,by). & NA\\
+maxDiff & In the \texttt{plotDiffCountours} function instead of using contourLevels, the contours are set by maxDiff which is the absolute value of the maximum difference to be plotted.  Contour intervals are set to run from -maxDiff to maxDiff. &\\
 span & Specifies the smoothness of the discharge duration information that goes on this graph.  A larger value will make it smoother.  The default should work well in most cases. & 60\\
 pval & The probability value for the discharge frequency information shown on the plot.  When flowDuration=TRUE, the plot has two black curves on it.  In the default value case these are at the 5 and 95 percent levels on the seasonal discharge duration curve.  pval = 0.01 would place these at the 1 and 99 percent points.  pval = 0.1 would place them at 10  and 90. & 0.05\\
-vert1 & This simply plots a vertical black line on the graph at a particular time (defined in decimal years).  It is used to illustrate the idea of a 'vertical slice' through the contour plot, which might then be shown in a subsequent use of plotConcQSmooth. & NA  \\
+vert1 & This simply plots a vertical black line on the graph at a particular time (defined in decimal years).  It is used to illustrate the idea of a \enquote{vertical slice} through the contour plot, which might then be shown in a subsequent use of \texttt{plotConcQSmooth}. & NA  \\
 vert2 & This gives the location of a second vertical black line on the graph at a particular time (defined in decimal years). & NA\\
 horiz & This simply plots a horizontal black line on the graph at a particular discharge value (defined in the units specified by qUnit).  It is used to illustrate the idea of the seasonal cycle in concentrations for a given discharge and the long-term change in this cycle.  & NA\\
 flowDuration & If TRUE it draws the discharge duration lines at the specified probabilities.  If FALSE, the discharge duration lines are left off. & TRUE\\
 \hline
 \end{tabularx}
-
+}
 \end{table}
 
 
 \begin{table}[ht]
-\caption{Variables used in WRTDS plotConcQSmooth and/or plotConcTimeSmooth functions \label{tab:wrtdsMultiVariables}}
+{\footnotesize
+\caption{Variables used in WRTDS \texttt{plotConcQSmooth} and/or \texttt{plotConcTimeSmooth} functions \label{tab:wrtdsMultiVariables}}
 \begin{tabularx}{\textwidth}{lXl}
 \hline
-  \textbf{Argument} & \textbf{Definition} & \textbf{Default}\\
+\multicolumn{1}{c}{\textbf{\textsf{Argument}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Definition}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Default}}}\\
 \hline
-date1 & This is the date for the first curve to be shown on the plotConcQSmooth graph.  It must be in the form 'yyyy-mm-dd' (it must be in quotes) &\\
-date2 & This is the date for the second curve to be shown on the plot ('yyyy-mm-dd'), If you don't want a second curve then the argument must be date2=NA &\\
-date3 & This is the date for the third curve to be shown on the plot ('yyyy-mm-dd'), If you don't want a third curve then the argument must be date3=NA &\\
-q1 & This is the discharge for the first curve on the plotConcTime smooth graph. It is in units specified by qUnit &\\
+date1 & This is the date for the first curve to be shown on the \texttt{plotConcQSmooth} graph.  It must be in the form \texttt{"}yyyy-mm-dd\texttt{"} (it must be in quotes) &\\
+date2 & This is the date for the second curve to be shown on the plot (\texttt{"}yyyy-mm-dd\texttt{"}), If you don't want a second curve then the argument must be date2=NA &\\
+date3 & This is the date for the third curve to be shown on the plot (\texttt{"}yyyy-mm-dd\texttt{"}), If you don't want a third curve then the argument must be date3=NA &\\
+q1 & This is the discharge for the first curve on the \texttt{plotConcTime} smooth graph. It is in units specified by qUnit &\\
 q2 & This is the discharge for the secons curve. If you don't want a second curve then the argument must be q2=NA &\\
 q3 & This is the discharge for the third curve. If you don't want a third curve then the argument must be q3=NA &\\
-qUnit & Determines what units will be used for discharge, see printqUnitCheatSheet() & 2\\
+qUnit & Determines what units will be used for discharge, see \texttt{printqUnitCheatSheet} & 2\\
 qLow & The discharge value that should form the left edge of the plotConcQSmooth graph in the user-selected discharge units. & \\
-qHigh & The discharge value that should form the right edge of the plotConcQSmooth graph in the user-selected discharge units. & \\
-centerDate & This is the month and day at the center of the time window for the plotConcTimeSmooth graph. It must be in the form 'mm-dd' in quotes &\\
-yearStart & The starting year for the plotConcTimeSmooth graph &\\
-yearEnd & The ending year for the plotConcTimeSmooth graph &\\
+qHigh & The discharge value that should form the right edge of the \texttt{plotConcQSmooth} graph in the user-selected discharge units. & \\
+centerDate & This is the month and day at the center of the time window for the \texttt{plotConcTimeSmooth} graph. It must be in the form \texttt{"}mm-dd\texttt{"} in quotes &\\
+yearStart & The starting year for the \texttt{plotConcTimeSmooth} graph &\\
+yearEnd & The ending year for the \texttt{plotConcTimeSmooth} graph &\\
 
 legendLeft & This determines the placement of the legend on the graph.  It establishes the left edge of the legend and is expressed in the discharge units being used.  The default (which is NA) will let it be placed automatically.  The legend can end up conflicting with one or more of the curves.  Once the location of the curves is established then this can be set in a way that avoids conflict. & 0\\
 legendTop & This determines the placement of the legend on the graph.  It establishes the top edge of the legend and is expressed according to the concentration values on the y-axis.  The default (which is NA) will let it be placed automatically.  The legend can end up conflicting with one or more of the curves.  Once the location of the curves is established then this can be set in a way that avoids conflict. & 0\\
@@ -1325,7 +1467,7 @@ windowQ & This is the half-window width for discharge in WRTDS.  It has units of
 windowS & This is the half-window width for seasons in WRTDS.  It has units of years.  & 0.5 \\
 \hline
 \end{tabularx}
-
+}
 \end{table}
 
 \FloatBarrier
@@ -1357,6 +1499,7 @@ write.table(tableData, file="tableData.tsv",sep="\t",
 
 This will save a file in your working directory called tableData.tsv.  You can see your working directory by typing getwd() in the R console. Opening the file in a general-purpose text editor, you should see the following:
 
+\singlespacing
 \begingroup
     \fontsize{8pt}{10pt}
 \begin{verbatim}
@@ -1367,13 +1510,14 @@ Year  Discharge [cms]	Conc [mg/L]	FN_Conc [mg/L]	Flux [10^6kg/yr]	FN_Flux [10^6k
 ...
 \end{verbatim}
 \endgroup
+\doublespacing
 
-To open this file in Excel:
+Next, follow the steps below to open this file in Excel:
 \begin{enumerate}
 \item Open Excel
 \item Click on the File tab
 \item Click on the Open option
-\item Browse to the working directory (as shown in the results of getwd())
+\item Navigate to the working directory (as shown in the results of getwd())
 \item Next to the File name text box, change the dropdown type to All Files (*.*)
 \item Double click tableData.tsv
 \item A text import wizard will open up, in the first window, choose the Delimited radio button if it is not automatically picked, then click on Next.
@@ -1396,9 +1540,9 @@ From Excel, it is simple to copy and paste the tables in other word processing o
 \section{Saving Plots}
 \label{app:savingPlots}
 %------------------------------------------------------------
-There are a variety of options for saving plots in R. Plots can be saved in JPG, PNG, PDF, and Postscript. JPG and PNG are easy to use in any number of programs (Microsoft Word or PowerPoint for example), but the images cannot be resized later. PDF and Postscript images are easily re-sizable.
+Plots can be saved from R as JPG, PNG, PDF, and Postscript files. JPG and PNG are easy to use in any number of programs (Microsoft Word or PowerPoint for example), but the images cannot be resized later. PDF and Postscript images are easily re-sizable.
 
-There are three steps to saving plots. The first is to open the 'device' (and declare the output type and file name). The second step is to execute the function just as you would when plotting to the screen, but no output will appear. The third step is to turn off the device. It is also possible to put many plots within the same pdf.  Some simple examples should demonstrate this easily:
+There are three steps to saving plots. The first is to open the \enquote{device} (and declare the output type and file name). The second step is to execute the function just as you would when plotting to the screen, but no output will appear. The third step is to turn off the device. It is also possible to put many plots within the same pdf.  Some simple examples should demonstrate this easily:
 
 <<label=savePlots, echo=TRUE, eval=FALSE>>=
 jpeg("plotFlowSingle.jpg")
@@ -1427,7 +1571,7 @@ dev.off()
 
 @
 
-There are many additional options for each of these devices. See the R help files for more information. One option that would be useful for the larger fluxBiasMulti graph is to adjust the height and width of the output. The output of fluxBiasMulti is larger than the default pdf or postscript devices. Therefore, specifying the height and width eliminates R having to re-size the graphic:
+There are many additional options for each of these devices. See the R help files for more information. One useful option for the larger \texttt{fluxBiasMulti} graph is to adjust the height and width of the output. The output of fluxBiasMulti is larger than the default pdf or postscript devices. Therefore, specifying the height and width eliminates R having to re-size the graphic:
 
 <<label=savePlots2, echo=TRUE, eval=FALSE>>=
 postscript("fluxBiasMulti.ps", height=10,width=8)
@@ -1443,14 +1587,14 @@ dev.off()
 %------------------------------------------------------------
 \begin{thebibliography}{10}
 
-\bibitem{HirschI}
-Helsel, D.R. and R. M. Hirsch, 2002. Statistical Methods in Water Resources Techniques of Water Resources Investigations, Book 4, chapter A3. U.S. Geological Survey. 522 pages. \url{http://pubs.usgs.gov/twri/twri4a3/}
+% \bibitem{HirschI}
+% Helsel, D.R. and R. M. Hirsch, 2002. Statistical Methods in Water Resources Techniques of Water Resources Investigations, Book 4, chapter A3. U.S. Geological Survey. 522 pages. \url{http://pubs.usgs.gov/twri/twri4a3/}
 
 \bibitem{HirschII}
 Hirsch, R. M., Moyer, D. L. and Archfield, S. A. (2010), Weighted Regressions on Time, Discharge, and Season (WRTDS), with an Application to Chesapeake Bay River Inputs. JAWRA Journal of the American Water Resources Association, 46: 857-880. doi: 10.1111/j.1752-1688.2010.00482.x \url{http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full}
 
 \bibitem{HirschIII}
-Sprague, L. A., Hirsch, R. M., and Aulenbach, B. T. (2011), Nitrate in the Mississippi River and Its Tributaries, 1980 to 2008: Are We Making Progress? Environmental Science \& Technology, 45 (17): 7209-7216. doi: 10.1021/es201221s \url{http://pubs.acs.org/doi/abs/10.1021/es201221s}
+Sprague, L. A., Hirsch, R. M., and Aulenbach, B. T. (2011), Nitrate in the Mississippi River and Its Tributaries, 1980 to 2008: Are We Making Progress? Environmental Science \& Technology, 45 (17): 7209-7216. doi: 10.1021/es201221s 
 
 \bibitem{HirschIV}
 Moyer, D.L., Hirsch, R.M., and Hyer, K.E. (2012), Comparison of Two Regression-Based Approaches for Determining Nutrient and Sediment Fluxes and Trends in the Chesapeake Bay Watershed: U.S. Geological Survey Scientific Investigations Report: 2012-5244, 118 p. \url{http://pubs.usgs.gov/sir/2012/5244/}
