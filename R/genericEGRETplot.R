@@ -32,8 +32,14 @@
 #' @param rmSciY logical defaults to FALSE, changes y label from scientific to fixed
 #' @param xDate logical defaults to FALSE, changes x label to "year-month" format if set to TRUE and total years less than 4.
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
-#' @param showXLabels logical defaults to TRUE. If FALSE, both the x axis and x axis label are not plotted. 
-#' @param showYLabels logical defaults to TRUE. If FALSE, both the y axis and y axis label are not plotted. 
+#' @param showXLabels logical defaults to TRUE. If FALSE, the x axis label is not plotted
+#' @param showYLabels logical defaults to TRUE. If FALSE, the y axis label is not plotted
+#' @param showXAxis logical defaults to TRUE. If FALSE, the x axis is not plotted
+#' @param showYAxis logical defaults to TRUE. If FALSE, the y axis is not plotted
+#' @param removeFirstX logical defaults to FALSE. If TRUE, removes the first x axis label. This can be handy for plotting mutliple plots.
+#' @param removeLastX logical defaults to FALSE. If TRUE, removes the last x axis label. This can be handy for plotting mutliple plots.
+#' @param removeFirstY logical defaults to FALSE. If TRUE, removes the first y axis label. This can be handy for plotting mutliple plots.
+#' @param removeLastY logical defaults to FALSE. If TRUE, removes the last y axis label. This can be handy for plotting mutliple plots.
 #' @param \dots additional graphical parameters can be adjusted
 #' @keywords graphics water-quality statistics
 #' @export
@@ -59,7 +65,11 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
                                 tcl=0.5,cex.axis=1,las=1,xDate=FALSE,
                                 tinyPlot=FALSE,hLine=FALSE,oneToOneLine=FALSE, 
                                 rmSciX=FALSE,rmSciY=FALSE,customPar=FALSE,col="black",lwd=1,
-                                showXLabels=TRUE,showYLabels=TRUE,...){
+                                showXLabels=TRUE,showYLabels=TRUE,
+                                showXAxis=TRUE,showYAxis=TRUE,
+                                removeFirstX=FALSE,removeLastX=FALSE,
+                                removeFirstY=FALSE,removeLastY=FALSE,
+                                ...){
   
   if(!customPar){
     if (tinyPlot){
@@ -69,8 +79,8 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
     }
   }
   
-  plot(x,y,xlim=xlim,xaxs=xaxs,xlab=if(showXLabels) xlab,axes=FALSE,
-       ylim=ylim,yaxs=yaxs,ylab=if(showYLabels) ylab, main=plotTitle,col=col,lwd=lwd,
+  plot(x,y,xlim=xlim,xaxs=xaxs,xlab=if(showXLabels) xlab else "",axes=FALSE,
+       ylim=ylim,yaxs=yaxs,ylab=if(showYLabels) ylab else "", main=plotTitle,col=col,lwd=lwd,
        pch=pch,cex=cex,cex.main=cex.main,font.main=font.main,cex.lab=cex.lab,...)
   
   box()
@@ -108,14 +118,33 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
     }
   }
   
-  if(showXLabels){
+  if (removeFirstX){
+    xTicks <- c("", xTicks[2:(length(xTicks))])  
+  }
+  
+  if (removeLastX){
+    xTicks <- c(xTicks[1:(length(xTicks)-1)] , "")
+  }
+  
+  if (removeFirstY){
+    yTicks <- c("", yTicks[2:(length(yTicks))])  
+  }
+  
+  if (removeLastY){
+    yTicks <- c(yTicks[1:(length(yTicks)-1)] , "")
+  }
+  
+  if(showXAxis){
     axis(1,tcl=tcl,at=xTicks,cex.axis=cex.axis,labels=xTicksLab)  
-    axis(3,tcl=tcl,at=xTicks,labels=FALSE)
+  } else {
+    axis(1,tcl=tcl,at=xTicks,labels=FALSE)
   }
+  axis(3,tcl=tcl,at=xTicks,labels=FALSE)
   
-  if(showYLabels){
+  if(showYAxis){
     axis(2,tcl=tcl,las=las,at=yTicks,cex.axis=cex.axis,labels=yTicksLab)
-    axis(4,tcl=tcl,at=yTicks,labels=FALSE)
+  } else {
+    axis(2,tcl=tcl,at=yTicks,labels=FALSE)    
   }
-  
+  axis(4,tcl=tcl,at=yTicks,labels=FALSE)    
 }

@@ -9,7 +9,9 @@ genericEGRETDotPlot(x, y, xlim, ylim, xTicks, yTicks, printTitle = TRUE,
   tcl = 0.5, cex.axis = 1, las = 1, xDate = FALSE, tinyPlot = FALSE,
   hLine = FALSE, oneToOneLine = FALSE, rmSciX = FALSE, rmSciY = FALSE,
   customPar = FALSE, col = "black", lwd = 1, showXLabels = TRUE,
-  showYLabels = TRUE, ...)
+  showYLabels = TRUE, showXAxis = TRUE, showYAxis = TRUE,
+  removeFirstX = FALSE, removeLastX = FALSE, removeFirstY = FALSE,
+  removeLastY = FALSE, ...)
 }
 \arguments{
 \item{x}{vector specifying the x data (required)}
@@ -70,9 +72,21 @@ genericEGRETDotPlot(x, y, xlim, ylim, xTicks, yTicks, printTitle = TRUE,
 
 \item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function}
 
-\item{showXLabels}{logical defaults to TRUE. If FALSE, both the x axis and x axis label are not plotted.}
+\item{showXLabels}{logical defaults to TRUE. If FALSE, the x axis label is not plotted}
 
-\item{showYLabels}{logical defaults to TRUE. If FALSE, both the y axis and y axis label are not plotted.}
+\item{showYLabels}{logical defaults to TRUE. If FALSE, the y axis label is not plotted}
+
+\item{showXAxis}{logical defaults to TRUE. If FALSE, the x axis is not plotted}
+
+\item{showYAxis}{logical defaults to TRUE. If FALSE, the y axis is not plotted}
+
+\item{removeFirstX}{logical defaults to FALSE. If TRUE, removes the first x axis label. This can be handy for plotting mutliple plots.}
+
+\item{removeLastX}{logical defaults to FALSE. If TRUE, removes the last x axis label. This can be handy for plotting mutliple plots.}
+
+\item{removeFirstY}{logical defaults to FALSE. If TRUE, removes the first y axis label. This can be handy for plotting mutliple plots.}
+
+\item{removeLastY}{logical defaults to FALSE. If TRUE, removes the last y axis label. This can be handy for plotting mutliple plots.}
 
 \item{\dots}{additional graphical parameters can be adjusted}
 }
