@@ -26,6 +26,7 @@
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed 
 #' @param printValues logical variable if TRUE the results shown on the graph are also printed to the console and returned in a dataframe (this can be useful for quantifying the changes seen visually in the graph), default is FALSE (not printed)
 #' @param localSample data frame that contains the Sample data, default name is Sample
+#' @param localDaily data frame containing the daily values, default is Daily
 #' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 10
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
@@ -43,6 +44,7 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param colors color vector of lines on plot, see ?par 'Color Specification'. Defaults to c("black","red","green")
 #' @param lineVal vector of line types. Defaults to c(1,1,1) which is a solid line for each line. Options: 0=blank, 1=solid (default), 2=dashed, 3=dotted, 4=dotdash, 5=longdash, 6=twodash
+#' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record. Default is TRUE.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords water-quality statistics graphics
 #' @import survival
@@ -55,14 +57,21 @@
 #' qHigh<-100
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
+#' Daily <- ChopDaily
 #' plotConcQSmooth(date1,date2,date3,qLow,qHigh)
 #' plotConcQSmooth(date1,date2,date3,qLow,qHigh,logScale=TRUE)
 plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0,legendTop = 0, 
                           concMax = NA, concMin=NA, bw = FALSE, printTitle = TRUE, printValues = FALSE, 
-                          localSample = Sample, localINFO = INFO, minNumObs = 100, minNumUncen =  50,
+                          localSample = Sample, localDaily=Daily, localINFO = INFO, minNumObs = 100, minNumUncen =  50,
                           colors=c("black","red","green"),printLegend=TRUE,
                           windowY = 10, windowQ = 2, windowS = 0.5,tinyPlot=FALSE, customPar=FALSE,
-                          lwd=2,cex=0.8, cex.axis=1.1,cex.main=1.1, cex.legend=1.2,lineVal=c(1,1,1),logScale=FALSE,...) {
+                          lwd=2,cex=0.8, cex.axis=1.1,cex.main=1.1, cex.legend=1.2,lineVal=c(1,1,1),logScale=FALSE,
+                          edgeAdjust=TRUE,...) {
+    
+  numDays <- length(localDaily$DecYear)
+  DecLow <- localDaily$DecYear[1]
+  DecHigh <- localDaily$DecYear[numDays]
+  
   #########################################################
   if (is.numeric(qUnit)){
     qUnit <- qConst[shortCode=qUnit][[1]]
@@ -95,8 +104,11 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0
   
   for(iCurve in 1:numDates) {
     yrs<-rep(decYear[iCurve],48)
-    result<-runSurvReg(yrs,LQ,localSample,windowY = windowY, windowQ = windowQ, 
-                       windowS = windowS, minNumObs=minNumObs, minNumUncen = minNumUncen,interactive=FALSE)
+    result<-runSurvReg(yrs,LQ,numDays,DecLow,DecHigh,localSample,
+                       windowY = windowY, windowQ = windowQ, 
+                       windowS = windowS, minNumObs=minNumObs, 
+                       minNumUncen = minNumUncen,interactive=FALSE,
+                       edgeAdjust=edgeAdjust)
     y[iCurve,]<-result[,3]
   }
   

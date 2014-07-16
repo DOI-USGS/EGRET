@@ -19,6 +19,7 @@
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
+#' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record. Default is TRUE.
 #' @keywords water-quality statistics
 #' @import survival
 #' @return surfaces array containing the three surfaces estimated, array is 3 dimensional
@@ -27,7 +28,8 @@
 #' Daily <- ChopDaily
 #' Sample <- ChopSample
 #' surfaces <- estSurfaces()
-estSurfaces<-function(localDaily = Daily, localSample = Sample, windowY=10,windowQ=2,windowS=0.5,minNumObs=100,minNumUncen=50){
+estSurfaces<-function(localDaily = Daily, localSample = Sample, windowY=10,windowQ=2,windowS=0.5,
+                      minNumObs=100,minNumUncen=50,edgeAdjust=TRUE){
   # this function estimates the 3 surfaces based on the Sample data
   # one is the estimated log concentration (yHat)
   # the second is the estimated standard error (SE)
@@ -38,6 +40,10 @@ estSurfaces<-function(localDaily = Daily, localSample = Sample, windowY=10,windo
   # it returns the data frame called surfaces 
   #
   originalColumns <- names(localSample)
+  
+  numDays <- length(localDaily$DecYear)
+  DecLow <- localDaily$DecYear[1]
+  DecHigh <- localDaily$DecYear[numDays]
   
   bottomLogQ<-min(localDaily$LogQ) - 0.05
   topLogQ<-max(localDaily$LogQ) + 0.05
@@ -55,7 +61,8 @@ estSurfaces<-function(localDaily = Daily, localSample = Sample, windowY=10,windo
   
   localSampleMin <- localSample[,which(originalColumns %in% colToKeep)]
   
-  resultSurvReg<-runSurvReg(estPtYear,estPtLogQ,localSampleMin,windowY,windowQ,windowS,minNumObs,minNumUncen)
+  resultSurvReg<-runSurvReg(estPtYear,estPtLogQ,numDays,DecLow,DecHigh,localSampleMin,
+                            windowY,windowQ,windowS,minNumObs,minNumUncen,edgeAdjust=edgeAdjust)
   
   surfaces<-array(0,dim=c(14,nVectorYear,3))
 

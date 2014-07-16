@@ -17,6 +17,7 @@
 #' @param env environment to set returning variables, defaults to parent.frame()
 #' @param localSurface string specifying the name of the returned surface array. If NA (default), array is returned named 'surface'
 #' @param localAnnualResults string specifying the name of the returned AnnualResults calculation. If NA (default), data frame is returned named 'AnnualResults'. setupYears is performed with the water year, and results are saved in this data frame.
+#' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record. Default is TRUE.
 #' @keywords water-quality statistics
 #' @import survival
 #' @export
@@ -27,15 +28,23 @@
 #' \dontrun{modelEstimation()}
 modelEstimation<-function(localDaily = Daily,localSample = Sample, localINFO = INFO, 
                           windowY=10, windowQ=2, windowS=0.5,minNumObs=100,minNumUncen=50, 
-                          env=parent.frame(),localSurface=NA,localAnnualResults=NA){
+                          env=parent.frame(),localSurface=NA,localAnnualResults=NA,
+                          edgeAdjust=TRUE){
   # this code is a wrapper for several different functions that test the model, fit a surface,
   #  estimate daily values and flow normalized daily values
   #  and organize these into monthly results
   #  it returns several data frames
   #  all of the data frames are given their "standard" names
   #
+  
+  numDays <- length(localDaily$DecYear)
+  DecLow <- localDaily$DecYear[1]
+  DecHigh <- localDaily$DecYear[numDays]
+  
   cat("\n first step running estCrossVal may take about 1 minute")
-  Sample1<-estCrossVal(localSample = localSample, windowY, windowQ, windowS, minNumObs, minNumUncen)
+  Sample1<-estCrossVal(numDays,DecLow,DecHigh, localSample, 
+                       windowY, windowQ, windowS, minNumObs, minNumUncen,
+                       edgeAdjust)
 
   surfaceIndexParameters<-surfaceIndex(localDaily = localDaily)
   localINFO$bottomLogQ<-surfaceIndexParameters[1]
@@ -49,8 +58,13 @@ modelEstimation<-function(localDaily = Daily,localSample = Sample, localINFO = I
   localINFO$windowS<-windowS
   localINFO$minNumObs<-minNumObs
   localINFO$minNumUncen<-minNumUncen
+  localINFO$numDays <- numDays
+  localINFO$DecLow <- DecLow
+  localINFO$DecHigh <- DecHigh
+  
   cat("\nNext step running  estSurfaces with survival regression:\n")
-  surfaces1<-estSurfaces(localDaily = localDaily, localSample = localSample, windowY, windowQ, windowS, minNumObs, minNumUncen)
+  surfaces1<-estSurfaces(localDaily = localDaily, localSample = localSample, 
+                         windowY, windowQ, windowS, minNumObs, minNumUncen, edgeAdjust)
 
   Daily1<-estDailyFromSurfaces(localDaily = localDaily, localINFO = localINFO, localsurfaces = surfaces1)
 

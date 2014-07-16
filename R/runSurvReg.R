@@ -15,6 +15,10 @@
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
 #' @param interactive logical specifying whether or not to display progress message
+#' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record. Default is TRUE.
+#' @param numDays number of days in the Daily record
+#' @param DecLow number specifying minimum decimal year
+#' @param DecHigh number specifying maximum decimal year
 #' @keywords water-quality statistics
 #' @import survival
 #' @return resultSurvReg numeric array containing the yHat, SE, and ConcHat values array dimensions are (numEstPts,3)
@@ -23,9 +27,14 @@
 #' estPtYear<-c(2001.0,2005.0,2009.0)
 #' estPtLQ<-c(1,1,1)
 #' Sample <- ChopSample
-#' resultSurvReg <- runSurvReg(estPtYear,estPtLQ,interactive=FALSE)
-runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2,
-                     windowS=0.5,minNumObs=100,minNumUncen=50,interactive=TRUE) {
+#' Daily <- ChopDaily
+#' numDays <- length(Daily$DecYear)
+#' DecLow <- Daily$DecYear[1]
+#' DecHigh <- Daily$DecYear[numDays]
+#' resultSurvReg <- runSurvReg(estPtYear,estPtLQ,numDays,DecLow,DecHigh,interactive=FALSE)
+runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,localSample=Sample,windowY=10,windowQ=2,
+                     windowS=0.5,minNumObs=100,minNumUncen=50,interactive=TRUE,
+                     edgeAdjust=TRUE) {
   # runs survival regression model
   # Sample is the Sample data frame being used
   # estPtYear is a vector of DecYear values where the model will be estimated
@@ -40,6 +49,8 @@ runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2
   #        second column is the standard error (which is used to compute the bias correction)
   #        third column is the predicted concentration in real space (called ConcHat)
 #   require(survival)
+  numSamples <- length(localSample$DecYear)
+  
   numEstPt<-length(estPtYear)
   resultSurvReg<-array(0,c(numEstPt,3))
   
@@ -62,6 +73,12 @@ runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2
     tempWindowQ<-windowQ
     tempWindowS<-windowS
     estY<-estPtYear[i]
+    distLow <- estY-DecLow
+    distHigh <- DecHigh-estY
+    distTime <- min(distLow,distHigh)
+    
+    if (edgeAdjust)  tempWindowY <- if(distTime>tempWindowY) tempWindowY else ((2 * tempWindowY) - distTime)
+    
     estLQ<-estPtLQ[i]
 
     repeat{
@@ -102,9 +119,9 @@ runSurvReg<-function(estPtYear,estPtLQ,localSample = Sample,windowY=10,windowQ=2
       #       message("Survival regression model did not converge at iteration: ", i)
       return(NULL)
     }, finally={
-      new<-data.frame(DecYear=estY,LogQ=estLQ,SinDY=sin(2*pi*estY),CosDY=cos(2*pi*estY))
+      newdf<-data.frame(DecYear=estY,LogQ=estLQ,SinDY=sin(2*pi*estY),CosDY=cos(2*pi*estY))
       #   extract results at estimation point
-      yHat<-predict(survModel,new)
+      yHat<-predict(survModel,newdf)
       SE<-survModel$scale
       bias<-exp((SE^2)/2)
       resultSurvReg[i,1]<-yHat

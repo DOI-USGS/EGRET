@@ -12,21 +12,31 @@
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
+#' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record. Default is TRUE.
+#' @param numDays number of days in the Daily record
+#' @param DecLow number specifying minimum decimal year
+#' @param DecHigh number specifying maximum decimal year
 #' @keywords water-quality statistics
 #' @import survival
 #' @return SampleCrossV data frame containing the sample data augmented by the results of the cross-validation exercise
 #' @export
 #' @examples
 #' Sample <- ChopSample
-#' SampleCrossV <- estCrossVal()
-estCrossVal<-function(localSample = Sample, windowY = 10, windowQ = 2, windowS = 0.5, minNumObs = 100, minNumUncen = 50){
+#' Daily <- ChopDaily
+#' numDays <- length(Daily$DecYear)
+#' DecLow <- Daily$DecYear[1]
+#' DecHigh <- Daily$DecYear[numDays]
+#' SampleCrossV <- estCrossVal(numDays,DecLow,DecHigh)
+estCrossVal<-function(numDays,DecLow,DecHigh,localSample = Sample, windowY = 10, windowQ = 2, 
+                      windowS = 0.5, minNumObs = 100, minNumUncen = 50,
+                      edgeAdjust=TRUE){
   #  this function fits the WRTDS model making an estimate of concentration for every day
   #    But, it uses leave-one-out-cross-validation
   #    That is, for the day it is estimating, it leaves that observation out of the data set
   #      It returns a Sample data frame with three added columns
   #      yHat, SE, and ConcHat
   originalColumns <- names(localSample)
-  numObs<-length(localSample$DecYear)
+  numObs<-nrow(localSample)
   yHat<-rep(0,numObs)
   SE<-rep(0,numObs)
   ConcHat<-rep(0,numObs)
@@ -47,7 +57,9 @@ estCrossVal<-function(localSample = Sample, windowY = 10, windowQ = 2, windowS =
 
     SampleMinusOne<-SampleCV[SampleCV$iCounter!=i,]
     
-    result<-runSurvReg(SampleCrossV$DecYear[i],SampleCrossV$LogQ[i],SampleMinusOne,windowY,windowQ,windowS,minNumObs,minNumUncen,interactive=FALSE)
+    result<-runSurvReg(SampleCrossV$DecYear[i],SampleCrossV$LogQ[i],numDays,DecLow,DecHigh,SampleMinusOne,
+                       windowY,windowQ,windowS,minNumObs,minNumUncen,interactive=FALSE,
+                       edgeAdjust=edgeAdjust)
     
     yHat[i]<-result[1]
     SE[i]<-result[2]
