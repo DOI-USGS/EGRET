@@ -6,7 +6,7 @@
 modelEstimation(localDaily = Daily, localSample = Sample,
   localINFO = INFO, windowY = 10, windowQ = 2, windowS = 0.5,
   minNumObs = 100, minNumUncen = 50, env = parent.frame(),
-  localSurface = NA, localAnnualResults = NA)
+  localSurface = NA, localAnnualResults = NA, edgeAdjust = TRUE)
 }
 \arguments{
 \item{localDaily}{data frame containing the daily values, default is Daily}
@@ -30,6 +30,8 @@ modelEstimation(localDaily = Daily, localSample = Sample,
 \item{localSurface}{string specifying the name of the returned surface array. If NA (default), array is returned named 'surface'}
 
 \item{localAnnualResults}{string specifying the name of the returned AnnualResults calculation. If NA (default), data frame is returned named 'AnnualResults'. setupYears is performed with the water year, and results are saved in this data frame.}
+
+\item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record. Default is TRUE.}
 }
 \description{
 This one function does a jack-knife cross-validation of a WRTDS model, fits the surface

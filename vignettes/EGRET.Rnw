@@ -1096,15 +1096,11 @@ returnDF <- tableChangeSingle(yearPoints=c(2000,2005,2010),
 
 \clearpage
 
-\FloatBarrier
-
 
 %------------------------------------------------------------ 
 \section{Extending Plots Past Defaults}
 \label{sec:extendedPlots}
 %------------------------------------------------------------ 
-
-\FloatBarrier
 
 The basic plotting options were shown in the section \ref{sec:wrtdsResults}.  This section demonstrates some ways to extend the capabilities of the EGRET plots. EGRET plots use R's basic plotting options. You set many of the formatting details of plotting routines in R by using \enquote{Graphical Parameters}.  To read about all of these graphical parameters see \texttt{?par}.  When the graphical functions in EGRET are coded, a set of default values for many of these parameters are chosen, but you can override all of these default values. Additionally, you can add features to a plot after calling the plot function. To change the plot margins (mar), font, or other graphical parameters initially assigned, set the argument customPar to TRUE.
 
@@ -1162,8 +1158,8 @@ Figure \ref{fig:adjustSize} shows a larger title and axis number (left), and lar
 plotConcQ(cex.axis=2,cex.main=1.5,logScale=TRUE)
 plotConcQ(cex.lab=2,cex=2,logScale=TRUE)
 @
-\newpage
-\FloatBarrier
+
+\clearpage
 
 Figure \ref{fig:plotConcQComparison} shows the default on the left, and several features on the right. First, the margin is adjusted to c(8,8,8,8), requiring customPar set to TRUE. The margin vector represents the margin spacing of the 4 \texttt{"}sides\texttt{"} of a plot in the order: bottom, left, top, right. Next, the text labels were adjusted, color set to \texttt{"}blue\texttt{"}, point and line size increased, and the point type changed form a solid circle(pch=20) to solid diamond (pch=18). A grid, legend, arrow, and text are added after the plot is produced.
 <<plotConcQComparison,echo=TRUE,eval=TRUE,fig.cap="Modified plotConcQ", fig.subcap=c("Default","Modified"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
@@ -1178,8 +1174,8 @@ arrows(3, 0.14, 1, .05,lwd=2)
 text(12,.14,"Censored Value")
 @
 
-\newpage
-\FloatBarrier
+\clearpage
+
 Only a few fonts are consistent on all operating systems. Figure \ref{fig:easyFontChange} shows how to change to the Serif font, as well as how to use the mtext function. To see the available fonts for pdf output on your computer, type \texttt{names(pdfFonts())}.The available fonts are quite limited in base R. To expand the font choices, a useful R library, \enquote{extrafont} can help.
 
 <<easyFontChange,echo=TRUE,eval=TRUE,fig.cap="Serif font",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth', fig.pos="h">>=
@@ -1189,8 +1185,7 @@ plotFluxPred(customPar=TRUE)
 mtext(side=3,line=-3,"Serif font example",cex=3)
 @
 
-\newpage
-\FloatBarrier
+\clearpage
 
 You can also extend the contour plots. The default y-axis is determined from qTop and qBottom. Occasionally, you may need to use a custom axis by specifying yTicks. It is also nice to be able to adjust the color scheme of the contour plots. There are some color schemes built into base R such as heat.colors, topo.colors, terrain.colors, and cm.colors. Alternatively, you can set colors by using the \texttt{colorRampPalette} function. For example, a black and white color scheme might be required. In another example, the \texttt{plotDiffContours} might make more sense to go from yellow to white for the negative values, and white to blue for the positive values. Examples are shown below for modifying a contour plot in Figure \ref{fig:modifiedContour1} and modifying a difference contour plot in Figure \ref{fig:modifiedDiffContour}. 
 
@@ -1222,6 +1217,49 @@ plotDiffContours(year0=2001,year1=2010,qBottom=0.5,qTop=50,
 
 \clearpage
 
+It is also possible to create custom multi-panel plots. In the simplest example (figure \ref{fig:tinyPlot1}), you can use the \texttt{"tinyPlot=TRUE"} option.
+
+<<tinyPlot1,echo=TRUE,eval=TRUE,fig.cap="Custom multipanel plot using tinyPlot",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
+par(mfcol = c(2, 2), oma = c(0, 1.7, 6, 1.7))
+
+plotFluxQ(tinyPlot=TRUE,printTitle=FALSE,
+          fluxUnit=9,logScale=FALSE,fluxMax=1)
+plotConcQ(tinyPlot=TRUE,printTitle=FALSE)
+plotFluxHist(tinyPlot=TRUE,printTitle=FALSE,fluxMax=1)
+plotConcHist(tinyPlot=TRUE,printTitle=FALSE,concMax=3)
+mtext("Custom multi-pane graph using tinePlot=TRUE", outer=TRUE, font=2)
+@
+
+\clearpage
+
+Finally, figure \ref{fig:customPanel} shows a method to create a panel of plots with a finer control.
+
+
+<<customPanel,echo=TRUE,eval=TRUE,fig.cap="Custom multipanel plot",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
+par(mar=c(3.5,3.5,0.2,0.2), # This is the whitespace around the plots
+    oma=c(1,1,3,1), # This is the outer margin
+    mgp=c(2,0.5,0), # This is the spacing between the label numbers and plots
+    mfcol = c(2,2)) # rows/columns
+
+plotFluxQ(tinyPlot=TRUE,printTitle=FALSE,
+          fluxUnit=9,logScale=FALSE,fluxMax=1,
+          showXLabels=FALSE,showXAxis=FALSE, 
+          showYLabels=TRUE,customPar=TRUE)
+
+plotConcQ(tinyPlot=TRUE,printTitle=FALSE, customPar=TRUE,
+          removeLastY=TRUE,removeLastX=TRUE,
+          showYLabels=TRUE)
+
+plotFluxHist(tinyPlot=TRUE,printTitle=FALSE,fluxMax=1,
+          showYLabels=FALSE,showYAxis=FALSE,
+          showXLabels=FALSE,showXAxis=FALSE, customPar=TRUE)
+plotConcHist(tinyPlot=TRUE,printTitle=FALSE,concMax=3,
+          showYLabels=FALSE, showYAxis=FALSE, customPar=TRUE)
+mtext("Custom multi-pane graph using customPar", outer=TRUE, font=2)
+@
+
+
+\clearpage
 
 %------------------------------------------------------------ 
 \section{Getting Started in R}
@@ -1281,7 +1319,7 @@ This section describes variables that are common for a variety of function types
 \begin{table}[ht]
 {\footnotesize
   \begin{threeparttable}[b]
-\caption{Variables used in flow history plots (plot15, plotFour, plotFourStats, plotQTimeDaily, plotSDLogQ) 
+\caption{Variables used in flow history plots (\texttt{plot15}, \texttt{plotFour}, \texttt{plotFourStats}, \texttt{plotQTimeDaily}, \texttt{plotSDLogQ}) 
 \label{tab:flowHistoryVariables}}
 \begin{tabularx}{\textwidth}{lXl}
 \hline

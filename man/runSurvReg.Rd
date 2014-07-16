@@ -3,9 +3,9 @@
 \alias{runSurvReg}
 \title{Run the weighted survival regression for a set of estimation points (defined by DecYear and Log(Q))}
 \usage{
-runSurvReg(estPtYear, estPtLQ, localSample = Sample, windowY = 10,
-  windowQ = 2, windowS = 0.5, minNumObs = 100, minNumUncen = 50,
-  interactive = TRUE)
+runSurvReg(estPtYear, estPtLQ, numDays, DecLow, DecHigh, localSample = Sample,
+  windowY = 10, windowQ = 2, windowS = 0.5, minNumObs = 100,
+  minNumUncen = 50, interactive = TRUE, edgeAdjust = TRUE)
 }
 \arguments{
 \item{localSample}{data frame containing the sample values, default is Sample}
@@ -25,6 +25,14 @@ runSurvReg(estPtYear, estPtLQ, localSample = Sample, windowY = 10,
 \item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
 
 \item{interactive}{logical specifying whether or not to display progress message}
+
+\item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record. Default is TRUE.}
+
+\item{numDays}{number of days in the Daily record}
+
+\item{DecLow}{number specifying minimum decimal year}
+
+\item{DecHigh}{number specifying maximum decimal year}
 }
 \value{
 resultSurvReg numeric array containing the yHat, SE, and ConcHat values array dimensions are (numEstPts,3)
@@ -40,7 +48,11 @@ This function runs the survival regression which is the concentration estimation
 estPtYear<-c(2001.0,2005.0,2009.0)
 estPtLQ<-c(1,1,1)
 Sample <- ChopSample
-resultSurvReg <- runSurvReg(estPtYear,estPtLQ,interactive=FALSE)
+Daily <- ChopDaily
+numDays <- length(Daily$DecYear)
+DecLow <- Daily$DecYear[1]
+DecHigh <- Daily$DecYear[numDays]
+resultSurvReg <- runSurvReg(estPtYear,estPtLQ,numDays,DecLow,DecHigh,interactive=FALSE)
 }
 \keyword{statistics}
 \keyword{water-quality}

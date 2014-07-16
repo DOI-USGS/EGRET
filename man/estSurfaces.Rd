@@ -4,7 +4,8 @@
 \title{Estimate the three surfaces (for yHat, SE and ConcHat) as a function of DecYear and logQ and store in the three-dimensional object called surfaces}
 \usage{
 estSurfaces(localDaily = Daily, localSample = Sample, windowY = 10,
-  windowQ = 2, windowS = 0.5, minNumObs = 100, minNumUncen = 50)
+  windowQ = 2, windowS = 0.5, minNumObs = 100, minNumUncen = 50,
+  edgeAdjust = TRUE)
 }
 \arguments{
 \item{localDaily}{data frame containing the daily values, default is Daily}
@@ -20,6 +21,8 @@ estSurfaces(localDaily = Daily, localSample = Sample, windowY = 10,
 \item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
 
 \item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
+
+\item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record. Default is TRUE.}
 }
 \value{
 surfaces array containing the three surfaces estimated, array is 3 dimensional

@@ -3,8 +3,9 @@
 \alias{estCrossVal}
 \title{Jack-Knife cross validation of the WRTDS (Weighted Regressions on Time, Discharge, and Season)}
 \usage{
-estCrossVal(localSample = Sample, windowY = 10, windowQ = 2,
-  windowS = 0.5, minNumObs = 100, minNumUncen = 50)
+estCrossVal(numDays, DecLow, DecHigh, localSample = Sample, windowY = 10,
+  windowQ = 2, windowS = 0.5, minNumObs = 100, minNumUncen = 50,
+  edgeAdjust = TRUE)
 }
 \arguments{
 \item{localSample}{data frame containing the sample values, default is Sample}
@@ -18,6 +19,14 @@ estCrossVal(localSample = Sample, windowY = 10, windowQ = 2,
 \item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
 
 \item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
+
+\item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record. Default is TRUE.}
+
+\item{numDays}{number of days in the Daily record}
+
+\item{DecLow}{number specifying minimum decimal year}
+
+\item{DecHigh}{number specifying maximum decimal year}
 }
 \value{
 SampleCrossV data frame containing the sample data augmented by the results of the cross-validation exercise
@@ -31,7 +40,11 @@ error analysis that uses all the data.
 }
 \examples{
 Sample <- ChopSample
-SampleCrossV <- estCrossVal()
+Daily <- ChopDaily
+numDays <- length(Daily$DecYear)
+DecLow <- Daily$DecYear[1]
+DecHigh <- Daily$DecYear[numDays]
+SampleCrossV <- estCrossVal(numDays,DecLow,DecHigh)
 }
 \keyword{statistics}
 \keyword{water-quality}
