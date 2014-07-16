@@ -76,8 +76,15 @@ plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9,
   }
   ################################################################################
   
+  
+  if (tinyPlot) {
+    ylabel <- fluxUnit@unitExpressTiny
+  } else {
+    ylabel<-fluxUnit@unitExpress
+  }
+  
   unitFactorReturn <- fluxUnit@unitFactor
-  ylabel <- paste("Flux in ", fluxUnit@unitName, sep="")
+#   ylabel <- paste("Flux in ", fluxUnit@unitName, sep="")
   numYears <- length(localAnnualResults$DecYear)
   yearStart <- if(is.na(yearStart)) trunc(localAnnualResults$DecYear[1]) else yearStart
   yearEnd <- if(is.na(yearEnd)) trunc(localAnnualResults$DecYear[numYears])+1 else yearEnd

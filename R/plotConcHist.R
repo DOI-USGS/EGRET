@@ -61,6 +61,13 @@ plotConcHist<-function(yearStart = NA, yearEnd = NA, localDaily = Daily,
     paStart <- 10
   }
   
+  if (tinyPlot){
+    yLab <- "Conc. (mg/L)"
+  } else {
+    yLab <- "Concentration in mg/L"
+  }
+  
+  
   localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
   
   periodName<-setSeasonLabel(localAnnualResults=localAnnualResults)
@@ -78,7 +85,7 @@ plotConcHist<-function(yearStart = NA, yearEnd = NA, localDaily = Daily,
   genericEGRETDotPlot(x=localAnnualResults$DecYear, y=localAnnualResults$Conc,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,xDate=TRUE,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                      ylab="Concentration in mg/L", col=col,cex=cex,
+                      ylab=yLab, col=col,cex=cex,
                       plotTitle=title, cex.axis=cex.axis,cex.main=cex.main,
                       tinyPlot=tinyPlot,customPar=customPar,...
     )
