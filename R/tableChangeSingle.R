@@ -21,12 +21,16 @@
 #' # Water Year:
 #' tableChangeSingle(fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)  #This returns concentration ASCII table in the console 
 #' tableChangeSingle(fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=TRUE)  #This returns flux values ASCII table in the console
-#' tableChangeConc <-tableChangeSingle(fluxUnit=9, returnDataFrame = TRUE, flux=FALSE)    #This returns concentration values in a dataframe
-#' tableChangeFlux <-tableChangeSingle(fluxUnit=9, returnDataFrame = TRUE, flux=TRUE)  #This returns flux values in a dataframe
+#' tableChangeConc <-tableChangeSingle(returnDataFrame = TRUE, flux=FALSE)    #This returns concentration values in a dataframe
+#' tableChangeFlux <-tableChangeSingle(returnDataFrame = TRUE, flux=TRUE)  #This returns flux values in a dataframe
 #' # Winter:
 #' INFO <- setPA(paStart=12,paLong=3)
 #' tableChangeSingle(fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)
 tableChangeSingle<-function(localDaily = Daily, localINFO = INFO, fluxUnit = 9, yearPoints = NA, returnDataFrame = FALSE, flux = FALSE) {
+  
+  if(!("ConcDay" %in% names(localDaily))){
+    stop("This function is only appropriate after running modelEstimation. It requires a ConcDay column in the Daily dataframe.")
+  }
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong
@@ -80,9 +84,9 @@ tableChangeSingle<-function(localDaily = Daily, localINFO = INFO, fluxUnit = 9, 
   write(header1,file="")
   
   if (flux){
-    header <- c("Year1", "Year2", paste("change [", fNameNoSpace, "]", sep=""), paste("slope [", fNameNoSpace, "/yr]", sep=""),"change[%]", "slope [%/yr]" )
+    header <- c("Year1", "Year2", paste("change [", fNameNoSpace, "]", sep=""), paste("slope [", fNameNoSpace, "/yr]", sep=""),"change[percent]", "slope [percent/yr]" )
   } else {
-    header <- c("Year1", "Year2", "change [mg/L]","slope [mg/L/yr]","change[%]", "slope [%/yr]")    
+    header <- c("Year1", "Year2", "change[mg/L]","slope[mg/L/yr]","change[%]", "slope [%/yr]")    
   }
   
   resultDF <- as.data.frame(sapply(1:6, function(x) data.frame(x)))
