@@ -23,7 +23,6 @@
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed 
 #' @param printValues logical variable if TRUE the results shown on the graph are printed to the console and returned in a dataframe (this can be useful for quantifying the changes seen visually in the graph), default is FALSE (not printed)
 #' @param localSample data frame that contains the Sample data, default name is Sample
-#' @param localDaily data frame containing the daily values, default is Daily
 #' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 10
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
@@ -41,7 +40,7 @@
 #' @param cex.legend number magnification  of legend
 #' @param colors color vector of lines on plot, see ?par 'Color Specification'. Defaults to c("black","red","green")
 #' @param lineVal vector of line types. Defaults to c(1,1,1) which is a solid line for each line. Options: 0=blank, 1=solid (default), 2=dashed, 3=dotted, 4=dotdash, 5=longdash, 6=twodash
-#' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record. Default is TRUE.
+#' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords water-quality statistics graphics
 #' @export
@@ -54,20 +53,25 @@
 #' yearEnd <- 2010
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
-#' Daily <- ChopDaily
 #' plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd)
 #' plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd,logScale=TRUE)
 plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit = 2, legendLeft = 0, 
                               legendTop = 0, concMax = NA, concMin=NA,bw = FALSE, printTitle = TRUE, colors=c("black","red","green"), 
-                              printValues = FALSE, localSample = Sample, localDaily = Daily, localINFO = INFO,
+                              printValues = FALSE, localSample = Sample, localINFO = INFO,
                               tinyPlot=FALSE, minNumObs = 100, minNumUncen =  50, 
                               windowY = 10, windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2, printLegend = TRUE,
                               cex.legend = 1.2, cex=0.8, cex.axis=1.1, customPar=FALSE,lineVal=c(1,1,1),logScale=FALSE,
                               edgeAdjust=TRUE,...){
     
-  numDays <- length(localDaily$DecYear)
-  DecLow <- localDaily$DecYear[1]
-  DecHigh <- localDaily$DecYear[numDays]
+  if(all(c("numDays","DecLow","DecHigh") %in% names(localINFO))){
+    numDays <- localINFO$numDays
+    DecLow <- localINFO$DecLow
+    DecHigh <- localINFO$DecHigh
+  } else {
+    numDays <- localSample$Julian[nrow(localSample)] - localSample$Julian[1] + 1
+    DecLow <- localSample$DecYear[1]
+    DecHigh <- localSample$DecYear[nrow(localSample)]
+  } 
   
   if (is.numeric(qUnit)) {
     qUnit <- qConst[shortCode = qUnit][[1]]

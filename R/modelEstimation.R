@@ -17,7 +17,7 @@
 #' @param env environment to set returning variables, defaults to parent.frame()
 #' @param localSurface string specifying the name of the returned surface array. If NA (default), array is returned named 'surface'
 #' @param localAnnualResults string specifying the name of the returned AnnualResults calculation. If NA (default), data frame is returned named 'AnnualResults'. setupYears is performed with the water year, and results are saved in this data frame.
-#' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record. Default is TRUE.
+#' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
 #' @keywords water-quality statistics
 #' @import survival
 #' @export

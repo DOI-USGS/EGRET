@@ -15,7 +15,7 @@
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
 #' @param interactive logical specifying whether or not to display progress message
-#' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record. Default is TRUE.
+#' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
 #' @param numDays number of days in the Daily record
 #' @param DecLow number specifying minimum decimal year
 #' @param DecHigh number specifying maximum decimal year
@@ -55,6 +55,7 @@ runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,localSample=Sample
   resultSurvReg<-array(0,c(numEstPt,3))
   
   printUpdate <- floor(seq(1,numEstPt,numEstPt/100))
+  endOfLine <- seq(10,100,10)
   
   if (minNumUncen >= nrow(localSample)) stop('minNumUncen is greater than total number of samples')
   if (minNumObs >= nrow(localSample)) stop('minNumObs is greater than total number of samples')
@@ -128,7 +129,11 @@ runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,localSample=Sample
       resultSurvReg[i,2]<-SE
       resultSurvReg[i,3]<-bias*exp(yHat)
       
-      if (i %in% printUpdate & interactive) cat(floor(i*100/numEstPt),"\t")
+      if (i %in% printUpdate & interactive) {
+        cat(floor(i*100/numEstPt),"\t")
+        if (floor(i*100/numEstPt) %in% endOfLine) cat("\n")
+      }
+      
     })
     
     if(is.null(x)){

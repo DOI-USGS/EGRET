@@ -12,7 +12,7 @@
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
-#' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record. Default is TRUE.
+#' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
 #' @param numDays number of days in the Daily record
 #' @param DecLow number specifying minimum decimal year
 #' @param DecHigh number specifying maximum decimal year
@@ -49,11 +49,14 @@ estCrossVal<-function(numDays,DecLow,DecHigh,localSample = Sample, windowY = 10,
   SampleCV<-data.frame(SampleCrossV,iCounter,yHat,SE,ConcHat)
 
   printUpdate <- floor(seq(1,numObs,numObs/100))
-  
+  endOfLine <- seq(10,100,10)
 #   leaveOneOutMatrix <- matrix(rep(NA, numObs))
 
   for(i in 1:numObs) {
-    if(i %in% printUpdate) cat(floor(i*100/numObs),"\t")
+    if(i %in% printUpdate) {
+      cat(floor(i*100/numObs),"\t")
+      if (floor(i*100/numObs) %in% endOfLine) cat("\n")
+    }
 
     SampleMinusOne<-SampleCV[SampleCV$iCounter!=i,]
     
