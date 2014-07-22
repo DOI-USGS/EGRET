@@ -74,13 +74,17 @@ tableResults<-function(localDaily = Daily, localINFO = INFO, qUnit = 2, fluxUnit
   c5<-format(localAnnualResults$Flux*fluxFactor,digits=3,width=9)
   c6<-format(localAnnualResults$FNFlux*fluxFactor,digits=3,width=9)
   results<-data.frame(c1,c2,c3,c4,c5,c6)
-  colnames(results) <- c("Year", paste("Discharge [", qNameNoSpace, "]", sep=""), "Conc [mg/L]", "FN_Conc [mg/L]", paste("Flux [", fNameNoSpace, "]", sep=""), paste("FN_Flux [", fNameNoSpace, "]", sep="") )
+  colnames(results) <- c("Year", paste("Discharge [", qNameNoSpace, "]", sep=""), "Conc [mg/L]", "FN Conc [mg/L]", paste("Flux [", fNameNoSpace, "]", sep=""), paste("FN Flux [", fNameNoSpace, "]", sep="") )
   
   write.table(results,file="",quote=FALSE,col.names=FALSE,row.names=FALSE)
   
   if (!returnDataFrame) {
     return()
   }
+  
+  origNames <- names(results)
+  results <- data.frame(apply(results, 2, function(x) as.numeric(gsub(" ","", as.character(x)))))
+  names(results) <- origNames
   
   return(results)  
 }
