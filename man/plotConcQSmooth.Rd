@@ -6,12 +6,12 @@
 plotConcQSmooth(date1, date2, date3, qLow, qHigh, qUnit = 2, legendLeft = 0,
   legendTop = 0, concMax = NA, concMin = NA, bw = FALSE,
   printTitle = TRUE, printValues = FALSE, localSample = Sample,
-  localDaily = Daily, localINFO = INFO, minNumObs = 100,
-  minNumUncen = 50, colors = c("black", "red", "green"),
-  printLegend = TRUE, windowY = 10, windowQ = 2, windowS = 0.5,
-  tinyPlot = FALSE, customPar = FALSE, lwd = 2, cex = 0.8,
-  cex.axis = 1.1, cex.main = 1.1, cex.legend = 1.2, lineVal = c(1, 1,
-  1), logScale = FALSE, edgeAdjust = TRUE, ...)
+  localINFO = INFO, minNumObs = 100, minNumUncen = 50,
+  colors = c("black", "red", "green"), printLegend = TRUE, windowY = 10,
+  windowQ = 2, windowS = 0.5, tinyPlot = FALSE, customPar = FALSE,
+  lwd = 2, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
+  cex.legend = 1.2, lineVal = c(1, 1, 1), logScale = FALSE,
+  edgeAdjust = TRUE, ...)
 }
 \arguments{
 \item{date1}{string specifying the date for the first curve on the graph, it is in the form "yyyy-mm-dd" (must be in quotes)}
@@ -43,8 +43,6 @@ plotConcQSmooth(date1, date2, date3, qLow, qHigh, qUnit = 2, legendLeft = 0,
 \item{printValues}{logical variable if TRUE the results shown on the graph are also printed to the console and returned in a dataframe (this can be useful for quantifying the changes seen visually in the graph), default is FALSE (not printed)}
 
 \item{localSample}{data frame that contains the Sample data, default name is Sample}
-
-\item{localDaily}{data frame containing the daily values, default is Daily}
 
 \item{localINFO}{data frame that contains the metadata, default name is INFO}
 
@@ -79,7 +77,7 @@ plotConcQSmooth(date1, date2, date3, qLow, qHigh, qUnit = 2, legendLeft = 0,
 
 \item{lineVal}{vector of line types. Defaults to c(1,1,1) which is a solid line for each line. Options: 0=blank, 1=solid (default), 2=dashed, 3=dotted, 4=dotdash, 5=longdash, 6=twodash}
 
-\item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record. Default is TRUE.}
+\item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
@@ -102,7 +100,6 @@ qLow<-1
 qHigh<-100
 Sample <- ChopSample
 INFO <- ChopINFO
-Daily <- ChopDaily
 plotConcQSmooth(date1,date2,date3,qLow,qHigh)
 plotConcQSmooth(date1,date2,date3,qLow,qHigh,logScale=TRUE)
 }

@@ -36,8 +36,8 @@ INFO <- ChopINFO
 # Water Year:
 tableChangeSingle(fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)  #This returns concentration ASCII table in the console
 tableChangeSingle(fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=TRUE)  #This returns flux values ASCII table in the console
-tableChangeConc <-tableChangeSingle(fluxUnit=9, returnDataFrame = TRUE, flux=FALSE)    #This returns concentration values in a dataframe
-tableChangeFlux <-tableChangeSingle(fluxUnit=9, returnDataFrame = TRUE, flux=TRUE)  #This returns flux values in a dataframe
+tableChangeConc <-tableChangeSingle(returnDataFrame = TRUE, flux=FALSE)    #This returns concentration values in a dataframe
+tableChangeFlux <-tableChangeSingle(returnDataFrame = TRUE, flux=TRUE)  #This returns flux values in a dataframe
 # Winter:
 INFO <- setPA(paStart=12,paLong=3)
 tableChangeSingle(fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)

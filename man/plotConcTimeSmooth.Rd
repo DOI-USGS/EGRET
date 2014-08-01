@@ -6,9 +6,9 @@
 plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd, qUnit = 2,
   legendLeft = 0, legendTop = 0, concMax = NA, concMin = NA,
   bw = FALSE, printTitle = TRUE, colors = c("black", "red", "green"),
-  printValues = FALSE, localSample = Sample, localDaily = Daily,
-  localINFO = INFO, tinyPlot = FALSE, minNumObs = 100, minNumUncen = 50,
-  windowY = 10, windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2,
+  printValues = FALSE, localSample = Sample, localINFO = INFO,
+  tinyPlot = FALSE, minNumObs = 100, minNumUncen = 50, windowY = 10,
+  windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2,
   printLegend = TRUE, cex.legend = 1.2, cex = 0.8, cex.axis = 1.1,
   customPar = FALSE, lineVal = c(1, 1, 1), logScale = FALSE,
   edgeAdjust = TRUE, ...)
@@ -46,8 +46,6 @@ plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd, qUnit = 2,
 
 \item{localSample}{data frame that contains the Sample data, default name is Sample}
 
-\item{localDaily}{data frame containing the daily values, default is Daily}
-
 \item{localINFO}{data frame that contains the metadata, default name is INFO}
 
 \item{windowY}{numeric specifying the half-window width in the time dimension, in units of years, default is 10}
@@ -81,7 +79,7 @@ plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd, qUnit = 2,
 
 \item{lineVal}{vector of line types. Defaults to c(1,1,1) which is a solid line for each line. Options: 0=blank, 1=solid (default), 2=dashed, 3=dotted, 4=dotdash, 5=longdash, 6=twodash}
 
-\item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record. Default is TRUE.}
+\item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
 
 \item{\dots}{arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters}
 }
@@ -101,7 +99,6 @@ yearStart <- 2000
 yearEnd <- 2010
 Sample <- ChopSample
 INFO <- ChopINFO
-Daily <- ChopDaily
 plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd)
 plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd,logScale=TRUE)
 }

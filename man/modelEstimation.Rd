@@ -31,7 +31,7 @@ modelEstimation(localDaily = Daily, localSample = Sample,
 
 \item{localAnnualResults}{string specifying the name of the returned AnnualResults calculation. If NA (default), data frame is returned named 'AnnualResults'. setupYears is performed with the water year, and results are saved in this data frame.}
 
-\item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record. Default is TRUE.}
+\item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
 }
 \description{
 This one function does a jack-knife cross-validation of a WRTDS model, fits the surface

@@ -26,7 +26,7 @@ runSurvReg(estPtYear, estPtLQ, numDays, DecLow, DecHigh, localSample = Sample,
 
 \item{interactive}{logical specifying whether or not to display progress message}
 
-\item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record. Default is TRUE.}
+\item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
 
 \item{numDays}{number of days in the Daily record}
 

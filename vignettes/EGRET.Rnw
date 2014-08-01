@@ -74,14 +74,14 @@
 {\titlerule*[0.25pc]{.}\contentspage}
 
 \titlecontents{table}
-[-2.3em]                 % adjust left margin
+[0em]                 % adjust left margin
 {\sffamily}             % font formatting
 {\textbf{Table}\hspace*{2em} \contentslabel {2em}} % section label and offset
 {\hspace*{4em}}
 {\titlerule*[0.25pc]{.}\contentspage}
 
 \titlecontents{figure}
-[-2.3em]                 % adjust left margin
+[0em]                 % adjust left margin
 {\sffamily}             % font formatting
 {\textbf{Figure}\hspace*{2em} \contentslabel {2em}} % section label and offset
 {\hspace*{4em}}
@@ -144,7 +144,13 @@ knit_hooks$set(inline = function(x) {
    if (is.numeric(x)) round(x, 3)})
 knit_hooks$set(crop = hook_pdfcrop)
 
-bold.colHeaders <- function(x) paste("\\multicolumn{1}{c}{\\textbf{\\textsf{", x, "}}}", sep = "")
+bold.colHeaders <- function(x) {
+  x <- gsub("\\^(\\d)","$\\^\\1$",x)
+  x <- gsub("\\%","\\\\%",x)
+  x <- gsub("\\_"," ",x)
+  returnX <- paste("\\multicolumn{1}{c}{\\textbf{\\textsf{", x, "}}}", sep = "")
+}
+
 addSpace <- function(x) ifelse(x != "1", "[5pt]","")
 
 @
@@ -156,9 +162,15 @@ addSpace <- function(x) ifelse(x != "1", "[5pt]","")
 \author[1]{Laura De Cicco}
 \affil[1]{United States Geological Survey}
 
-\maketitle
+\noindent{\huge\textsf{\textbf{Introduction to the EGRET package}}}
 
-\newpage 
+\noindent\textsf{By Robert Hirsh and Laura De Cicco}
+
+\noindent\textsf{\today}
+
+% \maketitle
+% 
+% \newpage 
 
 \tableofcontents
 \listoffigures
@@ -1053,8 +1065,17 @@ returnDF <- tableResults(returnDataFrame=TRUE)
 returnDF <- tableResults(returnDataFrame=TRUE)
 @
 
-<<tableResults3, echo=TRUE, eval=TRUE,results='markup'>>=
-head(returnDF)
+<<tableResultshead, echo=FALSE, results='asis'>>=
+print(xtable(head(returnDF),
+       label="table:tableChangeHead",
+       caption="Table created from \\texttt{head(returnDF)}"),
+       caption.placement="top",
+       size = "\\footnotesize",
+       latex.environment=NULL,
+       sanitize.text.function = function(x) {x},
+       sanitize.colnames.function =  bold.colHeaders,
+       sanitize.rownames.function = addSpace
+      )
 @
 
 
@@ -1067,31 +1088,45 @@ tableChange(yearPoints=c(2000,2005,2010))
 
 Finally, \texttt{tableChangeSingle} (Table \ref{table:tableChangeSingle}) operates exactly the same as \texttt{tableChange} except for the addition of two arguments: returnDataFrame and flux. This function provides either concentration results or flux results, but not both.  This can be useful when you are producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except for the final two arguments.  The first, \texttt{"}returnDataFrame\texttt{"} is a logical argument to indicate if a dataframe of output should be returned (for later manipulation or printing through other programs such as Excel), and its default is FALSE.  The second argument is \texttt{"}flux\texttt{"}, and the default is TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  See section \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft.
 
-<<tableChangeSingle, eval=FALSE, echo=TRUE,results='hide'>>=
+<<tableChangeSingle, eval=TRUE, echo=TRUE,results='hide'>>=
 returnDF <- tableChangeSingle(yearPoints=c(2000,2005,2010), 
                               returnDataFrame=TRUE)
 @
 
-\begin{table}[ht]
-{\footnotesize
-\begin{tabular}{rrrrrrr}
-  \hline
-\multicolumn{1}{c}{\textbf{\textsf{Year1}}} &
-\multicolumn{1}{c}{\textbf{\textsf{Year2}}} &
-\multicolumn{1}{c}{\textbf{\textsf{change [mg/L]}}} &
-\multicolumn{1}{c}{\textbf{\textsf{slope [mg/L/yr]}}} &
-\multicolumn{1}{c}{\textbf{\textsf{change[\%]}}} &
-\multicolumn{1}{c}{\textbf{\textsf{slope [\%/yr]}}} \\ 
-  \hline
-2000 & 2005 & 0.09 & 0.02 & 7.00 & 1.40 \\ 
-[5pt]2000 & 2010 & 0.19 & 0.02 & 15.00 & 1.50 \\ 
-[5pt]2005 & 2010 & 0.10 & 0.02 & 7.30 & 1.50 \\ 
-   \hline
-\end{tabular}
-\caption{Table created from \texttt{tableChangeSingle} function using Microsoft Excel (see section \ref{app:createWordTable})} 
-\label{table:tableChangeSingle}
-}
-\end{table}
+<<tableResultsShow, echo=FALSE, results='asis'>>=
+print(xtable(returnDF,
+       label="table:tableChangeSingle",
+       caption="Table created from \\texttt{tableChangeSingle} function"),
+       caption.placement="top",
+       size = "\\footnotesize",
+       latex.environment=NULL,
+       sanitize.text.function = function(x) {x},
+       sanitize.colnames.function =  bold.colHeaders,
+       sanitize.rownames.function = addSpace
+      )
+@
+
+
+% \begin{table}[ht]
+% {\footnotesize
+% \begin{tabular}{rrrrrrr}
+%   \hline
+% \multicolumn{1}{c}{\textbf{\textsf{Year1}}} &
+% \multicolumn{1}{c}{\textbf{\textsf{Year2}}} &
+% \multicolumn{1}{c}{\textbf{\textsf{change [mg/L]}}} &
+% \multicolumn{1}{c}{\textbf{\textsf{slope [mg/L/yr]}}} &
+% \multicolumn{1}{c}{\textbf{\textsf{change[\%]}}} &
+% \multicolumn{1}{c}{\textbf{\textsf{slope [\%/yr]}}} \\ 
+%   \hline
+% 2000 & 2005 & 0.09 & 0.02 & 7.00 & 1.40 \\ 
+% [5pt]2000 & 2010 & 0.19 & 0.02 & 15.00 & 1.50 \\ 
+% [5pt]2005 & 2010 & 0.10 & 0.02 & 7.30 & 1.50 \\ 
+%    \hline
+% \end{tabular}
+% \caption{Table created from \texttt{tableChangeSingle} function using Microsoft Excel (see section \ref{app:createWordTable})} 
+% \label{table:tableChangeSingle}
+% }
+% \end{table}
 
 
 \clearpage
