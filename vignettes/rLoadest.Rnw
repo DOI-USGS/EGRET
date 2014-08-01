@@ -1,0 +1,412 @@
+%\VignetteIndexEntry{Using rLoadest with EGRET datasets}
+%\VignetteEngine{knitr::knitr}
+%\VignetteDepends{}
+%\VignetteSuggests{xtable, dataRetrieval,extrafont}
+%\VignetteImports{methods,survival, fields}
+%\VignettePackage{EGRET}
+
+\documentclass[a4paper,11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{times}
+\usepackage{hyperref}
+\usepackage[numbers, round]{natbib}
+\usepackage[american]{babel}
+\usepackage{authblk}
+\usepackage{subfig}
+\usepackage{placeins}
+\usepackage{footnote}
+\usepackage{tabularx}
+\usepackage{parskip}
+\usepackage{threeparttable}
+\renewcommand\Affilfont{\itshape\small}
+
+\usepackage{csquotes}
+\usepackage{setspace}
+
+\doublespacing
+
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\textfraction}{0.1}
+\usepackage{graphicx}
+
+
+\usepackage{mathptmx}% Times Roman font
+\usepackage[scaled=.90]{helvet}% Helvetica, served as a model for arial
+
+\usepackage{indentfirst}
+\setlength{\parskip}{0pt}
+
+\usepackage{courier}
+
+\usepackage{titlesec}
+\usepackage{titletoc}
+
+\titleformat{\section}
+  {\normalfont\sffamily\bfseries\LARGE}
+  {\thesection}{0.5em}{}
+\titleformat{\subsection}
+  {\normalfont\sffamily\bfseries\Large}
+  {\thesubsection}{0.5em}{}
+\titleformat{\subsubsection}
+  {\normalfont\sffamily\large}
+  {\thesubsubsection}{0.5em}{}
+  
+\titlecontents{section}
+[2.3em]                 % adjust left margin
+{\sffamily}             % font formatting
+{\contentslabel{2.3em}} % section label and offset
+{\hspace*{-2.3em}}
+{\titlerule*[0.25pc]{.}\contentspage}
+  
+\titlecontents{subsection}
+[4.6em]                 % adjust left margin
+{\sffamily}             % font formatting
+{\contentslabel{2.3em}} % section label and offset
+{\hspace*{-2.3em}}
+{\titlerule*[0.25pc]{.}\contentspage}
+  
+\titlecontents{subsubsection}
+[6.9em]                 % adjust left margin
+{\sffamily}             % font formatting
+{\contentslabel{2.3em}} % section label and offset
+{\hspace*{-2.3em}}
+{\titlerule*[0.25pc]{.}\contentspage}
+
+\titlecontents{table}
+[0em]                 % adjust left margin
+{\sffamily}             % font formatting
+{\textbf{Table}\hspace*{2em} \contentslabel {2em}} % section label and offset
+{\hspace*{4em}}
+{\titlerule*[0.25pc]{.}\contentspage}
+
+\titlecontents{figure}
+[0em]                 % adjust left margin
+{\sffamily}             % font formatting
+{\textbf{Figure}\hspace*{2em} \contentslabel {2em}} % section label and offset
+{\hspace*{4em}}
+{\titlerule*[0.25pc]{.}\contentspage}
+
+%Italisize and change font of urls:
+\urlstyle{sf}
+\renewcommand\UrlFont\itshape
+
+\usepackage{caption}
+\captionsetup{
+  font={sf},
+  labelfont={bf,sf},
+  labelsep=period,
+  justification=justified,
+  singlelinecheck=false
+}
+
+\setlength\parindent{20pt}
+
+\textwidth=6.5in
+\textheight=9.2in
+\parskip=.3cm
+\oddsidemargin=.1in
+\evensidemargin=.1in
+\headheight=-.3in
+
+%------------------------------------------------------------
+% newcommand
+%------------------------------------------------------------
+\newcommand{\scscst}{\scriptscriptstyle}
+\newcommand{\scst}{\scriptstyle}
+\newcommand{\Robject}[1]{{\texttt{#1}}}
+\newcommand{\Rfunction}[1]{{\texttt{#1}}}
+\newcommand{\Rclass}[1]{\textit{#1}}
+\newcommand{\Rpackage}[1]{\textit{#1}}
+\newcommand{\Rexpression}[1]{\texttt{#1}}
+\newcommand{\Rmethod}[1]{{\texttt{#1}}}
+\newcommand{\Rfunarg}[1]{{\texttt{#1}}}
+
+\begin{document}
+
+\renewenvironment{knitrout}{\begin{singlespace}}{\end{singlespace}}
+\renewcommand*\listfigurename{Figures}
+\renewcommand*\listtablename{Tables}
+
+<<openLibrary, echo=FALSE>>=
+library(xtable)
+options(continue=" ")
+options(width=60)
+library(knitr)
+
+@
+
+
+<<include=TRUE ,echo=FALSE,eval=TRUE>>=
+opts_chunk$set(highlight=TRUE, tidy=TRUE, keep.space=TRUE, keep.blank.space=FALSE, keep.comment=TRUE, concordance=TRUE,tidy=FALSE,comment="")
+
+knit_hooks$set(inline = function(x) {
+   if (is.numeric(x)) round(x, 3)})
+knit_hooks$set(crop = hook_pdfcrop)
+
+bold.colHeaders <- function(x) {
+  x <- gsub("\\^(\\d)","$\\^\\1$",x)
+  x <- gsub("\\%","\\\\%",x)
+  x <- gsub("\\_"," ",x)
+  returnX <- paste("\\multicolumn{1}{c}{\\textbf{\\textsf{", x, "}}}", sep = "")
+}
+
+addSpace <- function(x) ifelse(x != "1", "[5pt]","")
+
+@
+
+%------------------------------------------------------------
+\title{Using rLoadest with EGRET datasets}
+%------------------------------------------------------------
+\author[1]{Robert Hirsch}
+\author[1]{Laura De Cicco}
+\affil[1]{United States Geological Survey}
+
+% \maketitle
+
+% \newpage 
+
+\noindent{\huge\textsf{\textbf{Using rloadest with EGRET datasets}}}
+
+\noindent\textsf{By Robert Hirsch, Laura De Cicco, and Dave Lorenz}
+
+\noindent\textsf{\today}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\newpage
+
+
+%------------------------------------------------------------
+\section{Installing rLoadest}
+%------------------------------------------------------------ 
+rloadest can be installed with the following command:
+
+<<workflowFlowHistory, echo=TRUE,eval=FALSE>>=
+install.packages(c("rloadest"), 
+  repos=c("http://usgs-r.github.com",
+          "http://cran.us.r-project.org"),
+  dependencies=TRUE)
+@
+
+rloadest has 6 detailed vignettes that walk through various examples for running LoadEst models. This vignette will walk through the Choptank River at Greensboro, MD example, running a WRTDS model, and then comparing that to the LoadEst model.
+
+%------------------------------------------------------------
+\section{EGRET Sample}
+%------------------------------------------------------------ 
+See the \enquote{Introduction to the EGRET Package} for complete instructions on gathering EGRET data, explanations of EGRET dataframes, information on the WRTDS modeling method, and descriptions of various graphical and tabular outputs.
+
+In this example, we will use the sample data provided in the EGRET package. Once you have your data in the standard Daily, Sample, and INFO dataframes, the instructions should be identical for WRTDS/rloadest comparisons.
+
+<<openlibraries, echo=TRUE,eval=TRUE,message=FALSE>>=
+library(EGRET)
+library(dataRetrieval)
+library(rloadest)
+
+siteid <- "01491000"
+pcode <- "00631"
+startDate <- "1979-10-24"
+endDate <- "2011-09-29"
+
+Daily <- getDVData(siteid,"00060",startDate,endDate)
+Sample <- getSampleData(siteid,pcode,startDate,endDate)
+Sample <- mergeReport()
+INFO <- getMetaData(siteid,pcode,interactive=FALSE)
+modelEstimation()
+@
+
+% <<fluxBiasMultiWRTDS, echo=TRUE,fig.cap="fluxBiasMulti WRTDS",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
+% fluxBiasMulti()
+% @
+
+\clearpage
+
+%------------------------------------------------------------
+\section{Convert to LoadEst input}
+%------------------------------------------------------------ 
+Next, we need to convert the EGRET Sample dataframe into a rloadest friendly version. The best way to capture the required data would be to re-import the data using the USGSwsQW tools:
+
+<<convertSampleData, echo=TRUE,eval=FALSE,warning=FALSE>>=
+
+LoadEstCalibration <- importNWISqw(sites = siteid, 
+                                   params = pcode,
+                                   begin.date = startDate,
+                                   end.date = endDate)
+
+LoadEstCalibration$FLOW <- Daily$Q[which(Daily$Date %in% LoadEstCalibration$sample_dt)]
+
+@
+
+There may be situations where...
+
+<<convertSampleDataNoRetrieval, echo=TRUE,eval=FALSE>>=
+
+# Sample workflow for a very simple Sample to rloadest
+# dataframe conversion. This is not recommended unless
+# the previous workflow cannot be performed.
+
+Sample$Remark <- with(Sample, 
+              ifelse(is.na(ConcLow) & !is.na(ConcHigh),"<",
+                   ifelse(is.na(ConcHigh) & !is.na(ConcLow), ">",
+                      ifelse(ConcLow != ConcHigh, "I",""))))
+
+#Estimate the reporting level if you don't know it:
+if(any(Sample$Remark == "<")){
+ EstReportingLevel <- 
+   min(Sample$ConcHigh[Sample$Remark == "<"],na.rm = TRUE)
+} else {
+  EstReportingLevel <- 
+   0.1*(min(Sample$ConcHigh,rm.na=TRUE))
+}
+
+LoadEstCalib <- importQW(Sample, 
+         keep=c("ConcHigh","Remark","Date","Q","DecYear"),
+         values="ConcHigh",
+         remark.codes="Remark",
+         value.codes = "",
+         reporting.level=EstReportingLevel, 
+         reporting.units=INFO$param.units, 
+         analyte.name=INFO$constitAbbrev,
+         unique.code=INFO$paramNumber,
+         ColNames="Nitrogen",
+         )
+
+@
+
+Then, use the \texttt{loadReg} function to run the loadest regression:
+
+<<loadestModel, echo=TRUE,eval=TRUE, warning=FALSE>>=
+loadestModel <- loadReg(Nitrogen  ~ model(9), data = LoadEstCalib, 
+                   flow = "Q", dates = "Date",flow.units="cms",
+                   conc.units="mg/l",
+                   station=INFO$station.nm)
+
+# To see a complete summary of the model results:
+# print(loadestModel, brief=FALSE, load.only=FALSE)
+
+@
+
+This model follows the equation:
+
+\begin{equation}
+ln(Load)=\alpha_0+\alpha_1{\ln{Q}}+\alpha_2{\ln{Q^2}}+\alpha_3 \sin(2\pi{DecTime})+\alpha_4 \cos(2\pi{DecTime})+\alpha_5{DecTime}+\alpha_6{DecTime}^2+\epsilon
+\end{equation}
+
+Other predefined models can be used:
+
+\begin{table}[!ht]
+{\footnotesize
+\caption{Predefined loadest models} 
+\label{table:loadestModels}
+\begin{tabular}{ll}
+  \hline
+\multicolumn{1}{c}{\textbf{\textsf{Model number}}} &
+\multicolumn{1}{c}{\textbf{\textsf{Regression model equation}}} \\ 
+  \hline
+  1 & \(\ln(Load)=\alpha_0+\alpha_1{\ln{Q}}+\epsilon \) \\ 
+  [5pt]2 & \(\ln(Load)=\alpha_0+\alpha_1{\ln{Q}}+\alpha_2{\ln{Q^2}}+\epsilon\)\\ 
+  [5pt]3 & \(\ln(Load)=\alpha_0+\alpha_1{\ln{Q}}+\alpha_2{DecTime}+\epsilon\)\\ 
+  [5pt]4 & \(\ln(Load)=\alpha_0+\alpha_1{\ln{Q}}+\alpha_2 \sin(2\pi{DecTime})+\alpha_3 \cos(2\pi{DecTime})+\epsilon\) \\ 
+  [5pt]5 & \(\ln(Load)=\alpha_0+\alpha_1{\ln{Q}}+\alpha_2{\ln{Q^2}}+\alpha_3{DecTime}+\epsilon\) \\ 
+  [5pt]6 & \(\ln(Load)=\alpha_0+\alpha_1{\ln{Q}}+\alpha_2{\ln{Q^2}}+\alpha_3 sin(2\pi{DecTime})+\alpha_4 cos(2\pi{DecTime})+\epsilon\) \\ 
+  [5pt]7 & \(\ln(Load)=\alpha_0+\alpha_1{\ln{Q}}+\alpha_2 \sin(2\pi{DecTime})+\alpha_3 \cos(2\pi{DecTime})+\alpha_4{DecTime}+\epsilon\) \\ 
+  [5pt]8 & \(\ln(Load)=\alpha_0+\alpha_1{\ln{Q}}+\alpha_2{\ln{Q^2}}+\alpha_3 \sin(2\pi{DecTime})+\alpha_4 \cos(2\pi{DecTime})+\alpha_5{DecTime}+\epsilon\) \\ 
+  [5pt]9 & \(\ln(Load)=\alpha_0+\alpha_1{\ln{Q}}+\alpha_2{\ln{Q^2}}+\alpha_3 \sin(2\pi{DecTime})+\alpha_4 \cos(2\pi{DecTime})+\alpha_5{DecTime}+\alpha_6{DecTime}^2+\epsilon\) \\  
+\end{tabular}
+}
+\end{table}
+
+Finally, use the \texttt{predLoad} and \texttt{predConc} function to get the rloadest predictions for load and concentration. Use those values to populate the ConcDay and FluxDay. Use the ratio of unbias-corrected values returned from the \texttt{predict} function to the bias-corrected values to get the bias-corrected-factor (BCF).
+
+
+<<loadestPredicts, echo=TRUE,eval=TRUE, warning=FALSE>>=
+
+# Make DailyLoadest
+DailyLoadest <- Daily[,which(!(names(Daily) %in% 
+      c("ConcDay","FluxDay","FNConc","FNFlux","SE","yHat")))]
+
+concs <- predConc(loadestModel,DailyLoadest, by="day")
+
+predictResp <- fitted(loadestModel$cfit, type='response')
+predictResp_mean <- fitted(loadestModel$cfit, type='mean')
+
+BCF <- predictResp_mean/predictResp
+
+DailyLoadest$ConcDay <- concs$Conc
+DailyLoadest$FluxDay <- DailyLoadest$ConcDay*86.4*DailyLoadest$Q
+DailyLoadest$SE <- concs$Std.Err
+
+# Make SampleLoadest
+
+SampleLoadest <- Sample[,which(!(names(Sample) %in% 
+        c("yHat","SE","ConcHat")))]
+
+SampleLoadest$SE <- concs$Std.Err[
+  which(concs$Date %in% SampleLoadest$Date)]
+SampleLoadest$yHat <-predictResp
+SampleLoadest$ConcHat <- predictResp_mean
+
+@
+
+We can look at the \texttt{fluxBiasMulti} output with the DailyLoadest dataframe.
+
+<<plotFluxBiasLoadest, echo=TRUE,fig.cap="fluxMulti LoadEst",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
+fluxBiasMulti(localSample = SampleLoadest,
+              localDaily=DailyLoadest,
+              moreTitle="LoadEst")
+@
+
+\clearpage
+
+%------------------------------------------------------------
+\section{Comparing WRTDS with rloadest}
+%------------------------------------------------------------ 
+
+The following plots are individual components of the \texttt{fluxBiasMulti} function. On the left are WRTDS outputs, and on the right are rloadest.
+
+<<plotResidPred, echo=TRUE, fig.cap="Concentration and flux predictions",fig.subcap=c('WRTDS','rloadest'),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+plotResidPred()
+plotResidPred(localSample = SampleLoadest)
+@
+
+\clearpage
+
+<<plotResidQ, echo=TRUE, fig.cap="Concentration and flux predictions",fig.subcap=c('WRTDS','rloadest'),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+plotResidQ()
+plotResidQ(localSample = SampleLoadest)
+@
+
+\clearpage
+
+<<plotResidTime, echo=TRUE, fig.cap="Concentration and flux predictions",fig.subcap=c('WRTDS','rloadest'),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+plotResidTime()
+plotResidTime(localSample = SampleLoadest)
+@
+
+\clearpage
+
+<<boxResidMonth, echo=TRUE, fig.cap="Concentration and flux predictions",fig.subcap=c('WRTDS','rloadest'),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+boxResidMonth()
+boxResidMonth(localSample = SampleLoadest)
+@
+
+\clearpage
+
+<<boxConcThree, echo=TRUE, fig.cap="Concentration and flux predictions",fig.subcap=c('WRTDS','rloadest'),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+boxConcThree()
+boxConcThree(localDaily = DailyLoadest, 
+             localSample = SampleLoadest)
+@
+
+\clearpage
+
+<<plotConcPred, echo=TRUE, fig.cap="Concentration and flux predictions",fig.subcap=c('WRTDS','rloadest'),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+plotConcPred()
+plotConcPred(localSample = SampleLoadest)
+@
+
+\clearpage
+
+\end{document}
