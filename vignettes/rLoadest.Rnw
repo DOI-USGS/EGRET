@@ -53,7 +53,7 @@
   {\thesubsubsection}{0.5em}{}
   
 \titlecontents{section}
-[2.3em]                 % adjust left margin
+[2em]                 % adjust left margin
 {\sffamily}             % font formatting
 {\contentslabel{2.3em}} % section label and offset
 {\hspace*{-2.3em}}
@@ -226,20 +226,23 @@ modelEstimation()
 %------------------------------------------------------------
 \section{Convert to LoadEst input}
 %------------------------------------------------------------ 
-Next, we need to convert the EGRET Sample dataframe into a rloadest friendly version. The best way to capture the required data would be to re-import the data using the USGSwsQW tools:
+Next, we need to convert the EGRET Sample dataframe into a rloadest-friendly version. The best way to capture the required data would be to re-import the data using the USGSwsQW tools:
 
-<<convertSampleData, echo=TRUE,eval=FALSE,warning=FALSE>>=
+<<convertSampleData, echo=TRUE,eval=TRUE,warning=FALSE>>=
 
 LoadEstCalibration <- importNWISqw(sites = siteid, 
                                    params = pcode,
                                    begin.date = startDate,
                                    end.date = endDate)
-
-LoadEstCalibration$FLOW <- Daily$Q[which(Daily$Date %in% LoadEstCalibration$sample_dt)]
+LoadEstCalibration$Q <- merge(Daily[,c("Date","Q")],
+                LoadEstCalibration,
+                by.x=c("Date"),
+                by.y="sample_dt")$Q
 
 @
 
-There may be situations where...
+For other situations where the data is not imported from a web service, there are rudamentary ways to convert the Sample dataframe to a rloadest-friendly version. This is one example, but care should be used to be as accurate as possible, especially if detection levels are known.
+
 
 <<convertSampleDataNoRetrieval, echo=TRUE,eval=FALSE>>=
 
@@ -275,11 +278,24 @@ LoadEstCalib <- importQW(Sample,
 
 @
 
+There are a few duplicated dates in this dataset (more than one sample was collected on the same day). Let's remove them from both EGRET and rloadest dataframes.
+
+<<removeDuplicates, echo=TRUE,eval=TRUE, warning=FALSE>>=
+LoadEstCalibration <- LoadEstCalibration[
+                 !duplicated(LoadEstCalibration$sample_dt),]
+
+Sample <- Sample[!duplicated(Sample$Date),]
+
+@
+
 Then, use the \texttt{loadReg} function to run the loadest regression:
 
 <<loadestModel, echo=TRUE,eval=TRUE, warning=FALSE>>=
-loadestModel <- loadReg(Nitrogen  ~ model(9), data = LoadEstCalib, 
-                   flow = "Q", dates = "Date",flow.units="cms",
+
+loadestModel <- loadReg(NO2PlusNO3.N  ~ model(9), 
+                   data = LoadEstCalibration, 
+                   flow = "Q", dates = "sample_dt",
+                   flow.units="cms",
                    conc.units="mg/l",
                    station=INFO$station.nm)
 
@@ -326,13 +342,12 @@ Finally, use the \texttt{predLoad} and \texttt{predConc} function to get the rlo
 # Make DailyLoadest
 DailyLoadest <- Daily[,which(!(names(Daily) %in% 
       c("ConcDay","FluxDay","FNConc","FNFlux","SE","yHat")))]
+DailyLoadest$sample_dt <- DailyLoadest$Date
 
 concs <- predConc(loadestModel,DailyLoadest, by="day")
 
 predictResp <- fitted(loadestModel$cfit, type='response')
 predictResp_mean <- fitted(loadestModel$cfit, type='mean')
-
-BCF <- predictResp_mean/predictResp
 
 DailyLoadest$ConcDay <- concs$Conc
 DailyLoadest$FluxDay <- DailyLoadest$ConcDay*86.4*DailyLoadest$Q
