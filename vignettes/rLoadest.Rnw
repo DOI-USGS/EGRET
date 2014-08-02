@@ -307,10 +307,19 @@ loadestModel <- loadReg(NO2PlusNO3.N  ~ model(9),
 This model follows the equation:
 
 \begin{equation}
-ln(Load)=\alpha_0+\alpha_1{\ln{Q}}+\alpha_2{\ln{Q^2}}+\alpha_3 \sin(2\pi{DecTime})+\alpha_4 \cos(2\pi{DecTime})+\alpha_5{DecTime}+\alpha_6{DecTime}^2+\epsilon
+\ln(Load)=\alpha_0+\alpha_1{\ln{Q}}+\alpha_2{\ln{Q^2}}+\alpha_3 \sin(2\pi{DecTime})+\alpha_4 \cos(2\pi{DecTime})+\alpha_5{DecTime}+\alpha_6{DecTime}^2+\epsilon
 \end{equation}
 
-Other predefined models can be used:
+Where \(\ln{Q}\) and \(DecTime\)  are centered using the equations:
+\begin{equation}
+\ln{Q}=\ln(Q)-\mbox{center of } \ln(Q)
+\end{equation}
+
+\begin{equation}
+DecTime=DecYear-\mbox{center of } DecYear
+\end{equation}
+
+Table \ref{table:loadestModels} show other predefined models that can be used.
 
 \begin{table}[!ht]
 {\footnotesize
@@ -334,7 +343,7 @@ Other predefined models can be used:
 }
 \end{table}
 
-Finally, use the \texttt{predLoad} and \texttt{predConc} function to get the rloadest predictions for load and concentration. Use those values to populate the ConcDay and FluxDay. Use the ratio of unbias-corrected values returned from the \texttt{predict} function to the bias-corrected values to get the bias-corrected-factor (BCF).
+Finally, use the \texttt{predLoad} and \texttt{predConc} function to get the rloadest predictions for load and concentration. Use those values to populate the ConcDay and FluxDay. Use the \texttt{fitted} function with type=\texttt{mean} to get unbiased estimate of the mean of the concentration (in EGRET, \texttt{yHat}). Use the \texttt{fitted} function with type=\texttt{response} to get  estimated log concentration (in EGRET, \texttt{ConcHat}).
 
 
 <<loadestPredicts, echo=TRUE,eval=TRUE, warning=FALSE>>=
@@ -365,6 +374,11 @@ SampleLoadest$ConcHat <- predictResp_mean
 
 @
 
+
+%------------------------------------------------------------
+\section{Comparing WRTDS with rloadest using EGRET plots}
+%------------------------------------------------------------ 
+
 We can look at the \texttt{fluxBiasMulti} output with the DailyLoadest dataframe.
 
 <<plotFluxBiasLoadest, echo=TRUE,fig.cap="fluxMulti LoadEst",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
@@ -375,9 +389,6 @@ fluxBiasMulti(localSample = SampleLoadest,
 
 \clearpage
 
-%------------------------------------------------------------
-\section{Comparing WRTDS with rloadest}
-%------------------------------------------------------------ 
 
 The following plots are individual components of the \texttt{fluxBiasMulti} function. On the left are WRTDS outputs, and on the right are rloadest.
 
@@ -423,5 +434,21 @@ plotConcPred(localSample = SampleLoadest)
 @
 
 \clearpage
+
+%------------------------------------------------------------
+\section{Diognostic rloadest plots}
+%------------------------------------------------------------ 
+
+<<rloadestPlot1, echo=FALSE, eval=TRUE>>=
+setSweave("figure/ratingCurve", 5, 5)
+plot(loadestModel, which=1, set.up=FALSE)
+graphics.off()
+@
+
+
+\begin{figure}[h]
+\includegraphics{figure/ratingCurve.pdf}
+\caption{The rating-curve regression model.}
+\end{figure}
 
 \end{document}
