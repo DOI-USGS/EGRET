@@ -4,7 +4,7 @@
 \title{Estimation process for the WRTDS (Weighted Regressions on Time, Discharge, and Season)}
 \usage{
 modelEstimation(localDaily = Daily, localSample = Sample,
-  localINFO = INFO, windowY = 10, windowQ = 2, windowS = 0.5,
+  localINFO = INFO, windowY = 7, windowQ = 2, windowS = 0.5,
   minNumObs = 100, minNumUncen = 50, env = parent.frame(),
   localSurface = NA, localAnnualResults = NA, edgeAdjust = TRUE)
 }
@@ -15,7 +15,7 @@ modelEstimation(localDaily = Daily, localSample = Sample,
 
 \item{localINFO}{data frame containing the metadata, default is INFO}
 
-\item{windowY}{numeric specifying the half-window width in the time dimension, in units of years, default is 10}
+\item{windowY}{numeric specifying the half-window width in the time dimension, in units of years, default is 7}
 
 \item{windowQ}{numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2}
 

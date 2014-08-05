@@ -1433,7 +1433,7 @@ fluxMax & The upper limit on the vertical axis of graphs showing flux values. & 
 \multicolumn{1}{c}{\textbf{\textsf{Definition}}} &
 \multicolumn{1}{c}{\textbf{\textsf{Default}}} \\
 \hline
-windowY & The half window width for the time weighting, measured in years.  Values much shorter than 10 usually result in a good deal of oscillations in the system that are likely not very realistic & 10\\
+windowY & The half window width for the time weighting, measured in years.  Values much shorter than 7 usually result in a good deal of oscillations in the system that are likely not very realistic & 7\\
 windowQ & The half window width for the weighting in terms of ln(Q).  For very large rivers (average discharge values in the range of many tens of thousands of cfs) a smaller value than 2 may be appropriate, but probably not less than 1 & 2 \\
 windowS & The half window width for the seasonal weighting, measured in years.  Any value \texttt{>}0.5 will make data from all seasons have some weight.  Values should probably not be lower than 0.3 & 0.5 \\
 minNumObs & This is the minimum number of observations with non-zero weight that the individual regressions will require before they will be used.  If there too few observations the program will iterate, making the windows wider until the number increases above this minimum.  The only reason to lower this is in cases where the data set is rather small.  It should always be set to a number at least slightly smaller than the sample size.  Any value less than about 60 is probably in the \enquote{dangerous} range, in terms of the reliability of the regression & 100 \\ 
@@ -1535,7 +1535,7 @@ concMin & [This one is only used when logScale=TRUE].  Minimum value for the ver
 bw & Default is FALSE, which means we want a color plot.  If bw=TRUE that means it should be black and white.\\
 printTitle & If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption). & FALSE\\
 printValues & If TRUE the estimated values that make up the plotted lines are printed on the console.  If FALSE they are not printed.  This could be useful if you wanted to compute various comparisons across time periods. & FALSE\\
-windowY & This is the half-window width for time in WRTDS.  It has units of years.  & 10 \\
+windowY & This is the half-window width for time in WRTDS.  It has units of years.  & 7 \\
 windowQ & This is the half-window width for discharge in WRTDS.  It has units of ln(discharge).  & 2 \\
 windowS & This is the half-window width for seasons in WRTDS.  It has units of years.  & 0.5 \\
 \hline

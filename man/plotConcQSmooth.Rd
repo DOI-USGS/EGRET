@@ -7,7 +7,7 @@ plotConcQSmooth(date1, date2, date3, qLow, qHigh, qUnit = 2, legendLeft = 0,
   legendTop = 0, concMax = NA, concMin = NA, bw = FALSE,
   printTitle = TRUE, printValues = FALSE, localSample = Sample,
   localINFO = INFO, minNumObs = 100, minNumUncen = 50,
-  colors = c("black", "red", "green"), printLegend = TRUE, windowY = 10,
+  colors = c("black", "red", "green"), printLegend = TRUE, windowY = 7,
   windowQ = 2, windowS = 0.5, tinyPlot = FALSE, customPar = FALSE,
   lwd = 2, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
   cex.legend = 1.2, lineVal = c(1, 1, 1), logScale = FALSE,
@@ -46,7 +46,7 @@ plotConcQSmooth(date1, date2, date3, qLow, qHigh, qUnit = 2, legendLeft = 0,
 
 \item{localINFO}{data frame that contains the metadata, default name is INFO}
 
-\item{windowY}{numeric specifying the half-window width in the time dimension, in units of years, default is 10}
+\item{windowY}{numeric specifying the half-window width in the time dimension, in units of years, default is 7}
 
 \item{windowQ}{numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2}
 

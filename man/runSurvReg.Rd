@@ -4,7 +4,7 @@
 \title{Run the weighted survival regression for a set of estimation points (defined by DecYear and Log(Q))}
 \usage{
 runSurvReg(estPtYear, estPtLQ, numDays, DecLow, DecHigh, localSample = Sample,
-  windowY = 10, windowQ = 2, windowS = 0.5, minNumObs = 100,
+  windowY = 7, windowQ = 2, windowS = 0.5, minNumObs = 100,
   minNumUncen = 50, interactive = TRUE, edgeAdjust = TRUE)
 }
 \arguments{
@@ -14,7 +14,7 @@ runSurvReg(estPtYear, estPtLQ, numDays, DecLow, DecHigh, localSample = Sample,
 
 \item{estPtLQ}{numeric vector of ln(Q) values at the estimation points, must be the same length as estPtYear}
 
-\item{windowY}{numeric specifying the half-window width in the time dimension, in units of years, default is 10}
+\item{windowY}{numeric specifying the half-window width in the time dimension, in units of years, default is 7}
 
 \item{windowQ}{numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2}
 

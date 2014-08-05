@@ -3,7 +3,7 @@
 \alias{estSurfaces}
 \title{Estimate the three surfaces (for yHat, SE and ConcHat) as a function of DecYear and logQ and store in the three-dimensional object called surfaces}
 \usage{
-estSurfaces(localDaily = Daily, localSample = Sample, windowY = 10,
+estSurfaces(localDaily = Daily, localSample = Sample, windowY = 7,
   windowQ = 2, windowS = 0.5, minNumObs = 100, minNumUncen = 50,
   edgeAdjust = TRUE)
 }
@@ -12,7 +12,7 @@ estSurfaces(localDaily = Daily, localSample = Sample, windowY = 10,
 
 \item{localSample}{data frame containing the sample values, default is Sample}
 
-\item{windowY}{numeric specifying the half-window width in the time dimension, in units of years, default is 10}
+\item{windowY}{numeric specifying the half-window width in the time dimension, in units of years, default is 7}
 
 \item{windowQ}{numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2}
 
