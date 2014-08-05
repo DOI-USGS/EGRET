@@ -7,7 +7,7 @@
 #' error analysis that uses all the data. 
 #'
 #' @param localSample data frame containing the sample values, default is Sample
-#' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 10
+#' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
@@ -27,7 +27,7 @@
 #' DecLow <- Daily$DecYear[1]
 #' DecHigh <- Daily$DecYear[numDays]
 #' SampleCrossV <- estCrossVal(numDays,DecLow,DecHigh)
-estCrossVal<-function(numDays,DecLow,DecHigh,localSample = Sample, windowY = 10, windowQ = 2, 
+estCrossVal<-function(numDays,DecLow,DecHigh,localSample = Sample, windowY = 7, windowQ = 2, 
                       windowS = 0.5, minNumObs = 100, minNumUncen = 50,
                       edgeAdjust=TRUE){
   #  this function fits the WRTDS model making an estimate of concentration for every day

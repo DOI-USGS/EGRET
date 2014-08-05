@@ -9,7 +9,7 @@
 #' @param localSample data frame containing the sample values, default is Sample
 #' @param estPtYear numeric vector of Decimal Year values at the estimation points
 #' @param estPtLQ numeric vector of ln(Q) values at the estimation points, must be the same length as estPtYear 
-#' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 10
+#' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
@@ -32,7 +32,7 @@
 #' DecLow <- Daily$DecYear[1]
 #' DecHigh <- Daily$DecYear[numDays]
 #' resultSurvReg <- runSurvReg(estPtYear,estPtLQ,numDays,DecLow,DecHigh,interactive=FALSE)
-runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,localSample=Sample,windowY=10,windowQ=2,
+runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,localSample=Sample,windowY=7,windowQ=2,
                      windowS=0.5,minNumObs=100,minNumUncen=50,interactive=TRUE,
                      edgeAdjust=TRUE) {
   # runs survival regression model

@@ -27,7 +27,7 @@
 #' @param printValues logical variable if TRUE the results shown on the graph are also printed to the console and returned in a dataframe (this can be useful for quantifying the changes seen visually in the graph), default is FALSE (not printed)
 #' @param localSample data frame that contains the Sample data, default name is Sample
 #' @param localINFO data frame that contains the metadata, default name is INFO
-#' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 10
+#' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
@@ -62,7 +62,7 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0
                           concMax = NA, concMin=NA, bw = FALSE, printTitle = TRUE, printValues = FALSE, 
                           localSample = Sample, localINFO = INFO, minNumObs = 100, minNumUncen =  50,
                           colors=c("black","red","green"),printLegend=TRUE,
-                          windowY = 10, windowQ = 2, windowS = 0.5,tinyPlot=FALSE, customPar=FALSE,
+                          windowY = 7, windowQ = 2, windowS = 0.5,tinyPlot=FALSE, customPar=FALSE,
                           lwd=2,cex=0.8, cex.axis=1.1,cex.main=1.1, cex.legend=1.2,lineVal=c(1,1,1),logScale=FALSE,
                           edgeAdjust=TRUE,...) {
   if(all(c("numDays","DecLow","DecHigh") %in% names(localINFO))){
