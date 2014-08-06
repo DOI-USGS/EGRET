@@ -445,10 +445,98 @@ plot(loadestModel, which=1, set.up=FALSE)
 graphics.off()
 @
 
+<<rloadestPlot1Show, echo=TRUE, eval=FALSE>>=
+plot(loadestModel, which=1, set.up=FALSE)
+@
 
 \begin{figure}[h]
 \includegraphics{figure/ratingCurve.pdf}
 \caption{The rating-curve regression model.}
+\end{figure}
+
+\clearpage
+
+<<rloadestPlot2, echo=FALSE, eval=TRUE>>=
+setSweave("figure/residuals", 5, 5)
+plot(loadestModel, which=2, set.up=FALSE)
+graphics.off()
+@
+
+<<rloadestPlot2Show, echo=TRUE, eval=FALSE>>=
+plot(loadestModel, which=2, set.up=FALSE)
+@
+
+\begin{figure}[h]
+\includegraphics{figure/residuals.pdf}
+\caption{The residuals versus fit for the regression model.}
+\end{figure}
+
+\clearpage
+
+<<rloadestPlot3, echo=FALSE, eval=TRUE>>=
+setSweave("figure/scaleLocation", 5, 5)
+plot(loadestModel, which=3, set.up=FALSE)
+graphics.off()
+@
+
+<<rloadestPlot3Show, echo=TRUE, eval=FALSE>>=
+plot(loadestModel, which=3, set.up=FALSE)
+@
+
+\begin{figure}[h]
+\includegraphics{figure/scaleLocation.pdf}
+\caption{The scale-location graph for the regression model.}
+\end{figure}
+
+\clearpage
+
+<<rloadestPlot4, echo=FALSE, eval=TRUE>>=
+setSweave("figure/correlogram", 5, 5)
+plot(loadestModel, which=4, set.up=FALSE)
+graphics.off()
+@
+
+<<rloadestPlot4Show, echo=TRUE, eval=FALSE>>=
+plot(loadestModel, which=4, set.up=FALSE)
+@
+
+\begin{figure}[h]
+\includegraphics{figure/correlogram.pdf}
+\caption{The correlogram from the regression model.}
+\end{figure}
+
+\clearpage
+
+<<rloadestPlot5, echo=FALSE, eval=TRUE>>=
+setSweave("figure/qNormal", 5, 5)
+plot(loadestModel, which=5, set.up=FALSE)
+graphics.off()
+@
+
+<<rloadestPlot5Show, echo=TRUE, eval=FALSE>>=
+plot(loadestModel, which=5, set.up=FALSE)
+@
+
+\begin{figure}[h]
+\includegraphics{figure/qNormal.pdf}
+\caption{The Q-normal plot of the residuals.}
+\end{figure}
+
+\clearpage
+
+<<rloadestPlot6, echo=FALSE, eval=TRUE>>=
+setSweave("figure/loadestBox", 5, 5)
+plot(loadestModel, which=6, set.up=FALSE)
+graphics.off()
+@
+
+<<rloadestPlot6Show, echo=TRUE, eval=FALSE>>=
+plot(loadestModel, which=6, set.up=FALSE)
+@
+
+\begin{figure}[h]
+\includegraphics{figure/loadestBox.pdf}
+\caption{Box plot comparing estimated and observed values.}
 \end{figure}
 
 \end{document}

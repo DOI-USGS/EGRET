@@ -61,6 +61,7 @@ modelEstimation<-function(localDaily = Daily,localSample = Sample, localINFO = I
   localINFO$numDays <- numDays
   localINFO$DecLow <- DecLow
   localINFO$DecHigh <- DecHigh
+  localINFO$edgeAdjust <- edgeAdjust
   
   cat("\nNext step running  estSurfaces with survival regression:\n")
   surfaces1<-estSurfaces(localDaily = localDaily, localSample = localSample, 
