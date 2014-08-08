@@ -7,20 +7,20 @@ MD5sum: c046de81da9104fd30018972832005c9
 NeedsCompilation: no
 
 Package: dataRetrieval
-Version: 1.2.2
+Version: 1.3.2
 Depends: R (>= 3.0)
-Imports: zoo, XML, RCurl, plyr
+Imports: zoo, XML, RCurl, plyr, reshape2
 Suggests: xtable, EGRET, knitr
 License: file LICENSE
-MD5sum: cb4c50340730c675257d018137073885
+MD5sum: 43906db3db0476efc9a20ec2879db6cd
 NeedsCompilation: no
 
 Package: EGRET
-Version: 1.2.6
+Version: 1.3.0
 Depends: R (>= 3.0)
 Imports: methods, survival, fields
 Suggests: xtable, dataRetrieval, knitr, extrafont
 License: file LICENSE
-MD5sum: 74d62c0edcdc98c0062595dc21cd989d
+MD5sum: ad29fda244b1092df4c9c483ca3f23f6
 NeedsCompilation: no
 
