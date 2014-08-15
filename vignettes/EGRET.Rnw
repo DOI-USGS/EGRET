@@ -164,7 +164,7 @@ addSpace <- function(x) ifelse(x != "1", "[5pt]","")
 
 \noindent{\huge\textsf{\textbf{Introduction to the EGRET package}}}
 
-\noindent\textsf{By Robert Hirsh and Laura De Cicco}
+\noindent\textsf{By Robert Hirsch and Laura De Cicco}
 
 \noindent\textsf{\today}
 
