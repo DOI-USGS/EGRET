@@ -35,7 +35,7 @@ makeAnnualSeries<-function(localDaily = Daily, localINFO = INFO, edgeAdjust = TR
   } else {
     paLong <- 12
     paStart <- 10
-    window <- 30
+    window <- 20
   }
   numDays <- length(localDaily$DecYear)
   yearFirst <- trunc(localDaily$DecYear[1])
