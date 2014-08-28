@@ -27,7 +27,6 @@
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
 #' # Water year:
-#' INFO <- setPA()
 #' boxConcMonth()
 #' # Graphs consisting of Jun-Aug
 #' INFO <- setPA(paStart=6,paLong=3)
@@ -70,16 +69,17 @@ boxConcMonth<-function(localSample = Sample, localINFO = INFO, printTitle = TRUE
   }
   
   if (tinyPlot) {
-    yLabel <- "Conc. (mg/L)"
+    yLabel <- paste("Conc. (",localINFO$param.units,")",sep="")
     if (!customPar) par(mar=c(4,5,1,0.1),cex.lab=cex.axis,tcl=0.5)
     names <- c("J","F","M","A","M","J","J","A","S","O","N","D")
   } else {
-    yLabel <- "Concentration in mg/L"
+    yLabel <- paste("Concentration in", localINFO$param.units)
     if (!customPar) par(mar=c(5,6,4,2)+0.1,cex.lab=cex.axis,tcl=0.5)
     names <- sapply(c(1:12),function(x){monthInfo[[x]]@monthAbbrev})
   }
     
-  yInfo <- generalAxis(x=tempDF$conc, maxVal=maxY, minVal=min(localSample$ConcHigh, na.rm=TRUE), tinyPlot=tinyPlot,logScale=logScale)
+  yInfo <- generalAxis(x=tempDF$conc, maxVal=maxY, minVal=min(localSample$ConcHigh, na.rm=TRUE), 
+                       tinyPlot=tinyPlot,logScale=logScale,localINFO=localINFO)
   yTicksLab <- prettyNum(yInfo$ticks)
   
   boxplot(tempDF$conc ~ tempDF$month,
@@ -88,7 +88,7 @@ boxConcMonth<-function(localSample = Sample, localINFO = INFO, printTitle = TRUE
           varwidth=TRUE,yaxt="n", 
           names=names,
           xlab="Month",
-          ylab=yLabel,
+          ylab=yInfo$label,
           main=plotTitle,
           cex=cex,cex.axis=cex.axis,cex.main=cex.main,
           las=las,tcl=tcl,
