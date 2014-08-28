@@ -33,7 +33,6 @@
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
 #' # Water year:
-#' INFO <- setPA()
 #' plotConcQ()
 #' plotConcQ(logScale=TRUE)
 #' # Graphs consisting of Jun-Aug
@@ -75,10 +74,8 @@ plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot 
   
   if (tinyPlot){
     xLab<-qUnit@qUnitTiny
-    yLab <- "Conc. (mg/L)"
   } else {
     xLab<-qUnit@qUnitExpress
-    yLab <- "Concentration in mg/L"
   }
   
   if(logScale){
@@ -89,12 +86,12 @@ plotConcQ<-function(localSample = Sample, localINFO = INFO, qUnit = 2, tinyPlot 
     yMin <- 0
   }
   
-  yInfo <- generalAxis(x=yHigh, maxVal=concMax, minVal=yMin, tinyPlot=tinyPlot,logScale=logScale)
+  yInfo <- generalAxis(x=yHigh, maxVal=concMax, minVal=yMin, tinyPlot=tinyPlot,logScale=logScale,localINFO=localINFO)
   xInfo <- generalAxis(x=x, maxVal=NA, minVal=NA, logScale=TRUE, tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=x, y=yHigh, 
                       xlim=c(xInfo$bottom, xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                      xlab=xLab, ylab=yLab,
+                      xlab=xLab, ylab=yInfo$label,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       plotTitle=plotTitle, log=logScaleText,cex.axis=cex.axis,cex=cex,
                       cex.main=cex.main, tinyPlot=tinyPlot,xaxt="n",
