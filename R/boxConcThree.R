@@ -27,7 +27,6 @@
 #' Daily <- ChopDaily
 #' INFO <- ChopINFO
 #' # Water year:
-#' INFO <- setPA()
 #' boxConcThree()
 #' # Graphs consisting of Jun-Aug
 #' INFO <- setPA(paStart=6,paLong=3)
@@ -69,11 +68,11 @@ boxConcThree<-function (localSample = Sample, localDaily = Daily, localINFO = IN
   yTop<-yTicks[length(yTicks)]
   
   if (tinyPlot) {
-    yLab <- paste("Conc. (mg/L)")
+    yLab <- paste("Conc. (",localINFO$param.units,")",sep="")
     if (!customPar) par(mar=c(4,5,1,0.1),tcl=0.5,cex.lab=cex.axis)  
 
   } else {
-    yLab <- paste("Concentration in mg/L")
+    yLab <- paste("Concentration in",localINFO$param.units)
     if (!customPar) par(mar=c(5,6,4,2)+0.1,tcl=0.5,cex.lab=cex.axis)
 
   }
