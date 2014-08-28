@@ -59,11 +59,9 @@ The second is an application to nitrate data for 8 monitoring sites on the Missi
 The manual assumes that the user understands the concepts underlying WRTDS.  Thus, reading at least the first of these papers is necessary to understanding the manual.
 
 
-* [EGRET User Guide](https://github.com/USGS-R/EGRET/raw/master/inst/doc/draftUserGuide_2014-04-14.pdf) (pdf)
-
 * [EGRET vignette](https://github.com/USGS-R/EGRET/raw/master/inst/doc/EGRET.pdf) (pdf)
 
-* [dataRetrieval User Guide](https://github.com/USGS-R/dataRetrieval/raw/master/inst/doc/dataRetrieval.pdf) (pdf)
+* [dataRetrieval vignette](https://github.com/USGS-R/dataRetrieval/raw/master/inst/doc/dataRetrieval.pdf) (pdf)
 
 * [WRTDS Water Quality Seminar July 2013](https://github.com/USGS-R/EGRET/raw/Documentation/WRTDS OWQ 10July2013.pdf) (pdf)
 
