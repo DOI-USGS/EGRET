@@ -32,7 +32,6 @@
 #' Daily <- ChopDaily
 #' INFO <- ChopINFO
 #' # Water year:
-#' INFO <- setPA()
 #' boxQTwice()
 #' boxQTwice(qUnit=1)
 #' boxQTwice(qUnit='cfs')
