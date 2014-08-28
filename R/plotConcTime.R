@@ -37,7 +37,6 @@
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
 #' # Water year:
-#' INFO <- setPA()
 #' plotConcTime()
 #' # Graphs consisting of Jun-Aug
 #' INFO <- setPA(paStart=6,paLong=3)
@@ -66,12 +65,6 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
     qUnit <- qConst[qUnit][[1]]
   }
   ################################################################################  
-  
-  if(tinyPlot){
-    yLab <- "Conc. (mg/L)"
-  } else {
-    yLab="Concentration in mg/L"
-  }
   
   qFactor<-qUnit@qUnitFactor
   subSample<-localSample
@@ -129,11 +122,11 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n",title3,sep="") else ""
   
   xInfo <- generalAxis(x=x, minVal=min(x), maxVal=max(x), tinyPlot=tinyPlot)  
-  yInfo <- generalAxis(x=yHigh, minVal=minYLow, maxVal=concMax, logScale=logScale, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(x=yHigh, minVal=minYLow, maxVal=concMax, logScale=logScale, tinyPlot=tinyPlot,localINFO=localINFO)
   
   genericEGRETDotPlot(x=x, y=yHigh, 
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                      xlab="", ylab=yLab,
+                      xlab="", ylab=yInfo$label,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,cex=cex,
                       plotTitle=plotTitle, log=logVariable,
                       cex.axis=cex.axis,cex.main=cex.main,tinyPlot=tinyPlot,col=col,customPar=customPar, ...
