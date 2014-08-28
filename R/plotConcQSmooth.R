@@ -124,10 +124,8 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0
   
   if(tinyPlot){
     xLab=qUnit@qUnitTiny  
-    yLab="Conc. (mg/L)"
   } else {
     xLab=qUnit@qUnitExpress  
-    yLab="Concentration in mg/L"
   }
   
   if(logScale){
@@ -139,12 +137,12 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0
   
   xInfo <- generalAxis(x, maxVal=qHigh, minVal=qLow, logScale=TRUE, tinyPlot=tinyPlot)
   combinedY <- c(y[1,], y[2,],y[3,])
-  yInfo <- generalAxis(combinedY, maxVal=concMax, minVal=concMin, logScale=logScale, tinyPlot=tinyPlot)
+  yInfo <- generalAxis(combinedY, maxVal=concMax, minVal=concMin, logScale=logScale, tinyPlot=tinyPlot, localINFO=localINFO)
   
   genericEGRETDotPlot(x=x, y=y[1,],
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$xLeft,xInfo$xRight),ylim=c(yInfo$bottom,yInfo$top),
-                      xlab=xLab, ylab=yLab, plotTitle=title,
+                      xlab=xLab, ylab=yInfo$label, plotTitle=title,
                       type="l",lwd=lwd,col=colorVal[1],lty=lineVal[1], 
                       cex=cex,cex.axis=cex.axis,cex.main=cex.main, 
                       log=logText,tinyPlot=tinyPlot,customPar=customPar,...
