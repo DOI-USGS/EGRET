@@ -28,7 +28,6 @@
 #' Sample <- ChopSample
 #' INFO <- ChopINFO
 #' # Water year:
-#' INFO <- setPA()
 #' plotConcPred()
 #' plotConcPred(logScale=TRUE)
 #' # Graphs consisting of Jun-Aug
@@ -63,8 +62,8 @@ plotConcPred<-function(localSample = Sample, localINFO = INFO, concMax = NA, log
     xLab<-"Est. Conc."
     yLab<-"Obs. Conc."
   } else {
-    xLab<-"Estimated Concentration in mg/L"
-    yLab<-"Observed Concentration in mg/L"
+    xLab<-paste("Estimated Concentration in",localINFO$param.units)
+    yLab<-paste("Observed Concentration in",localINFO$param.units)
   }
   
   if (logScale){
