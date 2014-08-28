@@ -33,7 +33,6 @@
 #' Daily <- ChopDaily
 #' INFO <- ChopINFO
 #' # Water year:
-#' INFO <- setPA()
 #' plotConcTimeDaily()
 #' plotConcTimeDaily(startYear=1998,endYear=2001)
 #' # Graphs consisting of Jun-Aug
@@ -75,22 +74,17 @@ plotConcTimeDaily<-function(startYear=NA, endYear=NA, localSample = Sample,
   
   ###################################
   
-  if (tinyPlot) {
-    yLab = "Conc. (mg/L)"
-  } else {
-    yLab = "Concentration in mg/L"
-  }
   yBottom <- 0 #Not specified within script, added under assumption that it's always zero based on ylim definition in this function
   
   xInfo <- generalAxis(x=xSample, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot,padPercent=0)  
   
   yCombined <- c(yHigh,subDaily$ConcDay)
   yInfo <- generalAxis(x = yCombined, minVal = yBottom, maxVal = concMax, 
-                       tinyPlot = tinyPlot, padPercent = 5)
+                       tinyPlot = tinyPlot, padPercent = 5,localINFO=localINFO)
   
   genericEGRETDotPlot(x=xSample, y=yHigh, xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                      ylab=yLab,plotTitle=plotTitle,cex.axis=cex.axis,col=col,lwd=lwd,cex=cex,
+                      ylab=yInfo$label,plotTitle=plotTitle,cex.axis=cex.axis,col=col,lwd=lwd,cex=cex,
                       cex.main=cex.main, tinyPlot=tinyPlot,customPar=customPar, xDate=TRUE,...
   )
 
