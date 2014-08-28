@@ -129,7 +129,6 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
     ""
   }
   qExpress = qUnit@qUnitExpress
-  yLab = "Concentration in mg/L"
 
   yMax <- max(y, na.rm = TRUE)
   
@@ -166,7 +165,7 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
   genericEGRETDotPlot(x=x, y=y[1, ],
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim = c(xInfo$bottom,xInfo$top),ylim = c(yInfo$bottom,yInfo$top),
-                      ylab = yLab, plotTitle=title, customPar=customPar,log=logText,
+                      ylab = yInfo$label, plotTitle=title, customPar=customPar,log=logText,
                       type = "l", lwd = lwd, col = colorVal[1], lty = lineVal[1],xDate=TRUE,
                       cex.main = cex.main, tinyPlot=tinyPlot,cex=cex,cex.axis=cex.axis,...
   )
