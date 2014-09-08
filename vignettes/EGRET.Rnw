@@ -546,7 +546,7 @@ bottomLogQ & Lowest discharge in prediction surfaces & numeric \\
 \subsection{Units}
 \label{sec:units}
 %------------------------------------------------------------ 
-EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units. The defaults are mg/L for concentration, cubic meters per second (m$^3$/s) for discharge, kg/day for flux, and km\textsuperscript{2} for drainage area. When discharge values are imported from USGS web services (using the dataRetrieval package), they are automatically converted from cubic feet per second (cfs) to cms unless the argument \texttt{"}convert\texttt{"} in function \texttt{getDVData} is set to FALSE.  This can cause confusion if you are not careful. 
+EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units. The defaults are mg/L for concentration, cubic meters per second (m$^3$/s) for discharge, kg/day for flux, and km\textsuperscript{2} for drainage area. When discharge values are imported from USGS Web services (using the dataRetrieval package), they are automatically converted from cubic feet per second (cfs) to cms unless the argument \texttt{"}convert\texttt{"} in function \texttt{getDVData} is set to FALSE.  This can cause confusion if you are not careful. 
 
 For all functions that provide output, you can define two arguments to set the output units: qUnit and fluxUnit.  qUnit and fluxUnit are defined by either a numeric code or name.  You can call two functions that can be called to see the options: \texttt{printqUnitCheatSheet} and \texttt{printFluxUnitCheatSheet}.
 
@@ -677,7 +677,7 @@ plotSDLogQ()
 Here is an example of looking at mean daily discharge for the full water year and then looking at mean daily discharge for the winter season only for the Merced River at Happy Isles Bridge in Yosemite National Park in California.  First, we look at the mean daily discharge for the full year (after having read in the data and metadata):
 
 
-<<Merced, echo=TRUE,eval=TRUE,fig.cap="Merced River Winter Trend",fig.subcap=c("Water Year", "Dec-Feb"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+<<Merced, echo=TRUE,eval=TRUE,fig.cap="Merced River Winter Trend",fig.subcap=c("Water Year", "December - February"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 sta<-"11264500"
 Daily <-getDVData(sta,"00060",StartDate="",EndDate="")
 INFO <- getMetaData(sta,"",interactive=FALSE)
@@ -699,13 +699,13 @@ What these figures show us is that on an annual basis there is very little indic
 
 \newpage
 \FloatBarrier
-<<plotFour, echo=TRUE, fig.cap="plotFour(qUnit=3)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
+<<plotFour, echo=TRUE, fig.cap="\\texttt{plotFour(qUnit=3)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
 plotFour(qUnit=3)
 @
 
 \newpage
 \FloatBarrier
-<<plotFourStats,echo=TRUE, fig.cap="plotFourStats(qUnit=3)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
+<<plotFourStats,echo=TRUE, fig.cap="\\texttt{plotFourStats(qUnit=3)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
 plotFourStats(qUnit=3)
 @
 
@@ -827,7 +827,7 @@ Note that for any of the plotting functions that show the sample data, if a valu
 
 \newpage
 \FloatBarrier
-<<plotBoxes, echo=TRUE, fig.cap="Concentration box plots",fig.subcap=c("boxConcMonth()","boxQTwice(qUnit=1)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+<<plotBoxes, echo=TRUE, fig.cap="Concentration box plots",fig.subcap=c("\\texttt{boxConcMonth()}","\\texttt{boxQTwice(qUnit=1)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 boxConcMonth()
 boxQTwice(qUnit=1)
 @
@@ -836,7 +836,7 @@ Note that the statistics to create the boxplot in \texttt{boxQTwice} are perform
 
 \newpage
 \FloatBarrier
-<<plotConcTime,echo=TRUE, fig.cap="The relation of concentration vs time or discharge",fig.subcap=c("plotConcTime()","plotConcQ()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+<<plotConcTime,echo=TRUE, fig.cap="The relation of concentration vs time or discharge",fig.subcap=c("\\texttt{plotConcTime()}","\\texttt{plotConcQ()}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotConcTime()
 plotConcQ(qUnit=1)
 @
@@ -845,7 +845,7 @@ It is interesting to note in Figure \ref{fig:plotConcTime} the change in the con
 
 \newpage
 \FloatBarrier
-<<plotFluxQ,echo=TRUE, fig.cap="The relation of flux vs discharge",,out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+<<plotFluxQ,echo=TRUE, fig.cap="The relation of flux vs discharge",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotFluxQ(fluxUnit=4)
 @
 
@@ -853,7 +853,7 @@ The \texttt{plotFluxQ} (Figure \ref{fig:plotFluxQ}) function only plots in a log
 
 \newpage
 \FloatBarrier
-<<multiPlotDataOverview, echo=TRUE, fig.cap="multiPlotDataOverview(qUnit=1)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
+<<multiPlotDataOverview, echo=TRUE, fig.cap="\\texttt{multiPlotDataOverview(qUnit=1)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
 multiPlotDataOverview(qUnit=1)
 @
 
@@ -875,7 +875,7 @@ flowDuration(qUnit=1, centerDate="09-30", span=30)
 
 \FloatBarrier
 %------------------------------------------------------------ 
-\section{Weighted Regressions on Time, Discharge and Season (WRTDS) Analysis}
+\section{Weighted Regressions on Time, Discharge and Season (WRTDS)}
 \label{sec:wrtds}
 %------------------------------------------------------------ 
 WRTDS creates a model of the behavior of concentration as a function of three components: time trend, discharge and season.  You can use WRTDS to estimate annual or seasonal mean concentrations and fluxes as well as describe long-term trends in the behavior of the system. In this section, we will step though the process required for a WRTDS analysis. Section (\ref{sec:wrtdsResults}) provides details about the available methods for viewing and evaluating the model results. 
@@ -936,7 +936,7 @@ surfaces <- exsurfaces
 @
 
 \clearpage
-<<plotConcTimeDaily, echo=TRUE, fig.cap="Concentration and flux vs time",fig.subcap=c("plotConcTimeDaily(startYear=2008, endYear=2010)","plotFluxTimeDaily(startYear=2008, endYear=2010)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+<<plotConcTimeDaily, echo=TRUE, fig.cap="Concentration and flux vs time",fig.subcap=c("\\texttt{plotConcTimeDaily(2008, 2010)}","\\texttt{plotFluxTimeDaily(2008, 2010)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 # Return to water year:
 INFO <- setPA()
 
@@ -948,30 +948,30 @@ plotFluxTimeDaily(yearStart, yearEnd)
 @
 
 \clearpage
-<<plotFluxPred, echo=TRUE, fig.cap="Concentration and flux predictions",fig.subcap=c('plotConcPred()','plotFluxPred()'),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+<<plotFluxPred, echo=TRUE, fig.cap="Concentration and flux predictions",fig.subcap=c('\\texttt{plotConcPred()}','\\texttt{plotFluxPred()}'),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotConcPred()
 plotFluxPred()
 @
 
 \clearpage
-<<plotResidQ, echo=TRUE, fig.cap="Residuals",fig.subcap=c("plotResidPred()","plotResidQ(qUnit=1)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+<<plotResidQ, echo=TRUE, fig.cap="Residuals",fig.subcap=c("\\texttt{plotResidPred()}","\\texttt{plotResidQ(qUnit=1)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotResidPred()
 plotResidQ(qUnit=1)
 @
 
 \clearpage
-<<boxResidMonth, echo=TRUE, fig.cap="Residuals with respect to time",fig.subcap=c("plotResidTime()","boxResidMonth()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+<<boxResidMonth, echo=TRUE, fig.cap="Residuals with respect to time",fig.subcap=c("\\texttt{plotResidTime()}","\\texttt{boxResidMonth()}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotResidTime()
 boxResidMonth()
 @
 
 \clearpage
-<<boxConcThree, echo=TRUE, fig.cap="Default boxConcThree()",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='asis',results='hide',fig.pos="h">>=
+<<boxConcThree, echo=TRUE, fig.cap="Default \\texttt{boxConcThree()}",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='asis',results='hide',fig.pos="h">>=
 boxConcThree()
 @
 
 \clearpage
-<<plotFluxHist, echo=TRUE, fig.cap="Concentration and flux history",fig.subcap=c("plotConcHist()", "plotFluxHist()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+<<plotFluxHist, echo=TRUE, fig.cap="Concentration and flux history",fig.subcap=c("\\texttt{plotConcHist()}", "\\texttt{plotFluxHist()}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotConcHist()
 plotFluxHist()
 @
@@ -980,7 +980,7 @@ plotFluxHist()
 
 Figures \ref{fig:plotConcQSmooth} and \ref{fig:plotConcTimeSmooth} contain legends. The placement of the legend is controlled by legendLeft and legendTop. If both are set to 0 (the default values), the legend is placed near the lower left corner of the graphic. Otherwise, the value specified for legendLeft places the left edge of the legend, and legendTop specifies the top edge of the legend. The units for legendLeft and legendTop are discharge (in units specified by qUnit) and concentration, respectively. The legend can also be turned off with printLegend=FALSE. These are also functions that do not recognize the period of analysis in the INFO data frame. However, by choosing centering dates and appropriate half-windows, seasonal behavior can easily be observed in these plots. 
 
-<<plotConcQSmooth, echo=TRUE, fig.cap="Concentration vs. discharge",fig.subcap=c("plotConcQSmooth","plotConcQSmooth(logScale=TRUE)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+<<plotConcQSmooth, echo=TRUE, fig.cap="Concentration vs. discharge",fig.subcap=c("\\texttt{plotConcQSmooth}","\\texttt{plotConcQSmooth(logScale=TRUE)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 qBottom<-20
 qTop<-700
 date1 <- "2000-09-01"
@@ -993,7 +993,7 @@ plotConcQSmooth(date1, date2, date3,
 @
 
 \clearpage
-<<plotConcTimeSmooth, echo=TRUE, fig.cap="plotConcTimeSmooth",fig.subcap=c("plotConcTimeSmooth","plotConcTimeSmooth(logScale=TRUE)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',results='hide',fig.pos="h">>=
+<<plotConcTimeSmooth, echo=TRUE, fig.cap="\\texttt{plotConcTimeSmooth())}",fig.subcap=c("\\texttt{plotConcTimeSmooth}","\\texttt{plotConcTimeSmooth(logScale=TRUE)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',results='hide',fig.pos="h">>=
 q1 <- 10
 q2 <- 25
 q3 <- 75
@@ -1005,7 +1005,7 @@ plotConcTimeSmooth(q1, q2, q3, centerDate,
 
 Figure \ref{fig:fluxBiasMulti} shows a predefined multipanel graph using \texttt{fluxBiasMulti}.
 
-<<fluxBiasMulti, echo=TRUE, fig.cap="fluxBiasMulti(qUnit=1)",fig.show='asis',fig.width=8, fig.height=10,fig.pos="h">>=
+<<fluxBiasMulti, echo=TRUE, fig.cap="\\texttt{fluxBiasMulti(qUnit=1)}",fig.show='asis',fig.width=8, fig.height=10,fig.pos="h">>=
 fluxBiasMulti(qUnit=1)
 @
 
@@ -1014,7 +1014,7 @@ fluxBiasMulti(qUnit=1)
 The contour plot functions also do not recognize the PA from the INFO dataframe. They represent the overall results of the WRTDS analysis. To specify contourLevels in the contour plots use the \texttt{seq} function (type \texttt{?seq} for details).  In general, use of the \texttt{seq} function would look like this: \texttt{contourLevels = seq(from,to,by)}.  In the example shown above we are requesting contour levels that run from 0 to 2 in steps of 0.2.
 
 
-<<plotContours, echo=TRUE,fig.cap="plotContours(yearStart=2008,yearEnd=2010,qBottom=20,qtop=1000,contourLevels=seq(0,2,0.2),\r\nqUnit=1,flowDuration=FALSE)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
+<<plotContours, echo=TRUE,fig.cap="plotContours()",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
 clevel<-seq(0,2,0.2)
 plotContours(yearStart=2008,yearEnd=2010,qBottom=20,qTop=1000, 
              contourLevels = clevel,qUnit=1,
@@ -1026,7 +1026,7 @@ plotContours(yearStart=2008,yearEnd=2010,qBottom=20,qTop=1000,
 The function \texttt{plotDiffContours} plots the difference between two selected years (year0 and year1). It can help clarify what combinations of seasons and flow conditions have been showing increases and decreases over the period covered.
 
 
-<<plotDiffContours, echo=TRUE, fig.cap="plotDiffContours(year0=2000,year1=2010,qBottom=20,qTop=1000,maxDiff=0.6,\r\nqUnit=1,flowDuration=FALSE)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
+<<plotDiffContours, echo=TRUE, fig.cap="plotDiffContours()",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
 plotDiffContours(year0=2000,year1=2010,
                  qBottom=20,qTop=1000,maxDiff=0.6,qUnit=1,
              flowDuration=FALSE)
@@ -1068,7 +1068,8 @@ returnDF <- tableResults(returnDataFrame=TRUE)
 <<tableResultshead, echo=FALSE, results='asis'>>=
 print(xtable(head(returnDF),
        label="table:tableChangeHead",
-       caption="Table created from \\texttt{head(returnDF)}"),
+       caption="Table created from \\texttt{head(returnDF)}",
+       digits=c(0,0,2,3,3,3,3)),
        caption.placement="top",
        size = "\\footnotesize",
        latex.environment=NULL,
@@ -1088,15 +1089,16 @@ tableChange(yearPoints=c(2000,2005,2010))
 
 Finally, \texttt{tableChangeSingle} (Table \ref{table:tableChangeSingle}) operates exactly the same as \texttt{tableChange} except for the addition of two arguments: returnDataFrame and flux. This function provides either concentration results or flux results, but not both.  This can be useful when you are producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except for the final two arguments.  The first, \texttt{"}returnDataFrame\texttt{"} is a logical argument to indicate if a dataframe of output should be returned (for later manipulation or printing through other programs such as Excel), and its default is FALSE.  The second argument is \texttt{"}flux\texttt{"}, and the default is TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  See section \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft.
 
-<<tableChangeSingle, eval=TRUE, echo=TRUE,results='hide'>>=
+<<tableChangeSingleR, eval=TRUE, echo=TRUE,results='hide'>>=
 returnDF <- tableChangeSingle(yearPoints=c(2000,2005,2010), 
                               returnDataFrame=TRUE)
 @
 
 <<tableResultsShow, echo=FALSE, results='asis'>>=
 print(xtable(returnDF,
-       label="table:tableChangeSingle",
-       caption="Table created from \\texttt{tableChangeSingle} function"),
+       label="tableChangeSingle",
+       caption="Table created from \\texttt{tableChangeSingle} function",
+       digits=c(0,0,0,3,2,1,1)),
        caption.placement="top",
        size = "\\footnotesize",
        latex.environment=NULL,
@@ -1181,7 +1183,7 @@ mtext & add text based on specified side of plot\\
 [5pt]arrows & add arrow \\ 
    \hline
 \end{tabular}
-\caption{Useful functions to add on to default plots. [Type ? then the function name to get help on the individual function].} 
+\caption{Useful functions to add on to default plots. Type ? then the function name to get help on the individual function.} 
 \label{table:addOns}
 }
 \end{table}
@@ -1189,7 +1191,7 @@ mtext & add text based on specified side of plot\\
 Some basic examples are shown below.
 
 Figure \ref{fig:adjustSize} shows a larger title and axis number (left), and larger axis labels and point size (right).
-<<adjustSize,echo=TRUE,eval=TRUE,fig.cap="Modifying text and point size", fig.subcap=c("plotConcQ(cex.axis=2,cex.main=1.5,logScale=TRUE)","plotConcQ(cex.lab=2,cex=2,logScale=TRUE)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+<<adjustSize,echo=TRUE,eval=TRUE,fig.cap="Modifying text and point size", fig.subcap=c("\\texttt{plotConcQ(cex.axis=2,cex.main=1.5,logScale=TRUE)}","\\texttt{plotConcQ(cex.lab=2,cex=2,logScale=TRUE)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotConcQ(cex.axis=2,cex.main=1.5,logScale=TRUE)
 plotConcQ(cex.lab=2,cex=2,logScale=TRUE)
 @
@@ -1271,9 +1273,9 @@ Finally, figure \ref{fig:customPanel} shows a method to create a panel of plots 
 
 
 <<customPanel,echo=TRUE,eval=TRUE,fig.cap="Custom multipanel plot",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
-par(mar=c(3.5,3.5,0.2,0.2), # This is the whitespace around the plots
-    oma=c(1,1,3,1), # This is the outer margin
-    mgp=c(2,0.5,0), # This is the spacing between the label numbers and plots
+par(mar=c(3.5,3.5,0.2,0.2), # whitespace around the plots
+    oma=c(1,1,3,1), # outer margin
+    mgp=c(2,0.5,0), # spacing between the label numbers and plots
     mfcol = c(2,2)) # rows/columns
 
 plotFluxQ(tinyPlot=TRUE,printTitle=FALSE,
