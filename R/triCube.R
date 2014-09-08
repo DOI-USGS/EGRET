@@ -1,4 +1,4 @@
-#'   Tukey's Tricube weight function
+#'   Tricube weight function
 #'
 #'      Computes the tricube weight function on a vector of distance values (d),
 #'      based on a half-window width of h,
