@@ -22,14 +22,14 @@ Note that the function setPA must be run before this to establish the period of 
 \details{
 \tabular{ll}{
 istat  \tab Name  \cr
-1 \tab 1-day minimum discharge \cr
-2 \tab 7-day minimum discharge \cr
-3 \tab 30-day minimum discharge \cr
-4 \tab median discharge \cr
-5 \tab mean discharge \cr
-6 \tab 30-day maximum discharge \cr
-7 \tab 7-day maximum discharge \cr
-8 \tab 1-day maximum discharge \cr
+1 \tab minimum 1-day daily mean discharge \cr
+2 \tab minimum 7-day mean of the daily mean discharges \cr
+3 \tab minimum 30-day mean of the daily mean discharges \cr
+4 \tab median of the daily mean discharges \cr
+5 \tab mean of the daily mean discharges \cr
+6 \tab maximum 30-day mean of the daily mean discharges \cr
+7 \tab maximum 7-day mean of the daily mean discharges \cr
+8 \tab  maximum 1-day daily mean discharge \cr
 }
 }
 \examples{
