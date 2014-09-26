@@ -67,9 +67,9 @@ Sample Workflow
 Load data from web services:
 
 	library(dataRetrieval)
-	Daily <- getDVData("06934500","00060","1979-10-01","2010-09-30")
-	Sample <-getSampleData("06934500","00631","1970-10-01","2011-09-30")
-	INFO <-getMetaData("06934500","00631", interactive=FALSE)
+	Daily <- getNWISDaily("06934500","00060","1979-10-01","2010-09-30")
+	Sample <-getNWISSample("06934500","00631","1970-10-01","2011-09-30")
+	INFO <-getNWISInfo("06934500","00631", interactive=FALSE)
 	Sample <-mergeReport(Daily, Sample)
 
 This is a sample workflow for using WRTDS on the Choptank River at Greensboro MD, for Nitrate:
@@ -84,18 +84,18 @@ This is a sample workflow for using WRTDS on the Choptank River at Greensboro MD
 	endDate <- "2011-09-30"
 	# Gather sample data:
 	parameter_cd<-"00631" #5 digit USGS code
-	Sample <- getSampleData(siteID,parameter_cd,startDate,endDate)
+	Sample <- getNWISSample(siteID,parameter_cd,startDate,endDate)
 	#Gets earliest date from Sample record:
 	#This is just one of many ways to assure the Daily record
 	#spans the Sample record
 	startDate <- min(as.character(Sample$Date)) 
 	# Gather discharge data:
-	Daily <- getDVData(siteID,"00060",startDate,endDate)
+	Daily <- getNWISDaily(siteID,"00060",startDate,endDate)
 	# Gather site and parameter information:
 	
 	# Here user must input some values for
 	# the default (interactive=TRUE)
-	INFO<- getMetaData(siteID,parameter_cd)
+	INFO<- getNWISInfo(siteID,parameter_cd)
 	INFO$shortName <- "Choptank River at Greensboro, MD"
 	
 	# Merge discharge with sample data:
@@ -178,11 +178,11 @@ This is a sample workflow for a flowHistory application for the entire record.
 	siteID <- "01491000" #Choptank River at Greensboro, MD
 	startDate <- "" # Get earliest date
 	endDate <- "" # Get latest date
-	Daily <- getDVData(siteID,"00060",startDate,endDate)
+	Daily <- getNWISDaily(siteID,"00060",startDate,endDate)
 	# Gather site and parameter information:
 	# Here user must input some values for
 	# the default (interactive=TRUE)
-	INFO<- getMetaData(siteID,"00060")
+	INFO<- getNWISInfo(siteID,"00060")
 	INFO$shortName <- "Choptank River at Greensboro, MD"
 	############################
 	
@@ -225,27 +225,3 @@ Version updates
 
 * Version 1.0.0	March 16, 2012
 
-
-
-
-### dataRetrieval
-
-* Version 1.2.2:        July 10, 2013
-
-	* Added getDataAvailability function to find measured parameters and period of record information for a requested station.
-
-	* Added constructNWISURL function to get the URL that is used to retrieve the data.
-
-	* Added getSampleSTORET function to get STORET data directly in Sample dataframe form.
-
-	* Fixed a small leap year bug by changing day of year by making Feb. 29 always 59, and March 1st always 60 (even in non-leap years).
-
-* Version 1.0.5:	June 27, 2012
-
-* Version 1.0.4:	June 19, 2012
-
-* Version 1.0.3:	May 30, 2012
-
-* Version 1.0.2:	May 24, 2012
-
-* Version 1.0.0:	February 23, 2012
