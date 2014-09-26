@@ -52,6 +52,15 @@ plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, flu
     paStart <- 10
   }
   
+  possibleGoodUnits <- c("mg/l","mg/l as N", "mg/l as NO2", 
+                         "mg/l as NO3","mg/l as P","mg/l as PO3","mg/l as PO4","mg/l as CaCO3",
+                         "mg/l as Na","mg/l as H","mg/l as S","mg/l NH4" )
+  
+  if(!(localINFO$param.units %in% possibleGoodUnits)){
+    warning("Expected concentration units are mg/l, \nThe INFO dataframe indicates:",localINFO$param.units,
+            "\nFlux calculations will be wrong if units are not consistent")
+  }
+  
   localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
   
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
