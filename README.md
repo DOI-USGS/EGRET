@@ -18,14 +18,6 @@ Overview of EGRET:  The following are 4 major features of EGRET.
 Please visit the wiki for more information:
 [EGRET Wiki](https://github.com/USGS-R/EGRET/wiki)
 
-Disclaimer
-----------
-This software is in the public domain because it contains materials that originally came from the U.S. Geological Survey  (USGS), an agency of the United States Department of Interior. For more information, see the official USGS copyright policy at [http://www.usgs.gov/visual-id/credit_usgs.html#copyright](http://www.usgs.gov/visual-id/credit_usgs.html#copyright)
-
-Although this software program has been used by the USGS, no warranty, expressed or implied, is made by the USGS or the U.S. Government as to the accuracy and functioning of the program and related program material nor shall the fact of distribution constitute any such warranty, and no responsibility is assumed by the USGS in connection therewith.
-
-This software is provided "AS IS."
-
 Subscribe
 ---------
 Please email questions, comments, and feedback to: 
@@ -48,7 +40,7 @@ To install the EGRET and dataRetrieval packages you need to be using R 3.0 or gr
 Background Information
 ----------------------
 
-WRTDS is a method of analysis for long-term surface water quality data.  It is intended for use with data sets of more than about 200 observations of water quality over a time span of about 20 years or more.  There also needs to be a daily time series of streamflow data covering the entire period of the water quality data collection.  The method can be used with somewhat smaller data sets, but it will not work with less than 100 water quality observations.  The best way to learn about the WRTDS approach and to see examples of its application to multiple large data sets is to read two journal articles.  Both are available, for free, from the journals in which they were published.
+WRTDS is a method of analysis for long-term surface water quality data to evaluate trends and average concentrations and fluxes. It is intended for use with data sets of more than about 200 observations of water quality over a time span of about 20 years or more, but can be used with somewhat shorter data sets. There also needs to be a daily time series of streamflow data covering the entire period of the water quality data collection. The method can be used with smaller data sets, but some adjustments by the user are needed to make it work with less than 100 water quality observations. The best way to learn about the WRTDS approach and to see examples of its application to multiple large data sets is to read two journal articles. Both are available, for free, from the journals in which they were published.
 
 The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay:
 
@@ -204,16 +196,23 @@ This is a sample workflow for a flowHistory application for the entire record.
 Version updates
 ---------------
 
-####EGRET
+Version updates
+---------------
 
-* Version 1.2.5 March 14, 2014
+###EGRET 1.3.0
 
-	* Added period of record control to all graphs and tables (with execption of plotContours, plotDiffContours, plotConcQSmooth, and plotConcTimeSmooth).
-	* Changed default color palette for contour plots
-	* Updated vignette.
-	* Added setupYears call within functions to generally eliminate the need for AnnualResults.
-	* Updated calculateMonthlyResults to give month, year, and decimal year.
-	* Continued to improve documentation.
+* July 31, 2014
+* Modified the smoothing algorithm in flowHistory and WRTDS to reduce "edge effects".  New smoother is the default, but original method is still available (see User Guide for details). The modified method tends to reduce curvature near the start and end of record.  It has no effect during the middle years of the data set.
+
+
+###EGRET 1.2.5 
+* March 14, 2014
+* Added period of analysis control to all graphs and tables (with exception of plotContours, plotDiffContours, plotConcQSmooth, and plotConcTimeSmooth).  This allows these outputs to be limited to specific months of the year as determined by the user.
+* Changed default color palette for contour plots
+* Updated vignette.
+* Added setupYears call within functions to generally eliminate the need for AnnualResults.
+* Updated calculateMonthlyResults to give month, year, and decimal year.
+* Continued to improve documentation.
 
 * Version 1.2.4 July 10, 2013
 
@@ -224,4 +223,12 @@ Version updates
 * Version 1.1.3	April 26, 2012
 
 * Version 1.0.0	March 16, 2012
+
+Disclaimer
+----------
+This software is in the public domain because it contains materials that originally came from the U.S. Geological Survey  (USGS), an agency of the United States Department of Interior. For more information, see the official USGS copyright policy at [http://www.usgs.gov/visual-id/credit_usgs.html#copyright](http://www.usgs.gov/visual-id/credit_usgs.html#copyright)
+
+Although this software program has been used by the USGS, no warranty, expressed or implied, is made by the USGS or the U.S. Government as to the accuracy and functioning of the program and related program material nor shall the fact of distribution constitute any such warranty, and no responsibility is assumed by the USGS in connection therewith.
+
+This software is provided "AS IS."
 
