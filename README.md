@@ -16,6 +16,9 @@ The link for the official USGS publication user guide is here:
 Please visit the wiki for more information:
 [EGRET Wiki](https://github.com/USGS-R/EGRET/wiki)
 
+An recent presentation on an overview of `dataRetrieval` and `EGRET` can be found here:
+[dataRetrieval and EGRET 2014-10-07.pdf](https://github.com/USGS-R/EGRET/blob/gh-pages/images/dataRetrieval%20and%20EGRET%202014-10-07.pdf?raw=true)
+
 Subscribe
 ---------
 Please email questions, comments, and feedback to: 
