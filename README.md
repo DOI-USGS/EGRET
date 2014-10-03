@@ -1,7 +1,7 @@
 `EGRET`
 =============
 
-Exploration and Graphics for RivEr Trends (EGRET): 
+Exploration and Graphics for RivEr Trends (`EGRET`): 
 An R-package for the analysis of long-term changes in water quality and streamflow, 
 including the water-quality method Weighted Regressions on Time, Discharge, and Season (WRTDS)
 
