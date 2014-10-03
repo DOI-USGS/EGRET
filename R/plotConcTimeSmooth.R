@@ -99,14 +99,17 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
   numX<-length(x)
   y <- rep(NA, 3 * numX)
   dim(y) <- c(3, numX)
+  
+  index <- which(!is.na(c(q1, q2, q3)))[1:numQ]
+  
   for (iCurve in 1:numQ) {
-    LQ <- rep(log(qVal[iCurve]),numX)
+    LQ <- rep(log(qVal[index[iCurve]]),numX)
     result <- runSurvReg(x, LQ,numDays,DecLow,DecHigh, 
                          localSample, windowY = windowY,
                          windowQ = windowQ, windowS = windowS,minNumObs=minNumObs, 
                          minNumUncen = minNumUncen, interactive=FALSE,
                          edgeAdjust)
-    y[iCurve, ] <- result[, 3]
+    y[index[iCurve], ] <- result[, 3]
   }
   monthCenter<- as.POSIXlt(centerDate)$mon+1
   dayCenter<-as.POSIXlt(centerDate)$mday
@@ -164,9 +167,11 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
   lines(x=x, y=y[2, ], col=colorVal[2], lwd=lwd, lty=lineVal[2], ...)
   lines(x=x, y=y[3, ], col=colorVal[3], lwd=lwd, lty=lineVal[3], ...)
 
-  words <- paste(qV[1:numQ],qUnit@qUnitName)
-  ltys <- lineVal[1:numQ]
-  cols <- colorVal[1:numQ]
+  
+  
+  words <- paste(qV[index],qUnit@qUnitName)
+  ltys <- lineVal[index]
+  cols <- colorVal[index]
   
   legendLeft <- if(legendLeft == 0) {
     grconvertX(0.05, from="npc", to="user")
