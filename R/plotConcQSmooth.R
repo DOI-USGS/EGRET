@@ -105,14 +105,16 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0
   year<-dates$year + 1900
   decYear<-year+((day-0.5)/366)
   
+  index <- which(!is.na(c(date1, date2, date3)))[1:numDates]
+  
   for(iCurve in 1:numDates) {
-    yrs<-rep(decYear[iCurve],48)
+    yrs<-rep(decYear[index[iCurve]],48)
     result<-runSurvReg(yrs,LQ,numDays,DecLow,DecHigh,localSample,
                        windowY = windowY, windowQ = windowQ, 
                        windowS = windowS, minNumObs=minNumObs, 
                        minNumUncen = minNumUncen,interactive=FALSE,
                        edgeAdjust=edgeAdjust)
-    y[iCurve,]<-result[,3]
+    y[index[iCurve],]<-result[,3]
   }
   
   title<-if(printTitle) paste (localINFO$shortName,"  ",localINFO$paramShortName,"\nEstimated Concentration Versus Discharge Relationship\nat",numDates,"specific dates") else ""
@@ -154,9 +156,9 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0
 #   legendLeft<-if(legendLeft==0) qLow*2 else legendLeft
 #   legendTop<-if(legendTop==0) 0.3*yTop else legendTop 
 
-  words<-as.character(dates[1:numDates])
-  ltys<-lineVal[1:numDates]
-  cols<-colorVal[1:numDates]
+  words<-as.character(dates[index])
+  ltys<-lineVal[index]
+  cols<-colorVal[index]
   
   legendLeft <- if(legendLeft == 0) {
     grconvertX(0.05, from="npc", to="user")
