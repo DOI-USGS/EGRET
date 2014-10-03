@@ -78,19 +78,9 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
   } else if (is.character(qUnit)) {
     qUnit <- qConst[qUnit][[1]]
   }
-  numQ <- 3
   
-  numQ <- if (is.na(q2)){       
-    1
-  } else {
-    3
-  }
+  numQ <- sum(!is.na(c(q1, q2, q3)))
   
-  numQ <- if (is.na(q3)) {
-    2
-  } else {
-    3
-  }
   qV <- rep(NA, 3)
   qVal <- rep(NA, 3)
   qFactor <- qUnit@qUnitFactor

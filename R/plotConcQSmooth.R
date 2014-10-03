@@ -82,9 +82,9 @@ plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0
     qUnit <- qConst[qUnit][[1]]
   }
   #############################################################
-  numDates<-3
-  numDates<-if(is.na(date2)) 1 else 3
-  numDates<-if(is.na(date3)) 2 else 3
+
+  numDates <- sum(!is.na(c(date1, date2, date3)))
+  
   dates<-rep(as.POSIXlt(date1),3)
   dates[1]<-as.POSIXlt(date1)
   dates[2]<-as.POSIXlt(date2)
