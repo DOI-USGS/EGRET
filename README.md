@@ -1,4 +1,4 @@
-Exploration and Graphics for RivEr Trends (EGRET)
+`EGRET`
 =============
 
 Exploration and Graphics for RivEr Trends (EGRET): 
