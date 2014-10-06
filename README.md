@@ -193,8 +193,6 @@ This is a sample workflow for a flowHistory application for the entire record.
 	saveResults(savePath)
 
 
-Version updates
----------------
 
 Version updates
 ---------------
