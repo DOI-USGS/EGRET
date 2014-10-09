@@ -9,9 +9,7 @@ Evaluating long-term changes in river conditions (water quality and discharge) i
 
 The link for the official USGS publication user guide is here:
 
-[http://dx.doi.org/10.3133/tm4A10](http://dx.doi.org/10.3133/tm4A10)*
-
-*Awaiting final edits, expected to be published very soon 
+[http://pubs.usgs.gov/tm/04/a10/](http://pubs.usgs.gov/tm/04/a10/)
 
 Please visit the wiki for more information:
 [EGRET Wiki](https://github.com/USGS-R/EGRET/wiki)
