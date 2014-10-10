@@ -1,0 +1,14 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+inst\doc\EGRET.bbl
+workflow.r
+workflow2.r
+workflow3.r
+leapYear.R
+BiasGraphicCode.R
+.git
+.Rproj.user
+EGRET.Rproj
+.gitignore
+.travis.yml
+appveyor.yml
