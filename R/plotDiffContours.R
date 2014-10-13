@@ -150,14 +150,15 @@ plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 
       goodDays <- ifelse(goodDays < 366, goodDays, goodDays - 
                            365)
       numDays <- length(localDaily$Day)
-      isGood <- rep(FALSE, numDays)
-      for (i in 1:numDays) {
-        count <- ifelse(localDaily$Day[i] == goodDays, 1, 
-                        0)
-        isGood[i] <- if (sum(count) > 0) 
-          TRUE
-        else FALSE
-      }
+      isGood <- localDaily$Day %in% goodDays 
+#       isGood <- rep(FALSE, numDays)
+#       for (i in 1:numDays) {
+#         count <- ifelse(localDaily$Day[i] == goodDays, 1, 
+#                         0)
+#         isGood[i] <- if (sum(count) > 0) 
+#           TRUE
+#         else FALSE
+#       }
       spanDaily <- data.frame(localDaily, isGood)
       spanDaily <- subset(spanDaily, isGood)
       n <- length(spanDaily$Day)

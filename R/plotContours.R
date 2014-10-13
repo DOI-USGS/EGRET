@@ -176,17 +176,18 @@ plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
       goodDays<-ifelse(goodDays>0,goodDays,goodDays+365)
       goodDays<-ifelse(goodDays<366,goodDays,goodDays-365)
       numDays<-length(localDaily$Day)
-      isGood<-rep(FALSE,numDays)
-      for(i in 1:numDays) {
-        count<-ifelse(localDaily$Day[i]==goodDays,1,0)
-        isGood[i]<-if(sum(count)>0) TRUE else FALSE
-      }
+      isGood <- localDaily$Day %in% goodDays 
+#       isGood2<-rep(FALSE,numDays)
+#       for(i in 1:numDays) {
+#         count<-ifelse(localDaily$Day[i]==goodDays,1,0)
+#         isGood2[i]<-sum(count)>0
+#       }
       spanDaily<-data.frame(localDaily,isGood)
       spanDaily<-subset(spanDaily,isGood)
       n<-length(spanDaily$Day)
       LogQ<-spanDaily$LogQ
       for(jQ in 1:nVectorLogQ) {
-        ind<-ifelse(LogQ<yLQ[jQ],1,0)
+        ind<-ifelse(LogQ < yLQ[jQ],1,0)
         freq[jQ]<-sum(ind)/n
       }
       xInd<-seq(ix,numX,16)
