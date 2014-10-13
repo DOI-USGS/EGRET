@@ -1,6 +1,10 @@
 `EGRET`
 =============
 
+Linix: [![travis](https://travis-ci.org/USGS-R/EGRET.svg?branch=master)](https://travis-ci.org/USGS-R/EGRET)
+
+Windows: [![Build status](https://ci.appveyor.com/api/projects/status/a2kogyfplo3valdg?svg=true)](https://ci.appveyor.com/project/ldecicco-USGS/egret)
+
 Exploration and Graphics for RivEr Trends (`EGRET`): 
 An R-package for the analysis of long-term changes in water quality and streamflow, 
 including the water-quality method Weighted Regressions on Time, Discharge, and Season (WRTDS)
