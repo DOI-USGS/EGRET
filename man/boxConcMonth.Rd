@@ -48,7 +48,7 @@ INFO <- ChopINFO
 boxConcMonth()
 # Graphs consisting of Jun-Aug
 INFO <- setPA(paStart=6,paLong=3)
-boxConcMonth()
+boxConcMonth(Sample, INFO)
 }
 \keyword{graphics}
 \keyword{statistics}

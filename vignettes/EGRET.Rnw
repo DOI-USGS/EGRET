@@ -265,7 +265,7 @@ INFO<- getNWISInfo(siteNumber,parameter_cd)
 INFO$shortName <- "Choptank River at Greensboro, MD"
 
 # Merge discharge with sample data:
-Sample <- mergeReport()
+Sample <- mergeReport(Daily, Sample)
 ############################
 
 ############################
@@ -803,7 +803,7 @@ INFO<- getNWISInfo(siteNumber,param,interactive=FALSE)
 INFO$shortName <- "Choptank River"
 
 Sample <- getNWISSample(siteNumber,param,startDate,endDate)
-Sample <- mergeReport()
+Sample <- mergeReport(Daily, Sample)
 @
 
 <<wrtds2,eval=TRUE,echo=FALSE>>=

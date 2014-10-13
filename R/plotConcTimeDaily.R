@@ -59,10 +59,10 @@ plotConcTimeDaily<-function(startYear=NA, endYear=NA, localSample = Sample,
   
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   
-  subSample<-subset(localSample,DecYear>=startYear)
-  subSample<-subset(subSample,DecYear<=endYear)
-  subDaily<-subset(localDaily,DecYear>=startYear)
-  subDaily<-subset(subDaily,DecYear<=endYear)
+  subSample<-localSample[localSample$DecYear>=startYear & localSample$DecYear<= endYear,]
+  
+  subDaily<-localDaily[localDaily$DecYear>=startYear & localDaily$DecYear <= endYear,]
+  
   xSample<-subSample$DecYear
   xDaily<-subDaily$DecYear
 

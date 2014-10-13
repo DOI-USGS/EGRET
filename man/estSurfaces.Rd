@@ -43,7 +43,7 @@ The second index is time, layed out as 16 increments of the calendar year, start
 \examples{
 Daily <- ChopDaily
 Sample <- ChopSample
-surfaces <- estSurfaces()
+\dontrun{surfaces <- estSurfaces()}
 }
 \keyword{statistics}
 \keyword{water-quality}

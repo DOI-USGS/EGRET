@@ -30,14 +30,14 @@
 #' boxConcMonth()
 #' # Graphs consisting of Jun-Aug
 #' INFO <- setPA(paStart=6,paLong=3)
-#' boxConcMonth()
-boxConcMonth<-function(localSample = Sample, localINFO = INFO, printTitle = TRUE,
+#' boxConcMonth(Sample, INFO)
+boxConcMonth<-function(localSample=Sample, localINFO=INFO, printTitle = TRUE,
                        cex=0.8, cex.axis=1.1, cex.main=1.1, las=1,logScale=FALSE,tcl=0.5,
                        tinyPlot = FALSE, customPar=FALSE,...) {
   
-  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
-    paLong <- localINFO$paLong
-    paStart <- localINFO$paStart  
+  if(sum(c("paStart","paLong") %in% names(INFO)) == 2){
+    paLong <- INFO$paLong
+    paStart <- INFO$paStart  
   } else {
     paLong <- 12
     paStart <- 10
@@ -49,7 +49,7 @@ boxConcMonth<-function(localSample = Sample, localINFO = INFO, printTitle = TRUE
   #This function makes a boxplot of log concentration by month
   #Box width is proportional to the square root of the sample size
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\nBoxplots of sample values by month") else ""
-  #   nameList <- sapply(c(1:12),function(x){monthInfo[[x]]@monthSingle})
+  #   nameList <- sapply(c(1:12),function(x){monthINFO[[x]]@monthSingle})
   nameList <- sapply(c(1:12),function(x){monthInfo[[x]]@monthAbbrev})
   
   namesListFactor <- factor(nameList, levels=nameList)

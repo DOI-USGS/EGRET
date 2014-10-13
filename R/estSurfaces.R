@@ -27,7 +27,7 @@
 #' @examples
 #' Daily <- ChopDaily
 #' Sample <- ChopSample
-#' surfaces <- estSurfaces()
+#' \dontrun{surfaces <- estSurfaces()}
 estSurfaces<-function(localDaily = Daily, localSample = Sample, windowY=7,windowQ=2,windowS=0.5,
                       minNumObs=100,minNumUncen=50,edgeAdjust=TRUE){
   # this function estimates the 3 surfaces based on the Sample data
