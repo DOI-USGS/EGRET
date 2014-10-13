@@ -77,14 +77,14 @@
 \titlecontents{table}
 [0em]                 % adjust left margin
 {\sffamily}             % font formatting
-{\textbf{Table}\hspace*{2em} \contentslabel {2em}} % section label and offset
+{Table\hspace*{2em} \contentslabel {2em}} % section label and offset
 {\hspace*{4em}}
 {\titlerule*[0.25pc]{.}\contentspage}
 
 \titlecontents{figure}
 [0em]                 % adjust left margin
 {\sffamily}             % font formatting
-{\textbf{Figure}\hspace*{2em} \contentslabel {2em}} % section label and offset
+{Figure\hspace*{2em} \contentslabel {2em}} % section label and offset
 {\hspace*{4em}}
 {\titlerule*[0.25pc]{.}\contentspage}
 

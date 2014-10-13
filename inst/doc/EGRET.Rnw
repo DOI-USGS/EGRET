@@ -77,14 +77,14 @@
 \titlecontents{table}
 [0em]                 % adjust left margin
 {\sffamily}             % font formatting
-{\textbf{Table}\hspace*{2em} \contentslabel {2em}} % section label and offset
+{Table\hspace*{2em} \contentslabel {2em}} % section label and offset
 {\hspace*{4em}}
 {\titlerule*[0.25pc]{.}\contentspage}
 
 \titlecontents{figure}
 [0em]                 % adjust left margin
 {\sffamily}             % font formatting
-{\textbf{Figure}\hspace*{2em} \contentslabel {2em}} % section label and offset
+{Figure\hspace*{2em} \contentslabel {2em}} % section label and offset
 {\hspace*{4em}}
 {\titlerule*[0.25pc]{.}\contentspage}
 
@@ -265,7 +265,7 @@ INFO<- getNWISInfo(siteNumber,parameter_cd)
 INFO$shortName <- "Choptank River at Greensboro, MD"
 
 # Merge discharge with sample data:
-Sample <- mergeReport()
+Sample <- mergeReport(Daily, Sample)
 ############################
 
 ############################
@@ -803,7 +803,7 @@ INFO<- getNWISInfo(siteNumber,param,interactive=FALSE)
 INFO$shortName <- "Choptank River"
 
 Sample <- getNWISSample(siteNumber,param,startDate,endDate)
-Sample <- mergeReport()
+Sample <- mergeReport(Daily, Sample)
 @
 
 <<wrtds2,eval=TRUE,echo=FALSE>>=

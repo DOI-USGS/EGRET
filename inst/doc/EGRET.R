@@ -82,7 +82,7 @@ addSpace <- function(x) ifelse(x != "1", "[5pt]","")
 #  INFO$shortName <- "Choptank River at Greensboro, MD"
 #  
 #  # Merge discharge with sample data:
-#  Sample <- mergeReport()
+#  Sample <- mergeReport(Daily, Sample)
 #  ############################
 #  
 #  ############################
@@ -237,7 +237,7 @@ tableFlowChange(istat=3, qUnit=3,yearPoints=c(1890,1950,2010))
 #  INFO$shortName <- "Choptank River"
 #  
 #  Sample <- getNWISSample(siteNumber,param,startDate,endDate)
-#  Sample <- mergeReport()
+#  Sample <- mergeReport(Daily, Sample)
 
 ## ----wrtds2,eval=TRUE,echo=FALSE--------------------------
 siteNumber <- "01491000" #Choptank River at Greensboro, MD
