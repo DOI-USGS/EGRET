@@ -20,7 +20,7 @@ plot15<-function(yearStart,yearEnd,localDaily=Daily,localINFO=INFO){
   par(mfrow=c(5,3),cex=0.6,oma=c(10,8,10,4),mar=c(1,4,1,1))
   qf<-86/localINFO$drainSqKm
   newINFO<-setPAx(10,12,localINFO=localINFO)
-  newAnnualSeries<-makeAnnualSeries(localINFO=newINFO)
+  newAnnualSeries<-makeAnnualSeries(localDaily=localDaily,localINFO=newINFO)
   plot1of15(yearStart,yearEnd,qf,istat=2,localAnnualSeries=newAnnualSeries)
   mtext("7-day minimum",cex=0.8,font=1,side=3,line=1)
   mtext("Annual values,\nin mm/day",side=2,cex=0.8,font=1,line=4)
