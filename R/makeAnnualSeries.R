@@ -55,7 +55,7 @@ makeAnnualSeries<-function(localDaily = Daily, localINFO = INFO, edgeAdjust = TR
   for (i in 1:numYSeq) {
     startSeq <- startEndSeq$Starts[i]
     endSeq <- startEndSeq$Ends[i]
-    yearDaily <- subset(localDaily, (MonthSeq >= startSeq) & (MonthSeq <= endSeq))
+    yearDaily <- localDaily[localDaily$MonthSeq >= startSeq & (localDaily$MonthSeq <= endSeq),]
     
     goodDay <- length(yearDaily$Q) - sum(is.na(yearDaily$Q))
     
@@ -75,7 +75,7 @@ makeAnnualSeries<-function(localDaily = Daily, localINFO = INFO, edgeAdjust = TR
   for (i in 1:numYSeq) {
     startSeq <- startEndSeq$Starts[i]
     endSeq <- startEndSeq$Ends[i]
-    yearDaily <- subset(localDaily, (MonthSeq >= startSeq) & (MonthSeq <= endSeq))
+    yearDaily <- localDaily[localDaily$MonthSeq >= startSeq & (localDaily$MonthSeq <= endSeq),]
     
     goodDay <- length(yearDaily$Q) - sum(is.na(yearDaily$Q))
     

@@ -79,10 +79,10 @@ plotFluxTimeDaily<-function (startYear=NA, endYear=NA, localSample = Sample, loc
   startYear <- if (is.na(startYear)) as.integer(min(localSample$DecYear,na.rm=TRUE)) else startYear
   endYear <- if (is.na(endYear)) as.integer(max(localSample$DecYear,na.rm=TRUE)) else endYear
   
-  subSample <- subset(localSample, DecYear >= startYear)
-  subSample <- subset(subSample, DecYear <= endYear)
-  subDaily <- subset(localDaily, DecYear >= startYear)
-  subDaily <- subset(subDaily, DecYear <= endYear)
+  subSample <- localSample[localSample$DecYear >= startYear & localSample$DecYear <= endYear,]
+
+  subDaily <- localDaily[localDaily$DecYear >= startYear & localDaily$DecYear <= endYear,]
+
   xSample <- subSample$DecYear
   xDaily <- subDaily$DecYear
 

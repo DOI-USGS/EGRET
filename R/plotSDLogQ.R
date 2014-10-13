@@ -66,7 +66,7 @@ plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
   for (i in 1:numResults){
     firstDay<-startDays[i]
     lastDay<-startDays[i]+window
-    smallDaily<-subset(localDaily,DecYear>=firstDay&DecYear<=lastDay)
+    smallDaily<-localDaily[localDaily$DecYear >= firstDay & localDaily$DecYear <= lastDay,]
     y[i]<-sd(smallDaily$LogQ,na.rm=TRUE)
   }
   

@@ -89,8 +89,8 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   qText[3]<-paste("For Discharge <",qUpper,qUnit@qUnitName)
   qText[4]<-paste("For Discharge between",qLower,"and",qUpper,qUnit@qUnitName)
   title3<-qText[codeSum]
-  subSample<-subset(subSample,Q>qLowerBound)
-  subSample<-subset(subSample,Q<qUpperBound)
+  subSample<-subSample[subSample$Q>qLowerBound & subSample$Q<qUpperBound,]
+
   # the next section subsets the data for the selected season
   goodMonth<-seq(paStart,paStart+paLong-1,1)
   goodMonth<-ifelse(goodMonth>12,goodMonth-12,goodMonth)

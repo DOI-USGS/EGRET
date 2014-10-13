@@ -85,16 +85,22 @@ clevel <- seq(0,3.5,0.5)
 INFO <- ChopINFO
 Daily <- ChopDaily
 surfaces <- exsurfaces
-plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel)
+plotContours(yearStart,yearEnd,qBottom,qTop,
+contourLevels = clevel)
 yTicksModified <- c(.1,1,10,25)
-plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,yTicks=yTicksModified,flowDuration=FALSE)
+plotContours(yearStart,yearEnd,qBottom,qTop,
+      contourLevels = clevel,yTicks=yTicksModified,flowDuration=FALSE)
 colors <- colorRampPalette(c("white","red"))
-plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,yTicks=yTicksModified,color.palette=colors,flowDuration=FALSE)
+plotContours(yearStart,yearEnd,qBottom,qTop,
+       contourLevels = clevel,yTicks=yTicksModified,color.palette=colors,flowDuration=FALSE)
 colors2 <- heat.colors # Some other options: topo.colors, terrain.colors, cm.colors
-plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,color.palette=colors2,lwd=2,flowDuration=FALSE)
-plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,cex.axis=2,flowDuration=FALSE)
+plotContours(yearStart,yearEnd,qBottom,qTop,
+       contourLevels = clevel,color.palette=colors2,lwd=2,flowDuration=FALSE)
+plotContours(yearStart,yearEnd,qBottom,qTop,
+       contourLevels = clevel,cex.axis=2,flowDuration=FALSE)
 par(mar=c(5,8,5,8))
-plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel,customPar=TRUE,printTitle=FALSE,flowDuration=FALSE)
+plotContours(yearStart,yearEnd,qBottom,qTop,
+       contourLevels = clevel,customPar=TRUE,printTitle=FALSE,flowDuration=FALSE)
 }
 \keyword{graphics}
 \keyword{statistics}
