@@ -70,8 +70,8 @@ plotQTimeDaily<-function (startYear=NA, endYear=NA, localDaily = Daily,
   startYear <- if (is.na(startYear)) as.integer(min(localDaily$DecYear,na.rm=TRUE)) else startYear
   endYear <- if (is.na(endYear)) as.integer(max(localDaily$DecYear,na.rm=TRUE)) else endYear
   
-  subDaily <- subset(localDaily, DecYear >= startYear)
-  subDaily <- subset(subDaily, DecYear <= endYear)
+  subDaily <- localDaily[localDaily$DecYear >= startYear & localDaily$DecYear <= endYear,]
+
   xDaily <- subDaily$DecYear
   
   yDaily <- qFactor * subDaily$Q

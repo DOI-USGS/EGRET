@@ -85,7 +85,7 @@ runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,localSample=Sample
     repeat{
       #  We subset the sample frame by time, to narrow the set of data to run through in the following steps
 
-      Sam<-subset(localSample,abs(DecYear-estY)<=tempWindowY)
+      Sam <- localSample[abs(localSample$DecYear-estY) <= tempWindowY,]
       diffY<-abs(Sam$DecYear-estY)
       weightY<-triCube(diffY,tempWindowY)
       weightQ<-triCube(Sam$LogQ-estLQ,tempWindowQ)
