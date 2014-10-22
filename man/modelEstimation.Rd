@@ -5,8 +5,8 @@
 \usage{
 modelEstimation(localDaily = Daily, localSample = Sample,
   localINFO = INFO, windowY = 7, windowQ = 2, windowS = 0.5,
-  minNumObs = 100, minNumUncen = 50, env = parent.frame(),
-  localSurface = NA, localAnnualResults = NA, edgeAdjust = TRUE)
+  minNumObs = 100, minNumUncen = 50, localSurface = NA,
+  localAnnualResults = NA, edgeAdjust = TRUE)
 }
 \arguments{
 \item{localDaily}{data frame containing the daily values, default is Daily}
@@ -25,13 +25,14 @@ modelEstimation(localDaily = Daily, localSample = Sample,
 
 \item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
 
-\item{env}{environment to set returning variables, defaults to parent.frame()}
-
 \item{localSurface}{string specifying the name of the returned surface array. If NA (default), array is returned named 'surface'}
 
 \item{localAnnualResults}{string specifying the name of the returned AnnualResults calculation. If NA (default), data frame is returned named 'AnnualResults'. setupYears is performed with the water year, and results are saved in this data frame.}
 
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
+}
+\value{
+named list of Daily, Sample, and INFO
 }
 \description{
 This one function does a jack-knife cross-validation of a WRTDS model, fits the surface
@@ -44,7 +45,13 @@ AnnualResults is calculated for water year. To use a period of analysis other th
 Daily <- ChopDaily
 Sample <- ChopSample
 INFO <- ChopINFO
-\dontrun{modelEstimation()}
+\dontrun{EGRETreturn <- modelEstimation()
+Daily <- EGRETreturn$Daily
+Sample <- EGRETreturn$Sample
+INFO <- EGRETreturn$INFO
+surfaces <- EGRETreturn$surfaces
+AnnualResults <- EGRETreturn$AnnualResults
+}
 }
 \keyword{statistics}
 \keyword{water-quality}
