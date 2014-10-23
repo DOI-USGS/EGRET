@@ -15,8 +15,8 @@
 #' filePath <- system.file("extdata", package="EGRET")
 #' filePath <- paste(filePath,"/",sep="")
 #' fileName <- 'ChoptankRiverFlow.txt'
-#' ChopData <- getDataFromFile(filePath,fileName, separator="\t")
-getDataFromFile <- function (filePath,fileName,hasHeader=TRUE,separator=","){
+#' ChopData <- readDataFromFile(filePath,fileName, separator="\t")
+readDataFromFile <- function (filePath,fileName,hasHeader=TRUE,separator=","){
   totalPath <- paste(filePath,fileName,sep="");  
   retval <- read.delim(  
     totalPath, 

@@ -16,9 +16,9 @@
 #' filePath <- system.file("extdata", package="EGRET")
 #' filePath <- paste(filePath,"/",sep="")
 #' fileName <- "ChoptankRiverFlow.txt"
-#' Daily <- getUserDaily(filePath,fileName,separator="\t")
-getUserDaily <- function (filePath,fileName,hasHeader=TRUE,separator=",",qUnit=1,interactive=TRUE){
-  data <- getDataFromFile(filePath,fileName,hasHeader=hasHeader,separator=separator)
+#' Daily <- readUserDaily(filePath,fileName,separator="\t")
+readUserDaily <- function (filePath,fileName,hasHeader=TRUE,separator=",",qUnit=1,interactive=TRUE){
+  data <- readDataFromFile(filePath,fileName,hasHeader=hasHeader,separator=separator)
   convertQ<-c(35.314667,1,0.035314667,0.001)
   qConvert<-convertQ[qUnit]
   if (interactive){

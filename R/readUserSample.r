@@ -15,9 +15,9 @@
 #' filePath <- system.file("extdata", package="EGRET")
 #' filePath <- paste(filePath,"/",sep="")
 #' fileName <- 'ChoptankRiverNitrate.csv'
-#' Sample <- getUserSample(filePath,fileName, separator=";",interactive=FALSE)
-getUserSample <- function (filePath,fileName,hasHeader=TRUE,separator=",", interactive=TRUE){
-  data <- getDataFromFile(filePath,fileName,hasHeader=hasHeader,separator=separator)
+#' Sample <- readUserSample(filePath,fileName, separator=";",interactive=FALSE)
+readUserSample <- function (filePath,fileName,hasHeader=TRUE,separator=",", interactive=TRUE){
+  data <- readDataFromFile(filePath,fileName,hasHeader=hasHeader,separator=separator)
   compressedData <- compressData(data, interactive=interactive)
   Sample <- populateSampleColumns(compressedData)
   return(Sample)

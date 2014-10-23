@@ -18,10 +18,10 @@
 #' @examples
 #' # These examples require an internet connection to run
 #' # Automatically gets information about site 05114000 and temperature, no interaction with user
-#' INFO <- getNWISInfo('05114000','00010',interactive=FALSE)
-getNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
+#' INFO <- readNWISInfo('05114000','00010',interactive=FALSE)
+readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
   if (nzchar(siteNumber)){
-    INFO <- getNWISSiteInfo(siteNumber)
+    INFO <- readNWISsite(siteNumber)
   } else {
     INFO <- as.data.frame(matrix(ncol = 2, nrow = 1))
     names(INFO) <- c('site.no', 'shortName')    
@@ -29,7 +29,7 @@ getNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
   INFO <- populateSiteINFO(INFO, siteNumber,interactive=interactive)
   
   if (nzchar(parameterCd)){
-    parameterData <- dataRetrieval::getNWISPcodeInfo(parameterCd=parameterCd)
+    parameterData <- dataRetrieval::readNWISpCode(parameterCd=parameterCd)
     INFO$param.nm <- parameterData$parameter_nm
     INFO$param.units <- parameterData$parameter_units
     INFO$paramShortName <- parameterData$srsname
@@ -63,23 +63,23 @@ getNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
 #' nameToUse <- 'Specific conductance'
 #' pcodeToUse <- '00095'
 #' 
-#' INFO <- getWQPInfo('USGS-04024315',pcodeToUse,interactive=FALSE)
+#' INFO <- readWQPInfo('USGS-04024315',pcodeToUse,interactive=FALSE)
 #' \dontrun{
-#' INFO2 <- getWQPInfo('WIDNR_WQX-10032762',nameToUse)
+#' INFO2 <- readWQPInfo('WIDNR_WQX-10032762',nameToUse)
 #' # To adjust the label names:
 #' INFO$shortName <- "Little"
 #' INFO$paramShortName <- "SC"
 #' }
-getWQPInfo <- function(siteNumber, parameterCd, interactive=FALSE){
+readWQPInfo <- function(siteNumber, parameterCd, interactive=FALSE){
   
   #Check for pcode:
   pCodeLogic <- (all(nchar(parameterCd) == 5) & suppressWarnings(all(!is.na(as.numeric(parameterCd)))))
 
   if (pCodeLogic){
     
-    siteInfo <- getWQPSites(siteid=siteNumber, pCode=parameterCd)
+    siteInfo <- whatWQPsites(siteid=siteNumber, pCode=parameterCd)
 
-    parameterData <- dataRetrieval::getNWISPcodeInfo(parameterCd = parameterCd)
+    parameterData <- dataRetrieval::readNWISpCode(parameterCd = parameterCd)
     
     siteInfo$param.nm <- parameterData$parameter_nm
     siteInfo$param.units <- parameterData$parameter_units
@@ -88,7 +88,7 @@ getWQPInfo <- function(siteNumber, parameterCd, interactive=FALSE){
     siteInfo$constitAbbrev <- parameterData$parameter_cd
 
   } else {
-    siteInfo <- getWQPSites(siteid=siteNumber, characteristicName=parameterCd)
+    siteInfo <- whatWQPsites(siteid=siteNumber, characteristicName=parameterCd)
 
     siteInfo$param.nm <- parameterCd
     siteInfo$param.units <- ""
@@ -182,8 +182,8 @@ getWQPInfo <- function(siteNumber, parameterCd, interactive=FALSE){
 #' filePath <- system.file("extdata", package="dataRetrieval")
 #' filePath <- paste(filePath,"/",sep="")
 #' fileName <- 'infoTest.csv'
-#' INFO <- getUserInfo(filePath,fileName, separator=",",interactive=FALSE)
-getUserInfo <- function(filePath,fileName,hasHeader=TRUE,separator=",",interactive=FALSE){
+#' INFO <- readUserInfo(filePath,fileName, separator=",",interactive=FALSE)
+readUserInfo <- function(filePath,fileName,hasHeader=TRUE,separator=",",interactive=FALSE){
   
   totalPath <- paste(filePath,fileName,sep="");  
   siteInfo <- read.delim(  
