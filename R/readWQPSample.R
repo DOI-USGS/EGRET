@@ -1,7 +1,7 @@
 #' Import Sample Data for WRTDS
 #'
 #' Imports data from the Water Quality Portal, so it could be STORET, NWIS, or . This function gets the data from: \url{http://www.waterqualitydata.us}
-#' For raw data, use getWQPData.  This function will retrieve the raw data, and compress it (summing constituents). See
+#' For raw data, use readWQPdata.  This function will retrieve the raw data, and compress it (summing constituents). See
 #' chapter 7 of the EGRET user guide for more details, then converts it to the Sample dataframe structure.
 #'
 #' @param siteNumber string site number.  If USGS, it should be in the form :'USGS-XXXXXXXXX...'
@@ -13,18 +13,18 @@
 #' @export
 #' @import dataRetrieval
 #' @return Sample dataframe
-#' @seealso \code{\link{getWQPData}}, \code{\link{getWQPSites}}, 
-#' \code{\link{getWQPqwData}}, \code{\link{getNWISqwData}}, and \code{\link{readWQPData}}, 
+#' @seealso \code{\link{readWQPdata}}, \code{\link{getWQPSites}}, 
+#' \code{\link{readWQPqw}}, \code{\link{readNWISqw}}, 
 #' \code{\link{compressData}}, \code{\link{populateSampleColumns}}
 #' @examples
 #' # These examples require an internet connection to run
-#' 
-#' Sample_01075 <- getWQPSample('USGS-01594440','Chloride', '', '')
-#' Sample_All <- getWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
-#' 
-getWQPSample <- function(siteNumber,characteristicName,startDate,endDate,interactive=TRUE){
+#' \dontrun{
+#' Sample_01075 <- readWQPSample('USGS-01594440','Chloride', '', '')
+#' Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
+#' }
+readWQPSample <- function(siteNumber,characteristicName,startDate,endDate,interactive=TRUE){
   
-  retval <- getWQPqwData(siteNumber=siteNumber,
+  retval <- readWQPqw(siteNumber=siteNumber,
                               parameterCd=characteristicName,
                               startDate=startDate,
                               endDate=endDate)

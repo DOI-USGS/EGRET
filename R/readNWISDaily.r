@@ -19,15 +19,15 @@
 #' @export
 #' @import dataRetrieval
 #' @return Daily dataframe
-#' @seealso \code{\link{getNWISdvData}}, \code{\link{populateDaily}}
+#' @seealso \code{\link{readNWISdv}}, \code{\link{populateDaily}}
 #' @examples
 #' # These examples require an internet connection to run
-#' Daily <- getNWISDaily('01594440','00060', '1985-01-01', '1985-03-31')
-#' DailyCFS <- getNWISDaily('01594440','00060', '1985-01-01', '1985-03-31',convert=FALSE)
-#' DailySuspSediment <- getNWISDaily('01594440','80154', '1985-01-01', '1985-03-31')
-getNWISDaily <- function (siteNumber,parameterCd,startDate,endDate,interactive=TRUE,convert=TRUE,format="tsv"){
+#' Daily <- readNWISDaily('01594440','00060', '1985-01-01', '1985-03-31')
+#' DailyCFS <- readNWISDaily('01594440','00060', '1985-01-01', '1985-03-31',convert=FALSE)
+#' DailySuspSediment <- readNWISDaily('01594440','80154', '1985-01-01', '1985-03-31')
+readNWISDaily <- function (siteNumber,parameterCd,startDate,endDate,interactive=TRUE,convert=TRUE,format="tsv"){
 
-  data <- getNWISdvData(siteNumber,parameterCd,startDate,endDate,format=format)
+  data <- readNWISdv(siteNumber,parameterCd,startDate,endDate,format=format)
   
   #  need to setup conversion factor because the NWIS data are in cfs but we store in cms
   names(data) <- c('agency', 'site', 'dateTime', 'value', 'code')  # do a merge instead?
