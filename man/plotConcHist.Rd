@@ -55,7 +55,7 @@ contains an INFO, Daily, and AnnualResults (from either modelEstimation or setup
 \examples{
 yearStart <- 2001
 yearEnd <- 2010
-eList <- as.egret(INFO, Daily, NA, NA)
+eList <- Choptank_eList
 # Water year:
 plotConcHist(eList, yearStart, yearEnd)
 # Graphs consisting of Jun-Aug

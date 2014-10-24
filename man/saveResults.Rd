@@ -8,7 +8,7 @@ saveResults(savePath, INFO)
 \arguments{
 \item{savePath}{string specifying the full pathname of the folder where the file is to be saved ending with the final slash}
 
-\item{localINFO}{data frame that contains the metadata, default is INFO}
+\item{INFO}{data frame that contains the metadata, default is INFO}
 }
 \description{
 This function saves the workspace.
