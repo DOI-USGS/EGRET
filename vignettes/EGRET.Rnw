@@ -222,12 +222,12 @@ INFO$shortName <- "Choptank River at Greensboro, MD"
 
 ############################
 # Check flow history data:
-annualSeries <- makeAnnualSeries()
-plotFlowSingle(istat=7,qUnit="thousandCfs")
-plotSDLogQ()
-plotQTimeDaily(qLower=1,qUnit=3)
-plotFour(qUnit=3)
-plotFourStats(qUnit=3)
+eList <- as.egret(INFO, Daily, NA, NA)
+plotFlowSingle(eList, istat=7,qUnit="thousandCfs")
+plotSDLogQ(eList)
+plotQTimeDaily(eList, qLower=1,qUnit=3)
+plotFour(eList, qUnit=3)
+plotFourStats(eList, qUnit=3)
 ############################
 
 # modify this for your own computer file structure:
@@ -261,7 +261,7 @@ Daily <- readNWISDaily(siteNumber,"00060",startDate,endDate)
 
 # Here user must input some values for
 # the default (interactive=TRUE)
-INFO<- readNWISInfo(siteNumber,parameter_cd)
+INFO<- readNWISInfo(siteNumber,parameter_cd, interactive=FALSE)
 INFO$shortName <- "Choptank River at Greensboro, MD"
 
 # Merge discharge with sample data:
@@ -558,7 +558,7 @@ In this section, we use 3 dataRetrieval functions to get sufficient data to perf
 \label{INFOsubsection}
 %------------------------------------------------------------
 
-The \texttt{readNWISInfo}, \texttt{getWQPInfo}, and \texttt{getUserInfo} functions obtain metadata, or data about the streamgage and measured parameters. Any number of columns can be included in this dataframe. Table \ref{tab:INFOtable} describes fields are required for EGRET functions. 
+The \texttt{readNWISInfo}, \texttt{readWQPInfo}, and \texttt{readUserInfo} functions obtain metadata, or data about the streamgage and measured parameters. Any number of columns can be included in this dataframe. Table \ref{tab:INFOtable} describes fields are required for EGRET functions. 
 
 \begin{table}[!ht]
 \begin{minipage}{\linewidth}
@@ -594,10 +594,10 @@ It is also possible to create the INFO dataframe using information from the Wate
 
 <<WQPInfo, eval=FALSE>>=
 parameterCd <- "00618"
-INFO_WQP <- getWQPInfo("USGS-01491000",parameterCd)
+INFO_WQP <- readWQPInfo("USGS-01491000",parameterCd)
 @
 
-Finally, the function \texttt{getUserInfo} can be used to convert comma separated files into an INFO dataframe. 
+Finally, the function \texttt{readUserInfo} can be used to convert comma separated files into an INFO dataframe. 
 
 Any supplemental column that would be useful can be added to the INFO dataframe. 
 
@@ -652,7 +652,7 @@ If discharge values are negative or zero, the code will set all of these values 
 
 Notice that the \enquote{Day of the year} column can span from 1 to 366. The 366 accounts for leap years. Every day has a consistent day of the year. This means, February 28\textsuperscript{th} is always the 59\textsuperscript{th} day of the year, Feb. 29\textsuperscript{th} is always the 60\textsuperscript{th} day of the year, and March 1\textsuperscript{st} is always the 61\textsuperscript{st} day of the year whether or not it is a leap year.
 
-User-generated Sample dataframes can also be created using the \texttt{getUserDaily} function. This is discused in detail in section \ref{sec:DailyFile}.
+User-generated Sample dataframes can also be created using the \texttt{readUserDaily} function. This is discused in detail in section \ref{sec:DailyFile}.
 
 \FloatBarrier
 
@@ -677,7 +677,7 @@ Sample <-readWQPSample(site,characteristicName,
       startDate, endDate)
 @
 
-User-generated Sample dataframes can also be created using the \texttt{getUserSample} function. This is discused in detail in section \ref{sec:SampleFile}.
+User-generated Sample dataframes can also be created using the \texttt{readUserSample} function. This is discused in detail in section \ref{sec:SampleFile}.
 
 \pagebreak
 
@@ -758,7 +758,7 @@ print(xTab,
 
 @
 
-The dataRetrieval package will \enquote{add up} all the values in a given row to form the total for that sample when using the Sample dataframe. Thus, you only want to enter data that should be added together. If you want a dataframe with multiple constituents that are not summed, do not use readNWISSample, readWQPSample, or getUserSample. The raw data functions: \texttt{getWQPData}, \texttt{getNWISqwData}, \texttt{getWQPqwData}, \texttt{getWQPData} will not sum constituents, but leave them in their individual columns. 
+The dataRetrieval package will \enquote{add up} all the values in a given row to form the total for that sample when using the Sample dataframe. Thus, you only want to enter data that should be added together. If you want a dataframe with multiple constituents that are not summed, do not use readNWISSample, readWQPSample, or readUserSample. The raw data functions: \texttt{getWQPData}, \texttt{getNWISqwData}, \texttt{getWQPqwData}, \texttt{getWQPData} will not sum constituents, but leave them in their individual columns. 
 
 For example, we might know the value for dp on 5/30/2005, but we don't want to put it in the table because under the rules of this data set, we are not supposed to add it in to the values in 2005.
 
@@ -775,7 +775,7 @@ For the more complex example case, let us say dp is reported as \verb@<@0.01 and
   Sample
 @
 
-Section \ref{sec:userFiles} discusses inputting user-generated files. The functions \texttt{getUserSample} and \texttt{readNWISSample} assume summation with interval censoring inputs, and are discussed in sections \ref{sec:DailyFile} and \ref{sec:SampleFile}.
+Section \ref{sec:userFiles} discusses inputting user-generated files. The functions \texttt{readUserSample} and \texttt{readNWISSample} assume summation with interval censoring inputs, and are discussed in sections \ref{sec:DailyFile} and \ref{sec:SampleFile}.
 
 \FloatBarrier
 
@@ -786,10 +786,10 @@ Section \ref{sec:userFiles} discusses inputting user-generated files. The functi
 In addition to retrieving data from the USGS Web services, the dataRetrieval package also includes functions to generate the Daily and Sample data frame from local files.
 
 %------------------------------------------------------------ 
-\subsubsection{getUserDaily}
+\subsubsection{readUserDaily}
 \label{sec:DailyFile}
 %------------------------------------------------------------ 
-The \texttt{getUserDaily} function will load a user-supplied text file and convert it to the Daily dataframe. The file should have two columns, the first dates, the second values.  The dates are formatted either mm/dd/yyyy or yyyy-mm-dd. Using a 4-digit year is required. This function has the following inputs: filePath, fileName,hasHeader (TRUE/FALSE), separator, qUnit, and interactive (TRUE/FALSE). filePath is a string that defines the path to your file, and the string can either be a full path, or path relative to your R working directory. The input fileName is a string that defines the file name (including the extension).
+The \texttt{readUserDaily} function will load a user-supplied text file and convert it to the Daily dataframe. The file should have two columns, the first dates, the second values.  The dates are formatted either mm/dd/yyyy or yyyy-mm-dd. Using a 4-digit year is required. This function has the following inputs: filePath, fileName,hasHeader (TRUE/FALSE), separator, qUnit, and interactive (TRUE/FALSE). filePath is a string that defines the path to your file, and the string can either be a full path, or path relative to your R working directory. The input fileName is a string that defines the file name (including the extension).
 
 Text files that contain this sort of data require some sort of a separator, for example, a \enquote{csv} file (comma-separated value) file uses a comma to separate the date and value column. A tab delimited file would use a tab (\verb@"\t"@) rather than the comma (\texttt{"},\texttt{"}). Define the type of separator you choose to use in the function call in the \texttt{"}separator\texttt{"} argument, the default is \texttt{"},\texttt{"}. Another function input is a logical variable: hasHeader.  The default is TRUE. If your data does not have column names, set this variable to FALSE.
 
@@ -815,7 +815,7 @@ The call to open this file, convert the discharge to cubic meters per second, an
 <<openDaily, eval = FALSE>>=
 fileName <- "ChoptankRiverFlow.txt"
 filePath <-  "C:/RData/"
-Daily <-getFileDaily(filePath,fileName,
+Daily <-readDataFromFile(filePath,fileName,
                     separator="\t")
 @
 
@@ -824,11 +824,11 @@ Microsoft\textregistered\ Excel files can be a bit tricky to import into R direc
 \FloatBarrier
 
 %------------------------------------------------------------ 
-\subsubsection{getUserSample}
+\subsubsection{readUserSample}
 \label{sec:SampleFile}
 %------------------------------------------------------------ 
 
-The \texttt{getUserSample} function will import a user-generated file and populate the Sample dataframe. The difference between sample data and discharge data is that the code requires a third column that contains a remark code, either blank or \verb@"<"@, which will tell the program that the data were \enquote{left-censored} (or, below the detection limit of the sensor). Therefore, the data must be in the form: date, remark, value.   An example of a comma-delimited file is:
+The \texttt{readUserSample} function will import a user-generated file and populate the Sample dataframe. The difference between sample data and discharge data is that the code requires a third column that contains a remark code, either blank or \verb@"<"@, which will tell the program that the data were \enquote{left-censored} (or, below the detection limit of the sensor). Therefore, the data must be in the form: date, remark, value.   An example of a comma-delimited file is:
 
 \singlespacing
 \begin{verbatim}
@@ -845,7 +845,7 @@ The call to open this file, and populate the Sample dataframe is:
 <<openSample, eval = FALSE>>=
 fileName <- "ChoptankRiverNitrate.csv"
 filePath <-  "C:/RData/"
-Sample <-getUserSample(filePath,fileName,
+Sample <-readUserSample(filePath,fileName,
                                 separator=",")
 @
 
@@ -867,7 +867,7 @@ date  rdp	dp	rpp	pp	rtp	tp
 <<openSample2, eval = FALSE>>=
 fileName <- "ChoptankPhosphorus.txt"
 filePath <-  "C:/RData/"
-Sample <-getUserSample(filePath,fileName,
+Sample <-readUserSample(filePath,fileName,
                                 separator="\t")
 @
 
@@ -888,8 +888,9 @@ endDate <- "2013-01-01"
 
 Daily <- readNWISDaily(siteNumber, "00060", startDate, endDate)
 Sample <- readNWISSample(siteNumber,parameterCd, startDate, endDate)
-Sample <- mergeReport(Daily,Sample)
-names(Sample)
+INFO <- readNWISInfo(siteNumber, parameterCd, interactive=FALSE)
+eList <- mergeReport(INFO, Daily,Sample)
+eList
 @
 
 \FloatBarrier
@@ -916,17 +917,17 @@ Tables \ref{tab:dataRetrievalFunctions1},\ref{tab:dataRetrievalOrg}, and \ref{ta
   Daily & \texttt{getNWISdvData} & Raw USGS daily data \\ 
   [5pt]Daily & \texttt{getNWISData} & Raw USGS data in generalized query \\
   [5pt]Daily\tnote{1} & \texttt{readNWISDaily} & USGS daily values \\ 
-  [5pt]Daily\tnote{1} & \texttt{getUserDaily} & User-generated daily data \\ 
+  [5pt]Daily\tnote{1} & \texttt{readUserDaily} & User-generated daily data \\ 
   [5pt]Sample & \texttt{getNWISqwData} & Raw USGS water quality data \\
   [5pt]Sample & \texttt{getWQPqwData} & Raw Water Quality Data Portal data \\ 
   [5pt]Sample & \texttt{getWQPData} & Raw Water Quality Portal data in generalized query\\
   [5pt]Sample\tnote{1} & \texttt{readNWISSample} & USGS water quality data\\
   [5pt]Sample\tnote{1} & \texttt{readWQPSample} & Water Quality Data Portal data \\
-  [5pt]Sample\tnote{1} & \texttt{getUserSample} & User-generated sample data \\ 
+  [5pt]Sample\tnote{1} & \texttt{readUserSample} & User-generated sample data \\ 
   [5pt]Unit & \texttt{getNWISunitData} & Raw USGS instantaneous data \\
   [5pt]Information\tnote{1} & \texttt{readNWISInfo} & Station and parameter code information extracted from USGS\\ 
-  [5pt]Information\tnote{1} & \texttt{getWQPInfo} & Station and parameter information extracted from Water Quality Portal \\
-  [5pt]Information\tnote{1} & \texttt{getUserInfo} & Station and parameter information extracted from user-generated file \\ 
+  [5pt]Information\tnote{1} & \texttt{readWQPInfo} & Station and parameter information extracted from Water Quality Portal \\
+  [5pt]Information\tnote{1} & \texttt{readUserInfo} & Station and parameter information extracted from user-generated file \\ 
   [5pt]Information & \texttt{getNWISPcodeInfo} & USGS parameter code information \\ 
   [5pt]Information & \texttt{getNWISSiteInfo} & USGS station information \\ 
   [5pt]Information & \texttt{getNWISDataAvailability} & Data available at USGS stations \\
@@ -962,13 +963,13 @@ Tables \ref{tab:dataRetrievalFunctions1},\ref{tab:dataRetrievalOrg}, and \ref{ta
 \textit{Water Quality} & & & \texttt{getNWISunitData}\\
  & & & \texttt{getNWISqwData} \\
 \hline
-\textbf{Water Quality Portal:} & \texttt{getWQPSites} & \texttt{getWQPInfo}\tnote{1} &  \texttt{readWQPSample}\tnote{1}\\
+\textbf{Water Quality Portal:} & \texttt{getWQPSites} & \texttt{readWQPInfo}\tnote{1} &  \texttt{readWQPSample}\tnote{1}\\
 \textit{USGS} & & & \texttt{getWQPqwData} \\
 \textit{EPA} & & & \texttt{getWQPData} \\
 \textit{USDA} & & &  \\
 \hline
-\textbf{User-supplied files:} & & \texttt{getUserInfo}\tnote{1}  & \texttt{getUserDaily}\tnote{1}  \\
-\textit{Daily} & & & \texttt{getUserSample}\tnote{1}  \\
+\textbf{User-supplied files:} & & \texttt{readUserInfo}\tnote{1}  & \texttt{readUserDaily}\tnote{1}  \\
+\textit{Daily} & & & \texttt{readUserSample}\tnote{1}  \\
 \textit{Sample} & & &  \\
 \textit{Site Information} & & & \\
 
@@ -995,9 +996,9 @@ Tables \ref{tab:dataRetrievalFunctions1},\ref{tab:dataRetrievalOrg}, and \ref{ta
 \multicolumn{1}{c}{\textbf{\textsf{Description}}} \\  [0pt]
   \hline
   \texttt{compressData} &  Converts value/qualifier into ConcLow, ConcHigh, Uncen\\
-  [5pt]\texttt{getRDB1Data} & Retrieves and converts RDB data to dataframe\\
-  [5pt]\texttt{getWaterML1Data} & Retrieves and converts WaterML1 data to dataframe\\
-  [5pt]\texttt{getWaterML2Data} & Retrieves and converts WaterML2 data to dataframe\\
+  [5pt]\texttt{importRDB1} & Retrieves and converts RDB data to dataframe\\
+  [5pt]\texttt{importWaterML1} & Retrieves and converts WaterML1 data to dataframe\\
+  [5pt]\texttt{importWaterML2} & Retrieves and converts WaterML2 data to dataframe\\
   [5pt]\texttt{mergeReport} & Merges flow data from the daily record into the sample record\\
   [5pt]\texttt{populateDateColumns} & Generates Julian, Month, Day, DecYear, and MonthSeq columns\\
   [5pt]\texttt{removeDuplicates} & Removes duplicated rows\\
@@ -1055,6 +1056,9 @@ endDate <- ""
 Daily <- readNWISDaily(siteNumber,"00060",startDate,endDate)
 INFO <- readNWISInfo(siteNumber,"",interactive=FALSE)
 INFO$shortName <- "Columbia River at The Dalles, OR"
+
+eList <- as.egret(INFO, Daily, NA, NA)
+
 @
 
 You first must determine the period of analysis to use (PA). What is the period of analysis?  If you want to examine your data set as a time series of water years, then the period of analysis is October through September.  If you want to examine the data set as calendar years then the period of analysis is January through December.  You might want to examine the winter season, which you could define as December through February, then those 3 months become the period of analysis. The only constraints on the definition of a period of analysis are these: it must be defined in terms of whole months; it must be a set of contiguous months (like March-April-May), and have a length that is no less than 1 month and no more than 12 months.  Define the PA by using two arguments: paLong and paStart.  paLong is the length of the PA, and paStart is the first month of the PA. Table \ref{table:paINFO} summarizes paLong and paStart.
@@ -1080,12 +1084,12 @@ Calendar Year & 1 & 12 \\
 
 To set a period running from December through February:
 <<newChunckWinter, echo=TRUE,eval=FALSE>>=
-INFO <- setPA(paStart=12,paLong=3)
+eList <- setPA(eList,paStart=12,paLong=3)
 @
 
 To set the default value (water year):
 <<newChunck, echo=TRUE,eval=TRUE>>=
-INFO <- setPA()
+eList <- setPA(eList)
 @
 
 The next step is to create the annual series of discharge statistics.  These will be stored in a matrix called annualSeries that contain the statistics described in table \ref{table:istat}. The statistics are based on the period of analysis set with the \texttt{setPA} function.
@@ -1114,7 +1118,7 @@ The next step is to create the annual series of discharge statistics.  These wil
 
 To create the annualSeries matrix, using the function \texttt{makeAnnualSeries}:
 <<newChunckAS, echo=TRUE,eval=TRUE>>=
-annualSeries <- makeAnnualSeries()
+annualSeries <- makeAnnualSeries(eList)
 @
 
 After you create the annualSeries matrix, you can generate the plots of any of the stored statistics by using the \texttt{plotFlowSingle} function.
@@ -1135,8 +1139,8 @@ The simplest way to look at these time series is with the function \texttt{plotF
 \newpage
 \FloatBarrier
 <<plotSingleandSD, echo=TRUE, fig.cap="Plots of discharge statistics",fig.subcap=c("plotFlowSingle(istat=5,qUnit='thousandCfs')","plotSDLogQ()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
-plotFlowSingle(istat=5,qUnit="thousandCfs")
-plotSDLogQ()
+plotFlowSingle(eList, istat=5,qUnit="thousandCfs")
+plotSDLogQ(eList)
 @
 
 \newpage
@@ -1150,16 +1154,15 @@ siteNumber<-"11264500"
 Daily <-readNWISDaily(siteNumber,"00060",startDate="",endDate="")
 INFO <- readNWISInfo(siteNumber,"",interactive=FALSE)
 INFO$shortName <- "Merced River at Happy Isles Bridge, CA"
-INFO <- setPA()
-annualSeries <- makeAnnualSeries()
-plotFlowSingle(istat=5)
+eListMerced <- as.egret(INFO, Daily, NA, NA)
+eListMerced <- setPA(eListMerced)
+plotFlowSingle(eListMerced, istat=5)
 
 # Then, we can run the same function, but first set 
 # the pa to start in December and only run for 3 months.
 
-INFO<-setPA(paStart=12,paLong=3)
-annualSeries<-makeAnnualSeries()
-plotFlowSingle(istat=5,qMax=200)
+eListMerced <- setPA(eListMerced,paStart=12,paLong=3)
+plotFlowSingle(eListMerced,istat=5,qMax=200)
 
 @
 
@@ -1168,13 +1171,13 @@ What these figures show us is that on an annual basis there is very little indic
 \newpage
 \FloatBarrier
 <<plotFour, echo=TRUE, fig.cap="\\texttt{plotFour(qUnit=3)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
-plotFour(qUnit=3)
+plotFour(eListMerced, qUnit=3)
 @
 
 \newpage
 \FloatBarrier
 <<plotFourStats,echo=TRUE, fig.cap="\\texttt{plotFourStats(qUnit=3)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
-plotFourStats(qUnit=3)
+plotFourStats(eListMerced, qUnit=3)
 @
 
 \newpage
@@ -1184,9 +1187,9 @@ siteNumber<-"05474500"
 Daily <-readNWISDaily(siteNumber,"00060",startDate="",endDate="")
 INFO <- readNWISInfo(siteNumber,"",interactive=FALSE)
 INFO$shortName <- "Mississippi River at Keokuk Iowa"
-INFO <- setPA()
+eListMiss <- as.egret(INFO, Daily, NA, NA)
 
-plotQTimeDaily(qUnit=3,qLower=300)
+plotQTimeDaily(eListMiss, qUnit=3,qLower=300)
 
 @
 
@@ -1204,8 +1207,7 @@ Sometimes it is easier to consider results in table formats rather than graphica
 
 
 <<printSeries, eval=FALSE,echo=TRUE>>=
-annualSeries<-makeAnnualSeries()
-seriesResult <- printSeries(istat=3, qUnit=3)
+seriesResult <- printSeries(eListMiss, istat=3, qUnit=3)
 @
 
 \singlespacing
@@ -1239,8 +1241,7 @@ Another argument can be very useful in this function: yearPoints.  In the defaul
 
 
 <<tfc, eval=TRUE,echo=TRUE>>=
-annualSeries <- makeAnnualSeries()
-tableFlowChange(istat=3, qUnit=3,yearPoints=c(1890,1950,2010))
+tableFlowChange(eListMiss, istat=3, qUnit=3,yearPoints=c(1890,1950,2010))
 @
 
 See section \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft\textregistered\ software. Excel, Microsoft, PowerPoint, Windows, and Word are registered trademarks of Microsoft Corporation in the United States and other countries.
@@ -1268,7 +1269,7 @@ INFO<- readNWISInfo(siteNumber,param,interactive=FALSE)
 INFO$shortName <- "Choptank River"
 
 Sample <- readNWISSample(siteNumber,param,startDate,endDate)
-Sample <- mergeReport(Daily, Sample)
+eList <- mergeReport(INFO, Daily, Sample)
 @
 
 <<wrtds2,eval=TRUE,echo=FALSE>>=
@@ -1279,7 +1280,7 @@ param<-"00631"
 Daily <- ChopDaily
 Sample <- ChopSample
 INFO <- ChopINFO
-annualSeries <- makeAnnualSeries()
+eList <- Choptank_eList
 @
 
 
@@ -1296,8 +1297,8 @@ Note that for any of the plotting functions that show the sample data, if a valu
 \newpage
 \FloatBarrier
 <<plotBoxes, echo=TRUE, fig.cap="Concentration box plots",fig.subcap=c("\\texttt{boxConcMonth()}","\\texttt{boxQTwice(qUnit=1)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
-boxConcMonth()
-boxQTwice(qUnit=1)
+boxConcMonth(eList)
+boxQTwice(eList,qUnit=1)
 @
 
 Note that the statistics to create the boxplot in \texttt{boxQTwice} are performed after the data are log-transformed.
@@ -1305,8 +1306,8 @@ Note that the statistics to create the boxplot in \texttt{boxQTwice} are perform
 \newpage
 \FloatBarrier
 <<plotConcTime,echo=TRUE, fig.cap="The relation of concentration vs time or discharge",fig.subcap=c("\\texttt{plotConcTime()}","\\texttt{plotConcQ()}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
-plotConcTime()
-plotConcQ(qUnit=1)
+plotConcTime(eList)
+plotConcQ(eList, qUnit=1)
 @
 
 It is interesting to note in Figure \ref{fig:plotConcTime} the change in the convention for rounding of data values that occurred around 1995.
@@ -1314,7 +1315,7 @@ It is interesting to note in Figure \ref{fig:plotConcTime} the change in the con
 \newpage
 \FloatBarrier
 <<plotFluxQ,echo=TRUE, fig.cap="The relation of flux vs discharge",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
-plotFluxQ(fluxUnit=4)
+plotFluxQ(eList, fluxUnit=4)
 @
 
 The \texttt{plotFluxQ} (Figure \ref{fig:plotFluxQ}) function only plots in a log-log scale.
@@ -1322,7 +1323,7 @@ The \texttt{plotFluxQ} (Figure \ref{fig:plotFluxQ}) function only plots in a log
 \newpage
 \FloatBarrier
 <<multiPlotDataOverview, echo=TRUE, fig.cap="\\texttt{multiPlotDataOverview(qUnit=1)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
-multiPlotDataOverview(qUnit=1)
+multiPlotDataOverview(eList, qUnit=1)
 @
 
 The \texttt{multiPlotDataOverview} (Figure \ref{fig:multiPlotDataOverview}) function uses a log scale as default. To change the concentration axes to an arithmetic scale, use logScaleConc=FALSE in the \texttt{multiPlotDataOverview} function call.
@@ -1336,9 +1337,9 @@ The \texttt{multiPlotDataOverview} (Figure \ref{fig:multiPlotDataOverview}) func
 Another useful tool for checking the data before running the WRTDS estimations is \texttt{flowDuration}. This is a utility function that can help you define the discharge ranges that we want to explore.  It prints out key points on the discharge duration curve.  Define the points for a particular part of the year using the \texttt{"}centerDate\texttt{"} and \texttt{"}span\texttt{"} arguments, although the points can be defined for the entire year (default).  
 
 <<flowDuration, eval=TRUE, echo=TRUE>>=
-flowDuration(qUnit=1)
+flowDuration(eList, qUnit=1)
 
-flowDuration(qUnit=1, centerDate="09-30", span=30)
+flowDuration(eList, qUnit=1, centerDate="09-30", span=30)
 @
 
 \FloatBarrier
@@ -1360,7 +1361,7 @@ Finally, it is a good idea to save your results because of the computational tim
 
 <<wrtds5, eval=FALSE, echo=TRUE>>=
 savePath <- "C:/Users/egretUser/WRTDS_Output/" #An example directory name
-saveResults(savePath) 
+saveResults(savePath, INFO) 
 @
 
 This saves all of the objects in your workspace. If you have saved workspaces from R versions earlier than 3.0, a warning will appear when you open them in R 3.0 (or later). Re-saving the workspace using R 3.0 (or later) should get rid of the warning.
@@ -1401,47 +1402,48 @@ Sample <- ChopSample
 Daily <- ChopDaily
 INFO <- ChopINFO
 surfaces <- exsurfaces
+eList <- Choptank_eList
 @
 
 \clearpage
 <<plotConcTimeDaily, echo=TRUE, fig.cap="Concentration and flux vs time",fig.subcap=c("\\texttt{plotConcTimeDaily(2008, 2010)}","\\texttt{plotFluxTimeDaily(2008, 2010)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 # Return to water year:
-INFO <- setPA()
+eList <- setPA(eList)
 
 yearStart <- 2008
 yearEnd <- 2010
 
-plotConcTimeDaily(yearStart, yearEnd)
-plotFluxTimeDaily(yearStart, yearEnd)
+plotConcTimeDaily(eList, yearStart, yearEnd)
+plotFluxTimeDaily(eList, yearStart, yearEnd)
 @
 
 \clearpage
 <<plotFluxPred, echo=TRUE, fig.cap="Concentration and flux predictions",fig.subcap=c('\\texttt{plotConcPred()}','\\texttt{plotFluxPred()}'),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
-plotConcPred()
-plotFluxPred()
+plotConcPred(eList)
+plotFluxPred(eList)
 @
 
 \clearpage
 <<plotResidQ, echo=TRUE, fig.cap="Residuals",fig.subcap=c("\\texttt{plotResidPred()}","\\texttt{plotResidQ(qUnit=1)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
-plotResidPred()
-plotResidQ(qUnit=1)
+plotResidPred(eList)
+plotResidQ(eList, qUnit=1)
 @
 
 \clearpage
 <<boxResidMonth, echo=TRUE, fig.cap="Residuals with respect to time",fig.subcap=c("\\texttt{plotResidTime()}","\\texttt{boxResidMonth()}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
-plotResidTime()
-boxResidMonth()
+plotResidTime(eList)
+boxResidMonth(eList)
 @
 
 \clearpage
 <<boxConcThree, echo=TRUE, fig.cap="Default \\texttt{boxConcThree()}",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='asis',results='hide',fig.pos="h">>=
-boxConcThree()
+boxConcThree(eList)
 @
 
 \clearpage
 <<plotFluxHist, echo=TRUE, fig.cap="Concentration and flux history",fig.subcap=c("\\texttt{plotConcHist()}", "\\texttt{plotFluxHist()}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
-plotConcHist()
-plotFluxHist()
+plotConcHist(eList)
+plotFluxHist(eList)
 @
 
 \clearpage
@@ -1454,9 +1456,9 @@ qTop<-700
 date1 <- "2000-09-01"
 date2 <- "2005-09-01"
 date3 <- "2009-09-01"
-plotConcQSmooth(date1, date2, date3,
+plotConcQSmooth(eList, date1, date2, date3,
                 qBottom, qTop, qUnit=1)
-plotConcQSmooth(date1, date2, date3,
+plotConcQSmooth(eList, date1, date2, date3,
                 qBottom, qTop, qUnit=1,logScale=TRUE)
 @
 
@@ -1466,15 +1468,15 @@ q1 <- 10
 q2 <- 25
 q3 <- 75
 centerDate <- "07-01"
-plotConcTimeSmooth(q1, q2, q3, centerDate, 2000, 2010)
-plotConcTimeSmooth(q1, q2, q3, centerDate, 
+plotConcTimeSmooth(eList, q1, q2, q3, centerDate, 2000, 2010)
+plotConcTimeSmooth(eList, q1, q2, q3, centerDate, 
                    2000, 2010,logScale=TRUE)
 @
 
 Figure \ref{fig:fluxBiasMulti} shows a predefined multipanel graph using \texttt{fluxBiasMulti}.
 
 <<fluxBiasMulti, echo=TRUE, fig.cap="\\texttt{fluxBiasMulti(qUnit=1)}",fig.show='asis',fig.width=8, fig.height=10,fig.pos="h">>=
-fluxBiasMulti(qUnit=1)
+fluxBiasMulti(eList, qUnit=1)
 @
 
 \clearpage
@@ -1484,7 +1486,7 @@ The contour plot functions also do not recognize the PA from the INFO dataframe.
 
 <<plotContours, echo=TRUE,fig.cap="plotContours()",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
 clevel<-seq(0,2,0.2)
-plotContours(yearStart=2008,yearEnd=2010,qBottom=20,qTop=1000, 
+plotContours(eList, yearStart=2008,yearEnd=2010,qBottom=20,qTop=1000, 
              contourLevels = clevel,qUnit=1,
              flowDuration=FALSE)
 @
@@ -1495,7 +1497,7 @@ The function \texttt{plotDiffContours} plots the difference between two selected
 
 
 <<plotDiffContours, echo=TRUE, fig.cap="plotDiffContours()",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
-plotDiffContours(year0=2000,year1=2010,
+plotDiffContours(eList, year0=2000,year1=2010,
                  qBottom=20,qTop=1000,maxDiff=0.6,qUnit=1,
              flowDuration=FALSE)
 @
@@ -1509,8 +1511,8 @@ plotDiffContours(year0=2000,year1=2010,
 Sometimes it is easier to consider the results in table form rather than graphically. The function \texttt{tableResults} produces a simple text table that contains the annual values for the results.  Each row of the output represents a year and includes: year, average discharge, average concentration, flow-normalized concentration, average flux, and flow-normalized flux.  A small sample of the output is printed below. This function can also return a data frame if returnDataFrame is set to TRUE.
 
 <<tableResults1, echo=TRUE, eval=FALSE>>=
-tableResults()
-returnDF <- tableResults(returnDataFrame=TRUE)
+tableResults(eList)
+returnDF <- tableResults(eList)
 @
 
 \singlespacing
@@ -1530,7 +1532,7 @@ returnDF <- tableResults(returnDataFrame=TRUE)
 % \doublespacing
 
 <<tableResults2, echo=FALSE, eval=TRUE,results='hide'>>=
-returnDF <- tableResults(returnDataFrame=TRUE)
+returnDF <- tableResults(eList)
 @
 
 <<tableResultshead, echo=FALSE, results='asis'>>=
@@ -1552,13 +1554,13 @@ The other table option is \texttt{tableChange}. This is a function that provides
 
 
 <<tableChange1, eval=TRUE, echo=TRUE>>=
-tableChange(yearPoints=c(2000,2005,2010))
+tableChange(eList, yearPoints=c(2000,2005,2010))
 @
 
 Finally, \texttt{tableChangeSingle} (Table \ref{table:tableChangeSingle}) operates exactly the same as \texttt{tableChange} except for the addition of two arguments: returnDataFrame and flux. This function provides either concentration results or flux results, but not both.  This can be useful when you are producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except for the final two arguments.  The first, \texttt{"}returnDataFrame\texttt{"} is a logical argument to indicate if a dataframe of output should be returned (for later manipulation or printing through other programs such as Excel), and its default is FALSE.  The second argument is \texttt{"}flux\texttt{"}, and the default is TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  See section \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft\textregistered\ software.
 
 <<tableChangeSingleR, eval=TRUE, echo=TRUE,results='hide'>>=
-returnDF <- tableChangeSingle(yearPoints=c(2000,2005,2010), 
+returnDF <- tableChangeSingle(eList, yearPoints=c(2000,2005,2010), 
                               returnDataFrame=TRUE)
 @
 
@@ -1660,17 +1662,17 @@ Some basic examples are shown below.
 
 Figure \ref{fig:adjustSize} shows a larger title and axis number (left), and larger axis labels and point size (right).
 <<adjustSize,echo=TRUE,eval=TRUE,fig.cap="Modifying text and point size", fig.subcap=c("\\texttt{plotConcQ(cex.axis=2,cex.main=1.5,logScale=TRUE)}","\\texttt{plotConcQ(cex.lab=2,cex=2,logScale=TRUE)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
-plotConcQ(cex.axis=2,cex.main=1.5,logScale=TRUE)
-plotConcQ(cex.lab=2,cex=2,logScale=TRUE)
+plotConcQ(eList, cex.axis=2,cex.main=1.5,logScale=TRUE)
+plotConcQ(eList, cex.lab=2,cex=2,logScale=TRUE)
 @
 
 \clearpage
 
 Figure \ref{fig:plotConcQComparison} shows the default on the left, and several features on the right. First, the margin is adjusted to c(8,8,8,8), requiring customPar set to TRUE. The margin vector represents the margin spacing of the 4 \texttt{"}sides\texttt{"} of a plot in the order: bottom, left, top, right. Next, the text labels were adjusted, color set to \texttt{"}blue\texttt{"}, point and line size increased, and the point type changed form a solid circle(pch=20) to solid diamond (pch=18). A grid, legend, arrow, and text are added after the plot is produced.
 <<plotConcQComparison,echo=TRUE,eval=TRUE,fig.cap="Modified plotConcQ", fig.subcap=c("Default","Modified"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
-plotConcQ(logScale=TRUE)
+plotConcQ(eList, logScale=TRUE)
 par(mar=c(8,8,8,8))
-plotConcQ(customPar=TRUE,col="blue",cex=1.1,
+plotConcQ(eList, customPar=TRUE,col="blue",cex=1.1,
           cex.axis=1.4,cex.main=1.5,cex.lab=1.2,
           pch=18,lwd=2,logScale=TRUE)
 grid(lwd=2)
@@ -1686,7 +1688,7 @@ Only a few fonts are consistent on all operating systems. Figure \ref{fig:easyFo
 <<easyFontChange,echo=TRUE,eval=TRUE,fig.cap="Serif font",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth', fig.pos="h">>=
 # Switching to serif font:
 par(family="serif")
-plotFluxPred(customPar=TRUE)
+plotFluxPred(eList, customPar=TRUE)
 mtext(side=3,line=-3,"Serif font example",cex=3)
 @
 
@@ -1699,7 +1701,7 @@ You can also extend the contour plots. The default y-axis is determined from qTo
 <<modifiedContour1,echo=TRUE,eval=TRUE,fig.cap="Contour plot with modified axis and color scheme",fig.show='hold',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
 colors <- colorRampPalette(c("white","black"))
 yTicksModified <- c(.5,1,10,25)
-plotContours(2001,2010,0.5,50, 
+plotContours(eList, 2001,2010,0.5,50, 
              contourLevels = seq(0,2.5,0.5),qUnit=2,
              yTicks=yTicksModified,
              color.palette=colors,
@@ -1713,7 +1715,7 @@ plotContours(2001,2010,0.5,50,
 colors <- colorRampPalette(c("yellow","white","blue"))
 maxDiff<-0.6
 par(oma=c(1,1,1,1))
-plotDiffContours(year0=2001,year1=2010,qBottom=0.5,qTop=50, 
+plotDiffContours(eList, year0=2001,year1=2010,qBottom=0.5,qTop=50, 
              maxDiff,lwd=2,qUnit=2,
              color.palette=colors,
              flowDuration=FALSE, customPar=TRUE)
@@ -1727,11 +1729,11 @@ It is also possible to create custom multi-panel plots. In the simplest example 
 <<tinyPlot1,echo=TRUE,eval=TRUE,fig.cap="Custom multipanel plot using tinyPlot",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
 par(mfcol = c(2, 2), oma = c(0, 1.7, 6, 1.7))
 
-plotFluxQ(tinyPlot=TRUE,printTitle=FALSE,
+plotFluxQ(eList, tinyPlot=TRUE,printTitle=FALSE,
           fluxUnit=9,logScale=FALSE,fluxMax=1)
-plotConcQ(tinyPlot=TRUE,printTitle=FALSE)
-plotFluxHist(tinyPlot=TRUE,printTitle=FALSE,fluxMax=1)
-plotConcHist(tinyPlot=TRUE,printTitle=FALSE,concMax=3)
+plotConcQ(eList, tinyPlot=TRUE,printTitle=FALSE)
+plotFluxHist(eList, tinyPlot=TRUE,printTitle=FALSE,fluxMax=1)
+plotConcHist(eList, tinyPlot=TRUE,printTitle=FALSE,concMax=3)
 mtext("Custom multi-pane graph using tinyPlot=TRUE", outer=TRUE, font=2)
 @
 
@@ -1746,19 +1748,19 @@ par(mar=c(3.5,3.5,0.2,0.2), # whitespace around the plots
     mgp=c(2,0.5,0), # spacing between the label numbers and plots
     mfcol = c(2,2)) # rows/columns
 
-plotFluxQ(tinyPlot=TRUE,printTitle=FALSE,
+plotFluxQ(eList, tinyPlot=TRUE,printTitle=FALSE,
           fluxUnit=9,logScale=FALSE,fluxMax=1,
           showXLabels=FALSE,showXAxis=FALSE, 
           showYLabels=TRUE,customPar=TRUE)
 
-plotConcQ(tinyPlot=TRUE,printTitle=FALSE, customPar=TRUE,
+plotConcQ(eList, tinyPlot=TRUE,printTitle=FALSE, customPar=TRUE,
           removeLastY=TRUE,removeLastX=TRUE,
           showYLabels=TRUE)
 
-plotFluxHist(tinyPlot=TRUE,printTitle=FALSE,fluxMax=1,
+plotFluxHist(eList, tinyPlot=TRUE,printTitle=FALSE,fluxMax=1,
           showYLabels=FALSE,showYAxis=FALSE,
           showXLabels=FALSE,showXAxis=FALSE, customPar=TRUE)
-plotConcHist(tinyPlot=TRUE,printTitle=FALSE,concMax=3,
+plotConcHist(eList, tinyPlot=TRUE,printTitle=FALSE,concMax=3,
           showYLabels=FALSE, showYAxis=FALSE, customPar=TRUE)
 mtext("Custom multi-pane graph using customPar", outer=TRUE, font=2)
 @
