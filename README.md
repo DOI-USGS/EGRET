@@ -61,9 +61,9 @@ Sample Workflow
 Load data from web services:
 
 	library(dataRetrieval)
-	Daily <- getNWISDaily("06934500","00060","1979-10-01","2010-09-30")
-	Sample <-getNWISSample("06934500","00631","1970-10-01","2011-09-30")
-	INFO <-getNWISInfo("06934500","00631", interactive=FALSE)
+	Daily <- readNWISDaily("06934500","00060","1979-10-01","2010-09-30")
+	Sample <-readNWISSample("06934500","00631","1970-10-01","2011-09-30")
+	INFO <-readNWISInfo("06934500","00631", interactive=FALSE)
 	Sample <-mergeReport(Daily, Sample)
 
 This is a sample workflow for using WRTDS on the Choptank River at Greensboro MD, for Nitrate:
@@ -78,18 +78,18 @@ This is a sample workflow for using WRTDS on the Choptank River at Greensboro MD
 	endDate <- "2011-09-30"
 	# Gather sample data:
 	parameter_cd<-"00631" #5 digit USGS code
-	Sample <- getNWISSample(siteID,parameter_cd,startDate,endDate)
+	Sample <- readNWISSample(siteID,parameter_cd,startDate,endDate)
 	#Gets earliest date from Sample record:
 	#This is just one of many ways to assure the Daily record
 	#spans the Sample record
 	startDate <- min(as.character(Sample$Date)) 
 	# Gather discharge data:
-	Daily <- getNWISDaily(siteID,"00060",startDate,endDate)
+	Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
 	# Gather site and parameter information:
 	
 	# Here user must input some values for
 	# the default (interactive=TRUE)
-	INFO<- getNWISInfo(siteID,parameter_cd)
+	INFO<- readNWISInfo(siteID,parameter_cd)
 	INFO$shortName <- "Choptank River at Greensboro, MD"
 	
 	# Merge discharge with sample data:
@@ -172,11 +172,11 @@ This is a sample workflow for a flowHistory application for the entire record.
 	siteID <- "01491000" #Choptank River at Greensboro, MD
 	startDate <- "" # Get earliest date
 	endDate <- "" # Get latest date
-	Daily <- getNWISDaily(siteID,"00060",startDate,endDate)
+	Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
 	# Gather site and parameter information:
 	# Here user must input some values for
 	# the default (interactive=TRUE)
-	INFO<- getNWISInfo(siteID,"00060")
+	INFO<- readNWISInfo(siteID,"00060")
 	INFO$shortName <- "Choptank River at Greensboro, MD"
 	############################
 	
