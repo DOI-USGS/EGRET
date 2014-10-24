@@ -15,10 +15,10 @@
 #' Sample <- ChopSample
 #' surfaces <- exsurfaces
 #' savePath <- "~/"
-#' saveResults(savePath)
+#' saveResults(savePath, INFO)
 #' 
 #' #To load:
-#' load(paste(savePath,"Chop.nitrogen.RData",sep=""), INFO)
+#' load(paste(savePath,"Chop.nitrogen.RData",sep=""))
 saveResults<-function(savePath, INFO){
   saveName <- paste(savePath, INFO$staAbbrev, ".", INFO$constitAbbrev, 
                     ".RData", sep = "")
