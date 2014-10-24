@@ -3,8 +3,8 @@
 \alias{generalAxis}
 \title{Axis generation for log discharge}
 \usage{
-generalAxis(x, maxVal, minVal, logScale = FALSE, tinyPlot = FALSE,
-  padPercent = 5, concentration = TRUE, localINFO = INFO)
+generalAxis(x, maxVal, minVal, units = NA, logScale = FALSE,
+  tinyPlot = FALSE, padPercent = 5, concentration = TRUE)
 }
 \arguments{
 \item{x}{vector to create scale about}
@@ -13,6 +13,8 @@ generalAxis(x, maxVal, minVal, logScale = FALSE, tinyPlot = FALSE,
 
 \item{minVal}{number minimum value on returned scale}
 
+\item{units}{string concentration units. Typically found in INFO$param.units.}
+
 \item{logScale}{logical whether or not to return a log scale}
 
 \item{tinyPlot}{logical}
@@ -20,8 +22,6 @@ generalAxis(x, maxVal, minVal, logScale = FALSE, tinyPlot = FALSE,
 \item{padPercent}{number used to pad the max and min if not specified}
 
 \item{concentration}{logical if concentration=TRUE, labels returned as concentration units, otherwise flux units.}
-
-\item{localINFO}{data frame that contains the metadata, default name is INFO}
 }
 \description{
 Discharge axis tick generation
@@ -32,9 +32,10 @@ INFO <- ChopINFO
 x <- Daily$Q
 max <- max(x)
 min <- 0
-generalAxis(x, max, min)
+units <- INFO$param.units
+generalAxis(x, max, min, units)
 min <- min(x)
-generalAxis(x, max, min, log=TRUE)
+generalAxis(x, max, min, units, log=TRUE)
 }
 \keyword{graphics}
 \keyword{statistics}

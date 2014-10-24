@@ -26,7 +26,6 @@
 #' INFO2 <- ChopINFO
 #' surfaces2 <- exsurfaces
 #' eList2 <- mergeReport(INFO2, Daily2, Sample2, surfaces2, FALSE)
-#' is.egret(eList2)
 #' eList2
 mergeReport<-function(INFO, Daily, Sample, surfaces=NA, interactive=FALSE){
   

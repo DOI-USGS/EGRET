@@ -90,17 +90,8 @@ plotConcTime<-function(eList, qUnit = 2,
   title3<-qText[codeSum]
   subSample<-subSample[subSample$Q>qLowerBound & subSample$Q<qUpperBound,]
 
-  # the next section subsets the data for the selected season
-  goodMonth<-seq(paStart,paStart+paLong-1,1)
-  goodMonth<-ifelse(goodMonth>12,goodMonth-12,goodMonth)
-  numDays<-length(subSample$Month)
-  isGood<-rep(FALSE,numDays)
-  for(i in 1:numDays){
-    count<-ifelse(subSample$Month[i]==goodMonth,1,0)
-    isGood[i]<-if(sum(count)>0) TRUE else FALSE
-  }
-  subSample<-data.frame(subSample,isGood)
-  subSample<-subset(subSample,isGood)
+  subSample <- if(paLong == 12) subSample else selectDays(subSample, paLong,paStart)
+  
   # the next section of code sets up the seasonal part of the plot title
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   yLow<-subSample$ConcLow

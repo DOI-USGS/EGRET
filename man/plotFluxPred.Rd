@@ -3,16 +3,13 @@
 \alias{plotFluxPred}
 \title{Graph of observed versus estimated flux}
 \usage{
-plotFluxPred(localSample = Sample, localINFO = INFO, fluxUnit = 3,
-  fluxMax = NA, printTitle = TRUE, oneToOneLine = TRUE,
-  customPar = FALSE, col = "black", lwd = 1, cex = 0.8,
-  cex.axis = 1.1, cex.main = 1.1, tinyPlot = FALSE, logScale = FALSE,
-  ...)
+plotFluxPred(eList, fluxUnit = 3, fluxMax = NA, printTitle = TRUE,
+  oneToOneLine = TRUE, customPar = FALSE, col = "black", lwd = 1,
+  cex = 0.8, cex.axis = 1.1, cex.main = 1.1, tinyPlot = FALSE,
+  logScale = FALSE, ...)
 }
 \arguments{
-\item{localSample}{data frame that contains the concentration data, default name is Sample}
-
-\item{localINFO}{data frame that contains the metadata, default name is INFO}
+\item{eList}{named list with at least the Sample and INFO dataframes}
 
 \item{fluxUnit}{number representing entry in pre-defined fluxUnit class array. \code{\link{fluxConst}}}
 
@@ -50,15 +47,14 @@ contains an INFO and Sample dataframes, then the following R code will produce a
 \code{plotFluxPred()}
 }
 \examples{
-Sample <- ChopSample
-INFO <- ChopINFO
+eList <- Choptank_eList
 # Water year:
-plotFluxPred()
-plotFluxPred(fluxUnit = 'poundsDay')
-plotFluxPred(logScale=TRUE)
+plotFluxPred(eList)
+plotFluxPred(eList, fluxUnit = 'poundsDay')
+plotFluxPred(eList, logScale=TRUE)
 # Graphs consisting of Jun-Aug
-INFO <- setPA(paStart=6,paLong=3)
-plotFluxPred()
+eList <- setPA(eList, paStart=6,paLong=3)
+plotFluxPred(eList)
 }
 \keyword{graphics}
 \keyword{statistics}

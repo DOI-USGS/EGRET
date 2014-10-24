@@ -3,15 +3,13 @@
 \alias{plotResidQ}
 \title{Plot of the residuals from WRTDS (in log concentration units) versus the discharge}
 \usage{
-plotResidQ(localSample = Sample, localINFO = INFO, qUnit = 2,
-  tinyPlot = FALSE, stdResid = FALSE, printTitle = TRUE, col = "black",
-  lwd = 1, cex = 0.8, cex.axis = 1.1, cex.main = 1.1, rmSciX = FALSE,
-  customPar = FALSE, ...)
+plotResidQ(eList, qUnit = 2, tinyPlot = FALSE, stdResid = FALSE,
+  printTitle = TRUE, col = "black", lwd = 1, cex = 0.8,
+  cex.axis = 1.1, cex.main = 1.1, rmSciX = FALSE, customPar = FALSE,
+  ...)
 }
 \arguments{
-\item{localSample}{data frame that contains the concentration data, default name is Sample}
-
-\item{localINFO}{data frame that contains the metadata, default name is INFO}
+\item{eList}{named list with at least the Sample and INFO dataframes}
 
 \item{qUnit}{object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.}
 
@@ -48,14 +46,12 @@ The function also provides an alternative for viewing the standardized residuals
  \code{plotResidQ()}
 }
 \examples{
-Sample <- ChopSample
-INFO <- ChopINFO
+eList <- Choptank_eList
 # Water year:
-INFO <- setPA()
-plotResidQ()
+plotResidQ(eList)
 # Graphs consisting of Jun-Aug
-INFO <- setPA(paStart=6,paLong=3)
-plotResidQ()
+eList <- setPA(eList, paStart=6,paLong=3)
+plotResidQ(eList)
 }
 \keyword{graphics}
 \keyword{statistics}

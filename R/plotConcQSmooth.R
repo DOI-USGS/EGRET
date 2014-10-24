@@ -140,7 +140,8 @@ plotConcQSmooth<-function(eList, date1,date2,date3,qLow,qHigh,qUnit = 2, legendL
   
   xInfo <- generalAxis(x, maxVal=qHigh, minVal=qLow, logScale=TRUE, tinyPlot=tinyPlot)
   combinedY <- c(y[1,], y[2,],y[3,])
-  yInfo <- generalAxis(combinedY, maxVal=concMax, minVal=concMin, logScale=logScale, tinyPlot=tinyPlot, localINFO=localINFO)
+  yInfo <- generalAxis(combinedY, maxVal=concMax, minVal=concMin, logScale=logScale, 
+                       tinyPlot=tinyPlot, units=localINFO$param.units)
   
   genericEGRETDotPlot(x=x, y=y[1,],
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,

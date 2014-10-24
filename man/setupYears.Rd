@@ -3,7 +3,7 @@
 \alias{setupYears}
 \title{Creates the AnnualResults data frame from the Daily data frame}
 \usage{
-setupYears(paLong = 12, paStart = 10, localDaily = Daily)
+setupYears(paLong = 12, paStart = 10, localDaily)
 }
 \arguments{
 \item{paLong}{numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12, default is 12}
@@ -27,7 +27,7 @@ This function aggregates the results stored on a daily basis in the Daily data f
 }
 \examples{
 Daily <- ChopDaily
-AnnualResults <- setupYears()
+AnnualResults <- setupYears(4, 10, Daily)
 }
 \keyword{statistics}
 \keyword{water-quality}

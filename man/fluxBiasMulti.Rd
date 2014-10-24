@@ -3,16 +3,12 @@
 \alias{fluxBiasMulti}
 \title{Produces 8-panel plot that is useful for determining if there is a flux bias problem}
 \usage{
-fluxBiasMulti(localSample = Sample, localDaily = Daily, localINFO = INFO,
-  qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS", cex = 0.7,
-  cex.axis = 1.1, cex.main = 1.1, col = "black", lwd = 1, ...)
+fluxBiasMulti(eList, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS",
+  cex = 0.7, cex.axis = 1.1, cex.main = 1.1, col = "black", lwd = 1,
+  ...)
 }
 \arguments{
-\item{localSample}{data frame that contains the concentration data, default name is Sample}
-
-\item{localDaily}{data frame that contains the flow data, default name is Daily}
-
-\item{localINFO}{string specifying the name of the data frame that contains the metadata, default name is INFO}
+\item{eList}{named list with at least Sample, Daily, and INFO dataframes}
 
 \item{qUnit}{object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.}
 
@@ -43,18 +39,15 @@ contains an INFO, Daily, and Sample dataframes, then the following R code will p
 \code{fluxBiasMulti()}
 }
 \examples{
-Sample <- ChopSample
-Daily <- ChopDaily
-INFO <- ChopINFO
+eList <- Choptank_eList
 # Water year:
-INFO <- setPA()
 pdf("fluxBiasMulti.pdf", height=9, width=8)
-fluxBiasMulti()
+fluxBiasMulti(eList)
 dev.off()
 # Graphs consisting of Jun-Aug
-INFO <- setPA(paStart=6,paLong=3)
+eList <- setPA(eList,paStart=6,paLong=3)
 pdf("fluxBiasMultiSummer.pdf", height=9, width=8)
-fluxBiasMulti()
+fluxBiasMulti(eList)
 dev.off()
 }
 \keyword{graphics}

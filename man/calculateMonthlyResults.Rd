@@ -3,10 +3,10 @@
 \alias{calculateMonthlyResults}
 \title{Calculates monthly values of Q, Conc, Flux, FNConc, and FNFlux for the entire record}
 \usage{
-calculateMonthlyResults(localDaily = Daily)
+calculateMonthlyResults(eList)
 }
 \arguments{
-\item{localDaily}{data frame containing the daily values, default is Daily}
+\item{eList}{named list with at least the Daily dataframes}
 }
 \value{
 MonthlyResults data frame of numeric values describing the monthly average values
@@ -17,8 +17,8 @@ Computes the monthly mean values of discharge, concentration, flux, flow-normali
 It returns a data frame containing month, year, decimal year, and mean values of DecYear, Q, Conc, Flux, FNConc, and FNFlux.
 }
 \examples{
-Daily <- ChopDaily
-monthlyResults <- calculateMonthlyResults()
+eList <- Choptank_eList
+monthlyResults <- calculateMonthlyResults(eList)
 }
 \keyword{statistics}
 \keyword{water-quality}

@@ -8,9 +8,7 @@
 #'  contains an INFO and Daily dataframes, annualSeries array, then the following R code will produce a plot:
 #'  \code{plotFour(window=2)}
 #'
-#' @param localINFO data frame that contains the metadata, defoult name is INFO
-#' @param localAnnualSeries data frame that contains the annual series of statistics, default is annualSeries
-#' @param localDaily data frame that contains the flow data, default name is Daily
+#' @param eList named list with at least Daily and INFO dataframes
 #' @param yearStart A numeric value for year in which the graph should start, default is NA, which indicates that the graph should start with first annual value
 #' @param yearEnd A numeric value for year in which the graph should end, default is NA, which indicates that the graph should end with last annual value
 #' @param printTitle logical variable, if TRUE title is printed, if FALSE title is not printed, default is TRUE
@@ -26,21 +24,21 @@
 #' @keywords graphics streamflow statistics
 #' @export
 #' @examples
-#' INFO <- ChopINFO
-#' Daily <- ChopDaily
+#' eList <- Choptank_eList
 #' #Water year:
-#' annualSeries <- makeAnnualSeries()
-#' plotFour()
+#' plotFour(eList)
 #' # Graphs consisting of Jun-Aug
-#' INFO <- setPA(paStart=6,paLong=3)
-#' annualSeries <- makeAnnualSeries()
-#' plotFour() 
-plotFour<-function (localINFO = INFO, localAnnualSeries = annualSeries, localDaily = Daily, 
+#' eList <- setPA(eList,paStart=6,paLong=3)
+#' plotFour(eList) 
+plotFour<-function (eList, 
                     yearStart = NA, yearEnd = NA, printTitle = TRUE, runoff = FALSE, 
                     qUnit = 1, window=15, cex = 0.8, cex.axis = 1.2,cex.main=1.2,
-                    col="black", lwd=1,...) 
-{
+                    col="black", lwd=1,...) {
     
+  localINFO <- info(eList)
+  localDaily <- daily(eList)
+  localAnnualSeries <- makeAnnualSeries(eList)
+  
   par(mfcol = c(2, 2), oma = c(0, 1.7, 6, 1.7))
   
   setYearStart <- if (is.na(yearStart)) {
@@ -53,23 +51,19 @@ plotFour<-function (localINFO = INFO, localAnnualSeries = annualSeries, localDai
   } else {
     yearEnd
   }
-  plotFlowSingle(istat = 8, yearStart = setYearStart, yearEnd = setYearEnd, 
-                 localAnnualSeries = localAnnualSeries, localINFO = localINFO, 
+  plotFlowSingle(eList, istat = 8, yearStart = setYearStart, yearEnd = setYearEnd, 
                  tinyPlot = TRUE, runoff = runoff, qUnit = qUnit, printPA = FALSE, 
                  printIstat = TRUE, printStaName = FALSE,cex=cex, cex.main=1,
                  cex.axis = cex.axis, col=col,lwd=lwd,...)
-  plotFlowSingle(istat = 2, yearStart = setYearStart, yearEnd = setYearEnd, 
-                 localAnnualSeries = localAnnualSeries, localINFO = localINFO, 
+  plotFlowSingle(eList, istat = 2, yearStart = setYearStart, yearEnd = setYearEnd, 
                  tinyPlot = TRUE, runoff = runoff, qUnit = qUnit, printPA = FALSE, 
                  printIstat = TRUE, printStaName = FALSE,cex=cex, cex.main=1,
                  cex.axis = cex.axis, col=col,lwd=lwd, ...)
-  plotFlowSingle(istat = 5, yearStart = setYearStart, yearEnd = setYearEnd, 
-                 localAnnualSeries = localAnnualSeries, localINFO = localINFO, 
+  plotFlowSingle(eList, istat = 5, yearStart = setYearStart, yearEnd = setYearEnd, 
                  tinyPlot = TRUE, runoff = runoff, qUnit = qUnit, printPA = FALSE, 
                  printIstat = TRUE, printStaName = FALSE,cex=cex, cex.main=1,
                  cex.axis = cex.axis, col=col,lwd=lwd, ...)
-  plotSDLogQ(yearStart = setYearStart, yearEnd = setYearEnd, window = window, 
-             localDaily = localDaily, localINFO = localINFO, 
+  plotSDLogQ(eList, yearStart = setYearStart, yearEnd = setYearEnd, window = window, 
              tinyPlot = TRUE, printPA = FALSE,  
              printStaName = FALSE, cex=cex, cex.main=1,
              cex.axis = cex.axis, col=col,lwd=lwd, ...)

@@ -26,6 +26,7 @@
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
+#' @import methods
 #' @examples
 #' eList <- Choptank_eList
 #' # Water year:
@@ -49,7 +50,7 @@ boxConcMonth<-function(eList, printTitle = TRUE,
     paStart <- 10
   } 
   
-  localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
+  localSample <- if(paLong == 12) localSample else selectDays(localSample,paLong,paStart)
   
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   #This function makes a boxplot of log concentration by month

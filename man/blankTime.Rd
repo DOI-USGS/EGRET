@@ -3,14 +3,14 @@
 \alias{blankTime}
 \title{Deletes the computed values during periods of time when there is no sample data}
 \usage{
-blankTime(startBlank, endBlank, localDaily = Daily)
+blankTime(eList, startBlank, endBlank)
 }
 \arguments{
+\item{eList}{named list with at least the Daily dataframe}
+
 \item{startBlank}{string specifying starting date of blank period, input in quotes in yyyy-mm-dd format}
 
 \item{endBlank}{string specifying the ending date of blank period, input in quotes in yyyy-mm-dd format}
-
-\item{localDaily}{string specifying the name of the data frame containing the daily values, default is Daily}
 }
 \value{
 localDaily Daily data frame returned with NA's in sample gap
@@ -24,8 +24,8 @@ This function is used when the data analyst believes that a gap in the sample da
 \examples{
 startBlank = "2004-10-01"
 endBlank = "2006-09-30"
-Daily <- ChopDaily
-Daily <- blankTime(startBlank, endBlank)
+eList <- Choptank_eList
+eList <- blankTime(eList, startBlank, endBlank)
 }
 \keyword{statistics}
 \keyword{water-quality}

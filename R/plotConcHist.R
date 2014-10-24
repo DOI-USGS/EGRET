@@ -70,7 +70,7 @@ plotConcHist<-function(eList, yearStart = NA, yearEnd = NA,
   
   combinedY <- c(localAnnualResults$Conc,localAnnualResults$FNConc[localAnnualResults$DecYear>xInfo$bottom & localAnnualResults$DecYear<xInfo$top])
   yInfo <- generalAxis(x=combinedY, minVal=0, maxVal=concMax, padPercent=5, 
-                       tinyPlot=tinyPlot,localINFO=localINFO)
+                       tinyPlot=tinyPlot,units=localINFO$param.units)
   
   genericEGRETDotPlot(x=localAnnualResults$DecYear, y=localAnnualResults$Conc,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,xDate=TRUE,

@@ -26,7 +26,8 @@ Imports:
     survival,
     fields,
     stats,
-    lubridate
+    lubridate,
+    methods
 Suggests:
     xtable,
     knitr,

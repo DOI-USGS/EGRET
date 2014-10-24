@@ -16,8 +16,8 @@
 #' @examples
 #' Daily <- ChopDaily
 #' AnnualResults <- setupYears()
-#' setSeasonLabel()
-setSeasonLabel<-function(localAnnualResults = AnnualResults){
+#' setSeasonLabel(AnnualResults)
+setSeasonLabel<-function(localAnnualResults){
   # this function sets up text variable used to label graphs and
   # tables, defining what the period of analysis is
   paStart<-localAnnualResults$PeriodStart[1]

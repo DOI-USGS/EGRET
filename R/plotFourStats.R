@@ -8,8 +8,7 @@
 #'  contains an INFO and Daily dataframes, annualSeries array, then the following R code will produce a plot:
 #'  \code{plotFourStats()}
 #'
-#' @param localINFO data frame that contains the metadata, defoult name is INFO
-#' @param localAnnualSeries data frame that contains the annual series of statistics, default is annualSeries
+#' @param eList named list with at least Daily and INFO dataframes
 #' @param yearStart A numeric value for year in which the graph should start, default is NA, which indicates that the graph should start with first annual value
 #' @param yearEnd A numeric value for year in which the graph should end, default is NA, which indicates that the graph should end with last annual value
 #' @param printTitle logical variable, if TRUE title is printed, if FALSE title is not printed, default is TRUE
@@ -24,39 +23,41 @@
 #' @keywords graphics streamflow statistics
 #' @export
 #' @examples
-#' INFO <- ChopINFO
-#' Daily <- ChopDaily
-#' annualSeries <- makeAnnualSeries()
+#' eList <- Choptank_eList
 #' # Water year:
-#' plotFourStats()
+#' plotFourStats(eList)
 #' # Graphs consisting of Jun-Aug
-#' INFO <- setPA(paStart=6,paLong=3)
-#' annualSeries <- makeAnnualSeries()
-#' plotFourStats()
-plotFourStats<-function(localINFO = INFO, localAnnualSeries = annualSeries, yearStart = NA, yearEnd = NA, 
+#' eList <- setPA(eList,paStart=6,paLong=3)
+#' plotFourStats(eList)
+plotFourStats<-function(eList, yearStart = NA, yearEnd = NA, 
                         printTitle = TRUE, runoff = FALSE, cex.main = 1.2,
                         qUnit =1,cex.axis=1.2,cex=0.8, col="black", lwd=1,...) {
   # prior to running this user must do these two commands
   # INFO<-setPA(pastart,paLong,window) 
   # annualSeries<-makeAnnualSeries()
   #
+  
+  localINFO <- info(eList)
+  localDaily <- daily(eList)
+  localAnnualSeries <- makeAnnualSeries(eList)
+  
   par(mfcol=c(2,2),oma=c(0,1.7,6,1.7))
   setYearStart<-if(is.na(yearStart)) min(localAnnualSeries[1,,],na.rm=TRUE) else yearStart
   setYearEnd<-if(is.na(yearEnd)) max(localAnnualSeries[1,,],na.rm=TRUE) else yearEnd
-  plotFlowSingle(istat=8, yearStart=setYearStart, yearEnd=setYearEnd, 
-                 localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, 
+  plotFlowSingle(eList, istat=8, yearStart=setYearStart, yearEnd=setYearEnd, 
+                 tinyPlot=TRUE, runoff=runoff, 
                  qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,
                  cex.axis=cex.axis,cex=cex, col=col,lwd=lwd, cex.main=1,...)
-  plotFlowSingle(istat=4, yearStart=setYearStart, yearEnd=setYearEnd, 
-                 localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, 
+  plotFlowSingle(eList, istat=4, yearStart=setYearStart, yearEnd=setYearEnd, 
+                 tinyPlot=TRUE, runoff=runoff, 
                  qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,
                  cex.axis=cex.axis,cex=cex, col=col,lwd=lwd, cex.main=1, ...)
-  plotFlowSingle(istat=5, yearStart=setYearStart, yearEnd=setYearEnd, 
-                 localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, 
+  plotFlowSingle(eList, istat=5, yearStart=setYearStart, yearEnd=setYearEnd, 
+                 tinyPlot=TRUE, runoff=runoff, 
                  qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,
                  cex.axis=cex.axis,cex=cex, col=col,lwd=lwd, cex.main=1, ...)
-  plotFlowSingle(istat=2, yearStart=setYearStart, yearEnd=setYearEnd, 
-                 localAnnualSeries=localAnnualSeries, localINFO=localINFO, tinyPlot=TRUE, runoff=runoff, 
+  plotFlowSingle(eList, istat=2, yearStart=setYearStart, yearEnd=setYearEnd, 
+                 tinyPlot=TRUE, runoff=runoff, 
                  qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,
                  cex.axis=cex.axis,cex=cex, col=col,lwd=lwd, cex.main=1, ...)
   textPA<-setSeasonLabelByUser(paStartInput=localINFO$paStart, paLongInput=localINFO$paLong)

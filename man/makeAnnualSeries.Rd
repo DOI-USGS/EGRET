@@ -3,14 +3,15 @@
 \alias{makeAnnualSeries}
 \title{Produces annual series of 8 streamflow statistics (and a lowess smooth of them) from daily streamflow data}
 \usage{
-makeAnnualSeries(localDaily = Daily, localINFO = INFO, edgeAdjust = TRUE)
+makeAnnualSeries(eList, edgeAdjust = TRUE)
 }
 \arguments{
-\item{localDaily}{data frame that contains the daily streamflow data}
+\item{eList}{named list with at least Daily and INFO dataframes}
 
-\item{localINFO}{data frame that contains the metadata}
-
-\item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
+\item{edgeAdjust}{logical specifying whether to use the modified method for
+calculating the windows at the edge of the record.  The modified method tends to
+reduce curvature near the start and end of record.
+Default is TRUE, but a logical in INFO$edgeAdjust will override the default.}
 }
 \value{
 annualSeries data frame that contains the annual series of streamflow statistics
@@ -33,9 +34,8 @@ istat  \tab Name  \cr
 }
 }
 \examples{
-Daily <- ChopDaily
-INFO <- ChopINFO
-annualSeries <- makeAnnualSeries()
+eList <- Choptank_eList
+annualSeries <- makeAnnualSeries(eList)
 }
 \keyword{statistics}
 \keyword{streamflow}

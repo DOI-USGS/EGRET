@@ -3,15 +3,12 @@
 \alias{boxResidMonth}
 \title{A box plot of WRTDS residuals by month}
 \usage{
-boxResidMonth(localSample = Sample, localINFO = INFO, stdResid = FALSE,
-  las = 1, printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
-  cex.main = 1.1, font.main = 2, tinyPlot = FALSE, customPar = FALSE,
-  ...)
+boxResidMonth(eList, stdResid = FALSE, las = 1, printTitle = TRUE,
+  cex = 0.8, cex.axis = 1.1, cex.main = 1.1, font.main = 2,
+  tinyPlot = FALSE, customPar = FALSE, ...)
 }
 \arguments{
-\item{localSample}{data frame that contains the concentration data, default name is Sample}
-
-\item{localINFO}{data frame that contains the metadata, default name is INFO}
+\item{eList}{named list with at least the Sample and INFO dataframes}
 
 \item{stdResid}{logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE}
 
@@ -45,14 +42,12 @@ contains an INFO and Sample dataframes, then the following R code will produce a
 \code{boxResidMonth()}
 }
 \examples{
-Sample <- ChopSample
-INFO <- ChopINFO
+eList <- Choptank_eList
 # Water year:
-INFO <- setPA()
-boxResidMonth()
+boxResidMonth(eList)
 # Graphs consisting of Jun-Aug
-INFO <- setPA(paStart=6,paLong=3)
-boxResidMonth()
+eList <- setPA(eList, paStart=6,paLong=3)
+boxResidMonth(eList)
 }
 \keyword{graphics}
 \keyword{statistics}

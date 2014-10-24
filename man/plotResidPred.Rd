@@ -3,14 +3,12 @@
 \alias{plotResidPred}
 \title{Plot of the residuals from WRTDS versus the estimated values (all in log concentration units)}
 \usage{
-plotResidPred(localSample = Sample, localINFO = INFO, stdResid = FALSE,
-  tinyPlot = FALSE, printTitle = TRUE, col = "black", lwd = 1,
-  cex = 0.8, cex.axis = 1.1, cex.main = 1.1, customPar = FALSE, ...)
+plotResidPred(eList, stdResid = FALSE, tinyPlot = FALSE,
+  printTitle = TRUE, col = "black", lwd = 1, cex = 0.8,
+  cex.axis = 1.1, cex.main = 1.1, customPar = FALSE, ...)
 }
 \arguments{
-\item{localSample}{data frame that contains the concentration data, default name is Sample}
-
-\item{localINFO}{data frame that contains the metadata, default name is INFO}
+\item{eList}{named list with at least the Sample and INFO dataframes}
 
 \item{stdResid}{logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE}
 
@@ -44,14 +42,12 @@ The function provides an alternative for viewing the standardized residuals, whe
  \code{plotResidPred()}
 }
 \examples{
-Sample <- ChopSample
-INFO <- ChopINFO
+eList <- Choptank_eList
 # Water year:
-INFO <- setPA()
-plotResidPred()
+plotResidPred(eList)
 # Graphs consisting of Jun-Aug
-INFO <- setPA(paStart=6,paLong=3)
-plotResidPred()
+eList <- setPA(eList, paStart=6,paLong=3)
+plotResidPred(eList)
 }
 \keyword{graphics}
 \keyword{statistics}

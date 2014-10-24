@@ -3,14 +3,11 @@
 \alias{estSurfaces}
 \title{Estimate the three surfaces (for yHat, SE and ConcHat) as a function of DecYear and logQ and store in the three-dimensional object called surfaces}
 \usage{
-estSurfaces(localDaily = Daily, localSample = Sample, windowY = 7,
-  windowQ = 2, windowS = 0.5, minNumObs = 100, minNumUncen = 50,
-  edgeAdjust = TRUE)
+estSurfaces(eList, windowY = 7, windowQ = 2, windowS = 0.5,
+  minNumObs = 100, minNumUncen = 50, edgeAdjust = TRUE)
 }
 \arguments{
-\item{localDaily}{data frame containing the daily values, default is Daily}
-
-\item{localSample}{data frame containing the sample values, default is Sample}
+\item{eList}{named list with at least the Sample and Daily dataframes}
 
 \item{windowY}{numeric specifying the half-window width in the time dimension, in units of years, default is 7}
 
@@ -41,9 +38,8 @@ The second index is time, layed out as 16 increments of the calendar year, start
  This array will be used to estimate these 3 quantities for any given day in the daily values record.
 }
 \examples{
-Daily <- ChopDaily
-Sample <- ChopSample
-\dontrun{surfaces <- estSurfaces()}
+eList <- Choptank_eList
+\dontrun{surfaces <- estSurfaces(eList)}
 }
 \keyword{statistics}
 \keyword{water-quality}

@@ -3,22 +3,20 @@
 \alias{plotFlowSingle}
 \title{Creates a plot of a time series of a particular flow statistic and a lowess smooth of that flow statistic}
 \usage{
-plotFlowSingle(istat, yearStart = NA, yearEnd = NA, localINFO = INFO,
-  localAnnualSeries = annualSeries, qMax = NA, printTitle = TRUE,
-  tinyPlot = FALSE, customPar = FALSE, runoff = FALSE, qUnit = 1,
-  printStaName = TRUE, printPA = TRUE, printIstat = TRUE, cex = 0.8,
-  cex.axis = 1.1, cex.main = 1.1, lwd = 2, col = "black", ...)
+plotFlowSingle(eList, istat, yearStart = NA, yearEnd = NA, qMax = NA,
+  printTitle = TRUE, tinyPlot = FALSE, customPar = FALSE,
+  runoff = FALSE, qUnit = 1, printStaName = TRUE, printPA = TRUE,
+  printIstat = TRUE, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
+  lwd = 2, col = "black", ...)
 }
 \arguments{
+\item{eList}{named list with at least the Daily and INFO dataframes}
+
 \item{istat}{A numeric value for the flow statistic to be graphed (possible values are 1 through 8)}
 
 \item{yearStart}{A numeric value for year in which the graph should start, default is NA, which indicates that the graph should start with first annual value}
 
 \item{yearEnd}{A numeric value for year in which the graph should end, default is NA, which indicates that the graph should end with last annual value}
-
-\item{localINFO}{data frame that contains the metadata, default name is INFO}
-
-\item{localAnnualSeries}{data frame containing the annual series, default is AnnualSeries}
 
 \item{qMax}{A numeric value for the maximum value to be used for y-axis of graph, default is NA means that graph is self-scaling}
 
@@ -62,15 +60,12 @@ contains an INFO, and Daily dataframes, an annualSeries array, and the istat num
 \code{plotFlowSingle(1)}
 }
 \examples{
-INFO <- ChopINFO
-Daily <- ChopDaily
+eList <- Choptank_eList
 # Water year:
-annualSeries <- makeAnnualSeries()
-plotFlowSingle(1)
+plotFlowSingle(eList, 1)
 # Graphs consisting of Jun-Aug
-INFO <- setPA(paStart=6,paLong=3)
-annualSeries <- makeAnnualSeries()
-plotFlowSingle(1)
+eList <- setPA(eList, paStart=6,paLong=3)
+plotFlowSingle(eList, 1)
 }
 \keyword{graphics}
 \keyword{statistics}

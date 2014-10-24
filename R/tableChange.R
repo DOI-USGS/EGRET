@@ -5,22 +5,23 @@
 #' They are computed over pairs of time points.  These time points can be user-defined or
 #' they can be set by the program to be the final year of the record and a set of years that are multiple of 5 years prior to that.
 #'
-#' @param localDaily data frame that contains the flow data, default name is Daily
-#' @param localINFO data frame that contains the metadata, default name is INFO
+#' @param eList named list with at least the Daily and INFO dataframes
 #' @param fluxUnit object of fluxUnit class. \code{\link{fluxConst}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param yearPoints numeric vector listing the years for which the change or slope computations are made, they need to be in chronological order.  For example yearPoints=c(1975,1985,1995,2005), default is NA (which allows the program to set yearPoints automatically)
 #' @keywords water-quality statistics
 #' @export
 #' @examples
-#' Daily <- ChopDaily
-#' INFO <- ChopINFO
+#' eList <- Choptank_eList
 #' # Water Year:
-#' tableChange(fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
-#' tableChange(fluxUnit=9) 
+#' tableChange(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
+#' tableChange(eList, fluxUnit=9) 
 #' # Winter:
-#' INFO <- setPA(paStart=12,paLong=3)
-#' tableChange(fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
-tableChange<-function(localDaily = Daily, localINFO = INFO, fluxUnit = 9, yearPoints = NA) {
+#' eList <- setPA(eList, paStart=12,paLong=3)
+#' tableChange(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
+tableChange<-function(eList, fluxUnit = 9, yearPoints = NA) {
+  
+  localINFO <- info(eList)
+  localDaily <- daily(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong

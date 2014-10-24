@@ -3,13 +3,10 @@
 \alias{tableChange}
 \title{Create a table of the changes in flow-normalized values between various points in time in the record}
 \usage{
-tableChange(localDaily = Daily, localINFO = INFO, fluxUnit = 9,
-  yearPoints = NA)
+tableChange(eList, fluxUnit = 9, yearPoints = NA)
 }
 \arguments{
-\item{localDaily}{data frame that contains the flow data, default name is Daily}
-
-\item{localINFO}{data frame that contains the metadata, default name is INFO}
+\item{eList}{named list with at least the Daily and INFO dataframes}
 
 \item{fluxUnit}{object of fluxUnit class. \code{\link{fluxConst}}, or numeric represented the short code, or character representing the descriptive name.}
 
@@ -22,14 +19,13 @@ They are computed over pairs of time points.  These time points can be user-defi
 they can be set by the program to be the final year of the record and a set of years that are multiple of 5 years prior to that.
 }
 \examples{
-Daily <- ChopDaily
-INFO <- ChopINFO
+eList <- Choptank_eList
 # Water Year:
-tableChange(fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
-tableChange(fluxUnit=9)
+tableChange(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
+tableChange(eList, fluxUnit=9)
 # Winter:
-INFO <- setPA(paStart=12,paLong=3)
-tableChange(fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
+eList <- setPA(eList, paStart=12,paLong=3)
+tableChange(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
 }
 \keyword{statistics}
 \keyword{water-quality}

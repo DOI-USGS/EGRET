@@ -62,7 +62,7 @@ plotFluxQ<-function(eList, qUnit = 2,logScale=TRUE,
             "\nFlux calculations will be wrong if units are not consistent")
   }
   
-  localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
+  localSample <- if(paLong == 12) localSample else selectDays(localSample,paLong,paStart)
   
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   

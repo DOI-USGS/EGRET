@@ -12,8 +12,7 @@
 #'  It returns the 3 dimensional array called surfaces.
 #'  This array will be used to estimate these 3 quantities for any given day in the daily values record. 
 #'
-#' @param localDaily data frame containing the daily values, default is Daily
-#' @param localSample data frame containing the sample values, default is Sample
+#' @param eList named list with at least the Sample and Daily dataframes
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
@@ -24,10 +23,9 @@
 #' @return surfaces array containing the three surfaces estimated, array is 3 dimensional
 #' @export
 #' @examples
-#' Daily <- ChopDaily
-#' Sample <- ChopSample
-#' \dontrun{surfaces <- estSurfaces()}
-estSurfaces<-function(localDaily = Daily, localSample = Sample, windowY=7,windowQ=2,windowS=0.5,
+#' eList <- Choptank_eList
+#' \dontrun{surfaces <- estSurfaces(eList)}
+estSurfaces<-function(eList, windowY=7,windowQ=2,windowS=0.5,
                       minNumObs=100,minNumUncen=50,edgeAdjust=TRUE){
   # this function estimates the 3 surfaces based on the Sample data
   # one is the estimated log concentration (yHat)
@@ -38,6 +36,11 @@ estSurfaces<-function(localDaily = Daily, localSample = Sample, windowY=7,window
   # the second index is time, layed out as 16 increments of the calendar year, starting January 1.
   # it returns the data frame called surfaces 
   #
+  
+  localINFO <- info(eList)
+  localSample <- sample(eList)
+  localDaily <- daily(eList)
+  
   originalColumns <- names(localSample)
   
   numDays <- length(localDaily$DecYear)

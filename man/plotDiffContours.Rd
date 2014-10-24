@@ -3,8 +3,7 @@
 \alias{plotDiffContours}
 \title{Plots the difference between two years from a contour plot created by plotContours}
 \usage{
-plotDiffContours(year0, year1, qBottom, qTop, maxDiff, whatSurface = 3,
-  localsurfaces = surfaces, localINFO = INFO, localDaily = Daily,
+plotDiffContours(eList, year0, year1, qBottom, qTop, maxDiff, whatSurface = 3,
   tcl = 0.1, qUnit = 2, span = 60, pval = 0.05, printTitle = TRUE,
   plotPercent = FALSE, vert1 = NA, vert2 = NA, horiz = NA,
   flowDuration = TRUE, yTicks = NA, tick.lwd = 2, lwd = 1,
@@ -12,6 +11,8 @@ plotDiffContours(year0, year1, qBottom, qTop, maxDiff, whatSurface = 3,
   color.palette = colorRampPalette(c("blue", "white", "red")), ...)
 }
 \arguments{
+\item{eList}{named list with at least the Daily and INFO dataframes, and surfaces matrix}
+
 \item{year0}{numeric value for the calendar year that is the first year of the pair of years for the analysis, should be a whole number}
 
 \item{year1}{numeric value for the calendar year that is the second year of the pair of years for the analysis, should be a whole number}
@@ -24,12 +25,6 @@ plotDiffContours(year0, year1, qBottom, qTop, maxDiff, whatSurface = 3,
 a vector with the minimum and maximum values in the change in concentration scale.}
 
 \item{whatSurface}{numeric value, can only accept 1, 2, or 3;  whatSurface=1 is yHat (log concentration), whatSurface=2 is SE (standard error of log concentration), and whatSurface=3 is ConcHat (unbiased estimate of concentration), default = 3}
-
-\item{localsurfaces}{matrix that contains the estimated surfaces, default is surfaces}
-
-\item{localINFO}{data frame that contains the metadata, default name is INFO}
-
-\item{localDaily}{data frame that contains the daily data, default name is Daily}
 
 \item{tcl}{numeric, length of tick marks in inches, default is 0.1}
 
@@ -83,19 +78,21 @@ year1<-2009
 qBottom<-0.5
 qTop<-20
 maxDiff<-0.5
-surfaces <- exsurfaces
-INFO <- ChopINFO
-Daily <- ChopDaily
-plotDiffContours(year0,year1,qBottom,qTop,maxDiff)
-yTicksModified <- c(.1,1,10,25)
-plotDiffContours(year0,year1,qBottom,qTop,maxDiff,yTicks=yTicksModified,flowDuration=FALSE)
+eList <- Choptank_eList
+plotDiffContours(eList, year0,year1,qBottom,qTop,maxDiff)
+       yTicksModified <- c(.1,1,10,25)
+plotDiffContours(eList, year0, year1,qBottom,qTop,maxDiff,
+       yTicks=yTicksModified,flowDuration=FALSE)
 colors <-colorRampPalette(c("blue","white","red"))
-plotDiffContours(year0,year1,qBottom,qTop,maxDiff,color.palette=colors,flowDuration=FALSE)
+plotDiffContours(eList, year0,year1,qBottom,qTop,maxDiff,
+       color.palette=colors,flowDuration=FALSE)
 colors2 <- heat.colors # Some other options: topo.colors, terrain.colors, cm.colors
-plotDiffContours(year0,year1,qBottom,qTop,maxDiff,lwd=2,color.palette=colors2,flowDuration=FALSE)
-plotDiffContours(year0,year1,qBottom,qTop,maxDiff,cex.lab=2,flowDuration=FALSE)
+plotDiffContours(eList, year0,year1,qBottom,qTop,maxDiff,
+       lwd=2,color.palette=colors2,flowDuration=FALSE)
+plotDiffContours(eList, year0,year1,qBottom,qTop,maxDiff,cex.lab=2,flowDuration=FALSE)
 par(mar=c(5,8,5,8))
-plotDiffContours(year0,year1,qBottom,qTop,maxDiff,customPar=TRUE,flowDuration=FALSE)
+plotDiffContours(eList, year0,year1,qBottom,qTop,maxDiff,
+       customPar=TRUE,flowDuration=FALSE)
 }
 \keyword{graphics}
 \keyword{statistics}

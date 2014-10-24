@@ -4,29 +4,20 @@
 #'
 #' @param paLong a numeric value for the length of the period of Analysis, must be an integer from 1 to 12
 #' @param paStart a numeric value for the starting month of the period of analysis, must be an integer from 1 to 12
-#' @param eList named list with at least the Daily dataframe
+#' @param df dataframe with Q
 #' @keywords statistics streamflow
 #' @export
 #' @return localDaily a data frame containing the daily data but only for the period of analysis (not all months)
 #' @examples
-#' eList <- Choptank_eList
-#' DailySubset <- selectDays(eList, 1, 3)
-selectDays<-function(eList,paLong,paStart) {
+#' Daily <- ChopDaily
+#' DailySubset <- selectDays(eList, 4, 11)
+selectDays<-function(df, paLong, paStart) {
   
-  localDaily <- daily(eList)
-  
-  numDays<-length(localDaily$Q)
-  goodMonth<-rep(FALSE,12)
-  for (iMonth in 1:paLong) {
-    monthInd <- paStart + iMonth -1
-    monthInd <- if(monthInd > 12) monthInd-12 else monthInd
-    goodMonth[monthInd] = TRUE
-  }
-  keep<-rep(TRUE,numDays)
-  for(i in 1:numDays) {
-    keep[i]<-ifelse(goodMonth[localDaily$Month[i]],TRUE,FALSE)
-  }
-  localDaily<-data.frame(localDaily,keep)
-  localDaily<-subset(localDaily,keep==TRUE)
+  localDaily <- df
+
+  goodMonth <- seq(paStart,length = paLong)
+  goodMonth[goodMonth > 12] <- goodMonth[goodMonth > 12] - 12
+  localDaily <- localDaily[localDaily$Month %in% goodMonth, ]
+
   return(localDaily)
 }

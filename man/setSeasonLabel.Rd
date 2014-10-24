@@ -3,7 +3,7 @@
 \alias{setSeasonLabel}
 \title{Create a character string that describes the period of analysis, when period of analysis has already been set in AnnualResults}
 \usage{
-setSeasonLabel(localAnnualResults = AnnualResults)
+setSeasonLabel(localAnnualResults)
 }
 \arguments{
 \item{localAnnualResults}{data frame that contains the annual results, default is AnnualResults}
@@ -24,7 +24,7 @@ That function is called setSeasonLabelByUser.
 \examples{
 Daily <- ChopDaily
 AnnualResults <- setupYears()
-setSeasonLabel()
+setSeasonLabel(AnnualResults)
 }
 \keyword{graphics}
 \keyword{quality}

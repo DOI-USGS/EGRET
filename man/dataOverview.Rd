@@ -15,8 +15,8 @@ Gives a summary of data to be used for WRTDS analysis
 }
 \examples{
 # These examples require an internet connection to run
-exDaily <- getNWISDaily('01594440','00060', '1985-01-01', '1985-03-31', interactive=FALSE)
-exSample <- getNWISSample('01594440','01075', '1985-01-01', '1985-03-31', interactive=FALSE)
+exDaily <- readNWISDaily('01594440','00060', '1985-01-01', '1985-03-31', interactive=FALSE)
+exSample <- readNWISSample('01594440','01075', '1985-01-01', '1985-03-31', interactive=FALSE)
 dataOverview(Daily = exDaily, Sample = exSample)
 }
 \seealso{

@@ -43,8 +43,8 @@ boxConcThree<-function (eList, tinyPlot=FALSE,
     paStart <- 10
   } 
   
-  localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
-  localDaily <- if(paLong == 12) localDaily else selectDays(paLong,paStart,localDaily=localDaily)
+  localSample <- if(paLong == 12) localSample else selectDays(localSample,paLong,paStart)
+  localDaily <- if(paLong == 12) localDaily else selectDays(localDaily, paLong,paStart)
   
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   

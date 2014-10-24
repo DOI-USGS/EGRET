@@ -48,7 +48,7 @@ plotQTimeDaily<-function (eList, startYear=NA, endYear=NA, qLower = NA, qUnit = 
     paStart <- 10
   } 
 
-  localDaily <- if(paLong == 12) localDaily else selectDays(paLong,paStart,localDaily=localDaily)
+  localDaily <- if(paLong == 12) localDaily else selectDays(localDaily,paLong,paStart)
   
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   #########################################################

@@ -3,14 +3,13 @@
 \alias{boxConcMonth}
 \title{Box plot of the water quality data by month}
 \usage{
-boxConcMonth(localSample = Sample, localINFO = INFO, printTitle = TRUE,
-  cex = 0.8, cex.axis = 1.1, cex.main = 1.1, las = 1,
-  logScale = FALSE, tcl = 0.5, tinyPlot = FALSE, customPar = FALSE, ...)
+boxConcMonth(eList, printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
+  cex.main = 1.1, las = 1, logScale = FALSE, tcl = 0.5,
+  tinyPlot = FALSE, customPar = FALSE, showYLabels = TRUE,
+  showXLabels = TRUE, showXAxis = TRUE, showYAxis = TRUE, ...)
 }
 \arguments{
-\item{localSample}{data frame that contains the concentration data, default name is Sample}
-
-\item{localINFO}{data frame that contains the metadata, default name is INFO}
+\item{eList}{named list with at least the Sample and INFO dataframes}
 
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)}
 
@@ -30,6 +29,14 @@ boxConcMonth(localSample = Sample, localINFO = INFO, printTitle = TRUE,
 
 \item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function}
 
+\item{showYLabels}{logical defaults to TRUE. If FALSE, the y axis label is not plotted}
+
+\item{showXLabels}{logical defaults to TRUE. If FALSE, the x axis label is not plotted}
+
+\item{showXAxis}{logical defaults to TRUE. If FALSE, the x axis is not plotted}
+
+\item{showYAxis}{logical defaults to TRUE. If FALSE, the y axis is not plotted}
+
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
 \description{
@@ -42,13 +49,12 @@ These data frames must have been created by the dataRetrieval package.
  \code{boxConcMonth()}
 }
 \examples{
-Sample <- ChopSample
-INFO <- ChopINFO
+eList <- Choptank_eList
 # Water year:
-boxConcMonth()
+boxConcMonth(eList)
 # Graphs consisting of Jun-Aug
-INFO <- setPA(paStart=6,paLong=3)
-boxConcMonth(Sample, INFO)
+eList <- setPA(eList, paStart=6,paLong=3)
+boxConcMonth(eList)
 }
 \keyword{graphics}
 \keyword{statistics}

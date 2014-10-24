@@ -3,17 +3,14 @@
 \alias{flowDuration}
 \title{Computes several values of the flow duration curve for streamflow centered on a specific date of the year}
 \usage{
-flowDuration(centerDate = "09-30", localDaily = Daily, localINFO = INFO,
-  qUnit = 2, span = 365)
+flowDuration(eList, centerDate = "09-30", qUnit = 2, span = 365)
 }
 \arguments{
+\item{eList}{named list with at least Daily and INFO dataframes}
+
 \item{centerDate}{string specifying the center date of the part of the year for which the flow
 duration is to be calculated, it is in the form "mm-dd" (it must be in quotes), default is
 "09-30"}
-
-\item{localDaily}{data frame that contains the daily discharge data, default name is Daily}
-
-\item{localINFO}{data frame that contains the metadata, default name is INFO}
 
 \item{qUnit}{object of qUnit class \code{\link{qConst}}, or numeric represented the short code,
 or character representing the descriptive name.}
@@ -32,12 +29,11 @@ streamflow for a particular part of the year or for the whole year.
 This is particularly useful in setting up discharge scales for various other plots in this package.
 }
 \examples{
-Daily <- ChopDaily
-INFO <- ChopINFO
+eList <- Choptank_eList
 # for a window of 30 days either side of June 25 expressed in units of cfs:
-flowDuration("06-25", qUnit=1,span=30)
+flowDuration(eList,"06-25", qUnit=1,span=30)
 # for a flow-duration curve covering the whole year, expressed in units of csf:
-flowDuration("01-01", qUnit=2)
+flowDuration(eList, "01-01", qUnit=2)
 }
 \keyword{statistics}
 \keyword{streamflow,}

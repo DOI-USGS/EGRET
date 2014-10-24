@@ -4,26 +4,25 @@
 #' The index of the flow statistics is istat.  These statistics are: 
 #' (1) 1-day minimum, (2) 7-day minimum, (3) 30-day minimum, (4) median
 #' (5) mean, (6) 30-day maximum, (7) 7-day maximum, and (8) 1-day maximum. 
-#'  User must have run setPA and makeAnnualSeries before this function.
+#' A dataframe is returned, as well as a printout in the R console.
 #'
 #' @param istat A numeric value for the flow statistic to be graphed (possible values are 1 through 8)
-#' @param localINFO data frame that contains the metadata, default is INFO
-#' @param localAnnualSeries data frame containing the annual series, default is AnnualSeries
+#' @param eList named list with at least Daily and INFO dataframes
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param runoff logical variable, if TRUE the streamflow data are converted to runoff values in mm/day
 #' @param yearPoints A vector of numeric values, specifying the years at which change metrics are to be calculated, default is NA (which allows the function to set these automatically), yearPoints must be in ascending order
-#' @param returnDataFrame logical, if a dataframe is required to be returned set this to TRUE.  Otherwise, the default is FALSE
 #' @keywords streamflow statistics
 #' @export
 #' @examples
-#' INFO <- ChopINFO
-#' INFO <- setPA(paStart=12, paLong=3)
-#' Daily <- ChopDaily
-#' annualSeries <- makeAnnualSeries()
-#' tableFlowChange(istat=5,yearPoints=c(2001,2005,2009))
-#' df <- tableFlowChange(istat=5,yearPoints=c(2001,2005,2009),returnDataFrame=TRUE)
-tableFlowChange<-function(istat, localAnnualSeries = annualSeries, localINFO = INFO, 
-                          qUnit = 1, runoff = FALSE, yearPoints = NA,returnDataFrame=FALSE) {
+#' eList <- Choptank_eList
+#' tableFlowChange(eList, istat=5,yearPoints=c(2001,2005,2009))
+#' df <- tableFlowChange(eList, istat=5,yearPoints=c(2001,2005,2009))
+tableFlowChange<-function(eList, istat, qUnit = 1, runoff = FALSE, 
+                          yearPoints = NA) {
+  
+  localAnnualSeries <- makeAnnualSeries(eList)
+  localINFO <- info(eList)
+  
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(qUnit)){
@@ -95,10 +94,7 @@ tableFlowChange<-function(istat, localAnnualSeries = annualSeries, localINFO = I
   row.names(resultDF) <- NULL
   resultDF <- as.data.frame(lapply(resultDF,as.numeric))
   colnames(resultDF) <- header
+
   
-  if (!returnDataFrame) {
-    return()
-  }
-  
-  return(resultDF)
+  invisible(resultDF)
 }

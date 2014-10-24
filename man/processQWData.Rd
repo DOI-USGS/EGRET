@@ -21,8 +21,10 @@ conditions to determine if a value is left censored or not. Censored values are 
 }
 \examples{
 library(dataRetrieval)
-rawSample <- getWQPqwData('USGS-01594440','', '', '')
+\dontrun{
+rawSample <- readWQPqw('USGS-01594440','', '', '')
 rawSampleSelect <- processQWData(rawSample)
+}
 }
 \keyword{USGS}
 \keyword{data}

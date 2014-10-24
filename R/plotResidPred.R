@@ -52,7 +52,7 @@ plotResidPred<-function(eList, stdResid = FALSE,
     paStart <- 10
   }  
   
-  localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
+  localSample <- if(paLong == 12) localSample else selectDays(localSample,paLong,paStart)
   
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   
@@ -76,7 +76,6 @@ plotResidPred<-function(eList, stdResid = FALSE,
   
   xInfo <- generalAxis(x=log(x), minVal=NA, maxVal=NA, tinyPlot=tinyPlot)
   yInfo <- generalAxis(x=yHigh, minVal=NA, maxVal=NA, tinyPlot=tinyPlot)
-#   yInfo <- generalAxis(x=yHigh, minVal=(min(yLow,na.rm=TRUE)-0.5), maxVal=(max(yHigh) + 0.1), tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=log(x), y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,col=col,

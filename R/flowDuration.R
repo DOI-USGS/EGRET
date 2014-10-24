@@ -20,9 +20,9 @@
 #' @examples
 #' eList <- Choptank_eList
 #' # for a window of 30 days either side of June 25 expressed in units of cfs:
-#' flowDuration("06-25", qUnit=1,span=30) 
+#' flowDuration(eList,"06-25", qUnit=1,span=30) 
 #' # for a flow-duration curve covering the whole year, expressed in units of csf: 
-#' flowDuration("01-01", qUnit=2) 
+#' flowDuration(eList, "01-01", qUnit=2) 
 flowDuration<-function(eList, centerDate = "09-30", qUnit = 2, span = 365) {
 
   localINFO <- info(eList)

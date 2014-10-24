@@ -6,7 +6,7 @@
 #'    It returns an array of results for the estimation points.  
 #'    The array returned contains yHat, SE and ConcHat (in that order). 
 #'
-#' @param localSample data frame containing the sample values, default is Sample
+#' @param Sample dataframe created for EGRET analysis
 #' @param estPtYear numeric vector of Decimal Year values at the estimation points
 #' @param estPtLQ numeric vector of ln(Q) values at the estimation points, must be the same length as estPtYear 
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
@@ -27,28 +27,16 @@
 #' estPtYear<-c(2001.0,2005.0,2009.0)
 #' estPtLQ<-c(1,1,1)
 #' Sample <- ChopSample
-#' Daily <- ChopDaily
-#' numDays <- length(Daily$DecYear)
-#' DecLow <- Daily$DecYear[1]
-#' DecHigh <- Daily$DecYear[numDays]
-#' resultSurvReg <- runSurvReg(estPtYear,estPtLQ,numDays,DecLow,DecHigh,interactive=FALSE)
-runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,localSample=Sample,windowY=7,windowQ=2,
-                     windowS=0.5,minNumObs=100,minNumUncen=50,interactive=TRUE,
+#' numDays <- Sample$Julian[nrow(Sample)] - Sample$Julian[1] + 1
+#' DecLow <- Sample$DecYear[1]
+#' DecHigh <- Sample$DecYear[nrow(Sample)]
+#' resultSurvReg <- runSurvReg(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample)
+runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample, 
+                     windowY=7, windowQ=2, windowS=0.5,
+                     minNumObs=100, minNumUncen=50, interactive=TRUE,
                      edgeAdjust=TRUE) {
-  # runs survival regression model
-  # Sample is the Sample data frame being used
-  # estPtYear is a vector of DecYear values where the model will be estimated
-  # estPtLQ is a vector of LogQ values where the model will be estimated (must be same as estPtYear length)
-  # windows are the half window widths for DecYear, LogQ and, Season (respectively)
-  # minNumObs is the minimum number of observations that must have non-zero weights
-  #        if the survival regression is going to be run
-  # minNumUncen is the minimum number of uncensored observations that must have non-zero weights
-  #        if the survival regression is going to be run
-  #   function returns of dimensions (3 by the number of estimation points)
-  #        first column is predicted concentration in log space (called yHat)
-  #        second column is the standard error (which is used to compute the bias correction)
-  #        third column is the predicted concentration in real space (called ConcHat)
-#   require(survival)
+
+  localSample <- Sample
   numSamples <- length(localSample$DecYear)
   
   numEstPt<-length(estPtYear)
@@ -112,14 +100,23 @@ runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,localSample=Sample
     weight<-weight/aveWeight
     Sam <- data.frame(Sam)
     
+#     survModel<-survreg(Surv(log(ConcLow),log(ConcHigh),type="interval2") ~ 
+#                         DecYear+LogQ+SinDY+CosDY,data=Sam,weights=weight,dist="gaus")
+    
     x <- tryCatch({
       survModel<-survreg(Surv(log(ConcLow),log(ConcHigh),type="interval2") ~ 
                            DecYear+LogQ+SinDY+CosDY,data=Sam,weights=weight,dist="gaus")
       
+
     }, warning=function(w) {
       #       message("Survival regression model did not converge at iteration: ", i)
+      message(w, "Warning")
+      return(NULL)
+    }, error=function(e) {
+      message(e, "Error")
       return(NULL)
     }, finally={
+      if(!exists("survModel")) message(i)
       newdf<-data.frame(DecYear=estY,LogQ=estLQ,SinDY=sin(2*pi*estY),CosDY=cos(2*pi*estY))
       #   extract results at estimation point
       yHat<-predict(survModel,newdf)
@@ -135,14 +132,28 @@ runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,localSample=Sample
       }
       
     })
-    
+
     if(is.null(x)){
       warningFlag <- warningFlag + 1
     }
+  
+      
+#       survModel<-survreg(Surv(log(ConcLow),log(ConcHigh),type="interval2") ~ 
+#                            DecYear+LogQ+SinDY+CosDY,data=Sam,weights=weight,dist="gaus")
+# 
+#       newdf<-data.frame(DecYear=estY,LogQ=estLQ,SinDY=sin(2*pi*estY),CosDY=cos(2*pi*estY))
+#       #   extract results at estimation point
+#       yHat<-predict(survModel,newdf)
+#       SE<-survModel$scale
+#       bias<-exp((SE^2)/2)
+#       resultSurvReg[i,1]<-yHat
+#       resultSurvReg[i,2]<-SE
+#       resultSurvReg[i,3]<-bias*exp(yHat)
   }
 
   if (warningFlag > 0){
-    message("\nIn model estimation the survival regression function was run ", numEstPt, " times (for different combinations of discharge and time).  In ", warningFlag, " of these runs it did not properly converge. This does not mean that the model is unacceptable, but it is a suggestion that there may be something odd about the data set. You may want to check for outliers, repeated values on a single date, or something else unusual about the data.")
+    
+    message("\nIn model estimation, the survival regression function was run ", numEstPt, " times (for different combinations of discharge and time).  In ", warningFlag, " of these runs it did not properly converge. This does not mean that the model is unacceptable, but it is a suggestion that there may be something odd about the data set. You may want to check for outliers, repeated values on a single date, or something else unusual about the data.")
   }
 #   options(warn=0) 
   if (interactive) cat("\nSurvival regression: Done")

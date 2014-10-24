@@ -19,9 +19,10 @@ dataframe Daily
 Using raw data that has at least dateTime, value, code, populates the rest of the basic Daily data frame used in WRTDS
 }
 \examples{
-dateTime <- c('1985-01-01', '1985-01-02', '1985-01-03')
-value <- c(1,2,3)
-code <- c("","","")
+dateTime <- as.character(seq(as.Date("2001/1/1"),
+         as.Date("2001/12/31"), by = "day"))
+value <- 1:365
+code <- rep("",365)
 dataInput <- data.frame(dateTime, value, code, stringsAsFactors=FALSE)
 Daily <- populateDaily(dataInput, 2)
 }

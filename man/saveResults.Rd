@@ -3,7 +3,7 @@
 \alias{saveResults}
 \title{A utility program for saving the contents of the workspace}
 \usage{
-saveResults(savePath, localINFO = INFO)
+saveResults(savePath, INFO)
 }
 \arguments{
 \item{savePath}{string specifying the full pathname of the folder where the file is to be saved ending with the final slash}
@@ -25,7 +25,7 @@ savePath <- "~/"
 saveResults(savePath)
 
 #To load:
-load(paste(savePath,"Chop.nitrogen.RData",sep=""))
+load(paste(savePath,"Chop.nitrogen.RData",sep=""), INFO)
 }
 \keyword{statistics}
 \keyword{water-quality}

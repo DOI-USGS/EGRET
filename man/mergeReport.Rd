@@ -3,7 +3,7 @@
 \alias{mergeReport}
 \title{Merge Sample and Daily Data for WRTDS}
 \usage{
-mergeReport(INFO, Daily, Sample, interactive = TRUE)
+mergeReport(INFO, Daily, Sample, surfaces = NA, interactive = FALSE)
 }
 \arguments{
 \item{INFO}{dataframe containing the INFO dataframe}
@@ -12,10 +12,13 @@ mergeReport(INFO, Daily, Sample, interactive = TRUE)
 
 \item{Sample}{dataframe containing the sample data}
 
+\item{surfaces}{matrix returned from \code{modelEstimation}. Default is NA.}
+
 \item{interactive}{logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.}
 }
 \value{
-newSample dataframe with merged flow information
+eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.
+Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
 }
 \description{
 Merges the flow data from the daily record into the sample record.
@@ -23,14 +26,21 @@ Merges the flow data from the daily record into the sample record.
 \examples{
 siteNumber <- '01594440'
 pCode <- '01075'
-Daily <- getNWISDaily(siteNumber,'00060', '1985-01-01', '1985-03-31')
-Sample <- getNWISSample(siteNumber,pCode, '1985-01-01', '1985-03-31')
-INFO <- getNWISInfo(siteNumber,pCode,interactive=FALSE)
-returnedList <- mergeReport(INFO, Daily, Sample)
-Sample <- returnedList$Sample
+Daily <- readNWISDaily(siteNumber,'00060', '1985-01-01', '1990-03-31')
+Sample <- readNWISSample(siteNumber,pCode, '1985-01-01', '1990-03-31')
+INFO <- readNWISInfo(siteNumber,pCode,interactive=FALSE)
+eList <- mergeReport(INFO, Daily, Sample)
+Sample <- eList$Sample
+
+Daily2 <- ChopDaily
+Sample2 <- ChopSample
+INFO2 <- ChopINFO
+surfaces2 <- exsurfaces
+eList2 <- mergeReport(INFO2, Daily2, Sample2, surfaces2, FALSE)
+eList2
 }
 \seealso{
-\code{\link{getNWISDaily}}, \code{\link{getNWISSample}}
+\code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
 }
 \keyword{USGS}
 \keyword{WRTDS}
