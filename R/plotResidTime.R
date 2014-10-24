@@ -9,8 +9,7 @@
 #'  contains an INFO and Sample dataframes, then the following R code will produce a plot:
 #'  \code{plotResidTime()}
 #'
-#' @param localSample data frame that contains the concentration data, default name is Sample
-#' @param localINFO data frame that contains the metadata, default name is INFO
+#' @param eList named list with at least the Sample and INFO dataframes
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
 #' @param hLine inserts horizontal line at zero
@@ -26,15 +25,13 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- ChopSample
-#' INFO <- ChopINFO
+#' eList <- Choptank_eList
 #' # Water year:
-#' INFO <- setPA()
-#' plotResidTime()
+#' plotResidTime(eList)
 #' # Graphs consisting of Jun-Aug
-#' INFO <- setPA(paStart=6,paLong=3)
-#' plotResidTime()
-plotResidTime<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, 
+#' eList <- setPA(eList, paStart=6,paLong=3)
+#' plotResidTime(eList)
+plotResidTime<-function(eList, stdResid = FALSE, 
                         printTitle = TRUE, hLine=TRUE, tinyPlot=FALSE,col="black",lwd=1,
                         cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,...){
   # this function shows residual versus Time
@@ -43,6 +40,9 @@ plotResidTime<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   # these residuals are from a "leave-one-out" cross validation application of WRTDS
   # if stdResid=FALSE it just works with the regular residuals
   # if stdResid=TRUE it computes the standardized residual which is the residual/Sample$SE  
+  
+  localINFO <- info(eList)
+  localSample <- sample(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong

@@ -6,18 +6,25 @@
 #' @param yearEnd A numeric value for the year in which the graph should end
 #' @param qf a scale factor to convert discharge in cubic feet per second to mm/day
 #' @param istat A numeric value selecting the flow statistic to be plotted, must be an integer from 1 to 8
-#' @param localAnnualSeries data frame that contains the annual series data for all 8 statistics for the given period of analysis
-#' @param localINFO data frame that contains the meta data
+#' @param eList named list with at least the Daily and INFO dataframes
 #' @param isBottom logical, if TRUE the graph is from the bottom row and thus needs x axis labels, if FALSE it does not need labels
 #' @keywords graphics streamflow
 #' @export
 #' @examples
-#' INFO <- ChopINFO
-#' Daily <- ChopDaily
-#' annualSeries <- makeAnnualSeries()
-#' plot1of15(1990,2000,0.2938476,5)
-plot1of15<-function(yearStart,yearEnd,qf,istat,
-                    localAnnualSeries=annualSeries,localINFO=INFO,isBottom=FALSE) {
+#' eList <- Choptank_eList
+#' plot1of15(eList, 1990, 2000, 0.2938476,5)
+plot1of15<-function(eList, yearStart,yearEnd,qf,istat,
+                    isBottom=FALSE) {
+  
+  localINFO <- info(eList)
+  
+  if("edgeAdjust" %in% names(localINFO)){
+    edgeAdjust <- localINFO$edgeAdjust
+  } else {
+    edgeAdjust <- TRUE
+  }
+  
+  localAnnualSeries <- makeAnnualSeries(eList, edgeAdjust = edgeAdjust)
   
   xSpan<-c(yearStart,yearEnd)
   xTicks<-pretty(xSpan,n=6)

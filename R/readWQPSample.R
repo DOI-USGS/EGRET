@@ -13,7 +13,7 @@
 #' @export
 #' @import dataRetrieval
 #' @return Sample dataframe
-#' @seealso \code{\link{readWQPdata}}, \code{\link{getWQPSites}}, 
+#' @seealso \code{\link{readWQPdata}}, \code{\link{whatWQPsites}}, 
 #' \code{\link{readWQPqw}}, \code{\link{readNWISqw}}, 
 #' \code{\link{compressData}}, \code{\link{populateSampleColumns}}
 #' @examples

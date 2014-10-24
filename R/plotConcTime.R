@@ -13,8 +13,7 @@
 #' contains an INFO and Sample dataframes, then the following R code will produce a plot:
 #' \code{plotConcTime()}
 #'
-#' @param localSample data frame that contains the concentration data, default name is Sample
-#' @param localINFO data frame that contains the metadata, default name is INFO
+#' @param eList named list with at least the Sample and INFO dataframes
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param qLower numeric the lower bound on values of discharge used to select the data points to be plotted, units are those specified by qUnit, default = NA which is equivalent to a lower bound of zero but if the desired lower bound is zero use qLower = NA
 #' @param qUpper numeric the upper bound on values of discharge for selection of data points to be plotted, units are those specified by qUnit, default = NA which is equivalent to an upper bound of infinity
@@ -34,20 +33,20 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- ChopSample
-#' INFO <- ChopINFO
+#' eList <- Choptank_eList
 #' # Water year:
-#' plotConcTime()
+#' plotConcTime(eList)
 #' # Graphs consisting of Jun-Aug
-#' INFO <- setPA(paStart=6,paLong=3)
-#' plotConcTime(qUnit = 1, qLower = 100, qUpper = 10000)
-#' plotConcTime(logScale=TRUE)
-plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2, 
+#' eList <- setPA(eList, paStart=6,paLong=3)
+#' plotConcTime(eList, qUnit = 1, qLower = 100, qUpper = 10000)
+#' plotConcTime(eList, logScale=TRUE)
+plotConcTime<-function(eList, qUnit = 2, 
                        qLower = NA, qUpper = NA, 
                        tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale=FALSE, 
                        cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,col="black",lwd=1,...){
-  # this function shows the sample data,
-  # time on x-axis, concentration on y-axis
+
+  localINFO <- info(eList)
+  localSample <- sample(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong
@@ -122,7 +121,8 @@ plotConcTime<-function(localSample = Sample, localINFO = INFO, qUnit = 2,
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n",title3,sep="") else ""
   
   xInfo <- generalAxis(x=x, minVal=min(x), maxVal=max(x), tinyPlot=tinyPlot)  
-  yInfo <- generalAxis(x=yHigh, minVal=minYLow, maxVal=concMax, logScale=logScale, tinyPlot=tinyPlot,localINFO=localINFO)
+  yInfo <- generalAxis(x=yHigh, minVal=minYLow, maxVal=concMax, logScale=logScale, 
+                       tinyPlot=tinyPlot,units=attr(eList, "param.units"))
   
   genericEGRETDotPlot(x=x, y=yHigh, 
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),

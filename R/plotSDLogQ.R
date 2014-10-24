@@ -10,11 +10,10 @@
 #'  contains an INFO and Daily dataframes, then the following R code will produce a plot:
 #'  \code{plotSDLogQ()}
 #'
+#' @param eList named list with at least the Daily and INFO dataframes
 #' @param yearStart numeric is the calendar year of the first value to be included in graph, default is NA, which plots from the start of the period of record
 #' @param yearEnd numeric is the calendar year of the last value to be included in graph, default is NA, which plots to the end of the period of record
 #' @param window numeric which is the full width, in years, of the time window over which the standard deviation is computed, default = 15
-#' @param localDaily data frame that contains the daily streamflow data, default is Daily
-#' @param localINFO data frame that contains the metadata, default is INFO
 #' @param sdMax numeric is the maximum value to be used on the vertical axis of the graph, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure), default is TRUE
 #' @param tinyPlot logical variable if TRUE plot is designed to be small, if FALSE it is designed for page size, default is FALSE (not fully implemented yet)
@@ -30,20 +29,21 @@
 #' @keywords graphics streamflow statistics
 #' @export
 #' @examples
-#' Daily <- ChopDaily
-#' INFO <- ChopINFO
+#' eList <- Choptank_eList
 #' # Water year:
-#' INFO <- setPA()
-#' plotSDLogQ() 
-#' plotSDLogQ(1998,2000) 
+#' plotSDLogQ(eList) 
+#' plotSDLogQ(eList, 1998,2000) 
 #' # Graphs consisting of Jun-Aug
-#' INFO <- setPA(paStart=6,paLong=3)
-#' plotSDLogQ() 
-plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
-                     localINFO=INFO,sdMax=NA,printTitle = TRUE, tinyPlot = FALSE, 
+#' eList <- setPA(eList, paStart=6,paLong=3)
+#' plotSDLogQ(eList) 
+plotSDLogQ<-function(eList, yearStart=NA,yearEnd=NA,window=15,sdMax=NA,
+                     printTitle = TRUE, tinyPlot = FALSE, 
                      printStaName = TRUE, printPA = TRUE, cex=0.8,
                      cex.main=1.1,cex.axis = 1.1,lwd=2, customPar=FALSE, ...){
 
+  localINFO <- info(eList)
+  localDaily <- daily(eList)
+  
   numDays<-length(localDaily$LogQ)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
@@ -69,9 +69,7 @@ plotSDLogQ<-function(yearStart=NA,yearEnd=NA,window=15,localDaily=Daily,
     smallDaily<-localDaily[localDaily$DecYear >= firstDay & localDaily$DecYear <= lastDay,]
     y[i]<-sd(smallDaily$LogQ,na.rm=TRUE)
   }
-  
-#   newWindow <- window*365
-#   y <- rollapply(localDaily$LogQ, width = newWindow, FUN = sd, fill = NA)
+
 
   xMin<-if(is.na(yearStart)) startDec else yearStart
   xMax<-if(is.na(yearEnd)) endDec else yearEnd

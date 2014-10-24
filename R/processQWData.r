@@ -12,9 +12,10 @@
 #' @export
 #' @examples
 #' library(dataRetrieval)
-#' rawSample <- getWQPqwData('USGS-01594440','', '', '')
+#' \dontrun{
+#' rawSample <- readWQPqw('USGS-01594440','', '', '')
 #' rawSampleSelect <- processQWData(rawSample)
-#' 
+#' }
 processQWData <- function(data,pCode=TRUE){
 
   qualifier <- ifelse((data$ResultDetectionConditionText == "Not Detected" | 

@@ -7,8 +7,7 @@
 #' @param centerDate string specifying the center date of the part of the year for which the flow
 #' duration is to be calculated, it is in the form "mm-dd" (it must be in quotes), default is 
 #' "09-30"
-#' @param localDaily data frame that contains the daily discharge data, default name is Daily
-#' @param localINFO data frame that contains the metadata, default name is INFO
+#' @param eList named list with at least Daily and INFO dataframes
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code,
 #'  or character representing the descriptive name.
 #' @param span number this is the half-width of the window over which the discharge values are to 
@@ -19,20 +18,16 @@
 #' @keywords streamflow, statistics
 #' @export
 #' @examples
-#' Daily <- ChopDaily
-#' INFO <- ChopINFO
+#' eList <- Choptank_eList
 #' # for a window of 30 days either side of June 25 expressed in units of cfs:
 #' flowDuration("06-25", qUnit=1,span=30) 
 #' # for a flow-duration curve covering the whole year, expressed in units of csf: 
 #' flowDuration("01-01", qUnit=2) 
-flowDuration<-function(centerDate = "09-30", localDaily = Daily, localINFO = INFO, qUnit = 2, span = 365) {
-  # this function prints out a set of key points on the flow duration curve of daily flows
-  # centerDate is in the form "mm-dd"
-  # span is the half-width over which the flows are included in the analysis
-  #   for example if we wanted to look at a period that is within 30 days either side of September 1
-  #     we would set centerDate="09-01" and span=30
-  ################################################################################
-  # I plan to make this a method, so we don't have to repeat it in every funciton:
+flowDuration<-function(eList, centerDate = "09-30", qUnit = 2, span = 365) {
+
+  localINFO <- info(eList)
+  localDaily <- daily(eList)
+  
   if (is.numeric(qUnit)){
     qUnit <- qConst[shortCode=qUnit][[1]]
   } else if (is.character(qUnit)){

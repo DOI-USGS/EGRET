@@ -10,11 +10,10 @@
 #' contains an INFO, and Daily dataframes, an annualSeries array, and the istat number (1-8), then the following R code will produce a plot:
 #' \code{plotFlowSingle(1)} 
 #'
+#' @param eList named list with at least the Daily and INFO dataframes
 #' @param istat A numeric value for the flow statistic to be graphed (possible values are 1 through 8)
 #' @param yearStart A numeric value for year in which the graph should start, default is NA, which indicates that the graph should start with first annual value
 #' @param yearEnd A numeric value for year in which the graph should end, default is NA, which indicates that the graph should end with last annual value
-#' @param localINFO data frame that contains the metadata, default name is INFO
-#' @param localAnnualSeries data frame containing the annual series, default is AnnualSeries
 #' @param qMax A numeric value for the maximum value to be used for y-axis of graph, default is NA means that graph is self-scaling
 #' @param printTitle logical variable, if TRUE title is printed, if FALSE title is not printed, default is TRUE
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE
@@ -34,20 +33,19 @@
 #' @keywords graphics streamflow statistics
 #' @export
 #' @examples
-#' INFO <- ChopINFO
-#' Daily <- ChopDaily
+#' eList <- Choptank_eList
 #' # Water year:
-#' annualSeries <- makeAnnualSeries()
-#' plotFlowSingle(1)
+#' plotFlowSingle(eList, 1)
 #' # Graphs consisting of Jun-Aug
-#' INFO <- setPA(paStart=6,paLong=3)
-#' annualSeries <- makeAnnualSeries()
-#' plotFlowSingle(1)
-plotFlowSingle<-function(istat,yearStart=NA, yearEnd = NA, 
-                  localINFO = INFO, localAnnualSeries = annualSeries, 
+#' eList <- setPA(eList, paStart=6,paLong=3)
+#' plotFlowSingle(eList, 1)
+plotFlowSingle<-function(eList, istat,yearStart=NA, yearEnd = NA,
                   qMax = NA, printTitle = TRUE, tinyPlot = FALSE, customPar=FALSE,
                   runoff = FALSE, qUnit = 1, printStaName = TRUE, printPA = TRUE, 
                   printIstat = TRUE,cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2, col="black",...) {
+  
+  localAnnualSeries <- makeAnnualSeries(eList)
+  localINFO <- info(eList)
   
   qActual<-localAnnualSeries[2,istat,]
   qSmooth<-localAnnualSeries[3,istat,]

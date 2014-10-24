@@ -17,7 +17,6 @@
 #' @param DecLow number specifying minimum decimal year
 #' @param DecHigh number specifying maximum decimal year
 #' @keywords water-quality statistics
-#' @import survival
 #' @return SampleCrossV data frame containing the sample data augmented by the results of the cross-validation exercise
 #' @export
 #' @examples

@@ -8,8 +8,7 @@
 #' contains an INFO and Sample dataframes, then the following R code will produce a plot:
 #' \code{plotFluxPred()} 
 #'
-#' @param localSample data frame that contains the concentration data, default name is Sample
-#' @param localINFO data frame that contains the metadata, default name is INFO
+#' @param eList named list with at least the Sample and INFO dataframes
 #' @param fluxUnit number representing entry in pre-defined fluxUnit class array. \code{\link{fluxConst}}
 #' @param fluxMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
@@ -27,22 +26,24 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- ChopSample
-#' INFO <- ChopINFO
+#' eList <- Choptank_eList
 #' # Water year:
-#' plotFluxPred()
-#' plotFluxPred(fluxUnit = 'poundsDay')
-#' plotFluxPred(logScale=TRUE)
+#' plotFluxPred(eList)
+#' plotFluxPred(eList, fluxUnit = 'poundsDay')
+#' plotFluxPred(eList, logScale=TRUE)
 #' # Graphs consisting of Jun-Aug
-#' INFO <- setPA(paStart=6,paLong=3)
-#' plotFluxPred()
-plotFluxPred<-function(localSample = Sample, localINFO = INFO, fluxUnit = 3, fluxMax = NA, 
+#' eList <- setPA(eList, paStart=6,paLong=3)
+#' plotFluxPred(eList)
+plotFluxPred<-function(eList, fluxUnit = 3, fluxMax = NA, 
                        printTitle = TRUE, oneToOneLine=TRUE, customPar=FALSE,col="black", lwd=1,
                        cex=0.8, cex.axis=1.1,cex.main=1.1,tinyPlot=FALSE,logScale=FALSE,...){
   # this function shows observed versus estimated flux
   # estimated flux on the x-axis (these include the bias correction), 
   # observed flux on y-axis 
   # these estimates are from a jack-knife, "leave-one-out", cross validation application of WRTDS
+  
+  localINFO <- info(eList)
+  localSample <- sample(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong

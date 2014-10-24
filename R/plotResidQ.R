@@ -9,8 +9,7 @@
 #'  contains an INFO and Sample dataframes, then the following R code will produce a plot:
 #'  \code{plotResidQ()}
 #'
-#' @param localSample data frame that contains the concentration data, default name is Sample
-#' @param localINFO data frame that contains the metadata, default name is INFO
+#' @param eList named list with at least the Sample and INFO dataframes
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
@@ -27,18 +26,19 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- ChopSample
-#' INFO <- ChopINFO
+#' eList <- Choptank_eList
 #' # Water year:
-#' INFO <- setPA()
-#' plotResidQ()
+#' plotResidQ(eList)
 #' # Graphs consisting of Jun-Aug
-#' INFO <- setPA(paStart=6,paLong=3)
-#' plotResidQ()
-plotResidQ<-function (localSample = Sample, localINFO = INFO, qUnit = 2, 
+#' eList <- setPA(eList, paStart=6,paLong=3)
+#' plotResidQ(eList)
+plotResidQ<-function (eList, qUnit = 2, 
                       tinyPlot = FALSE, stdResid = FALSE, printTitle = TRUE,col="black",lwd=1,
                       cex=0.8, cex.axis=1.1,cex.main=1.1,rmSciX=FALSE, customPar=FALSE,...){  
    
+  localINFO <- info(eList)
+  localSample <- sample(eList)
+  
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong
     paStart <- localINFO$paStart  

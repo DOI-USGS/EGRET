@@ -9,9 +9,9 @@
 #' @export
 #' @examples
 #' library(dataRetrieval)
-#' INFO <- getNWISSiteInfo('01594440')
+#' INFO <- readNWISsite('01594440')
 #' parameterCd <- "01075"
-#' parameterData <- getNWISPcodeInfo(parameterCd)
+#' parameterData <- readNWISpCode(parameterCd)
 #' INFO$param.nm <- parameterData$parameter_nm
 #' INFO$param.units <- parameterData$parameter_units
 #' INFO$paramShortName <- parameterData$srsname

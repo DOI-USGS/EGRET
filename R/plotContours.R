@@ -10,14 +10,12 @@
 #' contains an INFO, and Daily dataframes, surface array from modelEstimation, a vector of contour levels, year and flow limits, then the following R code will produce a plot:
 #' \code{plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel)} 
 #'
+#' @param eList named list with at least the Daily and INFO dataframes, and surfaces matrix
 #' @param yearStart numeric value for the starting date for the graph, expressed as decimal year (typically whole number such as 1989.0)
 #' @param yearEnd numeric value for the ending date for the graph, expressed as decimal year, (for example 1993.0)
 #' @param qBottom numeric value for the bottom edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit)
 #' @param qTop numeric value for the top edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit)
 #' @param whatSurface numeric value, can only accept 1, 2, or 3;  whatSurface=1 is yHat (log concentration), whatSurface=2 is SE (standard error of log concentration), and whatSurface=3 is ConcHat (unbiased estimate of concentration), default = 3
-#' @param localsurfaces matrix that contains the estimated surfaces, default is surfaces
-#' @param localINFO data frame that contains the metadata, default name is INFO
-#' @param localDaily data frame that contains the daily data, default name is Daily
 #' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param contourLevels numeric vector containing the contour levels for the contour plot, arranged in ascending order, default is NA (which causes the contour levels to be set automatically, based on the data)
 #' @param span numeric, it is the half-width (in days) of the smoothing window for computing the flow duration information, default = 60
@@ -46,69 +44,39 @@
 #' qBottom <- 0.5
 #' qTop<- 20
 #' clevel <- seq(0,3.5,0.5)
-#' INFO <- ChopINFO
-#' Daily <- ChopDaily
-#' surfaces <- exsurfaces
-#' plotContours(yearStart,yearEnd,qBottom,qTop, 
-#' contourLevels = clevel)  
+#' eList <- Choptank_eList
+#' plotContours(eList, yearStart,yearEnd,qBottom,qTop, 
+#'       contourLevels = clevel)  
 #' yTicksModified <- c(.1,1,10,25)
-#' plotContours(yearStart,yearEnd,qBottom,qTop, 
+#' plotContours(eList, yearStart,yearEnd,qBottom,qTop, 
 #'       contourLevels = clevel,yTicks=yTicksModified,flowDuration=FALSE)  
 #' colors <- colorRampPalette(c("white","red"))
-#' plotContours(yearStart,yearEnd,qBottom,qTop, 
-#'        contourLevels = clevel,yTicks=yTicksModified,color.palette=colors,flowDuration=FALSE)
+#' plotContours(eList, yearStart,yearEnd,qBottom,qTop, 
+#'        contourLevels = clevel,yTicks=yTicksModified,
+#'        color.palette=colors,flowDuration=FALSE)
 #' colors2 <- heat.colors # Some other options: topo.colors, terrain.colors, cm.colors
-#' plotContours(yearStart,yearEnd,qBottom,qTop,
+#' plotContours(eList, yearStart,yearEnd,qBottom,qTop,
 #'        contourLevels = clevel,color.palette=colors2,lwd=2,flowDuration=FALSE)
-#' plotContours(yearStart,yearEnd,qBottom,qTop, 
+#' plotContours(eList, yearStart,yearEnd,qBottom,qTop, 
 #'        contourLevels = clevel,cex.axis=2,flowDuration=FALSE)
 #' par(mar=c(5,8,5,8))
-#' plotContours(yearStart,yearEnd,qBottom,qTop, 
+#' plotContours(eList, yearStart,yearEnd,qBottom,qTop, 
 #'        contourLevels = clevel,customPar=TRUE,printTitle=FALSE,flowDuration=FALSE)
-plotContours<-function(yearStart, yearEnd, qBottom, qTop, whatSurface = 3, 
-                       localsurfaces = surfaces, localINFO = INFO, localDaily = Daily, 
+plotContours<-function(eList, yearStart, yearEnd, qBottom, qTop, whatSurface = 3, 
                        qUnit = 2, contourLevels = NA, span = 60, pval = 0.05,
                        printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA, tcl=0.1,
                        flowDuration = TRUE, customPar=FALSE, yTicks=NA,tick.lwd=2,
                        lwd=1,cex.main=1,cex.axis=1,color.palette=colorRampPalette(c("white","gray","blue","red")),...) {
-  #  This funtion makes a contour plot 
-  #  x-axis is bounded by yearStart and yearEnd
-  #  y-axis is bounded by qBottom and qTop (in whatever discharge units are specified by qUnit)
-  #  whatSurface specifies which of three surfaces to plot
-  #     1 is the yHat surface (log concentration)
-  #     2 is the SE surface (standard error of log concentration)
-  #     3 is the ConcHat (unbiased estimate of Concentration)
-  #  surf is the name of the data frame that contains the three surfaces, typically it is surfaces
-  #  info is the name of the data frame that contains the indexing parameters for the surfaces, typically it is INFO
-  #  qUnit is the units of discharge to be used in the graphic: 1 is cfs, 2 is cms, 3 is 10^3 cfs, and 4 is 10^3 cms
-  #  contourLevels the default is NA (which lets the program set up the contour intervals)
-  #    if you want to set the contourLevels then you need to define a vector containing the limits of the contour intervals
-  #    for example, to have 4 levels we could say > contourLevels<-c(0,0.5,1,1.5,2)  or > contourLevels<-seq(0,2,0.5)
-  #    note that the length of contourLevels is the number of intervals plus 1
-  #  span is a smoothing parameter for the flow duration information, if it is too jagged you can increase it to smooth it out
-  #      note that it doesn't influence any calculations, just the appearance of the figure
-  #  pval is the lower flow frequency for the flow duration information
-  #     pval = 0.05 means that the lines will be at the 5 and 95%tiles of the flow distribution
-  #       other options could be pval=0.01 (for 1 and 99) or pval=10 (for 10 and 90)
-  #     pval must be greater than zero and less than 0.5
-  #   printTitle is a logical variable to indicate if a title is desired
-  #   vert1 defines the location of a vertical black line that represents a given date
-  #         this is often useful in explaining the meaning of the contour plot
-  #       vert1 must be between yearStart and yearEnd and it is expressed as a decimal year, 
-  #       for example 1July1998 would be vert1=1998.5
-  #       the default is no vertical line
-  #   vert2 is the location of a second vertical line (used so that two points in time can be compared)
-  #   horiz is the location of a horizontal line at some specified discharge (helpful in discussing changes over time)
-  #        it must be between qBottom and qTop and is defined in the units specified by qUnit
-  #        the default is no vertical line
-  ################################################################################
-  # I plan to make this a method, so we don't have to repeat it in every funciton:
+  localINFO <- info(eList)
+  localDaily <- daily(eList)
+  localsurfaces <- surfaces(eList)
+  
   if (is.numeric(qUnit)){
     qUnit <- qConst[shortCode=qUnit][[1]]
   } else if (is.character(qUnit)){
     qUnit <- qConst[qUnit][[1]]
   }
-  ################################################################################
+
   if(!customPar){
     par(oma=c(6,1,6,0))
     par(mar=c(5,5,4,2)+0.1)

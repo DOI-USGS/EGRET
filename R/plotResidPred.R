@@ -10,8 +10,7 @@
 #'  contains an INFO and Sample dataframes, then the following R code will produce a plot:
 #'  \code{plotResidPred()}
 #'
-#' @param localSample data frame that contains the concentration data, default name is Sample
-#' @param localINFO data frame that contains the metadata, default name is INFO
+#' @param eList named list with at least the Sample and INFO dataframes
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
@@ -26,15 +25,13 @@
 #' @keywords water-quality statistics graphics
 #' @export
 #' @examples
-#' Sample <- ChopSample
-#' INFO <- ChopINFO
+#' eList <- Choptank_eList
 #' # Water year:
-#' INFO <- setPA()
-#' plotResidPred()
+#' plotResidPred(eList)
 #' # Graphs consisting of Jun-Aug
-#' INFO <- setPA(paStart=6,paLong=3)
-#' plotResidPred()
-plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, 
+#' eList <- setPA(eList, paStart=6,paLong=3)
+#' plotResidPred(eList)
+plotResidPred<-function(eList, stdResid = FALSE, 
                         tinyPlot = FALSE, printTitle = TRUE, col="black",lwd=1,
                         cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,...){
   # this function shows residual versus estimated in log space
@@ -43,6 +40,9 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   # these estimates are from a "leave-one-out" cross validation application of WRTDS
   # if stdResid=FALSE it just works with the regular residuals
   # if stdResid=TRUE it computes the standardized residual which is the residual/Sample$SE  
+  
+  localINFO <- info(eList)
+  localSample <- sample(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong

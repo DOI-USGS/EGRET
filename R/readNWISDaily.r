@@ -23,8 +23,7 @@
 #' @examples
 #' # These examples require an internet connection to run
 #' Daily <- readNWISDaily('01594440','00060', '1985-01-01', '1985-03-31')
-#' DailyCFS <- readNWISDaily('01594440','00060', '1985-01-01', '1985-03-31',convert=FALSE)
-#' DailySuspSediment <- readNWISDaily('01594440','80154', '1985-01-01', '1985-03-31')
+#' DailySuspSediment <- readNWISDaily('01594440','80154', '1985-01-01', '1985-03-31',convert=FALSE)
 readNWISDaily <- function (siteNumber,parameterCd,startDate,endDate,interactive=TRUE,convert=TRUE,format="tsv"){
 
   data <- readNWISdv(siteNumber,parameterCd,startDate,endDate,format=format)

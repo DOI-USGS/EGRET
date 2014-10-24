@@ -11,6 +11,7 @@
 #' contains an INFO and Sample dataframes, 3 dates, and the discharge lower and upper limits, then the following R code will produce a plot:
 #' \code{plotConcQSmooth(date1,date2,date3,qLow,qHigh)}
 #'
+#' @param eList named list with at least the Sample and INFO dataframes
 #' @param date1 string specifying the date for the first curve on the graph, it is in the form "yyyy-mm-dd" (must be in quotes) 
 #' @param date2 string specifying the date for the second curve on the graph, it is in the form "yyyy-mm-dd" (must be in quotes).  If only one curve is wanted this should be NA
 #' @param date3 string specifying the date for the third curve on the graph, it is in the form "yyyy-mm-dd" (must be in quotes).  If a third curve is not wanted this should be NA
@@ -25,8 +26,6 @@
 #' @param bw logical if TRUE graph is produced in black and white, default is FALSE (which means it will use color)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed 
 #' @param printValues logical variable if TRUE the results shown on the graph are also printed to the console and returned in a dataframe (this can be useful for quantifying the changes seen visually in the graph), default is FALSE (not printed)
-#' @param localSample data frame that contains the Sample data, default name is Sample
-#' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
@@ -46,7 +45,6 @@
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords water-quality statistics graphics
-#' @import survival
 #' @export
 #' @examples 
 #' date1<-"2001-06-01"
@@ -54,17 +52,20 @@
 #' date3<-"2010-06-01"
 #' qLow<-1
 #' qHigh<-100
-#' Sample <- ChopSample
-#' INFO <- ChopINFO
-#' plotConcQSmooth(date1,date2,date3,qLow,qHigh)
-#' plotConcQSmooth(date1,date2,date3,qLow,qHigh,logScale=TRUE)
-plotConcQSmooth<-function(date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0,legendTop = 0, 
+#' eList <- Choptank_eList
+#' plotConcQSmooth(eList, date1,date2,date3,qLow,qHigh)
+#' plotConcQSmooth(eList, date1,date2,date3,qLow,qHigh,logScale=TRUE)
+plotConcQSmooth<-function(eList, date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0,legendTop = 0, 
                           concMax = NA, concMin=NA, bw = FALSE, printTitle = TRUE, printValues = FALSE, 
-                          localSample = Sample, localINFO = INFO, minNumObs = 100, minNumUncen =  50,
+                          minNumObs = 100, minNumUncen =  50,
                           colors=c("black","red","green"),printLegend=TRUE,
                           windowY = 7, windowQ = 2, windowS = 0.5,tinyPlot=FALSE, customPar=FALSE,
                           lwd=2,cex=0.8, cex.axis=1.1,cex.main=1.1, cex.legend=1.2,lineVal=c(1,1,1),logScale=FALSE,
                           edgeAdjust=TRUE,...) {
+  
+  localINFO <- info(eList)
+  localSample <- sample(eList)
+  
   if(all(c("numDays","DecLow","DecHigh") %in% names(localINFO))){
     numDays <- localINFO$numDays
     DecLow <- localINFO$DecLow

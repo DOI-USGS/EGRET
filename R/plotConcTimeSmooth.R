@@ -7,6 +7,7 @@
 #' contains an INFO, and Sample dataframes, 3 discharge values, a center date, and start and end years, then the following R code will produce a plot:
 #' \code{plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd)} 
 #'
+#' @param eList named list with at least the Sample and INFO dataframes
 #' @param q1 numeric This is the discharge value for the first curve to be shown on the plot. It is expressed in units specified by qUnit.
 #' @param q2 numeric This is the discharge value for the second curve to be shown on the plot. It is expressed in units specified by qUnit. If you don't want a second curve then the argument must be q2=NA
 #' @param q3 numeric This is the discharge value for the third curve to be shown on the plot. It is expressed in units specified by qUnit. If you don't want a third curve then the argument must be q3=NA
@@ -22,8 +23,6 @@
 #' @param bw logical if TRUE graph is produced in black and white, default is FALSE (which means it will use color)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed 
 #' @param printValues logical variable if TRUE the results shown on the graph are printed to the console and returned in a dataframe (this can be useful for quantifying the changes seen visually in the graph), default is FALSE (not printed)
-#' @param localSample data frame that contains the Sample data, default name is Sample
-#' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 10
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
@@ -51,18 +50,19 @@
 #' centerDate <- "07-01"
 #' yearStart <- 2000
 #' yearEnd <- 2010
-#' Sample <- ChopSample
-#' INFO <- ChopINFO
-#' plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd)
-#' plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd,logScale=TRUE)
-plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit = 2, legendLeft = 0, 
+#' eList <- Choptank_eList
+#' plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd)
+#' plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd,logScale=TRUE)
+plotConcTimeSmooth<-function (eList, q1, q2, q3, centerDate, yearStart, yearEnd, qUnit = 2, legendLeft = 0, 
                               legendTop = 0, concMax = NA, concMin=NA,bw = FALSE, printTitle = TRUE, colors=c("black","red","green"), 
-                              printValues = FALSE, localSample = Sample, localINFO = INFO,
-                              tinyPlot=FALSE, minNumObs = 100, minNumUncen =  50, 
+                              printValues = FALSE, tinyPlot=FALSE, minNumObs = 100, minNumUncen =  50, 
                               windowY = 10, windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2, printLegend = TRUE,
                               cex.legend = 1.2, cex=0.8, cex.axis=1.1, customPar=FALSE,lineVal=c(1,1,1),logScale=FALSE,
                               edgeAdjust=TRUE,...){
-    
+  
+  localINFO <- info(eList)
+  localSample <- sample(eList)
+  
   if(all(c("numDays","DecLow","DecHigh") %in% names(localINFO))){
     numDays <- localINFO$numDays
     DecLow <- localINFO$DecLow
@@ -153,7 +153,8 @@ plotConcTimeSmooth<-function (q1, q2, q3, centerDate, yearStart, yearEnd, qUnit 
   
   xInfo <- generalAxis(x=x, minVal=yearStart, maxVal=yearEnd, tinyPlot=tinyPlot)  
   combinedY <- c(y[1,], y[2,],y[3,])
-  yInfo <- generalAxis(x=combinedY, minVal=concMin, maxVal=yTop, tinyPlot=tinyPlot,logScale=logScale)
+  yInfo <- generalAxis(x=combinedY, minVal=concMin, maxVal=yTop, 
+                       tinyPlot=tinyPlot,logScale=logScale, units=localINFO$param.units)
   
   genericEGRETDotPlot(x=x, y=y[1, ],
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,

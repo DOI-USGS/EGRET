@@ -9,7 +9,7 @@
 #' @export
 #' @examples
 #' library(dataRetrieval)
-#' INFO <- getNWISSiteInfo('01594440')
+#' INFO <- readNWISsite('01594440')
 #' siteNumber <- "01594440"
 #' siteINFO <- populateSiteINFO(INFO, siteNumber)
 populateSiteINFO <- function(INFO, siteNumber,interactive=TRUE){

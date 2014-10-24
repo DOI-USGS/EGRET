@@ -9,7 +9,7 @@
 #' @param tinyPlot logical
 #' @param padPercent number used to pad the max and min if not specified
 #' @param concentration logical if concentration=TRUE, labels returned as concentration units, otherwise flux units.
-#' @param localINFO data frame that contains the metadata, default name is INFO 
+#' @param units string concentration units. Typically found in INFO$param.units.
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
@@ -18,12 +18,13 @@
 #' x <- Daily$Q
 #' max <- max(x)
 #' min <- 0
-#' generalAxis(x, max, min)
+#' units <- INFO$param.units
+#' generalAxis(x, max, min, units)
 #' min <- min(x)
-#' generalAxis(x, max, min, log=TRUE)
-generalAxis <- function(x, maxVal, minVal,
+#' generalAxis(x, max, min, units, log=TRUE)
+generalAxis <- function(x, maxVal, minVal,units=NA,
                         logScale=FALSE, tinyPlot=FALSE,
-                        padPercent=5,concentration=TRUE,localINFO=INFO){
+                        padPercent=5,concentration=TRUE){
   
   nTicks<-if(tinyPlot) 5 else 8
   
@@ -44,16 +45,12 @@ generalAxis <- function(x, maxVal, minVal,
    
   if(concentration){
     if (tinyPlot){
-      label <- paste("Conc. (",localINFO$param.units,")",sep="")
+      label <- paste("Conc. (",units,")",sep="")
     } else {
-      label <- paste("Concentration in", localINFO$param.units)
+      label <- paste("Concentration in", units)
     }
   } else {
-#     if (tinyPlot){
-#       label <- paste("Conc. (",localINFO$param.units,")",sep="")
-#     } else {
-#       label <- paste("Concentration in", localINFO$param.units)
-#     }
+    label <- ""
   }
   
   span<-c(low,high)

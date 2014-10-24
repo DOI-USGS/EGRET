@@ -11,10 +11,9 @@
 #' contains an INFO and AnnualResults (from either modelEstimation or setupYears) dataframes, an annualSeries array, and the istat number (1-8), then the following R code will produce a plot:
 #' \code{plotFluxHist()} 
 #'
+#' @param eList named list with at least the Daily and INFO dataframes
 #' @param yearStart numeric is the calendar year containing the first estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)
 #' @param yearEnd numeric is the calendar year just after the last estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)
-#' @param localDaily data frame that contains the flow data, default name is Daily
-#' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param fluxUnit number representing entry in pre-defined fluxUnit class array. \code{\link{fluxConst}}
 #' @param fluxMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
@@ -35,28 +34,22 @@
 #' @examples
 #' yearStart <- 2001
 #' yearEnd <- 2010
-#' Daily <- ChopDaily
-#' INFO <- ChopINFO
+#' eList <- Choptank_eList
 #' # Water year:
-#' INFO <- setPA()
-#' plotFluxHist()
-#' plotFluxHist(yearStart, yearEnd, fluxUnit = 1)
-#' plotFluxHist(yearStart, yearEnd, fluxUnit = 'kgDay')
+#' plotFluxHist(eList)
+#' plotFluxHist(eList, yearStart, yearEnd, fluxUnit = 1)
+#' plotFluxHist(eList, yearStart, yearEnd, fluxUnit = 'kgDay')
 #' # Graphs consisting of Jun-Aug
-#' INFO <- setPA(paStart=6,paLong=3)
-#' plotFluxHist() 
-plotFluxHist<-function(yearStart = NA, yearEnd = NA, fluxUnit = 9, 
-    localDaily = Daily, localINFO = INFO, fluxMax = NA, 
-    printTitle = TRUE, plotFlowNorm = TRUE,tinyPlot=FALSE,col="black",col.pred="green",
+#' eList <- setPA(eList, paStart=6,paLong=3)
+#' plotFluxHist(eList) 
+plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA, fluxUnit = 9, 
+    fluxMax = NA, printTitle = TRUE, plotFlowNorm = TRUE,
+    tinyPlot=FALSE,col="black",col.pred="green",
     cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2, customPar=FALSE, ...){
-  # produces a graph of annual flux and flow normalized flux versus year
-  # AnnualResults contains the set of results
-  # typically yearStart and yearEnd should be integers, 
-  # yearStart is the start of the calendar year of the first estimated annual value
-  # yearEnd is the start of the calendar year after the last estimated annual value
-  # if you want to specify the maximum value, you can do so with the argument fluxMax, otherwise it will be automatic
-  # fluxUnit is the units you want the results displayed in, see manual for list of all possible units  
 
+  localINFO <- info(eList)
+  localDaily <- daily(eList)
+  
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong
     paStart <- localINFO$paStart  

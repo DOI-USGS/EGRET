@@ -9,8 +9,7 @@
 #'  contains an INFO and Sample dataframes, then the following R code will produce a plot:
 #'  \code{boxConcMonth()}
 #'
-#' @param localSample data frame that contains the concentration data, default name is Sample
-#' @param localINFO data frame that contains the metadata, default name is INFO 
+#' @param eList named list with at least the Sample and INFO dataframes
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
@@ -20,24 +19,31 @@
 #' @param logScale logical if TRUE y plotted in log axis
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' @param las numeric in {0,1,2,3}; the style of axis labels, see ?par
+#' @param showXLabels logical defaults to TRUE. If FALSE, the x axis label is not plotted
+#' @param showYLabels logical defaults to TRUE. If FALSE, the y axis label is not plotted
+#' @param showXAxis logical defaults to TRUE. If FALSE, the x axis is not plotted
+#' @param showYAxis logical defaults to TRUE. If FALSE, the y axis is not plotted
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- ChopSample
-#' INFO <- ChopINFO
+#' eList <- Choptank_eList
 #' # Water year:
-#' boxConcMonth()
+#' boxConcMonth(eList)
 #' # Graphs consisting of Jun-Aug
-#' INFO <- setPA(paStart=6,paLong=3)
-#' boxConcMonth(Sample, INFO)
-boxConcMonth<-function(localSample=Sample, localINFO=INFO, printTitle = TRUE,
+#' eList <- setPA(eList, paStart=6,paLong=3)
+#' boxConcMonth(eList)
+boxConcMonth<-function(eList, printTitle = TRUE,
                        cex=0.8, cex.axis=1.1, cex.main=1.1, las=1,logScale=FALSE,tcl=0.5,
-                       tinyPlot = FALSE, customPar=FALSE,...) {
+                       tinyPlot = FALSE, customPar=FALSE,showYLabels=TRUE,
+                       showXLabels=TRUE,showXAxis=TRUE,showYAxis=TRUE,...) {
   
-  if(sum(c("paStart","paLong") %in% names(INFO)) == 2){
-    paLong <- INFO$paLong
-    paStart <- INFO$paStart  
+  localINFO <- info(eList)
+  localSample <- sample(eList)
+  
+  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart  
   } else {
     paLong <- 12
     paStart <- 10
@@ -79,22 +85,33 @@ boxConcMonth<-function(localSample=Sample, localINFO=INFO, printTitle = TRUE,
   }
     
   yInfo <- generalAxis(x=tempDF$conc, maxVal=maxY, minVal=min(localSample$ConcHigh, na.rm=TRUE), 
-                       tinyPlot=tinyPlot,logScale=logScale,localINFO=localINFO)
+                       tinyPlot=tinyPlot,logScale=logScale,units=localINFO$param.units)
   yTicksLab <- prettyNum(yInfo$ticks)
   
   boxplot(tempDF$conc ~ tempDF$month,
-          #     localSample$ConcAve~localSample$Month,
           ylim=c(yInfo$bottom,yInfo$top),yaxs="i", yTicks=yInfo$ticks,
           varwidth=TRUE,yaxt="n", 
           names=names,
-          xlab="Month",
-          ylab=yInfo$label,
+          xlab=if(showXLabels) "Month" else "",
+          ylab=if(showYLabels) yInfo$label else "",
           main=plotTitle,
           cex=cex,cex.axis=cex.axis,cex.main=cex.main,
           las=las,tcl=tcl,
           log=logScaleText,
           ...)  
-  axis(2,tcl=tcl,las=las,at=yInfo$ticks,cex.axis=cex.axis,labels=yTicksLab)
+
+  if(showYAxis){
+    axis(2,tcl=tcl,las=las,at=yInfo$ticks,cex.axis=cex.axis,labels=yTicksLab)
+  } else {
+    axis(2,tcl=tcl,las=las,at=yInfo$ticks,cex.axis=cex.axis,labels=FALSE)    
+  }
+
+#   if(showXAxis){
+#     axis(1,tcl=tcl,at=xTicks,cex.axis=cex.axis,labels=xTicksLab)  
+#   } else {
+#     axis(1,tcl=tcl,at=xTicks,labels=FALSE)
+#   }
+  
   
   if (!tinyPlot) mtext(title2,side=3,line=-1.5)
 

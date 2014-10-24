@@ -4,18 +4,16 @@
 #' (For discharge they are in m3/s, concentration is mg/L, and flux is kg/day).
 #' It returns a data frame containing month, year, decimal year, and mean values of DecYear, Q, Conc, Flux, FNConc, and FNFlux.
 #'
-#' @param localDaily data frame containing the daily values, default is Daily
+#' @param eList named list with at least the Daily dataframes
 #' @keywords water-quality statistics
 #' @return MonthlyResults data frame of numeric values describing the monthly average values
 #' @export
 #' @examples
-#' Daily <- ChopDaily
-#' monthlyResults <- calculateMonthlyResults()
-calculateMonthlyResults<-function(localDaily = Daily){
-  # this creates a data frame of monthly results from Daily
-  # it requires that there be at least 15 valid values in the month
-  # to compute those results
-  # it returns the data frame called MonthlyResults
+#' eList <- Choptank_eList
+#' monthlyResults <- calculateMonthlyResults(eList)
+calculateMonthlyResults<-function(eList){
+  
+  localDaily <- daily(eList)
 
   UseIt <- aggregate(localDaily$ConcDay, by=list(localDaily$MonthSeq), function(x) sum(!is.na(x)))$x
 

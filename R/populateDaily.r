@@ -7,19 +7,18 @@
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @keywords WRTDS flow
 #' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
-#' @import zoo
 #' @return dataframe Daily
+#' @importFrom stats filter
 #' @export
-#' @import zoo
 #' @examples
-#' dateTime <- c('1985-01-01', '1985-01-02', '1985-01-03')
-#' value <- c(1,2,3)
-#' code <- c("","","")
+#' dateTime <- as.character(seq(as.Date("2001/1/1"), 
+#'          as.Date("2001/12/31"), by = "day"))
+#' value <- 1:365
+#' code <- rep("",365)
 #' dataInput <- data.frame(dateTime, value, code, stringsAsFactors=FALSE)
 #' Daily <- populateDaily(dataInput, 2)
 populateDaily <- function(rawData,qConvert,interactive=TRUE){  # rawData is a dataframe with at least dateTime, value, code
-  
-#   require(zoo)
+
   
   localDaily <- as.data.frame(matrix(ncol=2,nrow=length(rawData$value)))
   colnames(localDaily) <- c('Date','Q')
@@ -75,7 +74,7 @@ populateDaily <- function(rawData,qConvert,interactive=TRUE){  # rawData is a da
   
   localDaily$LogQ <- log(localDaily$Q)
   
-  Qzoo<-zoo(localDaily$Q)
+#   Qzoo<-zoo(localDaily$Q)
   
   if (length(rawData$dateTime) < 30){
     if (interactive){
@@ -83,8 +82,12 @@ populateDaily <- function(rawData,qConvert,interactive=TRUE){  # rawData is a da
     }
     warning("This program requires at least 30 data points. Rolling means will not be calculated.")
   } else {
-    localDaily$Q7<-as.numeric(rollapply(Qzoo,7,mean,na.rm=FALSE,fill=NA,align="right"))
-    localDaily$Q30<-as.numeric(rollapply(Qzoo,30,mean,na.rm=FALSE,fill=NA,align="right"))    
+    ma <- function(x,n=7){filter(x,rep(1/n,n), sides=1)}
+    
+#     localDaily$Q7<-as.numeric(rollapply(Qzoo,7,mean,na.rm=FALSE,fill=NA,align="right"))
+    localDaily$Q7 <- ma(localDaily$Q)
+#     localDaily$Q30<-as.numeric(rollapply(Qzoo,30,mean,na.rm=FALSE,fill=NA,align="right"))
+    localDaily$Q30 <- ma(localDaily$Q,30)
   }
   
   dataPoints <- nrow(localDaily)

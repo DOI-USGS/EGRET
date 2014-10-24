@@ -21,7 +21,6 @@
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record. Default is TRUE.
 #' @keywords water-quality statistics
-#' @import survival
 #' @return surfaces array containing the three surfaces estimated, array is 3 dimensional
 #' @export
 #' @examples

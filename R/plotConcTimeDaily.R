@@ -12,9 +12,7 @@
 #'
 #' @param startYear numeric specifying the starting date (expressed as decimal years, for example 1989.0) for the plot
 #' @param endYear numeric specifiying the ending date for the plot 
-#' @param localSample data frame that contains the concentration data, default name is Sample
-#' @param localDaily data frame that contains the flow data, default name is Daily 
-#' @param localINFO data frame that contains the metadata, default name is INFO
+#' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param tinyPlot logical variable, if TRUE plot is designed to be short and wide, default is FALSE.
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
@@ -29,20 +27,21 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- ChopSample
-#' Daily <- ChopDaily
-#' INFO <- ChopINFO
+#' eList <- Choptank_eList
 #' # Water year:
-#' plotConcTimeDaily()
-#' plotConcTimeDaily(startYear=1998,endYear=2001)
+#' plotConcTimeDaily(eList)
+#' plotConcTimeDaily(eList, startYear=1998,endYear=2001)
 #' # Graphs consisting of Jun-Aug
-#' INFO <- setPA(paStart=6,paLong=3)
-#' plotConcTimeDaily()
-plotConcTimeDaily<-function(startYear=NA, endYear=NA, localSample = Sample, 
-                            localDaily = Daily, localINFO = INFO, tinyPlot = FALSE, 
+#' eList <- setPA(eList, paStart=6,paLong=3)
+#' plotConcTimeDaily(eList)
+plotConcTimeDaily<-function(eList, startYear=NA, endYear=NA, tinyPlot = FALSE, 
                             concMax = NA, printTitle = TRUE,cex=0.8, cex.axis=1.1,
                             cex.main=1.1, customPar=FALSE,col="black",lwd=1,...){
 
+  localINFO <- info(eList)
+  localSample <- sample(eList)
+  localDaily <- daily(eList)
+  
   startYear <- if (is.na(startYear)) as.integer(min(localSample$DecYear,na.rm=TRUE)) else startYear
   endYear <- if (is.na(endYear)) as.integer(max(localSample$DecYear,na.rm=TRUE)) else endYear
   
@@ -80,7 +79,7 @@ plotConcTimeDaily<-function(startYear=NA, endYear=NA, localSample = Sample,
   
   yCombined <- c(yHigh,subDaily$ConcDay)
   yInfo <- generalAxis(x = yCombined, minVal = yBottom, maxVal = concMax, 
-                       tinyPlot = tinyPlot, padPercent = 5,localINFO=localINFO)
+                       tinyPlot = tinyPlot, padPercent = 5,units=localINFO$param.units)
   
   genericEGRETDotPlot(x=xSample, y=yHigh, xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
