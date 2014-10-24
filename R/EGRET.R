@@ -19,8 +19,6 @@
 #'
 #' @name EGRET-package
 #' @docType package
-#' @import methods survival
-#' @importFrom fields interp.surface
 #' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}, Laura De Cicco \email{ldecicco@@usgs.gov}
 #' @references Hirsch, R. M., Moyer, D. L. and Archfield, S. A. (2010), Weighted Regressions on Time, Discharge, and Season (WRTDS), with an Application to Chesapeake Bay River Inputs. JAWRA Journal of the American Water Resources Association, 46: 857-880. doi: 10.1111/j.1752-1688.2010.00482.x
 #' @keywords water-quality graphics streamflow statistics 
@@ -140,6 +138,15 @@ NULL
 #' @keywords water quality data
 NULL
 
+#' Example eList
+#'
+#' Example data representing data from the Choptank River at Greensboro, MD,  USGS data
+#' Data is a named list of the Daily, Sample, INFO dataframes, and the surface matrix.
+#'
+#' @name Choptank_eList
+#' @docType data
+#' @keywords water quality data
+NULL
 
 #' Flux units included in EGRET
 #'
