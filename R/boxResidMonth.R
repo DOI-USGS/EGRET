@@ -35,8 +35,8 @@ boxResidMonth<-function(eList, stdResid = FALSE, las=1,
                         printTitle = TRUE, cex=0.8, cex.axis=1.1, cex.main=1.1,
                         font.main=2, tinyPlot=FALSE, customPar=FALSE,...) {
   
-  localINFO <- info(eList)
-  localSample <- sample(eList)
+  localINFO <- getInfo(eList)
+  localSample <- getSample(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong

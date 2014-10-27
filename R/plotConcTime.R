@@ -45,8 +45,8 @@ plotConcTime<-function(eList, qUnit = 2,
                        tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale=FALSE, 
                        cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,col="black",lwd=1,...){
 
-  localINFO <- info(eList)
-  localSample <- sample(eList)
+  localINFO <- getInfo(eList)
+  localSample <- getSample(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong

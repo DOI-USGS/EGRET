@@ -67,9 +67,9 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom, qTop, whatSurface = 3
                        printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA, tcl=0.1,
                        flowDuration = TRUE, customPar=FALSE, yTicks=NA,tick.lwd=2,
                        lwd=1,cex.main=1,cex.axis=1,color.palette=colorRampPalette(c("white","gray","blue","red")),...) {
-  localINFO <- info(eList)
-  localDaily <- daily(eList)
-  localsurfaces <- surfaces(eList)
+  localINFO <- getInfo(eList)
+  localDaily <- getDaily(eList)
+  localsurfaces <- getSurfaces(eList)
   
   if (is.numeric(qUnit)){
     qUnit <- qConst[shortCode=qUnit][[1]]

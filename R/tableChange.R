@@ -20,8 +20,8 @@
 #' tableChange(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
 tableChange<-function(eList, fluxUnit = 9, yearPoints = NA) {
   
-  localINFO <- info(eList)
-  localDaily <- daily(eList)
+  localINFO <- getInfo(eList)
+  localDaily <- getDaily(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong

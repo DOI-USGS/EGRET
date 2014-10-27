@@ -22,8 +22,8 @@
 #' tableResults(eList, fluxUnit = 1)
 tableResults<-function(eList, qUnit = 2, fluxUnit = 9) {
   
-  localINFO <- info(eList)
-  localDaily <- daily(eList)
+  localINFO <- getInfo(eList)
+  localDaily <- getDaily(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong

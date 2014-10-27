@@ -41,8 +41,8 @@ plotSDLogQ<-function(eList, yearStart=NA,yearEnd=NA,window=15,sdMax=NA,
                      printStaName = TRUE, printPA = TRUE, cex=0.8,
                      cex.main=1.1,cex.axis = 1.1,lwd=2, customPar=FALSE, ...){
 
-  localINFO <- info(eList)
-  localDaily <- daily(eList)
+  localINFO <- getInfo(eList)
+  localDaily <- getDaily(eList)
   
   numDays<-length(localDaily$LogQ)
   

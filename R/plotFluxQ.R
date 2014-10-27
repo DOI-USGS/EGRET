@@ -42,8 +42,8 @@ plotFluxQ<-function(eList, qUnit = 2,logScale=TRUE,
   # discharge on x-axis on a log scale,
   # flux on y-axis on a log scale
   
-  localINFO <- info(eList)
-  localSample <- sample(eList)
+  localINFO <- getInfo(eList)
+  localSample <- getSample(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong

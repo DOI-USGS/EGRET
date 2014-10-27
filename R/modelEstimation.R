@@ -36,9 +36,9 @@ modelEstimation<-function(eList,
   #  it returns several data frames
   #  all of the data frames are given their "standard" names
   #
-  localINFO <- info(eList)
-  localSample <- sample(eList)
-  localDaily <- daily(eList)
+  localINFO <- getInfo(eList)
+  localSample <- getSample(eList)
+  localDaily <- getDaily(eList)
   
   numDays <- length(localDaily$DecYear)
   DecLow <- localDaily$DecYear[1]

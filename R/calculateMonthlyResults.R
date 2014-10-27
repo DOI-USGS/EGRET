@@ -13,7 +13,7 @@
 #' monthlyResults <- calculateMonthlyResults(eList)
 calculateMonthlyResults<-function(eList){
   
-  localDaily <- daily(eList)
+  localDaily <- getDaily(eList)
 
   UseIt <- aggregate(localDaily$ConcDay, by=list(localDaily$MonthSeq), function(x) sum(!is.na(x)))$x
 

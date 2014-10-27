@@ -21,7 +21,7 @@ tableFlowChange<-function(eList, istat, qUnit = 1, runoff = FALSE,
                           yearPoints = NA) {
   
   localAnnualSeries <- makeAnnualSeries(eList)
-  localINFO <- info(eList)
+  localINFO <- getInfo(eList)
   
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:

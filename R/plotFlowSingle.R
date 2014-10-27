@@ -45,7 +45,7 @@ plotFlowSingle<-function(eList, istat,yearStart=NA, yearEnd = NA,
                   printIstat = TRUE,cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2, col="black",...) {
   
   localAnnualSeries <- makeAnnualSeries(eList)
-  localINFO <- info(eList)
+  localINFO <- getInfo(eList)
   
   qActual<-localAnnualSeries[2,istat,]
   qSmooth<-localAnnualSeries[3,istat,]

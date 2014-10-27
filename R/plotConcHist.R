@@ -46,8 +46,8 @@ plotConcHist<-function(eList, yearStart = NA, yearEnd = NA,
                         cex=0.8, cex.axis=1.1,cex.main=1.1, 
                        lwd=2, col="black", col.pred="green", customPar=FALSE,...){
 
-  localDaily <- daily(eList)
-  localINFO <- info(eList)
+  localDaily <- getDaily(eList)
+  localINFO <- getInfo(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong

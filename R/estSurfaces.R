@@ -37,9 +37,9 @@ estSurfaces<-function(eList, windowY=7,windowQ=2,windowS=0.5,
   # it returns the data frame called surfaces 
   #
   
-  localINFO <- info(eList)
-  localSample <- sample(eList)
-  localDaily <- daily(eList)
+  localINFO <- getInfo(eList)
+  localSample <- getSample(eList)
+  localDaily <- getDaily(eList)
   
   originalColumns <- names(localSample)
   

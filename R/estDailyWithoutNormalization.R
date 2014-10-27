@@ -23,9 +23,9 @@ estDailyWithoutNormalization<-function(eList) {
   # these are appended to the data frame Daily, which is returned
   #
   
-  localDaily <- daily(eList)
-  localINFO <- info(eList)
-  localsurfaces <- surfaces(eList)
+  localDaily <- getDaily(eList)
+  localINFO <- getInfo(eList)
+  localsurfaces <- getSurfaces(eList)
   
   numDays<-length(localDaily$LogQ)
   # we need to add an extra column to Daily to handle leap year for flow normalization

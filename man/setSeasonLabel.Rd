@@ -23,7 +23,7 @@ That function is called setSeasonLabelByUser.
 }
 \examples{
 Daily <- ChopDaily
-AnnualResults <- setupYears()
+AnnualResults <- setupYears(Daily)
 setSeasonLabel(AnnualResults)
 }
 \keyword{graphics}

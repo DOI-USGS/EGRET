@@ -39,8 +39,8 @@ plotConcPred<-function(eList, concMax = NA, logScale=FALSE,
   # observed concentration on y-axis 
   # these predictions are from a "leave-one-out" cross validation application of WRTDS 
 
-  localINFO <- info(eList)
-  localSample <- sample(eList) 
+  localINFO <- getInfo(eList)
+  localSample <- getSample(eList) 
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong

@@ -47,8 +47,8 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA, fluxUnit = 9,
     tinyPlot=FALSE,col="black",col.pred="green",
     cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2, customPar=FALSE, ...){
 
-  localINFO <- info(eList)
-  localDaily <- daily(eList)
+  localINFO <- getInfo(eList)
+  localDaily <- getDaily(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong

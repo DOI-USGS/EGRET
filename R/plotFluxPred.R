@@ -42,8 +42,8 @@ plotFluxPred<-function(eList, fluxUnit = 3, fluxMax = NA,
   # observed flux on y-axis 
   # these estimates are from a jack-knife, "leave-one-out", cross validation application of WRTDS
   
-  localINFO <- info(eList)
-  localSample <- sample(eList)
+  localINFO <- getInfo(eList)
+  localSample <- getSample(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong

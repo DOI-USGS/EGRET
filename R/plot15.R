@@ -16,7 +16,7 @@ plot15<-function(eList, yearStart,yearEnd){
 #   plotName<-paste(savePath,"plot15.",localINFO$staAbbrev,".ps",sep="")
 #   postscript(file=plotName,width=8,height=10,horizontal=FALSE,family="Helvetica")
   
-  localINFO <- info(eList)
+  localINFO <- getInfo(eList)
   
   par(mfrow=c(5,3),cex=0.6,oma=c(10,8,10,4),mar=c(1,4,1,1))
   qf<-86/localINFO$drainSqKm

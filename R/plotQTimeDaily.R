@@ -37,8 +37,8 @@ plotQTimeDaily<-function (eList, startYear=NA, endYear=NA, qLower = NA, qUnit = 
                           tinyPlot = FALSE, printTitle = TRUE, lwd = 3, col="red", 
                           cex.main = 1.2, cex.lab = 1.2, customPar=FALSE,...){
   
-  localINFO <- info(eList)
-  localDaily <- daily(eList)
+  localINFO <- getInfo(eList)
+  localDaily <- getDaily(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong

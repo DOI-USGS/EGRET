@@ -10,7 +10,7 @@
 #' @return localDaily a data frame containing the daily data but only for the period of analysis (not all months)
 #' @examples
 #' Daily <- ChopDaily
-#' DailySubset <- selectDays(eList, 4, 11)
+#' DailySubset <- selectDays(Daily, 4, 11)
 selectDays<-function(df, paLong, paStart) {
   
   localDaily <- df

@@ -36,8 +36,8 @@ plotResidQ<-function (eList, qUnit = 2,
                       tinyPlot = FALSE, stdResid = FALSE, printTitle = TRUE,col="black",lwd=1,
                       cex=0.8, cex.axis=1.1,cex.main=1.1,rmSciX=FALSE, customPar=FALSE,...){  
    
-  localINFO <- info(eList)
-  localSample <- sample(eList)
+  localINFO <- getInfo(eList)
+  localSample <- getSample(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong

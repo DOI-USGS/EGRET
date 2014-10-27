@@ -25,8 +25,8 @@
 #' flowDuration(eList, "01-01", qUnit=2) 
 flowDuration<-function(eList, centerDate = "09-30", qUnit = 2, span = 365) {
 
-  localINFO <- info(eList)
-  localDaily <- daily(eList)
+  localINFO <- getInfo(eList)
+  localDaily <- getDaily(eList)
   
   if (is.numeric(qUnit)){
     qUnit <- qConst[shortCode=qUnit][[1]]

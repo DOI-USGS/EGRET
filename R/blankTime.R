@@ -18,7 +18,7 @@
 #' eList <- blankTime(eList, startBlank, endBlank)
 blankTime<-function(eList, startBlank, endBlank) {
   
-  localDaily <- daily(eList)
+  localDaily <- getDaily(eList)
   
   startBlank<-as.Date(startBlank)
   endBlank<-as.Date(endBlank)

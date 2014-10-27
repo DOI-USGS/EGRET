@@ -28,8 +28,8 @@
 #' annualSeries <- makeAnnualSeries(eList)
 makeAnnualSeries<-function(eList, edgeAdjust = TRUE) {
   
-  localINFO <- info(eList)
-  localDaily <- daily(eList)
+  localINFO <- getInfo(eList)
+  localDaily <- getDaily(eList)
   
   if (sum(c("paStart", "paLong", "window") %in% names(localINFO)) == 
         3) {

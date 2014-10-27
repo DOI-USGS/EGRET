@@ -63,8 +63,8 @@ plotConcQSmooth<-function(eList, date1,date2,date3,qLow,qHigh,qUnit = 2, legendL
                           lwd=2,cex=0.8, cex.axis=1.1,cex.main=1.1, cex.legend=1.2,lineVal=c(1,1,1),logScale=FALSE,
                           edgeAdjust=TRUE,...) {
   
-  localINFO <- info(eList)
-  localSample <- sample(eList)
+  localINFO <- getInfo(eList)
+  localSample <- getSample(eList)
   
   if(all(c("numDays","DecLow","DecHigh") %in% names(localINFO))){
     numDays <- localINFO$numDays

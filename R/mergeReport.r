@@ -43,7 +43,29 @@ mergeReport<-function(INFO, Daily, Sample, surfaces=NA, interactive=FALSE){
 }
 
 
+#' Create named list for EGRET analysis
+#'
+#' Create a named list with the INFO, Daily, and Sample dataframes, and surface matrix. If any of these are
+#' not available, an NA should be 
+#'
+#' @param INFO dataframe containing the INFO dataframe
+#' @param Daily dataframe containing the daily data
+#' @param Sample dataframe containing the sample data
+#' @param surfaces matrix returned from \code{modelEstimation}. Default is NA. 
+#' @keywords data import USGS WRTDS
 #' @export
+#' @return eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.
+#' Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
+#' @seealso \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
+#' @examples
+#' Daily <- ChopDaily
+#' INFO <- ChopINFO
+#' eList_flowHistory <- as.egret(INFO, Daily, NA, NA)
+#' plotFlowSingle(eList_flowHistory, 1)
+#' Sample <- ChopSample
+#' surfaces <- exsurfaces
+#' eList_full <- as.egret(INFO, Daily, Sample, surfaces)
+#' plotFluxQ(eList_full)
 as.egret <- function(INFO, Daily, Sample, surfaces) {
   eList <- list(INFO=INFO, 
                 Daily=Daily, 
@@ -62,9 +84,9 @@ as.egret <- function(INFO, Daily, Sample, surfaces) {
 
 print.egret <- function(x, ...){
   
-  localDaily <- daily(x)
-  localSample <- sample(x)
-  localINFO <- info(x)
+  localDaily <- getDaily(x)
+  localSample <- getSample(x)
+  localINFO <- getInfo(x)
   
   if(!all(is.na(x$Daily))){
     cat("Daily discharge:\n")
@@ -89,16 +111,16 @@ is.egret <- function(x) {
   inherits(x, "egret")
 }
 
-daily <- function(x, ...){
-  UseMethod("daily")
+getDaily <- function(x, ...){
+  UseMethod("getDaily")
 }
 
-daily.egret <- function(x, ...){
+getDaily.egret <- function(x, ...){
   Daily <- x$Daily
   return(Daily)
 }
 
-daily.default <- function(x, ...){
+getDaily.default <- function(x, ...){
   if("Daily" %in% names(x)){
     return(x$Daily)
   } else {
@@ -106,16 +128,16 @@ daily.default <- function(x, ...){
   }
 }
 
-info <- function(x, ...){
-  UseMethod("info")
+getInfo <- function(x, ...){
+  UseMethod("getInfo")
 }
 
-info.egret <- function(x, ...){
+getInfo.egret <- function(x, ...){
   INFO <- x$INFO
   return(INFO)
 }
 
-info.default <- function(x, ...){
+getInfo.default <- function(x, ...){
   if("INFO" %in% names(x)){
     return(x$INFO)
   } else {
@@ -123,16 +145,16 @@ info.default <- function(x, ...){
   }
 }
 
-sample <- function(x, ...){
-  UseMethod("sample")
+getSample <- function(x, ...){
+  UseMethod("getSample")
 }
 
-sample.egret <- function(x, ...){
+getSample <- function(x, ...){
   Sample <- x$Sample
   return(Sample)
 }
 
-sample.default <- function(x, ...){
+getSample.default <- function(x, ...){
   if("Sample" %in% names(x)){
     return(x$Sample)
   } else {
@@ -140,16 +162,16 @@ sample.default <- function(x, ...){
   }
 }
 
-surfaces <- function(x, ...){
-  UseMethod("surfaces")
+getSurfaces <- function(x, ...){
+  UseMethod("getSurfaces")
 }
 
-surfaces.egret <- function(x, ...){
+getSurfaces.egret <- function(x, ...){
   surfaces <- x$surfaces
   return(surfaces)
 }
 
-surfaces.default <- function(x, ...){
+getSurfaces.default <- function(x, ...){
   if("surfaces" %in% names(x)){
     return(x$surfaces)
   } else {

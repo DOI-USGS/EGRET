@@ -21,7 +21,7 @@ setPA<-function(eList, paStart=10, paLong=12, window = 20) {
   # so they can be used to run the function makeAnnualSeries
 #   if(exists("annualSeries"))
 #     rm(annualSeries,envir=sys.frame(-1))
-  localINFO <- info(eList)
+  localINFO <- getInfo(eList)
   localINFO$paStart <- paStart
   localINFO$paLong <- paLong
   localINFO$window <- window

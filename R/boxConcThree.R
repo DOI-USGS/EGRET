@@ -31,9 +31,9 @@ boxConcThree<-function (eList, tinyPlot=FALSE,
                         printTitle = TRUE, moreTitle = "WRTDS",customPar=FALSE,
                         font.main=2,cex=0.8,cex.main = 1.1, cex.axis = 1.1,...){
   
-  localINFO <- info(eList)
-  localSample <- sample(eList)
-  localDaily <- daily(eList)
+  localINFO <- getInfo(eList)
+  localSample <- getSample(eList)
+  localDaily <- getDaily(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong

@@ -67,9 +67,9 @@ plotDiffContours<-function (eList, year0, year1,
                             lwd=1,cex.main=0.95,cex.axis=1,customPar=FALSE,
                             color.palette=colorRampPalette(c("blue","white","red")),...) {
   
-  localINFO <- info(eList)
-  localDaily <- daily(eList)
-  localsurfaces <- surfaces(eList)
+  localINFO <- getInfo(eList)
+  localDaily <- getDaily(eList)
+  localsurfaces <- getSurfaces(eList)
   
   if (is.numeric(qUnit)) {
     qUnit <- qConst[shortCode = qUnit][[1]]

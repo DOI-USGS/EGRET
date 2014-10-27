@@ -17,7 +17,7 @@
 #' printReturn <- printSeries(eList, 5)
 printSeries<-function(eList, istat, qUnit = 1, runoff = FALSE) {
   
-  localINFO <- info(eList)
+  localINFO <- getInfo(eList)
   localAnnualSeries <- makeAnnualSeries(eList)
   
   ################################################################################

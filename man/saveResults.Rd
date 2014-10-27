@@ -22,10 +22,10 @@ Daily <- ChopDaily
 Sample <- ChopSample
 surfaces <- exsurfaces
 savePath <- "~/"
-saveResults(savePath)
+saveResults(savePath, INFO)
 
 #To load:
-load(paste(savePath,"Chop.nitrogen.RData",sep=""), INFO)
+load(paste(savePath,"Chop.nitrogen.RData",sep=""))
 }
 \keyword{statistics}
 \keyword{water-quality}

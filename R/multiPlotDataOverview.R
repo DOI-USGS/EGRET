@@ -27,7 +27,7 @@
 multiPlotDataOverview<-function (eList, qUnit = 2,cex.main=1.2,
                                  logScaleConc=TRUE, logScaleQ=TRUE){
   
-  localINFO <- info(eList)
+  localINFO <- getInfo(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong

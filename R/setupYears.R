@@ -17,8 +17,8 @@
 #' @export
 #' @examples 
 #' Daily <- ChopDaily
-#' AnnualResults <- setupYears(4, 10, Daily)
-setupYears<-function(paLong = 12, paStart = 10, localDaily){
+#' AnnualResults <- setupYears(Daily, 4, 10)
+setupYears<-function(localDaily, paLong = 12, paStart = 10){
   # this function aggregates the results in the data frame Daily into annual values
   # but it gives the user flexibility as to the period of analysis
   # The "annual values" can be a full 12 months, or they can be shorter

@@ -37,8 +37,8 @@ plotFourStats<-function(eList, yearStart = NA, yearEnd = NA,
   # annualSeries<-makeAnnualSeries()
   #
   
-  localINFO <- info(eList)
-  localDaily <- daily(eList)
+  localINFO <- getInfo(eList)
+  localDaily <- getDaily(eList)
   localAnnualSeries <- makeAnnualSeries(eList)
   
   par(mfcol=c(2,2),oma=c(0,1.7,6,1.7))

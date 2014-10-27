@@ -39,8 +39,8 @@ boxConcMonth<-function(eList, printTitle = TRUE,
                        tinyPlot = FALSE, customPar=FALSE,showYLabels=TRUE,
                        showXLabels=TRUE,showXAxis=TRUE,showYAxis=TRUE,...) {
   
-  localINFO <- info(eList)
-  localSample <- sample(eList)
+  localINFO <- getInfo(eList)
+  localSample <- getSample(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong

@@ -27,9 +27,9 @@
 #' Daily <- estDailyFromSurfaces(eList)
 estDailyFromSurfaces <- function(eList) {
 
-  localDaily <- daily(eList)
-  localINFO <- info(eList)
-  localsurfaces <- surfaces(eList)
+  localDaily <- getDaily(eList)
+  localINFO <- getInfo(eList)
+  localsurfaces <- getSurfaces(eList)
   
   # First argument in calls below is the "known" x-y-z surface, second argument is matrix of 
   # "target" x-y points.

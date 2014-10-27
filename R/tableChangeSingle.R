@@ -30,8 +30,8 @@
 #' tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)
 tableChangeSingle<-function(eList, fluxUnit = 9, yearPoints = NA, returnDataFrame = FALSE, flux = FALSE) {
   
-  localINFO <- info(eList)
-  localDaily <- daily(eList)
+  localINFO <- getInfo(eList)
+  localDaily <- getDaily(eList)
   
   if(!("ConcDay" %in% names(localDaily))){
     stop("This function is only appropriate after running modelEstimation. It requires a ConcDay column in the Daily dataframe.")

@@ -16,7 +16,7 @@
 #' eList <- fixSampleFrame(eList)
 #' eList$Sample[1:3,]
 fixSampleFrame<-function(eList) {
-	localSample <- sample(eList)
+	localSample <- getSample(eList)
   localSample$ConcAve <- ifelse(is.na(localSample$ConcLow), 
                                 localSample$ConcHigh/2, 
                                 (localSample$ConcLow+localSample$ConcHigh)/2)

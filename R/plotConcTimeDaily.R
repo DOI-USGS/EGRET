@@ -38,9 +38,9 @@ plotConcTimeDaily<-function(eList, startYear=NA, endYear=NA, tinyPlot = FALSE,
                             concMax = NA, printTitle = TRUE,cex=0.8, cex.axis=1.1,
                             cex.main=1.1, customPar=FALSE,col="black",lwd=1,...){
 
-  localINFO <- info(eList)
-  localSample <- sample(eList)
-  localDaily <- daily(eList)
+  localINFO <- getInfo(eList)
+  localSample <- getSample(eList)
+  localDaily <- getDaily(eList)
   
   startYear <- if (is.na(startYear)) as.integer(min(localSample$DecYear,na.rm=TRUE)) else startYear
   endYear <- if (is.na(endYear)) as.integer(max(localSample$DecYear,na.rm=TRUE)) else endYear

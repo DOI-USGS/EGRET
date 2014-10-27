@@ -41,8 +41,8 @@ plotResidPred<-function(eList, stdResid = FALSE,
   # if stdResid=FALSE it just works with the regular residuals
   # if stdResid=TRUE it computes the standardized residual which is the residual/Sample$SE  
   
-  localINFO <- info(eList)
-  localSample <- sample(eList)
+  localINFO <- getInfo(eList)
+  localSample <- getSample(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong

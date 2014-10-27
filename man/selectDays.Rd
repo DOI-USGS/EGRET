@@ -20,7 +20,7 @@ Function is not called by user, but is called by plotSDLogQ
 }
 \examples{
 Daily <- ChopDaily
-DailySubset <- selectDays(eList, 4, 11)
+DailySubset <- selectDays(Daily, 4, 11)
 }
 \keyword{statistics}
 \keyword{streamflow}

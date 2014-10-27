@@ -35,8 +35,8 @@ plotFour<-function (eList,
                     qUnit = 1, window=15, cex = 0.8, cex.axis = 1.2,cex.main=1.2,
                     col="black", lwd=1,...) {
     
-  localINFO <- info(eList)
-  localDaily <- daily(eList)
+  localINFO <- getInfo(eList)
+  localDaily <- getDaily(eList)
   localAnnualSeries <- makeAnnualSeries(eList)
   
   par(mfcol = c(2, 2), oma = c(0, 1.7, 6, 1.7))

@@ -37,9 +37,9 @@ fluxBiasMulti<-function (eList, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS",
                          cex = 0.7, cex.axis = 1.1,cex.main=1.1,
                          col="black", lwd=1,...){
   
-  localINFO <- info(eList)
-  localSample <- sample(eList)
-  localDaily <- daily(eList)
+  localINFO <- getInfo(eList)
+  localSample <- getSample(eList)
+  localDaily <- getDaily(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong

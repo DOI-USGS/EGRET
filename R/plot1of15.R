@@ -16,7 +16,7 @@
 plot1of15<-function(eList, yearStart,yearEnd,qf,istat,
                     isBottom=FALSE) {
   
-  localINFO <- info(eList)
+  localINFO <- getInfo(eList)
   
   if("edgeAdjust" %in% names(localINFO)){
     edgeAdjust <- localINFO$edgeAdjust

@@ -343,7 +343,6 @@ saveResults(savePath, INFO)
 The EGRET package uses 3 default dataframes throughout the calculations, analysis, and graphing. These dataframes are Daily (\ref{sec:dataframesDaily}), Sample (\ref{sec:dataframesSample}), and INFO (\ref{sec:dataframesINFO}). EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units, which will be discussed in (\ref{sec:units}). To start our exploration, you must install the packages (check Section \ref{sec:appendix1} for detailed instructions), and then open EGRET with the following command:
 
 <<openlibraries, echo=TRUE,eval=TRUE>>=
-library(dataRetrieval)
 library(EGRET)
 @
 
@@ -453,7 +452,7 @@ Date & Date & Date & date \\
 \begin{table}[!ht]
 {\footnotesize
 \begin{threeparttable}[b]
-\caption{Columns added to Sample dataframe after running \texttt{modelEstimation()}}
+\caption{Columns added to Sample dataframe after running \texttt{modelEstimation}}
 \label{table:Sample2}
 \begin{tabular}{llll}
   \hline
@@ -517,7 +516,7 @@ The INFO dataframe stores information about the measurements, such as station na
 
 \begin{table}[!ht]
 {\footnotesize
-\caption{INFO dataframe after running \texttt{modelEstimation()}} 
+\caption{INFO dataframe after running \texttt{modelEstimation}} 
 \label{table:Info2}
 \begin{tabular}{lll}
   \hline
@@ -549,9 +548,9 @@ bottomLogQ & Lowest discharge in prediction surfaces & numeric \\
 \section{Data Retrievals Structured For Use In The EGRET Package}
 \label{sec:EGRETdfs}
 %------------------------------------------------------------ 
-Rather than using the raw data as retrieved by the Web, the dataRetrieval package also includes functions that return the data in a structure that has been designed to work with the EGRET R package (\url{https://github.com/USGS-R/EGRET/wiki}). In general, these dataframes may be much more \enquote{R-friendly} than the raw data, and will contain additional date information that allows for efficient data analysis.
+EGRET includes data retrieval functions that return the data in a structure that has been designed to work with the EGRET R package (\url{https://github.com/USGS-R/EGRET/wiki}). In general, these dataframes may be much more \enquote{R-friendly} than the raw data, and will contain additional date information that allows for efficient data analysis.
 
-In this section, we use 3 dataRetrieval functions to get sufficient data to perform an EGRET analysis.  We will continue analyzing the Choptank River. We retrieve essentially the same data that were retrieved in section \ref{sec:genRetrievals}, but in this case the data are structured into three EGRET-specific dataframes.  The daily discharge data are placed in a dataframe called Daily.  The nitrate sample data are placed in a dataframe called Sample.  The data about the site and the parameter are placed in a dataframe called INFO.  Although these dataframes were designed to work with the EGRET R package, they can be very useful for a wide range of hydrology studies that don't use EGRET.
+In this section, we use 3 dataRetrieval functions to get sufficient data to perform an EGRET analysis.  We will continue analyzing the Choptank River. The data are structured into three EGRET-specific dataframes.  The daily discharge data are placed in a dataframe called Daily.  The nitrate sample data are placed in a dataframe called Sample.  The data about the site and the parameter are placed in a dataframe called INFO.  Although these dataframes were designed to work with the EGRET R package, they can be very useful for a wide range of hydrology studies that don't use EGRET.
 
 %------------------------------------------------------------
 \subsection{INFO Data}
@@ -587,6 +586,7 @@ The function \texttt{readNWISInfo} combines \texttt{getNWISSiteInfo} and \texttt
 
 <<ThirdExample>>=
 parameterCd <- "00618"
+siteNumber <- "01491000"
 INFO <- readNWISInfo(siteNumber,parameterCd, interactive=FALSE)
 @
 
@@ -601,7 +601,7 @@ Finally, the function \texttt{readUserInfo} can be used to convert comma separat
 
 Any supplemental column that would be useful can be added to the INFO dataframe. 
 
-<<addInfo, eval=TRUE, echo=TRUE>>=
+<<addInfo, eval=FALSE, echo=TRUE>>=
 
 INFO$riverInfo <- "Major tributary of the Chesapeake Bay"
 INFO$GreensboroPopulation <- 1931
@@ -615,7 +615,7 @@ INFO$GreensboroPopulation <- 1931
 \subsection{Daily Data}
 \label{Dailysubsection}
 %------------------------------------------------------------
-The \texttt{readNWISDaily} function retrieves the daily values (discharge in this case).  It requires the inputs siteNumber, parameterCd, startDate, endDate, interactive, and convert. Most of these arguments are described in section \ref{sec:genRetrievals}, however \texttt{"}convert\texttt{"} is a new argument (that defaults to TRUE). The convert argument tells the program to convert the values from cubic feet per second (ft\textsuperscript{3}/s) to cubic meters per second (m\textsuperscript{3}/s) as shown in the example Daily data frame in Table \ref{tab:DailyDF1}. For EGRET applications with NWIS Web retrieval, do not use this argument (the default is TRUE), EGRET assumes that discharge is always stored in units of cubic meters per second. If you don't want this conversion and are not using EGRET, set convert=FALSE in the function call. 
+The \texttt{readNWISDaily} function retrieves the daily values (discharge in this case).  It requires the inputs siteNumber, parameterCd, startDate, endDate, interactive, and convert. These arguments are described in detail in the \texttt{dataRetrieval} vignette, however \texttt{"}convert\texttt{"} is a new argument (that defaults to TRUE). The convert argument tells the program to convert the values from cubic feet per second (ft\textsuperscript{3}/s) to cubic meters per second (m\textsuperscript{3}/s) as shown in the example Daily data frame in Table \ref{tab:DailyDF1}. For EGRET applications with NWIS Web retrieval, do not use this argument (the default is TRUE), EGRET assumes that discharge is always stored in units of cubic meters per second. If you don't want this conversion and are not using EGRET, set convert=FALSE in the function call. 
 
 <<firstExample>>=
 siteNumber <- "01491000"
@@ -890,7 +890,7 @@ Daily <- readNWISDaily(siteNumber, "00060", startDate, endDate)
 Sample <- readNWISSample(siteNumber,parameterCd, startDate, endDate)
 INFO <- readNWISInfo(siteNumber, parameterCd, interactive=FALSE)
 eList <- mergeReport(INFO, Daily,Sample)
-eList
+# eList
 @
 
 \FloatBarrier
@@ -1138,7 +1138,7 @@ The simplest way to look at these time series is with the function \texttt{plotF
 
 \newpage
 \FloatBarrier
-<<plotSingleandSD, echo=TRUE, fig.cap="Plots of discharge statistics",fig.subcap=c("plotFlowSingle(istat=5,qUnit='thousandCfs')","plotSDLogQ()"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+<<plotSingleandSD, echo=TRUE, fig.cap="Plots of discharge statistics",fig.subcap=c("plotFlowSingle(istat=5,qUnit='thousandCfs')","plotSDLogQ(eList)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotFlowSingle(eList, istat=5,qUnit="thousandCfs")
 plotSDLogQ(eList)
 @
@@ -1296,7 +1296,7 @@ Note that for any of the plotting functions that show the sample data, if a valu
 
 \newpage
 \FloatBarrier
-<<plotBoxes, echo=TRUE, fig.cap="Concentration box plots",fig.subcap=c("\\texttt{boxConcMonth()}","\\texttt{boxQTwice(qUnit=1)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+<<plotBoxes, echo=TRUE, fig.cap="Concentration box plots",fig.subcap=c("\\texttt{boxConcMonth(eList)}","\\texttt{boxQTwice(eList, qUnit=1)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 boxConcMonth(eList)
 boxQTwice(eList,qUnit=1)
 @
@@ -1305,7 +1305,7 @@ Note that the statistics to create the boxplot in \texttt{boxQTwice} are perform
 
 \newpage
 \FloatBarrier
-<<plotConcTime,echo=TRUE, fig.cap="The relation of concentration vs time or discharge",fig.subcap=c("\\texttt{plotConcTime()}","\\texttt{plotConcQ()}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+<<plotConcTime,echo=TRUE, fig.cap="The relation of concentration vs time or discharge",fig.subcap=c("\\texttt{plotConcTime(eList)}","\\texttt{plotConcQ(eList)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotConcTime(eList)
 plotConcQ(eList, qUnit=1)
 @
@@ -1352,7 +1352,7 @@ WRTDS creates a model of the behavior of concentration as a function of three co
 Once you have looked at your data using the tools described in section \ref{sec:wqa}, and have determined there are sufficient representative data, it is time to run the WRTDS model. Assuming you are using the defaults, with dataframes called Daily, Sample, and INFO, the \texttt{modelEstimation} function runs the WRTDS modeling algorithm:
 
 <<wrtds3, eval=FALSE, echo=TRUE>>=
-modelEstimation()
+eList <- modelEstimation(eList)
 @
 
 Details of the options available when running \texttt{modelEstimation} can be found in Section \ref{sec:wrtdsInputVariables}. This function is slow, and shows the progress in percent complete. See the references and manual for more information. It's important to understand that this is the one function that will globally change your Daily, Sample, and INFO dataframes. It also creates a new matrix \texttt{"}surfaces\texttt{"}, and a new dataframe \texttt{"}AnnualResults\texttt{"}. It is unusual R programming behavior to create global variables, but global variables were chosen to make it easy for you.
@@ -1418,30 +1418,30 @@ plotFluxTimeDaily(eList, yearStart, yearEnd)
 @
 
 \clearpage
-<<plotFluxPred, echo=TRUE, fig.cap="Concentration and flux predictions",fig.subcap=c('\\texttt{plotConcPred()}','\\texttt{plotFluxPred()}'),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+<<plotFluxPred, echo=TRUE, fig.cap="Concentration and flux predictions",fig.subcap=c('\\texttt{plotConcPred(eList)}','\\texttt{plotFluxPred(eList)}'),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotConcPred(eList)
 plotFluxPred(eList)
 @
 
 \clearpage
-<<plotResidQ, echo=TRUE, fig.cap="Residuals",fig.subcap=c("\\texttt{plotResidPred()}","\\texttt{plotResidQ(qUnit=1)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+<<plotResidQ, echo=TRUE, fig.cap="Residuals",fig.subcap=c("\\texttt{plotResidPred(eList)}","\\texttt{plotResidQ(eList, qUnit=1)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotResidPred(eList)
 plotResidQ(eList, qUnit=1)
 @
 
 \clearpage
-<<boxResidMonth, echo=TRUE, fig.cap="Residuals with respect to time",fig.subcap=c("\\texttt{plotResidTime()}","\\texttt{boxResidMonth()}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+<<boxResidMonth, echo=TRUE, fig.cap="Residuals with respect to time",fig.subcap=c("\\texttt{plotResidTime(eList)}","\\texttt{boxResidMonth(eList)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotResidTime(eList)
 boxResidMonth(eList)
 @
 
 \clearpage
-<<boxConcThree, echo=TRUE, fig.cap="Default \\texttt{boxConcThree()}",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='asis',results='hide',fig.pos="h">>=
+<<boxConcThree, echo=TRUE, fig.cap="Default \\texttt{boxConcThree(eList)}",out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='asis',results='hide',fig.pos="h">>=
 boxConcThree(eList)
 @
 
 \clearpage
-<<plotFluxHist, echo=TRUE, fig.cap="Concentration and flux history",fig.subcap=c("\\texttt{plotConcHist()}", "\\texttt{plotFluxHist()}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+<<plotFluxHist, echo=TRUE, fig.cap="Concentration and flux history",fig.subcap=c("\\texttt{plotConcHist(eList)}", "\\texttt{plotFluxHist(eList)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotConcHist(eList)
 plotFluxHist(eList)
 @
@@ -1463,7 +1463,7 @@ plotConcQSmooth(eList, date1, date2, date3,
 @
 
 \clearpage
-<<plotConcTimeSmooth, echo=TRUE, fig.cap="\\texttt{plotConcTimeSmooth())}",fig.subcap=c("\\texttt{plotConcTimeSmooth}","\\texttt{plotConcTimeSmooth(logScale=TRUE)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',results='hide',fig.pos="h">>=
+<<plotConcTimeSmooth, echo=TRUE, fig.cap="\\texttt{plotConcTimeSmooth(eList))}",fig.subcap=c("\\texttt{plotConcTimeSmooth}","\\texttt{plotConcTimeSmooth(logScale=TRUE)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',results='hide',fig.pos="h">>=
 q1 <- 10
 q2 <- 25
 q3 <- 75
@@ -1475,7 +1475,7 @@ plotConcTimeSmooth(eList, q1, q2, q3, centerDate,
 
 Figure \ref{fig:fluxBiasMulti} shows a predefined multipanel graph using \texttt{fluxBiasMulti}.
 
-<<fluxBiasMulti, echo=TRUE, fig.cap="\\texttt{fluxBiasMulti(qUnit=1)}",fig.show='asis',fig.width=8, fig.height=10,fig.pos="h">>=
+<<fluxBiasMulti, echo=TRUE, fig.cap="\\texttt{fluxBiasMulti(eList, qUnit=1)}",fig.show='asis',fig.width=8, fig.height=10,fig.pos="h">>=
 fluxBiasMulti(eList, qUnit=1)
 @
 
@@ -1484,7 +1484,7 @@ fluxBiasMulti(eList, qUnit=1)
 The contour plot functions also do not recognize the PA from the INFO dataframe. They represent the overall results of the WRTDS analysis. To specify contourLevels in the contour plots use the \texttt{seq} function (type \texttt{?seq} for details).  In general, use of the \texttt{seq} function would look like this: \texttt{contourLevels = seq(from,to,by)}.  In the example shown above we are requesting contour levels that run from 0 to 2 in steps of 0.2.
 
 
-<<plotContours, echo=TRUE,fig.cap="plotContours()",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
+<<plotContours, echo=TRUE,fig.cap="plotContours(eList)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
 clevel<-seq(0,2,0.2)
 plotContours(eList, yearStart=2008,yearEnd=2010,qBottom=20,qTop=1000, 
              contourLevels = clevel,qUnit=1,
@@ -1496,7 +1496,7 @@ plotContours(eList, yearStart=2008,yearEnd=2010,qBottom=20,qTop=1000,
 The function \texttt{plotDiffContours} plots the difference between two selected years (year0 and year1). It can help clarify what combinations of seasons and flow conditions have been showing increases and decreases over the period covered.
 
 
-<<plotDiffContours, echo=TRUE, fig.cap="plotDiffContours()",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
+<<plotDiffContours, echo=TRUE, fig.cap="plotDiffContours(eList)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
 plotDiffContours(eList, year0=2000,year1=2010,
                  qBottom=20,qTop=1000,maxDiff=0.6,qUnit=1,
              flowDuration=FALSE)
@@ -2024,15 +2024,11 @@ windowS & This is the half-window width for seasons in WRTDS.  It has units of y
 %------------------------------------------------------------
 A few steps that are required to create a table in Microsoft\textregistered\ software (Excel, Word, PowerPoint, etc.) from an R dataframe. There are a variety of good methods, one of which is detailed here. The example we will step through is creation of a table in Microsoft\textregistered\ Excel based on the dataframe tableData:
 
-<<label=getSiteApp, echo=TRUE,eval=FALSE>>=
+<<label=getSiteApp, echo=TRUE,eval=TRUE>>=
 
-tableData <- tableResults(returnDataFrame=TRUE)
+tableData <- tableResults(eList)
 @
 
-<<label=getSiteApp2, echo=FALSE,eval=TRUE>>=
-
-tableData <- tableResults(returnDataFrame=TRUE)
-@
 
 First, save the dataframe as a tab delimited file (you don't want to use comma delimited because there are commas in some of the data elements):
 
