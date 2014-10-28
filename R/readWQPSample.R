@@ -11,7 +11,7 @@
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @keywords data import USGS WRTDS
 #' @export
-#' @import dataRetrieval
+#' @import dataRetrievaldemo
 #' @return Sample dataframe
 #' @seealso \code{\link{readWQPdata}}, \code{\link{whatWQPsites}}, 
 #' \code{\link{readWQPqw}}, \code{\link{readNWISqw}}, 

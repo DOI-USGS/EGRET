@@ -13,7 +13,7 @@
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @keywords data import USGS web service
 #' @export
-#' @import dataRetrieval
+#' @import dataRetrievaldemo
 #' @return INFO dataframe with at least param.nm, param.units, parameShortName, paramNumber
 #' @examples
 #' # These examples require an internet connection to run
@@ -29,7 +29,7 @@ readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
   INFO <- populateSiteINFO(INFO, siteNumber,interactive=interactive)
   
   if (nzchar(parameterCd)){
-    parameterData <- dataRetrieval::readNWISpCode(parameterCd=parameterCd)
+    parameterData <- dataRetrievaldemo::readNWISpCode(parameterCd=parameterCd)
     INFO$param.nm <- parameterData$parameter_nm
     INFO$param.units <- parameterData$parameter_units
     INFO$paramShortName <- parameterData$srsname
@@ -55,7 +55,7 @@ readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @keywords data import USGS web service WRTDS
 #' @export
-#' @import dataRetrieval
+#' @import dataRetrievaldemo
 #' @return INFO dataframe with agency, site, dateTime, value, and code columns
 #' @examples
 #' # These examples require an internet connection to run
@@ -79,7 +79,7 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=FALSE){
     
     siteInfo <- whatWQPsites(siteid=siteNumber, pCode=parameterCd)
 
-    parameterData <- dataRetrieval::readNWISpCode(parameterCd = parameterCd)
+    parameterData <- dataRetrievaldemo::readNWISpCode(parameterCd = parameterCd)
     
     siteInfo$param.nm <- parameterData$parameter_nm
     siteInfo$param.units <- parameterData$parameter_units
@@ -176,10 +176,10 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=FALSE){
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @keywords data import USGS web service WRTDS
 #' @export
-#' @import dataRetrieval
+#' @import dataRetrievaldemo
 #' @return INFO dataframe with agency, site, dateTime, value, and code columns
 #' @examples
-#' filePath <- system.file("extdata", package="dataRetrieval")
+#' filePath <- system.file("extdata", package="dataRetrievaldemo")
 #' filePath <- paste(filePath,"/",sep="")
 #' fileName <- 'infoTest.csv'
 #' INFO <- readUserInfo(filePath,fileName, separator=",",interactive=FALSE)

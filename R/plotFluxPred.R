@@ -53,11 +53,14 @@ plotFluxPred<-function(eList, fluxUnit = 3, fluxMax = NA,
     paStart <- 10
   }
   
-  possibleGoodUnits <- c("mg/l","mg/l as N", "mg/l as NO2", 
+  possibleGoodUnits <- c("mg/l","mg/l as N", "mg/l as NO2", "mg/L",
                          "mg/l as NO3","mg/l as P","mg/l as PO3","mg/l as PO4","mg/l as CaCO3",
                          "mg/l as Na","mg/l as H","mg/l as S","mg/l NH4" )
   
-  if(!(localINFO$param.units %in% possibleGoodUnits)){
+  allCaps <- toupper(possibleGoodUnits)
+  localUnits <- toupper(localINFO$param.units)
+  
+  if(!(localUnits %in% allCaps)){
     warning("Expected concentration units are mg/l, \nThe INFO dataframe indicates:",localINFO$param.units,
             "\nFlux calculations will be wrong if units are not consistent")
   }

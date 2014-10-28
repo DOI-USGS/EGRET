@@ -26,7 +26,7 @@ FNConc \tab number \tab Flow normalized estimate of concentration \tab mg/L \cr
 FNFlux \tab number \tab Flow Normalized estimate of flux \tab kg/day \cr
 }}
 \source{
-Data retrieved from NWIS water services (\url{http://waterservices.usgs.gov/}) via the dataRetrieval R package.
+Data retrieved from NWIS water services (\url{http://waterservices.usgs.gov/}) via the dataRetrievaldemo R package.
 The USGS site id is 01491000. The period requested was 1979-10-01 to 2011-09-30.
 }
 \description{

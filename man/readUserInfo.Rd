@@ -28,7 +28,7 @@ Additionally, EGRETdemo analysis requires:"drainSqKm", "staAbbrev", "constitAbbr
 fields if they aren't supplied in the file.
 }
 \examples{
-filePath <- system.file("extdata", package="dataRetrieval")
+filePath <- system.file("extdata", package="dataRetrievaldemo")
 filePath <- paste(filePath,"/",sep="")
 fileName <- 'infoTest.csv'
 INFO <- readUserInfo(filePath,fileName, separator=",",interactive=FALSE)

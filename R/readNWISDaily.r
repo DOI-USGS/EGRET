@@ -17,7 +17,7 @@
 #' but the user must carefully check the results to see if the data returns matches what is expected. The default is "tsv".
 #' @keywords data import USGS WRTDS
 #' @export
-#' @import dataRetrieval
+#' @import dataRetrievaldemo
 #' @return Daily dataframe
 #' @seealso \code{\link{readNWISdv}}, \code{\link{populateDaily}}
 #' @examples

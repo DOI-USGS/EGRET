@@ -31,7 +31,7 @@ NULL
 #'
 #' @name ChopDaily
 #' @docType data
-#' @source Data retrieved from NWIS water services (\url{http://waterservices.usgs.gov/}) via the dataRetrieval R package.
+#' @source Data retrieved from NWIS water services (\url{http://waterservices.usgs.gov/}) via the dataRetrievaldemo R package.
 #' The USGS site id is 01491000. The period requested was 1979-10-01 to 2011-09-30. 
 #' @format Data frame with 11688 rows and 18 columns:
 #' \tabular{llll}{
@@ -70,7 +70,7 @@ NULL
 #' @name ChopSample
 #' @docType data
 #' @source Nitrate/nitrite data retrieved from National Water Quality Monitoring Council (NWQMC) Water Quality Portal
-#' (\url{http://www.waterqualitydata.us/}), and discharge retrieved from NWIS water services (\url{http://waterservices.usgs.gov/}), both via the dataRetrieval R package.
+#' (\url{http://www.waterqualitydata.us/}), and discharge retrieved from NWIS water services (\url{http://waterservices.usgs.gov/}), both via the dataRetrievaldemo R package.
 #' The USGS site id is 01491000. The period requested was 1979-10-01 to 2011-09-30. The parameter was Inorganic nitrogen (nitrate and nitrite), 
 #' USGS parameter code 00631.
 #' @format Data frame with 606 rows and 17 columns:
@@ -109,7 +109,7 @@ NULL
 #' @name ChopINFO
 #' @docType data
 #' @source Parameter information (Nitrate/nitrite, USGS parameter code 00631) is found from NWISweb (\url{http://nwis.waterdata.usgs.gov/nwis/pmcodes/}), and station
-#' information is retrieved from NWIS water services (\url{http://waterservices.usgs.gov/}), both via the dataRetrieval R package.
+#' information is retrieved from NWIS water services (\url{http://waterservices.usgs.gov/}), both via the dataRetrievaldemo R package.
 #' The USGS site id is 01491000. 
 #' @format Data frame with 1 row and 56 columns, some of which are described here:
 #' \tabular{lll}{

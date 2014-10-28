@@ -16,7 +16,7 @@ paLong \tab integer (1-12) \tab Length of period of analysis in months \cr
 }}
 \source{
 Parameter information (Nitrate/nitrite, USGS parameter code 00631) is found from NWISweb (\url{http://nwis.waterdata.usgs.gov/nwis/pmcodes/}), and station
-information is retrieved from NWIS water services (\url{http://waterservices.usgs.gov/}), both via the dataRetrieval R package.
+information is retrieved from NWIS water services (\url{http://waterservices.usgs.gov/}), both via the dataRetrievaldemo R package.
 The USGS site id is 01491000.
 }
 \description{
