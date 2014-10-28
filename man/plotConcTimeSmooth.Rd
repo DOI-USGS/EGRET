@@ -70,7 +70,7 @@ plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd,
 \item{cex.axis}{magnification to be used for axis annotation relative to the current setting of cex}
 
 \item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
-(for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
+(for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRETdemo chooses the best margins depending on tinyPlot.}
 
 \item{lineVal}{vector of line types. Defaults to c(1,1,1) which is a solid line for each line. Options: 0=blank, 1=solid (default), 2=dashed, 3=dotted, 4=dotdash, 5=longdash, 6=twodash}
 

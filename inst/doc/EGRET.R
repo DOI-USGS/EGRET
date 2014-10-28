@@ -24,7 +24,7 @@ addSpace <- function(x) ifelse(x != "1", "[5pt]","")
 
 ## ----workflowFlowHistory, echo=TRUE,eval=FALSE------------
 #  library(dataRetrieval)
-#  library(EGRET)
+#  library(EGRETdemo)
 #  
 #  # Flow history analysis
 #  
@@ -58,7 +58,7 @@ addSpace <- function(x) ifelse(x != "1", "[5pt]","")
 
 ## ----workflowWaterQuality, echo=TRUE,eval=FALSE-----------
 #  library(dataRetrieval)
-#  library(EGRET)
+#  library(EGRETdemo)
 #  
 #  ############################
 #  # Gather discharge data:
@@ -152,7 +152,7 @@ addSpace <- function(x) ifelse(x != "1", "[5pt]","")
 #  saveResults(savePath, INFO)
 
 ## ----openlibraries, echo=TRUE,eval=TRUE-------------------
-library(EGRET)
+library(EGRETdemo)
 
 ## ----ThirdExample-----------------------------------------
 parameterCd <- "00618"
@@ -582,14 +582,14 @@ mtext("Custom multi-pane graph using customPar", outer=TRUE, font=2)
 #  getJulian
 
 ## ----installFromCran,eval = FALSE-------------------------
-#  install.packages(c("dataRetrieval","EGRET"),
+#  install.packages(c("dataRetrieval","EGRETdemo"),
 #  repos=c("http://usgs-r.github.com","http://cran.us.r-project.org"),
 #  dependencies=TRUE,
 #  type="both")
 
 ## ----openLibraryTest, eval=FALSE--------------------------
 #  library(dataRetrieval)
-#  library(EGRET)
+#  library(EGRETdemo)
 
 ## ----label=getSiteApp, echo=TRUE,eval=TRUE----------------
 

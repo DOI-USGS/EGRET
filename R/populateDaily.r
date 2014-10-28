@@ -67,7 +67,7 @@ populateDaily <- function(rawData,qConvert,interactive=TRUE){  # rawData is a da
   negNums <- length(which(localDaily$Q<0))
   if (negNums > 0) {
     cat("There were", as.character(negNums), "negative flow days \n")
-    cat("Negative values are not supported in the EGRET package\n")
+    cat("Negative values are not supported in the EGRETdemo package\n")
   }
   
   localDaily$Q<-localDaily$Q+qshift
@@ -103,7 +103,7 @@ populateDaily <- function(rawData,qConvert,interactive=TRUE){  # rawData is a da
     
     numNAs <- sum(is.na(localDaily$Q))
     if(numNAs > 0){
-      cat(numNAs, "discharge measurements are not reported (NA's). \nMany of the EGRET functions will not work with missing discharge measurements.")
+      cat(numNAs, "discharge measurements are not reported (NA's). \nMany of the EGRETdemo functions will not work with missing discharge measurements.")
       if (localDaily$Julian[max(which(is.na(localDaily$Q)),na.rm = TRUE)]-
            localDaily$Julian[min(which(is.na(localDaily$Q)),na.rm = TRUE)]+1 ==  numNAs){
         cat("\nNA gap is from",as.character(localDaily$Date[min(which(is.na(localDaily$Q)),na.rm = TRUE)]),"to",

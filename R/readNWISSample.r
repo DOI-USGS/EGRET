@@ -1,4 +1,4 @@
-#' Import NWIS Sample Data for EGRET analysis
+#' Import NWIS Sample Data for EGRETdemo analysis
 #'
 #' Imports data from NWIS web service. This function gets the data from here: \url{http://nwis.waterdata.usgs.gov/nwis/qwdata/}
 #' A list of parameter codes can be found here: \url{http://nwis.waterdata.usgs.gov/nwis/pmcodes/}

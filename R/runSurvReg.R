@@ -6,7 +6,7 @@
 #'    It returns an array of results for the estimation points.  
 #'    The array returned contains yHat, SE and ConcHat (in that order). 
 #'
-#' @param Sample dataframe created for EGRET analysis
+#' @param Sample dataframe created for EGRETdemo analysis
 #' @param estPtYear numeric vector of Decimal Year values at the estimation points
 #' @param estPtLQ numeric vector of ln(Q) values at the estimation points, must be the same length as estPtYear 
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7

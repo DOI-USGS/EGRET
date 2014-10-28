@@ -21,9 +21,9 @@ readUserInfo(filePath, fileName, hasHeader = TRUE, separator = ",",
 INFO dataframe with agency, site, dateTime, value, and code columns
 }
 \description{
-Populates INFO data frame for EGRET study. Accepts a user generated file with any metadata that might
+Populates INFO data frame for EGRETdemo study. Accepts a user generated file with any metadata that might
 be important for the analysis.
-Additionally, EGRET analysis requires:"drainSqKm", "staAbbrev", "constitAbbrev",
+Additionally, EGRETdemo analysis requires:"drainSqKm", "staAbbrev", "constitAbbrev",
 "param.units", "paramShortName","shortName". If interactive=TRUE, the function will ask for these
 fields if they aren't supplied in the file.
 }

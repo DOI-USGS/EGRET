@@ -16,7 +16,7 @@ readWQPInfo(siteNumber, parameterCd, interactive = FALSE)
 INFO dataframe with agency, site, dateTime, value, and code columns
 }
 \description{
-Populates INFO data frame for EGRET study. If siteNumber or parameter code (for USGS) or characteristic name
+Populates INFO data frame for EGRETdemo study. If siteNumber or parameter code (for USGS) or characteristic name
 (for non-USGS) is provided, the function will make a call to the Water Quality Portal to get metadata information.
 staAbbrev - station abbreviation, will be used in naming output files and for structuring batch jobs
 constitAbbrev - constitute abbreviation
@@ -26,9 +26,9 @@ constitAbbrev - constitute abbreviation
 # Automatically gets information about site 01594440 and temperature, no interaction with user
 nameToUse <- 'Specific conductance'
 pcodeToUse <- '00095'
-
-INFO <- readWQPInfo('USGS-04024315',pcodeToUse,interactive=FALSE)
 \dontrun{
+INFO <- readWQPInfo('USGS-04024315',pcodeToUse,interactive=FALSE)
+
 INFO2 <- readWQPInfo('WIDNR_WQX-10032762',nameToUse)
 # To adjust the label names:
 INFO$shortName <- "Little"

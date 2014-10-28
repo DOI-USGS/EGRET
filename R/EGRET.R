@@ -1,7 +1,7 @@
-#' EGRET package includes WRTDS and flowHistory
+#' EGRETdemo package includes WRTDS and flowHistory
 #'
 #' \tabular{ll}{
-#' Package: \tab EGRET\cr
+#' Package: \tab EGRETdemo\cr
 #' Type: \tab Package\cr
 #' Version: \tab 1.2.4\cr
 #' Date: \tab 2014-06-28\cr
@@ -17,7 +17,7 @@
 #' Collection of functions to do WRTDS and flowHistory analysis,
 #'  and produce graphs and tables of data and results from these analyses.
 #'
-#' @name EGRET-package
+#' @name EGRETdemo-package
 #' @docType package
 #' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}, Laura De Cicco \email{ldecicco@@usgs.gov}
 #' @references Hirsch, R. M., Moyer, D. L. and Archfield, S. A. (2010), Weighted Regressions on Time, Discharge, and Season (WRTDS), with an Application to Chesapeake Bay River Inputs. JAWRA Journal of the American Water Resources Association, 46: 857-880. doi: 10.1111/j.1752-1688.2010.00482.x
@@ -148,7 +148,7 @@ NULL
 #' @keywords water quality data
 NULL
 
-#' Flux units included in EGRET
+#' Flux units included in EGRETdemo
 #'
 #' Flux units included:
 #' \tabular{lllll}{
@@ -171,7 +171,7 @@ NULL
 #' @name fluxConst
 #' @docType data
 NULL
-#' Flow units included in EGRET
+#' Flow units included in EGRETdemo
 #'
 #' Flow units included:
 #' \tabular{llll}{
@@ -188,7 +188,7 @@ NULL
 #' @docType data
 NULL
 
-#' Month labels included in EGRET
+#' Month labels included in EGRETdemo
 #'
 #' Month labels
 #'

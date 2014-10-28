@@ -34,7 +34,7 @@ plotConcQ(eList, qUnit = 2, tinyPlot = FALSE, logScale = FALSE,
 \item{rmSciY}{logical defaults to FALSE, changes y label from scientific to fixed}
 
 \item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
-(for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
+(for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRETdemo chooses the best margins depending on tinyPlot.}
 
 \item{col}{color of points on plot, see ?par 'Color Specification'}
 

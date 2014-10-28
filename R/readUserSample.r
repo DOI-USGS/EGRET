@@ -1,4 +1,4 @@
-#' Import user sample data for EGRET analysis
+#' Import user sample data for EGRETdemo analysis
 #'
 #' Imports data from a user-supplied file, and converts it to a Sample data frame (including summing multiple constituents), appropriate for WRTDS calculations. 
 #'
@@ -12,7 +12,7 @@
 #' @export
 #' @return Sample dataframe
 #' @examples
-#' filePath <- system.file("extdata", package="EGRET")
+#' filePath <- system.file("extdata", package="EGRETdemo")
 #' filePath <- paste(filePath,"/",sep="")
 #' fileName <- 'ChoptankRiverNitrate.csv'
 #' Sample <- readUserSample(filePath,fileName, separator=";",interactive=FALSE)

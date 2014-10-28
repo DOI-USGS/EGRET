@@ -34,7 +34,7 @@
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param logScale logical whether or not to use a log scale in the y axis.
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
-#' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
+#' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRETdemo chooses the best margins depending on tinyPlot.
 #' @param lwd line width, a positive number, defaulting to 1
 #' @param cex.legend number magnification  of legend
 #' @param colors color vector of lines on plot, see ?par 'Color Specification'. Defaults to c("black","red","green")

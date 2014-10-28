@@ -2,7 +2,7 @@
 \docType{data}
 \name{monthInfo}
 \alias{monthInfo}
-\title{Month labels included in EGRET}
+\title{Month labels included in EGRETdemo}
 \description{
 Month labels
 }

@@ -1,6 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-inst\doc\EGRET.bbl
+inst\doc\EGRETdemo.bbl
 workflow.r
 workflow2.r
 workflow3.r
@@ -8,7 +8,7 @@ leapYear.R
 BiasGraphicCode.R
 .git
 .Rproj.user
-EGRET.Rproj
+EGRETdemo.Rproj
 .gitignore
 .travis.yml
 appveyor.yml

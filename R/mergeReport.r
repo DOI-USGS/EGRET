@@ -10,7 +10,7 @@
 #' @keywords data import USGS WRTDS
 #' @export
 #' @return eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.
-#' Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
+#' Any of these values can be NA, not all EGRETdemo functions will work with missing parts of the named list eList.
 #' @seealso \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
 #' @examples
 #' siteNumber <- '01594440'
@@ -43,7 +43,7 @@ mergeReport<-function(INFO, Daily, Sample, surfaces=NA, interactive=FALSE){
 }
 
 
-#' Create named list for EGRET analysis
+#' Create named list for EGRETdemo analysis
 #'
 #' Create a named list with the INFO, Daily, and Sample dataframes, and surface matrix. If any of these are
 #' not available, an NA should be 
@@ -55,7 +55,7 @@ mergeReport<-function(INFO, Daily, Sample, surfaces=NA, interactive=FALSE){
 #' @keywords data import USGS WRTDS
 #' @export
 #' @return eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.
-#' Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
+#' Any of these values can be NA, not all EGRETdemo functions will work with missing parts of the named list eList.
 #' @seealso \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
 #' @examples
 #' Daily <- ChopDaily

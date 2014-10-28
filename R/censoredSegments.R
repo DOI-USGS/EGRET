@@ -1,6 +1,6 @@
 #' Generic plotting function to create censored line segments
 #'
-#' Basic plotting framework for EGRET dot plots. Graphical parameters default to values that work well with most plots, but all can be re-assigned.
+#' Basic plotting framework for EGRETdemo dot plots. Graphical parameters default to values that work well with most plots, but all can be re-assigned.
 #' See ?par for complete definitions of most optional input variables.
 #'
 #' @param yBottom number specifying minimum flux (required)

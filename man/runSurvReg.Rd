@@ -18,7 +18,7 @@ runSurvReg(estPtYear, estPtLQ, numDays, DecLow, DecHigh, Sample, windowY = 7,
 
 \item{DecHigh}{number specifying maximum decimal year}
 
-\item{Sample}{dataframe created for EGRET analysis}
+\item{Sample}{dataframe created for EGRETdemo analysis}
 
 \item{windowY}{numeric specifying the half-window width in the time dimension, in units of years, default is 7}
 

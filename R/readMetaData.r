@@ -1,6 +1,6 @@
 #' Import Metadata for USGS Data
 #'
-#' Populates INFO data frame for EGRET study.  If either station number or parameter code supplied, imports data about a particular USGS site from NWIS web service. 
+#' Populates INFO data frame for EGRETdemo study.  If either station number or parameter code supplied, imports data about a particular USGS site from NWIS web service. 
 #' This function gets the data from here: \url{http://waterservices.usgs.gov/}
 #' A list of parameter codes can be found here: \url{http://nwis.waterdata.usgs.gov/nwis/pmcodes/}
 #' If either station number or parameter code is not supplied, the user will be asked to input data.
@@ -45,7 +45,7 @@ readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
 
 #' Import Metadata for Water Quality Portal Data
 #'
-#' Populates INFO data frame for EGRET study. If siteNumber or parameter code (for USGS) or characteristic name 
+#' Populates INFO data frame for EGRETdemo study. If siteNumber or parameter code (for USGS) or characteristic name 
 #' (for non-USGS) is provided, the function will make a call to the Water Quality Portal to get metadata information.
 #' staAbbrev - station abbreviation, will be used in naming output files and for structuring batch jobs
 #' constitAbbrev - constitute abbreviation
@@ -62,9 +62,9 @@ readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
 #' # Automatically gets information about site 01594440 and temperature, no interaction with user
 #' nameToUse <- 'Specific conductance'
 #' pcodeToUse <- '00095'
-#' 
-#' INFO <- readWQPInfo('USGS-04024315',pcodeToUse,interactive=FALSE)
 #' \dontrun{
+#' INFO <- readWQPInfo('USGS-04024315',pcodeToUse,interactive=FALSE)
+#' 
 #' INFO2 <- readWQPInfo('WIDNR_WQX-10032762',nameToUse)
 #' # To adjust the label names:
 #' INFO$shortName <- "Little"
@@ -163,9 +163,9 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=FALSE){
 
 #' Import Metadata from User-Generated File
 #'
-#' Populates INFO data frame for EGRET study. Accepts a user generated file with any metadata that might 
+#' Populates INFO data frame for EGRETdemo study. Accepts a user generated file with any metadata that might 
 #' be important for the analysis. 
-#' Additionally, EGRET analysis requires:"drainSqKm", "staAbbrev", "constitAbbrev", 
+#' Additionally, EGRETdemo analysis requires:"drainSqKm", "staAbbrev", "constitAbbrev", 
 #' "param.units", "paramShortName","shortName". If interactive=TRUE, the function will ask for these
 #' fields if they aren't supplied in the file.
 #'
@@ -245,7 +245,7 @@ readUserInfo <- function(filePath,fileName,hasHeader=TRUE,separator=",",interact
     requiredColumns <- c("drainSqKm", "staAbbrev", "constitAbbrev", 
                          "param.units", "paramShortName","shortName")
     if(!all(requiredColumns %in% names(siteInfo))){
-      message("The following columns are expected in the EGRET package:\n")
+      message("The following columns are expected in the EGRETdemo package:\n")
       message(requiredColumns[!(requiredColumns %in% names(siteInfo))])
     }
   }

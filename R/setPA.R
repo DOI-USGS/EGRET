@@ -12,7 +12,7 @@
 #' @keywords statistics streamflow
 #' @export
 #' @return eList named list at least the INFO dataframe, along any other part of the list that was input. 
-#' Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
+#' Any of these values can be NA, not all EGRETdemo functions will work with missing parts of the named list eList.
 #' @examples
 #' eList <- Choptank_eList
 #' eList <- setPA(eList, paStart=12, paLong=3)

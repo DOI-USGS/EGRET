@@ -16,7 +16,7 @@
 #' @keywords water-quality statistics
 #' @export
 #' @return eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.
-#' Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
+#' Any of these values can be NA, not all EGRETdemo functions will work with missing parts of the named list eList.
 #' @examples
 #' eList <- Choptank_eList
 #' \dontrun{EGRETreturn <- modelEstimation(eList)

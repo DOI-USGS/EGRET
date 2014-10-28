@@ -23,7 +23,7 @@ For WRTDS usage, the first column is expected to be dates, the second column mea
 The third column is optional, it contains any remark codes.
 }
 \examples{
-filePath <- system.file("extdata", package="EGRET")
+filePath <- system.file("extdata", package="EGRETdemo")
 filePath <- paste(filePath,"/",sep="")
 fileName <- 'ChoptankRiverFlow.txt'
 ChopData <- readDataFromFile(filePath,fileName, separator="\\t")
