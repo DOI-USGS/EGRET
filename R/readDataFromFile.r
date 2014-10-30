@@ -13,11 +13,10 @@
 #' @export
 #' @examples
 #' filePath <- system.file("extdata", package="EGRETdemo")
-#' filePath <- paste(filePath,"/",sep="")
 #' fileName <- 'ChoptankRiverFlow.txt'
 #' ChopData <- readDataFromFile(filePath,fileName, separator="\t")
 readDataFromFile <- function (filePath,fileName,hasHeader=TRUE,separator=","){
-  totalPath <- paste(filePath,fileName,sep="");  
+  totalPath <- file.path(filePath,fileName);  
   retval <- read.delim(  
     totalPath, 
     header = hasHeader,

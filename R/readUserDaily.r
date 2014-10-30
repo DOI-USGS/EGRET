@@ -14,7 +14,6 @@
 #' @return Daily dataframe
 #' @examples
 #' filePath <- system.file("extdata", package="EGRETdemo")
-#' filePath <- paste(filePath,"/",sep="")
 #' fileName <- "ChoptankRiverFlow.txt"
 #' Daily <- readUserDaily(filePath,fileName,separator="\t")
 readUserDaily <- function (filePath,fileName,hasHeader=TRUE,separator=",",qUnit=1,interactive=TRUE){

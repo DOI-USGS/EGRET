@@ -25,7 +25,6 @@ Imports data from a user-supplied file, and converts it to a Sample data frame (
 }
 \examples{
 filePath <- system.file("extdata", package="EGRETdemo")
-filePath <- paste(filePath,"/",sep="")
 fileName <- 'ChoptankRiverNitrate.csv'
 Sample <- readUserSample(filePath,fileName, separator=";",interactive=FALSE)
 }

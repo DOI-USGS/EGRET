@@ -13,7 +13,6 @@
 #' @return Sample dataframe
 #' @examples
 #' filePath <- system.file("extdata", package="EGRETdemo")
-#' filePath <- paste(filePath,"/",sep="")
 #' fileName <- 'ChoptankRiverNitrate.csv'
 #' Sample <- readUserSample(filePath,fileName, separator=";",interactive=FALSE)
 readUserSample <- function (filePath,fileName,hasHeader=TRUE,separator=",", interactive=TRUE){
