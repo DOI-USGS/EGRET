@@ -82,6 +82,7 @@ as.egret <- function(INFO, Daily, Sample, surfaces) {
   invisible(eList)
 }
 
+#' @export
 print.egret <- function(x, ...){
   
   localDaily <- getDaily(x)
