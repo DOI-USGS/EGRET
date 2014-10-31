@@ -14,7 +14,7 @@ getInfo(x, ...)
 \arguments{
 \item{x}{EGRET object or named list}
 
-\item{\dots}{}
+\item{\dots}{additional parameters}
 }
 \value{
 INFO dataframe

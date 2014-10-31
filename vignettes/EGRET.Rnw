@@ -1782,12 +1782,12 @@ If you are new to R, you will need to first install the latest version of R, whi
 At any time, you can get information about any function in R by typing a question mark before the function's name.  This opens a file that describes the function, the required arguments, and provides working examples.
 
 <<helpFunc,eval = FALSE>>=
-?getJulian
+?plotConcQ
 @
 
 To see the raw code for a particular function, type the name of the function, without parentheses:
 <<rawFunc,eval = FALSE>>=
-getJulian
+plotConcQ
 @
 
 

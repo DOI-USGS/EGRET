@@ -116,7 +116,7 @@ is.egret <- function(x) {
 #' From a named list or EGRET object, extract the Daily dataframe
 #'
 #' @param x EGRET object or named list
-#' @param \dots
+#' @param \dots additional parameters
 #' @keywords data import USGS WRTDS
 #' @export
 #' @return Daily dataframe
@@ -151,7 +151,7 @@ getDaily.default <- function(x, ...){
 #' From a named list or EGRET object, extract the INFO dataframe
 #'
 #' @param x EGRET object or named list
-#' @param \dots
+#' @param \dots additional parameters
 #' @keywords data import USGS WRTDS
 #' @export
 #' @return INFO dataframe
@@ -186,7 +186,7 @@ getInfo.default <- function(x, ...){
 #' From a named list or EGRET object, extract the Sample dataframe
 #'
 #' @param x EGRET object or named list
-#' @param \dots
+#' @param \dots additional parameters
 #' @keywords data import USGS WRTDS
 #' @export
 #' @return Sample dataframe
@@ -221,7 +221,7 @@ getSample.default <- function(x, ...){
 #' From a named list or EGRET object, extract the surfaces matrix
 #'
 #' @param x EGRET object or named list
-#' @param \dots
+#' @param \dots additional parameters
 #' @keywords data import USGS WRTDS
 #' @export
 #' @return Sample dataframe
