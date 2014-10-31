@@ -111,15 +111,33 @@ is.egret <- function(x) {
   inherits(x, "egret")
 }
 
+#' Get Daily dataframe from EGRET object
+#'
+#' From a named list or EGRET object, extract the Daily dataframe
+#'
+#' @param x EGRET object or named list
+#' @param \dots
+#' @keywords data import USGS WRTDS
+#' @export
+#' @return Daily dataframe
+#' @rdname getDaily
+#' @seealso \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
+#' @examples
+#' eList <- Choptank_eList
+#' getDaily(eList)
 getDaily <- function(x, ...){
   UseMethod("getDaily")
 }
 
+#' @rdname getDaily
+#' @export
 getDaily.egret <- function(x, ...){
   Daily <- x$Daily
   return(Daily)
 }
 
+#' @rdname getDaily
+#' @export
 getDaily.default <- function(x, ...){
   if("Daily" %in% names(x)){
     return(x$Daily)
@@ -128,15 +146,33 @@ getDaily.default <- function(x, ...){
   }
 }
 
+#' Get INFO dataframe from EGRET object
+#'
+#' From a named list or EGRET object, extract the INFO dataframe
+#'
+#' @param x EGRET object or named list
+#' @param \dots
+#' @keywords data import USGS WRTDS
+#' @export
+#' @return INFO dataframe
+#' @rdname getInfo
+#' @seealso \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
+#' @examples
+#' eList <- Choptank_eList
+#' getInfo(eList)
 getInfo <- function(x, ...){
   UseMethod("getInfo")
 }
 
+#' @rdname getInfo
+#' @export
 getInfo.egret <- function(x, ...){
   INFO <- x$INFO
   return(INFO)
 }
 
+#' @rdname getInfo
+#' @export
 getInfo.default <- function(x, ...){
   if("INFO" %in% names(x)){
     return(x$INFO)
@@ -145,15 +181,33 @@ getInfo.default <- function(x, ...){
   }
 }
 
+#' Get Sample dataframe from EGRET object
+#'
+#' From a named list or EGRET object, extract the Sample dataframe
+#'
+#' @param x EGRET object or named list
+#' @param \dots
+#' @keywords data import USGS WRTDS
+#' @export
+#' @return Sample dataframe
+#' @rdname getSample
+#' @seealso \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
+#' @examples
+#' eList <- Choptank_eList
+#' getSample(eList)
 getSample <- function(x, ...){
   UseMethod("getSample")
 }
 
+#' @rdname getSample
+#' @export
 getSample <- function(x, ...){
   Sample <- x$Sample
   return(Sample)
 }
 
+#' @rdname getSample
+#' @export
 getSample.default <- function(x, ...){
   if("Sample" %in% names(x)){
     return(x$Sample)
@@ -162,15 +216,33 @@ getSample.default <- function(x, ...){
   }
 }
 
+#' Get surfaces matrix from EGRET object
+#'
+#' From a named list or EGRET object, extract the surfaces matrix
+#'
+#' @param x EGRET object or named list
+#' @param \dots
+#' @keywords data import USGS WRTDS
+#' @export
+#' @return Sample dataframe
+#' @rdname getSurfaces
+#' @seealso \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
+#' @examples
+#' eList <- Choptank_eList
+#' getSurfaces(eList)
 getSurfaces <- function(x, ...){
   UseMethod("getSurfaces")
 }
 
+#' @rdname getSurfaces
+#' @export
 getSurfaces.egret <- function(x, ...){
   surfaces <- x$surfaces
   return(surfaces)
 }
 
+#' @rdname getSurfaces
+#' @export
 getSurfaces.default <- function(x, ...){
   if("surfaces" %in% names(x)){
     return(x$surfaces)
