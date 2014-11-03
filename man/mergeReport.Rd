@@ -3,7 +3,7 @@
 \alias{mergeReport}
 \title{Merge Sample and Daily Data for WRTDS}
 \usage{
-mergeReport(INFO, Daily, Sample, surfaces = NA, interactive = FALSE)
+mergeReport(INFO, Daily, Sample, surfaces = NA, interactive = TRUE)
 }
 \arguments{
 \item{INFO}{dataframe containing the INFO dataframe}

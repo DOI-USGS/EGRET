@@ -27,7 +27,7 @@
 #' surfaces2 <- exsurfaces
 #' eList2 <- mergeReport(INFO2, Daily2, Sample2, surfaces2, FALSE)
 #' eList2
-mergeReport<-function(INFO, Daily, Sample, surfaces=NA, interactive=FALSE){
+mergeReport<-function(INFO, Daily, Sample, surfaces=NA, interactive=TRUE){
   
   if (interactive){
     dataOverview(Daily, Sample)  
@@ -82,8 +82,19 @@ as.egret <- function(INFO, Daily, Sample, surfaces) {
   invisible(eList)
 }
 
+#' Prints EGRET object
+#'
+#' Print function for EGRET object
+#'
+#' @param x EGRET object
+#' @param \dots additional parameters
+#' @keywords data import USGS WRTDS
 #' @export
-print.egret <- function(x, ...){
+#' @return logical
+#' @examples
+#' eList <- Choptank_eList
+#' eList
+print.egret <- function(x,...){
   
   localDaily <- getDaily(x)
   localSample <- getSample(x)
@@ -91,15 +102,17 @@ print.egret <- function(x, ...){
   
   if(!all(is.na(x$Daily))){
     cat("Daily discharge:\n")
-    print(head(localDaily[,c("Date","Q","Qualifier")]))
+    print(localDaily[1,c("Date","Q","Qualifier")])
     cat("...\n")
-    print(tail(localDaily[,c("Date","Q","Qualifier")]))
+    print(localDaily[nrow(localDaily),c("Date","Q","Qualifier")])
   }
   if(!all(is.na(x$Sample))){
+    columnsToPrint <- which(names(localSample) %in% c("Date","ConcLow","ConcHigh","Q"))
+    
     cat("\nSample data:\n")
-    print(head(localSample[,c("Date","ConcLow","ConcHigh","Q")]))
+    print(localSample[1,columnsToPrint])
     cat("...\n")
-    print(tail(localSample[,c("Date","ConcLow","ConcHigh","Q")]))
+    print(localSample[nrow(localSample),columnsToPrint])
   }
   cat("\n",attr(x, "shortName"), ":",attr(x, "paramShortName"),"\n",sep="")
   cat("Parameter units:", attr(x, "param.units"),"\n")
@@ -107,7 +120,17 @@ print.egret <- function(x, ...){
 
 }
 
-
+#' Check for EGRET object
+#'
+#' Checks object to see if it is an EGRET object
+#'
+#' @param x object to check
+#' @keywords data import USGS WRTDS
+#' @export
+#' @return logical
+#' @examples
+#' eList <- Choptank_eList
+#' is.egret(eList)
 is.egret <- function(x) {
   inherits(x, "egret")
 }
