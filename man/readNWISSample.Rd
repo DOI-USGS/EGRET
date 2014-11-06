@@ -3,7 +3,7 @@
 \alias{readNWISSample}
 \title{Import NWIS Sample Data for EGRETdemo analysis}
 \usage{
-readNWISSample(siteNumber, parameterCd, startDate, endDate,
+readNWISSample(siteNumber, parameterCd, startDate = "", endDate = "",
   interactive = TRUE)
 }
 \arguments{
