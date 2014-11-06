@@ -24,7 +24,7 @@ readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
     INFO <- readNWISsite(siteNumber)
   } else {
     INFO <- as.data.frame(matrix(ncol = 2, nrow = 1))
-    names(INFO) <- c('site.no', 'shortName')    
+    names(INFO) <- c('site_no', 'shortName')    
   }
   INFO <- populateSiteINFO(INFO, siteNumber,interactive=interactive)
   

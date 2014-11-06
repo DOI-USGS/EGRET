@@ -22,7 +22,7 @@
 #' Sample_All2 <- readNWISSample('05114000',c('00915','00931'), '1985-01-01', '1985-03-31')
 #' Sample_Select <- readNWISSample('05114000',c('00915','00931'), '', '')
 #' }
-readNWISSample <- function(siteNumber,parameterCd,startDate,endDate,interactive=TRUE){
+readNWISSample <- function(siteNumber,parameterCd,startDate="",endDate="",interactive=TRUE){
   
   rawSample <- readNWISqw(siteNumber,parameterCd,startDate,endDate)
   dataColumns <- grep("p\\d{5}",names(rawSample))
