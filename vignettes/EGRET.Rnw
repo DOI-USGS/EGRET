@@ -797,10 +797,11 @@ INFO$GreensboroPopulation <- 1931
 
 
 %------------------------------------------------------------
-\subsection{Merge Report}
+\subsection{Merge Report: eList}
 %------------------------------------------------------------
-Finally, there is a function called \texttt{mergeReport} that will look at both the Daily and Sample dataframe, and populate Q and LogQ columns into the Sample dataframe. Once \texttt{mergeReport} has been run, the Sample dataframe will be augmented with the daily discharges for all the days with samples.  None of the water quality functions in EGRETdemo will work without first having run the \texttt{mergeReport} function.
+Finally, there is a function called \texttt{mergeReport} that will look at both the Daily and Sample dataframe, and populate Q and LogQ columns into the Sample dataframe. Once \texttt{mergeReport} has been run, the Sample dataframe will be augmented with the daily discharges for all the days with samples, and a named list with all of the dataframes will be created.  In this vignette, we will refer to this named list as \texttt{eList}: it is a list with potentially 3 dataframes: Daily, Sample, and INFO. For flow history analysis, the Sample dataframe can be NA.You can use the function \texttt{as.egret} to create this \enquote{EGRET} object.
 
+None of the water quality functions in EGRETdemo will work without first having run the \texttt{mergeReport} function.
 
 <<mergeExample, eval=FALSE>>=
 siteNumber <- "01491000"
@@ -812,8 +813,37 @@ Daily <- readNWISDaily(siteNumber, "00060", startDate, endDate)
 Sample <- readNWISSample(siteNumber,parameterCd, startDate, endDate)
 INFO <- readNWISInfo(siteNumber, parameterCd)
 
+
 eList <- mergeReport(INFO, Daily,Sample)
+
 @
+
+Perhaps you already have Daily, Sample, and INFO dataframes, and surfaces matrix (created after running the WRTDS \texttt{modelEstimation}) that have gone though a deprecated version of EGRET. You can create and edit an EGRET object as follows:
+
+
+<<egretObedit, echo=TRUE, eval=FALSE>>=
+
+eListNew <- as.egret(INFO, Daily, Sample, surfaces)
+
+#To pull out the INFO dataframe:
+INFO <- getInfo(eListNew)
+#Edit the INFO dataframe:
+INFO$importantNews <- "New EGRET workflow started"
+#Put new dataframe in eListNew
+eListNew$INFO <- INFO
+
+#To pull out Daily:
+Daily <- getDaily(eListNew)
+#Edit for some reason:
+DailyNew <- Daily[Daily$DecYear > 1985,]
+#Put new Daily dataframe back in eListNew:
+eListNew$Daily <- DailyNew
+
+#To create a whole new egret object:
+eList_2 <- as.egret(INFO, DailyNew, getSample(eListNew), NA)
+
+@
+
 
 \FloatBarrier
 
@@ -941,7 +971,7 @@ The simplest way to look at these time series is with the function \texttt{plotF
 
 \newpage
 \FloatBarrier
-<<plotSingleandSD, echo=TRUE, fig.cap="Plots of discharge statistics",fig.subcap=c("plotFlowSingle(eList, istat=5,qUnit='thousandCfs')","plotSDLogQ(eList)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+<<plotSingleandSD, echo=TRUE, fig.cap="Plots of discharge statistics",fig.subcap=c("plotFlowSingle(eList, istat=5,qUnit='thousandCfs')","plotSDLogQ(eList)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h",cache=TRUE>>=
 plotFlowSingle(eList, istat=5,qUnit="thousandCfs")
 plotSDLogQ(eList)
 @
@@ -989,7 +1019,7 @@ plotFour(eListMerced, qUnit=3)
 
 \newpage
 \FloatBarrier
-<<plotFourStats,echo=TRUE, fig.cap="\\texttt{plotFourStats(eListMerced, qUnit=3)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
+<<plotFourStats,echo=TRUE, fig.cap="\\texttt{plotFourStats(eListMerced, qUnit=3)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h",cache=TRUE>>=
 plotFourStats(eListMerced, qUnit=3)
 @
 
