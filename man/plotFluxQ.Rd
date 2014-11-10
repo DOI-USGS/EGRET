@@ -36,7 +36,7 @@ plotFluxQ(eList, qUnit = 2, logScale = TRUE, fluxUnit = 3,
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
 
 \item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
-(for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRETdemo chooses the best margins depending on tinyPlot.}
+(for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }

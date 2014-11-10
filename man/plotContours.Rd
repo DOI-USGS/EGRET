@@ -44,7 +44,7 @@ plotContours(eList, yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
 \item{flowDuration}{logical variable if TRUE plot the flow duration lines (5 and 95 flow percentiles), if FALSE do not plot them, default = TRUE}
 
 \item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
-(for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRETdemo chooses the best margins.}
+(for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins.}
 
 \item{yTicks}{vector of yTick labels and marks that will be plotted in log space. If NA, will be automatically generated.}
 

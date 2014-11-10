@@ -2,7 +2,7 @@
 \docType{data}
 \name{qConst}
 \alias{qConst}
-\title{Flow units included in EGRETdemo}
+\title{Flow units included in EGRET}
 \description{
 Flow units included:
 \tabular{llll}{

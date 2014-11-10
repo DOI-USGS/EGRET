@@ -16,7 +16,7 @@ setPA(eList, paStart = 10, paLong = 12, window = 20)
 }
 \value{
 eList named list at least the INFO dataframe, along any other part of the list that was input.
-Any of these values can be NA, not all EGRETdemo functions will work with missing parts of the named list eList.
+Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
 }
 \description{
 Period of analysis is defined by the starting month (paStart) and length in months (paLong).

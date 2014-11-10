@@ -57,7 +57,7 @@ a vector with the minimum and maximum values in the change in concentration scal
 \item{cex.axis}{magnification to be used for axis annotation relative to the current setting of cex}
 
 \item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
-(for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRETdemo chooses the best margins.}
+(for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins.}
 
 \item{color.palette}{a function that creates a color palette for the contour plot. Default goes from blue to white to red
 using the function \code{colorRampPalette(c("blue","white","red"))}. A few preset options are heat.colors, topo.colors, and terrain.colors.}
