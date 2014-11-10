@@ -11,7 +11,7 @@
 #' (subsequent qualifier/value columns could follow depending on the number of parameter codes)
 #' @export
 #' @examples
-#' library(dataRetrievaldemo)
+#' library(EGRET)
 #' \dontrun{
 #' rawSample <- readWQPqw('USGS-01594440','', '', '')
 #' rawSampleSelect <- processQWData(rawSample)

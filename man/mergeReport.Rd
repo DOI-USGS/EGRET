@@ -18,7 +18,7 @@ mergeReport(INFO, Daily, Sample, surfaces = NA, interactive = TRUE)
 }
 \value{
 eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.
-Any of these values can be NA, not all EGRETdemo functions will work with missing parts of the named list eList.
+Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
 }
 \description{
 Merges the flow data from the daily record into the sample record.

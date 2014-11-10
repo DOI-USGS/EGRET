@@ -1,4 +1,4 @@
-#' Import NWIS Daily Data for EGRETdemo analysis
+#' Import NWIS Daily Data for EGRET analysis
 #'
 #' Imports data from NWIS web service. This function gets the data from here: \url{http://waterservices.usgs.gov/}
 #' A list of parameter codes can be found here: \url{http://nwis.waterdata.usgs.gov/nwis/pmcodes/}
@@ -10,11 +10,11 @@
 #' @param endDate string ending date for data retrieval in the form YYYY-MM-DD.
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @param convert logical Option to include a conversion from cfs to cms (35.314667). The default is TRUE, 
-#' which is appropriate for using NWIS data in the EGRETdemo package.  Set this to FALSE to not include the conversion. If the parameter code is not 00060 (NWIS discharge),
+#' which is appropriate for using NWIS data in the EGRET package.  Set this to FALSE to not include the conversion. If the parameter code is not 00060 (NWIS discharge),
 #' there is no conversion applied.
 #' @keywords data import USGS WRTDS
 #' @export
-#' @import dataRetrievaldemo
+#' @import dataRetrieval
 #' @return Daily dataframe
 #' @seealso \code{\link{readNWISdv}}, \code{\link{populateDaily}}
 #' @examples

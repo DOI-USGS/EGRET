@@ -8,7 +8,7 @@
 #' @return INFO dataframe
 #' @export
 #' @examples
-#' library(dataRetrievaldemo)
+#' library(dataRetrieval)
 #' INFO <- readNWISsite('01594440')
 #' parameterCd <- "01075"
 #' parameterData <- readNWISpCode(parameterCd)

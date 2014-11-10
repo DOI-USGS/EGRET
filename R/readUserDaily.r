@@ -1,4 +1,4 @@
-#' Import user daily data for EGRETdemo analysis
+#' Import user daily data for EGRET analysis
 #'
 #' Imports data from a user-supplied file, and converts it to a Daily data frame, appropriate for WRTDS calculations.
 #'
@@ -13,7 +13,7 @@
 #' @export
 #' @return Daily dataframe
 #' @examples
-#' filePath <- system.file("extdata", package="EGRETdemo")
+#' filePath <- system.file("extdata", package="EGRET")
 #' fileName <- "ChoptankRiverFlow.txt"
 #' Daily <- readUserDaily(filePath,fileName,separator="\t")
 readUserDaily <- function (filePath,fileName,hasHeader=TRUE,separator=",",qUnit=1,interactive=TRUE){

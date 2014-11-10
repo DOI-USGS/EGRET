@@ -2,7 +2,7 @@
 #'
 #' Imports data from the Water Quality Portal, so it could be STORET, NWIS, or . This function gets the data from: \url{http://www.waterqualitydata.us}
 #' For raw data, use readWQPdata.  This function will retrieve the raw data, and compress it (summing constituents). See
-#' chapter 7 of the EGRETdemo user guide for more details, then converts it to the Sample dataframe structure.
+#' chapter 7 of the EGRET user guide for more details, then converts it to the Sample dataframe structure.
 #'
 #' @param siteNumber string site number.  If USGS, it should be in the form :'USGS-XXXXXXXXX...'
 #' @param characteristicName string
@@ -11,7 +11,7 @@
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @keywords data import USGS WRTDS
 #' @export
-#' @import dataRetrievaldemo
+#' @import dataRetrieval
 #' @return Sample dataframe
 #' @seealso \code{\link{readWQPdata}}, \code{\link{whatWQPsites}}, 
 #' \code{\link{readWQPqw}}, \code{\link{readNWISqw}}, 

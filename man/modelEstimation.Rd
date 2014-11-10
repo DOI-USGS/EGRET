@@ -23,7 +23,7 @@ modelEstimation(eList, windowY = 7, windowQ = 2, windowS = 0.5,
 }
 \value{
 eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.
-Any of these values can be NA, not all EGRETdemo functions will work with missing parts of the named list eList.
+Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
 }
 \description{
 This one function does a jack-knife cross-validation of a WRTDS model, fits the surface

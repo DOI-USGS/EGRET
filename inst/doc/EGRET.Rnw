@@ -1,9 +1,9 @@
-%\VignetteIndexEntry{Introduction to the EGRETdemo package}
+%\VignetteIndexEntry{Introduction to the EGRET package}
 %\VignetteEngine{knitr::knitr}
 %\VignetteDepends{}
-%\VignetteSuggests{xtable, dataRetrievaldemo,extrafont}
+%\VignetteSuggests{xtable, EGRET,extrafont}
 %\VignetteImports{methods,survival, fields}
-%\VignettePackage{EGRETdemo}
+%\VignettePackage{EGRET}
 
 \documentclass[a4paper,11pt]{article}
 
@@ -157,13 +157,13 @@ addSpace <- function(x) ifelse(x != "1", "[5pt]","")
 @
 
 %------------------------------------------------------------
-\title{Introduction to the EGRETdemo package}
+\title{Introduction to the EGRET package}
 %------------------------------------------------------------
 \author[1]{Robert M. Hirsch}
 \author[1]{Laura A. De Cicco}
 \affil[1]{United States Geological Survey}
 
-\noindent{\huge\textsf{\textbf{Introduction to the EGRETdemo package}}}
+\noindent{\huge\textsf{\textbf{Introduction to the EGRET package}}}
 
 \noindent\textsf{By Robert M. Hirsch and Laura A. De Cicco}
 
@@ -181,14 +181,14 @@ addSpace <- function(x) ifelse(x != "1", "[5pt]","")
 
 
 %------------------------------------------------------------
-\section{Introduction to Exploration and Graphics for RivEr Trends (EGRETdemo)}
+\section{Introduction to Exploration and Graphics for RivEr Trends (EGRET)}
 %------------------------------------------------------------ 
 
-EGRETdemo includes statistics and graphics for streamflow history, water quality trends, and the modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS). Please see the official EGRETdemo manual for more information on the EGRETdemo package.: 
+EGRET includes statistics and graphics for streamflow history, water quality trends, and the modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS). Please see the official EGRET manual for more information on the EGRET package.: 
 
 (\url{http://dx.doi.org/10.3133/tm4A10}) 
 
-\textbf{Note:} \textit{The \enquote{official EGRETdemo manual} currently shows a deprecated workflow (however the science and math is correct). This should be updated in the near future.}
+\textbf{Note:} \textit{The \enquote{official EGRET manual} currently shows a deprecated workflow (however the science and math is correct). This should be updated in the near future.}
 
 For information on getting started in R, downloading and installing the package, see section \ref{sec:appendix1}.
 
@@ -196,22 +196,22 @@ The best way to learn about the WRTDS approach and to see examples of its applic
 
 This vignette assumes that you understand the concepts underlying WRTDS, and reading at least the first of these papers is necessary for that understanding.  The method has been enhanced beyond what was previously published, and it now properly handles censored data by using survival regression rather than ordinary regression.  The details of this change are in a report on Chesapeake Bay river input trends \cite{HirschIV}:\url{http://pubs.usgs.gov/sir/2012/5244/}.  The specific enhancements for handling censored data are on pages 9-11 of the report.
 
-% This vignette guides you through the major functions provided by the EGRETdemo package. The package dataRetrievaldemo is required for importing data in an EGRETdemo-friendly format. The dataRetrievaldemo package and installation instructions are at:
+% This vignette guides you through the major functions provided by the EGRET package. The package EGRET is required for importing data in an EGRET-friendly format. The EGRET package and installation instructions are at:
 % 
-% \url{https://github.com/USGS-R/dataRetrievaldemo}. 
+% \url{https://github.com/USGS-R/EGRET}. 
 % 
-% Installing dataRetrievaldemo will provide a vignette similar to this document, with complete working examples of the main dataRetrievaldemo functions. This document assumes you are familiar with the dataRetrievaldemo package. Further details are in the user guide available on gitHub: \url{https://github.com/USGS-R/EGRETdemo/raw/master/inst/doc/EGRETdemo.pdf}
+% Installing EGRET will provide a vignette similar to this document, with complete working examples of the main EGRET functions. This document assumes you are familiar with the EGRET package. Further details are in the user guide available on gitHub: \url{https://github.com/USGS-R/EGRET/raw/master/inst/doc/EGRET.pdf}
 
 Any use of trade, firm, or product names is for descriptive purposes only and does not imply endorsement by the U.S. Government.
 
 %------------------------------------------------------------
-\section{EGRETdemo Workflow}
+\section{EGRET Workflow}
 %------------------------------------------------------------ 
-Subsequent sections of this vignette discuss the EGRETdemo workflow steps in greater detail. This section provides a handy cheat sheet for diving into an EGRETdemo analysis. The first example is for a flow history analysis:
+Subsequent sections of this vignette discuss the EGRET workflow steps in greater detail. This section provides a handy cheat sheet for diving into an EGRET analysis. The first example is for a flow history analysis:
 
 
 <<workflowFlowHistory, echo=TRUE,eval=FALSE>>=
-library(EGRETdemo)
+library(EGRET)
 
 # Flow history analysis
 
@@ -244,11 +244,11 @@ saveResults(savePath, INFO)
 
 @
 
-The second workflow example is for a water quality analysis. It includes data retrieval, merging of water quality and streamflow data, running the WRTDS estimation, and various plotting functions available in the EGRETdemo package.
+The second workflow example is for a water quality analysis. It includes data retrieval, merging of water quality and streamflow data, running the WRTDS estimation, and various plotting functions available in the EGRET package.
 
 
 <<workflowWaterQuality, echo=TRUE,eval=FALSE>>=
-library(EGRETdemo)
+library(EGRET)
 
 ############################
 # Gather discharge data:
@@ -343,17 +343,17 @@ saveResults(savePath, INFO)
 
 
 %------------------------------------------------------------ 
-\section{EGRETdemo Dataframes Data Retrieval Options}
+\section{EGRET Dataframes Data Retrieval Options}
 \label{sec:dataframes}
 %------------------------------------------------------------ 
-The EGRETdemo package uses 3 default dataframes throughout the calculations, analysis, and graphing. These dataframes are Daily (\ref{sec:dataframesDaily}), Sample (\ref{sec:dataframesSample}), and INFO (\ref{sec:dataframesINFO}). The dataframes are combined into a named list for all EGRET functions using the \texttt{as.egret} function (\ref{sec:eList}). 
+The EGRET package uses 3 default dataframes throughout the calculations, analysis, and graphing. These dataframes are Daily (\ref{sec:dataframesDaily}), Sample (\ref{sec:dataframesSample}), and INFO (\ref{sec:dataframesINFO}). The dataframes are combined into a named list for all EGRET functions using the \texttt{as.egret} function (\ref{sec:eList}). 
 
-A package that EGRET depends on is called dataRetrieval. This package provides the core functionality to import hydrologic data from USGS and EPA web services. See the dataRetrieval vignette for more information.
+A package that EGRET depends on is called EGRET. This package provides the core functionality to import hydrologic data from USGS and EPA web services. See the EGRET vignette for more information.
 
-EGRETdemo uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units, which will be discussed in (\ref{sec:units}). To start our exploration, you must install the packages (check Section \ref{sec:appendix1} for detailed instructions), and then open EGRETdemo with the following command:
+EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units, which will be discussed in (\ref{sec:units}). To start our exploration, you must install the packages (check Section \ref{sec:appendix1} for detailed instructions), and then open EGRET with the following command:
 
 <<openlibraries, echo=TRUE,eval=TRUE>>=
-library(EGRETdemo)
+library(EGRET)
 @
 
 %------------------------------------------------------------ 
@@ -423,7 +423,7 @@ Notice that the \enquote{Day of the year} column can span from 1 to 366. The 366
 
 The \texttt{readNWISDaily} function retrieves the daily values (discharge in this case) from a USGS web service.  It requires the inputs siteNumber, parameterCd, startDate, endDate, interactive, and convert. 
 
-These arguments are described in detail in the \texttt{dataRetrievaldemo} vignette, however \texttt{"}convert\texttt{"} is a new argument (which defaults to TRUE). The convert argument tells the program to convert the values from cubic feet per second (ft\textsuperscript{3}/s) to cubic meters per second (m\textsuperscript{3}/s) as shown in the example Daily data frame in Table \ref{table:Daily1}. For EGRETdemo applications with NWIS Web retrieval, do not use this argument (the default is TRUE), EGRETdemo assumes that discharge is always stored in units of cubic meters per second. If you don't want this conversion and are not using EGRETdemo, set convert=FALSE in the function call. 
+These arguments are described in detail in the \texttt{EGRET} vignette, however \texttt{"}convert\texttt{"} is a new argument (which defaults to TRUE). The convert argument tells the program to convert the values from cubic feet per second (ft\textsuperscript{3}/s) to cubic meters per second (m\textsuperscript{3}/s) as shown in the example Daily data frame in Table \ref{table:Daily1}. For EGRET applications with NWIS Web retrieval, do not use this argument (the default is TRUE), EGRET assumes that discharge is always stored in units of cubic meters per second. If you don't want this conversion and are not using EGRET, set convert=FALSE in the function call. 
 
 <<firstExample, echo=TRUE, eval=FALSE>>=
 siteNumber <- "01491000"
@@ -434,7 +434,7 @@ Daily <- readNWISDaily(siteNumber, "00060", startDate, endDate)
 @
 
 
-If discharge values are negative or zero, the code will set all of these values to zero and then add a small constant to all of the daily discharge values.  This constant is 0.001 times the mean discharge.  The code will also report on the number of zero and negative values and the size of the constant.  Use EGRETdemo analysis only if the number of zero values is a very small fraction of the total days in the record (say less than 0.1\% of the days), and there are no negative discharge values.  Columns Q7 and Q30 are the 7 and 30 day running averages for the 7 or 30 days ending on this specific date. Table \ref{tab:DailyDF1} lists details of the Daily data frame.
+If discharge values are negative or zero, the code will set all of these values to zero and then add a small constant to all of the daily discharge values.  This constant is 0.001 times the mean discharge.  The code will also report on the number of zero and negative values and the size of the constant.  Use EGRET analysis only if the number of zero values is a very small fraction of the total days in the record (say less than 0.1\% of the days), and there are no negative discharge values.  Columns Q7 and Q30 are the 7 and 30 day running averages for the 7 or 30 days ending on this specific date. Table \ref{tab:DailyDF1} lists details of the Daily data frame.
 
 Notice that the \enquote{Day of the year} column can span from 1 to 366. The 366 accounts for leap years. Every day has a consistent day of the year. This means, February 28\textsuperscript{th} is always the 59\textsuperscript{th} day of the year, Feb. 29\textsuperscript{th} is always the 60\textsuperscript{th} day of the year, and March 1\textsuperscript{st} is always the 61\textsuperscript{st} day of the year whether or not it is a leap year.
 
@@ -539,7 +539,7 @@ yHat\tnote{1} & number & estimate of the log of concentration & numeric \\
 \end{tabular}
 
   \begin{tablenotes}
-    \item[1] These estimates are \enquote{leave-one-out cross validation} estimates.  See the EGRETdemo Manual for more details.
+    \item[1] These estimates are \enquote{leave-one-out cross validation} estimates.  See the EGRET Manual for more details.
   \end{tablenotes}
  \end{threeparttable}
 }
@@ -640,7 +640,7 @@ Sample <-readUserSample(filePath,fileName,
 %------------------------------------------------------------
 In the typical case where none of the data are censored (that is, no values are reported as \enquote{less-than} values), the ConcLow = ConcHigh = ConcAve and Uncen = 1 are equal to the reported value.  For the most common type of censoring, where a value is reported as less than the reporting limit, then ConcLow = NA, ConcHigh = reporting limit, ConcAve = 0.5 * reporting limit, and Uncen = 0.
 
-To illustrate how the EGRETdemo package handles a more complex censoring problem, let us say that in 2004 and earlier, we computed total phosphorus (tp) as the sum of dissolved phosphorus (dp) and particulate phosphorus (pp). From 2005 and onward, we have direct measurements of total phosphorus (tp). A small subset of this fictional data looks like Table \ref{tab:exampleComplexQW}.
+To illustrate how the EGRET package handles a more complex censoring problem, let us say that in 2004 and earlier, we computed total phosphorus (tp) as the sum of dissolved phosphorus (dp) and particulate phosphorus (pp). From 2005 and onward, we have direct measurements of total phosphorus (tp). A small subset of this fictional data looks like Table \ref{tab:exampleComplexQW}.
 
 
 
@@ -667,11 +667,11 @@ print(xTab,
 
 @
 
-EGRETdemo will \enquote{add up} all the values in a given row to form the total for that sample when using the Sample dataframe. Thus, you only want to enter data that should be added together. If you want a dataframe with multiple constituents that are not summed, do not use \texttt{readNWISSample}, \texttt{readWQPSample}, or \texttt{readUserSample}. The raw data functions: \texttt{getWQPData}, \texttt{getNWISqwData}, \texttt{getWQPqwData}, \texttt{getWQPData} from the dataRetrieval package will not sum constituents, but leave them in their individual columns. 
+EGRET will \enquote{add up} all the values in a given row to form the total for that sample when using the Sample dataframe. Thus, you only want to enter data that should be added together. If you want a dataframe with multiple constituents that are not summed, do not use \texttt{readNWISSample}, \texttt{readWQPSample}, or \texttt{readUserSample}. The raw data functions: \texttt{getWQPData}, \texttt{getNWISqwData}, \texttt{getWQPqwData}, \texttt{getWQPData} from the EGRET package will not sum constituents, but leave them in their individual columns. 
 
 For example, we might know the value for dp on 5/30/2005, but we don't want to put it in the table because under the rules of this data set, we are not supposed to add it in to the values in 2005.
 
-For every sample, the EGRETdemo package requires a pair of numbers to define an interval in which the true value lies (ConcLow and ConcHigh). In a simple uncensored case (the reported value is above the detection limit), ConcLow equals ConcHigh and the interval collapses down to a single point. In a simple censored case, the value might be reported as \verb@<@0.2, then ConcLow=NA and ConcHigh=0.2. We use NA instead of 0 as a way to elegantly handle future logarithm calculations.
+For every sample, the EGRET package requires a pair of numbers to define an interval in which the true value lies (ConcLow and ConcHigh). In a simple uncensored case (the reported value is above the detection limit), ConcLow equals ConcHigh and the interval collapses down to a single point. In a simple censored case, the value might be reported as \verb@<@0.2, then ConcLow=NA and ConcHigh=0.2. We use NA instead of 0 as a way to elegantly handle future logarithm calculations.
 
 For the more complex example case, let us say dp is reported as \verb@<@0.01 and pp is reported as 0.3. We know that the total must be at least 0.3 and could be as much as 0.31. Therefore, ConcLow=0.3 and ConcHigh=0.31. Another case would be if dp is reported as \verb@<@0.005 and pp is reported \verb@<@0.2. We know in this case that the true value could be as low as zero, but could be as high as 0.205. Therefore, in this case, ConcLow=NA and ConcHigh=0.205. The Sample dataframe for the example data would be:
 
@@ -691,7 +691,7 @@ For the more complex example case, let us say dp is reported as \verb@<@0.01 and
 \subsection{INFO}
 \label{sec:dataframesINFO}
 %------------------------------------------------------------ 
-The INFO dataframe stores information about the measurements, such as station name, parameter name, drainage area, and so forth. There can be many additional, optional columns, but the columns in Table \ref{table:Info1} are required to initiate the EGRETdemo analysis. After you run the WRTDS calculations (as described in section \ref{sec:wrtds}), additional columns (Table \ref{table:Info2}) are automatically inserted into the INFO dataframe (see the EGRETdemo Manual for complete description of each term):
+The INFO dataframe stores information about the measurements, such as station name, parameter name, drainage area, and so forth. There can be many additional, optional columns, but the columns in Table \ref{table:Info1} are required to initiate the EGRET analysis. After you run the WRTDS calculations (as described in section \ref{sec:wrtds}), additional columns (Table \ref{table:Info2}) are automatically inserted into the INFO dataframe (see the EGRET Manual for complete description of each term):
 
 \begin{table}[!ht]
 {\footnotesize
@@ -756,7 +756,7 @@ bottomLogQ & Lowest discharge in prediction surfaces & numeric \\
 \label{sec:nwisINFO}
 %------------------------------------------------------------ 
 
-The function \texttt{readNWISInfo} combines \texttt{readNWISsite} and \texttt{readNWISpCode} from the dataRetrieval package, producing one dataframe called INFO.
+The function \texttt{readNWISInfo} combines \texttt{readNWISsite} and \texttt{readNWISpCode} from the EGRET package, producing one dataframe called INFO.
 
 <<ThirdExample, eval=FALSE>>=
 parameterCd <- "00618"
@@ -801,7 +801,7 @@ INFO$GreensboroPopulation <- 1931
 %------------------------------------------------------------
 Finally, there is a function called \texttt{mergeReport} that will look at both the Daily and Sample dataframe, and populate Q and LogQ columns into the Sample dataframe. Once \texttt{mergeReport} has been run, the Sample dataframe will be augmented with the daily discharges for all the days with samples, and a named list with all of the dataframes will be created.  In this vignette, we will refer to this named list as \texttt{eList}: it is a list with potentially 3 dataframes: Daily, Sample, and INFO. For flow history analysis, the Sample dataframe can be NA.You can use the function \texttt{as.egret} to create this \enquote{EGRET} object.
 
-None of the water quality functions in EGRETdemo will work without first having run the \texttt{mergeReport} function.
+None of the water quality functions in EGRET will work without first having run the \texttt{mergeReport} function.
 
 <<mergeExample, eval=FALSE>>=
 siteNumber <- "01491000"
@@ -852,7 +852,7 @@ eList_2 <- as.egret(INFO, DailyNew, getSample(eListNew), NA)
 \section{Units}
 \label{sec:units}
 %------------------------------------------------------------ 
-EGRETdemo uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units. The defaults are mg/L for concentration, cubic meters per second (m$^3$/s) for discharge, kg/day for flux, and km\textsuperscript{2} for drainage area. When discharge values are imported from USGS Web services, they are automatically converted from cubic feet per second (cfs) to cms unless the argument \texttt{"}convert\texttt{"} in function \texttt{readNWISDaily} is set to FALSE.  This can cause confusion if you are not careful. 
+EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units. The defaults are mg/L for concentration, cubic meters per second (m$^3$/s) for discharge, kg/day for flux, and km\textsuperscript{2} for drainage area. When discharge values are imported from USGS Web services, they are automatically converted from cubic feet per second (cfs) to cms unless the argument \texttt{"}convert\texttt{"} in function \texttt{readNWISDaily} is set to FALSE.  This can cause confusion if you are not careful. 
 
 For all functions that provide output, you can define two arguments to set the output units: qUnit and fluxUnit.  qUnit and fluxUnit are defined by either a numeric code or name.  You can call two functions that can be called to see the options: \texttt{printqUnitCheatSheet} and \texttt{printFluxUnitCheatSheet}.
 
@@ -875,7 +875,7 @@ When a function has an input argument fluxUnit, you can define the flux units wi
 \section{Flow History}
 \label{sec:flowHistory}
 %------------------------------------------------------------ 
-This section describes functions included in the EGRETdemo package that provide a variety of table and graphical outputs for examining discharge statistics based on time-series smoothing. These functions are designed for studies of long-term change and work best for daily discharge data sets of 50 years or longer. This type of analysis might be useful for studying issues such as the influence of land use change, water management change, or climate change on discharge conditions.  This includes potential impacts on average discharges, high discharges, and low discharges, at annual time scales as well as seasonal or monthly time scales. 
+This section describes functions included in the EGRET package that provide a variety of table and graphical outputs for examining discharge statistics based on time-series smoothing. These functions are designed for studies of long-term change and work best for daily discharge data sets of 50 years or longer. This type of analysis might be useful for studying issues such as the influence of land use change, water management change, or climate change on discharge conditions.  This includes potential impacts on average discharges, high discharges, and low discharges, at annual time scales as well as seasonal or monthly time scales. 
 
 Consider this example from Columbia River at The Dalles, OR.
 
@@ -893,7 +893,7 @@ eList <- as.egret(INFO, Daily, NA, NA)
 @
 
 <<flowHistoryLoad,echo=FALSE,eval=TRUE>>=
-filePath <- system.file("extdata", package="EGRETdemo")
+filePath <- system.file("extdata", package="EGRET")
 fileName <- "eListColumbia.RData"
 
 load(paste(filePath,fileName,sep="/"))
@@ -963,7 +963,7 @@ The next step can be to create the annual series of discharge statistics.  These
 \label{sec:plotOptions}
 %------------------------------------------------------------ 
 
-This section shows examples of the available plots appropriate for studying discharge history. The plots here use the default variable input options.  For any function, you can get a complete list of input variables (as described in section \ref{sec:flowHistoryVariables}) in a help file by typing a ? before the function name in the R console. The EGRETdemo manual has more detailed information for each plot type (\href{http://pubs.usgs.gov/tm/04/a10/}{link}). Finally, see section \ref{app:savingPlots} for information on saving plots.
+This section shows examples of the available plots appropriate for studying discharge history. The plots here use the default variable input options.  For any function, you can get a complete list of input variables (as described in section \ref{sec:flowHistoryVariables}) in a help file by typing a ? before the function name in the R console. The EGRET manual has more detailed information for each plot type (\href{http://pubs.usgs.gov/tm/04/a10/}{link}). Finally, see section \ref{app:savingPlots} for information on saving plots.
 
 The simplest way to look at these time series is with the function \texttt{plotFlowSingle}. The statistic index (istat) must be defined by the user, but for all other arguments there are default values so the user isn't required to specify anything else. To see a list of these optional arguments and other information about the function, type \text{?plotFlowSingle} in the R console. All of the graphs in \texttt{plotFlowSingle}, \texttt{plotFourStats}, and all but one of the graphs in plotFour, show both the individual annual values of the selected discharge statistic (e.g. the annual mean or 7-day minimum), but they also show a curve that is a smooth fit to those data.  The curve is a LOWESS (locally weighted scatterplot smooth).  The algorithm for computing it is provided in \cite{HirschV}:\url{http://pubs.usgs.gov/sir/2012/5151/}  (pages 6 and 7).  The default is that the annual values of the selected discharge statistics are smoothed with a \enquote{half-window width} of 30 years.  The smoothing window is an optional user-defined option. 
 
@@ -992,7 +992,7 @@ eListMerced <- as.egret(INFO, Daily, NA, NA)
 @
 
 <<Merceddata, echo=FALSE,eval=TRUE>>=
-filePath <- system.file("extdata", package="EGRETdemo")
+filePath <- system.file("extdata", package="EGRET")
 fileName <- "eListMerced.RData"
 
 load(paste(filePath,fileName,sep="/"))
@@ -1041,7 +1041,7 @@ eListMiss <- as.egret(INFO, Daily, NA, NA)
 @
 
 <<MissDataRetrieval, echo=FALSE, eval=TRUE>>=
-filePath <- system.file("extdata", package="EGRETdemo")
+filePath <- system.file("extdata", package="EGRET")
 fileName <- "eListMiss.RData"
 
 load(paste(filePath,fileName,sep="/"))
@@ -1408,7 +1408,7 @@ print(xtable(head(returnDF),
 @
 
 
-The other table option is \texttt{tableChange}. This is a function that provides for the computation of changes or slopes between any selected pairs of time points.  These computations are made only on the flow-normalized results. A detailed explaination of \enquote{flow-normalized} result is in the official EGRETdemo manual.
+The other table option is \texttt{tableChange}. This is a function that provides for the computation of changes or slopes between any selected pairs of time points.  These computations are made only on the flow-normalized results. A detailed explaination of \enquote{flow-normalized} result is in the official EGRET manual.
 
 
 <<tableChange1, eval=TRUE, echo=TRUE>>=
@@ -1444,7 +1444,7 @@ print(xtable(returnDF,
 \label{sec:extendedPlots}
 %------------------------------------------------------------ 
 
-The basic plotting options were shown in the section \ref{sec:wrtdsResults}.  This section demonstrates some ways to extend the capabilities of the EGRETdemo plots. EGRETdemo plots use R's basic plotting options. You set many of the formatting details of plotting routines in R by using \enquote{Graphical Parameters}.  To read about all of these graphical parameters see \texttt{?par}.  When the graphical functions in EGRETdemo are coded, a set of default values for many of these parameters are chosen, but you can override all of these default values. Additionally, you can add features to a plot after calling the plot function. To change the plot margins (mar), font, or other graphical parameters initially assigned, set the argument customPar to TRUE.
+The basic plotting options were shown in the section \ref{sec:wrtdsResults}.  This section demonstrates some ways to extend the capabilities of the EGRET plots. EGRET plots use R's basic plotting options. You set many of the formatting details of plotting routines in R by using \enquote{Graphical Parameters}.  To read about all of these graphical parameters see \texttt{?par}.  When the graphical functions in EGRET are coded, a set of default values for many of these parameters are chosen, but you can override all of these default values. Additionally, you can add features to a plot after calling the plot function. To change the plot margins (mar), font, or other graphical parameters initially assigned, set the argument customPar to TRUE.
 
 A few of R's base graphical parameters are especially useful within the plot functions. These are shown in Table \ref{table:tableChangeSingle}.
 
@@ -1466,7 +1466,7 @@ cex &  Size of data point symbols, relative to default & decimal number \\
 [5pt]lty & Line type number (such as dash or dot) & integer values\\
    \hline
 \end{tabular}
-\caption{Useful plotting parameters to adjust in EGRETdemo plotting functions.  For details of any of these see ?par.} 
+\caption{Useful plotting parameters to adjust in EGRET plotting functions.  For details of any of these see ?par.} 
 \label{table:tableChangeSingle}
 }
 \end{table}
@@ -1607,7 +1607,7 @@ mtext("Custom multi-pane graph using customPar", outer=TRUE, font=2)
 \section{Getting Started in R}
 \label{sec:appendix1}
 %------------------------------------------------------------ 
-This section describes the options for installing the EGRETdemo package.
+This section describes the options for installing the EGRET package.
 
 %------------------------------------------------------------
 \subsection{New to R?}
@@ -1627,19 +1627,19 @@ plotConcQ
 
 
 %------------------------------------------------------------
-\subsection{R User: Installing EGRETdemo}
+\subsection{R User: Installing EGRET}
 %------------------------------------------------------------ 
-To install the EGRETdemo packages and its dependencies:
+To install the EGRET packages and its dependencies:
 
 <<installFromCran,eval = FALSE>>=
-install.packages("EGRETdemo")
+install.packages("EGRET")
 @
 
 It is a good idea to re-start R after installing the package if installing an updated version. 
 
 After installing the package, you need to open the library each time you re-start R.  This is done with the simple command:
 <<openLibraryTest, eval=FALSE>>=
-library(EGRETdemo)
+library(EGRET)
 @
 
 \newpage

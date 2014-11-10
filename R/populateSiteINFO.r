@@ -8,7 +8,7 @@
 #' @return INFO dataframe
 #' @export
 #' @examples
-#' library(dataRetrievaldemo)
+#' library(dataRetrieval)
 #' INFO <- readNWISsite('01594440')
 #' siteNumber <- "01594440"
 #' siteINFO <- populateSiteINFO(INFO, siteNumber)

@@ -1,6 +1,6 @@
 #' Import Metadata for USGS Data
 #'
-#' Populates INFO data frame for EGRETdemo study.  If either station number or parameter code supplied, imports data about a particular USGS site from NWIS web service. 
+#' Populates INFO data frame for EGRET study.  If either station number or parameter code supplied, imports data about a particular USGS site from NWIS web service. 
 #' This function gets the data from here: \url{http://waterservices.usgs.gov/}
 #' A list of parameter codes can be found here: \url{http://nwis.waterdata.usgs.gov/nwis/pmcodes/}
 #' If either station number or parameter code is not supplied, the user will be asked to input data.
@@ -13,7 +13,7 @@
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @keywords data import USGS web service
 #' @export
-#' @import dataRetrievaldemo
+#' @import dataRetrieval
 #' @return INFO dataframe with at least param.nm, param.units, parameShortName, paramNumber
 #' @examples
 #' # These examples require an internet connection to run
@@ -29,7 +29,7 @@ readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
   INFO <- populateSiteINFO(INFO, siteNumber,interactive=interactive)
   
   if (nzchar(parameterCd)){
-    parameterData <- dataRetrievaldemo::readNWISpCode(parameterCd=parameterCd)
+    parameterData <- dataRetrieval::readNWISpCode(parameterCd=parameterCd)
     INFO$param.nm <- parameterData$parameter_nm
     INFO$param.units <- parameterData$parameter_units
     INFO$paramShortName <- parameterData$srsname
@@ -45,7 +45,7 @@ readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
 
 #' Import Metadata for Water Quality Portal Data
 #'
-#' Populates INFO data frame for EGRETdemo study. If siteNumber or parameter code (for USGS) or characteristic name 
+#' Populates INFO data frame for EGRET study. If siteNumber or parameter code (for USGS) or characteristic name 
 #' (for non-USGS) is provided, the function will make a call to the Water Quality Portal to get metadata information.
 #' staAbbrev - station abbreviation, will be used in naming output files and for structuring batch jobs
 #' constitAbbrev - constitute abbreviation
@@ -55,7 +55,7 @@ readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @keywords data import USGS web service WRTDS
 #' @export
-#' @import dataRetrievaldemo
+#' @import dataRetrieval
 #' @return INFO dataframe with agency, site, dateTime, value, and code columns
 #' @examples
 #' # These examples require an internet connection to run
@@ -79,7 +79,7 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=FALSE){
     
     siteInfo <- whatWQPsites(siteid=siteNumber, pCode=parameterCd)
 
-    parameterData <- dataRetrievaldemo::readNWISpCode(parameterCd = parameterCd)
+    parameterData <- dataRetrieval::readNWISpCode(parameterCd = parameterCd)
     
     siteInfo$param.nm <- parameterData$parameter_nm
     siteInfo$param.units <- parameterData$parameter_units
@@ -163,9 +163,9 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=FALSE){
 
 #' Import Metadata from User-Generated File
 #'
-#' Populates INFO data frame for EGRETdemo study. Accepts a user generated file with any metadata that might 
+#' Populates INFO data frame for EGRET study. Accepts a user generated file with any metadata that might 
 #' be important for the analysis. 
-#' Additionally, EGRETdemo analysis requires:"drainSqKm", "staAbbrev", "constitAbbrev", 
+#' Additionally, EGRET analysis requires:"drainSqKm", "staAbbrev", "constitAbbrev", 
 #' "param.units", "paramShortName","shortName". If interactive=TRUE, the function will ask for these
 #' fields if they aren't supplied in the file.
 #'
@@ -176,10 +176,10 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=FALSE){
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @keywords data import USGS web service WRTDS
 #' @export
-#' @import dataRetrievaldemo
+#' @import dataRetrieval
 #' @return INFO dataframe with agency, site, dateTime, value, and code columns
 #' @examples
-#' filePath <- system.file("extdata", package="dataRetrievaldemo")
+#' filePath <- system.file("extdata", package="dataRetrieval")
 #' filePath <- paste(filePath,"/",sep="")
 #' fileName <- 'infoTest.csv'
 #' INFO <- readUserInfo(filePath,fileName, separator=",",interactive=FALSE)
@@ -245,7 +245,7 @@ readUserInfo <- function(filePath,fileName,hasHeader=TRUE,separator=",",interact
     requiredColumns <- c("drainSqKm", "staAbbrev", "constitAbbrev", 
                          "param.units", "paramShortName","shortName")
     if(!all(requiredColumns %in% names(siteInfo))){
-      message("The following columns are expected in the EGRETdemo package:\n")
+      message("The following columns are expected in the EGRET package:\n")
       message(requiredColumns[!(requiredColumns %in% names(siteInfo))])
     }
   }

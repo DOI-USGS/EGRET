@@ -2,7 +2,7 @@
 \docType{data}
 \name{fluxConst}
 \alias{fluxConst}
-\title{Flux units included in EGRETdemo}
+\title{Flux units included in EGRET}
 \description{
 Flux units included:
 \tabular{lllll}{

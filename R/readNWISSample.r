@@ -1,4 +1,4 @@
-#' Import NWIS Sample Data for EGRETdemo analysis
+#' Import NWIS Sample Data for EGRET analysis
 #'
 #' Imports data from NWIS web service. This function gets the data from here: \url{http://nwis.waterdata.usgs.gov/nwis/qwdata/}
 #' A list of parameter codes can be found here: \url{http://nwis.waterdata.usgs.gov/nwis/pmcodes/}
@@ -12,6 +12,7 @@
 #' @param endDate string ending date for data retrieval in the form YYYY-MM-DD.
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @keywords data import USGS WRTDS
+#' @import dataRetrieval
 #' @export
 #' @return Sample dataframe
 #' @seealso \code{\link{compressData}}, \code{\link{populateSampleColumns}}, , \code{\link{readNWISSample}}

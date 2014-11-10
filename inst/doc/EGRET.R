@@ -23,7 +23,7 @@ addSpace <- function(x) ifelse(x != "1", "[5pt]","")
 
 
 ## ----workflowFlowHistory, echo=TRUE,eval=FALSE------------
-#  library(EGRETdemo)
+#  library(EGRET)
 #  
 #  # Flow history analysis
 #  
@@ -56,7 +56,7 @@ addSpace <- function(x) ifelse(x != "1", "[5pt]","")
 #  
 
 ## ----workflowWaterQuality, echo=TRUE,eval=FALSE-----------
-#  library(EGRETdemo)
+#  library(EGRET)
 #  
 #  ############################
 #  # Gather discharge data:
@@ -149,7 +149,7 @@ addSpace <- function(x) ifelse(x != "1", "[5pt]","")
 #  saveResults(savePath, INFO)
 
 ## ----openlibraries, echo=TRUE,eval=TRUE-------------------
-library(EGRETdemo)
+library(EGRET)
 
 ## ----firstExample, echo=TRUE, eval=FALSE------------------
 #  siteNumber <- "01491000"
@@ -287,7 +287,7 @@ printFluxUnitCheatSheet()
 #  
 
 ## ----flowHistoryLoad,echo=FALSE,eval=TRUE-----------------
-filePath <- system.file("extdata", package="EGRETdemo")
+filePath <- system.file("extdata", package="EGRET")
 fileName <- "eListColumbia.RData"
 
 load(paste(filePath,fileName,sep="/"))
@@ -313,7 +313,7 @@ plotSDLogQ(eList)
 #  eListMerced <- as.egret(INFO, Daily, NA, NA)
 
 ## ----Merceddata, echo=FALSE,eval=TRUE---------------------
-filePath <- system.file("extdata", package="EGRETdemo")
+filePath <- system.file("extdata", package="EGRET")
 fileName <- "eListMerced.RData"
 
 load(paste(filePath,fileName,sep="/"))
@@ -342,7 +342,7 @@ plotFourStats(eListMerced, qUnit=3)
 #  eListMiss <- as.egret(INFO, Daily, NA, NA)
 
 ## ----MissDataRetrieval, echo=FALSE, eval=TRUE-------------
-filePath <- system.file("extdata", package="EGRETdemo")
+filePath <- system.file("extdata", package="EGRET")
 fileName <- "eListMiss.RData"
 
 load(paste(filePath,fileName,sep="/"))
@@ -604,10 +604,10 @@ mtext("Custom multi-pane graph using customPar", outer=TRUE, font=2)
 #  plotConcQ
 
 ## ----installFromCran,eval = FALSE-------------------------
-#  install.packages("EGRETdemo")
+#  install.packages("EGRET")
 
 ## ----openLibraryTest, eval=FALSE--------------------------
-#  library(EGRETdemo)
+#  library(EGRET)
 
 ## ----label=getSiteApp, echo=TRUE,eval=TRUE----------------
 
