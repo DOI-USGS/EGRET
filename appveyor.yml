@@ -8,7 +8,7 @@ install:
   ps: Bootstrap
 
 build_script:
-  - travis-tool.sh install_github USGS-R/dataRetrievaldemo
+  - travis-tool.sh install_github USGS-R/dataRetrieval
   - travis-tool.sh install_deps
 
 test_script:

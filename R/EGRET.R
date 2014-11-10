@@ -1,7 +1,7 @@
-#' EGRETdemo package includes WRTDS and flowHistory
+#' EGRET package includes WRTDS and flowHistory
 #'
 #' \tabular{ll}{
-#' Package: \tab EGRETdemo\cr
+#' Package: \tab EGRET\cr
 #' Type: \tab Package\cr
 #' Version: \tab 1.2.4\cr
 #' Date: \tab 2014-06-28\cr
@@ -17,7 +17,7 @@
 #' Collection of functions to do WRTDS and flowHistory analysis,
 #'  and produce graphs and tables of data and results from these analyses.
 #'
-#' @name EGRETdemo-package
+#' @name EGRET-package
 #' @docType package
 #' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}, Laura De Cicco \email{ldecicco@@usgs.gov}
 #' @references Hirsch, R. M., Moyer, D. L. and Archfield, S. A. (2010), Weighted Regressions on Time, Discharge, and Season (WRTDS), with an Application to Chesapeake Bay River Inputs. JAWRA Journal of the American Water Resources Association, 46: 857-880. doi: 10.1111/j.1752-1688.2010.00482.x
@@ -31,7 +31,7 @@ NULL
 #'
 #' @name ChopDaily
 #' @docType data
-#' @source Data retrieved from NWIS water services (\url{http://waterservices.usgs.gov/}) via the dataRetrievaldemo R package.
+#' @source Data retrieved from NWIS water services (\url{http://waterservices.usgs.gov/}) via the EGRET R package.
 #' The USGS site id is 01491000. The period requested was 1979-10-01 to 2011-09-30. 
 #' @format Data frame with 11688 rows and 18 columns:
 #' \tabular{llll}{
@@ -70,7 +70,7 @@ NULL
 #' @name ChopSample
 #' @docType data
 #' @source Nitrate/nitrite data retrieved from National Water Quality Monitoring Council (NWQMC) Water Quality Portal
-#' (\url{http://www.waterqualitydata.us/}), and discharge retrieved from NWIS water services (\url{http://waterservices.usgs.gov/}), both via the dataRetrievaldemo R package.
+#' (\url{http://www.waterqualitydata.us/}), and discharge retrieved from NWIS water services (\url{http://waterservices.usgs.gov/}), both via the EGRET R package.
 #' The USGS site id is 01491000. The period requested was 1979-10-01 to 2011-09-30. The parameter was Inorganic nitrogen (nitrate and nitrite), 
 #' USGS parameter code 00631.
 #' @format Data frame with 606 rows and 17 columns:
@@ -109,7 +109,7 @@ NULL
 #' @name ChopINFO
 #' @docType data
 #' @source Parameter information (Nitrate/nitrite, USGS parameter code 00631) is found from NWISweb (\url{http://nwis.waterdata.usgs.gov/nwis/pmcodes/}), and station
-#' information is retrieved from NWIS water services (\url{http://waterservices.usgs.gov/}), both via the dataRetrievaldemo R package.
+#' information is retrieved from NWIS water services (\url{http://waterservices.usgs.gov/}), both via the EGRET R package.
 #' The USGS site id is 01491000. 
 #' @format Data frame with 1 row and 56 columns, some of which are described here:
 #' \tabular{lll}{
@@ -148,7 +148,7 @@ NULL
 #' @keywords water quality data
 NULL
 
-#' Flux units included in EGRETdemo
+#' Flux units included in EGRET
 #'
 #' Flux units included:
 #' \tabular{lllll}{
@@ -171,7 +171,7 @@ NULL
 #' @name fluxConst
 #' @docType data
 NULL
-#' Flow units included in EGRETdemo
+#' Flow units included in EGRET
 #'
 #' Flow units included:
 #' \tabular{llll}{
@@ -188,7 +188,7 @@ NULL
 #' @docType data
 NULL
 
-#' Month labels included in EGRETdemo
+#' Month labels included in EGRET
 #'
 #' Month labels
 #'
