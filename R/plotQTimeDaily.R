@@ -20,7 +20,7 @@
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.lab magnification to be used for x and y labels relative to the current setting of cex
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
-#' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRETdemo chooses the best margins depending on tinyPlot.
+#' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param logScale logical whether or not to use a log scale in the y axis. Default is FALSE.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow
