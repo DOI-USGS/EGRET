@@ -1,6 +1,6 @@
-Package: EGRETdemo
+Package: EGRET
 Type: Package
-Title: Exploration and Graphics for RivEr Trends (EGRETdemo), including
+Title: Exploration and Graphics for RivEr Trends (EGRET), including
     functions for WRTDS (Weighted Regressions on Time, Discharge, and Season)
     analysis
 Version: 2.0.0.9000
@@ -22,7 +22,7 @@ Copyright: This software is in the public domain because it contains materials
 Depends:
     R (>= 3.0)
 Imports:
-    dataRetrievaldemo,
+    dataRetrieval,
     survival,
     fields,
     stats,
