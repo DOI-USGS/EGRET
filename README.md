@@ -1,25 +1,25 @@
-`EGRETdemo`
+`EGRET`
 =============
 
-Linix: [![travis](https://travis-ci.org/USGS-R/EGRETdemo.svg?branch=master)](https://travis-ci.org/USGS-R/EGRETdemo)
+Linix: [![travis](https://travis-ci.org/USGS-R/EGRET.svg?branch=master)](https://travis-ci.org/USGS-R/EGRET)
 
 Windows: [![Build status](https://ci.appveyor.com/api/projects/status/a2kogyfplo3valdg?svg=true)](https://ci.appveyor.com/project/ldecicco-USGS/egret)
 
-Exploration and Graphics for RivEr Trends (`EGRETdemo`): 
+Exploration and Graphics for RivEr Trends (`EGRET`): 
 An R-package for the analysis of long-term changes in water quality and streamflow, 
 including the water-quality method Weighted Regressions on Time, Discharge, and Season (WRTDS)
 
-Evaluating long-term changes in river conditions (water quality and discharge) is an important use of hydrologic data. To carry out such evaluations, the hydrologist needs tools to facilitate several key steps in the process: acquiring the data records from a variety of sources, structuring it in ways that facilitate the analysis, routines that will process the data to extract information about changes that may be happening, and graphical techniques that can display findings about change. A pair of tightly linked R packages, called `dataRetrievaldemo` and `EGRETdemo` (Exploration and Graphics for RivEr Trends), have been developed for carrying out each of these steps in an integrated manner. They are designed to accept easily data from three sources: U.S. Geological Survey hydrologic data, Water Quality Portal Data (currently including U.S. Environmental Protection Agency (EPA) STORET data, and USDA STEWARDS data), and user-supplied flat files. The `dataRetrievaldemo` package not only serves as a "front end" to the `EGRETdemo` package, it can also be used to easily download many types of hydrologic data and organize it in ways that facilitate many other hydrologic applications. The `EGRETdemo` package has components oriented towards the description of long-term changes in streamflow statistics (high flow, average flow, and low flow) as well as changes in water quality. For the water-quality analysis, it uses Weighted Regressions on Time, Discharge and Season (WRTDS) to describe long-term trends in both concentration and flux. `EGRETdemo` also creates a wide range of graphical presentations of the water-quality data and of the WRTDS results. This report serves as a user guide to these two R packages, providing detailed guidance on installation and use of the software, documentation of the analysis methods used, as well as guidance on some of the kinds of questions and approaches that the software can facilitate.
+Evaluating long-term changes in river conditions (water quality and discharge) is an important use of hydrologic data. To carry out such evaluations, the hydrologist needs tools to facilitate several key steps in the process: acquiring the data records from a variety of sources, structuring it in ways that facilitate the analysis, routines that will process the data to extract information about changes that may be happening, and graphical techniques that can display findings about change. A pair of tightly linked R packages, called `EGRET` and `EGRET` (Exploration and Graphics for RivEr Trends), have been developed for carrying out each of these steps in an integrated manner. They are designed to accept easily data from three sources: U.S. Geological Survey hydrologic data, Water Quality Portal Data (currently including U.S. Environmental Protection Agency (EPA) STORET data, and USDA STEWARDS data), and user-supplied flat files. The `EGRET` package not only serves as a "front end" to the `EGRET` package, it can also be used to easily download many types of hydrologic data and organize it in ways that facilitate many other hydrologic applications. The `EGRET` package has components oriented towards the description of long-term changes in streamflow statistics (high flow, average flow, and low flow) as well as changes in water quality. For the water-quality analysis, it uses Weighted Regressions on Time, Discharge and Season (WRTDS) to describe long-term trends in both concentration and flux. `EGRET` also creates a wide range of graphical presentations of the water-quality data and of the WRTDS results. This report serves as a user guide to these two R packages, providing detailed guidance on installation and use of the software, documentation of the analysis methods used, as well as guidance on some of the kinds of questions and approaches that the software can facilitate.
 
 The link for the official USGS publication user guide is here:
 
 [http://pubs.usgs.gov/tm/04/a10/](http://pubs.usgs.gov/tm/04/a10/)
 
 Please visit the wiki for more information:
-[EGRETdemo Wiki](https://github.com/USGS-R/EGRETdemo/wiki)
+[EGRET Wiki](https://github.com/USGS-R/EGRET/wiki)
 
-An recent presentation on an overview of `dataRetrievaldemo` and `EGRETdemo` can be found here:
-[dataRetrievaldemo and EGRETdemo 2014-10-07.pdf](https://github.com/USGS-R/EGRETdemo/blob/gh-pages/images/dataRetrievaldemo%20and%20EGRET%202014-10-07.pdf?raw=true)
+An recent presentation on an overview of `EGRET` and `EGRET` can be found here:
+[EGRET and EGRET 2014-10-07.pdf](https://github.com/USGS-R/EGRET/blob/gh-pages/images/EGRET%20and%20EGRET%202014-10-07.pdf?raw=true)
 
 Subscribe
 ---------
@@ -31,9 +31,9 @@ Additionally, to subscribe to an email list concerning updates to these R packag
 Package Installation
 ---------------------------------
 
-To install the EGRETdemo and dataRetrievaldemo packages you need to be using R 3.0 or greater. Then use the following command:
+To install the EGRET and EGRET packages you need to be using R 3.0 or greater. Then use the following command:
 
-	install.packages(c("dataRetrievaldemo","EGRETdemo"), 
+	install.packages(c("EGRET","EGRET"), 
 	     repos=c("http://usgs-r.github.com","http://cran.us.r-project.org"),
 	     dependencies=TRUE)
 
@@ -60,7 +60,7 @@ Sample Workflow
 
 Load data from web services:
 
-	library(dataRetrievaldemo)
+	library(EGRET)
 	Daily <- readNWISDaily("06934500","00060","1979-10-01","2010-09-30")
 	Sample <-readNWISSample("06934500","00631","1970-10-01","2011-09-30")
 	INFO <-readNWISInfo("06934500","00631", interactive=FALSE)
@@ -68,8 +68,8 @@ Load data from web services:
 
 This is a sample workflow for using WRTDS on the Choptank River at Greensboro MD, for Nitrate:
 
-	library(dataRetrievaldemo)
-	library(EGRETdemo)
+	library(EGRET)
+	library(EGRET)
 	
 	############################
 	# Gather discharge data:
@@ -163,8 +163,8 @@ This is a sample workflow for using WRTDS on the Choptank River at Greensboro MD
 
 This is a sample workflow for a flowHistory application for the entire record.
 
-	library(dataRetrievaldemo)
-	library(EGRETdemo)
+	library(EGRET)
+	library(EGRET)
 	
 	# Flow history analysis
 	############################
@@ -199,13 +199,13 @@ This is a sample workflow for a flowHistory application for the entire record.
 Version updates
 ---------------
 
-###EGRETdemo 1.3.0
+###EGRET 1.3.0
 
 * July 31, 2014
 * Modified the smoothing algorithm in flowHistory and WRTDS to reduce "edge effects".  New smoother is the default, but original method is still available (see User Guide for details). The modified method tends to reduce curvature near the start and end of record.  It has no effect during the middle years of the data set.
 
 
-###EGRETdemo 1.2.5 
+###EGRET 1.2.5 
 * March 14, 2014
 * Added period of analysis control to all graphs and tables (with exception of plotContours, plotDiffContours, plotConcQSmooth, and plotConcTimeSmooth).  This allows these outputs to be limited to specific months of the year as determined by the user.
 * Changed default color palette for contour plots
