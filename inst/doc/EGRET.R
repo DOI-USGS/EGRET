@@ -37,7 +37,7 @@ addSpace <- function(x) ifelse(x != "1", "[5pt]","")
 #  # Here user must input some values for
 #  # the default (interactive=TRUE)
 #  INFO <- readNWISInfo(siteNumber,"00060")
-#  INFO$shortName <- "Choptank River at Greensboro, MD"
+#  INFO$shortName <- "Choptank River near Greensboro, MD"
 #  ############################
 #  
 #  ############################
@@ -52,7 +52,7 @@ addSpace <- function(x) ifelse(x != "1", "[5pt]","")
 #  
 #  # modify this for your own computer file structure:
 #  savePath<-"/Users/rhirsch/Desktop/"
-#  saveResults(savePath, INFO)
+#  saveResults(savePath, eList)
 #  
 
 ## ----workflowWaterQuality, echo=TRUE,eval=FALSE-----------
@@ -60,7 +60,7 @@ addSpace <- function(x) ifelse(x != "1", "[5pt]","")
 #  
 #  ############################
 #  # Gather discharge data:
-#  siteNumber <- "01491000" #Choptank River at Greensboro, MD
+#  siteNumber <- "01491000" #Choptank River near Greensboro, MD
 #  startDate <- "" #Gets earliest date
 #  endDate <- "2011-09-30"
 #  # Gather sample data:
