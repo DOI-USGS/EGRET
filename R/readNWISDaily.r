@@ -27,7 +27,7 @@ readNWISDaily <- function (siteNumber,parameterCd,
   data <- readNWISdv(siteNumber,parameterCd,startDate,endDate)
   
   #  need to setup conversion factor because the NWIS data are in cfs but we store in cms
-  names(data) <- c('agency', 'site', 'dateTime', 'code', 'value')  # do a merge instead?
+  names(data) <- c('agency', 'site', 'dateTime', 'tz_cd','code', 'value')  # do a merge instead?
   
   data$dateTime <- as.Date(data$dateTime)
   
