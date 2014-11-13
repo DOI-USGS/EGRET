@@ -44,8 +44,10 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' x <- ChopDaily$Date
-#' y <- ChopDaily$Q
+#' eList <- Choptank_eList
+#' Daily <- getDaily(eList)
+#' x <- Daily$Date
+#' y <- Daily$Q
 #' xlim <- c(min(x),max(x))
 #' ylim <- c(min(y),1.05*max(y))
 #' xlab <- "Date"
