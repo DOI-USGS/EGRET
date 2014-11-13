@@ -64,11 +64,10 @@ Load data from web services:
 	Daily <- readNWISDaily("06934500","00060","1979-10-01","2010-09-30")
 	Sample <-readNWISSample("06934500","00631","1970-10-01","2011-09-30")
 	INFO <-readNWISInfo("06934500","00631", interactive=FALSE)
-	Sample <-mergeReport(Daily, Sample)
+	eList <-mergeReport(Info, Daily, Sample)
 
 This is a sample workflow for using WRTDS on the Choptank River at Greensboro MD, for Nitrate:
 
-	library(EGRET)
 	library(EGRET)
 	
 	############################
@@ -93,40 +92,40 @@ This is a sample workflow for using WRTDS on the Choptank River at Greensboro MD
 	INFO$shortName <- "Choptank River at Greensboro, MD"
 	
 	# Merge discharge with sample data:
-	Sample <- mergeReport()
+	eList <- mergeReport(INFO, Daily, Sample)
 	############################
 	
 	############################
 	# Check sample data:
-	boxConcMonth()
-	boxQTwice()
-	plotConcTime()
-	plotConcQ()
-	multiPlotDataOverview()
+	boxConcMonth(eList)
+	boxQTwice(eList)
+	plotConcTime(eList)
+	plotConcQ(eList)
+	multiPlotDataOverview(eList)
 	############################
 	
 	############################
 	# Run WRTDS model:
-	modelEstimation()
+	eList <- modelEstimation(eList)
 	############################
 	
 	############################
 	#Check model results:
 	
-	#Require Sample + INFO:
-	plotConcTimeDaily()
-	plotFluxTimeDaily()
-	plotConcPred()
-	plotFluxPred()
-	plotResidPred()
-	plotResidQ()
-	plotResidTime()
-	boxResidMonth()
-	boxConcThree()
+	#eList:
+	plotConcTimeDaily(eList)
+	plotFluxTimeDaily(eList)
+	plotConcPred(eList)
+	plotFluxPred(eList)
+	plotResidPred(eList)
+	plotResidQ(eList)
+	plotResidTime(eList)
+	boxResidMonth(eList)
+	boxConcThree(eList)
 	
 	#Require Daily + INFO:
-	plotConcHist()
-	plotFluxHist()
+	plotConcHist(eList)
+	plotFluxHist(eList)
 	
 	# Multi-line plots:
 	date1 <- "2000-09-01"
@@ -134,7 +133,7 @@ This is a sample workflow for using WRTDS on the Choptank River at Greensboro MD
 	date3 <- "2009-09-01"
 	qBottom<-100
 	qTop<-5000
-	plotConcQSmooth(date1, date2, date3, qBottom, qTop, 
+	plotConcQSmooth(eList, date1, date2, date3, qBottom, qTop, 
 	                   concMax=2,qUnit=1)
 	q1 <- 10
 	q2 <- 25
@@ -142,10 +141,10 @@ This is a sample workflow for using WRTDS on the Choptank River at Greensboro MD
 	centerDate <- "07-01"
 	yearEnd <- 2009
 	yearStart <- 2000
-	plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd)
+	plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd)
 	
 	# Multi-plots:
-	fluxBiasMulti()
+	fluxBiasMulti(eList)
 	
 	#Contour plots:
 	clevel<-seq(0,2,0.5)
@@ -153,9 +152,9 @@ This is a sample workflow for using WRTDS on the Choptank River at Greensboro MD
 	yearStart <- 2000
 	yearEnd <- 2010
 	
-	plotContours(yearStart,yearEnd,qBottom,qTop, 
+	plotContours(eList, yearStart,yearEnd,qBottom,qTop, 
 	             contourLevels = clevel,qUnit=1)
-	plotDiffContours(yearStart,yearEnd,
+	plotDiffContours(eList, yearStart,yearEnd,
 	                 qBottom,qTop,maxDiff,qUnit=1)
 	# modify this for your own computer file structure
 	savePath<-"/Users/rhirsch/Desktop/" 
@@ -163,7 +162,6 @@ This is a sample workflow for using WRTDS on the Choptank River at Greensboro MD
 
 This is a sample workflow for a flowHistory application for the entire record.
 
-	library(EGRET)
 	library(EGRET)
 	
 	# Flow history analysis
@@ -178,26 +176,31 @@ This is a sample workflow for a flowHistory application for the entire record.
 	# the default (interactive=TRUE)
 	INFO<- readNWISInfo(siteID,"00060")
 	INFO$shortName <- "Choptank River at Greensboro, MD"
+	eList <- as.egret(INFO, Daily, NA, NA)
 	############################
 	
 	############################
 	# Check flow history data:
 	annualSeries <- makeAnnualSeries()
-	plotFlowSingle(istat=7,qUnit="thousandCfs")
-	plotSDLogQ()
-	plotQTimeDaily(qLower=1,qUnit=3)
-	plotFour(qUnit=3)
-	plotFourStats(qUnit=3)
+	plotFlowSingle(eList, istat=7,qUnit="thousandCfs")
+	plotSDLogQ(eList)
+	plotQTimeDaily(eList, qLower=1,qUnit=3)
+	plotFour(eList, qUnit=3)
+	plotFourStats(eList, qUnit=3)
 	############################
 
 	# modify this for your own computer file structure:
 	savePath<-"/Users/rhirsch/Desktop/" 
-	saveResults(savePath)
+	saveResults(savePath, eList)
 
 
 
 Version updates
 ---------------
+
+###EGRET 1.4.0
+* EGRET specific data retrieval functions moved from dataRetrieval to EGRET
+* eList - a named list of INFO, Daily, Sample, and surfaces is now used as the input to functions.
 
 ###EGRET 1.3.0
 
