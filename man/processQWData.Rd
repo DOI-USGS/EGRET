@@ -20,11 +20,14 @@ conditions to determine if a value is left censored or not. Censored values are 
 "<".  The dataframe is also converted from a long to wide format.
 }
 \examples{
-library(EGRET)
+library(dataRetrieval)
 \dontrun{
 rawSample <- readWQPqw('USGS-01594440','', '', '')
 rawSampleSelect <- processQWData(rawSample)
 }
+}
+\seealso{
+\code{\link[dataRetrieval]{readWQPqw}}
 }
 \keyword{USGS}
 \keyword{data}

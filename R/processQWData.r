@@ -10,8 +10,9 @@
 #' @return data dataframe with first column dateTime, and at least one qualifier and value columns
 #' (subsequent qualifier/value columns could follow depending on the number of parameter codes)
 #' @export
+#' @seealso \code{\link[dataRetrieval]{readWQPqw}}
 #' @examples
-#' library(EGRET)
+#' library(dataRetrieval)
 #' \dontrun{
 #' rawSample <- readWQPqw('USGS-01594440','', '', '')
 #' rawSampleSelect <- processQWData(rawSample)
