@@ -134,7 +134,7 @@ library(xtable)
 options(continue=" ")
 options(width=60)
 library(knitr)
-
+library(EGRET)
 @
 
 
