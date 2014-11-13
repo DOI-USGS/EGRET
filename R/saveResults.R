@@ -13,7 +13,7 @@
 #' saveResults(savePath, eList)
 #' 
 #' #To load:
-#' load(paste(savePath,"Chop.nitrogen.RData",sep=""))
+#' #load(paste(savePath,"Chop.nitrogen.RData",sep=""))
 saveResults<-function(savePath, eList){
   INFO <- getInfo(eList)
   saveName <- paste(savePath, INFO$staAbbrev, ".", INFO$constitAbbrev, 
