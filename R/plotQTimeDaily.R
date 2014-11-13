@@ -29,7 +29,7 @@
 #' eList <- Choptank_eList
 #' # Water year:
 #' plotQTimeDaily(eList)
-#' plotQTimeDaily(eList, startYear=1990, endYear=2000,qLower=1000)
+#' plotQTimeDaily(eList, startYear=1990, endYear=2000,qLower=1500)
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' plotQTimeDaily(eList)
@@ -38,7 +38,7 @@ plotQTimeDaily<-function (eList, startYear=NA, endYear=NA, qLower = NA, qUnit = 
                           cex.main = 1.2, cex.lab = 1.2, customPar=FALSE,...){
   
   localINFO <- getInfo(eList)
-  localDaily <- getDaily(eList)
+  localDailyOrig <- getDaily(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong
@@ -48,7 +48,13 @@ plotQTimeDaily<-function (eList, startYear=NA, endYear=NA, qLower = NA, qUnit = 
     paStart <- 10
   } 
 
-  localDaily <- if(paLong == 12) localDaily else selectDays(localDaily,paLong,paStart)
+  if(paLong == 12){
+    localDaily <- localDailyOrig
+  }  else {
+    localDailyReturned <- selectDays(localDailyOrig,paLong,paStart)
+    localDaily <- merge(localDailyOrig[,-2], localDailyReturned, all.x=TRUE)
+    
+  }
   
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   #########################################################
@@ -95,6 +101,9 @@ plotQTimeDaily<-function (eList, startYear=NA, endYear=NA, qLower = NA, qUnit = 
                        tinyPlot=tinyPlot, units=localINFO$param.units)
   yInfo <- generalAxis(x=yDaily, minVal=qLower, maxVal=1.05*max(yDaily), 
                        tinyPlot=tinyPlot,padPercent=0,logScale=logScale, units=localINFO$param.units)
+
+  yInfo$bottom <- max(yInfo$bottom,qLower, na.rm=TRUE)
+  yInfo$ticks[1] <- yInfo$bottom
 
   genericEGRETDotPlot(x=xDaily, y=yDaily, 
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
