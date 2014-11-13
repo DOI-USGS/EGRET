@@ -20,7 +20,7 @@ savePath <- "~/"
 saveResults(savePath, eList)
 
 #To load:
-load(paste(savePath,"Chop.nitrogen.RData",sep=""))
+#load(paste(savePath,"Chop.nitrogen.RData",sep=""))
 }
 \keyword{statistics}
 \keyword{water-quality}
