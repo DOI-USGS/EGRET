@@ -35,7 +35,7 @@ Additionally, to subscribe to an email list concerning updates to these R packag
 Package Installation
 ---------------------------------
 
-To install the EGRET package you need to be using R 3.0 or greater. Then use the following command:
+To install the `EGRET` package you need to be using R 3.0 or greater. Then use the following command:
 
 ```R
 	install.packages(c("EGRET"))
@@ -44,7 +44,7 @@ To install the EGRET package you need to be using R 3.0 or greater. Then use the
 
 Background Information
 ----------------------
-EGRET includes statistics and graphics for streamflow history, water quality trends, and the statistical modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS).  Please see the official EGRETdemo User Guide for more information on the EGRET package.:
+`EGRET` includes statistics and graphics for streamflow history, water quality trends, and the statistical modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS).  Please see the official EGRET User Guide for more information on the `EGRET` package.:
 
 (http://dx.doi.org/10.3133/tm4A10) 
 
