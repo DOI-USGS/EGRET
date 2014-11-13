@@ -9,17 +9,21 @@ Exploration and Graphics for RivEr Trends (`EGRET`):
 An R-package for the analysis of long-term changes in water quality and streamflow, 
 including the water-quality method Weighted Regressions on Time, Discharge, and Season (WRTDS)
 
-Evaluating long-term changes in river conditions (water quality and discharge) is an important use of hydrologic data. To carry out such evaluations, the hydrologist needs tools to facilitate several key steps in the process: acquiring the data records from a variety of sources, structuring it in ways that facilitate the analysis, routines that will process the data to extract information about changes that may be happening, and graphical techniques that can display findings about change. A pair of tightly linked R packages, called `EGRET` and `EGRET` (Exploration and Graphics for RivEr Trends), have been developed for carrying out each of these steps in an integrated manner. They are designed to accept easily data from three sources: U.S. Geological Survey hydrologic data, Water Quality Portal Data (currently including U.S. Environmental Protection Agency (EPA) STORET data, and USDA STEWARDS data), and user-supplied flat files. The `EGRET` package not only serves as a "front end" to the `EGRET` package, it can also be used to easily download many types of hydrologic data and organize it in ways that facilitate many other hydrologic applications. The `EGRET` package has components oriented towards the description of long-term changes in streamflow statistics (high flow, average flow, and low flow) as well as changes in water quality. For the water-quality analysis, it uses Weighted Regressions on Time, Discharge and Season (WRTDS) to describe long-term trends in both concentration and flux. `EGRET` also creates a wide range of graphical presentations of the water-quality data and of the WRTDS results. This report serves as a user guide to these two R packages, providing detailed guidance on installation and use of the software, documentation of the analysis methods used, as well as guidance on some of the kinds of questions and approaches that the software can facilitate.
+Evaluating long-term changes in river conditions (water quality and discharge) is an important use of hydrologic data. To carry out such evaluations, the hydrologist needs tools to facilitate several key steps in the process: acquiring the data records from a variety of sources, structuring it in ways that facilitate the analysis, routines that will process the data to extract information about changes that may be happening, and graphical techniques that can display findings about change. The R package `EGRET` (Exploration and Graphics for RivEr Trends) was developed for carrying out each of these steps in an integrated manner. It is designed to accept easily data from three sources: U.S. Geological Survey hydrologic data, Water Quality Portal Data (currently including U.S. Environmental Protection Agency (EPA) STORET data, and USDA STEWARDS data), and user-supplied flat files. The `EGRET` package has components oriented towards the description of long-term changes in streamflow statistics (high flow, average flow, and low flow) as well as changes in water quality. For the water-quality analysis, it uses Weighted Regressions on Time, Discharge and Season (WRTDS) to describe long-term trends in both concentration and flux. `EGRET` also creates a wide range of graphical presentations of the water-quality data and of the WRTDS results. The following report serves as a user guide, providing detailed guidance on installation and use of the software, documentation of the analysis methods used, as well as guidance on some of the kinds of questions and approaches that the software can facilitate.
 
 The link for the official USGS publication user guide is here:
 
 [http://pubs.usgs.gov/tm/04/a10/](http://pubs.usgs.gov/tm/04/a10/)
 
+Note: The "official EGRET User Guide" currently (2014-11-12) shows a workflow that has been superseded by
+the workflow shown in this vignette. However the science and math is the User Guide is correct. The User
+Guide is in the process of being updated and will be available at the URL shown above in the near future
+
 Please visit the wiki for more information:
 [EGRET Wiki](https://github.com/USGS-R/EGRET/wiki)
 
-An recent presentation on an overview of `EGRET` and `EGRET` can be found here:
-[EGRET and EGRET 2014-10-07.pdf](https://github.com/USGS-R/EGRET/blob/gh-pages/images/EGRET%20and%20EGRET%202014-10-07.pdf?raw=true)
+An recent presentation on an overview of `EGRET` can be found here:
+[EGRET and dataRetrieval 2014-10-07.pdf](https://github.com/USGS-R/EGRET/blob/gh-pages/images/EGRET%20and%20EGRET%202014-10-07.pdf?raw=true)
 
 Subscribe
 ---------
@@ -31,11 +35,10 @@ Additionally, to subscribe to an email list concerning updates to these R packag
 Package Installation
 ---------------------------------
 
-To install the EGRET and EGRET packages you need to be using R 3.0 or greater. Then use the following command:
+To install the EGRET package you need to be using R 3.0 or greater. Then use the following command:
+
 ```R
-	install.packages(c("EGRET","EGRET"), 
-	     repos=c("http://usgs-r.github.com","http://cran.us.r-project.org"),
-	     dependencies=TRUE)
+	install.packages(c("EGRET"))
 ```
 
 
@@ -64,11 +67,13 @@ Load data from web services:
 	Daily <- readNWISDaily("06934500","00060","1979-10-01","2010-09-30")
 	Sample <-readNWISSample("06934500","00631","1970-10-01","2011-09-30")
 	INFO <-readNWISInfo("06934500","00631", interactive=FALSE)
-	Sample <-mergeReport(Daily, Sample)
+
+	eList <-mergeReport(Info, Daily, Sample)
+
 ```
+
 This is a sample workflow for using WRTDS on the Choptank River at Greensboro MD, for Nitrate:
 ```R
-	library(EGRET)
 	library(EGRET)
 	
 	############################
@@ -93,40 +98,40 @@ This is a sample workflow for using WRTDS on the Choptank River at Greensboro MD
 	INFO$shortName <- "Choptank River at Greensboro, MD"
 	
 	# Merge discharge with sample data:
-	Sample <- mergeReport()
+	eList <- mergeReport(INFO, Daily, Sample)
 	############################
 	
 	############################
 	# Check sample data:
-	boxConcMonth()
-	boxQTwice()
-	plotConcTime()
-	plotConcQ()
-	multiPlotDataOverview()
+	boxConcMonth(eList)
+	boxQTwice(eList)
+	plotConcTime(eList)
+	plotConcQ(eList)
+	multiPlotDataOverview(eList)
 	############################
 	
 	############################
 	# Run WRTDS model:
-	modelEstimation()
+	eList <- modelEstimation(eList)
 	############################
 	
 	############################
 	#Check model results:
 	
-	#Require Sample + INFO:
-	plotConcTimeDaily()
-	plotFluxTimeDaily()
-	plotConcPred()
-	plotFluxPred()
-	plotResidPred()
-	plotResidQ()
-	plotResidTime()
-	boxResidMonth()
-	boxConcThree()
+	#eList:
+	plotConcTimeDaily(eList)
+	plotFluxTimeDaily(eList)
+	plotConcPred(eList)
+	plotFluxPred(eList)
+	plotResidPred(eList)
+	plotResidQ(eList)
+	plotResidTime(eList)
+	boxResidMonth(eList)
+	boxConcThree(eList)
 	
 	#Require Daily + INFO:
-	plotConcHist()
-	plotFluxHist()
+	plotConcHist(eList)
+	plotFluxHist(eList)
 	
 	# Multi-line plots:
 	date1 <- "2000-09-01"
@@ -134,7 +139,7 @@ This is a sample workflow for using WRTDS on the Choptank River at Greensboro MD
 	date3 <- "2009-09-01"
 	qBottom<-100
 	qTop<-5000
-	plotConcQSmooth(date1, date2, date3, qBottom, qTop, 
+	plotConcQSmooth(eList, date1, date2, date3, qBottom, qTop, 
 	                   concMax=2,qUnit=1)
 	q1 <- 10
 	q2 <- 25
@@ -142,10 +147,10 @@ This is a sample workflow for using WRTDS on the Choptank River at Greensboro MD
 	centerDate <- "07-01"
 	yearEnd <- 2009
 	yearStart <- 2000
-	plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd)
+	plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd)
 	
 	# Multi-plots:
-	fluxBiasMulti()
+	fluxBiasMulti(eList)
 	
 	#Contour plots:
 	clevel<-seq(0,2,0.5)
@@ -153,9 +158,9 @@ This is a sample workflow for using WRTDS on the Choptank River at Greensboro MD
 	yearStart <- 2000
 	yearEnd <- 2010
 	
-	plotContours(yearStart,yearEnd,qBottom,qTop, 
+	plotContours(eList, yearStart,yearEnd,qBottom,qTop, 
 	             contourLevels = clevel,qUnit=1)
-	plotDiffContours(yearStart,yearEnd,
+	plotDiffContours(eList, yearStart,yearEnd,
 	                 qBottom,qTop,maxDiff,qUnit=1)
 	# modify this for your own computer file structure
 	savePath<-"/Users/rhirsch/Desktop/" 
@@ -163,7 +168,6 @@ This is a sample workflow for using WRTDS on the Choptank River at Greensboro MD
 ```
 This is a sample workflow for a flowHistory application for the entire record.
 ```R
-	library(EGRET)
 	library(EGRET)
 	
 	# Flow history analysis
@@ -178,26 +182,33 @@ This is a sample workflow for a flowHistory application for the entire record.
 	# the default (interactive=TRUE)
 	INFO<- readNWISInfo(siteID,"00060")
 	INFO$shortName <- "Choptank River at Greensboro, MD"
+	eList <- as.egret(INFO, Daily, NA, NA)
 	############################
 	
 	############################
 	# Check flow history data:
 	annualSeries <- makeAnnualSeries()
-	plotFlowSingle(istat=7,qUnit="thousandCfs")
-	plotSDLogQ()
-	plotQTimeDaily(qLower=1,qUnit=3)
-	plotFour(qUnit=3)
-	plotFourStats(qUnit=3)
+	plotFlowSingle(eList, istat=7,qUnit="thousandCfs")
+	plotSDLogQ(eList)
+	plotQTimeDaily(eList, qLower=1,qUnit=3)
+	plotFour(eList, qUnit=3)
+	plotFourStats(eList, qUnit=3)
 	############################
 
 	# modify this for your own computer file structure:
 	savePath<-"/Users/rhirsch/Desktop/" 
-	saveResults(savePath)
+
+	saveResults(savePath, eList)
+
 ```
 
 
 Version updates
 ---------------
+
+###EGRET 1.4.0
+* EGRET specific data retrieval functions moved from dataRetrieval to EGRET
+* eList - a named list of INFO, Daily, Sample, and surfaces is now used as the input to functions.
 
 ###EGRET 1.3.0
 
@@ -231,4 +242,3 @@ This software is in the public domain because it contains materials that origina
 Although this software program has been used by the USGS, no warranty, expressed or implied, is made by the USGS or the U.S. Government as to the accuracy and functioning of the program and related program material nor shall the fact of distribution constitute any such warranty, and no responsibility is assumed by the USGS in connection therewith.
 
 This software is provided "AS IS."
-
