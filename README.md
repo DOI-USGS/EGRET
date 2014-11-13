@@ -32,11 +32,11 @@ Package Installation
 ---------------------------------
 
 To install the EGRET and EGRET packages you need to be using R 3.0 or greater. Then use the following command:
-
+```R
 	install.packages(c("EGRET","EGRET"), 
 	     repos=c("http://usgs-r.github.com","http://cran.us.r-project.org"),
 	     dependencies=TRUE)
-
+```
 
 
 Background Information
@@ -59,15 +59,15 @@ Sample Workflow
 ---------------
 
 Load data from web services:
-
+```R
 	library(EGRET)
 	Daily <- readNWISDaily("06934500","00060","1979-10-01","2010-09-30")
 	Sample <-readNWISSample("06934500","00631","1970-10-01","2011-09-30")
 	INFO <-readNWISInfo("06934500","00631", interactive=FALSE)
 	Sample <-mergeReport(Daily, Sample)
-
+```
 This is a sample workflow for using WRTDS on the Choptank River at Greensboro MD, for Nitrate:
-
+```R
 	library(EGRET)
 	library(EGRET)
 	
@@ -160,9 +160,9 @@ This is a sample workflow for using WRTDS on the Choptank River at Greensboro MD
 	# modify this for your own computer file structure
 	savePath<-"/Users/rhirsch/Desktop/" 
 	saveResults(savePath)
-
+```
 This is a sample workflow for a flowHistory application for the entire record.
-
+```R
 	library(EGRET)
 	library(EGRET)
 	
@@ -193,7 +193,7 @@ This is a sample workflow for a flowHistory application for the entire record.
 	# modify this for your own computer file structure:
 	savePath<-"/Users/rhirsch/Desktop/" 
 	saveResults(savePath)
-
+```
 
 
 Version updates
