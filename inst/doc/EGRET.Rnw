@@ -1136,9 +1136,9 @@ siteNumber <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "1979-10-01"
 endDate <- "2011-09-30"
 param<-"00631"
-Daily <- ChopDaily
-Sample <- ChopSample
-INFO <- ChopINFO
+Daily <- getDaily(eList)
+Sample <- getSample(eList)
+INFO <- getInfo(eList)
 eList <- Choptank_eList
 @
 
@@ -1258,10 +1258,10 @@ Check the help files or manual for more details on the following functions.  See
 
 
 <<getChopData1,echo=FALSE,eval=TRUE>>=
-# Sample <- ChopSample
-# Daily <- ChopDaily
-# INFO <- ChopINFO
-# surfaces <- exsurfaces
+# Sample <- getSample(eList)
+# Daily <- getDaily(eList)
+# INFO <- getInfo(eList)
+# surfaces <- getSurfaces(eList)
 eList <- Choptank_eList
 @
 

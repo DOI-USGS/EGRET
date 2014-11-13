@@ -34,7 +34,7 @@ formatCheckParameterCd <- function(parameterCd, interactive=TRUE){     #checks f
         warningMessage <- paste("Most USGS parameter codes are 5 digits long, you entered ", 
                                 i , ".\n",tempText," will be used instead", sep="")
         warning(warningMessage)
-        i <- padVariable(i,5)
+        i <- dataRetrieval::zeroPad(i,5)
       }
       
     } 

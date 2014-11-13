@@ -26,7 +26,8 @@ This function aggregates the results stored on a daily basis in the Daily data f
      A winter season of Dec, Jan, Feb would be paLong=3 and paStart=12
 }
 \examples{
-Daily <- ChopDaily
+eList <- Choptank_eList
+Daily <- getDaily(eList)
 AnnualResults <- setupYears(Daily, 4, 10)
 }
 \keyword{statistics}

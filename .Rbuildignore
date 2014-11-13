@@ -9,6 +9,6 @@ appveyor.yml
 ^\.Rproj\.Rhistory
 ^\.Rproj\.gitignore
 ^\.Rproj\.Rhistory
-^\.Rproj\.travis.yml
+.travis.yml
 ^\.Rproj\appveyor.yml
 ^\.Rproj\.RData

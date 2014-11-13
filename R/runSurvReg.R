@@ -26,7 +26,7 @@
 #' @examples
 #' estPtYear<-c(2001.0,2005.0,2009.0)
 #' estPtLQ<-c(1,1,1)
-#' Sample <- ChopSample
+#' Sample <- getSample(eList)
 #' numDays <- Sample$Julian[nrow(Sample)] - Sample$Julian[1] + 1
 #' DecLow <- Sample$DecYear[1]
 #' DecHigh <- Sample$DecYear[nrow(Sample)]

@@ -38,12 +38,15 @@ Thus it provides for a more "honest" estimate of model performance than a tradit
 error analysis that uses all the data.
 }
 \examples{
-Sample <- ChopSample
-Daily <- ChopDaily
+eList <- Choptank_eList
+Sample <- getSample(eList)
+Daily <- getDaily(eList)
 numDays <- length(Daily$DecYear)
 DecLow <- Daily$DecYear[1]
 DecHigh <- Daily$DecYear[numDays]
+\dontrun{
 SampleCrossV <- estCrossVal(numDays,DecLow,DecHigh,Sample)
+}
 }
 \keyword{statistics}
 \keyword{water-quality}

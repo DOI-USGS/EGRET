@@ -377,9 +377,9 @@ siteNumber <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "1979-10-01"
 endDate <- "2011-09-30"
 param<-"00631"
-Daily <- ChopDaily
-Sample <- ChopSample
-INFO <- ChopINFO
+Daily <- getDaily(eList)
+Sample <- getSample(eList)
+INFO <- getInfo(eList)
 eList <- Choptank_eList
 
 ## ----plotBoxes, echo=TRUE, fig.cap="Concentration box plots",fig.subcap=c("\\texttt{boxConcMonth(eList)}","\\texttt{boxQTwice(eList, qUnit=1)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h"----
@@ -418,10 +418,10 @@ flowDuration(eList, qUnit=1, centerDate="09-30", span=30)
 #  load(pathToFile)
 
 ## ----getChopData1,echo=FALSE,eval=TRUE--------------------
-# Sample <- ChopSample
-# Daily <- ChopDaily
-# INFO <- ChopINFO
-# surfaces <- exsurfaces
+# Sample <- getSample(eList)
+# Daily <- getDaily(eList)
+# INFO <- getInfo(eList)
+# surfaces <- getSurfaces(eList)
 eList <- Choptank_eList
 
 ## ----plotConcTimeDaily, echo=TRUE, fig.cap="Concentration and flux vs time",fig.subcap=c("\\texttt{plotConcTimeDaily(2008, 2010)}","\\texttt{plotFluxTimeDaily(2008, 2010)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h"----

@@ -185,7 +185,6 @@ This is a sample workflow for a flowHistory application for the entire record.
 	
 	############################
 	# Check flow history data:
-	annualSeries <- makeAnnualSeries()
 	plotFlowSingle(eList, istat=7,qUnit="thousandCfs")
 	plotSDLogQ(eList)
 	plotQTimeDaily(eList, qLower=1,qUnit=3)

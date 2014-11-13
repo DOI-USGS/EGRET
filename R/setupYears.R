@@ -16,7 +16,8 @@
 #' @return AnnualResults data frame with one row per year
 #' @export
 #' @examples 
-#' Daily <- ChopDaily
+#' eList <- Choptank_eList
+#' Daily <- getDaily(eList)
 #' AnnualResults <- setupYears(Daily, 4, 10)
 setupYears<-function(localDaily, paLong = 12, paStart = 10){
   # this function aggregates the results in the data frame Daily into annual values

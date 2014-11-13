@@ -11,7 +11,7 @@
 #' @export
 #' @return fluxBias a vector of three numerical values, a lower bound, upper bound and an average estimate of the ratio of (mean estimated flux - mean observed flux) / mean estimated flux.  Typically one should use fluxBias[3]
 #' @examples
-#' Sample <- ChopSample
+#' Sample <- getSample(eList)
 #' fluxBias <- fluxBiasStat(Sample) 
 fluxBiasStat<-function(localSample) {
   sumLow<-sum(localSample$ConcLow*localSample$Q,na.rm=TRUE)

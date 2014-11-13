@@ -24,20 +24,15 @@ Any of these values can be NA, not all EGRET functions will work with missing pa
 Merges the flow data from the daily record into the sample record.
 }
 \examples{
+\dontrun{
 siteNumber <- '01594440'
 pCode <- '01075'
 Daily <- readNWISDaily(siteNumber,'00060', '1985-01-01', '1990-03-31')
 Sample <- readNWISSample(siteNumber,pCode, '1985-01-01', '1990-03-31')
 INFO <- readNWISInfo(siteNumber,pCode,interactive=FALSE)
 eList <- mergeReport(INFO, Daily, Sample)
-Sample <- eList$Sample
-
-Daily2 <- ChopDaily
-Sample2 <- ChopSample
-INFO2 <- ChopINFO
-surfaces2 <- exsurfaces
-eList2 <- mergeReport(INFO2, Daily2, Sample2, surfaces2, FALSE)
-eList2
+eList
+}
 }
 \seealso{
 \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}

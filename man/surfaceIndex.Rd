@@ -15,7 +15,8 @@ surfaceIndexParameters a numeric vector of length 6, defining the grid for the s
 The code here is a repetition of the first part of the code for estSurfaces
 }
 \examples{
-Daily <- ChopDaily
+eList <- Choptank_eList
+Daily <- getDaily(eList)
 surfaceIndex(Daily)
 }
 \keyword{statistics}

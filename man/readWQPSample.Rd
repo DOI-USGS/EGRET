@@ -33,8 +33,8 @@ Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
 }
 }
 \seealso{
-\code{\link{readWQPdata}}, \code{\link{whatWQPsites}},
-\code{\link{readWQPqw}}, \code{\link{readNWISqw}},
+\code{\link[dataRetrieval]{readWQPdata}}, \code{\link[dataRetrieval]{whatWQPsites}},
+\code{\link[dataRetrieval]{readWQPqw}}, \code{\link[dataRetrieval]{readNWISqw}},
 \code{\link{compressData}}, \code{\link{populateSampleColumns}}
 }
 \keyword{USGS}

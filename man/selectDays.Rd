@@ -19,7 +19,8 @@ localDaily a data frame containing the daily data but only for the period of ana
 Function is not called by user, but is called by plotSDLogQ
 }
 \examples{
-Daily <- ChopDaily
+eList <- Choptank_eList
+Daily <- getDaily(eList)
 DailySubset <- selectDays(Daily, 4, 11)
 }
 \keyword{statistics}
