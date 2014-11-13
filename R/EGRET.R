@@ -3,8 +3,8 @@
 #' \tabular{ll}{
 #' Package: \tab EGRET\cr
 #' Type: \tab Package\cr
-#' Version: \tab 1.2.4\cr
-#' Date: \tab 2014-06-28\cr
+#' Version: \tab 2.0.0\cr
+#' Date: \tab 2014-11-13\cr
 #' License: \tab Unlimited for this package, dependencies have more restrictive licensing.\cr
 #' Copyright: \tab This software is in the public domain because it contains materials
 #' that originally came from the United States Geological Survey, an agency of

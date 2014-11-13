@@ -3,15 +3,15 @@ Type: Package
 Title: Exploration and Graphics for RivEr Trends (EGRET), including
     functions for WRTDS (Weighted Regressions on Time, Discharge, and Season)
     analysis
-Version: 2.0.0.9000
+Version: 2.0.0
 Date: 2014-10-13
-Authors@R: c( person("Robert", "Hirsch", role = c("aut","cre"),
+Authors@R: c( person("Robert", "Hirsch", role = c("aut"),
     email = "rhirsch@usgs.gov"),
     person("Laura", "DeCicco", role = c("aut","cre"),
     email = "ldecicco@usgs.gov"))
 Description: Estimates WRTDS (Weighted Regressions on Time, Discharge, and
     Season) model, makes plots of the raw data (water quality and streamflow)
-    as well as tables and graphs of results of the WRTDS analysis, and does
+    as well as tables and graphs of results of the WRTDS analysis, and 
     flowHistory analysis and graphs and tables
 License: Unlimited | file LICENSE
 Copyright: This software is in the public domain because it contains materials
@@ -36,4 +36,3 @@ LazyLoad: yes
 LazyData: yes
 VignetteBuilder: knitr
 BuildVignettes: true
-Additional_repositories: http://usgs-r.github.com
