@@ -8,10 +8,12 @@
 #' @return INFO dataframe
 #' @export
 #' @examples
+#' \dontrun{
 #' library(dataRetrieval)
 #' INFO <- readNWISsite('01594440')
 #' siteNumber <- "01594440"
 #' siteINFO <- populateSiteINFO(INFO, siteNumber)
+#' }
 populateSiteINFO <- function(INFO, siteNumber,interactive=TRUE){
   if (nzchar(siteNumber)){
     

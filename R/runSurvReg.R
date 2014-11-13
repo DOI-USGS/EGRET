@@ -24,6 +24,7 @@
 #' @return resultSurvReg numeric array containing the yHat, SE, and ConcHat values array dimensions are (numEstPts,3)
 #' @export
 #' @examples
+#' eList <- Choptank_eList
 #' estPtYear<-c(2001.0,2005.0,2009.0)
 #' estPtLQ<-c(1,1,1)
 #' Sample <- getSample(eList)
