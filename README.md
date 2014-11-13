@@ -35,7 +35,7 @@ Additionally, to subscribe to an email list concerning updates to these R packag
 Package Installation
 ---------------------------------
 
-To install the EGRET and EGRET packages you need to be using R 3.0 or greater. Then use the following command:
+To install the EGRET package you need to be using R 3.0 or greater. Then use the following command:
 
 ```R
 	install.packages(c("EGRET"))
