@@ -17,7 +17,7 @@ The link for the official USGS publication user guide is here:
 
 Note: The "official EGRET User Guide" currently (2014-11-12) shows a workflow that has been superseded by
 the workflow shown in this vignette. However the science and math is the User Guide is correct. The User
-Guide is in the process of being updated and will be available at the URL shown above in the near future
+Guide is in the process of being updated and will be available at the URL shown above in the near future.
 
 Please visit the wiki for more information:
 [EGRET Wiki](https://github.com/USGS-R/EGRET/wiki)
@@ -44,19 +44,17 @@ To install the EGRET package you need to be using R 3.0 or greater. Then use the
 
 Background Information
 ----------------------
+EGRET includes statistics and graphics for streamflow history, water quality trends, and the statistical modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS).  Please see the official EGRETdemo User Guide for more information on the EGRET package.:
 
-WRTDS is a method of analysis for long-term surface water quality data to evaluate trends and average concentrations and fluxes. It is intended for use with data sets of more than about 200 observations of water quality over a time span of about 20 years or more, but can be used with somewhat shorter data sets. There also needs to be a daily time series of streamflow data covering the entire period of the water quality data collection. The method can be used with smaller data sets, but some adjustments by the user are needed to make it work with less than 100 water quality observations. The best way to learn about the WRTDS approach and to see examples of its application to multiple large data sets is to read two journal articles. Both are available, for free, from the journals in which they were published.
+(http://dx.doi.org/10.3133/tm4A10) 
 
-The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay:
+The best ways to learn about the WRTDS approach is to read the User Guide and two journal articles. These articles are available, for free, from the journals in which they were published. The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay. The URL is:
 
-[Chesapeake Bay](http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full)
+[http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full](http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full). 
 
-The second is an application to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries:
+The second is an application to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries.  The URL is: 
 
-[Mississippi River](http://pubs.acs.org/doi/abs/10.1021/es201221s)
-
-The manual assumes that the user understands the concepts underlying WRTDS.  Thus, reading at least the first of these papers is necessary to understanding the manual.
-
+[http://pubs.acs.org/doi/abs/10.1021/es201221s](http://pubs.acs.org/doi/abs/10.1021/es201221s)
 
 Sample Workflow
 ---------------
