@@ -4,26 +4,26 @@
 #' mean flux, and flow-normalized flux. 
 #' Uses results stored in AnnualResults and INFO data frames.
 #'
-#' @param localDaily data frame that contains the flow data, default name is Daily
-#' @param localINFO data frame that contains the metadata, default name is INFO
+#' @param eList named list with at least Daily and INFO dataframes
 #' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param fluxUnit object of fluxUnit class. \code{\link{fluxConst}}, or numeric represented the short code, or character representing the descriptive name. 
-#' @param returnDataFrame logical.  If a dataframe is required, set this to TRUE.  Otherwise, the default is FALSE.
 #' @return results dataframe, if returnDataFrame=TRUE
 #' @keywords water-quality statistics
 #' @export
 #' @return dataframe with year, discharge, concentration, flow-normalized concentration, flux, and flow-normalized concentration columns. 
 #' @examples
-#' Daily <- ChopDaily
-#' INFO <- ChopINFO
+#' eList <- Choptank_eList
 #' # Water Year:
-#' tableResults(fluxUnit = 1)
-#' tableResults(fluxUnit = 'kgDay', qUnit = 'cms')
-#' returnedTable <- tableResults(fluxUnit = 1, returnDataFrame = TRUE)
+#' tableResults(eList, fluxUnit = 1)
+#' tableResults(eList, fluxUnit = 'kgDay', qUnit = 'cms')
+#' returnedTable <- tableResults(eList, fluxUnit = 1)
 #' # Winter:
-#' INFO <- setPA(paLong=3,paStart=12)
-#' tableResults(fluxUnit = 1)
-tableResults<-function(localDaily = Daily, localINFO = INFO, qUnit = 2, fluxUnit = 9, returnDataFrame = FALSE) {
+#' eList <- setPA(eList, paLong=3,paStart=12)
+#' tableResults(eList, fluxUnit = 1)
+tableResults<-function(eList, qUnit = 2, fluxUnit = 9) {
+  
+  localINFO <- getInfo(eList)
+  localDaily <- getDaily(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong
@@ -78,13 +78,9 @@ tableResults<-function(localDaily = Daily, localINFO = INFO, qUnit = 2, fluxUnit
   
   write.table(results,file="",quote=FALSE,col.names=FALSE,row.names=FALSE)
   
-  if (!returnDataFrame) {
-    return()
-  }
-  
   origNames <- names(results)
   results <- data.frame(apply(results, 2, function(x) as.numeric(gsub(" ","", as.character(x)))))
   names(results) <- origNames
   
-  return(results)  
+  invisible(results)  
 }

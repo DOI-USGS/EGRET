@@ -3,17 +3,12 @@
 \alias{boxConcThree}
 \title{Three box plots side-by-side}
 \usage{
-boxConcThree(localSample = Sample, localDaily = Daily, localINFO = INFO,
-  tinyPlot = FALSE, printTitle = TRUE, moreTitle = "WRTDS",
-  customPar = FALSE, font.main = 2, cex = 0.8, cex.main = 1.1,
-  cex.axis = 1.1, ...)
+boxConcThree(eList, tinyPlot = FALSE, printTitle = TRUE,
+  moreTitle = "WRTDS", customPar = FALSE, font.main = 2, cex = 0.8,
+  cex.main = 1.1, cex.axis = 1.1, ...)
 }
 \arguments{
-\item{localSample}{data frame that contains the concentration data, default name is Sample}
-
-\item{localDaily}{data frame that contains the flow data, default name is Daily}
-
-\item{localINFO}{data frame that contains the metadata, default name is INFO}
+\item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
 
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be plotted small as part of a multi-plot figure, default is FALSE.}
 
@@ -35,21 +30,19 @@ boxConcThree(localSample = Sample, localDaily = Daily, localINFO = INFO,
 }
 \description{
 This function is used to compare the distribution of concentration in the sample and predicted data set.
-Data come from three data frames created by the dataRetrieval package.
+Data come from three data frames created by the EGRET package.
 
 Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
 contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
 \code{boxConcThree()}
 }
 \examples{
-Sample <- ChopSample
-Daily <- ChopDaily
-INFO <- ChopINFO
+eList <- Choptank_eList
 # Water year:
-boxConcThree()
+boxConcThree(eList)
 # Graphs consisting of Jun-Aug
-INFO <- setPA(paStart=6,paLong=3)
-boxConcThree()
+eList <- setPA(eList, paStart=6,paLong=3)
+boxConcThree(eList)
 }
 \keyword{graphics}
 \keyword{statistics}

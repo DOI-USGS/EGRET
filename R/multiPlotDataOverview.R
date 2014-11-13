@@ -10,9 +10,7 @@
 #' contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
 #' \code{multiPlotDataOverview()}
 #'
-#' @param localSample data frame that contains the concentration data, default name is Sample
-#' @param localDaily data frame that contains the flow data, default name is Daily 
-#' @param localINFO data frame that contains the metadata, default name is INFO
+#' @param eList named list with at least Daily, Sample, and INFO dataframes
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param logScaleConc logical if TRUE y in concentration graphs plotted in log axis. Default is TRUE.
@@ -20,18 +18,16 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- ChopSample
-#' Daily <- ChopDaily
-#' INFO <- ChopINFO
+#' eList <- Choptank_eList
 #' # Water year:
-#' INFO <- setPA()
-#' multiPlotDataOverview(qUnit=1)
+#' multiPlotDataOverview(eList, qUnit=1)
 #' # Graphs consisting of Jun-Aug
-#' INFO <- setPA(paStart=6,paLong=3)
-#' multiPlotDataOverview(qUnit=1) 
-multiPlotDataOverview<-function (localSample = Sample, localDaily = Daily, 
-                                 localINFO = INFO, qUnit = 2,cex.main=1.2,
+#' eList <- setPA(eList, paStart=6,paLong=3)
+#' multiPlotDataOverview(eList, qUnit=1) 
+multiPlotDataOverview<-function (eList, qUnit = 2,cex.main=1.2,
                                  logScaleConc=TRUE, logScaleQ=TRUE){
+  
+  localINFO <- getInfo(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong
@@ -44,10 +40,10 @@ multiPlotDataOverview<-function (localSample = Sample, localDaily = Daily,
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   
   par(mfcol=c(2,2),oma=c(0,2.4,4.5,2.4),tcl=0.5)
-  plotConcQ(localSample = localSample, qUnit = qUnit, tinyPlot = TRUE, printTitle = FALSE,rmSciX=TRUE,logScale=logScaleConc)
-  boxConcMonth(localSample = localSample, printTitle = FALSE, tinyPlot=TRUE,logScale=logScaleConc)
-  plotConcTime(localSample = localSample, printTitle = FALSE, tinyPlot = TRUE,logScale=logScaleConc)
-  boxQTwice(localSample = localSample, localDaily = localDaily, printTitle = FALSE, qUnit = qUnit, tinyPlot=TRUE,logScale=logScaleQ)
+  plotConcQ(eList, qUnit = qUnit, tinyPlot = TRUE, printTitle = FALSE,rmSciX=TRUE,logScale=logScaleConc)
+  boxConcMonth(eList, printTitle = FALSE, tinyPlot=TRUE,logScale=logScaleConc)
+  plotConcTime(eList, printTitle = FALSE, tinyPlot = TRUE,logScale=logScaleConc)
+  boxQTwice(eList, printTitle = FALSE, qUnit = qUnit, tinyPlot=TRUE,logScale=logScaleQ)
   title<-paste(localINFO$shortName,"\n",localINFO$paramShortName)
   
   if("" == title2){

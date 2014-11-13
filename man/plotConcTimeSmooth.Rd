@@ -3,17 +3,18 @@
 \alias{plotConcTimeSmooth}
 \title{Plot up to three curves representing the concentration versus time relationship, each curve representing a different flow.}
 \usage{
-plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd, qUnit = 2,
-  legendLeft = 0, legendTop = 0, concMax = NA, concMin = NA,
-  bw = FALSE, printTitle = TRUE, colors = c("black", "red", "green"),
-  printValues = FALSE, localSample = Sample, localINFO = INFO,
-  tinyPlot = FALSE, minNumObs = 100, minNumUncen = 50, windowY = 10,
-  windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2,
-  printLegend = TRUE, cex.legend = 1.2, cex = 0.8, cex.axis = 1.1,
-  customPar = FALSE, lineVal = c(1, 1, 1), logScale = FALSE,
-  edgeAdjust = TRUE, ...)
+plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd,
+  qUnit = 2, legendLeft = 0, legendTop = 0, concMax = NA,
+  concMin = NA, bw = FALSE, printTitle = TRUE, colors = c("black",
+  "red", "green"), printValues = FALSE, tinyPlot = FALSE, minNumObs = 100,
+  minNumUncen = 50, windowY = 10, windowQ = 2, windowS = 0.5,
+  cex.main = 1.1, lwd = 2, printLegend = TRUE, cex.legend = 1.2,
+  cex = 0.8, cex.axis = 1.1, customPar = FALSE, lineVal = c(1, 1, 1),
+  logScale = FALSE, edgeAdjust = TRUE, ...)
 }
 \arguments{
+\item{eList}{named list with at least the Sample and INFO dataframes}
+
 \item{q1}{numeric This is the discharge value for the first curve to be shown on the plot. It is expressed in units specified by qUnit.}
 
 \item{q2}{numeric This is the discharge value for the second curve to be shown on the plot. It is expressed in units specified by qUnit. If you don't want a second curve then the argument must be q2=NA}
@@ -43,10 +44,6 @@ plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd, qUnit = 2,
 \item{colors}{color vector of lines on plot, see ?par 'Color Specification'. Defaults to c("black","red","green")}
 
 \item{printValues}{logical variable if TRUE the results shown on the graph are printed to the console and returned in a dataframe (this can be useful for quantifying the changes seen visually in the graph), default is FALSE (not printed)}
-
-\item{localSample}{data frame that contains the Sample data, default name is Sample}
-
-\item{localINFO}{data frame that contains the metadata, default name is INFO}
 
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE}
 
@@ -97,10 +94,9 @@ q3 <- 75
 centerDate <- "07-01"
 yearStart <- 2000
 yearEnd <- 2010
-Sample <- ChopSample
-INFO <- ChopINFO
-plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd)
-plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd,logScale=TRUE)
+eList <- Choptank_eList
+plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd)
+plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd,logScale=TRUE)
 }
 \keyword{graphics}
 \keyword{statistics}

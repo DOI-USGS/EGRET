@@ -3,19 +3,17 @@
 \alias{plotQTimeDaily}
 \title{Plot of the discharge time series}
 \usage{
-plotQTimeDaily(startYear = NA, endYear = NA, localDaily = Daily,
-  localINFO = INFO, qLower = NA, qUnit = 1, logScale = FALSE,
-  tinyPlot = FALSE, printTitle = TRUE, lwd = 3, col = "red",
-  cex.main = 1.2, cex.lab = 1.2, customPar = FALSE, ...)
+plotQTimeDaily(eList, startYear = NA, endYear = NA, qLower = NA,
+  qUnit = 1, logScale = FALSE, tinyPlot = FALSE, printTitle = TRUE,
+  lwd = 3, col = "red", cex.main = 1.2, cex.lab = 1.2,
+  customPar = FALSE, ...)
 }
 \arguments{
+\item{eList}{named list with at least the Daily and INFO dataframes}
+
 \item{startYear}{numeric indicating the starting year for the graph}
 
 \item{endYear}{numeric indicating the ending year for the graph (should be a time in decimal years that is after the last observations to be plotted)}
-
-\item{localDaily}{data frame that contains the flow data, default name is Daily}
-
-\item{localINFO}{data frame that contains the metadata, default name is INFO}
 
 \item{qLower}{numeric specifying the lower bound on discharges that are to be plotted, must be in the units specified by qUnit, default is NA (lower bound is zero)}
 
@@ -49,15 +47,13 @@ Allows discharge record to only show those discharges above a given threshold
  \code{plotQTimeDaily()}
 }
 \examples{
-Daily <- ChopDaily
-INFO <- ChopINFO
+eList <- Choptank_eList
 # Water year:
-INFO <- setPA()
-plotQTimeDaily()
-plotQTimeDaily(startYear=1990, endYear=2000,qLower=1000)
+plotQTimeDaily(eList)
+plotQTimeDaily(eList, startYear=1990, endYear=2000,qLower=1000)
 # Graphs consisting of Jun-Aug
-INFO <- setPA(paStart=6,paLong=3)
-plotQTimeDaily()
+eList <- setPA(eList, paStart=6,paLong=3)
+plotQTimeDaily(eList)
 }
 \keyword{graphics}
 \keyword{streamflow}

@@ -3,19 +3,17 @@
 \alias{plotConcHist}
 \title{Graph of annual concentration and flow normalized concentration versus year}
 \usage{
-plotConcHist(yearStart = NA, yearEnd = NA, localDaily = Daily,
-  localINFO = INFO, concMax = NA, printTitle = TRUE, tinyPlot = FALSE,
-  plotFlowNorm = TRUE, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
-  lwd = 2, col = "black", col.pred = "green", customPar = FALSE, ...)
+plotConcHist(eList, yearStart = NA, yearEnd = NA, concMax = NA,
+  printTitle = TRUE, tinyPlot = FALSE, plotFlowNorm = TRUE, cex = 0.8,
+  cex.axis = 1.1, cex.main = 1.1, lwd = 2, col = "black",
+  col.pred = "green", customPar = FALSE, ...)
 }
 \arguments{
+\item{eList}{named list with at least the Daily and INFO dataframes}
+
 \item{yearStart}{numeric is the calendar year containing the first estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)}
 
 \item{yearEnd}{numeric is the calendar year just after the last estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)}
-
-\item{localDaily}{data frame that contains the flow data, default name is Daily}
-
-\item{localINFO}{data frame that contains the metadata, default name is INFO}
 
 \item{concMax}{number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)}
 
@@ -57,14 +55,12 @@ contains an INFO, Daily, and AnnualResults (from either modelEstimation or setup
 \examples{
 yearStart <- 2001
 yearEnd <- 2010
-INFO <- ChopINFO
-Daily <- ChopDaily
+eList <- Choptank_eList
 # Water year:
-INFO <- setPA()
-plotConcHist(yearStart, yearEnd)
+plotConcHist(eList, yearStart, yearEnd)
 # Graphs consisting of Jun-Aug
-INFO <- setPA(paStart=6,paLong=3)
-plotConcHist(yearStart, yearEnd)
+eList <- setPA(eList, paStart=6,paLong=3)
+plotConcHist(eList, yearStart, yearEnd)
 }
 \seealso{
 \code{\link{setupYears}}

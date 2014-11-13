@@ -3,19 +3,16 @@
 \alias{printSeries}
 \title{Print annual results for a given streamflow statistic}
 \usage{
-printSeries(istat, qUnit = 1, runoff = FALSE, localINFO = INFO,
-  localAnnualSeries = annualSeries)
+printSeries(eList, istat, qUnit = 1, runoff = FALSE)
 }
 \arguments{
+\item{eList}{named list with at least the Daily and INFO dataframes}
+
 \item{istat}{A numeric value for the flow statistic to be graphed (possible values are 1 through 8)}
 
 \item{qUnit}{object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.}
 
 \item{runoff}{logical variable, if TRUE the streamflow data are converted to runoff values in mm/day}
-
-\item{localINFO}{data frame that contains the metadata, default is INFO}
-
-\item{localAnnualSeries}{data frame containing the annual series, default is AnnualSeries}
 }
 \description{
 Part of the flowHistory system.
@@ -25,10 +22,8 @@ The index of the flow statistics is istat.  These statistics are:
  User must have run setPA and makeAnnualSeries before this function.
 }
 \examples{
-INFO <- ChopINFO
-Daily <- ChopDaily
-annualSeries <- makeAnnualSeries()
-printSeries(5)
+eList <- Choptank_eList
+printReturn <- printSeries(eList, 5)
 }
 \keyword{statistics}
 \keyword{streamflow}

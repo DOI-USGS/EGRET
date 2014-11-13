@@ -3,21 +3,19 @@
 \alias{plotSDLogQ}
 \title{Graph of the standard deviation of the log of daily discharge versus year}
 \usage{
-plotSDLogQ(yearStart = NA, yearEnd = NA, window = 15,
-  localDaily = Daily, localINFO = INFO, sdMax = NA, printTitle = TRUE,
-  tinyPlot = FALSE, printStaName = TRUE, printPA = TRUE, cex = 0.8,
-  cex.main = 1.1, cex.axis = 1.1, lwd = 2, customPar = FALSE, ...)
+plotSDLogQ(eList, yearStart = NA, yearEnd = NA, window = 15, sdMax = NA,
+  printTitle = TRUE, tinyPlot = FALSE, printStaName = TRUE,
+  printPA = TRUE, cex = 0.8, cex.main = 1.1, cex.axis = 1.1, lwd = 2,
+  customPar = FALSE, ...)
 }
 \arguments{
+\item{eList}{named list with at least the Daily and INFO dataframes}
+
 \item{yearStart}{numeric is the calendar year of the first value to be included in graph, default is NA, which plots from the start of the period of record}
 
 \item{yearEnd}{numeric is the calendar year of the last value to be included in graph, default is NA, which plots to the end of the period of record}
 
 \item{window}{numeric which is the full width, in years, of the time window over which the standard deviation is computed, default = 15}
-
-\item{localDaily}{data frame that contains the daily streamflow data, default is Daily}
-
-\item{localINFO}{data frame that contains the metadata, default is INFO}
 
 \item{sdMax}{numeric is the maximum value to be used on the vertical axis of the graph, default is NA (which allows it to be set automatically by the data)}
 
@@ -55,15 +53,13 @@ Although there are a lot of optional arguments to this function, most are set to
  \code{plotSDLogQ()}
 }
 \examples{
-Daily <- ChopDaily
-INFO <- ChopINFO
+eList <- Choptank_eList
 # Water year:
-INFO <- setPA()
-plotSDLogQ()
-plotSDLogQ(1998,2000)
+plotSDLogQ(eList)
+plotSDLogQ(eList, 1998,2000)
 # Graphs consisting of Jun-Aug
-INFO <- setPA(paStart=6,paLong=3)
-plotSDLogQ()
+eList <- setPA(eList, paStart=6,paLong=3)
+plotSDLogQ(eList)
 }
 \keyword{graphics}
 \keyword{statistics}

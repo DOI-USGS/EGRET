@@ -3,15 +3,12 @@
 \alias{plotConcPred}
 \title{Plot of Observed Concentration versus Estimated Concentration}
 \usage{
-plotConcPred(localSample = Sample, localINFO = INFO, concMax = NA,
-  logScale = FALSE, printTitle = TRUE, tinyPlot = FALSE, cex = 0.8,
-  cex.axis = 1.1, cex.main = 1.1, customPar = FALSE, col = "black",
-  lwd = 1, ...)
+plotConcPred(eList, concMax = NA, logScale = FALSE, printTitle = TRUE,
+  tinyPlot = FALSE, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
+  customPar = FALSE, col = "black", lwd = 1, ...)
 }
 \arguments{
-\item{localSample}{data frame that contains the concentration data, default name is Sample}
-
-\item{localINFO}{data frame that contains the metadata, default name is INFO}
+\item{eList}{named list with at least the Sample and INFO dataframes}
 
 \item{concMax}{number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)}
 
@@ -45,14 +42,13 @@ contains an INFO and Sample dataframes, then the following R code will produce a
 \code{plotConcPred()}
 }
 \examples{
-Sample <- ChopSample
-INFO <- ChopINFO
+eList <- Choptank_eList
 # Water year:
-plotConcPred()
-plotConcPred(logScale=TRUE)
+plotConcPred(eList)
+plotConcPred(eList, logScale=TRUE)
 # Graphs consisting of Jun-Aug
-INFO <- setPA(paStart=6,paLong=3)
-plotConcPred()
+eList <- setPA(eList, paStart=6,paLong=3)
+plotConcPred(eList)
 }
 \keyword{graphics}
 \keyword{statistics}

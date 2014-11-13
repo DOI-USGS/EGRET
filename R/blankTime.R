@@ -7,24 +7,19 @@
 #'
 #' @param startBlank string specifying starting date of blank period, input in quotes in yyyy-mm-dd format
 #' @param endBlank string specifying the ending date of blank period, input in quotes in yyyy-mm-dd format
-#' @param localDaily string specifying the name of the data frame containing the daily values, default is Daily
+#' @param eList named list with at least the Daily dataframe
 #' @keywords water-quality statistics
 #' @return localDaily Daily data frame returned with NA's in sample gap
 #' @export
 #' @examples
 #' startBlank = "2004-10-01"
 #' endBlank = "2006-09-30"
-#' Daily <- ChopDaily
-#' Daily <- blankTime(startBlank, endBlank)
-blankTime<-function(startBlank, endBlank, localDaily = Daily) {
-  # this function is used after the model estimation is done
-  # it can be used more than once, for multiple blank periods
-  # the startBlank and endBlank variables must be in quotes and in yyyy-mm-dd format
-  # it is a good idea for startBlank to be the first day of some month
-  # it is a good idea for endBlank to be the last day of some month
-  # it is also a good idea for these to cover entire water years
-  #
-  #  code needs to include error handling for inputs
+#' eList <- Choptank_eList
+#' eList <- blankTime(eList, startBlank, endBlank)
+blankTime<-function(eList, startBlank, endBlank) {
+  
+  localDaily <- getDaily(eList)
+  
   startBlank<-as.Date(startBlank)
   endBlank<-as.Date(endBlank)
   startJulian<-as.numeric(julian(startBlank,origin=as.Date("1850-01-01")))
@@ -34,5 +29,8 @@ blankTime<-function(startBlank, endBlank, localDaily = Daily) {
   localDaily$FluxDay<-ifelse(bad,NA,localDaily$FluxDay)
   localDaily$FNConc<-ifelse(bad,NA,localDaily$FNConc)
   localDaily$FNFlux<-ifelse(bad,NA,localDaily$FNFlux)
-  return(localDaily)		
+  
+  eList$Daily <- localDaily
+  
+  return(eList)		
 }

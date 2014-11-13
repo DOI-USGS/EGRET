@@ -15,17 +15,21 @@
 #' 8 \tab  maximum 1-day daily mean discharge \cr  
 #' }
 #'
-#' @param localDaily data frame that contains the daily streamflow data
-#' @param localINFO data frame that contains the metadata
-#' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
+#' @param eList named list with at least Daily and INFO dataframes
+#' @param edgeAdjust logical specifying whether to use the modified method for 
+#' calculating the windows at the edge of the record.  The modified method tends to 
+#' reduce curvature near the start and end of record.  
+#' Default is TRUE, but a logical in INFO$edgeAdjust will override the default.
 #' @keywords statistics streamflow trends
 #' @export
 #' @return annualSeries data frame that contains the annual series of streamflow statistics
 #' @examples 
-#' Daily <- ChopDaily
-#' INFO <- ChopINFO
-#' annualSeries <- makeAnnualSeries()
-makeAnnualSeries<-function(localDaily = Daily, localINFO = INFO, edgeAdjust = TRUE) {
+#' eList <- Choptank_eList
+#' annualSeries <- makeAnnualSeries(eList)
+makeAnnualSeries<-function(eList, edgeAdjust = TRUE) {
+  
+  localINFO <- getInfo(eList)
+  localDaily <- getDaily(eList)
   
   if (sum(c("paStart", "paLong", "window") %in% names(localINFO)) == 
         3) {
@@ -37,6 +41,11 @@ makeAnnualSeries<-function(localDaily = Daily, localINFO = INFO, edgeAdjust = TR
     paStart <- 10
     window <- 20
   }
+  
+  if("edgeAdjust" %in% names(localINFO)){
+    edgeAdjust <- localINFO$edgeAdjust
+  }
+  
   numDays <- length(localDaily$DecYear)
   yearFirst <- trunc(localDaily$DecYear[1])
   yearLast <- trunc(localDaily$DecYear[numDays])

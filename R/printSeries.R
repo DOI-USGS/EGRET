@@ -6,20 +6,20 @@
 #' (5) mean, (6) 30-day maximum, (7) 7-day maximum, and (8) 1-day maximum. 
 #'  User must have run setPA and makeAnnualSeries before this function.
 #'
+#' @param eList named list with at least the Daily and INFO dataframes
 #' @param istat A numeric value for the flow statistic to be graphed (possible values are 1 through 8)
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param runoff logical variable, if TRUE the streamflow data are converted to runoff values in mm/day
-#' @param localINFO data frame that contains the metadata, default is INFO
-#' @param localAnnualSeries data frame containing the annual series, default is AnnualSeries
 #' @keywords streamflow statistics
 #' @export
 #' @examples
-#' INFO <- ChopINFO
-#' Daily <- ChopDaily
-#' annualSeries <- makeAnnualSeries()
-#' printSeries(5)
-printSeries<-function(istat, qUnit = 1, runoff = FALSE, localINFO = INFO, 
-                      localAnnualSeries = annualSeries) {
+#' eList <- Choptank_eList
+#' printReturn <- printSeries(eList, 5)
+printSeries<-function(eList, istat, qUnit = 1, runoff = FALSE) {
+  
+  localINFO <- getInfo(eList)
+  localAnnualSeries <- makeAnnualSeries(eList)
+  
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(qUnit)){
@@ -49,5 +49,5 @@ printSeries<-function(istat, qUnit = 1, runoff = FALSE, localINFO = INFO,
   toPrint$qSmooth<-format(toPrint$qSmooth,digits=3,width=8)
   write.table(toPrint,file="",col.names=FALSE,row.names=FALSE,quote=FALSE)
   
-  return(toPrint)
+  invisible(toPrint)
 }

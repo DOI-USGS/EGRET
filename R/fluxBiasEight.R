@@ -10,9 +10,7 @@
 #' contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
 #' \code{fluxBiasMulti()}
 #'
-#' @param localSample data frame that contains the concentration data, default name is Sample
-#' @param localDaily data frame that contains the flow data, default name is Daily 
-#' @param localINFO string specifying the name of the data frame that contains the metadata, default name is INFO
+#' @param eList named list with at least Sample, Daily, and INFO dataframes
 #' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param fluxUnit object of fluxUnit class. \code{\link{fluxConst}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param moreTitle string specifying some additional information to go in figure title, typically some information about the specific estimation method used, default is no additional information
@@ -25,23 +23,23 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- ChopSample
-#' Daily <- ChopDaily
-#' INFO <- ChopINFO
+#' eList <- Choptank_eList
 #' # Water year:
-#' INFO <- setPA()
 #' pdf("fluxBiasMulti.pdf", height=9, width=8)
-#' fluxBiasMulti()
+#' fluxBiasMulti(eList)
 #' dev.off()
 #' # Graphs consisting of Jun-Aug
-#' INFO <- setPA(paStart=6,paLong=3)
+#' eList <- setPA(eList,paStart=6,paLong=3)
 #' pdf("fluxBiasMultiSummer.pdf", height=9, width=8)
-#' fluxBiasMulti()
+#' fluxBiasMulti(eList)
 #' dev.off()
-fluxBiasMulti<-function (localSample = Sample, localDaily = Daily, 
-                         localINFO = INFO, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS", 
+fluxBiasMulti<-function (eList, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS", 
                          cex = 0.7, cex.axis = 1.1,cex.main=1.1,
                          col="black", lwd=1,...){
+  
+  localINFO <- getInfo(eList)
+  localSample <- getSample(eList)
+  localDaily <- getDaily(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong
@@ -55,7 +53,10 @@ fluxBiasMulti<-function (localSample = Sample, localDaily = Daily,
                          "mg/l as NO3","mg/l as P","mg/l as PO3","mg/l as PO4","mg/l as CaCO3",
                          "mg/l as Na","mg/l as H","mg/l as S","mg/l NH4" )
   
-  if(!(localINFO$param.units %in% possibleGoodUnits)){
+  allCaps <- toupper(possibleGoodUnits)
+  localUnits <- toupper(localINFO$param.units)
+  
+  if(!(localUnits %in% allCaps)){
     warning("Expected concentration units are mg/l, \nThe INFO dataframe indicates:",localINFO$param.units,
             "\nFlux calculations will be wrong if units are not consistent")
   }
@@ -63,31 +64,30 @@ fluxBiasMulti<-function (localSample = Sample, localDaily = Daily,
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   
   par(oma = c(0, 10, 4, 10),mfrow=c(4,2))
-  plotResidPred(localSample = localSample, localINFO = localINFO, 
+  plotResidPred(eList, 
                 stdResid = FALSE, tinyPlot=TRUE, printTitle = FALSE,cex=cex, 
                 cex.axis = cex.axis, col=col,lwd=lwd,...)
-  plotResidQ(localSample = localSample, localINFO = localINFO, 
+  plotResidQ(eList, 
              qUnit, tinyPlot = TRUE, printTitle = FALSE,cex=cex, 
              cex.axis = cex.axis, col=col,lwd=lwd,...)
-  plotResidTime(localSample = localSample, localINFO = localINFO, 
+  plotResidTime(eList, 
                 printTitle = FALSE, tinyPlot=TRUE,cex=cex, 
                 cex.axis = cex.axis, col=col,lwd=lwd,...)
-  boxResidMonth(localSample = localSample, localINFO = localINFO, 
+  boxResidMonth(eList, 
                 printTitle = FALSE, tinyPlot=TRUE,cex=cex, 
                 cex.axis = cex.axis,lwd=lwd,...)
-  boxConcThree(localSample = localSample, localDaily = localDaily, 
+  boxConcThree(eList, 
                localINFO = localINFO, printTitle=FALSE, tinyPlot=TRUE,cex=cex, 
                cex.axis = cex.axis, lwd=lwd,...)
-  plotConcPred(localSample = localSample, localINFO=localINFO, printTitle=FALSE, 
+  plotConcPred(eList, printTitle=FALSE, 
                tinyPlot=TRUE,cex=cex, 
                cex.axis = cex.axis, col=col,lwd=lwd,...)
-  boxQTwice(localSample = localSample, localDaily = localDaily, 
-            localINFO = localINFO, printTitle = FALSE, qUnit = qUnit,tinyPlot=TRUE,cex=cex, 
+  boxQTwice(eList, printTitle = FALSE, qUnit = qUnit,tinyPlot=TRUE,cex=cex, 
             cex.axis = cex.axis, lwd=lwd,...)
-  plotFluxPred(localSample = localSample, localINFO = localINFO, 
+  plotFluxPred(eList, 
                fluxUnit, tinyPlot = TRUE, printTitle = FALSE,cex=cex, 
                cex.axis = cex.axis, col=col,lwd=lwd,...)
-  fluxBias <- fluxBiasStat(localSample = localSample)
+  fluxBias <- fluxBiasStat(localSample)
   fB <- as.numeric(fluxBias[3])
   fB <- format(fB, digits = 3)
   title <- paste(localINFO$shortName, ", ", localINFO$paramShortName, 

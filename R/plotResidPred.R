@@ -10,8 +10,7 @@
 #'  contains an INFO and Sample dataframes, then the following R code will produce a plot:
 #'  \code{plotResidPred()}
 #'
-#' @param localSample data frame that contains the concentration data, default name is Sample
-#' @param localINFO data frame that contains the metadata, default name is INFO
+#' @param eList named list with at least the Sample and INFO dataframes
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
@@ -26,15 +25,13 @@
 #' @keywords water-quality statistics graphics
 #' @export
 #' @examples
-#' Sample <- ChopSample
-#' INFO <- ChopINFO
+#' eList <- Choptank_eList
 #' # Water year:
-#' INFO <- setPA()
-#' plotResidPred()
+#' plotResidPred(eList)
 #' # Graphs consisting of Jun-Aug
-#' INFO <- setPA(paStart=6,paLong=3)
-#' plotResidPred()
-plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE, 
+#' eList <- setPA(eList, paStart=6,paLong=3)
+#' plotResidPred(eList)
+plotResidPred<-function(eList, stdResid = FALSE, 
                         tinyPlot = FALSE, printTitle = TRUE, col="black",lwd=1,
                         cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,...){
   # this function shows residual versus estimated in log space
@@ -44,6 +41,9 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   # if stdResid=FALSE it just works with the regular residuals
   # if stdResid=TRUE it computes the standardized residual which is the residual/Sample$SE  
   
+  localINFO <- getInfo(eList)
+  localSample <- getSample(eList)
+  
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong
     paStart <- localINFO$paStart  
@@ -52,7 +52,7 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
     paStart <- 10
   }  
   
-  localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
+  localSample <- if(paLong == 12) localSample else selectDays(localSample,paLong,paStart)
   
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   
@@ -76,7 +76,6 @@ plotResidPred<-function(localSample = Sample, localINFO = INFO, stdResid = FALSE
   
   xInfo <- generalAxis(x=log(x), minVal=NA, maxVal=NA, tinyPlot=tinyPlot)
   yInfo <- generalAxis(x=yHigh, minVal=NA, maxVal=NA, tinyPlot=tinyPlot)
-#   yInfo <- generalAxis(x=yHigh, minVal=(min(yLow,na.rm=TRUE)-0.5), maxVal=(max(yHigh) + 0.1), tinyPlot=tinyPlot)
   
   genericEGRETDotPlot(x=log(x), y=yHigh,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,col=col,

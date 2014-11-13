@@ -8,8 +8,7 @@
 #' contains an INFO and Sample dataframes, then the following R code will produce a plot:
 #' \code{plotLogFluxQ()}
 #'
-#' @param localSample data frame that contains the concentration and discharge data, default name is Sample
-#' @param localINFO data frame that contains the metadata, default name is INFO
+#' @param eList named list with at least the Sample and INFO dataframes
 #' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param fluxUnit object of fluxUnit class. \code{\link{fluxConst}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param tinyPlot logical variable if TRUE plot is designed to fit into a multi-plot array, default is FALSE
@@ -28,22 +27,23 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- ChopSample
-#' INFO <- ChopINFO
+#' eList <- Choptank_eList
 #' # Water year:
-#' INFO <- setPA()
-#' plotFluxQ(qUnit = 1, fluxUnit = 1)
-#' plotFluxQ(fluxUnit = 'kgDay')
-#' plotFluxQ()
+#' plotFluxQ(eList, qUnit = 1, fluxUnit = 1)
+#' plotFluxQ(eList, fluxUnit = 'kgDay')
+#' plotFluxQ(eList)
 #' # Graphs consisting of Jun-Aug
-#' INFO <- setPA(paStart=6,paLong=3)
-#' plotFluxQ()
-plotFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2,logScale=TRUE,
+#' eList <- setPA(eList, paStart=6,paLong=3)
+#' plotFluxQ(eList)
+plotFluxQ<-function(eList, qUnit = 2,logScale=TRUE,
                        fluxUnit = 3, tinyPlot = FALSE, fluxMax = NA, fluxMin = NA, col="black",lwd=1,
                        printTitle = TRUE,cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,...){
   # this function shows the sample data,
   # discharge on x-axis on a log scale,
   # flux on y-axis on a log scale
+  
+  localINFO <- getInfo(eList)
+  localSample <- getSample(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong
@@ -57,12 +57,15 @@ plotFluxQ<-function(localSample = Sample,localINFO = INFO, qUnit = 2,logScale=TR
                          "mg/l as NO3","mg/l as P","mg/l as PO3","mg/l as PO4","mg/l as CaCO3",
                          "mg/l as Na","mg/l as H","mg/l as S","mg/l NH4" )
   
-  if(!(localINFO$param.units %in% possibleGoodUnits)){
+  allCaps <- toupper(possibleGoodUnits)
+  localUnits <- toupper(localINFO$param.units)
+  
+  if(!(localUnits %in% allCaps)){
     warning("Expected concentration units are mg/l, \nThe INFO dataframe indicates:",localINFO$param.units,
             "\nFlux calculations will be wrong if units are not consistent")
   }
   
-  localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
+  localSample <- if(paLong == 12) localSample else selectDays(localSample,paLong,paStart)
   
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   

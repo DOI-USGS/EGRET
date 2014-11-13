@@ -3,15 +3,12 @@
 \alias{plotResidTime}
 \title{Plot of the residuals from WRTDS (in log concentration units) versus time}
 \usage{
-plotResidTime(localSample = Sample, localINFO = INFO, stdResid = FALSE,
-  printTitle = TRUE, hLine = TRUE, tinyPlot = FALSE, col = "black",
-  lwd = 1, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
-  customPar = FALSE, ...)
+plotResidTime(eList, stdResid = FALSE, printTitle = TRUE, hLine = TRUE,
+  tinyPlot = FALSE, col = "black", lwd = 1, cex = 0.8, cex.axis = 1.1,
+  cex.main = 1.1, customPar = FALSE, ...)
 }
 \arguments{
-\item{localSample}{data frame that contains the concentration data, default name is Sample}
-
-\item{localINFO}{data frame that contains the metadata, default name is INFO}
+\item{eList}{named list with at least the Sample and INFO dataframes}
 
 \item{stdResid}{logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE}
 
@@ -46,14 +43,12 @@ It also provides an alternative for viewing the standardized residuals, where th
  \code{plotResidTime()}
 }
 \examples{
-Sample <- ChopSample
-INFO <- ChopINFO
+eList <- Choptank_eList
 # Water year:
-INFO <- setPA()
-plotResidTime()
+plotResidTime(eList)
 # Graphs consisting of Jun-Aug
-INFO <- setPA(paStart=6,paLong=3)
-plotResidTime()
+eList <- setPA(eList, paStart=6,paLong=3)
+plotResidTime(eList)
 }
 \keyword{graphics}
 \keyword{statistics}

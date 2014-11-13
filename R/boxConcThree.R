@@ -2,15 +2,13 @@
 #'
 #' @description
 #' This function is used to compare the distribution of concentration in the sample and predicted data set.
-#' Data come from three data frames created by the dataRetrieval package. 
+#' Data come from three data frames created by the EGRET package. 
 #' 
 #' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
 #' contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
 #' \code{boxConcThree()}
 #'
-#' @param localSample data frame that contains the concentration data, default name is Sample
-#' @param localDaily data frame that contains the flow data, default name is Daily
-#' @param localINFO data frame that contains the metadata, default name is INFO
+#' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
 #' @param font.main font to be used for plot main titles
 #' @param moreTitle string specifying some additional information to go in figure title, typically some information about the specific estimation method used, default is no additional information
@@ -23,17 +21,19 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- ChopSample
-#' Daily <- ChopDaily
-#' INFO <- ChopINFO
+#' eList <- Choptank_eList
 #' # Water year:
-#' boxConcThree()
+#' boxConcThree(eList)
 #' # Graphs consisting of Jun-Aug
-#' INFO <- setPA(paStart=6,paLong=3)
-#' boxConcThree()
-boxConcThree<-function (localSample = Sample, localDaily = Daily, localINFO = INFO, tinyPlot=FALSE,
+#' eList <- setPA(eList, paStart=6,paLong=3)
+#' boxConcThree(eList)
+boxConcThree<-function (eList, tinyPlot=FALSE,
                         printTitle = TRUE, moreTitle = "WRTDS",customPar=FALSE,
                         font.main=2,cex=0.8,cex.main = 1.1, cex.axis = 1.1,...){
+  
+  localINFO <- getInfo(eList)
+  localSample <- getSample(eList)
+  localDaily <- getDaily(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong
@@ -43,8 +43,8 @@ boxConcThree<-function (localSample = Sample, localDaily = Daily, localINFO = IN
     paStart <- 10
   } 
   
-  localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
-  localDaily <- if(paLong == 12) localDaily else selectDays(paLong,paStart,localDaily=localDaily)
+  localSample <- if(paLong == 12) localSample else selectDays(localSample,paLong,paStart)
+  localDaily <- if(paLong == 12) localDaily else selectDays(localDaily, paLong,paStart)
   
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   

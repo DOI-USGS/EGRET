@@ -8,6 +8,7 @@
 #' contains an INFO, and Daily dataframes, surface array from modelEstimation, the max change in concentration to plot, year and flow limits, then the following R code will produce a plot:
 #' \code{plotDiffContours(year0,year1,qBottom,qTop,maxDiff)} 
 #'
+#' @param eList named list with at least the Daily and INFO dataframes, and surfaces matrix
 #' @param year0 numeric value for the calendar year that is the first year of the pair of years for the analysis, should be a whole number
 #' @param year1 numeric value for the calendar year that is the second year of the pair of years for the analysis, should be a whole number
 #' @param qBottom numeric value for the bottom edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit)
@@ -16,9 +17,6 @@
 #' a vector with the minimum and maximum values in the change in concentration scale.
 #' @param whatSurface numeric value, can only accept 1, 2, or 3;  whatSurface=1 is yHat (log concentration), whatSurface=2 is SE (standard error of log concentration), and whatSurface=3 is ConcHat (unbiased estimate of concentration), default = 3
 #' @param plotPercent logical. If TRUE, plots percent difference, if FALSE, plots absolute differences. Defaults to FALSE.
-#' @param localsurfaces matrix that contains the estimated surfaces, default is surfaces
-#' @param localINFO data frame that contains the metadata, default name is INFO
-#' @param localDaily data frame that contains the daily data, default name is Daily
 #' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param span numeric, it is the half-width (in days) of the smoothing window for computing the flow duration information, default = 60
 #' @param pval numeric, the probability value for the lower flow frequency line on the graph
@@ -46,25 +44,33 @@
 #' qBottom<-0.5
 #' qTop<-20
 #' maxDiff<-0.5
-#' surfaces <- exsurfaces
-#' INFO <- ChopINFO
-#' Daily <- ChopDaily
-#' plotDiffContours(year0,year1,qBottom,qTop,maxDiff)
-#' yTicksModified <- c(.1,1,10,25)
-#' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,yTicks=yTicksModified,flowDuration=FALSE)
+#' eList <- Choptank_eList
+#' plotDiffContours(eList, year0,year1,qBottom,qTop,maxDiff)
+#'        yTicksModified <- c(.1,1,10,25)
+#' plotDiffContours(eList, year0, year1,qBottom,qTop,maxDiff,
+#'        yTicks=yTicksModified,flowDuration=FALSE)
 #' colors <-colorRampPalette(c("blue","white","red"))
-#' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,color.palette=colors,flowDuration=FALSE)
+#' plotDiffContours(eList, year0,year1,qBottom,qTop,maxDiff,
+#'        color.palette=colors,flowDuration=FALSE)
 #' colors2 <- heat.colors # Some other options: topo.colors, terrain.colors, cm.colors
-#' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,lwd=2,color.palette=colors2,flowDuration=FALSE)
-#' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,cex.lab=2,flowDuration=FALSE)
+#' plotDiffContours(eList, year0,year1,qBottom,qTop,maxDiff,
+#'        lwd=2,color.palette=colors2,flowDuration=FALSE)
+#' plotDiffContours(eList, year0,year1,qBottom,qTop,maxDiff,cex.lab=2,flowDuration=FALSE)
 #' par(mar=c(5,8,5,8))
-#' plotDiffContours(year0,year1,qBottom,qTop,maxDiff,customPar=TRUE,flowDuration=FALSE)
-plotDiffContours<-function (year0, year1, qBottom, qTop, maxDiff, whatSurface = 3, 
-                            localsurfaces = surfaces, localINFO = INFO, localDaily = Daily, tcl=0.1,
+#' plotDiffContours(eList, year0,year1,qBottom,qTop,maxDiff,
+#'        customPar=TRUE,flowDuration=FALSE)
+plotDiffContours<-function (eList, year0, year1, 
+                            qBottom, qTop, maxDiff, 
+                            whatSurface = 3, tcl=0.1,
                             qUnit = 2, span = 60, pval = 0.05, printTitle = TRUE, plotPercent = FALSE,
                             vert1 = NA, vert2 = NA, horiz = NA, flowDuration = TRUE, yTicks=NA,tick.lwd=2,
-                            lwd=1,cex.main=0.95,cex.axis=1,customPar=FALSE,color.palette=colorRampPalette(c("blue","white","red")),...) 
-{
+                            lwd=1,cex.main=0.95,cex.axis=1,customPar=FALSE,
+                            color.palette=colorRampPalette(c("blue","white","red")),...) {
+  
+  localINFO <- getInfo(eList)
+  localDaily <- getDaily(eList)
+  localsurfaces <- getSurfaces(eList)
+  
   if (is.numeric(qUnit)) {
     qUnit <- qConst[shortCode = qUnit][[1]]
   } else if (is.character(qUnit)) {

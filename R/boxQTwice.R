@@ -3,7 +3,7 @@
 #' @description
 #' This function is used to compare the distribution of discharges in the sample data set 
 #' and the discharges in the full daily data set.
-#' Data come from three data frames created by the dataRetrieval package: Sample, Daily, and INFO.
+#' Data come from three data frames created by the EGRET package: Sample, Daily, and INFO.
 #' Note that discharge is plotted on a logarithmic axis. The data is logged before the statistics are performed
 #' to determine the output of the boxplot.
 #' 
@@ -11,9 +11,7 @@
 #' contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
 #' \code{boxQTwice()}
 #'
-#' @param localSample data frame that contains the concentration data, default name is Sample
-#' @param localDaily data frame that contains the flow data, default name is Daily 
-#' @param localINFO data frame that contains the metadata, default name is INFO
+#' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
@@ -28,22 +26,21 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Sample <- ChopSample
-#' Daily <- ChopDaily
-#' INFO <- ChopINFO
+#' eList <- Choptank_eList
 #' # Water year:
-#' boxQTwice()
-#' boxQTwice(qUnit=1)
-#' boxQTwice(qUnit='cfs')
+#' boxQTwice(eList)
+#' boxQTwice(eList, qUnit=1)
+#' boxQTwice(eList, qUnit='cfs')
 #' # Graphs consisting of Jun-Aug
-#' INFO <- setPA(paStart=6,paLong=3)
-#' boxQTwice()
-boxQTwice<-function(localSample = Sample, localDaily = Daily, localINFO = INFO, 
+#' eList <- setPA(eList, paStart=6,paLong=3)
+#' boxQTwice(eList)
+boxQTwice<-function(eList, 
                     printTitle = TRUE, qUnit = 2, cex=0.8,cex.main=1.1,logScale=TRUE, 
                     cex.axis=1.1, tcl=0.5, las=1, tinyPlot = FALSE, customPar=FALSE,...){
-  # This function does two boxplots side by side
-  # The first is for the discharges on the sampled days
-  # The second is for the discharges on all of the days  
+  
+  localINFO <- getInfo(eList)
+  localSample <- getSample(eList)
+  localDaily <- getDaily(eList) 
 
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong
@@ -53,8 +50,8 @@ boxQTwice<-function(localSample = Sample, localDaily = Daily, localINFO = INFO,
     paStart <- 10
   }
   
-  localSample <- if(paLong == 12) localSample else selectDays(paLong,paStart,localDaily=localSample)
-  localDaily <- if(paLong == 12) localDaily else selectDays(paLong,paStart,localDaily=localDaily)
+  localSample <- if(paLong == 12) localSample else selectDays(localSample, paLong, paStart)
+  localDaily <- if(paLong == 12) localDaily else selectDays(localDaily, paLong,paStart)
   
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   

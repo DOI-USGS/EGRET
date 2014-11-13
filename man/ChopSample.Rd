@@ -26,7 +26,7 @@ ConcHat \tab number \tab unbiased estimate of concentration \tab mg/L \cr
 }}
 \source{
 Nitrate/nitrite data retrieved from National Water Quality Monitoring Council (NWQMC) Water Quality Portal
-(\url{http://www.waterqualitydata.us/}), and discharge retrieved from NWIS water services (\url{http://waterservices.usgs.gov/}), both via the dataRetrieval R package.
+(\url{http://www.waterqualitydata.us/}), and discharge retrieved from NWIS water services (\url{http://waterservices.usgs.gov/}), both via the EGRET R package.
 The USGS site id is 01491000. The period requested was 1979-10-01 to 2011-09-30. The parameter was Inorganic nitrogen (nitrate and nitrite),
 USGS parameter code 00631.
 }

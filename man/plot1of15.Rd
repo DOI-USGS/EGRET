@@ -3,10 +3,11 @@
 \alias{plot1of15}
 \title{plots 1 of the 15 graphs of streamflow statistics on a single page}
 \usage{
-plot1of15(yearStart, yearEnd, qf, istat, localAnnualSeries = annualSeries,
-  localINFO = INFO, isBottom = FALSE)
+plot1of15(eList, yearStart, yearEnd, qf, istat, isBottom = FALSE)
 }
 \arguments{
+\item{eList}{named list with at least the Daily and INFO dataframes}
+
 \item{yearStart}{A numeric value for the year in which the graph should start}
 
 \item{yearEnd}{A numeric value for the year in which the graph should end}
@@ -15,10 +16,6 @@ plot1of15(yearStart, yearEnd, qf, istat, localAnnualSeries = annualSeries,
 
 \item{istat}{A numeric value selecting the flow statistic to be plotted, must be an integer from 1 to 8}
 
-\item{localAnnualSeries}{data frame that contains the annual series data for all 8 statistics for the given period of analysis}
-
-\item{localINFO}{data frame that contains the meta data}
-
 \item{isBottom}{logical, if TRUE the graph is from the bottom row and thus needs x axis labels, if FALSE it does not need labels}
 }
 \description{
@@ -26,10 +23,8 @@ Part of the flowHistory system.  The 15 graphs include annual and four seasonal 
 for each of 3 flow statistics: 1-day maximum, mean, and 7-day minimum
 }
 \examples{
-INFO <- ChopINFO
-Daily <- ChopDaily
-annualSeries <- makeAnnualSeries()
-plot1of15(1990,2000,0.2938476,5)
+eList <- Choptank_eList
+plot1of15(eList, 1990, 2000, 0.2938476,5)
 }
 \keyword{graphics}
 \keyword{streamflow}

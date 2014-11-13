@@ -3,17 +3,18 @@
 \alias{plotConcQSmooth}
 \title{Plot up to three curves representing the concentration versus discharge relationship. Each curve is a different point in time.}
 \usage{
-plotConcQSmooth(date1, date2, date3, qLow, qHigh, qUnit = 2, legendLeft = 0,
-  legendTop = 0, concMax = NA, concMin = NA, bw = FALSE,
-  printTitle = TRUE, printValues = FALSE, localSample = Sample,
-  localINFO = INFO, minNumObs = 100, minNumUncen = 50,
-  colors = c("black", "red", "green"), printLegend = TRUE, windowY = 7,
-  windowQ = 2, windowS = 0.5, tinyPlot = FALSE, customPar = FALSE,
-  lwd = 2, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
-  cex.legend = 1.2, lineVal = c(1, 1, 1), logScale = FALSE,
-  edgeAdjust = TRUE, ...)
+plotConcQSmooth(eList, date1, date2, date3, qLow, qHigh, qUnit = 2,
+  legendLeft = 0, legendTop = 0, concMax = NA, concMin = NA,
+  bw = FALSE, printTitle = TRUE, printValues = FALSE, minNumObs = 100,
+  minNumUncen = 50, colors = c("black", "red", "green"),
+  printLegend = TRUE, windowY = 7, windowQ = 2, windowS = 0.5,
+  tinyPlot = FALSE, customPar = FALSE, lwd = 2, cex = 0.8,
+  cex.axis = 1.1, cex.main = 1.1, cex.legend = 1.2, lineVal = c(1, 1,
+  1), logScale = FALSE, edgeAdjust = TRUE, ...)
 }
 \arguments{
+\item{eList}{named list with at least the Sample and INFO dataframes}
+
 \item{date1}{string specifying the date for the first curve on the graph, it is in the form "yyyy-mm-dd" (must be in quotes)}
 
 \item{date2}{string specifying the date for the second curve on the graph, it is in the form "yyyy-mm-dd" (must be in quotes).  If only one curve is wanted this should be NA}
@@ -39,10 +40,6 @@ plotConcQSmooth(date1, date2, date3, qLow, qHigh, qUnit = 2, legendLeft = 0,
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE not printed}
 
 \item{printValues}{logical variable if TRUE the results shown on the graph are also printed to the console and returned in a dataframe (this can be useful for quantifying the changes seen visually in the graph), default is FALSE (not printed)}
-
-\item{localSample}{data frame that contains the Sample data, default name is Sample}
-
-\item{localINFO}{data frame that contains the metadata, default name is INFO}
 
 \item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
 
@@ -98,10 +95,9 @@ date2<-"2005-06-01"
 date3<-"2010-06-01"
 qLow<-1
 qHigh<-100
-Sample <- ChopSample
-INFO <- ChopINFO
-plotConcQSmooth(date1,date2,date3,qLow,qHigh)
-plotConcQSmooth(date1,date2,date3,qLow,qHigh,logScale=TRUE)
+eList <- Choptank_eList
+plotConcQSmooth(eList, date1,date2,date3,qLow,qHigh)
+plotConcQSmooth(eList, date1,date2,date3,qLow,qHigh,logScale=TRUE)
 }
 \keyword{graphics}
 \keyword{statistics}

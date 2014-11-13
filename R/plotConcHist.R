@@ -14,8 +14,7 @@
 #'
 #' @param yearStart numeric is the calendar year containing the first estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)
 #' @param yearEnd numeric is the calendar year just after the last estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)
-#' @param localDaily data frame that contains the flow data, default name is Daily
-#' @param localINFO data frame that contains the metadata, default name is INFO
+#' @param eList named list with at least the Daily and INFO dataframes
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
 #' @param plotFlowNorm logical variable if TRUE flow normalized line is plotted, if FALSE not plotted 
@@ -35,24 +34,21 @@
 #' @examples
 #' yearStart <- 2001
 #' yearEnd <- 2010
-#' INFO <- ChopINFO
-#' Daily <- ChopDaily
+#' eList <- Choptank_eList
 #' # Water year:
-#' INFO <- setPA()
-#' plotConcHist(yearStart, yearEnd)
+#' plotConcHist(eList, yearStart, yearEnd)
 #' # Graphs consisting of Jun-Aug
-#' INFO <- setPA(paStart=6,paLong=3)
-#' plotConcHist(yearStart, yearEnd)
-plotConcHist<-function(yearStart = NA, yearEnd = NA, localDaily = Daily, 
-        localINFO = INFO, concMax = NA, printTitle = TRUE, tinyPlot = FALSE,plotFlowNorm = TRUE,
-        cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2, col="black", col.pred="green", customPar=FALSE,...){
-  # produces a graph of annual mean concentration and flow normalized concentration versus year
-  # AnnualResults contains the set of results
-  # typically yearStart and yearEnd should be integers, 
-  # yearStart is the start of the calendar year of the first estimated annual value
-  # yearEnd is the start of the calendar year after the last estimated annual value
-  # if you want to specify the maximum value, you can do so with the argument concMax, otherwise it will be automatic
+#' eList <- setPA(eList, paStart=6,paLong=3)
+#' plotConcHist(eList, yearStart, yearEnd)
+plotConcHist<-function(eList, yearStart = NA, yearEnd = NA, 
+                       concMax = NA, printTitle = TRUE, 
+                       tinyPlot = FALSE,plotFlowNorm = TRUE,
+                        cex=0.8, cex.axis=1.1,cex.main=1.1, 
+                       lwd=2, col="black", col.pred="green", customPar=FALSE,...){
 
+  localDaily <- getDaily(eList)
+  localINFO <- getInfo(eList)
+  
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong
     paStart <- localINFO$paStart  
@@ -60,13 +56,6 @@ plotConcHist<-function(yearStart = NA, yearEnd = NA, localDaily = Daily,
     paLong <- 12
     paStart <- 10
   }
-  
-#   if (tinyPlot){
-#     yLab <- "Conc. (mg/L)"
-#   } else {
-#     yLab <- "Concentration in mg/L"
-#   }
-  
   
   localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
   
@@ -81,7 +70,7 @@ plotConcHist<-function(yearStart = NA, yearEnd = NA, localDaily = Daily,
   
   combinedY <- c(localAnnualResults$Conc,localAnnualResults$FNConc[localAnnualResults$DecYear>xInfo$bottom & localAnnualResults$DecYear<xInfo$top])
   yInfo <- generalAxis(x=combinedY, minVal=0, maxVal=concMax, padPercent=5, 
-                       tinyPlot=tinyPlot,localINFO=localINFO)
+                       tinyPlot=tinyPlot,units=localINFO$param.units)
   
   genericEGRETDotPlot(x=localAnnualResults$DecYear, y=localAnnualResults$Conc,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,xDate=TRUE,

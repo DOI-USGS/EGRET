@@ -3,7 +3,7 @@
 \alias{fluxBiasStat}
 \title{Compute the flux bias statistic: (mean of estimated flux - mean of observed flux)  / mean of observed flux}
 \usage{
-fluxBiasStat(localSample = Sample)
+fluxBiasStat(localSample)
 }
 \arguments{
 \item{localSample}{data frame that contains the concentration data, default name is Sample}
@@ -20,7 +20,7 @@ Computes three versions of the flux bias:
 }
 \examples{
 Sample <- ChopSample
-fluxBias <- fluxBiasStat()
+fluxBias <- fluxBiasStat(Sample)
 }
 \keyword{bias}
 \keyword{statistics,}

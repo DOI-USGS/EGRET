@@ -3,17 +3,11 @@
 \alias{modelEstimation}
 \title{Estimation process for the WRTDS (Weighted Regressions on Time, Discharge, and Season)}
 \usage{
-modelEstimation(localDaily = Daily, localSample = Sample,
-  localINFO = INFO, windowY = 7, windowQ = 2, windowS = 0.5,
-  minNumObs = 100, minNumUncen = 50, env = parent.frame(),
-  localSurface = NA, localAnnualResults = NA, edgeAdjust = TRUE)
+modelEstimation(eList, windowY = 7, windowQ = 2, windowS = 0.5,
+  minNumObs = 100, minNumUncen = 50, edgeAdjust = TRUE)
 }
 \arguments{
-\item{localDaily}{data frame containing the daily values, default is Daily}
-
-\item{localSample}{data frame containing the sample values, default is Sample}
-
-\item{localINFO}{data frame containing the metadata, default is INFO}
+\item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
 
 \item{windowY}{numeric specifying the half-window width in the time dimension, in units of years, default is 7}
 
@@ -25,13 +19,11 @@ modelEstimation(localDaily = Daily, localSample = Sample,
 
 \item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
 
-\item{env}{environment to set returning variables, defaults to parent.frame()}
-
-\item{localSurface}{string specifying the name of the returned surface array. If NA (default), array is returned named 'surface'}
-
-\item{localAnnualResults}{string specifying the name of the returned AnnualResults calculation. If NA (default), data frame is returned named 'AnnualResults'. setupYears is performed with the water year, and results are saved in this data frame.}
-
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
+}
+\value{
+eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.
+Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
 }
 \description{
 This one function does a jack-knife cross-validation of a WRTDS model, fits the surface
@@ -41,10 +33,14 @@ It returns several data frames or matrices (Daily, INFO, Sample, AnnualResults, 
 AnnualResults is calculated for water year. To use a period of analysis other than water year: AnnualResults<-setupYears(paLong,paStart).
 }
 \examples{
-Daily <- ChopDaily
-Sample <- ChopSample
-INFO <- ChopINFO
-\dontrun{modelEstimation()}
+eList <- Choptank_eList
+\dontrun{EGRETreturn <- modelEstimation(eList)
+Daily <- EGRETreturn$Daily
+Sample <- EGRETreturn$Sample
+INFO <- EGRETreturn$INFO
+surfaces <- EGRETreturn$surfaces
+AnnualResults <- EGRETreturn$AnnualResults
+}
 }
 \keyword{statistics}
 \keyword{water-quality}

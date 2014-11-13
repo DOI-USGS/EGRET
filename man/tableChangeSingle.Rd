@@ -3,13 +3,11 @@
 \alias{tableChangeSingle}
 \title{Create a table of the changes in flow-normalized concentration or flux values between various points in time in the record}
 \usage{
-tableChangeSingle(localDaily = Daily, localINFO = INFO, fluxUnit = 9,
-  yearPoints = NA, returnDataFrame = FALSE, flux = FALSE)
+tableChangeSingle(eList, fluxUnit = 9, yearPoints = NA,
+  returnDataFrame = FALSE, flux = FALSE)
 }
 \arguments{
-\item{localDaily}{data frame that contains the flow data, default name is Daily}
-
-\item{localINFO}{data frame that contains the metadata, default name is INFO}
+\item{eList}{named list with at least Daily and INFO dataframes}
 
 \item{fluxUnit}{object of fluxUnit class. \code{\link{fluxConst}}, or numeric represented the short code, or character representing the descriptive name.}
 
@@ -31,20 +29,19 @@ They are computed over pairs of time points (Year1 to Year2).  These time points
 they can be set by the program to be the final year of the record and a set of years that are multiple of 5 years prior to that.
 }
 \examples{
-Daily <- ChopDaily
-INFO <- ChopINFO
+eList <- Choptank_eList
 # Water Year:
 #This returns concentration ASCII table in the console:
-tableChangeSingle(fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)
+tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)
 #This returns flux values ASCII table in the console
-tableChangeSingle(fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=TRUE)
+tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=TRUE)
 #This returns concentration values in a dataframe
-tableChangeConc <-tableChangeSingle(returnDataFrame = TRUE, flux=FALSE)
+tableChangeConc <-tableChangeSingle(eList, returnDataFrame = TRUE, flux=FALSE)
 #This returns flux values in a dataframe
-tableChangeFlux <-tableChangeSingle(returnDataFrame = TRUE, flux=TRUE)
+tableChangeFlux <-tableChangeSingle(eList, returnDataFrame = TRUE, flux=TRUE)
 # Winter:
-INFO <- setPA(paStart=12,paLong=3)
-tableChangeSingle(fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)
+eList <- setPA(eList, paStart=12,paLong=3)
+tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)
 }
 \keyword{statistics}
 \keyword{water-quality}

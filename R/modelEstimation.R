@@ -6,29 +6,29 @@
 #' It returns several data frames or matrices (Daily, INFO, Sample, AnnualResults, and surfaces).
 #' AnnualResults is calculated for water year. To use a period of analysis other than water year: AnnualResults<-setupYears(paLong,paStart).
 #'
-#' @param localDaily data frame containing the daily values, default is Daily
-#' @param localSample data frame containing the sample values, default is Sample
-#' @param localINFO data frame containing the metadata, default is INFO
+#' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
-#' @param env environment to set returning variables, defaults to parent.frame()
-#' @param localSurface string specifying the name of the returned surface array. If NA (default), array is returned named 'surface'
-#' @param localAnnualResults string specifying the name of the returned AnnualResults calculation. If NA (default), data frame is returned named 'AnnualResults'. setupYears is performed with the water year, and results are saved in this data frame.
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
 #' @keywords water-quality statistics
-#' @import survival
 #' @export
+#' @return eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.
+#' Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
 #' @examples
-#' Daily <- ChopDaily
-#' Sample <- ChopSample
-#' INFO <- ChopINFO
-#' \dontrun{modelEstimation()}
-modelEstimation<-function(localDaily = Daily,localSample = Sample, localINFO = INFO, 
-                          windowY=7, windowQ=2, windowS=0.5,minNumObs=100,minNumUncen=50, 
-                          env=parent.frame(),localSurface=NA,localAnnualResults=NA,
+#' eList <- Choptank_eList
+#' \dontrun{EGRETreturn <- modelEstimation(eList)
+#' Daily <- EGRETreturn$Daily
+#' Sample <- EGRETreturn$Sample
+#' INFO <- EGRETreturn$INFO
+#' surfaces <- EGRETreturn$surfaces
+#' AnnualResults <- EGRETreturn$AnnualResults
+#' }
+modelEstimation<-function(eList, 
+                          windowY=7, windowQ=2, windowS=0.5,
+                          minNumObs=100,minNumUncen=50, 
                           edgeAdjust=TRUE){
   # this code is a wrapper for several different functions that test the model, fit a surface,
   #  estimate daily values and flow normalized daily values
@@ -36,6 +36,9 @@ modelEstimation<-function(localDaily = Daily,localSample = Sample, localINFO = I
   #  it returns several data frames
   #  all of the data frames are given their "standard" names
   #
+  localINFO <- getInfo(eList)
+  localSample <- getSample(eList)
+  localDaily <- getDaily(eList)
   
   numDays <- length(localDaily$DecYear)
   DecLow <- localDaily$DecYear[1]
@@ -46,7 +49,7 @@ modelEstimation<-function(localDaily = Daily,localSample = Sample, localINFO = I
                        windowY, windowQ, windowS, minNumObs, minNumUncen,
                        edgeAdjust)
 
-  surfaceIndexParameters<-surfaceIndex(localDaily = localDaily)
+  surfaceIndexParameters<-surfaceIndex(localDaily)
   localINFO$bottomLogQ<-surfaceIndexParameters[1]
   localINFO$stepLogQ<-surfaceIndexParameters[2]
   localINFO$nVectorLogQ<-surfaceIndexParameters[3]
@@ -64,47 +67,21 @@ modelEstimation<-function(localDaily = Daily,localSample = Sample, localINFO = I
   localINFO$edgeAdjust <- edgeAdjust
   
   cat("\nNext step running  estSurfaces with survival regression:\n")
-  surfaces1<-estSurfaces(localDaily = localDaily, localSample = localSample, 
+  surfaces1<-estSurfaces(eList, 
                          windowY, windowQ, windowS, minNumObs, minNumUncen, edgeAdjust)
 
-  Daily1<-estDailyFromSurfaces(localDaily = localDaily, localINFO = localINFO, localsurfaces = surfaces1)
-
-  matchReturn <- match.call(expand.dots = FALSE) # This doesn't return the default arguments
-#   fcall <- mget(names(formals()),sys.frame(sys.nframe()))
-
-  if (is.null(matchReturn$localDaily)){
-    env$Daily<-Daily1
-  } else {
-    assign(as.character(matchReturn$localDaily), Daily1, envir=env)
-  }
-
-  if (is.null(matchReturn$localINFO)){
-    env$INFO<-localINFO
-  } else {
-    assign(as.character(matchReturn$localINFO), localINFO, envir=env)
-  }
+  eList <- as.egret(Daily=localDaily, 
+                    Sample=Sample1,
+                    INFO=localINFO,
+                    surfaces=surfaces1)
   
-  if (is.null(matchReturn$localSample)){
-    env$Sample<-Sample1
-  } else {
-    assign(as.character(matchReturn$localSample), Sample1, envir=env)
-  }
+  Daily1<-estDailyFromSurfaces(eList)
   
+  eList <- as.egret(Daily=Daily1, 
+               Sample=Sample1,
+               INFO=localINFO,
+               surfaces=surfaces1)
   
-  if(is.na(localSurface)){
-    env$surfaces <- surfaces1
-  } else {
-    assign(as.character(matchReturn$localSurface), surfaces1, envir=env)
-  }
-
-  annualResults1 <- setupYears(paLong = 12, paStart = 10, localDaily = Daily1)
-  if(is.na(localAnnualResults)){
-    env$AnnualResults <- annualResults1 
-  } else {
-    assign(as.character(matchReturn$localAnnualResults), annualResults1 , envir=env)
-  }
-  
-  cat("\nDone with modelEstimation,\nThe AnnualResults data frame that has been created is for water years.  If you want a data frame of results for some other period of analysis then give the command:\n
-AnnualResults <- setupYears(paLong,paStart)\n")
+  return(eList)
   
 }

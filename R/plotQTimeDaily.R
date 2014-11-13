@@ -8,10 +8,9 @@
 #'  contains an INFO and Sample dataframes, then the following R code will produce a plot:
 #'  \code{plotQTimeDaily()}
 #'
+#' @param eList named list with at least the Daily and INFO dataframes
 #' @param startYear numeric indicating the starting year for the graph
 #' @param endYear numeric indicating the ending year for the graph (should be a time in decimal years that is after the last observations to be plotted)
-#' @param localDaily data frame that contains the flow data, default name is Daily 
-#' @param localINFO data frame that contains the metadata, default name is INFO
 #' @param qLower numeric specifying the lower bound on discharges that are to be plotted, must be in the units specified by qUnit, default is NA (lower bound is zero)
 #' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.  Default is qUnit=1 (cubic feet per second)
 #' @param tinyPlot logical variable, if TRUE plot is designed to be short and wide, default is FALSE.
@@ -27,19 +26,19 @@
 #' @keywords graphics streamflow
 #' @export
 #' @examples
-#' Daily <- ChopDaily
-#' INFO <- ChopINFO
+#' eList <- Choptank_eList
 #' # Water year:
-#' INFO <- setPA()
-#' plotQTimeDaily()
-#' plotQTimeDaily(startYear=1990, endYear=2000,qLower=1000)
+#' plotQTimeDaily(eList)
+#' plotQTimeDaily(eList, startYear=1990, endYear=2000,qLower=1000)
 #' # Graphs consisting of Jun-Aug
-#' INFO <- setPA(paStart=6,paLong=3)
-#' plotQTimeDaily()
-plotQTimeDaily<-function (startYear=NA, endYear=NA, localDaily = Daily, 
-                          localINFO = INFO, qLower = NA, qUnit = 1, logScale=FALSE,
+#' eList <- setPA(eList, paStart=6,paLong=3)
+#' plotQTimeDaily(eList)
+plotQTimeDaily<-function (eList, startYear=NA, endYear=NA, qLower = NA, qUnit = 1, logScale=FALSE,
                           tinyPlot = FALSE, printTitle = TRUE, lwd = 3, col="red", 
                           cex.main = 1.2, cex.lab = 1.2, customPar=FALSE,...){
+  
+  localINFO <- getInfo(eList)
+  localDaily <- getDaily(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong
@@ -49,7 +48,7 @@ plotQTimeDaily<-function (startYear=NA, endYear=NA, localDaily = Daily,
     paStart <- 10
   } 
 
-  localDaily <- if(paLong == 12) localDaily else selectDays(paLong,paStart,localDaily=localDaily)
+  localDaily <- if(paLong == 12) localDaily else selectDays(localDaily,paLong,paStart)
   
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   #########################################################
@@ -92,8 +91,10 @@ plotQTimeDaily<-function (startYear=NA, endYear=NA, localDaily = Daily,
     logText <- ""
   }
   
-  xInfo <- generalAxis(x=xDaily, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot)
-  yInfo <- generalAxis(x=yDaily, minVal=qLower, maxVal=1.05*max(yDaily), tinyPlot=tinyPlot,padPercent=0,logScale=logScale)
+  xInfo <- generalAxis(x=xDaily, minVal=startYear, maxVal=endYear, 
+                       tinyPlot=tinyPlot, units=localINFO$param.units)
+  yInfo <- generalAxis(x=yDaily, minVal=qLower, maxVal=1.05*max(yDaily), 
+                       tinyPlot=tinyPlot,padPercent=0,logScale=logScale, units=localINFO$param.units)
 
   genericEGRETDotPlot(x=xDaily, y=yDaily, 
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),

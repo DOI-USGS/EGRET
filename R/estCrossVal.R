@@ -6,7 +6,7 @@
 #' Thus it provides for a more "honest" estimate of model performance than a traditional 
 #' error analysis that uses all the data. 
 #'
-#' @param localSample data frame containing the sample values, default is Sample
+#' @param Sample data frame containing the sample values, default is Sample
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
@@ -17,7 +17,6 @@
 #' @param DecLow number specifying minimum decimal year
 #' @param DecHigh number specifying maximum decimal year
 #' @keywords water-quality statistics
-#' @import survival
 #' @return SampleCrossV data frame containing the sample data augmented by the results of the cross-validation exercise
 #' @export
 #' @examples
@@ -26,8 +25,8 @@
 #' numDays <- length(Daily$DecYear)
 #' DecLow <- Daily$DecYear[1]
 #' DecHigh <- Daily$DecYear[numDays]
-#' SampleCrossV <- estCrossVal(numDays,DecLow,DecHigh)
-estCrossVal<-function(numDays,DecLow,DecHigh,localSample = Sample, windowY = 7, windowQ = 2, 
+#' SampleCrossV <- estCrossVal(numDays,DecLow,DecHigh,Sample)
+estCrossVal<-function(numDays,DecLow,DecHigh, Sample, windowY = 7, windowQ = 2, 
                       windowS = 0.5, minNumObs = 100, minNumUncen = 50,
                       edgeAdjust=TRUE){
   #  this function fits the WRTDS model making an estimate of concentration for every day
@@ -35,6 +34,7 @@ estCrossVal<-function(numDays,DecLow,DecHigh,localSample = Sample, windowY = 7, 
   #    That is, for the day it is estimating, it leaves that observation out of the data set
   #      It returns a Sample data frame with three added columns
   #      yHat, SE, and ConcHat
+  localSample <- Sample
   originalColumns <- names(localSample)
   numObs<-nrow(localSample)
   yHat<-rep(0,numObs)

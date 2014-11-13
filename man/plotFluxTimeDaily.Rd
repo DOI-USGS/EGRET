@@ -3,21 +3,17 @@
 \alias{plotFluxTimeDaily}
 \title{Plot of the time series of daily flux estimates and the sample values for the days that were sampled}
 \usage{
-plotFluxTimeDaily(startYear = NA, endYear = NA, localSample = Sample,
-  localDaily = Daily, localINFO = INFO, tinyPlot = FALSE, fluxUnit = 3,
-  fluxMax = NA, printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
-  cex.main = 1.1, customPar = FALSE, col = "black", lwd = 1, ...)
+plotFluxTimeDaily(eList, startYear = NA, endYear = NA, tinyPlot = FALSE,
+  fluxUnit = 3, fluxMax = NA, printTitle = TRUE, cex = 0.8,
+  cex.axis = 1.1, cex.main = 1.1, customPar = FALSE, col = "black",
+  lwd = 1, ...)
 }
 \arguments{
+\item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
+
 \item{startYear}{numeric specifying the starting date (expressed as decimal years, for example 1989.0) for the plot}
 
 \item{endYear}{numeric specifiying the ending date for the plot}
-
-\item{localSample}{data frame that contains the concentration data, default name is Sample}
-
-\item{localDaily}{data frame that contains the flow data, default name is Daily}
-
-\item{localINFO}{data frame that contains the metadata, default name is INFO}
 
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be short and wide, default is FALSE.}
 
@@ -51,16 +47,13 @@ contains an INFO, Daily, and Sample dataframes, then the following R code will p
 \code{plotFluxTimeDaily()}
 }
 \examples{
-Sample <- ChopSample
-Daily <- ChopDaily
-INFO <- ChopINFO
+eList <- Choptank_eList
 # Water year:
-INFO <- setPA()
-plotFluxTimeDaily()
-plotFluxTimeDaily(2001,2009)
+plotFluxTimeDaily(eList)
+plotFluxTimeDaily(eList, 2001,2009)
 # Graphs consisting of Jun-Aug
-INFO <- setPA(paStart=6,paLong=3)
-plotFluxTimeDaily()
+eList <- setPA(eList, paStart=6,paLong=3)
+plotFluxTimeDaily(eList)
 }
 \keyword{graphics}
 \keyword{statistics}

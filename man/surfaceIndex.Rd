@@ -3,10 +3,10 @@
 \alias{surfaceIndex}
 \title{Compute the 6 parameters needed to lay out the grid for the surfaces computed in estSurfaces}
 \usage{
-surfaceIndex(localDaily = Daily)
+surfaceIndex(Daily)
 }
 \arguments{
-\item{localDaily}{data frame containing the daily values, default is Daily}
+\item{Daily}{data frame containing the daily values, default is Daily}
 }
 \value{
 surfaceIndexParameters a numeric vector of length 6, defining the grid for the surfaces
@@ -16,7 +16,7 @@ The code here is a repetition of the first part of the code for estSurfaces
 }
 \examples{
 Daily <- ChopDaily
-surfaceIndex()
+surfaceIndex(Daily)
 }
 \keyword{statistics}
 \keyword{water-quality}

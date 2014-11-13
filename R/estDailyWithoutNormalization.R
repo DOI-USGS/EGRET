@@ -6,18 +6,14 @@
 #'    This code is identical to estDailyFromSurfaces but it lacks the flow normalization process.
 #'    The exclusion of the flow-normalization process saves a large amount of computer time.
 #'
-#' @param localDaily data frame containing the daily values, default is Daily
-#' @param localINFO data frame containing the meta-data, default is INFO
-#' @param localsurfaces string specifying the name of the array containing the three surfaces, default is surfaces
+#' @param eList named list with at least Daily and INFO dataframes, and surface matrix.
 #' @keywords water-quality statistics
 #' @return localDaily string specifying the name of the data frame containing the daily values and these esimates
 #' @export
 #' @examples
-#' Daily <- ChopDaily
-#' INFO <- ChopINFO
-#' surfaces <- exsurfaces
-#' Daily <- estDailyWithoutNormalization()
-estDailyWithoutNormalization<-function(localDaily = Daily, localINFO = INFO, localsurfaces = surfaces) {
+#' eList <- Choptank_eList
+#' Daily <- estDailyWithoutNormalization(eList)
+estDailyWithoutNormalization<-function(eList) {
   # this function uses the surfaces that have been calulated based on the sample data
   # and fills in the individual estimates using bilinear interpolation off these surfaces
   # it produces estimates of ConcDay, and FluxDay,
@@ -26,6 +22,11 @@ estDailyWithoutNormalization<-function(localDaily = Daily, localINFO = INFO, loc
   # estDailyFromSurfaces - The code is identical to the first part of estDailyFromSurfaces 
   # these are appended to the data frame Daily, which is returned
   #
+  
+  localDaily <- getDaily(eList)
+  localINFO <- getInfo(eList)
+  localsurfaces <- getSurfaces(eList)
+  
   numDays<-length(localDaily$LogQ)
   # we need to add an extra column to Daily to handle leap year for flow normalization
   # the 366'th day of the year is treated as an extra day 365

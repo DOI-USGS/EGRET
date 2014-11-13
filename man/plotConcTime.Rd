@@ -3,16 +3,13 @@
 \alias{plotConcTime}
 \title{Plot of Observed Concentration versus Time}
 \usage{
-plotConcTime(localSample = Sample, localINFO = INFO, qUnit = 2,
-  qLower = NA, qUpper = NA, tinyPlot = FALSE, concMax = NA,
-  concMin = NA, printTitle = TRUE, logScale = FALSE, cex = 0.8,
-  cex.axis = 1.1, cex.main = 1.1, customPar = FALSE, col = "black",
-  lwd = 1, ...)
+plotConcTime(eList, qUnit = 2, qLower = NA, qUpper = NA,
+  tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,
+  logScale = FALSE, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
+  customPar = FALSE, col = "black", lwd = 1, ...)
 }
 \arguments{
-\item{localSample}{data frame that contains the concentration data, default name is Sample}
-
-\item{localINFO}{data frame that contains the metadata, default name is INFO}
+\item{eList}{named list with at least the Sample and INFO dataframes}
 
 \item{qUnit}{object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.}
 
@@ -59,14 +56,13 @@ contains an INFO and Sample dataframes, then the following R code will produce a
 \code{plotConcTime()}
 }
 \examples{
-Sample <- ChopSample
-INFO <- ChopINFO
+eList <- Choptank_eList
 # Water year:
-plotConcTime()
+plotConcTime(eList)
 # Graphs consisting of Jun-Aug
-INFO <- setPA(paStart=6,paLong=3)
-plotConcTime(qUnit = 1, qLower = 100, qUpper = 10000)
-plotConcTime(logScale=TRUE)
+eList <- setPA(eList, paStart=6,paLong=3)
+plotConcTime(eList, qUnit = 1, qLower = 100, qUpper = 10000)
+plotConcTime(eList, logScale=TRUE)
 }
 \keyword{graphics}
 \keyword{statistics}

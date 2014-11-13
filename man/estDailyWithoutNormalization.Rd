@@ -3,15 +3,10 @@
 \alias{estDailyWithoutNormalization}
 \title{Estimates all daily values of Concentration, and Flux}
 \usage{
-estDailyWithoutNormalization(localDaily = Daily, localINFO = INFO,
-  localsurfaces = surfaces)
+estDailyWithoutNormalization(eList)
 }
 \arguments{
-\item{localDaily}{data frame containing the daily values, default is Daily}
-
-\item{localINFO}{data frame containing the meta-data, default is INFO}
-
-\item{localsurfaces}{string specifying the name of the array containing the three surfaces, default is surfaces}
+\item{eList}{named list with at least Daily and INFO dataframes, and surface matrix.}
 }
 \value{
 localDaily string specifying the name of the data frame containing the daily values and these esimates
@@ -24,10 +19,8 @@ Uses the surfaces estimated in estSurfaces to estimate these two time series
    The exclusion of the flow-normalization process saves a large amount of computer time.
 }
 \examples{
-Daily <- ChopDaily
-INFO <- ChopINFO
-surfaces <- exsurfaces
-Daily <- estDailyWithoutNormalization()
+eList <- Choptank_eList
+Daily <- estDailyWithoutNormalization(eList)
 }
 \keyword{statistics}
 \keyword{water-quality}

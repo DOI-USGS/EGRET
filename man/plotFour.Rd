@@ -3,17 +3,12 @@
 \alias{plotFour}
 \title{Makes four graphs of streamflow statistics on a single page}
 \usage{
-plotFour(localINFO = INFO, localAnnualSeries = annualSeries,
-  localDaily = Daily, yearStart = NA, yearEnd = NA, printTitle = TRUE,
+plotFour(eList, yearStart = NA, yearEnd = NA, printTitle = TRUE,
   runoff = FALSE, qUnit = 1, window = 15, cex = 0.8, cex.axis = 1.2,
   cex.main = 1.2, col = "black", lwd = 1, ...)
 }
 \arguments{
-\item{localINFO}{data frame that contains the metadata, defoult name is INFO}
-
-\item{localAnnualSeries}{data frame that contains the annual series of statistics, default is annualSeries}
-
-\item{localDaily}{data frame that contains the flow data, default name is Daily}
+\item{eList}{named list with at least Daily and INFO dataframes}
 
 \item{yearStart}{A numeric value for year in which the graph should start, default is NA, which indicates that the graph should start with first annual value}
 
@@ -48,15 +43,12 @@ Part of the flowHistory system.  The four statistics are 1-day maximum, annual m
  \code{plotFour(window=2)}
 }
 \examples{
-INFO <- ChopINFO
-Daily <- ChopDaily
+eList <- Choptank_eList
 #Water year:
-annualSeries <- makeAnnualSeries()
-plotFour()
+plotFour(eList)
 # Graphs consisting of Jun-Aug
-INFO <- setPA(paStart=6,paLong=3)
-annualSeries <- makeAnnualSeries()
-plotFour()
+eList <- setPA(eList,paStart=6,paLong=3)
+plotFour(eList)
 }
 \keyword{graphics}
 \keyword{statistics}

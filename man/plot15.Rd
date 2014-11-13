@@ -3,25 +3,22 @@
 \alias{plot15}
 \title{Makes 15 graphs of streamflow statistics on a single page}
 \usage{
-plot15(yearStart, yearEnd, localDaily = Daily, localINFO = INFO)
+plot15(eList, yearStart, yearEnd)
 }
 \arguments{
+\item{eList}{named list with at least the Daily and INFO dataframes}
+
 \item{yearStart}{A numeric value for year in which the graph should start, default is NA, which indicates that the graph should start with first annual value}
 
 \item{yearEnd}{A numeric value for year in which the graph should end, default is NA, which indicates that the graph should end with last annual value}
-
-\item{localDaily}{data frame that contains the daily data, default is Daily}
-
-\item{localINFO}{data frame that contains the metadata, default is INFO}
 }
 \description{
 Part of flowHistory system.
 }
 \examples{
-Daily <- ChopDaily
-INFO <- ChopINFO
+eList <- Choptank_eList
 pdf("plot15.pdf",heigh=10,width=8)
-plot15(yearStart=1990,yearEnd=2000)
+plot15(eList, yearStart=1990,yearEnd=2000)
 dev.off()
 }
 \keyword{graphics}

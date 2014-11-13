@@ -3,22 +3,19 @@
 \alias{plotFluxHist}
 \title{Graph of annual flux and flow normalized flux versus year}
 \usage{
-plotFluxHist(yearStart = NA, yearEnd = NA, fluxUnit = 9,
-  localDaily = Daily, localINFO = INFO, fluxMax = NA, printTitle = TRUE,
-  plotFlowNorm = TRUE, tinyPlot = FALSE, col = "black",
-  col.pred = "green", cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
-  lwd = 2, customPar = FALSE, ...)
+plotFluxHist(eList, yearStart = NA, yearEnd = NA, fluxUnit = 9,
+  fluxMax = NA, printTitle = TRUE, plotFlowNorm = TRUE,
+  tinyPlot = FALSE, col = "black", col.pred = "green", cex = 0.8,
+  cex.axis = 1.1, cex.main = 1.1, lwd = 2, customPar = FALSE, ...)
 }
 \arguments{
+\item{eList}{named list with at least the Daily and INFO dataframes}
+
 \item{yearStart}{numeric is the calendar year containing the first estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)}
 
 \item{yearEnd}{numeric is the calendar year just after the last estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)}
 
 \item{fluxUnit}{number representing entry in pre-defined fluxUnit class array. \code{\link{fluxConst}}}
-
-\item{localDaily}{data frame that contains the flow data, default name is Daily}
-
-\item{localINFO}{data frame that contains the metadata, default name is INFO}
 
 \item{fluxMax}{number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)}
 
@@ -59,16 +56,14 @@ contains an INFO and AnnualResults (from either modelEstimation or setupYears) d
 \examples{
 yearStart <- 2001
 yearEnd <- 2010
-Daily <- ChopDaily
-INFO <- ChopINFO
+eList <- Choptank_eList
 # Water year:
-INFO <- setPA()
-plotFluxHist()
-plotFluxHist(yearStart, yearEnd, fluxUnit = 1)
-plotFluxHist(yearStart, yearEnd, fluxUnit = 'kgDay')
+plotFluxHist(eList)
+plotFluxHist(eList, yearStart, yearEnd, fluxUnit = 1)
+plotFluxHist(eList, yearStart, yearEnd, fluxUnit = 'kgDay')
 # Graphs consisting of Jun-Aug
-INFO <- setPA(paStart=6,paLong=3)
-plotFluxHist()
+eList <- setPA(eList, paStart=6,paLong=3)
+plotFluxHist(eList)
 }
 \seealso{
 \code{\link{setupYears}}

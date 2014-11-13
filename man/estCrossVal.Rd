@@ -3,9 +3,8 @@
 \alias{estCrossVal}
 \title{Jack-Knife cross validation of the WRTDS (Weighted Regressions on Time, Discharge, and Season)}
 \usage{
-estCrossVal(numDays, DecLow, DecHigh, localSample = Sample, windowY = 7,
-  windowQ = 2, windowS = 0.5, minNumObs = 100, minNumUncen = 50,
-  edgeAdjust = TRUE)
+estCrossVal(numDays, DecLow, DecHigh, Sample, windowY = 7, windowQ = 2,
+  windowS = 0.5, minNumObs = 100, minNumUncen = 50, edgeAdjust = TRUE)
 }
 \arguments{
 \item{numDays}{number of days in the Daily record}
@@ -14,7 +13,7 @@ estCrossVal(numDays, DecLow, DecHigh, localSample = Sample, windowY = 7,
 
 \item{DecHigh}{number specifying maximum decimal year}
 
-\item{localSample}{data frame containing the sample values, default is Sample}
+\item{Sample}{data frame containing the sample values, default is Sample}
 
 \item{windowY}{numeric specifying the half-window width in the time dimension, in units of years, default is 7}
 
@@ -44,7 +43,7 @@ Daily <- ChopDaily
 numDays <- length(Daily$DecYear)
 DecLow <- Daily$DecYear[1]
 DecHigh <- Daily$DecYear[numDays]
-SampleCrossV <- estCrossVal(numDays,DecLow,DecHigh)
+SampleCrossV <- estCrossVal(numDays,DecLow,DecHigh,Sample)
 }
 \keyword{statistics}
 \keyword{water-quality}

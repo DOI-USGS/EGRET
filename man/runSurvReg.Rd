@@ -3,9 +3,9 @@
 \alias{runSurvReg}
 \title{Run the weighted survival regression for a set of estimation points (defined by DecYear and Log(Q))}
 \usage{
-runSurvReg(estPtYear, estPtLQ, numDays, DecLow, DecHigh, localSample = Sample,
-  windowY = 7, windowQ = 2, windowS = 0.5, minNumObs = 100,
-  minNumUncen = 50, interactive = TRUE, edgeAdjust = TRUE)
+runSurvReg(estPtYear, estPtLQ, numDays, DecLow, DecHigh, Sample, windowY = 7,
+  windowQ = 2, windowS = 0.5, minNumObs = 100, minNumUncen = 50,
+  interactive = TRUE, edgeAdjust = TRUE)
 }
 \arguments{
 \item{estPtYear}{numeric vector of Decimal Year values at the estimation points}
@@ -18,7 +18,7 @@ runSurvReg(estPtYear, estPtLQ, numDays, DecLow, DecHigh, localSample = Sample,
 
 \item{DecHigh}{number specifying maximum decimal year}
 
-\item{localSample}{data frame containing the sample values, default is Sample}
+\item{Sample}{dataframe created for EGRET analysis}
 
 \item{windowY}{numeric specifying the half-window width in the time dimension, in units of years, default is 7}
 
@@ -48,11 +48,10 @@ This function runs the survival regression which is the concentration estimation
 estPtYear<-c(2001.0,2005.0,2009.0)
 estPtLQ<-c(1,1,1)
 Sample <- ChopSample
-Daily <- ChopDaily
-numDays <- length(Daily$DecYear)
-DecLow <- Daily$DecYear[1]
-DecHigh <- Daily$DecYear[numDays]
-resultSurvReg <- runSurvReg(estPtYear,estPtLQ,numDays,DecLow,DecHigh,interactive=FALSE)
+numDays <- Sample$Julian[nrow(Sample)] - Sample$Julian[1] + 1
+DecLow <- Sample$DecYear[1]
+DecHigh <- Sample$DecYear[nrow(Sample)]
+resultSurvReg <- runSurvReg(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample)
 }
 \keyword{statistics}
 \keyword{water-quality}
