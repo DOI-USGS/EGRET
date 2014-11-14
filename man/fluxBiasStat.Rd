@@ -19,7 +19,8 @@ Computes three versions of the flux bias:
      In practice there is rarely a noticable difference among them.
 }
 \examples{
-Sample <- ChopSample
+eList <- Choptank_eList
+Sample <- getSample(eList)
 fluxBias <- fluxBiasStat(Sample)
 }
 \keyword{bias}

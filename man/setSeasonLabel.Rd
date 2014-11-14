@@ -22,7 +22,8 @@ This might arise in a call from plotConcTime or plotLogConcTime.
 That function is called setSeasonLabelByUser.
 }
 \examples{
-Daily <- ChopDaily
+eList <- Choptank_eList
+Daily <- getDaily(eList)
 AnnualResults <- setupYears(Daily)
 setSeasonLabel(AnnualResults)
 }

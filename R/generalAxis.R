@@ -13,8 +13,9 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Daily <- ChopDaily
-#' INFO <- ChopINFO
+#' eList <- Choptank_eList
+#' Daily <- getDaily(eList)
+#' INFO <- getInfo(eList)
 #' x <- Daily$Q
 #' max <- max(x)
 #' min <- 0

@@ -1,33 +1,45 @@
-Daily <- ChopDaily
-Sample <- ChopSample
-INFO <- ChopINFO
-surfaces <- exsurfaces
+eList <- Choptank_eList
 
-qBottom<-1
-qTop<-5000
-clevel<-seq(0,2,0.5)
-maxDiff<-2
-yearStart <- 2008
-yearEnd <- 2010
+plotConcTimeDaily(eList)
+plotFluxTimeDaily(eList)
+plotConcPred(eList)
+plotFluxPred(eList)
+plotResidPred(eList)
+plotResidQ(eList)
+plotResidTime(eList)
+boxResidMonth(eList)
+boxConcThree(eList)
+
+#Require Daily + INFO:
+plotConcHist(eList)
+plotFluxHist(eList)
+
+# Multi-line plots:
 date1 <- "2000-09-01"
 date2 <- "2005-09-01"
 date3 <- "2009-09-01"
+qBottom<-100
+qTop<-5000
+plotConcQSmooth(eList, date1, date2, date3, qBottom, qTop, 
+                concMax=2,qUnit=1)
 q1 <- 10
 q2 <- 25
 q3 <- 75
 centerDate <- "07-01"
+yearEnd <- 2009
+yearStart <- 2000
+plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd)
 
-plotConcPred()
+# Multi-plots:
+fluxBiasMulti(eList)
 
-plotConcTimeDaily(2008, 2010)
+#Contour plots:
+clevel<-seq(0,2,0.5)
+maxDiff<-0.8
+yearStart <- 2000
+yearEnd <- 2010
 
-plotConcQSmooth(date1, date2, date3, qBottom, qTop, 
-                concMax=1.5,qUnit=1)
-
-fluxBiasEight(qUnit=1)
-
-plotContours(yearStart,yearEnd,qBottom,qTop, 
+plotContours(eList, yearStart,yearEnd,qBottom,qTop, 
              contourLevels = clevel,qUnit=1)
-
-plotDiffContours(year0=2000,yearEnd,
+plotDiffContours(eList, yearStart,yearEnd,
                  qBottom,qTop,maxDiff,qUnit=1)

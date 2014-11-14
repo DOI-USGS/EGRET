@@ -13,20 +13,15 @@
 #' Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
 #' @seealso \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
 #' @examples
+#' \dontrun{
 #' siteNumber <- '01594440'
 #' pCode <- '01075'
 #' Daily <- readNWISDaily(siteNumber,'00060', '1985-01-01', '1990-03-31')
 #' Sample <- readNWISSample(siteNumber,pCode, '1985-01-01', '1990-03-31')
 #' INFO <- readNWISInfo(siteNumber,pCode,interactive=FALSE)
 #' eList <- mergeReport(INFO, Daily, Sample)
-#' Sample <- eList$Sample
-#' 
-#' Daily2 <- ChopDaily
-#' Sample2 <- ChopSample
-#' INFO2 <- ChopINFO
-#' surfaces2 <- exsurfaces
-#' eList2 <- mergeReport(INFO2, Daily2, Sample2, surfaces2, FALSE)
-#' eList2
+#' eList
+#' }
 mergeReport<-function(INFO, Daily, Sample, surfaces=NA, interactive=TRUE){
   
   if (interactive){
@@ -58,12 +53,13 @@ mergeReport<-function(INFO, Daily, Sample, surfaces=NA, interactive=TRUE){
 #' Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
 #' @seealso \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
 #' @examples
-#' Daily <- ChopDaily
-#' INFO <- ChopINFO
+#' eList <- Choptank_eList
+#' Daily <- getDaily(eList)
+#' INFO <- getInfo(eList)
 #' eList_flowHistory <- as.egret(INFO, Daily, NA, NA)
 #' plotFlowSingle(eList_flowHistory, 1)
-#' Sample <- ChopSample
-#' surfaces <- exsurfaces
+#' Sample <- getSample(eList)
+#' surfaces <- getSurfaces(eList)
 #' eList_full <- as.egret(INFO, Daily, Sample, surfaces)
 #' plotFluxQ(eList_full)
 as.egret <- function(INFO, Daily, Sample, surfaces) {

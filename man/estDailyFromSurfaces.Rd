@@ -20,7 +20,7 @@ Uses the surfaces estimated in estSurfaces to estimate these four time series
 eList <- Choptank_eList
 #################################################
 # This is usually done in modelEstimation:
-Daily <- eList$Daily
+Daily <- getDaily(eList)
 surfaceIndexParameters<-surfaceIndex(Daily)
 INFO <- eList$INFO
 INFO$bottomLogQ<-surfaceIndexParameters[1]
@@ -31,7 +31,9 @@ INFO$stepYear<-surfaceIndexParameters[5]
 INFO$nVectorYear<-surfaceIndexParameters[6]
 eList$INFO <- INFO
 #################################################
+\dontrun{
 Daily <- estDailyFromSurfaces(eList)
+}
 }
 \keyword{statistics}
 \keyword{water-quality}

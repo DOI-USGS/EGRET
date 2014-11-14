@@ -19,9 +19,11 @@ INFO dataframe
 Populates INFO data frame with additional user-supplied information. Also removes fields not related to WRTDS study.
 }
 \examples{
+\dontrun{
 library(dataRetrieval)
 INFO <- readNWISsite('01594440')
 siteNumber <- "01594440"
 siteINFO <- populateSiteINFO(INFO, siteNumber)
+}
 }
 

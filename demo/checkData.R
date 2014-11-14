@@ -1,7 +1,7 @@
 #Check raw data:
 
-Daily <- ChopDaily
-Sample <- ChopSample
-INFO <- ChopINFO
+Daily <- getDaily(eList)
+Sample <- getSample(eList)
+INFO <- getInfo(eList)
 
 multiPlotDataOverview()

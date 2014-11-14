@@ -44,11 +44,13 @@ Part of the flowHistory system.  The four statistics are 1-day maximum, annual m
 }
 \examples{
 eList <- Choptank_eList
+\dontrun{
 #Water year:
 plotFour(eList)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList,paStart=6,paLong=3)
 plotFour(eList)
+}
 }
 \keyword{graphics}
 \keyword{statistics}

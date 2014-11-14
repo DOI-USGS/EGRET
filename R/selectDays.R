@@ -9,7 +9,8 @@
 #' @export
 #' @return localDaily a data frame containing the daily data but only for the period of analysis (not all months)
 #' @examples
-#' Daily <- ChopDaily
+#' eList <- Choptank_eList
+#' Daily <- getDaily(eList)
 #' DailySubset <- selectDays(Daily, 4, 11)
 selectDays<-function(df, paLong, paStart) {
   

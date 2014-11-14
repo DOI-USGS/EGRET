@@ -54,12 +54,14 @@ Although there are a lot of optional arguments to this function, most are set to
 }
 \examples{
 eList <- Choptank_eList
+\dontrun{
 # Water year:
 plotSDLogQ(eList)
 plotSDLogQ(eList, 1998,2000)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
 plotSDLogQ(eList)
+}
 }
 \keyword{graphics}
 \keyword{statistics}

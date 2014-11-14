@@ -23,12 +23,13 @@ Create a named list with the INFO, Daily, and Sample dataframes, and surface mat
 not available, an NA should be
 }
 \examples{
-Daily <- ChopDaily
-INFO <- ChopINFO
+eList <- Choptank_eList
+Daily <- getDaily(eList)
+INFO <- getInfo(eList)
 eList_flowHistory <- as.egret(INFO, Daily, NA, NA)
 plotFlowSingle(eList_flowHistory, 1)
-Sample <- ChopSample
-surfaces <- exsurfaces
+Sample <- getSample(eList)
+surfaces <- getSurfaces(eList)
 eList_full <- as.egret(INFO, Daily, Sample, surfaces)
 plotFluxQ(eList_full)
 }

@@ -30,12 +30,14 @@
 #' @export
 #' @examples
 #' eList <- Choptank_eList
+#' \dontrun{
 #' # Water year:
 #' plotSDLogQ(eList) 
 #' plotSDLogQ(eList, 1998,2000) 
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' plotSDLogQ(eList) 
+#' }
 plotSDLogQ<-function(eList, yearStart=NA,yearEnd=NA,window=15,sdMax=NA,
                      printTitle = TRUE, tinyPlot = FALSE, 
                      printStaName = TRUE, printPA = TRUE, cex=0.8,

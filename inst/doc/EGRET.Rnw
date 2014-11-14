@@ -134,7 +134,7 @@ library(xtable)
 options(continue=" ")
 options(width=60)
 library(knitr)
-
+library(EGRET)
 @
 
 
@@ -184,7 +184,7 @@ addSpace <- function(x) ifelse(x != "1", "[5pt]","")
 \section{Introduction to Exploration and Graphics for RivEr Trends (EGRET)}
 %------------------------------------------------------------ 
 
-EGRET includes statistics and graphics for streamflow history, water quality trends, and the statistical modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS).  Please see the official EGRETdemo User Guide for more information on the EGRET package.:
+EGRET includes statistics and graphics for streamflow history, water quality trends, and the statistical modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS).  Please see the official EGRET User Guide for more information on the EGRET package.:
 
 (\url{http://dx.doi.org/10.3133/tm4A10}) 
 
@@ -1136,9 +1136,9 @@ siteNumber <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "1979-10-01"
 endDate <- "2011-09-30"
 param<-"00631"
-Daily <- ChopDaily
-Sample <- ChopSample
-INFO <- ChopINFO
+Daily <- getDaily(eList)
+Sample <- getSample(eList)
+INFO <- getInfo(eList)
 eList <- Choptank_eList
 @
 
@@ -1258,10 +1258,10 @@ Check the help files or manual for more details on the following functions.  See
 
 
 <<getChopData1,echo=FALSE,eval=TRUE>>=
-# Sample <- ChopSample
-# Daily <- ChopDaily
-# INFO <- ChopINFO
-# surfaces <- exsurfaces
+# Sample <- getSample(eList)
+# Daily <- getDaily(eList)
+# INFO <- getInfo(eList)
+# surfaces <- getSurfaces(eList)
 eList <- Choptank_eList
 @
 

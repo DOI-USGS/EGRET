@@ -24,11 +24,13 @@
 #' @export
 #' @examples
 #' eList <- Choptank_eList
+#' \dontrun{
 #' # Water year:
 #' plotFourStats(eList)
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList,paStart=6,paLong=3)
 #' plotFourStats(eList)
+#' }
 plotFourStats<-function(eList, yearStart = NA, yearEnd = NA, 
                         printTitle = TRUE, runoff = FALSE, cex.main = 1.2,
                         qUnit =1,cex.axis=1.2,cex=0.8, col="black", lwd=1,...) {

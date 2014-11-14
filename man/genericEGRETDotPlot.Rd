@@ -95,8 +95,10 @@ Basic plotting framework for EGRET dot plots. Graphical parameters default to va
 See ?par for complete definitions of most optional input variables.
 }
 \examples{
-x <- ChopDaily$Date
-y <- ChopDaily$Q
+eList <- Choptank_eList
+Daily <- getDaily(eList)
+x <- Daily$Date
+y <- Daily$Q
 xlim <- c(min(x),max(x))
 ylim <- c(min(y),1.05*max(y))
 xlab <- "Date"

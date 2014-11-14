@@ -50,7 +50,7 @@ Allows discharge record to only show those discharges above a given threshold
 eList <- Choptank_eList
 # Water year:
 plotQTimeDaily(eList)
-plotQTimeDaily(eList, startYear=1990, endYear=2000,qLower=1000)
+plotQTimeDaily(eList, startYear=1990, endYear=2000,qLower=1500)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
 plotQTimeDaily(eList)

@@ -14,7 +14,8 @@
 #' @export
 #' @return periodName string which describes the period of analysis
 #' @examples
-#' Daily <- ChopDaily
+#' eList <- Choptank_eList
+#' Daily <- getDaily(eList)
 #' AnnualResults <- setupYears(Daily)
 #' setSeasonLabel(AnnualResults)
 setSeasonLabel<-function(localAnnualResults){

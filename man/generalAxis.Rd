@@ -27,8 +27,9 @@ generalAxis(x, maxVal, minVal, units = NA, logScale = FALSE,
 Discharge axis tick generation
 }
 \examples{
-Daily <- ChopDaily
-INFO <- ChopINFO
+eList <- Choptank_eList
+Daily <- getDaily(eList)
+INFO <- getInfo(eList)
 x <- Daily$Q
 max <- max(x)
 min <- 0
