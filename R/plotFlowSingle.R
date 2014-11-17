@@ -59,6 +59,18 @@ plotFlowSingle<-function(eList, istat,yearStart=NA, yearEnd = NA,
     qUnit <- qConst[qUnit][[1]]
   }
   ################################################################################
+  
+  if (sum(c("paStart", "paLong", "window") %in% names(localINFO)) == 
+        3) {
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart
+    window <- localINFO$window
+  } else {
+    paLong <- 12
+    paStart <- 10
+    window <- 20
+  }
+  
   qFactor<-qUnit@qUnitFactor
   qActual<-if(runoff) qActual*86.4/localINFO$drainSqKm else qActual*qFactor
   qSmooth<-if(runoff) qSmooth*86.4/localINFO$drainSqKm else qSmooth*qFactor
@@ -70,7 +82,7 @@ plotFlowSingle<-function(eList, istat,yearStart=NA, yearEnd = NA,
   xInfo <- generalAxis(x=localSeries$years, maxVal=yearEnd, minVal=yearStart, padPercent=0,tinyPlot=tinyPlot)
   
   line1<-if(printStaName) localINFO$shortName else ""	
-  line2<-if(printPA) paste("\n",setSeasonLabelByUser(paStartInput = localINFO$paStart, paLongInput = localINFO$paLong)) else ""
+  line2<-if(printPA) paste("\n",setSeasonLabelByUser(paStartInput = paStart, paLongInput = paLong)) else ""
   nameIstat<-c("minimum day","7-day minimum","30-day minimum","median daily","mean daily","30-day maximum","7-day maximum",'maximum day')
   line3<-if(printIstat) paste("\n",nameIstat[istat]) else ""
   title<-if(printTitle) paste(line1,line2,line3) else ""
