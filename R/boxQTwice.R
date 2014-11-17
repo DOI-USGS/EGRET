@@ -3,13 +3,14 @@
 #' @description
 #' This function is used to compare the distribution of discharges in the sample data set 
 #' and the discharges in the full daily data set.
-#' Data come from three data frames created by the EGRET package: Sample, Daily, and INFO.
 #' Note that discharge is plotted on a logarithmic axis. The data is logged before the statistics are performed
 #' to determine the output of the boxplot.
 #' 
-#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#' contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
-#' \code{boxQTwice()}
+#' Data come from named list, which contains a Sample dataframe with the sample data, 
+#' a Daily dataframe with the daily flow data,
+#' and an INFO dataframe with metadata. 
+#' 
+#' Although there are a lot of optional arguments to this function, most are set to a logical default. 
 #'
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
@@ -24,6 +25,7 @@
 #' @param las numeric in {0,1,2,3}; the style of axis labels, see ?par
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
+#' @seealso \code{\link[graphics]{boxplot}}
 #' @export
 #' @examples
 #' eList <- Choptank_eList

@@ -41,16 +41,12 @@ plotSDLogQ(eList, yearStart = NA, yearEnd = NA, window = 15, sdMax = NA,
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
 \description{
-Data come from data frame named Daily.
-The metadata come from a data frame named INFO.
-User must have already run the function, \code{INFO<-setPA()}
-Can be used to analyze a specific period of analysis by
-Running \code{INFO<-setPA(paStart,paLong)}
-}
-\details{
-Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
- contains an INFO and Daily dataframes, then the following R code will produce a plot:
- \code{plotSDLogQ()}
+Graph of the standard deviation of the log of daily discharge versus year
+
+ Although there are a lot of optional arguments to this function, most are set to a logical default.
+
+Data come from named list, which contains a Daily dataframe with the daily flow data,
+and an INFO dataframe with metadata.
 }
 \examples{
 eList <- Choptank_eList
@@ -62,6 +58,9 @@ plotSDLogQ(eList, 1998,2000)
 eList <- setPA(eList, paStart=6,paLong=3)
 plotSDLogQ(eList)
 }
+}
+\seealso{
+\code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}
 }
 \keyword{graphics}
 \keyword{statistics}

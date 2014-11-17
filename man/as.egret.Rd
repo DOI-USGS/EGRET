@@ -3,7 +3,7 @@
 \alias{as.egret}
 \title{Create named list for EGRET analysis}
 \usage{
-as.egret(INFO, Daily, Sample, surfaces)
+as.egret(INFO, Daily, Sample = NA, surfaces = NA)
 }
 \arguments{
 \item{INFO}{dataframe containing the INFO dataframe}
@@ -26,7 +26,7 @@ not available, an NA should be
 eList <- Choptank_eList
 Daily <- getDaily(eList)
 INFO <- getInfo(eList)
-eList_flowHistory <- as.egret(INFO, Daily, NA, NA)
+eList_flowHistory <- as.egret(INFO, Daily)
 plotFlowSingle(eList_flowHistory, 1)
 Sample <- getSample(eList)
 surfaces <- getSurfaces(eList)

@@ -37,9 +37,10 @@ The monthly boxplot widths are proportional to the square root of the sample siz
 The residuals for a censored value are determined as the difference between the natural log of the average of the upper and lower.
   bounds on the sample value, minus the log space estimate of concentration.
 
-Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-contains an INFO and Sample dataframes, then the following R code will produce a plot:
-\code{boxResidMonth()}
+Although there are a lot of optional arguments to this function, most are set to a logical default.
+
+Data come from named list, which contains a Sample dataframe with the sample data,
+and an INFO dataframe with metadata
 }
 \examples{
 eList <- Choptank_eList
@@ -48,6 +49,9 @@ boxResidMonth(eList)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
 boxResidMonth(eList)
+}
+\seealso{
+\code{\link[graphics]{boxplot}}
 }
 \keyword{graphics}
 \keyword{statistics}

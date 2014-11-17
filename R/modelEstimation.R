@@ -3,8 +3,7 @@
 #' This one function does a jack-knife cross-validation of a WRTDS model, fits the surface
 #' (concentration as a function of discharge and time), 
 #' estimates daily values of concentration and flux, and flow normalized values. 
-#' It returns several data frames or matrices (Daily, INFO, Sample, AnnualResults, and surfaces).
-#' AnnualResults is calculated for water year. To use a period of analysis other than water year: AnnualResults<-setupYears(paLong,paStart).
+#' It returns a named list with the following dataframes: Daily, INFO, Sample, and the matrix: surfaces.
 #'
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
@@ -12,7 +11,8 @@
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
-#' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
+#' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
+#' The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
 #' @keywords water-quality statistics
 #' @export
 #' @return eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.

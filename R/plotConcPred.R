@@ -1,12 +1,10 @@
 #' Plot of Observed Concentration versus Estimated Concentration 
 #'
 #' @description
-#' Data come from a data frame named Sample which contains the Sample Data. 
-#' The metadata come from a data frame named INFO.
+#' Data come from named list, which contains a Sample dataframe with the sample data, 
+#' and an INFO dataframe with metadata. 
 #' 
-#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#' contains an INFO and Sample dataframes, then the following R code will produce a plot:
-#' \code{plotConcPred()}
+#' Although there are a lot of optional arguments to this function, most are set to a logical default.
 #'
 #' @param eList named list with at least the Sample and INFO dataframes
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
@@ -22,6 +20,7 @@
 #' @param lwd number line width
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
+#' @seealso \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}
 #' @export
 #' @examples
 #' eList <- Choptank_eList

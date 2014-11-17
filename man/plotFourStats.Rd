@@ -34,11 +34,11 @@ plotFourStats(eList, yearStart = NA, yearEnd = NA, printTitle = TRUE,
 }
 \description{
 Part of the flowHistory system.  The four statistics are 1-day maximum, annual mean, annual median, and annual 7-day minimum.
- Prior to running this code user must have run \code{INFO <- setPA} and \code{annualSeries <- makeAnnualSeries()}.
+ Although there are a lot of optional arguments to this function, most are set to a logical default.
 
- Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
- contains an INFO and Daily dataframes, annualSeries array, then the following R code will produce a plot:
- \code{plotFourStats()}
+Data come from named list, which contains a Sample dataframe with the sample data,
+a Daily dataframe with the daily flow data,
+and an INFO dataframe with metadata.
 }
 \examples{
 eList <- Choptank_eList
@@ -49,6 +49,9 @@ plotFourStats(eList)
 eList <- setPA(eList,paStart=6,paLong=3)
 plotFourStats(eList)
 }
+}
+\seealso{
+\code{\link{plotFlowSingle}}
 }
 \keyword{graphics}
 \keyword{statistics}

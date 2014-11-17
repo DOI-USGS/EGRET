@@ -56,24 +56,40 @@ mergeReport<-function(INFO, Daily, Sample, surfaces=NA, interactive=TRUE){
 #' eList <- Choptank_eList
 #' Daily <- getDaily(eList)
 #' INFO <- getInfo(eList)
-#' eList_flowHistory <- as.egret(INFO, Daily, NA, NA)
+#' eList_flowHistory <- as.egret(INFO, Daily)
 #' plotFlowSingle(eList_flowHistory, 1)
 #' Sample <- getSample(eList)
 #' surfaces <- getSurfaces(eList)
 #' eList_full <- as.egret(INFO, Daily, Sample, surfaces)
 #' plotFluxQ(eList_full)
-as.egret <- function(INFO, Daily, Sample, surfaces) {
+as.egret <- function(INFO, Daily, Sample=NA, surfaces=NA) {
   eList <- list(INFO=INFO, 
                 Daily=Daily, 
                 Sample=Sample, 
                 surfaces=surfaces)
   
+  if(!is.na(Daily) && !("Q" %in% names(Daily))){
+    message("Please double check that the Daily dataframe is correctly defined.")
+  }
+  
+  if(!is.na(Sample) && !all((c("ConcLow","ConcHigh","Uncen","ConcAve") %in% names(Sample)))){
+    message("Please double check that the Sample dataframe is correctly defined.")
+  }
+  
+  if(!any(c("param.units", "shortName", "paramShortName", "constitAbbrev", "drainSqKm") %in% names(INFO))){
+    message("Please double check that the INFO dataframe is correctly defined.")
+  }
+  
+  if(!is.na(surfaces) && 14 == nrow(surfaces)){
+    message("Please double check that the surfaces matrix is correctly defined.")
+  }
+    
   attr(eList, "param.units") <- INFO$param.units
   attr(eList, "shortName") <- INFO$shortName
   attr(eList, "paramShortName") <- INFO$paramShortName
   attr(eList, "constitAbbrev") <- INFO$constitAbbrev
-  attr(eList, "drainSqKm") <- INFO$drainSqKm
-  
+  attr(eList, "drainSqKm") <- INFO$drainSqKm    
+
   class(eList) <- "egret"
   invisible(eList)
 }

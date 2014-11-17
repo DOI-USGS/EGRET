@@ -1,8 +1,9 @@
 #' Basic Data Import for Water Flow Data
 #'
-#' Imports data from user-supplied data file. Specifically used to import water flow data for use in the WRTDS package.
-#' For WRTDS usage, the first column is expected to be dates, the second column measured values.
-#' The third column is optional, it contains any remark codes.
+#' Imports data from user-supplied data file. Specifically used to import water flow data for use in the EGRET package.
+#' For EGRET usage, the first column is expected to be dates. If the data is daily data, then next column is 
+#' expected to be the measured values. If the data is sampled data, the next column is remark codes, and the third
+#' column is values.
 #'
 #' @param filePath string specifying the path to the file
 #' @param fileName string name of file to open

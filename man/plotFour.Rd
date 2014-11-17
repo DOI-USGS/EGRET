@@ -36,11 +36,11 @@ plotFour(eList, yearStart = NA, yearEnd = NA, printTitle = TRUE,
 }
 \description{
 Part of the flowHistory system.  The four statistics are 1-day maximum, annual mean, annual 7-day minimum, and the running standard deviation of the log daily discharge values.
- Prior to running this code user must have run \code{INFO <- setPA} and \code{annualSeries <- makeAnnualSeries()}.
 
- Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
- contains an INFO and Daily dataframes, annualSeries array, then the following R code will produce a plot:
- \code{plotFour(window=2)}
+ Although there are a lot of optional arguments to this function, most are set to a logical default.
+
+Data come from named list, which contains a Daily dataframe with the daily flow data,
+and an INFO dataframe with metadata.
 }
 \examples{
 eList <- Choptank_eList
@@ -51,6 +51,9 @@ plotFour(eList)
 eList <- setPA(eList,paStart=6,paLong=3)
 plotFour(eList)
 }
+}
+\seealso{
+\code{\link{plotFlowSingle}}
 }
 \keyword{graphics}
 \keyword{statistics}

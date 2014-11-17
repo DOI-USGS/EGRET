@@ -41,9 +41,10 @@ This function produces a plot of the residuals from WRTDS, expressed in natural 
 versus the discharge shown on a log scale.
 The function also provides an alternative for viewing the standardized residuals, where the each residual is divided by its estimated standard error
 
- Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
- contains an INFO and Sample dataframes, then the following R code will produce a plot:
- \code{plotResidQ()}
+ Although there are a lot of optional arguments to this function, most are set to a logical default.
+
+Data come from named list, which contains a Sample dataframe with the sample data,
+and an INFO dataframe with metadata.
 }
 \examples{
 eList <- Choptank_eList
@@ -52,6 +53,9 @@ plotResidQ(eList)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
 plotResidQ(eList)
+}
+\seealso{
+\code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}
 }
 \keyword{graphics}
 \keyword{statistics}

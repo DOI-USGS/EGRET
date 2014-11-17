@@ -20,7 +20,6 @@ dataframe with year, discharge, concentration, flow-normalized concentration, fl
 \description{
 Produce an ASCII table showing: year, mean discharge, mean concentration, flow-normalized concentration,
 mean flux, and flow-normalized flux.
-Uses results stored in AnnualResults and INFO data frames.
 }
 \examples{
 eList <- Choptank_eList

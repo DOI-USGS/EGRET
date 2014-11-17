@@ -4,9 +4,10 @@
 #' Part of flowHistory component.
 #' Allows discharge record to only show those discharges above a given threshold
 #' 
-#'  Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#'  contains an INFO and Sample dataframes, then the following R code will produce a plot:
-#'  \code{plotQTimeDaily()}
+#'  Although there are a lot of optional arguments to this function, most are set to a logical default.
+#'  
+#' Data come from named list, which contains a Daily dataframe with the daily flow data,
+#' and an INFO dataframe with metadata.
 #'
 #' @param eList named list with at least the Daily and INFO dataframes
 #' @param startYear numeric indicating the starting year for the graph
@@ -25,6 +26,7 @@
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow
 #' @export
+#' @seealso \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}
 #' @examples
 #' eList <- Choptank_eList
 #' # Water year:

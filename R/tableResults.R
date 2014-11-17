@@ -2,7 +2,6 @@
 #'
 #' Produce an ASCII table showing: year, mean discharge, mean concentration, flow-normalized concentration, 
 #' mean flux, and flow-normalized flux. 
-#' Uses results stored in AnnualResults and INFO data frames.
 #'
 #' @param eList named list with at least Daily and INFO dataframes
 #' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 

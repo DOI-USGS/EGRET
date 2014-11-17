@@ -6,9 +6,10 @@
 #' (1) 1-day minimum, (2) 7-day minimum, (3) 30-day minimum, (4) median
 #' (5) mean, (6) 30-day maximum, (7) 7-day maximum, and (8) 1-day maximum
 #' 
-#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#' contains an INFO, and Daily dataframes, an annualSeries array, and the istat number (1-8), then the following R code will produce a plot:
-#' \code{plotFlowSingle(1)} 
+#' Although there are a lot of optional arguments to this function, most are set to a logical default.
+#' 
+#' Data come from named list, which contains a Daily dataframe with the daily flow data,
+#' and an INFO dataframe with metadata. 
 #'
 #' @param eList named list with at least the Daily and INFO dataframes
 #' @param istat A numeric value for the flow statistic to be graphed (possible values are 1 through 8)
@@ -32,6 +33,7 @@
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow statistics
 #' @export
+#' @seealso \code{\link{makeAnnualSeries}}, \code{\link{genericEGRETDotPlot}}
 #' @examples
 #' eList <- Choptank_eList
 #' # Water year:
@@ -59,6 +61,18 @@ plotFlowSingle<-function(eList, istat,yearStart=NA, yearEnd = NA,
     qUnit <- qConst[qUnit][[1]]
   }
   ################################################################################
+  
+  if (sum(c("paStart", "paLong", "window") %in% names(localINFO)) == 
+        3) {
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart
+    window <- localINFO$window
+  } else {
+    paLong <- 12
+    paStart <- 10
+    window <- 20
+  }
+  
   qFactor<-qUnit@qUnitFactor
   qActual<-if(runoff) qActual*86.4/localINFO$drainSqKm else qActual*qFactor
   qSmooth<-if(runoff) qSmooth*86.4/localINFO$drainSqKm else qSmooth*qFactor
@@ -70,7 +84,7 @@ plotFlowSingle<-function(eList, istat,yearStart=NA, yearEnd = NA,
   xInfo <- generalAxis(x=localSeries$years, maxVal=yearEnd, minVal=yearStart, padPercent=0,tinyPlot=tinyPlot)
   
   line1<-if(printStaName) localINFO$shortName else ""	
-  line2<-if(printPA) paste("\n",setSeasonLabelByUser(paStartInput = localINFO$paStart, paLongInput = localINFO$paLong)) else ""
+  line2<-if(printPA) paste("\n",setSeasonLabelByUser(paStartInput = paStart, paLongInput = paLong)) else ""
   nameIstat<-c("minimum day","7-day minimum","30-day minimum","median daily","mean daily","30-day maximum","7-day maximum",'maximum day')
   line3<-if(printIstat) paste("\n",nameIstat[istat]) else ""
   title<-if(printTitle) paste(line1,line2,line3) else ""
