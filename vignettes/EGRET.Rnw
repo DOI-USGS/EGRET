@@ -188,7 +188,7 @@ EGRET includes statistics and graphics for streamflow history, water quality tre
 
 (\url{http://dx.doi.org/10.3133/tm4A10}) 
 
-\textbf{Note:} \textit{The \enquote{official EGRET manual} currently (2014-11-12) shows a workflow that has been superseded by the workflow shown in this vignette.   However the science and math is the User Guide is correct. The User Guide is in the process of being updated and will be available at the URL shown above in the near future.}
+\textbf{Note:} \textit{The \enquote{official EGRET User Guide} currently (2014-11-12) shows a workflow that has been superseded by the workflow shown in this vignette.   However, the science and math is the User Guide is correct. The User Guide is in the process of being updated and will be available at the URL shown above in the near future.}
 
 For information on getting started in R, downloading and installing the package, see section \ref{sec:appendix1}.
 
@@ -343,7 +343,12 @@ saveResults(savePath, INFO)
 %------------------------------------------------------------ 
 The EGRET package uses 3 default dataframes throughout the calculations, analysis, and graphing. These dataframes are Daily (\ref{sec:dataframesDaily}), Sample (\ref{sec:dataframesSample}), and INFO (\ref{sec:dataframesINFO}). The dataframes are combined into a named list for all EGRET functions using the \texttt{as.egret} function (\ref{sec:eList}). 
 
-A package that EGRET depends on is called EGRET. This package provides the core functionality to import hydrologic data from USGS and EPA web services. See the EGRET vignette for more information.
+A package that EGRET depends on is called dataRetrieval. This package provides the core functionality to import hydrologic data from USGS and EPA web services. See the dataRetrieval vignette for more information.
+
+<<openDataRetrieval, eval=FALSE>>=
+library(dataRetrieval)
+vignette("dataRetrieval")
+@
 
 EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units, which will be discussed in (\ref{sec:units}). To start our exploration, you must install the packages (check Section \ref{sec:appendix1} for detailed instructions), and then open EGRET with the following command:
 
@@ -429,7 +434,7 @@ Daily <- readNWISDaily(siteNumber, "00060", startDate, endDate)
 @
 
 
-If discharge values are negative or zero, the code will set all of these values to zero and then add a small constant to all of the daily discharge values.  This constant is 0.001 times the mean discharge.  The code will also report on the number of zero and negative values and the size of the constant.  Use EGRET analysis only if the number of zero values is a very small fraction of the total days in the record (say less than 0.1\% of the days), and there are no negative discharge values.  Columns Q7 and Q30 are the 7 and 30 day running averages for the 7 or 30 days ending on this specific date. Table \ref{tab:DailyDF1} lists details of the Daily data frame.
+If discharge values are negative or zero, the code will set all of these values to zero and then add a small constant to all of the daily discharge values.  This constant is 0.001 times the mean discharge.  The code will also report on the number of zero and negative values and the size of the constant.  Use EGRET analysis only if the number of zero values is a very small fraction of the total days in the record (say less than 0.1\% of the days), and there are no negative discharge values.  Columns Q7 and Q30 are the 7 and 30 day running averages for the 7 or 30 days ending on this specific date. Table \ref{table:Daily1} lists details of the Daily data frame.
 
 \FloatBarrier
 
@@ -532,7 +537,7 @@ yHat\tnote{1} & number & estimate of the log of concentration & numeric \\
 \end{tabular}
 
   \begin{tablenotes}
-    \item[1] These estimates are \enquote{leave-one-out cross validation} estimates.  See the EGRET Manual for more details.
+    \item[1] These estimates are \enquote{leave-one-out cross validation} estimates.  See the EGRET User Guide for more details.
   \end{tablenotes}
  \end{threeparttable}
 }
@@ -963,7 +968,7 @@ The next step can be to create the annual series of discharge statistics.  These
 \label{sec:plotOptions}
 %------------------------------------------------------------ 
 
-This section shows examples of the available plots appropriate for studying discharge history. The plots here use the default variable input options.  For any function, you can get a complete list of input variables (as described in section \ref{sec:flowHistoryVariables}) in a help file by typing a ? before the function name in the R console. The EGRET manual has more detailed information for each plot type (\url{http://pubs.usgs.gov/tm/04/a10/}). Finally, see section \ref{app:savingPlots} for information on saving plots.
+This section shows examples of the available plots appropriate for studying discharge history. The plots here use the default variable input options.  For any function, you can get a complete list of input variables (as described in section \ref{sec:flowHistoryVariables}) in a help file by typing a ? before the function name in the R console. The EGRET user guide has more detailed information for each plot type (\url{http://pubs.usgs.gov/tm/04/a10/}). Finally, see section \ref{app:savingPlots} for information on saving plots.
 
 The simplest way to look at these time series is with the function \texttt{plotFlowSingle}. The statistic index (istat) must be defined by the user, but for all other arguments there are default values so the user isn't required to specify anything else. To see a list of these optional arguments and other information about the function, type \text{?plotFlowSingle} in the R console. All of the graphs in \texttt{plotFlowSingle}, \texttt{plotFourStats}, and all but one of the graphs in plotFour, show both the individual annual values of the selected discharge statistic (e.g. the annual mean or 7-day minimum), but they also show a curve that is a smooth fit to those data.  The curve is a LOWESS (locally weighted scatterplot smooth).  The algorithm for computing it is provided in the User Guide (\url{http://pubs.usgs.gov/tm/04/a10/}), in the section titled \enquote{The Smoothing Method Used in Flow History Analyses.} The default is that the annual values of the selected discharge statistics are smoothed with a \enquote{half-window width} of 20 years.  The smoothing window is an optional user-defined option. 
 
@@ -1408,7 +1413,7 @@ print(xtable(head(returnDF),
 @
 
 
-The other table option is \texttt{tableChange}. This is a function that provides for the computation of changes or slopes between any selected pairs of time points.  These computations are made only on the flow-normalized results. A detailed explaination of \enquote{flow-normalized} result is in the official EGRET manual.
+The other table option is \texttt{tableChange}. This is a function that provides for the computation of changes or slopes between any selected pairs of time points.  These computations are made only on the flow-normalized results. A detailed explaination of \enquote{flow-normalized} result is in the official EGRET user guide.
 
 
 <<tableChange1, eval=TRUE, echo=TRUE>>=
