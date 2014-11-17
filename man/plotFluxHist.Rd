@@ -43,15 +43,14 @@ plotFluxHist(eList, yearStart = NA, yearEnd = NA, fluxUnit = 9,
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
 \description{
-Data come from a data frame named AnnualResults.
-The metadata come from a data frame named INFO.
 The annual results reported are for a specified "period of analysis" which can be
 an entire water year, a calendar, a season or even an individual month.
 The user specifies this period of analysis in the call to setupYears.
 
-Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-contains an INFO and AnnualResults (from either modelEstimation or setupYears) dataframes, an annualSeries array, and the istat number (1-8), then the following R code will produce a plot:
-\code{plotFluxHist()}
+Although there are a lot of optional arguments to this function, most are set to a logical default.
+
+Data come from named list, which contains a Daily dataframe with the daily flow data,
+and an INFO dataframe with metadata.
 }
 \examples{
 yearStart <- 2001

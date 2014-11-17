@@ -3,9 +3,10 @@
 #' @description
 #' These plots show how the concentration-time relationship is changing over flow.
 #' 
-#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#' contains an INFO, and Sample dataframes, 3 discharge values, a center date, and start and end years, then the following R code will produce a plot:
-#' \code{plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd)} 
+#' Although there are a lot of optional arguments to this function, most are set to a logical default.
+#' 
+#' Data come from named list, which contains a Sample dataframe with the sample data
+#' and an INFO dataframe with metadata. 
 #'
 #' @param eList named list with at least the Sample and INFO dataframes
 #' @param q1 numeric This is the discharge value for the first curve to be shown on the plot. It is expressed in units specified by qUnit.
@@ -43,6 +44,7 @@
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords water-quality statistics graphics
 #' @export
+#' @seealso \code{\link{setupYears}}, \code{\link{genericEGRETDotPlot}}, \code{\link{runSurvReg}}
 #' @examples 
 #' q1 <- 10
 #' q2 <- 25

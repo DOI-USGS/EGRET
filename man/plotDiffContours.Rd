@@ -68,9 +68,11 @@ using the function \code{colorRampPalette(c("blue","white","red"))}. A few prese
 These plots are normally used for plotting changes in the estimated concentration surface (whatSurface=3) but can be used to explore the
 changes in estimated surfaces for the log of concentration or for the standard error (in log space) which is what determines the bias correction.
 
-Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-contains an INFO, and Daily dataframes, surface array from modelEstimation, the max change in concentration to plot, year and flow limits, then the following R code will produce a plot:
-\code{plotDiffContours(year0,year1,qBottom,qTop,maxDiff)}
+Although there are a lot of optional arguments to this function, most are set to a logical default.
+
+Data come from named list, which contains a Sample dataframe with the sample data,
+a Daily dataframe with the daily flow data,
+and an INFO dataframe with metadata.
 }
 \examples{
 year0<-2001

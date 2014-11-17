@@ -6,9 +6,11 @@
 #' The plots are often more interpretable when the time limits are only about 4 years apart.
 #' To explore changes over a long time period it is best to do this multiple times, for various time slices of 4 years (for example) or to use the function \code{plotDiffContours}.
 #' 
-#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#' contains an INFO, and Daily dataframes, surface array from modelEstimation, a vector of contour levels, year and flow limits, then the following R code will produce a plot:
-#' \code{plotContours(yearStart,yearEnd,qBottom,qTop, contourLevels = clevel)} 
+#' Although there are a lot of optional arguments to this function, most are set to a logical default.
+#' 
+#' Data come from named list, which contains a Sample dataframe with the sample data, 
+#' a Daily dataframe with the daily flow data,
+#' and an INFO dataframe with metadata. 
 #'
 #' @param eList named list with at least the Daily and INFO dataframes, and surfaces matrix
 #' @param yearStart numeric value for the starting date for the graph, expressed as decimal year (typically whole number such as 1989.0)

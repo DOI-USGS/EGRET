@@ -83,9 +83,10 @@ plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd,
 \description{
 These plots show how the concentration-time relationship is changing over flow.
 
-Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-contains an INFO, and Sample dataframes, 3 discharge values, a center date, and start and end years, then the following R code will produce a plot:
-\code{plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd)}
+Although there are a lot of optional arguments to this function, most are set to a logical default.
+
+Data come from named list, which contains a Sample dataframe with the sample data
+and an INFO dataframe with metadata.
 }
 \examples{
 q1 <- 10
@@ -97,6 +98,9 @@ yearEnd <- 2010
 eList <- Choptank_eList
 plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd)
 plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd,logScale=TRUE)
+}
+\seealso{
+\code{\link{setupYears}}, \code{\link{genericEGRETDotPlot}}, \code{\link{runSurvReg}}
 }
 \keyword{graphics}
 \keyword{statistics}
