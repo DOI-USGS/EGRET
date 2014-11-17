@@ -31,7 +31,7 @@
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters.
 #' @keywords graphics water-quality statistics
 #' @export
-#' @seealso \code{\link{setupYears}}, \code{\link{genericEGRETDotPlot}}
+#' @seealso \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}
 #' @examples
 #' eList <- Choptank_eList
 #' # Water year:

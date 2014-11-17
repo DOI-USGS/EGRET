@@ -23,7 +23,7 @@
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow statistics
 #' @export
-#' @seealso \code{\link{setupYears}}, \code{\link{plotFlowSingle}}
+#' @seealso \code{\link{plotFlowSingle}}
 #' @examples
 #' eList <- Choptank_eList
 #' \dontrun{

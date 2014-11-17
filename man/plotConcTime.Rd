@@ -64,7 +64,7 @@ plotConcTime(eList, qUnit = 1, qLower = 100, qUpper = 10000)
 plotConcTime(eList, logScale=TRUE)
 }
 \seealso{
-\code{\link{setupYears}}, \code{\link{genericEGRETDotPlot}}
+\code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}
 }
 \keyword{graphics}
 \keyword{statistics}

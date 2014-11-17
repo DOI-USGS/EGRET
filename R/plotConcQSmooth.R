@@ -47,7 +47,7 @@
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords water-quality statistics graphics
 #' @export
-#' @seealso \code{\link{setupYears}}, \code{\link{genericEGRETDotPlot}}, \code{\link{runSurvReg}}
+#' @seealso \code{\link{genericEGRETDotPlot}}, \code{\link{runSurvReg}}
 #' @examples 
 #' date1<-"2001-06-01"
 #' date2<-"2005-06-01"

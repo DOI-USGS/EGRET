@@ -44,7 +44,7 @@
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords water-quality statistics graphics
 #' @export
-#' @seealso \code{\link{setupYears}}, \code{\link{genericEGRETDotPlot}}, \code{\link{runSurvReg}}
+#' @seealso \code{\link{genericEGRETDotPlot}}, \code{\link{runSurvReg}}
 #' @examples 
 #' q1 <- 10
 #' q2 <- 25

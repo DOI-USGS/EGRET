@@ -26,7 +26,7 @@
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
-#' @seealso \code{\link{setupYears}}, \code{\link{genericEGRETDotPlot}}
+#' @seealso \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}
 #' @examples
 #' eList <- Choptank_eList
 #' # Water year:

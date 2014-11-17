@@ -100,7 +100,7 @@ plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd)
 plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd,logScale=TRUE)
 }
 \seealso{
-\code{\link{setupYears}}, \code{\link{genericEGRETDotPlot}}, \code{\link{runSurvReg}}
+\code{\link{genericEGRETDotPlot}}, \code{\link{runSurvReg}}
 }
 \keyword{graphics}
 \keyword{statistics}

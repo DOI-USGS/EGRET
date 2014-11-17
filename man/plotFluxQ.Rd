@@ -60,7 +60,7 @@ eList <- setPA(eList, paStart=6,paLong=3)
 plotFluxQ(eList)
 }
 \seealso{
-\code{\link{setupYears}}, \code{\link{genericEGRETDotPlot}}
+\code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}
 }
 \keyword{graphics}
 \keyword{statistics}

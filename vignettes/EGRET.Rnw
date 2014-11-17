@@ -749,7 +749,7 @@ bottomLogQ & Lowest discharge in prediction surfaces & dimensionless \\
 \label{sec:nwisINFO}
 %------------------------------------------------------------ 
 
-The function \texttt{readNWISInfo} combines \texttt{readNWISsite} and \texttt{readNWISpCode} from the EGRET package, producing one dataframe called INFO.
+The function \texttt{readNWISInfo} combines \texttt{readNWISsite} and \texttt{readNWISpCode} from the \texttt{dataRetrieval} package, producing one dataframe called INFO.
 
 <<ThirdExample, eval=FALSE>>=
 parameterCd <- "00618"

@@ -53,7 +53,7 @@ plotFour(eList)
 }
 }
 \seealso{
-\code{\link{setupYears}}, \code{\link{plotFlowSingle}}
+\code{\link{plotFlowSingle}}
 }
 \keyword{graphics}
 \keyword{statistics}

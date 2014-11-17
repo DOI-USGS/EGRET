@@ -101,7 +101,7 @@ plotConcQSmooth(eList, date1,date2,date3,qLow,qHigh)
 plotConcQSmooth(eList, date1,date2,date3,qLow,qHigh,logScale=TRUE)
 }
 \seealso{
-\code{\link{setupYears}}, \code{\link{genericEGRETDotPlot}}, \code{\link{runSurvReg}}
+\code{\link{genericEGRETDotPlot}}, \code{\link{runSurvReg}}
 }
 \keyword{graphics}
 \keyword{statistics}
