@@ -1,12 +1,12 @@
-#' Estimates all daily values of Concentration, Flux, Flow Normalized Concentration, and Flow Normalized Flux
+#' Estimates all daily values of Concentration, Flux, Flow-Normalized Concentration, and Flow Normalized Flux
 #'
 #'   Uses the surfaces estimated in estSurfaces to estimate these four time series
 #'    in addition to the time series for standard error and yHat (estimated log concentration). 
-#'    The results are stored in an augmented version of the Daily data frame, which is returned. 
+#'    The results are stored in an augmented version of the Daily data frame, which is returned as part of an EGRET object. 
 #'
 #' @param eList named list with at least the Daily and INFO dataframes, and the surface matrix
 #' @keywords water-quality statistics
-#' @return localDaily string specifying the name of the data frame containing the daily values and these estimates
+#' @return egret object with altered Daily dataframe
 #' @export
 #' @importFrom fields interp.surface
 #' @examples

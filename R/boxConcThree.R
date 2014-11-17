@@ -2,11 +2,12 @@
 #'
 #' @description
 #' This function is used to compare the distribution of concentration in the sample and predicted data set.
-#' Data come from three data frames created by the EGRET package. 
 #' 
-#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#' contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
-#' \code{boxConcThree()}
+#' Data come from named list, which contains a Sample dataframe with the sample data, 
+#' a Daily dataframe with the daily flow data,
+#' and an INFO dataframe with metadata. 
+#' 
+#' Although there are a lot of optional arguments to this function, most are set to a logical default. 
 #'
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
@@ -19,6 +20,7 @@
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
+#' @seealso \code{\link[graphics]{boxplot}}
 #' @export
 #' @examples
 #' eList <- Choptank_eList

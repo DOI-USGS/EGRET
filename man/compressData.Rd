@@ -14,7 +14,7 @@ compressData(data, interactive = TRUE)
 dataframe returnDataFrame data frame containing dateTime, ConcHigh, ConcLow, Uncen, ConcAve
 }
 \description{
-Using raw data that has at least dateTime, value, code, populates the measured data portion of the Sample data frame used in WRTDS
+Using raw data that has at least dateTime, value, code, populates the measured data portion of the Sample dataframe used in EGRET.
 ConcLow  = Lower bound for an observed concentration
 ConcHigh = Upper bound for an observed concentration
 ConcAve  = Average of ConcLow and ConcHigh.  If ConcLow is NA, then ConcAve = ConcHigh/2

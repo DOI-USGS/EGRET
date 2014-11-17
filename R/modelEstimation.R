@@ -3,8 +3,7 @@
 #' This one function does a jack-knife cross-validation of a WRTDS model, fits the surface
 #' (concentration as a function of discharge and time), 
 #' estimates daily values of concentration and flux, and flow normalized values. 
-#' It returns several data frames or matrices (Daily, INFO, Sample, AnnualResults, and surfaces).
-#' AnnualResults is calculated for water year. To use a period of analysis other than water year: AnnualResults<-setupYears(paLong,paStart).
+#' It returns a named list with the following dataframes: Daily, INFO, Sample, and the matrix: surfaces.
 #'
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7

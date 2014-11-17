@@ -7,6 +7,7 @@
 #' @param eList named list with at least the Daily and INFO dataframes
 #' @keywords graphics streamflow statistics
 #' @export
+#' @seealso \code{\link{plot1of15}}
 #' @examples
 #' eList <- Choptank_eList
 #' \dontrun{

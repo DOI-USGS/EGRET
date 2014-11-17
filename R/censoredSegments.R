@@ -10,6 +10,7 @@
 #' @param Uncen vector that defines whether the values are censored (0) or not (1)
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
+#' @seealso \code{\link[graphics]{segments}}
 #' @export
 #' @examples
 #' x <- c(1,2,3,4,5,6)

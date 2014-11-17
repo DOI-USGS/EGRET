@@ -68,7 +68,7 @@ as.egret <- function(INFO, Daily, Sample=NA, surfaces=NA) {
                 Sample=Sample, 
                 surfaces=surfaces)
   
-  if(!("Q" %in% names(Daily))){
+  if(!is.na(Daily) && !("Q" %in% names(Daily))){
     message("Please double check that the Daily dataframe is correctly defined.")
   }
   

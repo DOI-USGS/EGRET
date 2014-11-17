@@ -6,9 +6,11 @@
 #' stored in a data frame organized like the Sample data frame.  It allows additional label information
 #' to indicate what method is used. 
 #'
-#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#' contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
-#' \code{fluxBiasMulti()}
+#' Although there are a lot of optional arguments to this function, most are set to a logical default. 
+#' 
+#' Data come from named list, which contains a Sample dataframe with the sample data, 
+#' a Daily dataframe with the daily flow data,
+#' and an INFO dataframe with metadata
 #'
 #' @param eList named list with at least Sample, Daily, and INFO dataframes
 #' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 

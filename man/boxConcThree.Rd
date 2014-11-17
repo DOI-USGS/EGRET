@@ -30,11 +30,12 @@ boxConcThree(eList, tinyPlot = FALSE, printTitle = TRUE,
 }
 \description{
 This function is used to compare the distribution of concentration in the sample and predicted data set.
-Data come from three data frames created by the EGRET package.
 
-Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
-\code{boxConcThree()}
+Data come from named list, which contains a Sample dataframe with the sample data,
+a Daily dataframe with the daily flow data,
+and an INFO dataframe with metadata.
+
+Although there are a lot of optional arguments to this function, most are set to a logical default.
 }
 \examples{
 eList <- Choptank_eList
@@ -43,6 +44,9 @@ boxConcThree(eList)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
 boxConcThree(eList)
+}
+\seealso{
+\code{\link[graphics]{boxplot}}
 }
 \keyword{graphics}
 \keyword{statistics}

@@ -45,4 +45,7 @@ yHigh <- c(1,3,4,3.3,4.4,2)
 Uncen <- c(0,1,1,1,1,1)
 censoredSegments(yBottom=yBottom,yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
 }
+\seealso{
+\code{\link[graphics]{segments}}
+}
 

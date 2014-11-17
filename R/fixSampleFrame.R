@@ -1,6 +1,7 @@
 #' Update Sample dataframe
 #'
-#' Used for updating the Sample dataframe if ConcLow or ConcHigh is manually adjusted. Adjusts ConcAve and Uncen columns.
+#' Used for updating the Sample dataframe if ConcLow or ConcHigh is manually adjusted. 
+#' Adjusts ConcAve and Uncen columns.
 #'
 #' @param eList named list with at least the Sample dataframes
 #' @keywords WRTDS flow

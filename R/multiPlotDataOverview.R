@@ -6,9 +6,7 @@
 #' 4) a side-by-side boxplot of the sampled discharges and all daily discharges. 
 #' To save space, the graphic is labeled only at the top of the 4 graph display. 
 #' 
-#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#' contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
-#' \code{multiPlotDataOverview()}
+#' Although there are a lot of optional arguments to this function, most are set to a logical default. 
 #'
 #' @param eList named list with at least Daily, Sample, and INFO dataframes
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
@@ -16,6 +14,7 @@
 #' @param logScaleConc logical if TRUE y in concentration graphs plotted in log axis. Default is TRUE.
 #' @param logScaleQ logical if TRUE y in streamflow graphs plotted in log axis. Default is TRUE.
 #' @keywords graphics water-quality statistics
+#' @seealso \code{\link{plotConcQ}}, \code{\link{boxConcMonth}}, \code{\link{plotConcTime}}, \code{\link{boxQTwice}}
 #' @export
 #' @examples
 #' eList <- Choptank_eList

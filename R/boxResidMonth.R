@@ -7,9 +7,10 @@
 #' The residuals for a censored value are determined as the difference between the natural log of the average of the upper and lower. 
 #'   bounds on the sample value, minus the log space estimate of concentration. 
 #'   
-#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#' contains an INFO and Sample dataframes, then the following R code will produce a plot:
-#' \code{boxResidMonth()}
+#' Although there are a lot of optional arguments to this function, most are set to a logical default. 
+#' 
+#' Data come from named list, which contains a Sample dataframe with the sample data, 
+#' and an INFO dataframe with metadata
 #'
 #' @param eList named list with at least the Sample and INFO dataframes
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
@@ -23,6 +24,7 @@
 #' @param las numeric in {0,1,2,3}; the style of axis labels
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
+#' @seealso \code{\link[graphics]{boxplot}}
 #' @export
 #' @examples
 #' eList <- Choptank_eList
