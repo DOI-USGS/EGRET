@@ -4,7 +4,6 @@
 #' The index of the flow statistics is istat.  These statistics are: 
 #' (1) 1-day minimum, (2) 7-day minimum, (3) 30-day minimum, (4) median
 #' (5) mean, (6) 30-day maximum, (7) 7-day maximum, and (8) 1-day maximum. 
-#'  User must have run setPA and makeAnnualSeries before this function.
 #'
 #' @param eList named list with at least the Daily and INFO dataframes
 #' @param istat A numeric value for the flow statistic to be graphed (possible values are 1 through 8)

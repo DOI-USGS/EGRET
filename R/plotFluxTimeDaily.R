@@ -4,9 +4,11 @@
 #' This plot is useful for visual examination of the ability of the WRTDS, or other model, to fit the 
 #' data, as seen in a time-series perspective. 
 #' 
-#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#' contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
-#' \code{plotFluxTimeDaily()} 
+#' Although there are a lot of optional arguments to this function, most are set to a logical default.
+#' 
+#' Data come from named list, which contains a Sample dataframe with the sample data, 
+#' a Daily dataframe with the daily flow data,
+#' and an INFO dataframe with metadata. 
 #'
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param startYear numeric specifying the starting date (expressed as decimal years, for example 1989.0) for the plot
@@ -25,6 +27,7 @@
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
+#' @seealso \code{\link{setupYears}}, \code{\link{genericEGRETDotPlot}}
 #' @examples
 #' eList <- Choptank_eList
 #' # Water year:

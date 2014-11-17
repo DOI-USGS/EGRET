@@ -42,9 +42,11 @@ plotFluxTimeDaily(eList, startYear = NA, endYear = NA, tinyPlot = FALSE,
 This plot is useful for visual examination of the ability of the WRTDS, or other model, to fit the
 data, as seen in a time-series perspective.
 
-Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
-\code{plotFluxTimeDaily()}
+Although there are a lot of optional arguments to this function, most are set to a logical default.
+
+Data come from named list, which contains a Sample dataframe with the sample data,
+a Daily dataframe with the daily flow data,
+and an INFO dataframe with metadata.
 }
 \examples{
 eList <- Choptank_eList
@@ -54,6 +56,9 @@ plotFluxTimeDaily(eList, 2001,2009)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
 plotFluxTimeDaily(eList)
+}
+\seealso{
+\code{\link{setupYears}}, \code{\link{genericEGRETDotPlot}}
 }
 \keyword{graphics}
 \keyword{statistics}

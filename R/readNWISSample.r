@@ -1,8 +1,7 @@
 #' Import NWIS Sample Data for EGRET analysis
 #'
 #' Imports data from NWIS web service. This function gets the data from here: \url{http://nwis.waterdata.usgs.gov/nwis/qwdata/}
-#' A list of parameter codes can be found here: \url{http://nwis.waterdata.usgs.gov/nwis/pmcodes/}
-#' A list of statistic codes can be found here: \url{http://nwis.waterdata.usgs.gov/nwis/help/?read_file=stat&format=table}
+#' A list of parameter and statistic codes can be found here: \url{http://help.waterdata.usgs.gov/codes-and-parameters}
 #' For raw data, use getQWData.  This function will retrieve the raw data, and compress it (summing constituents). See
 #' section 3.4 of the vignette for more details.
 #'

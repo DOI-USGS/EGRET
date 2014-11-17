@@ -42,9 +42,10 @@ plotQTimeDaily(eList, startYear = NA, endYear = NA, qLower = NA,
 Part of flowHistory component.
 Allows discharge record to only show those discharges above a given threshold
 
- Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
- contains an INFO and Sample dataframes, then the following R code will produce a plot:
- \code{plotQTimeDaily()}
+ Although there are a lot of optional arguments to this function, most are set to a logical default.
+
+Data come from named list, which contains a Daily dataframe with the daily flow data,
+and an INFO dataframe with metadata.
 }
 \examples{
 eList <- Choptank_eList
@@ -54,6 +55,9 @@ plotQTimeDaily(eList, startYear=1990, endYear=2000,qLower=1500)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
 plotQTimeDaily(eList)
+}
+\seealso{
+\code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}
 }
 \keyword{graphics}
 \keyword{streamflow}

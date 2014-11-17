@@ -1,14 +1,12 @@
 #' Graph of the standard deviation of the log of daily discharge versus year
 #'
-#' Data come from data frame named Daily.
-#' The metadata come from a data frame named INFO.
-#' User must have already run the function, \code{INFO<-setPA()}
-#' Can be used to analyze a specific period of analysis by
-#' Running \code{INFO<-setPA(paStart,paLong)}
+#' @description
+#' Graph of the standard deviation of the log of daily discharge versus year
 #' 
-#'  Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#'  contains an INFO and Daily dataframes, then the following R code will produce a plot:
-#'  \code{plotSDLogQ()}
+#'  Although there are a lot of optional arguments to this function, most are set to a logical default.
+#'  
+#' Data come from named list, which contains a Daily dataframe with the daily flow data,
+#' and an INFO dataframe with metadata. 
 #'
 #' @param eList named list with at least the Daily and INFO dataframes
 #' @param yearStart numeric is the calendar year of the first value to be included in graph, default is NA, which plots from the start of the period of record
@@ -28,6 +26,7 @@
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow statistics
 #' @export
+#' @seealso \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}
 #' @examples
 #' eList <- Choptank_eList
 #' \dontrun{
