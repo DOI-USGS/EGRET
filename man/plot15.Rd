@@ -23,6 +23,9 @@ plot15(eList, yearStart=1990,yearEnd=2000)
 dev.off()
 }
 }
+\seealso{
+\code{\link{plot1of15}}
+}
 \keyword{graphics}
 \keyword{statistics}
 \keyword{streamflow}

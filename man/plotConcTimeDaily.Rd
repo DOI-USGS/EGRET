@@ -41,9 +41,11 @@ data, seen in a time-series perspective.
 The graph is most useful when it covers a period of just a few years and not the complete record
 but a complete record can be done by repeated use over a series of segments.
 
-Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
-\code{plotConcTimeDaily()}
+Although there are a lot of optional arguments to this function, most are set to a logical default.
+
+Data come from named list, which contains a Sample dataframe with the sample data,
+a Daily dataframe with the daily flow data,
+and an INFO dataframe with metadata.
 }
 \examples{
 eList <- Choptank_eList
@@ -53,6 +55,9 @@ plotConcTimeDaily(eList, startYear=1998,endYear=2001)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
 plotConcTimeDaily(eList)
+}
+\seealso{
+\code{\link{setupYears}}, \code{\link{genericEGRETDotPlot}}
 }
 \keyword{graphics}
 \keyword{statistics}

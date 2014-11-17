@@ -29,8 +29,7 @@ Any of these values can be NA, not all EGRET functions will work with missing pa
 This one function does a jack-knife cross-validation of a WRTDS model, fits the surface
 (concentration as a function of discharge and time),
 estimates daily values of concentration and flux, and flow normalized values.
-It returns several data frames or matrices (Daily, INFO, Sample, AnnualResults, and surfaces).
-AnnualResults is calculated for water year. To use a period of analysis other than water year: AnnualResults<-setupYears(paLong,paStart).
+It returns a named list with the following dataframes: Daily, INFO, Sample, and the matrix: surfaces.
 }
 \examples{
 eList <- Choptank_eList

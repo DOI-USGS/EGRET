@@ -34,9 +34,11 @@ It can also be used for estimates constructed by other methods (such as LOADEST)
 stored in a data frame organized like the Sample data frame.  It allows additional label information
 to indicate what method is used.
 
-Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
-\code{fluxBiasMulti()}
+Although there are a lot of optional arguments to this function, most are set to a logical default.
+
+Data come from named list, which contains a Sample dataframe with the sample data,
+a Daily dataframe with the daily flow data,
+and an INFO dataframe with metadata
 }
 \examples{
 eList <- Choptank_eList

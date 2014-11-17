@@ -43,13 +43,11 @@ plotConcQ(eList, qUnit = 2, tinyPlot = FALSE, logScale = FALSE,
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
 \description{
-Data come from a data frame named Sample which contains the sample data.
-The metadata come from a data frame named INFO.
+Data come from named list, which contains a Sample dataframe with the sample data,
+and an INFO dataframe with metadata.
 Discharge is plotted on a log scale.
 
-Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-contains an INFO and Sample dataframes, then the following R code will produce a plot:
-\code{plotConcQ()}
+Although there are a lot of optional arguments to this function, most are set to a logical default.
 }
 \examples{
 eList <- Choptank_eList
@@ -59,6 +57,9 @@ plotConcQ(eList, logScale=TRUE)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
 plotConcQ(eList)
+}
+\seealso{
+\code{\link{setupYears}}, \code{\link{genericEGRETDotPlot}}
 }
 \keyword{graphics}
 \keyword{statistics}

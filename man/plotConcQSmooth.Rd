@@ -85,9 +85,10 @@ Typically the time points selected would be in three years at the same time of y
 Another possibility is to use this to explore seasonal differences.  In this case the three
 dates would be in the same year but different times during the year.
 
-Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-contains an INFO and Sample dataframes, 3 dates, and the discharge lower and upper limits, then the following R code will produce a plot:
-\code{plotConcQSmooth(date1,date2,date3,qLow,qHigh)}
+Although there are a lot of optional arguments to this function, most are set to a logical default.
+
+Data come from named list, which contains a Sample dataframe with the sample data,
+and an INFO dataframe with metadata.
 }
 \examples{
 date1<-"2001-06-01"
@@ -98,6 +99,9 @@ qHigh<-100
 eList <- Choptank_eList
 plotConcQSmooth(eList, date1,date2,date3,qLow,qHigh)
 plotConcQSmooth(eList, date1,date2,date3,qLow,qHigh,logScale=TRUE)
+}
+\seealso{
+\code{\link{setupYears}}, \code{\link{genericEGRETDotPlot}}, \code{\link{runSurvReg}}
 }
 \keyword{graphics}
 \keyword{statistics}

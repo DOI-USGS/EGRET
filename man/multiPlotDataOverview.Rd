@@ -23,9 +23,7 @@ The four plots produced are 1) log concentration versus log discharge, 2) log co
 4) a side-by-side boxplot of the sampled discharges and all daily discharges.
 To save space, the graphic is labeled only at the top of the 4 graph display.
 
-Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
-\code{multiPlotDataOverview()}
+Although there are a lot of optional arguments to this function, most are set to a logical default.
 }
 \examples{
 eList <- Choptank_eList
@@ -34,6 +32,9 @@ multiPlotDataOverview(eList, qUnit=1)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
 multiPlotDataOverview(eList, qUnit=1)
+}
+\seealso{
+\code{\link{plotConcQ}}, \code{\link{boxConcMonth}}, \code{\link{plotConcTime}}, \code{\link{boxQTwice}}
 }
 \keyword{graphics}
 \keyword{statistics}
