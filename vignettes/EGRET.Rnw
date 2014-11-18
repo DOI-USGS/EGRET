@@ -781,7 +781,7 @@ INFO_WQP <- readWQPInfo("USGS-01491000",parameterCd)
 
 %------------------------------------------------------------ 
 \subsubsection{readUserInfo}
-\label{sec:wqpINFO}
+\label{sec:userINFO}
 %------------------------------------------------------------ 
 
 The function \texttt{readUserInfo} can be used to convert comma separated files into an INFO dataframe. At a minimum,  
@@ -1162,7 +1162,7 @@ eList <- Choptank_eList
 
 This section shows examples of the available plots appropriate for analyzing data prior to performing a WRTDS analysis. The plots here use the default variable input options.  For any function, you can get a complete list of input variables in a help file by typing a ? before the function name in the R console. See section \ref{sec:wqVariables} for information on the available input variables for these plotting functions.
 
-Note that for any of the plotting functions that show the sample data, if a value in the data set is a non-detect (censored), it is displayed on the graph as a vertical line.  The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values the minimum value on the y-axis.  This line is an \enquote{honest} representation of what we know about about that observation and doesn’t attempt to use a statistical model to make an estimate below the reporting limit. 
+Note that for any of the plotting functions that show the sample data, if a value in the data set is a non-detect (censored), it is displayed on the graph as a vertical line.  The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values the minimum value on the y-axis.  This line is an \enquote{honest} representation of what we know about about that observation and doesn't attempt to use a statistical model to make an estimate below the reporting limit. 
 
 \newpage
 \FloatBarrier
@@ -1515,7 +1515,7 @@ plotConcQ(eList, cex.lab=2,cex=2,logScale=TRUE)
 \clearpage
 
 Figure \ref{fig:plotConcQComparison} shows the default on the left, and several features on the right. First, the margin is adjusted to c(8,8,8,8), requiring customPar set to TRUE. The margin vector represents the margin spacing of the 4 \texttt{"}sides\texttt{"} of a plot in the order: bottom, left, top, right. Next, the text labels were adjusted, color set to \texttt{"}blue\texttt{"}, point and line size increased, and the point type changed form a solid circle(pch=20) to solid diamond (pch=18). A grid, legend, arrow, and text are added after the plot is produced.
-<<plotConcQComparison,echo=TRUE,eval=TRUE,fig.cap="Modified plotConcQ", fig.subcap=c("Default","Modified"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+<<plotConcQComparison,echo=TRUE,eval=TRUE,fig.cap="Modified \\texttt{plotConcQ}", fig.subcap=c("Default","Modified"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotConcQ(eList, logScale=TRUE)
 par(mar=c(8,8,8,8))
 plotConcQ(eList, customPar=TRUE,col="blue",cex=1.1,

@@ -148,6 +148,10 @@ addSpace <- function(x) ifelse(x != "1", "[5pt]","")
 #  savePath<-"/Users/rhirsch/Desktop/"
 #  saveResults(savePath, INFO)
 
+## ----openDataRetrieval, eval=FALSE------------------------
+#  library(dataRetrieval)
+#  vignette("dataRetrieval")
+
 ## ----openlibraries, echo=TRUE,eval=TRUE-------------------
 library(EGRET)
 
@@ -454,15 +458,15 @@ plotConcHist(eList)
 plotFluxHist(eList)
 
 ## ----plotConcQSmooth, echo=TRUE, fig.cap="Concentration vs. discharge",fig.subcap=c("\\texttt{plotConcQSmooth}","\\texttt{plotConcQSmooth(logScale=TRUE)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h"----
-qBottom<-20
-qTop<-700
+qLow <- 20
+qHigh <- 700
 date1 <- "2000-09-01"
 date2 <- "2005-09-01"
 date3 <- "2009-09-01"
 plotConcQSmooth(eList, date1, date2, date3,
-                qBottom, qTop, qUnit=1)
+                qLow, qHigh, qUnit=1)
 plotConcQSmooth(eList, date1, date2, date3,
-                qBottom, qTop, qUnit=1,logScale=TRUE)
+                qLow, qHigh, qUnit=1,logScale=TRUE)
 
 ## ----plotConcTimeSmooth, echo=TRUE, fig.cap="\\texttt{plotConcTimeSmooth(eList))}",fig.subcap=c("\\texttt{plotConcTimeSmooth}","\\texttt{plotConcTimeSmooth(logScale=TRUE)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',results='hide',fig.pos="h"----
 q1 <- 10
@@ -476,12 +480,12 @@ plotConcTimeSmooth(eList, q1, q2, q3, centerDate,
 ## ----fluxBiasMulti, echo=TRUE, fig.cap="\\texttt{fluxBiasMulti(eList, qUnit=1)}",fig.show='asis',fig.width=8, fig.height=10,fig.pos="h"----
 fluxBiasMulti(eList, qUnit=1)
 
-## ----plotContours, echo=TRUE,fig.cap="plotContours(eList)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h"----
+## ----plotContours, echo=TRUE,fig.cap="\\texttt{plotContours(eList)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h"----
 clevel<-seq(0,2,0.2)
 plotContours(eList, yearStart=2008,yearEnd=2010,qBottom=20,qTop=1000, 
              contourLevels = clevel,qUnit=1)
 
-## ----plotDiffContours, echo=TRUE, fig.cap="plotDiffContours(eList)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h"----
+## ----plotDiffContours, echo=TRUE, fig.cap="\\texttt{plotDiffContours(eList)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h"----
 plotDiffContours(eList, year0=2000,year1=2010,
                  qBottom=20,qTop=1000,maxDiff=0.6,qUnit=1)
 
@@ -525,11 +529,11 @@ print(xtable(returnDF,
        sanitize.rownames.function = addSpace
       )
 
-## ----adjustSize,echo=TRUE,eval=TRUE,fig.cap="Modifying text and point size", fig.subcap=c("\\texttt{plotConcQ(cex.axis=2,cex.main=1.5,logScale=TRUE)}","\\texttt{plotConcQ(cex.lab=2,cex=2,logScale=TRUE)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h"----
+## ----adjustSize,echo=TRUE,eval=TRUE,fig.cap="Modifying text and point size, as shown using the \\texttt{plotConcQ} function", fig.subcap=c("\\texttt{(cex.axis=2,cex.main=1.5)}","\\texttt{(cex.lab=2,cex=2)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h"----
 plotConcQ(eList, cex.axis=2,cex.main=1.5,logScale=TRUE)
 plotConcQ(eList, cex.lab=2,cex=2,logScale=TRUE)
 
-## ----plotConcQComparison,echo=TRUE,eval=TRUE,fig.cap="Modified plotConcQ", fig.subcap=c("Default","Modified"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h"----
+## ----plotConcQComparison,echo=TRUE,eval=TRUE,fig.cap="Modified \\texttt{plotConcQ}", fig.subcap=c("Default","Modified"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h"----
 plotConcQ(eList, logScale=TRUE)
 par(mar=c(8,8,8,8))
 plotConcQ(eList, customPar=TRUE,col="blue",cex=1.1,
@@ -569,7 +573,7 @@ plotDiffContours(eList, year0=2001,year1=2010,qBottom=0.5,qTop=50,
 par(mfcol = c(2, 2), oma = c(0, 1.7, 6, 1.7))
 
 plotFluxQ(eList, tinyPlot=TRUE,printTitle=FALSE,
-          fluxUnit=9,logScale=FALSE,fluxMax=1)
+          fluxUnit=9,logScale=TRUE,fluxMax=1)
 plotConcQ(eList, tinyPlot=TRUE,printTitle=FALSE)
 plotFluxHist(eList, tinyPlot=TRUE,printTitle=FALSE,fluxMax=1)
 plotConcHist(eList, tinyPlot=TRUE,printTitle=FALSE,concMax=3)
@@ -582,7 +586,7 @@ par(mar=c(3.5,3.5,0.2,0.2), # whitespace around the plots
     mfcol = c(2,2)) # rows/columns
 
 plotFluxQ(eList, tinyPlot=TRUE,printTitle=FALSE,
-          fluxUnit=9,logScale=FALSE,fluxMax=1,
+          fluxUnit=9,logScale=TRUE,fluxMax=1,
           showXLabels=FALSE,showXAxis=FALSE, 
           showYLabels=TRUE,customPar=TRUE)
 
