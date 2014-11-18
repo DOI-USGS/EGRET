@@ -3,7 +3,7 @@
 \alias{readWQPInfo}
 \title{Import Metadata for Water Quality Portal Data}
 \usage{
-readWQPInfo(siteNumber, parameterCd, interactive = FALSE)
+readWQPInfo(siteNumber, parameterCd, interactive = TRUE)
 }
 \arguments{
 \item{siteNumber}{string site number.}
@@ -27,7 +27,7 @@ constitAbbrev - constitute abbreviation
 nameToUse <- 'Specific conductance'
 pcodeToUse <- '00095'
 \dontrun{
-INFO <- readWQPInfo('USGS-04024315',pcodeToUse,interactive=FALSE)
+INFO <- readWQPInfo('USGS-04024315',pcodeToUse)
 
 INFO2 <- readWQPInfo('WIDNR_WQX-10032762',nameToUse)
 # To adjust the label names:

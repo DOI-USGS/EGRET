@@ -188,7 +188,7 @@ EGRET includes statistics and graphics for streamflow history, water quality tre
 
 (\url{http://dx.doi.org/10.3133/tm4A10}) 
 
-\textbf{Note:} \textit{The \enquote{official EGRET manual} currently (2014-11-12) shows a workflow that has been superseded by the workflow shown in this vignette.   However the science and math is the User Guide is correct. The User Guide is in the process of being updated and will be available at the URL shown above in the near future.}
+\textbf{Note:} \textit{The \enquote{official EGRET User Guide} currently (2014-11-12) shows a workflow that has been superseded by the workflow shown in this vignette.   However, the science and math is the User Guide is correct. The User Guide is in the process of being updated and will be available at the URL shown above in the near future.}
 
 For information on getting started in R, downloading and installing the package, see section \ref{sec:appendix1}.
 
@@ -343,7 +343,12 @@ saveResults(savePath, INFO)
 %------------------------------------------------------------ 
 The EGRET package uses 3 default dataframes throughout the calculations, analysis, and graphing. These dataframes are Daily (\ref{sec:dataframesDaily}), Sample (\ref{sec:dataframesSample}), and INFO (\ref{sec:dataframesINFO}). The dataframes are combined into a named list for all EGRET functions using the \texttt{as.egret} function (\ref{sec:eList}). 
 
-A package that EGRET depends on is called EGRET. This package provides the core functionality to import hydrologic data from USGS and EPA web services. See the EGRET vignette for more information.
+A package that EGRET depends on is called dataRetrieval. This package provides the core functionality to import hydrologic data from USGS and EPA web services. See the dataRetrieval vignette for more information.
+
+<<openDataRetrieval, eval=FALSE>>=
+library(dataRetrieval)
+vignette("dataRetrieval")
+@
 
 EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units, which will be discussed in (\ref{sec:units}). To start our exploration, you must install the packages (check Section \ref{sec:appendix1} for detailed instructions), and then open EGRET with the following command:
 
@@ -418,7 +423,7 @@ Notice that the \enquote{Day of the year} column can span from 1 to 366. The 366
 
 The \texttt{readNWISDaily} function retrieves the daily values (discharge in this case) from a USGS web service.  It requires the inputs siteNumber, parameterCd, startDate, endDate, interactive, and convert. 
 
-These arguments are described in detail in the \texttt{EGRET} vignette, however \texttt{"}convert\texttt{"} is a new argument (which defaults to TRUE). The convert argument tells the program to convert the values from cubic feet per second (ft\textsuperscript{3}/s) to cubic meters per second (m\textsuperscript{3}/s) as shown in the example Daily data frame in Table \ref{table:Daily1}. For EGRET applications with NWIS Web retrieval, do not use this argument (the default is TRUE), EGRET assumes that discharge is always stored in units of cubic meters per second. If you don't want this conversion and are not using EGRET, set convert=FALSE in the function call. 
+These arguments are described in detail in the \texttt{dataRetrieval} vignette, however \texttt{"}convert\texttt{"} is a new argument (which defaults to TRUE). The convert argument tells the program to convert the values from cubic feet per second (ft\textsuperscript{3}/s) to cubic meters per second (m\textsuperscript{3}/s) as shown in the example Daily data frame in Table \ref{table:Daily1}. For EGRET applications with NWIS Web retrieval, do not use this argument (the default is TRUE), EGRET assumes that discharge is always stored in units of cubic meters per second. If you don't want this conversion and are not using EGRET, set convert=FALSE in the function call. 
 
 <<firstExample, echo=TRUE, eval=FALSE>>=
 siteNumber <- "01491000"
@@ -429,7 +434,7 @@ Daily <- readNWISDaily(siteNumber, "00060", startDate, endDate)
 @
 
 
-If discharge values are negative or zero, the code will set all of these values to zero and then add a small constant to all of the daily discharge values.  This constant is 0.001 times the mean discharge.  The code will also report on the number of zero and negative values and the size of the constant.  Use EGRET analysis only if the number of zero values is a very small fraction of the total days in the record (say less than 0.1\% of the days), and there are no negative discharge values.  Columns Q7 and Q30 are the 7 and 30 day running averages for the 7 or 30 days ending on this specific date. Table \ref{tab:DailyDF1} lists details of the Daily data frame.
+If discharge values are negative or zero, the code will set all of these values to zero and then add a small constant to all of the daily discharge values.  This constant is 0.001 times the mean discharge.  The code will also report on the number of zero and negative values and the size of the constant.  Use EGRET analysis only if the number of zero values is a very small fraction of the total days in the record (say less than 0.1\% of the days), and there are no negative discharge values.  Columns Q7 and Q30 are the 7 and 30 day running averages for the 7 or 30 days ending on this specific date. Table \ref{table:Daily1} lists details of the Daily data frame.
 
 \FloatBarrier
 
@@ -532,7 +537,7 @@ yHat\tnote{1} & number & estimate of the log of concentration & numeric \\
 \end{tabular}
 
   \begin{tablenotes}
-    \item[1] These estimates are \enquote{leave-one-out cross validation} estimates.  See the EGRET Manual for more details.
+    \item[1] These estimates are \enquote{leave-one-out cross validation} estimates.  See the EGRET User Guide for more details.
   \end{tablenotes}
  \end{threeparttable}
 }
@@ -558,6 +563,9 @@ Sample <-readNWISSample(siteNumber,parameterCd,
       startDate, endDate)
 @
 
+Information on USGS parameter codes can be found here:
+
+\url{http://help.waterdata.usgs.gov/codes-and-parameters/parameters}
 
 %------------------------------------------------------------ 
 \subsubsection{readWQPSample}
@@ -573,6 +581,9 @@ Sample <-readWQPSample(site,characteristicName,
       startDate, endDate)
 @
 
+To request USGS data from the Water Quality Portal, the siteNumber must have \enquote{USGS-} pasted before the identification number. For USGS data, the \texttt{characteristicName} argument can be either a list of 5-digit parameter codes, or the characteristic name. A table that describes how USGS parameters relate with the defined characteristic name can be found here:
+
+\url{http://www.waterqualitydata.us/public_srsnames.jsp}
 
 \FloatBarrier
 
@@ -749,7 +760,7 @@ bottomLogQ & Lowest discharge in prediction surfaces & dimensionless \\
 \label{sec:nwisINFO}
 %------------------------------------------------------------ 
 
-The function \texttt{readNWISInfo} combines \texttt{readNWISsite} and \texttt{readNWISpCode} from the EGRET package, producing one dataframe called INFO.
+The function \texttt{readNWISInfo} combines \texttt{readNWISsite} and \texttt{readNWISpCode} from the \texttt{dataRetrieval} package, producing one dataframe called INFO.
 
 <<ThirdExample, eval=FALSE>>=
 parameterCd <- "00618"
@@ -761,7 +772,7 @@ INFO <- readNWISInfo(siteNumber,parameterCd, interactive=FALSE)
 \subsubsection{readWQPInfo}
 \label{sec:wqpINFO}
 %------------------------------------------------------------ 
-It is also possible to create the INFO dataframe using information from the Water Quality Portal:
+It is also possible to create the INFO dataframe using information from the Water Quality Portal. As with \texttt{readWQPSample}, if the requested site is a USGS siteNumber, \enquote{USGS-} needs to be appended to the siteNumber.
 
 <<WQPInfo, eval=FALSE>>=
 parameterCd <- "00618"
@@ -770,10 +781,27 @@ INFO_WQP <- readWQPInfo("USGS-01491000",parameterCd)
 
 %------------------------------------------------------------ 
 \subsubsection{readUserInfo}
-\label{sec:wqpINFO}
+\label{sec:userINFO}
 %------------------------------------------------------------ 
 
-The function \texttt{readUserInfo} can be used to convert comma separated files into an INFO dataframe. 
+The function \texttt{readUserInfo} can be used to convert comma separated files into an INFO dataframe. At a minimum, EGRET analysis uses columns: param.units, shortName, paramShortName, constitAbbrev, and drainSqKm. For example, if the following comma-separated file (csv) was available as a file called \enquote{INFO.csv}, located in a folder called \enquote{RData} on the C drive (this examples is for s Windows\textregistered\  operation system), the function to convert it to an INFO dataframe is as follows.
+
+
+\begin{verbatim}
+param.units, shortName, paramShortName, constitAbbrev, drainSqKm
+mg/l, Choptank River, Inorganic nitrogen, N, 292.67
+\end{verbatim}
+
+
+<<addInfoCustom, eval=FALSE, echo=TRUE>>=
+
+fileName <- "INFO.csv"
+filePath <- "C:/RData/"
+
+INFO <- readUserInfo(filePath, fileName)
+
+@
+
 
 %------------------------------------------------------------ 
 \subsubsection{Inserting Additional Info}
@@ -963,11 +991,11 @@ The next step can be to create the annual series of discharge statistics.  These
 \label{sec:plotOptions}
 %------------------------------------------------------------ 
 
-This section shows examples of the available plots appropriate for studying discharge history. The plots here use the default variable input options.  For any function, you can get a complete list of input variables (as described in section \ref{sec:flowHistoryVariables}) in a help file by typing a ? before the function name in the R console. The EGRET manual has more detailed information for each plot type (\url{http://pubs.usgs.gov/tm/04/a10/}). Finally, see section \ref{app:savingPlots} for information on saving plots.
+This section shows examples of the available plots appropriate for studying discharge history. The plots here use the default variable input options.  For any function, you can get a complete list of input variables (as described in section \ref{sec:flowHistoryVariables}) in a help file by typing a ? before the function name in the R console. The EGRET user guide has more detailed information for each plot type (\url{http://pubs.usgs.gov/tm/04/a10/}). Finally, see section \ref{app:savingPlots} for information on saving plots.
 
 The simplest way to look at these time series is with the function \texttt{plotFlowSingle}. The statistic index (istat) must be defined by the user, but for all other arguments there are default values so the user isn't required to specify anything else. To see a list of these optional arguments and other information about the function, type \text{?plotFlowSingle} in the R console. All of the graphs in \texttt{plotFlowSingle}, \texttt{plotFourStats}, and all but one of the graphs in plotFour, show both the individual annual values of the selected discharge statistic (e.g. the annual mean or 7-day minimum), but they also show a curve that is a smooth fit to those data.  The curve is a LOWESS (locally weighted scatterplot smooth).  The algorithm for computing it is provided in the User Guide (\url{http://pubs.usgs.gov/tm/04/a10/}), in the section titled \enquote{The Smoothing Method Used in Flow History Analyses.} The default is that the annual values of the selected discharge statistics are smoothed with a \enquote{half-window width} of 20 years.  The smoothing window is an optional user-defined option. 
 
-\texttt{plotSDLogQ} produces a graphic of the running standard deviation of the log of daily discharge over time to visualize how variability of daily discharge is changing over time.  By using the standard deviation of the log discharge the statistic becomes dimensionless.  The standard deviation plot is a way of looking at variability quite aside from average values, so, in the case of a system where discharge might be increasing over a period of years, this graphic provides a way of looking at the variability relative to that changing mean value.  The standard deviation of the log discharge is much like a coefficient of variation, but it has sample properties that make it a smoother measure of variability.  People often comment about how things like urbanization or enhanced greenhouse gases in the atmosphere are bringing about an increase in variability, and this analysis is one way to explore that idea. \texttt{plotFour}, \text{plotFourStats}, and \texttt{plot15} are all designed to plot several graphs from the other functions in a single figure. 
+\texttt{plotSDLogQ} produces a graphic of the running standard deviation of the log of daily discharge over time to visualize how variability of daily discharge is changing over time.  By using the standard deviation of the log discharge the statistic becomes dimensionless.  The standard deviation plot is a way of looking at variability quite aside from average values, so, in the case of a system where discharge might be increasing over a period of years, this graphic provides a way of looking at the variability relative to that changing mean value.  The standard deviation of the log discharge is much like a coefficient of variation, but it has sample properties that make it a smoother measure of variability.  People often comment about how things like urbanization or enhanced greenhouse gases in the atmosphere are bringing about an increase in variability, and this analysis is one way to explore that idea. \texttt{plotFour}, \texttt{plotFourStats}, and \texttt{plot15} are all designed to plot several graphs from the other functions in a single figure. 
 
 \newpage
 \FloatBarrier
@@ -1151,7 +1179,7 @@ eList <- Choptank_eList
 
 This section shows examples of the available plots appropriate for analyzing data prior to performing a WRTDS analysis. The plots here use the default variable input options.  For any function, you can get a complete list of input variables in a help file by typing a ? before the function name in the R console. See section \ref{sec:wqVariables} for information on the available input variables for these plotting functions.
 
-Note that for any of the plotting functions that show the sample data, if a value in the data set is a non-detect (censored), it is displayed on the graph as a vertical line.  The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values, or the minimum value on the y-axis.  This line is an \enquote{honest} representation of what we know about that observation and thus we need not become involved in using a statistical model to fill in what we don't know. 
+Note that for any of the plotting functions that show the sample data, if a value in the data set is a non-detect (censored), it is displayed on the graph as a vertical line.  The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values the minimum value on the y-axis.  This line is an \enquote{honest} representation of what we know about about that observation and doesn't attempt to use a statistical model to make an estimate below the reporting limit. 
 
 \newpage
 \FloatBarrier
@@ -1311,15 +1339,15 @@ plotFluxHist(eList)
 Figures \ref{fig:plotConcQSmooth} and \ref{fig:plotConcTimeSmooth} contain legends. The placement of the legend is controlled by legendLeft and legendTop. If both are set to 0 (the default values), the legend is placed near the lower left corner of the graphic. Otherwise, the value specified for legendLeft places the left edge of the legend, and legendTop specifies the top edge of the legend. The units for legendLeft and legendTop are discharge (in units specified by qUnit) and concentration, respectively. The legend can also be turned off with printLegend=FALSE. These are also functions that do not recognize the period of analysis in the INFO data frame. However, by choosing centering dates and appropriate half-windows, seasonal behavior can easily be observed in these plots. 
 
 <<plotConcQSmooth, echo=TRUE, fig.cap="Concentration vs. discharge",fig.subcap=c("\\texttt{plotConcQSmooth}","\\texttt{plotConcQSmooth(logScale=TRUE)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
-qBottom<-20
-qTop<-700
+qLow <- 20
+qHigh <- 700
 date1 <- "2000-09-01"
 date2 <- "2005-09-01"
 date3 <- "2009-09-01"
 plotConcQSmooth(eList, date1, date2, date3,
-                qBottom, qTop, qUnit=1)
+                qLow, qHigh, qUnit=1)
 plotConcQSmooth(eList, date1, date2, date3,
-                qBottom, qTop, qUnit=1,logScale=TRUE)
+                qLow, qHigh, qUnit=1,logScale=TRUE)
 @
 
 \clearpage
@@ -1344,7 +1372,7 @@ fluxBiasMulti(eList, qUnit=1)
 The contour plot functions also do not recognize the PA from the INFO dataframe. They represent the overall results of the WRTDS analysis. To specify contourLevels in the contour plots use the \texttt{seq} function (type \texttt{?seq} for details).  In general, use of the \texttt{seq} function would look like this: \texttt{contourLevels = seq(from,to,by)}.  In the example shown above we are requesting contour levels that run from 0 to 2 in steps of 0.2.
 
 
-<<plotContours, echo=TRUE,fig.cap="plotContours(eList)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
+<<plotContours, echo=TRUE,fig.cap="\\texttt{plotContours(eList)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
 clevel<-seq(0,2,0.2)
 plotContours(eList, yearStart=2008,yearEnd=2010,qBottom=20,qTop=1000, 
              contourLevels = clevel,qUnit=1)
@@ -1355,7 +1383,7 @@ plotContours(eList, yearStart=2008,yearEnd=2010,qBottom=20,qTop=1000,
 The function \texttt{plotDiffContours} plots the difference between two selected years (year0 and year1). It can help clarify what combinations of seasons and flow conditions have been showing increases and decreases over the period covered.
 
 
-<<plotDiffContours, echo=TRUE, fig.cap="plotDiffContours(eList)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
+<<plotDiffContours, echo=TRUE, fig.cap="\\texttt{plotDiffContours(eList)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
 plotDiffContours(eList, year0=2000,year1=2010,
                  qBottom=20,qTop=1000,maxDiff=0.6,qUnit=1)
 @
@@ -1408,7 +1436,7 @@ print(xtable(head(returnDF),
 @
 
 
-The other table option is \texttt{tableChange}. This is a function that provides for the computation of changes or slopes between any selected pairs of time points.  These computations are made only on the flow-normalized results. A detailed explaination of \enquote{flow-normalized} result is in the official EGRET manual.
+The other table option is \texttt{tableChange}. This is a function that provides for the computation of changes or slopes between any selected pairs of time points.  These computations are made only on the flow-normalized results. A detailed explaination of \enquote{flow-normalized} result is in the official EGRET user guide.
 
 
 <<tableChange1, eval=TRUE, echo=TRUE>>=
@@ -1496,7 +1524,7 @@ mtext & add text based on specified side of plot\\
 Some basic examples are shown below.
 
 Figure \ref{fig:adjustSize} shows a larger title and axis number (left), and larger axis labels and point size (right).
-<<adjustSize,echo=TRUE,eval=TRUE,fig.cap="Modifying text and point size", fig.subcap=c("\\texttt{plotConcQ(cex.axis=2,cex.main=1.5,logScale=TRUE)}","\\texttt{plotConcQ(cex.lab=2,cex=2,logScale=TRUE)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+<<adjustSize,echo=TRUE,eval=TRUE,fig.cap="Modifying text and point size, as shown using the \\texttt{plotConcQ} function", fig.subcap=c("\\texttt{(cex.axis=2,cex.main=1.5)}","\\texttt{(cex.lab=2,cex=2)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotConcQ(eList, cex.axis=2,cex.main=1.5,logScale=TRUE)
 plotConcQ(eList, cex.lab=2,cex=2,logScale=TRUE)
 @
@@ -1504,7 +1532,7 @@ plotConcQ(eList, cex.lab=2,cex=2,logScale=TRUE)
 \clearpage
 
 Figure \ref{fig:plotConcQComparison} shows the default on the left, and several features on the right. First, the margin is adjusted to c(8,8,8,8), requiring customPar set to TRUE. The margin vector represents the margin spacing of the 4 \texttt{"}sides\texttt{"} of a plot in the order: bottom, left, top, right. Next, the text labels were adjusted, color set to \texttt{"}blue\texttt{"}, point and line size increased, and the point type changed form a solid circle(pch=20) to solid diamond (pch=18). A grid, legend, arrow, and text are added after the plot is produced.
-<<plotConcQComparison,echo=TRUE,eval=TRUE,fig.cap="Modified plotConcQ", fig.subcap=c("Default","Modified"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+<<plotConcQComparison,echo=TRUE,eval=TRUE,fig.cap="Modified \\texttt{plotConcQ}", fig.subcap=c("Default","Modified"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotConcQ(eList, logScale=TRUE)
 par(mar=c(8,8,8,8))
 plotConcQ(eList, customPar=TRUE,col="blue",cex=1.1,
@@ -1565,7 +1593,7 @@ It is also possible to create custom multi-panel plots. In the simplest example 
 par(mfcol = c(2, 2), oma = c(0, 1.7, 6, 1.7))
 
 plotFluxQ(eList, tinyPlot=TRUE,printTitle=FALSE,
-          fluxUnit=9,logScale=FALSE,fluxMax=1)
+          fluxUnit=9,logScale=TRUE,fluxMax=1)
 plotConcQ(eList, tinyPlot=TRUE,printTitle=FALSE)
 plotFluxHist(eList, tinyPlot=TRUE,printTitle=FALSE,fluxMax=1)
 plotConcHist(eList, tinyPlot=TRUE,printTitle=FALSE,concMax=3)
@@ -1584,7 +1612,7 @@ par(mar=c(3.5,3.5,0.2,0.2), # whitespace around the plots
     mfcol = c(2,2)) # rows/columns
 
 plotFluxQ(eList, tinyPlot=TRUE,printTitle=FALSE,
-          fluxUnit=9,logScale=FALSE,fluxMax=1,
+          fluxUnit=9,logScale=TRUE,fluxMax=1,
           showXLabels=FALSE,showXAxis=FALSE, 
           showYLabels=TRUE,customPar=TRUE)
 
@@ -1741,6 +1769,7 @@ windowQ & The half window width for the weighting in terms of ln(Q).  For very l
 windowS & The half window width for the seasonal weighting, measured in years.  Any value \texttt{>}0.5 will make data from all seasons have some weight.  Values should probably not be lower than 0.3 & 0.5 \\
 minNumObs & This is the minimum number of observations with non-zero weight that the individual regressions will require before they will be used.  If there too few observations the program will iterate, making the windows wider until the number increases above this minimum.  The only reason to lower this is in cases where the data set is rather small.  It should always be set to a number at least slightly smaller than the sample size.  Any value less than about 60 is probably in the \enquote{dangerous} range, in terms of the reliability of the regression & 100 \\ 
 minNumUncen & This is the minimum number of uncensored observations with non-zero weight that the individual regressions will require before they will be used.  If there are too few uncensored observations the program will iterate, making the windows wider until the number increases above this minimum.  The only reason to lower this is in cases where the number of uncensored values is rather small.  The method has never been tested in situations where there are very few uncensored values & 50 \\
+edgeAdjust & Specify whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record & TRUE \\
 \hline
 \end{tabularx}
 }
@@ -1842,6 +1871,7 @@ printValues & If TRUE the estimated values that make up the plotted lines are pr
 windowY & This is the half-window width for time in WRTDS.  It has units of years.  & 7 \\
 windowQ & This is the half-window width for discharge in WRTDS.  It has units of ln(discharge).  & 2 \\
 windowS & This is the half-window width for seasons in WRTDS.  It has units of years.  & 0.5 \\
+edgeAdjust & Specify whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record & TRUE \\
 \hline
 \end{tabularx}
 }

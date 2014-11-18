@@ -62,14 +62,14 @@ readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
 #' nameToUse <- 'Specific conductance'
 #' pcodeToUse <- '00095'
 #' \dontrun{
-#' INFO <- readWQPInfo('USGS-04024315',pcodeToUse,interactive=FALSE)
+#' INFO <- readWQPInfo('USGS-04024315',pcodeToUse)
 #' 
 #' INFO2 <- readWQPInfo('WIDNR_WQX-10032762',nameToUse)
 #' # To adjust the label names:
 #' INFO$shortName <- "Little"
 #' INFO$paramShortName <- "SC"
 #' }
-readWQPInfo <- function(siteNumber, parameterCd, interactive=FALSE){
+readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
   
   #Check for pcode:
   pCodeLogic <- (all(nchar(parameterCd) == 5) & suppressWarnings(all(!is.na(as.numeric(parameterCd)))))
@@ -175,14 +175,13 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=FALSE){
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @keywords data import USGS web service WRTDS
 #' @export
-#' @import dataRetrieval
 #' @return INFO dataframe with agency, site, dateTime, value, and code columns
 #' @examples
-#' filePath <- system.file("extdata", package="dataRetrieval")
+#' filePath <- system.file("extdata", package="EGRET")
 #' filePath <- paste(filePath,"/",sep="")
 #' fileName <- 'infoTest.csv'
 #' INFO <- readUserInfo(filePath,fileName, separator=",",interactive=FALSE)
-readUserInfo <- function(filePath,fileName,hasHeader=TRUE,separator=",",interactive=FALSE){
+readUserInfo <- function(filePath,fileName,hasHeader=TRUE,separator=",",interactive=TRUE){
   
   totalPath <- paste(filePath,fileName,sep="");  
   siteInfo <- read.delim(  
