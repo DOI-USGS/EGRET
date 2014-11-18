@@ -28,7 +28,26 @@ mergeReport<-function(INFO, Daily, Sample, surfaces=NA, interactive=TRUE){
     dataOverview(Daily, Sample)  
   }
   
+  if(!is.na(Daily) && !("Q" %in% names(Daily))){
+    message("Please double check that the Daily dataframe is correctly defined.")
+  }
+  
+  if(!is.na(Sample) && !all((c("ConcLow","ConcHigh","Uncen","ConcAve") %in% names(Sample)))){
+    message("Please double check that the Sample dataframe is correctly defined.")
+  }
+  
+  if(!any(c("param.units", "shortName", "paramShortName", "constitAbbrev", "drainSqKm") %in% names(INFO))){
+    message("Please double check that the INFO dataframe is correctly defined.")
+  }
+  
+  if(!is.na(surfaces) && 14 == nrow(surfaces)){
+    message("Please double check that the surfaces matrix is correctly defined.")
+  }
+  
   if(!all(is.na(Sample)) & !all(is.na(Daily))){
+    if(all(c("Q","LogQ") %in% names(Sample))){
+      Sample[,c("Q","LogQ")] <- NULL
+    }
     Sample <- merge(Daily[,c("Date","Q","LogQ")],Sample,by = "Date",all.y = TRUE)
   }
   
