@@ -784,7 +784,24 @@ INFO_WQP <- readWQPInfo("USGS-01491000",parameterCd)
 \label{sec:userINFO}
 %------------------------------------------------------------ 
 
-The function \texttt{readUserInfo} can be used to convert comma separated files into an INFO dataframe. At a minimum,  
+The function \texttt{readUserInfo} can be used to convert comma separated files into an INFO dataframe. At a minimum, EGRET analysis uses columns: param.units, shortName, paramShortName, constitAbbrev, and drainSqKm. For example, if the following comma-separated file (csv) was available as a file called \enquote{INFO.csv}, located in a folder called \enquote{RData} on the C drive (this examples is for s Windows\textregistered\  operation system), the function to convert it to an INFO dataframe is as follows.
+
+
+\begin{verbatim}
+param.units, shortName, paramShortName, constitAbbrev, drainSqKm
+mg/l, Choptank River, Inorganic nitrogen, N, 292.67
+\end{verbatim}
+
+
+<<addInfoCustom, eval=FALSE, echo=TRUE>>=
+
+fileName <- "INFO.csv"
+filePath <- "C:/RData/"
+
+INFO <- readUserInfo(filePath, fileName)
+
+@
+
 
 %------------------------------------------------------------ 
 \subsubsection{Inserting Additional Info}

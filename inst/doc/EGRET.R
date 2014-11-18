@@ -230,6 +230,14 @@ print(xTab,
 #  parameterCd <- "00618"
 #  INFO_WQP <- readWQPInfo("USGS-01491000",parameterCd)
 
+## ----addInfoCustom, eval=FALSE, echo=TRUE-----------------
+#  
+#  fileName <- "INFO.csv"
+#  filePath <- "C:/RData/"
+#  
+#  INFO <- readUserInfo(filePath, fileName)
+#  
+
 ## ----addInfo, eval=FALSE, echo=TRUE-----------------------
 #  
 #  INFO$riverInfo <- "Major tributary of the Chesapeake Bay"

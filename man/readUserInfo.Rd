@@ -4,7 +4,7 @@
 \title{Import Metadata from User-Generated File}
 \usage{
 readUserInfo(filePath, fileName, hasHeader = TRUE, separator = ",",
-  interactive = FALSE)
+  interactive = TRUE)
 }
 \arguments{
 \item{filePath}{string specifying the path to the file}
@@ -28,7 +28,7 @@ Additionally, EGRET analysis requires:"drainSqKm", "staAbbrev", "constitAbbrev",
 fields if they aren't supplied in the file.
 }
 \examples{
-filePath <- system.file("extdata", package="dataRetrieval")
+filePath <- system.file("extdata", package="EGRET")
 filePath <- paste(filePath,"/",sep="")
 fileName <- 'infoTest.csv'
 INFO <- readUserInfo(filePath,fileName, separator=",",interactive=FALSE)

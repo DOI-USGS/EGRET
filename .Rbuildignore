@@ -12,4 +12,4 @@ appveyor.yml
 .travis.yml
 ^\.Rproj\appveyor.yml
 ^\.Rproj\.RData
-^\.Rproj\vignettes\EGRET.bbl
+vignettes\EGRET.bbl
