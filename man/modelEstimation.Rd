@@ -19,7 +19,8 @@ modelEstimation(eList, windowY = 7, windowQ = 2, windowS = 0.5,
 
 \item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
 
-\item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
+\item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.
+The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
 }
 \value{
 eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.
