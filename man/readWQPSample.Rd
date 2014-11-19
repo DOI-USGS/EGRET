@@ -7,13 +7,13 @@ readWQPSample(siteNumber, characteristicName, startDate, endDate,
   interactive = TRUE)
 }
 \arguments{
-\item{siteNumber}{string site number.  If USGS, it should be in the form :'USGS-XXXXXXXXX...'}
+\item{siteNumber}{character site number.  If USGS, it should be in the form :'USGS-XXXXXXXXX...'}
 
-\item{characteristicName}{string}
+\item{characteristicName}{character}
 
-\item{startDate}{string starting date for data retrieval in the form YYYY-MM-DD.}
+\item{startDate}{character starting date for data retrieval in the form YYYY-MM-DD.}
 
-\item{endDate}{string ending date for data retrieval in the form YYYY-MM-DD.}
+\item{endDate}{character ending date for data retrieval in the form YYYY-MM-DD.}
 
 \item{interactive}{logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.}
 }

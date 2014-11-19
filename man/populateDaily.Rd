@@ -8,7 +8,7 @@ populateDaily(rawData, qConvert, interactive = TRUE)
 \arguments{
 \item{rawData}{dataframe contains at least dateTime, value, code columns}
 
-\item{qConvert}{string conversion to cubic meters per second}
+\item{qConvert}{character conversion to cubic meters per second}
 
 \item{interactive}{logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.}
 }

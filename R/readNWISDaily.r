@@ -4,10 +4,10 @@
 #' A list of parameter codes can be found here: \url{http://nwis.waterdata.usgs.gov/nwis/pmcodes/}
 #' A list of statistic codes can be found here: \url{http://nwis.waterdata.usgs.gov/nwis/help/?read_file=stat&format=table}
 #'
-#' @param siteNumber string USGS site number.  This is usually an 8 digit number
-#' @param parameterCd string USGS parameter code.  This is usually an 5 digit number.
-#' @param startDate string starting date for data retrieval in the form YYYY-MM-DD.
-#' @param endDate string ending date for data retrieval in the form YYYY-MM-DD.
+#' @param siteNumber character USGS site number.  This is usually an 8 digit number
+#' @param parameterCd character USGS parameter code.  This is usually an 5 digit number.
+#' @param startDate character starting date for data retrieval in the form YYYY-MM-DD.
+#' @param endDate character ending date for data retrieval in the form YYYY-MM-DD.
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @param convert logical Option to include a conversion from cfs to cms (35.314667). The default is TRUE, 
 #' which is appropriate for using NWIS data in the EGRET package.  Set this to FALSE to not include the conversion. If the parameter code is not 00060 (NWIS discharge),

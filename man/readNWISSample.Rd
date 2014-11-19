@@ -7,13 +7,13 @@ readNWISSample(siteNumber, parameterCd, startDate = "", endDate = "",
   interactive = TRUE)
 }
 \arguments{
-\item{siteNumber}{string USGS site number.  This is usually an 8 digit number}
+\item{siteNumber}{character USGS site number.  This is usually an 8 digit number}
 
-\item{parameterCd}{string USGS parameter code.  This is usually an 5 digit number.}
+\item{parameterCd}{character USGS parameter code.  This is usually an 5 digit number.}
 
-\item{startDate}{string starting date for data retrieval in the form YYYY-MM-DD.}
+\item{startDate}{character starting date for data retrieval in the form YYYY-MM-DD.}
 
-\item{endDate}{string ending date for data retrieval in the form YYYY-MM-DD.}
+\item{endDate}{character ending date for data retrieval in the form YYYY-MM-DD.}
 
 \item{interactive}{logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.}
 }

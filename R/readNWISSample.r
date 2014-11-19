@@ -5,10 +5,10 @@
 #' For raw data, use getQWData.  This function will retrieve the raw data, and compress it (summing constituents). See
 #' section 3.4 of the vignette for more details.
 #'
-#' @param siteNumber string USGS site number.  This is usually an 8 digit number
-#' @param parameterCd string USGS parameter code.  This is usually an 5 digit number.
-#' @param startDate string starting date for data retrieval in the form YYYY-MM-DD.
-#' @param endDate string ending date for data retrieval in the form YYYY-MM-DD.
+#' @param siteNumber character USGS site number.  This is usually an 8 digit number
+#' @param parameterCd character USGS parameter code.  This is usually an 5 digit number.
+#' @param startDate character starting date for data retrieval in the form YYYY-MM-DD.
+#' @param endDate character ending date for data retrieval in the form YYYY-MM-DD.
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @keywords data import USGS WRTDS
 #' @import dataRetrieval

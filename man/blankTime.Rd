@@ -8,9 +8,9 @@ blankTime(eList, startBlank, endBlank)
 \arguments{
 \item{eList}{named list with at least the Daily dataframe}
 
-\item{startBlank}{string specifying starting date of blank period, input in quotes in yyyy-mm-dd format}
+\item{startBlank}{character specifying starting date of blank period, input in quotes in yyyy-mm-dd format}
 
-\item{endBlank}{string specifying the ending date of blank period, input in quotes in yyyy-mm-dd format}
+\item{endBlank}{character specifying the ending date of blank period, input in quotes in yyyy-mm-dd format}
 }
 \value{
 localDaily Daily data frame returned with NA's in sample gap

@@ -6,9 +6,9 @@
 readNWISInfo(siteNumber, parameterCd, interactive = TRUE)
 }
 \arguments{
-\item{siteNumber}{string USGS site number.  This is usually an 8 digit number}
+\item{siteNumber}{character USGS site number.  This is usually an 8 digit number}
 
-\item{parameterCd}{string USGS parameter code.  This is usually an 5 digit number.}
+\item{parameterCd}{character USGS parameter code.  This is usually an 5 digit number.}
 
 \item{interactive}{logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.}
 }

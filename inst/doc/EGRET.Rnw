@@ -338,10 +338,10 @@ saveResults(savePath, INFO)
 
 
 %------------------------------------------------------------ 
-\section{EGRET Dataframes Data Retrieval Options}
-\label{sec:dataframes}
+\section{EGRET data frames Data Retrieval Options}
+\label{sec:data frames}
 %------------------------------------------------------------ 
-The EGRET package uses 3 default dataframes throughout the calculations, analysis, and graphing. These dataframes are Daily (\ref{sec:dataframesDaily}), Sample (\ref{sec:dataframesSample}), and INFO (\ref{sec:dataframesINFO}). The dataframes are combined into a named list for all EGRET functions using the \texttt{as.egret} function (\ref{sec:eList}). 
+The EGRET package uses 3 default data frames throughout the calculations, analysis, and graphing. These data frames are Daily (\ref{sec:data framesDaily}), Sample (\ref{sec:data framesSample}), and INFO (\ref{sec:data framesINFO}). The data frames are combined into a named list for all EGRET functions using the \texttt{as.egret} function (\ref{sec:eList}). 
 
 A package that EGRET depends on is called dataRetrieval. This package provides the core functionality to import hydrologic data from USGS and EPA web services. See the dataRetrieval vignette for more information.
 
@@ -358,13 +358,13 @@ library(EGRET)
 
 %------------------------------------------------------------ 
 \subsection{Daily}
-\label{sec:dataframesDaily}
+\label{sec:data framesDaily}
 %------------------------------------------------------------ 
-The Daily dataframe can be imported into R either from USGS web services (\texttt{readNWISDaily}) or user-generated files (\texttt{readUserDaily}).  After you run the WRTDS calculations by using the function \texttt{modelEstimation} (as will be described in section \ref{sec:wrtds}), additional columns are inserted (Table \ref{table:Daily2}).
+The Daily data frame can be imported into R either from USGS web services (\texttt{readNWISDaily}) or user-generated files (\texttt{readUserDaily}).  After you run the WRTDS calculations by using the function \texttt{modelEstimation} (as will be described in section \ref{sec:wrtds}), additional columns are inserted (Table \ref{table:Daily2}).
 
 \begin{table}[!ht]
 {\footnotesize
-\caption{Daily dataframe} 
+\caption{Daily data frame} 
 \label{table:Daily1}
 \begin{tabular}{llll}
   \hline
@@ -380,7 +380,7 @@ The Daily dataframe can be imported into R either from USGS web services (\textt
   [5pt]Day & integer & Day of the year [1-366] & days \\ 
   [5pt]DecYear & number & Decimal year & years \\ 
   [5pt]MonthSeq & integer & Number of months since January 1, 1850 & months \\ 
-  [5pt]Qualifier & string & Qualifying code & character \\ 
+  [5pt]Qualifier & character & Qualifying code & string \\ 
   [5pt]i & integer & Index of days, starting with 1 & days \\ 
   [5pt]LogQ & number & Natural logarithm of Q & numeric \\ 
   [5pt]Q7 & number & 7 day running average of Q & m\textsuperscript{3}/s \\ 
@@ -392,7 +392,7 @@ The Daily dataframe can be imported into R either from USGS web services (\textt
 
 \begin{table}[!ht]
 {\footnotesize
-\caption{Columns added to Daily dataframe after running \texttt{modelEstimation} }
+\caption{Columns added to Daily data frame after running \texttt{modelEstimation} }
 \label{table:Daily2}
 \begin{tabular}{llll}
   \hline
@@ -442,7 +442,7 @@ If discharge values are negative or zero, the code will set all of these values 
 \subsubsection{readUserDaily}
 \label{sec:DailyFile}
 %------------------------------------------------------------ 
-The \texttt{readUserDaily} function will load a user-supplied text file and convert it to the Daily dataframe. The file should have two columns, the first dates, the second values.  The dates are formatted either mm/dd/yyyy or yyyy-mm-dd. Using a 4-digit year is required. This function has the following inputs: filePath, fileName,hasHeader (TRUE/FALSE), separator, qUnit, and interactive (TRUE/FALSE). filePath is a string that defines the path to your file, and the string can either be a full path, or path relative to your R working directory. The input fileName is a string that defines the file name (including the extension).
+The \texttt{readUserDaily} function will load a user-supplied text file and convert it to the Daily data frame. The file should have two columns, the first dates, the second values.  The dates are formatted either mm/dd/yyyy or yyyy-mm-dd. Using a 4-digit year is required. This function has the following inputs: filePath, fileName,hasHeader (TRUE/FALSE), separator, qUnit, and interactive (TRUE/FALSE). filePath is a character that defines the path to your file, and the character can either be a full path, or path relative to your R working directory. The input fileName is a character that defines the file name (including the extension).
 
 Text files that contain this sort of data require some sort of a separator, for example, a \enquote{csv} file (comma-separated value) file uses a comma to separate the date and value column. A tab delimited file would use a tab (\verb@"\t"@) rather than the comma (\texttt{"},\texttt{"}). Define the type of separator you choose to use in the function call in the \texttt{"}separator\texttt{"} argument, the default is \texttt{"},\texttt{"}. Another function input is a logical variable: hasHeader.  The default is TRUE. If your data does not have column names, set this variable to FALSE.
 
@@ -478,14 +478,14 @@ Microsoft\textregistered\ Excel files can be a bit tricky to import into R direc
 
 %------------------------------------------------------------ 
 \subsection{Sample}
-\label{sec:dataframesSample}
+\label{sec:data framesSample}
 %------------------------------------------------------------ 
-The Sample dataframe initially is populated with columns generated by either the \texttt{readNWISSample}, \texttt{readWQPSample}, or \texttt{readUserSample} functions (Table \ref{table:Sample1}). After you run the WRTDS calculations using the \texttt{modelEstimation} function (as described in section \ref{sec:wrtds}), additional columns are inserted (Table \ref{table:Sample2}):
+The Sample data frame initially is populated with columns generated by either the \texttt{readNWISSample}, \texttt{readWQPSample}, or \texttt{readUserSample} functions (Table \ref{table:Sample1}). After you run the WRTDS calculations using the \texttt{modelEstimation} function (as described in section \ref{sec:wrtds}), additional columns are inserted (Table \ref{table:Sample2}):
 
 \begin{table}[!ht]
 {\footnotesize
   \begin{threeparttable}[b]
-\caption{Sample dataframe} 
+\caption{Sample data frame} 
 \label{table:Sample1}
 \begin{tabular}{llll}
   \hline
@@ -521,7 +521,7 @@ Date & Date & Date & date \\
 \begin{table}[!ht]
 {\footnotesize
 \begin{threeparttable}[b]
-\caption{Columns added to Sample dataframe after running \texttt{modelEstimation}}
+\caption{Columns added to Sample data frame after running \texttt{modelEstimation}}
 \label{table:Sample2}
 \begin{tabular}{llll}
   \hline
@@ -543,7 +543,7 @@ yHat\tnote{1} & number & estimate of the log of concentration & numeric \\
 }
 \end{table}
 
-As with the Daily dataframe, the \enquote{Day of the year} column can span from 1 to 366. The 366 accounts for leap years. Every day has a consistent day of the year. This means, February 28\textsuperscript{th} is always the 59\textsuperscript{th} day of the year, Feb. 29\textsuperscript{th} is always the 60\textsuperscript{th} day of the year, and March 1\textsuperscript{st} is always the 61\textsuperscript{st} day of the year whether or not it is a leap year.
+As with the Daily data frame, the \enquote{Day of the year} column can span from 1 to 366. The 366 accounts for leap years. Every day has a consistent day of the year. This means, February 28\textsuperscript{th} is always the 59\textsuperscript{th} day of the year, Feb. 29\textsuperscript{th} is always the 60\textsuperscript{th} day of the year, and March 1\textsuperscript{st} is always the 61\textsuperscript{st} day of the year whether or not it is a leap year.
 
 Section \ref{sec:cenValues} is about summing multiple constituents, including how interval censoring is used. Since the Sample data frame is structured to only contain one constituent, when more than one parameter codes are requested, the \texttt{readNWISSample} function will sum the values of each constituent as described below.
 
@@ -592,7 +592,7 @@ To request USGS data from the Water Quality Portal, the siteNumber must have \en
 \label{sec:SampleFile}
 %------------------------------------------------------------ 
 
-The \texttt{readUserSample} function will import a user-generated file and populate the Sample dataframe. The difference between sample data and discharge data is that the code requires a third column that contains a remark code, either blank or \verb@"<"@, which will tell the program that the data were \enquote{left-censored} (or, below the detection limit of the sensor). Therefore, the data must be in the form: date, remark, value.   An example of a comma-delimited file is:
+The \texttt{readUserSample} function will import a user-generated file and populate the Sample data frame. The difference between sample data and discharge data is that the code requires a third column that contains a remark code, either blank or \verb@"<"@, which will tell the program that the data were \enquote{left-censored} (or, below the detection limit of the sensor). Therefore, the data must be in the form: date, remark, value.   An example of a comma-delimited file is:
 
 \singlespacing
 \begin{verbatim}
@@ -605,7 +605,7 @@ cdate;remarkCode;Nitrate
 ...
 \end{verbatim}
 
-The call to open this file, and populate the Sample dataframe is:
+The call to open this file, and populate the Sample data frame is:
 <<openSample, eval = FALSE>>=
 fileName <- "ChoptankRiverNitrate.csv"
 filePath <-  "C:/RData/"
@@ -671,13 +671,13 @@ print(xTab,
 
 @
 
-EGRET will \enquote{add up} all the values in a given row to form the total for that sample when using the Sample dataframe. Thus, you only want to enter data that should be added together. If you want a dataframe with multiple constituents that are not summed, do not use \texttt{readNWISSample}, \texttt{readWQPSample}, or \texttt{readUserSample}. The raw data functions: \texttt{getWQPData}, \texttt{getNWISqwData}, \texttt{getWQPqwData}, \texttt{getWQPData} from the EGRET package will not sum constituents, but leave them in their individual columns. 
+EGRET will \enquote{add up} all the values in a given row to form the total for that sample when using the Sample data frame. Thus, you only want to enter data that should be added together. If you want a data frame with multiple constituents that are not summed, do not use \texttt{readNWISSample}, \texttt{readWQPSample}, or \texttt{readUserSample}. The raw data functions: \texttt{getWQPData}, \texttt{getNWISqwData}, \texttt{getWQPqwData}, \texttt{getWQPData} from the EGRET package will not sum constituents, but leave them in their individual columns. 
 
 For example, we might know the value for dp on 5/30/2005, but we don't want to put it in the table because under the rules of this data set, we are not supposed to add it in to the values in 2005.
 
 For every sample, the EGRET package requires a pair of numbers to define an interval in which the true value lies (ConcLow and ConcHigh). In a simple uncensored case (the reported value is above the detection limit), ConcLow equals ConcHigh and the interval collapses down to a single point. In a simple censored case, the value might be reported as \verb@<@0.2, then ConcLow=NA and ConcHigh=0.2. We use NA instead of 0 as a way to elegantly handle future logarithm calculations.
 
-For the more complex example case, let us say dp is reported as \verb@<@0.01 and pp is reported as 0.3. We know that the total must be at least 0.3 and could be as much as 0.31. Therefore, ConcLow=0.3 and ConcHigh=0.31. Another case would be if dp is reported as \verb@<@0.005 and pp is reported \verb@<@0.2. We know in this case that the true value could be as low as zero, but could be as high as 0.205. Therefore, in this case, ConcLow=NA and ConcHigh=0.205. The Sample dataframe for the example data would be:
+For the more complex example case, let us say dp is reported as \verb@<@0.01 and pp is reported as 0.3. We know that the total must be at least 0.3 and could be as much as 0.31. Therefore, ConcLow=0.3 and ConcHigh=0.31. Another case would be if dp is reported as \verb@<@0.005 and pp is reported \verb@<@0.2. We know in this case that the true value could be as low as zero, but could be as high as 0.205. Therefore, in this case, ConcLow=NA and ConcHigh=0.205. The Sample data frame for the example data would be:
 
 <<thirdExample,echo=FALSE>>=
   compressedData <- compressData(DF)
@@ -693,14 +693,14 @@ For the more complex example case, let us say dp is reported as \verb@<@0.01 and
 
 %------------------------------------------------------------ 
 \subsection{INFO}
-\label{sec:dataframesINFO}
+\label{sec:data framesINFO}
 %------------------------------------------------------------ 
-The INFO dataframe stores information about the measurements, such as station name, parameter name, drainage area, and so forth. There can be many additional, optional columns, but the columns in Table \ref{table:Info1} are required to initiate the EGRET analysis. After you run the WRTDS calculations (as described in section \ref{sec:wrtds}), additional columns (Table \ref{table:Info2}) are automatically inserted into the INFO dataframe (see the EGRET User Guide for complete description of each term):
+The INFO data frame stores information about the measurements, such as station name, parameter name, drainage area, and so forth. There can be many additional, optional columns, but the columns in Table \ref{table:Info1} are required to initiate the EGRET analysis. After you run the WRTDS calculations (as described in section \ref{sec:wrtds}), additional columns (Table \ref{table:Info2}) are automatically inserted into the INFO data frame (see the EGRET User Guide for complete description of each term):
 
 \begin{table}[!ht]
 {\footnotesize
 \begin{threeparttable}[b]
-\caption{INFO dataframe}
+\caption{INFO data frame}
 \label{table:Info1}
 \begin{tabular}{lll}
   \hline
@@ -708,10 +708,10 @@ The INFO dataframe stores information about the measurements, such as station na
 \multicolumn{1}{c}{\textbf{\textsf{Type}}} &
 \multicolumn{1}{c}{\textbf{\textsf{Description}}} \\ 
   \hline
-  shortName & string & Name of site, suitable for use in graphical headings \\ 
-  [5pt]staAbbrev & string & Abbreviation for station name, used in saveResults \\ 
-  [5pt]paramShortName & string & Name of constituent, suitable for use in graphical headings \\ 
-  [5pt]constitAbbrev & string & Abbreviation for constituent name, used in saveResults \\ 
+  shortName & character & Name of site, suitable for use in graphical headings \\ 
+  [5pt]staAbbrev & character & Abbreviation for station name, used in saveResults \\ 
+  [5pt]paramShortName & character & Name of constituent, suitable for use in graphical headings \\ 
+  [5pt]constitAbbrev & character & Abbreviation for constituent name, used in saveResults \\ 
   [5pt]drainSqKm & numeric & Drainage area in  km\textsuperscript{2} \\ 
   [5pt]paStart \tnote{1} & integer (1-12) & Starting month of period of analysis \\ 
   [5pt]paLong \tnote{1} & integer (1-12) & Length of period of analysis in months \\ 
@@ -728,7 +728,7 @@ The INFO dataframe stores information about the measurements, such as station na
 
 \begin{table}[!ht]
 {\footnotesize
-\caption{INFO dataframe after running \texttt{modelEstimation}} 
+\caption{INFO data frame after running \texttt{modelEstimation}} 
 \label{table:Info2}
 \begin{tabular}{lll}
   \hline
@@ -760,7 +760,7 @@ bottomLogQ & Lowest discharge in prediction surfaces & dimensionless \\
 \label{sec:nwisINFO}
 %------------------------------------------------------------ 
 
-The function \texttt{readNWISInfo} combines \texttt{readNWISsite} and \texttt{readNWISpCode} from the \texttt{dataRetrieval} package, producing one dataframe called INFO.
+The function \texttt{readNWISInfo} combines \texttt{readNWISsite} and \texttt{readNWISpCode} from the \texttt{dataRetrieval} package, producing one data frame called INFO.
 
 <<ThirdExample, eval=FALSE>>=
 parameterCd <- "00618"
@@ -772,7 +772,7 @@ INFO <- readNWISInfo(siteNumber,parameterCd, interactive=FALSE)
 \subsubsection{readWQPInfo}
 \label{sec:wqpINFO}
 %------------------------------------------------------------ 
-It is also possible to create the INFO dataframe using information from the Water Quality Portal. As with \texttt{readWQPSample}, if the requested site is a USGS siteNumber, \enquote{USGS-} needs to be appended to the siteNumber.
+It is also possible to create the INFO data frame using information from the Water Quality Portal. As with \texttt{readWQPSample}, if the requested site is a USGS siteNumber, \enquote{USGS-} needs to be appended to the siteNumber.
 
 <<WQPInfo, eval=FALSE>>=
 parameterCd <- "00618"
@@ -784,7 +784,7 @@ INFO_WQP <- readWQPInfo("USGS-01491000",parameterCd)
 \label{sec:userINFO}
 %------------------------------------------------------------ 
 
-The function \texttt{readUserInfo} can be used to convert comma separated files into an INFO dataframe. At a minimum, EGRET analysis uses columns: param.units, shortName, paramShortName, constitAbbrev, and drainSqKm. For example, if the following comma-separated file (csv) was available as a file called \enquote{INFO.csv}, located in a folder called \enquote{RData} on the C drive (this examples is for s Windows\textregistered\  operation system), the function to convert it to an INFO dataframe is as follows.
+The function \texttt{readUserInfo} can be used to convert comma separated files into an INFO data frame. At a minimum, EGRET analysis uses columns: param.units, shortName, paramShortName, constitAbbrev, and drainSqKm. For example, if the following comma-separated file (csv) was available as a file called \enquote{INFO.csv}, located in a folder called \enquote{RData} on the C drive (this examples is for s Windows\textregistered\  operation system), the function to convert it to an INFO data frame is as follows.
 
 
 \begin{verbatim}
@@ -809,7 +809,7 @@ INFO <- readUserInfo(filePath, fileName)
 %------------------------------------------------------------ 
 
 
-Any supplemental column that would be useful can be added to the INFO dataframe. 
+Any supplemental column that would be useful can be added to the INFO data frame. 
 
 <<addInfo, eval=FALSE, echo=TRUE>>=
 
@@ -827,7 +827,7 @@ INFO$GreensboroPopulation <- 1931
 \subsection{Merge Report: eList}
 \label{sec:eList}
 %------------------------------------------------------------
-Finally, there is a function called \texttt{mergeReport} that will look at both the Daily and Sample dataframe, and populate Q and LogQ columns into the Sample dataframe. Once \texttt{mergeReport} has been run, the Sample dataframe will be augmented with the daily discharges for all the days with samples, and a named list with all of the dataframes will be created.  In this vignette, we will refer to this named list as \texttt{eList}: it is a list with potentially 3 dataframes: Daily, Sample, and INFO. For flow history analysis, the Sample dataframe can be NA.You can use the function \texttt{as.egret} to create this \enquote{EGRET} object.
+Finally, there is a function called \texttt{mergeReport} that will look at both the Daily and Sample data frame, and populate Q and LogQ columns into the Sample data frame. Once \texttt{mergeReport} has been run, the Sample data frame will be augmented with the daily discharges for all the days with samples, and a named list with all of the data frames will be created.  In this vignette, we will refer to this named list as \texttt{eList}: it is a list with potentially 3 data frames: Daily, Sample, and INFO. For flow history analysis, the Sample data frame can be NA.You can use the function \texttt{as.egret} to create this \enquote{EGRET} object.
 
 None of the water quality functions in EGRET will work without first having run the \texttt{mergeReport} function.
 
@@ -846,25 +846,25 @@ eList <- mergeReport(INFO, Daily,Sample)
 
 @
 
-Perhaps you already have Daily, Sample, and INFO dataframes, and surfaces matrix (created after running the WRTDS \texttt{modelEstimation}) that have gone though a deprecated version of EGRET. You can create and edit an EGRET object as follows:
+Perhaps you already have Daily, Sample, and INFO data frames, and surfaces matrix (created after running the WRTDS \texttt{modelEstimation}) that have gone though a deprecated version of EGRET. You can create and edit an EGRET object as follows:
 
 
 <<egretObedit, echo=TRUE, eval=FALSE>>=
 
 eListNew <- as.egret(INFO, Daily, Sample, surfaces)
 
-#To pull out the INFO dataframe:
+#To pull out the INFO data frame:
 INFO <- getInfo(eListNew)
-#Edit the INFO dataframe:
+#Edit the INFO data frame:
 INFO$importantNews <- "New EGRET workflow started"
-#Put new dataframe in eListNew
+#Put new data frame in eListNew
 eListNew$INFO <- INFO
 
 #To pull out Daily:
 Daily <- getDaily(eListNew)
 #Edit for some reason:
 DailyNew <- Daily[Daily$DecYear > 1985,]
-#Put new Daily dataframe back in eListNew:
+#Put new Daily data frame back in eListNew:
 eListNew$Daily <- DailyNew
 
 #To create a whole new egret object:
@@ -1089,7 +1089,7 @@ plotQTimeDaily(eListMiss, qUnit=3,qLower=300)
 \subsection{Table Options}
 \label{sec:tableOptions}
 %------------------------------------------------------------ 
-Sometimes it is easier to consider results in table formats rather than graphically. Similar to the function \texttt{plotFlowSingle}, the \texttt{printSeries} will print the requested discharge statistics (Table \ref{table:istat}), as well as return the results in a dataframe. A small sample of the output is printed below.
+Sometimes it is easier to consider results in table formats rather than graphically. Similar to the function \texttt{plotFlowSingle}, the \texttt{printSeries} will print the requested discharge statistics (Table \ref{table:istat}), as well as return the results in a data frame. A small sample of the output is printed below.
 
 
 <<printSeries, eval=FALSE,echo=TRUE>>=
@@ -1130,7 +1130,7 @@ Another argument can be very useful in this function: yearPoints.  In the defaul
 tableFlowChange(eListMiss, istat=3, qUnit=3,yearPoints=c(1890,1950,2010))
 @
 
-See section \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft\textregistered\ software. Excel, Microsoft, PowerPoint, Windows, and Word are registered trademarks of Microsoft Corporation in the United States and other countries.
+See section \ref{app:createWordTable} for instructions on converting an R data frame to a table in Microsoft\textregistered\ software. Excel, Microsoft, PowerPoint, Windows, and Word are registered trademarks of Microsoft Corporation in the United States and other countries.
 
 \FloatBarrier
 
@@ -1143,7 +1143,7 @@ See section \ref{app:createWordTable} for instructions on converting an R datafr
 
 Before you run the WRTDS model, it is helpful to examine the measured water quality data graphically to better understand its behavior, identify possible data errors, and visualize the temporal distribution of the data (identify gaps).  It is always best to clear up these issues before moving forward.
 
-The examples below use the Choptank River at Greensboro, MD. The Choptank River is a small tributary of the Chesapeake Bay. Inorganic nitrogen (nitrate and nitrite) has been measured from 1979 onward. First, we need to load the discharge and nitrate data into R. Before we can graph or use it for WRTDS analysis, we must bring the discharge data into the Sample dataframe.  We do this by using the \texttt{mergeReport} function which merges the discharge information and also provides a compact report about some major features of the data set.
+The examples below use the Choptank River at Greensboro, MD. The Choptank River is a small tributary of the Chesapeake Bay. Inorganic nitrogen (nitrate and nitrite) has been measured from 1979 onward. First, we need to load the discharge and nitrate data into R. Before we can graph or use it for WRTDS analysis, we must bring the discharge data into the Sample data frame.  We do this by using the \texttt{mergeReport} function which merges the discharge information and also provides a compact report about some major features of the data set.
 
 <<wrtds1,eval=FALSE,echo=TRUE>>=
 #Choptank River at Greensboro, MD:
@@ -1236,13 +1236,13 @@ flowDuration(eList, qUnit=1, centerDate="09-30", span=30)
 %------------------------------------------------------------ 
 WRTDS creates a model of the behavior of concentration as a function of three components: time trend, discharge, and season.  You can use WRTDS to estimate annual or seasonal mean concentrations and fluxes as well as describe long-term trends in the behavior of the system. In this section, we will step though the process required for a WRTDS analysis. Section (\ref{sec:wrtdsResults}) provides details about the available methods for viewing and evaluating the model results. 
 
-Once you have looked at your data using the tools described in section \ref{sec:wqa}, and have determined there are sufficient representative data, it is time to run the WRTDS model. Assuming you are using the defaults, with dataframes called Daily, Sample, and INFO, the \texttt{modelEstimation} function runs the WRTDS modeling algorithm:
+Once you have looked at your data using the tools described in section \ref{sec:wqa}, and have determined there are sufficient representative data, it is time to run the WRTDS model. Assuming you are using the defaults, with data frames called Daily, Sample, and INFO, the \texttt{modelEstimation} function runs the WRTDS modeling algorithm:
 
 <<wrtds3, eval=FALSE, echo=TRUE>>=
 eList <- modelEstimation(eList)
 @
 
-Details of the options available when running \texttt{modelEstimation} can be found in Section \ref{sec:wrtdsInputVariables}. This function is slow, and shows the progress in percent complete. See the references and manual for more information. It's important to understand that this is the one function that will globally change your Daily, Sample, and INFO dataframes. It also creates a new matrix \texttt{"}surfaces\texttt{"}, and a new dataframe \texttt{"}AnnualResults\texttt{"}. It is unusual R programming behavior to create global variables, but global variables were chosen to make it easy for you.
+Details of the options available when running \texttt{modelEstimation} can be found in Section \ref{sec:wrtdsInputVariables}. This function is slow, and shows the progress in percent complete. See the references and manual for more information. It's important to understand that this is the one function that will globally change your Daily, Sample, and INFO data frames. It also creates a new matrix \texttt{"}surfaces\texttt{"}, and a new data frame \texttt{"}AnnualResults\texttt{"}. It is unusual R programming behavior to create global variables, but global variables were chosen to make it easy for you.
 
 Finally, it is a good idea to save your results because of the computational time that has been invested in producing these results. The workspace is saved to a directory that you designate savePath and the file name is determined by the abbreviations for station and constituent that were required entries when the \texttt{readNWISInfo} function was used. The command for saving the workspace is:
 
@@ -1282,7 +1282,7 @@ At this point (after having run \texttt{modelEstimation}) we can start consideri
 
 \FloatBarrier
 
-Check the help files or manual for more details on the following functions.  See section \ref{app:savingPlots} for information on saving plots. In these examples, we will return to looking at the data in the water year by using the \texttt{setPA} function. Most plotting functions will use the period of analysis information in the INFO dataframe to determine what data are plotted. There are only four graph or table functions that don't allow the user to specify a Period of Analysis (PA). These are: \texttt{plotContour}, \texttt{plotDiffContour}, \texttt{plotConcTimeSmooth}, \texttt{plotConcQSmooth}.
+Check the help files or manual for more details on the following functions.  See section \ref{app:savingPlots} for information on saving plots. In these examples, we will return to looking at the data in the water year by using the \texttt{setPA} function. Most plotting functions will use the period of analysis information in the INFO data frame to determine what data are plotted. There are only four graph or table functions that don't allow the user to specify a Period of Analysis (PA). These are: \texttt{plotContour}, \texttt{plotDiffContour}, \texttt{plotConcTimeSmooth}, \texttt{plotConcQSmooth}.
 
 
 <<getChopData1,echo=FALSE,eval=TRUE>>=
@@ -1369,7 +1369,7 @@ fluxBiasMulti(eList, qUnit=1)
 
 \clearpage
 
-The contour plot functions also do not recognize the PA from the INFO dataframe. They represent the overall results of the WRTDS analysis. To specify contourLevels in the contour plots use the \texttt{seq} function (type \texttt{?seq} for details).  In general, use of the \texttt{seq} function would look like this: \texttt{contourLevels = seq(from,to,by)}.  In the example shown above we are requesting contour levels that run from 0 to 2 in steps of 0.2.
+The contour plot functions also do not recognize the PA from the INFO data frame. They represent the overall results of the WRTDS analysis. To specify contourLevels in the contour plots use the \texttt{seq} function (type \texttt{?seq} for details).  In general, use of the \texttt{seq} function would look like this: \texttt{contourLevels = seq(from,to,by)}.  In the example shown above we are requesting contour levels that run from 0 to 2 in steps of 0.2.
 
 
 <<plotContours, echo=TRUE,fig.cap="\\texttt{plotContours(eList)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
@@ -1443,7 +1443,7 @@ The other table option is \texttt{tableChange}. This is a function that provides
 tableChange(eList, yearPoints=c(2000,2005,2010))
 @
 
-Finally, \texttt{tableChangeSingle} (Table \ref{table:tableChangeSingle}) operates exactly the same as \texttt{tableChange} except for the addition argument flux. This function provides either concentration results or flux results, but not both.  This can be useful when you are producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except for the final two arguments.  The argument \texttt{"}flux\texttt{"} defaults to TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  See section \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft\textregistered\ software.
+Finally, \texttt{tableChangeSingle} (Table \ref{table:tableChangeSingle}) operates exactly the same as \texttt{tableChange} except for the addition argument flux. This function provides either concentration results or flux results, but not both.  This can be useful when you are producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except for the final two arguments.  The argument \texttt{"}flux\texttt{"} defaults to TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  See section \ref{app:createWordTable} for instructions on converting an R data frame to a table in Microsoft\textregistered\ software.
 
 <<tableChangeSingleR, eval=TRUE, echo=TRUE,results='hide'>>=
 returnDF <- tableChangeSingle(eList, yearPoints=c(2000,2005,2010))
@@ -1880,10 +1880,10 @@ edgeAdjust & Specify whether to use the modified method for calculating the wind
 
 
 %------------------------------------------------------------ 
-\section{Creating tables in Microsoft\textregistered\ software from an R dataframe}
+\section{Creating tables in Microsoft\textregistered\ software from an R data frame}
 \label{app:createWordTable}
 %------------------------------------------------------------
-A few steps that are required to create a table in Microsoft\textregistered\ software (Excel, Word, PowerPoint, etc.) from an R dataframe. There are a variety of good methods, one of which is detailed here. The example we will step through is creation of a table in Microsoft\textregistered\ Excel based on the dataframe tableData:
+A few steps that are required to create a table in Microsoft\textregistered\ software (Excel, Word, PowerPoint, etc.) from an R data frame. There are a variety of good methods, one of which is detailed here. The example we will step through is creation of a table in Microsoft\textregistered\ Excel based on the data frame tableData:
 
 <<label=getSiteApp, echo=TRUE,eval=TRUE>>=
 
@@ -1891,7 +1891,7 @@ tableData <- tableResults(eList)
 @
 
 
-First, save the dataframe as a tab delimited file (you don't want to use comma delimited because there are commas in some of the data elements):
+First, save the data frame as a tab delimited file (you don't want to use comma delimited because there are commas in some of the data elements):
 
 
 <<label=saveData, echo=TRUE, eval=FALSE>>=

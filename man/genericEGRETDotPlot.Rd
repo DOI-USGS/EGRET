@@ -28,15 +28,15 @@ genericEGRETDotPlot(x, y, xlim, ylim, xTicks, yTicks, printTitle = TRUE,
 
 \item{printTitle}{logical defaults to TRUE, plotting parameter to control whether to have title}
 
-\item{xaxs}{string defaults to "i", defines the style of x-axis interval calculation.  Possible values are i, r, e, s, d.}
+\item{xaxs}{character defaults to "i", defines the style of x-axis interval calculation.  Possible values are i, r, e, s, d.}
 
-\item{xlab}{string defaults to "", defines the x label}
+\item{xlab}{character defaults to "", defines the x label}
 
-\item{yaxs}{string defaults to "i", defines the style of y-axis interval calculation.  Possible values are i, r, e, s, d.}
+\item{yaxs}{character defaults to "i", defines the style of y-axis interval calculation.  Possible values are i, r, e, s, d.}
 
-\item{ylab}{string defaults to "", defines the y label}
+\item{ylab}{character defaults to "", defines the y label}
 
-\item{plotTitle}{string defaults to "", defines the plot title}
+\item{plotTitle}{character defaults to "", defines the plot title}
 
 \item{pch}{number defaults to 20, specifies plot symbol}
 

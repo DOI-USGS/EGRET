@@ -5,10 +5,10 @@
 #' expected to be the measured values. If the data is sampled data, the next column is remark codes, and the third
 #' column is values.
 #'
-#' @param filePath string specifying the path to the file
-#' @param fileName string name of file to open
+#' @param filePath character specifying the path to the file
+#' @param fileName character name of file to open
 #' @param hasHeader logical true if the first row of data is the column headers
-#' @param separator string character that separates data cells
+#' @param separator character character that separates data cells
 #' @keywords data import file
 #' @return retval dataframe with dateTime, value, and code columns
 #' @export

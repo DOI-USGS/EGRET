@@ -13,7 +13,7 @@ generalAxis(x, maxVal, minVal, units = NA, logScale = FALSE,
 
 \item{minVal}{number minimum value on returned scale}
 
-\item{units}{string concentration units. Typically found in INFO$param.units.}
+\item{units}{character concentration units. Typically found in INFO$param.units.}
 
 \item{logScale}{logical whether or not to return a log scale}
 

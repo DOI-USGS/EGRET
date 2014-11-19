@@ -6,10 +6,10 @@
 #' are to be combinded with interval censoring, additional columns can be inserted, each starting with
 #' remark code (specifically looking for <), and values.
 #'
-#' @param filePath string specifying the path to the file
-#' @param fileName string name of file to open
+#' @param filePath character specifying the path to the file
+#' @param fileName character name of file to open
 #' @param hasHeader logical true if the first row of data is the column headers
-#' @param separator string character that separates data cells
+#' @param separator character character that separates data cells
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @keywords data import file
 #' @seealso \code{\link{compressData}}, \code{\link{populateSampleColumns}}

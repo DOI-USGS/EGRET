@@ -7,8 +7,8 @@
 #' staAbbrev - station abbreviation, will be used in naming output files and for structuring batch jobs
 #' constitAbbrev - constitute abbreviation
 #'
-#' @param siteNumber string USGS site number.  This is usually an 8 digit number
-#' @param parameterCd string USGS parameter code.  This is usually an 5 digit number.
+#' @param siteNumber character USGS site number.  This is usually an 8 digit number
+#' @param parameterCd character USGS parameter code.  This is usually an 5 digit number.
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @keywords data import USGS web service
 #' @export
@@ -49,8 +49,8 @@ readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
 #' staAbbrev - station abbreviation, will be used in naming output files and for structuring batch jobs
 #' constitAbbrev - constitute abbreviation
 #'
-#' @param siteNumber string site number. 
-#' @param parameterCd string USGS parameter code or characteristic name.
+#' @param siteNumber character site number. 
+#' @param parameterCd character USGS parameter code or characteristic name.
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @keywords data import USGS web service WRTDS
 #' @export
@@ -168,10 +168,10 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
 #' "param.units", "paramShortName","shortName". If interactive=TRUE, the function will ask for these
 #' fields if they aren't supplied in the file.
 #'
-#' @param filePath string specifying the path to the file
-#' @param fileName string name of file to open
+#' @param filePath character specifying the path to the file
+#' @param fileName character name of file to open
 #' @param hasHeader logical true if the first row of data is the column headers
-#' @param separator string character that separates data cells
+#' @param separator character character that separates data cells
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @keywords data import USGS web service WRTDS
 #' @export

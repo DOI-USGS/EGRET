@@ -21,7 +21,7 @@ plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd,
 
 \item{q3}{numeric This is the discharge value for the third curve to be shown on the plot. It is expressed in units specified by qUnit. If you don't want a third curve then the argument must be q3=NA}
 
-\item{centerDate}{string This is the time of year to be used as the center date for the smoothing. It is expressed as a month and day and must be in the form "mm-dd"}
+\item{centerDate}{character This is the time of year to be used as the center date for the smoothing. It is expressed as a month and day and must be in the form "mm-dd"}
 
 \item{yearStart}{numeric This is the starting year for the graph. The first value plotted for each curve will be at the first instance of centerDate in the year designated by yearStart.}
 

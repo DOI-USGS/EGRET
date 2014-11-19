@@ -1,8 +1,8 @@
-#' Create a character string that describes the period of analysis, when period of analysis has already been set in AnnualResults
+#' Create a character character that describes the period of analysis, when period of analysis has already been set in AnnualResults
 #'
 #' The period of analysis can be of any length from 1 month to 12 months. 
 #' The period of analysis can have any starting month from 1 (January) through 12 (December). 
-#' This function produces a character string that describes this period of analysis. 
+#' This function produces a character character that describes this period of analysis. 
 #' For example "water year", "calendar year", "year starting with April", or 
 #' "Season consisting of April, May, June". 
 #' There is an alternative version of this function for the case where AnnualResults does not exist. 
@@ -12,7 +12,7 @@
 #' @param localAnnualResults data frame that contains the annual results, default is AnnualResults
 #' @keywords water quality graphics
 #' @export
-#' @return periodName string which describes the period of analysis
+#' @return periodName character which describes the period of analysis
 #' @examples
 #' eList <- Choptank_eList
 #' Daily <- getDaily(eList)

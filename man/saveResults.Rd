@@ -6,7 +6,7 @@
 saveResults(savePath, eList)
 }
 \arguments{
-\item{savePath}{string specifying the full pathname of the folder where the file is to be saved ending with the final slash}
+\item{savePath}{character specifying the full pathname of the folder where the file is to be saved ending with the final slash}
 
 \item{eList}{named list with at least the INFO dataframe}
 }

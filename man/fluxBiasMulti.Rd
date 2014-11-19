@@ -14,7 +14,7 @@ fluxBiasMulti(eList, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS",
 
 \item{fluxUnit}{object of fluxUnit class. \code{\link{fluxConst}}, or numeric represented the short code, or character representing the descriptive name.}
 
-\item{moreTitle}{string specifying some additional information to go in figure title, typically some information about the specific estimation method used, default is no additional information}
+\item{moreTitle}{character specifying some additional information to go in figure title, typically some information about the specific estimation method used, default is no additional information}
 
 \item{cex}{numerical value giving the amount by which plotting symbols should be magnified}
 

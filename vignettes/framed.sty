@@ -170,11 +170,11 @@
     \eject \fb@adjheight \fb@put@frame#1#2%
   \else % there's appreciable room left on the page
      \fb@sizeofframe#1%
-|    \message{\string\pagetotal=\the\pagetotal,
-|        \string\pagegoal=\the\pagegoal,
-|        \string\pagestretch=\the\pagestretch,
-|        \string\pageshrink=\the\pageshrink,
-|        \string\fb@frh=\fb@frh. \space}
+|    \message{\character\pagetotal=\the\pagetotal,
+|        \character\pagegoal=\the\pagegoal,
+|        \character\pagestretch=\the\pagestretch,
+|        \character\pageshrink=\the\pageshrink,
+|        \character\fb@frh=\fb@frh. \space}
 |    \message{Box of size \the\ht\@tempboxa\space + \fb@frh}%
      \begingroup % temporarily set \dimen@ to be...
      \advance\dimen@.8\pageshrink  % maximum space available on page
@@ -284,7 +284,7 @@
  \setbox\z@\vbox{\vskip-5in \hbox{\hskip-5in 
    #1{\hbox{\vrule \@height 4.7in \@depth.3in \@width 5in}}}%
    \vskip\z@skip}%
-|  \message{Measuring frame addition for \string#1 in \@currenvir\space 
+|  \message{Measuring frame addition for \character#1 in \@currenvir\space 
 |    gives ht \the\ht\z@\space and wd \the\wd\z@. }%
 %{\showoutput\showbox\z@}%
  \global\fb@frw\wd\z@ \global\fb@frh\ht\z@
@@ -344,7 +344,7 @@
      \parshape\@ne \@totalleftmargin \linewidth
    \else % Not in list
      \linewidth=\hsize
-     %\message{No list, set \string\linewidth=\the\hsize. }%
+     %\message{No list, set \character\linewidth=\the\hsize. }%
    \fi
    \sloppy
 }

@@ -2,7 +2,7 @@
 #'
 #' Checks to see if format is YYYY-MM-DD. Also performs a few other date checks.
 #'
-#' @param date string
+#' @param date character
 #' @keywords WRTDS flow
 #' @return condition logical if TRUE, 
 #' @export
