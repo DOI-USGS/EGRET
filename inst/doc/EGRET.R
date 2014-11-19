@@ -312,10 +312,6 @@ eList <- eListColumbia
 ## ----newChunck, echo=TRUE,eval=TRUE-----------------------
 eList <- setPA(eList)
 
-## ----plotSingleandSD, echo=TRUE, fig.cap="Plots of discharge statistics",fig.subcap=c("plotFlowSingle(eList, istat=5,qUnit='thousandCfs')","plotSDLogQ(eList)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h",cache=TRUE----
-plotFlowSingle(eList, istat=5,qUnit="thousandCfs")
-plotSDLogQ(eList)
-
 ## ----Merced, echo=TRUE,eval=FALSE-------------------------
 #  # Merced River at Happy Isles Bridge, CA:
 #  siteNumber<-"11264500"
@@ -341,9 +337,6 @@ plotFlowSingle(eListMerced,istat=5,qMax=200)
 
 ## ----plotFour, echo=TRUE, fig.cap="\\texttt{plotFour(eListMerced, qUnit=3)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h"----
 plotFour(eListMerced, qUnit=3)
-
-## ----plotFourStats,echo=TRUE, fig.cap="\\texttt{plotFourStats(eListMerced, qUnit=3)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h",cache=TRUE----
-plotFourStats(eListMerced, qUnit=3)
 
 ## ----MississippiData, echo=TRUE,eval=FALSE----------------
 #  #Mississippi River at Keokuk Iowa:
@@ -521,8 +514,7 @@ print(xtable(head(returnDF),
 tableChange(eList, yearPoints=c(2000,2005,2010))
 
 ## ----tableChangeSingleR, eval=TRUE, echo=TRUE,results='hide'----
-returnDF <- tableChangeSingle(eList, yearPoints=c(2000,2005,2010), 
-                              returnDataFrame=TRUE)
+returnDF <- tableChangeSingle(eList, yearPoints=c(2000,2005,2010))
 
 ## ----tableResultsShow, echo=FALSE, results='asis'---------
 print(xtable(returnDF,
