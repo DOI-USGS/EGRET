@@ -2,10 +2,10 @@
 #'
 #' Imports data from a user-supplied file, and converts it to a Daily data frame, appropriate for WRTDS calculations.
 #'
-#' @param filePath string specifying the path to the file
-#' @param fileName string name of file to open
+#' @param filePath character specifying the path to the file
+#' @param fileName character name of file to open
 #' @param hasHeader logical true if the first row of data is the column headers
-#' @param separator string character that separates data cells
+#' @param separator character character that separates data cells
 #' @param qUnit number 1 is cubic feet per second, 2 is cubic meters per second, 3 is 10^3 cubic feet per second, and 4 is 10^3 cubic meters per second
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @keywords data import file

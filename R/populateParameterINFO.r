@@ -3,7 +3,7 @@
 #' Populates INFO data frame with additional user-supplied information concerning the measured parameter.
 #'
 #' @param INFO dataframe with value and code columns. Default is INFO
-#' @param parameterCd string USGS parameter code
+#' @param parameterCd character USGS parameter code
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @return INFO dataframe
 #' @export

@@ -2,8 +2,8 @@
 #'
 #' Checks that the start date is before the end date.  If not, it will give the user the opportunity to correct, otherwise will create a warning.
 #'
-#' @param startDate string
-#' @param endDate string
+#' @param startDate character
+#' @param endDate character
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @keywords WRTDS flow
 #' @return vector where first value is startDate, second is endDate

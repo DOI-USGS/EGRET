@@ -9,7 +9,7 @@
 #' @param tinyPlot logical
 #' @param padPercent number used to pad the max and min if not specified
 #' @param concentration logical if concentration=TRUE, labels returned as concentration units, otherwise flux units.
-#' @param units string concentration units. Typically found in INFO$param.units.
+#' @param units character concentration units. Typically found in INFO$param.units.
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples

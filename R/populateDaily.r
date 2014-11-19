@@ -3,7 +3,7 @@
 #' Using raw data that has at least dateTime, value, code, populates the rest of the basic Daily data frame used in WRTDS
 #'
 #' @param rawData dataframe contains at least dateTime, value, code columns
-#' @param qConvert string conversion to cubic meters per second
+#' @param qConvert character conversion to cubic meters per second
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @keywords WRTDS flow
 #' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}

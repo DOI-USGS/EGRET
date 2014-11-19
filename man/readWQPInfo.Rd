@@ -6,9 +6,9 @@
 readWQPInfo(siteNumber, parameterCd, interactive = TRUE)
 }
 \arguments{
-\item{siteNumber}{string site number.}
+\item{siteNumber}{character site number.}
 
-\item{parameterCd}{string USGS parameter code or characteristic name.}
+\item{parameterCd}{character USGS parameter code or characteristic name.}
 
 \item{interactive}{logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.}
 }

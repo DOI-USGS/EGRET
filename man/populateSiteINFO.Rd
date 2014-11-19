@@ -8,7 +8,7 @@ populateSiteINFO(INFO, siteNumber, interactive = TRUE)
 \arguments{
 \item{INFO}{dataframe with value and code columns}
 
-\item{siteNumber}{string USGS site number}
+\item{siteNumber}{character USGS site number}
 
 \item{interactive}{logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.}
 }

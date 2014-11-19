@@ -6,13 +6,13 @@
 readDataFromFile(filePath, fileName, hasHeader = TRUE, separator = ",")
 }
 \arguments{
-\item{filePath}{string specifying the path to the file}
+\item{filePath}{character specifying the path to the file}
 
-\item{fileName}{string name of file to open}
+\item{fileName}{character name of file to open}
 
 \item{hasHeader}{logical true if the first row of data is the column headers}
 
-\item{separator}{string character that separates data cells}
+\item{separator}{character character that separates data cells}
 }
 \value{
 retval dataframe with dateTime, value, and code columns

@@ -8,7 +8,7 @@
 #'
 #' @param eList named list with at least Daily and INFO dataframes, and surface matrix.
 #' @keywords water-quality statistics
-#' @return localDaily string specifying the name of the data frame containing the daily values and these esimates
+#' @return localDaily character specifying the name of the data frame containing the daily values and these esimates
 #' @export
 #' @examples
 #' eList <- Choptank_eList

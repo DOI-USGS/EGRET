@@ -14,7 +14,7 @@ boxConcThree(eList, tinyPlot = FALSE, printTitle = TRUE,
 
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)}
 
-\item{moreTitle}{string specifying some additional information to go in figure title, typically some information about the specific estimation method used, default is no additional information}
+\item{moreTitle}{character specifying some additional information to go in figure title, typically some information about the specific estimation method used, default is no additional information}
 
 \item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function}
 

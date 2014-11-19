@@ -1,12 +1,12 @@
 #' formatCheckParameterCd
 #'
-#' Checks that the parameter code is 5 digits. If it is less, it will pad the string with zeros. If more, ask the user to re-enter.
+#' Checks that the parameter code is 5 digits. If it is less, it will pad the character with zeros. If more, ask the user to re-enter.
 #'
-#' @param parameterCd string to check
+#' @param parameterCd character to check
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @keywords WRTDS flow
 #' @import dataRetrieval
-#' @return parameterCd string
+#' @return parameterCd character
 #' @export
 #' @examples
 #' pCode <- '01234'

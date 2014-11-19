@@ -8,7 +8,7 @@ flowDuration(eList, centerDate = "09-30", qUnit = 2, span = 365)
 \arguments{
 \item{eList}{named list with at least Daily and INFO dataframes}
 
-\item{centerDate}{string specifying the center date of the part of the year for which the flow
+\item{centerDate}{character specifying the center date of the part of the year for which the flow
 duration is to be calculated, it is in the form "mm-dd" (it must be in quotes), default is
 "09-30"}
 

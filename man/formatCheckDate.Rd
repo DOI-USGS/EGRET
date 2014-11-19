@@ -6,9 +6,9 @@
 formatCheckDate(Date, dateString, interactive = TRUE)
 }
 \arguments{
-\item{Date}{string}
+\item{Date}{character}
 
-\item{dateString}{string used in either error message or interactive message. An example would be "startDate"}
+\item{dateString}{character used in either error message or interactive message. An example would be "startDate"}
 
 \item{interactive}{logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.}
 }

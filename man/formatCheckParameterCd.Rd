@@ -6,15 +6,15 @@
 formatCheckParameterCd(parameterCd, interactive = TRUE)
 }
 \arguments{
-\item{parameterCd}{string to check}
+\item{parameterCd}{character to check}
 
 \item{interactive}{logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.}
 }
 \value{
-parameterCd string
+parameterCd character
 }
 \description{
-Checks that the parameter code is 5 digits. If it is less, it will pad the string with zeros. If more, ask the user to re-enter.
+Checks that the parameter code is 5 digits. If it is less, it will pad the character with zeros. If more, ask the user to re-enter.
 }
 \examples{
 pCode <- '01234'

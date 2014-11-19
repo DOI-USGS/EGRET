@@ -6,9 +6,9 @@
 checkStartEndDate(startDate, endDate, interactive = TRUE)
 }
 \arguments{
-\item{startDate}{string}
+\item{startDate}{character}
 
-\item{endDate}{string}
+\item{endDate}{character}
 
 \item{interactive}{logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.}
 }

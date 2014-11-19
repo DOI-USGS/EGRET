@@ -3,7 +3,7 @@
 #' Populates INFO data frame with additional user-supplied information. Also removes fields not related to WRTDS study.
 #'
 #' @param INFO dataframe with value and code columns
-#' @param siteNumber string USGS site number
+#' @param siteNumber character USGS site number
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @return INFO dataframe
 #' @export

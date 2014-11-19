@@ -9,7 +9,7 @@ estDailyWithoutNormalization(eList)
 \item{eList}{named list with at least Daily and INFO dataframes, and surface matrix.}
 }
 \value{
-localDaily string specifying the name of the data frame containing the daily values and these esimates
+localDaily character specifying the name of the data frame containing the daily values and these esimates
 }
 \description{
 Uses the surfaces estimated in estSurfaces to estimate these two time series

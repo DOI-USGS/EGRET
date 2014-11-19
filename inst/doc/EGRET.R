@@ -262,18 +262,18 @@ print(xTab,
 #  
 #  eListNew <- as.egret(INFO, Daily, Sample, surfaces)
 #  
-#  #To pull out the INFO dataframe:
+#  #To pull out the INFO data frame:
 #  INFO <- getInfo(eListNew)
-#  #Edit the INFO dataframe:
+#  #Edit the INFO data frame:
 #  INFO$importantNews <- "New EGRET workflow started"
-#  #Put new dataframe in eListNew
+#  #Put new data frame in eListNew
 #  eListNew$INFO <- INFO
 #  
 #  #To pull out Daily:
 #  Daily <- getDaily(eListNew)
 #  #Edit for some reason:
 #  DailyNew <- Daily[Daily$DecYear > 1985,]
-#  #Put new Daily dataframe back in eListNew:
+#  #Put new Daily data frame back in eListNew:
 #  eListNew$Daily <- DailyNew
 #  
 #  #To create a whole new egret object:

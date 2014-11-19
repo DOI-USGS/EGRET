@@ -6,7 +6,7 @@
 populateParameterINFO(parameterCd, INFO, interactive = TRUE)
 }
 \arguments{
-\item{parameterCd}{string USGS parameter code}
+\item{parameterCd}{character USGS parameter code}
 
 \item{INFO}{dataframe with value and code columns. Default is INFO}
 

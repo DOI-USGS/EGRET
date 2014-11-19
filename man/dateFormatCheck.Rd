@@ -6,7 +6,7 @@
 dateFormatCheck(date)
 }
 \arguments{
-\item{date}{string}
+\item{date}{character}
 }
 \value{
 condition logical if TRUE,
