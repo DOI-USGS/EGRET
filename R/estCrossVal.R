@@ -62,7 +62,7 @@ estCrossVal<-function(numDays,DecLow,DecHigh, Sample, windowY = 7, windowQ = 2,
     }
 
     SampleMinusOne<-SampleCV[SampleCV$iCounter!=i,]
-    
+  
     result<-runSurvReg(SampleCrossV$DecYear[i],SampleCrossV$LogQ[i],numDays,DecLow,DecHigh,SampleMinusOne,
                        windowY,windowQ,windowS,minNumObs,minNumUncen,interactive=FALSE,
                        edgeAdjust=edgeAdjust)
