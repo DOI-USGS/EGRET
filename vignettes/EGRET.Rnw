@@ -1394,7 +1394,7 @@ plotDiffContours(eList, year0=2000,year1=2010,
 \subsection{Table Options}
 \label{sec:wrtdsTable}
 %------------------------------------------------------------ 
-Sometimes it is easier to consider the results in table form rather than graphically. The function \texttt{tableResults} produces a simple text table that contains the annual values for the results.  Each row of the output represents a year and includes: year, average discharge, average concentration, flow-normalized concentration, average flux, and flow-normalized flux.  A small sample of the output is printed below. This function can also return a data frame if returnDataFrame is set to TRUE.
+Sometimes it is easier to consider the results in table form rather than graphically. The function \texttt{tableResults} produces a simple text table that contains the annual values for the results.  Each row of the output represents a year and includes: year, average discharge, average concentration, flow-normalized concentration, average flux, and flow-normalized flux.  A small sample of the output is printed below. 
 
 <<tableResults1, echo=TRUE, eval=FALSE>>=
 tableResults(eList)
@@ -1443,11 +1443,10 @@ The other table option is \texttt{tableChange}. This is a function that provides
 tableChange(eList, yearPoints=c(2000,2005,2010))
 @
 
-Finally, \texttt{tableChangeSingle} (Table \ref{table:tableChangeSingle}) operates exactly the same as \texttt{tableChange} except for the addition of two arguments: returnDataFrame and flux. This function provides either concentration results or flux results, but not both.  This can be useful when you are producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except for the final two arguments.  The first, \texttt{"}returnDataFrame\texttt{"} is a logical argument to indicate if a dataframe of output should be returned (for later manipulation or printing through other programs such as Excel), and its default is FALSE.  The second argument is \texttt{"}flux\texttt{"}, and the default is TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  See section \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft\textregistered\ software.
+Finally, \texttt{tableChangeSingle} (Table \ref{table:tableChangeSingle}) operates exactly the same as \texttt{tableChange} except for the addition argument flux. This function provides either concentration results or flux results, but not both.  This can be useful when you are producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except for the final two arguments.  The argument \texttt{"}flux\texttt{"} defaults to TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  See section \ref{app:createWordTable} for instructions on converting an R dataframe to a table in Microsoft\textregistered\ software.
 
 <<tableChangeSingleR, eval=TRUE, echo=TRUE,results='hide'>>=
-returnDF <- tableChangeSingle(eList, yearPoints=c(2000,2005,2010), 
-                              returnDataFrame=TRUE)
+returnDF <- tableChangeSingle(eList, yearPoints=c(2000,2005,2010))
 @
 
 <<tableResultsShow, echo=FALSE, results='asis'>>=
