@@ -24,7 +24,6 @@
 #' Sample <- EGRETreturn$Sample
 #' INFO <- EGRETreturn$INFO
 #' surfaces <- EGRETreturn$surfaces
-#' AnnualResults <- EGRETreturn$AnnualResults
 #' }
 modelEstimation<-function(eList, 
                           windowY=7, windowQ=2, windowS=0.5,

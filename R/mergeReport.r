@@ -104,7 +104,7 @@ as.egret <- function(INFO, Daily, Sample=NA, surfaces=NA) {
     message("Please double check that the INFO dataframe is correctly defined.")
   }
   
-  if(!is.na(surfaces) && 14 == nrow(surfaces)){
+  if(!is.na(surfaces) && 14 != nrow(surfaces)){
     message("Please double check that the surfaces matrix is correctly defined.")
   }
     
