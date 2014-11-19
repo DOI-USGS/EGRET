@@ -39,7 +39,6 @@ Daily <- EGRETreturn$Daily
 Sample <- EGRETreturn$Sample
 INFO <- EGRETreturn$INFO
 surfaces <- EGRETreturn$surfaces
-AnnualResults <- EGRETreturn$AnnualResults
 }
 }
 \keyword{statistics}
