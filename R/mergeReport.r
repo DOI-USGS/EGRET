@@ -46,7 +46,12 @@ mergeReport<-function(INFO, Daily, Sample, surfaces=NA, interactive=TRUE){
   
   if(!all(is.na(Sample)) & !all(is.na(Daily))){
     if(all(c("Q","LogQ") %in% names(Sample))){
-      Sample[,c("Q","LogQ")] <- NULL
+      if(all(c("yHat","SE","ConcHat") %in% names(Sample))){
+        message("Merging new flow data will require modelEstimation to be rerun.")
+      }
+      
+      Sample <- Sample[,!(names(Sample) %in% c("Q","LogQ"))]
+            
     }
     Sample <- merge(Daily[,c("Date","Q","LogQ")],Sample,by = "Date",all.y = TRUE)
   }

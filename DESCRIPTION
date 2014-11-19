@@ -10,7 +10,7 @@ Authors@R: c( person("Robert", "Hirsch", role = c("aut"),
 Description: EGRET includes statistics and graphics for streamflow history,
     water quality trends, and the statistical modeling algorithm Weighted
     Regressions on Time, Discharge, and Season (WRTDS).
-License: Unlimited | file LICENSE
+License: Unlimited | file LICENSE.note
 Depends:
     R (>= 3.0)
 Imports:
