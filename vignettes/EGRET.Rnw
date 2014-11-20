@@ -1,8 +1,8 @@
 %\VignetteIndexEntry{Introduction to the EGRET package}
 %\VignetteEngine{knitr::knitr}
 %\VignetteDepends{}
-%\VignetteSuggests{xtable, EGRET,extrafont}
-%\VignetteImports{methods,survival, fields}
+%\VignetteSuggests{xtable,extrafont,knitr}
+%\VignetteImports{methods,survival, fields,dataRetrieval}
 %\VignettePackage{EGRET}
 
 \documentclass[a4paper,11pt]{article}
