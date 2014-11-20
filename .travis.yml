@@ -16,6 +16,7 @@ before_install:
 
 install:
   - ./travis-tool.sh install_deps
+  - ./travis-tool.sh install_github USGS-R/dataRetrieval
   - ./travis-tool.sh install_r knitr
   - ./travis-tool.sh install_r extrafont
   - ./travis-tool.sh install_r xtable
