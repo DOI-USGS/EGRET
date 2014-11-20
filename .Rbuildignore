@@ -4,8 +4,8 @@ EGRET.Rproj
 appveyor.yml
 .Rhistory
 .gitignore
-.Rhistory
 .travis.yml
 ^\.Rproj/.RData
 vignettes/EGRET.bbl
 ^\.Rproj\.user$
+^\.travis\.yml$
