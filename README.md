@@ -56,7 +56,11 @@ The second is an application to nitrate data for 8 monitoring sites on the Missi
 
 [http://pubs.acs.org/doi/abs/10.1021/es201221s](http://pubs.acs.org/doi/abs/10.1021/es201221s)
 
-Note to users of earlier versions of `EGRET`. Please see the following link for information on converting deprecated workflow:
+Note to users of earlier versions of `EGRET`. 
+----------------------
+
+Please see the following link for information on converting deprecated workflow:
+
 
 [link]{https://github.com/USGS-R/EGRET/wiki/Note-to-users-of-earlier-versions-of-EGRET}
 
