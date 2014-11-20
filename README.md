@@ -62,7 +62,7 @@ Note to users of earlier versions of `EGRET`.
 Please see the following link for information on converting deprecated workflow:
 
 
-[link]{https://github.com/USGS-R/EGRET/wiki/Note-to-users-of-earlier-versions-of-EGRET}
+[link](https://github.com/USGS-R/EGRET/wiki/Note-to-users-of-earlier-versions-of-EGRET)
 
 Sample Workflow
 ---------------
