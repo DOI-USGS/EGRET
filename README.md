@@ -25,6 +25,14 @@ Please visit the wiki for more information:
 An recent presentation on an overview of `EGRET` can be found here:
 [EGRET and dataRetrieval 2014-11-20.pdf](https://github.com/USGS-R/EGRET/blob/gh-pages/images/dataRetrieval%20&%20EGRET%202014-11-20.pdf?raw=true)
 
+Reporting bugs
+---------------
+
+Please consider reporting any bugs or asking general questions to the Issues page:
+
+[https://github.com/USGS-R/EGRET/issues](https://github.com/USGS-R/EGRET/issues)
+
+
 Subscribe
 ---------
 Please email questions, comments, and feedback to: 
