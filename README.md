@@ -44,9 +44,9 @@ To install the `EGRET` package you need to be using R 3.0 or greater. Then use t
 
 Background Information
 ----------------------
-`EGRET` includes statistics and graphics for streamflow history, water quality trends, and the statistical modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS).  Please see the official EGRET User Guide for more information on the `EGRET` package.:
+`EGRET` includes statistics and graphics for streamflow history, water quality trends, and the statistical modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS).  Please see the official EGRET User Guide for more information on the `EGRET` package:
 
-(http://dx.doi.org/10.3133/tm4A10) 
+[http://dx.doi.org/10.3133/tm4A10](http://dx.doi.org/10.3133/tm4A10) 
 
 The best ways to learn about the WRTDS approach is to read the User Guide and two journal articles. These articles are available, for free, from the journals in which they were published. The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay. The URL is:
 
@@ -55,6 +55,7 @@ The best ways to learn about the WRTDS approach is to read the User Guide and tw
 The second is an application to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries.  The URL is: 
 
 [http://pubs.acs.org/doi/abs/10.1021/es201221s](http://pubs.acs.org/doi/abs/10.1021/es201221s)
+
 
 Note to users of earlier versions of `EGRET`. 
 ----------------------
