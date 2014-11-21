@@ -36,6 +36,15 @@ readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
   } 
   
   INFO <- populateParameterINFO(parameterCd, INFO, interactive=interactive)
+  
+  localUnits <- toupper(INFO$param.units)  
+  if(length(grep("MG/L", localUnits)) == 0){
+    if(interactive){
+      message("Expected concentration units are mg/l. \nThe INFO dataframe indicates:",INFO$param.units,
+              "\nFlux calculations will be wrong if units are not consistent")
+    } 
+  }
+  
   INFO$paStart <- 10
   INFO$paLong <- 12
   
@@ -151,6 +160,14 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
     }
   }
   
+  localUnits <- toupper(siteInfo$param.units)  
+  if(length(grep("MG/L", localUnits)) == 0){
+    if(interactive){
+      message("Expected concentration units are mg/l. \nThe INFO dataframe indicates:",siteInfo$param.units,
+              "\nFlux calculations will be wrong if units are not consistent")
+    } 
+  }
+  
   siteInfo$queryTime <- Sys.time()
   siteInfo$paStart <- 10
   siteInfo$paLong <- 12
@@ -246,6 +263,14 @@ readUserInfo <- function(filePath,fileName,hasHeader=TRUE,separator=",",interact
       message("The following columns are expected in the EGRET package:\n")
       message(requiredColumns[!(requiredColumns %in% names(siteInfo))])
     }
+  }
+  
+  localUnits <- toupper(siteInfo$param.units)  
+  if(length(grep("MG/L", localUnits)) == 0){
+    if(interactive){
+      message("Expected concentration units are mg/l. \nThe INFO dataframe indicates:",siteInfo$param.units,
+              "\nFlux calculations will be wrong if units are not consistent")
+    } 
   }
   
   siteInfo$queryTime <- Sys.time()
