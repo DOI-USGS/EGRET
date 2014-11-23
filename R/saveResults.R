@@ -10,7 +10,7 @@
 #' @examples
 #' eList <- Choptank_eList
 #' savePath <- "~/"
-#' saveResults(savePath, eList)
+#' \dontrun{saveResults(savePath, eList)}
 #' 
 #' #To load:
 #' #load(paste(savePath,"Chop.nitrogen.RData",sep=""))
