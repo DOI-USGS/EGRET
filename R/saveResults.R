@@ -16,7 +16,7 @@
 #' load(paste(savePath,"Chop.nitrogen.RData",sep=""))}
 saveResults<-function(savePath, eList){
   INFO <- getInfo(eList)
-  saveName <- paste(savePath, INFO$shortName, ".", INFO$constitAbbrev, 
+  saveName <- paste(savePath, INFO$staAbbrev, ".", INFO$constitAbbrev, 
                     ".RData", sep = "")
   save.image(file=saveName)
 }
