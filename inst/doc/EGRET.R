@@ -326,7 +326,7 @@ fileName <- "eListMerced.RData"
 
 load(paste(filePath,fileName,sep="/"))
 
-## ----Mercedplot, echo=TRUE,eval=TRUE,fig.cap="Merced River Winter Trend",fig.subcap=c("Water Year", "December - February"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h"----
+## ----Mercedplot, echo=TRUE,eval=TRUE,fig.cap="Merced River winter trend",fig.subcap=c("Water Year", "December - February"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h"----
 plotFlowSingle(eListMerced, istat=5)
 
 # Then, we can run the same function, but first set 

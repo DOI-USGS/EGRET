@@ -7,8 +7,8 @@
 \tabular{ll}{
 Package: \tab EGRET\cr
 Type: \tab Package\cr
-Version: \tab 2.0.0\cr
-Date: \tab 2014-11-13\cr
+Version: \tab 2.0.1\cr
+Date: \tab 2014-11-24\cr
 License: \tab Unlimited for this package, dependencies have more restrictive licensing.\cr
 Copyright: \tab This software is in the public domain because it contains materials
 that originally came from the United States Geological Survey, an agency of
@@ -26,7 +26,9 @@ Collection of functions to do WRTDS and flowHistory analysis,
 Robert M. Hirsch \email{rhirsch@usgs.gov}, Laura De Cicco \email{ldecicco@usgs.gov}
 }
 \references{
-Hirsch, R. M., Moyer, D. L. and Archfield, S. A. (2010), Weighted Regressions on Time, Discharge, and Season (WRTDS), with an Application to Chesapeake Bay River Inputs. JAWRA Journal of the American Water Resources Association, 46: 857-880. doi: 10.1111/j.1752-1688.2010.00482.x
+Hirsch, R.M., and De Cicco, L.A., 2014, User guide to Exploration and Graphics for RivEr Trends
+(EGRET) and dataRetrieval: R packages for hydrologic data: U.S. Geological Survey Techniques and Methods book 4,
+chap. A10, 94 p., \url{http://dx.doi.org/10.3133/tm4A10}
 }
 \keyword{graphics}
 \keyword{statistics}

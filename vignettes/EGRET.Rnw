@@ -338,7 +338,7 @@ saveResults(savePath, INFO)
 
 
 %------------------------------------------------------------ 
-\section{EGRET data frames Data Retrieval Options}
+\section{EGRET Data Frames and Retrieval Options}
 \label{sec:data frames}
 %------------------------------------------------------------ 
 The EGRET package uses 3 default data frames throughout the calculations, analysis, and graphing. These data frames are Daily (\ref{sec:data framesDaily}), Sample (\ref{sec:data framesSample}), and INFO (\ref{sec:data framesINFO}). The data frames are combined into a named list for all EGRET functions using the \texttt{as.egret} function (\ref{sec:eList}). 
@@ -1027,7 +1027,7 @@ load(paste(filePath,fileName,sep="/"))
 @
 
 
-<<Mercedplot, echo=TRUE,eval=TRUE,fig.cap="Merced River Winter Trend",fig.subcap=c("Water Year", "December - February"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+<<Mercedplot, echo=TRUE,eval=TRUE,fig.cap="Merced River winter trend",fig.subcap=c("Water Year", "December - February"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
 plotFlowSingle(eListMerced, istat=5)
 
 # Then, we can run the same function, but first set 
@@ -1678,7 +1678,7 @@ library(EGRET)
 This section describes variables that are common for a variety of function types. 
 
 %------------------------------------------------------------ 
-\subsection{flowHistory Plotting Input}
+\subsection{Flow History Plotting Input}
 \label{sec:flowHistoryVariables}
 %------------------------------------------------------------
 \begin{table}[ht]
