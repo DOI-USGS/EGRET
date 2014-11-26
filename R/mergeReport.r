@@ -138,9 +138,9 @@ print.egret <- function(x,...){
   
   if(!all(is.na(x$Daily))){
     cat("Daily discharge:\n")
-    print(localDaily[1,c("Date","Q","Qualifier")])
+    print(localDaily[1,c("Date","Q")])
     cat("...\n")
-    print(localDaily[nrow(localDaily),c("Date","Q","Qualifier")])
+    print(localDaily[nrow(localDaily),c("Date","Q")])
   }
   if(!all(is.na(x$Sample))){
     columnsToPrint <- which(names(localSample) %in% c("Date","ConcLow","ConcHigh","Q"))
