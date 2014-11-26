@@ -9,7 +9,7 @@
 #' DecYear <- c('1985.01', '1985.01', '1985.02', '1985.02', '1985.03')
 #' ConcHigh <- c(1,2,3,3,5)
 #' dataInput <- data.frame(DecYear, ConcHigh, stringsAsFactors=FALSE)
-#' removeDuplicates(dataInput)
+#' Sample <- removeDuplicates(dataInput)
 removeDuplicates <- function(Sample) {  
   Sample1 <- Sample[!duplicated(Sample[c("DecYear","ConcHigh")]),]
   
