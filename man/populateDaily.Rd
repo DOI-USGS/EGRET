@@ -43,6 +43,9 @@ Daily <- populateDaily(dataInput, 2)
 \author{
 Robert M. Hirsch \email{rhirsch@usgs.gov}
 }
+\seealso{
+\code{\link{readNWISDaily}}, \code{\link{readUserDaily}}
+}
 \keyword{WRTDS}
 \keyword{flow}
 

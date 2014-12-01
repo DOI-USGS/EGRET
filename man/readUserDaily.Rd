@@ -23,6 +23,7 @@ readUserDaily(filePath, fileName, hasHeader = TRUE, separator = ",",
 A data frame 'Daily' with the following columns:
 \tabular{lll}{
 Name \tab Type \tab Description \cr
+Date \tab Date \tab Date \cr
 Q \tab numeric \tab Discharge in m^3/s\cr
 Julian \tab integer \tab Number of days since Jan. 1, 1850\cr
 Month \tab integer \tab Month of the year [1-12] \cr

@@ -18,7 +18,22 @@ readNWISSample(siteNumber, parameterCd, startDate = "", endDate = "",
 \item{interactive}{logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.}
 }
 \value{
-Sample dataframe
+A data frame 'Sample' with the following columns:
+\tabular{lll}{
+Name \tab Type \tab Description \cr
+Date \tab Date \tab Date \cr
+ConcLow \tab numeric \tab Lower limit of concentration \cr
+ConcHigh \tab numeric \tab Upper limit of concentration \cr
+Uncen \tab integer \tab Uncensored data (1=TRUE, 0=FALSE) \cr
+ConcAve \tab numeric \tab Average concentration \cr
+Julian \tab integer \tab Number of days since Jan. 1, 1850\cr
+Month \tab integer \tab Month of the year [1-12] \cr
+Day \tab integer \tab Day of the year [1-366] \cr
+DecYear \tab numeric \tab Decimal year \cr
+MonthSeq \tab integer \tab Number of months since January 1, 1850 \cr
+SinDY \tab numeric \tab Sine of the DecYear \cr
+CosDY \tab numeric \tab Cosine of the DecYear
+}
 }
 \description{
 Imports data from NWIS web service. This function gets the data from here: \url{http://nwis.waterdata.usgs.gov/nwis/qwdata/}
@@ -35,7 +50,8 @@ Sample_Select <- readNWISSample('05114000',c('00915','00931'), '', '')
 }
 }
 \seealso{
-\code{\link{compressData}}, \code{\link{populateSampleColumns}}, , \code{\link{readNWISSample}}
+\code{\link{compressData}}, \code{\link{populateSampleColumns}},
+\code{\link[dataRetrieval]{readNWISSample}}
 }
 \keyword{USGS}
 \keyword{WRTDS}

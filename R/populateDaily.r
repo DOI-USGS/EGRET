@@ -23,6 +23,7 @@
 #' Q30 \tab numeric \tab 30 day running average of Q \cr
 #' }
 #' @importFrom stats filter
+#' @seealso \code{\link{readNWISDaily}}, \code{\link{readUserDaily}}
 #' @export
 #' @examples
 #' dateTime <- as.character(seq(as.Date("2001/1/1"), 

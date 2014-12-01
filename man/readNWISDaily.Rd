@@ -25,6 +25,7 @@ there is no conversion applied.}
 A data frame 'Daily' with the following columns:
 \tabular{lll}{
 Name \tab Type \tab Description \cr
+Date \tab Date \tab Date \cr
 Q \tab numeric \tab Discharge in m^3/s\cr
 Julian \tab integer \tab Number of days since Jan. 1, 1850\cr
 Month \tab integer \tab Month of the year [1-12] \cr
@@ -49,7 +50,7 @@ Daily <- readNWISDaily('01594440','00060', '1985-01-01', '1985-03-31')
 DailySuspSediment <- readNWISDaily('01594440','80154', '1985-01-01', '1985-03-31',convert=FALSE)
 }
 \seealso{
-\code{\link{readNWISdv}}, \code{\link{populateDaily}}
+\code{\link[dataRetrieval]{readNWISdv}}, \code{\link{populateDaily}}
 }
 \keyword{USGS}
 \keyword{WRTDS}
