@@ -39,13 +39,21 @@
 readNWISDaily <- function (siteNumber,parameterCd="00060",
                            startDate="",endDate="",interactive=TRUE,convert=TRUE){
 
-  data <- readNWISdv(siteNumber,parameterCd,startDate,endDate)
+#   data <- readNWISdv(siteNumber,parameterCd,startDate,endDate)
+#   #  need to setup conversion factor because the NWIS data are in cfs but we store in cms
+#   names(data) <- c('agency', 'site', 'dateTime', 'tz_cd','code', 'value')  # do a merge instead?
+#   
+#   data$dateTime <- as.Date(data$dateTime) 
+  ##################################
+  url <- constructNWISURL(siteNumber,parameterCd,startDate,endDate,"dv",statCd="00003", format = "tsv")
   
-  #  need to setup conversion factor because the NWIS data are in cfs but we store in cms
-  names(data) <- c('agency', 'site', 'dateTime', 'tz_cd','code', 'value')  # do a merge instead?
-  
-  data$dateTime <- as.Date(data$dateTime)
-  
+  data <- importRDB1(url, asDateTime=FALSE)
+  if(nrow(data)>0){
+    names(data) <- c('agency', 'site', 'dateTime', 'value', 'code')
+    data$dateTime <- as.Date(data$dateTime)
+  }
+
+  #####################################
   qConvert <- ifelse("00060" == parameterCd, 35.314667, 1)
   qConvert<- ifelse(convert,qConvert,1)
   
