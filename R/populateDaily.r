@@ -100,9 +100,9 @@ populateDaily <- function(rawData,qConvert,interactive=TRUE){  # rawData is a da
     ma <- function(x,n=7){filter(x,rep(1/n,n), sides=1)}
     
 #     localDaily$Q7<-as.numeric(rollapply(Qzoo,7,mean,na.rm=FALSE,fill=NA,align="right"))
-    localDaily$Q7 <- ma(localDaily$Q)
+    localDaily$Q7 <- as.numeric(ma(localDaily$Q))
 #     localDaily$Q30<-as.numeric(rollapply(Qzoo,30,mean,na.rm=FALSE,fill=NA,align="right"))
-    localDaily$Q30 <- ma(localDaily$Q,30)
+    localDaily$Q30 <- as.numeric(ma(localDaily$Q,30))
   }
   
   dataPoints <- nrow(localDaily)
