@@ -43,7 +43,7 @@ estDailyFromSurfaces <- function(eList) {
                                   loc=data.frame(localDaily$LogQ, localDaily$DecYear))
   localDaily$ConcDay <- interp.surface(obj=list(x=LogQ,y=Year,z=localsurfaces[,,3]), 
                                        loc=data.frame(localDaily$LogQ, localDaily$DecYear))
-  localDaily$FluxDay <- localDaily$ConcDay * localDaily$Q * 86.4
+  localDaily$FluxDay <- as.numeric(localDaily$ConcDay * localDaily$Q * 86.4)
   
   # Calculate "flow-normalized" concentration and flux:
   
@@ -71,8 +71,8 @@ estDailyFromSurfaces <- function(eList) {
   allFluxReplicated <- allConcReplicated * exp(unlist(allLogQsReplicated)) * 86.4
   
   # Finally bin the collective results by days (the decimal year), and calculate the desired means.
-  localDaily$FNConc <- tapply(allConcReplicated, allDatesReplicated, "mean")
-  localDaily$FNFlux <- tapply(allFluxReplicated, allDatesReplicated, "mean")
+  localDaily$FNConc <-  as.numeric(tapply(allConcReplicated, allDatesReplicated, "mean"))
+  localDaily$FNFlux <-  as.numeric(tapply(allFluxReplicated, allDatesReplicated, "mean"))
 
   
   return(localDaily)

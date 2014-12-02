@@ -39,7 +39,7 @@ readDataFromFile <- function (filePath,fileName,hasHeader=TRUE,separator=","){
       retval[,1] <- as.Date(retval[,1],format="%m/%d/%Y")
     }
     
-    retval[,numCol] <- sapply(numCol, function(x) as.numeric(retval[,x]))
+    retval[,numCol] <- sapply(retval[,numCol], as.numeric)
   
     return (retval)
   } else {
