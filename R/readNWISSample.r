@@ -2,8 +2,8 @@
 #'
 #' Imports data from NWIS web service. This function gets the data from here: \url{http://nwis.waterdata.usgs.gov/nwis/qwdata/}
 #' A list of parameter and statistic codes can be found here: \url{http://help.waterdata.usgs.gov/codes-and-parameters}
-#' For raw data, use getQWData.  This function will retrieve the raw data, and compress it (summing constituents). See
-#' section 3.4 of the vignette for more details.
+#' For raw data, use \code{\link[dataRetrieval]{readNWISqw}} from the dataRetrieval package.  This function will retrieve the raw data, and compress it (summing constituents). See
+#' section 3.2.4 of the vignette for more details.
 #'
 #' @param siteNumber character USGS site number.  This is usually an 8 digit number
 #' @param parameterCd character USGS parameter code.  This is usually an 5 digit number.

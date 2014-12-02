@@ -200,14 +200,25 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
 #' INFO <- readUserInfo(filePath,fileName, separator=",",interactive=FALSE)
 readUserInfo <- function(filePath,fileName,hasHeader=TRUE,separator=",",interactive=TRUE){
   
-  totalPath <- paste(filePath,fileName,sep="");  
-  siteInfo <- read.delim(  
-    totalPath, 
-    header = hasHeader,
-    sep=separator,
-    colClasses=c('character'),
-    fill = TRUE, 
-    comment.char="#")
+  totalPath <- paste(filePath,fileName,sep="")
+  if(file.exists(totalPath)){
+    siteInfo <- read.delim(  
+      totalPath, 
+      header = hasHeader,
+      sep=separator,
+      colClasses=c('character'),
+      fill = TRUE, 
+      comment.char="#")
+  } else {
+    message("File not found, continuing with interactive section.")
+    siteInfo <- data.frame(station.nm="",
+                           shortName="",
+                           param.nm="",
+                           paramShortName="",
+                           param.units="",
+                           drainSqKm="",
+                           stringsAsFactors=FALSE)
+  }
   
   if(interactive){
 
