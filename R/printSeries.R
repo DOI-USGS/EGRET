@@ -10,6 +10,12 @@
 #' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param runoff logical variable, if TRUE the streamflow data are converted to runoff values in mm/day
 #' @keywords streamflow statistics
+#' @return data frame with:
+#' \tabular{lll}{
+#' years \tab integer \tab year  \cr
+#' qActual \tab numeric \tab Actual flow statistic (based on istat)  \cr
+#' qSmooth \tab numeric \tab Smoothed flow statistic \cr
+#' }
 #' @export
 #' @examples
 #' eList <- Choptank_eList
@@ -47,6 +53,8 @@ printSeries<-function(eList, istat, qUnit = 1, runoff = FALSE) {
   toPrint$qActual<-format(toPrint$qActual,digits=3,width=8)
   toPrint$qSmooth<-format(toPrint$qSmooth,digits=3,width=8)
   write.table(toPrint,file="",col.names=FALSE,row.names=FALSE,quote=FALSE)
-  
+  toPrint$years <- as.integer(toPrint$years)
+  toPrint$qActual <- as.numeric(toPrint$qActual)
+  toPrint$qSmooth <- as.numeric(toPrint$qSmooth)
   invisible(toPrint)
 }

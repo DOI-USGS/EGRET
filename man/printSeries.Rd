@@ -14,6 +14,14 @@ printSeries(eList, istat, qUnit = 1, runoff = FALSE)
 
 \item{runoff}{logical variable, if TRUE the streamflow data are converted to runoff values in mm/day}
 }
+\value{
+data frame with:
+\tabular{lll}{
+years \tab integer \tab year  \cr
+qActual \tab numeric \tab Actual flow statistic (based on istat)  \cr
+qSmooth \tab numeric \tab Smoothed flow statistic \cr
+}
+}
 \description{
 Part of the flowHistory system.
 The index of the flow statistics is istat.  These statistics are:

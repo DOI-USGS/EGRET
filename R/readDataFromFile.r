@@ -17,28 +17,33 @@
 #' fileName <- 'ChoptankRiverFlow.txt'
 #' ChopData <- readDataFromFile(filePath,fileName, separator="\t")
 readDataFromFile <- function (filePath,fileName,hasHeader=TRUE,separator=","){
-  totalPath <- file.path(filePath,fileName);  
-  retval <- read.delim(  
-    totalPath, 
-    header = hasHeader,
-    sep=separator,
-    colClasses=c('character'),
-    fill = TRUE, 
-    comment.char="#")
+  totalPath <- file.path(filePath,fileName)
+  if(file.exists(totalPath)){
+    retval <- read.delim(  
+      totalPath, 
+      header = hasHeader,
+      sep=separator,
+      colClasses=c('character'),
+      fill = TRUE, 
+      comment.char="#")
+    
+    if(ncol(retval) == 2){
+      numCol <- 2
+    } else {
+      numCol <- seq(from = 3,to = ncol(retval), by = 2)
+    }
+    
+    if(dateFormatCheck(retval[,1])){
+      retval[,1] <- as.Date(retval[,1])  
+    } else {
+      retval[,1] <- as.Date(retval[,1],format="%m/%d/%Y")
+    }
+    
+    retval[,numCol] <- sapply(numCol, function(x) as.numeric(retval[,x]))
   
-  if(ncol(retval) == 2){
-    numCol <- 2
+    return (retval)
   } else {
-    numCol <- seq(from = 3,to = ncol(retval), by = 2)
-  }
-  
-  if(dateFormatCheck(retval[,1])){
-    retval[,1] <- as.Date(retval[,1])  
-  } else {
-    retval[,1] <- as.Date(retval[,1],format="%m/%d/%Y")
-  }
-  
-  retval[,numCol] <- sapply(numCol, function(x) as.numeric(retval[,x]))
 
-  return (retval)
+    stop("File does not exist")
+  }
 }

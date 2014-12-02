@@ -7,8 +7,23 @@
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @keywords WRTDS flow
 #' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
-#' @return dataframe Daily
+#' @return A data frame 'Daily' with the following columns:
+#' \tabular{lll}{
+#' Name \tab Type \tab Description \cr
+#' Q \tab numeric \tab Discharge in m^3/s\cr
+#' Julian \tab integer \tab Number of days since Jan. 1, 1850\cr
+#' Month \tab integer \tab Month of the year [1-12] \cr 
+#' Day \tab integer \tab Day of the year [1-366] \cr
+#' DecYear \tab numeric \tab Decimal year \cr
+#' MonthSeq \tab integer \tab Number of months since January 1, 1850 \cr
+#' Qualifier \tab character \tab Qualifying code \cr
+#' i \tab integer \tab Index of days, starting with 1 \cr
+#' LogQ \tab numeric \tab Natural logarithm of Q  \cr
+#' Q7 \tab numeric \tab 7 day running average of Q \cr
+#' Q30 \tab numeric \tab 30 day running average of Q \cr
+#' }
 #' @importFrom stats filter
+#' @seealso \code{\link{readNWISDaily}}, \code{\link{readUserDaily}}
 #' @export
 #' @examples
 #' dateTime <- as.character(seq(as.Date("2001/1/1"), 
@@ -85,9 +100,9 @@ populateDaily <- function(rawData,qConvert,interactive=TRUE){  # rawData is a da
     ma <- function(x,n=7){filter(x,rep(1/n,n), sides=1)}
     
 #     localDaily$Q7<-as.numeric(rollapply(Qzoo,7,mean,na.rm=FALSE,fill=NA,align="right"))
-    localDaily$Q7 <- ma(localDaily$Q)
+    localDaily$Q7 <- as.numeric(ma(localDaily$Q))
 #     localDaily$Q30<-as.numeric(rollapply(Qzoo,30,mean,na.rm=FALSE,fill=NA,align="right"))
-    localDaily$Q30 <- ma(localDaily$Q,30)
+    localDaily$Q30 <- as.numeric(ma(localDaily$Q,30))
   }
   
   dataPoints <- nrow(localDaily)

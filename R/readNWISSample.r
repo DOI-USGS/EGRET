@@ -2,8 +2,8 @@
 #'
 #' Imports data from NWIS web service. This function gets the data from here: \url{http://nwis.waterdata.usgs.gov/nwis/qwdata/}
 #' A list of parameter and statistic codes can be found here: \url{http://help.waterdata.usgs.gov/codes-and-parameters}
-#' For raw data, use getQWData.  This function will retrieve the raw data, and compress it (summing constituents). See
-#' section 3.4 of the vignette for more details.
+#' For raw data, use \code{\link[dataRetrieval]{readNWISqw}} from the dataRetrieval package.  This function will retrieve the raw data, and compress it (summing constituents). See
+#' section 3.2.4 of the vignette for more details.
 #'
 #' @param siteNumber character USGS site number.  This is usually an 8 digit number
 #' @param parameterCd character USGS parameter code.  This is usually an 5 digit number.
@@ -13,8 +13,24 @@
 #' @keywords data import USGS WRTDS
 #' @import dataRetrieval
 #' @export
-#' @return Sample dataframe
-#' @seealso \code{\link{compressData}}, \code{\link{populateSampleColumns}}, , \code{\link{readNWISSample}}
+#' @return A data frame 'Sample' with the following columns:
+#' \tabular{lll}{
+#' Name \tab Type \tab Description \cr
+#' Date \tab Date \tab Date \cr
+#' ConcLow \tab numeric \tab Lower limit of concentration \cr
+#' ConcHigh \tab numeric \tab Upper limit of concentration \cr
+#' Uncen \tab integer \tab Uncensored data (1=TRUE, 0=FALSE) \cr
+#' ConcAve \tab numeric \tab Average concentration \cr
+#' Julian \tab integer \tab Number of days since Jan. 1, 1850\cr
+#' Month \tab integer \tab Month of the year [1-12] \cr 
+#' Day \tab integer \tab Day of the year [1-366] \cr
+#' DecYear \tab numeric \tab Decimal year \cr
+#' MonthSeq \tab integer \tab Number of months since January 1, 1850 \cr
+#' SinDY \tab numeric \tab Sine of the DecYear \cr
+#' CosDY \tab numeric \tab Cosine of the DecYear
+#' }
+#' @seealso \code{\link{compressData}}, \code{\link{populateSampleColumns}},
+#' \code{\link[dataRetrieval]{readNWISqw}}
 #' @examples
 #' # These examples require an internet connection to run
 #' \dontrun{
@@ -24,7 +40,7 @@
 #' }
 readNWISSample <- function(siteNumber,parameterCd,startDate="",endDate="",interactive=TRUE){
   
-  rawSample <- readNWISqw(siteNumber,parameterCd,startDate,endDate)
+  rawSample <- readNWISqw(siteNumber,parameterCd,startDate,endDate, expanded=FALSE)
   dataColumns <- grep("p\\d{5}",names(rawSample))
   remarkColumns <- grep("r\\d{5}",names(rawSample))
   totalColumns <-c(grep("sample_dt",names(rawSample)), dataColumns, remarkColumns)

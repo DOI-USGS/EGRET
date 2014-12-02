@@ -1,6 +1,9 @@
-#' Merge Sample and Daily Data for WRTDS
+#' Merge Sample and Daily Data into EGRET object
 #'
-#' Merges the flow data from the daily record into the sample record.
+#' Merges the flow data from the daily record into the sample record, then creates a named list
+#' with the Daily, Sample, and INFO dataframe. The Sample dataframe in the global enviornment does 
+#' not update with the flow information. To extract the new Sample dataframe, use the command:
+#' \code{Sample <- eList$Sample}.
 #'
 #' @param INFO dataframe containing the INFO dataframe
 #' @param Daily dataframe containing the daily data
@@ -20,7 +23,7 @@
 #' Sample <- readNWISSample(siteNumber,pCode, '1985-01-01', '1990-03-31')
 #' INFO <- readNWISInfo(siteNumber,pCode,interactive=FALSE)
 #' eList <- mergeReport(INFO, Daily, Sample)
-#' eList
+#' Sample <- eList$Sample
 #' }
 mergeReport<-function(INFO, Daily, Sample, surfaces=NA, interactive=TRUE){
   

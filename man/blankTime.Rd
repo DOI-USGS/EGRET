@@ -13,7 +13,7 @@ blankTime(eList, startBlank, endBlank)
 \item{endBlank}{character specifying the ending date of blank period, input in quotes in yyyy-mm-dd format}
 }
 \value{
-localDaily Daily data frame returned with NA's in sample gap
+eList named list with modified Daily data frame.
 }
 \description{
 This function is used when the data analyst believes that a gap in the sample data record

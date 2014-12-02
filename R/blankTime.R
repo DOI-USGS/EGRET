@@ -9,7 +9,7 @@
 #' @param endBlank character specifying the ending date of blank period, input in quotes in yyyy-mm-dd format
 #' @param eList named list with at least the Daily dataframe
 #' @keywords water-quality statistics
-#' @return localDaily Daily data frame returned with NA's in sample gap
+#' @return eList named list with modified Daily data frame.
 #' @export
 #' @examples
 #' startBlank = "2004-10-01"
