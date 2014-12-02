@@ -38,7 +38,7 @@
 #' }
 readWQPSample <- function(siteNumber,characteristicName,startDate,endDate,interactive=TRUE){
   
-  retval <- readWQPqw(siteNumber=siteNumber,
+  retval <- readWQPqw(siteNumbers=siteNumber,
                               parameterCd=characteristicName,
                               startDate=startDate,
                               endDate=endDate)

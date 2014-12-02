@@ -46,8 +46,10 @@ A list of statistic codes can be found here: \url{http://nwis.waterdata.usgs.gov
 }
 \examples{
 # These examples require an internet connection to run
+\dontrun{
 Daily <- readNWISDaily('01594440','00060', '1985-01-01', '1985-03-31')
 DailySuspSediment <- readNWISDaily('01594440','80154', '1985-01-01', '1985-03-31',convert=FALSE)
+}
 }
 \seealso{
 \code{\link[dataRetrieval]{readNWISdv}}, \code{\link{populateDaily}}
