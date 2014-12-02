@@ -30,7 +30,7 @@
 #' CosDY \tab numeric \tab Cosine of the DecYear
 #' }
 #' @seealso \code{\link{compressData}}, \code{\link{populateSampleColumns}},
-#' \code{\link[dataRetrieval]{readNWISSample}}
+#' \code{\link[dataRetrieval]{readNWISqw}}
 #' @examples
 #' # These examples require an internet connection to run
 #' \dontrun{
@@ -40,7 +40,7 @@
 #' }
 readNWISSample <- function(siteNumber,parameterCd,startDate="",endDate="",interactive=TRUE){
   
-  rawSample <- readNWISqw(siteNumber,parameterCd,startDate,endDate)
+  rawSample <- readNWISqw(siteNumber,parameterCd,startDate,endDate, expanded=FALSE)
   dataColumns <- grep("p\\d{5}",names(rawSample))
   remarkColumns <- grep("r\\d{5}",names(rawSample))
   totalColumns <-c(grep("sample_dt",names(rawSample)), dataColumns, remarkColumns)
