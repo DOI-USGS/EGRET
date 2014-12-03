@@ -39,7 +39,7 @@
 readWQPSample <- function(siteNumber,characteristicName,startDate,endDate,interactive=TRUE){
   
   url <- constructWQPURL(siteNumber,characteristicName,startDate,endDate)
-  data <- importWQP(url)
+  retval <- importWQP(url)
   
   #Check for pcode:
   if(all(nchar(characteristicName) == 5)){
