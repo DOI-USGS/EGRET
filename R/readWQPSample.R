@@ -38,10 +38,9 @@
 #' }
 readWQPSample <- function(siteNumber,characteristicName,startDate,endDate,interactive=TRUE){
   
-  retval <- readWQPqw(siteNumbers=siteNumber,
-                              parameterCd=characteristicName,
-                              startDate=startDate,
-                              endDate=endDate)
+  url <- constructWQPURL(siteNumber,characteristicName,startDate,endDate)
+  retval <- importWQP(url)
+  
   #Check for pcode:
   if(all(nchar(characteristicName) == 5)){
     suppressWarnings(pCodeLogic <- all(!is.na(as.numeric(characteristicName))))
