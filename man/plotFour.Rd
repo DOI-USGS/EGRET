@@ -18,7 +18,7 @@ plotFour(eList, yearStart = NA, yearEnd = NA, printTitle = TRUE,
 
 \item{runoff}{logical variable, if TRUE the streamflow data are converted to runoff values in mm/day}
 
-\item{qUnit}{object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.}
+\item{qUnit}{object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.}
 
 \item{window}{numeric which is the full width, in years, of the time window over which the standard deviation is computed, default = 15}
 

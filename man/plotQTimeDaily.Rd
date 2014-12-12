@@ -17,7 +17,7 @@ plotQTimeDaily(eList, startYear = NA, endYear = NA, qLower = NA,
 
 \item{qLower}{numeric specifying the lower bound on discharges that are to be plotted, must be in the units specified by qUnit, default is NA (lower bound is zero)}
 
-\item{qUnit}{object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.  Default is qUnit=1 (cubic feet per second)}
+\item{qUnit}{object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.  Default is qUnit=1 (cubic feet per second)}
 
 \item{logScale}{logical whether or not to use a log scale in the y axis. Default is FALSE.}
 

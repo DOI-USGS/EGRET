@@ -33,14 +33,14 @@
 #' \code{\link[dataRetrieval]{readNWISqw}}
 #' @examples
 #' # These examples require an internet connection to run
-#' \dontrun{
+#' 
 #' Sample_01075 <- readNWISSample('01594440','01075', '1985-01-01', '1985-03-31')
 #' Sample_All2 <- readNWISSample('05114000',c('00915','00931'), '1985-01-01', '1985-03-31')
 #' Sample_Select <- readNWISSample('05114000',c('00915','00931'), '', '')
-#' }
+#' 
 readNWISSample <- function(siteNumber,parameterCd,startDate="",endDate="",interactive=TRUE){
   
-  rawSample <- readNWISqw(siteNumber,parameterCd,startDate,endDate, expanded=FALSE)
+  rawSample <- dataRetrieval::readNWISqw(siteNumber,parameterCd,startDate,endDate, expanded=FALSE)
   dataColumns <- grep("p\\d{5}",names(rawSample))
   remarkColumns <- grep("r\\d{5}",names(rawSample))
   totalColumns <-c(grep("sample_dt",names(rawSample)), dataColumns, remarkColumns)

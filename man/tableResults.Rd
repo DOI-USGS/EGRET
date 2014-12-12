@@ -8,9 +8,9 @@ tableResults(eList, qUnit = 2, fluxUnit = 9)
 \arguments{
 \item{eList}{named list with at least Daily and INFO dataframes}
 
-\item{qUnit}{object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.}
+\item{qUnit}{object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.}
 
-\item{fluxUnit}{object of fluxUnit class. \code{\link{fluxConst}}, or numeric represented the short code, or character representing the descriptive name.}
+\item{fluxUnit}{object of fluxUnit class. \code{\link{printFluxUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.}
 }
 \value{
 results dataframe, if returnDataFrame=TRUE

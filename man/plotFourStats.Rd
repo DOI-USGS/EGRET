@@ -20,7 +20,7 @@ plotFourStats(eList, yearStart = NA, yearEnd = NA, printTitle = TRUE,
 
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
 
-\item{qUnit}{object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.}
+\item{qUnit}{object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.}
 
 \item{cex.axis}{magnification to be used for axis annotation relative to the current setting of cex}
 

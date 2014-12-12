@@ -8,7 +8,7 @@
 #'
 #' @param istat A numeric value for the flow statistic to be graphed (possible values are 1 through 8)
 #' @param eList named list with at least Daily and INFO dataframes
-#' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
+#' @param qUnit object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param runoff logical variable, if TRUE the streamflow data are converted to runoff values in mm/day
 #' @param yearPoints A vector of numeric values, specifying the years at which change metrics are to be calculated, default is NA (which allows the function to set these automatically), yearPoints must be in ascending order
 #' @keywords streamflow statistics

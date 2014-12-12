@@ -11,7 +11,7 @@ plotResidQ(eList, qUnit = 2, tinyPlot = FALSE, stdResid = FALSE,
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}
 
-\item{qUnit}{object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.}
+\item{qUnit}{object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.}
 
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.}
 

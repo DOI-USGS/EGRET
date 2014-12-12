@@ -29,7 +29,7 @@ plotFlowSingle(eList, istat, yearStart = NA, yearEnd = NA, qMax = NA,
 
 \item{runoff}{logical variable, if TRUE the streamflow data are converted to runoff values in mm/day}
 
-\item{qUnit}{object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.}
+\item{qUnit}{object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.}
 
 \item{printStaName}{logical variable, if TRUE station name is printed in title, if FALSE not printed, default is TRUE}
 

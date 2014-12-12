@@ -18,7 +18,7 @@
 #' @param date3 character specifying the date for the third curve on the graph, it is in the form "yyyy-mm-dd" (must be in quotes).  If a third curve is not wanted this should be NA
 #' @param qLow numeric value for the lowest discharge to be considered, expressed in the units of discharge that are being used (as specified in qUnit)
 #' @param qHigh numeric value for the highest discharge to be considered, expressed in the units of discharge that are being used (as specified in qUnit)
-#' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
+#' @param qUnit object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param legendLeft numeric which represents the left edge of the legend in the units of the plot.
 #' @param legendTop numeric which represents the top edge of the legend in the units of the plot.
 #' @param printLegend logicalif TRUE, legend is included

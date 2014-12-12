@@ -7,7 +7,7 @@
 #'
 #' @param eList named list with at least the Daily and INFO dataframes
 #' @param istat A numeric value for the flow statistic to be graphed (possible values are 1 through 8)
-#' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
+#' @param qUnit object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param runoff logical variable, if TRUE the streamflow data are converted to runoff values in mm/day
 #' @keywords streamflow statistics
 #' @return data frame with:

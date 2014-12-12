@@ -8,7 +8,7 @@ tableChange(eList, fluxUnit = 9, yearPoints = NA)
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes}
 
-\item{fluxUnit}{object of fluxUnit class. \code{\link{fluxConst}}, or numeric represented the short code, or character representing the descriptive name.}
+\item{fluxUnit}{object of fluxUnit class. \code{\link{printFluxUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.}
 
 \item{yearPoints}{numeric vector listing the years for which the change or slope computations are made, they need to be in chronological order.  For example yearPoints=c(1975,1985,1995,2005), default is NA (which allows the program to set yearPoints automatically)}
 }

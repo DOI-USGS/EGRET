@@ -4,8 +4,8 @@
 #' mean flux, and flow-normalized flux. 
 #'
 #' @param eList named list with at least Daily and INFO dataframes
-#' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
-#' @param fluxUnit object of fluxUnit class. \code{\link{fluxConst}}, or numeric represented the short code, or character representing the descriptive name. 
+#' @param qUnit object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name. 
+#' @param fluxUnit object of fluxUnit class. \code{\link{printFluxUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @return results dataframe, if returnDataFrame=TRUE
 #' @keywords water-quality statistics
 #' @export

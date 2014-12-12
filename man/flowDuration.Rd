@@ -12,7 +12,7 @@ flowDuration(eList, centerDate = "09-30", qUnit = 2, span = 365)
 duration is to be calculated, it is in the form "mm-dd" (it must be in quotes), default is
 "09-30"}
 
-\item{qUnit}{object of qUnit class \code{\link{qConst}}, or numeric represented the short code,
+\item{qUnit}{object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented the short code,
 or character representing the descriptive name.}
 
 \item{span}{number this is the half-width of the window over which the discharge values are to

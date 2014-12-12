@@ -11,7 +11,7 @@ plotConcTime(eList, qUnit = 2, qLower = NA, qUpper = NA,
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}
 
-\item{qUnit}{object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.}
+\item{qUnit}{object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.}
 
 \item{qLower}{numeric the lower bound on values of discharge used to select the data points to be plotted, units are those specified by qUnit, default = NA which is equivalent to a lower bound of zero but if the desired lower bound is zero use qLower = NA}
 

@@ -9,7 +9,7 @@ multiPlotDataOverview(eList, qUnit = 2, cex.main = 1.2,
 \arguments{
 \item{eList}{named list with at least Daily, Sample, and INFO dataframes}
 
-\item{qUnit}{object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.}
+\item{qUnit}{object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.}
 
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
 

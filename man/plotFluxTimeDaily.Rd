@@ -17,7 +17,7 @@ plotFluxTimeDaily(eList, startYear = NA, endYear = NA, tinyPlot = FALSE,
 
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be short and wide, default is FALSE.}
 
-\item{fluxUnit}{number representing in pre-defined fluxUnit class array. \code{\link{fluxConst}}}
+\item{fluxUnit}{number representing in pre-defined fluxUnit class array. \code{\link{printFluxUnitCheatSheet}}}
 
 \item{fluxMax}{number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)}
 

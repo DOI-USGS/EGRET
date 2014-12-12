@@ -11,7 +11,7 @@ plotFluxPred(eList, fluxUnit = 3, fluxMax = NA, printTitle = TRUE,
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}
 
-\item{fluxUnit}{number representing entry in pre-defined fluxUnit class array. \code{\link{fluxConst}}}
+\item{fluxUnit}{number representing entry in pre-defined fluxUnit class array. \code{\link{printFluxUnitCheatSheet}}}
 
 \item{fluxMax}{number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)}
 

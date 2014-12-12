@@ -21,10 +21,9 @@ conditions to determine if a value is left censored or not. Censored values are 
 }
 \examples{
 library(dataRetrieval)
-\dontrun{
+
 rawSample <- readWQPqw('USGS-01594440','', '', '')
 rawSampleSelect <- processQWData(rawSample)
-}
 }
 \seealso{
 \code{\link[dataRetrieval]{readWQPqw}}
