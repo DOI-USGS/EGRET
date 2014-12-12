@@ -13,10 +13,10 @@
 #' @seealso \code{\link[dataRetrieval]{readWQPqw}}
 #' @examples
 #' library(dataRetrieval)
-#' \dontrun{
+#' 
 #' rawSample <- readWQPqw('USGS-01594440','', '', '')
 #' rawSampleSelect <- processQWData(rawSample)
-#' }
+#' 
 processQWData <- function(data,pCode=TRUE){
 
   qualifier <- ifelse((data$ResultDetectionConditionText == "Not Detected" | 

@@ -43,11 +43,10 @@ section 3.2.4 of the vignette for more details.
 }
 \examples{
 # These examples require an internet connection to run
-\dontrun{
+
 Sample_01075 <- readNWISSample('01594440','01075', '1985-01-01', '1985-03-31')
 Sample_All2 <- readNWISSample('05114000',c('00915','00931'), '1985-01-01', '1985-03-31')
 Sample_Select <- readNWISSample('05114000',c('00915','00931'), '', '')
-}
 }
 \seealso{
 \code{\link{compressData}}, \code{\link{populateSampleColumns}},

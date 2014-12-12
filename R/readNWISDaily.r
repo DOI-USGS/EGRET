@@ -34,10 +34,10 @@
 #' @seealso \code{\link[dataRetrieval]{readNWISdv}}, \code{\link{populateDaily}}
 #' @examples
 #' # These examples require an internet connection to run
-#' \dontrun{
+#' 
 #' Daily <- readNWISDaily('01594440','00060', '1985-01-01', '1985-03-31')
 #' DailySuspSediment <- readNWISDaily('01594440','80154', '1985-01-01', '1985-03-31',convert=FALSE)
-#' }
+#' 
 readNWISDaily <- function (siteNumber,parameterCd="00060",
                            startDate="",endDate="",interactive=TRUE,convert=TRUE){
 
@@ -47,9 +47,9 @@ readNWISDaily <- function (siteNumber,parameterCd="00060",
 #   
 #   data$dateTime <- as.Date(data$dateTime) 
   ##################################
-  url <- constructNWISURL(siteNumber,parameterCd,startDate,endDate,"dv",statCd="00003", format = "tsv")
+  url <- dataRetrieval::constructNWISURL(siteNumber,parameterCd,startDate,endDate,"dv",statCd="00003", format = "tsv")
   
-  data <- importRDB1(url, asDateTime=FALSE)
+  data <- dataRetrieval::importRDB1(url, asDateTime=FALSE)
   if(nrow(data)>0){
     names(data) <- c('agency', 'site', 'dateTime', 'value', 'code')
     data$dateTime <- as.Date(data$dateTime)
