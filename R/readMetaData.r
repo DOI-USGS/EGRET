@@ -38,10 +38,11 @@ readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
   INFO <- populateParameterINFO(parameterCd, INFO, interactive=interactive)
   
   localUnits <- toupper(INFO$param.units)  
-  if(length(grep("MG/L", localUnits)) == 0){
+  if((parameterCd != "00060" | parameterCd != "00065") & length(grep("MG/L", localUnits)) == 0){
     if(interactive){
-      message("Expected concentration units are mg/l. \nThe INFO dataframe indicates:",INFO$param.units,
-              "\nFlux calculations will be wrong if units are not consistent")
+      message("Expected concentration units are mg/l. \n
+              The INFO dataframe indicates:",INFO$param.units,
+              "\nFlux calculations will be wrong if units are not consistent.")
     } 
   }
   
@@ -85,7 +86,7 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
 
   if (pCodeLogic){
     
-    siteInfo <- whatWQPsites(siteid=siteNumber, pCode=parameterCd)
+    siteInfo <- dataRetrieval::whatWQPsites(siteid=siteNumber, pCode=parameterCd)
 
     parameterData <- dataRetrieval::readNWISpCode(parameterCd = parameterCd)
     
@@ -96,7 +97,7 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
     siteInfo$constitAbbrev <- parameterData$parameter_cd
 
   } else {
-    siteInfo <- whatWQPsites(siteid=siteNumber, characteristicName=parameterCd)
+    siteInfo <- dataRetrieval::whatWQPsites(siteid=siteNumber, characteristicName=parameterCd)
 
     siteInfo$param.nm <- parameterCd
     siteInfo$param.units <- ""
@@ -117,16 +118,18 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
     }
     cat("Your site name is", siteInfo$station.nm,",")
     cat("but you can modify this to a short name in a style you prefer. \nThis name will be used to label graphs and tables. \n")
-    cat("If you want the program to use the name given above, just do a carriage return, otherwise enter the preferred short name(no quotes):\n")
+    cat("If you want the program to use the name given above, just do a carriage return, \notherwise enter the preferred short name(no quotes):\n")
     siteInfo$shortName <- readline()
     if (!nzchar(siteInfo$shortName)) siteInfo$shortName <- siteInfo$station.nm
     
     cat("Your water quality data are for parameter number", siteInfo$paramNumber, "which has the name:'", siteInfo$param.nm, "'.\n")
-    cat("Typically you will want a shorter name to be used in graphs and tables. The suggested short name is:'", siteInfo$paramShortName, "'.\n")
+    cat("Typically you will want a shorter name to be used in graphs and tables. \nThe suggested short name is:'", siteInfo$paramShortName, "'.\n")
     cat("If you would like to change the short name, enter it here, otherwise just hit enter (no quotes):")
     shortNameTemp <- readline()
     if (nchar(shortNameTemp)>0) siteInfo$paramShortName <- shortNameTemp
-    cat("The units for the water quality data are: ", siteInfo$param.units, ".\n")
+    cat("Water Quality Portal does not offer a simple method to obtain unit information.\n",
+        "EGRET expects concentration units in mg/l. \nEnter the concetration units of Sample data:\n",sep="")
+    siteInfo$param.units <- readline()
     cat("It is helpful to set up a constiuent abbreviation when doing multi-constituent studies, enter a unique id (three or four characters should work something like tn or tp or NO3).\nIt is case sensitive.  Even if you don't feel you need an abbreviation you need to enter something (no quotes):\n")
     siteInfo$constitAbbrev <- readline()
   }
@@ -222,42 +225,65 @@ readUserInfo <- function(filePath,fileName,hasHeader=TRUE,separator=",",interact
   
   if(interactive){
 
-    if (!nzchar(siteInfo$station.nm)){
+    if (!("station.nm" %in% names(siteInfo))){
       cat("No station name was listed. Please enter a station name here(no quotes): \n")
       siteInfo$station.nm <- readline()
     }
-    cat("Your site name is", siteInfo$station.nm,",")
-    cat("but you can modify this to a short name in a style you prefer. \nThis name will be used to label graphs and tables. \n")
-    cat("If you want the program to use the name given above, just do a carriage return, otherwise enter the preferred short name(no quotes):\n")
-    siteInfo$shortName <- readline()
-    if (!nzchar(siteInfo$shortName)) siteInfo$shortName <- siteInfo$station.nm
+    cat("Your site name is", siteInfo$station.nm,"\n")
     
-    if (!nzchar(siteInfo$param.nm)){
-      cat("No water quality parameter name was listed.\nPlease enter the name here(no quotes): \n")
+    if(!("shortName" %in% names(siteInfo))){
+      cat("but you can modify this to a short name in a style you prefer. \n")
+      cat("The shortName name will be used to label graphs and tables. \n")
+      cat("If you want the program to use the name given above, \n")
+      cat("just do a carriage return, otherwise enter the preferred short name(no quotes):\n")
+      siteInfo$shortName <- readline()
+      if (!nzchar(siteInfo$shortName)) siteInfo$shortName <- siteInfo$station.nm
+    }
+    
+    if (!("param.nm" %in% names(siteInfo))){
+      cat("No water quality parameter name was listed.\n")
+      cat("Please enter the name here(no quotes): \n")
       siteInfo$param.nm <- readline()
     }
     
     cat("Your water quality data are for '", siteInfo$param.nm, "'.\n")
-    cat("Typically you will want a shorter name to be used in graphs and tables. The suggested short name is:'", siteInfo$paramShortName, "'.\n")
-    cat("If you would like to change the short name, enter it here, otherwise just hit enter (no quotes):")
-    shortNameTemp <- readline()
-    
-    if (nchar(shortNameTemp)>0) siteInfo$paramShortName <- shortNameTemp
-    
-    if (!nzchar(siteInfo$param.units)){
-      cat("No water quality parameter unit was listed.\nPlease enter the units here(no quotes): \n")
-      siteInfo$param.nm <- readline()
-    }
-    cat("The units for the water quality data are: ", siteInfo$param.units, ".\n")
-    cat("It is helpful to set up a constiuent abbreviation when doing multi-constituent studies, enter a unique id (three or four characters should work something like tn or tp or NO3).\nIt is case sensitive.  Even if you don't feel you need an abbreviation you need to enter something (no quotes):\n")
-    siteInfo$constitAbbrev <- readline()
 
-    cat("It is helpful to set up a station abbreviation when doing multi-site studies, enter a unique id (three or four characters should work).\nIt is case sensitive.  Even if you don't feel you need an abbreviation for your site you need to enter something(no quotes):\n")
-    siteInfo$staAbbrev <- readline()
-  
-    if(is.na(siteInfo$drainSqKm)){
+    if (!("paramShortName" %in% names(siteInfo))){
+      cat("Typically you will want a shorter name to be used in graphs and tables. \n")
+      cat("The suggested short name is:'", siteInfo$paramShortName, "'.\n")
+      cat("If you would like to change the short name, enter it here, otherwise just hit enter (no quotes):")
+      shortNameTemp <- readline()
+      
+      if (nchar(shortNameTemp)>0) siteInfo$paramShortName <- shortNameTemp
+    }
+    
+    if (!("param.units" %in% names(siteInfo))){
+      cat("No water quality parameter unit was listed.\n")
+      cat("Please enter the units here(no quotes): \n")
+      siteInfo$param.units <- readline()
+    }
+
+    if (!("constitAbbrev" %in% names(siteInfo))){
+      cat("It is helpful to set up a constiuent abbreviation, \n")
+      cat("enter a unique id (three or four characters should work something like tn or tp or NO3).\n")
+      cat("Even if you don't feel you need an abbreviation you need to enter something (no quotes):\n")
+      siteInfo$constitAbbrev <- readline()
+    }
+    
+    if (!("staAbbrev" %in% names(siteInfo))){
+      cat("It is helpful to set up a station, enter a unique id (three or four characters should work).\n")
+      cat("Even if you don't feel you need an abbreviation for your site you need to enter something(no quotes):\n")
+      siteInfo$staAbbrev <- readline()
+    }
+    
+    if (!("drainSqKm" %in% names(siteInfo))){
       cat("No drainage area was listed as a column named 'drainSqKm'.\n")
-      cat("Please enter the drainage area, you can enter it in the units of your choice.\nEnter the area, then enter drainage area code, \n1 is square miles, \n2 is square kilometers, \n3 is acres, \n4 is hectares.\n")
+      cat("Please enter the drainage area, you can enter it in the units of your choice.\n")
+      cat("Enter the area, then enter drainage area code, \n")
+      cat("1 is square miles, \n")
+      cat("2 is square kilometers, \n")
+      cat("3 is acres, \n")
+      cat("4 is hectares.\n")
       cat("Area(no quotes):\n")
       siteInfo$drain.area.va <- readline()
       siteInfo$drain.area.va <- as.numeric(siteInfo$drain.area.va)
