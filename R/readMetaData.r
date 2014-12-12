@@ -40,9 +40,9 @@ readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
   localUnits <- toupper(INFO$param.units)  
   if((parameterCd != "00060" | parameterCd != "00065") & length(grep("MG/L", localUnits)) == 0){
     if(interactive){
-      message("Expected concentration units are mg/l. \n
-              The INFO dataframe indicates:",INFO$param.units,
-              "\nFlux calculations will be wrong if units are not consistent.")
+      cat("Expected concentration units are mg/l. \n")
+      cat("The INFO dataframe indicates:",INFO$param.units,"\n")
+      cat("Flux calculations will be wrong if units are not consistent.")
     } 
   }
   
