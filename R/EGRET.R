@@ -85,11 +85,3 @@ NULL
 NULL
 
 
-#' List of USGS parameter codes
-#'
-#' Complete list of USGS parameter codes as of September 25, 2013.
-#'
-#' @name parameterCdFile
-#' @docType data
-#' @keywords USGS parameterCd
-NULL
