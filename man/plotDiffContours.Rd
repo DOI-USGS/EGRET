@@ -28,7 +28,7 @@ a vector with the minimum and maximum values in the change in concentration scal
 
 \item{tcl}{numeric, length of tick marks in inches, default is 0.1}
 
-\item{qUnit}{object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.}
+\item{qUnit}{object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.}
 
 \item{span}{numeric, it is the half-width (in days) of the smoothing window for computing the flow duration information, default = 60}
 

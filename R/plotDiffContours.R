@@ -19,7 +19,7 @@
 #' a vector with the minimum and maximum values in the change in concentration scale.
 #' @param whatSurface numeric value, can only accept 1, 2, or 3;  whatSurface=1 is yHat (log concentration), whatSurface=2 is SE (standard error of log concentration), and whatSurface=3 is ConcHat (unbiased estimate of concentration), default = 3
 #' @param plotPercent logical. If TRUE, plots percent difference, if FALSE, plots absolute differences. Defaults to FALSE.
-#' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
+#' @param qUnit object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param span numeric, it is the half-width (in days) of the smoothing window for computing the flow duration information, default = 60
 #' @param pval numeric, the probability value for the lower flow frequency line on the graph
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed 

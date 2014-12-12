@@ -9,7 +9,7 @@
 #' Although there are a lot of optional arguments to this function, most are set to a logical default. 
 #'
 #' @param eList named list with at least Daily, Sample, and INFO dataframes
-#' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
+#' @param qUnit object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param logScaleConc logical if TRUE y in concentration graphs plotted in log axis. Default is TRUE.
 #' @param logScaleQ logical if TRUE y in streamflow graphs plotted in log axis. Default is TRUE.

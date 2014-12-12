@@ -27,7 +27,7 @@ plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd,
 
 \item{yearEnd}{numeric This is the end of the sequence of values plotted on the graph.The last value will be the last instance of centerDate prior to the start of yearEnd. (Note, the number of values plotted on each curve will be yearEnd-yearStart.)}
 
-\item{qUnit}{object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.}
+\item{qUnit}{object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.}
 
 \item{legendLeft}{numeric which represents the left edge of the legend in the units of the plot.}
 

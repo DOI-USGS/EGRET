@@ -6,7 +6,7 @@
 #' they can be set by the program to be the final year of the record and a set of years that are multiple of 5 years prior to that.
 #'
 #' @param eList named list with at least Daily and INFO dataframes
-#' @param fluxUnit object of fluxUnit class. \code{\link{fluxConst}}, or numeric represented the short code, or character representing the descriptive name.
+#' @param fluxUnit object of fluxUnit class. \code{\link{printFluxUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param yearPoints numeric vector listing the years for which the change or slope computations are made, they need to be in chronological order.  For example yearPoints=c(1975,1985,1995,2005), default is NA (which allows the program to set yearPoints automatically)
 #' @param flux logical if TRUE results are returned in flux, if FALSE concentration. Default is set to FALSE.
 #' @return resultsDF dataframe describing trends in flow-normalized concentration or flux if returnDataFrame is TRUE

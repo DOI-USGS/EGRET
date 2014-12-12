@@ -12,7 +12,7 @@ boxQTwice(eList, printTitle = TRUE, qUnit = 2, cex = 0.8,
 
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)}
 
-\item{qUnit}{object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.}
+\item{qUnit}{object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.}
 
 \item{cex}{numerical value giving the amount by which plotting symbols should be magnified}
 

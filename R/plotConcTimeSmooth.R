@@ -15,7 +15,7 @@
 #' @param centerDate character This is the time of year to be used as the center date for the smoothing. It is expressed as a month and day and must be in the form "mm-dd"
 #' @param yearStart numeric This is the starting year for the graph. The first value plotted for each curve will be at the first instance of centerDate in the year designated by yearStart.
 #' @param yearEnd numeric This is the end of the sequence of values plotted on the graph.The last value will be the last instance of centerDate prior to the start of yearEnd. (Note, the number of values plotted on each curve will be yearEnd-yearStart.)
-#' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
+#' @param qUnit object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param legendLeft numeric which represents the left edge of the legend in the units of the plot.
 #' @param legendTop numeric which represents the top edge of the legend in the units of the plot.
 #' @param printLegend logicalif TRUE, legend is included

@@ -8,7 +8,7 @@
 #' Although there are a lot of optional arguments to this function, most are set to a logical default.
 #'
 #' @param eList named list with at least the Sample and INFO dataframes
-#' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
+#' @param qUnit object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param logScale logical if TRUE x and y plotted in log axis
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)

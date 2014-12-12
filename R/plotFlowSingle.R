@@ -19,7 +19,7 @@
 #' @param printTitle logical variable, if TRUE title is printed, if FALSE title is not printed, default is TRUE
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE
 #' @param runoff logical variable, if TRUE the streamflow data are converted to runoff values in mm/day
-#' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
+#' @param qUnit object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param printStaName logical variable, if TRUE station name is printed in title, if FALSE not printed, default is TRUE
 #' @param printPA logical variable, if TRUE Period of Analysis information is printed in title, if FALSE not printed, default is TRUE
 #' @param printIstat logical variable, if TRUE print the statistic name is printed in title, if FALSE not printed, default is TRUE

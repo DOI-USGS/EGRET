@@ -8,7 +8,7 @@
 #' duration is to be calculated, it is in the form "mm-dd" (it must be in quotes), default is 
 #' "09-30"
 #' @param eList named list with at least Daily and INFO dataframes
-#' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code,
+#' @param qUnit object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented the short code,
 #'  or character representing the descriptive name.
 #' @param span number this is the half-width of the window over which the discharge values are to 
 #' be used in constructing the flow-duration curve. If the full year is desired any value greater 

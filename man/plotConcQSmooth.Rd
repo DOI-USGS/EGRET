@@ -25,7 +25,7 @@ plotConcQSmooth(eList, date1, date2, date3, qLow, qHigh, qUnit = 2,
 
 \item{qHigh}{numeric value for the highest discharge to be considered, expressed in the units of discharge that are being used (as specified in qUnit)}
 
-\item{qUnit}{object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.}
+\item{qUnit}{object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.}
 
 \item{legendLeft}{numeric which represents the left edge of the legend in the units of the plot.}
 

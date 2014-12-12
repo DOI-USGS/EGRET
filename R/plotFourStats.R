@@ -13,7 +13,7 @@
 #' @param yearEnd A numeric value for year in which the graph should end, default is NA, which indicates that the graph should end with last annual value
 #' @param printTitle logical variable, if TRUE title is printed, if FALSE title is not printed, default is TRUE
 #' @param runoff logical variable, if TRUE the streamflow data are converted to runoff values in mm/day
-#' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
+#' @param qUnit object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex

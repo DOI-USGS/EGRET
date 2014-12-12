@@ -14,7 +14,7 @@
 #' @param startYear numeric specifying the starting date (expressed as decimal years, for example 1989.0) for the plot
 #' @param endYear numeric specifiying the ending date for the plot 
 #' @param tinyPlot logical variable, if TRUE plot is designed to be short and wide, default is FALSE.
-#' @param fluxUnit number representing in pre-defined fluxUnit class array. \code{\link{fluxConst}}
+#' @param fluxUnit number representing in pre-defined fluxUnit class array. \code{\link{printFluxUnitCheatSheet}}
 #' @param fluxMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
