@@ -113,29 +113,38 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
   if(interactive){
     cat("Your site for data is", as.character(siteInfo$site.no),".\n")
     if (!nzchar(siteInfo$station.nm)){
-      cat("No station name was listed for site: ", siteInfo$site.no, ". Please enter a station name here(no quotes): \n")
+      cat("No station name was listed for site: ", siteInfo$site.no, ".\n")
+      cat("Please enter a station name here(no quotes): \n")
       siteInfo$station.nm <- readline()
     }
-    cat("Your site name is", siteInfo$station.nm,",")
-    cat("but you can modify this to a short name in a style you prefer. \nThis name will be used to label graphs and tables. \n")
-    cat("If you want the program to use the name given above, just do a carriage return, \notherwise enter the preferred short name(no quotes):\n")
+    cat("Your site name is", siteInfo$station.nm,",\n")
+    cat("but you can modify this to a short name in a style you prefer. \n")
+    cat("This name will be used to label graphs and tables. \n")
+    cat("If you want the program to use the name given above, just do a carriage return, \n")
+    cat("otherwise enter the preferred short name(no quotes):\n")
     siteInfo$shortName <- readline()
     if (!nzchar(siteInfo$shortName)) siteInfo$shortName <- siteInfo$station.nm
     
-    cat("Your water quality data are for parameter number", siteInfo$paramNumber, "which has the name:'", siteInfo$param.nm, "'.\n")
-    cat("Typically you will want a shorter name to be used in graphs and tables. \nThe suggested short name is:'", siteInfo$paramShortName, "'.\n")
+    cat("Your water quality data are for parameter number", siteInfo$paramNumber, "\n")
+    cat("which has the name:'", siteInfo$param.nm, "'.\n")
+    cat("Typically you will want a shorter name to be used in graphs and tables. \n")
+    cat("The suggested short name is:'", siteInfo$paramShortName, "'.\n")
     cat("If you would like to change the short name, enter it here, otherwise just hit enter (no quotes):")
     shortNameTemp <- readline()
     if (nchar(shortNameTemp)>0) siteInfo$paramShortName <- shortNameTemp
     cat("Water Quality Portal does not offer a simple method to obtain unit information.\n",
         "EGRET expects concentration units in mg/l. \nEnter the concetration units of Sample data:\n",sep="")
     siteInfo$param.units <- readline()
-    cat("It is helpful to set up a constiuent abbreviation when doing multi-constituent studies, enter a unique id (three or four characters should work something like tn or tp or NO3).\nIt is case sensitive.  Even if you don't feel you need an abbreviation you need to enter something (no quotes):\n")
+    cat("It is helpful to set up a constiuent abbreviation when doing multi-constituent studies,\n")
+    cat("enter a unique id (three or four characters should work something like tn or tp or NO3).\n")
+    cat("Even if you don't feel you need an abbreviation you need to enter something (no quotes):\n")
     siteInfo$constitAbbrev <- readline()
   }
   
   if (interactive){
-    cat("It is helpful to set up a station abbreviation when doing multi-site studies, enter a unique id (three or four characters should work).\nIt is case sensitive.  Even if you don't feel you need an abbreviation for your site you need to enter something(no quotes):\n")
+    cat("It is helpful to set up a station abbreviation when doing multi-site studies, \n")
+    cat("enter a unique id (three or four characters should work).\n")
+    cat("Even if you don't feel you need an abbreviation for your site you need to enter something(no quotes):\n")
     siteInfo$staAbbrev <- readline()
   } else {
     siteInfo$staAbbrev <- NA
@@ -143,15 +152,17 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
 
   if(siteInfo$DrainageAreaMeasure.MeasureUnitCode == "sq mi"){
     siteInfo$drainSqKm <- as.numeric(siteInfo$DrainageAreaMeasure.MeasureValue) * 2.5899881 
-  } else {
-    warning("Please check the units for drainage area. The value for INFO$drainSqKm needs to be in square kilometers,")
-    siteInfo$drainSqKm <- as.numeric(siteInfo$DrainageAreaMeasure.MeasureValue)
   }
   
   if(interactive){
-    if(is.na(siteInfo$drainSqKm)){
-      cat("No drainage area was listed in the WQP site file for this site.\n")
-      cat("Please enter the drainage area, you can enter it in the units of your choice.\nEnter the area, then enter drainage area code, \n1 is square miles, \n2 is square kilometers, \n3 is acres, \n4 is hectares.\n")
+    if(!("drainSqKm" %in% names(siteInfo))){
+      cat("No drainage area (and/or units) was listed in the WQP site file for this site.\n")
+      cat("Please enter the drainage area, you can enter it in the units of your choice.\n")
+      cat("Enter the area, then enter drainage area code, \n")
+      cat("1 is square miles, \n")
+      cat("2 is square kilometers, \n")
+      cat("3 is acres, \n")
+      cat("4 is hectares.\n")
       cat("Area(no quotes):\n")
       siteInfo$drain.area.va <- readline()
       siteInfo$drain.area.va <- as.numeric(siteInfo$drain.area.va)
@@ -161,13 +172,19 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
       conversionVector <- c(2.5899881, 1.0, 0.0040468564, 0.01)
       siteInfo$drainSqKm <- siteInfo$drain.area.va * conversionVector[qUnit]
     }
-  }
+  } 
+  
+#  else {
+#     warning("Please check the units for drainage area.\n The value for INFO$drainSqKm needs to be in square kilometers")
+#     siteInfo$drainSqKm <- as.numeric(siteInfo$DrainageAreaMeasure.MeasureValue)
+#   }
   
   localUnits <- toupper(siteInfo$param.units)  
   if(length(grep("MG/L", localUnits)) == 0){
     if(interactive){
-      message("Expected concentration units are mg/l. \nThe INFO dataframe indicates:",siteInfo$param.units,
-              "\nFlux calculations will be wrong if units are not consistent")
+      cat("Expected concentration units are mg/l. \n")
+      cat("The INFO dataframe indicates:",siteInfo$param.units,"\n")
+      cat("Flux calculations will be wrong if units are not consistent\n")
     } 
   }
   

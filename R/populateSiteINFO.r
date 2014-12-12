@@ -89,7 +89,6 @@ populateSiteINFO <- function(INFO, siteNumber,interactive=TRUE){
       cat("3 is acres, \n")
       cat("4 is hectares.\n")
       cat("Area(no quotes):\n")
-      cat("Area(no quotes):\n")
       INFO$drain_area_va <- readline()
       INFO$drain_area_va <- as.numeric(INFO$drain_area_va)
       cat("Unit Code (1-4, no quotes)\nrepresenting \n1: sq mi \n2: sq km \n3: sq m\n4: sq 100*km):")
