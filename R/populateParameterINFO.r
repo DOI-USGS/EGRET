@@ -22,13 +22,19 @@
 populateParameterINFO <- function(parameterCd, INFO, interactive=TRUE){
   if (nzchar(parameterCd)){
     if(interactive){
-      cat("Your water quality data are for parameter number", INFO$paramNumber, "which has the name:'", INFO$param.nm, "'.\n")
-      cat("Typically you will want a shorter name to be used in graphs and tables. The suggested short name is:'", INFO$paramShortName, "'.\n")
-      cat("If you would like to change the short name, enter it here, otherwise just hit enter (no quotes):")
+      cat("Your water quality data are for parameter number:\n")
+      cat(INFO$paramNumber,"\n")
+      cat("which has the name:'", INFO$param.nm, "'.\n")
+      cat("Typically you will want a shorter name to be used in graphs and tables.\n")
+      cat("The suggested short name is:'", INFO$paramShortName, "'.\n")
+      cat("If you would like to change the short name, enter it here, \n")
+      cat("otherwise just hit enter (no quotes):")
       shortNameTemp <- readline()
       if (nchar(shortNameTemp)>0) INFO$paramShortName <- shortNameTemp
       cat("The units for the water quality data are: ", INFO$param.units, ".\n")
-      cat("It is helpful to set up a constiuent abbreviation when doing multi-constituent studies, enter a unique id (three or four characters should work something like tn or tp or NO3).\nIt is case sensitive.  Even if you don't feel you need an abbreviation you need to enter something (no quotes):\n")
+      cat("It is helpful to set up a constiuent abbreviation, enter a unique id \n")
+      cat("three or four characters should work something like tn or tp or NO3).\n")
+      cat("Even if you don't feel you need an abbreviation you need to enter something (no quotes):\n")
       INFO$constitAbbrev <- readline()
     } else {
       INFO$constitAbbrev <- INFO$paramShortName
@@ -40,7 +46,9 @@ populateParameterINFO <- function(parameterCd, INFO, interactive=TRUE){
       INFO$param.nm <- readline()
       cat("Enter a short name to be used in graphs and tables(no quotes):\n")
       INFO$paramShortName <- readline()
-      cat("It is helpful to set up a constiuent abbreviation when doing multi-constituent studies, enter a unique id (three or four characters should work something like tn or tp or NO3).\nIt is case sensitive.  Even if you don't feel you need an abbreviation you need to enter something (no quotes):\n")
+      cat("It is helpful to set up a constiuent abbreviation, \n")
+      cat("enter a unique id (three or four characters should work something like tn or tp or NO3).\n")
+      cat("Even if you don't feel you need an abbreviation you need to enter something (no quotes):\n")
       INFO$constitAbbrev <- readline()
       cat("Enter the units of the water quality data(no quotes):\n")
       INFO$param.units <- readline()
