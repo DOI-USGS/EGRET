@@ -71,7 +71,7 @@ readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
 #' # Automatically gets information about site 01594440 and temperature, no interaction with user
 #' nameToUse <- 'Specific conductance'
 #' pcodeToUse <- '00095'
-#' \donttest{
+#' \dontrun{
 #' INFO <- readWQPInfo('USGS-04024315',pcodeToUse)
 #' 
 #' INFO2 <- readWQPInfo('WIDNR_WQX-10032762',nameToUse)
