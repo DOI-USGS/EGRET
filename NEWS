@@ -1,3 +1,8 @@
+EGRET 2.1.0
+===========
+* Updated processQWData to be more inclusive of Water Quality Portal data
+* Moved some lookup files (month labels, flux labels) to sysdata.rda
+
 EGRET 2.0.1
 ===========
 * Dec. 2, 2014
