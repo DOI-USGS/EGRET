@@ -17,14 +17,21 @@
 #' rawSample <- readWQPqw('USGS-01594440','', '', '')
 #' rawSampleSelect <- processQWData(rawSample)
 #' 
+#' rawWQP <- readWQPqw('21FLEECO_WQX-IMPRGR80','Phosphorus', '', '')
+#' Sample2 <- processQWData(rawWQP)
 processQWData <- function(data,pCode=TRUE){
 
-  qualifier <- ifelse((data$ResultDetectionConditionText == "Not Detected" | 
-                    data$ResultDetectionConditionText == "Detected Not Quantified" |
-                    (!is.na(data$DetectionQuantitationLimitMeasure.MeasureValue) & 
-                       data$ResultMeasureValue < data$DetectionQuantitationLimitMeasure.MeasureValue)),
-                    "<","")
+  detectText <- data$ResultDetectionConditionText
+  detectText <- toupper(detectText)
   
+  qualifier <- rep("",length(detectText))
+  qualifier[grep("NON-DETECT",detectText)] <- "<"
+  qualifier[grep("NON DETECT",detectText)] <- "<"
+  qualifier[grep("NOT DETECTED",detectText)] <- "<"
+  qualifier[grep("DETECTED NOT QUANTIFIED",detectText)] <- "<"
+  qualifier[!is.na(data$DetectionQuantitationLimitMeasure.MeasureValue) && 
+              data$ResultMeasureValue < data$DetectionQuantitationLimitMeasure.MeasureValue] <- "<"
+    
   correctedData<-ifelse((nchar(qualifier)==0),data$ResultMeasureValue,data$DetectionQuantitationLimitMeasure.MeasureValue)
   test <- data.frame(data$USGSPCode)
   

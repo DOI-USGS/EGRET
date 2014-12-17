@@ -24,6 +24,9 @@ library(dataRetrieval)
 
 rawSample <- readWQPqw('USGS-01594440','', '', '')
 rawSampleSelect <- processQWData(rawSample)
+
+rawWQP <- readWQPqw('21FLEECO_WQX-IMPRGR80','Phosphorus', '', '')
+Sample2 <- processQWData(rawWQP)
 }
 \seealso{
 \code{\link[dataRetrieval]{readWQPqw}}
