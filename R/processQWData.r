@@ -12,6 +12,7 @@
 #' @export
 #' @seealso \code{\link[dataRetrieval]{readWQPqw}}
 #' @examples
+#' \dontrun{
 #' library(dataRetrieval)
 #' 
 #' rawSample <- readWQPqw('USGS-01594440','', '', '')
@@ -19,6 +20,7 @@
 #' 
 #' rawWQP <- readWQPqw('21FLEECO_WQX-IMPRGR80','Phosphorus', '', '')
 #' Sample2 <- processQWData(rawWQP)
+#' }
 processQWData <- function(data,pCode=TRUE){
 
   detectText <- data$ResultDetectionConditionText
