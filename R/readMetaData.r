@@ -17,7 +17,9 @@
 #' @examples
 #' # These examples require an internet connection to run
 #' # Automatically gets information about site 05114000 and temperature, no interaction with user
-#' INFO <- readNWISInfo('05114000','00010',interactive=FALSE)
+#' \dontrun{
+#' INFO <- readNWISInfo('05114000','00010')
+#' }
 readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
   if (nzchar(siteNumber)){
     INFO <- dataRetrieval::readNWISsite(siteNumber)
@@ -172,12 +174,18 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
       conversionVector <- c(2.5899881, 1.0, 0.0040468564, 0.01)
       siteInfo$drainSqKm <- siteInfo$drain.area.va * conversionVector[qUnit]
     }
-  } 
-  
-#  else {
+    requiredColumns <- c("drainSqKm", "staAbbrev", "constitAbbrev", 
+                         "param.units", "paramShortName","shortName")
+    if(!all(requiredColumns %in% names(siteInfo))){
+      cat("The following columns are expected in the EGRET package:\n")
+      cat(requiredColumns[!(requiredColumns %in% names(siteInfo))])
+      cat("Please enter manually")
+    }
+  } else {
+    siteInfo$drainSqKm <- NA #Not sure the greatest solution, too many potential units.
 #     warning("Please check the units for drainage area.\n The value for INFO$drainSqKm needs to be in square kilometers")
 #     siteInfo$drainSqKm <- as.numeric(siteInfo$DrainageAreaMeasure.MeasureValue)
-#   }
+  }
   
   localUnits <- toupper(siteInfo$param.units)  
   if(length(grep("MG/L", localUnits)) == 0){
