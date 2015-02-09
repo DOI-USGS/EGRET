@@ -27,7 +27,9 @@ constitAbbrev - constitute abbreviation
 \examples{
 # These examples require an internet connection to run
 # Automatically gets information about site 05114000 and temperature, no interaction with user
-INFO <- readNWISInfo('05114000','00010',interactive=FALSE)
+\dontrun{
+INFO <- readNWISInfo('05114000','00010')
+}
 }
 \keyword{USGS}
 \keyword{data}
