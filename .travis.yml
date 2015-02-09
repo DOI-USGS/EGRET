@@ -2,17 +2,25 @@
 
 language: c
 
+os:
+  - osx
+  - linux
+
 env:
    global:
      - R_LIBS="http://cran.rstudio.com"
      - R_BUILD_ARGS="--no-build-vignettes --no-manual"
      - R_CHECK_ARGS="--no-build-vignettes --no-manual --as-cran"
      - BOOTSTRAP_LATEX=""
+     - NOT_CRAN="true"
 
 before_install:
   - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
   - chmod 755 ./travis-tool.sh
   - ./travis-tool.sh bootstrap
+
+after_script:
+  - "./travis-tool.sh dump_logs"
 
 install:
   - ./travis-tool.sh install_deps
@@ -22,9 +30,6 @@ install:
   - ./travis-tool.sh install_r xtable
 
 script: ./travis-tool.sh run_tests
-
-on_failure:
-  - ./travis-tool.sh dump_logs
 
 notifications:
   email:
