@@ -184,11 +184,9 @@ addSpace <- function(x) ifelse(x != "1", "[5pt]","")
 \section{Introduction to Exploration and Graphics for RivEr Trends (EGRET)}
 %------------------------------------------------------------ 
 
-EGRET includes statistics and graphics for streamflow history, water quality trends, and the statistical modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS).  Please see the official EGRET User Guide for more information on the EGRET package.:
+EGRET includes statistics and graphics for streamflow history, water quality trends, and the statistical modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS).  Please see the official EGRET User Guide \cite{HirschI} for more information on the EGRET package:
 
 (\url{http://dx.doi.org/10.3133/tm4A10}) 
-
-\textbf{Note:} \textit{The \enquote{official EGRET User Guide} currently (2014-11-12) shows a workflow that has been superseded by the workflow shown in this vignette.   However, the science and math is the User Guide is correct. The User Guide is in the process of being updated and will be available at the URL shown above in the near future.}
 
 For information on getting started in R, downloading and installing the package, see section \ref{sec:appendix1}.
 
@@ -2000,11 +1998,15 @@ Although this software has been used by the U.S. Geological Survey (USGS), no wa
 % \bibitem{HirschI}
 % Helsel, D.R. and R. M. Hirsch, 2002. Statistical Methods in Water Resources Techniques of Water Resources Investigations, Book 4, chapter A3. U.S. Geological Survey. 522 pages. \url{http://pubs.usgs.gov/twri/twri4a3/}
 
+\bibitem{HirschI}
+Hirsch, R.M., De Cicco, L.A. (2014), User guide to Exploration and Graphics for RivEr Trends (EGRET) and dataRetrieval: R packages for hydrologic data (version 2.0, February 2015): U.S. Geological Survey Techniques and Methods book 4, chap. A10, 93 p. \url{http://dx.doi.org/10.3133/tm4A10}
+
+
 \bibitem{HirschII}
-Hirsch, R. M., Moyer, D. L. and Archfield, S. A. (2010), Weighted Regressions on Time, Discharge, and Season (WRTDS), with an Application to Chesapeake Bay River Inputs. JAWRA Journal of the American Water Resources Association, 46: 857-880. doi: 10.1111/j.1752-1688.2010.00482.x \url{http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full}
+Hirsch, R.M., Moyer, D.L. and Archfield, S.A. (2010), Weighted Regressions on Time, Discharge, and Season (WRTDS), with an Application to Chesapeake Bay River Inputs. JAWRA Journal of the American Water Resources Association, 46: 857-880. doi: 10.1111/j.1752-1688.2010.00482.x \url{http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full}
 
 \bibitem{HirschIII}
-Sprague, L. A., Hirsch, R. M., and Aulenbach, B. T. (2011), Nitrate in the Mississippi River and Its Tributaries, 1980 to 2008: Are We Making Progress? Environmental Science \& Technology, 45 (17): 7209-7216. doi: 10.1021/es201221s 
+Sprague, L.A., Hirsch, R.M., and Aulenbach, B.T. (2011), Nitrate in the Mississippi River and Its Tributaries, 1980 to 2008: Are We Making Progress? Environmental Science \& Technology, 45 (17): 7209-7216. doi: 10.1021/es201221s 
 
 \bibitem{HirschIV}
 Moyer, D.L., Hirsch, R.M., and Hyer, K.E. (2012), Comparison of Two Regression-Based Approaches for Determining Nutrient and Sediment Fluxes and Trends in the Chesapeake Bay Watershed: U.S. Geological Survey Scientific Investigations Report 2012-5244, 118 p. \url{http://pubs.usgs.gov/sir/2012/5244/}
