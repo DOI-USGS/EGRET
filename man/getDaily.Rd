@@ -25,7 +25,7 @@ From a named list or EGRET object, extract the Daily dataframe
 }
 \examples{
 eList <- Choptank_eList
-getDaily(eList)
+Daily <- getDaily(eList)
 }
 \seealso{
 \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}

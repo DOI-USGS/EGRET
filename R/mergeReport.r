@@ -187,7 +187,7 @@ is.egret <- function(x) {
 #' @seealso \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
 #' @examples
 #' eList <- Choptank_eList
-#' getDaily(eList)
+#' Daily <- getDaily(eList)
 getDaily <- function(x, ...){
   UseMethod("getDaily")
 }
@@ -222,7 +222,7 @@ getDaily.default <- function(x, ...){
 #' @seealso \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
 #' @examples
 #' eList <- Choptank_eList
-#' getInfo(eList)
+#' INFO <- getInfo(eList)
 getInfo <- function(x, ...){
   UseMethod("getInfo")
 }
@@ -257,7 +257,7 @@ getInfo.default <- function(x, ...){
 #' @seealso \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
 #' @examples
 #' eList <- Choptank_eList
-#' getSample(eList)
+#' Sample <- getSample(eList)
 getSample <- function(x, ...){
   UseMethod("getSample")
 }
