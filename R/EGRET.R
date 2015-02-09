@@ -36,4 +36,24 @@ NULL
 #' @keywords water quality data
 NULL
 
-
+#' Constants included with EGRET
+#' 
+#'\itemize{
+#'  \item{fluxConst}{Flux conversion object}
+#'  \item{qConst}{Flow conversion object}
+#'  \item{monthInfo}{Month object}
+#'}
+#'
+#'@aliases fluxConst qConst monthInfo
+#'@name Constants
+#'@docType data
+#'@export fluxConst qConst monthInfo
+#'@keywords datasets
+#'@examples
+#'fluxConst
+#'fluxConst[['kgDay']]
+#'fluxConst[['kgDay']]@@unitName
+#'qConst
+#'qConst[['cfs']]
+#'qConst[['cfs']]@@qUnitName
+NULL
