@@ -217,7 +217,7 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
 #' @param filePath character specifying the path to the file (used in \code{readUserInfo})
 #' @param fileName character name of file to open (used in \code{readUserInfo})
 #' @param hasHeader logical true if the first row of data is the column headers (used in \code{readUserInfo})
-#' @param separator character character that separates data cells (used in \code{readUserInfo})
+#' @param separator character that separates data cells (used in \code{readUserInfo})
 #' @rdname INFOdataframe
 #' @export
 #' @examples

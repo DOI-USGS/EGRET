@@ -32,7 +32,7 @@ option allows users to enter required information by hand, otherwise those field
 
 \item{hasHeader}{logical true if the first row of data is the column headers (used in \code{readUserInfo})}
 
-\item{separator}{character character that separates data cells (used in \code{readUserInfo})}
+\item{separator}{character that separates data cells (used in \code{readUserInfo})}
 }
 \value{
 INFO data frame. Any metadata can be stored in INFO. However, there are 8 columns that EGRET uses by name in some functions:
