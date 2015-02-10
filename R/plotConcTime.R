@@ -17,8 +17,9 @@
 #' @param qLower numeric the lower bound on values of discharge used to select the data points to be plotted, units are those specified by qUnit, default = NA which is equivalent to a lower bound of zero but if the desired lower bound is zero use qLower = NA
 #' @param qUpper numeric the upper bound on values of discharge for selection of data points to be plotted, units are those specified by qUnit, default = NA which is equivalent to an upper bound of infinity
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
-#' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
-#' @param concMin number specifying the minimum value to be used on the vertical axis, only appropriate for log scale.  
+#' @param concMax numeric value for the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
+#' @param concMin numeric value for lower limit on concentration shown on the vertical log graph, default is NA 
+#' (which causes the lower limit to be set automatically, based on the data). This value is ignored for linear scales, using 0 as the minimum value for the concentration axis.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure).
 #' @param logScale logical, default FALSE, FALSE creates a linear scale y-axis, TRUE creates a y-axis is in log scale.
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified.

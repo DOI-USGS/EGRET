@@ -34,7 +34,8 @@ plotConcQSmooth(eList, date1, date2, date3, qLow, qHigh, qUnit = 2,
 
 \item{concMax}{numeric value for upper limit on concentration shown on the graph, default = NA (which causes the upper limit to be set automatically, based on the data)}
 
-\item{concMin}{numeric value for lower limit on concentration shown on the graph, default = NA (which causes the lower limit to be set automatically, based on the data)}
+\item{concMin}{numeric value for lower limit on concentration shown on the vertical log graph, default is NA
+(which causes the lower limit to be set automatically, based on the data). This value is ignored for linear scales, using 0 as the minimum value for the concentration axis.}
 
 \item{bw}{logical if TRUE graph is produced in black and white, default is FALSE (which means it will use color)}
 
