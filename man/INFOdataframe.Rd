@@ -55,7 +55,7 @@ is because the conversion from mg/l to the user-specified flux unit (e.g., kg/da
 }
 \description{
 Populates INFO data frame from either NWIS (\code{readNWISInfo}),
-Water Quality Portal (\code{readWQPInfo}), or user-supplied files (\code{readUserInfo}). See
+Water Quality Portal (\code{readWQPInfo}), or user-supplied files (\code{readUserInfo}).
 }
 \examples{
 # These examples require an internet connection to run

@@ -1,7 +1,7 @@
 #' Import metadata to create INFO data frame
 #'
 #' Populates INFO data frame from either NWIS (\code{readNWISInfo}),
-#' Water Quality Portal (\code{readWQPInfo}), or user-supplied files (\code{readUserInfo}). See
+#' Water Quality Portal (\code{readWQPInfo}), or user-supplied files (\code{readUserInfo}).
 #'  
 #' @param siteNumber character site number.  For \code{readNWISInfo}, this is usually an 8 digit number,
 #' for \code{readWQPInfo}, it is usually a longer code. For instance, a USGS site number in the Water Quality Portal
