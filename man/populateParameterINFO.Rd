@@ -20,6 +20,7 @@ INFO dataframe
 Populates INFO data frame with additional user-supplied information concerning the measured parameter.
 }
 \examples{
+\dontrun{
 library(dataRetrieval)
 INFO <- readNWISsite('01594440')
 parameterCd <- "01075"
@@ -28,7 +29,7 @@ INFO$param.nm <- parameterData$parameter_nm
 INFO$param.units <- parameterData$parameter_units
 INFO$paramShortName <- parameterData$srsname
 INFO$paramNumber <- parameterData$parameter_cd
-\dontrun{
+
 INFO <- populateParameterINFO(parameterCd, INFO)
 }
 }
