@@ -135,7 +135,7 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
     shortNameTemp <- readline()
     if (nchar(shortNameTemp)>0) siteInfo$paramShortName <- shortNameTemp
     cat("Water Quality Portal does not offer a simple method to obtain unit information.\n",
-        "EGRET expects concentration units in mg/l. \nEnter the concetration units of Sample data:\n",sep="")
+        "EGRET expects concentration units in mg/l. \nEnter the concentration units of Sample data:\n",sep="")
     siteInfo$param.units <- readline()
     cat("It is helpful to set up a constiuent abbreviation when doing multi-constituent studies,\n")
     cat("enter a unique id (three or four characters should work something like tn or tp or NO3).\n")
