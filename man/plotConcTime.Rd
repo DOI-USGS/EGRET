@@ -20,9 +20,10 @@ plotConcTime(eList, qUnit = 2, qLower = NA, qUpper = NA,
 
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.}
 
-\item{concMax}{number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)}
+\item{concMax}{numeric value for the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)}
 
-\item{concMin}{number specifying the minimum value to be used on the vertical axis, only appropriate for log scale.}
+\item{concMin}{numeric value for lower limit on concentration shown on the vertical log graph, default is NA
+(which causes the lower limit to be set automatically, based on the data). This value is ignored for linear scales, using 0 as the minimum value for the concentration axis.}
 
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure).}
 

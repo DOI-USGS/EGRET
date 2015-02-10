@@ -24,7 +24,7 @@ From a named list or EGRET object, extract the Sample dataframe
 }
 \examples{
 eList <- Choptank_eList
-getSample(eList)
+Sample <- getSample(eList)
 }
 \seealso{
 \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}

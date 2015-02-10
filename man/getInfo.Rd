@@ -25,7 +25,7 @@ From a named list or EGRET object, extract the INFO dataframe
 }
 \examples{
 eList <- Choptank_eList
-getInfo(eList)
+INFO <- getInfo(eList)
 }
 \seealso{
 \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
