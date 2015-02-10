@@ -5,7 +5,7 @@
 \alias{readNWISInfo}
 \alias{readUserInfo}
 \alias{readWQPInfo}
-\title{Import Metadata for USGS Data}
+\title{Import metadata to create INFO data frame}
 \usage{
 readNWISInfo(siteNumber, parameterCd, interactive = TRUE)
 
@@ -15,30 +15,54 @@ readUserInfo(filePath, fileName, hasHeader = TRUE, separator = ",",
   interactive = TRUE)
 }
 \arguments{
-\item{siteNumber}{character USGS site number.  This is usually an 8 digit number}
+\item{siteNumber}{character site number.  For \code{readNWISInfo}, this is usually an 8 digit number,
+for \code{readWQPInfo}, it is usually a longer code. For instance, a USGS site number in the Water Quality Portal
+would be in the form `USGS-XXXXXXXX`. If the siteNumber is left blank (an empty string), the interactive
+option allows users to enter required information by hand, otherwise those fields are left blank.}
 
-\item{parameterCd}{character USGS parameter code.  This is a 5 digit number.}
+\item{parameterCd}{character USGS parameter code (a 5 digit number) or characteristic name (if using \code{readWQPInfo}). If the
+parameterCd is left blank (an empty string), the interactive
+option allows users to enter required information by hand, otherwise those fields are left blank.}
 
 \item{interactive}{logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.}
 
-\item{filePath}{character specifying the path to the file}
+\item{filePath}{character specifying the path to the file (used in \code{readUserInfo})}
 
-\item{fileName}{character name of file to open}
+\item{fileName}{character name of file to open (used in \code{readUserInfo})}
 
-\item{hasHeader}{logical true if the first row of data is the column headers}
+\item{hasHeader}{logical true if the first row of data is the column headers (used in \code{readUserInfo})}
 
-\item{separator}{character character that separates data cells}
+\item{separator}{character character that separates data cells (used in \code{readUserInfo})}
 }
 \value{
 INFO dataframe with at least param.nm, param.units, parameShortName, paramNumber
 }
 \description{
-Populates INFO data frame for EGRET study.  If either station number or parameter code supplied, imports data about a particular USGS site from NWIS web service.
-This function gets the data from here: \url{http://waterservices.usgs.gov/}
-If either station number or parameter code is not supplied, the user will be asked to input data.
-Additionally, the user will be asked for:
-staAbbrev - station abbreviation, will be used in naming output files and for structuring batch jobs
-constitAbbrev - constitute abbreviation
+Populates INFO data frame from either NWIS (\code{readNWISInfo}),
+Water Quality Portal (\code{readWQPInfo}), or user-supplied files (\code{readUserInfo}). See
+Details below for the minimum requirements.
+}
+\details{
+If a station number or parameter code supplied, the functions imports available data.
+If a station number or parameter code is not supplied, the user will be asked to input data if \code{interactive = TRUE}.
+
+Any metadata can be stored in the INFO dataframe. However, there are 8 columns that EGRET uses by name in some functions:
+
+\tabular{lll}{
+Required column \tab Used in function \tab Description \cr
+param.units*** \tab All concentration plotting functions \tab The units as listed in this field are used
+to create the concentration axis labels \cr
+shortName \tab All plotting functions \tab Station short name, used to label plots \cr
+paramShortName \tab All plotting functions \tab Parameter short name, used to label plots \cr
+drainSqKm \tab \code{plotFlowSingle}, \code{printSeries} \tab Calculate runoff\cr
+constitAbbrev \tab \code{saveResults} \tab Parameter abbrieviation, used to auto-name workspace\cr
+staAbbrev \tab \code{saveResults} \tab Station abbrieviation, used to auto-name workspace\cr
+paStart \tab Most EGRET functions \tab Starting month of period of analysis. Defaults to 10\cr
+paLong \tab Most EGRET functions \tab Length in number of months of period of analysis. Defaults to 12\cr
+}
+*** Additionally, EGRET assumes that all concentrations are saved in mg/l. If some variation of
+'mg/l' is not found in INFO$param.units, functions that calculate flux will issue a warning. This
+is because the conversion from mg/l to the user-specified flux unit (e.g., kg/day) uses hard-coded conversion factors.
 }
 \examples{
 # These examples require an internet connection to run
