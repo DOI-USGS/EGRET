@@ -35,18 +35,7 @@ option allows users to enter required information by hand, otherwise those field
 \item{separator}{character character that separates data cells (used in \code{readUserInfo})}
 }
 \value{
-INFO dataframe with at least param.nm, param.units, parameShortName, paramNumber
-}
-\description{
-Populates INFO data frame from either NWIS (\code{readNWISInfo}),
-Water Quality Portal (\code{readWQPInfo}), or user-supplied files (\code{readUserInfo}). See
-Details below for the minimum requirements.
-}
-\details{
-If a station number or parameter code supplied, the functions imports available data.
-If a station number or parameter code is not supplied, the user will be asked to input data if \code{interactive = TRUE}.
-
-Any metadata can be stored in the INFO dataframe. However, there are 8 columns that EGRET uses by name in some functions:
+INFO data frame. Any metadata can be stored in INFO. However, there are 8 columns that EGRET uses by name in some functions:
 
 \tabular{lll}{
 Required column \tab Used in function \tab Description \cr
@@ -63,6 +52,10 @@ paLong \tab Most EGRET functions \tab Length in number of months of period of an
 *** Additionally, EGRET assumes that all concentrations are saved in mg/l. If some variation of
 'mg/l' is not found in INFO$param.units, functions that calculate flux will issue a warning. This
 is because the conversion from mg/l to the user-specified flux unit (e.g., kg/day) uses hard-coded conversion factors.
+}
+\description{
+Populates INFO data frame from either NWIS (\code{readNWISInfo}),
+Water Quality Portal (\code{readWQPInfo}), or user-supplied files (\code{readUserInfo}). See
 }
 \examples{
 # These examples require an internet connection to run

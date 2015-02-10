@@ -2,12 +2,22 @@
 #'
 #' Populates INFO data frame from either NWIS (\code{readNWISInfo}),
 #' Water Quality Portal (\code{readWQPInfo}), or user-supplied files (\code{readUserInfo}). See
-#' Details below for the minimum requirements. 
-#'   
-#' If a station number or parameter code supplied, the functions imports available data.
-#' If a station number or parameter code is not supplied, the user will be asked to input data if \code{interactive = TRUE}.
-#' 
-#' Any metadata can be stored in the INFO dataframe. However, there are 8 columns that EGRET uses by name in some functions:
+#'  
+#' @param siteNumber character site number.  For \code{readNWISInfo}, this is usually an 8 digit number,
+#' for \code{readWQPInfo}, it is usually a longer code. For instance, a USGS site number in the Water Quality Portal
+#' would be in the form `USGS-XXXXXXXX`. If the siteNumber is left blank (an empty string), the interactive
+#' option allows users to enter required information by hand, otherwise those fields are left blank.
+#' @param parameterCd character USGS parameter code (a 5 digit number) or characteristic name (if using \code{readWQPInfo}). If the 
+#' parameterCd is left blank (an empty string), the interactive
+#' option allows users to enter required information by hand, otherwise those fields are left blank.
+#' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
+#' @keywords data import USGS web service
+#' @export
+#' @name INFOdataframe
+#' @import dataRetrieval
+#' @seealso \code{\link[dataRetrieval]{readNWISsite}}, \code{\link[dataRetrieval]{readNWISpCode}}
+#' @seealso \code{\link[dataRetrieval]{whatWQPsites}}
+#' @return INFO data frame. Any metadata can be stored in INFO. However, there are 8 columns that EGRET uses by name in some functions:
 #' 
 #' \tabular{lll}{
 #' Required column \tab Used in function \tab Description \cr
@@ -24,22 +34,7 @@
 #' *** Additionally, EGRET assumes that all concentrations are saved in mg/l. If some variation of
 #' 'mg/l' is not found in INFO$param.units, functions that calculate flux will issue a warning. This 
 #' is because the conversion from mg/l to the user-specified flux unit (e.g., kg/day) uses hard-coded conversion factors.
-#' 
-#' @param siteNumber character site number.  For \code{readNWISInfo}, this is usually an 8 digit number,
-#' for \code{readWQPInfo}, it is usually a longer code. For instance, a USGS site number in the Water Quality Portal
-#' would be in the form `USGS-XXXXXXXX`. If the siteNumber is left blank (an empty string), the interactive
-#' option allows users to enter required information by hand, otherwise those fields are left blank.
-#' @param parameterCd character USGS parameter code (a 5 digit number) or characteristic name (if using \code{readWQPInfo}). If the 
-#' parameterCd is left blank (an empty string), the interactive
-#' option allows users to enter required information by hand, otherwise those fields are left blank.
-#' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
-#' @keywords data import USGS web service
-#' @export
-#' @name INFOdataframe
-#' @import dataRetrieval
-#' @seealso \code{\link[dataRetrieval]{readNWISsite}}, \code{\link[dataRetrieval]{readNWISpCode}}
-#' @seealso \code{\link[dataRetrieval]{whatWQPsites}}
-#' @return INFO dataframe with at least param.nm, param.units, parameShortName, paramNumber
+#'
 #' @examples
 #' # These examples require an internet connection to run
 #' # Automatically gets information about site 05114000 and temperature
