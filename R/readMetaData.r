@@ -1,22 +1,43 @@
-#' Import Metadata for USGS Data
+#' Import metadata to create INFO data frame
 #'
-#' Populates INFO data frame for EGRET study.  If either station number or parameter code supplied, imports data about a particular USGS site from NWIS web service. 
-#' This function gets the data from here: \url{http://waterservices.usgs.gov/}
-#' If either station number or parameter code is not supplied, the user will be asked to input data.
-#' Additionally, the user will be asked for:
-#' staAbbrev - station abbreviation, will be used in naming output files and for structuring batch jobs
-#' constitAbbrev - constitute abbreviation
-#'
-#' @param siteNumber character USGS site number.  This is usually an 8 digit number
-#' @param parameterCd character USGS parameter code.  This is usually an 5 digit number.
+#' Populates INFO data frame from either NWIS (\code{readNWISInfo}),
+#' Water Quality Portal (\code{readWQPInfo}), or user-supplied files (\code{readUserInfo}).
+#'  
+#' @param siteNumber character site number.  For \code{readNWISInfo}, this is usually an 8 digit number,
+#' for \code{readWQPInfo}, it is usually a longer code. For instance, a USGS site number in the Water Quality Portal
+#' would be in the form `USGS-XXXXXXXX`. If the siteNumber is left blank (an empty string), the interactive
+#' option allows users to enter required information by hand, otherwise those fields are left blank.
+#' @param parameterCd character USGS parameter code (a 5 digit number) or characteristic name (if using \code{readWQPInfo}). If the 
+#' parameterCd is left blank (an empty string), the interactive
+#' option allows users to enter required information by hand, otherwise those fields are left blank.
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @keywords data import USGS web service
 #' @export
+#' @name INFOdataframe
 #' @import dataRetrieval
-#' @return INFO dataframe with at least param.nm, param.units, parameShortName, paramNumber
+#' @seealso \code{\link[dataRetrieval]{readNWISsite}}, \code{\link[dataRetrieval]{readNWISpCode}}
+#' @seealso \code{\link[dataRetrieval]{whatWQPsites}}
+#' @return INFO data frame. Any metadata can be stored in INFO. However, there are 8 columns that EGRET uses by name in some functions:
+#' 
+#' \tabular{lll}{
+#' Required column \tab Used in function \tab Description \cr
+#' param.units*** \tab All concentration plotting functions \tab The units as listed in this field are used
+#' to create the concentration axis labels \cr
+#' shortName \tab All plotting functions \tab Station short name, used to label plots \cr
+#' paramShortName \tab All plotting functions \tab Parameter short name, used to label plots \cr
+#' drainSqKm \tab \code{plotFlowSingle}, \code{printSeries} \tab Calculate runoff\cr
+#' constitAbbrev \tab \code{saveResults} \tab Parameter abbrieviation, used to auto-name workspace\cr
+#' staAbbrev \tab \code{saveResults} \tab Station abbrieviation, used to auto-name workspace\cr
+#' paStart \tab Most EGRET functions \tab Starting month of period of analysis. Defaults to 10\cr
+#' paLong \tab Most EGRET functions \tab Length in number of months of period of analysis. Defaults to 12\cr
+#' }
+#' *** Additionally, EGRET assumes that all concentrations are saved in mg/l. If some variation of
+#' 'mg/l' is not found in INFO$param.units, functions that calculate flux will issue a warning. This 
+#' is because the conversion from mg/l to the user-specified flux unit (e.g., kg/day) uses hard-coded conversion factors.
+#'
 #' @examples
 #' # These examples require an internet connection to run
-#' # Automatically gets information about site 05114000 and temperature, no interaction with user
+#' # Automatically gets information about site 05114000 and temperature
 #' \dontrun{
 #' INFO <- readNWISInfo('05114000','00010')
 #' }
@@ -42,7 +63,7 @@ readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
   localUnits <- toupper(INFO$param.units)  
   if((parameterCd != "00060" | parameterCd != "00065") & length(grep("MG/L", localUnits)) == 0){
     if(interactive){
-      cat("Expected concentration units are mg/l. \n")
+      cat("Required concentration units are mg/l. \n")
       cat("The INFO dataframe indicates:",INFO$param.units,"\n")
       cat("Flux calculations will be wrong if units are not consistent.")
     } 
@@ -54,20 +75,8 @@ readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
   return(INFO)
 }
 
-#' Import Metadata for Water Quality Portal Data
-#'
-#' Populates INFO data frame for EGRET study. If siteNumber or parameter code (for USGS) or characteristic name 
-#' (for non-USGS) is provided, the function will make a call to the Water Quality Portal to get metadata information.
-#' staAbbrev - station abbreviation, will be used in naming output files and for structuring batch jobs
-#' constitAbbrev - constitute abbreviation
-#'
-#' @param siteNumber character site number. 
-#' @param parameterCd character USGS parameter code or characteristic name.
-#' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
-#' @keywords data import USGS web service WRTDS
+#' @rdname INFOdataframe
 #' @export
-#' @import dataRetrieval
-#' @return INFO dataframe with agency, site, dateTime, value, and code columns
 #' @examples
 #' # These examples require an internet connection to run
 #' # Automatically gets information about site 01594440 and temperature, no interaction with user
@@ -134,9 +143,11 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
     cat("If you would like to change the short name, enter it here, otherwise just hit enter (no quotes):")
     shortNameTemp <- readline()
     if (nchar(shortNameTemp)>0) siteInfo$paramShortName <- shortNameTemp
-    cat("Water Quality Portal does not offer a simple method to obtain unit information.\n",
-        "EGRET expects concentration units in mg/l. \nEnter the concentration units of Sample data:\n",sep="")
-    siteInfo$param.units <- readline()
+    if(!pCodeLogic){
+      cat("Water Quality Portal does not offer a simple method to obtain unit information.\n",
+          "EGRET requires concentration units in mg/l for all functions to work correctly. \nEnter the concentration units of Sample data:\n",sep="")
+      siteInfo$param.units <- readline()
+    }
     cat("It is helpful to set up a constiuent abbreviation when doing multi-constituent studies,\n")
     cat("enter a unique id (three or four characters should work something like tn or tp or NO3).\n")
     cat("Even if you don't feel you need an abbreviation you need to enter something (no quotes):\n")
@@ -154,11 +165,15 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
 
   if(siteInfo$DrainageAreaMeasure.MeasureUnitCode == "sq mi"){
     siteInfo$drainSqKm <- as.numeric(siteInfo$DrainageAreaMeasure.MeasureValue) * 2.5899881 
+  } else {
+    siteInfo$drainSqKm <- NA #Not sure the greatest solution, too many potential units.
+    
   }
   
   if(interactive){
-    if(!("drainSqKm" %in% names(siteInfo))){
+    if(is.na(siteInfo$drainSqKm)){
       cat("No drainage area (and/or units) was listed in the WQP site file for this site.\n")
+      cat("Drainage area is used to calculate runoff parameters in flow history calculations.\n")
       cat("Please enter the drainage area, you can enter it in the units of your choice.\n")
       cat("Enter the area, then enter drainage area code, \n")
       cat("1 is square miles, \n")
@@ -177,20 +192,16 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
     requiredColumns <- c("drainSqKm", "staAbbrev", "constitAbbrev", 
                          "param.units", "paramShortName","shortName")
     if(!all(requiredColumns %in% names(siteInfo))){
-      cat("The following columns are expected in the EGRET package:\n")
+      cat("The following columns are required for all functions to work in the EGRET package:\n")
       cat(requiredColumns[!(requiredColumns %in% names(siteInfo))])
       cat("Please enter manually")
     }
-  } else {
-    siteInfo$drainSqKm <- NA #Not sure the greatest solution, too many potential units.
-#     warning("Please check the units for drainage area.\n The value for INFO$drainSqKm needs to be in square kilometers")
-#     siteInfo$drainSqKm <- as.numeric(siteInfo$DrainageAreaMeasure.MeasureValue)
   }
   
   localUnits <- toupper(siteInfo$param.units)  
   if(length(grep("MG/L", localUnits)) == 0){
     if(interactive){
-      cat("Expected concentration units are mg/l. \n")
+      cat("Required concentration units are mg/l. \n")
       cat("The INFO dataframe indicates:",siteInfo$param.units,"\n")
       cat("Flux calculations will be wrong if units are not consistent\n")
     } 
@@ -203,24 +214,12 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
   return(siteInfo)
 }
 
-
-
-#' Import Metadata from User-Generated File
-#'
-#' Populates INFO data frame for EGRET study. Accepts a user generated file with any metadata that might 
-#' be important for the analysis. 
-#' Additionally, EGRET analysis requires:"drainSqKm", "staAbbrev", "constitAbbrev", 
-#' "param.units", "paramShortName","shortName". If interactive=TRUE, the function will ask for these
-#' fields if they aren't supplied in the file.
-#'
-#' @param filePath character specifying the path to the file
-#' @param fileName character name of file to open
-#' @param hasHeader logical true if the first row of data is the column headers
-#' @param separator character character that separates data cells
-#' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
-#' @keywords data import USGS web service WRTDS
+#' @param filePath character specifying the path to the file (used in \code{readUserInfo})
+#' @param fileName character name of file to open (used in \code{readUserInfo})
+#' @param hasHeader logical true if the first row of data is the column headers (used in \code{readUserInfo})
+#' @param separator character that separates data cells (used in \code{readUserInfo})
+#' @rdname INFOdataframe
 #' @export
-#' @return INFO dataframe with agency, site, dateTime, value, and code columns
 #' @examples
 #' filePath <- system.file("extdata", package="EGRET")
 #' filePath <- paste(filePath,"/",sep="")
@@ -303,6 +302,7 @@ readUserInfo <- function(filePath,fileName,hasHeader=TRUE,separator=",",interact
     
     if (!("drainSqKm" %in% names(siteInfo))){
       cat("No drainage area was listed as a column named 'drainSqKm'.\n")
+      cat("Drainage area is used to calculate runoff parameters in flow history calculations.\n")
       cat("Please enter the drainage area, you can enter it in the units of your choice.\n")
       cat("Enter the area, then enter drainage area code, \n")
       cat("1 is square miles, \n")
@@ -330,15 +330,18 @@ readUserInfo <- function(filePath,fileName,hasHeader=TRUE,separator=",",interact
   localUnits <- toupper(siteInfo$param.units)  
   if(length(grep("MG/L", localUnits)) == 0){
     if(interactive){
-      message("Expected concentration units are mg/l. \nThe INFO dataframe indicates:",siteInfo$param.units,
+      message("Required concentration units are mg/l. \nThe INFO dataframe indicates:",siteInfo$param.units,
               "\nFlux calculations will be wrong if units are not consistent")
     } 
   }
   
   siteInfo$queryTime <- Sys.time()
-  siteInfo$paStart <- 10
-  siteInfo$paLong <- 12
-  
+  if(!("paStart" %in% names(siteInfo))){
+    siteInfo$paStart <- 10
+  }
+  if(!("paLong" %in% names(siteInfo))){
+    siteInfo$paLong <- 12
+  }
   return(siteInfo)
 }
 

@@ -23,6 +23,7 @@ Number \tab ObjectName \tab shortName \tab unitFactor \tab unitName  \cr
 10     \tab BILLION_KG_YEAR\tab 10^9 kg/yr \tab 3.6525e-07 \tab billions of kg/year \cr
 11     \tab thousandTonsDay \tab 10^3 tons/day \tab 1.102e-06 \tab thousands of tons/day \cr
 12     \tab millionKgDay \tab 10^6 kg/day \tab 1e-06 \tab millions of kg/day \cr
+13     \tab kgYear \tab kg/year \tab 365.25 \tab kg/year \cr
 }
 }
 \examples{

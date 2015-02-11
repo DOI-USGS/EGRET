@@ -1,10 +1,5 @@
 # Updating this list will not automatically update the objects available in the package.
-# If you update this list, run the code to generate fluxConst or qUnit, then save the arrays:
-# save(fluxConst, file="fluxConst.RData")
-# save(qConst, file="qConst.RData")
-# save(monthInfo, file="monthInfo.RData")  #shouldn't need to add a month, but maybe you want to add an attribute or correct a mistake
-# then, move the files (fluxConst.RData, qConst.RData, monthInfo.RData) to packageFolder/data
-# Package will have to be re-built to include new data.
+# If you update this list, run the code to generate fluxConst or qUnit, then save the image as sysdata.rda
 
 fluxConst <- list(poundsDay = new("fluxUnit", 
                            shortName = "   lbs/day  ",   
@@ -125,7 +120,17 @@ fluxConst <- list(poundsDay = new("fluxUnit",
                            unitEstimate = expression(paste("Estimated Flux in ",10^6*kg/day)),
                            unitEstimateTiny = expression(paste("Est. Flux ", "(", 10^6*kg/d, ")")),
                            shortCode = 12
-                           )
+                           ),
+                kgYear = new("fluxUnit",
+                            shortName = "    kg/yr   ",
+                            unitFactor = 365.25,
+                            unitName = "kg/year",
+                            unitExpress = expression("Flux in kg/year"),
+                            unitExpressTiny = expression("Flux (kg/yr)"),
+                            unitEstimate = expression("Estimated Flux in kg/year"),
+                            unitEstimateTiny = expression("Est. Flux in kg/yr"),
+                            shortCode = 13
+                            )
 )
 
 qConst <- list(
