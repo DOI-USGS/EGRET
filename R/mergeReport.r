@@ -57,6 +57,9 @@ mergeReport<-function(INFO, Daily, Sample, surfaces=NA, interactive=TRUE){
             
     }
     Sample <- merge(Daily[,c("Date","Q","LogQ")],Sample,by = "Date",all.y = TRUE)
+    if(any(is.na(Sample$Q))){
+      message("Some Sample dates do not have corresponding flow data. Not all EGRET functions will work correctly.")
+    }
   }
   
   eList <- as.egret(INFO, Daily, Sample, surfaces)
