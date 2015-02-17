@@ -146,7 +146,7 @@ addSpace <- function(x) ifelse(x != "1", "[5pt]","")
 #  
 #  # modify this for your own computer file structure:
 #  savePath<-"/Users/rhirsch/Desktop/"
-#  saveResults(savePath, INFO)
+#  saveResults(savePath, eList)
 
 ## ----openDataRetrieval, eval=FALSE------------------------
 #  library(dataRetrieval)
@@ -419,7 +419,7 @@ flowDuration(eList, qUnit=1, centerDate="09-30", span=30)
 ## ----wrtds5, eval=FALSE, echo=TRUE------------------------
 #  #An example directory name
 #  savePath <- "C:/Users/egretUser/WRTDS_Output/"
-#  saveResults(savePath, INFO)
+#  saveResults(savePath, eList)
 
 ## ----wrtds8, eval=FALSE, echo=TRUE------------------------
 #  loadPath <- "C:/Users/egretUser/WRTDS_Output/"
