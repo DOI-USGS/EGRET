@@ -1,6 +1,10 @@
 EGRET 2.1.1
 ===========
-* Exposed sysdata.rda constants.
+* Exposed sysdata.rda constants
+* Fixed some inconsistancies in readUserInfo function
+* Added prettyDate argument to plotFluxTimeDaily, plotConcTimeDaily, and plotQTimeDaily. This overrides the 'pretty' axis so that the plot starts and ends exactly at the startYear/endYear arguments
+* Added testthat unit tests
+* Added kg/year flux constant
 
 EGRET 2.1.0
 ===========

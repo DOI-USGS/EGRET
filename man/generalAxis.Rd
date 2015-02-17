@@ -5,7 +5,8 @@
 \title{Axis generation for log discharge}
 \usage{
 generalAxis(x, maxVal, minVal, units = NA, logScale = FALSE,
-  tinyPlot = FALSE, padPercent = 5, concentration = TRUE)
+  tinyPlot = FALSE, padPercent = 5, concentration = TRUE,
+  prettyDate = TRUE)
 }
 \arguments{
 \item{x}{vector to create scale about}
@@ -23,6 +24,8 @@ generalAxis(x, maxVal, minVal, units = NA, logScale = FALSE,
 \item{padPercent}{number used to pad the max and min if not specified}
 
 \item{concentration}{logical if concentration=TRUE, labels returned as concentration units, otherwise flux units.}
+
+\item{prettyDate}{logical use 'pretty' limits for date axis if TRUE, or force the startYear/endYear as limits if FALSE}
 }
 \description{
 Discharge axis tick generation

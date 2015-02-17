@@ -335,6 +335,21 @@ readUserInfo <- function(filePath,fileName,hasHeader=TRUE,separator=",",interact
     } 
   }
   
+  namesToNum <- c("paLong", "paStart", "drainSqKm", "bottomLogQ", "stepLogQ", "stepYear","windowY","windowQ",
+                  "windowS","dec.lat.va","dec.long.va","drain.area.va")
+  namesToNum <- namesToNum[which(namesToNum %in% names(siteInfo))]
+  
+  namesToInt <- c("nVectorYear","minNumObs","minNumUncen")
+  namesToInt <- namesToInt[which(namesToInt %in% names(siteInfo))]
+  
+  if(length(namesToNum) > 0){
+    siteInfo[,namesToNum] <- as.numeric(siteInfo[,namesToNum])
+  }
+  
+  if(length(namesToInt) > 0){
+    siteInfo[,namesToNum] <- as.numeric(siteInfo[,namesToNum])
+  }
+    
   siteInfo$queryTime <- Sys.time()
   if(!("paStart" %in% names(siteInfo))){
     siteInfo$paStart <- 10

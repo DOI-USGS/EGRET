@@ -331,7 +331,7 @@ plotDiffContours(eList, yearStart,yearEnd,
 
 # modify this for your own computer file structure:
 savePath<-"/Users/rhirsch/Desktop/" 
-saveResults(savePath, INFO)
+saveResults(savePath, eList)
 @
 
 
@@ -1247,7 +1247,7 @@ Finally, it is a good idea to save your results because of the computational tim
 <<wrtds5, eval=FALSE, echo=TRUE>>=
 #An example directory name
 savePath <- "C:/Users/egretUser/WRTDS_Output/" 
-saveResults(savePath, INFO) 
+saveResults(savePath, eList) 
 @
 
 This saves all of the objects in your workspace. If you have saved workspaces from R versions earlier than 3.0, a warning will appear when you open them in R 3.0 (or later). Re-saving the workspace using R 3.0 (or later) should get rid of the warning.

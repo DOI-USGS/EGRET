@@ -24,6 +24,7 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
+#' @param prettyDate logical use 'pretty' limits for date axis if TRUE, or force the startYear/endYear as limits if FALSE
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -39,7 +40,7 @@
 plotFluxTimeDaily<-function (eList, startYear=NA, endYear=NA, 
                              tinyPlot = FALSE, fluxUnit = 3, fluxMax = NA, 
                              printTitle = TRUE, cex=0.8, cex.axis=1.1,cex.main=1.1, 
-                             customPar=FALSE,col="black",lwd=1,...) {
+                             customPar=FALSE,col="black",lwd=1,prettyDate=TRUE,...) {
   
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
@@ -106,7 +107,8 @@ plotFluxTimeDaily<-function (eList, startYear=NA, endYear=NA,
   
   yBottom <- 0
   
-  xInfo <- generalAxis(x=xSample, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot,padPercent=0)
+  xInfo <- generalAxis(x=xSample, minVal=startYear, maxVal=endYear, 
+                       tinyPlot=tinyPlot,padPercent=0,prettyDate=prettyDate)
   
   yCombined <- c(yHigh,subDaily$ConcDay*subDaily$Q*fluxFactor)
   

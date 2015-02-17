@@ -7,7 +7,7 @@
 plotFluxTimeDaily(eList, startYear = NA, endYear = NA, tinyPlot = FALSE,
   fluxUnit = 3, fluxMax = NA, printTitle = TRUE, cex = 0.8,
   cex.axis = 1.1, cex.main = 1.1, customPar = FALSE, col = "black",
-  lwd = 1, ...)
+  lwd = 1, prettyDate = TRUE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -36,6 +36,8 @@ plotFluxTimeDaily(eList, startYear = NA, endYear = NA, tinyPlot = FALSE,
 \item{col}{color of points on plot, see ?par 'Color Specification'}
 
 \item{lwd}{number line width}
+
+\item{prettyDate}{logical use 'pretty' limits for date axis if TRUE, or force the startYear/endYear as limits if FALSE}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }

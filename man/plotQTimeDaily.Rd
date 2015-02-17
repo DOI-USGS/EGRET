@@ -7,7 +7,7 @@
 plotQTimeDaily(eList, startYear = NA, endYear = NA, qLower = NA,
   qUnit = 1, logScale = FALSE, tinyPlot = FALSE, printTitle = TRUE,
   lwd = 3, col = "red", cex.main = 1.2, cex.lab = 1.2,
-  customPar = FALSE, ...)
+  customPar = FALSE, prettyDate = TRUE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes}
@@ -37,6 +37,8 @@ plotQTimeDaily(eList, startYear = NA, endYear = NA, qLower = NA,
 \item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
+\item{prettyDate}{logical use 'pretty' limits for date axis if TRUE, or force the startYear/endYear as limits if FALSE}
+
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
 \description{
@@ -53,6 +55,7 @@ eList <- Choptank_eList
 # Water year:
 plotQTimeDaily(eList)
 plotQTimeDaily(eList, startYear=1990, endYear=2000,qLower=1500)
+plotQTimeDaily(eList, prettyDate=FALSE)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
 plotQTimeDaily(eList)
