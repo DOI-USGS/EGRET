@@ -26,7 +26,9 @@
 #' @export
 #' @examples
 #' eList <- Choptank_eList
+#' fluxBiasMulti(eList)
 #' # Water year:
+#' \dontrun{
 #' pdf("fluxBiasMulti.pdf", height=9, width=8)
 #' fluxBiasMulti(eList)
 #' dev.off()
@@ -35,6 +37,7 @@
 #' pdf("fluxBiasMultiSummer.pdf", height=9, width=8)
 #' fluxBiasMulti(eList)
 #' dev.off()
+#' }
 fluxBiasMulti<-function (eList, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS", 
                          cex = 0.7, cex.axis = 1.1,cex.main=1.1,
                          col="black", lwd=1,...){
