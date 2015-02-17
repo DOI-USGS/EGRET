@@ -25,7 +25,7 @@ From a named list or EGRET object, extract the surfaces matrix
 }
 \examples{
 eList <- Choptank_eList
-getSurfaces(eList)
+surfaces <- getSurfaces(eList)
 }
 \seealso{
 \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}

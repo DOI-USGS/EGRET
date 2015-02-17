@@ -295,7 +295,7 @@ getSample.default <- function(x, ...){
 #' @seealso \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
 #' @examples
 #' eList <- Choptank_eList
-#' getSurfaces(eList)
+#' surfaces <- getSurfaces(eList)
 getSurfaces <- function(x, ...){
   UseMethod("getSurfaces")
 }
