@@ -19,11 +19,15 @@
 #' Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
 #' @examples
 #' eList <- Choptank_eList
-#' \dontrun{EGRETreturn <- modelEstimation(eList)
+#' \dontrun{
+#' EGRETreturn <- modelEstimation(eList)
 #' Daily <- EGRETreturn$Daily
 #' Sample <- EGRETreturn$Sample
 #' INFO <- EGRETreturn$INFO
 #' surfaces <- EGRETreturn$surfaces
+#'  
+#' #Run an estimation adjusting windowQ from default:
+#' eList <- modelEstimation(eList, windowQ=5)
 #' }
 modelEstimation<-function(eList, 
                           windowY=7, windowQ=2, windowS=0.5,

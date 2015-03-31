@@ -35,11 +35,15 @@ It returns a named list with the following dataframes: Daily, INFO, Sample, and 
 }
 \examples{
 eList <- Choptank_eList
-\dontrun{EGRETreturn <- modelEstimation(eList)
+\dontrun{
+EGRETreturn <- modelEstimation(eList)
 Daily <- EGRETreturn$Daily
 Sample <- EGRETreturn$Sample
 INFO <- EGRETreturn$INFO
 surfaces <- EGRETreturn$surfaces
+
+#Run an estimation adjusting windowQ from default:
+eList <- modelEstimation(eList, windowQ=5)
 }
 }
 \keyword{statistics}
