@@ -68,6 +68,15 @@ plotFlowSingle(eList, 1)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
 plotFlowSingle(eList, 1)
+\dontrun{
+siteNumber <- '01010000'
+StartDate <- ''
+EndDate <- '2014-10-01'
+Daily <- readNWISDaily(siteNumber, '00060', StartDate, EndDate)
+INFO <- readNWISInfo(siteNumber, '00060', interactive = FALSE)
+eList <- as.egret(INFO, Daily)
+plotFlowSingle(eList, 5)
+}
 }
 \seealso{
 \code{\link{makeAnnualSeries}}, \code{\link{genericEGRETDotPlot}}
