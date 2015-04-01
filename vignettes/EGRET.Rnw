@@ -895,6 +895,8 @@ printFluxUnitCheatSheet()
 
 When a function has an input argument fluxUnit, you can define the flux units with the index (1-12) as shown above. Base the choice on the units that are customary for your intended audience, but also so that the flux values don't have too many digits to the right or left of the decimal point. Tons are always \enquote{short tons} and not \enquote{metric tons}.
 
+Note that when the analysis being done is for a single month or season (see discussion of "Period of Analysis in Section \ref{sec:flowHistory}) that the flux values represent a rate (mass per unit time).  Thus, if the period of analysis is the combination of April and May, then a reported flux of 1000 kg/year translates to a mass of 1000 * 61 / 365.25 = 167 kg.  Thus, in general, if the flux is reported as a mass per year, then to get a mass for the season that value should be multiplied by the number of days in the season and then divided by 365.25.
+
 \FloatBarrier
 
 %------------------------------------------------------------ 
@@ -1392,7 +1394,7 @@ plotDiffContours(eList, year0=2000,year1=2010,
 \subsection{Table Options}
 \label{sec:wrtdsTable}
 %------------------------------------------------------------ 
-Sometimes it is easier to consider the results in table form rather than graphically. The function \texttt{tableResults} produces a simple text table that contains the annual values for the results.  Each row of the output represents a year and includes: year, average discharge, average concentration, flow-normalized concentration, average flux, and flow-normalized flux.  A small sample of the output is printed below. 
+Sometimes it is easier to consider the results in table form rather than graphically. The function \texttt{tableResults} produces a simple text table that contains the annual values for the results.  Each row of the output represents a year and includes: year, average discharge, average concentration, flow-normalized concentration, average flux, and flow-normalized flux.   If paLong \textless 12 make sure you take note of the explanation of the seasonal flux values discussed at the end of section \ref{sec:units}.  A small sample of the output is printed below. 
 
 <<tableResults1, echo=TRUE, eval=FALSE>>=
 tableResults(eList)
