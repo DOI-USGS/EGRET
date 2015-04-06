@@ -31,6 +31,7 @@ setClass("fluxUnit",
 		unitExpressTiny = "expression",
     unitEstimate = "expression",
 		unitEstimateTiny = "expression",
+    unitUSGS = "character",
     shortCode    = "numeric"
 	)	
 )
