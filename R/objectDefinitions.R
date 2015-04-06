@@ -167,13 +167,20 @@ qConst <- list(cfs = new("qUnit",
                           shortCode = 4
                           ),
                 mmDay = new("qUnit",
-                          qUnitName = "mm per day",
-                          shortCode = 5
-                          ),
-                mmYear = new("qUnit",
-                          qUnitName = "mm per year",
-                          shortCode = 6
+                            qShortName = "mm/day",
+                            qUnitFactor = 86400000,
+                            qUnitName = "Cubic Millimeters per Day",
+                            qUnitExpress = expression(paste("Discharge in ",mm^3/day)),
+                            qUnitTiny = expression(paste("Discharge ", "(", mm^3/day, ")")),
+                            shortCode = 5
                           )
+#                 ,mmYear = new("qUnit",
+#                           qUnitName = "Cubic Millimeters per Year",
+#                           qUnitFactor = ,
+#                           qUnitExpress = expression(paste("Discharge in ",mm^3/year)),
+#                           qUnitTiny = expression(paste("Discharge ", "(", mm^3/year, ")")),
+#                           shortCode = 6
+#                           )
 )
 
 monthInfo = c(new("monthLabel",
