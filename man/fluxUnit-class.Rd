@@ -23,6 +23,8 @@ Some details about the fluxUnit class
 
 \item{unitEstimateTiny}{An expression specifying the abbreviated name starting with Estimated.}
 
+\item{unitUSGS}{A character specifying flux with full text.}
+
 \item{shortCode}{A number for quick lookup}
  }
 }

@@ -16,6 +16,8 @@
 #'    \item{unitEstimate}{An expression specifying the full name starting with Estimated.}
 #'    
 #'    \item{unitEstimateTiny}{An expression specifying the abbreviated name starting with Estimated.}
+#'    
+#'    \item{unitUSGS}{A character specifying flux with full text.}
 #'
 #'    \item{shortCode}{A number for quick lookup}
 #'  }
@@ -31,6 +33,7 @@ setClass("fluxUnit",
 		unitExpressTiny = "expression",
     unitEstimate = "expression",
 		unitEstimateTiny = "expression",
+		unitUSGS = "character",
     shortCode    = "numeric"
 	)	
 )
