@@ -1,11 +1,12 @@
-^.*\.Rproj$
 .git
 EGRET.Rproj
 appveyor.yml
 .Rhistory
 .gitignore
 .travis.yml
-^\.Rproj/.RData
+vignettes/figure
+vignettes/EGRET-concordance.tex
 vignettes/EGRET.bbl
+^\.Rproj/.RData
+^.*\.Rproj$
 ^\.Rproj\.user$
-^\.travis\.yml$
