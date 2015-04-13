@@ -43,6 +43,11 @@ modelEstimation<-function(eList,
   localSample <- getSample(eList)
   localDaily <- getDaily(eList)
   
+  if(any(localSample$ConcLow[!is.na(localSample$ConcLow)] == 0)){
+
+    stop("modelEstimation cannot be run with 0 values in ConcLow. An estimate of the reporting limit needs to be included. See fixSampleFrame to adjust the Sample data frame")
+  }
+  
   numDays <- length(localDaily$DecYear)
   DecLow <- localDaily$DecYear[1]
   DecHigh <- localDaily$DecYear[numDays]
