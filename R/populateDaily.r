@@ -118,7 +118,7 @@ populateDaily <- function(rawData,qConvert,interactive=TRUE){  # rawData is a da
     
     numNAs <- sum(is.na(localDaily$Q))
     if(numNAs > 0){
-      cat(numNAs, "discharge measurements are not reported (NA's). \nMany of the EGRET functions will not work with missing discharge measurements.")
+      cat(numNAs, "discharge values are not reported (NA's). \nMany of the EGRET functions will not work with missing discharge values.")
       if (localDaily$Julian[max(which(is.na(localDaily$Q)),na.rm = TRUE)]-
            localDaily$Julian[min(which(is.na(localDaily$Q)),na.rm = TRUE)]+1 ==  numNAs){
         cat("\nNA gap is from",as.character(localDaily$Date[min(which(is.na(localDaily$Q)),na.rm = TRUE)]),"to",
