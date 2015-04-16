@@ -24,9 +24,10 @@
 #' @return resultSurvReg numeric array containing the yHat, SE, and ConcHat values array dimensions are (numEstPts,3)
 #' @export
 #' @examples
+#' eList <- Choptank_eList
 #' estPtYear<-c(2001.0,2005.0,2009.0)
 #' estPtLQ<-c(1,1,1)
-#' Sample <- ChopSample
+#' Sample <- getSample(eList)
 #' numDays <- Sample$Julian[nrow(Sample)] - Sample$Julian[1] + 1
 #' DecLow <- Sample$DecYear[1]
 #' DecHigh <- Sample$DecYear[nrow(Sample)]
@@ -109,14 +110,13 @@ runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample,
       
 
     }, warning=function(w) {
-      #       message("Survival regression model did not converge at iteration: ", i)
-      message(w, "Warning")
-      return(NULL)
+      return(NA)
     }, error=function(e) {
       message(e, "Error")
       return(NULL)
-    }, finally={
-      if(!exists("survModel")) message(i)
+    })
+
+    if(exists("survModel")) {
       newdf<-data.frame(DecYear=estY,LogQ=estLQ,SinDY=sin(2*pi*estY),CosDY=cos(2*pi*estY))
       #   extract results at estimation point
       yHat<-predict(survModel,newdf)
@@ -125,33 +125,25 @@ runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample,
       resultSurvReg[i,1]<-yHat
       resultSurvReg[i,2]<-SE
       resultSurvReg[i,3]<-bias*exp(yHat)
-      
-      if (i %in% printUpdate & interactive) {
-        cat(floor(i*100/numEstPt),"\t")
-        if (floor(i*100/numEstPt) %in% endOfLine) cat("\n")
-      }
-      
-    })
+    } else {
+      resultSurvReg[i,1]<-NA
+      resultSurvReg[i,2]<-NA
+      resultSurvReg[i,3]<-NA
+    }
+    
+    if (i %in% printUpdate & interactive) {
+      cat(floor(i*100/numEstPt),"\t")
+      if (floor(i*100/numEstPt) %in% endOfLine) cat("\n")
+    }
 
-    if(is.null(x)){
+    if(all(is.na(x))){
       warningFlag <- warningFlag + 1
     }
-  
-      
-#       survModel<-survreg(Surv(log(ConcLow),log(ConcHigh),type="interval2") ~ 
-#                            DecYear+LogQ+SinDY+CosDY,data=Sam,weights=weight,dist="gaus")
-# 
-#       newdf<-data.frame(DecYear=estY,LogQ=estLQ,SinDY=sin(2*pi*estY),CosDY=cos(2*pi*estY))
-#       #   extract results at estimation point
-#       yHat<-predict(survModel,newdf)
-#       SE<-survModel$scale
-#       bias<-exp((SE^2)/2)
-#       resultSurvReg[i,1]<-yHat
-#       resultSurvReg[i,2]<-SE
-#       resultSurvReg[i,3]<-bias*exp(yHat)
+
+
   }
 
-  if (warningFlag > 0){
+  if (warningFlag > 0 && interactive){
     
     message("\nIn model estimation, the survival regression function was run ", numEstPt, " times (for different combinations of discharge and time).  In ", warningFlag, " of these runs it did not properly converge. This does not mean that the model is unacceptable, but it is a suggestion that there may be something odd about the data set. You may want to check for outliers, repeated values on a single date, or something else unusual about the data.")
   }

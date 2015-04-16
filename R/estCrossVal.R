@@ -20,12 +20,15 @@
 #' @return SampleCrossV data frame containing the sample data augmented by the results of the cross-validation exercise
 #' @export
 #' @examples
-#' Sample <- ChopSample
-#' Daily <- ChopDaily
+#' eList <- Choptank_eList
+#' Sample <- getSample(eList)
+#' Daily <- getDaily(eList)
 #' numDays <- length(Daily$DecYear)
 #' DecLow <- Daily$DecYear[1]
 #' DecHigh <- Daily$DecYear[numDays]
+#' \dontrun{
 #' SampleCrossV <- estCrossVal(numDays,DecLow,DecHigh,Sample)
+#' }
 estCrossVal<-function(numDays,DecLow,DecHigh, Sample, windowY = 7, windowQ = 2, 
                       windowS = 0.5, minNumObs = 100, minNumUncen = 50,
                       edgeAdjust=TRUE){
@@ -59,7 +62,7 @@ estCrossVal<-function(numDays,DecLow,DecHigh, Sample, windowY = 7, windowQ = 2,
     }
 
     SampleMinusOne<-SampleCV[SampleCV$iCounter!=i,]
-    
+  
     result<-runSurvReg(SampleCrossV$DecYear[i],SampleCrossV$LogQ[i],numDays,DecLow,DecHigh,SampleMinusOne,
                        windowY,windowQ,windowS,minNumObs,minNumUncen,interactive=FALSE,
                        edgeAdjust=edgeAdjust)

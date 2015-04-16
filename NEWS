@@ -1,3 +1,39 @@
+EGRET 2.2.0
+===========
+* Minor bug fixes
+* Added kg/year option for flux
+
+
+EGRET 2.1.4
+===========
+* Updated CITATION file
+
+
+EGRET 2.1.1
+===========
+* Exposed sysdata.rda constants
+* Fixed some inconsistancies in readUserInfo function
+* Added prettyDate argument to plotFluxTimeDaily, plotConcTimeDaily, and plotQTimeDaily. This overrides the 'pretty' axis so that the plot starts and ends exactly at the startYear/endYear arguments
+* Added testthat unit tests
+* Added kg/year flux constant
+
+EGRET 2.1.0
+===========
+* Updated processQWData to be more inclusive of Water Quality Portal data
+* Moved some lookup files (month labels, flux labels) to sysdata.rda
+
+EGRET 2.0.1
+===========
+* Dec. 2, 2014
+* Minor update to account for changes to dataRetrieval
+* Help file updates.
+
+EGRET 2.0.0
+===========
+* November 13, 2014
+* Changed workflow so that most functions accept a single argument: eList, which is a named list with the Daily, Sample, and INFO dataframes (and surface matrix if available)
+
+
 EGRET 1.3.0
 ===========
 * July 31, 2014

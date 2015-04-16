@@ -3,7 +3,7 @@ library(xtable)
 options(continue=" ")
 options(width=60)
 library(knitr)
-
+library(EGRET)
 
 ## ----include=TRUE ,echo=FALSE,eval=TRUE-------------------
 opts_chunk$set(highlight=TRUE, tidy=TRUE, keep.space=TRUE, keep.blank.space=FALSE, keep.comment=TRUE, concordance=TRUE,tidy=FALSE,comment="")
@@ -146,7 +146,11 @@ addSpace <- function(x) ifelse(x != "1", "[5pt]","")
 #  
 #  # modify this for your own computer file structure:
 #  savePath<-"/Users/rhirsch/Desktop/"
-#  saveResults(savePath, INFO)
+#  saveResults(savePath, eList)
+
+## ----openDataRetrieval, eval=FALSE------------------------
+#  library(dataRetrieval)
+#  vignette("dataRetrieval")
 
 ## ----openlibraries, echo=TRUE,eval=TRUE-------------------
 library(EGRET)
@@ -226,6 +230,14 @@ print(xTab,
 #  parameterCd <- "00618"
 #  INFO_WQP <- readWQPInfo("USGS-01491000",parameterCd)
 
+## ----addInfoCustom, eval=FALSE, echo=TRUE-----------------
+#  
+#  fileName <- "INFO.csv"
+#  filePath <- "C:/RData/"
+#  
+#  INFO <- readUserInfo(filePath, fileName)
+#  
+
 ## ----addInfo, eval=FALSE, echo=TRUE-----------------------
 #  
 #  INFO$riverInfo <- "Major tributary of the Chesapeake Bay"
@@ -250,18 +262,18 @@ print(xTab,
 #  
 #  eListNew <- as.egret(INFO, Daily, Sample, surfaces)
 #  
-#  #To pull out the INFO dataframe:
+#  #To pull out the INFO data frame:
 #  INFO <- getInfo(eListNew)
-#  #Edit the INFO dataframe:
+#  #Edit the INFO data frame:
 #  INFO$importantNews <- "New EGRET workflow started"
-#  #Put new dataframe in eListNew
+#  #Put new data frame in eListNew
 #  eListNew$INFO <- INFO
 #  
 #  #To pull out Daily:
 #  Daily <- getDaily(eListNew)
 #  #Edit for some reason:
 #  DailyNew <- Daily[Daily$DecYear > 1985,]
-#  #Put new Daily dataframe back in eListNew:
+#  #Put new Daily data frame back in eListNew:
 #  eListNew$Daily <- DailyNew
 #  
 #  #To create a whole new egret object:
@@ -318,7 +330,7 @@ fileName <- "eListMerced.RData"
 
 load(paste(filePath,fileName,sep="/"))
 
-## ----Mercedplot, echo=TRUE,eval=TRUE,fig.cap="Merced River Winter Trend",fig.subcap=c("Water Year", "December - February"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h"----
+## ----Mercedplot, echo=TRUE,eval=TRUE,fig.cap="Merced River winter trend",fig.subcap=c("Water Year", "December - February"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h"----
 plotFlowSingle(eListMerced, istat=5)
 
 # Then, we can run the same function, but first set 
@@ -377,9 +389,9 @@ siteNumber <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "1979-10-01"
 endDate <- "2011-09-30"
 param<-"00631"
-Daily <- ChopDaily
-Sample <- ChopSample
-INFO <- ChopINFO
+Daily <- getDaily(eList)
+Sample <- getSample(eList)
+INFO <- getInfo(eList)
 eList <- Choptank_eList
 
 ## ----plotBoxes, echo=TRUE, fig.cap="Concentration box plots",fig.subcap=c("\\texttt{boxConcMonth(eList)}","\\texttt{boxQTwice(eList, qUnit=1)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h"----
@@ -407,7 +419,7 @@ flowDuration(eList, qUnit=1, centerDate="09-30", span=30)
 ## ----wrtds5, eval=FALSE, echo=TRUE------------------------
 #  #An example directory name
 #  savePath <- "C:/Users/egretUser/WRTDS_Output/"
-#  saveResults(savePath, INFO)
+#  saveResults(savePath, eList)
 
 ## ----wrtds8, eval=FALSE, echo=TRUE------------------------
 #  loadPath <- "C:/Users/egretUser/WRTDS_Output/"
@@ -418,10 +430,10 @@ flowDuration(eList, qUnit=1, centerDate="09-30", span=30)
 #  load(pathToFile)
 
 ## ----getChopData1,echo=FALSE,eval=TRUE--------------------
-# Sample <- ChopSample
-# Daily <- ChopDaily
-# INFO <- ChopINFO
-# surfaces <- exsurfaces
+# Sample <- getSample(eList)
+# Daily <- getDaily(eList)
+# INFO <- getInfo(eList)
+# surfaces <- getSurfaces(eList)
 eList <- Choptank_eList
 
 ## ----plotConcTimeDaily, echo=TRUE, fig.cap="Concentration and flux vs time",fig.subcap=c("\\texttt{plotConcTimeDaily(2008, 2010)}","\\texttt{plotFluxTimeDaily(2008, 2010)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h"----
@@ -454,15 +466,15 @@ plotConcHist(eList)
 plotFluxHist(eList)
 
 ## ----plotConcQSmooth, echo=TRUE, fig.cap="Concentration vs. discharge",fig.subcap=c("\\texttt{plotConcQSmooth}","\\texttt{plotConcQSmooth(logScale=TRUE)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h"----
-qBottom<-20
-qTop<-700
+qLow <- 20
+qHigh <- 700
 date1 <- "2000-09-01"
 date2 <- "2005-09-01"
 date3 <- "2009-09-01"
 plotConcQSmooth(eList, date1, date2, date3,
-                qBottom, qTop, qUnit=1)
+                qLow, qHigh, qUnit=1)
 plotConcQSmooth(eList, date1, date2, date3,
-                qBottom, qTop, qUnit=1,logScale=TRUE)
+                qLow, qHigh, qUnit=1,logScale=TRUE)
 
 ## ----plotConcTimeSmooth, echo=TRUE, fig.cap="\\texttt{plotConcTimeSmooth(eList))}",fig.subcap=c("\\texttt{plotConcTimeSmooth}","\\texttt{plotConcTimeSmooth(logScale=TRUE)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',results='hide',fig.pos="h"----
 q1 <- 10
@@ -476,12 +488,12 @@ plotConcTimeSmooth(eList, q1, q2, q3, centerDate,
 ## ----fluxBiasMulti, echo=TRUE, fig.cap="\\texttt{fluxBiasMulti(eList, qUnit=1)}",fig.show='asis',fig.width=8, fig.height=10,fig.pos="h"----
 fluxBiasMulti(eList, qUnit=1)
 
-## ----plotContours, echo=TRUE,fig.cap="plotContours(eList)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h"----
+## ----plotContours, echo=TRUE,fig.cap="\\texttt{plotContours(eList)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h"----
 clevel<-seq(0,2,0.2)
 plotContours(eList, yearStart=2008,yearEnd=2010,qBottom=20,qTop=1000, 
              contourLevels = clevel,qUnit=1)
 
-## ----plotDiffContours, echo=TRUE, fig.cap="plotDiffContours(eList)",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h"----
+## ----plotDiffContours, echo=TRUE, fig.cap="\\texttt{plotDiffContours(eList)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h"----
 plotDiffContours(eList, year0=2000,year1=2010,
                  qBottom=20,qTop=1000,maxDiff=0.6,qUnit=1)
 
@@ -509,8 +521,7 @@ print(xtable(head(returnDF),
 tableChange(eList, yearPoints=c(2000,2005,2010))
 
 ## ----tableChangeSingleR, eval=TRUE, echo=TRUE,results='hide'----
-returnDF <- tableChangeSingle(eList, yearPoints=c(2000,2005,2010), 
-                              returnDataFrame=TRUE)
+returnDF <- tableChangeSingle(eList, yearPoints=c(2000,2005,2010))
 
 ## ----tableResultsShow, echo=FALSE, results='asis'---------
 print(xtable(returnDF,
@@ -525,11 +536,11 @@ print(xtable(returnDF,
        sanitize.rownames.function = addSpace
       )
 
-## ----adjustSize,echo=TRUE,eval=TRUE,fig.cap="Modifying text and point size", fig.subcap=c("\\texttt{plotConcQ(cex.axis=2,cex.main=1.5,logScale=TRUE)}","\\texttt{plotConcQ(cex.lab=2,cex=2,logScale=TRUE)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h"----
+## ----adjustSize,echo=TRUE,eval=TRUE,fig.cap="Modifying text and point size, as shown using the \\texttt{plotConcQ} function", fig.subcap=c("\\texttt{(cex.axis=2,cex.main=1.5)}","\\texttt{(cex.lab=2,cex=2)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h"----
 plotConcQ(eList, cex.axis=2,cex.main=1.5,logScale=TRUE)
 plotConcQ(eList, cex.lab=2,cex=2,logScale=TRUE)
 
-## ----plotConcQComparison,echo=TRUE,eval=TRUE,fig.cap="Modified plotConcQ", fig.subcap=c("Default","Modified"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h"----
+## ----plotConcQComparison,echo=TRUE,eval=TRUE,fig.cap="Modified \\texttt{plotConcQ}", fig.subcap=c("Default","Modified"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h"----
 plotConcQ(eList, logScale=TRUE)
 par(mar=c(8,8,8,8))
 plotConcQ(eList, customPar=TRUE,col="blue",cex=1.1,
@@ -569,7 +580,7 @@ plotDiffContours(eList, year0=2001,year1=2010,qBottom=0.5,qTop=50,
 par(mfcol = c(2, 2), oma = c(0, 1.7, 6, 1.7))
 
 plotFluxQ(eList, tinyPlot=TRUE,printTitle=FALSE,
-          fluxUnit=9,logScale=FALSE,fluxMax=1)
+          fluxUnit=9,logScale=TRUE,fluxMax=1)
 plotConcQ(eList, tinyPlot=TRUE,printTitle=FALSE)
 plotFluxHist(eList, tinyPlot=TRUE,printTitle=FALSE,fluxMax=1)
 plotConcHist(eList, tinyPlot=TRUE,printTitle=FALSE,concMax=3)
@@ -582,7 +593,7 @@ par(mar=c(3.5,3.5,0.2,0.2), # whitespace around the plots
     mfcol = c(2,2)) # rows/columns
 
 plotFluxQ(eList, tinyPlot=TRUE,printTitle=FALSE,
-          fluxUnit=9,logScale=FALSE,fluxMax=1,
+          fluxUnit=9,logScale=TRUE,fluxMax=1,
           showXLabels=FALSE,showXAxis=FALSE, 
           showYLabels=TRUE,customPar=TRUE)
 

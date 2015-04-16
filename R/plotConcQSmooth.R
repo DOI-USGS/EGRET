@@ -7,22 +7,24 @@
 #' Another possibility is to use this to explore seasonal differences.  In this case the three
 #' dates would be in the same year but different times during the year.
 #' 
-#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#' contains an INFO and Sample dataframes, 3 dates, and the discharge lower and upper limits, then the following R code will produce a plot:
-#' \code{plotConcQSmooth(date1,date2,date3,qLow,qHigh)}
+#' Although there are a lot of optional arguments to this function, most are set to a logical default. 
+#' 
+#' Data come from named list, which contains a Sample dataframe with the sample data, 
+#' and an INFO dataframe with metadata. 
 #'
 #' @param eList named list with at least the Sample and INFO dataframes
-#' @param date1 string specifying the date for the first curve on the graph, it is in the form "yyyy-mm-dd" (must be in quotes) 
-#' @param date2 string specifying the date for the second curve on the graph, it is in the form "yyyy-mm-dd" (must be in quotes).  If only one curve is wanted this should be NA
-#' @param date3 string specifying the date for the third curve on the graph, it is in the form "yyyy-mm-dd" (must be in quotes).  If a third curve is not wanted this should be NA
+#' @param date1 character specifying the date for the first curve on the graph, it is in the form "yyyy-mm-dd" (must be in quotes) 
+#' @param date2 character specifying the date for the second curve on the graph, it is in the form "yyyy-mm-dd" (must be in quotes).  If only one curve is wanted this should be NA
+#' @param date3 character specifying the date for the third curve on the graph, it is in the form "yyyy-mm-dd" (must be in quotes).  If a third curve is not wanted this should be NA
 #' @param qLow numeric value for the lowest discharge to be considered, expressed in the units of discharge that are being used (as specified in qUnit)
 #' @param qHigh numeric value for the highest discharge to be considered, expressed in the units of discharge that are being used (as specified in qUnit)
-#' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
+#' @param qUnit object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param legendLeft numeric which represents the left edge of the legend in the units of the plot.
 #' @param legendTop numeric which represents the top edge of the legend in the units of the plot.
 #' @param printLegend logicalif TRUE, legend is included
 #' @param concMax numeric value for upper limit on concentration shown on the graph, default = NA (which causes the upper limit to be set automatically, based on the data)
-#' @param concMin numeric value for lower limit on concentration shown on the graph, default = NA (which causes the lower limit to be set automatically, based on the data)
+#' @param concMin numeric value for lower limit on concentration shown on the vertical log graph, default is NA 
+#' (which causes the lower limit to be set automatically, based on the data). This value is ignored for linear scales, using 0 as the minimum value for the concentration axis.
 #' @param bw logical if TRUE graph is produced in black and white, default is FALSE (which means it will use color)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed 
 #' @param printValues logical variable if TRUE the results shown on the graph are also printed to the console and returned in a dataframe (this can be useful for quantifying the changes seen visually in the graph), default is FALSE (not printed)
@@ -46,6 +48,7 @@
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords water-quality statistics graphics
 #' @export
+#' @seealso \code{\link{genericEGRETDotPlot}}, \code{\link{runSurvReg}}
 #' @examples 
 #' date1<-"2001-06-01"
 #' date2<-"2005-06-01"

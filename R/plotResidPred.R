@@ -6,9 +6,10 @@
 #' the log-space estimates prior to bias-correction.  
 #' The function provides an alternative for viewing the standardized residuals, where the each residual is divided by its estimated standard error. 
 #' 
-#'  Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#'  contains an INFO and Sample dataframes, then the following R code will produce a plot:
-#'  \code{plotResidPred()}
+#'  Although there are a lot of optional arguments to this function, most are set to a logical default.
+#'  
+#' Data come from named list, which contains a Sample dataframe with the sample data, 
+#' and an INFO dataframe with metadata. 
 #'
 #' @param eList named list with at least the Sample and INFO dataframes
 #' @param stdResid logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE
@@ -24,6 +25,7 @@
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords water-quality statistics graphics
 #' @export
+#' @seealso \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}
 #' @examples
 #' eList <- Choptank_eList
 #' # Water year:

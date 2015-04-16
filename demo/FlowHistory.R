@@ -1,9 +1,8 @@
 # Flow History Demo:
-Daily <- ChopDaily
-Sample <- ChopSample
-INFO <- ChopINFO
+eList <- Choptank_eList
 
-annualSeries <- makeAnnualSeries()
-
-plotFour(qUnit=3)
-plotFourStats(qUnit=3)
+plotFlowSingle(eList, istat=7,qUnit="thousandCfs")
+plotSDLogQ(eList)
+plotQTimeDaily(eList, qLower=1,qUnit=3)
+plotFour(eList, qUnit=3)
+plotFourStats(eList, qUnit=3)

@@ -1,7 +1,4 @@
 #Check raw data:
+eList <- Choptank_eList
 
-Daily <- ChopDaily
-Sample <- ChopSample
-INFO <- ChopINFO
-
-multiPlotDataOverview()
+multiPlotDataOverview(eList)

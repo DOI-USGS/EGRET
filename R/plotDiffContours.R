@@ -4,9 +4,11 @@
 #' These plots are normally used for plotting changes in the estimated concentration surface (whatSurface=3) but can be used to explore the 
 #' changes in estimated surfaces for the log of concentration or for the standard error (in log space) which is what determines the bias correction.
 #'
-#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#' contains an INFO, and Daily dataframes, surface array from modelEstimation, the max change in concentration to plot, year and flow limits, then the following R code will produce a plot:
-#' \code{plotDiffContours(year0,year1,qBottom,qTop,maxDiff)} 
+#' Although there are a lot of optional arguments to this function, most are set to a logical default.
+#' 
+#' Data come from named list, which contains a Sample dataframe with the sample data, 
+#' a Daily dataframe with the daily flow data,
+#' and an INFO dataframe with metadata. 
 #'
 #' @param eList named list with at least the Daily and INFO dataframes, and surfaces matrix
 #' @param year0 numeric value for the calendar year that is the first year of the pair of years for the analysis, should be a whole number
@@ -17,7 +19,7 @@
 #' a vector with the minimum and maximum values in the change in concentration scale.
 #' @param whatSurface numeric value, can only accept 1, 2, or 3;  whatSurface=1 is yHat (log concentration), whatSurface=2 is SE (standard error of log concentration), and whatSurface=3 is ConcHat (unbiased estimate of concentration), default = 3
 #' @param plotPercent logical. If TRUE, plots percent difference, if FALSE, plots absolute differences. Defaults to FALSE.
-#' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
+#' @param qUnit object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param span numeric, it is the half-width (in days) of the smoothing window for computing the flow duration information, default = 60
 #' @param pval numeric, the probability value for the lower flow frequency line on the graph
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed 

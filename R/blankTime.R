@@ -5,11 +5,11 @@
 #'  This is only unsed for periods of several years in duration. 
 #'  For this period, the values of Conc, Flux, FNConc and FNFlux are all converted to NA. 
 #'
-#' @param startBlank string specifying starting date of blank period, input in quotes in yyyy-mm-dd format
-#' @param endBlank string specifying the ending date of blank period, input in quotes in yyyy-mm-dd format
+#' @param startBlank character specifying starting date of blank period, input in quotes in yyyy-mm-dd format
+#' @param endBlank character specifying the ending date of blank period, input in quotes in yyyy-mm-dd format
 #' @param eList named list with at least the Daily dataframe
 #' @keywords water-quality statistics
-#' @return localDaily Daily data frame returned with NA's in sample gap
+#' @return eList named list with modified Daily data frame.
 #' @export
 #' @examples
 #' startBlank = "2004-10-01"

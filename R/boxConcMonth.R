@@ -1,13 +1,10 @@
 #' Box plot of the water quality data by month
 #'
 #' @description
-#' Data come from a data frame named Sample which contains the Sample Data. 
-#' The metadata come from a data frame named INFO. 
-#' These data frames must have been created by the EGRET package. 
+#' Data come from named list, which contains a Sample dataframe with the sample data, 
+#' and an INFO dataframe with metadata. 
 #'  
-#'  Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#'  contains an INFO and Sample dataframes, then the following R code will produce a plot:
-#'  \code{boxConcMonth()}
+#'  Although there are a lot of optional arguments to this function, most are set to a logical default. 
 #'
 #' @param eList named list with at least the Sample and INFO dataframes
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
@@ -25,6 +22,7 @@
 #' @param showYAxis logical defaults to TRUE. If FALSE, the y axis is not plotted
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
+#' @seealso \code{\link[graphics]{boxplot}}
 #' @export
 #' @import methods
 #' @examples

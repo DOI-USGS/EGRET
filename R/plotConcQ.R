@@ -1,20 +1,19 @@
 #' Plot of Observed Concentration versus Discharge 
 #'
 #' @description
-#' Data come from a data frame named Sample which contains the sample data. 
-#' The metadata come from a data frame named INFO. 
+#' Data come from named list, which contains a Sample dataframe with the sample data, 
+#' and an INFO dataframe with metadata. 
 #' Discharge is plotted on a log scale.
 #' 
-#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#' contains an INFO and Sample dataframes, then the following R code will produce a plot:
-#' \code{plotConcQ()}
+#' Although there are a lot of optional arguments to this function, most are set to a logical default.
 #'
 #' @param eList named list with at least the Sample and INFO dataframes
-#' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
+#' @param qUnit object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
 #' @param logScale logical if TRUE x and y plotted in log axis
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
-#' @param concMin numeric if you want to specify the minimum concentration value to display, you can do so with the argument concMin, otherwise it will be automatic
+#' @param concMin numeric value for lower limit on concentration shown on the vertical log graph, default is NA 
+#' (which causes the lower limit to be set automatically, based on the data). This value is ignored for linear scales, using 0 as the minimum value for the concentration axis.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
@@ -28,6 +27,7 @@
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
+#' @seealso \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}
 #' @examples
 #' eList <- Choptank_eList
 #' # Water year:

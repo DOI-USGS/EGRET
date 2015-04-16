@@ -8,9 +8,9 @@
 #' @export
 #' @seealso \code{\link{mergeReport}}
 #' @examples
-#' # These examples require an internet connection to run
-#' exDaily <- readNWISDaily('01594440','00060', '1985-01-01', '1985-03-31', interactive=FALSE)
-#' exSample <- readNWISSample('01594440','01075', '1985-01-01', '1985-03-31', interactive=FALSE)
+#' eList <- Choptank_eList
+#' exDaily <- getDaily(eList)
+#' exSample <- getSample(eList)
 #' dataOverview(Daily = exDaily, Sample = exSample)
 dataOverview <- function(Daily, Sample ){
 

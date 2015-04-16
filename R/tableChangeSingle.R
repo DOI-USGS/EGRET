@@ -6,10 +6,9 @@
 #' they can be set by the program to be the final year of the record and a set of years that are multiple of 5 years prior to that.
 #'
 #' @param eList named list with at least Daily and INFO dataframes
-#' @param fluxUnit object of fluxUnit class. \code{\link{fluxConst}}, or numeric represented the short code, or character representing the descriptive name.
+#' @param fluxUnit object of fluxUnit class. \code{\link{printFluxUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param yearPoints numeric vector listing the years for which the change or slope computations are made, they need to be in chronological order.  For example yearPoints=c(1975,1985,1995,2005), default is NA (which allows the program to set yearPoints automatically)
 #' @param flux logical if TRUE results are returned in flux, if FALSE concentration. Default is set to FALSE.
-#' @param returnDataFrame logical, if a dataframe is required to be returned set this to TRUE.  Otherwise, the default is FALSE
 #' @return resultsDF dataframe describing trends in flow-normalized concentration or flux if returnDataFrame is TRUE
 #' @keywords water-quality statistics
 #' @export
@@ -21,14 +20,10 @@
 #' tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)
 #' #This returns flux values ASCII table in the console
 #' tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=TRUE)  
-#' #This returns concentration values in a dataframe
-#' tableChangeConc <-tableChangeSingle(eList, returnDataFrame = TRUE, flux=FALSE)  
-#' #This returns flux values in a dataframe  
-#' tableChangeFlux <-tableChangeSingle(eList, returnDataFrame = TRUE, flux=TRUE)  
 #' # Winter:
 #' eList <- setPA(eList, paStart=12,paLong=3)
 #' tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)
-tableChangeSingle<-function(eList, fluxUnit = 9, yearPoints = NA, returnDataFrame = FALSE, flux = FALSE) {
+tableChangeSingle<-function(eList, fluxUnit = 9, yearPoints = NA, flux = FALSE) {
   
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)

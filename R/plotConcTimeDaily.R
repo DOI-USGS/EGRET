@@ -6,9 +6,11 @@
 #' The graph is most useful when it covers a period of just a few years and not the complete record
 #' but a complete record can be done by repeated use over a series of segments.
 #' 
-#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#' contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
-#' \code{plotConcTimeDaily()}
+#' Although there are a lot of optional arguments to this function, most are set to a logical default. 
+#' 
+#' Data come from named list, which contains a Sample dataframe with the sample data, 
+#' a Daily dataframe with the daily flow data,
+#' and an INFO dataframe with metadata. 
 #'
 #' @param startYear numeric specifying the starting date (expressed as decimal years, for example 1989.0) for the plot
 #' @param endYear numeric specifiying the ending date for the plot 
@@ -23,9 +25,11 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
+#' @param prettyDate logical use 'pretty' limits for date axis if TRUE, or force the startYear/endYear as limits if FALSE
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords graphics water-quality statistics
 #' @export
+#' @seealso \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}
 #' @examples
 #' eList <- Choptank_eList
 #' # Water year:
@@ -36,7 +40,7 @@
 #' plotConcTimeDaily(eList)
 plotConcTimeDaily<-function(eList, startYear=NA, endYear=NA, tinyPlot = FALSE, 
                             concMax = NA, printTitle = TRUE,cex=0.8, cex.axis=1.1,
-                            cex.main=1.1, customPar=FALSE,col="black",lwd=1,...){
+                            cex.main=1.1, customPar=FALSE,col="black",lwd=1,prettyDate=TRUE,...){
 
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
@@ -75,7 +79,7 @@ plotConcTimeDaily<-function(eList, startYear=NA, endYear=NA, tinyPlot = FALSE,
   
   yBottom <- 0 #Not specified within script, added under assumption that it's always zero based on ylim definition in this function
   
-  xInfo <- generalAxis(x=xSample, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot,padPercent=0)  
+  xInfo <- generalAxis(x=xSample, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot,padPercent=0,prettyDate=prettyDate)  
   
   yCombined <- c(yHigh,subDaily$ConcDay)
   yInfo <- generalAxis(x = yCombined, minVal = yBottom, maxVal = concMax, 

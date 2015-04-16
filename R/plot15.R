@@ -7,11 +7,14 @@
 #' @param eList named list with at least the Daily and INFO dataframes
 #' @keywords graphics streamflow statistics
 #' @export
+#' @seealso \code{\link{plot1of15}}
 #' @examples
 #' eList <- Choptank_eList
+#' \dontrun{
 #' pdf("plot15.pdf",heigh=10,width=8)
 #' plot15(eList, yearStart=1990,yearEnd=2000)
 #' dev.off()
+#' }
 plot15<-function(eList, yearStart,yearEnd){
 #   plotName<-paste(savePath,"plot15.",localINFO$staAbbrev,".ps",sep="")
 #   postscript(file=plotName,width=8,height=10,horizontal=FALSE,family="Helvetica")

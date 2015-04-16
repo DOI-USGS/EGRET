@@ -1,15 +1,25 @@
-#' Creates a subset of the Daily data frame that only contains data for the specified period of analysis
+#' Creates a subset data frame that only contains data for the specified period of analysis
 #'
-#'  Function is not called by user, but is called by plotSDLogQ
+#' This function uses the user-defined 'period of analysis', and subsets the data.
+#' If you want to examine your data set as a time series of water years, 
+#' then the period of analysis is October through September.  
+#' If you want to examine the data set as calendar years then the period of analysis is January through December.  
+#' You might want to examine the winter season, which you could define as December through February, 
+#' then those 3 months become the period of analysis. The only constraints on the definition of a period of analysis 
+#' are these: it must be defined in terms of whole months; it must be a set of contiguous months (like March-April-May), 
+#' and have a length that is no less than 1 month and no more than 12 months.  
+#' Define the PA by using two arguments: paLong and paStart. paLong is the length of the period of analysis,
+#' and paStart is the starting month.
 #'
-#' @param paLong a numeric value for the length of the period of Analysis, must be an integer from 1 to 12
+#' @param paLong a numeric value for the length of the period of analysis, must be an integer from 1 to 12
 #' @param paStart a numeric value for the starting month of the period of analysis, must be an integer from 1 to 12
 #' @param df dataframe with Q
 #' @keywords statistics streamflow
 #' @export
 #' @return localDaily a data frame containing the daily data but only for the period of analysis (not all months)
 #' @examples
-#' Daily <- ChopDaily
+#' eList <- Choptank_eList
+#' Daily <- getDaily(eList)
 #' DailySubset <- selectDays(Daily, 4, 11)
 selectDays<-function(df, paLong, paStart) {
   

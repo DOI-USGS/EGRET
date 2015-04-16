@@ -3,17 +3,18 @@
 #' @description
 #' This function is used to compare the distribution of discharges in the sample data set 
 #' and the discharges in the full daily data set.
-#' Data come from three data frames created by the EGRET package: Sample, Daily, and INFO.
 #' Note that discharge is plotted on a logarithmic axis. The data is logged before the statistics are performed
 #' to determine the output of the boxplot.
 #' 
-#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#' contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
-#' \code{boxQTwice()}
+#' Data come from named list, which contains a Sample dataframe with the sample data, 
+#' a Daily dataframe with the daily flow data,
+#' and an INFO dataframe with metadata. 
+#' 
+#' Although there are a lot of optional arguments to this function, most are set to a logical default. 
 #'
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)
-#' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
+#' @param qUnit object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
@@ -24,6 +25,7 @@
 #' @param las numeric in {0,1,2,3}; the style of axis labels, see ?par
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
+#' @seealso \code{\link[graphics]{boxplot}}
 #' @export
 #' @examples
 #' eList <- Choptank_eList

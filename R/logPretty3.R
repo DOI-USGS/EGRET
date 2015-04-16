@@ -1,6 +1,6 @@
 #' Sets up tick marks for an axis with a log scale
 #'
-#' Axis tick marks for a log scale.  
+#' Axis tick marks for a log scale. 
 #' These tick marks are designed to progress with 3 tick marks for every factor of 10. 
 #' For example: 2,5,10,20,50,100,200,500. 
 #' 

@@ -1,16 +1,15 @@
 #' Graph of annual concentration and flow normalized concentration versus year
 #'
 #' @description
-#' Data come from a data frame named AnnualResults. 
-#' The metadata come from a data frame named INFO.
+#' Data come from named list, which contains a Daily dataframe with the daily flow data,
+#' and an INFO dataframe with metadata. 
+#' 
 #' The annual concentrations are "time-weighted" mean concentrations (as opposed to "flow-weighted"). 
 #' The annual results reported are for a specified "period of analysis" which can be 
 #' an entire water year, a calendar, a season or even an individual month.  
 #' User specifies this period of analysis in the call to \code{setupYears}.
 #' 
-#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#' contains an INFO, Daily, and AnnualResults (from either modelEstimation or setupYears) dataframes, then the following R code will produce a plot:
-#' \code{plotConcHist()}
+#' Although there are a lot of optional arguments to this function, most are set to a logical default.
 #'
 #' @param yearStart numeric is the calendar year containing the first estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)
 #' @param yearEnd numeric is the calendar year just after the last estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)
@@ -30,7 +29,7 @@
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
-#' @seealso \code{\link{setupYears}}
+#' @seealso \code{\link{setupYears}}, \code{\link{genericEGRETDotPlot}}
 #' @examples
 #' yearStart <- 2001
 #' yearEnd <- 2010

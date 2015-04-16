@@ -1,19 +1,19 @@
-#' Estimates all daily values of Concentration, Flux, Flow Normalized Concentration, and Flow Normalized Flux
+#' Estimates all daily values of Concentration, Flux, Flow-Normalized Concentration, and Flow Normalized Flux
 #'
 #'   Uses the surfaces estimated in estSurfaces to estimate these four time series
 #'    in addition to the time series for standard error and yHat (estimated log concentration). 
-#'    The results are stored in an augmented version of the Daily data frame, which is returned. 
+#'    The results are stored in an augmented version of the Daily data frame, which is returned as part of an EGRET object. 
 #'
 #' @param eList named list with at least the Daily and INFO dataframes, and the surface matrix
 #' @keywords water-quality statistics
-#' @return localDaily string specifying the name of the data frame containing the daily values and these estimates
+#' @return egret object with altered Daily dataframe
 #' @export
 #' @importFrom fields interp.surface
 #' @examples
 #' eList <- Choptank_eList
 #' #################################################
 #' # This is usually done in modelEstimation:
-#' Daily <- eList$Daily
+#' Daily <- getDaily(eList)
 #' surfaceIndexParameters<-surfaceIndex(Daily)
 #' INFO <- eList$INFO
 #' INFO$bottomLogQ<-surfaceIndexParameters[1]
@@ -24,7 +24,9 @@
 #' INFO$nVectorYear<-surfaceIndexParameters[6]
 #' eList$INFO <- INFO
 #' #################################################
+#' \dontrun{
 #' Daily <- estDailyFromSurfaces(eList)
+#' }
 estDailyFromSurfaces <- function(eList) {
 
   localDaily <- getDaily(eList)
@@ -41,7 +43,7 @@ estDailyFromSurfaces <- function(eList) {
                                   loc=data.frame(localDaily$LogQ, localDaily$DecYear))
   localDaily$ConcDay <- interp.surface(obj=list(x=LogQ,y=Year,z=localsurfaces[,,3]), 
                                        loc=data.frame(localDaily$LogQ, localDaily$DecYear))
-  localDaily$FluxDay <- localDaily$ConcDay * localDaily$Q * 86.4
+  localDaily$FluxDay <- as.numeric(localDaily$ConcDay * localDaily$Q * 86.4)
   
   # Calculate "flow-normalized" concentration and flux:
   
@@ -69,8 +71,8 @@ estDailyFromSurfaces <- function(eList) {
   allFluxReplicated <- allConcReplicated * exp(unlist(allLogQsReplicated)) * 86.4
   
   # Finally bin the collective results by days (the decimal year), and calculate the desired means.
-  localDaily$FNConc <- tapply(allConcReplicated, allDatesReplicated, "mean")
-  localDaily$FNFlux <- tapply(allFluxReplicated, allDatesReplicated, "mean")
+  localDaily$FNConc <-  as.numeric(tapply(allConcReplicated, allDatesReplicated, "mean"))
+  localDaily$FNFlux <-  as.numeric(tapply(allFluxReplicated, allDatesReplicated, "mean"))
 
   
   return(localDaily)

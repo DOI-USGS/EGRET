@@ -7,7 +7,8 @@
 #' @return surfaceIndexParameters a numeric vector of length 6, defining the grid for the surfaces
 #' @export
 #' @examples
-#' Daily <- ChopDaily
+#' eList <- Choptank_eList
+#' Daily <- getDaily(eList)
 #' surfaceIndex(Daily)
 surfaceIndex<-function(Daily){
   # this function contains the same code that comes at the start of

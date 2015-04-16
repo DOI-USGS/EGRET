@@ -4,15 +4,17 @@
 #' This plot is useful for visual examination of the ability of the WRTDS, or other model, to fit the 
 #' data, as seen in a time-series perspective. 
 #' 
-#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#' contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
-#' \code{plotFluxTimeDaily()} 
+#' Although there are a lot of optional arguments to this function, most are set to a logical default.
+#' 
+#' Data come from named list, which contains a Sample dataframe with the sample data, 
+#' a Daily dataframe with the daily flow data,
+#' and an INFO dataframe with metadata. 
 #'
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param startYear numeric specifying the starting date (expressed as decimal years, for example 1989.0) for the plot
 #' @param endYear numeric specifiying the ending date for the plot 
 #' @param tinyPlot logical variable, if TRUE plot is designed to be short and wide, default is FALSE.
-#' @param fluxUnit number representing in pre-defined fluxUnit class array. \code{\link{fluxConst}}
+#' @param fluxUnit number representing in pre-defined fluxUnit class array. \code{\link{printFluxUnitCheatSheet}}
 #' @param fluxMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
@@ -22,9 +24,11 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
+#' @param prettyDate logical use 'pretty' limits for date axis if TRUE, or force the startYear/endYear as limits if FALSE
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
+#' @seealso \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}
 #' @examples
 #' eList <- Choptank_eList
 #' # Water year:
@@ -36,7 +40,7 @@
 plotFluxTimeDaily<-function (eList, startYear=NA, endYear=NA, 
                              tinyPlot = FALSE, fluxUnit = 3, fluxMax = NA, 
                              printTitle = TRUE, cex=0.8, cex.axis=1.1,cex.main=1.1, 
-                             customPar=FALSE,col="black",lwd=1,...) {
+                             customPar=FALSE,col="black",lwd=1,prettyDate=TRUE,...) {
   
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
@@ -103,7 +107,8 @@ plotFluxTimeDaily<-function (eList, startYear=NA, endYear=NA,
   
   yBottom <- 0
   
-  xInfo <- generalAxis(x=xSample, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot,padPercent=0)
+  xInfo <- generalAxis(x=xSample, minVal=startYear, maxVal=endYear, 
+                       tinyPlot=tinyPlot,padPercent=0,prettyDate=prettyDate)
   
   yCombined <- c(yHigh,subDaily$ConcDay*subDaily$Q*fluxFactor)
   

@@ -7,9 +7,12 @@ init:
 install:
   ps: Bootstrap
 
+environment:
+  NOT_CRAN: "true"
+
 build_script:
-  - travis-tool.sh install_github USGS-R/dataRetrieval
   - travis-tool.sh install_deps
+  - travis-tool.sh install_github USGS-R/dataRetrieval
 
 test_script:
   - travis-tool.sh run_tests

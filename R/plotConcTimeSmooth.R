@@ -3,23 +3,25 @@
 #' @description
 #' These plots show how the concentration-time relationship is changing over flow.
 #' 
-#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#' contains an INFO, and Sample dataframes, 3 discharge values, a center date, and start and end years, then the following R code will produce a plot:
-#' \code{plotConcTimeSmooth(q1, q2, q3, centerDate, yearStart, yearEnd)} 
+#' Although there are a lot of optional arguments to this function, most are set to a logical default.
+#' 
+#' Data come from named list, which contains a Sample dataframe with the sample data
+#' and an INFO dataframe with metadata. 
 #'
 #' @param eList named list with at least the Sample and INFO dataframes
 #' @param q1 numeric This is the discharge value for the first curve to be shown on the plot. It is expressed in units specified by qUnit.
 #' @param q2 numeric This is the discharge value for the second curve to be shown on the plot. It is expressed in units specified by qUnit. If you don't want a second curve then the argument must be q2=NA
 #' @param q3 numeric This is the discharge value for the third curve to be shown on the plot. It is expressed in units specified by qUnit. If you don't want a third curve then the argument must be q3=NA
-#' @param centerDate string This is the time of year to be used as the center date for the smoothing. It is expressed as a month and day and must be in the form "mm-dd"
+#' @param centerDate character This is the time of year to be used as the center date for the smoothing. It is expressed as a month and day and must be in the form "mm-dd"
 #' @param yearStart numeric This is the starting year for the graph. The first value plotted for each curve will be at the first instance of centerDate in the year designated by yearStart.
 #' @param yearEnd numeric This is the end of the sequence of values plotted on the graph.The last value will be the last instance of centerDate prior to the start of yearEnd. (Note, the number of values plotted on each curve will be yearEnd-yearStart.)
-#' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
+#' @param qUnit object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param legendLeft numeric which represents the left edge of the legend in the units of the plot.
 #' @param legendTop numeric which represents the top edge of the legend in the units of the plot.
 #' @param printLegend logicalif TRUE, legend is included
 #' @param concMax numeric value for upper limit on concentration shown on the graph, default = NA (which causes the upper limit to be set automatically, based on the data)
-#' @param concMin numeric value for lower limit on concentration shown on the graph, default = NA (which causes the lower limit to be set automatically, based on the data)
+#' @param concMin numeric value for lower limit on concentration shown on the vertical log graph, default is NA 
+#' (which causes the lower limit to be set automatically, based on the data). This value is ignored for linear scales, using 0 as the minimum value for the concentration axis.
 #' @param bw logical if TRUE graph is produced in black and white, default is FALSE (which means it will use color)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE not printed 
 #' @param printValues logical variable if TRUE the results shown on the graph are printed to the console and returned in a dataframe (this can be useful for quantifying the changes seen visually in the graph), default is FALSE (not printed)
@@ -43,6 +45,7 @@
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords water-quality statistics graphics
 #' @export
+#' @seealso \code{\link{genericEGRETDotPlot}}, \code{\link{runSurvReg}}
 #' @examples 
 #' q1 <- 10
 #' q2 <- 25

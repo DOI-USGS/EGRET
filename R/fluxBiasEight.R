@@ -6,14 +6,16 @@
 #' stored in a data frame organized like the Sample data frame.  It allows additional label information
 #' to indicate what method is used. 
 #'
-#' Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#' contains an INFO, Daily, and Sample dataframes, then the following R code will produce a plot:
-#' \code{fluxBiasMulti()}
+#' Although there are a lot of optional arguments to this function, most are set to a logical default. 
+#' 
+#' Data come from named list, which contains a Sample dataframe with the sample data, 
+#' a Daily dataframe with the daily flow data,
+#' and an INFO dataframe with metadata
 #'
 #' @param eList named list with at least Sample, Daily, and INFO dataframes
-#' @param qUnit object of qUnit class. \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name. 
-#' @param fluxUnit object of fluxUnit class. \code{\link{fluxConst}}, or numeric represented the short code, or character representing the descriptive name. 
-#' @param moreTitle string specifying some additional information to go in figure title, typically some information about the specific estimation method used, default is no additional information
+#' @param qUnit object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name. 
+#' @param fluxUnit object of fluxUnit class. \code{\link{printFluxUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name. 
+#' @param moreTitle character specifying some additional information to go in figure title, typically some information about the specific estimation method used, default is no additional information
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
@@ -24,7 +26,9 @@
 #' @export
 #' @examples
 #' eList <- Choptank_eList
+#' fluxBiasMulti(eList)
 #' # Water year:
+#' \dontrun{
 #' pdf("fluxBiasMulti.pdf", height=9, width=8)
 #' fluxBiasMulti(eList)
 #' dev.off()
@@ -33,6 +37,7 @@
 #' pdf("fluxBiasMultiSummer.pdf", height=9, width=8)
 #' fluxBiasMulti(eList)
 #' dev.off()
+#' }
 fluxBiasMulti<-function (eList, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS", 
                          cex = 0.7, cex.axis = 1.1,cex.main=1.1,
                          col="black", lwd=1,...){

@@ -10,11 +10,11 @@
 #' @param xTicks vector specifying x axis tick placement (required)
 #' @param yTicks vector specifying y axis tick placement (required)
 #' @param printTitle logical defaults to TRUE, plotting parameter to control whether to have title
-#' @param xaxs string defaults to "i", defines the style of x-axis interval calculation.  Possible values are i, r, e, s, d.
-#' @param xlab string defaults to "", defines the x label
-#' @param yaxs string defaults to "i", defines the style of y-axis interval calculation.  Possible values are i, r, e, s, d.
-#' @param ylab string defaults to "", defines the y label
-#' @param plotTitle string defaults to "", defines the plot title
+#' @param xaxs character defaults to "i", defines the style of x-axis interval calculation.  Possible values are i, r, e, s, d.
+#' @param xlab character defaults to "", defines the x label
+#' @param yaxs character defaults to "i", defines the style of y-axis interval calculation.  Possible values are i, r, e, s, d.
+#' @param ylab character defaults to "", defines the y label
+#' @param plotTitle character defaults to "", defines the plot title
 #' @param pch number defaults to 20, specifies plot symbol
 #' @param cex number defaults to 0.7, specifies plotting text magnification
 #' @param cex.main number defaults to 1.3, specifies title text magnification
@@ -44,8 +44,10 @@
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' x <- ChopDaily$Date
-#' y <- ChopDaily$Q
+#' eList <- Choptank_eList
+#' Daily <- getDaily(eList)
+#' x <- Daily$Date
+#' y <- Daily$Q
 #' xlim <- c(min(x),max(x))
 #' ylim <- c(min(y),1.05*max(y))
 #' xlab <- "Date"

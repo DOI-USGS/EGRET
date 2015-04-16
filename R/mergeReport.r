@@ -1,6 +1,9 @@
-#' Merge Sample and Daily Data for WRTDS
+#' Merge Sample and Daily Data into EGRET object
 #'
-#' Merges the flow data from the daily record into the sample record.
+#' Merges the flow data from the daily record into the sample record, then creates a named list
+#' with the Daily, Sample, and INFO dataframe. The Sample dataframe in the global enviornment does 
+#' not update with the flow information. To extract the new Sample dataframe, use the command:
+#' \code{Sample <- eList$Sample}.
 #'
 #' @param INFO dataframe containing the INFO dataframe
 #' @param Daily dataframe containing the daily data
@@ -13,6 +16,7 @@
 #' Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
 #' @seealso \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
 #' @examples
+#' \dontrun{
 #' siteNumber <- '01594440'
 #' pCode <- '01075'
 #' Daily <- readNWISDaily(siteNumber,'00060', '1985-01-01', '1990-03-31')
@@ -20,21 +24,42 @@
 #' INFO <- readNWISInfo(siteNumber,pCode,interactive=FALSE)
 #' eList <- mergeReport(INFO, Daily, Sample)
 #' Sample <- eList$Sample
-#' 
-#' Daily2 <- ChopDaily
-#' Sample2 <- ChopSample
-#' INFO2 <- ChopINFO
-#' surfaces2 <- exsurfaces
-#' eList2 <- mergeReport(INFO2, Daily2, Sample2, surfaces2, FALSE)
-#' eList2
+#' }
 mergeReport<-function(INFO, Daily, Sample, surfaces=NA, interactive=TRUE){
   
   if (interactive){
     dataOverview(Daily, Sample)  
   }
   
+  if(!is.na(Daily) && !("Q" %in% names(Daily))){
+    message("Please double check that the Daily dataframe is correctly defined.")
+  }
+  
+  if(!is.na(Sample) && !all((c("ConcLow","ConcHigh","Uncen","ConcAve") %in% names(Sample)))){
+    message("Please double check that the Sample dataframe is correctly defined.")
+  }
+  
+  if(!any(c("param.units", "shortName", "paramShortName", "constitAbbrev", "drainSqKm") %in% names(INFO))){
+    message("Please double check that the INFO dataframe is correctly defined.")
+  }
+  
+  if(!is.na(surfaces) && 14 == nrow(surfaces)){
+    message("Please double check that the surfaces matrix is correctly defined.")
+  }
+  
   if(!all(is.na(Sample)) & !all(is.na(Daily))){
+    if(all(c("Q","LogQ") %in% names(Sample))){
+      if(all(c("yHat","SE","ConcHat") %in% names(Sample))){
+        message("Merging new flow data will require modelEstimation to be rerun.")
+      }
+      
+      Sample <- Sample[,!(names(Sample) %in% c("Q","LogQ"))]
+            
+    }
     Sample <- merge(Daily[,c("Date","Q","LogQ")],Sample,by = "Date",all.y = TRUE)
+    if(any(is.na(Sample$Q))){
+      message("Some Sample dates do not have corresponding flow data. Not all EGRET functions will work correctly.")
+    }
   }
   
   eList <- as.egret(INFO, Daily, Sample, surfaces)
@@ -58,26 +83,43 @@ mergeReport<-function(INFO, Daily, Sample, surfaces=NA, interactive=TRUE){
 #' Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
 #' @seealso \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
 #' @examples
-#' Daily <- ChopDaily
-#' INFO <- ChopINFO
-#' eList_flowHistory <- as.egret(INFO, Daily, NA, NA)
+#' eList <- Choptank_eList
+#' Daily <- getDaily(eList)
+#' INFO <- getInfo(eList)
+#' eList_flowHistory <- as.egret(INFO, Daily)
 #' plotFlowSingle(eList_flowHistory, 1)
-#' Sample <- ChopSample
-#' surfaces <- exsurfaces
+#' Sample <- getSample(eList)
+#' surfaces <- getSurfaces(eList)
 #' eList_full <- as.egret(INFO, Daily, Sample, surfaces)
 #' plotFluxQ(eList_full)
-as.egret <- function(INFO, Daily, Sample, surfaces) {
+as.egret <- function(INFO, Daily, Sample=NA, surfaces=NA) {
   eList <- list(INFO=INFO, 
                 Daily=Daily, 
                 Sample=Sample, 
                 surfaces=surfaces)
   
+  if(!is.na(Daily) && !("Q" %in% names(Daily))){
+    message("Please double check that the Daily dataframe is correctly defined.")
+  }
+  
+  if(!is.na(Sample) && !all((c("ConcLow","ConcHigh","Uncen","ConcAve") %in% names(Sample)))){
+    message("Please double check that the Sample dataframe is correctly defined.")
+  }
+  
+  if(!any(c("param.units", "shortName", "paramShortName", "constitAbbrev", "drainSqKm") %in% names(INFO))){
+    message("Please double check that the INFO dataframe is correctly defined.")
+  }
+  
+  if(!is.na(surfaces) && 14 != nrow(surfaces)){
+    message("Please double check that the surfaces matrix is correctly defined.")
+  }
+    
   attr(eList, "param.units") <- INFO$param.units
   attr(eList, "shortName") <- INFO$shortName
   attr(eList, "paramShortName") <- INFO$paramShortName
   attr(eList, "constitAbbrev") <- INFO$constitAbbrev
-  attr(eList, "drainSqKm") <- INFO$drainSqKm
-  
+  attr(eList, "drainSqKm") <- INFO$drainSqKm    
+
   class(eList) <- "egret"
   invisible(eList)
 }
@@ -102,9 +144,9 @@ print.egret <- function(x,...){
   
   if(!all(is.na(x$Daily))){
     cat("Daily discharge:\n")
-    print(localDaily[1,c("Date","Q","Qualifier")])
+    print(localDaily[1,c("Date","Q")])
     cat("...\n")
-    print(localDaily[nrow(localDaily),c("Date","Q","Qualifier")])
+    print(localDaily[nrow(localDaily),c("Date","Q")])
   }
   if(!all(is.na(x$Sample))){
     columnsToPrint <- which(names(localSample) %in% c("Date","ConcLow","ConcHigh","Q"))
@@ -148,7 +190,7 @@ is.egret <- function(x) {
 #' @seealso \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
 #' @examples
 #' eList <- Choptank_eList
-#' getDaily(eList)
+#' Daily <- getDaily(eList)
 getDaily <- function(x, ...){
   UseMethod("getDaily")
 }
@@ -183,7 +225,7 @@ getDaily.default <- function(x, ...){
 #' @seealso \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
 #' @examples
 #' eList <- Choptank_eList
-#' getInfo(eList)
+#' INFO <- getInfo(eList)
 getInfo <- function(x, ...){
   UseMethod("getInfo")
 }
@@ -218,7 +260,7 @@ getInfo.default <- function(x, ...){
 #' @seealso \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
 #' @examples
 #' eList <- Choptank_eList
-#' getSample(eList)
+#' Sample <- getSample(eList)
 getSample <- function(x, ...){
   UseMethod("getSample")
 }
@@ -253,7 +295,7 @@ getSample.default <- function(x, ...){
 #' @seealso \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
 #' @examples
 #' eList <- Choptank_eList
-#' getSurfaces(eList)
+#' surfaces <- getSurfaces(eList)
 getSurfaces <- function(x, ...){
   UseMethod("getSurfaces")
 }

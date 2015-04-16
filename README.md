@@ -1,7 +1,7 @@
 `EGRET`
 =============
 
-Linix: [![travis](https://travis-ci.org/USGS-R/EGRET.svg?branch=master)](https://travis-ci.org/USGS-R/EGRET)
+Linux and Mac: [![travis](https://travis-ci.org/USGS-R/EGRET.svg?branch=master)](https://travis-ci.org/USGS-R/EGRET)
 
 Windows: [![Build status](https://ci.appveyor.com/api/projects/status/a2kogyfplo3valdg?svg=true)](https://ci.appveyor.com/project/ldecicco-USGS/egret)
 
@@ -15,15 +15,21 @@ The link for the official USGS publication user guide is here:
 
 [http://pubs.usgs.gov/tm/04/a10/](http://pubs.usgs.gov/tm/04/a10/)
 
-Note: The "official EGRET User Guide" currently (2014-11-12) shows a workflow that has been superseded by
-the workflow shown in this vignette. However the science and math is the User Guide is correct. The User
-Guide is in the process of being updated and will be available at the URL shown above in the near future
+Note: As of February 5, 2015 a new version of the user guide has been posted at the URL given above.  If you were using previous versions of EGRET you should take a look [here](https://github.com/USGS-R/EGRET/wiki/Note-to-users-of-earlier-versions-of-EGRET) to see a list of the major changes in the workflow and some function names.
 
 Please visit the wiki for more information:
 [EGRET Wiki](https://github.com/USGS-R/EGRET/wiki)
 
 An recent presentation on an overview of `EGRET` can be found here:
-[EGRET and dataRetrieval 2014-10-07.pdf](https://github.com/USGS-R/EGRET/blob/gh-pages/images/EGRET%20and%20EGRET%202014-10-07.pdf?raw=true)
+[EGRET and dataRetrieval 2014-11-20.pdf](https://github.com/USGS-R/EGRET/blob/gh-pages/images/dataRetrieval%20&%20EGRET%202014-11-20.pdf?raw=true)
+
+Reporting bugs
+---------------
+
+Please consider reporting any bugs or asking general questions to the Issues page:
+
+[https://github.com/USGS-R/EGRET/issues](https://github.com/USGS-R/EGRET/issues)
+
 
 Subscribe
 ---------
@@ -35,7 +41,7 @@ Additionally, to subscribe to an email list concerning updates to these R packag
 Package Installation
 ---------------------------------
 
-To install the EGRET package you need to be using R 3.0 or greater. Then use the following command:
+To install the `EGRET` package you need to be using R 3.0 or greater. Then use the following command:
 
 ```R
 	install.packages(c("EGRET"))
@@ -44,19 +50,26 @@ To install the EGRET package you need to be using R 3.0 or greater. Then use the
 
 Background Information
 ----------------------
+`EGRET` includes statistics and graphics for streamflow history, water quality trends, and the statistical modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS).  Please see the official EGRET User Guide for more information on the `EGRET` package:
 
-WRTDS is a method of analysis for long-term surface water quality data to evaluate trends and average concentrations and fluxes. It is intended for use with data sets of more than about 200 observations of water quality over a time span of about 20 years or more, but can be used with somewhat shorter data sets. There also needs to be a daily time series of streamflow data covering the entire period of the water quality data collection. The method can be used with smaller data sets, but some adjustments by the user are needed to make it work with less than 100 water quality observations. The best way to learn about the WRTDS approach and to see examples of its application to multiple large data sets is to read two journal articles. Both are available, for free, from the journals in which they were published.
+[http://dx.doi.org/10.3133/tm4A10](http://dx.doi.org/10.3133/tm4A10) 
 
-The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay:
+The best ways to learn about the WRTDS approach is to read the User Guide and two journal articles. These articles are available, for free, from the journals in which they were published. The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay. The URL is:
 
-[Chesapeake Bay](http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full)
+[http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full](http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full). 
 
-The second is an application to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries:
+The second is an application to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries.  The URL is: 
 
-[Mississippi River](http://pubs.acs.org/doi/abs/10.1021/es201221s)
+[http://pubs.acs.org/doi/abs/10.1021/es201221s](http://pubs.acs.org/doi/abs/10.1021/es201221s)
 
-The manual assumes that the user understands the concepts underlying WRTDS.  Thus, reading at least the first of these papers is necessary to understanding the manual.
 
+Note to users of earlier versions of `EGRET`. 
+----------------------
+
+Please see the following link for information on converting deprecated workflow:
+
+
+[link](https://github.com/USGS-R/EGRET/wiki/Note-to-users-of-earlier-versions-of-EGRET)
 
 Sample Workflow
 ---------------
@@ -187,7 +200,6 @@ This is a sample workflow for a flowHistory application for the entire record.
 	
 	############################
 	# Check flow history data:
-	annualSeries <- makeAnnualSeries()
 	plotFlowSingle(eList, istat=7,qUnit="thousandCfs")
 	plotSDLogQ(eList)
 	plotQTimeDaily(eList, qLower=1,qUnit=3)
@@ -242,3 +254,7 @@ This software is in the public domain because it contains materials that origina
 Although this software program has been used by the USGS, no warranty, expressed or implied, is made by the USGS or the U.S. Government as to the accuracy and functioning of the program and related program material nor shall the fact of distribution constitute any such warranty, and no responsibility is assumed by the USGS in connection therewith.
 
 This software is provided "AS IS."
+
+ [
+   ![CC0](http://i.creativecommons.org/p/zero/1.0/88x31.png)
+ ](http://creativecommons.org/publicdomain/zero/1.0/)

@@ -1,6 +1,6 @@
 #' Compress sample data frame
 #'
-#' Using raw data that has at least dateTime, value, code, populates the measured data portion of the Sample data frame used in WRTDS
+#' Using raw data that has at least dateTime, value, code, populates the measured data portion of the Sample dataframe used in EGRET.
 #' ConcLow  = Lower bound for an observed concentration
 #' ConcHigh = Upper bound for an observed concentration
 #' ConcAve  = Average of ConcLow and ConcHigh.  If ConcLow is NA, then ConcAve = ConcHigh/2

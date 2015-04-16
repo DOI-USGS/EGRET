@@ -9,12 +9,14 @@
 #' @param tinyPlot logical
 #' @param padPercent number used to pad the max and min if not specified
 #' @param concentration logical if concentration=TRUE, labels returned as concentration units, otherwise flux units.
-#' @param units string concentration units. Typically found in INFO$param.units.
+#' @param units character concentration units. Typically found in INFO$param.units.
+#' @param prettyDate logical use 'pretty' limits for date axis if TRUE, or force the startYear/endYear as limits if FALSE
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
-#' Daily <- ChopDaily
-#' INFO <- ChopINFO
+#' eList <- Choptank_eList
+#' Daily <- getDaily(eList)
+#' INFO <- getInfo(eList)
 #' x <- Daily$Q
 #' max <- max(x)
 #' min <- 0
@@ -24,7 +26,7 @@
 #' generalAxis(x, max, min, units, log=TRUE)
 generalAxis <- function(x, maxVal, minVal,units=NA,
                         logScale=FALSE, tinyPlot=FALSE,
-                        padPercent=5,concentration=TRUE){
+                        padPercent=5,concentration=TRUE, prettyDate=TRUE){
   
   nTicks<-if(tinyPlot) 5 else 8
   
@@ -68,6 +70,13 @@ generalAxis <- function(x, maxVal, minVal,units=NA,
   numTicks<-length(ticks)
   bottom<-ticks[1]
   top<-ticks[numTicks]
+  
+  if(!prettyDate){
+    bottom <- minVal
+    top <- maxVal
+    ticks[1] <- minVal
+    ticks[length(ticks)] <- maxVal
+  }
   
   return(list(ticks=ticks, bottom=bottom, top=top, label=label))
 }

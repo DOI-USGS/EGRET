@@ -4,18 +4,32 @@
 #' For raw data, use readWQPdata.  This function will retrieve the raw data, and compress it (summing constituents). See
 #' chapter 7 of the EGRET user guide for more details, then converts it to the Sample dataframe structure.
 #'
-#' @param siteNumber string site number.  If USGS, it should be in the form :'USGS-XXXXXXXXX...'
-#' @param characteristicName string
-#' @param startDate string starting date for data retrieval in the form YYYY-MM-DD.
-#' @param endDate string ending date for data retrieval in the form YYYY-MM-DD.
+#' @param siteNumber character site number.  If USGS, it should be in the form :'USGS-XXXXXXXXX...'
+#' @param characteristicName character
+#' @param startDate character starting date for data retrieval in the form YYYY-MM-DD.
+#' @param endDate character ending date for data retrieval in the form YYYY-MM-DD.
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
 #' @keywords data import USGS WRTDS
 #' @export
 #' @import dataRetrieval
-#' @return Sample dataframe
-#' @seealso \code{\link{readWQPdata}}, \code{\link{whatWQPsites}}, 
-#' \code{\link{readWQPqw}}, \code{\link{readNWISqw}}, 
-#' \code{\link{compressData}}, \code{\link{populateSampleColumns}}
+#' @return A data frame 'Sample' with the following columns:
+#' \tabular{lll}{
+#' Name \tab Type \tab Description \cr
+#' Date \tab Date \tab Date \cr
+#' ConcLow \tab numeric \tab Lower limit of concentration \cr
+#' ConcHigh \tab numeric \tab Upper limit of concentration \cr
+#' Uncen \tab integer \tab Uncensored data (1=TRUE, 0=FALSE) \cr
+#' ConcAve \tab numeric \tab Average concentration \cr
+#' Julian \tab integer \tab Number of days since Jan. 1, 1850\cr
+#' Month \tab integer \tab Month of the year [1-12] \cr 
+#' Day \tab integer \tab Day of the year [1-366] \cr
+#' DecYear \tab numeric \tab Decimal year \cr
+#' MonthSeq \tab integer \tab Number of months since January 1, 1850 \cr
+#' SinDY \tab numeric \tab Sine of the DecYear \cr
+#' CosDY \tab numeric \tab Cosine of the DecYear
+#' }
+#' @seealso \code{\link[dataRetrieval]{readWQPdata}}, \code{\link[dataRetrieval]{whatWQPsites}}, 
+#' \code{\link[dataRetrieval]{readWQPqw}}, \code{\link{compressData}}, \code{\link{populateSampleColumns}}
 #' @examples
 #' # These examples require an internet connection to run
 #' \dontrun{
@@ -24,10 +38,9 @@
 #' }
 readWQPSample <- function(siteNumber,characteristicName,startDate,endDate,interactive=TRUE){
   
-  retval <- readWQPqw(siteNumber=siteNumber,
-                              parameterCd=characteristicName,
-                              startDate=startDate,
-                              endDate=endDate)
+  url <- constructWQPURL(siteNumber,characteristicName,startDate,endDate)
+  retval <- importWQP(url)
+  
   #Check for pcode:
   if(all(nchar(characteristicName) == 5)){
     suppressWarnings(pCodeLogic <- all(!is.na(as.numeric(characteristicName))))

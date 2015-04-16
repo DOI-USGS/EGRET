@@ -2,18 +2,18 @@
 #'
 #' @description
 #'  Part of the flowHistory system.  The four statistics are 1-day maximum, annual mean, annual 7-day minimum, and the running standard deviation of the log daily discharge values.
-#'  Prior to running this code user must have run \code{INFO <- setPA} and \code{annualSeries <- makeAnnualSeries()}. 
 #'  
-#'  Although there are a lot of optional arguments to this function, most are set to a logical default. If your workspace
-#'  contains an INFO and Daily dataframes, annualSeries array, then the following R code will produce a plot:
-#'  \code{plotFour(window=2)}
+#'  Although there are a lot of optional arguments to this function, most are set to a logical default.
+#'  
+#' Data come from named list, which contains a Daily dataframe with the daily flow data,
+#' and an INFO dataframe with metadata. 
 #'
 #' @param eList named list with at least Daily and INFO dataframes
 #' @param yearStart A numeric value for year in which the graph should start, default is NA, which indicates that the graph should start with first annual value
 #' @param yearEnd A numeric value for year in which the graph should end, default is NA, which indicates that the graph should end with last annual value
 #' @param printTitle logical variable, if TRUE title is printed, if FALSE title is not printed, default is TRUE
 #' @param runoff logical variable, if TRUE the streamflow data are converted to runoff values in mm/day
-#' @param qUnit object of qUnit class \code{\link{qConst}}, or numeric represented the short code, or character representing the descriptive name.
+#' @param qUnit object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param window numeric which is the full width, in years, of the time window over which the standard deviation is computed, default = 15
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
@@ -23,13 +23,16 @@
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow statistics
 #' @export
+#' @seealso \code{\link{plotFlowSingle}}
 #' @examples
 #' eList <- Choptank_eList
+#' \dontrun{
 #' #Water year:
 #' plotFour(eList)
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList,paStart=6,paLong=3)
-#' plotFour(eList) 
+#' plotFour(eList)
+#' } 
 plotFour<-function (eList, 
                     yearStart = NA, yearEnd = NA, printTitle = TRUE, runoff = FALSE, 
                     qUnit = 1, window=15, cex = 0.8, cex.axis = 1.2,cex.main=1.2,
