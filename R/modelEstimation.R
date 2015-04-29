@@ -20,11 +20,6 @@
 #' @examples
 #' eList <- Choptank_eList
 #' \dontrun{
-#' EGRETreturn <- modelEstimation(eList)
-#' Daily <- EGRETreturn$Daily
-#' Sample <- EGRETreturn$Sample
-#' INFO <- EGRETreturn$INFO
-#' surfaces <- EGRETreturn$surfaces
 #'  
 #' #Run an estimation adjusting windowQ from default:
 #' eList <- modelEstimation(eList, windowQ=5)
@@ -33,30 +28,77 @@ modelEstimation<-function(eList,
                           windowY=7, windowQ=2, windowS=0.5,
                           minNumObs=100,minNumUncen=50, 
                           edgeAdjust=TRUE){
-  # this code is a wrapper for several different functions that test the model, fit a surface,
-  #  estimate daily values and flow normalized daily values
-  #  and organize these into monthly results
-  #  it returns several data frames
-  #  all of the data frames are given their "standard" names
-  #
+
+  eList <- setUpEstimation(eList=eList, windowY=windowY, windowQ=windowQ, windowS=windowS,
+                  minNumObs=minNumObs, minNumUncen=minNumUncen,edgeAdjust=edgeAdjust)
+
+  cat("\n first step running estCrossVal may take about 1 minute")
+  Sample1<-estCrossVal(length(eList$Daily$DecYear),eList$Daily$DecYear[1],
+                       eList$Daily$DecYear[length(eList$Daily$DecYear)], 
+                       eList$Sample, 
+                       windowY=windowY, windowQ=windowQ, windowS=windowS,
+                       minNumObs=minNumObs, minNumUncen=minNumUncen,edgeAdjust=edgeAdjust)
+  
+  eList$Sample <- Sample1
+  
+  cat("\nNext step running  estSurfaces with survival regression:\n")
+  surfaces1 <- estSurfaces(eList, 
+                         windowY=windowY, windowQ=windowQ, windowS=windowS,
+                         minNumObs=minNumObs, minNumUncen=minNumUncen,edgeAdjust=edgeAdjust)
+
+  eList$surfaces <- surfaces1
+  
+  Daily1<-estDailyFromSurfaces(eList)
+  
+  eList$Daily <- Daily1
+  
+  return(eList)
+  
+}
+
+
+
+#' setUpEstimation
+#' 
+#' Set up the INFO data frame for a modelEstimation
+#' 
+#' @param eList named list with at least the Daily, Sample, and INFO dataframes
+#' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
+#' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
+#' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
+#' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
+#' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
+#' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
+#' The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
+#' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
+#' @keywords water-quality statistics
+#' @export
+#' @return eList named list with Daily, Sample, and INFO dataframes.
+#' @examples
+#' eList <- Choptank_eList
+#' eList <- setUpEstimation(eList)
+#' 
+setUpEstimation<-function(eList, 
+                          windowY=7, windowQ=2, windowS=0.5,
+                          minNumObs=100,minNumUncen=50, 
+                          edgeAdjust=TRUE, interactive=TRUE){
+
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
   localDaily <- getDaily(eList)
   
+  if(!all(c("Q","LogQ") %in% names(localSample))){
+    eList <- mergeReport(INFO=localINFO, Daily = localDaily, Sample = localSample, interactive=interactive)
+  }
+  
   if(any(localSample$ConcLow[!is.na(localSample$ConcLow)] == 0)){
-
     stop("modelEstimation cannot be run with 0 values in ConcLow. An estimate of the reporting limit needs to be included. See fixSampleFrame to adjust the Sample data frame")
   }
   
   numDays <- length(localDaily$DecYear)
   DecLow <- localDaily$DecYear[1]
   DecHigh <- localDaily$DecYear[numDays]
-  
-  cat("\n first step running estCrossVal may take about 1 minute")
-  Sample1<-estCrossVal(numDays,DecLow,DecHigh, localSample, 
-                       windowY, windowQ, windowS, minNumObs, minNumUncen,
-                       edgeAdjust)
-
+    
   surfaceIndexParameters<-surfaceIndex(localDaily)
   localINFO$bottomLogQ<-surfaceIndexParameters[1]
   localINFO$stepLogQ<-surfaceIndexParameters[2]
@@ -74,22 +116,9 @@ modelEstimation<-function(eList,
   localINFO$DecHigh <- DecHigh
   localINFO$edgeAdjust <- edgeAdjust
   
-  cat("\nNext step running  estSurfaces with survival regression:\n")
-  surfaces1<-estSurfaces(eList, 
-                         windowY, windowQ, windowS, minNumObs, minNumUncen, edgeAdjust)
-
-  eList <- as.egret(Daily=localDaily, 
-                    Sample=Sample1,
-                    INFO=localINFO,
-                    surfaces=surfaces1)
-  
-  Daily1<-estDailyFromSurfaces(eList)
-  
-  eList <- as.egret(Daily=Daily1, 
-               Sample=Sample1,
-               INFO=localINFO,
-               surfaces=surfaces1)
+  eList$INFO <- localINFO
   
   return(eList)
   
 }
+
