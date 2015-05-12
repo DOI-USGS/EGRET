@@ -100,8 +100,7 @@ library(EGRET)
 library(rkt)
 eList <- Choptank_eList
 
-flowWeightedYears<-function (localDaily, paLong = 12, paStart = 10) 
-{
+flowWeightedYears<-function (localDaily, paLong = 12, paStart = 10){
     numDays <- length(localDaily$MonthSeq)
     firstMonthSeq <- localDaily$MonthSeq[1]
     lastMonthSeq <- localDaily$MonthSeq[numDays]
@@ -264,8 +263,8 @@ Here is an example of a streamgage that shows a very strong trend in discharge o
 
 ```{r, eval=TRUE,tidy=TRUE,fig.height=7,fig.width=5}
 packagePath <- system.file("extdata", package="EGRET")
-filePath <- file.path(packagePath, "James.Q.RData")
-load(file=filePath)
+filePath <- file.path(packagePath, "James.rds")
+eList <- readRDS(filePath)
 
 Daily <- eList$Daily
 Daily$group <- ifelse(Daily$Date>="1992-10-01","Second","First")
@@ -281,8 +280,8 @@ Here is another example data set.  It is the Susquehanna River at Conowingo Mary
 Here again, the same process was used as described for the James River.
 
 ```{r,eval=TRUE, tidy=TRUE, fig.height=7, fig.width=5}
-filePath <- file.path(packagePath, "Susquehanna.Q.RData")
-load(file=filePath)
+filePath <- file.path(packagePath, "Susquehanna.rds")
+eList <- readRDS(filePath)
 
 Daily <- eList$Daily
 Daily$group <- ifelse(Daily$Date>="1998-10-01","Second","First")
