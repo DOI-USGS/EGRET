@@ -377,8 +377,8 @@ plotTitle =<span class="st"> &quot;Annual Mean Concentrations in Black</span><sp
 <h1>Appendix - Flow Stationarity.</h1>
 <p>Here is an example of a streamgage that shows a very strong trend in discharge over about a 40 year period, The James River near Scotland, South Dakota. Let’s assume that you have used EGRET to assemble the data set you are going to be using and that you have the INFO data frame (which contains the site metadata) and you have the Daily data frame (which contains the daily streamflow data) and that the total period for this analysis is water years 1971 through 2014, and that furthermore, you would like to divide the period into two roughly equal parts with the dividing line being the end of water year 1992. The following is a script for producing a set of side-by-side boxplots that indicates how different those two periods are.</p>
 <pre class="sourceCode r"><code class="sourceCode r">packagePath &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;EGRET&quot;</span>)
-filePath &lt;-<span class="st"> </span><span class="kw">file.path</span>(packagePath, <span class="st">&quot;James.Q.RData&quot;</span>)
-<span class="kw">load</span>(<span class="dt">file =</span> filePath)
+filePath &lt;-<span class="st"> </span><span class="kw">file.path</span>(packagePath, <span class="st">&quot;James.rds&quot;</span>)
+eList &lt;-<span class="st"> </span><span class="kw">readRDS</span>(filePath)
 
 Daily &lt;-<span class="st"> </span>eList$Daily
 Daily$group &lt;-<span class="st"> </span><span class="kw">ifelse</span>(Daily$Date &gt;=<span class="st"> &quot;1992-10-01&quot;</span>, <span class="st">&quot;Second&quot;</span>, <span class="st">&quot;First&quot;</span>)
@@ -389,8 +389,8 @@ title &lt;-<span class="st"> </span><span class="kw">paste</span>(eList$INFO$sho
 <p>We don’t need a formal statistical test to conclude that these two periods are very different from each other. The whole distribution of discharges is shifted way up in the latter period. Therefore we should conclude that it would be a bad idea to use flow normalization on this entire 1972-2014 period.</p>
 <p>Here is another example data set. It is the Susquehanna River at Conowingo Maryland.</p>
 <p>Here again, the same process was used as described for the James River.</p>
-<pre class="sourceCode r"><code class="sourceCode r">filePath &lt;-<span class="st"> </span><span class="kw">file.path</span>(packagePath, <span class="st">&quot;Susquehanna.Q.RData&quot;</span>)
-<span class="kw">load</span>(<span class="dt">file =</span> filePath)
+<pre class="sourceCode r"><code class="sourceCode r">filePath &lt;-<span class="st"> </span><span class="kw">file.path</span>(packagePath, <span class="st">&quot;Susquehanna.rds&quot;</span>)
+eList &lt;-<span class="st"> </span><span class="kw">readRDS</span>(filePath)
 
 Daily &lt;-<span class="st"> </span>eList$Daily
 Daily$group &lt;-<span class="st"> </span><span class="kw">ifelse</span>(Daily$Date &gt;=<span class="st"> &quot;1998-10-01&quot;</span>, <span class="st">&quot;Second&quot;</span>, <span class="st">&quot;First&quot;</span>)

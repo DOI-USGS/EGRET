@@ -41,8 +41,7 @@ library(EGRET)
 library(rkt)
 eList <- Choptank_eList
 
-flowWeightedYears<-function (localDaily, paLong = 12, paStart = 10) 
-{
+flowWeightedYears<-function (localDaily, paLong = 12, paStart = 10){
     numDays <- length(localDaily$MonthSeq)
     firstMonthSeq <- localDaily$MonthSeq[1]
     lastMonthSeq <- localDaily$MonthSeq[numDays]
@@ -168,8 +167,8 @@ genericEGRETDotPlot(AnnualResults$DecYear,lowFWConc$fit,xlim=xlim,ylim=ylim,xTic
 
 ## ---- eval=TRUE,tidy=TRUE,fig.height=7,fig.width=5--------
 packagePath <- system.file("extdata", package="EGRET")
-filePath <- file.path(packagePath, "James.Q.RData")
-load(file=filePath)
+filePath <- file.path(packagePath, "James.rds")
+eList <- readRDS(filePath)
 
 Daily <- eList$Daily
 Daily$group <- ifelse(Daily$Date>="1992-10-01","Second","First")
@@ -177,8 +176,8 @@ title <- paste(eList$INFO$shortName,"\nDischarge for two periods\nWY 1971-1992 a
 boxplot(Daily$Q~Daily$group,log="y",main=title,xlab="",ylab="Discharge in cms")
 
 ## ----eval=TRUE, tidy=TRUE, fig.height=7, fig.width=5------
-filePath <- file.path(packagePath, "Susquehanna.Q.RData")
-load(file=filePath)
+filePath <- file.path(packagePath, "Susquehanna.rds")
+eList <- readRDS(filePath)
 
 Daily <- eList$Daily
 Daily$group <- ifelse(Daily$Date>="1998-10-01","Second","First")
