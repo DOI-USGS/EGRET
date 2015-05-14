@@ -289,6 +289,9 @@ title <- paste(eList$INFO$shortName,"\nDischarge for two periods\nWY 1985-1998 a
 boxplot(Daily$Q~Daily$group,log="y",main=title,xlab="",ylab="Discharge in cms") 
 ``` 
  
- This case, in contrast to the James River example, shows very little indication of non-stationarity is streamflow.  Thus, using flow normalization would be very reasonable for this data set.  
+This case, in contrast to the James River example, shows very little indication of non-stationarity is streamflow.  Thus, using flow normalization would be very reasonable for this data set.  
 
- 
+# Disclaimer
+Software created by USGS employees along with contractors and grantees (unless specific stipulations are made in a contract or grant award) are to be released as Public Domain and free of copyright or license. Contributions of software components such as specific algorithms to existing software licensed through a third party are encouraged, but those contributions should be annotated as freely available in the Public Domain wherever possible. If USGS software uses existing licensed components, those licenses must be adhered to and redistributed.
+
+Although this software has been used by the U.S. Geological Survey (USGS), no warranty, expressed or implied, is made by the USGS or the U.S. Government as to accuracy and functionality, nor shall the fact of distribution constitute any such warranty, and no responsibility is assumed by the USGS in connection therewith.

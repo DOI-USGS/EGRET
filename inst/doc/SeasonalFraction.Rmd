@@ -192,3 +192,9 @@ avePct
 This is the percentage of the total flux for the years 2000 through 2010 that was transported in the winter months.
 
 This can be determined for any set of years simply by changing the two numbers inside the brackets to the index numbers of the first and last years of interest.
+
+
+# Disclaimer
+Software created by USGS employees along with contractors and grantees (unless specific stipulations are made in a contract or grant award) are to be released as Public Domain and free of copyright or license. Contributions of software components such as specific algorithms to existing software licensed through a third party are encouraged, but those contributions should be annotated as freely available in the Public Domain wherever possible. If USGS software uses existing licensed components, those licenses must be adhered to and redistributed.
+
+Although this software has been used by the U.S. Geological Survey (USGS), no warranty, expressed or implied, is made by the USGS or the U.S. Government as to accuracy and functionality, nor shall the fact of distribution constitute any such warranty, and no responsibility is assumed by the USGS in connection therewith.
