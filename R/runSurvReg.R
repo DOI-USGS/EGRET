@@ -46,7 +46,7 @@ runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample,
   printUpdate <- floor(seq(1,numEstPt,numEstPt/100))
   endOfLine <- seq(10,100,10)
   
-  if (minNumUncen >= nrow(localSample)) stop('minNumUncen is greater than total number of samples')
+  if (minNumUncen >= sum(localSample$Uncen)) stop('minNumUncen is greater than total number of samples')
   if (minNumObs >= nrow(localSample)) stop('minNumObs is greater than total number of samples')
   
   if (interactive) cat("Survival regression (% complete):\n")
@@ -70,7 +70,9 @@ runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample,
     if (edgeAdjust)  tempWindowY <- if(distTime>tempWindowY) tempWindowY else ((2 * tempWindowY) - distTime)
     
     estLQ<-estPtLQ[i]
-
+    
+    k <- 1
+    
     repeat{
       #  We subset the sample frame by time, to narrow the set of data to run through in the following steps
 
@@ -88,10 +90,12 @@ runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample,
       numUncen<-sum(Sam$Uncen)
       tempWindowY<-tempWindowY*1.1
       tempWindowQ<-tempWindowQ*1.1
+      k <- k + 1
+      if(k > 10000) message("Problems converging")
       # the next line is designed so that if the user sets windowS so it includes
       # data from all seasons, the widening process leaves it alone    	
       tempWindowS<-if(windowS<=0.5) min(tempWindowS*1.1,0.5) else windowS
-      if(numPosWt>=minNumObs&numUncen>=minNumUncen) break
+      if(numPosWt>=minNumObs&numUncen>=minNumUncen | k > 10000) break
     }
 
     
