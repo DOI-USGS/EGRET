@@ -32,6 +32,8 @@ NULL
 #' @name Choptank_eList
 #' @docType data
 #' @keywords water quality data
+#' @examples 
+#' head(Choptank_eList$Daily)
 NULL
 
 #' Constants included with EGRET
