@@ -17,9 +17,12 @@ Imports:
     dataRetrieval (>= 2.0.1),
     survival,
     fields,
-    stats,
     lubridate,
-    methods
+    methods,
+    utils,
+    graphics,
+    stats,
+    grDevices
 Suggests:
     xtable,
     knitr,

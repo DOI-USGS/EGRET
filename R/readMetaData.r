@@ -108,7 +108,7 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
     siteInfo$constitAbbrev <- parameterData$parameter_cd
 
   } else {
-    siteInfo <- dataRetrieval::whatWQPsites(siteid=siteNumber, characteristicName=parameterCd)
+    siteInfo <- dataRetrieval::whatWQPsites(siteid=siteNumber, characteristicName=URLencode(parameterCd))
 
     siteInfo$param.nm <- parameterCd
     siteInfo$param.units <- ""

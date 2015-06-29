@@ -16,6 +16,10 @@
 #'  and produce graphs and tables of data and results from these analyses.
 #'
 #' @name EGRET-package
+#' @import utils
+#' @import graphics
+#' @import stats
+#' @import grDevices
 #' @docType package
 #' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}, Laura De Cicco \email{ldecicco@@usgs.gov}
 #' @references Hirsch, R.M., and De Cicco, L.A., 2014, User guide to Exploration and Graphics for RivEr Trends 
