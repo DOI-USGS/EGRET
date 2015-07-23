@@ -22,7 +22,6 @@
 #' Q7 \tab numeric \tab 7 day running average of Q \cr
 #' Q30 \tab numeric \tab 30 day running average of Q \cr
 #' }
-#' @importFrom stats filter
 #' @seealso \code{\link{readNWISDaily}}, \code{\link{readUserDaily}}
 #' @export
 #' @examples
