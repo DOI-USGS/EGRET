@@ -22,6 +22,7 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
+#' @param rResid logical option to plot censored residuals as segments, or randomized points.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -35,15 +36,9 @@
 #' plotResidTime(eList)
 plotResidTime<-function(eList, stdResid = FALSE, 
                         printTitle = TRUE, hLine=TRUE, tinyPlot=FALSE,col="black",lwd=1,
-                        cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,...){
-  # this function shows residual versus Time
-  # Time on the x-axis , 
-  # residual on y-axis 
-  # these residuals are from a "leave-one-out" cross validation application of WRTDS
-  # if stdResid=FALSE it just works with the regular residuals
-  # if stdResid=TRUE it computes the standardized residual which is the residual/Sample$SE  
-  
-  localINFO <- getInfo(eList)
+                        cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,rResid=FALSE,...){
+
+    localINFO <- getInfo(eList)
   localSample <- getSample(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
@@ -59,10 +54,7 @@ plotResidTime<-function(eList, stdResid = FALSE,
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   
   x<-localSample$DecYear
-  yLow<-log(localSample$ConcLow)-localSample$yHat
-  yHigh<-log(localSample$ConcHigh)-localSample$yHat
-  yLow<-if(stdResid) yLow/localSample$SE else yLow
-  yHigh<-if(stdResid) yHigh/localSample$SE else yHigh
+
   Uncen<-localSample$Uncen
   xMin<-min(x) - 0.2
   xMax<-max(x) + 0.2
@@ -75,18 +67,51 @@ plotResidTime<-function(eList, stdResid = FALSE,
   }
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Residual versus Time") else ""
   
-  yInfo <- generalAxis(x=yHigh, maxVal=NA, minVal=NA,padPercent=5, tinyPlot=tinyPlot)
-#   yInfo <- generalAxis(x=yHigh, maxVal=max(yHigh) + 0.1, minVal=min(yLow,na.rm=TRUE) - 0.5,padPercent=0, tinyPlot=tinyPlot)
   xInfo <- generalAxis(x=x, maxVal=xMax, minVal=xMin,padPercent=0, tinyPlot=tinyPlot)
   
-  ##########################
-  genericEGRETDotPlot(x=x, y=yHigh,
-                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,col=col,
-                      xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom, yInfo$top),
-                      xlab=xLab, ylab=yLab, plotTitle=plotTitle, customPar=customPar, cex=cex,
-                      cex.axis=cex.axis,cex.main=cex.main, hLine=hLine, tinyPlot=tinyPlot,...
-  )
-  censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen,col=col,lwd=lwd)
+  if(!rResid){
+    yLow<-log(localSample$ConcLow)-localSample$yHat
+    yHigh<-log(localSample$ConcHigh)-localSample$yHat
+    
+    if(stdResid){
+      yLow <- yLow/localSample$SE 
+      yHigh <- yHigh/localSample$SE
+    }
+    
+    yInfo <- generalAxis(x=yHigh, maxVal=NA, minVal=NA,padPercent=5, tinyPlot=tinyPlot)
+    
+    genericEGRETDotPlot(x=x, y=yHigh,
+                        xTicks=xInfo$ticks, yTicks=yInfo$ticks,col=col,
+                        xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom, yInfo$top),
+                        xlab=xLab, ylab=yLab, plotTitle=plotTitle, customPar=customPar, cex=cex,
+                        cex.axis=cex.axis,cex.main=cex.main, hLine=hLine, tinyPlot=tinyPlot,...
+    )
+    censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen,col=col,lwd=lwd)
+    
+  } else {
+    if(!("rResid" %in% names(localSample))){
+      eList <- makeAugmentedSample(eList)
+      localSample <- eList$Sample
+    }
+    yHigh <- localSample$rResid
+    
+    if(stdResid){
+      yHigh <- yHigh/localSample$SE
+    }
+    
+    yInfo <- generalAxis(x=yHigh, maxVal=NA, minVal=NA,padPercent=5, tinyPlot=tinyPlot)
+    
+    genericEGRETDotPlot(x=x[Uncen == 1], y=yHigh[Uncen == 1],
+                        xTicks=xInfo$ticks, yTicks=yInfo$ticks,col=col,
+                        xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom, yInfo$top),
+                        xlab=xLab, ylab=yLab, plotTitle=plotTitle, customPar=customPar, cex=cex,
+                        cex.axis=cex.axis,cex.main=cex.main, hLine=hLine, tinyPlot=tinyPlot,...
+    )
+    points(x=x[Uncen == 0], y=yHigh[Uncen == 0],cex=cex,col=col)
+    
+  }
+  
   if (!tinyPlot) mtext(title2,side=3,line=-1.5)
 
+  invisible(eList)
 }
