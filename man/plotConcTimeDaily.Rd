@@ -6,8 +6,8 @@
 \usage{
 plotConcTimeDaily(eList, startYear = NA, endYear = NA, tinyPlot = FALSE,
   concMax = NA, printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
-  cex.main = 1.1, customPar = FALSE, col = "black", lwd = 1,
-  prettyDate = TRUE, ...)
+  rResid = FALSE, cex.main = 1.1, customPar = FALSE, col = "black",
+  lwd = 1, prettyDate = TRUE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -25,6 +25,8 @@ plotConcTimeDaily(eList, startYear = NA, endYear = NA, tinyPlot = FALSE,
 \item{cex}{numerical value giving the amount by which plotting symbols should be magnified}
 
 \item{cex.axis}{magnification to be used for axis annotation relative to the current setting of cex}
+
+\item{rResid}{logical option to plot randomized residuals.}
 
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
 
