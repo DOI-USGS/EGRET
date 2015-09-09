@@ -126,6 +126,7 @@ plotFluxPred<-function(eList, fluxUnit = 3, fluxMax = NA,
       eList <- makeAugmentedSample(eList)
       localSample <- eList$Sample
     }
+    Uncen<-localSample$Uncen
     yHigh <- localSample$rObserved*localSample$Q*fluxFactor
     yInfo <- generalAxis(x=yHigh, minVal=minY, maxVal=fluxMax, logScale=logScale, tinyPlot=tinyPlot,padPercent=5)
     
