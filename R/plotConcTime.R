@@ -134,8 +134,12 @@ plotConcTime<-function(eList, qUnit = 2,
       eList <- makeAugmentedSample(eList)
       localSample <- eList$Sample
     }
-    yHigh <- localSample$rObserved
     
+    subSample<-localSample[localSample$Q>qLowerBound & localSample$Q<qUpperBound,]
+    
+    subSample <- if(paLong == 12) subSample else selectDays(subSample, paLong,paStart)
+    yHigh <- subSample$rObserved
+    Uncen <- subSample$Uncen
     yInfo <- generalAxis(x=yHigh, minVal=minYLow, maxVal=concMax, logScale=logScale, 
                          tinyPlot=tinyPlot,units=attr(eList, "param.units"))
     genericEGRETDotPlot(x=x[Uncen == 1], y=yHigh[Uncen == 1], 

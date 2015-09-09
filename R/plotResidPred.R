@@ -101,6 +101,7 @@ plotResidPred<-function(eList, stdResid = FALSE,
     }
     
     yHigh <- localSample$rResid
+    Uncen <- localSample$Uncen
     
     if(stdResid){
       yHigh <- yHigh/localSample$SE

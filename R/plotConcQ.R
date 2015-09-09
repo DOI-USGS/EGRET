@@ -110,7 +110,7 @@ plotConcQ<-function(eList, qUnit = 2, tinyPlot = FALSE, logScale=FALSE,
       localSample <- eList$Sample
     }
     yHigh <- localSample$rObserved
-    
+    Uncen <- localSample$Uncen
     yInfo <- generalAxis(x=yHigh, maxVal=concMax, minVal=yMin, tinyPlot=tinyPlot,logScale=logScale,units=localINFO$param.units)
     
     genericEGRETDotPlot(x=x[Uncen == 1], y=yHigh[Uncen == 1], 
