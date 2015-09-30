@@ -47,13 +47,17 @@ plotConcHist<-function(eList, yearStart = NA, yearEnd = NA,
 
   localDaily <- getDaily(eList)
   localINFO <- getInfo(eList)
-  
+
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong
     paStart <- localINFO$paStart  
   } else {
     paLong <- 12
     paStart <- 10
+  }
+  
+  if(!all((c("SE","yHat") %in% names(eList$Sample)))){
+    stop("This function requires running modelEstimation on eList")
   }
   
   localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)

@@ -57,6 +57,10 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA, fluxUnit = 9,
     paStart <- 10
   }
   
+  if(!all((c("SE","yHat") %in% names(eList$Sample)))){
+    stop("This function requires running modelEstimation on eList")
+  }
+  
   possibleGoodUnits <- c("mg/l","mg/l as N", "mg/l as NO2", 
                          "mg/l as NO3","mg/l as P","mg/l as PO3","mg/l as PO4","mg/l as CaCO3",
                          "mg/l as Na","mg/l as H","mg/l as S","mg/l NH4" )

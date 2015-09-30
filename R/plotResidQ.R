@@ -42,6 +42,10 @@ plotResidQ<-function (eList, qUnit = 2,
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
   
+  if(!all((c("SE","yHat") %in% names(eList$Sample)))){
+    stop("This function requires running modelEstimation on eList")
+  }
+  
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong
     paStart <- localINFO$paStart  
