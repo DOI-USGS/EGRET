@@ -38,8 +38,12 @@ plotResidTime<-function(eList, stdResid = FALSE,
                         printTitle = TRUE, hLine=TRUE, tinyPlot=FALSE,col="black",lwd=1,
                         cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,rResid=FALSE,...){
 
-    localINFO <- getInfo(eList)
+  localINFO <- getInfo(eList)
   localSample <- getSample(eList)
+  
+  if(!all((c("SE","yHat") %in% names(eList$Sample)))){
+    stop("This function requires running modelEstimation on eList")
+  }
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong

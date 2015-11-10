@@ -54,6 +54,11 @@ plotConcQ<-function(eList, qUnit = 2, tinyPlot = FALSE, logScale=FALSE,
     paStart <- 10
   }
   
+  if(rResid & !all((c("SE","yHat") %in% names(eList$Sample)))){
+    message("Pseudo only supported after running modelEstimation, defaulting to rResid=FALSE")
+    rResid <- FALSE
+  }
+  
   localSample <- if(paLong == 12) localSample else selectDays(localSample, paLong,paStart)
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   

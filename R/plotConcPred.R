@@ -47,6 +47,10 @@ plotConcPred<-function(eList, concMax = NA, logScale=FALSE,
     paStart <- 10
   } 
   
+  if(!all((c("SE","yHat") %in% names(eList$Sample)))){
+    stop("This function requires running modelEstimation on eList")
+  }
+  
   localSample <- if(paLong == 12) localSample else selectDays(localSample, paLong,paStart)
   
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
