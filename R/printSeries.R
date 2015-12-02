@@ -49,7 +49,7 @@ printSeries<-function(eList, istat, qUnit = 1, runoff = FALSE) {
   qSmooth<-if(runoff) qSmooth*86.4/localINFO$drainSqKm else qSmooth*qFactor
   toPrint<-data.frame(years,qActual,qSmooth)
   toPrint<-subset(toPrint,!is.na(years))
-  toPrint$years<-format(toPrint$years,digits=4,width=7)
+  toPrint$years<-format(floor(0.5+toPrint$years),digits=4,width=7)
   toPrint$qActual<-format(toPrint$qActual,digits=3,width=8)
   toPrint$qSmooth<-format(toPrint$qSmooth,digits=3,width=8)
   write.table(toPrint,file="",col.names=FALSE,row.names=FALSE,quote=FALSE)
