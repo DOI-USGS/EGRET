@@ -46,7 +46,7 @@ boxConcThree<-function (eList, tinyPlot=FALSE,
     paStart <- 10
   } 
   
-  if(rResid & !(c("SE","yHat") %in% names(eList$Sample))){
+  if(rResid & !all((c("SE","yHat") %in% names(eList$Sample)))){
     message("Pseudo only supported after running modelEstimation, defaulting to rResid=FALSE")
     rResid <- FALSE
   }
