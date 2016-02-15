@@ -81,7 +81,7 @@ Load data from web services:
 	Sample <-readNWISSample("06934500","00631","1970-10-01","2011-09-30")
 	INFO <-readNWISInfo("06934500","00631", interactive=FALSE)
 
-	eList <-mergeReport(Info, Daily, Sample)
+	eList <-mergeReport(INFO, Daily, Sample)
 
 ```
 
