@@ -163,7 +163,7 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
     siteInfo$staAbbrev <- NA
   }
 
-  if(siteInfo$DrainageAreaMeasure.MeasureUnitCode == "sq mi"){
+  if(!is.na(siteInfo$DrainageAreaMeasure.MeasureUnitCode) & siteInfo$DrainageAreaMeasure.MeasureUnitCode == "sq mi"){
     siteInfo$drainSqKm <- as.numeric(siteInfo$DrainageAreaMeasure.MeasureValue) * 2.5899881 
   } else {
     siteInfo$drainSqKm <- NA #Not sure the greatest solution, too many potential units.
