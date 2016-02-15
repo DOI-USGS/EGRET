@@ -7,7 +7,7 @@
 #' @importFrom lubridate decimal_date
 #' @export
 #' @examples
-#' dateTime <- c('1984-02-28 13:56', '1984-03-01', '1986-03-01')
+#' dateTime <- c('1984-02-28 13:56', '1984-03-01', '1986-03-01',"1986-10-15")
 #' expandedDateDF <- populateDateColumns(dateTime)
 populateDateColumns <- function(rawData){  # rawData is a vector of dates
   DateFrame <- as.data.frame(matrix(ncol=1,nrow=length(rawData)))
@@ -31,6 +31,9 @@ populateDateColumns <- function(rawData){  # rawData is a vector of dates
 
   DateFrame$DecYear <- decimal_date(dateTime)
   DateFrame$MonthSeq <- ((year-1850)*12)+DateFrame$Month
+  DateFrame$waterYear <- as.integer(DateFrame$DecYear)
+  DateFrame$waterYear[DateFrame$Month %in% c(10:12)] <- DateFrame$waterYear[DateFrame$Month %in% c(10:12)]+1
+  
   return (DateFrame)
   
 }

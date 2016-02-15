@@ -2,7 +2,7 @@ context("EGRET retrieval tests")
 
 test_that("External Daily tests", {
   testthat::skip_on_cran()
-  DailyNames <- c("Date","Q","Julian","Month","MonthSeq",   
+  DailyNames <- c("Date","Q","Julian","Month","MonthSeq","waterYear",  
                    "Day","DecYear","Qualifier","i","LogQ","Q7","Q30")
   Daily <- readNWISDaily('01594440',
                           '00060', 
@@ -25,7 +25,7 @@ test_that("External NWIS Sample tests", {
   testthat::skip_on_cran()
   
   SampleNames <- c("Date","ConcLow","ConcHigh","Uncen","ConcAve","Julian","Month",   
-                   "Day","DecYear","MonthSeq","SinDY","CosDY")
+                   "Day","DecYear","MonthSeq","waterYear","SinDY","CosDY")
   
   Sample_01075 <- readNWISSample('01594440',
                                  '01075', 
@@ -55,7 +55,7 @@ test_that("External WQP Sample tests", {
   testthat::skip_on_cran()
   
   SampleNames <- c("Date","ConcLow","ConcHigh","Uncen","ConcAve","Julian","Month",   
-                   "Day","DecYear","MonthSeq","SinDY","CosDY")
+                   "Day","DecYear","MonthSeq","waterYear","SinDY","CosDY")
   
   Sample_Chloride <- readWQPSample('USGS-01594440',
                                 'Chloride', 
