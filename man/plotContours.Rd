@@ -4,11 +4,11 @@
 \alias{plotContours}
 \title{Color contour plot of the estimated surfaces as a function of discharge and time (surfaces include log concentration, standard error, and concentration)}
 \usage{
-plotContours(eList, yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
-  qUnit = 2, contourLevels = NA, span = 60, pval = 0.05,
-  printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA, tcl = 0.1,
-  flowDuration = TRUE, customPar = FALSE, yTicks = NA, tick.lwd = 2,
-  lwd = 1, cex.main = 1, cex.axis = 1,
+plotContours(eList, yearStart, yearEnd, qBottom = NA, qTop = NA,
+  whatSurface = 3, qUnit = 2, contourLevels = NA, span = 60,
+  pval = 0.05, printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA,
+  tcl = 0.1, flowDuration = TRUE, customPar = FALSE, yTicks = NA,
+  tick.lwd = 2, lwd = 1, cex.main = 1, cex.axis = 1,
   color.palette = colorRampPalette(c("white", "gray", "blue", "red")), ...)
 }
 \arguments{
@@ -18,9 +18,9 @@ plotContours(eList, yearStart, yearEnd, qBottom, qTop, whatSurface = 3,
 
 \item{yearEnd}{numeric value for the ending date for the graph, expressed as decimal year, (for example 1993.0)}
 
-\item{qBottom}{numeric value for the bottom edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit)}
+\item{qBottom}{numeric value for the bottom edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit). NA will choose a "pretty" lower limit nearest to the 5\% of discharge}
 
-\item{qTop}{numeric value for the top edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit)}
+\item{qTop}{numeric value for the top edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit). NA will choose a "pretty" upper limit nearest to the 95\% of discharge}
 
 \item{whatSurface}{numeric value, can only accept 1, 2, or 3;  whatSurface=1 is yHat (log concentration), whatSurface=2 is SE (standard error of log concentration), and whatSurface=3 is ConcHat (unbiased estimate of concentration), default = 3}
 
@@ -78,11 +78,11 @@ and an INFO dataframe with metadata.
 yearStart <- 2001
 yearEnd <- 2010
 qBottom <- 0.5
-qTop<- 20
+qTop<- 22
 clevel <- seq(0,3.5,0.5)
 eList <- Choptank_eList
-plotContours(eList, yearStart,yearEnd,qBottom,qTop, 
-      contourLevels = clevel)  
+plotContours(eList, yearStart,yearEnd,qBottom,qTop, contourLevels = clevel)  
+plotContours(eList, yearStart,yearEnd,qBottom=0.1,qTop=NA, contourLevels = clevel) 
 yTicksModified <- c(.1,1,10,25)
 plotContours(eList, yearStart,yearEnd,qBottom,qTop, 
       contourLevels = clevel,yTicks=yTicksModified,flowDuration=FALSE)  

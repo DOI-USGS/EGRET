@@ -13,10 +13,10 @@
 #' @param eList named list with at least the Daily and INFO dataframes, and surfaces matrix
 #' @param year0 numeric value for the calendar year that is the first year of the pair of years for the analysis, should be a whole number
 #' @param year1 numeric value for the calendar year that is the second year of the pair of years for the analysis, should be a whole number
-#' @param qBottom numeric value for the bottom edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit)
-#' @param qTop numeric value for the top edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit)
+#' @param qBottom numeric value for the bottom edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit). NA will choose a "pretty" lower limit nearest to the 5\% of discharge 
+#' @param qTop numeric value for the top edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit). NA will choose a "pretty" upper limit nearest to the 95\% of discharge 
 #' @param maxDiff numeric value which is the absolute value of the largest change in concentration that will be shown on the figure. Alternatively, 
-#' a vector with the minimum and maximum values in the change in concentration scale.
+#' a vector with the minimum and maximum values in the change in concentration scale. If NA, the scale will be set from 5\% to 95\% of the concentration difference.
 #' @param whatSurface numeric value, can only accept 1, 2, or 3;  whatSurface=1 is yHat (log concentration), whatSurface=2 is SE (standard error of log concentration), and whatSurface=3 is ConcHat (unbiased estimate of concentration), default = 3
 #' @param plotPercent logical. If TRUE, plots percent difference, if FALSE, plots absolute differences. Defaults to FALSE.
 #' @param qUnit object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name. 
@@ -43,12 +43,15 @@
 #' @examples 
 #' year0<-2001
 #' year1<-2009
-#' qBottom<-0.5
-#' qTop<-20
+#' qBottom<-0.33
+#' qTop<-22
 #' maxDiff<-0.5
 #' eList <- Choptank_eList
+#' plotDiffContours(eList, year0,year1)
+#' plotDiffContours(eList, year0,year1,maxDiff=maxDiff)
 #' plotDiffContours(eList, year0,year1,qBottom,qTop,maxDiff)
-#'        yTicksModified <- c(.1,1,10,25)
+#' 
+#' yTicksModified <- c(.1,1,10,25)
 #' plotDiffContours(eList, year0, year1,qBottom,qTop,maxDiff,
 #'        yTicks=yTicksModified,flowDuration=FALSE)
 #' colors <-colorRampPalette(c("blue","white","red"))
@@ -62,7 +65,7 @@
 #' plotDiffContours(eList, year0,year1,qBottom,qTop,maxDiff,
 #'        customPar=TRUE,flowDuration=FALSE)
 plotDiffContours<-function (eList, year0, year1, 
-                            qBottom, qTop, maxDiff, 
+                            qBottom=NA, qTop=NA, maxDiff=NA, 
                             whatSurface = 3, tcl=0.1,
                             qUnit = 2, span = 60, pval = 0.05, printTitle = TRUE, plotPercent = FALSE,
                             vert1 = NA, vert2 = NA, horiz = NA, flowDuration = TRUE, yTicks=NA,tick.lwd=2,
@@ -111,10 +114,14 @@ plotDiffContours<-function (eList, year0, year1,
     diff<-surf[,start1:end1,j] - surf[,start0:end0,j]
   }
   difft<-t(diff)
-  if(length(maxDiff) == 1){
-    surfaceSpan <- c(-maxDiff,maxDiff)
+  if(!is.na(maxDiff)){
+    if(length(maxDiff) == 1){
+      surfaceSpan <- c(-maxDiff,maxDiff)
+    } else {
+      surfaceSpan <- range(maxDiff)
+    }
   } else {
-    surfaceSpan <- range(maxDiff)
+    surfaceSpan <- quantile(difft, c(0.05,0.95))
   }
   
   contourLevels <- pretty(surfaceSpan, n = 15)
@@ -126,10 +133,23 @@ plotDiffContours<-function (eList, year0, year1,
   numX <- length(x)
   numY <- length(y)
   
-  if(is.na(yTicks[1])){
-    qBottom<-max(0.9*y[1],qBottom) 
-    qTop<-min(1.1*y[numY],qTop) 
-    yTicks<-logPretty3(qBottom,qTop)
+  qBottomT <- ifelse(is.na(qBottom), quantile(localDaily$Q, probs = 0.05)*qFactor, qBottom)
+  
+  qTopT <- ifelse(is.na(qTop), quantile(localDaily$Q, probs = 0.95)*qFactor, qTop)
+  
+  if(any(is.na(yTicks))){
+    qBottomT <- max(0.9*y[1],qBottomT)
+    qTopT <- min(1.1*y[numY],qTopT)
+    
+    yTicks <- logPretty3(qBottomT,qTopT)
+  }
+  
+  if(!is.na(qBottom)){
+    yTicks <- c(qBottom, yTicks)
+  }
+  
+  if(!is.na(qTop)){
+    yTicks <- c(yTicks, qTop)
   }
 
   xTicks <- c(0,0.0848,0.1642,0.249,0.331,0.416,0.498,0.583,0.668,0.750,0.835,0.917,1)
@@ -159,14 +179,7 @@ plotDiffContours<-function (eList, year0, year1,
                            365)
       numDays <- length(localDaily$Day)
       isGood <- localDaily$Day %in% goodDays 
-#       isGood <- rep(FALSE, numDays)
-#       for (i in 1:numDays) {
-#         count <- ifelse(localDaily$Day[i] == goodDays, 1, 
-#                         0)
-#         isGood[i] <- if (sum(count) > 0) 
-#           TRUE
-#         else FALSE
-#       }
+
       spanDaily <- data.frame(localDaily, isGood)
       spanDaily <- subset(spanDaily, isGood)
       n <- length(spanDaily$Day)
