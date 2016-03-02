@@ -15,8 +15,8 @@
 #' @param eList named list with at least the Daily and INFO dataframes, and surfaces matrix
 #' @param yearStart numeric value for the starting date for the graph, expressed as decimal year (typically whole number such as 1989.0)
 #' @param yearEnd numeric value for the ending date for the graph, expressed as decimal year, (for example 1993.0)
-#' @param qBottom numeric value for the bottom edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit)
-#' @param qTop numeric value for the top edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit)
+#' @param qBottom numeric value for the bottom edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit). NA will choose a "pretty" lower limit nearest to the 5% of discharge 
+#' @param qTop numeric value for the top edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit). NA will choose a "pretty" upper limit nearest to the 95% of discharge 
 #' @param whatSurface numeric value, can only accept 1, 2, or 3;  whatSurface=1 is yHat (log concentration), whatSurface=2 is SE (standard error of log concentration), and whatSurface=3 is ConcHat (unbiased estimate of concentration), default = 3
 #' @param qUnit object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param contourLevels numeric vector containing the contour levels for the contour plot, arranged in ascending order, default is NA (which causes the contour levels to be set automatically, based on the data)
@@ -44,11 +44,11 @@
 #' yearStart <- 2001
 #' yearEnd <- 2010
 #' qBottom <- 0.5
-#' qTop<- 20
+#' qTop<- 22
 #' clevel <- seq(0,3.5,0.5)
 #' eList <- Choptank_eList
-#' plotContours(eList, yearStart,yearEnd,qBottom,qTop, 
-#'       contourLevels = clevel)  
+#' plotContours(eList, yearStart,yearEnd,qBottom,qTop, contourLevels = clevel)  
+#' plotContours(eList, yearStart,yearEnd,qBottom=0.1,qTop=NA, contourLevels = clevel) 
 #' yTicksModified <- c(.1,1,10,25)
 #' plotContours(eList, yearStart,yearEnd,qBottom,qTop, 
 #'       contourLevels = clevel,yTicks=yTicksModified,flowDuration=FALSE)  
@@ -64,7 +64,7 @@
 #' par(mar=c(5,8,5,8))
 #' plotContours(eList, yearStart,yearEnd,qBottom,qTop, 
 #'        contourLevels = clevel,customPar=TRUE,printTitle=FALSE,flowDuration=FALSE)
-plotContours<-function(eList, yearStart, yearEnd, qBottom, qTop, whatSurface = 3, 
+plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurface = 3, 
                        qUnit = 2, contourLevels = NA, span = 60, pval = 0.05,
                        printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA, tcl=0.1,
                        flowDuration = TRUE, customPar=FALSE, yTicks=NA,tick.lwd=2,
@@ -107,10 +107,23 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom, qTop, whatSurface = 3
   numX<-length(x)
   numY<-length(y)
   
-  if(is.na(yTicks[1])){
-    qBottom<-max(0.9*y[1],qBottom) 
-    qTop<-min(1.1*y[numY],qTop) 
-    yTicks<-logPretty3(qBottom,qTop)
+  qBottomT <- ifelse(is.na(qBottom), quantile(localDaily$Q, probs = 0.05)*qFactor, qBottom)
+
+  qTopT <- ifelse(is.na(qTop), quantile(localDaily$Q, probs = 0.95)*qFactor, qTop)
+  
+  if(any(is.na(yTicks))){
+    qBottomT <- max(0.9*y[1],qBottomT)
+    qTopT <- min(1.1*y[numY],qTopT)
+    
+    yTicks <- logPretty3(qBottomT,qTopT)
+  }
+  
+  if(!is.na(qBottom)){
+    yTicks <- c(qBottom, yTicks)
+  }
+  
+  if(!is.na(qTop)){
+    yTicks <- c(yTicks, qTop)
   }
   
   if(yearEnd-yearStart >= 4){
@@ -147,11 +160,7 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom, qTop, whatSurface = 3
       goodDays<-ifelse(goodDays<366,goodDays,goodDays-365)
       numDays<-length(localDaily$Day)
       isGood <- localDaily$Day %in% goodDays 
-#       isGood2<-rep(FALSE,numDays)
-#       for(i in 1:numDays) {
-#         count<-ifelse(localDaily$Day[i]==goodDays,1,0)
-#         isGood2[i]<-sum(count)>0
-#       }
+
       spanDaily<-data.frame(localDaily,isGood)
       spanDaily<-subset(spanDaily,isGood)
       n<-length(spanDaily$Day)
