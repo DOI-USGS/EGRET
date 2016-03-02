@@ -63,7 +63,7 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
     counter<-ifelse(is.na(DailyYear$ConcDay),0,1)
     #     if we have NA values on more than 10% of the days, then don't use the year
     if (length(counter) > 0){
-      good <- (sum(counter) > 25)
+      good <- (sum(counter) == length(counter))
     } else {
       good<-FALSE
     }    
