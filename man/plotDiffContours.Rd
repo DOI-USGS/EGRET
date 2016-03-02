@@ -4,12 +4,13 @@
 \alias{plotDiffContours}
 \title{Plots the difference between two years from a contour plot created by plotContours}
 \usage{
-plotDiffContours(eList, year0, year1, qBottom, qTop, maxDiff, whatSurface = 3,
-  tcl = 0.1, qUnit = 2, span = 60, pval = 0.05, printTitle = TRUE,
-  plotPercent = FALSE, vert1 = NA, vert2 = NA, horiz = NA,
-  flowDuration = TRUE, yTicks = NA, tick.lwd = 2, lwd = 1,
-  cex.main = 0.95, cex.axis = 1, customPar = FALSE,
-  color.palette = colorRampPalette(c("blue", "white", "red")), ...)
+plotDiffContours(eList, year0, year1, qBottom = NA, qTop = NA,
+  maxDiff = NA, whatSurface = 3, tcl = 0.1, qUnit = 2, span = 60,
+  pval = 0.05, printTitle = TRUE, plotPercent = FALSE, vert1 = NA,
+  vert2 = NA, horiz = NA, flowDuration = TRUE, yTicks = NA,
+  tick.lwd = 2, lwd = 1, cex.main = 0.95, cex.axis = 1,
+  customPar = FALSE, color.palette = colorRampPalette(c("blue", "white",
+  "red")), ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes, and surfaces matrix}
@@ -18,12 +19,12 @@ plotDiffContours(eList, year0, year1, qBottom, qTop, maxDiff, whatSurface = 3,
 
 \item{year1}{numeric value for the calendar year that is the second year of the pair of years for the analysis, should be a whole number}
 
-\item{qBottom}{numeric value for the bottom edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit)}
+\item{qBottom}{numeric value for the bottom edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit). NA will choose a "pretty" lower limit nearest to the 5\% of discharge}
 
-\item{qTop}{numeric value for the top edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit)}
+\item{qTop}{numeric value for the top edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit). NA will choose a "pretty" upper limit nearest to the 95\% of discharge}
 
 \item{maxDiff}{numeric value which is the absolute value of the largest change in concentration that will be shown on the figure. Alternatively, 
-a vector with the minimum and maximum values in the change in concentration scale.}
+a vector with the minimum and maximum values in the change in concentration scale. If NA, the scale will be set from 5\% to 95\% of the concentration difference.}
 
 \item{whatSurface}{numeric value, can only accept 1, 2, or 3;  whatSurface=1 is yHat (log concentration), whatSurface=2 is SE (standard error of log concentration), and whatSurface=3 is ConcHat (unbiased estimate of concentration), default = 3}
 
@@ -78,12 +79,15 @@ and an INFO dataframe with metadata.
 \examples{
 year0<-2001
 year1<-2009
-qBottom<-0.5
-qTop<-20
+qBottom<-0.33
+qTop<-22
 maxDiff<-0.5
 eList <- Choptank_eList
+plotDiffContours(eList, year0,year1)
+plotDiffContours(eList, year0,year1,maxDiff=maxDiff)
 plotDiffContours(eList, year0,year1,qBottom,qTop,maxDiff)
-       yTicksModified <- c(.1,1,10,25)
+
+yTicksModified <- c(.1,1,10,25)
 plotDiffContours(eList, year0, year1,qBottom,qTop,maxDiff,
        yTicks=yTicksModified,flowDuration=FALSE)
 colors <-colorRampPalette(c("blue","white","red"))
