@@ -19,9 +19,9 @@ plotDiffContours(eList, year0, year1, qBottom = NA, qTop = NA,
 
 \item{year1}{numeric value for the calendar year that is the second year of the pair of years for the analysis, should be a whole number}
 
-\item{qBottom}{numeric value for the bottom edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit). NA will choose a "pretty" lower limit nearest to the 5\% of discharge}
+\item{qBottom}{numeric value for the bottom edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit). NA will choose a "pretty" lower limit nearest to the 5\% of discharge. If yTicks are specified, then the first value of yTicks becomes the lowest discharge shown on the figure.}
 
-\item{qTop}{numeric value for the top edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit). NA will choose a "pretty" upper limit nearest to the 95\% of discharge}
+\item{qTop}{numeric value for the top edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit). NA will choose a "pretty" upper limit nearest to the 95\% of discharge. If yTicks are specified, then the last value of yTicks becomes the highest discharge shown on the figure.}
 
 \item{maxDiff}{numeric value which is the absolute value of the largest change in concentration that will be shown on the figure. Alternatively, 
 a vector with the minimum and maximum values in the change in concentration scale. If NA, the scale will be set from 5\% to 95\% of the concentration difference.}
@@ -48,7 +48,7 @@ a vector with the minimum and maximum values in the change in concentration scal
 
 \item{flowDuration}{logical variable if TRUE plot the flow duration lines (5 and 95 flow percentiles), if FALSE do not plot them, default = TRUE}
 
-\item{yTicks}{vector of yTick labels and marks that will be plotted in log space. If NA, will be automatically generated.}
+\item{yTicks}{vector of yTick labels and marks that will be plotted in log space. (for example yTicks = c(3, 5, 10, 20, 50, 100, 200, 400). The first and last values determine the range of the y axis. If NA, the tick marks will be automatically generated.}
 
 \item{tick.lwd}{line width for axis ticks, default is 2}
 
