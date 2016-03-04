@@ -69,7 +69,7 @@ fluxBiasMulti<-function (eList, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS",
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   
   par(oma = c(0, 10, 4, 10),mfrow=c(4,2))
-  eList <- plotResidPred(eList, 
+  plotResidPred(eList, 
                 stdResid = FALSE, tinyPlot=TRUE, printTitle = FALSE,cex=cex, 
                 cex.axis = cex.axis, col=col,lwd=lwd,...)
   plotResidQ(eList, 
