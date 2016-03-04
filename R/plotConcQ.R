@@ -24,7 +24,6 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
-#' @param rResid logical option to plot randomized residuals.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -39,7 +38,7 @@
 #' plotConcQ(eList)
 plotConcQ<-function(eList, qUnit = 2, tinyPlot = FALSE, logScale=FALSE,
                     concMax = NA, concMin =NA, printTitle = TRUE, cex=0.8, cex.axis=1.1,cex.main=1.1,
-                    rmSciX=FALSE,rmSciY=FALSE, customPar=FALSE,col="black",lwd=1,rResid=FALSE,...){
+                    rmSciX=FALSE,rmSciY=FALSE, customPar=FALSE,col="black",lwd=1,...){
   # this function shows the sample data,
   # discharge on x-axis on a log scale, concentration on y-axis
   
@@ -53,12 +52,7 @@ plotConcQ<-function(eList, qUnit = 2, tinyPlot = FALSE, logScale=FALSE,
     paLong <- 12
     paStart <- 10
   }
-  
-  if(rResid & !all((c("SE","yHat") %in% names(eList$Sample)))){
-    message("Pseudo only supported after running modelEstimation, defaulting to rResid=FALSE")
-    rResid <- FALSE
-  }
-  
+
   localSample <- if(paLong == 12) localSample else selectDays(localSample, paLong,paStart)
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   
@@ -93,42 +87,22 @@ plotConcQ<-function(eList, qUnit = 2, tinyPlot = FALSE, logScale=FALSE,
   
   xInfo <- generalAxis(x=x, maxVal=NA, minVal=NA, logScale=TRUE, tinyPlot=tinyPlot)
   
-  if(!rResid){
-    yLow<-localSample$ConcLow
-    yHigh<-localSample$ConcHigh
-    
-    yInfo <- generalAxis(x=yHigh, maxVal=concMax, minVal=yMin, tinyPlot=tinyPlot,logScale=logScale,units=localINFO$param.units)
-    
-    genericEGRETDotPlot(x=x, y=yHigh, 
-                        xlim=c(xInfo$bottom, xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                        xlab=xLab, ylab=yInfo$label,
-                        xTicks=xInfo$ticks, yTicks=yInfo$ticks,
-                        plotTitle=plotTitle, log=logScaleText,cex.axis=cex.axis,cex=cex,
-                        cex.main=cex.main, tinyPlot=tinyPlot,xaxt="n",
-                        rmSciX=rmSciX,rmSciY=rmSciY,customPar=customPar,col=col,lwd=lwd,...
-    )
-    
-    censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen,col=col,lwd=lwd)
-  } else {
-    if(!("rObserved" %in% names(localSample))){
-      eList <- makeAugmentedSample(eList)
-      localSample <- eList$Sample
-    }
-    yHigh <- localSample$rObserved
-    Uncen <- localSample$Uncen
-    yInfo <- generalAxis(x=yHigh, maxVal=concMax, minVal=yMin, tinyPlot=tinyPlot,logScale=logScale,units=localINFO$param.units)
-    
-    genericEGRETDotPlot(x=x[Uncen == 1], y=yHigh[Uncen == 1], 
-                        xlim=c(xInfo$bottom, xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                        xlab=xLab, ylab=yInfo$label,
-                        xTicks=xInfo$ticks, yTicks=yInfo$ticks,
-                        plotTitle=plotTitle, log=logScaleText,cex.axis=cex.axis,cex=cex,
-                        cex.main=cex.main, tinyPlot=tinyPlot,xaxt="n",
-                        rmSciX=rmSciX,rmSciY=rmSciY,customPar=customPar,col=col,lwd=lwd,...
-    )
-    points(x=x[Uncen == 0], y=yHigh[Uncen == 0], pch=1,cex=cex,col=col)
-    
-  }
+  yLow<-localSample$ConcLow
+  yHigh<-localSample$ConcHigh
+  
+  yInfo <- generalAxis(x=yHigh, maxVal=concMax, minVal=yMin, tinyPlot=tinyPlot,logScale=logScale,units=localINFO$param.units)
+  
+  genericEGRETDotPlot(x=x, y=yHigh, 
+                      xlim=c(xInfo$bottom, xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
+                      xlab=xLab, ylab=yInfo$label,
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+                      plotTitle=plotTitle, log=logScaleText,cex.axis=cex.axis,cex=cex,
+                      cex.main=cex.main, tinyPlot=tinyPlot,xaxt="n",
+                      rmSciX=rmSciX,rmSciY=rmSciY,customPar=customPar,col=col,lwd=lwd,...
+  )
+  
+  censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen,col=col,lwd=lwd)
+
   if (!tinyPlot) mtext(title2,side=3,line=-1.5)
 
 }

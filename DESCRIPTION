@@ -1,7 +1,7 @@
 Package: EGRET
 Type: Package
 Title: Exploration and Graphics for RivEr Trends (EGRET)
-Version: 2.4.2
+Version: 2.4.3
 Authors@R: c( person("Robert", "Hirsch", role = c("aut"),
     email = "rhirsch@usgs.gov"),
     person("Laura", "DeCicco", role = c("aut","cre"),
@@ -10,7 +10,7 @@ Description: Statistics and graphics for streamflow history,
     water quality trends, and the statistical modeling algorithm: Weighted
     Regressions on Time, Discharge, and Season (WRTDS).
 License: CC0
-Date: 2015-09-08
+Date: 2016-03-04
 Depends:
     R (>= 3.0)
 Imports:
@@ -22,8 +22,7 @@ Imports:
     utils,
     graphics,
     stats,
-    grDevices,
-    truncnorm
+    grDevices
 Suggests:
     xtable,
     knitr,

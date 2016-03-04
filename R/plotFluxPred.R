@@ -20,7 +20,6 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
-#' @param rResid logical option to plot randomized residuals.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -31,13 +30,12 @@
 #' plotFluxPred(eList)
 #' plotFluxPred(eList, fluxUnit = 'poundsDay')
 #' plotFluxPred(eList, logScale=TRUE)
-#' plotFluxPred(eList, logScale=TRUE, rResid=TRUE)
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' plotFluxPred(eList)
 plotFluxPred<-function(eList, fluxUnit = 3, fluxMax = NA, 
                        printTitle = TRUE, oneToOneLine=TRUE, customPar=FALSE,col="black", lwd=1,
-                       cex=0.8, cex.axis=1.1,cex.main=1.1,tinyPlot=FALSE,logScale=FALSE,rResid=FALSE,...){
+                       cex=0.8, cex.axis=1.1,cex.main=1.1,tinyPlot=FALSE,logScale=FALSE,...){
   # this function shows observed versus estimated flux
   # estimated flux on the x-axis (these include the bias correction), 
   # observed flux on y-axis 
@@ -110,40 +108,21 @@ plotFluxPred<-function(eList, fluxUnit = 3, fluxMax = NA,
 
   xInfo <- generalAxis(x=x, minVal=minX, maxVal=NA, logScale=logScale, tinyPlot=tinyPlot,padPercent=5)  
 
-  if(!rResid){
-    yLow<-localSample$ConcLow*localSample$Q*fluxFactor
-    yHigh<-localSample$ConcHigh*localSample$Q*fluxFactor
-    
-    yInfo <- generalAxis(x=yHigh, minVal=minY, maxVal=fluxMax, logScale=logScale, tinyPlot=tinyPlot,padPercent=5)
-    
-    genericEGRETDotPlot(x=x, y=yHigh,
-                        xTicks=xInfo$ticks, yTicks=yInfo$ticks,
-                        xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                        xlab=xLab, ylab=yLab,log=logText, customPar=customPar,
-                        plotTitle=plotTitle,oneToOneLine=oneToOneLine, cex=cex,col=col,
-                        tinyPlot=tinyPlot,cex.axis=cex.axis,cex.main=cex.main,...
-    )
-    
-    censoredSegments(yBottom=yInfo$bottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen,col=col,lwd=lwd)
-  } else {
-    if(!("rObserved" %in% names(localSample))){
-      eList <- makeAugmentedSample(eList)
-      localSample <- eList$Sample
-    }
-    Uncen<-localSample$Uncen
-    yHigh <- localSample$rObserved*localSample$Q*fluxFactor
-    yInfo <- generalAxis(x=yHigh, minVal=minY, maxVal=fluxMax, logScale=logScale, tinyPlot=tinyPlot,padPercent=5)
-    
-    genericEGRETDotPlot(x=x[Uncen == 1], y=yHigh[Uncen == 1],
-                        xTicks=xInfo$ticks, yTicks=yInfo$ticks,
-                        xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                        xlab=xLab, ylab=yLab,log=logText, customPar=customPar,
-                        plotTitle=plotTitle,oneToOneLine=oneToOneLine, cex=cex,col=col,
-                        tinyPlot=tinyPlot,cex.axis=cex.axis,cex.main=cex.main,...
-    )
-    points(x=x[Uncen == 0], y=yHigh[Uncen == 0], pch=1,cex=cex,col=col)
-  }
+  yLow<-localSample$ConcLow*localSample$Q*fluxFactor
+  yHigh<-localSample$ConcHigh*localSample$Q*fluxFactor
   
+  yInfo <- generalAxis(x=yHigh, minVal=minY, maxVal=fluxMax, logScale=logScale, tinyPlot=tinyPlot,padPercent=5)
+  
+  genericEGRETDotPlot(x=x, y=yHigh,
+                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+                      xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
+                      xlab=xLab, ylab=yLab,log=logText, customPar=customPar,
+                      plotTitle=plotTitle,oneToOneLine=oneToOneLine, cex=cex,col=col,
+                      tinyPlot=tinyPlot,cex.axis=cex.axis,cex.main=cex.main,...
+  )
+  
+  censoredSegments(yBottom=yInfo$bottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen,col=col,lwd=lwd)
+
   if (!tinyPlot) mtext(title2,side=3,line=-1.5)
-  invisible(eList)
+
 }

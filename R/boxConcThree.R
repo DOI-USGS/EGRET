@@ -18,7 +18,6 @@
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multi-plot figure, default is FALSE.
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
-#' @param rResid logical option to plot randomized residuals.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @seealso \code{\link[graphics]{boxplot}}
@@ -32,7 +31,7 @@
 #' boxConcThree(eList)
 boxConcThree<-function (eList, tinyPlot=FALSE,
                         printTitle = TRUE, moreTitle = "WRTDS",customPar=FALSE,
-                        font.main=2,cex=0.8,cex.main = 1.1, cex.axis = 1.1,rResid=FALSE,...){
+                        font.main=2,cex=0.8,cex.main = 1.1, cex.axis = 1.1,...){
   
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
@@ -46,10 +45,10 @@ boxConcThree<-function (eList, tinyPlot=FALSE,
     paStart <- 10
   } 
   
-  if(rResid & !all((c("SE","yHat") %in% names(eList$Sample)))){
-    message("Pseudo only supported after running modelEstimation, defaulting to rResid=FALSE")
-    rResid <- FALSE
-  }
+  # if(rResid & !all((c("SE","yHat") %in% names(eList$Sample)))){
+  #   message("Pseudo only supported after running modelEstimation, defaulting to rResid=FALSE")
+  #   rResid <- FALSE
+  # }
   
   localSample <- if(paLong == 12) localSample else selectDays(localSample,paLong,paStart)
   localDaily <- if(paLong == 12) localDaily else selectDays(localDaily, paLong,paStart)
@@ -84,16 +83,16 @@ boxConcThree<-function (eList, tinyPlot=FALSE,
   name3 <- "All day\nestimates"
   groupNames <- c(name1,name2,name3)
   
-  if(!rResid){
+  # if(!rResid){
     concV <- c(localSample$ConcAve,localSample$ConcHat,localDaily$ConcDay)
   
-  } else {
-    if(!("rObserved" %in% names(localSample))){
-      eList <- makeAugmentedSample(eList)
-      localSample <- eList$Sample
-    }
-    concV <- c(localSample$rObserved,localSample$ConcHat,localDaily$ConcDay)
-  }
+  # } else {
+  #   if(!("rObserved" %in% names(localSample))){
+  #     eList <- makeAugmentedSample(eList)
+  #     localSample <- eList$Sample
+  #   }
+  #   concV <- c(localSample$rObserved,localSample$ConcHat,localDaily$ConcDay)
+  # }
   
   yMax<-max(concV,na.rm=TRUE)
   yTicks<-yPretty(yMax)
