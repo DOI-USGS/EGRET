@@ -26,7 +26,6 @@
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
 #' @param prettyDate logical use 'pretty' limits for date axis if TRUE, or force the startYear/endYear as limits if FALSE
-#' @param rResid logical option to plot randomized residuals.
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords graphics water-quality statistics
 #' @export
@@ -40,7 +39,7 @@
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' plotConcTimeDaily(eList)
 plotConcTimeDaily<-function(eList, startYear=NA, endYear=NA, tinyPlot = FALSE, 
-                            concMax = NA, printTitle = TRUE,cex=0.8, cex.axis=1.1,rResid=FALSE,
+                            concMax = NA, printTitle = TRUE,cex=0.8, cex.axis=1.1,
                             cex.main=1.1, customPar=FALSE,col="black",lwd=1,prettyDate=TRUE,...){
 
   localINFO <- getInfo(eList)
@@ -79,43 +78,22 @@ plotConcTimeDaily<-function(eList, startYear=NA, endYear=NA, tinyPlot = FALSE,
   
   xInfo <- generalAxis(x=xSample, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot,padPercent=0,prettyDate=prettyDate)  
   
-  if(!rResid){
-    
-    yLow<-subSample$ConcLow
-    yHigh<-subSample$ConcHigh
-    
-    yCombined <- c(yHigh,subDaily$ConcDay)
-    yInfo <- generalAxis(x = yCombined, minVal = yBottom, maxVal = concMax, 
-                         tinyPlot = tinyPlot, padPercent = 5,units=localINFO$param.units)
-    
-    genericEGRETDotPlot(x=xSample, y=yHigh, xTicks=xInfo$ticks, yTicks=yInfo$ticks,
-                        xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                        ylab=yInfo$label,plotTitle=plotTitle,cex.axis=cex.axis,col=col,lwd=lwd,cex=cex,
-                        cex.main=cex.main, tinyPlot=tinyPlot,customPar=customPar, xDate=TRUE,...
-    )
+  yLow<-subSample$ConcLow
+  yHigh<-subSample$ConcHigh
   
-    censoredSegments(yInfo$bottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen,col=col,lwd=lwd)
-  } else {
-    if(!("rObserved" %in% names(localSample))){
-      eList <- makeAugmentedSample(eList)
-      localSample <- eList$Sample
-      subSample<-localSample[localSample$DecYear>=startYear & localSample$DecYear<= endYear,]
-    }
-    
-    yHigh <- subSample$rObserved
-    
-    yCombined <- c(yHigh,subDaily$ConcDay)
-    yInfo <- generalAxis(x = yCombined, minVal = yBottom, maxVal = concMax, 
-                         tinyPlot = tinyPlot, padPercent = 5,units=localINFO$param.units)
-    genericEGRETDotPlot(x=xSample[subSample$Uncen == 1], y=yHigh[subSample$Uncen == 1], xTicks=xInfo$ticks, yTicks=yInfo$ticks,
-                        xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                        ylab=yInfo$label,plotTitle=plotTitle,cex.axis=cex.axis,col=col,lwd=lwd,cex=cex,
-                        cex.main=cex.main, tinyPlot=tinyPlot,customPar=customPar, xDate=TRUE,...
-    )
-    points(x=xSample[Uncen == 0], y=yHigh[Uncen == 0], pch=1,cex=cex,col=col)
-    
-  }
+  yCombined <- c(yHigh,subDaily$ConcDay)
+  yInfo <- generalAxis(x = yCombined, minVal = yBottom, maxVal = concMax, 
+                       tinyPlot = tinyPlot, padPercent = 5,units=localINFO$param.units)
   
+  genericEGRETDotPlot(x=xSample, y=yHigh, xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+                      xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
+                      ylab=yInfo$label,plotTitle=plotTitle,cex.axis=cex.axis,col=col,lwd=lwd,cex=cex,
+                      cex.main=cex.main, tinyPlot=tinyPlot,customPar=customPar, xDate=TRUE,...
+  )
+
+  censoredSegments(yInfo$bottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen,col=col,lwd=lwd)
+
+
   lines(x=xDaily, y=subDaily$ConcDay, type="l",col=col,lwd=lwd)
   if (!tinyPlot) mtext(title2,side=3,line=-1.5)
 

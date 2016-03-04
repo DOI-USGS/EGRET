@@ -7,11 +7,6 @@
 #' @param eList named list with at least the Daily dataframe
 #' @keywords water-quality statistics
 #' @return eList named list with modified Daily data frame.
-#' @export
-#' @importFrom truncnorm rtruncnorm
-#' @examples
-#' eList <- Choptank_eList
-#' eList <- makeAugmentedSample(eList)
 makeAugmentedSample <- function(eList){
 
   if(all(c("SE","yHat") %in% names(eList$Sample))){
@@ -30,15 +25,3 @@ makeAugmentedSample <- function(eList){
   }
   return(eList)
 }
-
-# makeRandomResiduals <- function(eList){
-#   localSample <- eList$Sample
-#   numSamples<-length(localSample$Uncen)
-#   a <- ifelse(localSample$Uncen==0&!is.na(localSample$ConcLow),log(localSample$ConcLow)-localSample$yHat,-Inf)
-#   b <- ifelse(localSample$Uncen==1,+Inf,log(localSample$ConcHigh) - localSample$yHat)
-#   mean <- ifelse(localSample$Uncen==1,log(localSample$ConcHigh) - localSample$yHat,0)
-#   sd <- ifelse(localSample$Uncen==1,0,localSample$SE)
-#   localSample$rResid<-truncnorm::rtruncnorm(numSamples,a,b,mean,sd)
-#   eList	<- as.egret(eList$INFO, eList$Daily, localSample, eList$surfaces)
-#   return(eList)
-# }

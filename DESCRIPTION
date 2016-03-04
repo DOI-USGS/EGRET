@@ -22,8 +22,7 @@ Imports:
     utils,
     graphics,
     stats,
-    grDevices,
-    truncnorm
+    grDevices
 Suggests:
     xtable,
     knitr,

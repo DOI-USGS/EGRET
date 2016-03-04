@@ -17,10 +17,6 @@ This function is used to add two columns to the Sample data frame: rResid and rO
  rResid is the randomized residual value computed in log concentration units, and rObserved
  is the randomized 'observed' value of concentration in concentration units.
 }
-\examples{
-eList <- Choptank_eList
-eList <- makeAugmentedSample(eList)
-}
 \keyword{statistics}
 \keyword{water-quality}
 

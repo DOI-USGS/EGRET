@@ -6,7 +6,7 @@
 \usage{
 fluxBiasMulti(eList, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS",
   cex = 0.7, cex.axis = 1.1, cex.main = 1.1, col = "black", lwd = 1,
-  rResid = FALSE, ...)
+  ...)
 }
 \arguments{
 \item{eList}{named list with at least Sample, Daily, and INFO dataframes}
@@ -27,8 +27,6 @@ fluxBiasMulti(eList, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS",
 
 \item{lwd}{number line width}
 
-\item{rResid}{logical option to plot censored residuals as segments, or randomized points.}
-
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
 \description{
@@ -46,7 +44,6 @@ and an INFO dataframe with metadata
 \examples{
 eList <- Choptank_eList
 fluxBiasMulti(eList)
-fluxBiasMulti(eList, rResid=TRUE)
 # Water year:
 \dontrun{
 pdf("fluxBiasMulti.pdf", height=9, width=8)
