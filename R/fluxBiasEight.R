@@ -21,6 +21,7 @@
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
+#' @param rResid logical. Show censored residuals as randomized.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -39,7 +40,7 @@
 #' dev.off()
 #' }
 fluxBiasMulti<-function (eList, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS", 
-                         cex = 0.7, cex.axis = 1.1,cex.main=1.1,
+                         cex = 0.7, cex.axis = 1.1,cex.main=1.1,rResid=FALSE,
                          col="black", lwd=1,...){
   
   localINFO <- getInfo(eList)
@@ -71,16 +72,16 @@ fluxBiasMulti<-function (eList, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS",
   par(oma = c(0, 10, 4, 10),mfrow=c(4,2))
   plotResidPred(eList, 
                 stdResid = FALSE, tinyPlot=TRUE, printTitle = FALSE,cex=cex, 
-                cex.axis = cex.axis, col=col,lwd=lwd,...)
+                cex.axis = cex.axis, col=col,lwd=lwd,rResid=rResid,...)
   plotResidQ(eList, 
              qUnit, tinyPlot = TRUE, printTitle = FALSE,cex=cex, 
-             cex.axis = cex.axis, col=col,lwd=lwd,...)
+             cex.axis = cex.axis, col=col,lwd=lwd,rResid=rResid,...)
   plotResidTime(eList, 
                 printTitle = FALSE, tinyPlot=TRUE,cex=cex, 
-                cex.axis = cex.axis, col=col,lwd=lwd,...)
+                cex.axis = cex.axis, col=col,rResid=rResid,lwd=lwd,...)
   boxResidMonth(eList, 
                 printTitle = FALSE, tinyPlot=TRUE,cex=cex, 
-                cex.axis = cex.axis,lwd=lwd,...)
+                cex.axis = cex.axis,lwd=lwd,rResid=rResid,...)
   boxConcThree(eList, 
                localINFO = localINFO, printTitle=FALSE, tinyPlot=TRUE,cex=cex, 
                cex.axis = cex.axis, lwd=lwd,...)

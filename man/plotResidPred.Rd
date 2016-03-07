@@ -6,7 +6,8 @@
 \usage{
 plotResidPred(eList, stdResid = FALSE, tinyPlot = FALSE,
   printTitle = TRUE, col = "black", lwd = 1, cex = 0.8,
-  cex.axis = 1.1, cex.main = 1.1, customPar = FALSE, ...)
+  cex.axis = 1.1, cex.main = 1.1, customPar = FALSE, rResid = FALSE,
+  ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}
@@ -29,6 +30,8 @@ plotResidPred(eList, stdResid = FALSE, tinyPlot = FALSE,
 
 \item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
+
+\item{rResid}{logical. Show censored residuals as randomized.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
