@@ -7,6 +7,7 @@
 #' @param eList named list with at least the Daily dataframe
 #' @keywords water-quality statistics
 #' @importFrom truncnorm rtruncnorm
+#' @export
 #' @return eList named list with modified Daily data frame.
 makeAugmentedSample <- function(eList){
 

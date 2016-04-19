@@ -2,6 +2,7 @@
 % Please edit documentation in R/EGRET.R
 \docType{data}
 \name{Choptank_eList}
+\alias{Arkansas_eList}
 \alias{Choptank_eList}
 \title{Example eList}
 \description{
@@ -10,6 +11,7 @@ Data is a named list of the Daily, Sample, INFO dataframes, and the surface matr
 }
 \examples{
 head(Choptank_eList$Daily)
+head(Arkansas_eList$Daily)
 }
 \keyword{data}
 \keyword{quality}

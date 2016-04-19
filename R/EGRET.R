@@ -34,10 +34,17 @@ NULL
 #' Data is a named list of the Daily, Sample, INFO dataframes, and the surface matrix.
 #'
 #' @name Choptank_eList
+#' @rdname sampleData
 #' @docType data
 #' @keywords water quality data
 #' @examples 
 #' head(Choptank_eList$Daily)
+NULL
+
+#' @name Arkansas_eList
+#' @rdname sampleData
+#' @examples 
+#' head(Arkansas_eList$Daily)
 NULL
 
 #' Constants included with EGRET
