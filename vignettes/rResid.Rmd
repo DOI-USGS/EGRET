@@ -33,7 +33,7 @@ plotConcQ(eList,qUnit=4)
 
 It is difficult to see the relationship between ammonia concentration and discharge.  If we look at residuals from a fitted WRTDS model and discharge we also find it difficult to see if the pattern looks reasonable (a horizontal cloud of points centered on the zero residual line) or if there is some substantial curvature to the relationship.
 
-```{}
+```{r}
 plotResidQ(eList,qUnit=4)
 ```
 
@@ -86,9 +86,8 @@ eList <- makeAugmentedSample(eList)
       
 4. To produce any one of the following graphics, using the `rObserved` or `rResid` values simply add the argument `rResid = TRUE` to the call to the graphical function.  Note that it doesn't matter if what is being plotted is an observed value or a residual, the argument is always `rResid = TRUE`.  The original option of showing the vertical lines for censored values remains available as the default for any of these functions.  The call can either say `rResid = FALSE` or just not include `rResid` in the argument list and the graphs will appear without these random values and without the open circle/closed circle symbology.  The functions where this approach applies are these: `plotConcPred, plotConcQ, plotConcTime, plotConcTimeDaily, plotFluxPred, plotFluxQ, plotFluxTImeDaily, plotResidPred, plotResidQ, plotResidTime`.  It is also available in the two multiple plot functions: `multiPlotOverview`, and `fluxBiasMulti`.
 
-For example.
 
-```{r}
+```{r fig.height=8, fig.width=8}
 multiPlotDataOverview(eList, qUnit = 4, rResid = TRUE)
 ```
 

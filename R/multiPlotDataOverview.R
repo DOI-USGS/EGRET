@@ -26,37 +26,34 @@
 #' multiPlotDataOverview(eList, qUnit=1) 
 multiPlotDataOverview<-function (eList, qUnit = 2,cex.main=1.2,rResid=FALSE,
                                  logScaleConc=TRUE, logScaleQ=TRUE){
+    
+  localINFO <- getInfo(eList)
   
-  multiPlotDataOverview<-function (eList, qUnit = 2,cex.main=1.2,
-                                   logScaleConc=TRUE, logScaleQ=TRUE,rResid=FALSE){
-    
-    localINFO <- getInfo(eList)
-    
-    if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
-      paLong <- localINFO$paLong
-      paStart <- localINFO$paStart  
-    } else {
-      paLong <- 12
-      paStart <- 10
-    }
-    
-    title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
-    
-    par(mfcol=c(2,2),oma=c(0,2.4,4.5,2.4),tcl=0.5)
-    plotConcQ(eList, qUnit = qUnit, tinyPlot = TRUE, printTitle = FALSE,
-              rmSciX=TRUE,logScale=logScaleConc,rResid=rResid)
-    boxConcMonth(eList, printTitle = FALSE, tinyPlot=TRUE,logScale=logScaleConc)
-    plotConcTime(eList, printTitle = FALSE, tinyPlot = TRUE,logScale=logScaleConc,rResid=rResid)
-    boxQTwice(eList, printTitle = FALSE, qUnit = qUnit, tinyPlot=TRUE,logScale=logScaleQ)
-    title<-paste(localINFO$shortName,"\n",localINFO$paramShortName)
-    
-    if("" == title2){
-      mtext(title,cex=cex.main,outer=TRUE,font=2)
-    } else {
-      title <- paste(title, title2, sep="\n")
-      mtext(title, cex = cex.main*.75, outer = TRUE, font = 2)    
-    }
-    
-    par(mfcol=c(1,1),oma=c(0,0,0,0))
+  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart  
+  } else {
+    paLong <- 12
+    paStart <- 10
   }
+  
+  title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
+  
+  par(mfcol=c(2,2),oma=c(0,2.4,4.5,2.4),tcl=0.5)
+  plotConcQ(eList, qUnit = qUnit, tinyPlot = TRUE, printTitle = FALSE,
+            rmSciX=TRUE,logScale=logScaleConc,rResid=rResid)
+  boxConcMonth(eList, printTitle = FALSE, tinyPlot=TRUE,logScale=logScaleConc)
+  plotConcTime(eList, printTitle = FALSE, tinyPlot = TRUE,logScale=logScaleConc,rResid=rResid)
+  boxQTwice(eList, printTitle = FALSE, qUnit = qUnit, tinyPlot=TRUE,logScale=logScaleQ)
+  title<-paste(localINFO$shortName,"\n",localINFO$paramShortName)
+  
+  if("" == title2){
+    mtext(title,cex=cex.main,outer=TRUE,font=2)
+  } else {
+    title <- paste(title, title2, sep="\n")
+    mtext(title, cex = cex.main*.75, outer = TRUE, font = 2)    
+  }
+  
+  par(mfcol=c(1,1),oma=c(0,0,0,0))
+  
 }
