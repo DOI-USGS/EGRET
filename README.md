@@ -214,39 +214,6 @@ This is a sample workflow for a flowHistory application for the entire record.
 
 ```
 
-
-Version updates
----------------
-
-###EGRET 1.4.0
-* EGRET specific data retrieval functions moved from dataRetrieval to EGRET
-* eList - a named list of INFO, Daily, Sample, and surfaces is now used as the input to functions.
-
-###EGRET 1.3.0
-
-* July 31, 2014
-* Modified the smoothing algorithm in flowHistory and WRTDS to reduce "edge effects".  New smoother is the default, but original method is still available (see User Guide for details). The modified method tends to reduce curvature near the start and end of record.  It has no effect during the middle years of the data set.
-
-
-###EGRET 1.2.5 
-* March 14, 2014
-* Added period of analysis control to all graphs and tables (with exception of plotContours, plotDiffContours, plotConcQSmooth, and plotConcTimeSmooth).  This allows these outputs to be limited to specific months of the year as determined by the user.
-* Changed default color palette for contour plots
-* Updated vignette.
-* Added setupYears call within functions to generally eliminate the need for AnnualResults.
-* Updated calculateMonthlyResults to give month, year, and decimal year.
-* Continued to improve documentation.
-
-* Version 1.2.4 July 10, 2013
-
-* Version 1.2.3 February 21, 2013
-
-* Version 1.2.1 June 8, 2012
-
-* Version 1.1.3	April 26, 2012
-
-* Version 1.0.0	March 16, 2012
-
 Disclaimer
 ----------
 This software is in the public domain because it contains materials that originally came from the U.S. Geological Survey  (USGS), an agency of the United States Department of Interior. For more information, see the official USGS copyright policy at [http://www.usgs.gov/visual-id/credit_usgs.html#copyright](http://www.usgs.gov/visual-id/credit_usgs.html#copyright)

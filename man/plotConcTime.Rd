@@ -4,7 +4,7 @@
 \alias{plotConcTime}
 \title{Plot of Observed Concentration versus Time}
 \usage{
-plotConcTime(eList, qUnit = 2, qLower = NA, qUpper = NA,
+plotConcTime(eList, qUnit = 2, qLower = NA, qUpper = NA, rResid = FALSE,
   tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,
   logScale = FALSE, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
   customPar = FALSE, col = "black", lwd = 1, ...)
@@ -17,6 +17,8 @@ plotConcTime(eList, qUnit = 2, qLower = NA, qUpper = NA,
 \item{qLower}{numeric the lower bound on values of discharge used to select the data points to be plotted, units are those specified by qUnit, default = NA which is equivalent to a lower bound of zero but if the desired lower bound is zero use qLower = NA}
 
 \item{qUpper}{numeric the upper bound on values of discharge for selection of data points to be plotted, units are those specified by qUnit, default = NA which is equivalent to an upper bound of infinity}
+
+\item{rResid}{logical. Show censored values as randomized.}
 
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.}
 
