@@ -1,6 +1,6 @@
 ---
 title: "Using Random Residuals for Censored Data in EGRET"
-author: "Robert M. Hirsch"
+author: "Robert M. Hirsch and Laura A. De Cicco"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: 
   rmarkdown::html_vignette:
@@ -47,7 +47,7 @@ So, what we can say about some particular censored value is that the log of the 
 
 The solid circles are the uncensored observations and the open circles are these `rObserved` values.  One thing to note is that if these values were to be generated a second time the graph would look slightly different.  There is no unique set of values that will be plotted.  The random numbers used will be different if we go back to the same data set and generate them again.  Below we show such a figure and then redo the graphic with a second set of random numbers.  The code is shown with the graphics.
 
-```{r, eval=FALSE}
+```{r}
 eList <- makeAugmentedSample(eList)
 plotConcQ(eList, qUnit = 4, rResid = TRUE)
 # now do it all over again
@@ -88,7 +88,7 @@ eList <- makeAugmentedSample(eList)
 
 For example.
 
-```{r, eval=FALSE}
+```{r}
 multiPlotDataOverview(eList, qUnit = 4, rResid = TRUE)
 ```
 
