@@ -87,12 +87,12 @@ fluxBiasMulti<-function (eList, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS",
                cex.axis = cex.axis, lwd=lwd,...)
   plotConcPred(eList, printTitle=FALSE, 
                tinyPlot=TRUE,cex=cex, 
-               cex.axis = cex.axis, col=col,lwd=lwd,...)
+               cex.axis = cex.axis, col=col,lwd=lwd,rResid = rResid,...)
   boxQTwice(eList, printTitle = FALSE, qUnit = qUnit,tinyPlot=TRUE,cex=cex, 
             cex.axis = cex.axis, lwd=lwd,...)
   plotFluxPred(eList, 
                fluxUnit, tinyPlot = TRUE, printTitle = FALSE,cex=cex, 
-               cex.axis = cex.axis, col=col,lwd=lwd,...)
+               cex.axis = cex.axis, col=col,lwd=lwd,rResid=rResid,...)
   fluxBias <- fluxBiasStat(localSample)
   fB <- as.numeric(fluxBias[3])
   fB <- format(fB, digits = 3)

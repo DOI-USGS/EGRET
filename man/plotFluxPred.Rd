@@ -7,7 +7,7 @@
 plotFluxPred(eList, fluxUnit = 3, fluxMax = NA, printTitle = TRUE,
   oneToOneLine = TRUE, customPar = FALSE, col = "black", lwd = 1,
   cex = 0.8, cex.axis = 1.1, cex.main = 1.1, tinyPlot = FALSE,
-  logScale = FALSE, ...)
+  logScale = FALSE, rResid = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}
@@ -36,6 +36,8 @@ plotFluxPred(eList, fluxUnit = 3, fluxMax = NA, printTitle = TRUE,
 \item{tinyPlot}{logical variable if TRUE plot is designed to be small, if FALSE it is designed for page size, default is FALSE (not fully implemented yet)}
 
 \item{logScale}{logical if TRUE x and y plotted in log axis}
+
+\item{rResid}{logical. Show censored values as randomized.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
