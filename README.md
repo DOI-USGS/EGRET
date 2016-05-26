@@ -2,8 +2,14 @@
 =============
 
 Exploration and Graphics for RivEr Trends (`EGRET`): 
-An R-package for the analysis of long-term changes in water quality and streamflow, 
-including the water-quality method Weighted Regressions on Time, Discharge, and Season (WRTDS)
+An R-package for the analysis of long-term changes in water quality and streamflow, including the water-quality method Weighted Regressions on Time, Discharge, and Season (WRTDS).
+
+Please visit the wiki for more information:
+[EGRET Wiki](https://github.com/USGS-R/EGRET/wiki)
+
+The link for the official USGS publication user guide is here:
+
+[http://pubs.usgs.gov/tm/04/a10/](http://pubs.usgs.gov/tm/04/a10/)
 
 ### Current build tests:
 
@@ -20,53 +26,47 @@ including the water-quality method Weighted Regressions on Time, Discharge, and 
 ### Research software impact:
 [![Research software impact](http://depsy.org/api/package/cran/EGRET/badge.svg)](http://depsy.org/package/r/EGRET)
 
-## Background:
+## Package Installation
+To install the EGRET package, you must be using R 3.0 or greater and run the following command:
 
-Evaluating long-term changes in river conditions (water quality and discharge) is an important use of hydrologic data. To carry out such evaluations, the hydrologist needs tools to facilitate several key steps in the process: acquiring the data records from a variety of sources, structuring it in ways that facilitate the analysis, routines that will process the data to extract information about changes that may be happening, and graphical techniques that can display findings about change. The R package `EGRET` (Exploration and Graphics for RivEr Trends) was developed for carrying out each of these steps in an integrated manner. It is designed to accept easily data from three sources: U.S. Geological Survey hydrologic data, Water Quality Portal Data (currently including U.S. Environmental Protection Agency (EPA) STORET data, and USDA STEWARDS data), and user-supplied flat files. The `EGRET` package has components oriented towards the description of long-term changes in streamflow statistics (high flow, average flow, and low flow) as well as changes in water quality. For the water-quality analysis, it uses Weighted Regressions on Time, Discharge and Season (WRTDS) to describe long-term trends in both concentration and flux. `EGRET` also creates a wide range of graphical presentations of the water-quality data and of the WRTDS results. The following report serves as a user guide, providing detailed guidance on installation and use of the software, documentation of the analysis methods used, as well as guidance on some of the kinds of questions and approaches that the software can facilitate.
+```R
+install.packages("EGRET")
+```
 
-The link for the official USGS publication user guide is here:
+To get inter-CRAN release updates, use the command:
+```r
+install.packages("EGRET",repos="http://owi.usgs.gov/R")
+```
 
-[http://pubs.usgs.gov/tm/04/a10/](http://pubs.usgs.gov/tm/04/a10/)
+To get cutting-edge changes, install from GitHub using the `devtools` packages:
 
-Note: As of February 5, 2015 a new version of the user guide has been posted at the URL given above.  If you were using previous versions of EGRET you should take a look [here](https://github.com/USGS-R/EGRET/wiki/Note-to-users-of-earlier-versions-of-EGRET) to see a list of the major changes in the workflow and some function names.
+```r
+library(devtools)
+install_github("USGS-R/EGRET")
+```
 
-Please visit the wiki for more information:
-[EGRET Wiki](https://github.com/USGS-R/EGRET/wiki)
-
-An recent presentation on an overview of `EGRET` can be found here:
-[EGRET and dataRetrieval 2014-11-20.pdf](https://github.com/USGS-R/EGRET/blob/gh-pages/images/dataRetrieval%20&%20EGRET%202014-11-20.pdf?raw=true)
-
-
-
-
-
-Reporting bugs
----------------
+### Reporting bugs
 
 Please consider reporting any bugs or asking general questions to the Issues page:
 
 [https://github.com/USGS-R/EGRET/issues](https://github.com/USGS-R/EGRET/issues)
 
+Follow `@USGS-R` on Twitter for updates on all USGS R packages:
+[https://twitter.com/USGS_R](https://twitter.com/USGS_R)
 
-Subscribe
----------
+### Subscribe
+
 Please email questions, comments, and feedback to: 
 egret_comments@usgs.gov
 
 Additionally, to subscribe to an email list concerning updates to these R packages, please send a request to egret_comments@usgs.gov.
 
-Package Installation
----------------------------------
-
-To install the `EGRET` package you need to be using R 3.0 or greater. Then use the following command:
-
-```R
-	install.packages(c("EGRET"))
-```
 
 
-Background Information
-----------------------
+## Background:
+
+Evaluating long-term changes in river conditions (water quality and discharge) is an important use of hydrologic data. To carry out such evaluations, the hydrologist needs tools to facilitate several key steps in the process: acquiring the data records from a variety of sources, structuring it in ways that facilitate the analysis, routines that will process the data to extract information about changes that may be happening, and graphical techniques that can display findings about change. The R package `EGRET` (Exploration and Graphics for RivEr Trends) was developed for carrying out each of these steps in an integrated manner. It is designed to accept easily data from three sources: U.S. Geological Survey hydrologic data, Water Quality Portal Data (currently including U.S. Environmental Protection Agency (EPA) STORET data, and USDA STEWARDS data), and user-supplied flat files. The `EGRET` package has components oriented towards the description of long-term changes in streamflow statistics (high flow, average flow, and low flow) as well as changes in water quality. For the water-quality analysis, it uses Weighted Regressions on Time, Discharge and Season (WRTDS) to describe long-term trends in both concentration and flux. `EGRET` also creates a wide range of graphical presentations of the water-quality data and of the WRTDS results. The following report serves as a user guide, providing detailed guidance on installation and use of the software, documentation of the analysis methods used, as well as guidance on some of the kinds of questions and approaches that the software can facilitate.
+
 `EGRET` includes statistics and graphics for streamflow history, water quality trends, and the statistical modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS).  Please see the official EGRET User Guide for more information on the `EGRET` package:
 
 [http://dx.doi.org/10.3133/tm4A10](http://dx.doi.org/10.3133/tm4A10) 
@@ -80,16 +80,13 @@ The second is an application to nitrate data for 8 monitoring sites on the Missi
 [http://pubs.acs.org/doi/abs/10.1021/es201221s](http://pubs.acs.org/doi/abs/10.1021/es201221s)
 
 
-Note to users of earlier versions of `EGRET`. 
-----------------------
+## Note to users of earlier versions of `EGRET` 
 
-Please see the following link for information on converting deprecated workflow:
-
+Note: As of February 5, 2015 a new version of the user guide has been posted at the URL given above.  If you were using previous versions of EGRET you should take a look [here](https://github.com/USGS-R/EGRET/wiki/Note-to-users-of-earlier-versions-of-EGRET) to see a list of the major changes in the workflow and some function names.
 
 [link](https://github.com/USGS-R/EGRET/wiki/Note-to-users-of-earlier-versions-of-EGRET)
 
-Sample Workflow
----------------
+## Sample Workflow
 
 Load data from web services:
 ```R
