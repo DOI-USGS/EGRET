@@ -66,6 +66,7 @@ plotConcTime(eList)
 eList <- setPA(eList, paStart=6,paLong=3)
 plotConcTime(eList, qUnit = 1, qLower = 100, qUpper = 10000)
 plotConcTime(eList, logScale=TRUE)
+plotConcTime(eList, qUnit = 1, qLower = 100, qUpper = 10000, rResid = TRUE)
 }
 \seealso{
 \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}
