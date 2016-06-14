@@ -4,11 +4,11 @@
 #'  rResid is the randomized residual value computed in log concentration units, and rObserved
 #'  is the randomized 'observed' value of concentration in concentration units.
 #'
-#' @param eList named list with at least the Daily dataframe
+#' @param eList named list with at least the Sample dataframe
 #' @keywords water-quality statistics
 #' @importFrom truncnorm rtruncnorm
 #' @export
-#' @return eList named list with modified Daily data frame.
+#' @return eList named list with modified Sample data frame.
 makeAugmentedSample <- function(eList){
 
   if(all(c("SE","yHat") %in% names(eList$Sample))){
