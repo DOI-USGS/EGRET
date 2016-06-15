@@ -23,7 +23,10 @@ Imports:
     graphics,
     stats,
     grDevices,
-    truncnorm
+    truncnorm,
+    dplyr,
+    ggplot2,
+    tidyr
 Suggests:
     xtable,
     knitr,
