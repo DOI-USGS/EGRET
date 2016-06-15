@@ -29,7 +29,7 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width.
-#' @param rResid logical option to plot randomized residuals.
+#' @param rResid logical. Show censored values as randomized.
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters.
 #' @keywords graphics water-quality statistics
 #' @export
@@ -42,6 +42,7 @@
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' plotConcTime(eList, qUnit = 1, qLower = 100, qUpper = 10000)
 #' plotConcTime(eList, logScale=TRUE)
+#' plotConcTime(eList, qUnit = 1, qLower = 100, qUpper = 10000, rResid = TRUE)
 plotConcTime<-function(eList, qUnit = 2, 
                        qLower = NA, qUpper = NA, rResid=FALSE,
                        tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale=FALSE, 
@@ -90,15 +91,9 @@ plotConcTime<-function(eList, qUnit = 2,
   qText[3]<-paste("For Discharge <",qUpper,qUnit@qUnitName)
   qText[4]<-paste("For Discharge between",qLower,"and",qUpper,qUnit@qUnitName)
   title3<-qText[codeSum]
-  subSample<-subSample[subSample$Q>qLowerBound & subSample$Q<qUpperBound,]
 
-  subSample <- if(paLong == 12) subSample else selectDays(subSample, paLong,paStart)
-  
   # the next section of code sets up the seasonal part of the plot title
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
-
-  Uncen<-subSample$Uncen
-  x<-subSample$DecYear
   
   #########################################################
   if (logScale){
@@ -109,12 +104,18 @@ plotConcTime<-function(eList, qUnit = 2,
     logVariable <- ""
   }  
   #########################################################
-
+  
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n",title3,sep="") else ""
   
-  xInfo <- generalAxis(x=x, minVal=min(x), maxVal=max(x), tinyPlot=tinyPlot)  
   
   if(!rResid){
+    subSample<-subSample[subSample$Q>qLowerBound & subSample$Q<qUpperBound,]
+    subSample <- if(paLong == 12) subSample else selectDays(subSample, paLong,paStart)
+    Uncen<-subSample$Uncen
+    x<-subSample$DecYear
+    
+    xInfo <- generalAxis(x=x, minVal=min(x), maxVal=max(x), tinyPlot=tinyPlot)  
+    
     yLow<-subSample$ConcLow
     yHigh<-subSample$ConcHigh
     
@@ -135,13 +136,20 @@ plotConcTime<-function(eList, qUnit = 2,
       localSample <- eList$Sample
     }
     
-    subSample<-localSample[localSample$Q>qLowerBound & localSample$Q<qUpperBound,]
+    subSample<-localSample
+    subSample$Q<-subSample$Q*qFactor
     
+    subSample<-subSample[subSample$Q>qLowerBound & subSample$Q<qUpperBound,]
     subSample <- if(paLong == 12) subSample else selectDays(subSample, paLong,paStart)
+    
+    Uncen<-subSample$Uncen
+    x<-subSample$DecYear
+    
+    xInfo <- generalAxis(x=x, minVal=min(x), maxVal=max(x), tinyPlot=tinyPlot)
     yHigh <- subSample$rObserved
-    Uncen <- subSample$Uncen
     yInfo <- generalAxis(x=yHigh, minVal=minYLow, maxVal=concMax, logScale=logScale, 
                          tinyPlot=tinyPlot,units=attr(eList, "param.units"))
+    
     genericEGRETDotPlot(x=x[Uncen == 1], y=yHigh[Uncen == 1], 
                         xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                         xlab="", ylab=yInfo$label,

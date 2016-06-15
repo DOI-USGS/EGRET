@@ -26,7 +26,7 @@ plotConcTimeDaily(eList, startYear = NA, endYear = NA, tinyPlot = FALSE,
 
 \item{cex.axis}{magnification to be used for axis annotation relative to the current setting of cex}
 
-\item{rResid}{logical option to plot randomized residuals.}
+\item{rResid}{logical. Show censored values as randomized.}
 
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
 

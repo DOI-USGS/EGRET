@@ -29,7 +29,7 @@ boxResidMonth(eList, stdResid = FALSE, las = 1, printTitle = TRUE,
 
 \item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function}
 
-\item{rResid}{logical option to plot randomized residuals.}
+\item{rResid}{logical. Show censored residuals as randomized.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }

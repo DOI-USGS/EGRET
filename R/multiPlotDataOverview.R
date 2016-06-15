@@ -13,7 +13,7 @@
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param logScaleConc logical if TRUE y in concentration graphs plotted in log axis. Default is TRUE.
 #' @param logScaleQ logical if TRUE y in streamflow graphs plotted in log axis. Default is TRUE.
-#' @param rResid logical option to plot randomized residuals.
+#' @param rResid logical. Show censored values as randomized.
 #' @keywords graphics water-quality statistics
 #' @seealso \code{\link{plotConcQ}}, \code{\link{boxConcMonth}}, \code{\link{plotConcTime}}, \code{\link{boxQTwice}}
 #' @export
@@ -24,9 +24,9 @@
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' multiPlotDataOverview(eList, qUnit=1) 
-multiPlotDataOverview<-function (eList, qUnit = 2,cex.main=1.2,
-                                 logScaleConc=TRUE, logScaleQ=TRUE,rResid=FALSE){
-  
+multiPlotDataOverview<-function (eList, qUnit = 2,cex.main=1.2,rResid=FALSE,
+                                 logScaleConc=TRUE, logScaleQ=TRUE){
+    
   localINFO <- getInfo(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
@@ -35,11 +35,6 @@ multiPlotDataOverview<-function (eList, qUnit = 2,cex.main=1.2,
   } else {
     paLong <- 12
     paStart <- 10
-  }
-  
-  if(rResid & !all((c("SE","yHat") %in% names(eList$Sample)))){
-    message("Pseudo only supported after running modelEstimation, defaulting to rResid=FALSE")
-    rResid <- FALSE
   }
   
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
@@ -59,7 +54,6 @@ multiPlotDataOverview<-function (eList, qUnit = 2,cex.main=1.2,
     mtext(title, cex = cex.main*.75, outer = TRUE, font = 2)    
   }
   
-  
-  
   par(mfcol=c(1,1),oma=c(0,0,0,0))
+  
 }

@@ -7,19 +7,15 @@
 makeAugmentedSample(eList)
 }
 \arguments{
-\item{eList}{named list with at least the Daily dataframe}
+\item{eList}{named list with at least the Sample dataframe}
 }
 \value{
-eList named list with modified Daily data frame.
+eList named list with modified Sample data frame.
 }
 \description{
 This function is used to add two columns to the Sample data frame: rResid and rObserved.
  rResid is the randomized residual value computed in log concentration units, and rObserved
  is the randomized 'observed' value of concentration in concentration units.
-}
-\examples{
-eList <- Choptank_eList
-eList <- makeAugmentedSample(eList)
 }
 \keyword{statistics}
 \keyword{water-quality}

@@ -31,7 +31,7 @@ plotResidPred(eList, stdResid = FALSE, tinyPlot = FALSE,
 \item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
-\item{rResid}{logical option to plot censored residuals as segments, or randomized points.}
+\item{rResid}{logical. Show censored residuals as randomized.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
@@ -50,7 +50,6 @@ and an INFO dataframe with metadata.
 eList <- Choptank_eList
 # Water year:
 plotResidPred(eList)
-plotResidPred(eList, rResid=TRUE)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
 plotResidPred(eList)

@@ -35,7 +35,7 @@ plotResidQ(eList, qUnit = 2, tinyPlot = FALSE, stdResid = FALSE,
 \item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
-\item{rResid}{logical option to plot censored residuals as segments, or randomized points.}
+\item{rResid}{logical. Show censored residuals as randomized.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }

@@ -37,7 +37,7 @@ plotFluxPred(eList, fluxUnit = 3, fluxMax = NA, printTitle = TRUE,
 
 \item{logScale}{logical if TRUE x and y plotted in log axis}
 
-\item{rResid}{logical option to plot randomized residuals.}
+\item{rResid}{logical. Show censored values as randomized.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
@@ -53,7 +53,6 @@ eList <- Choptank_eList
 plotFluxPred(eList)
 plotFluxPred(eList, fluxUnit = 'poundsDay')
 plotFluxPred(eList, logScale=TRUE)
-plotFluxPred(eList, logScale=TRUE, rResid=TRUE)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
 plotFluxPred(eList)

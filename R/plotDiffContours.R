@@ -13,8 +13,8 @@
 #' @param eList named list with at least the Daily and INFO dataframes, and surfaces matrix
 #' @param year0 numeric value for the calendar year that is the first year of the pair of years for the analysis, should be a whole number
 #' @param year1 numeric value for the calendar year that is the second year of the pair of years for the analysis, should be a whole number
-#' @param qBottom numeric value for the bottom edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit). NA will choose a "pretty" lower limit nearest to the 5\% of discharge 
-#' @param qTop numeric value for the top edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit). NA will choose a "pretty" upper limit nearest to the 95\% of discharge 
+#' @param qBottom numeric value for the bottom edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit). NA will choose a "pretty" lower limit nearest to the 5\% of discharge. If yTicks are specified, then the first value of yTicks becomes the lowest discharge shown on the figure.
+#' @param qTop numeric value for the top edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit). NA will choose a "pretty" upper limit nearest to the 95\% of discharge. If yTicks are specified, then the last value of yTicks becomes the highest discharge shown on the figure.
 #' @param maxDiff numeric value which is the absolute value of the largest change in concentration that will be shown on the figure. Alternatively, 
 #' a vector with the minimum and maximum values in the change in concentration scale. If NA, the scale will be set from 5\% to 95\% of the concentration difference.
 #' @param whatSurface numeric value, can only accept 1, 2, or 3;  whatSurface=1 is yHat (log concentration), whatSurface=2 is SE (standard error of log concentration), and whatSurface=3 is ConcHat (unbiased estimate of concentration), default = 3
@@ -27,7 +27,7 @@
 #' @param vert2 numeric, the location in time for a black vertical line on the figure, yearStart < vert2 < yearEnd, default is NA (vertical line is not drawn)
 #' @param horiz numeric, the location in discharge for a black horizontal line on the figure, qBottom<vert1<qTop, default is NA (no horizontal line is drawn)
 #' @param flowDuration logical variable if TRUE plot the flow duration lines (5 and 95 flow percentiles), if FALSE do not plot them, default = TRUE
-#' @param yTicks vector of yTick labels and marks that will be plotted in log space. If NA, will be automatically generated. 
+#' @param yTicks vector of yTick labels and marks that will be plotted in log space. (for example yTicks = c(3, 5, 10, 20, 50, 100, 200, 400). The first and last values determine the range of the y axis. If NA, the tick marks will be automatically generated.
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param lwd numeric, line width of flowDuration curve, default is 1

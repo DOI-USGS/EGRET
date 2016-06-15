@@ -22,7 +22,7 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
-#' @param rResid logical option to plot censored residuals as segments, or randomized points.
+#' @param rResid logical. Show censored residuals as randomized.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords water-quality statistics graphics
 #' @export
@@ -31,7 +31,6 @@
 #' eList <- Choptank_eList
 #' # Water year:
 #' plotResidPred(eList)
-#' plotResidPred(eList, rResid=TRUE)
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' plotResidPred(eList)
@@ -103,16 +102,16 @@ plotResidPred<-function(eList, stdResid = FALSE,
       eList <- makeAugmentedSample(eList)
       localSample <- eList$Sample
     }
-    
+
     yHigh <- localSample$rResid
     Uncen <- localSample$Uncen
-    
+
     if(stdResid){
       yHigh <- yHigh/localSample$SE
     }
-    
+
     yInfo <- generalAxis(x=yHigh, minVal=NA, maxVal=NA, tinyPlot=tinyPlot)
-    
+
     genericEGRETDotPlot(x=log(x[Uncen == 1]), y=yHigh[Uncen == 1],
                         xTicks=xInfo$ticks, yTicks=yInfo$ticks,col=col,
                         xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
@@ -120,7 +119,7 @@ plotResidPred<-function(eList, stdResid = FALSE,
                         hLine=TRUE,cex.axis=cex.axis,cex.main=cex.main, tinyPlot=tinyPlot,...
     )
     points(x=log(x[Uncen == 0]), y=yHigh[Uncen == 0], pch=1,cex=cex,col=col)
-    
+
   }
   
   if (!tinyPlot) mtext(title2,side=3,line=-1.5)

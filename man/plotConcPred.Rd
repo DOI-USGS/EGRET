@@ -32,7 +32,7 @@ plotConcPred(eList, concMax = NA, logScale = FALSE, printTitle = TRUE,
 
 \item{lwd}{number line width}
 
-\item{rResid}{logical option to plot randomized residuals.}
+\item{rResid}{logical. Show censored values as randomized.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
@@ -47,7 +47,6 @@ eList <- Choptank_eList
 # Water year:
 plotConcPred(eList)
 plotConcPred(eList, logScale=TRUE)
-plotConcPred(eList, logScale=TRUE, rResid=TRUE)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
 plotConcPred(eList)

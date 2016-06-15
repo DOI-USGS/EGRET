@@ -5,8 +5,8 @@
 \title{Produces 8-panel plot that is useful for determining if there is a flux bias problem}
 \usage{
 fluxBiasMulti(eList, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS",
-  cex = 0.7, cex.axis = 1.1, cex.main = 1.1, col = "black", lwd = 1,
-  rResid = FALSE, ...)
+  cex = 0.7, cex.axis = 1.1, cex.main = 1.1, rResid = FALSE,
+  col = "black", lwd = 1, ...)
 }
 \arguments{
 \item{eList}{named list with at least Sample, Daily, and INFO dataframes}
@@ -23,11 +23,11 @@ fluxBiasMulti(eList, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS",
 
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
 
+\item{rResid}{logical. Show censored residuals as randomized.}
+
 \item{col}{color of points on plot, see ?par 'Color Specification'}
 
 \item{lwd}{number line width}
-
-\item{rResid}{logical option to plot censored residuals as segments, or randomized points.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
@@ -46,7 +46,6 @@ and an INFO dataframe with metadata
 \examples{
 eList <- Choptank_eList
 fluxBiasMulti(eList)
-fluxBiasMulti(eList, rResid=TRUE)
 # Water year:
 \dontrun{
 pdf("fluxBiasMulti.pdf", height=9, width=8)

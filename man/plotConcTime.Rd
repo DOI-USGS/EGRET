@@ -18,7 +18,7 @@ plotConcTime(eList, qUnit = 2, qLower = NA, qUpper = NA, rResid = FALSE,
 
 \item{qUpper}{numeric the upper bound on values of discharge for selection of data points to be plotted, units are those specified by qUnit, default = NA which is equivalent to an upper bound of infinity}
 
-\item{rResid}{logical option to plot randomized residuals.}
+\item{rResid}{logical. Show censored values as randomized.}
 
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.}
 
@@ -66,6 +66,7 @@ plotConcTime(eList)
 eList <- setPA(eList, paStart=6,paLong=3)
 plotConcTime(eList, qUnit = 1, qLower = 100, qUpper = 10000)
 plotConcTime(eList, logScale=TRUE)
+plotConcTime(eList, qUnit = 1, qLower = 100, qUpper = 10000, rResid = TRUE)
 }
 \seealso{
 \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}
