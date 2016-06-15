@@ -17,7 +17,7 @@
 #' @param use_bw logical indicating if the \code{\link[ggplot2]{theme_bw}} theme is used 
 #' @param fac_nms optional chr string for facet labels, which must be equal in length to \code{month}
 #' 
-#' @details These plots can be used to examine how the relationship between the response variable and flow varies throughout the time series.  Line plots are returned that show the relationship of the response variable with flow using different lines for each year. The interpolation grid that is stored as an attribute in a fitted tidal object is used to create the plot.  Each plot is limited to the same month throughout the time series to limit seasonal variation.  Plots are also constrained to the fifth and ninety-fifth percentile of observed flow values during the month of interest to limit the predictions within the data domain. This behavior can be suppressed by changing the \code{allflo} argument. 
+#' @details These plots can be used to examine how the relationship between the response variable and flow varies throughout the time series.  Line plots are returned that show the relationship of the response variable with flow using different lines for each year. The interpolation grid from WRTDS is used to create the plot.  Each plot is limited to the same month throughout the time series to limit seasonal variation.  Plots are also constrained to the fifth and ninety-fifth percentile of observed flow values during the month of interest to limit the predictions within the data domain. This behavior can be suppressed by changing the \code{allflo} argument. 
 #' 
 #' Note that the year variable used for color mapping is treated as a continuous variable although it is an integer by definition.
 #' 
