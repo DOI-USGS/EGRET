@@ -45,11 +45,6 @@ boxConcThree<-function (eList, tinyPlot=FALSE,
     paStart <- 10
   } 
   
-  # if(rResid & !all((c("SE","yHat") %in% names(eList$Sample)))){
-  #   message("Pseudo only supported after running modelEstimation, defaulting to rResid=FALSE")
-  #   rResid <- FALSE
-  # }
-  
   localSample <- if(paLong == 12) localSample else selectDays(localSample,paLong,paStart)
   localDaily <- if(paLong == 12) localDaily else selectDays(localDaily, paLong,paStart)
   

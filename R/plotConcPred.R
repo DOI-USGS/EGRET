@@ -18,7 +18,7 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
-#' @param rResid logical. Show censored values as randomized.
+#' @param randomCensored logical. Show censored values as randomized.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @seealso \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}
@@ -33,7 +33,7 @@
 #' plotConcPred(eList)
 plotConcPred<-function(eList, concMax = NA, logScale=FALSE,
                        printTitle = TRUE,tinyPlot=FALSE,cex=0.8, cex.axis=1.1,
-                       cex.main=1.1, customPar=FALSE,col="black",lwd=1, rResid = FALSE,...){
+                       cex.main=1.1, customPar=FALSE,col="black",lwd=1, randomCensored = FALSE,...){
 
   localINFO <- getInfo(eList)
   localSample <- getSample(eList) 
@@ -80,7 +80,7 @@ plotConcPred<-function(eList, concMax = NA, logScale=FALSE,
 
   xInfo <- generalAxis(x=x, minVal=minXLow, maxVal=concMax, tinyPlot=tinyPlot,logScale=logScale)  
 
-  if(rResid){
+  if(randomCensored){
     if(!("rObserved" %in% names(localSample))){
       eList <- makeAugmentedSample(eList)
       localSample <- eList$Sample

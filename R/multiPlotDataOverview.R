@@ -13,7 +13,7 @@
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param logScaleConc logical if TRUE y in concentration graphs plotted in log axis. Default is TRUE.
 #' @param logScaleQ logical if TRUE y in streamflow graphs plotted in log axis. Default is TRUE.
-#' @param rResid logical. Show censored values as randomized.
+#' @param randomCensored logical. Show censored values as randomized.
 #' @keywords graphics water-quality statistics
 #' @seealso \code{\link{plotConcQ}}, \code{\link{boxConcMonth}}, \code{\link{plotConcTime}}, \code{\link{boxQTwice}}
 #' @export
@@ -24,7 +24,7 @@
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' multiPlotDataOverview(eList, qUnit=1) 
-multiPlotDataOverview<-function (eList, qUnit = 2,cex.main=1.2,rResid=FALSE,
+multiPlotDataOverview<-function (eList, qUnit = 2,cex.main=1.2,randomCensored=FALSE,
                                  logScaleConc=TRUE, logScaleQ=TRUE){
     
   localINFO <- getInfo(eList)
@@ -41,9 +41,9 @@ multiPlotDataOverview<-function (eList, qUnit = 2,cex.main=1.2,rResid=FALSE,
   
   par(mfcol=c(2,2),oma=c(0,2.4,4.5,2.4),tcl=0.5)
   plotConcQ(eList, qUnit = qUnit, tinyPlot = TRUE, printTitle = FALSE,
-            rmSciX=TRUE,logScale=logScaleConc,rResid=rResid)
+            rmSciX=TRUE,logScale=logScaleConc,randomCensored=randomCensored)
   boxConcMonth(eList, printTitle = FALSE, tinyPlot=TRUE,logScale=logScaleConc)
-  plotConcTime(eList, printTitle = FALSE, tinyPlot = TRUE,logScale=logScaleConc,rResid=rResid)
+  plotConcTime(eList, printTitle = FALSE, tinyPlot = TRUE,logScale=logScaleConc,randomCensored=randomCensored)
   boxQTwice(eList, printTitle = FALSE, qUnit = qUnit, tinyPlot=TRUE,logScale=logScaleQ)
   title<-paste(localINFO$shortName,"\n",localINFO$paramShortName)
   

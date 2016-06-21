@@ -6,7 +6,8 @@
 \usage{
 plotConcPred(eList, concMax = NA, logScale = FALSE, printTitle = TRUE,
   tinyPlot = FALSE, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
-  customPar = FALSE, col = "black", lwd = 1, rResid = FALSE, ...)
+  customPar = FALSE, col = "black", lwd = 1, randomCensored = FALSE,
+  ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}
@@ -32,7 +33,7 @@ plotConcPred(eList, concMax = NA, logScale = FALSE, printTitle = TRUE,
 
 \item{lwd}{number line width}
 
-\item{rResid}{logical. Show censored values as randomized.}
+\item{randomCensored}{logical. Show censored values as randomized.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }

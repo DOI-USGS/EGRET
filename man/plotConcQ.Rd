@@ -5,7 +5,7 @@
 \title{Plot of Observed Concentration versus Discharge}
 \usage{
 plotConcQ(eList, qUnit = 2, tinyPlot = FALSE, logScale = FALSE,
-  rResid = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,
+  randomCensored = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,
   cex = 0.8, cex.axis = 1.1, cex.main = 1.1, rmSciX = FALSE,
   rmSciY = FALSE, customPar = FALSE, col = "black", lwd = 1, ...)
 }
@@ -18,7 +18,7 @@ plotConcQ(eList, qUnit = 2, tinyPlot = FALSE, logScale = FALSE,
 
 \item{logScale}{logical if TRUE x and y plotted in log axis}
 
-\item{rResid}{logical. Show censored values as randomized.}
+\item{randomCensored}{logical. Show censored values as randomized.}
 
 \item{concMax}{number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)}
 
