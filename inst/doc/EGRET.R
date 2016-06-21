@@ -316,7 +316,7 @@ eList <- setPA(eList)
 plotFlowSingle(eList, istat=5,qUnit="thousandCfs")
 plotSDLogQ(eList)
 
-## ----Merced, echo=TRUE,eval=FALSE-------------------------------------------------
+## ----Merced, echo=TRUE,eval=FALSE-------------------------
 #  # Merced River at Happy Isles Bridge, CA:
 #  siteNumber<-"11264500"
 #  Daily <-readNWISDaily(siteNumber,"00060",startDate="",endDate="")
@@ -324,7 +324,7 @@ plotSDLogQ(eList)
 #  INFO$shortName <- "Merced River at Happy Isles Bridge, CA"
 #  eListMerced <- as.egret(INFO, Daily, NA, NA)
 
-## ----Merceddata, echo=FALSE,eval=TRUE---------------------------------------------
+## ----Merceddata, echo=FALSE,eval=TRUE---------------------
 filePath <- system.file("extdata", package="EGRET")
 fileName <- "eListMerced.RData"
 
@@ -345,7 +345,7 @@ plotFour(eListMerced, qUnit=3)
 ## ----plotFourStats,echo=TRUE, fig.cap="\\texttt{plotFourStats(eListMerced, qUnit=3)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h",cache=TRUE----
 plotFourStats(eListMerced, qUnit=3)
 
-## ----MississippiData, echo=TRUE,eval=FALSE----------------------------------------
+## ----MississippiData, echo=TRUE,eval=FALSE----------------
 #  #Mississippi River at Keokuk Iowa:
 #  siteNumber<-"05474500"
 #  Daily <-readNWISDaily(siteNumber,"00060",startDate="",endDate="")
@@ -353,7 +353,7 @@ plotFourStats(eListMerced, qUnit=3)
 #  INFO$shortName <- "Mississippi River at Keokuk Iowa"
 #  eListMiss <- as.egret(INFO, Daily, NA, NA)
 
-## ----MissDataRetrieval, echo=FALSE, eval=TRUE-------------------------------------
+## ----MissDataRetrieval, echo=FALSE, eval=TRUE-------------
 filePath <- system.file("extdata", package="EGRET")
 fileName <- "eListMiss.RData"
 
@@ -365,13 +365,13 @@ load(paste(filePath,fileName,sep="/"))
 plotQTimeDaily(eListMiss, qUnit=3,qLower=300)
 
 
-## ----printSeries, eval=FALSE,echo=TRUE--------------------------------------------
+## ----printSeries, eval=FALSE,echo=TRUE--------------------
 #  seriesResult <- printSeries(eListMiss, istat=3, qUnit=3)
 
-## ----tfc, eval=TRUE,echo=TRUE-----------------------------------------------------
+## ----tfc, eval=TRUE,echo=TRUE-----------------------------
 tableFlowChange(eListMiss, istat=3, qUnit=3,yearPoints=c(1890,1950,2010))
 
-## ----wrtds1,eval=FALSE,echo=TRUE--------------------------------------------------
+## ----wrtds1,eval=FALSE,echo=TRUE--------------------------
 #  #Choptank River at Greensboro, MD:
 #  siteNumber <- "01491000"
 #  startDate <- "1979-10-01"
@@ -384,7 +384,7 @@ tableFlowChange(eListMiss, istat=3, qUnit=3,yearPoints=c(1890,1950,2010))
 #  Sample <- readNWISSample(siteNumber,param,startDate,endDate)
 #  eList <- mergeReport(INFO, Daily, Sample)
 
-## ----wrtds2,eval=TRUE,echo=FALSE--------------------------------------------------
+## ----wrtds2,eval=TRUE,echo=FALSE--------------------------
 siteNumber <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "1979-10-01"
 endDate <- "2011-09-30"
@@ -408,20 +408,20 @@ plotFluxQ(eList, fluxUnit=4)
 ## ----multiPlotDataOverview, echo=TRUE, fig.cap="\\texttt{multiPlotDataOverview(eList, qUnit=1)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h"----
 multiPlotDataOverview(eList, qUnit=1)
 
-## ----flowDuration, eval=TRUE, echo=TRUE-------------------------------------------
+## ----flowDuration, eval=TRUE, echo=TRUE-------------------
 flowDuration(eList, qUnit=1)
 
 flowDuration(eList, qUnit=1, centerDate="09-30", span=30)
 
-## ----wrtds3, eval=FALSE, echo=TRUE------------------------------------------------
+## ----wrtds3, eval=FALSE, echo=TRUE------------------------
 #  eList <- modelEstimation(eList)
 
-## ----wrtds5, eval=FALSE, echo=TRUE------------------------------------------------
+## ----wrtds5, eval=FALSE, echo=TRUE------------------------
 #  #An example directory name
 #  savePath <- "C:/Users/egretUser/WRTDS_Output/"
 #  saveResults(savePath, eList)
 
-## ----wrtds8, eval=FALSE, echo=TRUE------------------------------------------------
+## ----wrtds8, eval=FALSE, echo=TRUE------------------------
 #  loadPath <- "C:/Users/egretUser/WRTDS_Output/"
 #  staAbbrev <- "Chop"
 #  constitAbbrev <- "NO3"
@@ -429,7 +429,7 @@ flowDuration(eList, qUnit=1, centerDate="09-30", span=30)
 #                      constitAbbrev,".RData")
 #  load(pathToFile)
 
-## ----getChopData1,echo=FALSE,eval=TRUE--------------------------------------------
+## ----getChopData1,echo=FALSE,eval=TRUE--------------------
 # Sample <- getSample(eList)
 # Daily <- getDaily(eList)
 # INFO <- getInfo(eList)
@@ -497,14 +497,14 @@ plotContours(eList, yearStart=2008,yearEnd=2010,qBottom=20,qTop=1000,
 plotDiffContours(eList, year0=2000,year1=2010,
                  qBottom=20,qTop=1000,maxDiff=0.6,qUnit=1)
 
-## ----tableResults1, echo=TRUE, eval=FALSE-----------------------------------------
+## ----tableResults1, echo=TRUE, eval=FALSE-----------------
 #  tableResults(eList)
 #  returnDF <- tableResults(eList)
 
-## ----tableResults2, echo=FALSE, eval=TRUE,results='hide'--------------------------
+## ----tableResults2, echo=FALSE, eval=TRUE,results='hide'----
 returnDF <- tableResults(eList)
 
-## ----tableResultshead, echo=FALSE, results='asis'---------------------------------
+## ----tableResultshead, echo=FALSE, results='asis'---------
 print(xtable(head(returnDF),
        label="table:tableChangeHead",
        caption="Table created from \\texttt{head(returnDF)}",
@@ -517,13 +517,13 @@ print(xtable(head(returnDF),
        sanitize.rownames.function = addSpace
       )
 
-## ----tableChange1, eval=TRUE, echo=TRUE-------------------------------------------
+## ----tableChange1, eval=TRUE, echo=TRUE-------------------
 tableChange(eList, yearPoints=c(2000,2005,2010))
 
-## ----tableChangeSingleR, eval=TRUE, echo=TRUE,results='hide'----------------------
+## ----tableChangeSingleR, eval=TRUE, echo=TRUE,results='hide'----
 returnDF <- tableChangeSingle(eList, yearPoints=c(2000,2005,2010))
 
-## ----tableResultsShow, echo=FALSE, results='asis'---------------------------------
+## ----tableResultsShow, echo=FALSE, results='asis'---------
 print(xtable(returnDF,
        label="tableChangeSingle",
        caption="Table created from \\texttt{tableChangeSingle} function",
@@ -608,27 +608,27 @@ plotConcHist(eList, tinyPlot=TRUE,printTitle=FALSE,concMax=3,
           showYLabels=FALSE, showYAxis=FALSE, customPar=TRUE)
 mtext("Custom multi-pane graph using customPar", outer=TRUE, font=2)
 
-## ----helpFunc,eval = FALSE--------------------------------------------------------
+## ----helpFunc,eval = FALSE--------------------------------
 #  ?plotConcQ
 
-## ----rawFunc,eval = FALSE---------------------------------------------------------
+## ----rawFunc,eval = FALSE---------------------------------
 #  plotConcQ
 
-## ----installFromCran,eval = FALSE-------------------------------------------------
+## ----installFromCran,eval = FALSE-------------------------
 #  install.packages("EGRET")
 
-## ----openLibraryTest, eval=FALSE--------------------------------------------------
+## ----openLibraryTest, eval=FALSE--------------------------
 #  library(EGRET)
 
-## ----label=getSiteApp, echo=TRUE,eval=TRUE----------------------------------------
+## ----label=getSiteApp, echo=TRUE,eval=TRUE----------------
 
 tableData <- tableResults(eList)
 
-## ----label=saveData, echo=TRUE, eval=FALSE----------------------------------------
+## ----label=saveData, echo=TRUE, eval=FALSE----------------
 #  write.table(tableData, file="tableData.tsv",sep="\t",
 #              row.names = FALSE,quote=FALSE)
 
-## ----label=savePlots, echo=TRUE, eval=FALSE---------------------------------------
+## ----label=savePlots, echo=TRUE, eval=FALSE---------------
 #  jpeg("plotFlowSingle.jpg")
 #  plotFlowSingle(eList, 1)
 #  dev.off()
@@ -654,7 +654,7 @@ tableData <- tableResults(eList)
 #  dev.off()
 #  
 
-## ----label=savePlots2, echo=TRUE, eval=FALSE--------------------------------------
+## ----label=savePlots2, echo=TRUE, eval=FALSE--------------
 #  postscript("fluxBiasMulti.ps", height=10,width=8)
 #  fluxBiasMulti(eList)
 #  dev.off()

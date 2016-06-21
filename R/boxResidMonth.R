@@ -22,7 +22,7 @@
 #' @param font.main font to be used for plot main titles
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' @param las numeric in {0,1,2,3}; the style of axis labels
-#' @param rResid logical. Show censored residuals as randomized.
+#' @param randomCensored logical. Show censored residuals as randomized.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @seealso \code{\link[graphics]{boxplot}}
@@ -36,7 +36,7 @@
 #' boxResidMonth(eList)
 boxResidMonth<-function(eList, stdResid = FALSE, las=1,
                         printTitle = TRUE, cex=0.8, cex.axis=1.1, cex.main=1.1,
-                        font.main=2, tinyPlot=FALSE, customPar=FALSE,rResid=FALSE,...) {
+                        font.main=2, tinyPlot=FALSE, customPar=FALSE,randomCensored=FALSE,...) {
   
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
@@ -65,7 +65,7 @@ boxResidMonth<-function(eList, stdResid = FALSE, las=1,
   
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\nBoxplots of residuals by month") else ""
   
-  if(!rResid){
+  if(!randomCensored){
     resid<-log(localSample$ConcAve) - localSample$yHat
   } else {
     if(!("rResid" %in% names(localSample))){

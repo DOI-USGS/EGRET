@@ -20,7 +20,7 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
-#' @param rResid logical. Show censored values as randomized.
+#' @param randomCensored logical. Show censored values as randomized.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -36,7 +36,7 @@
 #' plotFluxPred(eList)
 plotFluxPred<-function(eList, fluxUnit = 3, fluxMax = NA, 
                        printTitle = TRUE, oneToOneLine=TRUE, customPar=FALSE,col="black", lwd=1,
-                       cex=0.8, cex.axis=1.1,cex.main=1.1,tinyPlot=FALSE,logScale=FALSE,rResid = FALSE,...){
+                       cex=0.8, cex.axis=1.1,cex.main=1.1,tinyPlot=FALSE,logScale=FALSE,randomCensored = FALSE,...){
   # this function shows observed versus estimated flux
   # estimated flux on the x-axis (these include the bias correction), 
   # observed flux on y-axis 
@@ -109,7 +109,7 @@ plotFluxPred<-function(eList, fluxUnit = 3, fluxMax = NA,
 
   xInfo <- generalAxis(x=x, minVal=minX, maxVal=NA, logScale=logScale, tinyPlot=tinyPlot,padPercent=5)  
 
-  if(!rResid){
+  if(!randomCensored){
     yLow<-localSample$ConcLow*localSample$Q*fluxFactor
     yHigh<-localSample$ConcHigh*localSample$Q*fluxFactor
     

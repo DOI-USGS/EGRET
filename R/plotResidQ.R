@@ -23,7 +23,7 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
-#' @param rResid logical. Show censored residuals as randomized.
+#' @param randomCensored logical. Show censored residuals as randomized.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -37,7 +37,7 @@
 #' plotResidQ(eList)
 plotResidQ<-function (eList, qUnit = 2, 
                       tinyPlot = FALSE, stdResid = FALSE, printTitle = TRUE,col="black",lwd=1,
-                      cex=0.8, cex.axis=1.1,cex.main=1.1,rmSciX=FALSE, customPar=FALSE,rResid=FALSE,...){  
+                      cex=0.8, cex.axis=1.1,cex.main=1.1,rmSciX=FALSE, customPar=FALSE,randomCensored=FALSE,...){  
    
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
@@ -84,7 +84,7 @@ plotResidQ<-function (eList, qUnit = 2,
    
   xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot,padPercent=5)
   
-  if(!rResid){
+  if(!randomCensored){
   
     yLow <- log(localSample$ConcLow) - localSample$yHat
     yHigh <- log(localSample$ConcHigh) - localSample$yHat

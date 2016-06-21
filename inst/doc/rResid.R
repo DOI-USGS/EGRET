@@ -35,16 +35,16 @@ polygon(x,z,density=40)
 
 ## ------------------------------------------------------------------------
 eList <- makeAugmentedSample(eList)
-plotConcQ(eList, qUnit = 4, rResid = TRUE)
+plotConcQ(eList, qUnit = 4, randomCensored = TRUE)
 # now do it all over again
 eList <- makeAugmentedSample(eList)
-plotConcQ(eList, qUnit = 4, rResid = TRUE)
+plotConcQ(eList, qUnit = 4, randomCensored = TRUE)
 
 ## ------------------------------------------------------------------------
-plotResidTime(eList, rResid = TRUE)
-plotResidQ(eList, qUnit = 4, rResid = TRUE)
+plotResidTime(eList, randomCensored = TRUE)
+plotResidQ(eList, qUnit = 4, randomCensored = TRUE)
 
 ## ---- fig.height = 9, fig.width = 8--------------------------------------
-multiPlotDataOverview(eList, qUnit = 4, rResid = TRUE)
-fluxBiasMulti(eList, qUnit = 4, fluxUnit = 9, rResid = TRUE)
+multiPlotDataOverview(eList, qUnit = 4, randomCensored = TRUE)
+fluxBiasMulti(eList, qUnit = 4, fluxUnit = 9, randomCensored = TRUE)
 

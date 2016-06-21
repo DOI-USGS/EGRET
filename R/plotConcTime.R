@@ -29,7 +29,7 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width.
-#' @param rResid logical. Show censored values as randomized.
+#' @param randomCensored logical. Show censored values as randomized.
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters.
 #' @keywords graphics water-quality statistics
 #' @export
@@ -42,9 +42,9 @@
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' plotConcTime(eList, qUnit = 1, qLower = 100, qUpper = 10000)
 #' plotConcTime(eList, logScale=TRUE)
-#' plotConcTime(eList, qUnit = 1, qLower = 100, qUpper = 10000, rResid = TRUE)
+#' plotConcTime(eList, qUnit = 1, qLower = 100, qUpper = 10000, randomCensored = TRUE)
 plotConcTime<-function(eList, qUnit = 2, 
-                       qLower = NA, qUpper = NA, rResid=FALSE,
+                       qLower = NA, qUpper = NA, randomCensored=FALSE,
                        tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale=FALSE, 
                        cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,col="black",lwd=1,...){
 
@@ -108,7 +108,7 @@ plotConcTime<-function(eList, qUnit = 2,
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n",title3,sep="") else ""
   
   
-  if(!rResid){
+  if(!randomCensored){
     subSample<-subSample[subSample$Q>qLowerBound & subSample$Q<qUpperBound,]
     subSample <- if(paLong == 12) subSample else selectDays(subSample, paLong,paStart)
     Uncen<-subSample$Uncen

@@ -5,7 +5,7 @@
 \title{Produces 8-panel plot that is useful for determining if there is a flux bias problem}
 \usage{
 fluxBiasMulti(eList, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS",
-  cex = 0.7, cex.axis = 1.1, cex.main = 1.1, rResid = FALSE,
+  cex = 0.7, cex.axis = 1.1, cex.main = 1.1, randomCensored = FALSE,
   col = "black", lwd = 1, ...)
 }
 \arguments{
@@ -23,7 +23,7 @@ fluxBiasMulti(eList, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS",
 
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
 
-\item{rResid}{logical. Show censored residuals as randomized.}
+\item{randomCensored}{logical. Show censored residuals as randomized.}
 
 \item{col}{color of points on plot, see ?par 'Color Specification'}
 

@@ -25,7 +25,7 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
-#' @param rResid logical. Show censored values as randomized.
+#' @param randomCensored logical. Show censored values as randomized.
 #' @param prettyDate logical use 'pretty' limits for date axis if TRUE, or force the startYear/endYear as limits if FALSE
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords graphics water-quality statistics
@@ -40,7 +40,7 @@
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' plotConcTimeDaily(eList)
 plotConcTimeDaily<-function(eList, startYear=NA, endYear=NA, tinyPlot = FALSE, 
-                            concMax = NA, printTitle = TRUE,cex=0.8, cex.axis=1.1,rResid=FALSE,
+                            concMax = NA, printTitle = TRUE,cex=0.8, cex.axis=1.1,randomCensored=FALSE,
                             cex.main=1.1, customPar=FALSE,col="black",lwd=1,prettyDate=TRUE,...){
 
   localINFO <- getInfo(eList)
@@ -79,7 +79,7 @@ plotConcTimeDaily<-function(eList, startYear=NA, endYear=NA, tinyPlot = FALSE,
   
   xInfo <- generalAxis(x=xSample, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot,padPercent=0,prettyDate=prettyDate)  
   
-  if(!rResid){
+  if(!randomCensored){
     
     yLow<-subSample$ConcLow
     yHigh<-subSample$ConcHigh
