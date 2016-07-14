@@ -43,7 +43,7 @@
 #' plotConcTime(eList, qUnit = 1, qLower = 100, qUpper = 10000)
 #' plotConcTime(eList, logScale=TRUE)
 #' plotConcTime(eList, qUnit = 1, qLower = 100, qUpper = 10000, randomCensored = TRUE)
-plotConcTime<-function(eList, qUnit = 2, 
+plotConcTime<-function(eList, qUnit = 2, startYear = NA, endYear = NA,
                        qLower = NA, qUpper = NA, randomCensored=FALSE,
                        tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale=FALSE, 
                        cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,col="black",lwd=1,...){
@@ -108,13 +108,17 @@ plotConcTime<-function(eList, qUnit = 2,
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n",title3,sep="") else ""
   
   
+  if(is.na(startYear)){
+    
+  }
+  
   if(!randomCensored){
     subSample<-subSample[subSample$Q>qLowerBound & subSample$Q<qUpperBound,]
     subSample <- if(paLong == 12) subSample else selectDays(subSample, paLong,paStart)
     Uncen<-subSample$Uncen
     x<-subSample$DecYear
     
-    xInfo <- generalAxis(x=x, minVal=min(x), maxVal=max(x), tinyPlot=tinyPlot)  
+    xInfo <- generalAxis(x=x, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot)  
     
     yLow<-subSample$ConcLow
     yHigh<-subSample$ConcHigh
