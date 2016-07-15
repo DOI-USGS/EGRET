@@ -10,8 +10,8 @@
 #' and an INFO dataframe with metadata.
 #'
 #' @param eList named list with at least the Daily and INFO dataframes
-#' @param startYear numeric indicating the starting year for the graph
-#' @param endYear numeric indicating the ending year for the graph (should be a time in decimal years that is after the last observations to be plotted)
+#' @param yearStart numeric indicating the starting year for the graph
+#' @param yearEnd numeric indicating the ending year for the graph (should be a time in decimal years that is after the last observations to be plotted)
 #' @param qLower numeric specifying the lower bound on discharges that are to be plotted, must be in the units specified by qUnit, default is NA (lower bound is zero)
 #' @param qUnit object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.  Default is qUnit=1 (cubic feet per second)
 #' @param tinyPlot logical variable, if TRUE plot is designed to be short and wide, default is FALSE.
@@ -23,7 +23,7 @@
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param logScale logical whether or not to use a log scale in the y axis. Default is FALSE.
-#' @param prettyDate logical use 'pretty' limits for date axis if TRUE, or force the startYear/endYear as limits if FALSE
+#' @param prettyDate logical use 'pretty' limits for date axis if TRUE, or force the yearStart/yearEnd as limits if FALSE
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow
 #' @export
@@ -32,12 +32,12 @@
 #' eList <- Choptank_eList
 #' # Water year:
 #' plotQTimeDaily(eList)
-#' plotQTimeDaily(eList, startYear=1990, endYear=2000,qLower=1500)
+#' plotQTimeDaily(eList, yearStart=1990, yearEnd=2000,qLower=1500)
 #' plotQTimeDaily(eList, prettyDate=FALSE)
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' plotQTimeDaily(eList)
-plotQTimeDaily<-function (eList, startYear=NA, endYear=NA, qLower = NA, qUnit = 1, logScale=FALSE,
+plotQTimeDaily<-function (eList, yearStart=NA, yearEnd=NA, qLower = NA, qUnit = 1, logScale=FALSE,
                           tinyPlot = FALSE, printTitle = TRUE, lwd = 3, col="red", 
                           cex.main = 1.2, cex.lab = 1.2, customPar=FALSE,prettyDate=TRUE,...){
   
@@ -76,10 +76,10 @@ plotQTimeDaily<-function (eList, startYear=NA, endYear=NA, qLower = NA, qUnit = 
     yLab <- qUnit@qUnitExpress
   }
   
-  startYear <- if (is.na(startYear)) as.integer(min(localDaily$DecYear,na.rm=TRUE)) else startYear
-  endYear <- if (is.na(endYear)) as.integer(max(localDaily$DecYear,na.rm=TRUE)) else endYear
+  yearStart <- if (is.na(yearStart)) as.integer(min(localDaily$DecYear,na.rm=TRUE)) else yearStart
+  yearEnd <- if (is.na(yearEnd)) as.integer(max(localDaily$DecYear,na.rm=TRUE)) else yearEnd
   
-  subDaily <- localDaily[localDaily$DecYear >= startYear & localDaily$DecYear <= endYear,]
+  subDaily <- localDaily[localDaily$DecYear >= yearStart & localDaily$DecYear <= yearEnd,]
 
   xDaily <- subDaily$DecYear
   
@@ -101,7 +101,7 @@ plotQTimeDaily<-function (eList, startYear=NA, endYear=NA, qLower = NA, qUnit = 
     logText <- ""
   }
   
-  xInfo <- generalAxis(x=xDaily, minVal=startYear, maxVal=endYear, 
+  xInfo <- generalAxis(x=xDaily, minVal=yearStart, maxVal=yearEnd, 
                        tinyPlot=tinyPlot, units=localINFO$param.units, prettyDate=prettyDate)
   yInfo <- generalAxis(x=yDaily, minVal=qLower, maxVal=1.05*max(yDaily), 
                        tinyPlot=tinyPlot,padPercent=0,logScale=logScale, units=localINFO$param.units)

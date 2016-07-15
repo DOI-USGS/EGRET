@@ -4,7 +4,7 @@
 \alias{plotQTimeDaily}
 \title{Plot of the discharge time series}
 \usage{
-plotQTimeDaily(eList, startYear = NA, endYear = NA, qLower = NA,
+plotQTimeDaily(eList, yearStart = NA, yearEnd = NA, qLower = NA,
   qUnit = 1, logScale = FALSE, tinyPlot = FALSE, printTitle = TRUE,
   lwd = 3, col = "red", cex.main = 1.2, cex.lab = 1.2,
   customPar = FALSE, prettyDate = TRUE, ...)
@@ -12,9 +12,9 @@ plotQTimeDaily(eList, startYear = NA, endYear = NA, qLower = NA,
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes}
 
-\item{startYear}{numeric indicating the starting year for the graph}
+\item{yearStart}{numeric indicating the starting year for the graph}
 
-\item{endYear}{numeric indicating the ending year for the graph (should be a time in decimal years that is after the last observations to be plotted)}
+\item{yearEnd}{numeric indicating the ending year for the graph (should be a time in decimal years that is after the last observations to be plotted)}
 
 \item{qLower}{numeric specifying the lower bound on discharges that are to be plotted, must be in the units specified by qUnit, default is NA (lower bound is zero)}
 
@@ -37,7 +37,7 @@ plotQTimeDaily(eList, startYear = NA, endYear = NA, qLower = NA,
 \item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
-\item{prettyDate}{logical use 'pretty' limits for date axis if TRUE, or force the startYear/endYear as limits if FALSE}
+\item{prettyDate}{logical use 'pretty' limits for date axis if TRUE, or force the yearStart/yearEnd as limits if FALSE}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
@@ -54,7 +54,7 @@ and an INFO dataframe with metadata.
 eList <- Choptank_eList
 # Water year:
 plotQTimeDaily(eList)
-plotQTimeDaily(eList, startYear=1990, endYear=2000,qLower=1500)
+plotQTimeDaily(eList, yearStart=1990, yearEnd=2000,qLower=1500)
 plotQTimeDaily(eList, prettyDate=FALSE)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)

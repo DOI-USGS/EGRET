@@ -12,8 +12,8 @@
 #' a Daily dataframe with the daily flow data,
 #' and an INFO dataframe with metadata. 
 #'
-#' @param startYear numeric specifying the starting date (expressed as decimal years, for example 1989.0) for the plot
-#' @param endYear numeric specifiying the ending date for the plot 
+#' @param yearStart numeric specifying the starting date (expressed as decimal years, for example 1989.0) for the plot
+#' @param yearEnd numeric specifiying the ending date for the plot 
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param tinyPlot logical variable, if TRUE plot is designed to be short and wide, default is FALSE.
 #' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
@@ -26,7 +26,7 @@
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
 #' @param randomCensored logical. Show censored values as randomized.
-#' @param prettyDate logical use 'pretty' limits for date axis if TRUE, or force the startYear/endYear as limits if FALSE
+#' @param prettyDate logical use 'pretty' limits for date axis if TRUE, or force the yearStart/yearEnd as limits if FALSE
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords graphics water-quality statistics
 #' @export
@@ -35,11 +35,11 @@
 #' eList <- Choptank_eList
 #' # Water year:
 #' plotConcTimeDaily(eList)
-#' plotConcTimeDaily(eList, startYear=1998,endYear=2001)
+#' plotConcTimeDaily(eList, yearStart=1998,yearEnd=2001)
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' plotConcTimeDaily(eList)
-plotConcTimeDaily<-function(eList, startYear=NA, endYear=NA, tinyPlot = FALSE, 
+plotConcTimeDaily<-function(eList, yearStart=NA, yearEnd=NA, tinyPlot = FALSE, 
                             concMax = NA, printTitle = TRUE,cex=0.8, cex.axis=1.1,randomCensored=FALSE,
                             cex.main=1.1, customPar=FALSE,col="black",lwd=1,prettyDate=TRUE,...){
 
@@ -47,8 +47,8 @@ plotConcTimeDaily<-function(eList, startYear=NA, endYear=NA, tinyPlot = FALSE,
   localSample <- getSample(eList)
   localDaily <- getDaily(eList)
   
-  startYear <- if (is.na(startYear)) as.integer(min(localSample$DecYear,na.rm=TRUE)) else startYear
-  endYear <- if (is.na(endYear)) as.integer(max(localSample$DecYear,na.rm=TRUE)) else endYear
+  yearStart <- if (is.na(yearStart)) as.integer(min(localSample$DecYear,na.rm=TRUE)) else yearStart
+  yearEnd <- if (is.na(yearEnd)) as.integer(max(localSample$DecYear,na.rm=TRUE)) else yearEnd
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong
@@ -63,8 +63,8 @@ plotConcTimeDaily<-function(eList, startYear=NA, endYear=NA, tinyPlot = FALSE,
   
   title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   
-  subSample<-localSample[localSample$DecYear>=startYear & localSample$DecYear<= endYear,]
-  subDaily<-localDaily[localDaily$DecYear>=startYear & localDaily$DecYear <= endYear,]
+  subSample<-localSample[localSample$DecYear>=yearStart & localSample$DecYear<= yearEnd,]
+  subDaily<-localDaily[localDaily$DecYear>=yearStart & localDaily$DecYear <= yearEnd,]
   
   xSample<-subSample$DecYear
   xDaily<-subDaily$DecYear
@@ -77,7 +77,7 @@ plotConcTimeDaily<-function(eList, startYear=NA, endYear=NA, tinyPlot = FALSE,
   
   yBottom <- 0 #Not specified within script, added under assumption that it's always zero based on ylim definition in this function
   
-  xInfo <- generalAxis(x=xSample, minVal=startYear, maxVal=endYear, tinyPlot=tinyPlot,padPercent=0,prettyDate=prettyDate)  
+  xInfo <- generalAxis(x=xSample, minVal=yearStart, maxVal=yearEnd, tinyPlot=tinyPlot,padPercent=0,prettyDate=prettyDate)  
   
   if(!randomCensored){
     
@@ -99,7 +99,7 @@ plotConcTimeDaily<-function(eList, startYear=NA, endYear=NA, tinyPlot = FALSE,
     if(!("rObserved" %in% names(localSample))){
       eList <- makeAugmentedSample(eList)
       localSample <- eList$Sample
-      subSample<-localSample[localSample$DecYear>=startYear & localSample$DecYear<= endYear,]
+      subSample<-localSample[localSample$DecYear>=yearStart & localSample$DecYear<= yearEnd,]
     }
     
     yHigh <- subSample$rObserved

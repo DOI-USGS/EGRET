@@ -4,7 +4,7 @@
 \alias{plotConcTimeDaily}
 \title{Plot of the time series of daily concentration estimates and the sample values for the days that were sampled}
 \usage{
-plotConcTimeDaily(eList, startYear = NA, endYear = NA, tinyPlot = FALSE,
+plotConcTimeDaily(eList, yearStart = NA, yearEnd = NA, tinyPlot = FALSE,
   concMax = NA, printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
   randomCensored = FALSE, cex.main = 1.1, customPar = FALSE,
   col = "black", lwd = 1, prettyDate = TRUE, ...)
@@ -12,9 +12,9 @@ plotConcTimeDaily(eList, startYear = NA, endYear = NA, tinyPlot = FALSE,
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
 
-\item{startYear}{numeric specifying the starting date (expressed as decimal years, for example 1989.0) for the plot}
+\item{yearStart}{numeric specifying the starting date (expressed as decimal years, for example 1989.0) for the plot}
 
-\item{endYear}{numeric specifiying the ending date for the plot}
+\item{yearEnd}{numeric specifiying the ending date for the plot}
 
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be short and wide, default is FALSE.}
 
@@ -37,7 +37,7 @@ plotConcTimeDaily(eList, startYear = NA, endYear = NA, tinyPlot = FALSE,
 
 \item{lwd}{number line width}
 
-\item{prettyDate}{logical use 'pretty' limits for date axis if TRUE, or force the startYear/endYear as limits if FALSE}
+\item{prettyDate}{logical use 'pretty' limits for date axis if TRUE, or force the yearStart/yearEnd as limits if FALSE}
 
 \item{\dots}{arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters}
 }
@@ -57,7 +57,7 @@ and an INFO dataframe with metadata.
 eList <- Choptank_eList
 # Water year:
 plotConcTimeDaily(eList)
-plotConcTimeDaily(eList, startYear=1998,endYear=2001)
+plotConcTimeDaily(eList, yearStart=1998,yearEnd=2001)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
 plotConcTimeDaily(eList)
