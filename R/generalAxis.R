@@ -10,7 +10,7 @@
 #' @param padPercent number used to pad the max and min if not specified
 #' @param concentration logical if concentration=TRUE, labels returned as concentration units, otherwise flux units.
 #' @param units character concentration units. Typically found in INFO$param.units.
-#' @param prettyDate logical use 'pretty' limits for date axis if TRUE, or force the startYear/endYear as limits if FALSE
+#' @param prettyDate logical use 'pretty' limits for date axis if TRUE, or force the yearStart/yearEnd as limits if FALSE
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples

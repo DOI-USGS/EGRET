@@ -11,8 +11,8 @@
 #' and an INFO dataframe with metadata. 
 #'
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
-#' @param startYear numeric specifying the starting date (expressed as decimal years, for example 1989.0) for the plot
-#' @param endYear numeric specifiying the ending date for the plot 
+#' @param yearStart numeric specifying the starting date (expressed as decimal years, for example 1989.0) for the plot
+#' @param yearEnd numeric specifiying the ending date for the plot 
 #' @param tinyPlot logical variable, if TRUE plot is designed to be short and wide, default is FALSE.
 #' @param fluxUnit number representing in pre-defined fluxUnit class array. \code{\link{printFluxUnitCheatSheet}}
 #' @param fluxMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
@@ -24,7 +24,7 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
-#' @param prettyDate logical use 'pretty' limits for date axis if TRUE, or force the startYear/endYear as limits if FALSE
+#' @param prettyDate logical use 'pretty' limits for date axis if TRUE, or force the yearStart/yearEnd as limits if FALSE
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -37,7 +37,7 @@
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' plotFluxTimeDaily(eList)
-plotFluxTimeDaily<-function (eList, startYear=NA, endYear=NA, 
+plotFluxTimeDaily<-function (eList, yearStart=NA, yearEnd=NA, 
                              tinyPlot = FALSE, fluxUnit = 3, fluxMax = NA, 
                              printTitle = TRUE, cex=0.8, cex.axis=1.1,cex.main=1.1, 
                              customPar=FALSE,col="black",lwd=1,prettyDate=TRUE,...) {
@@ -82,12 +82,12 @@ plotFluxTimeDaily<-function (eList, startYear=NA, endYear=NA,
   
   fluxFactor <- fluxUnit@unitFactor*86.40
   
-  startYear <- if (is.na(startYear)) as.integer(min(localSample$DecYear,na.rm=TRUE)) else startYear
-  endYear <- if (is.na(endYear)) as.integer(max(localSample$DecYear,na.rm=TRUE)) else endYear
+  yearStart <- if (is.na(yearStart)) as.integer(min(localSample$DecYear,na.rm=TRUE)) else yearStart
+  yearEnd <- if (is.na(yearEnd)) as.integer(max(localSample$DecYear,na.rm=TRUE)) else yearEnd
   
-  subSample <- localSample[localSample$DecYear >= startYear & localSample$DecYear <= endYear,]
+  subSample <- localSample[localSample$DecYear >= yearStart & localSample$DecYear <= yearEnd,]
 
-  subDaily <- localDaily[localDaily$DecYear >= startYear & localDaily$DecYear <= endYear,]
+  subDaily <- localDaily[localDaily$DecYear >= yearStart & localDaily$DecYear <= yearEnd,]
 
   xSample <- subSample$DecYear
   xDaily <- subDaily$DecYear
@@ -107,7 +107,7 @@ plotFluxTimeDaily<-function (eList, startYear=NA, endYear=NA,
   
   yBottom <- 0
   
-  xInfo <- generalAxis(x=xSample, minVal=startYear, maxVal=endYear, 
+  xInfo <- generalAxis(x=xSample, minVal=yearStart, maxVal=yearEnd, 
                        tinyPlot=tinyPlot,padPercent=0,prettyDate=prettyDate)
   
   yCombined <- c(yHigh,subDaily$ConcDay*subDaily$Q*fluxFactor)
