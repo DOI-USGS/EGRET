@@ -30,9 +30,8 @@ makeAnnualSeries<-function(eList, edgeAdjust = TRUE) {
   
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
-  
   if (sum(c("paStart", "paLong", "window") %in% names(localINFO)) == 
-        3) {
+      3) {
     paLong <- localINFO$paLong
     paStart <- localINFO$paStart
     window <- localINFO$window
@@ -41,11 +40,9 @@ makeAnnualSeries<-function(eList, edgeAdjust = TRUE) {
     paStart <- 10
     window <- 20
   }
-  
-  if("edgeAdjust" %in% names(localINFO)){
+  if ("edgeAdjust" %in% names(localINFO)) {
     edgeAdjust <- localINFO$edgeAdjust
   }
-  
   numDays <- length(localDaily$DecYear)
   yearFirst <- trunc(localDaily$DecYear[1])
   yearLast <- trunc(localDaily$DecYear[numDays])
@@ -58,73 +55,70 @@ makeAnnualSeries<-function(eList, edgeAdjust = TRUE) {
   Starts <- seq(paStartLow, monthSeqLast, 12)
   Ends <- Starts + paLong - 1
   startEndSeq <- data.frame(Starts, Ends)
-  startEndSeq <- subset(startEndSeq, (Ends >= monthSeqFirst) & (Starts <= monthSeqLast))
+  startEndSeq <- subset(startEndSeq, (Ends >= monthSeqFirst) & 
+                          (Starts <= monthSeqLast))
   numYSeq <- length(startEndSeq$Ends)
-  
   for (i in 1:numYSeq) {
     startSeq <- startEndSeq$Starts[i]
     endSeq <- startEndSeq$Ends[i]
-    yearDaily <- localDaily[localDaily$MonthSeq >= startSeq & (localDaily$MonthSeq <= endSeq),]
-    
+    yearDaily <- localDaily[localDaily$MonthSeq >= startSeq & 
+                              (localDaily$MonthSeq <= endSeq), ]
     goodDay <- length(yearDaily$Q) - sum(is.na(yearDaily$Q))
-    
-    if (goodDay > 26 * paLong){
-      annualSeries[1, 1:3, i] <- mean(yearDaily$DecYear,na.rm = TRUE)
-      annualSeries[2, 1, i] <- min(yearDaily$Q, na.rm = TRUE) 
-      annualSeries[2, 2, i] <- min(yearDaily$Q7, na.rm = TRUE) 
-      annualSeries[2, 3, i] <- min(yearDaily$Q30, na.rm = TRUE)         
+    if (goodDay > 26 * paLong) {
+      annualSeries[1, 1:3, i] <- mean(yearDaily$DecYear, 
+                                      na.rm = TRUE)
+      annualSeries[2, 1, i] <- min(yearDaily$Q, na.rm = TRUE)
+      annualSeries[2, 2, i] <- min(yearDaily$Q7, na.rm = TRUE)
+      annualSeries[2, 3, i] <- min(yearDaily$Q30, na.rm = TRUE)
     }
-    
   }
   Starts <- seq(paStart, monthSeqLast, 12)
   Ends <- Starts + paLong - 1
   startEndSeq <- data.frame(Starts, Ends)
-  startEndSeq <- subset(startEndSeq, (Ends >= monthSeqFirst) & (Starts <= monthSeqLast))
+  startEndSeq <- subset(startEndSeq, (Ends >= monthSeqFirst) & 
+                          (Starts <= monthSeqLast))
   numYSeq <- length(startEndSeq$Ends)
   for (i in 1:numYSeq) {
     startSeq <- startEndSeq$Starts[i]
     endSeq <- startEndSeq$Ends[i]
-    yearDaily <- localDaily[localDaily$MonthSeq >= startSeq & (localDaily$MonthSeq <= endSeq),]
-    
+    yearDaily <- localDaily[localDaily$MonthSeq >= startSeq & 
+                              (localDaily$MonthSeq <= endSeq), ]
     goodDay <- length(yearDaily$Q) - sum(is.na(yearDaily$Q))
-    
-    if(goodDay > 26 * paLong){
-      annualSeries[1, 4:8, i] <- mean(yearDaily$DecYear, na.rm = TRUE)
+    if (goodDay > 26 * paLong) {
+      annualSeries[1, 4:8, i] <- mean(yearDaily$DecYear, 
+                                      na.rm = TRUE)
       annualSeries[2, 4, i] <- median(yearDaily$Q, na.rm = TRUE)
       annualSeries[2, 5, i] <- mean(yearDaily$Q, na.rm = TRUE)
       annualSeries[2, 6, i] <- max(yearDaily$Q30, na.rm = TRUE)
       annualSeries[2, 7, i] <- max(yearDaily$Q7, na.rm = TRUE)
-      annualSeries[2, 8, i] <- max(yearDaily$Q, na.rm = TRUE)       
+      annualSeries[2, 8, i] <- max(yearDaily$Q, na.rm = TRUE)
     }
   }
   for (istat in 1:8) {
     x <- annualSeries[1, istat, ]
     y <- log(annualSeries[2, istat, ])
-    originalYear <- x
-    numYear <- length(x)
-    xy <- data.frame(x, y)
+    baseYear <- trunc(x[1])
+    numYears <- length(x)
+    xVec <- seq(1,numYears)
+    xy <- data.frame(x,y,xVec)
     xy <- na.omit(xy)
-    numXY <- length(xy$x)
+    goodYears <- length(xy$x)
     x <- xy$x
-    newYear <- x
-    numNewYear <- length(newYear)
-    x1 <- newYear[1]
-    xn <- newYear[numNewYear]
-    orYear <- originalYear[1:numNewYear]
-    diff <- newYear - orYear
-    meanDiff <- mean(diff, na.rm = TRUE)
-    offset <- round(meanDiff)
-    for (i in 1:numXY) {
+    x1 <- x[1]
+    xn <- x[goodYears]
+    for (i in 1:goodYears) {
       xi <- x[i]
-      distToEdge <- min((xi - x1),(xn - xi))
+      distToEdge <- min((xi - x1), (xn - xi))
       close <- (distToEdge < window)
-      thisWindow <- if(edgeAdjust & close) (2*window) - distToEdge else window
+      thisWindow <- if (edgeAdjust & close) 
+        (2 * window) - distToEdge
+      else window
       w <- triCube(x - xi, thisWindow)
       mod <- lm(xy$y ~ x, weights = w)
       new <- data.frame(x = x[i])
       z <- exp(predict(mod, new))
-      ioffset <- i + offset
-      annualSeries[3, istat, ioffset] <- z
+      iYear <- xy$xVec[i]
+      annualSeries[3, istat, iYear] <- z
     }
   }
   return(annualSeries)
