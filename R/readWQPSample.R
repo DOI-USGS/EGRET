@@ -40,21 +40,36 @@ readWQPSample <- function(siteNumber,characteristicName,startDate,endDate,intera
   
   url <- constructWQPURL(siteNumber,characteristicName,startDate,endDate)
   retval <- importWQP(url)
-  
-  #Check for pcode:
-  if(all(nchar(characteristicName) == 5)){
-    suppressWarnings(pCodeLogic <- all(!is.na(as.numeric(characteristicName))))
-  } else {
-    pCodeLogic <- FALSE
-  }
-  
   if(nrow(retval) > 0){
-    data <- processQWData(retval,pCodeLogic)
+    #Check for pcode:
+    if(all(nchar(characteristicName) == 5)){
+      suppressWarnings(pCodeLogic <- all(!is.na(as.numeric(characteristicName))))
+    } else {
+      pCodeLogic <- FALSE
+    }
+    
+    if(nrow(retval) > 0){
+      data <- processQWData(retval,pCodeLogic)
+    } else {
+      data <- NULL
+    }
+    
+    compressedData <- compressData(data, interactive=interactive)
+    Sample <- populateSampleColumns(compressedData)
   } else {
-    data <- NULL
+    Sample <- data.frame(Date=as.Date(character()),
+                         ConcLow=numeric(), 
+                         ConcHigh=numeric(), 
+                         Uncen=numeric(),
+                         ConcAve=numeric(),
+                         Julian=numeric(),
+                         Month=numeric(),
+                         Day=numeric(),
+                         DecYear=numeric(),
+                         MonthSeq=numeric(),
+                         SinDY=numeric(),
+                         CosDY=numeric(),
+                         stringsAsFactors=FALSE)
   }
-  
-  compressedData <- compressData(data, interactive=interactive)
-  Sample <- populateSampleColumns(compressedData)
   return(Sample)
 }

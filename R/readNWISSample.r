@@ -42,12 +42,29 @@
 readNWISSample <- function(siteNumber,parameterCd,startDate="",endDate="",interactive=TRUE){
   
   rawSample <- dataRetrieval::readNWISqw(siteNumber,parameterCd,startDate,endDate, expanded=FALSE)
-  dataColumns <- grep("p\\d{5}",names(rawSample))
-  remarkColumns <- grep("r\\d{5}",names(rawSample))
-  totalColumns <-c(grep("sample_dt",names(rawSample)), dataColumns, remarkColumns)
-  totalColumns <- totalColumns[order(totalColumns)]
-  compressedData <- compressData(rawSample[,totalColumns], interactive=interactive)
-  Sample <- populateSampleColumns(compressedData)
+  if(nrow(rawSample) > 0){
+    dataColumns <- grep("p\\d{5}",names(rawSample))
+    remarkColumns <- grep("r\\d{5}",names(rawSample))
+    totalColumns <-c(grep("sample_dt",names(rawSample)), dataColumns, remarkColumns)
+    totalColumns <- totalColumns[order(totalColumns)]
+    compressedData <- compressData(rawSample[,totalColumns], interactive=interactive)
+    Sample <- populateSampleColumns(compressedData)
+  } else {
+    Sample <- data.frame(Date=as.Date(character()),
+                         ConcLow=numeric(), 
+                         ConcHigh=numeric(), 
+                         Uncen=numeric(),
+                         ConcAve=numeric(),
+                         Julian=numeric(),
+                         Month=numeric(),
+                         Day=numeric(),
+                         DecYear=numeric(),
+                         MonthSeq=numeric(),
+                         SinDY=numeric(),
+                         CosDY=numeric(),
+                         stringsAsFactors=FALSE)
+  }
+
   return(Sample)
 }
 

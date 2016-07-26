@@ -53,12 +53,27 @@ readNWISDaily <- function (siteNumber,parameterCd="00060",
   if(nrow(data)>0){
     names(data) <- c('agency', 'site', 'dateTime', 'value', 'code')
     data$dateTime <- as.Date(data$dateTime)
+    #####################################
+    qConvert <- ifelse("00060" == parameterCd, 35.314667, 1)
+    qConvert<- ifelse(convert,qConvert,1)
+    
+    localDaily <- populateDaily(data,qConvert,interactive=interactive)
+  } else {
+    localDaily <- data.frame(Date=as.Date(character()),
+                         Q=numeric(), 
+                         Julian=numeric(),
+                         Month=numeric(),
+                         Day=numeric(),
+                         DecYear=numeric(),
+                         MonthSeq=numeric(),
+                         Qualifier=character(),
+                         i=integer(),
+                         LogQ=numeric(),
+                         Q7=numeric(),
+                         Q30=numeric(),
+                         stringsAsFactors=FALSE)
   }
 
-  #####################################
-  qConvert <- ifelse("00060" == parameterCd, 35.314667, 1)
-  qConvert<- ifelse(convert,qConvert,1)
-  
-  localDaily <- populateDaily(data,qConvert,interactive=interactive)
+
   return (localDaily)
 }
