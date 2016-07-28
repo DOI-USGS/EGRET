@@ -11,7 +11,7 @@ output:
     fig_width: 7
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{gsplot Intro}
+  %\VignetteIndexEntry{Randomized Censored Data}
   \usepackage[utf8]{inputenc}
 ---
 
