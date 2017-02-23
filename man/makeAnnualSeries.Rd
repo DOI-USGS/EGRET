@@ -41,4 +41,3 @@ annualSeries <- makeAnnualSeries(eList)
 \keyword{statistics}
 \keyword{streamflow}
 \keyword{trends}
-

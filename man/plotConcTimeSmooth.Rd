@@ -107,4 +107,3 @@ plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd,logScale=TR
 \keyword{graphics}
 \keyword{statistics}
 \keyword{water-quality}
-

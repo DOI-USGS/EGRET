@@ -19,4 +19,3 @@ This function is used to add two columns to the Sample data frame: rResid and rO
 }
 \keyword{statistics}
 \keyword{water-quality}
-

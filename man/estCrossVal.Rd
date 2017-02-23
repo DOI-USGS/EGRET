@@ -51,4 +51,3 @@ SampleCrossV <- estCrossVal(numDays,DecLow,DecHigh,Sample)
 }
 \keyword{statistics}
 \keyword{water-quality}
-

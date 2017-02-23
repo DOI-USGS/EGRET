@@ -43,4 +43,3 @@ eList <- modelEstimation(eList, windowQ=5)
 }
 \keyword{statistics}
 \keyword{water-quality}
-

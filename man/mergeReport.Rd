@@ -45,4 +45,3 @@ Sample <- eList$Sample
 \keyword{WRTDS}
 \keyword{data}
 \keyword{import}
-

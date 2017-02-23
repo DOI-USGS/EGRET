@@ -116,4 +116,3 @@ genericEGRETDotPlot(x=x, y=y,
 \keyword{graphics}
 \keyword{statistics}
 \keyword{water-quality}
-

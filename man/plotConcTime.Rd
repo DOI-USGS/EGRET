@@ -79,4 +79,3 @@ plotConcTime(eList, qUnit = 1, qLower = 100, qUpper = 10000, randomCensored = TR
 \keyword{graphics}
 \keyword{statistics}
 \keyword{water-quality}
-

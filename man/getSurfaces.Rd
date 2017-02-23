@@ -2,8 +2,8 @@
 % Please edit documentation in R/mergeReport.r
 \name{getSurfaces}
 \alias{getSurfaces}
-\alias{getSurfaces.default}
 \alias{getSurfaces.egret}
+\alias{getSurfaces.default}
 \title{Get surfaces matrix from EGRET object}
 \usage{
 getSurfaces(x, ...)
@@ -34,4 +34,3 @@ surfaces <- getSurfaces(eList)
 \keyword{WRTDS}
 \keyword{data}
 \keyword{import}
-

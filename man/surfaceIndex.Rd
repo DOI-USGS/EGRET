@@ -22,4 +22,3 @@ surfaceIndex(Daily)
 }
 \keyword{statistics}
 \keyword{water-quality}
-

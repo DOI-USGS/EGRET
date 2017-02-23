@@ -23,4 +23,3 @@ monthlyResults <- calculateMonthlyResults(eList)
 }
 \keyword{statistics}
 \keyword{water-quality}
-

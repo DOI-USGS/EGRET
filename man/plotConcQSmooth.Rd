@@ -108,4 +108,3 @@ plotConcQSmooth(eList, date1,date2,date3,qLow,qHigh,logScale=TRUE)
 \keyword{graphics}
 \keyword{statistics}
 \keyword{water-quality}
-

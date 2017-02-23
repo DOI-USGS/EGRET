@@ -65,4 +65,3 @@ plotQTimeDaily(eList)
 }
 \keyword{graphics}
 \keyword{streamflow}
-

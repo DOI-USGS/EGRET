@@ -104,4 +104,3 @@ plotDiffContours(eList, year0,year1,qBottom,qTop,maxDiff,
 \keyword{graphics}
 \keyword{statistics}
 \keyword{water-quality}
-

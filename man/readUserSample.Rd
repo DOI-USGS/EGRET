@@ -54,4 +54,3 @@ Sample <- readUserSample(filePath,fileName, separator=";",interactive=FALSE)
 \keyword{data}
 \keyword{file}
 \keyword{import}
-

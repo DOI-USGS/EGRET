@@ -84,4 +84,3 @@ plotFlowSingle(eList, 5)
 \keyword{graphics}
 \keyword{statistics}
 \keyword{streamflow}
-

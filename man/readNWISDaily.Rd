@@ -59,4 +59,3 @@ DailySuspSediment <- readNWISDaily('01594440','80154', '1985-01-01', '1985-03-31
 \keyword{WRTDS}
 \keyword{data}
 \keyword{import}
-

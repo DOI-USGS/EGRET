@@ -35,4 +35,3 @@ DailySubset <- selectDays(Daily, 4, 11)
 }
 \keyword{statistics}
 \keyword{streamflow}
-

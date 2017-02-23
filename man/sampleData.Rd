@@ -2,8 +2,8 @@
 % Please edit documentation in R/EGRET.R
 \docType{data}
 \name{Choptank_eList}
-\alias{Arkansas_eList}
 \alias{Choptank_eList}
+\alias{Arkansas_eList}
 \title{Example eList}
 \description{
 Example data representing data from the Choptank River at Greensboro, MD,  USGS data
@@ -16,4 +16,3 @@ head(Arkansas_eList$Daily)
 \keyword{data}
 \keyword{quality}
 \keyword{water}
-

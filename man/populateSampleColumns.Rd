@@ -23,4 +23,3 @@ Uncen <- c(1,1,0)
 dataInput <- data.frame(dateTime, ConcLow, ConcHigh, Uncen, stringsAsFactors=FALSE)
 Sample <- populateSampleColumns(dataInput)
 }
-

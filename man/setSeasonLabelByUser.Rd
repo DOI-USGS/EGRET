@@ -31,4 +31,3 @@ setSeasonLabelByUser(paStartInput=4,paLongInput=3)
 \keyword{graphics}
 \keyword{quality}
 \keyword{water}
-

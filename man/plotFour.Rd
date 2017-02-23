@@ -59,4 +59,3 @@ plotFour(eList)
 \keyword{graphics}
 \keyword{statistics}
 \keyword{streamflow}
-

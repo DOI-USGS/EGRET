@@ -39,4 +39,3 @@ Sample2 <- processQWData(rawWQP)
 \keyword{import}
 \keyword{service}
 \keyword{web}
-

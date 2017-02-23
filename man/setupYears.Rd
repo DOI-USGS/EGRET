@@ -33,4 +33,3 @@ AnnualResults <- setupYears(Daily, 4, 10)
 }
 \keyword{statistics}
 \keyword{water-quality}
-

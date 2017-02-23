@@ -21,4 +21,3 @@ yPretty(125)
 }
 \keyword{graphics}
 \keyword{statistics}
-

@@ -2,8 +2,8 @@
 % Please edit documentation in R/mergeReport.r
 \name{getInfo}
 \alias{getInfo}
-\alias{getInfo.default}
 \alias{getInfo.egret}
+\alias{getInfo.default}
 \title{Get INFO dataframe from EGRET object}
 \usage{
 getInfo(x, ...)
@@ -34,4 +34,3 @@ INFO <- getInfo(eList)
 \keyword{WRTDS}
 \keyword{data}
 \keyword{import}
-

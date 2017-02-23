@@ -68,4 +68,3 @@ plotConcHist(eList, yearStart, yearEnd)
 \keyword{graphics}
 \keyword{statistics}
 \keyword{water-quality}
-

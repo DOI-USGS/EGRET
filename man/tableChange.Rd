@@ -30,4 +30,3 @@ tableChange(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
 }
 \keyword{statistics}
 \keyword{water-quality}
-

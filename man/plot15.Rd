@@ -30,4 +30,3 @@ dev.off()
 \keyword{graphics}
 \keyword{statistics}
 \keyword{streamflow}
-

@@ -59,4 +59,3 @@ Sample_Select <- readNWISSample('05114000',c('00915','00931'), '', '')
 \keyword{WRTDS}
 \keyword{data}
 \keyword{import}
-

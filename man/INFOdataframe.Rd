@@ -3,8 +3,8 @@
 \name{INFOdataframe}
 \alias{INFOdataframe}
 \alias{readNWISInfo}
-\alias{readUserInfo}
 \alias{readWQPInfo}
+\alias{readUserInfo}
 \title{Import metadata to create INFO data frame}
 \usage{
 readNWISInfo(siteNumber, parameterCd, interactive = TRUE)
@@ -90,4 +90,3 @@ INFO <- readUserInfo(filePath,fileName, separator=",",interactive=FALSE)
 \keyword{import}
 \keyword{service}
 \keyword{web}
-

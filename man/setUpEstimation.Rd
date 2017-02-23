@@ -39,4 +39,3 @@ eList <- setUpEstimation(eList)
 }
 \keyword{statistics}
 \keyword{water-quality}
-

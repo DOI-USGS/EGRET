@@ -49,4 +49,3 @@ censoredSegments(yBottom=yBottom,yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
 \seealso{
 \code{\link[graphics]{segments}}
 }
-
