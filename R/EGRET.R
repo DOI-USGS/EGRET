@@ -8,7 +8,7 @@
 #' that originally came from the United States Geological Survey, an agency of
 #' the United States Department of Interior. For more information, see the
 #' official USGS copyright policy at
-#' http://www.usgs.gov/visual-id/credit_usgs.html#copyright\cr
+#' https://www.usgs.gov/visual-id/credit_usgs.html#copyright\cr
 #' LazyLoad: \tab yes\cr
 #' }
 #'
@@ -24,7 +24,7 @@
 #' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}, Laura De Cicco \email{ldecicco@@usgs.gov}
 #' @references Hirsch, R.M., and De Cicco, L.A., 2014, User guide to Exploration and Graphics for RivEr Trends 
 #' (EGRET) and dataRetrieval: R packages for hydrologic data: U.S. Geological Survey Techniques and Methods book 4, 
-#' chap. A10, 94 p., \url{http://dx.doi.org/10.3133/tm4A10}
+#' chap. A10, 94 p., \url{https://dx.doi.org/10.3133/tm4A10}
 #' @keywords water-quality graphics streamflow statistics 
 NULL
 
