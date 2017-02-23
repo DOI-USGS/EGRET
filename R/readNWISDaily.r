@@ -53,6 +53,7 @@ readNWISDaily <- function (siteNumber,parameterCd="00060",
   if(nrow(data)>0){
     names(data) <- c('agency', 'site', 'dateTime', 'value', 'code')
     data$dateTime <- as.Date(data$dateTime)
+    data$value <- as.numeric(data$value)
     #####################################
     qConvert <- ifelse("00060" == parameterCd, 35.314667, 1)
     qConvert<- ifelse(convert,qConvert,1)
