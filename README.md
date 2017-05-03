@@ -9,7 +9,7 @@ Please visit the wiki for more information:
 
 The link for the official USGS publication user guide is here:
 
-[http://pubs.usgs.gov/tm/04/a10/](http://pubs.usgs.gov/tm/04/a10/)
+[https://pubs.usgs.gov/tm/04/a10/](https://pubs.usgs.gov/tm/04/a10/)
 
 ### Current build tests:
 
@@ -35,7 +35,7 @@ install.packages("EGRET")
 
 To get inter-CRAN release updates, use the command:
 ```r
-install.packages("EGRET",repos="http://owi.usgs.gov/R")
+install.packages("EGRET",repos="https://owi.usgs.gov/R")
 ```
 
 To get cutting-edge changes, install from GitHub using the `devtools` packages:
@@ -69,7 +69,7 @@ Evaluating long-term changes in river conditions (water quality and discharge) i
 
 `EGRET` includes statistics and graphics for streamflow history, water quality trends, and the statistical modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS).  Please see the official EGRET User Guide for more information on the `EGRET` package:
 
-[http://dx.doi.org/10.3133/tm4A10](http://dx.doi.org/10.3133/tm4A10) 
+[https://dx.doi.org/10.3133/tm4A10](https://dx.doi.org/10.3133/tm4A10) 
 
 The best ways to learn about the WRTDS approach is to read the User Guide and two journal articles. These articles are available, for free, from the journals in which they were published. The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay. The URL is:
 
@@ -230,7 +230,7 @@ This is a sample workflow for a flowHistory application for the entire record.
 
 Disclaimer
 ----------
-This software is in the public domain because it contains materials that originally came from the U.S. Geological Survey  (USGS), an agency of the United States Department of Interior. For more information, see the official USGS copyright policy at [http://www.usgs.gov/visual-id/credit_usgs.html#copyright](http://www.usgs.gov/visual-id/credit_usgs.html#copyright)
+This software is in the public domain because it contains materials that originally came from the U.S. Geological Survey  (USGS), an agency of the United States Department of Interior. For more information, see the official USGS copyright policy at [https://www.usgs.gov/visual-id/credit_usgs.html#copyright](https://www.usgs.gov/visual-id/credit_usgs.html#copyright)
 
 Although this software program has been used by the USGS, no warranty, expressed or implied, is made by the USGS or the U.S. Government as to the accuracy and functioning of the program and related program material nor shall the fact of distribution constitute any such warranty, and no responsibility is assumed by the USGS in connection therewith.
 

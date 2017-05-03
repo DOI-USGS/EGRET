@@ -45,4 +45,3 @@ generalAxis(x, max, min, units, log=TRUE)
 \keyword{graphics}
 \keyword{statistics}
 \keyword{water-quality}
-

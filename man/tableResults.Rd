@@ -34,4 +34,3 @@ tableResults(eList, fluxUnit = 1)
 }
 \keyword{statistics}
 \keyword{water-quality}
-

@@ -36,4 +36,3 @@ ConcHigh <- c(1,2,3,3,5)
 dataInput <- data.frame(DecYear, ConcHigh, stringsAsFactors=FALSE)
 Sample <- removeDuplicates(dataInput)
 }
-

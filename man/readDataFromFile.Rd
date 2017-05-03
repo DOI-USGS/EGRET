@@ -32,4 +32,3 @@ ChopData <- readDataFromFile(filePath,fileName, separator="\\t")
 \keyword{data}
 \keyword{file}
 \keyword{import}
-

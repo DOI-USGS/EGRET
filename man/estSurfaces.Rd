@@ -44,4 +44,3 @@ eList <- Choptank_eList
 }
 \keyword{statistics}
 \keyword{water-quality}
-

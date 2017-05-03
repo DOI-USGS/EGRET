@@ -42,4 +42,3 @@ multiPlotDataOverview(eList, qUnit=1)
 \keyword{graphics}
 \keyword{statistics}
 \keyword{water-quality}
-

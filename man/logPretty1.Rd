@@ -29,4 +29,3 @@ logPretty1(xMin,xMax)
 }
 \keyword{graphics}
 \keyword{statistics}
-

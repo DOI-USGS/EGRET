@@ -29,4 +29,3 @@ plot1of15(eList, 1990, 2000, 0.2938476,5)
 }
 \keyword{graphics}
 \keyword{streamflow}
-

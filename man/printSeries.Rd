@@ -35,4 +35,3 @@ printReturn <- printSeries(eList, 5)
 }
 \keyword{statistics}
 \keyword{streamflow}
-

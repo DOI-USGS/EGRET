@@ -28,4 +28,3 @@ Some details about the fluxUnit class
 \item{shortCode}{A number for quick lookup}
  }
 }
-

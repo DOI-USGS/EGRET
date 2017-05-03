@@ -31,4 +31,3 @@ df <- tableFlowChange(eList, istat=5,yearPoints=c(2001,2005,2009))
 }
 \keyword{statistics}
 \keyword{streamflow}
-

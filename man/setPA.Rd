@@ -31,4 +31,3 @@ eList <- setPA(eList, paStart=12, paLong=3)
 }
 \keyword{statistics}
 \keyword{streamflow}
-

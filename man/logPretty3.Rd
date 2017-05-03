@@ -25,4 +25,3 @@ logPretty3(3,15)
 }
 \keyword{graphics}
 \keyword{statistics}
-

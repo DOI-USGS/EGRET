@@ -1,7 +1,7 @@
 Package: EGRET
 Type: Package
 Title: Exploration and Graphics for RivEr Trends (EGRET)
-Version: 2.6.0
+Version: 2.6.1
 Authors@R: c( person("Robert", "Hirsch", role = c("aut"),
     email = "rhirsch@usgs.gov"),
     person("Laura", "DeCicco", role = c("aut","cre"),
@@ -10,7 +10,7 @@ Description: Statistics and graphics for streamflow history,
     water quality trends, and the statistical modeling algorithm: Weighted
     Regressions on Time, Discharge, and Season (WRTDS).
 License: CC0
-Date: 2016-07-15
+Date: 2017-02-23
 Depends:
     R (>= 3.0)
 Imports:
@@ -35,10 +35,10 @@ LazyLoad: yes
 LazyData: yes
 VignetteBuilder: knitr
 BuildVignettes: true
-URL: http://pubs.usgs.gov/tm/04/a10/, https://github.com/USGS-R/EGRET/wiki
+URL: https://pubs.usgs.gov/tm/04/a10/, https://github.com/USGS-R/EGRET/wiki
 Copyright: This software is in the public domain because it contains materials
     that originally came from the United States Geological Survey, an agency of
     the United States Department of Interior. For more information, see the
     official USGS copyright policy at
-    http://www.usgs.gov/visual-id/credit_usgs.html#copyright
-RoxygenNote: 5.0.1
+    https://www.usgs.gov/visual-id/credit_usgs.html#copyright
+RoxygenNote: 6.0.1

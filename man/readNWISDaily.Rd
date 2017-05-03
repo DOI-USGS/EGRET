@@ -41,9 +41,9 @@ Q30 \tab numeric \tab 30 day running average of Q \cr
 }
 }
 \description{
-Imports data from NWIS web service. This function gets the data from here: \url{http://waterservices.usgs.gov/}
-A list of parameter codes can be found here: \url{http://nwis.waterdata.usgs.gov/nwis/pmcodes/}
-A list of statistic codes can be found here: \url{http://nwis.waterdata.usgs.gov/nwis/help/?read_file=stat&format=table}
+Imports data from NWIS web service. This function gets the data from here: \url{https://waterservices.usgs.gov/}
+A list of parameter codes can be found here: \url{https://nwis.waterdata.usgs.gov/nwis/pmcodes/}
+A list of statistic codes can be found here: \url{https://nwis.waterdata.usgs.gov/nwis/help/?read_file=stat&format=table}
 }
 \examples{
 \dontrun{
@@ -59,4 +59,3 @@ DailySuspSediment <- readNWISDaily('01594440','80154', '1985-01-01', '1985-03-31
 \keyword{WRTDS}
 \keyword{data}
 \keyword{import}
-

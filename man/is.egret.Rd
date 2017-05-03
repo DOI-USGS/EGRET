@@ -23,4 +23,3 @@ is.egret(eList)
 \keyword{WRTDS}
 \keyword{data}
 \keyword{import}
-

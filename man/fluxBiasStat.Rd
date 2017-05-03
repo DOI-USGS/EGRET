@@ -27,4 +27,3 @@ fluxBias <- fluxBiasStat(Sample)
 \keyword{bias}
 \keyword{statistics,}
 \keyword{water-quality}
-

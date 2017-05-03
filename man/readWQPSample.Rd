@@ -37,7 +37,7 @@ CosDY \tab numeric \tab Cosine of the DecYear
 }
 }
 \description{
-Imports data from the Water Quality Portal, so it could be STORET, NWIS, or . This function gets the data from: \url{http://www.waterqualitydata.us}
+Imports data from the Water Quality Portal, so it could be STORET, NWIS, or . This function gets the data from: \url{https://www.waterqualitydata.us}
 For raw data, use readWQPdata.  This function will retrieve the raw data, and compress it (summing constituents). See
 chapter 7 of the EGRET user guide for more details, then converts it to the Sample dataframe structure.
 }
@@ -56,4 +56,3 @@ Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
 \keyword{WRTDS}
 \keyword{data}
 \keyword{import}
-

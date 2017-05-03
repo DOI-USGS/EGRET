@@ -27,4 +27,3 @@ siteNumber <- "01594440"
 siteINFO <- populateSiteINFO(INFO, siteNumber)
 }
 }
-

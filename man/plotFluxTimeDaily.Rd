@@ -66,4 +66,3 @@ plotFluxTimeDaily(eList)
 \keyword{graphics}
 \keyword{statistics}
 \keyword{water-quality}
-

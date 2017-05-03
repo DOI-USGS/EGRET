@@ -38,4 +38,3 @@ flowDuration(eList, "01-01", qUnit=2)
 }
 \keyword{statistics}
 \keyword{streamflow,}
-

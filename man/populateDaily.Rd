@@ -41,12 +41,11 @@ code <- rep("",365)
 dataInput <- data.frame(dateTime, value, code, stringsAsFactors=FALSE)
 Daily <- populateDaily(dataInput, 2)
 }
-\author{
-Robert M. Hirsch \email{rhirsch@usgs.gov}
-}
 \seealso{
 \code{\link{readNWISDaily}}, \code{\link{readUserDaily}}
 }
+\author{
+Robert M. Hirsch \email{rhirsch@usgs.gov}
+}
 \keyword{WRTDS}
 \keyword{flow}
-

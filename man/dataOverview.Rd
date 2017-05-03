@@ -27,4 +27,3 @@ dataOverview(Daily = exDaily, Sample = exSample)
 \keyword{WRTDS}
 \keyword{data}
 \keyword{import}
-

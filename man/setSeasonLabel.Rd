@@ -31,4 +31,3 @@ setSeasonLabel(AnnualResults)
 \keyword{graphics}
 \keyword{quality}
 \keyword{water}
-

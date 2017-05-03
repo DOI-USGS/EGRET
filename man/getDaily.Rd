@@ -2,8 +2,8 @@
 % Please edit documentation in R/mergeReport.r
 \name{getDaily}
 \alias{getDaily}
-\alias{getDaily.default}
 \alias{getDaily.egret}
+\alias{getDaily.default}
 \title{Get Daily dataframe from EGRET object}
 \usage{
 getDaily(x, ...)
@@ -34,4 +34,3 @@ Daily <- getDaily(eList)
 \keyword{WRTDS}
 \keyword{data}
 \keyword{import}
-

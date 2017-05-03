@@ -186,7 +186,7 @@ addSpace <- function(x) ifelse(x != "1", "[5pt]","")
 
 EGRET includes statistics and graphics for streamflow history, water quality trends, and the statistical modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS).  Please see the official EGRET User Guide \cite{HirschI} for more information on the EGRET package:
 
-(\url{http://dx.doi.org/10.3133/tm4A10}) 
+(\url{https://dx.doi.org/10.3133/tm4A10}) 
 
 For information on getting started in R, downloading and installing the package, see section \ref{sec:appendix1}.
 
@@ -563,7 +563,7 @@ Sample <-readNWISSample(siteNumber,parameterCd,
 
 Information on USGS parameter codes can be found here:
 
-\url{http://help.waterdata.usgs.gov/codes-and-parameters/parameters}
+\url{https://help.waterdata.usgs.gov/codes-and-parameters/parameters}
 
 %------------------------------------------------------------ 
 \subsubsection{readWQPSample}
@@ -581,7 +581,7 @@ Sample <-readWQPSample(site,characteristicName,
 
 To request USGS data from the Water Quality Portal, the siteNumber must have \enquote{USGS-} pasted before the identification number. For USGS data, the \texttt{characteristicName} argument can be either a list of 5-digit parameter codes, or the characteristic name. A table that describes how USGS parameters relate with the defined characteristic name can be found here:
 
-\url{http://www.waterqualitydata.us/public_srsnames.jsp}
+\url{https://www.waterqualitydata.us/public_srsnames}
 
 \FloatBarrier
 
@@ -991,9 +991,9 @@ The next step can be to create the annual series of discharge statistics.  These
 \label{sec:plotOptions}
 %------------------------------------------------------------ 
 
-This section shows examples of the available plots appropriate for studying discharge history. The plots here use the default variable input options.  For any function, you can get a complete list of input variables (as described in section \ref{sec:flowHistoryVariables}) in a help file by typing a ? before the function name in the R console. The EGRET user guide has more detailed information for each plot type (\url{http://pubs.usgs.gov/tm/04/a10/}). Finally, see section \ref{app:savingPlots} for information on saving plots.
+This section shows examples of the available plots appropriate for studying discharge history. The plots here use the default variable input options.  For any function, you can get a complete list of input variables (as described in section \ref{sec:flowHistoryVariables}) in a help file by typing a ? before the function name in the R console. The EGRET user guide has more detailed information for each plot type (\url{https://pubs.usgs.gov/tm/04/a10/}). Finally, see section \ref{app:savingPlots} for information on saving plots.
 
-The simplest way to look at these time series is with the function \texttt{plotFlowSingle}. The statistic index (istat) must be defined by the user, but for all other arguments there are default values so the user isn't required to specify anything else. To see a list of these optional arguments and other information about the function, type \text{?plotFlowSingle} in the R console. All of the graphs in \texttt{plotFlowSingle}, \texttt{plotFourStats}, and all but one of the graphs in plotFour, show both the individual annual values of the selected discharge statistic (e.g. the annual mean or 7-day minimum), but they also show a curve that is a smooth fit to those data.  The curve is a LOWESS (locally weighted scatterplot smooth).  The algorithm for computing it is provided in the User Guide (\url{http://pubs.usgs.gov/tm/04/a10/}), in the section titled \enquote{The Smoothing Method Used in Flow History Analyses.} The default is that the annual values of the selected discharge statistics are smoothed with a \enquote{half-window width} of 20 years.  The smoothing window is an optional user-defined option. 
+The simplest way to look at these time series is with the function \texttt{plotFlowSingle}. The statistic index (istat) must be defined by the user, but for all other arguments there are default values so the user isn't required to specify anything else. To see a list of these optional arguments and other information about the function, type \text{?plotFlowSingle} in the R console. All of the graphs in \texttt{plotFlowSingle}, \texttt{plotFourStats}, and all but one of the graphs in plotFour, show both the individual annual values of the selected discharge statistic (e.g. the annual mean or 7-day minimum), but they also show a curve that is a smooth fit to those data.  The curve is a LOWESS (locally weighted scatterplot smooth).  The algorithm for computing it is provided in the User Guide (\url{https://pubs.usgs.gov/tm/04/a10/}), in the section titled \enquote{The Smoothing Method Used in Flow History Analyses.} The default is that the annual values of the selected discharge statistics are smoothed with a \enquote{half-window width} of 20 years.  The smoothing window is an optional user-defined option. 
 
 \texttt{plotSDLogQ} produces a graphic of the running standard deviation of the log of daily discharge over time to visualize how variability of daily discharge is changing over time.  By using the standard deviation of the log discharge the statistic becomes dimensionless.  The standard deviation plot is a way of looking at variability quite aside from average values, so, in the case of a system where discharge might be increasing over a period of years, this graphic provides a way of looking at the variability relative to that changing mean value.  The standard deviation of the log discharge is much like a coefficient of variation, but it has sample properties that make it a smoother measure of variability.  People often comment about how things like urbanization or enhanced greenhouse gases in the atmosphere are bringing about an increase in variability, and this analysis is one way to explore that idea. \texttt{plotFour}, \texttt{plotFourStats}, and \texttt{plot15} are all designed to plot several graphs from the other functions in a single figure. 
 
@@ -1998,10 +1998,10 @@ Although this software has been used by the U.S. Geological Survey (USGS), no wa
 \begin{thebibliography}{10}
 
 % \bibitem{HirschI}
-% Helsel, D.R. and R. M. Hirsch, 2002. Statistical Methods in Water Resources Techniques of Water Resources Investigations, Book 4, chapter A3. U.S. Geological Survey. 522 pages. \url{http://pubs.usgs.gov/twri/twri4a3/}
+% Helsel, D.R. and R. M. Hirsch, 2002. Statistical Methods in Water Resources Techniques of Water Resources Investigations, Book 4, chapter A3. U.S. Geological Survey. 522 pages. \url{https://pubs.usgs.gov/twri/twri4a3/}
 
 \bibitem{HirschI}
-Hirsch, R.M., De Cicco, L.A. (2014), User guide to Exploration and Graphics for RivEr Trends (EGRET) and dataRetrieval: R packages for hydrologic data (version 2.0, February 2015): U.S. Geological Survey Techniques and Methods book 4, chap. A10, 93 p. \url{http://dx.doi.org/10.3133/tm4A10}
+Hirsch, R.M., De Cicco, L.A. (2014), User guide to Exploration and Graphics for RivEr Trends (EGRET) and dataRetrieval: R packages for hydrologic data (version 2.0, February 2015): U.S. Geological Survey Techniques and Methods book 4, chap. A10, 93 p. \url{https://dx.doi.org/10.3133/tm4A10}
 
 
 \bibitem{HirschII}
@@ -2011,10 +2011,10 @@ Hirsch, R.M., Moyer, D.L. and Archfield, S.A. (2010), Weighted Regressions on Ti
 Sprague, L.A., Hirsch, R.M., and Aulenbach, B.T. (2011), Nitrate in the Mississippi River and Its Tributaries, 1980 to 2008: Are We Making Progress? Environmental Science \& Technology, 45 (17): 7209-7216. doi: 10.1021/es201221s 
 
 \bibitem{HirschIV}
-Moyer, D.L., Hirsch, R.M., and Hyer, K.E. (2012), Comparison of Two Regression-Based Approaches for Determining Nutrient and Sediment Fluxes and Trends in the Chesapeake Bay Watershed: U.S. Geological Survey Scientific Investigations Report 2012-5244, 118 p. \url{http://pubs.usgs.gov/sir/2012/5244/}
+Moyer, D.L., Hirsch, R.M., and Hyer, K.E. (2012), Comparison of Two Regression-Based Approaches for Determining Nutrient and Sediment Fluxes and Trends in the Chesapeake Bay Watershed: U.S. Geological Survey Scientific Investigations Report 2012-5244, 118 p. \url{https://pubs.usgs.gov/sir/2012/5244/}
 
 \bibitem{HirschV}
-Rice, K.C., and Hirsch, R.M. (2012), Spatial and temporal trends in runoff at long-term streamgages within and near the Chesapeake Bay Watershed: U.S. Geological Survey Scientific Investigations Report 2012-5151, 56 p. \url{http://pubs.usgs.gov/sir/2012/5151}
+Rice, K.C., and Hirsch, R.M. (2012), Spatial and temporal trends in runoff at long-term streamgages within and near the Chesapeake Bay Watershed: U.S. Geological Survey Scientific Investigations Report 2012-5151, 56 p. \url{https://pubs.usgs.gov/sir/2012/5151}
 
 
 \end{thebibliography}

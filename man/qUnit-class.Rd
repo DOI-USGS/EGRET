@@ -22,4 +22,3 @@ Some details about the qUnit class
 \item{shortCode}{A number for quick lookup}
  }
 }
-

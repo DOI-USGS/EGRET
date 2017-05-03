@@ -37,8 +37,8 @@ CosDY \tab numeric \tab Cosine of the DecYear
 }
 }
 \description{
-Imports data from NWIS web service. This function gets the data from here: \url{http://nwis.waterdata.usgs.gov/nwis/qwdata/}
-A list of parameter and statistic codes can be found here: \url{http://help.waterdata.usgs.gov/codes-and-parameters}
+Imports data from NWIS web service. This function gets the data from here: \url{https://nwis.waterdata.usgs.gov/nwis/qwdata/}
+A list of parameter and statistic codes can be found here: \url{https://help.waterdata.usgs.gov/codes-and-parameters}
 For raw data, use \code{\link[dataRetrieval]{readNWISqw}} from the dataRetrieval package.  This function will retrieve the raw data, and compress it (summing constituents). See
 section 3.2.4 of the vignette for more details.
 }
@@ -59,4 +59,3 @@ Sample_Select <- readNWISSample('05114000',c('00915','00931'), '', '')
 \keyword{WRTDS}
 \keyword{data}
 \keyword{import}
-

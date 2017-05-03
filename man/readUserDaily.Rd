@@ -51,4 +51,3 @@ Daily <- readUserDaily(filePath,fileName,separator="\\t")
 \keyword{data}
 \keyword{file}
 \keyword{import}
-

@@ -16,4 +16,3 @@ Some details about the monthLabel class
 \item{monthSingle}{A character specifying the single letter of the month.}
  }
 }
-

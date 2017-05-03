@@ -26,4 +26,3 @@ formatCheckDate(Date, dateString, interactive = FALSE)
 }
 \keyword{WRTDS}
 \keyword{flow}
-

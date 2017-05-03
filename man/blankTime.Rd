@@ -30,4 +30,3 @@ eList <- blankTime(eList, startBlank, endBlank)
 }
 \keyword{statistics}
 \keyword{water-quality}
-

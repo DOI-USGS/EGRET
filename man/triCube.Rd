@@ -26,4 +26,3 @@ Computes the tricube weight function on a vector of distance values (d),
 }
 \keyword{statistics}
 \keyword{weighting}
-
