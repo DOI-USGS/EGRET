@@ -1,37 +1,43 @@
-# Sample .travis.yml for R projects from https://github.com/craigcitro/r-travis
+# Sample .travis.yml for R projects.
+#
+# See README.md for instructions, or for more configuration options,
+# see the wiki:
+#   https://github.com/craigcitro/r-travis/wiki
 
-language: c
+language: r
+cache: packages
+dist: trusty
 
-os:
-  - osx
-  - linux
+matrix:
+  include:
+    - os: linux
+      r: release
+    - os: linux
+      r: devel
+      env: R_CODECOV=true
+
+addons:
+  apt:
+    packages:
+    - libcurl4-openssl-dev
 
 env:
    global:
-     - R_LIBS="http://cran.rstudio.com"
      - R_BUILD_ARGS="--no-build-vignettes --no-manual"
      - R_CHECK_ARGS="--no-build-vignettes --no-manual --as-cran"
-     - BOOTSTRAP_LATEX=""
      - NOT_CRAN="true"
+     - _R_CHECK_FORCE_SUGGESTS_=false
+     
+warnings_are_errors: true
 
-before_install:
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-  - chmod 755 ./travis-tool.sh
-  - ./travis-tool.sh bootstrap
+r_github_packages:
+  - jimhester/covr
 
-after_script:
-  - "./travis-tool.sh dump_logs"
-
-install:
-  - ./travis-tool.sh install_deps
-  - ./travis-tool.sh install_github USGS-R/dataRetrieval
-  - ./travis-tool.sh install_r knitr
-  - ./travis-tool.sh install_r extrafont
-  - ./travis-tool.sh install_r xtable
-
-script: ./travis-tool.sh run_tests
-
+after_success:
+  - if [[ "${R_CODECOV}" ]]; then R -e 'covr::coveralls()'; fi
+  
 notifications:
   email:
     on_success: change
     on_failure: change
+
