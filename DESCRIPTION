@@ -10,7 +10,6 @@ Description: Statistics and graphics for streamflow history,
     water quality trends, and the statistical modeling algorithm: Weighted
     Regressions on Time, Discharge, and Season (WRTDS).
 License: CC0
-Date: 2017-05-08
 Depends:
     R (>= 3.0)
 Imports:
