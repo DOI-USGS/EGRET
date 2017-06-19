@@ -6,7 +6,6 @@
 #'
 #' @param eList named list with at least the Sample dataframe
 #' @keywords water-quality statistics
-#' @importFrom truncnorm rtruncnorm
 #' @examples 
 #' choptankAugmented <- makeAugmentedSample(Choptank_eList)
 #' @export
@@ -20,7 +19,7 @@ makeAugmentedSample <- function(eList){
     b <- ifelse(localSample$Uncen==1,+Inf,log(localSample$ConcHigh) - localSample$yHat)
     mean <- ifelse(localSample$Uncen==1,log(localSample$ConcHigh) - localSample$yHat,0)
     sd <- ifelse(localSample$Uncen==1,0,localSample$SE)
-    localSample$rResid <- rtruncnorm(numSamples,a,b,mean,sd)
+    localSample$rResid <- truncnorm::rtruncnorm(numSamples,a,b,mean,sd)
     localSample$rObserved <- exp(localSample$rResid + localSample$yHat)
     
     eList	<- as.egret(eList$INFO, eList$Daily, localSample, eList$surfaces)
