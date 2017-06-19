@@ -14,13 +14,13 @@
 #' eList <- Choptank_eList
 #' Sample <- getSample(eList)
 #' fluxBias <- fluxBiasStat(Sample) 
-fluxBiasStat<-function(localSample) {
-  sumLow<-sum(localSample$ConcLow*localSample$Q,na.rm=TRUE)
-  sumHigh<-sum(localSample$ConcHigh*localSample$Q,na.rm=TRUE)
-  sumEst<-sum(localSample$ConcHat*localSample$Q,na.rm=TRUE)
-  bias1<-(sumEst-sumHigh)/sumEst
-  bias2<-(sumEst-sumLow)/sumEst
-  bias3<-(bias1+bias2)/2
-  fluxBias<-data.frame(bias1,bias2,bias3)
+fluxBiasStat <- function(localSample) {
+  sumLow <- sum(localSample$ConcLow * localSample$Q, na.rm = TRUE)
+  sumHigh <- sum(localSample$ConcHigh * localSample$Q, na.rm = TRUE)
+  sumEst <- sum(localSample$ConcHat * localSample$Q, na.rm = TRUE)
+  bias1 <- (sumEst - sumHigh) / sumEst
+  bias2 <- (sumEst - sumLow) / sumEst
+  bias3 <- (bias1 + bias2) / 2
+  fluxBias <- data.frame(bias1, bias2, bias3)
   return(fluxBias)
 }
