@@ -11,7 +11,7 @@ test_that("modelEstimation produces correct values with default args", {
   sample_stale <- getSample(eList)
   
   info_orig <- info_stale[, 1:(which(names(info_stale) == "bottomLogQ") - 1)]
-  daily_orig <- daily_stale[, 1:(which(names(daily_stale) == "Q30") - 1)]
+  daily_orig <- daily_stale[, 1:(which(names(daily_stale) == "yHat") - 1)]
   sample_orig <- sample_stale[, 1:(which(names(sample_stale) == "yHat") - 1)]
   surfaces_orig <- NA
   eList_orig <- mergeReport(info_orig, daily_orig, sample_orig, surfaces_orig)
@@ -48,7 +48,7 @@ test_that("modelEstimation produces correct values with default args", {
   expect_equal(daily_modeled[['i']], daily_orig[['i']])
   expect_equal(daily_modeled[['LogQ']], daily_orig[['LogQ']])
   expect_equal(daily_modeled[['Q7']], daily_orig[['Q7']])
-  # expect_equal(daily_modeled[['Q30']], daily_orig[['Q30']])
+  expect_equal(daily_modeled[['Q30']], daily_orig[['Q30']])
   
   # daily modeled values come out correctly with defaults
   expect_equal(mean(daily_modeled[['yHat']]), 0.1189346162)
