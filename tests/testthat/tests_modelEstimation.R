@@ -153,3 +153,83 @@ test_that("modelEstimation window params work", {
   expect_equal(summary_surface[['Max.']], 1.3902387681)
   
 })
+
+context("testing setUpEstimation")
+
+test_that('setUpEstimation handles missing info well', {
+  
+  eList <- Arkansas_eList
+  info_stale <- getInfo(eList)
+  daily_stale <- getDaily(eList)
+  sample_stale <- getSample(eList)
+  
+  info_orig <- info_stale[, 1:(which(names(info_stale) == "bottomLogQ") - 1)]
+  daily_orig <- daily_stale[, 1:(which(names(daily_stale) == "Q30") - 1)]
+  sample_orig <- sample_stale[, 1:(which(names(sample_stale) == "yHat") - 1)]
+  surfaces_orig <- NA
+  eList_orig <- mergeReport(info_orig, daily_orig, sample_orig, surfaces_orig)
+  
+  # when Q is missing from Sample, it should be added back in this function
+  eList_miss_q <- eList_orig
+  eList_miss_q$Sample$Q <- NULL
+  eList_miss_q_setup <- setUpEstimation(eList_miss_q)
+  expect_false("Q" %in% names(getSample(eList_miss_q)))
+  expect_true("Q" %in% names(getSample(eList_miss_q_setup)))
+  
+  # when LogQ is missing from Sample, it should be added back in this function
+  eList_miss_logq <- eList_orig
+  eList_miss_logq$Sample$LogQ <- NULL
+  eList_miss_logq_setup <- setUpEstimation(eList_miss_logq)
+  expect_false("LogQ" %in% names(getSample(eList_miss_logq)))
+  expect_true("LogQ" %in% names(getSample(eList_miss_logq_setup)))
+  
+  # setUpEstimation fails when there are concentration values of zero
+  eList_zero <- eList_orig
+  eList_zero$Sample$ConcLow[c(4,33,57)] <- 0
+  expect_error(setUpEstimation(eList_zero), "modelEstimation cannot be run with 0 values in ConcLow.")
+  expect_silent(setUpEstimation(eList_orig))
+  
+})
+
+test_that("setUpEstimation gives correct results for INFO (new cols & user arg cols correct)", {
+  
+  # Choptank_eList already has modeled results, so removing them to test
+  eList <- Choptank_eList
+  info_stale <- getInfo(eList)
+  daily_stale <- getDaily(eList)
+  sample_stale <- getSample(eList)
+  
+  info_orig <- info_stale[, 1:(which(names(info_stale) == "bottomLogQ") - 1)]
+  daily_orig <- daily_stale[, 1:(which(names(daily_stale) == "yHat") - 1)]
+  sample_orig <- sample_stale[, 1:(which(names(sample_stale) == "yHat") - 1)]
+  surfaces_orig <- NA
+  eList_orig <- mergeReport(info_orig, daily_orig, sample_orig, surfaces_orig)
+  
+  cols_added_from_args <- c("windowY", "windowQ", "windowS", "minNumObs",
+                            "minNumUncen", "edgeAdjust")
+  cols_added <- c(cols_added_from_args,
+                  "bottomLogQ", "stepLogQ", "nVectorLogQ", "bottomYear", "stepYear",
+                  "nVectorYear", "windowY", "windowQ", "windowS", "minNumObs",
+                  "minNumUncen", "numDays", "DecLow", "DecHigh", "edgeAdjust")
+  
+  eList_setup <- setUpEstimation(eList_orig)
+  info_setup <- getInfo(eList_setup)
+  
+  # test appropriate columns added
+  expect_false(any(cols_added %in% names(info_orig)))
+  expect_true(all(cols_added %in% names(info_setup)))
+  
+  # test that defaults are correctly added
+  default_args <- as.data.frame(formals(setUpEstimation)[cols_added_from_args])
+  args_added <- info_setup[cols_added_from_args]
+  expect_equal(sapply(default_args, '[[', 1), sapply(args_added, '[[', 1))
+  
+  # test values in each column are correct (just in case the order from `surfaceIndex` ever changes)
+  expect_equal(info_setup$bottomLogQ, -4.6641204979)
+  expect_equal(info_setup$stepLogQ, 0.7862231099)
+  expect_equal(info_setup$nVectorLogQ, 14)
+  expect_equal(info_setup$bottomYear, 1979)
+  expect_equal(info_setup$stepYear, 0.0625)
+  expect_equal(info_setup$nVectorYear, 529)
+  
+})
