@@ -37,20 +37,18 @@ test_that("modelEstimation produces correct values with default args", {
   ## DAILY ##
   
   # daily data is unaltered after running modelEstimation
-  expect_equal(mean(daily_modeled[['Date']]), mean(daily_orig[['Date']]))
-  expect_equal(mean(daily_modeled[['Q']]), mean(daily_orig[['Q']]))
-  expect_equal(mean(daily_modeled[['Julian']]), mean(daily_orig[['Julian']]))
-  expect_equal(mean(daily_modeled[['Month']]), mean(daily_orig[['Month']]))
-  expect_equal(mean(daily_modeled[['Day']]), mean(daily_orig[['Day']]))
-  expect_equal(mean(daily_modeled[['DecYear']]), mean(daily_orig[['DecYear']]))
-  expect_equal(mean(daily_modeled[['MonthSeq']]), mean(daily_orig[['MonthSeq']]))
+  expect_equal(daily_modeled[['Date']], daily_orig[['Date']])
+  expect_equal(daily_modeled[['Q']], daily_orig[['Q']])
+  expect_equal(daily_modeled[['Julian']], daily_orig[['Julian']])
+  expect_equal(daily_modeled[['Month']], daily_orig[['Month']])
+  expect_equal(daily_modeled[['Day']], daily_orig[['Day']])
+  expect_equal(daily_modeled[['DecYear']], daily_orig[['DecYear']])
+  expect_equal(daily_modeled[['MonthSeq']], daily_orig[['MonthSeq']])
   expect_equal(daily_modeled[['Qualifier']], daily_orig[['Qualifier']])
-  expect_equal(mean(daily_modeled[['i']]), mean(daily_orig[['i']]))
-  expect_equal(mean(daily_modeled[['LogQ']]), mean(daily_orig[['LogQ']]))
-  expect_true(is.na(mean(daily_modeled[['Q7']])))
-  expect_equal(mean(daily_modeled[['Q7']], na.rm=TRUE), mean(daily_orig[['Q7']], na.rm=TRUE))
-  # expect_true(is.na(mean(daily_modeled[['Q30']])))
-  # expect_equal(mean(daily_modeled[['Q30']], na.rm=TRUE), mean(daily_orig[['Q30']], na.rm=TRUE))
+  expect_equal(daily_modeled[['i']], daily_orig[['i']])
+  expect_equal(daily_modeled[['LogQ']], daily_orig[['LogQ']])
+  expect_equal(daily_modeled[['Q7']], daily_orig[['Q7']])
+  # expect_equal(daily_modeled[['Q30']], daily_orig[['Q30']])
   
   # daily modeled values come out correctly with defaults
   expect_equal(mean(daily_modeled[['yHat']]), 0.1189346162)
