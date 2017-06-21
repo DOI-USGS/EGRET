@@ -25,7 +25,7 @@ test_that("modelEstimation produces correct values with default args", {
   ## INFO ##
   
   # columns retained in info are unaltered after running modelEstimation
-  orig_cols_info <- 1:which(names(info_modeled) == "bottomLogQ") - 1
+  orig_cols_info <- 1:(which(names(info_modeled) == "bottomLogQ") - 1)
   expect_true(all(names(info_orig) == names(info_modeled[, orig_cols_info])))
   expect_equal(sapply(info_orig, '[[', 1), sapply(info_modeled[, orig_cols_info], '[[', 1))
   
@@ -61,9 +61,15 @@ test_that("modelEstimation produces correct values with default args", {
   ## SAMPLE ##
   
   # columns retained in sample are unaltered after running modelEstimation
-  orig_cols_sample <- 1:which(names(sample_modeled) == "yHat") - 1
-  # expect_true(all(names(sample_orig) == names(sample_modeled[, orig_cols_sample])))
-  # expect_equal(sapply(sample_orig, '[[', 1), sapply(sample_modeled[, orig_cols_sample], '[[', 1))
+  orig_cols_sample <- 1:(which(names(sample_modeled) == "yHat") - 1)
+  orig_colnames <- names(sample_orig)
+  model_colnames <- names(sample_modeled[, orig_cols_sample])
+  orig_names_diff <- setdiff(orig_colnames, model_colnames)
+  model_names_diff <- setdiff(model_colnames, orig_colnames)
+  expect_true(length(orig_names_diff) == 0 & length(model_names_diff) == 0)
+  # reorder columns so that we can compare each column
+  sample_modeled_reordered <- sample_modeled[, match(orig_colnames, model_colnames)]
+  expect_equal(sapply(sample_orig, '[[', 1), sapply(sample_modeled_reordered, '[[', 1))
   
   # sample new columns are correct
   expect_equal(mean(sample_modeled[['yHat']]), 0.0475113943)
