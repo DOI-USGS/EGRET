@@ -22,9 +22,8 @@ test_that("estCrossVal adds correct, new columns", {
   sample_crossval <- estCrossVal(numDays,DecLow,DecHigh,sample_orig)
   
   # estCrossVal adds three columns to Sample
-  expect_equal(ncol(sample_crossval) - ncol(sample_orig), 3)
-  expect_false(any(c("yHat", "SE", "ConcHat") %in% names(sample_orig)))
-  expect_true(all(c("yHat", "SE", "ConcHat") %in% names(sample_crossval)))
+  new_sample_cols <- setdiff(names(sample_crossval), names(sample_orig))
+  expect_equal(sort(new_sample_cols), sort(c("yHat", "SE", "ConcHat")))
   
   # test that no original columns were lost in estCrossVal
   expect_true(all(names(sample_orig) %in% names(sample_crossval)))
