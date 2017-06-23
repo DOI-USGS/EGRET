@@ -3,20 +3,9 @@ context("testing modelEstimation")
 test_that("modelEstimation produces correct values with default args", {
   skip_on_cran()
   
-  # Choptank_eList has model results already, but the model 
-  # hasn't been run since it was originally saved.
-  eList <- Choptank_eList
-  info_stale <- getInfo(eList)
-  daily_stale <- getDaily(eList)
-  sample_stale <- getSample(eList)
+  # Uses original and "stale" versions of Choptank data created in `tests/helper-originaldata.R`
   
-  info_orig <- info_stale[, 1:(which(names(info_stale) == "bottomLogQ") - 1)]
-  daily_orig <- daily_stale[, 1:(which(names(daily_stale) == "yHat") - 1)]
-  sample_orig <- sample_stale[, 1:(which(names(sample_stale) == "yHat") - 1)]
-  surfaces_orig <- NA
-  eList_orig <- mergeReport(info_orig, daily_orig, sample_orig, surfaces_orig)
-  
-  eList_modeled <- modelEstimation(eList_orig)
+  eList_modeled <- modelEstimation(eList_orig_Ch)
   info_modeled <- getInfo(eList_modeled)
   daily_modeled <- getDaily(eList_modeled)
   sample_modeled <- getSample(eList_modeled)
@@ -26,8 +15,8 @@ test_that("modelEstimation produces correct values with default args", {
   
   # columns retained in info are unaltered after running modelEstimation
   orig_cols_info <- 1:(which(names(info_modeled) == "bottomLogQ") - 1)
-  expect_true(all(names(info_orig) == names(info_modeled[, orig_cols_info])))
-  expect_equal(sapply(info_orig, '[[', 1), sapply(info_modeled[, orig_cols_info], '[[', 1))
+  expect_true(all(names(info_orig_Ch) == names(info_modeled[, orig_cols_info])))
+  expect_equal(sapply(info_orig_Ch, '[[', 1), sapply(info_modeled[, orig_cols_info], '[[', 1))
   
   # defaults show up in INFO
   expect_equal(info_modeled[['windowY']], 7)
@@ -37,18 +26,18 @@ test_that("modelEstimation produces correct values with default args", {
   ## DAILY ##
   
   # daily data is unaltered after running modelEstimation
-  expect_equal(daily_modeled[['Date']], daily_orig[['Date']])
-  expect_equal(daily_modeled[['Q']], daily_orig[['Q']])
-  expect_equal(daily_modeled[['Julian']], daily_orig[['Julian']])
-  expect_equal(daily_modeled[['Month']], daily_orig[['Month']])
-  expect_equal(daily_modeled[['Day']], daily_orig[['Day']])
-  expect_equal(daily_modeled[['DecYear']], daily_orig[['DecYear']])
-  expect_equal(daily_modeled[['MonthSeq']], daily_orig[['MonthSeq']])
-  expect_equal(daily_modeled[['Qualifier']], daily_orig[['Qualifier']])
-  expect_equal(daily_modeled[['i']], daily_orig[['i']])
-  expect_equal(daily_modeled[['LogQ']], daily_orig[['LogQ']])
-  expect_equal(daily_modeled[['Q7']], daily_orig[['Q7']])
-  expect_equal(daily_modeled[['Q30']], daily_orig[['Q30']])
+  expect_equal(daily_modeled[['Date']], daily_orig_Ch[['Date']])
+  expect_equal(daily_modeled[['Q']], daily_orig_Ch[['Q']])
+  expect_equal(daily_modeled[['Julian']], daily_orig_Ch[['Julian']])
+  expect_equal(daily_modeled[['Month']], daily_orig_Ch[['Month']])
+  expect_equal(daily_modeled[['Day']], daily_orig_Ch[['Day']])
+  expect_equal(daily_modeled[['DecYear']], daily_orig_Ch[['DecYear']])
+  expect_equal(daily_modeled[['MonthSeq']], daily_orig_Ch[['MonthSeq']])
+  expect_equal(daily_modeled[['Qualifier']], daily_orig_Ch[['Qualifier']])
+  expect_equal(daily_modeled[['i']], daily_orig_Ch[['i']])
+  expect_equal(daily_modeled[['LogQ']], daily_orig_Ch[['LogQ']])
+  expect_equal(daily_modeled[['Q7']], daily_orig_Ch[['Q7']])
+  expect_equal(daily_modeled[['Q30']], daily_orig_Ch[['Q30']])
   
   # daily modeled values come out correctly with defaults
   expect_equal(mean(daily_modeled[['yHat']]), 0.1189346162)
@@ -62,14 +51,14 @@ test_that("modelEstimation produces correct values with default args", {
   
   # columns retained in sample are unaltered after running modelEstimation
   orig_cols_sample <- 1:(which(names(sample_modeled) == "yHat") - 1)
-  orig_colnames <- names(sample_orig)
+  orig_colnames <- names(sample_orig_Ch)
   model_colnames <- names(sample_modeled[, orig_cols_sample])
   orig_names_diff <- setdiff(orig_colnames, model_colnames)
   model_names_diff <- setdiff(model_colnames, orig_colnames)
   expect_true(length(orig_names_diff) == 0 & length(model_names_diff) == 0)
   # reorder columns so that we can compare each column
   sample_modeled_reordered <- sample_modeled[, match(orig_colnames, model_colnames)]
-  expect_equal(sapply(sample_orig, '[[', 1), sapply(sample_modeled_reordered, '[[', 1))
+  expect_equal(sapply(sample_orig_Ch, '[[', 1), sapply(sample_modeled_reordered, '[[', 1))
   
   # sample new columns are correct
   expect_equal(mean(sample_modeled[['yHat']]), 0.0475113943)
@@ -79,7 +68,7 @@ test_that("modelEstimation produces correct values with default args", {
   ## SURFACES ##
   
   # modelEstimation adds surfaces values
-  expect_true(is.na(surfaces_orig))
+  expect_true(is.na(surfaces_orig_Ch))
   expect_true(all(names(eList_modeled) %in% c("INFO", "Daily", "Sample", "surfaces")))
   expect_equal(nrow(surfaces_modeled), 14)
   
@@ -97,20 +86,9 @@ test_that("modelEstimation produces correct values with default args", {
 test_that("modelEstimation window params work", {
   skip_on_cran()
   
-  # Arkansas_eList has model results already, but the model 
-  # hasn't been run since it was originally saved.
-  eList <- Arkansas_eList
-  info_stale <- getInfo(eList)
-  daily_stale <- getDaily(eList)
-  sample_stale <- getSample(eList)
+  # Uses original and "stale" versions of Arkansas data created in `tests/helper-originaldata.R`
   
-  info_orig <- info_stale[, 1:(which(names(info_stale) == "bottomLogQ") - 1)]
-  daily_orig <- daily_stale[, 1:(which(names(daily_stale) == "Q30") - 1)]
-  sample_orig <- sample_stale[, 1:(which(names(sample_stale) == "yHat") - 1)]
-  surfaces_orig <- NA
-  eList_orig <- mergeReport(info_orig, daily_orig, sample_orig, surfaces_orig)
-  
-  eList_modeled <- modelEstimation(eList_orig, windowY = 5,
+  eList_modeled <- modelEstimation(eList_orig_Ar, windowY = 5,
                                    windowQ = 3, windowS = 0.25)
   info_modeled <- getInfo(eList_modeled)
   daily_modeled <- getDaily(eList_modeled)
@@ -158,52 +136,33 @@ context("testing setUpEstimation")
 
 test_that('setUpEstimation handles missing info well', {
   
-  eList <- Arkansas_eList
-  info_stale <- getInfo(eList)
-  daily_stale <- getDaily(eList)
-  sample_stale <- getSample(eList)
-  
-  info_orig <- info_stale[, 1:(which(names(info_stale) == "bottomLogQ") - 1)]
-  daily_orig <- daily_stale[, 1:(which(names(daily_stale) == "Q30") - 1)]
-  sample_orig <- sample_stale[, 1:(which(names(sample_stale) == "yHat") - 1)]
-  surfaces_orig <- NA
-  eList_orig <- mergeReport(info_orig, daily_orig, sample_orig, surfaces_orig)
+  # Uses original and "stale" versions of Arkansas data created in `tests/helper-originaldata.R`
   
   # when Q is missing from Sample, it should be added back in this function
-  eList_miss_q <- eList_orig
+  eList_miss_q <- eList_orig_Ar
   eList_miss_q$Sample$Q <- NULL
   eList_miss_q_setup <- setUpEstimation(eList_miss_q)
   expect_false("Q" %in% names(getSample(eList_miss_q)))
   expect_true("Q" %in% names(getSample(eList_miss_q_setup)))
   
   # when LogQ is missing from Sample, it should be added back in this function
-  eList_miss_logq <- eList_orig
+  eList_miss_logq <- eList_orig_Ar
   eList_miss_logq$Sample$LogQ <- NULL
   eList_miss_logq_setup <- setUpEstimation(eList_miss_logq)
   expect_false("LogQ" %in% names(getSample(eList_miss_logq)))
   expect_true("LogQ" %in% names(getSample(eList_miss_logq_setup)))
   
   # setUpEstimation fails when there are concentration values of zero
-  eList_zero <- eList_orig
+  eList_zero <- eList_orig_Ar
   eList_zero$Sample$ConcLow[c(4,33,57)] <- 0
   expect_error(setUpEstimation(eList_zero), "modelEstimation cannot be run with 0 values in ConcLow.")
-  expect_silent(setUpEstimation(eList_orig))
+  expect_silent(setUpEstimation(eList_orig_Ar))
   
 })
 
 test_that("setUpEstimation gives correct results for INFO (new cols & user arg cols correct)", {
   
-  # Choptank_eList already has modeled results, so removing them to test
-  eList <- Choptank_eList
-  info_stale <- getInfo(eList)
-  daily_stale <- getDaily(eList)
-  sample_stale <- getSample(eList)
-  
-  info_orig <- info_stale[, 1:(which(names(info_stale) == "bottomLogQ") - 1)]
-  daily_orig <- daily_stale[, 1:(which(names(daily_stale) == "yHat") - 1)]
-  sample_orig <- sample_stale[, 1:(which(names(sample_stale) == "yHat") - 1)]
-  surfaces_orig <- NA
-  eList_orig <- mergeReport(info_orig, daily_orig, sample_orig, surfaces_orig)
+  # Uses original and "stale" versions of Choptank data created in `tests/helper-originaldata.R`
   
   cols_added_from_args <- c("windowY", "windowQ", "windowS", "minNumObs",
                             "minNumUncen", "edgeAdjust")
@@ -212,11 +171,11 @@ test_that("setUpEstimation gives correct results for INFO (new cols & user arg c
                   "nVectorYear", "windowY", "windowQ", "windowS", "minNumObs",
                   "minNumUncen", "numDays", "DecLow", "DecHigh", "edgeAdjust")
   
-  eList_setup <- setUpEstimation(eList_orig)
+  eList_setup <- setUpEstimation(eList_orig_Ch)
   info_setup <- getInfo(eList_setup)
   
   # test appropriate columns added
-  expect_false(any(cols_added %in% names(info_orig)))
+  expect_false(any(cols_added %in% names(info_orig_Ch)))
   expect_true(all(cols_added %in% names(info_setup)))
   
   # test that defaults are correctly added
