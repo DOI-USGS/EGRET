@@ -7,6 +7,7 @@ eList_Ch <- Choptank_eList
 info_stale_Ch <- getInfo(eList_Ch)
 daily_stale_Ch <- getDaily(eList_Ch)
 sample_stale_Ch <- getSample(eList_Ch)
+surfaces_stale_Ch <- getSurfaces(eList_Ch)
 
 info_orig_Ch <- info_stale_Ch[, 1:(which(names(info_stale_Ch) == "bottomLogQ") - 1)]
 daily_orig_Ch <- daily_stale_Ch[, 1:(which(names(daily_stale_Ch) == "Q30") - 1)]
@@ -25,6 +26,7 @@ eList_Ar <- Arkansas_eList
 info_stale_Ar <- getInfo(eList_Ar)
 daily_stale_Ar <- getDaily(eList_Ar)
 sample_stale_Ar <- getSample(eList_Ar)
+surfaces_stale_Ar <- getSurfaces(eList_Ar)
 
 info_orig_Ar <- info_stale_Ar[, 1:(which(names(info_stale_Ar) == "bottomLogQ") - 1)]
 daily_orig_Ar <- daily_stale_Ar[, 1:(which(names(daily_stale_Ar) == "Q30") - 1)]
