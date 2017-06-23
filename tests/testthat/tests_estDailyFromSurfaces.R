@@ -10,14 +10,14 @@ test_that("estDailyFromSurfaces returns expected values", {
   eList_Ch_estsurf <- mergeReport(info_stale_Ch, daily_orig_Ch, sample_stale_Ch, surfaces_stale_Ch)
   daily_est <- estDailyFromSurfaces(eList_Ch_estsurf)
   
-  # estDailyFromSurfaces adds three columns to Sample
+  # estDailyFromSurfaces adds six columns to Daily
   new_daily_cols <- setdiff(names(daily_est), names(daily_orig_Ch))
   expect_equal(sort(new_daily_cols), sort(c("yHat", "SE", "ConcDay", "FluxDay", "FNConc", "FNFlux")))
   
-  # test that no original columns were lost in estCrossVal
+  # test that no original columns were lost in estDailyFromSurfaces
   expect_true(all(names(daily_orig_Ch) %in% names(daily_est)))
   
-  # verify that values of yHat, SE, and ConcHat are what they should be
+  # verify that values of new columns are what they should be
   expect_equal(mean(daily_est$yHat), 0.1203179856)
   expect_equal(mean(daily_est$SE), 0.2689238161)
   expect_equal(mean(daily_est$ConcDay), 1.1977873668)
