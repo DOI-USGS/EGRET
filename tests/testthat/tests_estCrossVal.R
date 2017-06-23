@@ -14,7 +14,7 @@ test_that("estCrossVal adds correct, new columns", {
   new_sample_cols <- setdiff(names(sample_crossval), names(sample_orig_Ch))
   expect_equal(sort(new_sample_cols), sort(c("yHat", "SE", "ConcHat")))
   
-  # test that no orig_Chinal columns were lost in estCrossVal
+  # test that no original columns were lost in estCrossVal
   expect_true(all(names(sample_orig_Ch) %in% names(sample_crossval)))
   
   # verify that values of yHat, SE, and ConcHat are what they should be
