@@ -37,7 +37,7 @@ install.packages("EGRET")
     ## package 'EGRET' successfully unpacked and MD5 sums checked
     ## 
     ## The downloaded binary packages are in
-    ##  C:\Users\lcarr\AppData\Local\Temp\1\RtmpAPk7Z0\downloaded_packages
+    ##  C:\Users\lcarr\AppData\Local\Temp\1\Rtmp8QoZAB\downloaded_packages
 
 To get inter-CRAN release updates, use the command:
 
@@ -48,7 +48,7 @@ install.packages("EGRET",repos="https://owi.usgs.gov/R")
     ## package 'EGRET' successfully unpacked and MD5 sums checked
     ## 
     ## The downloaded binary packages are in
-    ##  C:\Users\lcarr\AppData\Local\Temp\1\RtmpAPk7Z0\downloaded_packages
+    ##  C:\Users\lcarr\AppData\Local\Temp\1\Rtmp8QoZAB\downloaded_packages
 
 To get cutting-edge changes, install from GitHub using the `devtools` packages:
 
@@ -64,7 +64,7 @@ install_github("USGS-R/EGRET")
 
     ## "C:/Users/lcarr/DOCUME~1/R/R-34~1.0PA/bin/x64/R" --no-site-file  \
     ##   --no-environ --no-save --no-restore --quiet CMD INSTALL  \
-    ##   "C:/Users/lcarr/AppData/Local/Temp/1/RtmpAPk7Z0/devtools16881e757ea8/USGS-R-EGRET-bfdd30c"  \
+    ##   "C:/Users/lcarr/AppData/Local/Temp/1/Rtmp8QoZAB/devtools1ec810a34dc2/USGS-R-EGRET-1856efd"  \
     ##   --library="C:/Users/lcarr/Documents/R/R-3.4.0patched/library"  \
     ##   --install-tests
 
@@ -428,7 +428,7 @@ endDate <- "" # Get latest date
 Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
 ```
 
-    ## There are 25379 data points, and 25379 days.
+    ## There are 25380 data points, and 25380 days.
 
 ``` r
 # Gather site and parameter information:
