@@ -10,3 +10,5 @@ vignettes/EGRET.bbl
 ^\.Rproj/.RData
 ^.*\.Rproj$
 ^\.Rproj\.user$
+README.Rmd
+README_files/
