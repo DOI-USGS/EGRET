@@ -52,15 +52,13 @@
 #' ylim <- c(min(y),1.05*max(y))
 #' xlab <- "Date"
 #' ylab <- "Flow"
-#' xTicks <- pretty(xlim)
-#' yTicks <- pretty(ylim)
 #' genericEGRETDotPlot(x=x, y=y, 
 #'                     xlim=xlim, ylim=ylim,
 #'                     xlab=xlab, ylab=ylab,
-#'                     xTicks=xTicks, yTicks=yTicks,
 #'                     plotTitle="Test"
 #' )
-genericEGRETDotPlot <- function(x,y, xlim, ylim,xTicks,yTicks,
+genericEGRETDotPlot <- function(x,y, xlim, ylim,
+                                xTicks=pretty(xlim),yTicks=pretty(ylim),
                                 printTitle=TRUE,
                                 xaxs="i",xlab="",yaxs="i",ylab="",plotTitle="",
                                 pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2,
