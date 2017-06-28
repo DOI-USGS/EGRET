@@ -5,7 +5,8 @@
 \title{Estimate the three surfaces (for yHat, SE and ConcHat) as a function of DecYear and logQ and store in the three-dimensional object called surfaces}
 \usage{
 estSurfaces(eList, windowY = 7, windowQ = 2, windowS = 0.5,
-  minNumObs = 100, minNumUncen = 50, edgeAdjust = TRUE)
+  minNumObs = 100, minNumUncen = 50, edgeAdjust = TRUE,
+  interactive = TRUE)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and Daily dataframes}
@@ -21,6 +22,8 @@ estSurfaces(eList, windowY = 7, windowQ = 2, windowS = 0.5,
 \item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
 
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record. Default is TRUE.}
+
+\item{interactive}{logical specifying whether or not to display progress message}
 }
 \value{
 surfaces array containing the three surfaces estimated, array is 3 dimensional
