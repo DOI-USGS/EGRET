@@ -12,7 +12,8 @@
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
-#' @param interactive logical specifying whether or not to display progress message
+#' @param verbose logical specifying whether or not to display progress message
+#' @param interactive logical deprecated. Use 'verbose' instead
 #' The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
 #' @keywords water-quality statistics
 #' @export
@@ -28,8 +29,13 @@
 modelEstimation<-function(eList, 
                           windowY=7, windowQ=2, windowS=0.5,
                           minNumObs=100,minNumUncen=50, 
-                          edgeAdjust=TRUE, interactive = TRUE){
+                          edgeAdjust=TRUE, verbose = TRUE, interactive = NULL){
 
+  if(!is.null(interactive)) {
+    message("The argument 'interactive' is deprecated. Please use 'verbose' instead")
+    verbose <- interactive
+  }
+  
   eList <- setUpEstimation(eList=eList, windowY=windowY, windowQ=windowQ, windowS=windowS,
                   minNumObs=minNumObs, minNumUncen=minNumUncen,edgeAdjust=edgeAdjust)
 

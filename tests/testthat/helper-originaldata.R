@@ -13,7 +13,7 @@ info_orig_Ch <- info_stale_Ch[, 1:(which(names(info_stale_Ch) == "bottomLogQ") -
 daily_orig_Ch <- daily_stale_Ch[, 1:(which(names(daily_stale_Ch) == "Q30") - 1)]
 sample_orig_Ch <- sample_stale_Ch[, 1:(which(names(sample_stale_Ch) == "yHat") - 1)]
 surfaces_orig_Ch <- NA
-eList_orig_Ch <- mergeReport(info_orig_Ch, daily_orig_Ch, sample_orig_Ch, surfaces_orig_Ch, interactive = FALSE)
+eList_orig_Ch <- mergeReport(info_orig_Ch, daily_orig_Ch, sample_orig_Ch, surfaces_orig_Ch, verbose = FALSE)
 
 
 
@@ -32,5 +32,5 @@ info_orig_Ar <- info_stale_Ar[, 1:(which(names(info_stale_Ar) == "bottomLogQ") -
 daily_orig_Ar <- daily_stale_Ar[, 1:(which(names(daily_stale_Ar) == "Q30") - 1)]
 sample_orig_Ar <- sample_stale_Ar[, 1:(which(names(sample_stale_Ar) == "yHat") - 1)]
 surfaces_orig_Ar <- NA
-eList_orig_Ar <- mergeReport(info_orig_Ar, daily_orig_Ar, sample_orig_Ar, surfaces_orig_Ar, interactive = FALSE)
+eList_orig_Ar <- mergeReport(info_orig_Ar, daily_orig_Ar, sample_orig_Ar, surfaces_orig_Ar, verbose = FALSE)
 

@@ -7,7 +7,8 @@
 #' Uncen    = 1 if uncensored, 0 if censored
 #'
 #' @param data dataframe contains at least dateTime, value, code columns
-#' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
+#' @param verbose logical specifying whether or not to display progress message
+#' @param interactive logical deprecated. Use 'verbose' instead
 #' @keywords WRTDS flow
 #' @return dataframe returnDataFrame data frame containing dateTime, ConcHigh, ConcLow, Uncen, ConcAve
 #' @export
@@ -23,7 +24,12 @@
 #'       comment2, value2, 
 #'       comment3, value3, stringsAsFactors=FALSE)
 #' compressData(dataInput)
-compressData <- function(data, interactive=TRUE){  
+compressData <- function(data, verbose = TRUE, interactive=NULL){  
+  
+  if(!is.null(interactive)) {
+    message("The argument 'interactive' is deprecated. Please use 'verbose' instead")
+    verbose <- interactive
+  }
   
   data <- as.data.frame(data, stringsAsFactors=FALSE)
   numColumns <- ncol(data)
@@ -69,9 +75,9 @@ compressData <- function(data, interactive=TRUE){
   returnDataFrame <- returnDataFrame[!(returnDataFrame$ConcLow == 0 & returnDataFrame$ConcHigh == 0),]
   
   if (nrow(flaggedData1) > 0){
-    WarningMessage <- paste("Deleted ", nrow(flaggedData1), " rows of data because concentration was reported as 0.0, the program is unable to interpret that result and is therefore deleting it.", sep="")    
+    WarningMessage <- paste("Deleted", nrow(flaggedData1), "rows of data because concentration was reported as 0.0, the program is unable to interpret that result and is therefore deleting it.")    
     warning(WarningMessage)
-    if (interactive){
+    if (verbose){
       cat("Deleted Rows:\n")
       print(flaggedData1)
     }
@@ -81,9 +87,9 @@ compressData <- function(data, interactive=TRUE){
   returnDataFrame <- returnDataFrame[(returnDataFrame$ConcLow <= returnDataFrame$ConcHigh),]
   
   if (nrow(flaggedData2) > 0){
-    WarningMessage <- paste("Deleted ", nrow(flaggedData2), " rows of data because the high concentration was reported lower than the low concentration, the program is unable to interpret that result and is therefore deleting it.", sep="")    
+    WarningMessage <- paste("Deleted", nrow(flaggedData2), "rows of data because the high concentration was reported lower than the low concentration, the program is unable to interpret that result and is therefore deleting it.")    
     warning(WarningMessage)
-    if (interactive){
+    if (verbose){
       cat("Deleted Rows:\n")
       print(flaggedData2)
     }

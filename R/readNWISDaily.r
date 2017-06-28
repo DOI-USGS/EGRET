@@ -8,13 +8,15 @@
 #' @param parameterCd character USGS parameter code.  This is usually an 5 digit number.
 #' @param startDate character starting date for data retrieval in the form YYYY-MM-DD.
 #' @param endDate character ending date for data retrieval in the form YYYY-MM-DD.
-#' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
+#' @param verbose logical specifying whether or not to display progress message
+#' @param interactive logical deprecated. Use 'verbose' instead
 #' @param convert logical Option to include a conversion from cfs to cms (35.314667). The default is TRUE, 
 #' which is appropriate for using NWIS data in the EGRET package.  Set this to FALSE to not include the conversion. If the parameter code is not 00060 (NWIS discharge),
 #' there is no conversion applied.
 #' @keywords data import USGS WRTDS
 #' @export
-#' @import dataRetrieval
+#' @importFrom dataRetrieval constructNWISURL
+#' @importFrom dataRetrieval importRDB1
 #' @return A data frame 'Daily' with the following columns:
 #' \tabular{lll}{
 #' Name \tab Type \tab Description \cr
@@ -39,17 +41,17 @@
 #' DailySuspSediment <- readNWISDaily('01594440','80154', '1985-01-01', '1985-03-31',convert=FALSE)
 #' }
 readNWISDaily <- function (siteNumber,parameterCd="00060",
-                           startDate="",endDate="",interactive=TRUE,convert=TRUE){
+                           startDate="",endDate="",verbose = TRUE, interactive=NULL,convert=TRUE){
 
-#   data <- readNWISdv(siteNumber,parameterCd,startDate,endDate)
-#   #  need to setup conversion factor because the NWIS data are in cfs but we store in cms
-#   names(data) <- c('agency', 'site', 'dateTime', 'tz_cd','code', 'value')  # do a merge instead?
-#   
-#   data$dateTime <- as.Date(data$dateTime) 
-  ##################################
-  url <- dataRetrieval::constructNWISURL(siteNumber,parameterCd,startDate,endDate,"dv",statCd="00003", format = "tsv")
+
+  if(!is.null(interactive)) {
+    message("The argument 'interactive' is deprecated. Please use 'verbose' instead")
+    verbose <- interactive
+  }
   
-  data <- dataRetrieval::importRDB1(url, asDateTime=FALSE)
+  url <- constructNWISURL(siteNumber,parameterCd,startDate,endDate,"dv",statCd="00003", format = "tsv")
+  
+  data <- importRDB1(url, asDateTime=FALSE)
   if(nrow(data)>0){
     names(data) <- c('agency', 'site', 'dateTime', 'value', 'code')
     data$dateTime <- as.Date(data$dateTime)

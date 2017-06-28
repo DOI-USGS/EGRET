@@ -14,7 +14,8 @@
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
-#' @param interactive logical specifying whether or not to display progress message
+#' @param verbose logical specifying whether or not to display progress message
+#' @param interactive logical deprecated. Use 'verbose' instead
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
 #' @param numDays number of days in the Daily record
 #' @param DecLow number specifying minimum decimal year
@@ -34,9 +35,14 @@
 #' resultSurvReg <- runSurvReg(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample)
 runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample, 
                      windowY=7, windowQ=2, windowS=0.5,
-                     minNumObs=100, minNumUncen=50, interactive=TRUE,
+                     minNumObs=100, minNumUncen=50, verbose = TRUE,interactive=NULL,
                      edgeAdjust=TRUE) {
-
+  
+  if(!is.null(interactive)) {
+    message("The argument 'interactive' is deprecated. Please use 'verbose' instead")
+    verbose <- interactive
+  }
+  
   localSample <- Sample
   numSamples <- length(localSample$DecYear)
   
@@ -49,7 +55,7 @@ runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample,
   if (minNumUncen >= sum(localSample$Uncen)) stop('minNumUncen is greater than total number of samples')
   if (minNumObs >= nrow(localSample)) stop('minNumObs is greater than total number of samples')
   
-  if (interactive) cat("Survival regression (% complete):\n")
+  if (verbose) cat("Survival regression (% complete):\n")
   
 #   options(warn=1) #warn=0 is default
   warningFlag <- 0
@@ -135,7 +141,7 @@ runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample,
       resultSurvReg[i,3]<-NA
     }
     
-    if (i %in% printUpdate & interactive) {
+    if (i %in% printUpdate & verbose) {
       cat(floor(i*100/numEstPt),"\t")
       if (floor(i*100/numEstPt) %in% endOfLine) cat("\n")
     }
@@ -147,12 +153,12 @@ runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample,
 
   }
 
-  if (warningFlag > 0 && interactive){
+  if (warningFlag > 0 && verbose){
     
     message("\nIn model estimation, the survival regression function was run ", numEstPt, " times (for different combinations of discharge and time).  In ", warningFlag, " of these runs it did not properly converge. This does not mean that the model is unacceptable, but it is a suggestion that there may be something odd about the data set. You may want to check for outliers, repeated values on a single date, or something else unusual about the data.")
   }
-#   options(warn=0) 
-  if (interactive) cat("\nSurvival regression: Done")
+
+  if (verbose) cat("\nSurvival regression: Done")
 
   return(resultSurvReg)
 }

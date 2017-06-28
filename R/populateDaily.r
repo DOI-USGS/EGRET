@@ -4,7 +4,8 @@
 #'
 #' @param rawData dataframe contains at least dateTime, value, code columns
 #' @param qConvert character conversion to cubic meters per second
-#' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
+#' @param verbose logical specifying whether or not to display progress message
+#' @param interactive logical deprecated. Use 'verbose' instead  If true, there is user interaction for error handling and data checks.
 #' @keywords WRTDS flow
 #' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
 #' @return A data frame 'Daily' with the following columns:
@@ -31,8 +32,12 @@
 #' code <- rep("",365)
 #' dataInput <- data.frame(dateTime, value, code, stringsAsFactors=FALSE)
 #' Daily <- populateDaily(dataInput, 2)
-populateDaily <- function(rawData,qConvert,interactive=TRUE){  # rawData is a dataframe with at least dateTime, value, code
+populateDaily <- function(rawData,qConvert,verbose = TRUE,interactive=NULL){  # rawData is a dataframe with at least dateTime, value, code
 
+  if(!is.null(interactive)) {
+    message("The argument 'interactive' is deprecated. Please use 'verbose' instead")
+    verbose <- interactive
+  }
   
   localDaily <- as.data.frame(matrix(ncol=2,nrow=length(rawData$value)))
   colnames(localDaily) <- c('Date','Q')
@@ -63,7 +68,7 @@ populateDaily <- function(rawData,qConvert,interactive=TRUE){  # rawData is a da
   if(nz>0) {
 
     qshift<- 0.001*mean(localDaily$Q, na.rm=TRUE) 
-    if (interactive){
+    if (verbose){
       
       zeroNums <- length(which(localDaily$Q == 0))
 
@@ -80,8 +85,8 @@ populateDaily <- function(rawData,qConvert,interactive=TRUE){  # rawData is a da
   
   negNums <- length(which(localDaily$Q<0))
   if (negNums > 0) {
-    cat("There were", as.character(negNums), "negative flow days \n")
-    cat("Negative values are not supported in the EGRET package\n")
+    message(paste("There were", as.character(negNums), "negative flow days"))
+    message("Negative values are not supported in the EGRET package")
   }
   
   localDaily$Q<-localDaily$Q+qshift
@@ -91,22 +96,16 @@ populateDaily <- function(rawData,qConvert,interactive=TRUE){  # rawData is a da
 #   Qzoo<-zoo(localDaily$Q)
   
   if (length(rawData$dateTime) < 30){
-    if (interactive){
-      cat("This program requires at least 30 data points. You have only provided:", length(rawData$dateTime),"Rolling means will not be calculated.\n")
-    }
     warning("This program requires at least 30 data points. Rolling means will not be calculated.")
   } else {
     ma <- function(x,n=7){filter(x,rep(1/n,n), sides=1)}
-    
-#     localDaily$Q7<-as.numeric(rollapply(Qzoo,7,mean,na.rm=FALSE,fill=NA,align="right"))
     localDaily$Q7 <- as.numeric(ma(localDaily$Q))
-#     localDaily$Q30<-as.numeric(rollapply(Qzoo,30,mean,na.rm=FALSE,fill=NA,align="right"))
     localDaily$Q30 <- as.numeric(ma(localDaily$Q,30))
   }
   
   dataPoints <- nrow(localDaily)
   difference <- (localDaily$Julian[dataPoints] - localDaily$Julian[1])+1  
-  if (interactive){
+  if (verbose){
     cat("There are", as.character(dataPoints), "data points, and", as.character(difference), "days.\n")
 
     #these next two lines show the user where the gaps in the data are if there are any

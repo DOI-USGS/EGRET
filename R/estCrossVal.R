@@ -16,7 +16,8 @@
 #' @param numDays number of days in the Daily record
 #' @param DecLow number specifying minimum decimal year
 #' @param DecHigh number specifying maximum decimal year
-#' @param interactive logical specifying whether or not to display progress message
+#' @param verbose logical specifying whether or not to display progress message
+#' @param interactive logical deprecated. Use 'verbose' instead
 #' @keywords water-quality statistics
 #' @return SampleCrossV data frame containing the sample data augmented by the results of the cross-validation exercise
 #' @export
@@ -32,12 +33,18 @@
 #' }
 estCrossVal<-function(numDays,DecLow,DecHigh, Sample, windowY = 7, windowQ = 2, 
                       windowS = 0.5, minNumObs = 100, minNumUncen = 50,
-                      edgeAdjust=TRUE, interactive=TRUE){
+                      edgeAdjust=TRUE, verbose = TRUE, interactive=NULL){
   #  this function fits the WRTDS model making an estimate of concentration for every day
   #    But, it uses leave-one-out-cross-validation
   #    That is, for the day it is estimating, it leaves that observation out of the data set
   #      It returns a Sample data frame with three added columns
   #      yHat, SE, and ConcHat
+  
+  if(!is.null(interactive)) {
+    message("The argument 'interactive' is deprecated. Please use 'verbose' instead")
+    verbose <- interactive
+  }
+  
   localSample <- Sample
   originalColumns <- names(localSample)
   numObs<-nrow(localSample)
@@ -45,7 +52,7 @@ estCrossVal<-function(numDays,DecLow,DecHigh, Sample, windowY = 7, windowQ = 2,
   SE<-rep(0,numObs)
   ConcHat<-rep(0,numObs)
   iCounter<-seq(1,numObs)
-  if(interactive) cat("\n estCrossVal % complete:\n")
+  if(verbose) cat("\n estCrossVal % complete:\n")
 
   colToKeep <- c("ConcLow","ConcHigh","Uncen","DecYear","SinDY","CosDY","LogQ")
   SampleCrossV <- localSample[,which(originalColumns %in% colToKeep)]
@@ -57,7 +64,7 @@ estCrossVal<-function(numDays,DecLow,DecHigh, Sample, windowY = 7, windowQ = 2,
 #   leaveOneOutMatrix <- matrix(rep(NA, numObs))
 
   for(i in 1:numObs) {
-    if(i %in% printUpdate & interactive) {
+    if(i %in% printUpdate & verbose) {
       cat(floor(i*100/numObs),"\t")
       if (floor(i*100/numObs) %in% endOfLine) cat("\n")
     }
@@ -66,7 +73,7 @@ estCrossVal<-function(numDays,DecLow,DecHigh, Sample, windowY = 7, windowQ = 2,
   
     result<-runSurvReg(SampleCrossV$DecYear[i],SampleCrossV$LogQ[i],numDays,DecLow,DecHigh,SampleMinusOne,
                        windowY,windowQ,windowS,minNumObs,minNumUncen,
-                       edgeAdjust=edgeAdjust, interactive=FALSE)
+                       edgeAdjust=edgeAdjust, verbose=FALSE)
     
     yHat[i]<-result[1]
     SE[i]<-result[2]

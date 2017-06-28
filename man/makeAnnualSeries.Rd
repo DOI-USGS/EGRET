@@ -15,7 +15,7 @@ reduce curvature near the start and end of record.
 Default is TRUE, but a logical in INFO$edgeAdjust will override the default.}
 }
 \value{
-annualSeries data frame that contains the annual series of streamflow statistics
+annualSeries matrix that contains the annual series of streamflow statistics
 }
 \description{
 Part of the flowHistory system.  The data come from Daily and INFO data frames. 

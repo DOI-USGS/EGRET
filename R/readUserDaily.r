@@ -31,15 +31,21 @@
 #' filePath <- system.file("extdata", package="EGRET")
 #' fileName <- "ChoptankRiverFlow.txt"
 #' Daily <- readUserDaily(filePath,fileName,separator="\t")
-readUserDaily <- function (filePath,fileName,hasHeader=TRUE,separator=",",qUnit=1,interactive=TRUE){
+readUserDaily <- function (filePath,fileName,hasHeader=TRUE,separator=",",qUnit=1,verbose = TRUE,interactive=NULL){
+  
+  if(!is.null(interactive)) {
+    message("The argument 'interactive' is deprecated. Please use 'verbose' instead")
+    verbose <- interactive
+  }
+  
   data <- readDataFromFile(filePath,fileName,hasHeader=hasHeader,separator=separator)
   convertQ<-c(35.314667,1,0.035314667,0.001)
   qConvert<-convertQ[qUnit]
-  if (interactive){
-    if(qUnit==1) cat("\n the input discharge are assumed to be in cubic feet per second\nif they are in cubic meters per second, then the call to readUserDaily should specify qUnit=2\n")
-  }
+
+  if(qUnit==1) message("The input discharge are assumed to be in cubic feet per second, if they are in cubic meters per second, then the call to readUserDaily should specify qUnit=2")
+
   names(data) <- c("dateTime", "value")
-  localDaily <- populateDaily(data,qConvert, interactive=interactive)
+  localDaily <- populateDaily(data,qConvert, verbose=verbose)
   localDaily <- localDaily[!is.na(localDaily$Q),]
   return(localDaily)
 }

@@ -9,9 +9,10 @@
 #' @param parameterCd character USGS parameter code.  This is usually an 5 digit number.
 #' @param startDate character starting date for data retrieval in the form YYYY-MM-DD.
 #' @param endDate character ending date for data retrieval in the form YYYY-MM-DD.
-#' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
+#' @param verbose logical specifying whether or not to display progress message
+#' @param interactive logical deprecated. Use 'verbose' instead
 #' @keywords data import USGS WRTDS
-#' @import dataRetrieval
+#' @importFrom dataRetrieval readNWISqw
 #' @export
 #' @return A data frame 'Sample' with the following columns:
 #' \tabular{lll}{
@@ -39,15 +40,19 @@
 #' Sample_All2 <- readNWISSample('05114000',c('00915','00931'), '1985-01-01', '1985-03-31')
 #' Sample_Select <- readNWISSample('05114000',c('00915','00931'), '', '')
 #' }
-readNWISSample <- function(siteNumber,parameterCd,startDate="",endDate="",interactive=TRUE){
+readNWISSample <- function(siteNumber,parameterCd,startDate="",endDate="",verbose = TRUE,interactive=NULL){
   
-  rawSample <- dataRetrieval::readNWISqw(siteNumber,parameterCd,startDate,endDate, expanded=FALSE)
+  if(!is.null(interactive)) {
+    message("The argument 'interactive' is deprecated. Please use 'verbose' instead")
+  }
+  
+  rawSample <- readNWISqw(siteNumber,parameterCd,startDate,endDate, expanded=FALSE)
   if(nrow(rawSample) > 0){
     dataColumns <- grep("p\\d{5}",names(rawSample))
     remarkColumns <- grep("r\\d{5}",names(rawSample))
     totalColumns <-c(grep("sample_dt",names(rawSample)), dataColumns, remarkColumns)
     totalColumns <- totalColumns[order(totalColumns)]
-    compressedData <- compressData(rawSample[,totalColumns], interactive=interactive)
+    compressedData <- compressData(rawSample[,totalColumns], verbose=verbose)
     Sample <- populateSampleColumns(compressedData)
   } else {
     Sample <- data.frame(Date=as.Date(character()),

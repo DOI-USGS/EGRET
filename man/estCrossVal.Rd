@@ -5,7 +5,8 @@
 \title{Jack-Knife cross validation of the WRTDS (Weighted Regressions on Time, Discharge, and Season)}
 \usage{
 estCrossVal(numDays, DecLow, DecHigh, Sample, windowY = 7, windowQ = 2,
-  windowS = 0.5, minNumObs = 100, minNumUncen = 50, edgeAdjust = TRUE)
+  windowS = 0.5, minNumObs = 100, minNumUncen = 50, edgeAdjust = TRUE,
+  verbose = TRUE, interactive = NULL)
 }
 \arguments{
 \item{numDays}{number of days in the Daily record}
@@ -27,6 +28,10 @@ estCrossVal(numDays, DecLow, DecHigh, Sample, windowY = 7, windowQ = 2,
 \item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
 
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
+
+\item{verbose}{logical specifying whether or not to display progress message}
+
+\item{interactive}{logical deprecated. Use 'verbose' instead}
 }
 \value{
 SampleCrossV data frame containing the sample data augmented by the results of the cross-validation exercise

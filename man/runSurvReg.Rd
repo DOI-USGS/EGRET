@@ -6,7 +6,7 @@
 \usage{
 runSurvReg(estPtYear, estPtLQ, numDays, DecLow, DecHigh, Sample, windowY = 7,
   windowQ = 2, windowS = 0.5, minNumObs = 100, minNumUncen = 50,
-  interactive = TRUE, edgeAdjust = TRUE)
+  verbose = TRUE, interactive = NULL, edgeAdjust = TRUE)
 }
 \arguments{
 \item{estPtYear}{numeric vector of Decimal Year values at the estimation points}
@@ -31,7 +31,9 @@ runSurvReg(estPtYear, estPtLQ, numDays, DecLow, DecHigh, Sample, windowY = 7,
 
 \item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
 
-\item{interactive}{logical specifying whether or not to display progress message}
+\item{verbose}{logical specifying whether or not to display progress message}
+
+\item{interactive}{logical deprecated. Use 'verbose' instead}
 
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
 }

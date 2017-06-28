@@ -8,10 +8,12 @@
 #' @param characteristicName character
 #' @param startDate character starting date for data retrieval in the form YYYY-MM-DD.
 #' @param endDate character ending date for data retrieval in the form YYYY-MM-DD.
-#' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
+#' @param verbose logical specifying whether or not to display progress message
+#' @param interactive logical deprecated. Use 'verbose' instead
 #' @keywords data import USGS WRTDS
 #' @export
-#' @import dataRetrieval
+#' @importFrom dataRetrieval constructWQPURL
+#' @importFrom dataRetrieval importWQP
 #' @return A data frame 'Sample' with the following columns:
 #' \tabular{lll}{
 #' Name \tab Type \tab Description \cr
@@ -36,8 +38,11 @@
 #' Sample_01075 <- readWQPSample('USGS-01594440','Chloride', '', '')
 #' Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
 #' }
-readWQPSample <- function(siteNumber,characteristicName,startDate,endDate,interactive=TRUE){
+readWQPSample <- function(siteNumber,characteristicName,startDate,endDate,verbose = TRUE, interactive=NULL){
   
+  if(!is.null(interactive)) {
+    message("The argument 'interactive' is deprecated. Please use 'verbose' instead")
+  }
   url <- constructWQPURL(siteNumber,characteristicName,startDate,endDate)
   retval <- importWQP(url)
   if(nrow(retval) > 0){
@@ -54,7 +59,7 @@ readWQPSample <- function(siteNumber,characteristicName,startDate,endDate,intera
       data <- NULL
     }
     
-    compressedData <- compressData(data, interactive=interactive)
+    compressedData <- compressData(data, verbose=verbose)
     Sample <- populateSampleColumns(compressedData)
   } else {
     Sample <- data.frame(Date=as.Date(character()),
