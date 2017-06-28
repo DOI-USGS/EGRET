@@ -39,22 +39,22 @@ modelEstimation<-function(eList,
   eList <- setUpEstimation(eList=eList, windowY=windowY, windowQ=windowQ, windowS=windowS,
                   minNumObs=minNumObs, minNumUncen=minNumUncen,edgeAdjust=edgeAdjust)
 
-  if(interactive) cat("\n first step running estCrossVal may take about 1 minute")
+  if(verbose) cat("\n first step running estCrossVal may take about 1 minute")
   Sample1<-estCrossVal(length(eList$Daily$DecYear),eList$Daily$DecYear[1],
                        eList$Daily$DecYear[length(eList$Daily$DecYear)], 
                        eList$Sample, 
                        windowY=windowY, windowQ=windowQ, windowS=windowS,
                        minNumObs=minNumObs, minNumUncen=minNumUncen,edgeAdjust=edgeAdjust,
-                       interactive=interactive)
+                       verbose=verbose)
   
   eList$Sample <- Sample1
   
-  if(interactive) cat("\nNext step running  estSurfaces with survival regression:\n")
+  if(verbose) cat("\nNext step running  estSurfaces with survival regression:\n")
   
   surfaces1 <- estSurfaces(eList, 
                          windowY=windowY, windowQ=windowQ, windowS=windowS,
                          minNumObs=minNumObs, minNumUncen=minNumUncen,edgeAdjust=edgeAdjust,
-                         interactive=interactive)
+                         verbose=verbose)
 
   eList$surfaces <- surfaces1
   
