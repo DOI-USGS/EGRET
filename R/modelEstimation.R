@@ -12,6 +12,7 @@
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
+#' @param interactive logical specifying whether or not to display progress message
 #' The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
 #' @keywords water-quality statistics
 #' @export
@@ -27,24 +28,27 @@
 modelEstimation<-function(eList, 
                           windowY=7, windowQ=2, windowS=0.5,
                           minNumObs=100,minNumUncen=50, 
-                          edgeAdjust=TRUE){
+                          edgeAdjust=TRUE, interactive = TRUE){
 
   eList <- setUpEstimation(eList=eList, windowY=windowY, windowQ=windowQ, windowS=windowS,
                   minNumObs=minNumObs, minNumUncen=minNumUncen,edgeAdjust=edgeAdjust)
 
-  cat("\n first step running estCrossVal may take about 1 minute")
+  if(interactive) cat("\n first step running estCrossVal may take about 1 minute")
   Sample1<-estCrossVal(length(eList$Daily$DecYear),eList$Daily$DecYear[1],
                        eList$Daily$DecYear[length(eList$Daily$DecYear)], 
                        eList$Sample, 
                        windowY=windowY, windowQ=windowQ, windowS=windowS,
-                       minNumObs=minNumObs, minNumUncen=minNumUncen,edgeAdjust=edgeAdjust)
+                       minNumObs=minNumObs, minNumUncen=minNumUncen,edgeAdjust=edgeAdjust,
+                       interactive=interactive)
   
   eList$Sample <- Sample1
   
-  cat("\nNext step running  estSurfaces with survival regression:\n")
+  if(interactive) cat("\nNext step running  estSurfaces with survival regression:\n")
+  
   surfaces1 <- estSurfaces(eList, 
                          windowY=windowY, windowQ=windowQ, windowS=windowS,
-                         minNumObs=minNumObs, minNumUncen=minNumUncen,edgeAdjust=edgeAdjust)
+                         minNumObs=minNumObs, minNumUncen=minNumUncen,edgeAdjust=edgeAdjust,
+                         interactive=interactive)
 
   eList$surfaces <- surfaces1
   
