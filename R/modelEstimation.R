@@ -75,6 +75,7 @@ modelEstimation<-function(eList,
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
 #' The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
 #' @param verbose logical specifying whether or not to display progress message
+#' @param interactive logical deprecated. Use 'verbose' instead
 #' @keywords water-quality statistics
 #' @export
 #' @return eList named list with Daily, Sample, and INFO dataframes.
@@ -85,8 +86,13 @@ modelEstimation<-function(eList,
 setUpEstimation<-function(eList, 
                           windowY=7, windowQ=2, windowS=0.5,
                           minNumObs=100,minNumUncen=50, 
-                          edgeAdjust=TRUE, verbose=TRUE){
+                          edgeAdjust=TRUE, verbose=TRUE, interactive = NULL){
 
+  if(!is.null(interactive)) {
+    warning("The argument 'interactive' is deprecated. Please use 'verbose' instead")
+    verbose <- interactive
+  }
+  
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
   localDaily <- getDaily(eList)
