@@ -22,10 +22,5 @@ This function was never incorporated into the EGRET workflow and will be removed
 \details{
 Response to the date format checker.  If the date is not formated correctly, it will give the user the opportunity to correct, otherwise will create a warning.
 }
-\examples{
-Date <- '1985-01-01'
-dateString <- 'startDate'
-formatCheckDate(Date, dateString, interactive = FALSE)
-}
 \keyword{WRTDS}
 \keyword{flow}
