@@ -18,9 +18,5 @@ parameterCd character
 This function was never incorporated into the EGRET workflow and will be removed in future versions. A similar check exists within the dataRetrieval functions.
 Checks that the parameter code is 5 digits. If it is less, it will pad the character with zeros. If more, ask the user to re-enter.
 }
-\examples{
-pCode <- '01234'
-formatCheckParameterCd(pCode)
-}
 \keyword{WRTDS}
 \keyword{flow}
