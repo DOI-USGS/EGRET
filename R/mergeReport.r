@@ -9,7 +9,8 @@
 #' @param Daily dataframe containing the daily data
 #' @param Sample dataframe containing the sample data
 #' @param surfaces matrix returned from \code{modelEstimation}. Default is NA. 
-#' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
+#' @param verbose logical specifying whether or not to display progress message
+#' @param interactive logical deprecated. Use 'verbose' instead
 #' @keywords data import USGS WRTDS
 #' @export
 #' @return eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.
@@ -25,9 +26,14 @@
 #' eList <- mergeReport(INFO, Daily, Sample)
 #' Sample <- eList$Sample
 #' }
-mergeReport<-function(INFO, Daily, Sample, surfaces=NA, interactive=TRUE){
+mergeReport<-function(INFO, Daily, Sample, surfaces=NA, verbose = TRUE, interactive=NULL){
   
-  if (interactive){
+  if(!is.null(interactive)) {
+    warning("The argument 'interactive' is deprecated. Please use 'verbose' instead")
+    verbose <- interactive
+  }
+  
+  if (verbose){
     dataOverview(Daily, Sample)  
   }
   

@@ -4,7 +4,8 @@
 \alias{mergeReport}
 \title{Merge Sample and Daily Data into EGRET object}
 \usage{
-mergeReport(INFO, Daily, Sample, surfaces = NA, interactive = TRUE)
+mergeReport(INFO, Daily, Sample, surfaces = NA, verbose = TRUE,
+  interactive = NULL)
 }
 \arguments{
 \item{INFO}{dataframe containing the INFO dataframe}
@@ -15,7 +16,9 @@ mergeReport(INFO, Daily, Sample, surfaces = NA, interactive = TRUE)
 
 \item{surfaces}{matrix returned from \code{modelEstimation}. Default is NA.}
 
-\item{interactive}{logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.}
+\item{verbose}{logical specifying whether or not to display progress message}
+
+\item{interactive}{logical deprecated. Use 'verbose' instead}
 }
 \value{
 eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.

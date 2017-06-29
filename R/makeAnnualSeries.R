@@ -22,7 +22,7 @@
 #' Default is TRUE, but a logical in INFO$edgeAdjust will override the default.
 #' @keywords statistics streamflow trends
 #' @export
-#' @return annualSeries data frame that contains the annual series of streamflow statistics
+#' @return annualSeries matrix that contains the annual series of streamflow statistics
 #' @examples 
 #' eList <- Choptank_eList
 #' annualSeries <- makeAnnualSeries(eList)

@@ -5,7 +5,7 @@
 \title{Import NWIS Sample Data for EGRET analysis}
 \usage{
 readNWISSample(siteNumber, parameterCd, startDate = "", endDate = "",
-  interactive = TRUE)
+  verbose = TRUE, interactive = NULL)
 }
 \arguments{
 \item{siteNumber}{character USGS site number.  This is usually an 8 digit number}
@@ -16,7 +16,9 @@ readNWISSample(siteNumber, parameterCd, startDate = "", endDate = "",
 
 \item{endDate}{character ending date for data retrieval in the form YYYY-MM-DD.}
 
-\item{interactive}{logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.}
+\item{verbose}{logical specifying whether or not to display progress message}
+
+\item{interactive}{logical deprecated. Use 'verbose' instead}
 }
 \value{
 A data frame 'Sample' with the following columns:

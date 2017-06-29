@@ -1,7 +1,7 @@
 Package: EGRET
 Type: Package
 Title: Exploration and Graphics for RivEr Trends (EGRET)
-Version: 2.6.1.9000
+Version: 2.6.1.9001
 Authors@R: c( person("Robert", "Hirsch", role = c("aut"),
     email = "rhirsch@usgs.gov"),
     person("Laura", "DeCicco", role = c("aut","cre"),
