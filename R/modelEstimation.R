@@ -31,7 +31,7 @@ modelEstimation<-function(eList,
                           edgeAdjust=TRUE, verbose = TRUE){
 
   eList <- setUpEstimation(eList=eList, windowY=windowY, windowQ=windowQ, windowS=windowS,
-                  minNumObs=minNumObs, minNumUncen=minNumUncen,edgeAdjust=edgeAdjust)
+                  minNumObs=minNumObs, minNumUncen=minNumUncen,edgeAdjust=edgeAdjust, verbose=verbose)
 
   if(verbose) cat("\n first step running estCrossVal may take about 1 minute")
   Sample1<-estCrossVal(length(eList$Daily$DecYear),eList$Daily$DecYear[1],
@@ -74,7 +74,7 @@ modelEstimation<-function(eList,
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
 #' The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
-#' @param verbose 
+#' @param verbose logical specifying whether or not to display progress message
 #' @keywords water-quality statistics
 #' @export
 #' @return eList named list with Daily, Sample, and INFO dataframes.
@@ -85,14 +85,14 @@ modelEstimation<-function(eList,
 setUpEstimation<-function(eList, 
                           windowY=7, windowQ=2, windowS=0.5,
                           minNumObs=100,minNumUncen=50, 
-                          edgeAdjust=TRUE, interactive=TRUE){
+                          edgeAdjust=TRUE, verbose=TRUE){
 
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
   localDaily <- getDaily(eList)
   
   if(!all(c("Q","LogQ") %in% names(localSample))){
-    eList <- mergeReport(INFO=localINFO, Daily = localDaily, Sample = localSample, interactive=interactive)
+    eList <- mergeReport(INFO=localINFO, Daily = localDaily, Sample = localSample, verbose=verbose)
   }
   
   if(any(localSample$ConcLow[!is.na(localSample$ConcLow)] == 0)){
