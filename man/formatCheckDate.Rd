@@ -17,6 +17,9 @@ formatCheckDate(Date, dateString, interactive = TRUE)
 condition logical if TRUE,
 }
 \description{
+This function was never incorporated into the EGRET workflow and will be removed in future versions.
+}
+\details{
 Response to the date format checker.  If the date is not formated correctly, it will give the user the opportunity to correct, otherwise will create a warning.
 }
 \examples{
