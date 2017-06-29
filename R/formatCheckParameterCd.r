@@ -1,5 +1,6 @@
 #' formatCheckParameterCd
 #'
+#' This function was never incorporated into the EGRET workflow and will be removed in future versions. A similar check exists within the dataRetrieval functions.
 #' Checks that the parameter code is 5 digits. If it is less, it will pad the character with zeros. If more, ask the user to re-enter.
 #'
 #' @param parameterCd character to check
@@ -13,6 +14,7 @@
 #' formatCheckParameterCd(pCode)
 formatCheckParameterCd <- function(parameterCd, interactive=TRUE){     #checks for a 5 digit number
   
+  .Deprecated()
   pCodeReturn <- rep(NA,length(parameterCd))
   index <- 1
   
