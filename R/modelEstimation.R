@@ -12,9 +12,8 @@
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
-#' @param verbose logical specifying whether or not to display progress message
-#' @param interactive logical deprecated. Use 'verbose' instead
 #' The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
+#' @param verbose logical specifying whether or not to display progress message
 #' @keywords water-quality statistics
 #' @export
 #' @return eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.
@@ -29,13 +28,8 @@
 modelEstimation<-function(eList, 
                           windowY=7, windowQ=2, windowS=0.5,
                           minNumObs=100,minNumUncen=50, 
-                          edgeAdjust=TRUE, verbose = TRUE, interactive = NULL){
+                          edgeAdjust=TRUE, verbose = TRUE){
 
-  if(!is.null(interactive)) {
-    message("The argument 'interactive' is deprecated. Please use 'verbose' instead")
-    verbose <- interactive
-  }
-  
   eList <- setUpEstimation(eList=eList, windowY=windowY, windowQ=windowQ, windowS=windowS,
                   minNumObs=minNumObs, minNumUncen=minNumUncen,edgeAdjust=edgeAdjust)
 
@@ -80,7 +74,7 @@ modelEstimation<-function(eList,
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
 #' The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
-#' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
+#' @param verbose 
 #' @keywords water-quality statistics
 #' @export
 #' @return eList named list with Daily, Sample, and INFO dataframes.

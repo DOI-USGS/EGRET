@@ -45,7 +45,7 @@ readNWISDaily <- function (siteNumber,parameterCd="00060",
 
 
   if(!is.null(interactive)) {
-    message("The argument 'interactive' is deprecated. Please use 'verbose' instead")
+    warning("The argument 'interactive' is deprecated. Please use 'verbose' instead")
     verbose <- interactive
   }
   

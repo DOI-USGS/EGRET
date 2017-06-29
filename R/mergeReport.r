@@ -29,7 +29,7 @@
 mergeReport<-function(INFO, Daily, Sample, surfaces=NA, verbose = TRUE, interactive=NULL){
   
   if(!is.null(interactive)) {
-    message("The argument 'interactive' is deprecated. Please use 'verbose' instead")
+    warning("The argument 'interactive' is deprecated. Please use 'verbose' instead")
     verbose <- interactive
   }
   

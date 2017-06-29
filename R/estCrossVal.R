@@ -17,7 +17,6 @@
 #' @param DecLow number specifying minimum decimal year
 #' @param DecHigh number specifying maximum decimal year
 #' @param verbose logical specifying whether or not to display progress message
-#' @param interactive logical deprecated. Use 'verbose' instead
 #' @keywords water-quality statistics
 #' @return SampleCrossV data frame containing the sample data augmented by the results of the cross-validation exercise
 #' @export
@@ -33,17 +32,12 @@
 #' }
 estCrossVal<-function(numDays,DecLow,DecHigh, Sample, windowY = 7, windowQ = 2, 
                       windowS = 0.5, minNumObs = 100, minNumUncen = 50,
-                      edgeAdjust=TRUE, verbose = TRUE, interactive=NULL){
+                      edgeAdjust=TRUE, verbose = TRUE){
   #  this function fits the WRTDS model making an estimate of concentration for every day
   #    But, it uses leave-one-out-cross-validation
   #    That is, for the day it is estimating, it leaves that observation out of the data set
   #      It returns a Sample data frame with three added columns
   #      yHat, SE, and ConcHat
-  
-  if(!is.null(interactive)) {
-    message("The argument 'interactive' is deprecated. Please use 'verbose' instead")
-    verbose <- interactive
-  }
   
   localSample <- Sample
   originalColumns <- names(localSample)
@@ -61,7 +55,6 @@ estCrossVal<-function(numDays,DecLow,DecHigh, Sample, windowY = 7, windowQ = 2,
 
   printUpdate <- floor(seq(1,numObs,numObs/100))
   endOfLine <- seq(10,100,10)
-#   leaveOneOutMatrix <- matrix(rep(NA, numObs))
 
   for(i in 1:numObs) {
     if(i %in% printUpdate & verbose) {
@@ -73,7 +66,7 @@ estCrossVal<-function(numDays,DecLow,DecHigh, Sample, windowY = 7, windowQ = 2,
   
     result<-runSurvReg(SampleCrossV$DecYear[i],SampleCrossV$LogQ[i],numDays,DecLow,DecHigh,SampleMinusOne,
                        windowY,windowQ,windowS,minNumObs,minNumUncen,
-                       edgeAdjust=edgeAdjust, verbose=FALSE)
+                       edgeAdjust=edgeAdjust, verbose=verbose)
     
     yHat[i]<-result[1]
     SE[i]<-result[2]

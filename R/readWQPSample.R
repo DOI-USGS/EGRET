@@ -41,7 +41,8 @@
 readWQPSample <- function(siteNumber,characteristicName,startDate,endDate,verbose = TRUE, interactive=NULL){
   
   if(!is.null(interactive)) {
-    message("The argument 'interactive' is deprecated. Please use 'verbose' instead")
+    warning("The argument 'interactive' is deprecated. Please use 'verbose' instead")
+    verbose <- interactive
   }
   url <- constructWQPURL(siteNumber,characteristicName,startDate,endDate)
   retval <- importWQP(url)

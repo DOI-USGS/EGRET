@@ -35,7 +35,7 @@
 populateDaily <- function(rawData,qConvert,verbose = TRUE,interactive=NULL){  # rawData is a dataframe with at least dateTime, value, code
 
   if(!is.null(interactive)) {
-    message("The argument 'interactive' is deprecated. Please use 'verbose' instead")
+    warning("The argument 'interactive' is deprecated. Please use 'verbose' instead")
     verbose <- interactive
   }
   

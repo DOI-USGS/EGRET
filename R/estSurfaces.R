@@ -39,7 +39,7 @@ estSurfaces<-function(eList, windowY=7,windowQ=2,windowS=0.5,
   # it returns the data frame called surfaces 
   #
   if(!is.null(interactive)) {
-    message("The argument 'interactive' is deprecated. Please use 'verbose' instead")
+    warning("The argument 'interactive' is deprecated. Please use 'verbose' instead")
     verbose <- interactive
   }
   localINFO <- getInfo(eList)

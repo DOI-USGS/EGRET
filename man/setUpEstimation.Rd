@@ -24,7 +24,7 @@ setUpEstimation(eList, windowY = 7, windowQ = 2, windowS = 0.5,
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.
 The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
 
-\item{interactive}{logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.}
+\item{verbose}{}
 }
 \value{
 eList named list with Daily, Sample, and INFO dataframes.
