@@ -22,7 +22,8 @@ Imports:
     graphics,
     stats,
     grDevices,
-    truncnorm
+    truncnorm,
+    RColorBrewer
 Suggests:
     xtable,
     knitr,
