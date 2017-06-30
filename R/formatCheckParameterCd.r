@@ -9,9 +9,6 @@
 #' @importFrom dataRetrieval zeroPad
 #' @return parameterCd character
 #' @export
-#' @examples
-#' pCode <- '01234'
-#' formatCheckParameterCd(pCode)
 formatCheckParameterCd <- function(parameterCd, interactive=TRUE){     #checks for a 5 digit number
   
   .Deprecated()
