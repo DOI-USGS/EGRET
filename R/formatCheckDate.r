@@ -10,10 +10,6 @@
 #' @keywords WRTDS flow
 #' @return condition logical if TRUE, 
 #' @export
-#' @examples
-#' Date <- '1985-01-01'
-#' dateString <- 'startDate'
-#' formatCheckDate(Date, dateString, interactive = FALSE)
 formatCheckDate <- function(Date, dateString,interactive=TRUE){
   .Deprecated()
   if(nzchar(Date)){
