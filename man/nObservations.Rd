@@ -7,7 +7,7 @@
 nObservations(eList)
 }
 \arguments{
-\item{eList}{named list with at least Daily dataframes}
+\item{eList}{named list with at least Daily dataframe}
 }
 \description{
 Determine the number of observed data points in an eList

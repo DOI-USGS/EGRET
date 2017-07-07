@@ -339,7 +339,7 @@ getSurfaces.default <- function(x, ...){
 #' 
 #' Determine the number of observed data points in an eList
 #' 
-#' @param eList named list with at least Daily dataframes
+#' @param eList named list with at least Daily dataframe
 #' @export
 #' 
 #' @examples 
