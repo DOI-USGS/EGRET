@@ -341,36 +341,36 @@ getSurfaces.default <- function(x, ...){
   }
 }
 
-#' Number of observations
+#' Number of discharge values
 #' 
-#' Determine the number of observed data points in an eList
+#' Determine the number of discharge data points in an eList
 #' 
 #' @param eList named list with at least Daily dataframe
 #' @export
 #' 
 #' @examples 
-#' nObservations(Arkansas_eList)
-nObservations <- function(eList){
+#' nDischarge(Arkansas_eList)
+nDischarge <- function(eList){
   stopifnot(is.egret(eList))
   Daily <- getDaily(eList)
   nobs <- nrow(Daily)
   return(nobs)
 }
 
-#' Number of samples
+#' Number of observations
 #' 
-#' Determine the number of sampled data points in an eList
+#' Determine the number of observations from sampled data in an eList
 #' 
 #' @param eList named list with at least Sample dataframe
 #' @export
 #' 
 #' @examples 
-#' nSamples(Arkansas_eList)
-nSamples <- function(eList){
+#' nObservations(Arkansas_eList)
+nObservations <- function(eList){
   stopifnot(is.egret(eList))
   Sample <- getSample(eList)
-  nsamples <- nrow(Sample)
-  return(nsamples)
+  nobs <- nrow(Sample)
+  return(nobs)
 }
 
 #' Number of censored samples
