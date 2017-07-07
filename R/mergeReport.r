@@ -366,3 +366,22 @@ nSamples <- function(eList){
   nsamples <- nrow(Sample)
   return(nsamples)
 }
+
+#' Number of censored samples
+#' 
+#' Determine the number of censored sample data points in an eList
+#' 
+#' @param eList named list with at least Sample dataframe
+#' @export
+#' 
+#' @examples 
+#' nCensoredVals(Arkansas_eList)
+nCensoredVals <- function(eList){
+  stopifnot(is.egret(eList))
+  Sample <- getSample(eList)
+  
+  # 0 in Uncen col represents censored value
+  ncensored <- length(which(Sample[['Uncen']] == 0))
+
+  return(ncensored)
+}

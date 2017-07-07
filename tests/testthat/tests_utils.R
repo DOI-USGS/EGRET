@@ -13,6 +13,11 @@ test_that("nSamples returns correct numbers", {
   expect_equal(nSamples(Choptank_eList), 606)
 })
 
+test_that("nCensored returns correct numbers", {
+  expect_equal(nCensoredVals(Arkansas_eList), 115)
+  expect_equal(nCensoredVals(Choptank_eList), 1)
+})
+
 context("plot method for egret objects")
 
 test_that("plot method for egret objects work", {
