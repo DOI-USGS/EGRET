@@ -3,6 +3,16 @@ test_that("axis functions work", {
   
 })
 
+test_that("nObservations returns correct numbers", {
+  expect_equal(nObservations(Arkansas_eList), 8401)
+  expect_equal(nObservations(Choptank_eList), 11688)
+})
+
+test_that("nSamples returns correct numbers", {
+  expect_equal(nSamples(Arkansas_eList), 254)
+  expect_equal(nSamples(Choptank_eList), 606)
+})
+
 context("plot method for egret objects")
 
 test_that("plot method for egret objects work", {
@@ -25,18 +35,4 @@ test_that("plot.egret passes correct arguments", {
 
 test_that("plot.egret passes correct arguments", {
   expect_error(plot(eList, col='blue'))
-})
-
-context("nObservations")
-
-test_that("nObservations returns correct numbers", {
-  expect_equal(nObservations(Arkansas_eList), 8401)
-  expect_equal(nObservations(Choptank_eList), 11688)
-})
-
-context("nSamples")
-
-test_that("nSamples returns correct numbers", {
-  expect_equal(nSamples(Arkansas_eList), 254)
-  expect_equal(nSamples(Choptank_eList), 606)
 })
