@@ -350,3 +350,19 @@ nObservations <- function(eList){
   nobs <- nrow(Daily)
   return(nobs)
 }
+
+#' Number of samples
+#' 
+#' Determine the number of sampled data points in an eList
+#' 
+#' @param eList named list with at least Sample dataframe
+#' @export
+#' 
+#' @examples 
+#' nSamples(Arkansas_eList)
+nSamples <- function(eList){
+  stopifnot(is.egret(eList))
+  Sample <- getSample(eList)
+  nsamples <- nrow(Sample)
+  return(nsamples)
+}

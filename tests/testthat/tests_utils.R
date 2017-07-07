@@ -33,3 +33,10 @@ test_that("nObservations returns correct numbers", {
   expect_equal(nObservations(Arkansas_eList), 8401)
   expect_equal(nObservations(Choptank_eList), 11688)
 })
+
+context("nSamples")
+
+test_that("nSamples returns correct numbers", {
+  expect_equal(nSamples(Arkansas_eList), 254)
+  expect_equal(nSamples(Choptank_eList), 606)
+})
