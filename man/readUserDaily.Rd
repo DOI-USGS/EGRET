@@ -5,7 +5,7 @@
 \title{Import user daily data for EGRET analysis}
 \usage{
 readUserDaily(filePath, fileName, hasHeader = TRUE, separator = ",",
-  qUnit = 1, interactive = TRUE)
+  qUnit = 1, verbose = TRUE, interactive = NULL)
 }
 \arguments{
 \item{filePath}{character specifying the path to the file}
@@ -18,7 +18,9 @@ readUserDaily(filePath, fileName, hasHeader = TRUE, separator = ",",
 
 \item{qUnit}{number 1 is cubic feet per second, 2 is cubic meters per second, 3 is 10^3 cubic feet per second, and 4 is 10^3 cubic meters per second}
 
-\item{interactive}{logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.}
+\item{verbose}{logical specifying whether or not to display progress message}
+
+\item{interactive}{logical deprecated. Use 'verbose' instead}
 }
 \value{
 A data frame 'Daily' with the following columns:

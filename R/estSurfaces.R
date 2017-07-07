@@ -19,6 +19,8 @@
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record. Default is TRUE.
+#' @param verbose logical specifying whether or not to display progress message
+#' @param interactive logical deprecated. Use 'verbose' instead
 #' @keywords water-quality statistics
 #' @return surfaces array containing the three surfaces estimated, array is 3 dimensional
 #' @export
@@ -26,7 +28,7 @@
 #' eList <- Choptank_eList
 #' \dontrun{surfaces <- estSurfaces(eList)}
 estSurfaces<-function(eList, windowY=7,windowQ=2,windowS=0.5,
-                      minNumObs=100,minNumUncen=50,edgeAdjust=TRUE){
+                      minNumObs=100,minNumUncen=50,edgeAdjust=TRUE,verbose = TRUE, interactive=NULL){
   # this function estimates the 3 surfaces based on the Sample data
   # one is the estimated log concentration (yHat)
   # the second is the estimated standard error (SE)
@@ -36,7 +38,10 @@ estSurfaces<-function(eList, windowY=7,windowQ=2,windowS=0.5,
   # the second index is time, layed out as 16 increments of the calendar year, starting January 1.
   # it returns the data frame called surfaces 
   #
-  
+  if(!is.null(interactive)) {
+    warning("The argument 'interactive' is deprecated. Please use 'verbose' instead")
+    verbose <- interactive
+  }
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
   localDaily <- getDaily(eList)
@@ -64,7 +69,7 @@ estSurfaces<-function(eList, windowY=7,windowQ=2,windowS=0.5,
   localSampleMin <- localSample[,which(originalColumns %in% colToKeep)]
   
   resultSurvReg<-runSurvReg(estPtYear,estPtLogQ,numDays,DecLow,DecHigh,localSampleMin,
-                            windowY,windowQ,windowS,minNumObs,minNumUncen,edgeAdjust=edgeAdjust)
+                            windowY,windowQ,windowS,minNumObs,minNumUncen,edgeAdjust=edgeAdjust,verbose = verbose)
   
   surfaces<-array(0,dim=c(14,nVectorYear,3))
 

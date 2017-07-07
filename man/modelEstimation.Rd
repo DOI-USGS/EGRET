@@ -5,7 +5,7 @@
 \title{Estimation process for the WRTDS (Weighted Regressions on Time, Discharge, and Season)}
 \usage{
 modelEstimation(eList, windowY = 7, windowQ = 2, windowS = 0.5,
-  minNumObs = 100, minNumUncen = 50, edgeAdjust = TRUE)
+  minNumObs = 100, minNumUncen = 50, edgeAdjust = TRUE, verbose = TRUE)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -22,6 +22,8 @@ modelEstimation(eList, windowY = 7, windowQ = 2, windowS = 0.5,
 
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.
 The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
+
+\item{verbose}{logical specifying whether or not to display progress message}
 }
 \value{
 eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.
