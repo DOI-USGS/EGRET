@@ -4,10 +4,10 @@
 \alias{plot.egret}
 \title{Plots EGRET object}
 \usage{
-\method{plot}{egret}(eList, ...)
+\method{plot}{egret}(x, ...)
 }
 \arguments{
-\item{eList}{named list with at least Daily, Sample, and INFO dataframes}
+\item{x}{named EGRET list with at least Daily, Sample, and INFO dataframes}
 
 \item{\dots}{any other arguments to be passed to \code{multiPlotDataOverview}}
 }

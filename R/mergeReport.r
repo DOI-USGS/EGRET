@@ -172,7 +172,7 @@ print.egret <- function(x,...){
 #' 
 #' Plot function for EGRET object (calls multiPlotDataOverView).
 #' 
-#' @param eList named list with at least Daily, Sample, and INFO dataframes
+#' @param x named EGRET list with at least Daily, Sample, and INFO dataframes
 #' @param \dots any other arguments to be passed to \code{multiPlotDataOverview}
 #' 
 #' @method plot egret
@@ -182,8 +182,8 @@ print.egret <- function(x,...){
 #' eList <- Choptank_eList
 #' plot(eList)
 #' plot(eList, cex.main=0.7)
-plot.egret <- function(eList, ...){
-  multiPlotDataOverview(eList, ...)
+plot.egret <- function(x, ...){
+  multiPlotDataOverview(x, ...)
 }
 
 #' Check for EGRET object
