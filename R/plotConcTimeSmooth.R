@@ -110,8 +110,8 @@ plotConcTimeSmooth<-function (eList, q1, q2, q3, centerDate, yearStart, yearEnd,
     result <- runSurvReg(x, LQ,numDays,DecLow,DecHigh, 
                          localSample, windowY = windowY,
                          windowQ = windowQ, windowS = windowS,minNumObs=minNumObs, 
-                         minNumUncen = minNumUncen, interactive=FALSE,
-                         edgeAdjust)
+                         minNumUncen = minNumUncen, verbose=FALSE,
+                         edgeAdjust,run.parallel = FALSE)
     y[index[iCurve], ] <- result[, 3]
   }
   monthCenter<- as.POSIXlt(centerDate)$mon+1
@@ -127,12 +127,11 @@ plotConcTimeSmooth<-function (eList, q1, q2, q3, centerDate, yearStart, yearEnd,
   qExpress = qUnit@qUnitExpress
 
   yMax <- max(y, na.rm = TRUE)
+  yTop <- concMax
   
-  yTop <- if (is.na(concMax)) {
-    yMax
-  } else {
-    concMax
-  }
+  if (is.na(concMax)) {
+    yTop <- yMax
+  } 
 
   
   if(logScale){
@@ -142,16 +141,16 @@ plotConcTimeSmooth<-function (eList, q1, q2, q3, centerDate, yearStart, yearEnd,
     concMin <- 0
   }
   
-  colorVal <- if (bw) {
-    c("black", "black", "black")
-  } else {
-    colors
+  colorVal <- colors
+  
+  if (bw) {
+    colorVal <- c("black", "black", "black")
   } 
-  lineVal <- if (bw) {
-    c(1, 2, 3)
-  } else {
-    lineVal
+  
+  if (bw){
+    lineVal <- c(1, 2, 3)
   }
+  
   #####################
   
   xInfo <- generalAxis(x=x, minVal=yearStart, maxVal=yearEnd, tinyPlot=tinyPlot)  
@@ -171,8 +170,6 @@ plotConcTimeSmooth<-function (eList, q1, q2, q3, centerDate, yearStart, yearEnd,
   lines(x=x, y=y[2, ], col=colorVal[2], lwd=lwd, lty=lineVal[2])
   lines(x=x, y=y[3, ], col=colorVal[3], lwd=lwd, lty=lineVal[3])
 
-  
-  
   words <- paste(qV[index],qUnit@qUnitName)
   ltys <- lineVal[index]
   cols <- colorVal[index]
@@ -183,11 +180,9 @@ plotConcTimeSmooth<-function (eList, q1, q2, q3, centerDate, yearStart, yearEnd,
     legendLeft
   }
   
-  legendTop <- if(legendTop == 0) {
-    grconvertY(0.3, from="npc", to="user") 
-  } else {
-    legendTop
-  }
+  if(legendTop == 0) {
+    legendTop <- grconvertY(0.3, from="npc", to="user") 
+  } 
   
   if (printLegend) legend(legendLeft,legendTop,legend=words,lty=ltys,col=cols,lwd=lwd,cex=cex.legend)
   

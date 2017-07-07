@@ -23,7 +23,10 @@ Imports:
     stats,
     grDevices,
     truncnorm,
-    RColorBrewer
+    RColorBrewer,
+    foreach,
+    doSNOW,
+    snow
 Suggests:
     xtable,
     knitr,
