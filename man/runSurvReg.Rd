@@ -60,7 +60,9 @@ Sample <- getSample(eList)
 numDays <- Sample$Julian[nrow(Sample)] - Sample$Julian[1] + 1
 DecLow <- Sample$DecYear[1]
 DecHigh <- Sample$DecYear[nrow(Sample)]
-resultSurvReg <- runSurvReg(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample)
+resultSurvReg <- runSurvReg(estPtYear,estPtLQ,
+                            numDays,DecLow,DecHigh,Sample,
+                            run.parallel = FALSE)
 }
 \keyword{statistics}
 \keyword{water-quality}

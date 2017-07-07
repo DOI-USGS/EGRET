@@ -5,7 +5,8 @@
 \title{Estimation process for the WRTDS (Weighted Regressions on Time, Discharge, and Season)}
 \usage{
 modelEstimation(eList, windowY = 7, windowQ = 2, windowS = 0.5,
-  minNumObs = 100, minNumUncen = 50, edgeAdjust = TRUE, verbose = TRUE)
+  minNumObs = 100, minNumUncen = 50, edgeAdjust = TRUE, verbose = TRUE,
+  run.parallel = TRUE, nCores = NULL)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -24,6 +25,10 @@ modelEstimation(eList, windowY = 7, windowQ = 2, windowS = 0.5,
 The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
 
 \item{verbose}{logical specifying whether or not to display progress message}
+
+\item{run.parallel}{logical to run bootstrapping in parallel or not}
+
+\item{nCores}{integer number of cores to use}
 }
 \value{
 eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.
