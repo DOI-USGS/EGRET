@@ -334,3 +334,19 @@ getSurfaces.default <- function(x, ...){
     stop("Please provide a named list that includes a surfaces matrix")
   }
 }
+
+#' Number of observations
+#' 
+#' Determine the number of observed data points in an eList
+#' 
+#' @param eList named list with at least Daily dataframes
+#' @export
+#' 
+#' @examples 
+#' nObservations(Arkansas_eList)
+nObservations <- function(eList){
+  stopifnot(is.egret(eList))
+  Daily <- getDaily(eList)
+  nobs <- nrow(Daily)
+  return(nobs)
+}

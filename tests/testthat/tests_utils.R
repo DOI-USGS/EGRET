@@ -27,3 +27,9 @@ test_that("plot.egret passes correct arguments", {
   expect_error(plot(eList, col='blue'))
 })
 
+context("nObservations")
+
+test_that("nObservations returns correct numbers", {
+  expect_equal(nObservations(Arkansas_eList), 8401)
+  expect_equal(nObservations(Choptank_eList), 11688)
+})
