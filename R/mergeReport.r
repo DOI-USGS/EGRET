@@ -162,6 +162,24 @@ print.egret <- function(x,...){
 
 }
 
+#' Plots EGRET object
+#' 
+#' Plot function for EGRET object (calls multiPlotDataOverView).
+#' 
+#' @param eList named list with at least Daily, Sample, and INFO dataframes
+#' @param \dots any other arguments to be passed to \code{multiPlotDataOverview}
+#' 
+#' @method plot egret
+#' @export
+#' 
+#' @examples
+#' eList <- Choptank_eList
+#' plot(eList)
+#' plot(eList, cex.main=0.7)
+plot.egret <- function(eList, ...){
+  multiPlotDataOverview(eList, ...)
+}
+
 #' Check for EGRET object
 #'
 #' Checks object to see if it is an EGRET object
