@@ -19,3 +19,6 @@ eList <- Choptank_eList
 plot(eList)
 plot(eList, cex.main=0.7)
 }
+\seealso{
+\code{\link{multiPlotDataOverview}}
+}

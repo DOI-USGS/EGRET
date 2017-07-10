@@ -177,6 +177,7 @@ print.egret <- function(x,...){
 #' 
 #' @method plot egret
 #' @export
+#' @seealso \code{\link{multiPlotDataOverview}}
 #' 
 #' @examples
 #' eList <- Choptank_eList
