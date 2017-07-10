@@ -148,7 +148,7 @@ test_that('setUpEstimation handles missing info well', {
   # when LogQ is missing from Sample, it should be added back in this function
   eList_miss_logq <- eList_orig_Ar
   eList_miss_logq$Sample$LogQ <- NULL
-  eList_miss_logq_setup <- setUpEstimation(eList_miss_logq)
+  expect_warning(eList_miss_logq_setup <- setUpEstimation(eList_miss_logq))
   expect_false("LogQ" %in% names(getSample(eList_miss_logq)))
   expect_true("LogQ" %in% names(getSample(eList_miss_logq_setup)))
   
