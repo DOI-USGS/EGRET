@@ -130,18 +130,22 @@ as.egret <- function(INFO, Daily, Sample=NA, surfaces=NA) {
   invisible(eList)
 }
 
-#' Prints EGRET object
-#'
-#' Print function for EGRET object
-#'
+#' @title EGRET helper functions
+#' @description Helper functions for EGRET objects, including print and plot methods 
+#' as well as counts of various data.
+#' @name helperEGRET
 #' @param x EGRET object
 #' @param \dots additional parameters
+NULL
+
+#' 
 #' @keywords data import USGS WRTDS
 #' @export
-#' @return logical
+#' @rdname helperEGRET
+#' 
 #' @examples
-#' eList <- Choptank_eList
-#' eList
+#' Choptank_eList
+#' print(Arkansas_eList)
 print.egret <- function(x,...){
   
   localDaily <- getDaily(x)
@@ -168,21 +172,18 @@ print.egret <- function(x,...){
 
 }
 
-#' Plots EGRET object
 #' 
-#' Plot function for EGRET object (calls multiPlotDataOverView).
-#' 
-#' @param x named EGRET list with at least Daily, Sample, and INFO dataframes
-#' @param \dots any other arguments to be passed to \code{multiPlotDataOverview}
+#' @details \code{plot} is a wrapper for \code{multiPlotDataOverview}. Use 
+#' \dots to pass other arguments to \code{multiPlotDataOverview}.
 #' 
 #' @method plot egret
 #' @export
+#' @rdname helperEGRET
 #' @seealso \code{\link{multiPlotDataOverview}}
 #' 
 #' @examples
-#' eList <- Choptank_eList
-#' plot(eList)
-#' plot(eList, cex.main=0.7)
+#' plot(Choptank_eList)
+#' plot(Choptank_eList, cex.main=0.7)
 plot.egret <- function(x, ...){
   multiPlotDataOverview(x, ...)
 }
@@ -342,53 +343,63 @@ getSurfaces.default <- function(x, ...){
   }
 }
 
-#' Number of discharge values
 #' 
-#' Determine the number of discharge data points in an eList
-#' 
-#' @param eList named list with at least Daily dataframe
 #' @export
+#' @rdname helperEGRET
 #' 
 #' @examples 
 #' nDischarge(Arkansas_eList)
-nDischarge <- function(eList){
-  stopifnot(is.egret(eList))
-  Daily <- getDaily(eList)
-  nobs <- nrow(Daily)
+nDischarge <- function(x){
+  stopifnot(is.egret(x))
+  Daily <- getDaily(x)
+  
+  if(is.null(Daily)){
+    message("No Daily data found; returning NULL.")
+    nobs <- NULL
+  } else {
+    nobs <- nrow(Daily)
+  }
+  
   return(nobs)
 }
 
-#' Number of observations
 #' 
-#' Determine the number of observations from sampled data in an eList
-#' 
-#' @param eList named list with at least Sample dataframe
 #' @export
+#' @rdname helperEGRET
 #' 
 #' @examples 
 #' nObservations(Arkansas_eList)
-nObservations <- function(eList){
-  stopifnot(is.egret(eList))
-  Sample <- getSample(eList)
-  nobs <- nrow(Sample)
+nObservations <- function(x){
+  stopifnot(is.egret(x))
+  Sample <- getSample(x)
+  
+  if(is.null(Sample)){
+    message("No Sample data found; returning NULL.")
+    nobs <- NULL
+  } else {
+    nobs <- nrow(Sample)
+  }
+  
   return(nobs)
 }
 
-#' Number of censored samples
 #' 
-#' Determine the number of censored sample data points in an eList
-#' 
-#' @param eList named list with at least Sample dataframe
 #' @export
+#' @rdname helperEGRET
 #' 
 #' @examples 
 #' nCensoredVals(Arkansas_eList)
-nCensoredVals <- function(eList){
-  stopifnot(is.egret(eList))
-  Sample <- getSample(eList)
+nCensoredVals <- function(x){
+  stopifnot(is.egret(x))
+  Sample <- getSample(x)
   
-  # 0 in Uncen col represents censored value
-  ncensored <- length(which(Sample[['Uncen']] == 0))
+  if(is.null(Sample)){
+    message("No Sample data found; returning NULL.")
+    ncensored <- NULL
+  } else {
+    # 0 in Uncen col represents censored value
+    ncensored <- length(which(Sample[['Uncen']] == 0))
+  }
 
   return(ncensored)
 }
