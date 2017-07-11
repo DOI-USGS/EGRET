@@ -30,8 +30,7 @@ makeAnnualSeries<-function(eList, edgeAdjust = TRUE) {
   
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
-  if (sum(c("paStart", "paLong", "window") %in% names(localINFO)) == 
-      3) {
+  if (all(c("paStart", "paLong", "window") %in% names(localINFO))) {
     paLong <- localINFO$paLong
     paStart <- localINFO$paStart
     window <- localINFO$window
@@ -46,8 +45,10 @@ makeAnnualSeries<-function(eList, edgeAdjust = TRUE) {
   numDays <- length(localDaily$DecYear)
   yearFirst <- trunc(localDaily$DecYear[1])
   yearLast <- trunc(localDaily$DecYear[numDays])
+  
   monthSeqFirst <- localDaily$MonthSeq[1]
   monthSeqLast <- localDaily$MonthSeq[numDays]
+  
   numYears <- yearLast - yearFirst + 2
   annualSeries <- rep(NA, 3 * 8 * numYears)
   dim(annualSeries) <- c(3, 8, numYears)
@@ -57,6 +58,7 @@ makeAnnualSeries<-function(eList, edgeAdjust = TRUE) {
   startEndSeq <- data.frame(Starts, Ends)
   startEndSeq <- subset(startEndSeq, (Ends >= monthSeqFirst) & 
                           (Starts <= monthSeqLast))
+  
   numYSeq <- length(startEndSeq$Ends)
   for (i in 1:numYSeq) {
     startSeq <- startEndSeq$Starts[i]
@@ -72,6 +74,7 @@ makeAnnualSeries<-function(eList, edgeAdjust = TRUE) {
       annualSeries[2, 3, i] <- min(yearDaily$Q30, na.rm = TRUE)
     }
   }
+  
   Starts <- seq(paStart, monthSeqLast, 12)
   Ends <- Starts + paLong - 1
   startEndSeq <- data.frame(Starts, Ends)
@@ -110,9 +113,11 @@ makeAnnualSeries<-function(eList, edgeAdjust = TRUE) {
       xi <- x[i]
       distToEdge <- min((xi - x1), (xn - xi))
       close <- (distToEdge < window)
-      thisWindow <- if (edgeAdjust & close) 
+      thisWindow <- if (edgeAdjust & close) {
         (2 * window) - distToEdge
-      else window
+      } else {
+        window
+      }
       w <- triCube(x - xi, thisWindow)
       mod <- lm(xy$y ~ x, weights = w)
       new <- data.frame(x = x[i])
