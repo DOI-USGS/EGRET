@@ -17,12 +17,10 @@ formatCheckDate(Date, dateString, interactive = TRUE)
 condition logical if TRUE,
 }
 \description{
-Response to the date format checker.  If the date is not formated correctly, it will give the user the opportunity to correct, otherwise will create a warning.
+This function was never incorporated into the EGRET workflow and will be removed in future versions.
 }
-\examples{
-Date <- '1985-01-01'
-dateString <- 'startDate'
-formatCheckDate(Date, dateString, interactive = FALSE)
+\details{
+Response to the date format checker.  If the date is not formated correctly, it will give the user the opportunity to correct, otherwise will create a warning.
 }
 \keyword{WRTDS}
 \keyword{flow}

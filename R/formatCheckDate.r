@@ -1,5 +1,7 @@
 #' formatCheckDate 
 #'
+#' This function was never incorporated into the EGRET workflow and will be removed in future versions.
+#' 
 #' Response to the date format checker.  If the date is not formated correctly, it will give the user the opportunity to correct, otherwise will create a warning.
 #'
 #' @param Date character
@@ -8,11 +10,8 @@
 #' @keywords WRTDS flow
 #' @return condition logical if TRUE, 
 #' @export
-#' @examples
-#' Date <- '1985-01-01'
-#' dateString <- 'startDate'
-#' formatCheckDate(Date, dateString, interactive = FALSE)
 formatCheckDate <- function(Date, dateString,interactive=TRUE){
+  .Deprecated()
   if(nzchar(Date)){
     if (!dateFormatCheck(Date)){
       if (interactive){

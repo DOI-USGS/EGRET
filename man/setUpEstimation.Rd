@@ -5,7 +5,8 @@
 \title{setUpEstimation}
 \usage{
 setUpEstimation(eList, windowY = 7, windowQ = 2, windowS = 0.5,
-  minNumObs = 100, minNumUncen = 50, edgeAdjust = TRUE, verbose = TRUE)
+  minNumObs = 100, minNumUncen = 50, edgeAdjust = TRUE, verbose = TRUE,
+  interactive = NULL)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -24,6 +25,8 @@ setUpEstimation(eList, windowY = 7, windowQ = 2, windowS = 0.5,
 The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
 
 \item{verbose}{logical specifying whether or not to display progress message}
+
+\item{interactive}{logical deprecated. Use 'verbose' instead}
 }
 \value{
 eList named list with Daily, Sample, and INFO dataframes.

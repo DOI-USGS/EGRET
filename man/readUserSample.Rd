@@ -5,7 +5,7 @@
 \title{Import user sample data for EGRET analysis}
 \usage{
 readUserSample(filePath, fileName, hasHeader = TRUE, separator = ",",
-  interactive = TRUE)
+  verbose = TRUE, interactive = NULL)
 }
 \arguments{
 \item{filePath}{character specifying the path to the file}
@@ -16,7 +16,9 @@ readUserSample(filePath, fileName, hasHeader = TRUE, separator = ",",
 
 \item{separator}{character character that separates data cells}
 
-\item{interactive}{logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.}
+\item{verbose}{logical specifying whether or not to display progress message}
+
+\item{interactive}{logical deprecated. Use 'verbose' instead}
 }
 \value{
 A data frame 'Sample' with the following columns:

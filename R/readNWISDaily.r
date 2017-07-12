@@ -60,7 +60,7 @@ readNWISDaily <- function (siteNumber,parameterCd="00060",
     qConvert <- ifelse("00060" == parameterCd, 35.314667, 1)
     qConvert<- ifelse(convert,qConvert,1)
     
-    localDaily <- populateDaily(data,qConvert,interactive=interactive)
+    localDaily <- populateDaily(data,qConvert,verbose = verbose)
   } else {
     localDaily <- data.frame(Date=as.Date(character()),
                          Q=numeric(), 
