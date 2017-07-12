@@ -32,7 +32,15 @@
 #' yHigh <- c(1,3,4,3.3,5,NA)
 #' Uncen <- c(0,1,1,1,0,0)
 #' censoredSegments(yBottom=yBottom,yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
-censoredSegments <- function(yBottom,yLow,yHigh,x,Uncen,col="black",lwd=1){
-  yLowVal<-ifelse(is.na(yLow),yBottom,yLow) #yLow would be NA if "simple" censored....so giving it a value here
-  segments(x[Uncen==0],yLowVal[Uncen==0],x[Uncen==0],yHigh[Uncen==0],col=col,lwd=lwd)  
-}
+censoredSegments <-
+  function(yBottom,
+           yLow,
+           yHigh,
+           x,
+           Uncen,
+           col = "black",
+           lwd = 1) {
+    yLowVal <- ifelse(is.na(yLow), yBottom, yLow) #yLow would be NA if "simple" censored....so giving it a value here
+    segments(x[Uncen == 0], yLowVal[Uncen == 0], x[Uncen == 0], 
+             yHigh[Uncen == 0], col = col, lwd = lwd)
+  }
