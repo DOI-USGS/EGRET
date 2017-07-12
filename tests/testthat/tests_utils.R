@@ -103,7 +103,7 @@ test_that("data functions work", {
   
 })
 
-test_that("Other miscellaneous functions work" {
+test_that("Other miscellaneous functions work", {
   q_cfs <- "00060"
   expect_equal(formatCheckParameterCd(q_cfs), q_cfs)
   expect_warning(formatted <- formatCheckParameterCd("0060", interactive = FALSE))
@@ -115,6 +115,12 @@ test_that("Other miscellaneous functions work" {
   
   lab_calendar <- setSeasonLabel(setupYears(dailyMeas, paStart = 1))
   expect_equal(lab_calendar, "Calendar Year")
+  
+  eList <- setPA(Arkansas_eList, paStart=12, paLong=3, window = 30)
+  param.nm <- getInfo(eList)
+  expect_equal(param.nm$paStart, 12)
+  expect_equal(param.nm$paLong, 3)
+  expect_equal(param.nm$window, 30)
 })
 
 test_that("nDischarge returns correct numbers", {
