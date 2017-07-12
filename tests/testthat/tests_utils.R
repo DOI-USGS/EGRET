@@ -86,6 +86,21 @@ test_that("data functions work", {
   expect_gt(nrow(eList$Sample), 1)
   expect_gt(nrow(eList$INFO), 0)
   
+  code <- c("","<","")
+  value <- c(1,2,3)
+  dataInput <- data.frame(value, code, stringsAsFactors=FALSE)
+  concentrationDF <- populateConcentrations(dataInput)
+  expect_is(concentrationDF, "data.frame")
+  expect_equal(0, concentrationDF$ConcLow[2])
+  expect_equal(names(concentrationDF), c("ConcLow", "ConcHigh", "Uncen"))
+  expect_gt(nrow(concentrationDF), 0)
+  
+  Daily <- getDaily(Arkansas_eList)
+  DailySubset <- selectDays(Daily, 4, 11)
+  expect_is(DailySubset, "data.frame")
+  months <- lubridate::month(DailySubset$Date)
+  expect_true(all(months %in% c(11,12,1,2)))
+  
 })
 
 test_that("Other miscellaneous functions work" {
@@ -100,4 +115,43 @@ test_that("Other miscellaneous functions work" {
   
   lab_calendar <- setSeasonLabel(setupYears(dailyMeas, paStart = 1))
   expect_equal(lab_calendar, "Calendar Year")
+})
+
+test_that("nDischarge returns correct numbers", {
+  expect_equal(nDischarge(Arkansas_eList), 8401)
+  expect_equal(nDischarge(Choptank_eList), 11688)
+})
+
+test_that("nObservations returns correct numbers", {
+  expect_equal(nObservations(Arkansas_eList), 254)
+  expect_equal(nObservations(Choptank_eList), 606)
+})
+
+test_that("nCensored returns correct numbers", {
+  expect_equal(nCensoredVals(Arkansas_eList), 115)
+  expect_equal(nCensoredVals(Choptank_eList), 1)
+})
+
+context("plot method for egret objects")
+
+test_that("plot method for egret objects work", {
+  graphics.off()
+  dev_start <- dev.cur()
+  eList <- Choptank_eList
+  plot(eList)
+  
+  expect_true(dev_start + 1 == dev.cur())
+})
+
+test_that("plot.egret passes correct arguments", {
+  graphics.off()
+  dev_start <- dev.cur()
+  eList <- Choptank_eList
+  plot(eList, logScaleConc = TRUE)
+  
+  expect_true(dev_start + 1 == dev.cur())
+})
+
+test_that("plot.egret passes correct arguments", {
+  expect_error(plot(eList, col='blue'))
 })
