@@ -130,18 +130,22 @@ as.egret <- function(INFO, Daily, Sample=NA, surfaces=NA) {
   invisible(eList)
 }
 
-#' Prints EGRET object
-#'
-#' Print function for EGRET object
-#'
+#' @title EGRET helper functions
+#' @description Helper functions for EGRET objects, including print and plot methods 
+#' as well as counts of various data.
+#' @name helperEGRET
 #' @param x EGRET object
 #' @param \dots additional parameters
+NULL
+
+#' 
 #' @keywords data import USGS WRTDS
 #' @export
-#' @return logical
+#' @rdname helperEGRET
+#' 
 #' @examples
-#' eList <- Choptank_eList
-#' eList
+#' Choptank_eList
+#' print(Arkansas_eList)
 print.egret <- function(x,...){
   
   localDaily <- getDaily(x)
@@ -166,6 +170,22 @@ print.egret <- function(x,...){
   cat("Parameter units:", attr(x, "param.units"),"\n")
   cat("Drainage area:", attr(x, "drainSqKm"), "km^2\n")      
 
+}
+
+#' 
+#' @details \code{plot} is a wrapper for \code{multiPlotDataOverview}. Use 
+#' \dots to pass other arguments to \code{multiPlotDataOverview}.
+#' 
+#' @method plot egret
+#' @export
+#' @rdname helperEGRET
+#' @seealso \code{\link{multiPlotDataOverview}}
+#' 
+#' @examples
+#' plot(Choptank_eList)
+#' plot(Choptank_eList, cex.main=0.7)
+plot.egret <- function(x, ...){
+  multiPlotDataOverview(x, ...)
 }
 
 #' Check for EGRET object
@@ -321,4 +341,65 @@ getSurfaces.default <- function(x, ...){
   } else {
     stop("Please provide a named list that includes a surfaces matrix")
   }
+}
+
+#' 
+#' @export
+#' @rdname helperEGRET
+#' 
+#' @examples 
+#' nDischarge(Arkansas_eList)
+nDischarge <- function(x){
+  stopifnot(is.egret(x))
+  Daily <- getDaily(x)
+  
+  if(is.null(Daily)){
+    message("No Daily data found; returning NULL.")
+    nobs <- NULL
+  } else {
+    nobs <- nrow(Daily)
+  }
+  
+  return(nobs)
+}
+
+#' 
+#' @export
+#' @rdname helperEGRET
+#' 
+#' @examples 
+#' nObservations(Arkansas_eList)
+nObservations <- function(x){
+  stopifnot(is.egret(x))
+  Sample <- getSample(x)
+  
+  if(is.null(Sample)){
+    message("No Sample data found; returning NULL.")
+    nobs <- NULL
+  } else {
+    nobs <- nrow(Sample)
+  }
+  
+  return(nobs)
+}
+
+#' 
+#' @export
+#' @rdname helperEGRET
+#' 
+#' @examples 
+#' nCensoredVals(Arkansas_eList)
+nCensoredVals <- function(x){
+  stopifnot(is.egret(x))
+  Sample <- getSample(x)
+  
+  if(is.null(Sample)){
+    message("No Sample data found; returning NULL.")
+    ncensored <- NULL
+  } else {
+    # 0 in Uncen col represents censored value
+    ncensored <- length(which(Sample[['Uncen']] == 0))
+  }
+
+  return(ncensored)
 }
