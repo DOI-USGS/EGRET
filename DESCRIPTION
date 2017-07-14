@@ -38,7 +38,8 @@ Suggests:
     testthat,
     rkt,
     doParallel,
-    doSNOW
+    doSNOW,
+    parallel
 LazyLoad: yes
 LazyData: yes
 VignetteBuilder: knitr

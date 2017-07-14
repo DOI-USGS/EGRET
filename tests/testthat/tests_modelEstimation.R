@@ -5,7 +5,19 @@ test_that("modelEstimation produces correct values with default args", {
   
   # Uses original and "stale" versions of Choptank data created in `tests/helper-originaldata.R`
   
-  eList_modeled <- modelEstimation(eList_orig_Ch)
+  eList_modeled <- modelEstimation(eList_orig_Ch, verbose = FALSE)
+  
+  library(doParallel)
+  library(parallel)
+  
+  # nCores <- parallel::detectCores() - 1
+  # cl <- makePSOCKcluster(nCores)
+  # registerDoParallel(cl)
+  # eList_modeled_par <- modelEstimation(eList_orig_Ch, verbose = FALSE, run.parallel = TRUE)
+  # stopCluster(cl)
+  # 
+  # expect_equal(eList_modeled, eList_modeled_par)
+  
   info_modeled <- getInfo(eList_modeled)
   daily_modeled <- getDaily(eList_modeled)
   sample_modeled <- getSample(eList_modeled)
