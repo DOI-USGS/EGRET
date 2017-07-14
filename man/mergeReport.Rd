@@ -2,12 +2,7 @@
 % Please edit documentation in R/mergeReport.r
 \name{mergeReport}
 \alias{mergeReport}
-\title{Merge Sample and Daily Data into EGRET object
-
-Merges the flow data from the daily record into the sample record, then creates a named list
-with the Daily, Sample, and INFO dataframe. The Sample dataframe in the global enviornment does 
-not update with the flow information. To extract the new Sample dataframe, use the command:
-\code{Sample <- eList$Sample}.}
+\title{Merge Sample and Daily Data into EGRET object}
 \usage{
 mergeReport(INFO, Daily, Sample, surfaces = NA, verbose = TRUE,
   interactive = NULL)
@@ -28,6 +23,12 @@ mergeReport(INFO, Daily, Sample, surfaces = NA, verbose = TRUE,
 \value{
 eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.
 Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
+}
+\description{
+Merges the flow data from the daily record into the sample record, then creates a named list
+with the Daily, Sample, and INFO dataframe. The Sample dataframe in the global enviornment does 
+not update with the flow information. To extract the new Sample dataframe, use the command:
+\code{Sample <- eList$Sample}.
 }
 \examples{
 

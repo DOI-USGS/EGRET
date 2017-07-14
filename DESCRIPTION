@@ -30,6 +30,7 @@ Imports:
     RColorBrewer,
     foreach
 Suggests:
+    EGRETci,
     xtable,
     knitr,
     rmarkdown,
