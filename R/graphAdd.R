@@ -14,6 +14,7 @@
 #' flowSegStart <- c(1980,1985,1992)
 #' flowSegEnd <- c(1994,2004,2011)
 #' dateInfo <- data.frame(sampleSegStart, flowSegStart, flowSegEnd)
+#' \dontrun{
 #' eList <- flexFN(eList, dateInfo)
 #' plotFluxHist(eList)
 #' flexPlotAddOn(eList)
@@ -27,6 +28,7 @@
 #' eList <- flexFN(eList, dateInfo)
 #' plotFluxHist(eList)
 #' flexPlotAddOn(eList)
+#' }
 flexPlotAddOn <- function(eList, showArrows = TRUE, showRect = TRUE){
   if('segmentInfo' %in% names(attributes(eList$INFO))){
     segmentINFO <- attr(eList$INFO, "segmentInfo")

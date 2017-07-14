@@ -1,3 +1,8 @@
+EGRET 2.6.1
+===========
+* Added foreach dependency which allows parallelizing WRTDS.
+* Added the function flexFN for flexible flow normalization.
+
 EGRET 2.6.0
 ===========
 * start/end year argument names unified to yearStart and yearEnd (previously included startYear and endYear)
