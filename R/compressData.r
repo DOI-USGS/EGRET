@@ -3,14 +3,13 @@
 #' Using raw data that has at least dateTime, value, code, populates the measured data portion of the Sample dataframe used in EGRET.
 #' ConcLow  = Lower bound for an observed concentration
 #' ConcHigh = Upper bound for an observed concentration
-#' ConcAve  = Average of ConcLow and ConcHigh.  If ConcLow is NA, then ConcAve = ConcHigh/2
 #' Uncen    = 1 if uncensored, 0 if censored
 #'
 #' @param data dataframe contains at least dateTime, value, code columns
 #' @param verbose logical specifying whether or not to display progress message
 #' @param interactive logical deprecated. Use 'verbose' instead
 #' @keywords WRTDS flow
-#' @return dataframe returnDataFrame data frame containing dateTime, ConcHigh, ConcLow, Uncen, ConcAve
+#' @return data frame returnDataFrame data frame containing dateTime, ConcHigh, ConcLow, Uncen
 #' @export
 #' @examples
 #' dateTime <- c('1985-01-01', '1985-01-02', '1985-01-03')

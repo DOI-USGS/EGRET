@@ -21,23 +21,26 @@
 setSeasonLabel<-function(localAnnualResults){
   # this function sets up text variable used to label graphs and
   # tables, defining what the period of analysis is
-  paStart<-localAnnualResults$PeriodStart[1]
-  paLong<-localAnnualResults$PeriodLong[1]
-  index<-seq(paStart,paStart+paLong-1)
-  index<-ifelse(index>12,index-12,index)
+  paStart <- localAnnualResults$PeriodStart[1]
+  paLong <- localAnnualResults$PeriodLong[1]
+  index <- seq(paStart, paStart + paLong - 1)
+  index <- ifelse(index > 12, index - 12, index)
   #   monthList<-c(monthAbbrev[index[1:paLong]])
-  monthList <- sapply(index[1:paLong], function(x){monthInfo[[x]]@monthAbbrev})
-  monthList<-paste(monthList,collapse=" ")
+  monthList <-
+    sapply(index[1:paLong], function(x) {
+      monthInfo[[x]]@monthAbbrev
+    })
+  monthList <- paste(monthList, collapse = " ")
   #   temp1<- c("Year Starting With",monthFull[paStart])
-  temp1<- c("Year Starting With",monthInfo[[paStart]]@monthFull)
-  temp1<-paste(temp1,collapse=" ")
-  temp2<- "Water Year"
-  temp3<- "Calendar Year"
-  temp4<- c("Season Consisting of",monthList)
-  temp4<-paste(temp4,collapse=" ")
-  periodName<-temp4
+  temp1 <- c("Year Starting With", monthInfo[[paStart]]@monthFull)
+  temp1 <- paste(temp1, collapse = " ")
+  temp2 <- "Water Year"
+  temp3 <- "Calendar Year"
+  temp4 <- c("Season Consisting of", monthList)
+  temp4 <- paste(temp4, collapse = " ")
+  periodName <- temp4
   periodName<-if(paLong==12) temp1 else periodName
-  periodName<-if(paLong==12&paStart==10) temp2 else periodName
-  periodName<-if(paLong==12&paStart==1) temp3 else periodName
+  periodName<-if(paLong==12 & paStart==10) temp2 else periodName
+  periodName<-if(paLong==12 & paStart==1) temp3 else periodName
   return(periodName)  
 }

@@ -10,7 +10,7 @@ dateFormatCheck(date)
 \item{date}{character}
 }
 \value{
-condition logical if TRUE,
+condition logical TRUE or FALSE if checks passed or failed
 }
 \description{
 Checks to see if format is YYYY-MM-DD. Also performs a few other date checks.
