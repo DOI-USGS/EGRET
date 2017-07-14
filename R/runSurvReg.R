@@ -42,7 +42,7 @@
 runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample, 
                      windowY=7, windowQ=2, windowS=0.5,
                      minNumObs=100, minNumUncen=50, verbose = TRUE,interactive=NULL,
-                     edgeAdjust=TRUE, run.parallel = TRUE) {
+                     edgeAdjust=TRUE, run.parallel = FALSE) {
   
   if(!is.null(interactive)) {
     warning("The argument 'interactive' is deprecated. Please use 'verbose' instead")

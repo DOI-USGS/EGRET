@@ -6,7 +6,7 @@
 \usage{
 estSurfaces(eList, windowY = 7, windowQ = 2, windowS = 0.5,
   minNumObs = 100, minNumUncen = 50, edgeAdjust = TRUE, verbose = TRUE,
-  interactive = NULL, run.parallel = TRUE, nCores = NULL)
+  interactive = NULL, run.parallel = FALSE)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and Daily dataframes}
@@ -28,8 +28,6 @@ estSurfaces(eList, windowY = 7, windowQ = 2, windowS = 0.5,
 \item{interactive}{logical deprecated. Use 'verbose' instead}
 
 \item{run.parallel}{logical to run bootstrapping in parallel or not}
-
-\item{nCores}{integer number of cores to use}
 }
 \value{
 surfaces array containing the three surfaces estimated, array is 3 dimensional

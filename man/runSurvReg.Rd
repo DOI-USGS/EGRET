@@ -7,7 +7,7 @@
 runSurvReg(estPtYear, estPtLQ, numDays, DecLow, DecHigh, Sample, windowY = 7,
   windowQ = 2, windowS = 0.5, minNumObs = 100, minNumUncen = 50,
   verbose = TRUE, interactive = NULL, edgeAdjust = TRUE,
-  run.parallel = TRUE, nCores = NULL)
+  run.parallel = FALSE)
 }
 \arguments{
 \item{estPtYear}{numeric vector of Decimal Year values at the estimation points}
@@ -39,8 +39,6 @@ runSurvReg(estPtYear, estPtLQ, numDays, DecLow, DecHigh, Sample, windowY = 7,
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
 
 \item{run.parallel}{logical to run bootstrapping in parallel or not}
-
-\item{nCores}{integer number of cores to use}
 }
 \value{
 resultSurvReg numeric array containing the yHat, SE, and ConcHat values array dimensions are (numEstPts,3)

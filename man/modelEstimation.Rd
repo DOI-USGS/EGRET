@@ -6,7 +6,7 @@
 \usage{
 modelEstimation(eList, windowY = 7, windowQ = 2, windowS = 0.5,
   minNumObs = 100, minNumUncen = 50, edgeAdjust = TRUE, verbose = TRUE,
-  run.parallel = TRUE, nCores = NULL)
+  run.parallel = FALSE)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -26,9 +26,7 @@ The modified method tends to reduce curvature near the start and end of record. 
 
 \item{verbose}{logical specifying whether or not to display progress message}
 
-\item{run.parallel}{logical to run bootstrapping in parallel or not}
-
-\item{nCores}{integer number of cores to use}
+\item{run.parallel}{logical to run WRTDS in parallel or not}
 }
 \value{
 eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.
@@ -46,6 +44,13 @@ eList <- Choptank_eList
  
 #Run an estimation adjusting windowQ from default:
 eList <- modelEstimation(eList, windowQ=5)
+
+library(doParallel)
+nCores <- parallel::detectCores() - 1
+cl <- makePSOCKcluster(nCores)
+registerDoParallel(cl)
+eList <- modelEstimation(eList, windowQ=5, run.parallel = TRUE)
+stopCluster(cl)
 }
 }
 \keyword{statistics}

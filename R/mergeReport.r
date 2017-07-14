@@ -1,4 +1,4 @@
-#' Merge Sample and Daily Data into EGRET object
+#' @title Merge Sample and Daily Data into EGRET object
 #'
 #' Merges the flow data from the daily record into the sample record, then creates a named list
 #' with the Daily, Sample, and INFO dataframe. The Sample dataframe in the global enviornment does 

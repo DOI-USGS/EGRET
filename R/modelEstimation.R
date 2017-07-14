@@ -14,8 +14,7 @@
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
 #' The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
 #' @param verbose logical specifying whether or not to display progress message
-#' @param run.parallel logical to run bootstrapping in parallel or not
-#' @param nCores integer number of cores to use
+#' @param run.parallel logical to run WRTDS in parallel or not
 #' @keywords water-quality statistics
 #' @export
 #' @return eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.
@@ -26,12 +25,19 @@
 #'  
 #' #Run an estimation adjusting windowQ from default:
 #' eList <- modelEstimation(eList, windowQ=5)
+#' 
+#' library(doParallel)
+#' nCores <- parallel::detectCores() - 1
+#' cl <- makePSOCKcluster(nCores)
+#' registerDoParallel(cl)
+#' eList <- modelEstimation(eList, windowQ=5, run.parallel = TRUE)
+#' stopCluster(cl)
 #' }
 modelEstimation<-function(eList, 
                           windowY=7, windowQ=2, windowS=0.5,
                           minNumObs=100,minNumUncen=50, 
                           edgeAdjust=TRUE, verbose = TRUE,
-                          run.parallel = TRUE, nCores = NULL){
+                          run.parallel = FALSE){
 
   eList <- setUpEstimation(eList=eList, windowY=windowY, windowQ=windowQ, windowS=windowS,
                   minNumObs=minNumObs, minNumUncen=minNumUncen,edgeAdjust=edgeAdjust, verbose=verbose)
@@ -52,7 +58,7 @@ modelEstimation<-function(eList,
   surfaces1 <- estSurfaces(eList, 
                          windowY=windowY, windowQ=windowQ, windowS=windowS,
                          minNumObs=minNumObs, minNumUncen=minNumUncen,edgeAdjust=edgeAdjust,
-                         verbose=verbose, run.parallel = run.parallel, nCores = nCores)
+                         verbose=verbose, run.parallel = run.parallel)
 
   eList$surfaces <- surfaces1
   
