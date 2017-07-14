@@ -22,9 +22,11 @@ test_that("flowDuration returns expected type, and arguments change output", {
   expect_equal(fd_30_cms*3.28^3, fd_30days, tolerance = 0.001)
 })
 
-test_that("makeAnnualSeries", {
-  
-  #is everything right with this function?
+test_that("makeAnnualSeries works", {
+  annualSeries <- makeAnnualSeries(Choptank_eList)
+  expect_is(annualSeries, "array")
+  expect_equal(dim(annualSeries), c(3,8,34))
+  expect_is(annualSeries[1,1,], "numeric")
 })
 
 test_that("makeAugmentedSample returns expected types and Sample columns", {

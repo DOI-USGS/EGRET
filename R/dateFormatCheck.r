@@ -4,7 +4,7 @@
 #'
 #' @param date character
 #' @keywords WRTDS flow
-#' @return condition logical if TRUE, 
+#' @return condition logical TRUE or FALSE if checks passed or failed 
 #' @export
 #' @examples
 #' date <- '1985-01-01'

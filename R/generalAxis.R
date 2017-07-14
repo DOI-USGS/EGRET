@@ -24,14 +24,21 @@
 #' generalAxis(x, max, min, units)
 #' min <- min(x)
 #' generalAxis(x, max, min, units, log=TRUE)
-generalAxis <- function(x, maxVal, minVal,units=NA,
-                        logScale=FALSE, tinyPlot=FALSE,
-                        padPercent=5,concentration=TRUE, prettyDate=TRUE){
+generalAxis <- function(x,
+                        maxVal,
+                        minVal,
+                        units = NA,
+                        logScale = FALSE,
+                        tinyPlot = FALSE,
+                        padPercent = 5,
+                        concentration = TRUE,
+                        prettyDate = TRUE) {
+  
   
   nTicks<-if(tinyPlot) 5 else 8
   
-  upperMagnification <- 1+(padPercent/100)
-  lowerMagnification <- 1-(padPercent/100)
+  upperMagnification <- 1 + (padPercent / 100)
+  lowerMagnification <- 1 - (padPercent / 100)
   
   if (max(x,na.rm=TRUE) > 0){
     high <- if(is.na(maxVal)) {upperMagnification*max(x,na.rm=TRUE)} else {maxVal}
@@ -55,21 +62,21 @@ generalAxis <- function(x, maxVal, minVal,units=NA,
     label <- ""
   }
   
-  span<-c(low,high)
+  span <- c(low, high)
   
-  ticks<-if (logScale){
-    if(tinyPlot) {
-      logPretty1(low,high) 
+  ticks <- if (logScale) {
+    if (tinyPlot) {
+      logPretty1(low, high)
     } else {
-      logPretty3(low,high)
+      logPretty3(low, high)
     }
   } else {
-    pretty(span,n=nTicks)
-  }  
+    pretty(span, n = nTicks)
+  }
   
-  numTicks<-length(ticks)
-  bottom<-ticks[1]
-  top<-ticks[numTicks]
+  numTicks <- length(ticks)
+  bottom <- ticks[1]
+  top <- ticks[numTicks]
   
   if(!prettyDate){
     bottom <- minVal
