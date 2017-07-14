@@ -17,9 +17,10 @@
 #' Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
 #' @seealso \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
 #' @examples
-#' \dontrun{
+#' 
 #' siteNumber <- '01594440'
 #' pCode <- '01075'
+#' \dontrun{
 #' Daily <- readNWISDaily(siteNumber,'00060', '1985-01-01', '1990-03-31')
 #' Sample <- readNWISSample(siteNumber,pCode, '1985-01-01', '1990-03-31')
 #' INFO <- readNWISInfo(siteNumber,pCode,interactive=FALSE)

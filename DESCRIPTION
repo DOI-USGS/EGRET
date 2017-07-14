@@ -24,9 +24,7 @@ Imports:
     grDevices,
     truncnorm,
     RColorBrewer,
-    foreach,
-    doSNOW,
-    snow
+    foreach
 Suggests:
     xtable,
     knitr,

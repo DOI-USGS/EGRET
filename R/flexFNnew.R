@@ -16,6 +16,7 @@
 #' dateInfo <- data.frame(sampleSegStart, 
 #'                        flowSegStart, 
 #'                        flowSegEnd)
+#' \dontrun{
 #' eList <- flexFN(eList, dateInfo)
 #' plotFluxHist(eList)
 #' 
@@ -29,6 +30,7 @@
 #'                        flowSegEnd)
 #' eList <- flexFN(eList, dateInfo)
 #' plotFluxHist(eList)
+#' }
 flexFN <- function(eList, dateInfo, sampleStart="sampleSegStart",
                    flowStart="flowSegStart", flowEnd="flowSegEnd"){
   

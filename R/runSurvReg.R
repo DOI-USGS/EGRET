@@ -21,16 +21,11 @@
 #' @param DecLow number specifying minimum decimal year
 #' @param DecHigh number specifying maximum decimal year
 #' @param run.parallel logical to run bootstrapping in parallel or not
-#' @param nCores integer number of cores to use
 #' @keywords water-quality statistics
 #' @importFrom survival survreg
 #' @importFrom survival Surv
-#' @importFrom parallel detectCores
 #' @importFrom foreach foreach
 #' @importFrom foreach %dopar%
-#' @importFrom snow makeSOCKcluster
-#' @importFrom snow stopCluster
-#' @importFrom doSNOW registerDoSNOW
 #' @return resultSurvReg numeric array containing the yHat, SE, and ConcHat values array dimensions are (numEstPts,3)
 #' @export
 #' @examples
@@ -47,26 +42,17 @@
 runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample, 
                      windowY=7, windowQ=2, windowS=0.5,
                      minNumObs=100, minNumUncen=50, verbose = TRUE,interactive=NULL,
-                     edgeAdjust=TRUE, run.parallel = TRUE, nCores = NULL) {
+                     edgeAdjust=TRUE, run.parallel = TRUE) {
   
   if(!is.null(interactive)) {
     warning("The argument 'interactive' is deprecated. Please use 'verbose' instead")
     verbose <- interactive
   }
   
-  if(is.null(nCores)){
-    nCores <- detectCores() - 1
-  }
-  
-  if(nCores < 2){
-    run.parallel <- FALSE
-  }
-  
   localSample <- Sample
   numSamples <- length(localSample$DecYear)
   
   numEstPt<-length(estPtYear)
-  
   
   printUpdate <- floor(seq(1,numEstPt,numEstPt/100))
   endOfLine <- seq(10,100,10)
@@ -75,12 +61,8 @@ runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample,
   if (minNumObs >= nrow(localSample)) stop('minNumObs is greater than total number of samples')
   
   warningFlag <- 0
-
-  if(run.parallel & nCores >= 2){
-    cl <- makeSOCKcluster(nCores)
-    registerDoSNOW(cl)
-    message('Registered doSNOW with ',nCores, ' workers')
-
+  n <- NULL
+  if(run.parallel){
     wrtds_return_list <- foreach(n = 1:numEstPt, .packages=c('EGRET')) %dopar% {
                       wrtds_returns <- run_WRTDS(estPtYear[n], estPtLQ[n],
                                          localSample,DecLow,DecHigh,
@@ -88,8 +70,6 @@ runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample,
                                          windowY, windowQ, windowS,
                                          edgeAdjust)
                     }
-    
-    stopCluster(cl)
     
     warningFlag <- sum(sapply(wrtds_return_list, function(x) x[["warningFlag"]]))
     resultSurvReg <- t(sapply(wrtds_return_list, function(x) x[["survReg"]]))
