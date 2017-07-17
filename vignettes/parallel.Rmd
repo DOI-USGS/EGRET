@@ -1,0 +1,124 @@
+---
+title: "Running WRTDS in parallel"
+author: "Robert M. Hirsch and Laura A. De Cicco"
+date: "2017-07-14"
+output: 
+  rmarkdown::html_vignette:
+    fig_height: 7
+    fig_width: 7
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Running WRTDS in parallel}
+  \usepackage[utf8]{inputenc}
+---
+
+# Introduction
+
+As of `EGRET` version 2.6.1, we've added the dependency `foreach`, which can allow the `modelEstimation` function to be run in parallel. Depending on the available cores, this could significantly speed up the WRTDS calculations. By default, the code is still run serially (ie...not in parallel).
+
+The directions in this vignette show how to take advantage of multiple cores on a single computer. The concept can be extended to cluster computing (for example: HTConder, SLURM (for USGS YETI), Alces Flight,...), but the specific directions for those systems are not covered in this vignette.
+
+The WRTDS routine in the `modelEstimation` function is the only major process that is improved with parallel processing in the `EGRET` package. Confidence intervals and trend calculations in the `EGRETci` package are also updated with parallel capabilities via the `foreach` package. See the vignette "Running EGRETci in Parallel" in `EGRETci` for more details. 
+
+# Setup
+
+In order to run WRTDS in parallel and get a computationally efficient advantage, you will first need a computer with multiple cores. Most newer computers are multi-core. To check how many cores your computer has, use the `detectCores()` function in the `parallel` packages (which is shipped with the base R installation):
+
+```{r message=FALSE}
+library(parallel)
+detectCores()
+```
+
+
+There is some overhead involved in going from serial to parallel computing, so you should not expect a 1:1 speed-up. If your computer only has 2 cores, you might not see any improvements in efficiency. 
+ 
+## Registering your cores
+
+Once you've checked that your computer has multiple cores, you need to register how many cores you want to use. There are a few ways to do this. It will depend on your operating system and general workflow what exactly is the best way to do this. There are currently 3 main packages that you can use to parallelize the `modelEstimation` function: `doParallel`, `doSNOW`, and `doMC`.
+
+The `doParallel` package recommend to most new users because it works best on all three major operating systems (Windows, Mac, Linux). However, `doMC` can be more efficient on Linux, and `doSNOW` can be more efficient on Macs. Therefore, we recommend `doParallel`, but will show workflows for each of the packages.
+
+It is recommended to use at most `detectCores(logical = FALSE) - 1` cores for your calculations. This leaves one core available for other computer processes. Most modern CPU's can handle registering all the cores on your computer without issue. In fact, you could register *more* cores than are physically on your computer, but could be inefficient. When using the function `detectCores`, we recommend specifying `logical = FALSE` because that will find the number of physical cores on your computer. `logical=TRUE` includes multithreading, which we have found to generally not improve the efficiency in these calculations.
+
+Note: the packages `doParallel`,`doSNOW`, or `doMC` are *suggested* for `EGRET`. This means they are not automatically installed with the `EGRET` installation. You will need to install separately the package of your choice.
+
+Important for *all* workflows, when the processing is completed, you need to stop the cluster registration with the `stopCluster` function.
+
+We will now show 3 examples using the "Choptank River" example data:
+
+```{r eval=FALSE}
+library(EGRET)
+library(parallel)
+
+eList <- Choptank_eList
+nCores <- detectCores(logical = FALSE) - 1
+```
+
+### doParellel
+
+The most generalized workflow uses the `doParallel` package:
+
+```{r eval=FALSE}
+library(doParallel)
+library(parallel)
+
+cl <- makeCluster(nCores)
+registerDoParallel(cl)
+eList <- modelEstimation(eList, verbose = FALSE, run.parallel = TRUE)
+stopCluster(cl)
+
+```
+
+### doSNOW
+
+```{r eval=FALSE}
+library(doSNOW)
+library(parallel)
+
+cl <- makeCluster(nCores)
+registerDoSNOW(cl)
+eList <- modelEstimation(eList, verbose = FALSE, run.parallel = TRUE)
+stopCluster(cl)
+
+```
+
+### doMC
+
+```{r eval=FALSE}
+library(doMC)
+library(parallel)
+
+cl <- makeCluster(nCores)
+registerDoMC(cl)
+eList <- modelEstimation(eList, verbose = FALSE, run.parallel = TRUE)
+stopCluster(cl)
+
+```
+
+# Simple Benchmarking
+
+If you plan to use the `modelEstimation` function frequently, it will be worth trying a simple benchmark test to determine if running the code in parallel makes sense on your system. While significantly more robust benchmark testing is available from several R packages (see `microbenchmark` for example), a very simple test can be done with the `system.time` function:
+
+```{r message=FALSE}
+library(doParallel)
+library(parallel)
+library(EGRET)
+
+eList <- Choptank_eList
+
+nCores <- detectCores(logical = FALSE) - 1
+
+system.time({
+  cl <- makeCluster(nCores)
+  registerDoParallel(cl)
+  eList <- modelEstimation(eList, verbose = FALSE, run.parallel = TRUE)
+  stopCluster(cl)
+})
+
+system.time({
+  eList <- modelEstimation(eList, verbose = FALSE, run.parallel = FALSE)
+})
+
+```
+
+If the timing of the parallel code is not significantly faster (or even slower!) than the regular non-parallel code, it is not worth running in parallel on your current computer. 
