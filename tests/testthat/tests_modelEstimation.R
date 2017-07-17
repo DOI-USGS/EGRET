@@ -7,9 +7,11 @@ test_that("modelEstimation produces correct values with default args", {
   
   eList_modeled <- modelEstimation(eList_orig_Ch, verbose = FALSE)
   
-  library(doParallel)
-  library(parallel)
+  # Running tests via "check" always fails. Test this independently 
   
+  # library(doParallel)
+  # library(parallel)
+  # 
   # nCores <- parallel::detectCores() - 1
   # cl <- makePSOCKcluster(nCores)
   # registerDoParallel(cl)
