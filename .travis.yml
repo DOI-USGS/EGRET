@@ -12,10 +12,8 @@ matrix:
   include:
     - os: linux
       r: release
-      r_check_args: "--no-vignettes"
     - os: linux
       r: devel
-      r_check_args: "--no-vignettes"
       env: R_CODECOV=true
 
 addons:
@@ -25,8 +23,8 @@ addons:
 
 env:
    global:
-     - R_BUILD_ARGS="--no-build-vignettes --no-manual"
-     - R_CHECK_ARGS="--no-build-vignettes --no-manual --as-cran"
+     - R_BUILD_ARGS="--no-vignettes --no-manual"
+     - R_CHECK_ARGS="--no-vignettes --no-manual --as-cran"
      - NOT_CRAN="true"
      - _R_CHECK_FORCE_SUGGESTS_=false
      
