@@ -12,8 +12,10 @@ matrix:
   include:
     - os: linux
       r: release
+      r_check_args: '--no-build-vignettes --no-manual --as-cran'
     - os: linux
       r: devel
+      r_check_args: '--no-build-vignettes --no-manual --as-cran'
       env: R_CODECOV=true
 
 addons:
