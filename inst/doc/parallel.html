@@ -150,13 +150,13 @@ nCores &lt;-<span class="st"> </span><span class="kw">detectCores</span>(<span c
   eList &lt;-<span class="st"> </span><span class="kw">modelEstimation</span>(eList, <span class="dt">verbose =</span> <span class="ot">FALSE</span>, <span class="dt">run.parallel =</span> <span class="ot">TRUE</span>)
   <span class="kw">stopCluster</span>(cl)
 })</code></pre></div>
-<pre><code>##    user  system elapsed 
-##    9.10    0.97   34.57</code></pre>
+<pre><code>user  system elapsed 
+   9.11    0.95   33.34</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>({
   eList &lt;-<span class="st"> </span><span class="kw">modelEstimation</span>(eList, <span class="dt">verbose =</span> <span class="ot">FALSE</span>, <span class="dt">run.parallel =</span> <span class="ot">FALSE</span>)
 })</code></pre></div>
-<pre><code>##    user  system elapsed 
-##   60.85    0.14   61.46</code></pre>
+<pre><code>   user  system elapsed 
+  60.05    0.05   60.51 </code></pre>
 <p>If the timing of the parallel code is not significantly faster (or even slower!) than the regular non-parallel code, it is not worth running in parallel on your current computer.</p>
 </div>
 

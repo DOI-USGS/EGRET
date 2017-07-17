@@ -99,7 +99,7 @@ stopCluster(cl)
 
 If you plan to use the `modelEstimation` function frequently, it will be worth trying a simple benchmark test to determine if running the code in parallel makes sense on your system. While significantly more robust benchmark testing is available from several R packages (see `microbenchmark` for example), a very simple test can be done with the `system.time` function:
 
-```{r message=FALSE}
+```{r eval=FALSE}
 library(doParallel)
 library(parallel)
 library(EGRET)
@@ -114,11 +114,25 @@ system.time({
   eList <- modelEstimation(eList, verbose = FALSE, run.parallel = TRUE)
   stopCluster(cl)
 })
+```
 
+
+```
+user  system elapsed 
+   9.11    0.95   33.34
+```
+
+```{r eval=FALSE}
 system.time({
   eList <- modelEstimation(eList, verbose = FALSE, run.parallel = FALSE)
 })
 
+```
+
+
+```
+   user  system elapsed 
+  60.05    0.05   60.51 
 ```
 
 If the timing of the parallel code is not significantly faster (or even slower!) than the regular non-parallel code, it is not worth running in parallel on your current computer. 
