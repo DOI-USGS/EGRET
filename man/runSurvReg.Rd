@@ -6,7 +6,8 @@
 \usage{
 runSurvReg(estPtYear, estPtLQ, numDays, DecLow, DecHigh, Sample, windowY = 7,
   windowQ = 2, windowS = 0.5, minNumObs = 100, minNumUncen = 50,
-  verbose = TRUE, interactive = NULL, edgeAdjust = TRUE)
+  verbose = TRUE, interactive = NULL, edgeAdjust = TRUE,
+  run.parallel = FALSE)
 }
 \arguments{
 \item{estPtYear}{numeric vector of Decimal Year values at the estimation points}
@@ -36,6 +37,8 @@ runSurvReg(estPtYear, estPtLQ, numDays, DecLow, DecHigh, Sample, windowY = 7,
 \item{interactive}{logical deprecated. Use 'verbose' instead}
 
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
+
+\item{run.parallel}{logical to run bootstrapping in parallel or not}
 }
 \value{
 resultSurvReg numeric array containing the yHat, SE, and ConcHat values array dimensions are (numEstPts,3)
@@ -55,7 +58,9 @@ Sample <- getSample(eList)
 numDays <- Sample$Julian[nrow(Sample)] - Sample$Julian[1] + 1
 DecLow <- Sample$DecYear[1]
 DecHigh <- Sample$DecYear[nrow(Sample)]
-resultSurvReg <- runSurvReg(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample)
+resultSurvReg <- runSurvReg(estPtYear,estPtLQ,
+                            numDays,DecLow,DecHigh,Sample,
+                            run.parallel = FALSE)
 }
 \keyword{statistics}
 \keyword{water-quality}

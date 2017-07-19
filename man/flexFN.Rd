@@ -30,6 +30,7 @@ flowSegEnd <- c(1994,2004,2011)
 dateInfo <- data.frame(sampleSegStart, 
                        flowSegStart, 
                        flowSegEnd)
+\dontrun{
 eList <- flexFN(eList, dateInfo)
 plotFluxHist(eList)
 
@@ -43,4 +44,5 @@ dateInfo <- data.frame(sampleSegStart,
                        flowSegEnd)
 eList <- flexFN(eList, dateInfo)
 plotFluxHist(eList)
+}
 }

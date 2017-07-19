@@ -66,7 +66,7 @@ estCrossVal<-function(numDays,DecLow,DecHigh, Sample, windowY = 7, windowQ = 2,
   
     result<-runSurvReg(SampleCrossV$DecYear[i],SampleCrossV$LogQ[i],numDays,DecLow,DecHigh,SampleMinusOne,
                        windowY,windowQ,windowS,minNumObs,minNumUncen,
-                       edgeAdjust=edgeAdjust, verbose=verbose)
+                       edgeAdjust=edgeAdjust, verbose=FALSE, run.parallel = FALSE)
     
     yHat[i]<-result[1]
     SE[i]<-result[2]

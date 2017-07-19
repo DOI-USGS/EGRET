@@ -116,8 +116,8 @@ plotConcQSmooth<-function(eList, date1,date2,date3,qLow,qHigh,qUnit = 2, legendL
     result<-runSurvReg(yrs,LQ,numDays,DecLow,DecHigh,localSample,
                        windowY = windowY, windowQ = windowQ, 
                        windowS = windowS, minNumObs=minNumObs, 
-                       minNumUncen = minNumUncen,interactive=FALSE,
-                       edgeAdjust=edgeAdjust)
+                       minNumUncen = minNumUncen,verbose=FALSE,
+                       edgeAdjust=edgeAdjust,run.parallel = FALSE)
     y[index[iCurve],]<-result[,3]
   }
   

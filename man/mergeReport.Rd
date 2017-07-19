@@ -31,9 +31,10 @@ not update with the flow information. To extract the new Sample dataframe, use t
 \code{Sample <- eList$Sample}.
 }
 \examples{
-\dontrun{
+
 siteNumber <- '01594440'
 pCode <- '01075'
+\dontrun{
 Daily <- readNWISDaily(siteNumber,'00060', '1985-01-01', '1990-03-31')
 Sample <- readNWISSample(siteNumber,pCode, '1985-01-01', '1990-03-31')
 INFO <- readNWISInfo(siteNumber,pCode,interactive=FALSE)

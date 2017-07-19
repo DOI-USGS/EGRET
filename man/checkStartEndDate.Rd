@@ -20,8 +20,9 @@ vector where first value is startDate, second is endDate
 Checks that the start date is before the end date.  If not, it will give the user the opportunity to correct, otherwise will create a warning.
 }
 \examples{
-startDate <- '1985-01-01'
-endDate <- '1990-01-01'
+	
+startDate <- '1985-01-01'		
+endDate <- '1990-01-01'		
 checkStartEndDate(startDate, endDate)
 }
 \keyword{WRTDS}
