@@ -51,6 +51,8 @@ test_that("date functions work", {
 })
 
 test_that("data functions work", {
+  testthat::skip_on_cran()
+  
   #compressData
   dateTime <- c('1985-01-01', '1985-01-02', '1985-01-03')
   comment1 <- c("","","")
@@ -69,7 +71,7 @@ test_that("data functions work", {
                                     "Uncen"))
   
   #mergeReport
-  testthat::skip_on_cran()
+  
   siteNumber <- '01594440'
   pCode <- '01075'
   Daily <- readNWISDaily(siteNumber,'00060', '1985-01-01', '1990-03-31')
@@ -155,6 +157,8 @@ test_that("plot.egret passes correct arguments", {
 
 test_that("other plot functions don't error", {
   testthat::skip_on_cran()
+  
+  eList <- Choptank_eList
   
   graphics.off()
   dev_start <- dev.cur()
