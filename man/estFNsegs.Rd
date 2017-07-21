@@ -2,7 +2,7 @@
 % Please edit documentation in R/flexFNnew.R
 \name{estFNsegs}
 \alias{estFNsegs}
-\title{Segment estimates}
+\title{Segment estimates for flow normalization}
 \usage{
 estFNsegs(eList, dateInfo)
 }
@@ -12,7 +12,7 @@ estFNsegs(eList, dateInfo)
 \item{dateInfo}{dataframe with sampleSegStart, flowSegStart, flowSegEnd, sampleSegEnd}
 }
 \description{
-Segment estimates
+Segment estimates for flow normalization
 }
 \examples{
 eList <- Choptank_eList

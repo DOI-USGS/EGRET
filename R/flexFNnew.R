@@ -71,11 +71,10 @@ flexFN <- function(eList, dateInfo, sampleStart="sampleSegStart",
 }
 
 
-#' Segment estimates
+#' Segment estimates for flow normalization
 #' 
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param dateInfo dataframe with sampleSegStart, flowSegStart, flowSegEnd, sampleSegEnd
-#' @export
 #' @importFrom fields interp.surface
 #' @importFrom dataRetrieval calcWaterYear
 #' @examples
