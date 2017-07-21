@@ -49,6 +49,6 @@ test_that("setupYears", {
   eList <- flexFN(eList, dateInfo)
   expect_equal(as.numeric(signif(eList$Daily$FNConc[1], digits = 6)), 1.0283)
   ar_calendarYear_fn <- setupYears(eList$Daily, paLong = 12, paStart = 1)
-  expect_equal(signif(ar_calendarYear_fn$FNConc[1], digits = 7), 1.0216445)
+  expect_equal(signif(ar_calendarYear_fn$FNConc[1], digits = 7), 1.021644)
   expect_equal(signif(ar_calendarYear_fn$FNFlux[1], digits = 7), 271.6512)
 })
