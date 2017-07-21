@@ -14,19 +14,3 @@ estFNsegs(eList, dateInfo)
 \description{
 Segment estimates for flow normalization
 }
-\examples{
-eList <- Choptank_eList
-eList <- setUpEstimation(eList)
-sampleSegStart <- c(1980,1990,2000)
-flowSegStart <- c(1980,1985,1992)
-flowSegEnd <- c(1994,2004,2011)
-dateInfo <- dateInfo <- data.frame(sampleSegStart, 
-                                   flowSegStart, 
-                                   flowSegEnd)
-dateInfo$sampleSegEnd <- c(dateInfo$sampleSegStart[2:nrow(dateInfo)]-1,
-floor(max(eList$Sample$DecYear)))
-
-eList$Daily$WaterYear <- dataRetrieval::calcWaterYear(eList$Daily$Date)
-eList$Sample$WaterYear <- dataRetrieval::calcWaterYear(eList$Sample$Date)
-eList <- estFNsegs(eList,dateInfo[1,])
-}
