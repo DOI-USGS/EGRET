@@ -64,11 +64,11 @@ runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample,
   n <- NULL
   if(run.parallel){
     wrtds_return_list <- foreach(n = 1:numEstPt, .packages=c('EGRET')) %dopar% {
-                      wrtds_returns <- run_WRTDS(estPtYear[n], estPtLQ[n],
-                                         localSample,DecLow,DecHigh,
-                                         minNumObs,minNumUncen,
-                                         windowY, windowQ, windowS,
-                                         edgeAdjust)
+                      wrtds_returns <- run_WRTDS(estY = estPtYear[n], estLQ = estPtLQ[n],
+                                                 localSample =localSample,DecLow = DecLow,DecHigh = DecHigh,
+                                                 minNumObs = minNumObs,minNumUncen = minNumUncen,
+                                                 windowY = windowY, windowQ = windowQ, windowS = windowS, 
+                                                 edgeAdjust = edgeAdjust)
                     }
     
     warningFlag <- sum(sapply(wrtds_return_list, function(x) x[["warningFlag"]]))
@@ -79,11 +79,11 @@ runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample,
     if (verbose) cat("Survival regression (% complete):\n")
     
     for (i in 1:numEstPt) {
-      wrtds_return <- run_WRTDS(estPtYear[i], estPtLQ[i],
-                localSample,DecLow,DecHigh,
-                minNumObs,minNumUncen,
-                windowY, windowQ, windowS,
-                edgeAdjust)
+      wrtds_return <- run_WRTDS(estY = estPtYear[i], estLQ = estPtLQ[i],
+                                localSample =localSample,DecLow = DecLow,DecHigh = DecHigh,
+                                minNumObs = minNumObs,minNumUncen = minNumUncen,
+                                windowY = windowY, windowQ = windowQ, windowS = windowS, 
+                                edgeAdjust = edgeAdjust)
   
       if (i %in% printUpdate & verbose) {
         cat(floor(i*100/numEstPt),"\t")
