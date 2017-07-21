@@ -111,7 +111,7 @@ plotConcTimeSmooth<-function (eList, q1, q2, q3, centerDate, yearStart, yearEnd,
                          localSample, windowY = windowY,
                          windowQ = windowQ, windowS = windowS,minNumObs=minNumObs, 
                          minNumUncen = minNumUncen, verbose=FALSE,
-                         edgeAdjust,run.parallel = FALSE)
+                         edgeAdjust = edgeAdjust, run.parallel = FALSE)
     y[index[iCurve], ] <- result[, 3]
   }
   monthCenter<- as.POSIXlt(centerDate)$mon+1
