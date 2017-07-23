@@ -2,6 +2,7 @@
 #' 
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param dateInfo data frame with 3 columns, their names defined by sampleStart, flowStart, flowEnd
+#' @param waterYear logical. Should years be water years (\code{TRUE}) or calendar years (\code{FALSE})
 #' @param sampleStart integer vector of start years (water) for each FN conc/flux segment
 #' @param flowStart integer vector of start years (water) for flow normalization
 #' @param flowEnd integer vector of end years (water) for flow normalization
@@ -30,15 +31,24 @@
 #'                        flowSegEnd)
 #' eList <- flexFN(eList, dateInfo)
 #' plotFluxHist(eList)
+#' 
+#' eList <- flexFN(eList, dateInfo, waterYear = FALSE)
+#' plotFluxHist(eList)
 #' }
-flexFN <- function(eList, dateInfo, sampleStart="sampleSegStart",
+flexFN <- function(eList, dateInfo, waterYear = TRUE,sampleStart="sampleSegStart",
                    flowStart="flowSegStart", flowEnd="flowSegEnd"){
   
   Daily <- eList$Daily
   Sample <- eList$Sample
   
-  Sample$WaterYear <- calcWaterYear(Sample$Date)
-  Daily$WaterYear <- calcWaterYear(Daily$Date)
+  if(waterYear){
+    Sample$WaterYear <- calcWaterYear(Sample$Date)
+    Daily$WaterYear <- calcWaterYear(Daily$Date)    
+  } else {
+    Sample$WaterYear <- floor(Sample$DecYear)
+    Daily$WaterYear <- floor(Daily$DecYear)
+  }
+
   
   dateInfo$sampleSegEnd <- c(dateInfo[2:nrow(dateInfo),sampleStart]-1,max(Sample$WaterYear))
 
@@ -46,7 +56,12 @@ flexFN <- function(eList, dateInfo, sampleStart="sampleSegStart",
   DailyFN$FNConc <- NA
   DailyFN$FNFlux <- NA
   
-  DailyFN$WaterYear <- calcWaterYear(DailyFN$Date)
+  if(waterYear){
+    DailyFN$WaterYear <- calcWaterYear(DailyFN$Date)
+  } else {
+    DailyFN$WaterYear <- floor(DailyFN$DecYear)
+  }
+  
   
   newList <- as.egret(eList$INFO,DailyFN,Sample,eList$surfaces)
   
@@ -63,6 +78,10 @@ flexFN <- function(eList, dateInfo, sampleStart="sampleSegStart",
   INFO$nSegments <- nrow(dateInfo)
   
   attr(INFO,"segmentInfo") <- dateInfo
+  
+  if(!waterYear){
+    DailyFN$WaterYear <- calcWaterYear(DailyFN$Date)
+  }
   
   newList <- as.egret(INFO,DailyFN,Sample,eList$surfaces)
   
