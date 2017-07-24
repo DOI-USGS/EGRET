@@ -23,5 +23,5 @@ Calculates flow normalized flux and concentration with a subset of the flow reco
 eList <- Choptank_eList
 
 flowNormYears <- c(1985:2002,2006:2010)
-temp_daily <- subFN(eList, flowNormalYears)
+temp_daily <- subFN(eList, flowNormYears)
 }

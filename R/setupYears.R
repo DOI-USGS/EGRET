@@ -20,7 +20,7 @@
 #' Daily <- getDaily(eList)
 #' AnnualResults <- setupYears(Daily, 4, 10)
 #' flowNormYears <- c(1985:2002,2006:2010)
-#' temp_daily <- subFN(eList, flowNormalYears)
+#' temp_daily <- subFN(eList, flowNormYears = flowNormYears)
 #' AnnualResults_new <- setupYears(temp_daily)
 #' 
 #' 

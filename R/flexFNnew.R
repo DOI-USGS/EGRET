@@ -104,7 +104,7 @@ flexFN <- function(eList, dateInfo, waterYear = TRUE,sampleStart="sampleSegStart
 #' eList <- Choptank_eList
 #' 
 #' flowNormYears <- c(1985:2002,2006:2010)
-#' temp_daily <- subFN(eList, flowNormalYears)
+#' temp_daily <- subFN(eList, flowNormYears)
 subFN <- function(eList, flowNormYears = "all", 
                   waterYear = TRUE){
   
