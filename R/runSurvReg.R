@@ -64,11 +64,11 @@ runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample,
   n <- NULL
   if(run.parallel){
     wrtds_return_list <- foreach(n = 1:numEstPt, .packages=c('EGRET')) %dopar% {
-                      wrtds_returns <- run_WRTDS(estPtYear[n], estPtLQ[n],
-                                         localSample,DecLow,DecHigh,
-                                         minNumObs,minNumUncen,
-                                         windowY, windowQ, windowS,
-                                         edgeAdjust)
+                      wrtds_returns <- run_WRTDS(estY = estPtYear[n], estLQ = estPtLQ[n],
+                                                 localSample =localSample,DecLow = DecLow,DecHigh = DecHigh,
+                                                 minNumObs = minNumObs,minNumUncen = minNumUncen,
+                                                 windowY = windowY, windowQ = windowQ, windowS = windowS, 
+                                                 edgeAdjust = edgeAdjust)
                     }
     
     warningFlag <- sum(sapply(wrtds_return_list, function(x) x[["warningFlag"]]))
@@ -79,11 +79,11 @@ runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample,
     if (verbose) cat("Survival regression (% complete):\n")
     
     for (i in 1:numEstPt) {
-      wrtds_return <- run_WRTDS(estPtYear[i], estPtLQ[i],
-                localSample,DecLow,DecHigh,
-                minNumObs,minNumUncen,
-                windowY, windowQ, windowS,
-                edgeAdjust)
+      wrtds_return <- run_WRTDS(estY = estPtYear[i], estLQ = estPtLQ[i],
+                                localSample =localSample,DecLow = DecLow,DecHigh = DecHigh,
+                                minNumObs = minNumObs,minNumUncen = minNumUncen,
+                                windowY = windowY, windowQ = windowQ, windowS = windowS, 
+                                edgeAdjust = edgeAdjust)
   
       if (i %in% printUpdate & verbose) {
         cat(floor(i*100/numEstPt),"\t")
@@ -121,9 +121,19 @@ run_WRTDS <- function(estY, estLQ,
   
   distLow <- estY-DecLow
   distHigh <- DecHigh-estY
+  
+  survReg <- c(NA, NA, NA)
+  warningFlag <- 0
+  
+  if(all(is.na(c(distLow,distHigh)))){
+    return(list(survReg=survReg, warningFlag=warningFlag))
+  }
+  
   distTime <- min(distLow,distHigh)
   
-  if (edgeAdjust)  tempWindowY <- if(distTime>tempWindowY) tempWindowY else ((2 * tempWindowY) - distTime)
+  if (edgeAdjust & !is.na(distTime)) {
+    tempWindowY <- if(distTime>tempWindowY) tempWindowY else ((2 * tempWindowY) - distTime)
+  } 
 
   k <- 1
   
@@ -152,7 +162,6 @@ run_WRTDS <- function(estY, estLQ,
     if(numPosWt>=minNumObs&numUncen>=minNumUncen | k > 10000) break
   }
   
-  
   # now we are ready to run Survival Regression
   weight<-Sam$weight
   aveWeight<-sum(weight)/numPosWt
@@ -171,8 +180,6 @@ run_WRTDS <- function(estY, estLQ,
     return(NULL)
   })
   
-  survReg <- c(NA, NA, NA)
-  
   if(exists("survModel")) {
     newdf<-data.frame(DecYear=estY,LogQ=estLQ,SinDY=sin(2*pi*estY),CosDY=cos(2*pi*estY))
     #   extract results at estimation point
@@ -183,7 +190,6 @@ run_WRTDS <- function(estY, estLQ,
     survReg[2]<-SE
     survReg[3]<-bias*exp(yHat)
   } 
-  warningFlag <- 0
   
   if(all(is.na(x))){
     warningFlag <- 1

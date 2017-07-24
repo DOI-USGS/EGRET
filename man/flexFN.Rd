@@ -4,13 +4,15 @@
 \alias{flexFN}
 \title{Flexible Flow Normalization}
 \usage{
-flexFN(eList, dateInfo, sampleStart = "sampleSegStart",
+flexFN(eList, dateInfo, waterYear = TRUE, sampleStart = "sampleSegStart",
   flowStart = "flowSegStart", flowEnd = "flowSegEnd")
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
 
 \item{dateInfo}{data frame with 3 columns, their names defined by sampleStart, flowStart, flowEnd}
+
+\item{waterYear}{logical. Should years be water years (\code{TRUE}) or calendar years (\code{FALSE})}
 
 \item{sampleStart}{integer vector of start years (water) for each FN conc/flux segment}
 
@@ -33,6 +35,7 @@ dateInfo <- data.frame(sampleSegStart,
 \dontrun{
 eList <- flexFN(eList, dateInfo)
 plotFluxHist(eList)
+flexPlotAddOn(eList)
 
 eList <- Choptank_eList
 eList <- setUpEstimation(eList)
@@ -43,6 +46,9 @@ dateInfo <- data.frame(sampleSegStart,
                        flowSegStart, 
                        flowSegEnd)
 eList <- flexFN(eList, dateInfo)
+plotFluxHist(eList)
+
+eList <- flexFN(eList, dateInfo, waterYear = FALSE)
 plotFluxHist(eList)
 }
 }

@@ -48,11 +48,11 @@ test_that("date functions work", {
   expect_true(dateFormatCheck("2017-01-01"))
   expect_false(dateFormatCheck("2017-1-1"))
   
-  expect_equivalent(formatCheckDate("1985-01-01", "startDate"), "1985-01-01")
-  expect_warning(formatCheckDate("1985-1-1", "startDate", interactive = FALSE))
 })
 
 test_that("data functions work", {
+  testthat::skip_on_cran()
+  
   #compressData
   dateTime <- c('1985-01-01', '1985-01-02', '1985-01-03')
   comment1 <- c("","","")
@@ -71,7 +71,7 @@ test_that("data functions work", {
                                     "Uncen"))
   
   #mergeReport
-  testthat::skip_on_cran()
+  
   siteNumber <- '01594440'
   pCode <- '01075'
   Daily <- readNWISDaily(siteNumber,'00060', '1985-01-01', '1990-03-31')
@@ -104,11 +104,7 @@ test_that("data functions work", {
 })
 
 test_that("Other miscellaneous functions work", {
-  q_cfs <- "00060"
-  expect_equal(formatCheckParameterCd(q_cfs), q_cfs)
-  expect_warning(formatted <- formatCheckParameterCd("0060", interactive = FALSE))
-  expect_equal(formatted, q_cfs)
-  
+
   dailyMeas <- getDaily(Choptank_eList)
   lab <- setSeasonLabel(setupYears(dailyMeas))
   expect_equal(lab, "Water Year")
@@ -141,6 +137,7 @@ test_that("nCensored returns correct numbers", {
 context("plot method for egret objects")
 
 test_that("plot method for egret objects work", {
+  testthat::skip_on_cran()
   graphics.off()
   dev_start <- dev.cur()
   eList <- Choptank_eList
@@ -156,6 +153,117 @@ test_that("plot.egret passes correct arguments", {
   plot(eList, logScaleConc = TRUE)
   
   expect_true(dev_start + 1 == dev.cur())
+})
+
+test_that("other plot functions don't error", {
+  testthat::skip_on_cran()
+  
+  eList <- Choptank_eList
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(boxConcMonth(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(boxQTwice(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(plotConcTime(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(plotConcQ(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(multiPlotDataOverview(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(plotConcTimeDaily(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(plotFluxTimeDaily(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(plotConcPred(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(plotFluxPred(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(plotResidPred(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(plotResidQ(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(plotResidTime(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(boxResidMonth(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(boxConcThree(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(plotConcHist(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(plotFluxHist(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  date1 <- "2000-09-01"
+  date2 <- "2005-09-01"
+  date3 <- "2009-09-01"
+  qBottom<-100
+  qTop<-5000
+  
+  expect_silent(plotConcQSmooth(eList, date1, date2, date3, qBottom, qTop, 
+                                concMax=2,qUnit=1, legendLeft = 1000, legendTop = 2))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  q1 <- 10
+  q2 <- 25
+  q3 <- 75
+  centerDate <- "07-01"
+  yearEnd <- 2009
+  yearStart <- 2000
+  expect_silent(plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  
 })
 
 test_that("plot.egret passes correct arguments", {

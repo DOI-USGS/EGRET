@@ -2,7 +2,7 @@
 % Please edit documentation in R/flexFNnew.R
 \name{estFNsegs}
 \alias{estFNsegs}
-\title{Segment estimates}
+\title{Segment estimates for flow normalization}
 \usage{
 estFNsegs(eList, dateInfo)
 }
@@ -12,21 +12,5 @@ estFNsegs(eList, dateInfo)
 \item{dateInfo}{dataframe with sampleSegStart, flowSegStart, flowSegEnd, sampleSegEnd}
 }
 \description{
-Segment estimates
-}
-\examples{
-eList <- Choptank_eList
-eList <- setUpEstimation(eList)
-sampleSegStart <- c(1980,1990,2000)
-flowSegStart <- c(1980,1985,1992)
-flowSegEnd <- c(1994,2004,2011)
-dateInfo <- dateInfo <- data.frame(sampleSegStart, 
-                                   flowSegStart, 
-                                   flowSegEnd)
-dateInfo$sampleSegEnd <- c(dateInfo$sampleSegStart[2:nrow(dateInfo)]-1,
-floor(max(eList$Sample$DecYear)))
-
-eList$Daily$WaterYear <- dataRetrieval::calcWaterYear(eList$Daily$Date)
-eList$Sample$WaterYear <- dataRetrieval::calcWaterYear(eList$Sample$Date)
-eList <- estFNsegs(eList,dateInfo[1,])
+Segment estimates for flow normalization
 }

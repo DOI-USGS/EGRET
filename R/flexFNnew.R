@@ -2,6 +2,7 @@
 #' 
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param dateInfo data frame with 3 columns, their names defined by sampleStart, flowStart, flowEnd
+#' @param waterYear logical. Should years be water years (\code{TRUE}) or calendar years (\code{FALSE})
 #' @param sampleStart integer vector of start years (water) for each FN conc/flux segment
 #' @param flowStart integer vector of start years (water) for flow normalization
 #' @param flowEnd integer vector of end years (water) for flow normalization
@@ -19,6 +20,7 @@
 #' \dontrun{
 #' eList <- flexFN(eList, dateInfo)
 #' plotFluxHist(eList)
+#' flexPlotAddOn(eList)
 #' 
 #' eList <- Choptank_eList
 #' eList <- setUpEstimation(eList)
@@ -30,15 +32,24 @@
 #'                        flowSegEnd)
 #' eList <- flexFN(eList, dateInfo)
 #' plotFluxHist(eList)
+#' 
+#' eList <- flexFN(eList, dateInfo, waterYear = FALSE)
+#' plotFluxHist(eList)
 #' }
-flexFN <- function(eList, dateInfo, sampleStart="sampleSegStart",
+flexFN <- function(eList, dateInfo, waterYear = TRUE,sampleStart="sampleSegStart",
                    flowStart="flowSegStart", flowEnd="flowSegEnd"){
   
   Daily <- eList$Daily
   Sample <- eList$Sample
   
-  Sample$WaterYear <- calcWaterYear(Sample$Date)
-  Daily$WaterYear <- calcWaterYear(Daily$Date)
+  if(waterYear){
+    Sample$WaterYear <- calcWaterYear(Sample$Date)
+    Daily$WaterYear <- calcWaterYear(Daily$Date)    
+  } else {
+    Sample$WaterYear <- floor(Sample$DecYear)
+    Daily$WaterYear <- floor(Daily$DecYear)
+  }
+
   
   dateInfo$sampleSegEnd <- c(dateInfo[2:nrow(dateInfo),sampleStart]-1,max(Sample$WaterYear))
 
@@ -46,7 +57,12 @@ flexFN <- function(eList, dateInfo, sampleStart="sampleSegStart",
   DailyFN$FNConc <- NA
   DailyFN$FNFlux <- NA
   
-  DailyFN$WaterYear <- calcWaterYear(DailyFN$Date)
+  if(waterYear){
+    DailyFN$WaterYear <- calcWaterYear(DailyFN$Date)
+  } else {
+    DailyFN$WaterYear <- floor(DailyFN$DecYear)
+  }
+  
   
   newList <- as.egret(eList$INFO,DailyFN,Sample,eList$surfaces)
   
@@ -64,6 +80,10 @@ flexFN <- function(eList, dateInfo, sampleStart="sampleSegStart",
   
   attr(INFO,"segmentInfo") <- dateInfo
   
+  if(!waterYear){
+    DailyFN$WaterYear <- calcWaterYear(DailyFN$Date)
+  }
+  
   newList <- as.egret(INFO,DailyFN,Sample,eList$surfaces)
   
   return(newList)
@@ -71,28 +91,51 @@ flexFN <- function(eList, dateInfo, sampleStart="sampleSegStart",
 }
 
 
-#' Segment estimates
+#' subFN
+#' 
+#' Calculates flow normalized flux and concentration with a subset of the flow record.
+#' 
+#' @param eList named list with at least the Daily, Sample, and INFO dataframes
+#' @param flowNormYears vector of flow years
+#' @param waterYear logical. Should years be water years (\code{TRUE}) or calendar years (\code{FALSE})
+#' @return data frame in the Daily format
+#' @export
+#' @examples
+#' eList <- Choptank_eList
+#' 
+#' flowNormYears <- c(1985:2002,2006:2010)
+#' temp_daily <- subFN(eList, flowNormYears)
+subFN <- function(eList, flowNormYears = "all", 
+                  waterYear = TRUE){
+  
+  if(any(tolower(flowNormYears) != "all")){
+    sampleSegStart <- min(floor(eList$Sample$DecYear), na.rm = TRUE)
+    total_por <- FALSE
+    flowNormYears <- flowNormYears[!is.na(flowNormYears)]
+    split_years <- split(flowNormYears, cumsum(c(1, diff(flowNormYears) != 1)))
+    
+    flowSegStart <- as.numeric(sapply(split_years, min))
+    flowSegEnd <- as.numeric(sapply(split_years, max))
+    
+    dateInfo <- data.frame(sampleSegStart,
+                           flowSegStart,
+                           flowSegEnd)
+    
+    eList <- flexFN(eList, dateInfo, waterYear = FALSE)
+    Daily <- getDaily(eList)
+  } else {
+    Daily <- estDailyFromSurfaces(eList = eList)
+  }
+  
+  return(Daily)
+}
+
+#' Segment estimates for flow normalization
 #' 
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param dateInfo dataframe with sampleSegStart, flowSegStart, flowSegEnd, sampleSegEnd
-#' @export
 #' @importFrom fields interp.surface
 #' @importFrom dataRetrieval calcWaterYear
-#' @examples
-#' eList <- Choptank_eList
-#' eList <- setUpEstimation(eList)
-#' sampleSegStart <- c(1980,1990,2000)
-#' flowSegStart <- c(1980,1985,1992)
-#' flowSegEnd <- c(1994,2004,2011)
-#' dateInfo <- dateInfo <- data.frame(sampleSegStart, 
-#'                                    flowSegStart, 
-#'                                    flowSegEnd)
-#' dateInfo$sampleSegEnd <- c(dateInfo$sampleSegStart[2:nrow(dateInfo)]-1,
-#' floor(max(eList$Sample$DecYear)))
-#' 
-#' eList$Daily$WaterYear <- dataRetrieval::calcWaterYear(eList$Daily$Date)
-#' eList$Sample$WaterYear <- dataRetrieval::calcWaterYear(eList$Sample$Date)
-#' eList <- estFNsegs(eList,dateInfo[1,])
 estFNsegs <- function(eList, dateInfo){
   
   localDaily <- getDaily(eList)
@@ -103,13 +146,13 @@ estFNsegs <- function(eList, dateInfo){
   # "target" x-y points.
   LogQ <- seq(localINFO$bottomLogQ, by=localINFO$stepLogQ, length.out=localINFO$nVectorLogQ)
   Year <- seq(localINFO$bottomYear, by=localINFO$stepYear, length.out=localINFO$nVectorYear)
-  localDaily$yHat <- interp.surface(obj=list(x=LogQ,y=Year,z=localsurfaces[,,1]), 
-                                    loc=data.frame(localDaily$LogQ, localDaily$DecYear))
-  localDaily$SE <- interp.surface(obj=list(x=LogQ,y=Year,z=localsurfaces[,,2]), 
-                                  loc=data.frame(localDaily$LogQ, localDaily$DecYear))
-  localDaily$ConcDay <- interp.surface(obj=list(x=LogQ,y=Year,z=localsurfaces[,,3]), 
-                                       loc=data.frame(localDaily$LogQ, localDaily$DecYear))
-  localDaily$FluxDay <- as.numeric(localDaily$ConcDay * localDaily$Q * 86.4)
+  # localDaily$yHat <- interp.surface(obj=list(x=LogQ,y=Year,z=localsurfaces[,,1]), 
+  #                                   loc=data.frame(localDaily$LogQ, localDaily$DecYear))
+  # localDaily$SE <- interp.surface(obj=list(x=LogQ,y=Year,z=localsurfaces[,,2]), 
+  #                                 loc=data.frame(localDaily$LogQ, localDaily$DecYear))
+  # localDaily$ConcDay <- interp.surface(obj=list(x=LogQ,y=Year,z=localsurfaces[,,3]), 
+  #                                      loc=data.frame(localDaily$LogQ, localDaily$DecYear))
+  # localDaily$FluxDay <- as.numeric(localDaily$ConcDay * localDaily$Q * 86.4)
   
   # Calculate "flow-normalized" concentration and flux:
   sampleIndex <- localDaily$WaterYear >= dateInfo$sampleSegStart & localDaily$WaterYear <= dateInfo$sampleSegEnd
