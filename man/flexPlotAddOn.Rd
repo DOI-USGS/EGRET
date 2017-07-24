@@ -4,7 +4,8 @@
 \alias{flexPlotAddOn}
 \title{Flexible Flow Normalization Plot Add On}
 \usage{
-flexPlotAddOn(eList, showArrows = TRUE, showRect = TRUE)
+flexPlotAddOn(eList, showArrows = TRUE, showRect = TRUE,
+  customPalette = NULL)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -12,6 +13,9 @@ flexPlotAddOn(eList, showArrows = TRUE, showRect = TRUE)
 \item{showArrows}{logical whether or not to show arrows representing flow segments}
 
 \item{showRect}{logical whether or not to show rectangles representing sample segments}
+
+\item{customPalette}{character vector of colors as a hexadecimal string of the form "#rrggbb". 
+Defaults to NULL, which indicates the use of a default palette (up to 21 segments).}
 }
 \description{
 Flexible Flow Normalization Plot Add On
@@ -36,6 +40,6 @@ flowSegEnd <- c(1990,2000,2010)
 dateInfo <- data.frame(sampleSegStart, flowSegStart, flowSegEnd)
 eList <- flexFN(eList, dateInfo)
 plotFluxHist(eList)
-flexPlotAddOn(eList)
+flexPlotAddOn(eList, customPalette=c("#d5ce48", "#fd300f", "#3e0289"))
 }
 }
