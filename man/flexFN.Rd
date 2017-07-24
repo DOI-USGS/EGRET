@@ -35,6 +35,7 @@ dateInfo <- data.frame(sampleSegStart,
 \dontrun{
 eList <- flexFN(eList, dateInfo)
 plotFluxHist(eList)
+flexPlotAddOn(eList)
 
 eList <- Choptank_eList
 eList <- setUpEstimation(eList)

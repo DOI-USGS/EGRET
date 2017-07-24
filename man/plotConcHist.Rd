@@ -16,6 +16,10 @@ plotConcHist(eList, yearStart = NA, yearEnd = NA, flowNormYears = "all",
 
 \item{yearEnd}{numeric is the calendar year just after the last estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)}
 
+\item{flowNormYears}{vector of flow years}
+
+\item{waterYear}{logical. Should years be water years (\code{TRUE}) or calendar years (\code{FALSE})}
+
 \item{concMax}{number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)}
 
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)}
