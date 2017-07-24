@@ -90,6 +90,48 @@ flexFN <- function(eList, dateInfo, waterYear = TRUE,sampleStart="sampleSegStart
 }
 
 
+#' subFN
+#' 
+#' Calculates flow normalized flux and concentration with a subset of the flow record.
+#' 
+#' @param eList named list with at least the Daily, Sample, and INFO dataframes
+#' @param flowNormYears
+#' @param waterYear logical. Should years be water years (\code{TRUE}) or calendar years (\code{FALSE})
+#' @return data frame in the Daily format
+#' @export
+#' @examples
+#' eList <- Choptank_eList
+#' 
+#' flowNormYears <- c(1985:2002,NA,2006:2010)
+#' temp_daily <- subFN(eList, flowNormalYears)
+subFN <- function(eList, flowNormYears = "all", waterYear = TRUE){
+  
+  if(any(tolower(flowNormYears) != "all")){
+    
+    sampleSegStart <- min(floor(eList$Sample$DecYear), na.rm = TRUE)
+    
+    flowNormYears <- flowNormYears[!is.na(flowNormYears)]
+    split_years <- split(flowNormYears, cumsum(c(1, diff(flowNormYears) != 1)))
+    
+    flowSegStart <- as.numeric(sapply(split_years, min))
+    flowSegEnd <- as.numeric(sapply(split_years, max))
+    
+    dateInfo <- data.frame(sampleSegStart,
+                           flowSegStart,
+                           flowSegEnd)
+    
+    
+    eList <- flexFN(eList, dateInfo, waterYear = FALSE)
+    Daily <- getDaily(eList)
+    
+    
+  } else {
+    Daily <- estDailyFromSurfaces(eList = eList)
+  }
+  
+  return(Daily)
+}
+
 #' Segment estimates for flow normalization
 #' 
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes

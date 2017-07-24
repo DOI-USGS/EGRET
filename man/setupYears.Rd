@@ -30,6 +30,11 @@ This function aggregates the results stored on a daily basis in the Daily data f
 eList <- Choptank_eList
 Daily <- getDaily(eList)
 AnnualResults <- setupYears(Daily, 4, 10)
+flowNormYears <- c(1985:2002,2006:2010)
+temp_daily <- subFN(eList, flowNormalYears)
+AnnualResults_new <- setupYears(temp_daily)
+
+
 }
 \keyword{statistics}
 \keyword{water-quality}

@@ -38,8 +38,12 @@
 #' plotConcHist(eList, yearStart, yearEnd)
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
-#' plotConcHist(eList, yearStart, yearEnd)
+#' plotConcHist(eList)
+#' 
+#' flowNormYears <- c(1985:2002,2006:2010)
+#' plotConcHist(eList, flowNormYears=flowNormYears)
 plotConcHist<-function(eList, yearStart = NA, yearEnd = NA, 
+                       flowNormYears = "all", waterYear = TRUE,
                        concMax = NA, printTitle = TRUE, 
                        tinyPlot = FALSE,plotFlowNorm = TRUE,
                         cex=0.8, cex.axis=1.1,cex.main=1.1, 
@@ -60,6 +64,7 @@ plotConcHist<-function(eList, yearStart = NA, yearEnd = NA,
     stop("This function requires running modelEstimation on eList")
   }
   
+  localDaily <- subFN(eList = eList, flowNormYears = flowNormYears, waterYear = waterYear)
   localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
   
   periodName<-setSeasonLabel(localAnnualResults=localAnnualResults)

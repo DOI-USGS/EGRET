@@ -19,6 +19,11 @@
 #' eList <- Choptank_eList
 #' Daily <- getDaily(eList)
 #' AnnualResults <- setupYears(Daily, 4, 10)
+#' flowNormYears <- c(1985:2002,2006:2010)
+#' temp_daily <- subFN(eList, flowNormalYears)
+#' AnnualResults_new <- setupYears(temp_daily)
+#' 
+#' 
 setupYears<-function(localDaily, paLong = 12, paStart = 10){
   # this function aggregates the results in the data frame Daily into annual values
   # but it gives the user flexibility as to the period of analysis
@@ -27,13 +32,10 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
   #   But, the simplest case, a Water Year would have
   #   paLong=12, and paStart=10
   # it is designed to handle NA values
-  #
-  #  
+  
   numDays<-length(localDaily$MonthSeq)
   firstMonthSeq<-localDaily$MonthSeq[1]
   lastMonthSeq<-localDaily$MonthSeq[numDays]
-  
-  
   
   #   creating a data frame of starting and ending months for each year
   Starts<-seq(paStart,lastMonthSeq,12)

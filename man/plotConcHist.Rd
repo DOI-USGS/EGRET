@@ -4,10 +4,10 @@
 \alias{plotConcHist}
 \title{Graph of annual concentration and flow normalized concentration versus year}
 \usage{
-plotConcHist(eList, yearStart = NA, yearEnd = NA, concMax = NA,
-  printTitle = TRUE, tinyPlot = FALSE, plotFlowNorm = TRUE, cex = 0.8,
-  cex.axis = 1.1, cex.main = 1.1, lwd = 2, col = "black",
-  col.pred = "green", customPar = FALSE, ...)
+plotConcHist(eList, yearStart = NA, yearEnd = NA, flowNormYears = "all",
+  waterYear = TRUE, concMax = NA, printTitle = TRUE, tinyPlot = FALSE,
+  plotFlowNorm = TRUE, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
+  lwd = 2, col = "black", col.pred = "green", customPar = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes}
@@ -60,7 +60,10 @@ eList <- Choptank_eList
 plotConcHist(eList, yearStart, yearEnd)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
-plotConcHist(eList, yearStart, yearEnd)
+plotConcHist(eList)
+
+flowNormYears <- c(1985:2002,2006:2010)
+plotConcHist(eList, flowNormYears=flowNormYears)
 }
 \seealso{
 \code{\link{setupYears}}, \code{\link{genericEGRETDotPlot}}
