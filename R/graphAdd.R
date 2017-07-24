@@ -6,7 +6,6 @@
 #' @param customPalette character vector of colors as a hexadecimal string of the form "#rrggbb". 
 #' Defaults to NULL, which indicates the use of a default palette (up to 21 segments).
 #' @export
-#' @importFrom RColorBrewer brewer.pal
 #' @importFrom graphics rect
 #' @importFrom graphics arrows
 #' @examples
