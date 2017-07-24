@@ -27,7 +27,6 @@ Imports:
     stats,
     grDevices,
     truncnorm,
-    RColorBrewer,
     foreach
 Suggests:
     EGRETci,

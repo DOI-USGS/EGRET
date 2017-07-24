@@ -3,8 +3,9 @@
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param showArrows logical whether or not to show arrows representing flow segments
 #' @param showRect logical whether or not to show rectangles representing sample segments
+#' @param customPalette character vector of colors as a hexadecimal string of the form "#rrggbb". 
+#' Defaults to NULL, which indicates the use of a default palette (up to 21 segments).
 #' @export
-#' @importFrom RColorBrewer brewer.pal
 #' @importFrom graphics rect
 #' @importFrom graphics arrows
 #' @examples
@@ -27,14 +28,28 @@
 #' dateInfo <- data.frame(sampleSegStart, flowSegStart, flowSegEnd)
 #' eList <- flexFN(eList, dateInfo)
 #' plotFluxHist(eList)
-#' flexPlotAddOn(eList)
+#' flexPlotAddOn(eList, customPalette=c("#d5ce48", "#fd300f", "#3e0289"))
 #' }
-flexPlotAddOn <- function(eList, showArrows = TRUE, showRect = TRUE){
+flexPlotAddOn <- function(eList, showArrows = TRUE, showRect = TRUE, customPalette = NULL){
   if('segmentInfo' %in% names(attributes(eList$INFO))){
     segmentINFO <- attr(eList$INFO, "segmentInfo")
     
-    colors <- suppressWarnings(brewer.pal(nrow(segmentINFO), "Accent"))
+    if(!is.null(customPalette)){
+      pal <- customPalette
+    } else {
+      pal <- c("#1856fb", "#af2b18", "#fdd76a", "#013919", "#a4927c", "#16f9d1", 
+               "#a40e0e", "#089db6", "#edc56f", "#13ad5f", "#b26d63", "#5e6c9c", 
+               "#c07a62", "#4b4c13", "#11d8be", "#435749", "#ae5175", "#88756c", 
+               "#628490", "#8f07e4", "#8e3f98")
+    }
     
+    if(nrow(segmentINFO) > length(pal)){
+      stop(paste("The number of segments exceed the length of the color palette.", 
+                 "Supply custom palette of length", nrow(segmentINFO)))
+    }
+    
+    colors <- suppressWarnings(pal[seq_len(nrow(segmentINFO))])
+
     arrowYs <- seq(par()$usr[4], par()$usr[3], length=10)[c(-1,-10)]
     
     if(nrow(segmentINFO) > 8){
