@@ -4,7 +4,8 @@
 \alias{tableResults}
 \title{Table of annual results for discharge, concentration and flux}
 \usage{
-tableResults(eList, qUnit = 2, fluxUnit = 9)
+tableResults(eList, qUnit = 2, fluxUnit = 9, flowNormYears = "all",
+  waterYear = TRUE)
 }
 \arguments{
 \item{eList}{named list with at least Daily and INFO dataframes}
@@ -12,6 +13,10 @@ tableResults(eList, qUnit = 2, fluxUnit = 9)
 \item{qUnit}{object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.}
 
 \item{fluxUnit}{object of fluxUnit class. \code{\link{printFluxUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.}
+
+\item{flowNormYears}{vector of flow years}
+
+\item{waterYear}{logical. Should years be water years (\code{TRUE}) or calendar years (\code{FALSE})}
 }
 \value{
 results dataframe, if returnDataFrame=TRUE

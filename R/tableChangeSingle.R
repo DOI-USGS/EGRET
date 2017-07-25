@@ -9,6 +9,8 @@
 #' @param fluxUnit object of fluxUnit class. \code{\link{printFluxUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param yearPoints numeric vector listing the years for which the change or slope computations are made, they need to be in chronological order.  For example yearPoints=c(1975,1985,1995,2005), default is NA (which allows the program to set yearPoints automatically)
 #' @param flux logical if TRUE results are returned in flux, if FALSE concentration. Default is set to FALSE.
+#' @param flowNormYears vector of flow years
+#' @param waterYear logical. Should years be water years (\code{TRUE}) or calendar years (\code{FALSE})
 #' @return resultsDF dataframe describing trends in flow-normalized concentration or flux if returnDataFrame is TRUE
 #' @keywords water-quality statistics
 #' @export
@@ -23,7 +25,8 @@
 #' # Winter:
 #' eList <- setPA(eList, paStart=12,paLong=3)
 #' tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)
-tableChangeSingle<-function(eList, fluxUnit = 9, yearPoints = NA, flux = FALSE) {
+tableChangeSingle<-function(eList, fluxUnit = 9, yearPoints = NA, flux = FALSE,
+                            flowNormYears = "all", waterYear = TRUE) {
   
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
@@ -52,6 +55,7 @@ tableChangeSingle<-function(eList, fluxUnit = 9, yearPoints = NA, flux = FALSE) 
     paStart <- 10
   }
   
+  localDaily <- subFN(eList = eList, flowNormYears = flowNormYears, waterYear = waterYear)
   localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
   
   ################################################################################

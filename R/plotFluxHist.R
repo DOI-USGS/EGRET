@@ -13,6 +13,8 @@
 #' @param eList named list with at least the Daily and INFO dataframes
 #' @param yearStart numeric is the calendar year containing the first estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)
 #' @param yearEnd numeric is the calendar year just after the last estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)
+#' @param flowNormYears vector of flow years
+#' @param waterYear logical. Should years be water years (\code{TRUE}) or calendar years (\code{FALSE})
 #' @param fluxUnit number representing entry in pre-defined fluxUnit class array. \code{\link{printFluxUnitCheatSheet}}
 #' @param fluxMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
@@ -41,10 +43,10 @@
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' plotFluxHist(eList) 
-plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA, fluxUnit = 9, 
-    fluxMax = NA, printTitle = TRUE, plotFlowNorm = TRUE,
-    tinyPlot=FALSE,col="black",col.pred="green",
-    cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2, customPar=FALSE, ...){
+plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA, flowNormYears = "all", 
+    waterYear = TRUE, fluxUnit = 9, fluxMax = NA, printTitle = TRUE, 
+    plotFlowNorm = TRUE, tinyPlot=FALSE, col="black", col.pred="green",
+    cex=0.8, cex.axis=1.1, cex.main=1.1, lwd=2, customPar=FALSE, ...){
 
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
@@ -73,6 +75,7 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA, fluxUnit = 9,
             "\nFlux calculations will be wrong if units are not consistent")
   }
   
+  localDaily <- subFN(eList = eList, flowNormYears = flowNormYears, waterYear = waterYear)
   localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
   
   ################################################################################
