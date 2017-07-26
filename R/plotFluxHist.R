@@ -43,6 +43,9 @@
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' plotFluxHist(eList) 
+#' # Flow normalized (excluding extremes from 2003-04):
+#' yearVector <- c(1980:2002, 2005:2015)
+#' plotFluxHist(eList, flowNormYears=yearVector)
 plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA, flowNormYears = "all", 
     waterYear = TRUE, fluxUnit = 9, fluxMax = NA, printTitle = TRUE, 
     plotFlowNorm = TRUE, tinyPlot=FALSE, col="black", col.pred="green",

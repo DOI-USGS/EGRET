@@ -31,6 +31,7 @@ mean flux, and flow-normalized flux.
 eList <- Choptank_eList
 # Water Year:
 tableResults(eList, fluxUnit = 1)
+tableResults(eList, fluxUnit = 1, flowNormYears = c(1980:1995, 1997:2002, 2004:2011))
 tableResults(eList, fluxUnit = 'kgDay', qUnit = 'cms')
 returnedTable <- tableResults(eList, fluxUnit = 1)
 # Winter:

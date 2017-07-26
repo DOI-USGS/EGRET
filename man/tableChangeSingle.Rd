@@ -36,6 +36,8 @@ eList <- Choptank_eList
 # Water Year:
 #This returns concentration ASCII table in the console:
 tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)
+tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), 
+                  flowNormYears=c(2003:2004, 2006:2009), flux=FALSE)
 #This returns flux values ASCII table in the console
 tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=TRUE)  
 # Winter:

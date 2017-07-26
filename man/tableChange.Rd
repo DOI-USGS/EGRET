@@ -27,8 +27,9 @@ they can be set by the program to be the final year of the record and a set of y
 \examples{
 eList <- Choptank_eList
 # Water Year:
-tableChange(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
+tableChange(eList, fluxUnit=6, yearPoints=c(2001,2005,2008,2009))
 tableChange(eList, fluxUnit=9) 
+tableChange(eList, fluxUnit=9, flowNormYear=c(2001:2006, 2008:2009)) 
 # Winter:
 eList <- setPA(eList, paStart=12,paLong=3)
 tableChange(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
