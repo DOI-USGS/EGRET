@@ -4,7 +4,8 @@
 \alias{tableResults}
 \title{Table of annual results for discharge, concentration and flux}
 \usage{
-tableResults(eList, qUnit = 2, fluxUnit = 9)
+tableResults(eList, qUnit = 2, fluxUnit = 9, flowNormYears = "all",
+  waterYear = TRUE)
 }
 \arguments{
 \item{eList}{named list with at least Daily and INFO dataframes}
@@ -12,6 +13,10 @@ tableResults(eList, qUnit = 2, fluxUnit = 9)
 \item{qUnit}{object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.}
 
 \item{fluxUnit}{object of fluxUnit class. \code{\link{printFluxUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.}
+
+\item{flowNormYears}{vector of flow years}
+
+\item{waterYear}{logical. Should years be water years (\code{TRUE}) or calendar years (\code{FALSE})}
 }
 \value{
 results dataframe, if returnDataFrame=TRUE
@@ -26,6 +31,7 @@ mean flux, and flow-normalized flux.
 eList <- Choptank_eList
 # Water Year:
 tableResults(eList, fluxUnit = 1)
+tableResults(eList, fluxUnit = 1, flowNormYears = c(1980:1995, 1997:2002, 2004:2011))
 tableResults(eList, fluxUnit = 'kgDay', qUnit = 'cms')
 returnedTable <- tableResults(eList, fluxUnit = 1)
 # Winter:

@@ -4,7 +4,8 @@
 \alias{tableChange}
 \title{Create a table of the changes in flow-normalized values between various points in time in the record}
 \usage{
-tableChange(eList, fluxUnit = 9, yearPoints = NA)
+tableChange(eList, fluxUnit = 9, yearPoints = NA, flowNormYears = "all",
+  waterYear = TRUE)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes}
@@ -12,6 +13,10 @@ tableChange(eList, fluxUnit = 9, yearPoints = NA)
 \item{fluxUnit}{object of fluxUnit class. \code{\link{printFluxUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.}
 
 \item{yearPoints}{numeric vector listing the years for which the change or slope computations are made, they need to be in chronological order.  For example yearPoints=c(1975,1985,1995,2005), default is NA (which allows the program to set yearPoints automatically)}
+
+\item{flowNormYears}{vector of flow years}
+
+\item{waterYear}{logical. Should years be water years (\code{TRUE}) or calendar years (\code{FALSE})}
 }
 \description{
 These tables describe trends in flow-normalized concentration and in flow-normalized flux. 
@@ -22,8 +27,9 @@ they can be set by the program to be the final year of the record and a set of y
 \examples{
 eList <- Choptank_eList
 # Water Year:
-tableChange(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
+tableChange(eList, fluxUnit=6, yearPoints=c(2001,2005,2008,2009))
 tableChange(eList, fluxUnit=9) 
+tableChange(eList, fluxUnit=9, flowNormYear=c(2001:2006, 2008:2009)) 
 # Winter:
 eList <- setPA(eList, paStart=12,paLong=3)
 tableChange(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009))

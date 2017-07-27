@@ -8,17 +8,21 @@
 #' @param eList named list with at least the Daily and INFO dataframes
 #' @param fluxUnit object of fluxUnit class. \code{\link{printFluxUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param yearPoints numeric vector listing the years for which the change or slope computations are made, they need to be in chronological order.  For example yearPoints=c(1975,1985,1995,2005), default is NA (which allows the program to set yearPoints automatically)
+#' @param flowNormYears vector of flow years
+#' @param waterYear logical. Should years be water years (\code{TRUE}) or calendar years (\code{FALSE})
 #' @keywords water-quality statistics
 #' @export
 #' @examples
 #' eList <- Choptank_eList
 #' # Water Year:
-#' tableChange(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
+#' tableChange(eList, fluxUnit=6, yearPoints=c(2001,2005,2008,2009))
 #' tableChange(eList, fluxUnit=9) 
+#' tableChange(eList, fluxUnit=9, flowNormYear=c(2001:2006, 2008:2009)) 
 #' # Winter:
 #' eList <- setPA(eList, paStart=12,paLong=3)
 #' tableChange(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
-tableChange<-function(eList, fluxUnit = 9, yearPoints = NA) {
+tableChange<-function(eList, fluxUnit = 9, yearPoints = NA, 
+                      flowNormYears = "all", waterYear = TRUE) {
   
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
@@ -43,6 +47,7 @@ tableChange<-function(eList, fluxUnit = 9, yearPoints = NA) {
             "\nFlux calculations will be wrong if units are not consistent")
   }
   
+  localDaily <- subFN(eList = eList, flowNormYears = flowNormYears, waterYear = waterYear)
   localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
   
   ################################################################################
