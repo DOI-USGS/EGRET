@@ -9,11 +9,30 @@ The link for the official USGS publication user guide is here:
 
 <https://pubs.usgs.gov/tm/04/a10/>
 
-### Current build tests:
+Package Status
+--------------
 
-| Linux                                                                                                 | Windows                                                                                                                                       |
-|-------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| [![travis](https://travis-ci.org/USGS-R/EGRET.svg?branch=master)](https://travis-ci.org/USGS-R/EGRET) | [![Build status](https://ci.appveyor.com/api/projects/status/a2kogyfplo3valdg?svg=true)](https://ci.appveyor.com/project/ldecicco-USGS/EGRET) |
+| Linux                                                                                                 | Windows                                                                                                                                       | Test Coverage                                                                                                                                        | USGS Status                                                                                                     |
+|-------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| [![travis](https://travis-ci.org/USGS-R/EGRET.svg?branch=master)](https://travis-ci.org/USGS-R/EGRET) | [![Build status](https://ci.appveyor.com/api/projects/status/a2kogyfplo3valdg?svg=true)](https://ci.appveyor.com/project/ldecicco-USGS/EGRET) | [![Coverage Status](https://coveralls.io/repos/github/USGS-R/EGRET/badge.svg?branch=master)](https://coveralls.io/github/USGS-R/EGRET?branch=master) | [![status](https://img.shields.io/badge/USGS-Research-blue.svg)](https://owi.usgs.gov/R/packages.html#research) |
+
+### Reporting bugs
+
+Please consider reporting bugs and asking questions on the Issues page: <https://github.com/USGS-R/EGRET/issues>
+
+Follow `@USGS_R` on Twitter for updates on USGS R packages:
+
+[![Twitter Follow](https://img.shields.io/twitter/follow/USGS_R.svg?style=social&label=Follow%20USGS_R)](https://twitter.com/USGS_R)
+
+### Subscribe
+
+Please email questions, comments, and feedback to: <egret_comments@usgs.gov>
+
+Additionally, to subscribe to an email list concerning updates to these R packages, please send a request to <egret_comments@usgs.gov>.
+
+### Code of Conduct
+
+We want to encourage a warm, welcoming, and safe environment for contributing to this project. See the [code of conduct](https://github.com/USGS-R/EGRET/blob/master/CONDUCT.md) for more information.
 
 ### Current CRAN information:
 
@@ -34,21 +53,11 @@ To install the EGRET package, you must be using R 3.0 or greater and run the fol
 install.packages("EGRET")
 ```
 
-    ## package 'EGRET' successfully unpacked and MD5 sums checked
-    ## 
-    ## The downloaded binary packages are in
-    ##  C:\Users\lcarr\AppData\Local\Temp\1\Rtmp8QoZAB\downloaded_packages
-
 To get inter-CRAN release updates, use the command:
 
 ``` r
 install.packages("EGRET",repos="https://owi.usgs.gov/R")
 ```
-
-    ## package 'EGRET' successfully unpacked and MD5 sums checked
-    ## 
-    ## The downloaded binary packages are in
-    ##  C:\Users\lcarr\AppData\Local\Temp\1\Rtmp8QoZAB\downloaded_packages
 
 To get cutting-edge changes, install from GitHub using the `devtools` packages:
 
@@ -56,33 +65,6 @@ To get cutting-edge changes, install from GitHub using the `devtools` packages:
 library(devtools)
 install_github("USGS-R/EGRET")
 ```
-
-    ## Downloading GitHub repo USGS-R/EGRET@master
-    ## from URL https://api.github.com/repos/USGS-R/EGRET/zipball/master
-
-    ## Installing EGRET
-
-    ## "C:/Users/lcarr/DOCUME~1/R/R-34~1.0PA/bin/x64/R" --no-site-file  \
-    ##   --no-environ --no-save --no-restore --quiet CMD INSTALL  \
-    ##   "C:/Users/lcarr/AppData/Local/Temp/1/Rtmp8QoZAB/devtools1ec810a34dc2/USGS-R-EGRET-1856efd"  \
-    ##   --library="C:/Users/lcarr/Documents/R/R-3.4.0patched/library"  \
-    ##   --install-tests
-
-    ## 
-
-### Reporting bugs
-
-Please consider reporting any bugs or asking general questions to the Issues page:
-
-<https://github.com/USGS-R/EGRET/issues>
-
-Follow `@USGS-R` on Twitter for updates on all USGS R packages: <https://twitter.com/USGS_R>
-
-### Subscribe
-
-Please email questions, comments, and feedback to: <egret_comments@usgs.gov>
-
-Additionally, to subscribe to an email list concerning updates to these R packages, please send a request to <egret_comments@usgs.gov>.
 
 Background:
 -----------
@@ -114,29 +96,11 @@ Sample Workflow
 ``` r
 library(EGRET)
 Daily <- readNWISDaily("06934500","00060","1979-10-01","2010-09-30")
-```
-
-    ## There are 11323 data points, and 11323 days.
-
-``` r
 Sample <-readNWISSample("06934500","00631","1970-10-01","2011-09-30")
 INFO <-readNWISInfo("06934500","00631", interactive=FALSE)
 
 eList <-mergeReport(INFO, Daily, Sample)
 ```
-
-    ## 
-    ##  Discharge Record is 11323 days long, which is 31 years
-    ##  First day of the discharge record is 1979-10-01 and last day is 2010-09-30
-    ##  The water quality record has 440 samples
-    ##  The first sample is from 1979-09-26 and the last sample is from 2011-09-29
-    ##  WE HAVE A PROBLEM first sample is from before the first daily discharge
-    ##  WE HAVE A PROBLEM last sample is from after the last daily discharge
-    ##  Discharge: Minimum, mean and maximum 394 2650 20900
-    ##  Concentration: Minimum, mean and maximum 0.02 1.3 4.2
-    ##  Percentage of the sample values that are censored is 1.4 %
-
-    ## Some Sample dates do not have corresponding flow data. Not all EGRET functions will work correctly.
 
 ### Sample workflow for using WRTDS on the Choptank River at Greensboro MD, for Nitrate
 
@@ -157,96 +121,53 @@ Sample <- readNWISSample(siteID,parameter_cd,startDate,endDate)
 startDate <- min(as.character(Sample$Date)) 
 # Gather discharge data:
 Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
-```
-
-    ## There are 13998 data points, and 13998 days.
-
-``` r
 # Gather site and parameter information:
 
 # Here user must input some values for
 # the default (interactive=TRUE)
 INFO<- readNWISInfo(siteID,parameter_cd)
-```
-
-    ## Your site for streamflow data is:
-    ##  01491000 .
-    ## Your site name is CHOPTANK RIVER NEAR GREENSBORO, MD 
-    ## but you can modify this to a short name in a style you prefer. 
-    ## This name will be used to label graphs and tables. 
-    ## If you want the program to use the name given above, just do a carriage return,
-    ## otherwise enter the preferred short name(no quotes):
-    ## 
-    ## The latitude and longitude of the site are:  38.99719 ,  -75.78581 (degrees north and west).
-    ## 
-    ## The drainage area at this site is  113 square miles
-    ##  which is being stored as 292.6687 square kilometers.
-    ## 
-    ## It is helpful to set up a station abbreviation when doing multi-site studies,
-    ## enter a unique id (three or four characters should work). It is case sensitive.  
-    ## Even if you don't feel you need an abbreviation for your site you need to enter something(no quotes):
-    ## 
-    ## Your water quality data are for parameter number:
-    ## 00631 
-    ## which has the name:' Nitrate plus nitrite, water, filtered, milligrams per liter as nitrogen '.
-    ## Typically you will want a shorter name to be used in graphs and tables.
-    ## The suggested short name is:' Inorganic nitrogen (nitrate and nitrite) '.
-    ## If you would like to change the short name, enter it here, 
-    ## otherwise just hit enter (no quotes):
-    ## The units for the water quality data are:  mg/l as N .
-    ## It is helpful to set up a constiuent abbreviation, enter a unique id 
-    ## three or four characters should work something like tn or tp or NO3).
-    ## Even if you don't feel you need an abbreviation you need to enter something (no quotes):
-
-``` r
 INFO$shortName <- "Choptank River at Greensboro, MD"
 
 # Merge discharge with sample data:
 eList <- mergeReport(INFO, Daily, Sample)
+############################
 ```
 
-    ## 
-    ##  Discharge Record is 13998 days long, which is 38 years
-    ##  First day of the discharge record is 1973-06-04 and last day is 2011-09-30
-    ##  The water quality record has 655 samples
-    ##  The first sample is from 1973-06-04 and the last sample is from 2011-09-29
-    ##  Discharge: Minimum, mean and maximum 0.00991 4.08 246
-    ##  Concentration: Minimum, mean and maximum 0.05 1.1 2.4
-    ##  Percentage of the sample values that are censored is 0.15 %
-
 ``` r
-############################
+library(EGRET)
+# Sample data included in package:
+eList <- Choptank_eList
 
 ############################
 # Check sample data:
 boxConcMonth(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-1.png)
 
 ``` r
 boxQTwice(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-2.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-2.png)
 
 ``` r
 plotConcTime(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-3.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-3.png)
 
 ``` r
 plotConcQ(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-4.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-4.png)
 
 ``` r
 multiPlotDataOverview(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-5.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-5.png)
 
 ``` r
 ############################
@@ -293,68 +214,68 @@ eList <- modelEstimation(eList)
 plotConcTimeDaily(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-6.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-6.png)
 
 ``` r
 plotFluxTimeDaily(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-7.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-7.png)
 
 ``` r
 plotConcPred(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-8.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-8.png)
 
 ``` r
 plotFluxPred(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-9.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-9.png)
 
 ``` r
 plotResidPred(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-10.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-10.png)
 
 ``` r
 plotResidQ(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-11.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-11.png)
 
 ``` r
 plotResidTime(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-12.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-12.png)
 
 ``` r
 boxResidMonth(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-13.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-13.png)
 
 ``` r
 boxConcThree(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-14.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-14.png)
 
 ``` r
 #Require Daily + INFO:
 plotConcHist(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-15.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-15.png)
 
 ``` r
 plotFluxHist(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-16.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-16.png)
 
 ``` r
 # Multi-line plots:
@@ -367,7 +288,7 @@ plotConcQSmooth(eList, date1, date2, date3, qBottom, qTop,
                    concMax=2,qUnit=1)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-17.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-17.png)
 
 ``` r
 q1 <- 10
@@ -379,14 +300,14 @@ yearStart <- 2000
 plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-18.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-18.png)
 
 ``` r
 # Multi-plots:
 fluxBiasMulti(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-19.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-19.png)
 
 ``` r
 #Contour plots:
@@ -399,14 +320,14 @@ plotContours(eList, yearStart,yearEnd,qBottom,qTop,
              contourLevels = clevel,qUnit=1)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-20.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-20.png)
 
 ``` r
 plotDiffContours(eList, yearStart,yearEnd,
                  qBottom,qTop,maxDiff,qUnit=1)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-5-21.png)
+![](README_files/figure-markdown_github/unnamed-chunk-6-21.png)
 
 ``` r
 # modify this for your own computer file structure
@@ -428,7 +349,7 @@ endDate <- "" # Get latest date
 Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
 ```
 
-    ## There are 25380 data points, and 25380 days.
+    ## There are 25410 data points, and 25410 days.
 
 ``` r
 # Gather site and parameter information:
@@ -480,31 +401,31 @@ eList <- as.egret(INFO, Daily, NA, NA)
 plotFlowSingle(eList, istat=7,qUnit="thousandCfs")
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-7-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-8-1.png)
 
 ``` r
 plotSDLogQ(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-7-2.png)
+![](README_files/figure-markdown_github/unnamed-chunk-8-2.png)
 
 ``` r
 plotQTimeDaily(eList, qLower=1,qUnit=3)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-7-3.png)
+![](README_files/figure-markdown_github/unnamed-chunk-8-3.png)
 
 ``` r
 plotFour(eList, qUnit=3)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-7-4.png)
+![](README_files/figure-markdown_github/unnamed-chunk-8-4.png)
 
 ``` r
 plotFourStats(eList, qUnit=3)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-7-5.png)
+![](README_files/figure-markdown_github/unnamed-chunk-8-5.png)
 
 ``` r
 ############################
@@ -515,6 +436,78 @@ plotFourStats(eList, qUnit=3)
 savePath<-"/Users/rhirsch/Desktop/" 
 
 saveResults(savePath, eList)
+```
+
+Model Archive
+-------------
+
+When using the `WRTDS` model, it is important to be able to reproduce the results in the future. The following version of R and package dependencies were used most recently to pass the embedded tests within this package. There is no guarantee of reproducible results using future versions of R or updated versions of package dependencies; however, we will make diligent efforts to test and update future modeling environments.
+
+``` r
+devtools::session_info()
+Session info ------------------------------------------------------
+ setting  value                       
+ version  R version 3.4.1 (2017-06-30)
+ system   x86_64, mingw32             
+ ui       RStudio (1.0.143)           
+ language (EN)                        
+ collate  English_United States.1252  
+ tz       America/Chicago             
+ date     2017-07-27                  
+
+Packages ----------------------------------------------------------
+ package       * version    date       source        
+ assertthat      0.2.0      2017-04-11 CRAN (R 3.4.0)
+ base          * 3.4.1      2017-06-30 local         
+ bindr           0.1        2016-11-13 CRAN (R 3.4.0)
+ bindrcpp        0.2        2017-06-17 CRAN (R 3.4.0)
+ codetools       0.2-15     2016-10-05 CRAN (R 3.4.1)
+ compiler        3.4.1      2017-06-30 local         
+ curl            2.8.1      2017-07-21 CRAN (R 3.4.1)
+ dataRetrieval   2.7.2      2017-05-23 CRAN (R 3.4.1)
+ datasets      * 3.4.1      2017-06-30 local         
+ devtools        1.13.2     2017-06-02 CRAN (R 3.4.1)
+ digest          0.6.12     2017-01-27 CRAN (R 3.4.0)
+ dotCall64       0.9-04     2016-10-07 CRAN (R 3.4.1)
+ dplyr           0.7.2      2017-07-20 CRAN (R 3.4.1)
+ EGRET         * 2.6.0      2017-07-24 CRAN (R 3.4.1)         
+ fields          9.0        2017-06-06 CRAN (R 3.4.0)
+ foreach         1.4.3      2015-10-13 CRAN (R 3.4.0)
+ glue            1.1.1      2017-06-21 CRAN (R 3.4.0)
+ graphics      * 3.4.1      2017-06-30 local         
+ grDevices     * 3.4.1      2017-06-30 local         
+ grid            3.4.1      2017-06-30 local         
+ hms             0.3        2016-11-22 CRAN (R 3.4.0)
+ httr            1.2.1      2016-07-03 CRAN (R 3.3.1)
+ iterators       1.0.8      2015-10-13 CRAN (R 3.4.0)
+ jsonlite        1.5        2017-06-01 CRAN (R 3.4.0)
+ lattice         0.20-35    2017-03-25 CRAN (R 3.4.1)
+ lubridate       1.6.0      2016-09-13 CRAN (R 3.4.0)
+ magrittr        1.5        2014-11-22 CRAN (R 3.4.0)
+ maps            3.2.0      2017-06-08 CRAN (R 3.4.0)
+ Matrix          1.2-10     2017-05-03 CRAN (R 3.4.1)
+ memoise         1.1.0      2017-04-21 CRAN (R 3.4.0)
+ methods       * 3.4.1      2017-06-30 local         
+ pkgconfig       2.0.1      2017-03-21 CRAN (R 3.4.0)
+ plyr            1.8.4      2016-06-08 CRAN (R 3.3.1)
+ R6              2.2.2      2017-06-17 CRAN (R 3.4.0)
+ RColorBrewer    1.1-2      2014-12-07 CRAN (R 3.4.0)
+ Rcpp            0.12.12    2017-07-15 CRAN (R 3.4.1)
+ readr           1.1.1      2017-05-16 CRAN (R 3.4.0)
+ reshape2        1.4.2      2016-10-22 CRAN (R 3.4.0)
+ rlang           0.1.1      2017-05-18 CRAN (R 3.4.1)
+ rstudioapi      0.6        2016-06-27 CRAN (R 3.3.1)
+ spam            2.1-1      2017-07-03 CRAN (R 3.4.1)
+ splines         3.4.1      2017-06-30 local         
+ stats         * 3.4.1      2017-06-30 local         
+ stringi         1.1.5      2017-04-07 CRAN (R 3.4.0)
+ stringr         1.2.0      2017-02-18 CRAN (R 3.4.0)
+ survival        2.41-3     2017-04-04 CRAN (R 3.4.0)
+ tibble          1.3.3      2017-05-28 CRAN (R 3.4.0)
+ tools           3.4.1      2017-06-30 local         
+ utils         * 3.4.1      2017-06-30 local         
+ withr           1.0.2      2016-06-20 CRAN (R 3.3.1)
+ xml2            1.1.1      2017-01-24 CRAN (R 3.4.0)
 ```
 
 Disclaimer
