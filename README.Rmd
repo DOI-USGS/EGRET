@@ -45,6 +45,15 @@ Additionally, to subscribe to an email list concerning updates to these R packag
 
 We want to encourage a warm, welcoming, and safe environment for contributing to this project. See the [code of conduct](https://github.com/USGS-R/EGRET/blob/master/CONDUCT.md) for more information.
 
+### Package Support
+
+The Water Mission Area of the USGS has supported the development and maintenance of the `EGRET` R-package. Further maintenance is expected to be stable through September 2018. Resources are available primarily for maintenance and responding to user questions. Priorities on the development of new features are determined by the `EGRET` development team.
+
+![USGS](http://usgs-r.github.io/images/usgs.png)
+
+### Sunset date 
+
+Funding for `EGRET` currently expires summer 2018, after which bug fixes & new features will be minimal.
 
 ### Current CRAN information:
 
