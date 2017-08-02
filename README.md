@@ -46,10 +46,9 @@ The Water Mission Area of the USGS has supported the development and maintenance
 
 ![USGS](http://usgs-r.github.io/images/usgs.png)
 
-### Sunset date 
+### Sunset date
 
-Funding for `EGRET` currently expires summer 2018, after which bug fixes & new features will be minimal.
-
+Funding for `EGRET` currently expires summer 2018. Expectations are that maintenance and customer service will continue to be supported past that date.
 
 ### Research software impact:
 
@@ -107,7 +106,7 @@ Sample Workflow
 ``` r
 library(EGRET)
 Daily <- readNWISDaily("06934500","00060","1979-10-01","2010-09-30")
-Sample <-readNWISSample("06934500","00631","1970-10-01","2011-09-30")
+Sample <-readNWISSample("06934500","00631","1979-10-01","2010-09-30")
 INFO <-readNWISInfo("06934500","00631", interactive=FALSE)
 
 eList <-mergeReport(INFO, Daily, Sample)
@@ -360,7 +359,7 @@ endDate <- "" # Get latest date
 Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
 ```
 
-    ## There are 25410 data points, and 25410 days.
+    ## There are 25416 data points, and 25416 days.
 
 ``` r
 # Gather site and parameter information:
