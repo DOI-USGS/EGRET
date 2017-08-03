@@ -91,4 +91,22 @@ test_that("setupYears", {
                                    "Conc [mg/L]","FN Conc [mg/L]",    
                                    "Flux [kg/day]","FN Flux [kg/day]")))
   
+  eList <- Choptank_eList
+  tFC <- tableFlowChange(eList, istat=5, yearPoints=c(1985,1990,1995,2001,2005,2009))
+  expect_true(all(names(tFC) %in% c("year1","year2","change[cfs]","slope[cfs/yr]",
+                                    "change[%]","slope[%/yr]")))
+  expect_equal(tFC$`change[cfs]`[1], 7.5)
+  expect_equal(tFC$`slope[cfs/yr]`[1], 1.5)
+  expect_equal(tFC$`change[%]`[1], 6.5)
+  expect_equal(tFC$`slope[%/yr]`[1], 1.3)
+  
+  printReturn <- printSeries(eList, 5)
+  expect_true(all(names(printReturn) %in% c("years","qActual","qSmooth")))
+  
+  expect_equal(printReturn$qActual[2], 78.3)
+  expect_equal(printReturn$qSmooth[2], 109)
+  
+  expect_equal(setSeasonLabelByUser(), "Water Year")
+  expect_equal(setSeasonLabelByUser(paStartInput = 12,paLongInput = 3), "Season Consisting of Dec Jan Feb")
 })
+  

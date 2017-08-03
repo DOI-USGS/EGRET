@@ -10,6 +10,8 @@ estFNyears(eList, years, waterYear = TRUE)
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
 
 \item{years}{vector of years}
+
+\item{waterYear}{logical. Should years be water years (\code{TRUE}) or calendar years (\code{FALSE})}
 }
 \description{
 Estimates for flow normalization by year
