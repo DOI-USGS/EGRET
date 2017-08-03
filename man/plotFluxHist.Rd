@@ -69,9 +69,11 @@ plotFluxHist(eList, yearStart, yearEnd, fluxUnit = 'kgDay')
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
 plotFluxHist(eList) 
+\dontrun{
 # Flow normalized (excluding extremes from 2003-04):
 yearVector <- c(1980:2002, 2005:2015)
 plotFluxHist(eList, flowNormYears=yearVector)
+}
 }
 \seealso{
 \code{\link{setupYears}}
