@@ -171,6 +171,7 @@ estFNsegs <- function(eList, dateInfo){
 #' 
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param years vector of years
+#' @param waterYear logical. Should years be water years (\code{TRUE}) or calendar years (\code{FALSE})
 #' @importFrom fields interp.surface
 #' @importFrom dataRetrieval calcWaterYear
 estFNyears <- function(eList, years, waterYear = TRUE){

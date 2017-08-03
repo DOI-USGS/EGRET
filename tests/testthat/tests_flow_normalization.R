@@ -85,4 +85,10 @@ test_that("setupYears", {
   expect_equal(tR$`FN Conc [mg/L]`[1], 1.003)
   expect_equal(tR$`Flux [10^6kg/yr]`[1], 0.1154)
   expect_equal(tR$`FN Flux [10^6kg/yr]`[1], 0.106)
+  
+  tR_2 <- tableResults(eList, fluxUnit = 'kgDay', qUnit = 'cms')
+  expect_true(all(names(tR_2) %in% c("Year","Discharge [cms]",    
+                                   "Conc [mg/L]","FN Conc [mg/L]",    
+                                   "Flux [kg/day]","FN Flux [kg/day]")))
+  
 })

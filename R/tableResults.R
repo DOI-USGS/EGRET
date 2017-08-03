@@ -15,6 +15,7 @@
 #' @examples
 #' eList <- Choptank_eList
 #' # Water Year:
+#' \dontrun{
 #' tableResults(eList, fluxUnit = 1)
 #' tableResults(eList, fluxUnit = 1, flowNormYears = c(1980:1995, 1997:2002, 2004:2011))
 #' tableResults(eList, fluxUnit = 'kgDay', qUnit = 'cms')
@@ -22,6 +23,7 @@
 #' # Winter:
 #' eList <- setPA(eList, paLong=3,paStart=12)
 #' tableResults(eList, fluxUnit = 1)
+#' }
 tableResults<-function(eList, qUnit = 2, fluxUnit = 9, flowNormYears = "all", 
                        waterYear = TRUE) {
   
