@@ -24,4 +24,5 @@ eList <- Choptank_eList
 
 flowNormYears <- c(1985:2002,2006:2010)
 temp_daily <- subFN(eList, flowNormYears)
+plotFluxHist(eList, flowNormYears =  c(1985:2002,2006:2010))
 }

@@ -17,16 +17,19 @@
 #' @return dataframe with Year1, Year2, change[mg/L], slope[mg/L], change[percent], slope[percent] columns. The data in each row is the change or slope calculated from Year1 to Year2
 #' @examples
 #' eList <- Choptank_eList
+#' \dontrun{
 #' # Water Year:
 #' #This returns concentration ASCII table in the console:
 #' tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)
-#' tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), 
+#' #Returns a data frame:
+#' change <- tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), 
 #'                   flowNormYears=c(2003:2004, 2006:2009), flux=FALSE)
 #' #This returns flux values ASCII table in the console
-#' tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=TRUE)  
+#' df <- tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=TRUE)  
 #' # Winter:
 #' eList <- setPA(eList, paStart=12,paLong=3)
 #' tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)
+#' }
 tableChangeSingle<-function(eList, fluxUnit = 9, yearPoints = NA, flux = FALSE,
                             flowNormYears = "all", waterYear = TRUE) {
   

@@ -207,6 +207,46 @@ test_that("other plot functions don't error", {
   
   graphics.off()
   dev_start <- dev.cur()
+  expect_silent(plotQTimeDaily(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(plotFluxQ(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(plotFlowSingle(eList, istat = 1))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(plotFour(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(plotFour(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(plot1of15(eList, yearStart = 1995, yearEnd = 2005, qf = 1))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(plotSDLogQ(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(plot15(eList = eList, yearStart = 1995, yearEnd = 2005))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
   expect_silent(plotResidPred(eList))
   expect_true(dev_start + 1 == dev.cur())
   
@@ -307,4 +347,26 @@ test_that("flexPlotAddOn functions properly", {
                "The number of segments exceed the length of the color palette. Supply custom palette of length 32")
   expect_true(dev_start + 1 == dev.cur())
   
+  startBlank <- "1995-01-01"
+  endBlank <- "2005-01-01"
+  
+  blank_eList <- blankTime(eList, startBlank, endBlank)
+  expect_is(blank_eList, "egret")
+  blank_daily <- getDaily(blank_eList)
+  expect_true(all(is.na(blank_daily$FNConc[blank_daily$Date > startBlank &
+                                 blank_daily$Date < endBlank])))
+  
+  not_blank <- getDaily(eList)
+  expect_false(all(is.na(not_blank$FNConc[not_blank$Date > startBlank &
+                                            not_blank$Date < endBlank])))
+  
+  expect_output(printFluxUnitCheatSheet(),
+"The following codes apply to the fluxUnit list", ignore.case = TRUE)
+  
+  expect_output(printqUnitCheatSheet(),
+                "The following codes apply to the qUnit list:", ignore.case = TRUE)
+  
+  bias <- fluxBiasStat(localSample = eList$Sample)
+  rounded <- as.numeric(signif(bias))
+  expect_equal(rounded, c(-0.0235532,-0.0235429,-0.023548))
 })

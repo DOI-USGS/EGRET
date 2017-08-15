@@ -16,6 +16,12 @@ Package Status
 |-------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
 | [![travis](https://travis-ci.org/USGS-R/EGRET.svg?branch=master)](https://travis-ci.org/USGS-R/EGRET) | [![Build status](https://ci.appveyor.com/api/projects/status/a2kogyfplo3valdg?svg=true)](https://ci.appveyor.com/project/ldecicco-USGS/EGRET) | [![Coverage Status](https://coveralls.io/repos/github/USGS-R/EGRET/badge.svg?branch=master)](https://coveralls.io/github/USGS-R/EGRET?branch=master) | [![status](https://img.shields.io/badge/USGS-Research-blue.svg)](https://owi.usgs.gov/R/packages.html#research) |
 
+### Current CRAN information:
+
+| Version                                                                                                | Monthly Downloads                                                                       | Total Downloads                                                                                     |
+|--------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
+| [![CRAN version](http://www.r-pkg.org/badges/version/EGRET)](https://cran.r-project.org/package=EGRET) | [![](http://cranlogs.r-pkg.org/badges/EGRET)](https://cran.r-project.org/package=EGRET) | [![](http://cranlogs.r-pkg.org/badges/grand-total/EGRET)](https://cran.r-project.org/package=EGRET) |
+
 ### Reporting bugs
 
 Please consider reporting bugs and asking questions on the Issues page: <https://github.com/USGS-R/EGRET/issues>
@@ -34,11 +40,15 @@ Additionally, to subscribe to an email list concerning updates to these R packag
 
 We want to encourage a warm, welcoming, and safe environment for contributing to this project. See the [code of conduct](https://github.com/USGS-R/EGRET/blob/master/CONDUCT.md) for more information.
 
-### Current CRAN information:
+### Package Support
 
-| Version                                                                                                | Monthly Downloads                                                                       | Total Downloads                                                                                     |
-|--------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
-| [![CRAN version](http://www.r-pkg.org/badges/version/EGRET)](https://cran.r-project.org/package=EGRET) | [![](http://cranlogs.r-pkg.org/badges/EGRET)](https://cran.r-project.org/package=EGRET) | [![](http://cranlogs.r-pkg.org/badges/grand-total/EGRET)](https://cran.r-project.org/package=EGRET) |
+The Water Mission Area of the USGS has supported the development and maintenance of the `EGRET` R-package. Further maintenance is expected to be stable through September 2018. Resources are available primarily for maintenance and responding to user questions. Priorities on the development of new features are determined by the `EGRET` development team.
+
+![USGS](http://usgs-r.github.io/images/usgs.png)
+
+### Sunset date
+
+Funding for `EGRET` currently expires summer 2018. Expectations are that maintenance and customer service will continue to be supported past that date.
 
 ### Research software impact:
 
@@ -96,7 +106,7 @@ Sample Workflow
 ``` r
 library(EGRET)
 Daily <- readNWISDaily("06934500","00060","1979-10-01","2010-09-30")
-Sample <-readNWISSample("06934500","00631","1970-10-01","2011-09-30")
+Sample <-readNWISSample("06934500","00631","1979-10-01","2010-09-30")
 INFO <-readNWISInfo("06934500","00631", interactive=FALSE)
 
 eList <-mergeReport(INFO, Daily, Sample)

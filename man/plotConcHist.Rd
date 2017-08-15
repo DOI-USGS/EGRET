@@ -60,14 +60,16 @@ Although there are a lot of optional arguments to this function, most are set to
 yearStart <- 2001
 yearEnd <- 2010
 eList <- Choptank_eList
+
 # Water year:
 plotConcHist(eList, yearStart, yearEnd)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
 plotConcHist(eList)
-
+\dontrun{
 flowNormYears <- c(1985:2002,2006:2010)
 plotConcHist(eList, flowNormYears=flowNormYears)
+}
 }
 \seealso{
 \code{\link{setupYears}}, \code{\link{genericEGRETDotPlot}}

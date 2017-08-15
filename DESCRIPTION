@@ -41,6 +41,7 @@ Suggests:
     parallel
 LazyLoad: yes
 LazyData: yes
+BugReports: https://github.com/USGS-R/EGRET/issues
 VignetteBuilder: knitr
 BuildVignettes: true
 URL: https://pubs.usgs.gov/tm/04/a10/, https://github.com/USGS-R/EGRET/wiki
