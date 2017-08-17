@@ -146,6 +146,60 @@ test_that("modelEstimation window params work", {
   
 })
 
+test_that("modelEstimation works for POSIXct and Date classes", {
+  
+  ## get unmodeled data for Date and POSIXct
+  elist_datetime <- elist_date <- eList_orig_Ch
+  info_datetime <- info_date <- info_orig_Ch
+  daily_datetime <- daily_date <- daily_orig_Ch
+  sample_datetime <- sample_date <- sample_orig_Ch
+  
+  # run model for Date class elist
+  elist_date_modeled <- modelEstimation(elist_date)
+  info_date_modeled <- getInfo(elist_date_modeled)
+  daily_date_modeled <- getDaily(elist_date_modeled)
+  sample_date_modeled <- getSample(elist_date_modeled)
+  surfaces_date_modeled <- getSurfaces(elist_date_modeled)
+  
+  #format so that Daily & Sample are POSIXct to make datetime dfs
+  Sys.setenv(TZ='UTC')
+  daily_datetime$Date <- as.POSIXct(daily_datetime$Date, tz="UTC")
+  sample_datetime$Date <- as.POSIXct(sample_datetime$Date, tz="UTC")
+  
+  # use mergeReport, then test that it did not change anything unexpectedly
+  elist_datetime <- mergeReport(info_datetime, daily_datetime, 
+                                sample_datetime, verbose = FALSE)
+  elist_datetime_modeled <- modelEstimation(elist_datetime)
+  info_datetime_modeled <- getInfo(elist_datetime_modeled)
+  daily_datetime_modeled <- getDaily(elist_datetime_modeled)
+  sample_datetime_modeled <- getSample(elist_datetime_modeled)
+  surfaces_datetime_modeled <- getSurfaces(elist_datetime_modeled)
+  
+  # make sure built-in model still has POSIXct or Dates
+  expect_is(daily_date$Date, "Date")
+  expect_is(daily_datetime$Date, "POSIXct")
+  expect_is(daily_date_modeled$Date, "Date")
+  expect_is(daily_datetime_modeled$Date, "POSIXct")
+  expect_is(sample_date$Date, "Date")
+  expect_is(sample_datetime$Date, "POSIXct")
+  expect_is(sample_date_modeled$Date, "Date")
+  expect_is(sample_datetime_modeled$Date, "POSIXct")
+  
+  # convert date columns to decimal dates for comparison
+  daily_date_modeled$Date <- lubridate::decimal_date(daily_date_modeled$Date)
+  daily_datetime_modeled$Date <- lubridate::decimal_date(daily_datetime_modeled$Date)
+  sample_date_modeled$Date <- lubridate::decimal_date(sample_date_modeled$Date)
+  sample_datetime_modeled$Date <- lubridate::decimal_date(sample_datetime_modeled$Date)
+  
+  # test eList components
+  expect_equal(info_date_modeled, info_datetime_modeled)
+  expect_equal(daily_date_modeled, daily_datetime_modeled)
+  expect_equal(sample_date_modeled, sample_datetime_modeled)
+  expect_equal(surfaces_date_modeled, surfaces_datetime_modeled)
+  expect_equal(attributes(elist_date_modeled), attributes(elist_datetime_modeled))
+  
+})
+
 context("testing setUpEstimation")
 
 test_that('setUpEstimation handles missing info well', {

@@ -103,6 +103,55 @@ test_that("data functions work", {
   
 })
 
+test_that("mergeReport works for POSIXct and Date classes", {
+  
+  info_datetime <- info_date <- info_orig_Ch
+  daily_datetime <- daily_date <- daily_orig_Ch
+  sample_datetime <- sample_date <- sample_orig_Ch
+  
+  # run mergeReport for Date class elist
+  elist_date <- mergeReport(info_date, daily_date, 
+                            sample_date, verbose = FALSE)
+  info_date_merged <- getInfo(elist_date)
+  daily_date_merged <- getDaily(elist_date)
+  sample_date_merged <- getSample(elist_date)
+  
+  #format so that Daily & Sample are POSIXct to make datetime dfs
+  Sys.setenv(TZ='UTC')
+  daily_datetime$Date <- as.POSIXct(daily_datetime$Date, tz="UTC")
+  sample_datetime$Date <- as.POSIXct(sample_datetime$Date, tz="UTC")
+  
+  # use mergeReport, then test that it did not change anything unexpectedly
+  elist_datetime <- mergeReport(info_datetime, daily_datetime, 
+                                sample_datetime, verbose = FALSE)
+  info_datetime_merged <- getInfo(elist_datetime)
+  daily_datetime_merged <- getDaily(elist_datetime)
+  sample_datetime_merged <- getSample(elist_datetime)
+  
+  # make sure built-in model still has POSIXct or Dates
+  expect_is(daily_date$Date, "Date")
+  expect_is(daily_datetime$Date, "POSIXct")
+  expect_is(daily_date_merged$Date, "Date")
+  expect_is(daily_datetime_merged$Date, "POSIXct")
+  expect_is(sample_date$Date, "Date")
+  expect_is(sample_datetime$Date, "POSIXct")
+  expect_is(sample_date_merged$Date, "Date")
+  expect_is(sample_datetime_merged$Date, "POSIXct")
+  
+  # convert date columns to decimal dates for comparison
+  daily_date_merged$Date <- lubridate::decimal_date(daily_date_merged$Date)
+  daily_datetime_merged$Date <- lubridate::decimal_date(daily_datetime_merged$Date)
+  sample_date_merged$Date <- lubridate::decimal_date(sample_date_merged$Date)
+  sample_datetime_merged$Date <- lubridate::decimal_date(sample_datetime_merged$Date)
+  
+  # test eList components
+  expect_equal(info_date_merged, info_datetime_merged)
+  expect_equal(daily_date_merged, daily_datetime_merged)
+  expect_equal(sample_date_merged, sample_datetime_merged)
+  expect_equal(attributes(elist_date), attributes(elist_datetime))
+  
+})
+
 test_that("Other miscellaneous functions work", {
 
   dailyMeas <- getDaily(Choptank_eList)
