@@ -359,7 +359,7 @@ endDate <- "" # Get latest date
 Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
 ```
 
-    ## There are 25415 data points, and 25415 days.
+    ## There are 25431 data points, and 25431 days.
 
 ``` r
 # Gather site and parameter information:
