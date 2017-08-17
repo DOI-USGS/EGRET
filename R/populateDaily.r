@@ -49,8 +49,6 @@ populateDaily <- function(rawData,qConvert,verbose = TRUE,interactive=NULL){  # 
   dateFrame <- populateDateColumns(rawData$dateTime)
   localDaily <- cbind(localDaily, dateFrame[,-1])
   
-  localDaily$Date <- as.Date(localDaily$Date)
-  
   if(length(rawData$code) != 0) localDaily$Qualifier <- rawData$code
   
   localDaily$i <- 1:nrow(localDaily)

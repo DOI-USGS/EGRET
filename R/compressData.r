@@ -58,12 +58,11 @@ compressData <- function(data, verbose = TRUE, interactive=NULL){
   returnDataFrame <- as.data.frame(matrix(ncol=3,nrow=nrow(data)))
   names(returnDataFrame) <- c('dateTime', 'ConcLow', 'ConcHigh')
   
-  data$dateTime <- as.character(data$dateTime)
-  if(dateFormatCheck(data$dateTime)){
-    returnDataFrame$dateTime <- as.Date(data$dateTime)  
+  if(dateFormatCheck(as.character(data$dateTime))){
+    returnDataFrame$dateTime <- data$dateTime
   } else {
-    data$dateTime <- as.Date(data$dateTime,format="%m/%d/%Y")
-    returnDataFrame$dateTime <- as.Date(data$dateTime,format="%m/%d/%Y")
+    data$dateTime <- format(data$dateTime,format="%m/%d/%Y")
+    returnDataFrame$dateTime <- data$dateTime
   }
   returnDataFrame$ConcLow <- as.numeric(lowConcentration)
   returnDataFrame$ConcHigh <- as.numeric(highConcentration)

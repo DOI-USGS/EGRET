@@ -86,7 +86,7 @@ boxQTwice<-function(eList,
   } else {
     yLabel <- qUnit@qUnitExpress
     if (!customPar) par(mar=c(5,6,4,2)+0.1,tcl=tcl,cex.lab=cex.axis)
-    groupNames<-c("Sampled Days","All Days")
+    groupNames<-c("Sampled","All")
   }
     
 #   numYTicks <- length(yTicks)
