@@ -73,9 +73,9 @@ boxConcThree<-function (eList, tinyPlot=FALSE,
     if (!customPar) par(mar=c(5,6,4,2)+0.1,tcl=0.5,cex.lab=cex.axis)
 
   }
-  name1 <- "Sampled day\nvalues"
-  name2 <- "Sampled day\nestimates"
-  name3 <- "All day\nestimates"
+  name1 <- "Sampled\nvalues"
+  name2 <- "Sampled\nestimates"
+  name3 <- "All\nestimates"
   groupNames <- c(name1,name2,name3)
   
   # if(!rResid){
