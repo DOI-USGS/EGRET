@@ -48,6 +48,18 @@
 #' # Flow normalized (excluding extremes from 2003-04):
 #' yearVector <- c(1980:2002, 2005:2015)
 #' plotFluxHist(eList, flowNormYears=yearVector)
+#' 
+#' #Alternative:
+#' sampleSegStart <- c(1980,1985,2000)
+#' flowSegStart <- c(1980,1990,2000)
+#' flowSegEnd <- c(1990,2000,2010)
+#' dateInfo <- data.frame(sampleSegStart,
+#'                        flowSegStart,
+#'                        flowSegEnd)
+#' eList1 <- flexFN(eList, dateInfo)
+#' plotFluxHist(eList1)  
+#' flexPlotAddOn(eList1)
+#' 
 #' }
 plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA, flowNormYears = "all", 
     waterYear = TRUE, fluxUnit = 9, fluxMax = NA, printTitle = TRUE, 
@@ -81,7 +93,13 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA, flowNormYears = "all
             "\nFlux calculations will be wrong if units are not consistent")
   }
   
-  localDaily <- subFN(eList = eList, flowNormYears = flowNormYears, waterYear = waterYear)
+  if(is.null(attr(eList$INFO,"segmentInfo"))){
+    localDaily <- subFN(eList = eList, flowNormYears = flowNormYears, waterYear = waterYear)
+    message("Plotting flow-normalized concentration based on results of flexFN")
+  } else {
+    localDaily <- eList$Daily
+  }
+  
   localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
   
   ################################################################################

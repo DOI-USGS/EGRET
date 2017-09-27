@@ -45,6 +45,18 @@
 #' \dontrun{
 #' flowNormYears <- c(1985:2002,2006:2010)
 #' plotConcHist(eList, flowNormYears=flowNormYears)
+#' 
+#' #Alternative:
+#' sampleSegStart <- c(1980,1985,2000)
+#' flowSegStart <- c(1980,1990,2000)
+#' flowSegEnd <- c(1990,2000,2010)
+#' dateInfo <- data.frame(sampleSegStart,
+#'                        flowSegStart,
+#'                        flowSegEnd)
+#' eList1 <- flexFN(eList, dateInfo)
+#' plotConcHist(eList1)  
+#' flexPlotAddOn(eList1)
+#' 
 #' }
 plotConcHist<-function(eList, yearStart = NA, yearEnd = NA, 
                        flowNormYears = "all", waterYear = TRUE,
@@ -68,7 +80,13 @@ plotConcHist<-function(eList, yearStart = NA, yearEnd = NA,
     stop("This function requires running modelEstimation on eList")
   }
   
-  localDaily <- subFN(eList = eList, flowNormYears = flowNormYears, waterYear = waterYear)
+  if(is.null(attr(eList$INFO,"segmentInfo"))){
+    localDaily <- subFN(eList = eList, flowNormYears = flowNormYears, waterYear = waterYear)
+    message("Plotting flow-normalized concentration based on results of flexFN")
+  } else {
+    localDaily <- eList$Daily
+  }
+  
   localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
   
   periodName<-setSeasonLabel(localAnnualResults=localAnnualResults)

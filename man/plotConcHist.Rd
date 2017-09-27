@@ -69,6 +69,18 @@ plotConcHist(eList)
 \dontrun{
 flowNormYears <- c(1985:2002,2006:2010)
 plotConcHist(eList, flowNormYears=flowNormYears)
+
+#Alternative:
+sampleSegStart <- c(1980,1985,2000)
+flowSegStart <- c(1980,1990,2000)
+flowSegEnd <- c(1990,2000,2010)
+dateInfo <- data.frame(sampleSegStart,
+                       flowSegStart,
+                       flowSegEnd)
+eList1 <- flexFN(eList, dateInfo)
+plotConcHist(eList1)  
+flexPlotAddOn(eList1)
+
 }
 }
 \seealso{
