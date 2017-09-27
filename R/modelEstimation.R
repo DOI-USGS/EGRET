@@ -44,7 +44,7 @@ modelEstimation<-function(eList,
 
   if(verbose) cat("\n first step running estCrossVal may take about 1 minute")
   
-  Sample1<-estCrossVal(length(eList$Daily$DecYear),eList$Daily$DecYear[1],
+  Sample1<-estCrossVal(eList$Daily$DecYear[1],
                        eList$Daily$DecYear[length(eList$Daily$DecYear)], 
                        eList$Sample, 
                        windowY=windowY, windowQ=windowQ, windowS=windowS,
