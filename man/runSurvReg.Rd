@@ -56,7 +56,7 @@ Sample <- getSample(eList)
 DecLow <- Sample$DecYear[1]
 DecHigh <- Sample$DecYear[nrow(Sample)]
 resultSurvReg <- runSurvReg(estPtYear,estPtLQ,
-                            numDays,DecLow,DecHigh,Sample,
+                            DecLow,DecHigh,Sample,
                             run.parallel = FALSE)
 }
 \keyword{statistics}

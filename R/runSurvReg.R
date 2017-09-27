@@ -35,7 +35,7 @@
 #' DecLow <- Sample$DecYear[1]
 #' DecHigh <- Sample$DecYear[nrow(Sample)]
 #' resultSurvReg <- runSurvReg(estPtYear,estPtLQ,
-#'                             numDays,DecLow,DecHigh,Sample,
+#'                             DecLow,DecHigh,Sample,
 #'                             run.parallel = FALSE)
 runSurvReg<-function(estPtYear,estPtLQ,DecLow,DecHigh,Sample, 
                      windowY=7, windowQ=2, windowS=0.5,

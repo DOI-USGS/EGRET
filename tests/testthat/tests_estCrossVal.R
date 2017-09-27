@@ -5,10 +5,9 @@ test_that("estCrossVal adds correct, new columns", {
   # Uses original and "stale" versions of Choptank data created in `tests/helper-originaldata.R`
   
   # execute cross validation
-  numDays <- length(daily_orig_Ch$DecYear)
-  DecLow <- daily_orig_Ch$DecYear[1]
-  DecHigh <- daily_orig_Ch$DecYear[numDays]
-  sample_crossval <- estCrossVal(numDays,DecLow,DecHigh,sample_orig_Ch)
+  DecLow <- range(daily_orig_Ch$DecYear)[1]
+  DecHigh <- range(daily_orig_Ch$DecYear)[2]
+  sample_crossval <- estCrossVal(DecLow,DecHigh,sample_orig_Ch)
   
   # estCrossVal adds three columns to Sample
   new_sample_cols <- setdiff(names(sample_crossval), names(sample_orig_Ch))
