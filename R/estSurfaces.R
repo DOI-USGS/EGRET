@@ -71,7 +71,7 @@ estSurfaces<-function(eList, windowY=7,windowQ=2,windowS=0.5,
   
   localSampleMin <- localSample[,which(originalColumns %in% colToKeep)]
   
-  resultSurvReg<-runSurvReg(estPtYear,estPtLogQ,numDays,DecLow,DecHigh,localSampleMin,
+  resultSurvReg<-runSurvReg(estPtYear,estPtLogQ,DecLow,DecHigh,localSampleMin,
                             windowY,windowQ,windowS,minNumObs,minNumUncen,
                             edgeAdjust=edgeAdjust,verbose = verbose,run.parallel=run.parallel)
   
