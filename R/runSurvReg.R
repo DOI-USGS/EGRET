@@ -17,7 +17,6 @@
 #' @param verbose logical specifying whether or not to display progress message
 #' @param interactive logical deprecated. Use 'verbose' instead
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
-#' @param numDays number of days in the Daily record
 #' @param DecLow number specifying minimum decimal year
 #' @param DecHigh number specifying maximum decimal year
 #' @param run.parallel logical to run bootstrapping in parallel or not
@@ -33,13 +32,12 @@
 #' estPtYear<-c(2001.0,2005.0,2009.0)
 #' estPtLQ<-c(1,1,1)
 #' Sample <- getSample(eList)
-#' numDays <- Sample$Julian[nrow(Sample)] - Sample$Julian[1] + 1
 #' DecLow <- Sample$DecYear[1]
 #' DecHigh <- Sample$DecYear[nrow(Sample)]
 #' resultSurvReg <- runSurvReg(estPtYear,estPtLQ,
-#'                             numDays,DecLow,DecHigh,Sample,
+#'                             DecLow,DecHigh,Sample,
 #'                             run.parallel = FALSE)
-runSurvReg<-function(estPtYear,estPtLQ,numDays,DecLow,DecHigh,Sample, 
+runSurvReg<-function(estPtYear,estPtLQ,DecLow,DecHigh,Sample, 
                      windowY=7, windowQ=2, windowS=0.5,
                      minNumObs=100, minNumUncen=50, verbose = TRUE,interactive=NULL,
                      edgeAdjust=TRUE, run.parallel = FALSE) {

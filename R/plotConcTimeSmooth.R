@@ -107,7 +107,7 @@ plotConcTimeSmooth<-function (eList, q1, q2, q3, centerDate, yearStart, yearEnd,
   
   for (iCurve in 1:numQ) {
     LQ <- rep(log(qVal[index[iCurve]]),numX)
-    result <- runSurvReg(x, LQ,numDays,DecLow,DecHigh, 
+    result <- runSurvReg(x, LQ,DecLow,DecHigh, 
                          localSample, windowY = windowY,
                          windowQ = windowQ, windowS = windowS,minNumObs=minNumObs, 
                          minNumUncen = minNumUncen, verbose=FALSE,

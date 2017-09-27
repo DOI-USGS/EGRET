@@ -10,11 +10,10 @@ test_that("runSurvReg returns expected values with defaults", {
   logqestpts <- sample_orig_Ar$LogQ[i]
   
   # get info about sample data frame
-  ndays <- max(sample_orig_Ar$Julian) - min(sample_orig_Ar$Julian) + 1
   yrstart <- min(sample_orig_Ar$DecYear)
   yrend <- max(sample_orig_Ar$DecYear)
   
-  surv <- runSurvReg(yrestpts, logqestpts, ndays, yrstart, yrend, sample_orig_Ar)
+  surv <- runSurvReg(yrestpts, logqestpts, yrstart, yrend, sample_orig_Ar)
   
   # test format of results
   expect_equal(dim(surv), c(4,3))
@@ -38,11 +37,10 @@ test_that("runSurvReg returns expected values with user args", {
   logqestpts <- sample_orig_Ch$LogQ[i]
   
   # get info about sample data frame
-  ndays <- max(sample_orig_Ch$Julian) - min(sample_orig_Ch$Julian) + 1
   yrstart <- min(sample_orig_Ch$DecYear)
   yrend <- max(sample_orig_Ch$DecYear)
   
-  surv <- runSurvReg(yrestpts, logqestpts, ndays, yrstart, yrend, sample_orig_Ch,
+  surv <- runSurvReg(yrestpts, logqestpts, yrstart, yrend, sample_orig_Ch,
                      windowQ = 0.5, minNumObs = 150)
   
   # test format of results

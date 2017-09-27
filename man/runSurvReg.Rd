@@ -4,7 +4,7 @@
 \alias{runSurvReg}
 \title{Run the weighted survival regression for a set of estimation points (defined by DecYear and Log(Q))}
 \usage{
-runSurvReg(estPtYear, estPtLQ, numDays, DecLow, DecHigh, Sample, windowY = 7,
+runSurvReg(estPtYear, estPtLQ, DecLow, DecHigh, Sample, windowY = 7,
   windowQ = 2, windowS = 0.5, minNumObs = 100, minNumUncen = 50,
   verbose = TRUE, interactive = NULL, edgeAdjust = TRUE,
   run.parallel = FALSE)
@@ -13,8 +13,6 @@ runSurvReg(estPtYear, estPtLQ, numDays, DecLow, DecHigh, Sample, windowY = 7,
 \item{estPtYear}{numeric vector of Decimal Year values at the estimation points}
 
 \item{estPtLQ}{numeric vector of ln(Q) values at the estimation points, must be the same length as estPtYear}
-
-\item{numDays}{number of days in the Daily record}
 
 \item{DecLow}{number specifying minimum decimal year}
 
@@ -55,11 +53,10 @@ eList <- Choptank_eList
 estPtYear<-c(2001.0,2005.0,2009.0)
 estPtLQ<-c(1,1,1)
 Sample <- getSample(eList)
-numDays <- Sample$Julian[nrow(Sample)] - Sample$Julian[1] + 1
 DecLow <- Sample$DecYear[1]
 DecHigh <- Sample$DecYear[nrow(Sample)]
 resultSurvReg <- runSurvReg(estPtYear,estPtLQ,
-                            numDays,DecLow,DecHigh,Sample,
+                            DecLow,DecHigh,Sample,
                             run.parallel = FALSE)
 }
 \keyword{statistics}

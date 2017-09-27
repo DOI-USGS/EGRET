@@ -13,7 +13,6 @@
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
-#' @param numDays number of days in the Daily record
 #' @param DecLow number specifying minimum decimal year
 #' @param DecHigh number specifying maximum decimal year
 #' @param verbose logical specifying whether or not to display progress message
@@ -30,7 +29,7 @@
 #' \dontrun{
 #' SampleCrossV <- estCrossVal(numDays,DecLow,DecHigh,Sample)
 #' }
-estCrossVal<-function(numDays,DecLow,DecHigh, Sample, windowY = 7, windowQ = 2, 
+estCrossVal<-function(DecLow,DecHigh, Sample, windowY = 7, windowQ = 2, 
                       windowS = 0.5, minNumObs = 100, minNumUncen = 50,
                       edgeAdjust=TRUE, verbose = TRUE){
   #  this function fits the WRTDS model making an estimate of concentration for every day
@@ -64,7 +63,7 @@ estCrossVal<-function(numDays,DecLow,DecHigh, Sample, windowY = 7, windowQ = 2,
 
     SampleMinusOne<-SampleCV[SampleCV$iCounter!=i,]
   
-    result<-runSurvReg(SampleCrossV$DecYear[i],SampleCrossV$LogQ[i],numDays,DecLow,DecHigh,SampleMinusOne,
+    result<-runSurvReg(SampleCrossV$DecYear[i],SampleCrossV$LogQ[i],DecLow,DecHigh,SampleMinusOne,
                        windowY,windowQ,windowS,minNumObs,minNumUncen,
                        edgeAdjust=edgeAdjust, verbose=FALSE, run.parallel = FALSE)
     

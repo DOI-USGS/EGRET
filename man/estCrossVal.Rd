@@ -4,13 +4,11 @@
 \alias{estCrossVal}
 \title{Jack-Knife cross validation of the WRTDS (Weighted Regressions on Time, Discharge, and Season)}
 \usage{
-estCrossVal(numDays, DecLow, DecHigh, Sample, windowY = 7, windowQ = 2,
+estCrossVal(DecLow, DecHigh, Sample, windowY = 7, windowQ = 2,
   windowS = 0.5, minNumObs = 100, minNumUncen = 50, edgeAdjust = TRUE,
   verbose = TRUE)
 }
 \arguments{
-\item{numDays}{number of days in the Daily record}
-
 \item{DecLow}{number specifying minimum decimal year}
 
 \item{DecHigh}{number specifying maximum decimal year}
