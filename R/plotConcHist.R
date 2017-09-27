@@ -82,9 +82,9 @@ plotConcHist<-function(eList, yearStart = NA, yearEnd = NA,
   
   if(is.null(attr(eList$INFO,"segmentInfo"))){
     localDaily <- subFN(eList = eList, flowNormYears = flowNormYears, waterYear = waterYear)
-    message("Plotting flow-normalized concentration based on results of flexFN")
   } else {
     localDaily <- eList$Daily
+    message("Plotting flow-normalized concentration based on results of flexFN")
   }
   
   localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)

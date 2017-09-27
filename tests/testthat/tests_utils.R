@@ -323,13 +323,13 @@ test_that("flexPlotAddOn functions properly", {
 
   graphics.off()
   dev_start <- dev.cur()
-  expect_silent(plotFluxHist(eList))
+  expect_message(plotFluxHist(eList))
   expect_silent(flexPlotAddOn(eList))
   expect_true(dev_start + 1 == dev.cur())
   
   graphics.off()
   dev_start <- dev.cur()
-  expect_silent(plotFluxHist(eList))
+  expect_message(plotFluxHist(eList))
   expect_silent(flexPlotAddOn(eList, customPalette = 
                                 c("#02df77", "#dc28b2", "#2137a6")))
   expect_true(dev_start + 1 == dev.cur())
@@ -342,7 +342,7 @@ test_that("flexPlotAddOn functions properly", {
   
   graphics.off()
   dev_start <- dev.cur()
-  expect_silent(plotFluxHist(eList))
+  expect_message(plotFluxHist(eList))
   expect_error(flexPlotAddOn(eList), 
                "The number of segments exceed the length of the color palette. Supply custom palette of length 32")
   expect_true(dev_start + 1 == dev.cur())
