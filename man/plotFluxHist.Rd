@@ -74,6 +74,18 @@ plotFluxHist(eList)
 # Flow normalized (excluding extremes from 2003-04):
 yearVector <- c(1980:2002, 2005:2015)
 plotFluxHist(eList, flowNormYears=yearVector)
+
+#Alternative:
+sampleSegStart <- c(1980,1985,2000)
+flowSegStart <- c(1980,1990,2000)
+flowSegEnd <- c(1990,2000,2010)
+dateInfo <- data.frame(sampleSegStart,
+                       flowSegStart,
+                       flowSegEnd)
+eList1 <- flexFN(eList, dateInfo)
+plotFluxHist(eList1)  
+flexPlotAddOn(eList1)
+
 }
 }
 \seealso{
