@@ -68,7 +68,7 @@ compressData <- function(data, verbose = TRUE, interactive=NULL){
   returnDataFrame$ConcLow <- as.numeric(lowConcentration)
   returnDataFrame$ConcHigh <- as.numeric(highConcentration)
   Uncen1<-ifelse(returnDataFrame$ConcLow==returnDataFrame$ConcHigh,1,0)
-  returnDataFrame$Uncen<-ifelse(is.na(returnDataFrame$ConcLow),0,Uncen1)
+  returnDataFrame$Uncen<-ifelse(is.na(returnDataFrame$ConcLow)|is.na(returnDataFrame$ConcHigh),0,Uncen1)
   
   flaggedData1 <- returnDataFrame[(returnDataFrame$ConcLow == 0 & returnDataFrame$ConcHigh == 0),]
   returnDataFrame <- returnDataFrame[!(returnDataFrame$ConcLow == 0 & returnDataFrame$ConcHigh == 0),]
