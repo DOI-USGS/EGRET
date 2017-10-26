@@ -40,7 +40,12 @@ censoredSegments <-
            Uncen,
            col = "black",
            lwd = 1) {
+    
     yLowVal <- ifelse(is.na(yLow), yBottom, yLow) #yLow would be NA if "simple" censored....so giving it a value here
+    
+    yTop <- par()$usr[4]
+    yHighVal <- ifelse(is.na(yHigh), yTop, yHigh) 
+    
     segments(x[Uncen == 0], yLowVal[Uncen == 0], x[Uncen == 0], 
-             yHigh[Uncen == 0], col = col, lwd = lwd)
+             yHighVal[Uncen == 0], col = col, lwd = lwd)
   }
