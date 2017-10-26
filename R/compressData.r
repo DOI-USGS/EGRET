@@ -68,7 +68,7 @@ compressData <- function(data, verbose = TRUE, interactive=NULL){
   returnDataFrame$ConcLow <- as.numeric(lowConcentration)
   returnDataFrame$ConcHigh <- as.numeric(highConcentration)
   Uncen1<-ifelse(returnDataFrame$ConcLow==returnDataFrame$ConcHigh,1,0)
-  returnDataFrame$Uncen<-ifelse(is.na(returnDataFrame$ConcLow),0,Uncen1)
+  returnDataFrame$Uncen<-ifelse(is.na(returnDataFrame$ConcLow)|is.na(returnDataFrame$ConcHigh),0,Uncen1)
   
   flaggedData1 <- returnDataFrame[(returnDataFrame$ConcLow == 0 & returnDataFrame$ConcHigh == 0),]
   returnDataFrame <- returnDataFrame[!(returnDataFrame$ConcLow == 0 & returnDataFrame$ConcHigh == 0),]
@@ -82,17 +82,17 @@ compressData <- function(data, verbose = TRUE, interactive=NULL){
     }
   }
   
-  flaggedData2 <- returnDataFrame[(returnDataFrame$ConcLow > returnDataFrame$ConcHigh),]
-  returnDataFrame <- returnDataFrame[(returnDataFrame$ConcLow <= returnDataFrame$ConcHigh),]
-  
-  if (nrow(flaggedData2) > 0){
-    WarningMessage <- paste("Deleted", nrow(flaggedData2), "rows of data because the high concentration was reported lower than the low concentration, the program is unable to interpret that result and is therefore deleting it.")    
-    warning(WarningMessage)
-    if (verbose){
-      cat("Deleted Rows:\n")
-      print(flaggedData2)
-    }
-  }
+  # flaggedData2 <- returnDataFrame[(returnDataFrame$ConcLow > returnDataFrame$ConcHigh),]
+  # returnDataFrame <- returnDataFrame[(returnDataFrame$ConcLow <= returnDataFrame$ConcHigh),]
+  # 
+  # if (nrow(flaggedData2) > 0){
+  #   WarningMessage <- paste("Deleted", nrow(flaggedData2), "rows of data because the high concentration was reported lower than the low concentration, the program is unable to interpret that result and is therefore deleting it.")    
+  #   warning(WarningMessage)
+  #   if (verbose){
+  #     cat("Deleted Rows:\n")
+  #     print(flaggedData2)
+  #   }
+  #}
   
   return(returnDataFrame)
 }
