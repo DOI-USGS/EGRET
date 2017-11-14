@@ -113,7 +113,7 @@ plotConcPred<-function(eList, concMax = NA, logScale=FALSE,
                         tinyPlot=tinyPlot,customPar=customPar,col=col,lwd=lwd,...
       )
   
-    censoredSegments(yBottom=yInfo$bottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen,col=col,lwd=lwd, logScale=logScale)
+    censoredSegments(yBottom=yInfo$bottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen,col=col,lwd=lwd)
   }
 
   if (!tinyPlot) mtext(title2,side=3,line=-1.5)
