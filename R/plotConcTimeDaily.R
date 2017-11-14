@@ -94,7 +94,7 @@ plotConcTimeDaily<-function(eList, yearStart=NA, yearEnd=NA, tinyPlot = FALSE,
                         cex.main=cex.main, tinyPlot=tinyPlot,customPar=customPar, xDate=TRUE,...
     )
     
-    censoredSegments(yInfo$bottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen,col=col,lwd=lwd)
+    censoredSegments(yInfo$bottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen,col=col,lwd=lwd, logScale = logScale)
   } else {
     if(!("rObserved" %in% names(localSample))){
       eList <- makeAugmentedSample(eList)

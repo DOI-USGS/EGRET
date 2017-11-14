@@ -123,7 +123,7 @@ plotFluxPred<-function(eList, fluxUnit = 3, fluxMax = NA,
                         tinyPlot=tinyPlot,cex.axis=cex.axis,cex.main=cex.main,...
     )
     
-    censoredSegments(yBottom=yInfo$bottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen,col=col,lwd=lwd)
+    censoredSegments(yBottom=yInfo$bottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen,col=col,lwd=lwd, logScale = logScale)
   } else {
     if(!("rObserved" %in% names(localSample))){
       eList <- makeAugmentedSample(eList)

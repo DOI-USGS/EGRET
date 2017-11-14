@@ -104,7 +104,7 @@ plotResidQ<-function (eList, qUnit = 2,
                          tinyPlot=tinyPlot,rmSciX=rmSciX, customPar=customPar,...
     )
     
-    censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen,col=col, lwd=lwd )
+    censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen,col=col, lwd=lwd, logScale = logScale)
   } else {
 
     if(!("rResid" %in% names(localSample))){

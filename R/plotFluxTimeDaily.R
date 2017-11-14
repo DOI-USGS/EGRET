@@ -129,7 +129,7 @@ plotFluxTimeDaily<-function (eList, yearStart=NA, yearEnd=NA,
     )
 
   lines(xDaily, subDaily$ConcDay*subDaily$Q*fluxFactor,col=col,lwd=lwd)
-  censoredSegments(yBottom=yInfo$bottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen,col=col,lwd=lwd)
+  censoredSegments(yBottom=yInfo$bottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen,col=col,lwd=lwd,logScale = logScale)
   if (!tinyPlot) mtext(title2,side=3,line=-1.5)
 
 }
