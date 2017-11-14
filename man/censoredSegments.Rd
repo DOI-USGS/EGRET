@@ -4,8 +4,7 @@
 \alias{censoredSegments}
 \title{Generic plotting function to create censored line segments}
 \usage{
-censoredSegments(yBottom, yLow, yHigh, x, Uncen, logScale = FALSE,
-  col = "black", lwd = 1)
+censoredSegments(yBottom, yLow, yHigh, x, Uncen, col = "black", lwd = 1)
 }
 \arguments{
 \item{yBottom}{number specifying minimum flux (required)}
@@ -17,8 +16,6 @@ censoredSegments(yBottom, yLow, yHigh, x, Uncen, logScale = FALSE,
 \item{x}{vector x data (required)}
 
 \item{Uncen}{vector that defines whether the values are censored (0) or not (1)}
-
-\item{logScale}{logical if TRUE, y axis plotted in log axis}
 
 \item{col}{color of points on plot, see ?par 'Color Specification'}
 

@@ -8,7 +8,6 @@
 #' @param yHigh vector specifying the x data (required), such as ConcHigh
 #' @param x vector x data (required)
 #' @param Uncen vector that defines whether the values are censored (0) or not (1)
-#' @param logScale logical if TRUE, y axis plotted in log axis
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
 #' @seealso \code{\link[graphics]{segments}}
@@ -39,14 +38,13 @@ censoredSegments <-
            yHigh,
            x,
            Uncen,
-           logScale=FALSE, 
            col = "black",
            lwd = 1) {
     
     yLowVal <- ifelse(is.na(yLow), yBottom, yLow) #yLow would be NA if "simple" censored....so giving it a value here
-    
+
     yTop <- par()$usr[4]
-    if(logScale){
+    if(par()$ylog){
       yTop <- 10^yTop
     }
     

@@ -100,7 +100,7 @@ plotConcQ<-function(eList, qUnit = 2, tinyPlot = FALSE, logScale=FALSE,randomCen
                         rmSciX=rmSciX,rmSciY=rmSciY,customPar=customPar,col=col,lwd=lwd,...
     )
     
-    censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen,col=col,lwd=lwd, logScale = logScale)
+    censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen,col=col,lwd=lwd)
   } else {
     if(!("rObserved" %in% names(localSample))){
       eList <- makeAugmentedSample(eList)
