@@ -90,7 +90,7 @@ plotResidTime<-function(eList, stdResid = FALSE,
                         xlab=xLab, ylab=yLab, plotTitle=plotTitle, customPar=customPar, cex=cex,
                         cex.axis=cex.axis,cex.main=cex.main, hLine=hLine, tinyPlot=tinyPlot,...
     )
-    censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen,col=col,lwd=lwd)
+    censoredSegments(yBottom = yInfo$bottom, yLow = yLow, yHigh = yHigh, x = x, Uncen = Uncen,col=col,lwd=lwd)
     
   } else {
     if(!("rResid" %in% names(localSample))){

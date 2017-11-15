@@ -95,7 +95,7 @@ plotResidPred<-function(eList, stdResid = FALSE,
                         hLine=TRUE,cex.axis=cex.axis,cex.main=cex.main, tinyPlot=tinyPlot,...
       )
   
-    censoredSegments(yInfo$bottom, yLow, yHigh, log(x), Uncen, col=col, lwd=lwd )
+    censoredSegments(yInfo$bottom, yLow, yHigh, log(x), Uncen, col=col, lwd=lwd)
     
   } else {
     if(!("rResid" %in% names(localSample))){
