@@ -110,3 +110,69 @@ test_that("setupYears", {
   expect_equal(setSeasonLabelByUser(paStartInput = 12,paLongInput = 3), "Season Consisting of Dec Jan Feb")
 })
   
+
+test_that("getSurfaceEstimates",{
+  eList <- Choptank_eList
+  Daily_orig <- eList$Daily
+  Daily_new <- Daily_orig[,c("Date","Q","Julian","Month","Day",
+                             "DecYear","MonthSeq","Qualifier","i",
+                             "LogQ","Q7","Q30")]
+  eList <- as.egret(eList$INFO, Daily_new, eList$Sample, eList$surfaces)
+  
+  daily_stuff <- EGRET:::getSurfaceEstimates(eList)
+  expect_equal(ncol(daily_stuff), 16)
+  
+  expect_true(all(c("yHat","SE","ConcDay","FluxDay") %in% names(daily_stuff)))
+  expect_equal(round(head(daily_stuff$yHat),3), 
+               c(-0.165,-0.180,-0.304,
+                 -0.464, -0.487,-0.368))
+  expect_equal(round(head(daily_stuff$SE),3), 
+               c(0.221,0.221,0.217,0.212,0.211,0.215))
+  expect_equal(round(head(daily_stuff$ConcDay),3), 
+               c(0.875,0.860,0.764,0.654,0.638,0.721))
+  expect_equal(round(head(daily_stuff$FluxDay),3), 
+               c(143.356,149.347,181.347,217.747,224.883,199.328))
+  
+})
+
+test_that("bin_Qs",{
+  eList <- Choptank_eList
+  Daily_orig <- eList$Daily
+  allLogQsByDayOfYear <- EGRET:::bin_Qs(Daily_orig)
+  expect_length(allLogQsByDayOfYear, 366)
+  # This is 364 instead of 366 because 59 and 60 are special
+  expect_equal(364,sum(32 == sapply(allLogQsByDayOfYear, length))) 
+  expect_equal(round(head(allLogQsByDayOfYear[[1]]),3), 
+               c(1.041,0.425,1.118,0.830,1.773,-0.009))
+})
+
+test_that("flexFN",{
+  eList <- Choptank_eList
+  eList <- setUpEstimation(eList)
+  daily_1 <- eList$Daily
+  sampleSegStart <- c(1980,1985,2000)
+  flowSegStart <- c(1980,1990,2000)
+  flowSegEnd <- c(1990,2000,2010)
+  dateInfo <- data.frame(sampleSegStart, flowSegStart, flowSegEnd)
+  eList <- flexFN(eList, dateInfo)
+  daily_2 <- eList$Daily
+  expect_true(!identical(daily_1, daily_2))
+})
+
+test_that("getConcFluxFromSurface",{
+  
+  eList <- Choptank_eList
+  localDaily <- eList$Daily
+  # Calculate "flow-normalized" concentration and flux:
+  allLogQsByDayOfYear <- EGRET:::bin_Qs(localDaily)
+  
+  concFlux_list <- EGRET:::getConcFluxFromSurface(eList, allLogQsByDayOfYear, localDaily)
+  expect_length(concFlux_list, 3)
+  expect_type(concFlux_list, "list")
+  expect_equal(round(head(concFlux_list[["allFluxReplicated"]]),3), 
+               c(143.356,100.241,88.592,47.434,88.592,92.699))
+  expect_equal(round(head(concFlux_list[["allConcReplicated"]]),3), 
+               c(0.875,1.024,1.065,1.212,1.065,1.052))
+  expect_equal(round(head(concFlux_list[["allDatesReplicated"]]),3), 
+               c(1979.75,1979.75,1979.75,1979.75,1979.75,1979.75))
+})

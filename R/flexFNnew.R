@@ -32,9 +32,11 @@
 #'                        flowSegEnd)
 #' eList <- flexFN(eList, dateInfo)
 #' plotFluxHist(eList)
+#' flexPlotAddOn(eList)
 #' 
 #' eList <- flexFN(eList, dateInfo, waterYear = FALSE)
 #' plotFluxHist(eList)
+#' flexPlotAddOn(eList)
 #' }
 flexFN <- function(eList, dateInfo, waterYear = TRUE,sampleStart="sampleSegStart",
                    flowStart="flowSegStart", flowEnd="flowSegEnd"){
@@ -52,24 +54,19 @@ flexFN <- function(eList, dateInfo, waterYear = TRUE,sampleStart="sampleSegStart
   
   dateInfo$sampleSegEnd <- c(dateInfo[2:nrow(dateInfo),sampleStart]-1,max(Sample$WaterYear))
 
-  DailyFN <- estDailyFromSurfaces(eList)
-  DailyFN$FNConc <- NA
-  DailyFN$FNFlux <- NA
-  
-  if(waterYear){
-    DailyFN$WaterYear <- calcWaterYear(DailyFN$Date)
-  } else {
-    DailyFN$WaterYear <- floor(DailyFN$DecYear)
-  }
-  
-  newList <- as.egret(eList$INFO,DailyFN,Sample,eList$surfaces)
+  newList <- as.egret(eList$INFO,Daily,Sample,eList$surfaces)
   
   for(i in seq(nrow(dateInfo))){
-    dailyReturn <- estFNsegs(newList,dateInfo[i,])
-    # sampleSegments <- c(dateInfo$sampleSegStart[i]:dateInfo$sampleSegEnd[i])
-    sampleSegments <- c(dateInfo[i,sampleStart]:dateInfo[i,"sampleSegEnd"])
-    DailyFN$FNConc[DailyFN$WaterYear %in% sampleSegments] <- dailyReturn$FNConc[dailyReturn$WaterYear %in% sampleSegments]
-    DailyFN$FNFlux[DailyFN$WaterYear %in% sampleSegments] <- dailyReturn$FNFlux[dailyReturn$WaterYear %in% sampleSegments]
+    sampleSegments <- c(dateInfo[[sampleStart]][i]:dateInfo[["sampleSegEnd"]][i])
+    
+    sampleIndex <- which(Daily$WaterYear %in% sampleSegments)
+    flowIndex <- which(Daily$WaterYear >= dateInfo$flowSegStart[i] & Daily$WaterYear <= dateInfo$flowSegEnd[i])
+    
+    allLogQsByDayOfYear <- bin_Qs(Daily[flowIndex,])
+    dailyReturn_list <- getConcFluxFromSurface(newList, allLogQsByDayOfYear, Daily)
+
+    Daily$FNConc[sampleIndex] <- as.numeric(tapply(dailyReturn_list[["allConcReplicated"]], dailyReturn_list[["allDatesReplicated"]], "mean"))[sampleIndex]
+    Daily$FNFlux[sampleIndex] <- as.numeric(tapply(dailyReturn_list[["allFluxReplicated"]], dailyReturn_list[["allDatesReplicated"]], "mean"))[sampleIndex]
   }
   
   INFO <- eList$INFO
@@ -79,10 +76,10 @@ flexFN <- function(eList, dateInfo, waterYear = TRUE,sampleStart="sampleSegStart
   attr(INFO,"segmentInfo") <- dateInfo
   
   if(!waterYear){
-    DailyFN$WaterYear <- calcWaterYear(DailyFN$Date)
+    Daily$WaterYear <- calcWaterYear(Daily$Date)
   }
   
-  newList <- as.egret(INFO,DailyFN,Sample,eList$surfaces)
+  newList <- as.egret(INFO,Daily,Sample,eList$surfaces)
   
   return(newList)
   
@@ -108,121 +105,39 @@ subFN <- function(eList, flowNormYears = "all",
                   waterYear = TRUE){
   
   if(any(tolower(flowNormYears) != "all")){
-    Daily <- estFNyears(eList = eList, years = flowNormYears, waterYear = waterYear)
+
+    flow_splits <- split(flowNormYears, cumsum(c(1, diff(flowNormYears) != 1)))
+    
+    flow_ranges <- sapply(flow_splits, range)
+    
+    dateInfo <- data.frame(flowSegStart = as.integer(flow_ranges[1,]),
+                           flowSegEnd = as.integer(flow_ranges[2,]),
+                           sampleSegStart = as.integer(flow_ranges[1,]))
+    
+    localDaily <- getDaily(eList)
+    localINFO <- getInfo(eList)
+    localsurfaces <- getSurfaces(eList)
+    
+    if(waterYear){
+      localDaily$WaterYear <- calcWaterYear(localDaily$Date)
+    } else {
+      localDaily$WaterYear <- floor(localDaily$DecYear)
+    }
+    
+    # Calculate "flow-normalized" concentration and flux:
+    flowIndex <- localDaily$WaterYear >= dateInfo$flowSegStart & localDaily$WaterYear <= dateInfo$flowSegEnd
+    
+    allLogQsByDayOfYear <- bin_Qs(localDaily[flowIndex,])
+    estFN <- getConcFluxFromSurface(eList, allLogQsByDayOfYear, localDaily)
+
+    localDaily$FNConc <-  as.numeric(tapply(estFN[["allConcReplicated"]], estFN[["allDatesReplicated"]], "mean"))
+    localDaily$FNFlux <-  as.numeric(tapply(estFN[["allFluxReplicated"]], estFN[["allDatesReplicated"]], "mean"))
+      
   } else {
-    Daily <- estDailyFromSurfaces(eList = eList)
+    localDaily <- estDailyFromSurfaces(eList = eList)
   }
   
-  return(Daily)
-}
-
-#' Segment estimates for flow normalization
-#' 
-#' @param eList named list with at least the Daily, Sample, and INFO dataframes
-#' @param dateInfo dataframe with sampleSegStart, flowSegStart, flowSegEnd, sampleSegEnd
-#' @importFrom fields interp.surface
-#' @importFrom dataRetrieval calcWaterYear
-estFNsegs <- function(eList, dateInfo){
-  
-  localDaily <- getDaily(eList)
-  localINFO <- getInfo(eList)
-  localsurfaces <- getSurfaces(eList)
-  
-  # First argument in calls below is the "known" x-y-z surface, second argument is matrix of 
-  # "target" x-y points.
-  LogQ <- seq(localINFO$bottomLogQ, by=localINFO$stepLogQ, length.out=localINFO$nVectorLogQ)
-  Year <- seq(localINFO$bottomYear, by=localINFO$stepYear, length.out=localINFO$nVectorYear)
-
-  # Calculate "flow-normalized" concentration and flux:
-  sampleIndex <- localDaily$WaterYear >= dateInfo$sampleSegStart & localDaily$WaterYear <= dateInfo$sampleSegEnd
-  flowIndex <- localDaily$WaterYear >= dateInfo$flowSegStart & localDaily$WaterYear <= dateInfo$flowSegEnd
- 
-  # First, bin the LogQ values by day-of-year.
-  allLogQsByDayOfYear <- split(localDaily$LogQ[flowIndex], localDaily$Day[flowIndex])
-  
-  allLogQsByDayOfYear[['59']] <- c(unlist(allLogQsByDayOfYear['59']),   # Bob's convention
-                                   unlist(allLogQsByDayOfYear['60']))
-  allLogQsByDayOfYear['60'] <- allLogQsByDayOfYear['59']
-  
-  # Using the above data structure as a "look-up" table, list all LogQ values that occured on every
-  # day of the entire daily record. When "unlisted" into a vector, these will become the "x" values 
-  # for the interpolation.
-  allLogQsReplicated <- allLogQsByDayOfYear[localDaily$Day]
-  
-  # Replicate the decimal year field for each day of the record to correspond to all the LogQ 
-  # values listed for that day. These are the "y" values for the interpolation.
-  allDatesReplicated <- rep(localDaily$DecYear, lapply(allLogQsReplicated, length))
-   
-  # Interpolate.
-  allConcReplicated <- interp.surface( obj=list(x=LogQ,y=Year,z=localsurfaces[,,3]), 
-                                       loc=data.frame(unlist(x=allLogQsReplicated),
-                                                       y=allDatesReplicated))
-  allFluxReplicated <- allConcReplicated * exp(unlist(allLogQsReplicated)) * 86.4
-  
-  # Finally bin the collective results by days (the decimal year), and calculate the desired means.
-  localDaily$FNConc[sampleIndex] <-  as.numeric(tapply(allConcReplicated, allDatesReplicated, "mean"))[sampleIndex]
-  localDaily$FNFlux[sampleIndex] <-  as.numeric(tapply(allFluxReplicated, allDatesReplicated, "mean"))[sampleIndex]
-
   return(localDaily)
-
-}
-
-#' Estimates for flow normalization by year
-#' 
-#' @param eList named list with at least the Daily, Sample, and INFO dataframes
-#' @param years vector of years
-#' @param waterYear logical. Should years be water years (\code{TRUE}) or calendar years (\code{FALSE})
-#' @importFrom fields interp.surface
-#' @importFrom dataRetrieval calcWaterYear
-estFNyears <- function(eList, years, waterYear = TRUE){
-  
-  localDaily <- getDaily(eList)
-  localINFO <- getInfo(eList)
-  localsurfaces <- getSurfaces(eList)
-  
-  if(waterYear){
-    localDaily$WaterYear <- calcWaterYear(localDaily$Date)
-  } else {
-    localDaily$WaterYear <- floor(localDaily$DecYear)
-  }
-  
-  # First argument in calls below is the "known" x-y-z surface, second argument is matrix of 
-  # "target" x-y points.
-  LogQ <- seq(localINFO$bottomLogQ, by=localINFO$stepLogQ, length.out=localINFO$nVectorLogQ)
-  Year <- seq(localINFO$bottomYear, by=localINFO$stepYear, length.out=localINFO$nVectorYear)
-  
-  # Calculate "flow-normalized" concentration and flux:
-
-  flowIndex <- which(localDaily$WaterYear %in% years)
-
-  # First, bin the LogQ values by day-of-year.
-  allLogQsByDayOfYear <- split(localDaily$LogQ[flowIndex], localDaily$Day[flowIndex])
-  
-  allLogQsByDayOfYear[['59']] <- c(unlist(allLogQsByDayOfYear['59']),   # Bob's convention
-                                   unlist(allLogQsByDayOfYear['60']))
-  allLogQsByDayOfYear['60'] <- allLogQsByDayOfYear['59']
-  
-  # Using the above data structure as a "look-up" table, list all LogQ values that occured on every
-  # day of the entire daily record. When "unlisted" into a vector, these will become the "x" values 
-  # for the interpolation.
-  allLogQsReplicated <- allLogQsByDayOfYear[localDaily$Day]
-  
-  # Replicate the decimal year field for each day of the record to correspond to all the LogQ 
-  # values listed for that day. These are the "y" values for the interpolation.
-  allDatesReplicated <- rep(localDaily$DecYear, lapply(allLogQsReplicated, length))
-  
-  # Interpolate.
-  allConcReplicated <- interp.surface( obj=list(x=LogQ,y=Year,z=localsurfaces[,,3]), 
-                                       loc=data.frame(unlist(x=allLogQsReplicated),
-                                                      y=allDatesReplicated))
-  allFluxReplicated <- allConcReplicated * exp(unlist(allLogQsReplicated)) * 86.4
-  
-  # Finally bin the collective results by days (the decimal year), and calculate the desired means.
-  localDaily$FNConc <-  as.numeric(tapply(allConcReplicated, allDatesReplicated, "mean"))
-  localDaily$FNFlux <-  as.numeric(tapply(allFluxReplicated, allDatesReplicated, "mean"))
-  
-  return(localDaily)
-  
 }
 
 
