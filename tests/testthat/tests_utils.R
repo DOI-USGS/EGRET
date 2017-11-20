@@ -384,5 +384,5 @@ test_that("mergeReport",{
   
   expect_equal(round(head(eList_orig_Ch$Sample$Q), 3),
                c(3.200,2.973,2.945,10.902,3.228,6.371))
-  expect_false("Q" %in% names(sample_orig_Ch))
+
 })
