@@ -16,7 +16,7 @@ sample_orig_Ch <- sample_stale_Ch[, c("Date","ConcLow", "ConcHigh", "Uncen", "Co
                                       "SinDY","CosDY")]
 surfaces_orig_Ch <- NA
 eList_orig_Ch <- mergeReport(info_orig_Ch, daily_orig_Ch, sample_orig_Ch, surfaces_orig_Ch, verbose = FALSE)
-
+sample_orig_Ch <- getSample(eList_orig_Ch)
 
 
 # Arkansas_eList has model results already, but the model 
