@@ -347,6 +347,11 @@ test_that("flexPlotAddOn functions properly", {
                "The number of segments exceed the length of the color palette. Supply custom palette of length 32")
   expect_true(dev_start + 1 == dev.cur())
   
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(genericEGRETDotPlot(1:2, 1:2, 1:2, 1:2))
+  graphics.off()
+  
   startBlank <- "1995-01-01"
   endBlank <- "2005-01-01"
   
@@ -369,4 +374,15 @@ test_that("flexPlotAddOn functions properly", {
   bias <- fluxBiasStat(localSample = eList$Sample)
   rounded <- as.numeric(signif(bias))
   expect_equal(rounded, c(-0.0235532,-0.0235429,-0.023548))
+})
+
+test_that("mergeReport",{
+
+  expect_error(mergeReport(daily_orig_Ch, sample_orig_Ch))
+  expect_type(eList_orig_Ch, "list")
+  expect_true(all(names(eList_orig_Ch) %in% c("INFO","Daily","Sample","surfaces")))
+  
+  expect_equal(round(head(eList_orig_Ch$Sample$Q), 3),
+               c(3.200,2.973,2.945,10.902,3.228,6.371))
+  expect_false("Q" %in% names(sample_orig_Ch))
 })
