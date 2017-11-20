@@ -157,6 +157,11 @@ test_that("flexFN",{
   eList <- flexFN(eList, dateInfo)
   daily_2 <- eList$Daily
   expect_true(!identical(daily_1, daily_2))
+  expect_equal(round(head(daily_2$FNConc),3), 
+               c(0.999, 0.988, 0.965, 0.945, 0.970, 1.000))
+  expect_equal(round(head(daily_2$FNFlux),3), 
+               c(104.815, 107.577, 118.194, 130.000, 122.589, 110.149))
+  
 })
 
 test_that("getConcFluxFromSurface",{
@@ -176,3 +181,21 @@ test_that("getConcFluxFromSurface",{
   expect_equal(round(head(concFlux_list[["allDatesReplicated"]]),3), 
                c(1979.75,1979.75,1979.75,1979.75,1979.75,1979.75))
 })
+
+test_that("subFN",{
+  eList <- Choptank_eList
+  d1 <- eList$Daily
+  
+  flowNormYears <- c(1985:2002,2006:2010)
+  temp_daily <- subFN(eList, flowNormYears)
+  expect_equal(19, ncol(temp_daily))
+  expect_equal(round(head(temp_daily$FNConc),3), 
+               c(1.094,0.892,1.100,0.924,1.087,0.936))
+  expect_equal(round(head(temp_daily$FNFlux),3), 
+               c(72.567 ,139.213,68.180,133.852,80.925,128.181))
+  
+  expect_silent(plotFluxHist(eList, flowNormYears =  c(1985:2002,2006:2010)))
+
+  
+})
+  
