@@ -47,8 +47,10 @@ dateInfo <- data.frame(sampleSegStart,
                        flowSegEnd)
 eList <- flexFN(eList, dateInfo)
 plotFluxHist(eList)
+flexPlotAddOn(eList)
 
 eList <- flexFN(eList, dateInfo, waterYear = FALSE)
 plotFluxHist(eList)
+flexPlotAddOn(eList)
 }
 }

@@ -11,10 +11,12 @@ surfaces_stale_Ch <- getSurfaces(eList_Ch)
 
 info_orig_Ch <- info_stale_Ch[, 1:(which(names(info_stale_Ch) == "bottomLogQ") - 1)]
 daily_orig_Ch <- daily_stale_Ch[, 1:(which(names(daily_stale_Ch) == "Q30") - 1)]
-sample_orig_Ch <- sample_stale_Ch[, 1:(which(names(sample_stale_Ch) == "yHat") - 1)]
+sample_orig_Ch <- sample_stale_Ch[, c("Date","ConcLow", "ConcHigh", "Uncen", "ConcAve", 
+                                      "Julian","Month","Day","DecYear","MonthSeq",
+                                      "SinDY","CosDY")]
 surfaces_orig_Ch <- NA
 eList_orig_Ch <- mergeReport(info_orig_Ch, daily_orig_Ch, sample_orig_Ch, surfaces_orig_Ch, verbose = FALSE)
-
+sample_orig_Ch <- getSample(eList_orig_Ch)
 
 
 # Arkansas_eList has model results already, but the model 

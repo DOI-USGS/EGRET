@@ -29,7 +29,26 @@
 #' }
 estDailyFromSurfaces <- function(eList) {
 
-  localDaily <- getDaily(eList)
+  localDaily <- getSurfaceEstimates(eList)
+  # Calculate "flow-normalized" concentration and flux:
+  allLogQsByDayOfYear <- bin_Qs(localDaily)
+  
+  concFlux_list <- getConcFluxFromSurface(eList, allLogQsByDayOfYear, localDaily)
+  
+  # Finally bin the collective results by days (the decimal year), and calculate the desired means.
+  localDaily$FNConc <-  as.numeric(tapply(concFlux_list[["allConcReplicated"]], concFlux_list[["allDatesReplicated"]], "mean"))
+  localDaily$FNFlux <-  as.numeric(tapply(concFlux_list[["allFluxReplicated"]], concFlux_list[["allDatesReplicated"]], "mean"))
+
+  
+  return(localDaily)
+}
+
+#' getConcFluxFromSurface
+#' 
+#' @param allLogQsByDayOfYear
+#' @param Daily data frame
+#' 
+getConcFluxFromSurface <- function(eList, allLogQsByDayOfYear, localDaily){
   localINFO <- getInfo(eList)
   localsurfaces <- getSurfaces(eList)
   
@@ -37,23 +56,6 @@ estDailyFromSurfaces <- function(eList) {
   # "target" x-y points.
   LogQ <- seq(localINFO$bottomLogQ, by=localINFO$stepLogQ, length.out=localINFO$nVectorLogQ)
   Year <- seq(localINFO$bottomYear, by=localINFO$stepYear, length.out=localINFO$nVectorYear)
-  localDaily$yHat <- interp.surface(obj=list(x=LogQ,y=Year,z=localsurfaces[,,1]), 
-                                    loc=data.frame(localDaily$LogQ, localDaily$DecYear))
-  localDaily$SE <- interp.surface(obj=list(x=LogQ,y=Year,z=localsurfaces[,,2]), 
-                                  loc=data.frame(localDaily$LogQ, localDaily$DecYear))
-  localDaily$ConcDay <- interp.surface(obj=list(x=LogQ,y=Year,z=localsurfaces[,,3]), 
-                                       loc=data.frame(localDaily$LogQ, localDaily$DecYear))
-  localDaily$FluxDay <- as.numeric(localDaily$ConcDay * localDaily$Q * 86.4)
-  
-  # Calculate "flow-normalized" concentration and flux:
-  
-  # First, bin the LogQ values by day-of-year.
-  allLogQsByDayOfYear <- split(localDaily$LogQ, localDaily$Day)
-
-  
-  allLogQsByDayOfYear[['59']] <- c(unlist(allLogQsByDayOfYear['59']),   # Bob's convention
-                                     unlist(allLogQsByDayOfYear['60']))
-  allLogQsByDayOfYear['60'] <- allLogQsByDayOfYear['59']
   
   # Using the above data structure as a "look-up" table, list all LogQ values that occured on every
   # day of the entire daily record. When "unlisted" into a vector, these will become the "x" values 
@@ -68,12 +70,49 @@ estDailyFromSurfaces <- function(eList) {
   allConcReplicated <- interp.surface( obj=list(x=LogQ,y=Year,z=localsurfaces[,,3]), 
                                        loc=data.frame(	unlist(x=allLogQsReplicated),
                                                        y=allDatesReplicated))
-  allFluxReplicated <- allConcReplicated * exp(unlist(allLogQsReplicated)) * 86.4
+  allFluxReplicated <- allConcReplicated * exp(as.numeric(unlist(allLogQsReplicated))) * 86.4
   
-  # Finally bin the collective results by days (the decimal year), and calculate the desired means.
-  localDaily$FNConc <-  as.numeric(tapply(allConcReplicated, allDatesReplicated, "mean"))
-  localDaily$FNFlux <-  as.numeric(tapply(allFluxReplicated, allDatesReplicated, "mean"))
+  return(list(allFluxReplicated=allFluxReplicated, 
+              allConcReplicated=allConcReplicated, 
+              allDatesReplicated=allDatesReplicated))
+  
+}
 
+#' getSurfaceEstimates
+#' 
+#' @param eList named list with at least the Daily, Sample, and INFO dataframes
+#' @return Daily dataframe with yHat, SE, ConcDay and FluxDay calulated
+getSurfaceEstimates <- function(eList){
+  localDaily <- getDaily(eList)
+  localINFO <- getInfo(eList)
+  localsurfaces <- getSurfaces(eList)
+  LogQ <- seq(localINFO$bottomLogQ, by=localINFO$stepLogQ, length.out=localINFO$nVectorLogQ)
+  Year <- seq(localINFO$bottomYear, by=localINFO$stepYear, length.out=localINFO$nVectorYear)
+  
+  localDaily$yHat <- fields::interp.surface(obj=list(x=LogQ,y=Year,z=localsurfaces[,,1]), 
+                                    loc=data.frame(localDaily$LogQ, localDaily$DecYear))
+  localDaily$SE <- fields::interp.surface(obj=list(x=LogQ,y=Year,z=localsurfaces[,,2]), 
+                                  loc=data.frame(localDaily$LogQ, localDaily$DecYear))
+  localDaily$ConcDay <- fields::interp.surface(obj=list(x=LogQ,y=Year,z=localsurfaces[,,3]), 
+                                       loc=data.frame(localDaily$LogQ, localDaily$DecYear))
+  localDaily$FluxDay <- as.numeric(localDaily$ConcDay * localDaily$Q * 86.4)
   
   return(localDaily)
+}
+
+#' bin_Qs
+#' 
+#' Bin the LogQ values by day-of-year.
+#' @param Daily data frame
+#' 
+bin_Qs <- function(Daily){
+
+  allLogQsByDayOfYear <- split(Daily$LogQ, Daily$Day)
+  
+  allLogQsByDayOfYear[['59']] <- c(unlist(allLogQsByDayOfYear['59']),   # Bob's convention
+                                   unlist(allLogQsByDayOfYear['60']))
+  allLogQsByDayOfYear['60'] <- allLogQsByDayOfYear['59']
+  
+  return(allLogQsByDayOfYear)
+  
 }
