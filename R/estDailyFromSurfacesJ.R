@@ -5,6 +5,7 @@
 #'    The results are stored in an augmented version of the Daily data frame, which is returned as part of an EGRET object. 
 #'
 #' @param eList named list with at least the Daily and INFO dataframes, and the surface matrix
+#' @param localsurfaces surface over-riding the one stored in eList
 #' @keywords water-quality statistics
 #' @return egret object with altered Daily dataframe
 #' @export
@@ -27,19 +28,18 @@
 #' \dontrun{
 #' Daily <- estDailyFromSurfaces(eList)
 #' }
-estDailyFromSurfaces <- function(eList) {
+estDailyFromSurfaces <- function(eList, localsurfaces = NA) {
 
-  localDaily <- getSurfaceEstimates(eList)
+  localDaily <- getSurfaceEstimates(eList, localsurfaces=localsurfaces)
   # Calculate "flow-normalized" concentration and flux:
   allLogQsByDayOfYear <- bin_Qs(localDaily)
   
-  concFlux_list <- getConcFluxFromSurface(eList, allLogQsByDayOfYear, localDaily)
+  concFlux_list <- getConcFluxFromSurface(eList, allLogQsByDayOfYear, localDaily, localsurfaces=localsurfaces)
   
   # Finally bin the collective results by days (the decimal year), and calculate the desired means.
   localDaily$FNConc <-  as.numeric(tapply(concFlux_list[["allConcReplicated"]], concFlux_list[["allDatesReplicated"]], "mean"))
   localDaily$FNFlux <-  as.numeric(tapply(concFlux_list[["allFluxReplicated"]], concFlux_list[["allDatesReplicated"]], "mean"))
 
-  
   return(localDaily)
 }
 
@@ -48,9 +48,12 @@ estDailyFromSurfaces <- function(eList) {
 #' @param allLogQsByDayOfYear
 #' @param Daily data frame
 #' 
-getConcFluxFromSurface <- function(eList, allLogQsByDayOfYear, localDaily){
+getConcFluxFromSurface <- function(eList, allLogQsByDayOfYear, localDaily, localsurfaces = NA){
   localINFO <- getInfo(eList)
-  localsurfaces <- getSurfaces(eList)
+  
+  if(all(is.na(localsurfaces))){
+    localsurfaces <- getSurfaces(eList)
+  }
   
   # First argument in calls below is the "known" x-y-z surface, second argument is matrix of 
   # "target" x-y points.
@@ -82,10 +85,13 @@ getConcFluxFromSurface <- function(eList, allLogQsByDayOfYear, localDaily){
 #' 
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @return Daily dataframe with yHat, SE, ConcDay and FluxDay calulated
-getSurfaceEstimates <- function(eList){
+getSurfaceEstimates <- function(eList, localsurfaces=NA){
   localDaily <- getDaily(eList)
   localINFO <- getInfo(eList)
-  localsurfaces <- getSurfaces(eList)
+  if(all(is.na(localsurfaces))){
+    localsurfaces <- getSurfaces(eList)    
+  }
+
   LogQ <- seq(localINFO$bottomLogQ, by=localINFO$stepLogQ, length.out=localINFO$nVectorLogQ)
   Year <- seq(localINFO$bottomYear, by=localINFO$stepYear, length.out=localINFO$nVectorYear)
   

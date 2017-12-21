@@ -4,10 +4,12 @@
 \alias{estDailyFromSurfaces}
 \title{Estimates all daily values of Concentration, Flux, Flow-Normalized Concentration, and Flow Normalized Flux}
 \usage{
-estDailyFromSurfaces(eList)
+estDailyFromSurfaces(eList, localsurfaces = NA)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes, and the surface matrix}
+
+\item{localsurfaces}{surface over-riding the one stored in eList}
 }
 \value{
 egret object with altered Daily dataframe

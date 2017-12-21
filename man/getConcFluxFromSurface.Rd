@@ -4,7 +4,8 @@
 \alias{getConcFluxFromSurface}
 \title{getConcFluxFromSurface}
 \usage{
-getConcFluxFromSurface(eList, allLogQsByDayOfYear, localDaily)
+getConcFluxFromSurface(eList, allLogQsByDayOfYear, localDaily,
+  localsurfaces = NA)
 }
 \arguments{
 \item{Daily}{data frame}

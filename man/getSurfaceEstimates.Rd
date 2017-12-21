@@ -4,7 +4,7 @@
 \alias{getSurfaceEstimates}
 \title{getSurfaceEstimates}
 \usage{
-getSurfaceEstimates(eList)
+getSurfaceEstimates(eList, localsurfaces = NA)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}

@@ -4,12 +4,21 @@
 \alias{estSurfaces}
 \title{Estimate the three surfaces (for yHat, SE and ConcHat) as a function of DecYear and logQ and store in the three-dimensional object called surfaces}
 \usage{
-estSurfaces(eList, windowY = 7, windowQ = 2, windowS = 0.5,
+estSurfaces(eList, surfaceStart = NA, surfaceEnd = NA, localDaily = NA,
+  localSample = NA, windowY = 7, windowQ = 2, windowS = 0.5,
   minNumObs = 100, minNumUncen = 50, edgeAdjust = TRUE, verbose = TRUE,
   interactive = NULL, run.parallel = FALSE)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and Daily dataframes}
+
+\item{surfaceStart}{Date object for start of surface slice (or character starting date for data retrieval in the form YYYY-MM-DD).}
+
+\item{surfaceEnd}{Date object for end of surface slice (or character starting date for data retrieval in the form YYYY-MM-DD).}
+
+\item{localDaily}{data frame to override eList$Daily}
+
+\item{localSample}{data frame to override eList$Sample}
 
 \item{windowY}{numeric specifying the half-window width in the time dimension, in units of years, default is 7}
 
@@ -47,7 +56,13 @@ The second index is time, layed out as 16 increments of the calendar year, start
 }
 \examples{
 eList <- Choptank_eList
-\dontrun{surfaces <- estSurfaces(eList)}
+\dontrun{
+surfaces <- estSurfaces(eList)
+
+surfaceStart <- "1984-10-01"
+surfaceEnd <- "1986-09-30"
+surfaces_1 <- estSurfaces(eList, surfaceStart, surfaceEnd)
+}
 }
 \keyword{statistics}
 \keyword{water-quality}
