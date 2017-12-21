@@ -31,6 +31,14 @@ surfaceIndex<-function(Daily){
   topYear<-ceiling(max(localDaily$DecYear))
   vectorYear<-seq(bottomYear,topYear,stepYear)
   nVectorYear<-length(vectorYear)
-  surfaceIndexParameters<-c(bottomLogQ,stepLogQ,14,bottomYear,stepYear,nVectorYear)
+  
+  surfaceIndexParameters<-list(bottomLogQ=bottomLogQ,
+                            stepLogQ=stepLogQ,
+                            nVectorLogQ=14,
+                            bottomYear=bottomYear,
+                            stepYear=stepYear,
+                            nVectorYear=nVectorYear,
+                            vectorYear=vectorYear,
+                            vectorLogQ=vectorLogQ)
   return(surfaceIndexParameters)
 }

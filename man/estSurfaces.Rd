@@ -62,6 +62,11 @@ surfaces <- estSurfaces(eList)
 surfaceStart <- "1984-10-01"
 surfaceEnd <- "1986-09-30"
 surfaces_1 <- estSurfaces(eList, surfaceStart, surfaceEnd)
+
+wall_sample <- head(eList$Sample, n=500)
+
+surface_wall <- estSurfaces(eList, localSample = wall_sample)
+
 }
 }
 \keyword{statistics}

@@ -4,7 +4,7 @@
 \alias{estDailyFromSurfaces}
 \title{Estimates all daily values of Concentration, Flux, Flow-Normalized Concentration, and Flow Normalized Flux}
 \usage{
-estDailyFromSurfaces(eList, localsurfaces = NA)
+estDailyFromSurfaces(eList, localsurfaces = NA, localDaily = NA)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes, and the surface matrix}

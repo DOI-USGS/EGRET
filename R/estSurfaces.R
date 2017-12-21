@@ -76,32 +76,32 @@ estSurfaces<-function(eList, surfaceStart=NA, surfaceEnd=NA, localDaily=NA, loca
   DecLow <- localDaily$DecYear[1]
   DecHigh <- localDaily$DecYear[numDays]
   
-  bottomLogQ<-min(localDaily$LogQ) - 0.05
-  topLogQ<-max(localDaily$LogQ) + 0.05
-  stepLogQ<-(topLogQ-bottomLogQ)/13
-  vectorLogQ<-seq(bottomLogQ,topLogQ,stepLogQ)
-  stepYear<-1/16
-  bottomYear<-floor(min(localDaily$DecYear))
-  topYear<-ceiling(max(localDaily$DecYear))
-  vectorYear<-seq(bottomYear,topYear,stepYear)
+  surfaceInfo <- surfaceIndex(localDaily)
+  vectorYear <- surfaceInfo[['vectorYear']]
+  vectorLogQ <- surfaceInfo[['vectorLogQ']]
+  
+  LogQ <- seq(surfaceInfo[['bottomLogQ']], by=surfaceInfo[['stepLogQ']], length.out=surfaceInfo[['nVectorLogQ']])
   
   if(is.na(surfaceStart) && is.na(surfaceEnd)){
-    
+
     nVectorYear<-length(vectorYear)
-    
     estPtYear<-rep(vectorYear,each=14)
     
-  } else {
-    decStart <- lubridate::decimal_date(as.Date(surfaceStart))
-    decEnd <- lubridate::decimal_date(as.Date(surfaceEnd))
+    Year <- seq(surfaceInfo[['bottomYear']], by=surfaceInfo[['stepYear']], length.out=surfaceInfo[['nVectorYear']])
     
-    vectorYear_slice_index <- which(vectorYear >= decStart & vectorYear <= decEnd)
+  } else {
+    DecLow <- lubridate::decimal_date(as.Date(surfaceStart))
+    DecHigh <- lubridate::decimal_date(as.Date(surfaceEnd))
+    
+    vectorYear_slice_index <- which(vectorYear >= DecLow & vectorYear <= DecHigh)
     vectorYear_slice <- vectorYear[c(vectorYear_slice_index[1]-1, vectorYear_slice_index, tail(vectorYear_slice_index, n = 1)+1)]
     
     nVectorYear <- length(vectorYear_slice)
-    estPtLogQ <- rep(vectorLogQ,nVectorYear)
     estPtYear <- rep(vectorYear_slice,each=14)
+    
+    Year <- vectorYear_slice
   }
+ 
   
   estPtLogQ<-rep(vectorLogQ,nVectorYear)
 
@@ -118,5 +118,9 @@ estSurfaces<-function(eList, surfaceStart=NA, surfaceEnd=NA, localDaily=NA, loca
     }
   }
 
+  attr(surfaces, "surfaceIndex") <- surfaceInfo
+  attr(surfaces, "LogQ") <- LogQ
+  attr(surfaces, "Year") <- Year
+  
   return(surfaces)
 }

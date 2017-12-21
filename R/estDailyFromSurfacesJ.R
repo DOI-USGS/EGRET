@@ -28,13 +28,13 @@
 #' \dontrun{
 #' Daily <- estDailyFromSurfaces(eList)
 #' }
-estDailyFromSurfaces <- function(eList, localsurfaces = NA) {
+estDailyFromSurfaces <- function(eList, localsurfaces = NA, localDaily = NA) {
 
-  localDaily <- getSurfaceEstimates(eList, localsurfaces=localsurfaces)
+  localDaily <- getSurfaceEstimates(eList, localsurfaces=localsurfaces, localDaily = localDaily)
   # Calculate "flow-normalized" concentration and flux:
   allLogQsByDayOfYear <- bin_Qs(localDaily)
   
-  concFlux_list <- getConcFluxFromSurface(eList, allLogQsByDayOfYear, localDaily, localsurfaces=localsurfaces)
+  concFlux_list <- getConcFluxFromSurface(eList, allLogQsByDayOfYear, localDaily = localDaily, localsurfaces=localsurfaces)
   
   # Finally bin the collective results by days (the decimal year), and calculate the desired means.
   localDaily$FNConc <-  as.numeric(tapply(concFlux_list[["allConcReplicated"]], concFlux_list[["allDatesReplicated"]], "mean"))
@@ -49,6 +49,7 @@ estDailyFromSurfaces <- function(eList, localsurfaces = NA) {
 #' @param Daily data frame
 #' 
 getConcFluxFromSurface <- function(eList, allLogQsByDayOfYear, localDaily, localsurfaces = NA){
+  
   localINFO <- getInfo(eList)
   
   if(all(is.na(localsurfaces))){
@@ -57,8 +58,17 @@ getConcFluxFromSurface <- function(eList, allLogQsByDayOfYear, localDaily, local
   
   # First argument in calls below is the "known" x-y-z surface, second argument is matrix of 
   # "target" x-y points.
-  LogQ <- seq(localINFO$bottomLogQ, by=localINFO$stepLogQ, length.out=localINFO$nVectorLogQ)
-  Year <- seq(localINFO$bottomYear, by=localINFO$stepYear, length.out=localINFO$nVectorYear)
+  if("LogQ" %in% names(attributes(localsurfaces))){
+    LogQ <- attr(localsurfaces, "LogQ")
+  } else {
+    LogQ <- seq(localINFO$bottomLogQ, by=localINFO$stepLogQ, length.out=localINFO$nVectorLogQ)
+  }
+  
+  if("Year" %in% names(attributes(localsurfaces))){
+    Year <- attr(localsurfaces, "Year")
+  } else {
+    Year <- seq(localINFO$bottomYear, by=localINFO$stepYear, length.out=localINFO$nVectorYear)
+  }
   
   # Using the above data structure as a "look-up" table, list all LogQ values that occured on every
   # day of the entire daily record. When "unlisted" into a vector, these will become the "x" values 
@@ -85,15 +95,29 @@ getConcFluxFromSurface <- function(eList, allLogQsByDayOfYear, localDaily, local
 #' 
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @return Daily dataframe with yHat, SE, ConcDay and FluxDay calulated
-getSurfaceEstimates <- function(eList, localsurfaces=NA){
-  localDaily <- getDaily(eList)
+getSurfaceEstimates <- function(eList, localsurfaces=NA, localDaily = NA){
+  
   localINFO <- getInfo(eList)
+  
+  if(all(is.na(localDaily))){
+    localDaily <- getDaily(eList)
+  } 
+  
   if(all(is.na(localsurfaces))){
     localsurfaces <- getSurfaces(eList)    
   }
 
-  LogQ <- seq(localINFO$bottomLogQ, by=localINFO$stepLogQ, length.out=localINFO$nVectorLogQ)
-  Year <- seq(localINFO$bottomYear, by=localINFO$stepYear, length.out=localINFO$nVectorYear)
+  if("LogQ" %in% names(attributes(localsurfaces))){
+    LogQ <- attr(localsurfaces, "LogQ")
+  } else {
+    LogQ <- seq(localINFO$bottomLogQ, by=localINFO$stepLogQ, length.out=localINFO$nVectorLogQ)
+  }
+  
+  if("Year" %in% names(attributes(localsurfaces))){
+    Year <- attr(localsurfaces, "Year")
+  } else {
+    Year <- seq(localINFO$bottomYear, by=localINFO$stepYear, length.out=localINFO$nVectorYear)
+  }
   
   localDaily$yHat <- fields::interp.surface(obj=list(x=LogQ,y=Year,z=localsurfaces[,,1]), 
                                     loc=data.frame(localDaily$LogQ, localDaily$DecYear))
