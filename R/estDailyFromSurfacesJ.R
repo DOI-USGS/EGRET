@@ -50,7 +50,7 @@ estDailyFromSurfaces <- function(eList, localsurfaces = NA, localDaily = NA) {
 #' 
 getConcFluxFromSurface <- function(eList, allLogQsByDayOfYear, localDaily, localsurfaces = NA){
   
-  localINFO <- getInfo(eList)
+  
   
   if(all(is.na(localsurfaces))){
     localsurfaces <- getSurfaces(eList)
@@ -61,12 +61,14 @@ getConcFluxFromSurface <- function(eList, allLogQsByDayOfYear, localDaily, local
   if("LogQ" %in% names(attributes(localsurfaces))){
     LogQ <- attr(localsurfaces, "LogQ")
   } else {
+    localINFO <- getInfo(eList)
     LogQ <- seq(localINFO$bottomLogQ, by=localINFO$stepLogQ, length.out=localINFO$nVectorLogQ)
   }
   
   if("Year" %in% names(attributes(localsurfaces))){
     Year <- attr(localsurfaces, "Year")
   } else {
+    localINFO <- getInfo(eList)
     Year <- seq(localINFO$bottomYear, by=localINFO$stepYear, length.out=localINFO$nVectorYear)
   }
   
@@ -97,8 +99,6 @@ getConcFluxFromSurface <- function(eList, allLogQsByDayOfYear, localDaily, local
 #' @return Daily dataframe with yHat, SE, ConcDay and FluxDay calulated
 getSurfaceEstimates <- function(eList, localsurfaces=NA, localDaily = NA){
   
-  localINFO <- getInfo(eList)
-  
   if(all(is.na(localDaily))){
     localDaily <- getDaily(eList)
   } 
@@ -110,12 +110,14 @@ getSurfaceEstimates <- function(eList, localsurfaces=NA, localDaily = NA){
   if("LogQ" %in% names(attributes(localsurfaces))){
     LogQ <- attr(localsurfaces, "LogQ")
   } else {
+    localINFO <- getInfo(eList)
     LogQ <- seq(localINFO$bottomLogQ, by=localINFO$stepLogQ, length.out=localINFO$nVectorLogQ)
   }
   
   if("Year" %in% names(attributes(localsurfaces))){
     Year <- attr(localsurfaces, "Year")
   } else {
+    localINFO <- getInfo(eList)
     Year <- seq(localINFO$bottomYear, by=localINFO$stepYear, length.out=localINFO$nVectorYear)
   }
   
