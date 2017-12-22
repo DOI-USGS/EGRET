@@ -146,23 +146,23 @@ test_that("bin_Qs",{
                c(1.041,0.425,1.118,0.830,1.773,-0.009))
 })
 
-test_that("flexFN",{
-  eList <- Choptank_eList
-  eList <- setUpEstimation(eList)
-  daily_1 <- eList$Daily
-  sampleSegStart <- c(1980,1985,2000)
-  flowSegStart <- c(1980,1990,2000)
-  flowSegEnd <- c(1990,2000,2010)
-  dateInfo <- data.frame(sampleSegStart, flowSegStart, flowSegEnd)
-  eList <- flexFN(eList, dateInfo)
-  daily_2 <- eList$Daily
-  expect_true(!identical(daily_1, daily_2))
-  expect_equal(round(head(daily_2$FNConc),3), 
-               c(0.999, 0.988, 0.965, 0.945, 0.970, 1.000))
-  expect_equal(round(head(daily_2$FNFlux),3), 
-               c(104.815, 107.577, 118.194, 130.000, 122.589, 110.149))
-  
-})
+# test_that("flexFN",{
+#   eList <- Choptank_eList
+#   eList <- setUpEstimation(eList)
+#   daily_1 <- eList$Daily
+#   sampleSegStart <- c(1980,1985,2000)
+#   flowSegStart <- c(1980,1990,2000)
+#   flowSegEnd <- c(1990,2000,2010)
+#   dateInfo <- data.frame(sampleSegStart, flowSegStart, flowSegEnd)
+#   eList <- flexFN(eList, dateInfo)
+#   daily_2 <- eList$Daily
+#   expect_true(!identical(daily_1, daily_2))
+#   expect_equal(round(head(daily_2$FNConc),3), 
+#                c(0.999, 0.988, 0.965, 0.945, 0.970, 1.000))
+#   expect_equal(round(head(daily_2$FNFlux),3), 
+#                c(104.815, 107.577, 118.194, 130.000, 122.589, 110.149))
+#   
+# })
 
 test_that("getConcFluxFromSurface",{
   

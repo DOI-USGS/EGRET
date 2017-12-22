@@ -314,38 +314,38 @@ test_that("flexPlotAddOn functions properly", {
   testthat::skip_on_cran()
   
   eList <- Choptank_eList
-  eList <- setUpEstimation(eList)
-  sampleSegStart <- c(1980,1985,2000)
-  flowSegStart <- c(1980,1990,2000)
-  flowSegEnd <- c(1990,2000,2010)
-  dateInfo <- data.frame(sampleSegStart, flowSegStart, flowSegEnd)
-  eList <- flexFN(eList, dateInfo)
-
-  graphics.off()
-  dev_start <- dev.cur()
-  expect_message(plotFluxHist(eList))
-  expect_silent(flexPlotAddOn(eList))
-  expect_true(dev_start + 1 == dev.cur())
-  
-  graphics.off()
-  dev_start <- dev.cur()
-  expect_message(plotFluxHist(eList))
-  expect_silent(flexPlotAddOn(eList, customPalette = 
-                                c("#02df77", "#dc28b2", "#2137a6")))
-  expect_true(dev_start + 1 == dev.cur())
-  
-  sampleSegStart <- seq(1980,2011)
-  flowSegStart <- seq(1980,2011)
-  flowSegEnd <- seq(1981,2012)
-  dateInfo <- data.frame(sampleSegStart, flowSegStart, flowSegEnd)
-  eList <- flexFN(eList, dateInfo)
-  
-  graphics.off()
-  dev_start <- dev.cur()
-  expect_message(plotFluxHist(eList))
-  expect_error(flexPlotAddOn(eList), 
-               "The number of segments exceed the length of the color palette. Supply custom palette of length 32")
-  expect_true(dev_start + 1 == dev.cur())
+  # eList <- setUpEstimation(eList)
+  # sampleSegStart <- c(1980,1985,2000)
+  # flowSegStart <- c(1980,1990,2000)
+  # flowSegEnd <- c(1990,2000,2010)
+  # dateInfo <- data.frame(sampleSegStart, flowSegStart, flowSegEnd)
+  # eList <- flexFN(eList, dateInfo)
+  # 
+  # graphics.off()
+  # dev_start <- dev.cur()
+  # expect_message(plotFluxHist(eList))
+  # expect_silent(flexPlotAddOn(eList))
+  # expect_true(dev_start + 1 == dev.cur())
+  # 
+  # graphics.off()
+  # dev_start <- dev.cur()
+  # expect_message(plotFluxHist(eList))
+  # expect_silent(flexPlotAddOn(eList, customPalette = 
+  #                               c("#02df77", "#dc28b2", "#2137a6")))
+  # expect_true(dev_start + 1 == dev.cur())
+  # 
+  # sampleSegStart <- seq(1980,2011)
+  # flowSegStart <- seq(1980,2011)
+  # flowSegEnd <- seq(1981,2012)
+  # dateInfo <- data.frame(sampleSegStart, flowSegStart, flowSegEnd)
+  # eList <- flexFN(eList, dateInfo)
+  # 
+  # graphics.off()
+  # dev_start <- dev.cur()
+  # expect_message(plotFluxHist(eList))
+  # expect_error(flexPlotAddOn(eList), 
+  #              "The number of segments exceed the length of the color palette. Supply custom palette of length 32")
+  # expect_true(dev_start + 1 == dev.cur())
   
   graphics.off()
   dev_start <- dev.cur()
