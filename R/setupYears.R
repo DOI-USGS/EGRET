@@ -19,9 +19,6 @@
 #' eList <- Choptank_eList
 #' Daily <- getDaily(eList)
 #' AnnualResults <- setupYears(Daily, 4, 10)
-#' flowNormYears <- c(1985:2002,2006:2010)
-#' temp_daily <- subFN(eList, flowNormYears = flowNormYears)
-#' AnnualResults_new <- setupYears(temp_daily)
 #' 
 #' 
 setupYears<-function(localDaily, paLong = 12, paStart = 10){
