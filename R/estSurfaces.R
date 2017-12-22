@@ -93,13 +93,12 @@ estSurfaces<-function(eList, surfaceStart=NA, surfaceEnd=NA, localDaily=NA, loca
     DecLow <- lubridate::decimal_date(as.Date(surfaceStart))
     DecHigh <- lubridate::decimal_date(as.Date(surfaceEnd))
     
-    vectorYear_slice_index <- which(vectorYear >= DecLow & vectorYear <= DecHigh)
-    vectorYear_slice <- vectorYear[c(vectorYear_slice_index[1]-1, vectorYear_slice_index, tail(vectorYear_slice_index, n = 1)+1)]
+    sliceIndex <- which(vectorYear >= DecLow & vectorYear <= DecHigh)
+    Year <- vectorYear[c(sliceIndex[1]-1, sliceIndex, tail(sliceIndex, n = 1)+1)]
     
-    nVectorYear <- length(vectorYear_slice)
-    estPtYear <- rep(vectorYear_slice,each=14)
-    
-    Year <- vectorYear_slice
+    nVectorYear <- length(Year)
+    estPtYear <- rep(Year,each=14)
+
   }
  
   

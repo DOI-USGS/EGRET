@@ -54,7 +54,7 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
   FNConc<-rep(NA,numYears)
   FNFlux<-rep(NA,numYears)
   Flux_sum <- rep(NA,numYears)
-  FN_Flux_sum <- rep(NA,numYears)
+  FNFlux_sum <- rep(NA,numYears)
   
   for(i in 1:numYears) {
     
@@ -80,13 +80,13 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
       FNConc[i] <- mean(DailyYear$FNConc,na.rm=TRUE)# else NA
       FNFlux[i] <- mean(DailyYear$FNFlux,na.rm=TRUE)# else NA
       Flux_sum[i] <- sum(DailyYear$FluxDay,na.rm=TRUE)
-      FN_Flux_sum[i] <- sum(DailyYear$FNFlux,na.rm=TRUE)
+      FNFlux_sum[i] <- sum(DailyYear$FNFlux,na.rm=TRUE)
     }
   }
   #  create two more variables that just report paStart and paLong
   #    needed later to verify the period of analysis used in the Annual Results summary
   PeriodStart<-rep(paStart,numYears)
   PeriodLong<-rep(paLong,numYears)
-  AnnualResults<-data.frame(DecYear,Q,Conc,Flux,FNConc,FNFlux,PeriodLong,PeriodStart,Flux_sum,FN_Flux_sum)
+  AnnualResults<-data.frame(DecYear,Q,Conc,Flux,FNConc,FNFlux,PeriodLong,PeriodStart,Flux_sum,FNFlux_sum)
   return(AnnualResults)		
 }

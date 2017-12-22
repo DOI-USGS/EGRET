@@ -50,10 +50,12 @@ mergeReport<-function(INFO, Daily, Sample, surfaces=NA, verbose = TRUE, interact
     message("Please double check that the INFO dataframe is correctly defined.")
   }
   
-  if(!is.na(surfaces) && 14 == nrow(surfaces)){
-    message("Please double check that the surfaces matrix is correctly defined.")
+  if(all(!is.na(surfaces))){
+    if(!isTRUE(dim(surfaces)[3] == 3 && dim(surfaces)[1] == 14)){
+      message("Please double check that the surfaces matrix is correctly defined.")
+    }    
   }
-  
+
   if(!all(is.na(Sample)) & !all(is.na(Daily))){
     if(all(c("Q","LogQ") %in% names(Sample))){
       if(all(c("yHat","SE","ConcHat") %in% names(Sample))){

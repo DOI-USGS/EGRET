@@ -4,10 +4,10 @@
 \alias{bin_Qs}
 \title{bin_Qs}
 \usage{
-bin_Qs(Daily)
+bin_Qs(localDaily)
 }
 \arguments{
-\item{Daily}{data frame}
+\item{localDaily}{data frame}
 }
 \description{
 Bin the LogQ values by day-of-year.

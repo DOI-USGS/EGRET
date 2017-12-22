@@ -6,8 +6,6 @@
 #' @param eList named list with at least Daily and INFO dataframes
 #' @param qUnit object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param fluxUnit object of fluxUnit class. \code{\link{printFluxUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name. 
-#' @param flowNormYears vector of flow years
-#' @param waterYear logical. Should years be water years (\code{TRUE}) or calendar years (\code{FALSE})
 #' @return results dataframe, if returnDataFrame=TRUE
 #' @keywords water-quality statistics
 #' @export
@@ -24,8 +22,7 @@
 #' eList <- setPA(eList, paLong=3,paStart=12)
 #' tableResults(eList, fluxUnit = 1)
 #' }
-tableResults<-function(eList, qUnit = 2, fluxUnit = 9, flowNormYears = "all", 
-                       waterYear = TRUE) {
+tableResults<-function(eList, qUnit = 2, fluxUnit = 9) {
   
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
@@ -38,7 +35,6 @@ tableResults<-function(eList, qUnit = 2, fluxUnit = 9, flowNormYears = "all",
     paStart <- 10
   }
   
-  localDaily <- subFN(eList = eList, flowNormYears = flowNormYears, waterYear = waterYear)
   localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
   
   ################################################################################

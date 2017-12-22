@@ -6,6 +6,7 @@
 #'
 #' @param eList named list with at least the Daily and INFO dataframes, and the surface matrix
 #' @param localsurfaces surface over-riding the one stored in eList
+#' @param localDaily data frame
 #' @keywords water-quality statistics
 #' @return egret object with altered Daily dataframe
 #' @export
@@ -45,12 +46,12 @@ estDailyFromSurfaces <- function(eList, localsurfaces = NA, localDaily = NA) {
 
 #' getConcFluxFromSurface
 #' 
+#' @param eList
 #' @param allLogQsByDayOfYear
-#' @param Daily data frame
+#' @param localDaily data frame
+#' @param localsurfaces
 #' 
 getConcFluxFromSurface <- function(eList, allLogQsByDayOfYear, localDaily, localsurfaces = NA){
-  
-  
   
   if(all(is.na(localsurfaces))){
     localsurfaces <- getSurfaces(eList)
@@ -96,6 +97,8 @@ getConcFluxFromSurface <- function(eList, allLogQsByDayOfYear, localDaily, local
 #' getSurfaceEstimates
 #' 
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
+#' @param localsurfaces
+#' @param localDaily data frame
 #' @return Daily dataframe with yHat, SE, ConcDay and FluxDay calulated
 getSurfaceEstimates <- function(eList, localsurfaces=NA, localDaily = NA){
   
@@ -135,11 +138,11 @@ getSurfaceEstimates <- function(eList, localsurfaces=NA, localDaily = NA){
 #' bin_Qs
 #' 
 #' Bin the LogQ values by day-of-year.
-#' @param Daily data frame
+#' @param localDaily data frame
 #' 
-bin_Qs <- function(Daily){
+bin_Qs <- function(localDaily){
 
-  allLogQsByDayOfYear <- split(Daily$LogQ, Daily$Day)
+  allLogQsByDayOfYear <- split(localDaily$LogQ, localDaily$Day)
   
   allLogQsByDayOfYear[['59']] <- c(unlist(allLogQsByDayOfYear['59']),   # Bob's convention
                                    unlist(allLogQsByDayOfYear['60']))

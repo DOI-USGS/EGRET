@@ -10,6 +10,8 @@ estDailyFromSurfaces(eList, localsurfaces = NA, localDaily = NA)
 \item{eList}{named list with at least the Daily and INFO dataframes, and the surface matrix}
 
 \item{localsurfaces}{surface over-riding the one stored in eList}
+
+\item{localDaily}{data frame}
 }
 \value{
 egret object with altered Daily dataframe

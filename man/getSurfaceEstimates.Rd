@@ -8,6 +8,8 @@ getSurfaceEstimates(eList, localsurfaces = NA, localDaily = NA)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
+
+\item{localDaily}{data frame}
 }
 \value{
 Daily dataframe with yHat, SE, ConcDay and FluxDay calulated

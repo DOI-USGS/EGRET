@@ -14,8 +14,6 @@
 #' @param yearStart numeric is the calendar year containing the first estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)
 #' @param yearEnd numeric is the calendar year just after the last estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)
 #' @param eList named list with at least the Daily and INFO dataframes
-#' @param concMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
-#' @param flowNormYears vector of flow years
 #' @param waterYear logical. Should years be water years (\code{TRUE}) or calendar years (\code{FALSE})
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
 #' @param plotFlowNorm logical variable if TRUE flow normalized line is plotted, if FALSE not plotted 
@@ -42,24 +40,7 @@
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' plotConcHist(eList)
-#' \dontrun{
-#' flowNormYears <- c(1985:2002,2006:2010)
-#' plotConcHist(eList, flowNormYears=flowNormYears)
-#' 
-#' #Alternative:
-#' sampleSegStart <- c(1980,1985,2000)
-#' flowSegStart <- c(1980,1990,2000)
-#' flowSegEnd <- c(1990,2000,2010)
-#' dateInfo <- data.frame(sampleSegStart,
-#'                        flowSegStart,
-#'                        flowSegEnd)
-#' eList1 <- flexFN(eList, dateInfo)
-#' plotConcHist(eList1)  
-#' flexPlotAddOn(eList1)
-#' 
-#' }
 plotConcHist<-function(eList, yearStart = NA, yearEnd = NA, 
-                       flowNormYears = "all", waterYear = TRUE,
                        concMax = NA, printTitle = TRUE, 
                        tinyPlot = FALSE,plotFlowNorm = TRUE,
                         cex=0.8, cex.axis=1.1,cex.main=1.1, 
@@ -79,14 +60,7 @@ plotConcHist<-function(eList, yearStart = NA, yearEnd = NA,
   if(!all((c("SE","yHat") %in% names(eList$Sample)))){
     stop("This function requires running modelEstimation on eList")
   }
-  
-  if(is.null(attr(eList$INFO,"segmentInfo"))){
-    localDaily <- subFN(eList = eList, flowNormYears = flowNormYears, waterYear = waterYear)
-  } else {
-    localDaily <- eList$Daily
-    message("Plotting flow-normalized concentration based on results of flexFN")
-  }
-  
+
   localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
   
   periodName<-setSeasonLabel(localAnnualResults=localAnnualResults)

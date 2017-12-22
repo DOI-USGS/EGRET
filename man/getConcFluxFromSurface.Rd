@@ -8,7 +8,9 @@ getConcFluxFromSurface(eList, allLogQsByDayOfYear, localDaily,
   localsurfaces = NA)
 }
 \arguments{
-\item{Daily}{data frame}
+\item{localDaily}{data frame}
+
+\item{localsurfaces}{}
 }
 \description{
 getConcFluxFromSurface

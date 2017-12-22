@@ -120,12 +120,12 @@ setUpEstimation<-function(eList,
   DecHigh <- localDaily$DecYear[numDays]
     
   surfaceIndexParameters<-surfaceIndex(localDaily)
-  localINFO$bottomLogQ<-surfaceIndexParameters[1]
-  localINFO$stepLogQ<-surfaceIndexParameters[2]
-  localINFO$nVectorLogQ<-surfaceIndexParameters[3]
-  localINFO$bottomYear<-surfaceIndexParameters[4]
-  localINFO$stepYear<-surfaceIndexParameters[5]
-  localINFO$nVectorYear<-surfaceIndexParameters[6]
+  localINFO$bottomLogQ<-surfaceIndexParameters[['bottomLogQ']]
+  localINFO$stepLogQ<-surfaceIndexParameters[['stepLogQ']]
+  localINFO$nVectorLogQ<-surfaceIndexParameters[['nVectorLogQ']]
+  localINFO$bottomYear<-surfaceIndexParameters[['bottomYear']]
+  localINFO$stepYear<-surfaceIndexParameters[['stepYear']]
+  localINFO$nVectorYear<-surfaceIndexParameters[['nVectorYear']]
   localINFO$windowY<-windowY
   localINFO$windowQ<-windowQ
   localINFO$windowS<-windowS
