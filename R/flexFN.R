@@ -1,23 +1,37 @@
 #' Flexible Flow Normalization
 #' 
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
-#' @param dateInfo data frame with 4 columns, their names defined by sampleStart, sampleEnd, flowStart, flowEnd
-#' @param sampleStart integer vector of start years (water) for each FN conc/flux segment
-#' @param flowStart integer vector of start years (water) for flow normalization
-#' @param flowEnd integer vector of end years (water) for flow normalization
+#' @param dateInfo data frame with 6 columns. The column names and descriptions are described in the next set of arguments
+#' @param sampleStartCol character, name of the column in dateInfo that starts the segment
+#' for the sample data
+#' @param sampleEndCol character, name of the column in dateInfo that ends the segment
+#' for the sample data
+#' @param flowNormStartCol character, name of the column in dateInfo that starts the segment
+#' for the flow normalization
+#' @param flowNormEndCol character, name of the column in dateInfo that ends the segment
+#' for the flow normalization
+#' @param flowStartCol character, name of the column in dateInfo that starts the segment
+#' for the portion of the flow to be populated with flow-normalized values.
+#' @param flowEndCol character, name of the column in dateInfo that ends the segment
+#' for the portion of the flow to be populated with flow-normalized values.
 #' @export
 #' @importFrom dataRetrieval calcWaterYear
 #' @examples
 #' eList <- Choptank_eList
 #' eList <- setUpEstimation(eList)
-#' sampleStart <- c("1980-01-01","1990-01-01","2000-01-01")
-#' sampleEnd <- c("1995-06-06","2002-09-30","2011-02-01")
-#' flowStart <- c("1980-02-01","1985-06-01","1992-10-10")
-#' flowEnd <- c("1994-06-15","2004-03-03","2009-03-15")
+#' sampleStart <- c("1979-10-01","1995-06-07","2003-10-01")
+#' sampleEnd <- c("1995-06-06","2002-09-30","2011-09-29")
+#' flowNormStart <- c("1979-10-01","1990-01-01","1992-10-10")
+#' flowNormEnd <- c("1995-06-06","2004-03-03","2011-09-29")
+#' flowStart <- c("1979-10-01","1995-06-07","2004-03-04")
+#' flowEnd <- c("1995-06-06","2004-03-03","2011-09-29") 
 #' dateInfo <- data.frame(sampleStart,
 #'                        sampleEnd,
+#'                        flowNormStart,
+#'                        flowNormEnd,
 #'                        flowStart, 
-#'                        flowEnd, stringsAsFactors = FALSE)
+#'                        flowEnd, 
+#'                        stringsAsFactors = FALSE)
 #' \dontrun{
 #' newEList <- flexFN(eList, dateInfo)
 #' plotFluxHist(newEList)
@@ -25,6 +39,7 @@
 #' }
 flexFN <- function(eList, dateInfo, 
                    sampleStartCol="sampleStart", sampleEndCol="sampleEnd",
+                   flowNormStartCol = "flowNormStart", flowNormEndCol = "flowNormEnd",
                    flowStartCol="flowStart", flowEndCol="flowEnd"){
   
   localDaily <- getDaily(eList)
@@ -46,16 +61,18 @@ flexFN <- function(eList, dateInfo,
                               surfaceEnd = dateInfo[[sampleEndCol]][seg],
                               localSample = segSample)
     
-    segIndex <- which(localDaily$Date >= as.Date(dateInfo[[flowStartCol]][seg]) & 
+    flowIndex <- which(localDaily$Date >= as.Date(dateInfo[[flowStartCol]][seg]) & 
                         localDaily$Date <= as.Date(dateInfo[[flowEndCol]][seg]))
+
+    flowNormIndex <- which(localDaily$Date >= as.Date(dateInfo[[flowNormStartCol]][seg]) & 
+                             localDaily$Date <= as.Date(dateInfo[[flowNormEndCol]][seg]))
     
-    DailySeg <- localDaily[segIndex,]
-    DailySeg <- estDailyFromSurfaces(eList, localsurfaces = surfaceSeg, localDaily = DailySeg)
+    DailySeg <- estDailyFromSurfaces(eList, localsurfaces = surfaceSeg, localDaily = localDaily[flowNormIndex,])
     
     surfaceList[[seg]] <- surfaceSeg
     
-    localDaily$FNConc[segIndex[!is.na(DailySeg$FNConc)]] <- DailySeg$FNConc[!is.na(DailySeg$FNConc)]
-    localDaily$FNFlux[segIndex[!is.na(DailySeg$FNConc)]] <- DailySeg$FNFlux[!is.na(DailySeg$FNFlux)]
+    localDaily$FNConc[flowIndex] <- DailySeg$FNConc[which(flowNormIndex %in% flowIndex)]
+    localDaily$FNFlux[flowIndex] <- DailySeg$FNFlux[which(flowNormIndex %in% flowIndex)]
   }
   
   INFO <- eList$INFO
@@ -67,6 +84,8 @@ flexFN <- function(eList, dateInfo,
   names(dateInfo)[names(dateInfo) == sampleEndCol] <- "sampleEnd"
   names(dateInfo)[names(dateInfo) == flowStartCol] <- "flowStart"
   names(dateInfo)[names(dateInfo) == flowEndCol] <- "flowEnd"
+  names(dateInfo)[names(dateInfo) == flowNormStartCol] <- "flowNormStart"
+  names(dateInfo)[names(dateInfo) == flowNormEndCol] <- "flowNormEnd"
   
   attr(INFO,"segmentInfo") <- dateInfo
   
@@ -91,23 +110,29 @@ flexFN <- function(eList, dateInfo,
 #' @examples
 #' eList <- Choptank_eList
 #' eList <- setUpEstimation(eList)
-#' sampleStart <- c("1980-01-01","1990-01-01","2000-01-01")
-#' sampleEnd <- c("1995-06-06","2002-09-30","2011-02-01")
-#' flowStart <- c("1980-02-01","1985-06-01","1992-10-10")
-#' flowEnd <- c("1994-06-15","2004-03-03","2011-02-01")
+#' sampleStart <- c("1979-10-01","1995-06-07","2002-10-01")
+#' sampleEnd <- c("1995-06-06","2002-09-30","2011-09-29")
+#' flowNormStart <- c("1979-10-01","1990-01-01","1992-10-10")
+#' flowNormEnd <- c("1995-06-06","2004-03-03","2011-09-29")
+#' flowStart <- c("1979-10-01","1995-06-07","2004-03-04")
+#' flowEnd <- c("1995-06-06","2004-03-03","2011-09-29") 
 #' dateInfo <- data.frame(sampleStart,
 #'                        sampleEnd,
+#'                        flowNormStart,
+#'                        flowNormEnd,
 #'                        flowStart, 
-#'                        flowEnd, stringsAsFactors = FALSE)
+#'                        flowEnd, 
+#'                        stringsAsFactors = FALSE)
 #' \dontrun{
 #' newEList <- flexFN(eList, dateInfo)
 #' plotFluxHist(newEList)
 #' flexPlotAddOn(newEList)
 #' 
 #' plotFluxHist(newEList)
-#' flexPlotAddOn(eList, customPalette=c("#d5ce48", "#fd300f", "#3e0289"))
+#' flexPlotAddOn(newEList, customPalette=c("#d5ce48", "#fd300f", "#3e0289"))
 #' }
 flexPlotAddOn <- function(eList, showArrows = TRUE, showRect = TRUE, customPalette = NULL){
+  
   if('segmentInfo' %in% names(attributes(eList$INFO))){
     segmentINFO <- attr(eList$INFO, "segmentInfo")
     
@@ -145,8 +170,8 @@ flexPlotAddOn <- function(eList, showArrows = TRUE, showRect = TRUE, customPalet
       }
       
       if(showArrows){
-        arrows(segmentINFO$flowStart[i], arrowYs[i], 
-               segmentINFO$flowEnd[i]+1, arrowYs[i], code=3)
+        arrows(segmentINFO$flowNormStart[i], arrowYs[i], 
+               segmentINFO$flowNormEnd[i]+1, arrowYs[i], code=3)
       }
     }
     
