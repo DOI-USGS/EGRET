@@ -16,6 +16,8 @@ plotConcHist(eList, yearStart = NA, yearEnd = NA, concMax = NA,
 
 \item{yearEnd}{numeric is the calendar year just after the last estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)}
 
+\item{concMax}{numeric. Maximum value of concentration to be plotted.}
+
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)}
 
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE}
@@ -38,8 +40,6 @@ plotConcHist(eList, yearStart = NA, yearEnd = NA, concMax = NA,
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
-
-\item{waterYear}{logical. Should years be water years (\code{TRUE}) or calendar years (\code{FALSE})}
 }
 \description{
 Data come from named list, which contains a Daily dataframe with the daily flow data,

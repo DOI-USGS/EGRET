@@ -23,20 +23,25 @@ Flexible Flow Normalization Plot Add On
 \examples{
 eList <- Choptank_eList
 eList <- setUpEstimation(eList)
-sampleStart <- c("1980-01-01","1990-01-01","2000-01-01")
-sampleEnd <- c("1995-06-06","2002-09-30","2011-02-01")
-flowStart <- c("1980-02-01","1985-06-01","1992-10-10")
-flowEnd <- c("1994-06-15","2004-03-03","2011-02-01")
+sampleStart <- c("1979-10-01","1995-06-07","2002-10-01")
+sampleEnd <- c("1995-06-06","2002-09-30","2011-09-29")
+flowNormStart <- c("1979-10-01","1990-01-01","1992-10-10")
+flowNormEnd <- c("1995-06-06","2004-03-03","2011-09-29")
+flowStart <- c("1979-10-01","1995-06-07","2004-03-04")
+flowEnd <- c("1995-06-06","2004-03-03","2011-09-29") 
 dateInfo <- data.frame(sampleStart,
                        sampleEnd,
+                       flowNormStart,
+                       flowNormEnd,
                        flowStart, 
-                       flowEnd, stringsAsFactors = FALSE)
+                       flowEnd, 
+                       stringsAsFactors = FALSE)
 \dontrun{
 newEList <- flexFN(eList, dateInfo)
 plotFluxHist(newEList)
 flexPlotAddOn(newEList)
 
 plotFluxHist(newEList)
-flexPlotAddOn(eList, customPalette=c("#d5ce48", "#fd300f", "#3e0289"))
+flexPlotAddOn(newEList, customPalette=c("#d5ce48", "#fd300f", "#3e0289"))
 }
 }

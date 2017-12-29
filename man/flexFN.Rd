@@ -5,19 +5,32 @@
 \title{Flexible Flow Normalization}
 \usage{
 flexFN(eList, dateInfo, sampleStartCol = "sampleStart",
-  sampleEndCol = "sampleEnd", flowStartCol = "flowStart",
+  sampleEndCol = "sampleEnd", flowNormStartCol = "flowNormStart",
+  flowNormEndCol = "flowNormEnd", flowStartCol = "flowStart",
   flowEndCol = "flowEnd")
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
 
-\item{dateInfo}{data frame with 4 columns, their names defined by sampleStart, sampleEnd, flowStart, flowEnd}
+\item{dateInfo}{data frame with 6 columns. The column names and descriptions are described in the next set of arguments}
 
-\item{sampleStart}{integer vector of start years (water) for each FN conc/flux segment}
+\item{sampleStartCol}{character, name of the column in dateInfo that starts the segment
+for the sample data}
 
-\item{flowStart}{integer vector of start years (water) for flow normalization}
+\item{sampleEndCol}{character, name of the column in dateInfo that ends the segment
+for the sample data}
 
-\item{flowEnd}{integer vector of end years (water) for flow normalization}
+\item{flowNormStartCol}{character, name of the column in dateInfo that starts the segment
+for the flow normalization}
+
+\item{flowNormEndCol}{character, name of the column in dateInfo that ends the segment
+for the flow normalization}
+
+\item{flowStartCol}{character, name of the column in dateInfo that starts the segment
+for the portion of the flow to be populated with flow-normalized values.}
+
+\item{flowEndCol}{character, name of the column in dateInfo that ends the segment
+for the portion of the flow to be populated with flow-normalized values.}
 }
 \description{
 Flexible Flow Normalization
@@ -25,14 +38,19 @@ Flexible Flow Normalization
 \examples{
 eList <- Choptank_eList
 eList <- setUpEstimation(eList)
-sampleStart <- c("1980-01-01","1990-01-01","2000-01-01")
-sampleEnd <- c("1995-06-06","2002-09-30","2011-02-01")
-flowStart <- c("1980-02-01","1985-06-01","1992-10-10")
-flowEnd <- c("1994-06-15","2004-03-03","2009-03-15")
+sampleStart <- c("1979-10-01","1995-06-07","2003-10-01")
+sampleEnd <- c("1995-06-06","2002-09-30","2011-09-29")
+flowNormStart <- c("1979-10-01","1990-01-01","1992-10-10")
+flowNormEnd <- c("1995-06-06","2004-03-03","2011-09-29")
+flowStart <- c("1979-10-01","1995-06-07","2004-03-04")
+flowEnd <- c("1995-06-06","2004-03-03","2011-09-29") 
 dateInfo <- data.frame(sampleStart,
                        sampleEnd,
+                       flowNormStart,
+                       flowNormEnd,
                        flowStart, 
-                       flowEnd, stringsAsFactors = FALSE)
+                       flowEnd, 
+                       stringsAsFactors = FALSE)
 \dontrun{
 newEList <- flexFN(eList, dateInfo)
 plotFluxHist(newEList)

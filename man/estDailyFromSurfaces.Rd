@@ -2,24 +2,44 @@
 % Please edit documentation in R/estDailyFromSurfacesJ.R
 \name{estDailyFromSurfaces}
 \alias{estDailyFromSurfaces}
+\alias{getConcFluxFromSurface}
+\alias{getSurfaceEstimates}
+\alias{bin_Qs}
 \title{Estimates all daily values of Concentration, Flux, Flow-Normalized Concentration, and Flow Normalized Flux}
 \usage{
 estDailyFromSurfaces(eList, localsurfaces = NA, localDaily = NA)
+
+getConcFluxFromSurface(eList, allLogQsByDayOfYear, localDaily,
+  localsurfaces = NA)
+
+getSurfaceEstimates(eList, localsurfaces = NA, localDaily = NA)
+
+bin_Qs(localDaily)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes, and the surface matrix}
 
 \item{localsurfaces}{surface over-riding the one stored in eList}
 
-\item{localDaily}{data frame}
+\item{localDaily}{data frame to override eList$Daily}
+
+\item{allLogQsByDayOfYear}{list}
 }
 \value{
 egret object with altered Daily dataframe
+
+Daily dataframe with yHat, SE, ConcDay and FluxDay calulated
 }
 \description{
 Uses the surfaces estimated in estSurfaces to estimate these four time series
    in addition to the time series for standard error and yHat (estimated log concentration). 
    The results are stored in an augmented version of the Daily data frame, which is returned as part of an EGRET object.
+
+getConcFluxFromSurface
+
+getSurfaceEstimates
+
+Bin the LogQ values by day-of-year.
 }
 \examples{
 eList <- Choptank_eList
