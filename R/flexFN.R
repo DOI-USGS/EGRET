@@ -2,10 +2,7 @@
 #' 
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param dateInfo data frame with 6 columns. The column names and descriptions are described in the next set of arguments
-#' @param sampleStartCol character, name of the column in dateInfo that starts the segment
-#' for the sample data
-#' @param sampleEndCol character, name of the column in dateInfo that ends the segment
-#' for the sample data
+#' @param localsurfaces surface over-riding the one stored in eList
 #' @param flowNormStartCol character, name of the column in dateInfo that starts the segment
 #' for the flow normalization
 #' @param flowNormEndCol character, name of the column in dateInfo that ends the segment
@@ -19,15 +16,11 @@
 #' @examples
 #' eList <- Choptank_eList
 #' eList <- setUpEstimation(eList)
-#' sampleStart <- c("1979-10-01","1995-06-07","2003-10-01")
-#' sampleEnd <- c("1995-06-06","2002-09-30","2011-09-29")
 #' flowNormStart <- c("1979-10-01","1990-01-01","1992-10-10")
 #' flowNormEnd <- c("1995-06-06","2004-03-03","2011-09-29")
 #' flowStart <- c("1979-10-01","1995-06-07","2004-03-04")
 #' flowEnd <- c("1995-06-06","2004-03-03","2011-09-29") 
-#' dateInfo <- data.frame(sampleStart,
-#'                        sampleEnd,
-#'                        flowNormStart,
+#' dateInfo <- data.frame(flowNormStart,
 #'                        flowNormEnd,
 #'                        flowStart, 
 #'                        flowEnd, 
@@ -37,39 +30,28 @@
 #' plotFluxHist(newEList)
 #' flexPlotAddOn(newEList)
 #' }
-flexFN <- function(eList, dateInfo, 
-                   sampleStartCol="sampleStart", sampleEndCol="sampleEnd",
+flexFN <- function(eList, dateInfo, localsurfaces = NA,
                    flowNormStartCol = "flowNormStart", flowNormEndCol = "flowNormEnd",
                    flowStartCol="flowStart", flowEndCol="flowEnd"){
   
   localDaily <- getDaily(eList)
-  localSample <- getSample(eList)
   
   localDaily$FNConc <- NA
   localDaily$FNFlux <- NA
   
-  surfaceList <- list()
-  
+  if(all(is.na(localsurfaces))){
+    localsurfaces <- getSurfaces(eList)    
+  }
+
   for(seg in seq_len(nrow(dateInfo))){
-    
-    segSampleIndex <- which(localSample$Date >= as.Date(dateInfo[[sampleStartCol]][seg]) & 
-                              localSample$Date <= as.Date(dateInfo[[sampleEndCol]][seg]))
-    segSample <- localSample[segSampleIndex,]
-    
-    surfaceSeg <- estSurfaces(eList, 
-                              surfaceStart = dateInfo[[sampleStartCol]][seg], 
-                              surfaceEnd = dateInfo[[sampleEndCol]][seg],
-                              localSample = segSample)
-    
+
     flowIndex <- which(localDaily$Date >= as.Date(dateInfo[[flowStartCol]][seg]) & 
                         localDaily$Date <= as.Date(dateInfo[[flowEndCol]][seg]))
 
     flowNormIndex <- which(localDaily$Date >= as.Date(dateInfo[[flowNormStartCol]][seg]) & 
                              localDaily$Date <= as.Date(dateInfo[[flowNormEndCol]][seg]))
     
-    DailySeg <- estDailyFromSurfaces(eList, localsurfaces = surfaceSeg, localDaily = localDaily[flowNormIndex,])
-    
-    surfaceList[[seg]] <- surfaceSeg
+    DailySeg <- estDailyFromSurfaces(eList, localsurfaces = localsurfaces, localDaily = localDaily[flowNormIndex,])
     
     localDaily$FNConc[flowIndex] <- DailySeg$FNConc[which(flowNormIndex %in% flowIndex)]
     localDaily$FNFlux[flowIndex] <- DailySeg$FNFlux[which(flowNormIndex %in% flowIndex)]
@@ -80,8 +62,6 @@ flexFN <- function(eList, dateInfo,
   INFO$nSegments <- nrow(dateInfo)
   
   #Rename dateInfo cols so that they are internally consistent now:
-  names(dateInfo)[names(dateInfo) == sampleStartCol] <- "sampleStart"
-  names(dateInfo)[names(dateInfo) == sampleEndCol] <- "sampleEnd"
   names(dateInfo)[names(dateInfo) == flowStartCol] <- "flowStart"
   names(dateInfo)[names(dateInfo) == flowEndCol] <- "flowEnd"
   names(dateInfo)[names(dateInfo) == flowNormStartCol] <- "flowNormStart"
@@ -89,8 +69,7 @@ flexFN <- function(eList, dateInfo,
   
   attr(INFO,"segmentInfo") <- dateInfo
   
-  newList <- as.egret(INFO,localDaily,eList$Sample,NA)
-  attr(newList, "surfaceLists") <- surfaceList
+  newList <- as.egret(INFO,localDaily,eList$Sample,localsurfaces)
   
   return(newList)
   
@@ -110,15 +89,11 @@ flexFN <- function(eList, dateInfo,
 #' @examples
 #' eList <- Choptank_eList
 #' eList <- setUpEstimation(eList)
-#' sampleStart <- c("1979-10-01","1995-06-07","2002-10-01")
-#' sampleEnd <- c("1995-06-06","2002-09-30","2011-09-29")
 #' flowNormStart <- c("1979-10-01","1990-01-01","1992-10-10")
 #' flowNormEnd <- c("1995-06-06","2004-03-03","2011-09-29")
 #' flowStart <- c("1979-10-01","1995-06-07","2004-03-04")
 #' flowEnd <- c("1995-06-06","2004-03-03","2011-09-29") 
-#' dateInfo <- data.frame(sampleStart,
-#'                        sampleEnd,
-#'                        flowNormStart,
+#' dateInfo <- data.frame(flowNormStart,
 #'                        flowNormEnd,
 #'                        flowStart, 
 #'                        flowEnd, 
@@ -164,8 +139,8 @@ flexPlotAddOn <- function(eList, showArrows = TRUE, showRect = TRUE, customPalet
     for(i in seq_len(nrow(segmentINFO))){
       
       if(showRect){
-        rect(segmentINFO$sampleStart[i], par()$usr[3], 
-             segmentINFO$sampleEnd[i], par()$usr[4],
+        rect(segmentINFO$flowStart[i], par()$usr[3], 
+             segmentINFO$flowEnd[i], par()$usr[4],
              col= paste0(colors[i],"50"))         
       }
       
