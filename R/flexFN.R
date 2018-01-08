@@ -1,7 +1,7 @@
 #' Flexible Flow Normalization
 #' 
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
-#' @param dateInfo data frame with 6 columns. The column names and descriptions are described in the next set of arguments
+#' @param dateInfo data frame with 4 columns. The column names and descriptions are described in the next set of arguments
 #' @param localsurfaces surface over-riding the one stored in eList
 #' @param flowNormStartCol character, name of the column in dateInfo that starts the segment
 #' for the flow normalization
