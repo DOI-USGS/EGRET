@@ -29,6 +29,10 @@
 #' newEList <- flexFN(eList, dateInfo)
 #' plotFluxHist(newEList)
 #' flexPlotAddOn(newEList)
+#' 
+#' wallSurface <- estSurfaces(eList, localSample = eList$Sample[1:500,])
+#' wallEList <- flexFN(eList, dateInfo, localsurface = wallSurface)
+#' plotFluxHist(wallEList)
 #' }
 flexFN <- function(eList, dateInfo, localsurfaces = NA,
                    flowNormStartCol = "flowNormStart", flowNormEndCol = "flowNormEnd",
