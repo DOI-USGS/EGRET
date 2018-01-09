@@ -19,12 +19,12 @@
 #' Daily <- getDaily(eList)
 #' surfaceIndexParameters<-surfaceIndex(Daily)
 #' INFO <- eList$INFO
-#' INFO$bottomLogQ<-surfaceIndexParameters[1]
-#' INFO$stepLogQ<-surfaceIndexParameters[2]
-#' INFO$nVectorLogQ<-surfaceIndexParameters[3]
-#' INFO$bottomYear<-surfaceIndexParameters[4]
-#' INFO$stepYear<-surfaceIndexParameters[5]
-#' INFO$nVectorYear<-surfaceIndexParameters[6]
+#' INFO$bottomLogQ<-surfaceIndexParameters[['bottomLogQ']]
+#' INFO$stepLogQ<-surfaceIndexParameters[['stepLogQ']]
+#' INFO$nVectorLogQ<-surfaceIndexParameters[['nVectorLogQ']]
+#' INFO$bottomYear<-surfaceIndexParameters[['bottomYear']]
+#' INFO$stepYear<-surfaceIndexParameters[['stepYear']]
+#' INFO$nVectorYear<-surfaceIndexParameters[['nVectorYear']]
 #' eList$INFO <- INFO
 #' #################################################
 #' \dontrun{
