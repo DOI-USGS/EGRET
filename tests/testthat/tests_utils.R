@@ -386,3 +386,31 @@ test_that("mergeReport",{
                c(3.200,2.973,2.945,10.902,3.228,6.371))
 
 })
+
+test_that("startEnd",{
+  
+  paStart <- 10
+  paLong <- 12
+  year <- 2000
+  firstLast <- startEnd(paStart, paLong, year)
+  expect_equal(firstLast[1], as.Date("1999-10-01"))
+  expect_equal(firstLast[2], as.Date("2000-09-30"))
+  
+  paStart <- 1
+  paLong <- 3
+  firstLast <- startEnd(paStart, paLong, year)
+  expect_equal(firstLast[1], as.Date("2000-01-01"))
+  expect_equal(firstLast[2], as.Date("2000-03-31"))
+  
+  paStart <- 3
+  paLong <- 12
+  firstLast <- startEnd(paStart, paLong, year)
+  expect_equal(firstLast[1], as.Date("1999-03-01"))
+  expect_equal(firstLast[2], as.Date("2000-02-29"))  
+  
+  year <- 2001
+  firstLast <- startEnd(paStart, paLong, year)
+  expect_equal(firstLast[1], as.Date("2000-03-01"))
+  expect_equal(firstLast[2], as.Date("2001-02-28"))
+  
+})
