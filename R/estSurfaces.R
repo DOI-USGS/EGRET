@@ -90,8 +90,8 @@ estSurfaces<-function(eList, surfaceStart=NA, surfaceEnd=NA, localDaily=NA, loca
     Year <- seq(surfaceInfo[['bottomYear']], by=surfaceInfo[['stepYear']], length.out=surfaceInfo[['nVectorYear']])
     
   } else {
-    DecLow <- lubridate::decimal_date(as.Date(surfaceStart))
-    DecHigh <- lubridate::decimal_date(as.Date(surfaceEnd))
+    DecLow <- decimalDate(as.Date(surfaceStart))
+    DecHigh <- decimalDate(as.Date(surfaceEnd))
     
     sliceIndex <- which(vectorYear >= DecLow & vectorYear <= DecHigh)
     Year <- vectorYear[c(sliceIndex[1]-1, sliceIndex, tail(sliceIndex, n = 1)+1)]
