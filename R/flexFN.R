@@ -133,7 +133,7 @@ flexPlotAddOn <- function(eList, showArrows = TRUE, showRect = TRUE, customPalet
     
     arrowYs <- seq(par()$usr[4], par()$usr[3], length=10)[c(-1,-10)]
     
-    segmentINFO <- data.frame(sapply(segmentINFO, function(x) lubridate::decimal_date(as.Date(x, origin = "1970-01-01"))))
+    segmentINFO <- data.frame(sapply(segmentINFO, function(x) decimalDate(as.Date(x, origin = "1970-01-01"))))
     
     if(nrow(segmentINFO) > 8){
       arrowYs <- rep(arrowYs,  ceiling(nrow(segmentINFO)/8))
