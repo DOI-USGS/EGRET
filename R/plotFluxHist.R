@@ -51,6 +51,7 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA,
 
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
+  hasFlex <- all(c("flexConc","flexFlux") %in% names(localDaily))
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong
@@ -102,8 +103,13 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA,
   subAnnualResults<-localAnnualResults[localAnnualResults$DecYear>=yearStart & localAnnualResults$DecYear <= yearEnd,]
   
   annFlux<-unitFactorReturn*subAnnualResults$Flux
-  fnFlux<-unitFactorReturn*subAnnualResults$FNFlux
-
+  
+  if(hasFlex){
+    fnFlux<-unitFactorReturn*subAnnualResults$flexFlux
+  } else {
+    fnFlux<-unitFactorReturn*subAnnualResults$FNFlux
+  }
+  
   periodName<-setSeasonLabel(localAnnualResults=localAnnualResults)
   title3<-if(plotFlowNorm) "\nFlux Estimates (dots) & Flow Normalized Flux (line)" else "\nAnnual Flux Estimates"
   title<-if(printTitle) paste(localINFO$shortName," ",localINFO$paramShortName,"\n",periodName,title3) else ""

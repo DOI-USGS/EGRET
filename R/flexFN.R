@@ -40,8 +40,8 @@ flexFN <- function(eList, dateInfo, localsurfaces = NA,
   
   localDaily <- getDaily(eList)
   
-  localDaily$FNConc <- NA
-  localDaily$FNFlux <- NA
+  localDaily$flexConc <- NA
+  localDaily$flexFlux <- NA
   
   if(all(is.na(localsurfaces))){
     localsurfaces <- getSurfaces(eList)    
@@ -57,8 +57,8 @@ flexFN <- function(eList, dateInfo, localsurfaces = NA,
     
     DailySeg <- estDailyFromSurfaces(eList, localsurfaces = localsurfaces, localDaily = localDaily[flowNormIndex,])
     
-    localDaily$FNConc[flowIndex] <- DailySeg$FNConc[which(flowNormIndex %in% flowIndex)]
-    localDaily$FNFlux[flowIndex] <- DailySeg$FNFlux[which(flowNormIndex %in% flowIndex)]
+    localDaily$flexConc[flowIndex] <- DailySeg$FNConc[which(flowNormIndex %in% flowIndex)]
+    localDaily$flexFlux[flowIndex] <- DailySeg$FNFlux[which(flowNormIndex %in% flowIndex)]
   }
   
   INFO <- eList$INFO

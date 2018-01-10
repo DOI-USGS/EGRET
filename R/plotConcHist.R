@@ -67,11 +67,20 @@ plotConcHist<-function(eList, yearStart = NA, yearEnd = NA,
   title3<-if(plotFlowNorm) "\nMean Concentration (dots) & Flow Normalized Concentration (line)" else "\nAnnual Mean Concentration"
   title<-if(printTitle) paste(localINFO$shortName," ",localINFO$paramShortName,"\n",periodName,title3) else ""
   
+  hasFlex <- all(c("flexConc","flexFlux") %in% names(localDaily))
+  
   ##################
 
   xInfo <- generalAxis(x=localAnnualResults$DecYear, minVal=yearStart, maxVal=yearEnd, padPercent=0, tinyPlot=tinyPlot)
   
-  combinedY <- c(localAnnualResults$Conc,localAnnualResults$FNConc[localAnnualResults$DecYear>xInfo$bottom & localAnnualResults$DecYear<xInfo$top])
+  if(hasFlex){
+    combinedY <- c(localAnnualResults$Conc,
+                   localAnnualResults$FNConc[localAnnualResults$DecYear>xInfo$bottom & localAnnualResults$DecYear<xInfo$top],
+                   localAnnualResults$flexConc[localAnnualResults$DecYear>xInfo$bottom & localAnnualResults$DecYear<xInfo$top])
+  } else {
+    combinedY <- c(localAnnualResults$Conc,localAnnualResults$FNConc[localAnnualResults$DecYear>xInfo$bottom & localAnnualResults$DecYear<xInfo$top])
+  }
+  
   yInfo <- generalAxis(x=combinedY, minVal=0, maxVal=concMax, padPercent=5, 
                        tinyPlot=tinyPlot,units=localINFO$param.units)
   
@@ -83,9 +92,18 @@ plotConcHist<-function(eList, yearStart = NA, yearEnd = NA,
                       tinyPlot=tinyPlot,customPar=customPar,...
     )
 
-  if(plotFlowNorm) with(localAnnualResults, 
-                        lines(DecYear[DecYear>xInfo$bottom & DecYear<xInfo$top], 
-                              FNConc[DecYear>xInfo$bottom & DecYear<xInfo$top], 
-                              col=col.pred, lwd=lwd))
+  if(plotFlowNorm){
+    if(hasFlex){
+      with(localAnnualResults, 
+           lines(DecYear[DecYear>xInfo$bottom & DecYear<xInfo$top], 
+                 flexConc[DecYear>xInfo$bottom & DecYear<xInfo$top], 
+                 col=col.pred, lwd=lwd))      
+    } else {
+      with(localAnnualResults, 
+                          lines(DecYear[DecYear>xInfo$bottom & DecYear<xInfo$top], 
+                                FNConc[DecYear>xInfo$bottom & DecYear<xInfo$top], 
+                                col=col.pred, lwd=lwd))
+    }
+  } 
 	
 }

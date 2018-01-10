@@ -6,6 +6,7 @@
 #' @param eList named list with at least Daily and INFO dataframes
 #' @param qUnit object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param fluxUnit object of fluxUnit class. \code{\link{printFluxUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name. 
+#' @param localDaily data frame to override eList$Daily
 #' @return results dataframe, if returnDataFrame=TRUE
 #' @keywords water-quality statistics
 #' @export
@@ -22,10 +23,15 @@
 #' eList <- setPA(eList, paLong=3,paStart=12)
 #' tableResults(eList, fluxUnit = 1)
 #' }
-tableResults<-function(eList, qUnit = 2, fluxUnit = 9) {
+tableResults<-function(eList, qUnit = 2, fluxUnit = 9, localDaily = NA) {
   
   localINFO <- getInfo(eList)
-  localDaily <- getDaily(eList)
+  
+  if(all(is.na(localDaily))){
+    localDaily <- eList$Daily
+  }
+
+  hasFlex <- all(c("flexConc","flexFlux") %in% names(localDaily))
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong
@@ -66,18 +72,42 @@ tableResults<-function(eList, qUnit = 2, fluxUnit = 9) {
   
   cat("\n  ",localINFO$shortName,"\n  ",localINFO$paramShortName)
   cat("\n  ",periodName,"\n")
-  cat("\n   Year   Discharge    Conc    FN_Conc     Flux    FN_Flux")
-  cat("\n         ",qName,"         mg/L         ",fName,"\n\n")
   
   c1<-format(trunc(localAnnualResults$DecYear),width=7)
   c2<-format(localAnnualResults$Q*qFactor,digits=3,width=9)
   c3<-format(localAnnualResults$Conc,digits=3,width=9)
   c4<-format(localAnnualResults$FNConc,digits=3,width=9)
-  c5<-format(localAnnualResults$Flux*fluxFactor,digits=3,width=9)
-  c6<-format(localAnnualResults$FNFlux*fluxFactor,digits=3,width=9)
-  results<-data.frame(c1,c2,c3,c4,c5,c6)
-  colnames(results) <- c("Year", paste("Discharge [", qNameNoSpace, "]", sep=""), "Conc [mg/L]", "FN Conc [mg/L]", paste("Flux [", fNameNoSpace, "]", sep=""), paste("FN Flux [", fNameNoSpace, "]", sep="") )
   
+  if(hasFlex){
+    cat("\n   Year   Discharge    Conc    FN_Conc  FFN_Conc     Flux    FN_Flux FFN_Flux")
+    cat("\n         ", qName, "             mg/L             ", fName, "\n\n")
+    c5 <- format(localAnnualResults$flexConc, digits = 3, width = 9)
+    c6 <- format(localAnnualResults$Flux * fluxFactor, digits = 3, 
+                 width = 9)
+    c7 <- format(localAnnualResults$FNFlux * fluxFactor, digits = 3, 
+                 width = 9)
+    c8 <- format(localAnnualResults$flexFlux * fluxFactor, digits = 3, 
+                 width = 9)
+    results <- data.frame(c1, c2, c3, c4, c5, c6, c7, c8)
+    colnames(results) <- c("Year", paste0("Discharge [", qNameNoSpace,"]"), 
+                           "Conc [mg/L]", "FN Conc [mg/L]", "FlexFN Conc[mg/L]",
+                           paste0("Flux [",fNameNoSpace, "]"), 
+                           paste0("FN Flux [", fNameNoSpace,"]"),
+                           paste0("FlexFN Flux [", fNameNoSpace,"]"))
+                                                                                                
+  } else {
+    cat("\n   Year   Discharge    Conc    FN_Conc     Flux    FN_Flux")
+    cat("\n         ", qName, "         mg/L         ", fName, "\n\n")
+    c5<-format(localAnnualResults$Flux*fluxFactor,digits=3,width=9)
+    c6<-format(localAnnualResults$FNFlux*fluxFactor,digits=3,width=9)
+    results<-data.frame(c1,c2,c3,c4,c5,c6)
+    colnames(results) <- c("Year", paste0("Discharge [", qNameNoSpace, "]"),
+                           "Conc [mg/L]", "FN Conc [mg/L]", 
+                           paste0("Flux [", fNameNoSpace, "]"), 
+                           paste0("FN Flux [", fNameNoSpace, "]") )
+    
+  }
+
   write.table(results,file="",quote=FALSE,col.names=FALSE,row.names=FALSE)
   
   origNames <- names(results)
