@@ -13,6 +13,9 @@ startEnd(paStart, paLong, year)
 
 \item{year}{integer year}
 }
+\value{
+Date list
+}
 \description{
 Returns two date variables for a combination of paStart, paLong, and year
 }

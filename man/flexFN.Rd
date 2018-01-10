@@ -11,7 +11,7 @@ flexFN(eList, dateInfo, localsurfaces = NA,
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
 
-\item{dateInfo}{data frame with 6 columns. The column names and descriptions are described in the next set of arguments}
+\item{dateInfo}{data frame with 4 columns. The column names and descriptions are described in the next set of arguments}
 
 \item{localsurfaces}{surface over-riding the one stored in eList}
 

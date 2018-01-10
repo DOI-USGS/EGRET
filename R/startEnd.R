@@ -6,7 +6,7 @@
 #' @param paStart numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12, default is 10 
 #' @param year integer year
 #' 
-#' @return 
+#' @return Date list 
 #' @export
 #' @examples 
 #' paStart <- 10
@@ -25,7 +25,7 @@ startEnd <- function(paStart, paLong, year){
   endDate <- paste(as.character(year),"-",monthChar[endMonth],"-",endDayChar[endMonth],sep="")
   isLeap <- (year%%4 == 0) & ((year%%100 != 0) | (year%%400 == 0))
   endDate <- if (isLeap & endMonth==2) paste(as.character(year),"-02-29",sep="") else endDate 
-  startEnd <- as.Date(c(startDate,endDate))
+  startEnd <- as.Date(list(startDate=startDate,endDate=endDate))
   return(startEnd)	
 }
 
