@@ -122,6 +122,63 @@ plot.egret <- function(x, ...){
   multiPlotDataOverview(x, ...)
 }
 
+#' @export
+#' @rdname helperEGRET
+#' 
+#' @examples 
+#' nDischarge(Arkansas_eList)
+nDischarge <- function(x){
+  stopifnot(is.egret(x))
+  Daily <- getDaily(x)
+  
+  if(is.null(Daily)){
+    message("No Daily data found; returning NULL.")
+    nobs <- NULL
+  } else {
+    nobs <- nrow(Daily)
+  }
+  
+  return(nobs)
+}
+
+#' @export
+#' @rdname helperEGRET
+#' 
+#' @examples 
+#' nObservations(Arkansas_eList)
+nObservations <- function(x){
+  stopifnot(is.egret(x))
+  Sample <- getSample(x)
+  
+  if(is.null(Sample)){
+    message("No Sample data found; returning NULL.")
+    nobs <- NULL
+  } else {
+    nobs <- nrow(Sample)
+  }
+  
+  return(nobs)
+}
+
+#' @export
+#' @rdname helperEGRET
+#' 
+#' @examples 
+#' nCensoredVals(Arkansas_eList)
+nCensoredVals <- function(x){
+  stopifnot(is.egret(x))
+  Sample <- getSample(x)
+  
+  if(is.null(Sample)){
+    message("No Sample data found; returning NULL.")
+    ncensored <- NULL
+  } else {
+    # 0 in Uncen col represents censored value
+    ncensored <- length(which(Sample[['Uncen']] == 0))
+  }
+  
+  return(ncensored)
+}
 
 #' Get Daily dataframe from EGRET object
 #'
