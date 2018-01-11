@@ -1,0 +1,91 @@
+---
+title: "WRTDS Flex"
+author: "Robert M. Hirsch"
+date: "2018-01-11"
+output: 
+  rmarkdown::html_vignette:
+    fig_height: 7
+    fig_width: 7
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{WRTDS Flex}
+  \usepackage[utf8]{inputenc}
+---
+
+# Introduction
+
+This new version provides a great deal of flexibility to the basic WRTDS concept and implements in in a new version of `EGRET` (and `EGRETci` although at this point `EGRETci` isn’t changed). This new version of `EGRET` along with `EGRETci` should be able to produce exactly the same outputs as the old versions. There are a few major concepts that need to be introduced up front.
+
+# The "Wall"
+
+The idea of the "wall" is to handle events that we believe may result in a sharp discontinuity in the way that concentrations behave as a function of discharge, year, and season (basically the view we see in the contour plots). As you know, WRTDS was designed with a working assumption that changes in water quality are gradual, responding to changes in behavior of many actors in the watershed. These can be changes in population (and hence wasteloads), changes in land use or land use practices by many landowners, or many changes in point source controls over many dischargers. We know that there can be situations that depart from that assumption. Some obvious ones are: upgrades to a single dominant point source discharge, large infrastructure changes in storm-water management (e.g. tunnel projects in big cities that significantly curtail combined sewer overflows), construction or removal of a major dam (causing the pollutant of interest to mix with a large volume of water in the reservoir significantly smoothing out the variability of water quality below the dam). There is another category of abrupt change that could be considered, and that is a "reset" of river conditions that may be the result of an extreme flood or extreme drought. The hypothesis is that the behavior of water quality changes as a result of this extreme event and that this change is not a short term thing (i.e. the duration of the event) but rather is something that persists for a number of years. The new "wall" concept can provide an effective way to perform a hypothesis test that the event in question brought about a lasting change, and the approach allows us to describe the nature of the change that took place.
+
+Operationally the wall idea is this. We will call the moment in time when we think this change happened as "the wall". We know that it is unlikely to be truly a moment, but for our purposes here we need to define it as a specific day. In the code, this day is called `lastDaySample1` and the next calendar day becomes `firstDaySample2` which is computed automatically by the code. What the code does is split our Sample data frame into two non-overlapping data frames: Sample1 and Sample2. Sample1 is all the samples collected before the wall and Sample2 is all the samples collected after it. When we estimate the surfaces object (that describes concentration as a function of time, discharge, and season) that describes the system behavior before the wall we only want to use data from Sample1 and not data from Sample2. And similarly, when we want to estimate the behavior after the wall we only want to use data from Sample2 and not data from Sample1.
+
+All of the workflows described in this document allow the user to specify if they want to use a "wall" and if they do to then specify lastDaySample1. It turns out for programming convenience we actually define a Sample1 and Sample2 whether or not we have a wall. If there is no wall the two data frames are identical to each other and actually identical to the original eList$Sample.
+
+# Flexible Flow Normalization (FFN)
+
+The idea here is that when we want to flow normalize our Concentration or Flux record we may be concerned that using the entire discharge record for the water quality period of record we are considering, because we believe that the probability distribution of discharge is substantially different over the course this period of record. To put it another way, we use a flow distribution (FD) to integrate the changes in the response surface (RS) and this only makes sense if we believe the FD is approximately stationary over the period of record. This FFN allows us to vary the FD over the period of record, and gives us a chance to see the combined impact of the FD change and the RS change on concentration or flux over the period of record, and also to evaluate the relative influence of the FD change and the RS change on the overall change that has taken place. There are two ways that we might envision this change in the FD taking place: abrupt and gradual.
+
+## Abrupt Change
+
+This is the situation where there is some singular engineered action that results in a change in the distribution of streamflow. The most obvious examples would be the completion of a dam upstream of the monitoring site. This needs to be a dam that has a rather clear impact on discharges at the monitoring site (e.g. decreasing the peak discharges of high flow or increasing the low flows). Other changes could include: the removal of a dam, the institution of a new operating policy for the dam (e.g. greatly increasing the size of minimum flows to support habitat), or major new diversions of water into or out of the watershed. There is no well-defined criteria for the magnitude of the change that should trigger the use of FFN except to say that it should be big enough that comparisons of flow duration curves before and after it show an easily discernible effect. Having decided that there is an abrupt change in flow, the user must then define an exact day when this change happens. In reality we might not be able to specify the exact date of the change (denoted in the code as `lastQDate1`), but the modeling approach demands that we pick a single day. In the case of a new dam, it may be better to set this change date after some initial period of reservoir filling, rather than the day the dam construction was done. The new code only allows for a single abrupt change.
+
+## Gradual Change
+
+This is the typical situation in which the distribution of discharges appears to have changed over the period of record. This might arise because of changes in climate, changes in water use (increased consumptive use or increased groundwater pumping), changes in water imports or exports, or changes in artificial drainage (e.g. more tile drains or the restoration or destruction of wetlands). It may be driven by several of these factors and we don’t really have to understand the causes of these changes for us to use this FFN approach. However, we don’t want to use this approach to deal with natural quasi-periodic climate oscillations that operate on time scales as short as a decade or two. There is no objective test for these changes, it is a matter of judgement whether FFN is appropriate to the case at hand.
+
+There are two ways we might go about characterizing these different FD behaviors. The first is by specifying a moving window for the discharge data. We define the moving window by the parameter called windowSide. For any given year in the middle part of our record the window used to characterize the FD is a set of years centered on the year for which we are making the WRTDS calculations plus windowSide number of years on either side of it. For example if windowSide is equal to 7, and the year being evaluated in WRTDS is 2007, then the whole window runs from 2000 - 2014. When the year being evaluated is close to the start or end of the period of record, then the window will not be centered on the year being evaluated. Rather it will run for a duration of `(2 * windowSide) + 1` from either the start or end of the record. So, if the year of interest were 2011, and the record ended with 2016, then the period covered would be 2002 - 2016. There are other situations where we might not want to use this approach, but rather define the two periods by some particular date (perhaps for consistency across sites) and this option is available in the software, allowing the user to specify `lastQDate1` as the last day in the first period.
+
+# Problem set up
+
+here are three distinct types of problem set-ups that are possible in the new formulation and each of them has its own distinct workflow and outputs. They are known as *Pairs*, *Series*, and *Groups*. What do these terms mean here?
+
+## Pairs
+
+This is the situation where the question is: How do the FFN estimates differ between one specific year and another specific year. These may be the beginning and end of the period of record, or they may be years selected based on an overall study design (a report on water quality change from 1985 - 2015 at many sites). The outputs are a FFN concentration and flux for each of these two years, an apportioning of that change between the RS and FD parts, and a bootstrap estimate of the uncertainty of the change magnitude.
+
+## Series
+
+This is the situation in which we want to produce a graphic that shows the water quality change over time, perhaps showing annual flux, FN flux, and Flexible FN flux. These would be graphs similar to plotConcHist or plotFluxHist. There is also a bootstrap version that would allow for depicting a 90% confidence interval (or some other percential interval) around these annual values.
+
+## Groups
+
+This is the situation where we might want to answer questions such as: How did the average flow-normalized flux for the period 1997 - 2006 compare to the average flow-normalized flux for the period 2007 - 2016. This approach operates like the Series approach except in this case the emphasis is on the average of some group of years and the uncertainty analysis poses questions like: "What is the likelihood that flux increased from the decade 1997 - 2006 to the decade 2007- 2016?"
+
+# Other General Comments
+
+Note that the idea of the wall and the idea of flexible flow normalization are quite different from each other. The wall deals with some event that suddenly and directly influenced water quality while flexible flow normalization deals with something that influences the probability distribution of discharge. In some cases, the same event could be pivotal to both of these. In particular the completion or removal of a dam, but in most cases they are probably not related to each other, and the time boundaries involved may be quite different. We can have analysis with a wall and not use flexible flow normalization, or we can have flexible flow normalization and not have a wall, or we can have both, or we can have neither. In the latter case only, the original simpler EGRET workflows will provide all of the analyses needed. For any of the others we need to use the WRTDS Flex workflows.
+
+In all of the analyses being introduced here there may be some advantage to having the discharge data set in the Daily data frame extend substantially beyond the period of water quality record being considered. This is in contrast to the guidance given for the standard EGRET application, where we encourage the user to limit the Daily record to being only slightly longer (< 1 year longer) than the extent of the water quality record in the Sample data frame. The user needs to decide how far to take it, but if the windowSide approach is being used, then there is no point in extending the Daily data frame more than windowSide years beyond the range of the Sample data frame.
+
+In all of these problem types, the analysis must start with a standard EGRET eList (containing at least the INFO, Daily, and Sample data frames). In each of the problem types (pairs, series, and group) the functions available include one called "…SetUp" which allows the user to set up their task interactively. It produces an output called "infoFor…RData" which contains the setup information needed by the other two programs. For batch processing, the user can set up an approach to creating this "infoFor…RData"" file in without user interaction (examples will be shown below). There is a function called "run…" that runs the analysis and another called "run…Boot" that does the bootstrap analysis. Both of these produce output files as well as console output. The eList, plus the output files, plus the "infoFor…RData" file provide all the information that will be needed for documentation of the runs, and used as inputs for user-defined functions to produce graphs or tables of output across multiple data sets. To keep these various files organized, it is best to have a single folder devoted to an analysis of a given constituent at a given site.
+
+What follows are a set of instructions for running each of the three types of analyses. (As of January 8, 2018 only the pairs analysis are ready for use).
+
+# Pairs analysis
+
+Many of the general features of `EGRET` still apply to these flexible flow analyses. For example, use the `setPA` function to change the period of analysis (by default, the period of analysis is water year). Just as in the original WRTDS analysis (`modelEstimation`), you can change some parameters such as `minNumUncen` and `minNumObs`.  
+Let's set up a problem where we want to compare 2 years: 1985 and 2014. We will use all of the Sample data (so no "wall"). We will take advantage of the `windowSide` argument which will specify a moving window for the discharge data. A typical number for `windowSide` is 7.
+
+Let's set up the paired year analysis:
+
+```{r pairs}
+library(EGRET)
+eList <- Choptank_Phos
+year1 <- 1985
+year2 <- 2014
+windowSide <- 7
+
+pairOut <- runPairs(eList, year1, year2, windowSide)
+
+```
+
+What we see printed at the bottom of this output is the data frame called pairResults produced from a run of this run of the model. It contains all of the relevant output from the run. There are two rows, the top for concentration (in mg/L) the bottom for flux (in 10^6 kg/yr). The columns have the following meanings.
+
+DeltaTotal the difference between year2 and year1 (combined effect of the change in RS and FD) RSpart the part of DeltaTotal that comes from the change in the RS FDpart the part of DeltaTotal that comes from the change in the FD x10 the average value using RS1 and FD0 x11 the average value using RS1 and FD1 x20 the average value using RS2 and FD0 x22 the average value using RS2 and FD2
+
+RS1 is the response surface estimated for year1 (in this case 1985) RS2 is the response surface estimated for year2 (in this case 2014) FD0 is the flow distribution based on the span: firstQDate0 to lastQDate0 FD1 is the flow distribution based on the span: firstQDate1 to lastQDate1 FD2 is the flow distribution based on the span: firstQDate2 to lastQDate2
+
+Also note that if you want to report any of these flux values in units of kg/km^2/yr, you can achieve that as follows. We will do it here for the Choptank, which has a drainage area of 292.6687 km^2.

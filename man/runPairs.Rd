@@ -4,10 +4,10 @@
 \alias{runPairs}
 \title{runPairs}
 \usage{
-runPairs(eList, year1, year2, minNumObs = 100, minNumUncen = 50,
-  windowSide = 7, dataInfo = NA, wall = FALSE, lastDaySample1 = NA,
-  firstDaySample2 = NA, lastDaySample2 = NA, firstQDate1 = NA,
-  lastQDate1 = NA, firstQDate2 = NA, lastQDate2 = NA, ...)
+runPairs(eList, year1, year2, windowSide = 7, wall = FALSE,
+  lastDaySample1 = NA, firstQDate0 = NA, lastQDate0 = NA,
+  firstQDate1 = NA, lastQDate1 = NA, firstQDate2 = NA, lastQDate2 = NA,
+  minNumObs = 100, minNumUncen = 50, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -16,28 +16,28 @@ runPairs(eList, year1, year2, minNumObs = 100, minNumUncen = 50,
 
 \item{year2}{integer year2}
 
-\item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
-
-\item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
-
 \item{windowSide}{integer number of automatically generated span sections, 
-default is 7. If NA, cod will use}
+default is 7. If NA, code will use}
 
 \item{wall}{logical set up a "wall" on the Sample data}
 
-\item{lastDaySample1}{character in YYYY-MM-DD}
+\item{lastDaySample1}{character in YYYY-MM-DD. Only used if wall is TRUE. Date of "the wall".}
 
-\item{firstDaySample2}{character in YYYY-MM-DD}
+\item{firstQDate0}{character in YYYY-MM-DD. Overall trims Daily flow. Use NA to use all data.}
 
-\item{lastDaySample2}{character in YYYY-MM-DD}
+\item{lastQDate0}{character in YYYY-MM-DD. Overall trims Daily flow. Use NA to use all data.}
 
-\item{firstQDate1}{character in YYYY-MM-DD}
+\item{firstQDate1}{character in YYYY-MM-DD. First limit of flow data to use in year 1. Use NA to automatically calculate based on windowSide.}
 
-\item{lastQDate1}{character in YYYY-MM-DD}
+\item{lastQDate1}{character in YYYY-MM-DD. Second limit of flow data to use in year 1. Use NA to automatically calculate based on windowSide.}
 
-\item{firstQDate2}{character in YYYY-MM-DD}
+\item{firstQDate2}{character in YYYY-MM-DD. First limit of flow data to use in year 2. Use NA to automatically calculate based on windowSide.}
 
-\item{lastQDate2}{character in YYYY-MM-DD}
+\item{lastQDate2}{character in YYYY-MM-DD. Second limit of flow data to use in year 2. Use NA to automatically calculate based on windowSide.}
+
+\item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
+
+\item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
 
 \item{\dots}{additional parameters}
 }
@@ -45,9 +45,9 @@ default is 7. If NA, cod will use}
 runPairs description
 }
 \examples{
-eList <- Choptank_eList
+eList <- Choptank_Phos
 year1 <- 1985
-year2 <- 2010
+year2 <- 2014
 
 pairOut <- runPairs(eList, year1, year2)
 }

@@ -9,39 +9,47 @@
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
 #' @param wall logical set up a "wall" on the Sample data
-#' @param lastDaySample1 character in YYYY-MM-DD
-#' @param firstDaySample2 character in YYYY-MM-DD
-#' @param lastDaySample2 character in YYYY-MM-DD
-#' @param firstQDate1 character in YYYY-MM-DD
-#' @param lastQDate1 character in YYYY-MM-DD
-#' @param firstQDate2 character in YYYY-MM-DD
-#' @param lastQDate2 character in YYYY-MM-DD 
+#' @param lastDaySample1 character in YYYY-MM-DD. Only used if wall is TRUE. Date of "the wall".
+#' @param firstQDate0 character in YYYY-MM-DD. Overall trims Daily flow. Use NA to use all data.
+#' @param lastQDate0 character in YYYY-MM-DD. Overall trims Daily flow. Use NA to use all data.
+#' @param firstQDate1 character in YYYY-MM-DD. First limit of flow data to use in year 1. Use NA to automatically calculate based on windowSide.
+#' @param lastQDate1 character in YYYY-MM-DD. Second limit of flow data to use in year 1. Use NA to automatically calculate based on windowSide.
+#' @param firstQDate2 character in YYYY-MM-DD. First limit of flow data to use in year 2. Use NA to automatically calculate based on windowSide.
+#' @param lastQDate2 character in YYYY-MM-DD. Second limit of flow data to use in year 2. Use NA to automatically calculate based on windowSide. 
 #' @param windowSide integer number of automatically generated span sections, 
-#' default is 7. If NA, cod will use 
+#' default is 7. If NA, code will use 
 #' @param \dots additional parameters
 #' 
-#' 
 #' @examples 
-#' eList <- Choptank_eList
+#' eList <- Choptank_Phos
 #' year1 <- 1985
-#' year2 <- 2010
+#' year2 <- 2014
 #' 
 #' pairOut <- runPairs(eList, year1, year2)
 runPairs <- function(eList, year1, year2, 
-                     minNumObs = 100, minNumUncen = 50,
-                     windowSide = 7, dataInfo = NA,
+                     windowSide = 7, 
                      wall = FALSE, lastDaySample1 = NA, 
-                     firstDaySample2 = NA, lastDaySample2 = NA,
+                     firstQDate0 = NA, lastQDate0 = NA,
                      firstQDate1 = NA, lastQDate1 = NA,
-                     firstQDate2 = NA, lastQDate2 = NA, ...){
+                     firstQDate2 = NA, lastQDate2 = NA,
+                     minNumObs = 100, minNumUncen = 50,
+                     ...){
   
   localDaily <- eList$Daily
   localSample <- eList$Sample
   
-  firstQDate0 <- localDaily$Date[1]
-  lastQDate0 <- localDaily$Date[length(localDaily$Date)]
-
-  firstDaySample1 <- localSample$Date[1]
+  firstDayDaily <- localDaily$Date[1]
+  lastDayDaily <- localDaily$Date[length(localDaily$Date)]
+  
+  firstDaySample <- localSample$Date[1]
+  lastDaySample <- localSample$Date[length(localSample$Date)]
+  
+  if(is.na(firstQDate0)){
+    firstQDate0 <- firstDayDaily
+  }
+  if(is.na(lastQDate0)){
+    lastQDate0 <- lastDayDaily
+  }
 
   localINFO <- getInfo(eList)
   
@@ -55,30 +63,79 @@ runPairs <- function(eList, year1, year2,
 
   startEnd1 <- startEnd(paStart, paLong, year1)
   startEnd2 <- startEnd(paStart, paLong, year2)
-  # need an error catch here, stop the execution if any one or more of these conditions exist
-  #  it needs to tell user that the specified years in the pair run beyond the limits of the data
-  if(as.Date(startEnd1[["startDate"]]) < as.Date(firstQDate1)){
-    stop("")
+  
+  if(!is.na(windowSide) & windowSide > 0){
+    
+    windowFull <- 1 + (2 * windowSide)
+    first <- startEnd(paStart, paLong, year1 - windowSide)[["startDate"]]
+    
+    firstQDate1 <- first
+    if(as.Date(first) < as.Date(firstDayDaily)){
+      firstQDate1 <- firstDayDaily 
+    } 
+    
+    lastQDate1 <- as.POSIXlt(firstQDate1) 
+    lastQDate1$year <- lastQDate1$year + windowFull
+    lastQDate1 <- as.Date(lastQDate1)-1
+
+    last <- startEnd(paStart, paLong, year2 + windowSide)[["endDate"]]
+    lastQDate2 <- last
+    if(as.Date(last) > as.Date(lastDayDaily)){
+      lastQDate2 <- lastDayDaily 
+    } 
+    
+    firstQDate2 <- as.POSIXlt(lastQDate2) 
+    firstQDate2$year <- firstQDate2$year - windowFull
+    firstQDate2 <- as.Date(firstQDate2)+1
+    
+
+  } else {
+    
+    if(as.Date(startEnd1[["startDate"]]) < as.Date(firstQDate1)){
+      stop("year1 in the specified period of record comes 
+         before firstQDate1")
+    }
+    if(as.Date(startEnd1[["endDate"]]) > as.Date(lastQDate1)) {
+      stop("year1 at the end of the specified period of record comes 
+         after lastQDate1")
+    }
+    if(as.Date(startEnd2[["startDate"]]) < as.Date(firstQDate2)){
+      stop("year2 in the specified period of record comes 
+           before firstQDate2")
+    } 
+    if(as.Date(startEnd2[["endDate"]]) > as.Date(lastQDate2)){
+      stop("year2 at the end of the specified period of record comes 
+           after lastQDate2")  
+    }
   }
-  if(as.Date(startEnd1[["endDate"]]) > as.Date(lastQDate1)) {
-    stop()
-  }
-  if(as.Date(startEnd2[["startDate"]]) < as.Date(firstQDate2)){
-    stop()
+  
+  firstDaySample1 <- firstDaySample
+  lastDaySample1 <- lastDaySample
+  firstDaySample2 <- firstDaySample
+  lastDaySample2 <- lastDaySample
+  
+  if(wall){
+
+    if(is.na(lastDaySample1)){
+      stop("When using the wall option, please specify lastDaySample1")
+    }
+    firstDaySample2 <- as.Date(lastDaySample1 - 1)
+    lastDaySample2 <- lastDaySample
   } 
-  if(as.Date(startEnd2[["endDate"]]) > as.Date(lastQDate2)){
-    stop()  
-  }
-  
-  
+
   Sample1 <- localSample[localSample$Date >= firstDaySample1 & 
                            localSample$Date <= lastDaySample1,]
   Sample2 <- localSample[localSample$Date >= firstDaySample2 &
                            localSample$Date <= lastDaySample2,]
   
-  surfaces1 <- estSurfaces(eList,surfaceStart = startEnd1[1], surfaceEnd = startEnd1[2], localSample = Sample1,
+  surfaces1 <- estSurfaces(eList,
+                           surfaceStart = startEnd1[["startDate"]], 
+                           surfaceEnd = startEnd1[["endDate"]], 
+                           localSample = Sample1,
                            minNumObs = minNumObs, minNumUncen = minNumUncen, verbose = FALSE)
-  surfaces2 <- estSurfaces(eList,surfaceStart = startEnd2[1], surfaceEnd = startEnd2[2], localSample = Sample2,
+  surfaces2 <- estSurfaces(eList,
+                           surfaceStart = startEnd2[["startDate"]], 
+                           surfaceEnd = startEnd2[["endDate"]], localSample = Sample2,
                            minNumObs = minNumObs, minNumUncen = minNumUncen, verbose = FALSE)
 
   Daily1 <- localDaily[localDaily$Date >= firstQDate1 &
