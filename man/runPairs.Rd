@@ -5,7 +5,7 @@
 \title{runPairs}
 \usage{
 runPairs(eList, year1, year2, minNumObs = 100, minNumUncen = 50,
-  windowSide = 7, wall = FALSE, lastDaySample1 = NA,
+  windowSide = 7, dataInfo = NA, wall = FALSE, lastDaySample1 = NA,
   firstDaySample2 = NA, lastDaySample2 = NA, firstQDate1 = NA,
   lastQDate1 = NA, firstQDate2 = NA, lastQDate2 = NA, ...)
 }
@@ -19,6 +19,25 @@ runPairs(eList, year1, year2, minNumObs = 100, minNumUncen = 50,
 \item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
 
 \item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
+
+\item{windowSide}{integer number of automatically generated span sections, 
+default is 7. If NA, cod will use}
+
+\item{wall}{logical set up a "wall" on the Sample data}
+
+\item{lastDaySample1}{character in YYYY-MM-DD}
+
+\item{firstDaySample2}{character in YYYY-MM-DD}
+
+\item{lastDaySample2}{character in YYYY-MM-DD}
+
+\item{firstQDate1}{character in YYYY-MM-DD}
+
+\item{lastQDate1}{character in YYYY-MM-DD}
+
+\item{firstQDate2}{character in YYYY-MM-DD}
+
+\item{lastQDate2}{character in YYYY-MM-DD}
 
 \item{\dots}{additional parameters}
 }
