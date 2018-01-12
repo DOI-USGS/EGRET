@@ -7,7 +7,7 @@
 runPairs(eList, year1, year2, windowSide = 7, wall = FALSE,
   lastDaySample1 = NA, firstQDate0 = NA, lastQDate0 = NA,
   firstQDate1 = NA, lastQDate1 = NA, firstQDate2 = NA, lastQDate2 = NA,
-  minNumObs = 100, minNumUncen = 50, ...)
+  minNumObs = 100, minNumUncen = 50, interactive = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -49,5 +49,7 @@ eList <- Choptank_Phos
 year1 <- 1985
 year2 <- 2014
 
+\dontrun{
 pairOut <- runPairs(eList, year1, year2)
+}
 }

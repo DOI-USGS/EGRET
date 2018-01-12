@@ -76,9 +76,8 @@ library(EGRET)
 eList <- Choptank_Phos
 year1 <- 1985
 year2 <- 2014
-windowSide <- 7
 
-pairOut <- runPairs(eList, year1, year2, windowSide)
+pairOut <- pairOut <- runPairs(eList, year1, year2)
 
 ```
 

@@ -25,7 +25,9 @@
 #' year1 <- 1985
 #' year2 <- 2014
 #' 
+#' \dontrun{
 #' pairOut <- runPairs(eList, year1, year2)
+#' }
 runPairs <- function(eList, year1, year2, 
                      windowSide = 7, 
                      wall = FALSE, lastDaySample1 = NA, 
@@ -33,6 +35,7 @@ runPairs <- function(eList, year1, year2,
                      firstQDate1 = NA, lastQDate1 = NA,
                      firstQDate2 = NA, lastQDate2 = NA,
                      minNumObs = 100, minNumUncen = 50,
+                     interactive = FALSE,
                      ...){
   
   localDaily <- eList$Daily

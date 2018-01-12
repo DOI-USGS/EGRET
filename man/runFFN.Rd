@@ -28,8 +28,10 @@ dateInfo <- data.frame(flowNormStart,
                        flowStart, 
                        flowEnd, 
                        stringsAsFactors = FALSE)
+\dontrun{
 AnnualResultsFlex <- runFFN(eList, dateInfo)
 
 eListWinter <- setPA(eList, paStart = 12, paLong=3)
 AnnualResultsFlexWinter <- runFFN(eList, dateInfo)
+}
 }
