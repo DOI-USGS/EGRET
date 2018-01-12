@@ -17,8 +17,8 @@
 #' @param firstQDate2 character in YYYY-MM-DD. First limit of flow data to use in year 2. Use NA to automatically calculate based on windowSide.
 #' @param lastQDate2 character in YYYY-MM-DD. Second limit of flow data to use in year 2. Use NA to automatically calculate based on windowSide. 
 #' @param windowSide integer number of automatically generated span sections, 
-#' @param interactive logical, defaults to FALSE. If TRUE, walks user through options.
 #' default is 7. If NA, code will use 
+#' @param interactive logical, defaults to FALSE. If TRUE, walks user through options.
 #' @param \dots additional parameters
 #' 
 #' @examples 

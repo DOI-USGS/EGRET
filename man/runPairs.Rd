@@ -16,7 +16,8 @@ runPairs(eList, year1, year2, windowSide = 7, wall = FALSE,
 
 \item{year2}{integer year2}
 
-\item{windowSide}{integer number of automatically generated span sections,}
+\item{windowSide}{integer number of automatically generated span sections, 
+default is 7. If NA, code will use}
 
 \item{wall}{logical set up a "wall" on the Sample data}
 
@@ -38,8 +39,7 @@ runPairs(eList, year1, year2, windowSide = 7, wall = FALSE,
 
 \item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
 
-\item{interactive}{logical, defaults to FALSE. If TRUE, walks user through options.
-default is 7. If NA, code will use}
+\item{interactive}{logical, defaults to FALSE. If TRUE, walks user through options.}
 
 \item{\dots}{additional parameters}
 }
