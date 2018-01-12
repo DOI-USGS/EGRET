@@ -99,7 +99,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">library</span>(parallel)
 
 eList &lt;-<span class="st"> </span>Choptank_eList
-nCores &lt;-<span class="st"> </span><span class="kw">detectCores</span>(<span class="dt">logical =</span> <span class="ot">FALSE</span>) -<span class="st"> </span><span class="dv">1</span></code></pre></div>
+nCores &lt;-<span class="st"> </span><span class="kw">detectCores</span>(<span class="dt">logical =</span> <span class="ot">FALSE</span>) <span class="op">-</span><span class="st"> </span><span class="dv">1</span></code></pre></div>
 <div id="doparellel" class="section level3">
 <h3>doParellel</h3>
 <p>The most generalized workflow uses the <code>doParallel</code> package:</p>
@@ -142,7 +142,7 @@ eList &lt;-<span class="st"> </span><span class="kw">modelEstimation</span>(eLis
 
 eList &lt;-<span class="st"> </span>Choptank_eList
 
-nCores &lt;-<span class="st"> </span><span class="kw">detectCores</span>(<span class="dt">logical =</span> <span class="ot">FALSE</span>) -<span class="st"> </span><span class="dv">1</span>
+nCores &lt;-<span class="st"> </span><span class="kw">detectCores</span>(<span class="dt">logical =</span> <span class="ot">FALSE</span>) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>
 
 <span class="kw">system.time</span>({
   cl &lt;-<span class="st"> </span><span class="kw">makeCluster</span>(nCores)
