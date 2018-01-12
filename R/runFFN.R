@@ -56,6 +56,48 @@ runFFN <- function(eList, windowSide = NA, dateInfo = NA,
          or choose TRUE for interactive")
   }
   
+  if(interactive){
+    firstDayDaily <- localDaily$Date[1]
+    lastDayDaily <- localDaily$Date[length(localDaily$Date)]
+    
+    firstDaySample <- localSample$Date[1]
+    lastDaySample <- localSample$Date[length(localSample$Date)]
+    nSamples <- length(localSample$Date)
+    nUncen <- sum(localSample$Uncen)
+    
+    message("Daily  dataframe runs from ", firstDayDaily, " to ", lastDayDaily)
+    message("Sample dataframe runs from ", firstDaySample, " to ", lastDaySample)
+    message("Daily must cover a span of dates greater than or equal to Sample, at both ends")
+    message("If this is not the case exit and fix it")
+    message("Sample size is ", nSamples," number of uncensored samples is ", nUncen)
+
+    message("How to create the segments for flow normalization")
+    message("Enter 0 if you want an automatic sliding span. Or if you want to create them yourself")
+    message("Enter a positive integer for the number of segments")
+    segmentsIndicator <- as.numeric(readline())
+    if(segmentsIndicator == 0){
+      message("Specify windowSide, must be an integer 1 or greater, 7 is a typical choice")
+      windowSide <- as.numeric(readline())
+    } else {
+      nSeg <- segmentsIndicator
+      flowStart <- rep(as.Date(firstQDate0), nSeg) 
+      flowEnd <- rep(as.Date(firstQDate0), nSeg)
+      flowNormStart <- rep(as.Date(firstQDate0), nSeg)
+      flowNormEnd <- rep(as.Date(firstQDate0), nSeg)
+      for(iSeg in 1: nSeg){
+        message("For segment ", iSeg," enter flowStart, flowEnd, flowNormStart, flowNormEnd, each on a separate line")
+        message("flowStart[",iSeg,"]:")
+        flowStart[iSeg] <- as.Date(readline())
+        message("flowEnd[",iSeg,"]:")
+        flowEnd[iSeg] <- as.Date(readline())
+        message("flowNormStart[",iSeg,"]:")
+        flowNormStart[iSeg] <- as.Date(readline())
+        message("flowNormEnd[",iSeg,"]:")
+        flowNormEnd[iSeg] <- as.Date(readline())
+      }
+    }
+  }
+  
   if(!is.na(windowSide) && windowSide > 0){
     windowFull <- 1 + (2 * windowSide)
     daysApart <- lastQDate0 - firstQDate0
@@ -104,6 +146,7 @@ runFFN <- function(eList, windowSide = NA, dateInfo = NA,
   surfaceStart <- dateInfo$flowStart[1]
   surfaceEnd <- dateInfo$flowEnd[nSeg]
   newSurfaces <- estSurfaces(eList, surfaceStart = surfaceStart, surfaceEnd = surfaceEnd, verbose = verbose)
+  
   Daily0 <- localDaily[localDaily$Date >= surfaceStart &
                          localDaily$Date <= surfaceEnd,]
   oldDaily <- Daily0
