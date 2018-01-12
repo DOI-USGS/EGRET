@@ -16,8 +16,7 @@ runPairs(eList, year1, year2, windowSide = 7, wall = FALSE,
 
 \item{year2}{integer year2}
 
-\item{windowSide}{integer number of automatically generated span sections, 
-default is 7. If NA, code will use}
+\item{windowSide}{integer number of automatically generated span sections,}
 
 \item{wall}{logical set up a "wall" on the Sample data}
 
@@ -39,6 +38,9 @@ default is 7. If NA, code will use}
 
 \item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
 
+\item{interactive}{logical, defaults to FALSE. If TRUE, walks user through options.
+default is 7. If NA, code will use}
+
 \item{\dots}{additional parameters}
 }
 \description{
@@ -50,6 +52,18 @@ year1 <- 1985
 year2 <- 2014
 
 \dontrun{
+# Automatic calculations based on windowSide=7
 pairOut <- runPairs(eList, year1, year2)
+
+# Specify flow normalize sections:
+pairOut_custom <- runPairs(eList, year1, year2,
+                           firstQDate1 = "1977-10-01",
+                           lastQDate1 = "1990-09-30",
+                           firstQDate2 = "2000-10-01",
+                           lastQDate2 = "2014-09-25") 
+
+pairOut_interactive <- runPairs(eList, year1, year2,
+                                interactive = TRUE)
+
 }
 }

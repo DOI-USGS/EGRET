@@ -17,6 +17,7 @@
 #' @param firstQDate2 character in YYYY-MM-DD. First limit of flow data to use in year 2. Use NA to automatically calculate based on windowSide.
 #' @param lastQDate2 character in YYYY-MM-DD. Second limit of flow data to use in year 2. Use NA to automatically calculate based on windowSide. 
 #' @param windowSide integer number of automatically generated span sections, 
+#' @param interactive logical, defaults to FALSE. If TRUE, walks user through options.
 #' default is 7. If NA, code will use 
 #' @param \dots additional parameters
 #' 
@@ -26,7 +27,19 @@
 #' year2 <- 2014
 #' 
 #' \dontrun{
+#' # Automatic calculations based on windowSide=7
 #' pairOut <- runPairs(eList, year1, year2)
+#' 
+#' # Specify flow normalize sections:
+#' pairOut_custom <- runPairs(eList, year1, year2,
+#'                            firstQDate1 = "1977-10-01",
+#'                            lastQDate1 = "1990-09-30",
+#'                            firstQDate2 = "2000-10-01",
+#'                            lastQDate2 = "2014-09-25") 
+#' 
+#' pairOut_interactive <- runPairs(eList, year1, year2,
+#'                                 interactive = TRUE)
+#' 
 #' }
 runPairs <- function(eList, year1, year2, 
                      windowSide = 7, 
@@ -46,6 +59,50 @@ runPairs <- function(eList, year1, year2,
   
   firstDaySample <- localSample$Date[1]
   lastDaySample <- localSample$Date[length(localSample$Date)]
+  
+  if(interactive){
+    nSamples <- length(localSample$Date)
+    nUncen <- sum(localSample$Uncen)
+    
+    message("Daily  dataframe runs from ", firstDayDaily, " to ", lastDayDaily)
+    message("Sample dataframe runs from ", firstDaySample, " to ", lastDaySample)
+    message("Sample size is ", nSamples," number of uncensored samples is ", nUncen)
+    message("Default value for minNumObs is 100, it must be smaller than ", nSamples, " enter your minimum")
+    message("Enter value for minNumObs:")
+    minNumObs <- as.numeric(readline())
+    message("Default value for minNumUncen is 50, it must be smaller than ", nUncen, " enter your minimum")
+    message("Enter value for minNumUncen:")
+    minNumUncen <- as.numeric(readline())
+    message("Need to set the flow window width")
+    message("Enter an integer value for windowSide, default is 7")
+    message("The total width will be 1 + (windowSide * 2)")
+    message("If the entry is 0, that means user wants to enter their own start and end dates")
+    message("Enter value for windowSide:")
+    windowSide <- as.numeric(readline())
+    # assuring that it is integer
+    windowSide <- trunc(windowSide)
+    if(windowSide == 0){
+      message("Enter firstQDate1 as yyyy-mm-dd, no quotes")
+      firstQDate1 <- as.Date(readline())
+      message("Enter lastQDate1 as yyyy-mm-dd, no quotes")
+      lastQDate1 <- as.Date(readline())
+      length1 <- format(as.numeric(as.Date(lastQDate1) - as.Date(firstQDate1)) / 365.25, digits = 1)
+      message("Note that the length of Daily1 will be ", as.numeric(length1)," years")
+      message("Enter firstQDate2 as yyyy-mm-dd, no quotes")
+      firstQDate2 <- as.Date(readline())
+      message("Enter lastQDate2 as yyyy-mm-dd, no quotes")
+      lastQDate2 <- as.Date(readline())
+      length2 <- format(as.numeric(as.Date(lastQDate2) - as.Date(firstQDate2)) / 365.25, digits = 1)
+      message("Note that the length of Daily2 will be ", as.numeric(length2)," years")
+    }
+    
+    message("If you want to divide the sample data with a wall, enter T, else F")
+    wall <- as.logical(readline())
+    if(wall) {message("enter the date for the wall, last day of first segment, yyyy-mm-dd")
+      lastDaySample1 <- as.Date(readline())
+      firstDaySample2 <- lastDaySample1 + days(1)
+    }
+  }
   
   if(is.na(firstQDate0)){
     firstQDate0 <- firstDayDaily
