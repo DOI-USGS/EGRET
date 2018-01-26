@@ -6,6 +6,8 @@
 #' @param dateInfo data frame with 4 columns. The column names and descriptions are described in the next set of arguments
 #' @param windowSide integer number of automatically generated span sections, 
 #' default is 7. If NA, code will use 
+#' @param firstQDate0 character in YYYY-MM-DD. Overall trims Daily flow. Use NA to use all data.
+#' @param lastQDate0 character in YYYY-MM-DD. Overall trims Daily flow. Use NA to use all data.
 #' @param interactive logical, defaults to FALSE. If TRUE, walks user through options.
 #' @param verbose logical specifying whether or not to display progress message
 #' @export
@@ -34,6 +36,7 @@
 #' AnnualResultsFlexWinter <- runFFN(eList, dateInfo)
 #' }
 runFFN <- function(eList, windowSide = NA, dateInfo = NA,
+                   firstQDate0 = NA, lastQDate0 = NA,
                    verbose = TRUE, interactive = FALSE) {
 
   localDaily <- getDaily(eList)
@@ -55,13 +58,12 @@ runFFN <- function(eList, windowSide = NA, dateInfo = NA,
     stop("Must specify 1 parameter, EITHER: windowSide, dateInfo, 
          or choose TRUE for interactive")
   }
-  
+
+  firstDayDaily <- localDaily$Date[1]
+  lastDayDaily <- localDaily$Date[length(localDaily$Date)]
+
   if(interactive){
-    firstDayDaily <- localDaily$Date[1]
-    lastDayDaily <- localDaily$Date[length(localDaily$Date)]
-    
-    firstDaySample <- localSample$Date[1]
-    lastDaySample <- localSample$Date[length(localSample$Date)]
+
     nSamples <- length(localSample$Date)
     nUncen <- sum(localSample$Uncen)
     
@@ -70,7 +72,12 @@ runFFN <- function(eList, windowSide = NA, dateInfo = NA,
     message("Daily must cover a span of dates greater than or equal to Sample, at both ends")
     message("If this is not the case exit and fix it")
     message("Sample size is ", nSamples," number of uncensored samples is ", nUncen)
-
+    message("Now enter the full time span for which you want results")
+    message("It can be shorter than the time span for Daily or Sample or both")
+    message("Enter the starting date as yyyy-mm-dd, no quotes")
+    firstQDate0 <- as.Date(readline())
+    message("Enter the ending date as yyyy-mm-dd, no quotes")
+    lastQDate0 <- as.Date(readline())
     message("How to create the segments for flow normalization")
     message("Enter 0 if you want an automatic sliding span. Or if you want to create them yourself")
     message("Enter a positive integer for the number of segments")
@@ -96,6 +103,13 @@ runFFN <- function(eList, windowSide = NA, dateInfo = NA,
         flowNormEnd[iSeg] <- as.Date(readline())
       }
     }
+  }
+  
+  if(is.na(firstQDate0)){
+    firstQDate0 <- firstDayDaily
+  }
+  if(is.na(lastQDate0)){
+    lastQDate0 <- lastDayDaily
   }
   
   if(!is.na(windowSide) && windowSide > 0){
