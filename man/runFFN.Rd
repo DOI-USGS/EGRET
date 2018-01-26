@@ -4,8 +4,8 @@
 \alias{runFFN}
 \title{runFFN}
 \usage{
-runFFN(eList, windowSide = NA, dateInfo = NA, verbose = TRUE,
-  interactive = FALSE)
+runFFN(eList, windowSide = NA, dateInfo = NA, firstQDate0 = NA,
+  lastQDate0 = NA, verbose = TRUE, interactive = FALSE)
 }
 \arguments{
 \item{eList}{named list with at least Daily and INFO dataframes}
@@ -14,6 +14,10 @@ runFFN(eList, windowSide = NA, dateInfo = NA, verbose = TRUE,
 default is 7. If NA, code will use}
 
 \item{dateInfo}{data frame with 4 columns. The column names and descriptions are described in the next set of arguments}
+
+\item{firstQDate0}{character in YYYY-MM-DD. Overall trims Daily flow. Use NA to use all data.}
+
+\item{lastQDate0}{character in YYYY-MM-DD. Overall trims Daily flow. Use NA to use all data.}
 
 \item{verbose}{logical specifying whether or not to display progress message}
 

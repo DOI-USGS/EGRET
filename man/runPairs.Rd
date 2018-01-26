@@ -7,7 +7,8 @@
 runPairs(eList, year1, year2, windowSide = 7, wall = FALSE,
   lastDaySample1 = NA, firstQDate0 = NA, lastQDate0 = NA,
   firstQDate1 = NA, lastQDate1 = NA, firstQDate2 = NA, lastQDate2 = NA,
-  minNumObs = 100, minNumUncen = 50, interactive = FALSE, ...)
+  minNumObs = 100, minNumUncen = 50, windowY = 7, windowQ = 2,
+  windowS = 0.5, interactive = FALSE, edgeAdjust = TRUE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -39,9 +40,22 @@ default is 7. If NA, code will use}
 
 \item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
 
+\item{windowY}{numeric specifying the half-window width in the time dimension, in units of years, default is 7}
+
+\item{windowQ}{numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2}
+
+\item{windowS}{numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5}
+
 \item{interactive}{logical, defaults to FALSE. If TRUE, walks user through options.}
 
+\item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.
+The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
+
 \item{\dots}{additional parameters}
+
+\item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
+
+\item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
 }
 \description{
 runPairs description
