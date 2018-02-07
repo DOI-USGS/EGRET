@@ -52,5 +52,7 @@ four possible situations
 \examples{
 eList <- Choptank_Phos
 
+eList_series1 <- runSeries(eList, windowSide = 7)
+plotConcHist(eList_series1)
 
 }
