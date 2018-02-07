@@ -42,11 +42,11 @@ flexFN <- function(eList, dateInfo, localsurfaces = NA,
   
   localDaily$flexConc <- NA
   localDaily$flexFlux <- NA
-  addDay <- !(c("ConcDay","FluxDay") %in% names(localDaily))
+  addDay <- !all((c("ConcDay","FluxDay") %in% names(localDaily)))
+  
   if(addDay){
     localDaily$ConcDay <- NA
-    localDaily$FluxDay <- NA    
-    addDay <- TRUE
+    localDaily$FluxDay <- NA   
   }
   
   if(all(is.na(localsurfaces))){
