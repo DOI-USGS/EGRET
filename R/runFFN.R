@@ -33,7 +33,7 @@
 #' AnnualResultsFlex <- runFFN(eList, interactive = TRUE)
 #' 
 #' eListWinter <- setPA(eList, paStart = 12, paLong=3)
-#' AnnualResultsFlexWinter <- runFFN(eList, dateInfo)
+#' AnnualResultsFlexWinter <- runFFN(eList, dateInfo = dateInfo)
 #' }
 runFFN <- function(eList, windowSide = NA, dateInfo = NA,
                    firstQDate0 = NA, lastQDate0 = NA,
