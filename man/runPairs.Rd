@@ -24,17 +24,17 @@ default is 7. If NA, code will use}
 
 \item{lastDaySample1}{character in YYYY-MM-DD. Only used if wall is TRUE. Date of "the wall".}
 
-\item{firstQDate0}{character in YYYY-MM-DD. Overall trims Daily flow. Use NA to use all data.}
+\item{firstQDate0}{character (or Date) in YYYY-MM-DD. Overall trims Daily flow. Use NA to use all data.}
 
-\item{lastQDate0}{character in YYYY-MM-DD. Overall trims Daily flow. Use NA to use all data.}
+\item{lastQDate0}{character (or Date) in YYYY-MM-DD. Overall trims Daily flow. Use NA to use all data.}
 
-\item{firstQDate1}{character in YYYY-MM-DD. First limit of flow data to use in year 1. Use NA to automatically calculate based on windowSide.}
+\item{firstQDate1}{character (or Date) in YYYY-MM-DD. First limit of flow data to use in year 1. Use NA to automatically calculate based on windowSide.}
 
-\item{lastQDate1}{character in YYYY-MM-DD. Second limit of flow data to use in year 1. Use NA to automatically calculate based on windowSide.}
+\item{lastQDate1}{character (or Date) in YYYY-MM-DD. Second limit of flow data to use in year 1. Use NA to automatically calculate based on windowSide.}
 
-\item{firstQDate2}{character in YYYY-MM-DD. First limit of flow data to use in year 2. Use NA to automatically calculate based on windowSide.}
+\item{firstQDate2}{character (or Date) in YYYY-MM-DD. First limit of flow data to use in year 2. Use NA to automatically calculate based on windowSide.}
 
-\item{lastQDate2}{character in YYYY-MM-DD. Second limit of flow data to use in year 2. Use NA to automatically calculate based on windowSide.}
+\item{lastQDate2}{character (or Date) in YYYY-MM-DD. Second limit of flow data to use in year 2. Use NA to automatically calculate based on windowSide.}
 
 \item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
 
@@ -52,10 +52,6 @@ default is 7. If NA, code will use}
 The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
 
 \item{\dots}{additional parameters}
-
-\item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
-
-\item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
 }
 \description{
 runPairs description

@@ -6,16 +6,14 @@
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param year1 integer year1
 #' @param year2 integer year2
-#' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
-#' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
 #' @param wall logical set up a "wall" on the Sample data
 #' @param lastDaySample1 character in YYYY-MM-DD. Only used if wall is TRUE. Date of "the wall".
-#' @param firstQDate0 character in YYYY-MM-DD. Overall trims Daily flow. Use NA to use all data.
-#' @param lastQDate0 character in YYYY-MM-DD. Overall trims Daily flow. Use NA to use all data.
-#' @param firstQDate1 character in YYYY-MM-DD. First limit of flow data to use in year 1. Use NA to automatically calculate based on windowSide.
-#' @param lastQDate1 character in YYYY-MM-DD. Second limit of flow data to use in year 1. Use NA to automatically calculate based on windowSide.
-#' @param firstQDate2 character in YYYY-MM-DD. First limit of flow data to use in year 2. Use NA to automatically calculate based on windowSide.
-#' @param lastQDate2 character in YYYY-MM-DD. Second limit of flow data to use in year 2. Use NA to automatically calculate based on windowSide. 
+#' @param firstQDate0 character (or Date) in YYYY-MM-DD. Overall trims Daily flow. Use NA to use all data.
+#' @param lastQDate0 character (or Date) in YYYY-MM-DD. Overall trims Daily flow. Use NA to use all data.
+#' @param firstQDate1 character (or Date) in YYYY-MM-DD. First limit of flow data to use in year 1. Use NA to automatically calculate based on windowSide.
+#' @param lastQDate1 character (or Date) in YYYY-MM-DD. Second limit of flow data to use in year 1. Use NA to automatically calculate based on windowSide.
+#' @param firstQDate2 character (or Date) in YYYY-MM-DD. First limit of flow data to use in year 2. Use NA to automatically calculate based on windowSide.
+#' @param lastQDate2 character (or Date) in YYYY-MM-DD. Second limit of flow data to use in year 2. Use NA to automatically calculate based on windowSide. 
 #' @param windowSide integer number of automatically generated span sections, 
 #' default is 7. If NA, code will use 
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
@@ -115,7 +113,7 @@ runPairs <- function(eList, year1, year2,
     if (wall) {
       message("enter the date for the wall, last day of first segment, yyyy-mm-dd")
       lastDaySample1 <- as.Date(readline())
-      firstDaySample2 <- lastDaySample1 + days(1)
+      firstDaySample2 <- lastDaySample1 + 1
     }
   }
   
@@ -216,7 +214,6 @@ runPairs <- function(eList, year1, year2,
                            surfaceEnd = startEnd2[["endDate"]], localSample = Sample2, localDaily = Daily2, 
                            minNumObs = minNumObs, minNumUncen = minNumUncen, windowY = windowY, 
                            windowQ = windowQ, windowS = windowS, edgeAdjust = edgeAdjust, verbose = FALSE)
-  
   DailyRS1FD1 <- estDailyFromSurfaces(eList, localsurfaces = surfaces1, 
                                       localDaily = Daily1)
   annualFlex <- setupYears(DailyRS1FD1, paLong = paLong, paStart = paStart)
@@ -266,10 +263,9 @@ runPairs <- function(eList, year1, year2,
   cat("\n  ", eList$INFO$shortName, "\n  ", eList$INFO$paramShortName)
   periodName <- setSeasonLabelByUser(paStart, paLong)
   cat("\n  ", periodName, "\n")
-  if (wall) {
+  if (wall) 
     cat("\n Sample data set was partitioned with a wall at ", 
         as.character(lastDaySample1), "\n")
-  }
   cat("\n Change estimates ", year2, " minus ", year1, "\n")
   totChange <- format(pairResults[1, 1], digits = 3)
   totChangePct <- format(100 * ((c22 - c11)/c11), digits = 2)

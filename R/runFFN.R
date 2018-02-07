@@ -113,47 +113,9 @@ runFFN <- function(eList, windowSide = NA, dateInfo = NA,
   }
   
   if(!is.na(windowSide) && windowSide > 0){
-    windowFull <- 1 + (2 * windowSide)
-    daysApart <- lastQDate0 - firstQDate0
-    daysApart <- daysApart + 1
-    daysApart <- as.numeric(daysApart)
-    yearsApart <- daysApart / 365
-    nSeg <- floor(yearsApart)
-  
-    flowStart <- seq.Date(firstQDate0, by = "1 year", length.out = 42)
-    flowEnd <- as.Date(seq.Date(flowStart[2], by = "1 year", length.out = 42)-1)
-  
-    flowNormStart <- rep(as.Date(firstQDate0), nSeg)
-    flowNormEnd <- rep(as.Date(firstQDate0), nSeg)
-  
-    tempStart <- as.POSIXlt(flowStart)
-    tempStart$year <-  tempStart$year - windowSide
-    tempStart <- as.Date(tempStart)
-  
-    tempEnd <- as.POSIXlt(flowEnd)
-    tempEnd$year <-  tempEnd$year + windowSide
-    tempEnd <- as.Date(tempEnd)
-  
-    for(iSeg in 1:nSeg) {
-  
-      if (tempStart[iSeg] >= firstDayDaily & tempEnd[iSeg] <= lastDayDaily) {
-        # this is the case where the flow norm period can be symmetrical around the segment
-        flowNormStart[iSeg] <- tempStart
-        flowNormEnd[iSeg] <- tempEnd
-      } else {
-        # these are the cases where the flow norm period has to be pushed to one end or the other
-        if (tempStart[iSeg] < firstDayDaily) {
-          # this is the case where the flow norm period goes at the start of the record
-          flowNormStart[iSeg] <- firstDayDaily
-          flowNormEnd[iSeg] <- firstDayDaily + lubridate::years(windowFull)
-        } else {
-          # this is the case where the flow norm period goes at the end of the record
-          flowNormStart[iSeg] <- lastDayDaily - lubridate::years(windowFull)
-          flowNormEnd[iSeg] <- lastDayDaily}
-      }
-    }
-  
-    dateInfo <- data.frame(flowNormStart, flowNormEnd, flowStart, flowEnd, stringsAsFactors = FALSE)
+    dateInfo <- makeDateInfo(windowSide,
+                             firstDayDaily, lastDayDaily,
+                             firstQDate0, lastQDate0)
   }
   
   nSeg <- length(dateInfo$flowStart)
