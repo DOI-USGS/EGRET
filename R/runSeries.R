@@ -255,3 +255,61 @@ makeDateInfo <- function(windowSide,
   dateInfo <- data.frame(flowNormStart, flowNormEnd, flowStart, flowEnd, stringsAsFactors = FALSE)
   return(dateInfo)
 }
+
+
+#' makeSeriesOutputs
+#' 
+#' makeSeriesOutputs
+#' 
+#' @export
+#' @param eList named list with at least Daily and INFO dataframes
+#' @param startDate character or Date
+#' @param endDate character or Date
+#' @param printTable logical
+#' @param plotConc logical
+#' @param plotFlux logical
+#' @examples 
+#' eList <- Choptank_Phos
+#' \dontrun{
+#' eList_series1 <- runSeries(eList, windowSide = 7)
+#' makeSeriesOutputs(eList_series1)
+#' 
+#' }
+makeSeriesOutputs <- function(eList, 
+                              startDate = NA, endDate = NA, 
+                              printTable = TRUE,
+                              plotConc = TRUE, plotFlux = TRUE) {
+  # this function takes the output of runSeries and creates a table of annual values and makes two figures
+  # that show time series of flexFNConc and flexFNFlux
+  # this function will be swapped out for a better version when we have all the regular values, and regular flow normalized values
+  # placed into the eList$Daily  This would also take in some of the other options available in tableResults and plotConcHist and plotFluxHist
+  #  default for startDate is the date of the first flex values in Daily, endDate is the date of the last ones
+  localINFO <- getInfo(eList)
+  
+  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+    paLong <- localINFO$paLong
+    paStart <- localINFO$paStart  
+  } else {
+    paLong <- 12
+    paStart <- 10
+  }
+  
+  localDaily <- na.omit(eList$Daily)
+  firstDate <- localDaily$Date[1]
+  lastDate <- localDaily$Date[length(localDaily$Date)]
+  startDate <- max(as.Date(firstDate), as.Date(startDate), na.rm = TRUE)
+  endDate <- min(as.Date(lastDate), as.Date(endDate), na.rm = TRUE)
+  localDaily <- localDaily[localDaily$Date >= startDate & localDaily$Date <= endDate,]
+
+  localDaily$ConcDay <- localDaily$flexConc
+  localDaily$FNConc <- localDaily$flexConc
+  localDaily$FluxDay <- localDaily$flexFlux
+  localDaily$FNFlux <- localDaily$flexFlux
+  print("This is a temporary feature, the results shown are all flex values")
+  tableResults(eList, localDaily = localDaily)
+  eListBad <- as.egret(eList$INFO,localDaily,eList$Sample,eList$surfaces)
+  plotConcHist(eListBad)
+  plotFluxHist(eListBad)
+  invisible(eListBad)
+}
+

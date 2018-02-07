@@ -260,15 +260,7 @@ The full call to the function looks like this:
 
 ```{r series}
 eListOut <- runSeries(eList, 
-                      wall = FALSE, 
-                      surfaceStart, surfaceEnd, 
-                      firstSampleDate0 = NA,
-                      lastSampleDate0 = NA, 
-                      lastSampleDate1 = NA,
-                      flowBreak = FALSE, 
-                      windowSide = 7, 
-                      lastQDate1 = NA, 
-                      firstQDate0 = NA, lastQDate0 = NA)
+                      windowSide = 7)
 ```
 
 It is a good idea to name the output **eListOut** so that it doesn't change the content of **eList**.  
