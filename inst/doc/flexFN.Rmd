@@ -114,13 +114,28 @@ What we see printed at the bottom of this output is the data frame called **pair
 |FD1| the flow distribution based on the span: firstQDate1 to lastQDate1|
 |FD2| the flow distribution based on the span: firstQDate2 to lastQDate2|
 
-We can also look at all the attributes of **pairResults**.  Here they are printed out.
+We can also look at all the attributes of **pairResults**.  Here they are printed out:
+
+The values are `paStart`, `paLong`, `year1`, and `year2`:
+```{r}
+attr(pairResults, "yearPair") 
+```
+
+The values are the start and end of `Daily0`, `Daily1`, and `Daily2`:
 
 ```{r}
-attr(pairResults, "yearPair") # the values are paStart, paLong, year1, and year2
-attr(pairResults, "FDblocks") # the values are the start and end of Daily0, then the start and end of Daily1, and then Daily2
-attr(pairResults, "SampleBlocks") # the values are the start and end of the two Sample groups
-attr(pairResults, "Other") # minNumObs, minNumUncen, windowY, windowQ, windowS, wall, edgeAdjust (for the last two 0 = F, 1 = T)
+attr(pairResults, "FDblocks") 
+```
+The values are the start and end of the two `Sample` groups:
+
+```{r}
+attr(pairResults, "SampleBlocks") 
+```
+
+The values are `minNumObs`, `minNumUncen`, `windowY`, `windowQ`, `windowS`, `wall`, `edgeAdjust` (for the last two 0 = F, 1 = T):
+
+```{r}
+attr(pairResults, "Other") 
 ```
 
 Also note that if you want to report any of these flux values in units of kg/km^2/yr, you can achieve that as follows.  We will do it here for the Choptank, which has a drainage area of 292.6687 km^2.
@@ -205,14 +220,100 @@ pFlux are the **nBoot** iterations of the percentage change in flux from year1 t
 
 We can produce graphs like plotHistogramTrend from this output *(note here a little patchwork of changing terms between the wBT and the runPairsBoot outputs would be needed here, but it is pretty easily done.  I can do it later.  RMH 2018-01-16)*
 
-# Series Analysis (Ignore everything from here on 2018-01-25 RMH)
-
-* *I have a working version now, but it doesn't have the wall built in yet.  (Laura has my outline of what I think needs to be done to do the wall for this).  I will modify it to be batch oriented.  Also, the bootstrap hasn't been started on.  If this works ok, then Laura could start on the bootstrap (like CI bands)*
+# Series Analysis 
 
 
-The output is called AnnualResultsFlex and it is structured just like AnnualResults but it has the extra columns containing the flexFNConc and flexFNFlux.  Modified versions of plotConcHist and plotFluxHistory should be able to provide the output from these.
 
-# Group Analysis
+
+There are a large number of possible ways to produce a time series of annual values with flexible flow normalization and the possible use of the wall.  All of them use the function **runSeries**.  
+
+The first thing that needs to be considered is the choice of two different ways to estimate the Response Surface (RS).  The first of these is the traditional way, using the regular smoothing approach of WRTDS.  The alternative is to employ the **wall** as discussed at the begining of this document.  The **wall** might be used for several different kinds of reasons: 1) a nearly instantaneous change in a major pollutant source (e.g. a major nutrient removal system or a major stormwater diversion comes on line), 2) a natural event such as a very large flood happens which we believe may have an influence on the RS for a period of several years, or 3) a major reservoir is completed or removed thereby causing a major change in the RS (because of the mixing that happens in the reservoir and the potential for decoupling of discharge and concentration).  If any of these things are significant to the system we need to set the argument **wall = TRUE** and, if we have chosen to do this, we need to specify a date which is the end of the period before the change.  We do that with the argument **lastSampleDate1** which we set to a specific date, so the call to the function would say:  **lastSampleDate1 = "1998-06-30"** if we wanted to characterize the change in the response surface as coming at the end of June, 1998.  
+
+The second thing we need to think about is how we characterize the change in the flow distribution (FD).  We include the possibility that the flow distribution change can either be abrupt, or gradual, or it can be abrupt with gradual changes on either side.  An abrupt change would most likely be related to a change in water management: a new dam, a dam removal, or a major change in the operating policies at the dam.  We use the logical variable **flowBreak = TRUE** when we want there to be such an abrupt break in the FD.  If **flowBreak = TRUE** then we must define the time of the break, using the argument **lastQDate1**.  So if we think the change comes at the end of November, 2001 then we would say **lastQDate1 = "2001-11-30"**.  It is possible that **lastQDate1 and lastSampleDate1** would come on the same date, but it isn't necessarily the case.
+
+For the moment lets assume that **flowBreak = FALSE** but we want to use flexible flow normalization.  If that is the case then we need to specify the **windowSide** argument to decide how wide a span we will use to flow normalize each year.  Our default is **windowSide = 7** which means that the total width of the window for flow normalizing would be 15 years.  As an aside, I'm not convinced that 7 is a really good choice and I hope to do a bit more exploring to see what the trade-offs are for using a larger value.
+
+Now, what about the case where **flowBreak = TRUE**, we can choose to assume that the FD is stationary on either side of the break, or we can use a moving window on either side.  Note that this choice really matters when the number of years on one or both sides of the break is greater than about **2*windowSide**.  If we don't want the FD to change as we move through the years on either side then we set **windowSide = 0**, if we want to have a moving window for flow normalization on both sides then we don't need to specify **windowSide** because its default is 7, but if we want something larger or smaller than 7 years then we do need to set it to the desired value.
+
+To summarize these options about flow normalization, there are four cases:
+
+1) no flexible flow normalization at all: 
+             to do this: we set **flowBreak = FALSE and windowSide = 0**
+2) moving window flexible flow normalization, but no break
+            to do this: we set **flowBreak = FALSE and windowSide = ** some integer greater than 1 
+3) there is a break but no moving window on each side
+            to do this: we set **flowBreak = TRUE and specify the time as **lastQDate1** 
+            and we set **windowSide = 0**             
+4) there is a break but there is a moving window on each side
+           to do this: we set **flowBreak = TRUE and specify the time as **lastQDate1** 
+           and we set **windowSide = ** some integer greater than 1
+           
+We must specify the starting and ending dates of the period for which we want to get these flexible flow normalized results.  Recall that in the simple version, where we just use **modelEstimation**, the assumption is made that we want results calculated for the entire time span covered by the discharge data in the **Daily** data frame, and that the user is advised to make that time span run only slightly beyond the span of the data in the **Sample** data frame.  This new version is much more flexible in that respect.  The user MUST specify a **surfaceStart** and **surfaceEnd** date (these are both date variables, in the form "yyyy-mm-dd").  The function will compute the surfaces over this span of time and it will also compute the flexible flow normalize concentrations and fluxes over this span.  It may be useful to specify these as the start and end of water years, but it doesn't have to be.  They can be any dates the user chooses.  A typical example would be **surfaceStart = "1977-10-01" and "surfaceEnd = 2016-09-30"**.
+
+However, the user may want the discharge data that are available to the flexible flow normalization process to extend over a wider span of years than the span between surfaceStart and surfaceEnd.  This might be the case when we have a number of years of streamflow data prior to the start of the water quality data.  It would be a good idea to make use of those prior years for flow normalizing the earliest years of the water quality record.  We can specify the full amount of discharge record we want to have available for flow normalization.  We do that with the two arguments **firstQDate0 and lastQDate0**.  For example using the choice of **surfaceStart = "1977-10-01" and "surfaceEnd = 2016-09-30"** and a **windowSide = 7** we might want to set **firstQDate0 = 1970-10-01** and set **lastQDate0** to the last date we have available in the **Daily** data frame.  There are defaults for **firstQDate0 and lastQDate0** which are the first and last dates that exist in the **Daily** data frame.  There are cases where we might not want to run the flow normalization windows out to the full extent of the **Daily** record becuase we believe that it will include some period that is substantially different from the period we are developing results for.  
+
+Finally, the user may want to restrict the total span of sample data used to fit the surface.  The span is set by the two arguments **firstSampleDate0 and lastSampleDate0**.  If they are not specified then all of the data in the **Sample** data frame will be used.  We only need to specify these dates if we want to restrict the set of samples used.  One reason we may want to do this is because there may be an event that might have created an earlier abrut change in the RS that comes before the one specified by the **wall**.  We may want to restrict our analysis to just use the data from after that earlier event.  
+
+The call to runSeriesAlt also contains the usual options for period of analysis, windows, etc. which won't be discussed here again.  Note, that if the wall is being used and there are a rather small number of samples on one or both sides of the wall, the program adjust the minNumObs parameters to account for that, but it informs the user of what has been done.
+
+The full call to the function looks like this:
+
+```{r series}
+eListOut <- runSeries(eList, 
+                      windowSide = 7)
+```
+
+It is a good idea to name the output **eListOut** so that it doesn't change the content of **eList**.  
+
+Now let us look at a very simple application of **runSeries**.  It is the case where we have no wall, no flow break, we are using the moving flow normalization window with the default value of **windowSide = 7**.  
+
+The Sample data set we are using here runs from 1984-10-19 to 2014-09-25 but the Daily data set we are using runs from 1975-10-01 to 2017-09-30.
+
+So, we will load the data and run the analysis now.
+
+```{r}
+eList <- Choptank_Phos
+
+eListOut <- runSeries(eList, 
+                      surfaceStart = "1984-10-01", 
+                      surfaceEnd = "2014-09-30")
+```
+
+Right now we only have a kluge approach to seeing the output, in the form of the function **makeSeriesOutputs**, to get it to work we have cheated and put the flexible flow normalized results into the place in the output data set where the annual averages and flow normalized values would ordinarily go.  But, it least it give us a table and graphs to see our results.  Stay tuned for this part.
+
+```{r}
+eListBad <- makeSeriesOutputs(eListOut)
+```
+
+I would comment here that the flexible flow normalized flux graph is a bit too irregular for my taste and I would probably change to windowSide = 12 to see if I like the results better.  That's done at the end of this section.
+ 
+An important feature of the output (in **eListOut**) is that we have documentation here of all of the arguments that were used in setting up the problem (these are in **eListOut$INFO"**).  There is also a data frame stored as an attribute of **eListOut$INFO**.  We will use them later in the bootstrap so that we are sure that the problem is set up the same way.  By storing **eListOut** we have a complete accounting of all the data inputs, parameters for the calculations, and outputs.  This should be very helpful in the documentation process.
+
+```{r}
+eListOut$INFO
+attr(eListOut$INFO, "segmentInfo")
+```
+
+Here we will run the function again but change to **windowSide = 12**
+
+```{r}
+eListOut11 <- runSeries(eList, 
+                        surfaceStart = "1984-10-01", 
+                        surfaceEnd = "2014-09-30", 
+                        windowSide = 12)
+eListBad11 <- makeSeriesOutputs(eListOut11)
+```
+
+I do think that the results with **windowSide = 12** is better.  The little up's and down's of the flux curve are not meaningful, in my opinion.  
+
+Later, we will take a look at a much more complex case, where a major dam was completed during the period of record and it had a major impact on both the FD and the RS.  
+
+When the bootstrap component is added we will see how it works with the runSeriesAlt function.
+
+
+
+
+# Group Analysis (the text is here, but I'm not running it for now, the Pairs and Series are a higher priority)
 
 In a group analysis we are comparing results for two different periods.  In these analyses there is always a wall.  It could be that it is set up to look at changes in water quality before and after some specific engineered action (treatment plant or dam) or it could simply be a hypothesis we want to examine (e.g. fluxes increased from the period before some agricultural practices were introduced versus after).  The two time periods to be examined are defined by their starting and ending dates.  The first period starts on **firstDaySurface1** and ends on **lastDaySurface1**.  The second period starts on **firstDaySurface2** and ends on **lastDaySurface2**.  
 
@@ -222,24 +323,39 @@ If we also want to do flexible flow normalization, then we need to specify four 
 
 Let's start with the simple case of just looking at two periods WY 1985 - 1999 and WY 2000 - WY 2014.
 
-```{r}
+```{r eval=FALSE}
+eList <- Choptank_Phos
 
-# groupResults <- runGroups(eList, firstDaySurface1 = "1984-10-01", lastDaySurface1 = "1999-09-30",
-#                           lastDaySurface2 = "2014-09-30")
-# # we can look at the attributes of groupResults so we know how it was created
-# attr(groupResults, "surfaceDates")
-# attr(groupResults, "FDblocks")
-# attr(groupResults, "OtherParams")
+
+groupResults <- runGroups(eList, 
+                          firstDaySurface1 = "1984-10-01",
+                          lastDaySurface1 = "1999-09-30",
+                          lastDaySurface2 = "2014-09-30")
+```
+
+We can look at the attributes of groupResults so we know how it was created:
+```{r eval=FALSE}
+attr(groupResults, "surfaceDates")
+attr(groupResults, "FDblocks")
+attr(groupResults, "OtherParams")
 ```
 
 It should come as no surprise here that the FD part of the change is 0, because we constrained the problem to not use flexible flow normalization.  One other thing in the output is that we have statements made about how many samples are in each period.  Take a look at these and decide if you are comfortable with them.  
 
 Let's run it again, but this time we will set the flow normalization periods to be the same as the periods we used for the surfaces.
 
-```{r}
-# groupResults <- runGroups(eList, firstDaySurface1 = "1984-10-01", lastDaySurface1 = "1999-09-30",
-#                           lastDaySurface2 = "2014-09-30", firstQDay1 = "1984-10-01", lastQDay1 = "1999-09-30",                           firstQDay2 = "1999-10-01", lastQDay2 = "2014-09-30")
-# attr(groupResults, "surfaceDates")
-# attr(groupResults, "FDblocks")
-# attr(groupResults, "OtherParams")
+```{r eval=FALSE}
+groupResults <- runGroups(eList, 
+                          firstDaySurface1 = "1984-10-01",
+                          lastDaySurface1 = "1999-09-30",
+                          lastDaySurface2 = "2014-09-30", 
+                          firstQDay1 = "1984-10-01", 
+                          lastQDay1 = "1999-09-30", 
+                          firstQDay2 = "1999-10-01", 
+                          lastQDay2 = "2014-09-30")
+attr(groupResults, "surfaceDates")
+attr(groupResults, "FDblocks")
+attr(groupResults, "OtherParams")
 ```
+
+
