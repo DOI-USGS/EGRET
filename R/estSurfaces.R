@@ -62,6 +62,7 @@ estSurfaces<-function(eList, surfaceStart=NA, surfaceEnd=NA, localSample=NA,
   }
   
   localINFO <- getInfo(eList)
+  localDaily <- getDaily(eList)
   
   if(all(is.na(localSample))){
     localSample <- eList$Sample
@@ -103,7 +104,6 @@ estSurfaces<-function(eList, surfaceStart=NA, surfaceEnd=NA, localSample=NA,
     estPtYear <- rep(Year,each=14)
 
   }
- 
   
   estPtLogQ<-rep(vectorLogQ,nVectorYear)
 

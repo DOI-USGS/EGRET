@@ -4,37 +4,36 @@
 \alias{runPairs}
 \title{runPairs}
 \usage{
-runPairs(eList, year1, year2, windowSide = 7, wall = FALSE,
-  lastDaySample1 = NA, firstQDate0 = NA, lastQDate0 = NA,
-  firstQDate1 = NA, lastQDate1 = NA, firstQDate2 = NA, lastQDate2 = NA,
+runPairs(eList, year1, year2, windowSide, flowBreak = FALSE, Q1EndDate = NA,
+  QStartDate = NA, QEndDate = NA, wall = FALSE, sample1EndDate = NA,
+  sampleStartDate = NA, sampleEndDate = NA, paStart = 10, paLong = 12,
   minNumObs = 100, minNumUncen = 50, windowY = 7, windowQ = 2,
-  windowS = 0.5, interactive = FALSE, edgeAdjust = TRUE, ...)
+  windowS = 0.5, edgeAdjust = TRUE)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
 
-\item{year1}{integer year1}
+\item{year1}{integer the ending year of the first year in pairs}
 
-\item{year2}{integer year2}
+\item{year2}{integer the ending year of the second year in pairs}
 
-\item{windowSide}{integer number of automatically generated span sections, 
-default is 7. If NA, code will use}
+\item{windowSide}{integer The width of the flow normalization window on each side of the year being estimated.}
 
-\item{wall}{logical set up a "wall" on the Sample data}
+\item{flowBreak}{logical, is there an abrupt break in the QD}
 
-\item{lastDaySample1}{character in YYYY-MM-DD. Only used if wall is TRUE. Date of "the wall".}
+\item{Q1EndDate}{The Date just before the flowBreak (or character in YYY-MM-DD format)}
 
-\item{firstQDate0}{character (or Date) in YYYY-MM-DD. Overall trims Daily flow. Use NA to use all data.}
+\item{QStartDate}{The first Date used in the QD (if NA, which is default, it is first Date in eList$Daily)}
 
-\item{lastQDate0}{character (or Date) in YYYY-MM-DD. Overall trims Daily flow. Use NA to use all data.}
+\item{QEndDate}{The last Date used in the QD (if NA, which is default, it is the last Date in eList$Daily)}
 
-\item{firstQDate1}{character (or Date) in YYYY-MM-DD. First limit of flow data to use in year 1. Use NA to automatically calculate based on windowSide.}
+\item{wall}{logical, there is an abrupt break in the CQR}
 
-\item{lastQDate1}{character (or Date) in YYYY-MM-DD. Second limit of flow data to use in year 1. Use NA to automatically calculate based on windowSide.}
+\item{sample1EndDate}{The Date of just before the wall}
 
-\item{firstQDate2}{character (or Date) in YYYY-MM-DD. First limit of flow data to use in year 2. Use NA to automatically calculate based on windowSide.}
+\item{sampleStartDate}{The Date of the first sample to be used (if NA, which is default, it is the first Date in eList$Sample)}
 
-\item{lastQDate2}{character (or Date) in YYYY-MM-DD. Second limit of flow data to use in year 2. Use NA to automatically calculate based on windowSide.}
+\item{sampleEndDate}{The Date of the last sample to be used (if NA, which is default, it is the last Date in eList$Sample)}
 
 \item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
 
@@ -46,12 +45,8 @@ default is 7. If NA, code will use}
 
 \item{windowS}{numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5}
 
-\item{interactive}{logical, defaults to FALSE. If TRUE, walks user through options.}
-
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.
 The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
-
-\item{\dots}{additional parameters}
 }
 \description{
 runPairs description
@@ -63,17 +58,22 @@ year2 <- 2014
 
 \dontrun{
 # Automatic calculations based on windowSide=7
-pairOut <- runPairs(eList, year1, year2)
 
-# Specify flow normalize sections:
-pairOut_custom <- runPairs(eList, year1, year2,
-                           firstQDate1 = "1977-10-01",
-                           lastQDate1 = "1990-09-30",
-                           firstQDate2 = "2000-10-01",
-                           lastQDate2 = "2014-09-25") 
+#Option 1:
+pairOut_1 <- runPairs(eList, year1, year2, windowSide = 0)
 
-pairOut_interactive <- runPairs(eList, year1, year2,
-                                interactive = TRUE)
+# Option 2:
+pairOut_2 <- runPairs(eList, year1, year2, windowSide = 7)
+
+# Option 3:
+pairOut_3 <- runPairs(eList, year1, year2, 
+                      windowSide = 0, flowBreak = TRUE,
+                      Q1EndDate = "1990-09-30")
+
+# Option 4:
+pairOut_4 <- runPairs(eList, year1, year2, 
+                      windowSide = 7, flowBreak = TRUE,
+                      Q1EndDate = "1990-09-30")
 
 }
 }
