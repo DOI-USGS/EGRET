@@ -73,8 +73,19 @@ estSurfaces<-function(eList, surfaceStart=NA, surfaceEnd=NA, localDaily=NA, loca
   }
   
   numDays <- length(localDaily$DecYear)
-  DecLow <- localDaily$DecYear[1]
-  DecHigh <- localDaily$DecYear[numDays]
+
+  n <- length(localSample$Date)
+  
+  DecLow <- trunc(localSample$DecYear[1]) - 0.25
+  DecHigh <- trunc(localSample$DecYear[n]) + 0.75
+  
+  if(localSample$Month[1] %in% c(10:12)){
+    DecLow <- DecLow + 1
+  } 
+  
+  if(localSample$Month[n] %in% c(10:12)){
+    DecHigh <- DecHigh + 1
+  }
   
   surfaceInfo <- surfaceIndex(localDaily)
   vectorYear <- surfaceInfo[['vectorYear']]
@@ -90,10 +101,9 @@ estSurfaces<-function(eList, surfaceStart=NA, surfaceEnd=NA, localDaily=NA, loca
     Year <- seq(surfaceInfo[['bottomYear']], by=surfaceInfo[['stepYear']], length.out=surfaceInfo[['nVectorYear']])
     
   } else {
-    DecLow <- decimalDate(as.Date(surfaceStart))
-    DecHigh <- decimalDate(as.Date(surfaceEnd))
-    
-    sliceIndex <- which(vectorYear >= DecLow & vectorYear <= DecHigh)
+
+    sliceIndex <- which(vectorYear >= decimalDate(as.Date(surfaceStart)) & vectorYear <= 
+                          decimalDate(as.Date(surfaceEnd)))
     Year <- vectorYear[c(sliceIndex[1]-1, sliceIndex, tail(sliceIndex, n = 1)+1)]
     
     nVectorYear <- length(Year)
