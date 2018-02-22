@@ -41,6 +41,7 @@ runFFN <- function(eList, windowSide = NA, dateInfo = NA,
 
   localDaily <- getDaily(eList)
   localINFO <- getInfo(eList)
+  localSample <- getSample(eList)
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong

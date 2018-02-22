@@ -221,14 +221,15 @@ makeDateInfo <- function(windowSide,
   firstQDate0 <- as.Date(firstQDate0)
   lastQDate0 <- as.Date(lastQDate0)
   
-  daysApart <- lastQDate0 - firstQDate0
+  daysApart <- surfaceEnd - surfaceStart
   daysApart <- daysApart + 1
   daysApart <- as.numeric(daysApart)
   yearsApart <- daysApart / 365
-  nSeg <- floor(yearsApart)
+  nSeg <- ceiling(yearsApart)
   
-  flowStart <- seq.Date(firstQDate0, by = "1 year", length.out = 42)
-  flowEnd <- as.Date(seq.Date(flowStart[2], by = "1 year", length.out = 42)-1)
+  flowStart <- seq.Date(surfaceStart, by = "1 year", length.out = nSeg)
+  flowEnd <- as.Date(seq.Date(flowStart[2], by = "1 year", length.out = nSeg)-1)
+  flowEnd[flowEnd > surfaceEnd] <- surfaceEnd
   
   flowNormStart <- rep(as.Date(firstQDate0), nSeg)
   flowNormEnd <- rep(as.Date(firstQDate0), nSeg)
@@ -245,14 +246,20 @@ makeDateInfo <- function(windowSide,
   flowNormEnd <- tempEnd
   
   firstQDate0_lt <- as.POSIXlt(firstQDate0)
+  lastQDate0_lt <- as.POSIXlt(lastQDate0)
   
   flowNormStart[flowNormStart < firstQDate0] <- firstQDate0
   flowNormEnd[flowNormStart < firstQDate0] <- as.Date(paste(1900 + firstQDate0_lt$year+windowFull,firstQDate0_lt$mon+1, firstQDate0_lt$mday, sep = "-"))
+  flowNormEnd[flowNormStart < firstQDate0] <- as.Date(flowNormEnd[flowNormStart < firstQDate0] - 1)
   
+  flowNormStart[flowNormEnd > lastQDate0] <- as.Date(paste(1900 + lastQDate0_lt$year-windowFull,lastQDate0_lt$mon+1, lastQDate0_lt$mday, sep = "-"))
+  flowNormStart[flowNormEnd > lastQDate0] <-  as.Date(flowNormStart[flowNormEnd > lastQDate0] + 1)
   flowNormEnd[flowNormEnd > lastQDate0] <- lastQDate0
-  flowNormStart[flowNormEnd > lastQDate0] <- as.Date(paste(1900 + firstQDate0_lt$year-windowFull,firstQDate0_lt$mon+1, firstQDate0_lt$mday, sep = "-"))
   
   dateInfo <- data.frame(flowNormStart, flowNormEnd, flowStart, flowEnd, stringsAsFactors = FALSE)
+  
+  dateInfo <- dateInfo[dateInfo$flowStart < dateInfo$flowEnd,]
+  
   return(dateInfo)
 }
 
