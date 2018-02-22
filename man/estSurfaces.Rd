@@ -4,9 +4,9 @@
 \alias{estSurfaces}
 \title{Estimate the three surfaces (for yHat, SE and ConcHat) as a function of DecYear and logQ and store in the three-dimensional object called surfaces}
 \usage{
-estSurfaces(eList, surfaceStart = NA, surfaceEnd = NA, localDaily = NA,
-  localSample = NA, windowY = 7, windowQ = 2, windowS = 0.5,
-  minNumObs = 100, minNumUncen = 50, edgeAdjust = TRUE, verbose = TRUE,
+estSurfaces(eList, surfaceStart = NA, surfaceEnd = NA, localSample = NA,
+  windowY = 7, windowQ = 2, windowS = 0.5, minNumObs = 100,
+  minNumUncen = 50, edgeAdjust = TRUE, verbose = TRUE,
   interactive = NULL, run.parallel = FALSE)
 }
 \arguments{
@@ -15,8 +15,6 @@ estSurfaces(eList, surfaceStart = NA, surfaceEnd = NA, localDaily = NA,
 \item{surfaceStart}{Date object for start of surface slice (or character starting date for data retrieval in the form YYYY-MM-DD).}
 
 \item{surfaceEnd}{Date object for end of surface slice (or character starting date for data retrieval in the form YYYY-MM-DD).}
-
-\item{localDaily}{data frame to override eList$Daily}
 
 \item{localSample}{data frame to override eList$Sample}
 

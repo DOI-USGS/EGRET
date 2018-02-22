@@ -25,7 +25,6 @@
 #' @param interactive logical deprecated. Use 'verbose' instead
 #' @param run.parallel logical to run bootstrapping in parallel or not
 #' @param localSample data frame to override eList$Sample
-#' @param localDaily data frame to override eList$Daily
 #' @keywords water-quality statistics
 #' @return surfaces array containing the three surfaces estimated, array is 3 dimensional
 #' @export
@@ -43,7 +42,7 @@
 #' surface_wall <- estSurfaces(eList, localSample = wall_sample)
 #' 
 #' }
-estSurfaces<-function(eList, surfaceStart=NA, surfaceEnd=NA, localDaily=NA, localSample=NA,
+estSurfaces<-function(eList, surfaceStart=NA, surfaceEnd=NA, localSample=NA,
                       windowY=7,windowQ=2,windowS=0.5,
                       minNumObs=100,minNumUncen=50,edgeAdjust=TRUE,
                       verbose = TRUE, interactive=NULL,
@@ -67,12 +66,6 @@ estSurfaces<-function(eList, surfaceStart=NA, surfaceEnd=NA, localDaily=NA, loca
   if(all(is.na(localSample))){
     localSample <- eList$Sample
   }
-  
-  if(all(is.na(localDaily))){
-    localDaily <- eList$Daily
-  }
-  
-  numDays <- length(localDaily$DecYear)
 
   n <- length(localSample$Date)
   
