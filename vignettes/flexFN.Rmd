@@ -95,7 +95,7 @@ One final thing about setting up the flow normalization periods.  If there is so
 In this first example we will specify that year1 is 1985 and year2 is 2014 and we will not have a wall, and we will use automatic flow window designation, with a **windowSide** value of 7.
 
 ```{r}
-pairResults <- runPairs(eList, year1 = 1985, year2 = 2014)
+pairResults <- runPairs(eList, year1 = 1985, year2 = 2014, windowSide = 7)
 ```
 What we see printed at the bottom of this output is the data frame called **pairResults** produced from a run of this run of the model.  It contains all of the relevant output from the run.  It also has attributes associated with it so that we know how the estimation was designed.  **pairResults** has two rows, the top for concentration (in mg/L) the bottom for flux (in 10^6 kg/yr).  The columns have the following meanings.
 
@@ -165,14 +165,9 @@ Let's say we want the analysis to only include the discharge data for water year
 ```{r}
 pairResults2 <- runPairs(eList,
                          year1 = 1985, year2 = 2014,
-                         windowSide = 0, wall = TRUE,
-                         lastDaySample1 = "1995-05-31",
-                         firstQDate0 = "1979-10-01",
-                         lastQDate0 = "2017-09-30",
-                         firstQDate1 = "1979-10-01",
-                         lastQDate1 = "1995-05-31",
-                         firstQDate2 = "1995-06-01",
-                         lastQDate2 = "2017-09-30",
+                         windowSide = 0, 
+                         wall = TRUE,
+                         sample1EndDate = "1992-06-01",
                          paStart = 4, paLong = 5)
 
 attr(pairResults2, "yearPair")
