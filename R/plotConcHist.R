@@ -17,6 +17,7 @@
 #' @param concMax numeric. Maximum value of concentration to be plotted.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
 #' @param plotFlowNorm logical variable if TRUE flow normalized line is plotted, if FALSE not plotted 
+#' @param plotAnnual logical variable if TRUE annual concentration points are plotted, if FALSE not plotted 
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
@@ -42,7 +43,8 @@
 #' plotConcHist(eList)
 plotConcHist<-function(eList, yearStart = NA, yearEnd = NA, 
                        concMax = NA, printTitle = TRUE, 
-                       tinyPlot = FALSE,plotFlowNorm = TRUE,
+                       tinyPlot = FALSE,
+                       plotFlowNorm = TRUE, plotAnnual = TRUE,
                         cex=0.8, cex.axis=1.1,cex.main=1.1, 
                        lwd=2, col="black", col.pred="green", customPar=FALSE,...){
 
@@ -57,53 +59,63 @@ plotConcHist<-function(eList, yearStart = NA, yearEnd = NA,
     paStart <- 10
   }
   
-  if(!all((c("SE","yHat") %in% names(eList$Sample)))){
+  if(!(c("FNConc") %in% names(eList$Daily))){
     stop("This function requires running modelEstimation on eList")
   }
 
   localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
+  hasFlex <- c("segmentInfo") %in% names(attributes(eList$INFO))
   
+
   periodName<-setSeasonLabel(localAnnualResults=localAnnualResults)
-  title3<-if(plotFlowNorm) "\nMean Concentration (dots) & Flow Normalized Concentration (line)" else "\nAnnual Mean Concentration"
+  
+  if(hasFlex){
+    periodName <- paste(periodName,"*")
+  }
+  
+  if(plotAnnual & plotFlowNorm){
+    title3 <- "\nMean Concentration (dots) & Flow Normalized Concentration (line)" 
+  } else if(plotAnnual & !plotFlowNorm){
+    title3 <- "\nAnnual Mean Concentration"
+  } else if(!plotAnnual & plotFlowNorm){
+    title3 <- "\nFlow Normalized Concentration"
+  } else {
+    title3 <- "\n"
+  }
+  
   title<-if(printTitle) paste(localINFO$shortName," ",localINFO$paramShortName,"\n",periodName,title3) else ""
-  
-  hasFlex <- all(c("flexConc","flexFlux") %in% names(localDaily))
-  
+
   ##################
 
   xInfo <- generalAxis(x=localAnnualResults$DecYear, minVal=yearStart, maxVal=yearEnd, padPercent=0, tinyPlot=tinyPlot)
-  
-  if(hasFlex){
-    combinedY <- c(localAnnualResults$Conc,
-                   localAnnualResults$FNConc[localAnnualResults$DecYear>xInfo$bottom & localAnnualResults$DecYear<xInfo$top],
-                   localAnnualResults$flexConc[localAnnualResults$DecYear>xInfo$bottom & localAnnualResults$DecYear<xInfo$top])
-  } else {
-    combinedY <- c(localAnnualResults$Conc,localAnnualResults$FNConc[localAnnualResults$DecYear>xInfo$bottom & localAnnualResults$DecYear<xInfo$top])
-  }
-  
+ 
+  combinedY <- c(localAnnualResults$Conc,localAnnualResults$FNConc[localAnnualResults$DecYear>xInfo$bottom & localAnnualResults$DecYear<xInfo$top])
+ 
   yInfo <- generalAxis(x=combinedY, minVal=0, maxVal=concMax, padPercent=5, 
                        tinyPlot=tinyPlot,units=localINFO$param.units)
   
-  genericEGRETDotPlot(x=localAnnualResults$DecYear, y=localAnnualResults$Conc,
+  genericEGRETDotPlot(x=NA, y=NA,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,xDate=TRUE,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                       ylab=yInfo$label, col=col,cex=cex,
                       plotTitle=title, cex.axis=cex.axis,cex.main=cex.main,
                       tinyPlot=tinyPlot,customPar=customPar,...
     )
+  
+  if(plotAnnual){
+    with(localAnnualResults, 
+         points(DecYear[DecYear>xInfo$bottom & DecYear<xInfo$top], 
+                Conc[DecYear>xInfo$bottom & DecYear<xInfo$top], 
+               col=col, cex=cex, pch=20))
+  }
 
   if(plotFlowNorm){
-    if(hasFlex){
-      with(localAnnualResults, 
-           lines(DecYear[DecYear>xInfo$bottom & DecYear<xInfo$top], 
-                 flexConc[DecYear>xInfo$bottom & DecYear<xInfo$top], 
-                 col=col.pred, lwd=lwd))      
-    } else {
-      with(localAnnualResults, 
-                          lines(DecYear[DecYear>xInfo$bottom & DecYear<xInfo$top], 
-                                FNConc[DecYear>xInfo$bottom & DecYear<xInfo$top], 
-                                col=col.pred, lwd=lwd))
-    }
-  } 
+
+    with(localAnnualResults, 
+                        lines(DecYear[DecYear>xInfo$bottom & DecYear<xInfo$top], 
+                              FNConc[DecYear>xInfo$bottom & DecYear<xInfo$top], 
+                              col=col.pred, lwd=lwd))
+    
+  }
 	
 }

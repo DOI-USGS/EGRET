@@ -40,14 +40,10 @@ flexFN <- function(eList, dateInfo, localsurfaces = NA,
   
   localDaily <- getDaily(eList)
   
-  localDaily$flexConc <- NA
-  localDaily$flexFlux <- NA
-  addDay <- !all((c("ConcDay","FluxDay") %in% names(localDaily)))
-  
-  if(addDay){
-    localDaily$ConcDay <- NA
-    localDaily$FluxDay <- NA   
-  }
+  localDaily$ConcDay <- NA
+  localDaily$FluxDay <- NA
+  localDaily$FNConc <- NA
+  localDaily$FNFlux <- NA
   
   if(all(is.na(localsurfaces))){
     localsurfaces <- getSurfaces(eList)    
@@ -63,13 +59,11 @@ flexFN <- function(eList, dateInfo, localsurfaces = NA,
     
     DailySeg <- estDailyFromSurfaces(eList, localsurfaces = localsurfaces, localDaily = localDaily[flowNormIndex,])
     
-    if(addDay){
-      localDaily$ConcDay[flowIndex] <- DailySeg$ConcDay[which(flowNormIndex %in% flowIndex)]
-      localDaily$FluxDay[flowIndex] <- DailySeg$FluxDay[which(flowNormIndex %in% flowIndex)]
-    }
-    
-    localDaily$flexConc[flowIndex] <- DailySeg$FNConc[which(flowNormIndex %in% flowIndex)]
-    localDaily$flexFlux[flowIndex] <- DailySeg$FNFlux[which(flowNormIndex %in% flowIndex)]
+    localDaily$ConcDay[flowIndex] <- DailySeg$ConcDay[which(flowNormIndex %in% flowIndex)]
+    localDaily$FluxDay[flowIndex] <- DailySeg$FluxDay[which(flowNormIndex %in% flowIndex)]
+  
+    localDaily$FNConc[flowIndex] <- DailySeg$FNConc[which(flowNormIndex %in% flowIndex)]
+    localDaily$FNFlux[flowIndex] <- DailySeg$FNFlux[which(flowNormIndex %in% flowIndex)]
   }
   
   INFO <- eList$INFO
@@ -129,22 +123,39 @@ flexPlotAddOn <- function(eList, showArrows = TRUE, showRect = TRUE, customPalet
     if(!is.null(customPalette)){
       pal <- customPalette
     } else {
-      pal <- c("#1856fb", "#af2b18", "#fdd76a", "#013919", "#a4927c", "#16f9d1", 
-               "#a40e0e", "#089db6", "#edc56f", "#13ad5f", "#b26d63", "#5e6c9c", 
-               "#c07a62", "#4b4c13", "#11d8be", "#435749", "#ae5175", "#88756c", 
-               "#628490", "#8f07e4", "#8e3f98")
+      if(nrow(segmentINFO) <= 21){
+        pal <- c("#1856fb", "#af2b18", "#fdd76a", "#013919", "#a4927c", "#16f9d1", 
+                 "#a40e0e", "#089db6", "#edc56f", "#13ad5f", "#b26d63", "#5e6c9c", 
+                 "#c07a62", "#4b4c13", "#11d8be", "#435749", "#ae5175", "#88756c", 
+                 "#628490", "#8f07e4", "#8e3f98")
+      } else if(nrow(segmentINFO) <= 74){
+        pal <- c("#7FC97F","#BEAED4","#FDC086","#FFFF99","#386CB0","#F0027F",
+                 "#BF5B17","#666666","#1B9E77","#D95F02","#7570B3","#E7298A",
+                 "#66A61E","#E6AB02","#A6761D","#666666","#A6CEE3","#1F78B4",
+                 "#B2DF8A","#33A02C","#FB9A99","#E31A1C","#FDBF6F","#FF7F00",
+                 "#CAB2D6","#6A3D9A","#FFFF99","#B15928","#FBB4AE","#B3CDE3",
+                 "#CCEBC5","#DECBE4","#FED9A6","#FFFFCC","#E5D8BD","#FDDAEC",
+                 "#F2F2F2","#B3E2CD","#FDCDAC","#CBD5E8","#F4CAE4","#E6F5C9",
+                 "#FFF2AE","#F1E2CC","#CCCCCC","#E41A1C","#377EB8","#4DAF4A",
+                 "#984EA3","#FF7F00","#FFFF33","#A65628","#F781BF","#999999",
+                 "#66C2A5","#FC8D62","#8DA0CB","#E78AC3","#A6D854","#FFD92F",
+                 "#E5C494","#B3B3B3","#8DD3C7","#FFFFB3","#BEBADA","#FB8072",
+                 "#80B1D3","#FDB462","#B3DE69","#FCCDE5","#D9D9D9","#BC80BD",
+                 "#CCEBC5","#FFED6F")
+      } else {
+        stop(paste("The number of segments exceed the length of the color palette.", 
+                   "Supply custom palette of length", nrow(segmentINFO)))
+      }
     }
-    
-    if(nrow(segmentINFO) > length(pal)){
-      stop(paste("The number of segments exceed the length of the color palette.", 
-                 "Supply custom palette of length", nrow(segmentINFO)))
-    }
-    
+
     colors <- suppressWarnings(pal[seq_len(nrow(segmentINFO))])
     
     arrowYs <- seq(par()$usr[4], par()$usr[3], length=10)[c(-1,-10)]
     
-    segmentINFO <- data.frame(sapply(segmentINFO, function(x) decimalDate(as.Date(x, origin = "1970-01-01"))))
+    segmentINFO[["flowNormStart"]] <- decimalDate(as.Date(segmentINFO[["flowNormStart"]], origin = "1970-01-01"))
+    segmentINFO[["flowStart"]] <- decimalDate(as.Date(segmentINFO[["flowStart"]], origin = "1970-01-01"))
+    segmentINFO[["flowNormEnd"]] <- decimalDate(as.Date(segmentINFO[["flowNormEnd"]], origin = "1970-01-01"))
+    segmentINFO[["flowEnd"]] <- decimalDate(as.Date(segmentINFO[["flowEnd"]], origin = "1970-01-01"))
     
     if(nrow(segmentINFO) > 8){
       arrowYs <- rep(arrowYs,  ceiling(nrow(segmentINFO)/8))
@@ -164,6 +175,5 @@ flexPlotAddOn <- function(eList, showArrows = TRUE, showRect = TRUE, customPalet
                segmentINFO$flowNormEnd[i]+1, arrowYs[i], code=3)
       }
     }
-    
   }
 }
