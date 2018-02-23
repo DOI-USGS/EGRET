@@ -4,14 +4,17 @@
 \alias{runSeries}
 \title{runSeries}
 \usage{
-runSeries(eList, surfaceStart = NA, surfaceEnd = NA, wall = FALSE,
-  firstSampleDate0 = NA, lastSampleDate0 = NA, lastSampleDate1 = NA,
-  flowBreak = FALSE, windowSide = 7, lastQDate1 = NA, firstQDate0 = NA,
-  lastQDate0 = NA, minNumObs = 100, minNumUncen = 50, windowY = 7,
-  windowQ = 2, windowS = 0.5, edgeAdjust = TRUE)
+runSeries(eList, windowSide, surfaceStart = NA, surfaceEnd = NA,
+  flowBreak = FALSE, Q1EndDate = NA, QStartDate = NA, QEndDate = NA,
+  wall = FALSE, sample1EndDate = NA, sampleStartDate = NA,
+  sampleEndDate = NA, paStart = 10, paLong = 12, minNumObs = 100,
+  minNumUncen = 50, windowY = 7, windowQ = 2, windowS = 0.5,
+  edgeAdjust = TRUE)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
+
+\item{windowSide}{integer The width of the flow normalization window on each side of the year being estimated.}
 
 \item{surfaceStart}{The Date that is the start of the WRTDS model to be estimated and the last of the daily outputs to be 
 generated (if NA it is sampleStartDate)}
@@ -19,11 +22,25 @@ generated (if NA it is sampleStartDate)}
 \item{surfaceEnd}{The Date that is the end of the WRTDS model to be estimated and the last of the daily outputs to be 
 generated (if NA it is sampleEndDate)}
 
-\item{wall}{logical set up a "wall" on the Sample data}
-
 \item{flowBreak}{logical, is there an abrupt break in the QD}
 
-\item{windowSide}{integer The width of the flow normalization window on each side of the year being estimated.}
+\item{Q1EndDate}{The Date just before the flowBreak (or character in YYY-MM-DD format)}
+
+\item{QStartDate}{The first Date used in the QD (if NA, which is default, it is first Date in eList$Daily)}
+
+\item{QEndDate}{The last Date used in the QD (if NA, which is default, it is the last Date in eList$Daily)}
+
+\item{wall}{logical set up a "wall" on the Sample data}
+
+\item{sample1EndDate}{The Date of just before the wall}
+
+\item{sampleStartDate}{The Date of the first sample to be used (if NA, which is default, it is the first Date in eList$Sample)}
+
+\item{sampleEndDate}{The Date of the last sample to be used (if NA, which is default, it is the last Date in eList$Sample)}
+
+\item{paStart}{numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12, default is 10}
+
+\item{paLong}{numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12, default is 12}
 
 \item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
 
@@ -38,19 +55,7 @@ generated (if NA it is sampleEndDate)}
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.
 The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
 
-\item{Q1EndDate}{The Date just before the flowBreak (or character in YYY-MM-DD format)}
-
-\item{QStartDate}{The first Date used in the QD (if NA, which is default, it is first Date in eList$Daily)}
-
-\item{QEndDate}{The last Date used in the QD (if NA, which is default, it is the last Date in eList$Daily)}
-
 \item{wall}{logical, there is an abrupt break in the CQR}
-
-\item{sample1EndDate}{The Date of just before the wall}
-
-\item{sampleStartDate}{The Date of the first sample to be used (if NA, which is default, it is the first Date in eList$Sample)}
-
-\item{sampleEndDate}{The Date of the last sample to be used (if NA, which is default, it is the last Date in eList$Sample)}
 }
 \description{
 runSeries
@@ -63,7 +68,25 @@ four possible situations
 \examples{
 eList <- Choptank_Phos
 
-eList_series1 <- runSeries(eList, windowSide = 7)
-plotConcHist(eList_series1)
+\dontrun{
+# Automatic calculations based on windowSide=7
 
+#Option 1:
+seriesOut_1 <- runSeries(eList,  windowSide = 0)
+
+# Option 2:
+seriesOut_2 <- runSeries(eList, windowSide = 7)
+
+# Option 3:
+seriesOut_3 <- runSeries(eList,
+                       windowSide = 0, 
+                       flowBreak = TRUE,
+                       Q1EndDate = "1990-09-30")
+
+# Option 4:
+seriesOut_4 <- runSeries(eList, 
+                      windowSide = 7, flowBreak = TRUE,
+                      Q1EndDate = "1990-09-30")
+
+}
 }

@@ -23,6 +23,8 @@
 #' generated (if NA it is sampleStartDate)
 #' @param surfaceEnd The Date that is the end of the WRTDS model to be estimated and the last of the daily outputs to be 
 #' generated (if NA it is sampleEndDate)
+#' @param paLong numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12, default is 12
+#' @param paStart numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12, default is 10 
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
@@ -34,154 +36,159 @@
 #' @examples 
 #' eList <- Choptank_Phos
 #' 
-#' eList_series1 <- runSeries(eList, windowSide = 7)
-#' plotConcHist(eList_series1)
-#'
-runSeries <- function(eList, 
+#' \dontrun{
+#' # Automatic calculations based on windowSide=7
+#' 
+#' #Option 1:
+#' seriesOut_1 <- runSeries(eList,  windowSide = 0)
+#' 
+#' # Option 2:
+#' seriesOut_2 <- runSeries(eList, windowSide = 7)
+#' 
+#' # Option 3:
+#' seriesOut_3 <- runSeries(eList,
+#'                        windowSide = 0, 
+#'                        flowBreak = TRUE,
+#'                        Q1EndDate = "1990-09-30")
+#' 
+#' # Option 4:
+#' seriesOut_4 <- runSeries(eList, 
+#'                       windowSide = 7, flowBreak = TRUE,
+#'                       Q1EndDate = "1990-09-30")
+#' 
+#' }
+runSeries <- function(eList, windowSide, 
                       surfaceStart = NA, surfaceEnd = NA, 
-                      wall = FALSE, 
-                      firstSampleDate0 = NA, 
-                      lastSampleDate0 = NA, 
-                      lastSampleDate1 = NA, 
                       flowBreak = FALSE, 
-                      windowSide = 7, 
-                      lastQDate1 = NA,
-                      firstQDate0 = NA, lastQDate0 = NA, 
-                      minNumObs = 100, minNumUncen = 50,
-                      windowY = 7, windowQ = 2, windowS = 0.5, 
-                      edgeAdjust = TRUE){
+                      Q1EndDate = NA, QStartDate = NA, QEndDate = NA, 
+                      wall = FALSE, 
+                      sample1EndDate = NA, sampleStartDate = NA, sampleEndDate = NA,
+                      paStart = 10, paLong = 12,
+                      minNumObs = 100, minNumUncen = 50, windowY = 7, 
+                      windowQ = 2, windowS = 0.5, edgeAdjust = TRUE){
 
-
-  localDaily <- getDaily(eList)
   localSample <- getSample(eList)
+  localDaily <- getDaily(eList)
   
-  firstQDate0 <- as.Date(firstQDate0)
+  sampleStartDate <- if(is.na(sampleStartDate)) localSample$Date[1] else as.Date(sampleStartDate)
+  numSamples <- length(localSample$Date)
+  sampleEndDate <- if(is.na(sampleEndDate)) localSample$Date[numSamples] else as.Date(sampleEndDate)
   
-  if(is.na(firstQDate0)) {
-    firstQDate0 <- localDaily$Date[1]
-  } 
-  
-  lastQDate0 <- as.Date(lastQDate0)
-  if(is.na(lastQDate0)) {
-    lastQDate0 <- localDaily$Date[length(localDaily$Date)]
-  }
-  
-  localDaily <- localDaily[localDaily$Date >= firstQDate0 &
-                           localDaily$Date <= lastQDate0,]
-  # print(summary(localDaily$Date))
+  QStartDate <- if(is.na(QStartDate)) localDaily$Date[1] else as.Date(QStartDate)
+  numQDays <- length(localDaily$Date)
+  QEndDate <- if(is.na(QEndDate)) localDaily$Date[numQDays] else as.Date(QEndDate)
+  localDaily <- localDaily[localDaily$Date >= QStartDate & 
+                             localDaily$Date <= QEndDate, ]
   firstSample <- localSample$Date[1]
   lastSample <- localSample$Date[length(localSample$Date)]
   
-  firstSampleDate0 <- as.Date(firstSampleDate0)
-  if(is.na(firstSampleDate0)) {
-    firstSampleDate0 <- localSample$Date[1]
+  sampleStartDate <- as.Date(sampleStartDate)
+  if (is.na(sampleStartDate)) {
+    sampleStartDate <- localSample$Date[1]
   }
   
-  lastSampleDate0 <- as.Date(lastSampleDate0)
-  if(is.na(lastSampleDate0)) {
-    lastSampleDate0 <- localSample$Date[length(localSample$Date)]
+  sampleEndDate <- as.Date(sampleEndDate)
+  if (is.na(sampleEndDate)) {
+    sampleEndDate <- localSample$Date[length(localSample$Date)]
   }
   
-  localSample <- localSample[localSample$Date >= firstSampleDate0 &
-                             localSample$Date <= lastSampleDate0,]
+  localSample <- localSample[localSample$Date >= sampleStartDate & 
+                               localSample$Date <= sampleEndDate, ]
+  
   eList <- as.egret(eList$INFO, localDaily, localSample)
   
   surfaceStart <- as.Date(surfaceStart)
-  if(is.na(surfaceStart)){
+  if (is.na(surfaceStart)) {
     surfaceStart <- localSample$Date[1]
   }
   
   surfaceEnd <- as.Date(surfaceEnd)
-  if(is.na(surfaceEnd)){
+  if (is.na(surfaceEnd)) {
     surfaceEnd <- localSample$Date[nrow(localSample)]
   }
   
-  # some logic checks here
-  if(surfaceStart < firstQDate0) {
-    stop ("surfaceStart can't be before firstQDate0")
+  if (surfaceStart < QStartDate) {
+    stop("surfaceStart can't be before QStartDate")
   }
-  if(surfaceEnd > lastQDate0) {
-    stop ("surfaceEnd can't be after lastQDate0")
+  if (surfaceEnd > QEndDate) {
+    stop("surfaceEnd can't be after QEndDate")
   }
   
-  # first we will create the surfaces object
-  if(wall) {
-    if(is.na(lastSampleDate1)) {
-      stop ("if there is a wall, the user must specify lastSampleDate1")
+  if (wall) {
+    if (is.na(sample1EndDate)) {
+      stop("if there is a wall, the user must specify sample1EndDate")
     }
-
-    lastSampleDate1 <- as.Date(lastSampleDate1)
-    firstSampleDate2 <- as.Date(lastSampleDate1) + 1
-
-    surfaces <- stitch(eList, surfaceStart = surfaceStart, surfaceEnd = surfaceEnd, 
-            firstSampleDate1 = firstSampleDate1, lastSampleDate1 = lastSampleDate1,
-            firstSampleDate2 = firstSampleDate2, lastSampleDate2 = lastSampleDate2,
-            windowY = windowY, windowQ = windowQ, windowS = windowS,
-            minNumObs = minNumObs, minNumUncen = minNumUncen, edgeAdjust = TRUE)
     
+    sample1EndDate <- as.Date(sample1EndDate)
+    sample2StartDate <- as.Date(sample1EndDate) + 1
+    surfaces <- stitch(eList, surfaceStart = surfaceStart, 
+                          surfaceEnd = surfaceEnd, sample1StartDate = sampleStartDate, 
+                          sample1EndDate = sample1EndDate, sample2StartDate = sample2StartDate, 
+                          sample2EndDate = sampleEndDate, windowY = windowY, 
+                          windowQ = windowQ, windowS = windowS, minNumObs = minNumObs, 
+                          minNumUncen = minNumUncen, edgeAdjust = TRUE)
   } else {
-    surfaces <- estSurfaces(eList, windowY = windowY, windowQ = windowQ, windowS = windowS,
-                            minNumObs = minNumObs, minNumUncen = minNumUncen, edgeAdjust = TRUE)
-    
+    surfaces <- estSurfaces(eList, surfaceStart = surfaceStart, surfaceEnd = surfaceEnd,
+                                windowY = windowY, windowQ = windowQ, 
+                                windowS = windowS, minNumObs = minNumObs, minNumUncen = minNumUncen, 
+                                edgeAdjust = TRUE)
   }
   
   eListS <- as.egret(eList$INFO, localDaily, localSample, surfaces)
-  
-  # at this point, we have a new eList that has surfaces that use the wall if wall = TRUE)
-  # next thing is to figure out how we are doing flexible flow normalization
-  # four possible situations 
-  #  1 no flexible flow normalization at all
-  #  2 moving window flexible flow normalization, but no break
-  #  3 there is a break (must be specified as lastQDate1) but no moving window on each side
-  #  4 there is a break (must be specified as lastQDate1) but there is a moving window on each side
-  flowNormStartCol <- "flowNormStart"
-  flowNormEndCol <- "flowNormEnd"
-  flowStartCol <- "flowStart"
-  flowEndCol <- "flowEnd"
-  dateInfo <- if (windowSide <= 0 & !flowBreak) {
-    option <- 1
-    # option 1, no normalization
 
+  
+  if (windowSide <= 0 & !flowBreak) {
+    option <- 1
+    
     flowStart <- as.Date(surfaceStart)
     flowEnd <- as.Date(surfaceEnd)
-    dateInfo <- data.frame(flowNormStart, flowNormEnd, flowStart, flowEnd, stringsAsFactors = FALSE)
+    flowNormStart <- as.Date(QStartDate)
+    flowNormEnd <- as.Date(QEndDate)
+    
+    dateInfo <- data.frame(flowNormStart, flowNormEnd,
+                           flowStart,flowEnd, 
+                           stringsAsFactors = FALSE)
+    
   } else if (windowSide > 0 & !flowBreak) {
     option <- 2
-    # option 2, no flowBreak, standard moving window
-    dateInfo <- makeDateInfo(windowSide, surfaceStart, surfaceEnd, firstQDate0, lastQDate0)
+    dateInfo <- makeDateInfo(windowSide, surfaceStart, surfaceEnd, 
+                                QStartDate, QEndDate)
   } else if (windowSide <= 0 & flowBreak) {
     option <- 3
-    # option 3, flowBreak but no moving window
-    firstQDate2 <- as.Date(lastQDate1) + 1
-    flowStart <- c(as.Date(surfaceStart), as.Date(firstQDate2))
-    flowEnd <- c(as.Date(lastQDate1), as.Date(surfaceEnd))
-    flowNormStart <- c(as.Date(firstQDate0), as.Date(firstQDate2))
-    flowNormEnd <- c(as.Date(lastQDate1), as.Date(lastQDate0))
-    dateInfo <- data.frame(flowNormStart, flowNormEnd, flowStart, flowEnd, stringsAsFactors = FALSE)
+    Q1EndDate <- as.Date(Q1EndDate)
+    Q2StartDate <- as.Date(Q1EndDate) + 1
+    flowStart <- c(as.Date(surfaceStart), as.Date(Q2StartDate))
+    flowEnd <- c(as.Date(Q1EndDate), as.Date(surfaceEnd))
+    flowNormStart <- c(as.Date(QStartDate), as.Date(Q2StartDate))
+    flowNormEnd <- c(as.Date(Q1EndDate), as.Date(QEndDate))
+    dateInfo <- data.frame(flowNormStart, flowNormEnd, flowStart, 
+                           flowEnd, stringsAsFactors = FALSE)
   } else {
     option <- 4
-    # option 4, flowBreak and moving window
-    firstQDate2 <- as.Date(lastQDate1) + 1
-    dateInfo1 <- makeDateInfo(windowSide, surfaceStart, lastQDate1, firstQDate0, lastQDate1)
-    dateInfo2 <- makeDateInfo(windowSide, firstQDate2, surfaceEnd, firstQDate2, lastQDate0)
-    dateInfo <- rbind(dateInfo1, dateInfo2) 
+    Q1EndDate <- as.Date(Q1EndDate)
+    Q2StartDate <- as.Date(Q1EndDate) + 1
+    dateInfo1 <- makeDateInfo(windowSide, surfaceStart, Q1EndDate, 
+                                 QStartDate, Q1EndDate)
+    dateInfo2 <- makeDateInfo(windowSide, Q2StartDate, surfaceEnd, 
+                                 Q2StartDate, QEndDate)
+    dateInfo <- rbind(dateInfo1, dateInfo2)
   }
-  # now we put it together the surfaces and the flex FN
-  eListOut <- flexFN(eListS, dateInfo, 
-                     flowNormStartCol = "flowNormStart", 
-                     flowNormEndCol = "flowNormEnd", 
-                     flowStartCol = "flowStart", 
+  
+  eListOut <- flexFN(eListS, dateInfo, flowNormStartCol = "flowNormStart", 
+                     flowNormEndCol = "flowNormEnd", flowStartCol = "flowStart", 
                      flowEndCol = "flowEnd")
+  
   eListOut$INFO$wall <- wall
   eListOut$INFO$surfaceStart <- surfaceStart
   eListOut$INFO$surfaceEnd <- surfaceEnd
-  eListOut$INFO$lastSampleDate0 <- lastSampleDate0
-  eListOut$INFO$lastSampleDate1 <- lastSampleDate1
+  eListOut$INFO$sampleStartDate <- sampleStartDate
+  eListOut$INFO$sampleEndDate <- sampleEndDate
+  eListOut$INFO$sample1EndDate <- sample1EndDate
   eListOut$INFO$flowBreak <- flowBreak
   eListOut$INFO$windowSide <- windowSide
-  eListOut$INFO$lastQDate1 <- lastQDate1
-  eListOut$INFO$firstQDate0 <- firstQDate0
-  eListOut$INFO$lastQDate0 <- lastQDate0
+  eListOut$INFO$Q1EndDate <- Q1EndDate
+  eListOut$INFO$QStartDate <- QStartDate
+  eListOut$INFO$QEndDate <- QEndDate
   
   return(eListOut)
   
@@ -271,60 +278,4 @@ makeDateInfo <- function(windowSide,
   return(dateInfo)
 }
 
-
-#' makeSeriesOutputs
-#' 
-#' makeSeriesOutputs
-#' 
-#' @export
-#' @param eList named list with at least Daily and INFO dataframes
-#' @param startDate character or Date
-#' @param endDate character or Date
-#' @param printTable logical
-#' @param plotConc logical
-#' @param plotFlux logical
-#' @examples 
-#' eList <- Choptank_Phos
-#' \dontrun{
-#' eList_series1 <- runSeries(eList, windowSide = 7)
-#' makeSeriesOutputs(eList_series1)
-#' 
-#' }
-makeSeriesOutputs <- function(eList, 
-                              startDate = NA, endDate = NA, 
-                              printTable = TRUE,
-                              plotConc = TRUE, plotFlux = TRUE) {
-  # this function takes the output of runSeries and creates a table of annual values and makes two figures
-  # that show time series of flexFNConc and flexFNFlux
-  # this function will be swapped out for a better version when we have all the regular values, and regular flow normalized values
-  # placed into the eList$Daily  This would also take in some of the other options available in tableResults and plotConcHist and plotFluxHist
-  #  default for startDate is the date of the first flex values in Daily, endDate is the date of the last ones
-  localINFO <- getInfo(eList)
-  
-  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
-    paLong <- localINFO$paLong
-    paStart <- localINFO$paStart  
-  } else {
-    paLong <- 12
-    paStart <- 10
-  }
-  
-  localDaily <- na.omit(eList$Daily)
-  firstDate <- localDaily$Date[1]
-  lastDate <- localDaily$Date[length(localDaily$Date)]
-  startDate <- max(as.Date(firstDate), as.Date(startDate), na.rm = TRUE)
-  endDate <- min(as.Date(lastDate), as.Date(endDate), na.rm = TRUE)
-  localDaily <- localDaily[localDaily$Date >= startDate & localDaily$Date <= endDate,]
-
-  localDaily$ConcDay <- localDaily$flexConc
-  localDaily$FNConc <- localDaily$flexConc
-  localDaily$FluxDay <- localDaily$flexFlux
-  localDaily$FNFlux <- localDaily$flexFlux
-  print("This is a temporary feature, the results shown are all flex values")
-  tableResults(eList, localDaily = localDaily)
-  eListBad <- as.egret(eList$INFO,localDaily,eList$Sample,eList$surfaces)
-  plotConcHist(eListBad)
-  plotFluxHist(eListBad)
-  invisible(eListBad)
-}
 
