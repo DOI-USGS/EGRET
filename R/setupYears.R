@@ -78,22 +78,16 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
       Flux[i] <-mean(DailyYear$FluxDay,na.rm=TRUE)# else NA
       FNConc[i] <- mean(DailyYear$FNConc,na.rm=TRUE)# else NA
       FNFlux[i] <- mean(DailyYear$FNFlux,na.rm=TRUE)# else NA
-      if(hasFlex){
-        flexConc[i] <- mean(DailyYear$flexConc, na.rm = TRUE)
-        flexFlux[i] <- mean(DailyYear$flexFlux, na.rm = TRUE)        
-      }
-
     }
   }
   #  create two more variables that just report paStart and paLong
   #    needed later to verify the period of analysis used in the Annual Results summary
   PeriodStart<-rep(paStart,numYears)
   PeriodLong<-rep(paLong,numYears)
-  if(hasFlex){
-    AnnualResults<-data.frame(DecYear,Q,Conc,Flux,FNConc,FNFlux,PeriodLong,PeriodStart,flexConc,flexFlux)
-  } else {
-    AnnualResults<-data.frame(DecYear,Q,Conc,Flux,FNConc,FNFlux,PeriodLong,PeriodStart)
-  }
+
+  AnnualResults<-data.frame(DecYear,Q,Conc,Flux,FNConc,FNFlux,PeriodLong,PeriodStart)
+  
+  AnnualResults <- AnnualResults[rowSums(is.na(AnnualResults[,c("Conc","Flux","FNConc","FNFlux")])) != 4,]
   
   return(AnnualResults)		
 }

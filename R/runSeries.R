@@ -189,6 +189,13 @@ runSeries <- function(eList, windowSide,
   eListOut$INFO$Q1EndDate <- Q1EndDate
   eListOut$INFO$QStartDate <- QStartDate
   eListOut$INFO$QEndDate <- QEndDate
+  eListOut$INFO$paLong <- paLong
+  eListOut$INFO$paStart <- paStart
+  eListOut$INFO$minNumUncen <- minNumUncen
+  eListOut$INFO$minNumObs <- minNumObs
+  eListOut$INFO$windowQ <- windowQ
+  eListOut$INFO$windowY <- windowY
+  eListOut$INFO$windowS <- windowS
   
   return(eListOut)
   
