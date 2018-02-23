@@ -11,7 +11,7 @@ eList <- Choptank_Phos
 
 
 ## ------------------------------------------------------------------------
-pairResults <- runPairs(eList, year1 = 1985, year2 = 2014)
+pairResults <- runPairs(eList, year1 = 1985, year2 = 2014, windowSide = 7)
 
 ## ------------------------------------------------------------------------
 attr(pairResults, "yearPair") 
@@ -40,14 +40,9 @@ summary(eList$Sample$Date)
 ## ------------------------------------------------------------------------
 pairResults2 <- runPairs(eList,
                          year1 = 1985, year2 = 2014,
-                         windowSide = 0, wall = TRUE,
-                         lastDaySample1 = "1995-05-31",
-                         firstQDate0 = "1979-10-01",
-                         lastQDate0 = "2017-09-30",
-                         firstQDate1 = "1979-10-01",
-                         lastQDate1 = "1995-05-31",
-                         firstQDate2 = "1995-06-01",
-                         lastQDate2 = "2017-09-30",
+                         windowSide = 0, 
+                         wall = TRUE,
+                         sample1EndDate = "1992-06-01",
                          paStart = 4, paLong = 5)
 
 attr(pairResults2, "yearPair")
