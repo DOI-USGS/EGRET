@@ -6,8 +6,9 @@
 \usage{
 plotFluxHist(eList, yearStart = NA, yearEnd = NA, fluxUnit = 9,
   fluxMax = NA, printTitle = TRUE, plotFlowNorm = TRUE,
-  tinyPlot = FALSE, col = "black", col.pred = "green", cex = 0.8,
-  cex.axis = 1.1, cex.main = 1.1, lwd = 2, customPar = FALSE, ...)
+  plotAnnual = TRUE, tinyPlot = FALSE, col = "black",
+  col.pred = "green", cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
+  lwd = 2, customPar = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes}
@@ -23,6 +24,8 @@ plotFluxHist(eList, yearStart = NA, yearEnd = NA, fluxUnit = 9,
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)}
 
 \item{plotFlowNorm}{logical variable if TRUE the flow normalized line is plotted, if FALSE not plotted}
+
+\item{plotAnnual}{logical variable if TRUE annual flux points are plotted, if FALSE not plotted}
 
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE}
 

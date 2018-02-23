@@ -17,6 +17,7 @@
 #' @param fluxMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
 #' @param plotFlowNorm logical variable if TRUE the flow normalized line is plotted, if FALSE not plotted 
+#' @param plotAnnual logical variable if TRUE annual flux points are plotted, if FALSE not plotted 
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
@@ -46,12 +47,11 @@
 #' }
 plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA, 
     fluxUnit = 9, fluxMax = NA, printTitle = TRUE, 
-    plotFlowNorm = TRUE, tinyPlot=FALSE, col="black", col.pred="green",
+    plotFlowNorm = TRUE, plotAnnual = TRUE, tinyPlot=FALSE, col="black", col.pred="green",
     cex=0.8, cex.axis=1.1, cex.main=1.1, lwd=2, customPar=FALSE, ...){
 
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
-  hasFlex <- all(c("flexConc","flexFlux") %in% names(localDaily))
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong
@@ -61,7 +61,7 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA,
     paStart <- 10
   }
   
-  if(!all((c("SE","yHat") %in% names(eList$Sample)))){
+  if(!(c("FNFlux") %in% names(eList$Daily))){
     stop("This function requires running modelEstimation on eList")
   }
   
@@ -104,14 +104,25 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA,
   
   annFlux<-unitFactorReturn*subAnnualResults$Flux
   
-  if(hasFlex){
-    fnFlux<-unitFactorReturn*subAnnualResults$flexFlux
-  } else {
-    fnFlux<-unitFactorReturn*subAnnualResults$FNFlux
-  }
+  fnFlux<-unitFactorReturn*subAnnualResults$FNFlux
+  
+  hasFlex <- c("segmentInfo") %in% names(attributes(eList$INFO))
   
   periodName<-setSeasonLabel(localAnnualResults=localAnnualResults)
-  title3<-if(plotFlowNorm) "\nFlux Estimates (dots) & Flow Normalized Flux (line)" else "\nAnnual Flux Estimates"
+  if(hasFlex){
+    periodName <- paste(periodName,"*")
+  }
+  
+  if(plotAnnual & plotFlowNorm){
+    title3 <- "\nFlux Estimates (dots) & Flow Normalized Flux (line)" 
+  } else if(plotAnnual & !plotFlowNorm){
+    title3 <- "\nAnnual Flux Estimates"
+  } else if(!plotAnnual & plotFlowNorm){
+    title3 <- "\nFlow Normalized Flux"
+  } else {
+    title3 <- "\n"
+  }
+  
   title<-if(printTitle) paste(localINFO$shortName," ",localINFO$paramShortName,"\n",periodName,title3) else ""
   
   xInfo <- generalAxis(x=subAnnualResults$DecYear, minVal=yearStart, maxVal=yearEnd,padPercent=0, tinyPlot=tinyPlot)  
@@ -121,7 +132,7 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA,
   
   ###############################################
   
-  genericEGRETDotPlot(x=subAnnualResults$DecYear, y = annFlux,
+  genericEGRETDotPlot(x=NA, y = NA,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,xDate=TRUE,
                       xlim=c(xInfo$bottom,xInfo$top), ylim=c(0,yInfo$top),col=col,
                       ylab=ylabel, plotTitle=title, customPar=customPar,cex=cex,
@@ -129,6 +140,15 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA,
                       
     )
 
-  if(plotFlowNorm) lines(subAnnualResults$DecYear, fnFlux, col=col.pred, lwd=lwd)
+  if(plotAnnual){
+    with(subAnnualResults, 
+         points(subAnnualResults$DecYear[DecYear>xInfo$bottom & DecYear<xInfo$top], 
+                annFlux[DecYear>xInfo$bottom & DecYear<xInfo$top], 
+                col=col, cex=cex, pch=20))
+  }
+  
+  if(plotFlowNorm) {
+    lines(subAnnualResults$DecYear, fnFlux, col=col.pred, lwd=lwd)
+  }
     
 }

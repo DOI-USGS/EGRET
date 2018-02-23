@@ -5,9 +5,9 @@
 \title{Graph of annual concentration and flow normalized concentration versus year}
 \usage{
 plotConcHist(eList, yearStart = NA, yearEnd = NA, concMax = NA,
-  printTitle = TRUE, tinyPlot = FALSE, plotFlowNorm = TRUE, cex = 0.8,
-  cex.axis = 1.1, cex.main = 1.1, lwd = 2, col = "black",
-  col.pred = "green", customPar = FALSE, ...)
+  printTitle = TRUE, tinyPlot = FALSE, plotFlowNorm = TRUE,
+  plotAnnual = TRUE, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
+  lwd = 2, col = "black", col.pred = "green", customPar = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes}
@@ -23,6 +23,8 @@ plotConcHist(eList, yearStart = NA, yearEnd = NA, concMax = NA,
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE}
 
 \item{plotFlowNorm}{logical variable if TRUE flow normalized line is plotted, if FALSE not plotted}
+
+\item{plotAnnual}{logical variable if TRUE annual concentration points are plotted, if FALSE not plotted}
 
 \item{cex}{numerical value giving the amount by which plotting symbols should be magnified}
 
