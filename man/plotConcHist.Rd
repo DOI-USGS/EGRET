@@ -4,10 +4,10 @@
 \alias{plotConcHist}
 \title{Graph of annual concentration and flow normalized concentration versus year}
 \usage{
-plotConcHist(eList, yearStart = NA, yearEnd = NA, flowNormYears = "all",
-  waterYear = TRUE, concMax = NA, printTitle = TRUE, tinyPlot = FALSE,
-  plotFlowNorm = TRUE, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
-  lwd = 2, col = "black", col.pred = "green", customPar = FALSE, ...)
+plotConcHist(eList, yearStart = NA, yearEnd = NA, concMax = NA,
+  printTitle = TRUE, tinyPlot = FALSE, plotFlowNorm = TRUE, cex = 0.8,
+  cex.axis = 1.1, cex.main = 1.1, lwd = 2, col = "black",
+  col.pred = "green", customPar = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes}
@@ -16,11 +16,7 @@ plotConcHist(eList, yearStart = NA, yearEnd = NA, flowNormYears = "all",
 
 \item{yearEnd}{numeric is the calendar year just after the last estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)}
 
-\item{flowNormYears}{vector of flow years}
-
-\item{waterYear}{logical. Should years be water years (\code{TRUE}) or calendar years (\code{FALSE})}
-
-\item{concMax}{number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)}
+\item{concMax}{numeric. Maximum value of concentration to be plotted.}
 
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)}
 
@@ -66,22 +62,6 @@ plotConcHist(eList, yearStart, yearEnd)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
 plotConcHist(eList)
-\dontrun{
-flowNormYears <- c(1985:2002,2006:2010)
-plotConcHist(eList, flowNormYears=flowNormYears)
-
-#Alternative:
-sampleSegStart <- c(1980,1985,2000)
-flowSegStart <- c(1980,1990,2000)
-flowSegEnd <- c(1990,2000,2010)
-dateInfo <- data.frame(sampleSegStart,
-                       flowSegStart,
-                       flowSegEnd)
-eList1 <- flexFN(eList, dateInfo)
-plotConcHist(eList1)  
-flexPlotAddOn(eList1)
-
-}
 }
 \seealso{
 \code{\link{setupYears}}, \code{\link{genericEGRETDotPlot}}

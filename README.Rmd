@@ -62,6 +62,12 @@ The Water Mission Area of the USGS has supported the development and maintenance
 
 Funding for `EGRET` currently expires summer 2018. Expectations are that maintenance and customer service will continue to be supported past that date.
 
+### How to cite EGRET:
+
+```{r }
+citation(package = "EGRET")
+```
+
 ### Research software impact:
 
 [![Research software impact](http://depsy.org/api/package/cran/EGRET/badge.svg)](http://depsy.org/package/r/EGRET)

@@ -13,8 +13,6 @@
 #' @param eList named list with at least the Daily and INFO dataframes
 #' @param yearStart numeric is the calendar year containing the first estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)
 #' @param yearEnd numeric is the calendar year just after the last estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)
-#' @param flowNormYears vector of flow years
-#' @param waterYear logical. Should years be water years (\code{TRUE}) or calendar years (\code{FALSE})
 #' @param fluxUnit number representing entry in pre-defined fluxUnit class array. \code{\link{printFluxUnitCheatSheet}}
 #' @param fluxMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
@@ -45,29 +43,15 @@
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' plotFluxHist(eList) 
 #' 
-#' # Flow normalized (excluding extremes from 2003-04):
-#' yearVector <- c(1980:2002, 2005:2015)
-#' plotFluxHist(eList, flowNormYears=yearVector)
-#' 
-#' #Alternative:
-#' sampleSegStart <- c(1980,1985,2000)
-#' flowSegStart <- c(1980,1990,2000)
-#' flowSegEnd <- c(1990,2000,2010)
-#' dateInfo <- data.frame(sampleSegStart,
-#'                        flowSegStart,
-#'                        flowSegEnd)
-#' eList1 <- flexFN(eList, dateInfo)
-#' plotFluxHist(eList1)  
-#' flexPlotAddOn(eList1)
-#' 
 #' }
-plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA, flowNormYears = "all", 
-    waterYear = TRUE, fluxUnit = 9, fluxMax = NA, printTitle = TRUE, 
+plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA, 
+    fluxUnit = 9, fluxMax = NA, printTitle = TRUE, 
     plotFlowNorm = TRUE, tinyPlot=FALSE, col="black", col.pred="green",
     cex=0.8, cex.axis=1.1, cex.main=1.1, lwd=2, customPar=FALSE, ...){
 
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
+  hasFlex <- all(c("flexConc","flexFlux") %in% names(localDaily))
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong
@@ -93,13 +77,6 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA, flowNormYears = "all
             "\nFlux calculations will be wrong if units are not consistent")
   }
   
-  if(is.null(attr(eList$INFO,"segmentInfo"))){
-    localDaily <- subFN(eList = eList, flowNormYears = flowNormYears, waterYear = waterYear)
-  } else {
-    localDaily <- eList$Daily
-    message("Plotting flow-normalized concentration based on results of flexFN")
-  }
-  
   localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
   
   ################################################################################
@@ -119,15 +96,20 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA, flowNormYears = "all
   }
   
   unitFactorReturn <- fluxUnit@unitFactor
-#   ylabel <- paste("Flux in ", fluxUnit@unitName, sep="")
+  
   numYears <- length(localAnnualResults$DecYear)
   yearStart <- if(is.na(yearStart)) trunc(localAnnualResults$DecYear[1]) else yearStart
   yearEnd <- if(is.na(yearEnd)) trunc(localAnnualResults$DecYear[numYears])+1 else yearEnd
   subAnnualResults<-localAnnualResults[localAnnualResults$DecYear>=yearStart & localAnnualResults$DecYear <= yearEnd,]
   
   annFlux<-unitFactorReturn*subAnnualResults$Flux
-  fnFlux<-unitFactorReturn*subAnnualResults$FNFlux
-
+  
+  if(hasFlex){
+    fnFlux<-unitFactorReturn*subAnnualResults$flexFlux
+  } else {
+    fnFlux<-unitFactorReturn*subAnnualResults$FNFlux
+  }
+  
   periodName<-setSeasonLabel(localAnnualResults=localAnnualResults)
   title3<-if(plotFlowNorm) "\nFlux Estimates (dots) & Flow Normalized Flux (line)" else "\nAnnual Flux Estimates"
   title<-if(printTitle) paste(localINFO$shortName," ",localINFO$paramShortName,"\n",periodName,title3) else ""

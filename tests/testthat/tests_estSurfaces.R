@@ -13,19 +13,19 @@ test_that("estSurfaces gives expected results with default args", {
   expect_equal(nrow(surfaces_Ar[10,,]), 385) # time dimension is correct
   
   # test some yHat values 
-  expect_equal(surfaces_Ar[1,1,1], -2.8859272183)
-  expect_equal(surfaces_Ar[1,50,1], -3.3663536796)
-  expect_equal(surfaces_Ar[8,1,1], -2.2874716935)
+  expect_equal(signif(surfaces_Ar[1,1,1], 4), -2.886)
+  expect_equal(signif(surfaces_Ar[1,50,1], 4), -3.366)
+  expect_equal(signif(surfaces_Ar[8,1,1], 4), -2.287)
   
   # test some SE values 
-  expect_equal(surfaces_Ar[1,1,2], 0.9012848883)
-  expect_equal(surfaces_Ar[5,100,2], 0.6999714816)
-  expect_equal(surfaces_Ar[12,19,2], 0.5216116210)
+  expect_equal(signif(surfaces_Ar[1,1,2], 4), 0.9013)
+  expect_equal(signif(surfaces_Ar[5,100,2], 4), 0.7)
+  expect_equal(signif(surfaces_Ar[12,19,2], 4), 0.5216)
   
   # test some ConcHat values 
-  expect_equal(surfaces_Ar[2,62,3], 0.0633582807)
-  expect_equal(surfaces_Ar[9,63,3], 0.0736049109)
-  expect_equal(surfaces_Ar[6,98,3], 0.0799091333)
+  expect_equal(signif(surfaces_Ar[2,62,3], 4), 0.06336)
+  expect_equal(signif(surfaces_Ar[9,63,3], 4), 0.07361)
+  expect_equal(signif(surfaces_Ar[6,98,3], 4), 0.07991)
   
 })
 
@@ -44,18 +44,18 @@ test_that("estSurfaces gives expected results with user-specified args", {
   expect_equal(nrow(surfaces_Ar[10,,]), 385) # time dimension is correct
   
   # test some yHat values 
-  expect_equal(surfaces_Ar[1,1,1], -4.7345368054)
-  expect_equal(surfaces_Ar[1,50,1], -5.1625803732)
-  expect_equal(surfaces_Ar[8,1,1], -2.1432899668)
+  expect_equal(signif(surfaces_Ar[1,1,1], 4), -4.735)
+  expect_equal(signif(surfaces_Ar[1,50,1], 4), -5.163)
+  expect_equal(signif(surfaces_Ar[8,1,1], 4), -2.143)
   
   # test some SE values 
-  expect_equal(surfaces_Ar[1,1,2], 1.0608780805)
-  expect_equal(surfaces_Ar[5,100,2], 1.0162851948)
-  expect_equal(surfaces_Ar[12,19,2], 0.4478360954)
+  expect_equal(signif(surfaces_Ar[1,1,2], 4), 1.061)
+  expect_equal(signif(surfaces_Ar[5,100,2], 4), 1.016)
+  expect_equal(signif(surfaces_Ar[12,19,2], 4), 0.4478)
   
   # test some ConcHat values 
-  expect_equal(surfaces_Ar[2,62,3], 0.0223554843)
-  expect_equal(surfaces_Ar[9,63,3], 0.0627927472)
-  expect_equal(surfaces_Ar[6,98,3], 0.0986004193)
+  expect_equal(signif(surfaces_Ar[2,62,3], 4), 0.02236)
+  expect_equal(signif(surfaces_Ar[9,63,3], 4), 0.06279)
+  expect_equal(signif(surfaces_Ar[6,98,3], 4), 0.09860)
   
 })

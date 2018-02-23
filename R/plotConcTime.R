@@ -73,8 +73,8 @@ plotConcTime<-function(eList, qUnit = 2, yearStart = NA, yearEnd = NA,
   qFactor<-qUnit@qUnitFactor
   subSample<-localSample
   subSample$Q<-subSample$Q*qFactor
-  qMin<-min(subSample$Q)
-  qMax<-max(subSample$Q)
+  qMin<-min(subSample$Q, na.rm = TRUE)
+  qMax<-max(subSample$Q, na.rm = TRUE)
   if (logScale=="y"){
     qScale <- 0.9
   } else {
@@ -116,8 +116,8 @@ plotConcTime<-function(eList, qUnit = 2, yearStart = NA, yearEnd = NA,
     x<-subSample$DecYear
     
     xInfo <- generalAxis(x=x, 
-                         minVal = ifelse(is.na(yearStart),min(x),yearStart),
-                         maxVal=ifelse(is.na(yearEnd),max(x),yearEnd), 
+                         minVal = ifelse(is.na(yearStart),min(x, na.rm = TRUE),yearStart),
+                         maxVal=ifelse(is.na(yearEnd),max(x, na.rm = TRUE),yearEnd), 
                          tinyPlot=tinyPlot)  
     
     yLow<-subSample$ConcLow
