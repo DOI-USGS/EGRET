@@ -65,12 +65,12 @@ eListOut <- runSeries(eList,
 ## ------------------------------------------------------------------------
 eList <- Choptank_Phos
 
-eListOut <- runSeries(eList, 
+eListOut <- runSeries(eList, windowSide = 7,
                       surfaceStart = "1984-10-01", 
                       surfaceEnd = "2014-09-30")
 
 ## ------------------------------------------------------------------------
-eListBad <- makeSeriesOutputs(eListOut)
+# eListBad <- makeSeriesOutputs(eListOut)
 
 ## ------------------------------------------------------------------------
 eListOut$INFO
@@ -81,7 +81,7 @@ eListOut11 <- runSeries(eList,
                         surfaceStart = "1984-10-01", 
                         surfaceEnd = "2014-09-30", 
                         windowSide = 12)
-eListBad11 <- makeSeriesOutputs(eListOut11)
+# eListBad11 <- makeSeriesOutputs(eListOut11)
 
 ## ----eval=FALSE----------------------------------------------------------
 #  eList <- Choptank_Phos

@@ -217,9 +217,6 @@ We can produce graphs like plotHistogramTrend from this output *(note here a lit
 
 # Series Analysis 
 
-
-
-
 There are a large number of possible ways to produce a time series of annual values with flexible flow normalization and the possible use of the wall.  All of them use the function **runSeries**.  
 
 The first thing that needs to be considered is the choice of two different ways to estimate the Response Surface (RS).  The first of these is the traditional way, using the regular smoothing approach of WRTDS.  The alternative is to employ the **wall** as discussed at the begining of this document.  The **wall** might be used for several different kinds of reasons: 1) a nearly instantaneous change in a major pollutant source (e.g. a major nutrient removal system or a major stormwater diversion comes on line), 2) a natural event such as a very large flood happens which we believe may have an influence on the RS for a period of several years, or 3) a major reservoir is completed or removed thereby causing a major change in the RS (because of the mixing that happens in the reservoir and the potential for decoupling of discharge and concentration).  If any of these things are significant to the system we need to set the argument **wall = TRUE** and, if we have chosen to do this, we need to specify a date which is the end of the period before the change.  We do that with the argument **lastSampleDate1** which we set to a specific date, so the call to the function would say:  **lastSampleDate1 = "1998-06-30"** if we wanted to characterize the change in the response surface as coming at the end of June, 1998.  
@@ -269,7 +266,7 @@ So, we will load the data and run the analysis now.
 ```{r}
 eList <- Choptank_Phos
 
-eListOut <- runSeries(eList, 
+eListOut <- runSeries(eList, windowSide = 7,
                       surfaceStart = "1984-10-01", 
                       surfaceEnd = "2014-09-30")
 ```
@@ -277,7 +274,7 @@ eListOut <- runSeries(eList,
 Right now we only have a kluge approach to seeing the output, in the form of the function **makeSeriesOutputs**, to get it to work we have cheated and put the flexible flow normalized results into the place in the output data set where the annual averages and flow normalized values would ordinarily go.  But, it least it give us a table and graphs to see our results.  Stay tuned for this part.
 
 ```{r}
-eListBad <- makeSeriesOutputs(eListOut)
+# eListBad <- makeSeriesOutputs(eListOut)
 ```
 
 I would comment here that the flexible flow normalized flux graph is a bit too irregular for my taste and I would probably change to windowSide = 12 to see if I like the results better.  That's done at the end of this section.
@@ -296,7 +293,7 @@ eListOut11 <- runSeries(eList,
                         surfaceStart = "1984-10-01", 
                         surfaceEnd = "2014-09-30", 
                         windowSide = 12)
-eListBad11 <- makeSeriesOutputs(eListOut11)
+# eListBad11 <- makeSeriesOutputs(eListOut11)
 ```
 
 I do think that the results with **windowSide = 12** is better.  The little up's and down's of the flux curve are not meaningful, in my opinion.  

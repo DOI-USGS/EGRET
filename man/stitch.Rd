@@ -4,27 +4,27 @@
 \alias{stitch}
 \title{stitch}
 \usage{
-stitch(eList, firstSampleDate1, lastSampleDate1, firstSampleDate2,
-  lastSampleDate2, surfaceStart = NA, surfaceEnd = NA, minNumObs = 100,
+stitch(eList, sample1StartDate, sample1EndDate, sample2StartDate,
+  sample2EndDate, surfaceStart = NA, surfaceEnd = NA, minNumObs = 100,
   minNumUncen = 50, windowY = 7, windowQ = 2, windowS = 0.5,
   edgeAdjust = TRUE, verbose = FALSE, run.parallel = FALSE)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
 
-\item{firstSampleDate1}{character in YYYY-MM-DD. Starting data of Sample data for first surface to be joined.}
+\item{sample1StartDate}{The Date (or character in YYYY-MM-DD) of the first sample to be used (if NA it is the first Date in eList$Sample)}
 
-\item{lastSampleDate1}{character in YYYY-MM-DD. Ending data of Sample data for first surface to be joined.}
+\item{sample1EndDate}{The Date (or character in YYYY-MM-DD) of the last sample to be used in the first section}
 
-\item{firstSampleDate2}{character in YYYY-MM-DD. Starting data of Sample data for second surface to be joined.}
+\item{sample2StartDate}{The Date (or character in YYYY-MM-DD) of the first sample to be used in the second section}
 
-\item{lastSampleDate2}{character in YYYY-MM-DD. Ending data of Sample data for second surface to be joined.}
+\item{sample2EndDate}{The Date (or character in YYYY-MM-DD) of the last sample to be used in the second section}
 
-\item{surfaceStart}{character (or Date) in YYYY-MM-DD. Starting date of final surface.
-If NA, surface starts at beginning of Sample}
+\item{surfaceStart}{The Date (or character in YYYY-MM-DD) that is the start of the WRTDS model to be estimated and the last of the 
+daily outputs to be generated (if NA it is sampleStartDate)}
 
-\item{surfaceEnd}{character (or Date) in YYYY-MM-DD. Ending date of final surface
-If NA, surface ends at end of Sample}
+\item{surfaceEnd}{The Date (or character in YYYY-MM-DD) that is the end of the WRTDS model to be estimated and the last of the daily outputs 
+to be generated (if NA it is sampleEndDate)}
 
 \item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
 
@@ -39,9 +39,9 @@ If NA, surface ends at end of Sample}
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.
 The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
 
-\item{verbose}{logical specifying whether or not to display progress message}
+\item{paLong}{numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12, default is 12}
 
-\item{run.parallel}{logical to run bootstrapping in parallel or not}
+\item{paStart}{numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12, default is 10}
 }
 \description{
 This function creates a continuous surfaces object that starts just before 
@@ -60,33 +60,25 @@ surfaceStart <- "1986-10-01"
 surfaceEnd <- "2012-09-30"
 
 # Surface skips a few years:
-firstSampleDate1 <- "1986-10-01"
-lastSampleDate1 <- "1992-09-30"
-firstSampleDate2 <- "1996-10-01"
-lastSampleDate2 <- "2012-09-30"
+sample1StartDate <- "1986-10-01"
+sample1EndDate <- "1992-09-30"
+sample2StartDate <- "1996-10-01"
+sample2EndDate <- "2012-09-30"
 
 \dontrun{
 surface_skip <- stitch(eList, 
-                         surfaceStart, surfaceEnd, 
-                         firstSampleDate1, lastSampleDate1, 
-                         firstSampleDate2, lastSampleDate2)
-   
-eList_skip <- as.egret(eList$INFO, 
-                       eList$Daily, 
-                       eList$Sample, 
-                       surface_skip)
-eList_skip <- modelEstimation(eList_skip)
-plotConcHist(eList_skip)
+                         sample1StartDate, sample1EndDate, 
+                         sample2StartDate, sample2EndDate,
+                         surfaceStart, surfaceEnd)
 
 # Surface overlaps a few years:
-firstSampleDate1 <- "1986-10-01"
-lastSampleDate1 <- "1996-09-30"
-firstSampleDate2 <- "1992-10-01"
-lastSampleDate2 <- "2012-09-30"
+sample1StartDate <- "1986-10-01"
+sample1EndDate <- "1996-09-30"
+sample2StartDate <- "1992-10-01"
+sample2EndDate <- "2012-09-30"
 
 surface_overlap <- stitch(eList, 
-                         surfaceStart, surfaceEnd, 
-                         firstSampleDate1, lastSampleDate1, 
-                         firstSampleDate2, lastSampleDate2)
+                         sample1StartDate, sample1EndDate, 
+                         sample2StartDate, sample2EndDate)
 }
 }

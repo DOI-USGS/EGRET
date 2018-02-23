@@ -68,18 +68,10 @@ estSurfaces<-function(eList, surfaceStart=NA, surfaceEnd=NA, localSample=NA,
     localSample <- eList$Sample
   }
 
-  n <- length(localSample$Date)
+  highLow <- decimalHighLow(localSample)
   
-  DecLow <- trunc(localSample$DecYear[1]) - 0.25
-  DecHigh <- trunc(localSample$DecYear[n]) + 0.75
-  
-  if(localSample$Month[1] %in% c(10:12)){
-    DecLow <- DecLow + 1
-  } 
-  
-  if(localSample$Month[n] %in% c(10:12)){
-    DecHigh <- DecHigh + 1
-  }
+  DecHigh <- highLow[["DecHigh"]]
+  DecLow <- highLow[["DecLow"]]
   
   surfaceInfo <- surfaceIndex(localDaily)
   vectorYear <- surfaceInfo[['vectorYear']]
