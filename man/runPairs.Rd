@@ -35,6 +35,10 @@ runPairs(eList, year1, year2, windowSide, flowBreak = FALSE, Q1EndDate = NA,
 
 \item{sampleEndDate}{The Date of the last sample to be used (if NA, which is default, it is the last Date in eList$Sample)}
 
+\item{paStart}{numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12, default is 10}
+
+\item{paLong}{numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12, default is 12}
+
 \item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
 
 \item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}

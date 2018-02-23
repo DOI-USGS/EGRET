@@ -39,9 +39,9 @@ If NA, surface ends at end of Sample}
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.
 The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
 
-\item{year1}{integer year1}
+\item{verbose}{logical specifying whether or not to display progress message}
 
-\item{year2}{integer year2}
+\item{run.parallel}{logical to run bootstrapping in parallel or not}
 }
 \description{
 This function creates a continuous surfaces object that starts just before 

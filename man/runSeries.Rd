@@ -13,33 +13,44 @@ runSeries(eList, surfaceStart = NA, surfaceEnd = NA, wall = FALSE,
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
 
-\item{surfaceStart}{character (or Date) in YYYY-MM-DD. Date on which we want the analysis to start, it must be at or after the}
+\item{surfaceStart}{The Date that is the start of the WRTDS model to be estimated and the last of the daily outputs to be 
+generated (if NA it is sampleStartDate)}
 
-\item{surfaceEnd}{character (or Date) in YYYY-MM-DD. Date on which we want the analysis to end, it must be at or before the end of}
+\item{surfaceEnd}{The Date that is the end of the WRTDS model to be estimated and the last of the daily outputs to be 
+generated (if NA it is sampleEndDate)}
 
 \item{wall}{logical set up a "wall" on the Sample data}
 
-\item{firstSampleDate0}{character (or Date) in YYYY-MM-DD. First day of the Sample data set we will use, default is 
-use all samples starting with the first sample}
+\item{flowBreak}{logical, is there an abrupt break in the QD}
 
-\item{lastSampleDate0}{character (or Date) in YYYY-MM-DD. Last day of the Sample data set we will use, default is 
-use up through the last sample}
+\item{windowSide}{integer The width of the flow normalization window on each side of the year being estimated.}
 
-\item{lastSampleDate1}{character (or Date) in YYYY-MM-DD. Day just before the wall in the RS}
+\item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
 
-\item{flowBreak}{logical. User-specified break in the flow distribution}
+\item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
 
-\item{windowSide}{integer number of automatically generated span sections, 
-default is 7. If NA, code will use}
+\item{windowY}{numeric specifying the half-window width in the time dimension, in units of years, default is 7}
 
-\item{lastQDate1}{character (or Date) in YYYY-MM-DD. The last day of the period leading up to the flow break, must be specified if
-flowBreak = TRUE}
+\item{windowQ}{numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2}
 
-\item{firstQDate0}{character (or Date) in YYYY-MM-DD. The first day used in flow normalizing distributions, default is 
-the start of eList$Daily}
+\item{windowS}{numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5}
 
-\item{lastQDate0}{character (or Date) in YYYY-MM-DD. The last day used in flow normalizating distributions, default is
-the end of eList$Daily}
+\item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.
+The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
+
+\item{Q1EndDate}{The Date just before the flowBreak (or character in YYY-MM-DD format)}
+
+\item{QStartDate}{The first Date used in the QD (if NA, which is default, it is first Date in eList$Daily)}
+
+\item{QEndDate}{The last Date used in the QD (if NA, which is default, it is the last Date in eList$Daily)}
+
+\item{wall}{logical, there is an abrupt break in the CQR}
+
+\item{sample1EndDate}{The Date of just before the wall}
+
+\item{sampleStartDate}{The Date of the first sample to be used (if NA, which is default, it is the first Date in eList$Sample)}
+
+\item{sampleEndDate}{The Date of the last sample to be used (if NA, which is default, it is the last Date in eList$Sample)}
 }
 \description{
 runSeries

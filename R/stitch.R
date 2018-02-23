@@ -9,8 +9,6 @@
 #' the eList$Sample will be split out into Sample1 and Sample2 (there will be no overlap)
 #' 
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
-#' @param year1 integer year1
-#' @param year2 integer year2
 #' @param surfaceStart character (or Date) in YYYY-MM-DD. Starting date of final surface.
 #' If NA, surface starts at beginning of Sample
 #' @param surfaceEnd character (or Date) in YYYY-MM-DD. Ending date of final surface
@@ -26,6 +24,8 @@
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
 #' The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
+#' @param run.parallel logical to run bootstrapping in parallel or not
+#' @param verbose logical specifying whether or not to display progress message
 #' 
 #' @export
 #' @examples 

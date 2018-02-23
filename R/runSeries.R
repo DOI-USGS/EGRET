@@ -10,25 +10,26 @@
 #' 
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param wall logical set up a "wall" on the Sample data
-#' @param flowBreak logical. User-specified break in the flow distribution
-#' @param firstSampleDate0 character (or Date) in YYYY-MM-DD. First day of the Sample data set we will use, default is 
-#'    use all samples starting with the first sample
-#' @param lastSampleDate0 character (or Date) in YYYY-MM-DD. Last day of the Sample data set we will use, default is 
-#'    use up through the last sample
-#' @param lastSampleDate1 character (or Date) in YYYY-MM-DD. Day just before the wall in the RS
-#' @param surfaceStart character (or Date) in YYYY-MM-DD. Date on which we want the analysis to start, it must be at or after the 
-#    start of the eList$Daily dataframe
-#' @param surfaceEnd character (or Date) in YYYY-MM-DD. Date on which we want the analysis to end, it must be at or before the end of 
-#    the eList$Daily data frame
-#' @param windowSide integer number of automatically generated span sections, 
-#' default is 7. If NA, code will use 
-#' @param firstQDate0 character (or Date) in YYYY-MM-DD. The first day used in flow normalizing distributions, default is 
-#'         the start of eList$Daily
-#' @param lastQDate0 character (or Date) in YYYY-MM-DD. The last day used in flow normalizating distributions, default is
-#'         the end of eList$Daily
-#' @param lastQDate1 character (or Date) in YYYY-MM-DD. The last day of the period leading up to the flow break, must be specified if
-#'      flowBreak = TRUE
-#'
+#' @param windowSide integer The width of the flow normalization window on each side of the year being estimated.
+#' @param flowBreak logical, is there an abrupt break in the QD
+#' @param Q1EndDate The Date just before the flowBreak (or character in YYY-MM-DD format)
+#' @param QStartDate The first Date used in the QD (if NA, which is default, it is first Date in eList$Daily)
+#' @param QEndDate The last Date used in the QD (if NA, which is default, it is the last Date in eList$Daily)
+#' @param wall logical, there is an abrupt break in the CQR
+#' @param sample1EndDate The Date of just before the wall
+#' @param sampleStartDate The Date of the first sample to be used (if NA, which is default, it is the first Date in eList$Sample)
+#' @param sampleEndDate The Date of the last sample to be used (if NA, which is default, it is the last Date in eList$Sample)
+#' @param surfaceStart The Date that is the start of the WRTDS model to be estimated and the last of the daily outputs to be 
+#' generated (if NA it is sampleStartDate)
+#' @param surfaceEnd The Date that is the end of the WRTDS model to be estimated and the last of the daily outputs to be 
+#' generated (if NA it is sampleEndDate)
+#' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
+#' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
+#' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
+#' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
+#' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
+#' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
+#' The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
 #' @export
 #' @examples 
 #' eList <- Choptank_Phos

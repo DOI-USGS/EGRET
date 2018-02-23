@@ -15,6 +15,8 @@
 #' @param sample1EndDate The Date of just before the wall
 #' @param sampleStartDate The Date of the first sample to be used (if NA, which is default, it is the first Date in eList$Sample)
 #' @param sampleEndDate The Date of the last sample to be used (if NA, which is default, it is the last Date in eList$Sample)
+#' @param paLong numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12, default is 12
+#' @param paStart numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12, default is 10 
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
