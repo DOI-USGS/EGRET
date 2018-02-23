@@ -8,13 +8,13 @@
 #' @param year2 integer the ending year of the second year in pairs
 #' @param windowSide integer The width of the flow normalization window on each side of the year being estimated.
 #' @param flowBreak logical, is there an abrupt break in the QD
-#' @param Q1EndDate The Date just before the flowBreak (or character in YYY-MM-DD format)
-#' @param QStartDate The first Date used in the QD (if NA, which is default, it is first Date in eList$Daily)
-#' @param QEndDate The last Date used in the QD (if NA, which is default, it is the last Date in eList$Daily)
+#' @param Q1EndDate The Date (or character in YYYY-MM-DD) just before the flowBreak (or character in YYY-MM-DD format)
+#' @param QStartDate The first Date (or character in YYYY-MM-DD) used in the QD (if NA, which is default, it is first Date in eList$Daily)
+#' @param QEndDate The last Date (or character in YYYY-MM-DD) used in the QD (if NA, which is default, it is the last Date in eList$Daily)
 #' @param wall logical, there is an abrupt break in the CQR
-#' @param sample1EndDate The Date of just before the wall
-#' @param sampleStartDate The Date of the first sample to be used (if NA, which is default, it is the first Date in eList$Sample)
-#' @param sampleEndDate The Date of the last sample to be used (if NA, which is default, it is the last Date in eList$Sample)
+#' @param sample1EndDate The Date (or character in YYYY-MM-DD) of just before the wall
+#' @param sampleStartDate The Date (or character in YYYY-MM-DD) of the first sample to be used (if NA, which is default, it is the first Date in eList$Sample)
+#' @param sampleEndDate The Date (or character in YYYY-MM-DD) of the last sample to be used (if NA, which is default, it is the last Date in eList$Sample)
 #' @param paLong numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12, default is 12
 #' @param paStart numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12, default is 10 
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7

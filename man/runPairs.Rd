@@ -21,19 +21,19 @@ runPairs(eList, year1, year2, windowSide, flowBreak = FALSE, Q1EndDate = NA,
 
 \item{flowBreak}{logical, is there an abrupt break in the QD}
 
-\item{Q1EndDate}{The Date just before the flowBreak (or character in YYY-MM-DD format)}
+\item{Q1EndDate}{The Date (or character in YYYY-MM-DD) just before the flowBreak (or character in YYY-MM-DD format)}
 
-\item{QStartDate}{The first Date used in the QD (if NA, which is default, it is first Date in eList$Daily)}
+\item{QStartDate}{The first Date (or character in YYYY-MM-DD) used in the QD (if NA, which is default, it is first Date in eList$Daily)}
 
-\item{QEndDate}{The last Date used in the QD (if NA, which is default, it is the last Date in eList$Daily)}
+\item{QEndDate}{The last Date (or character in YYYY-MM-DD) used in the QD (if NA, which is default, it is the last Date in eList$Daily)}
 
 \item{wall}{logical, there is an abrupt break in the CQR}
 
-\item{sample1EndDate}{The Date of just before the wall}
+\item{sample1EndDate}{The Date (or character in YYYY-MM-DD) of just before the wall}
 
-\item{sampleStartDate}{The Date of the first sample to be used (if NA, which is default, it is the first Date in eList$Sample)}
+\item{sampleStartDate}{The Date (or character in YYYY-MM-DD) of the first sample to be used (if NA, which is default, it is the first Date in eList$Sample)}
 
-\item{sampleEndDate}{The Date of the last sample to be used (if NA, which is default, it is the last Date in eList$Sample)}
+\item{sampleEndDate}{The Date (or character in YYYY-MM-DD) of the last sample to be used (if NA, which is default, it is the last Date in eList$Sample)}
 
 \item{paStart}{numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12, default is 10}
 
