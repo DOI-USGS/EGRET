@@ -6,10 +6,10 @@
 \usage{
 runSeries(eList, windowSide, surfaceStart = NA, surfaceEnd = NA,
   flowBreak = FALSE, Q1EndDate = NA, QStartDate = NA, QEndDate = NA,
-  wall = FALSE, sample1EndDate = NA, sampleStartDate = NA,
-  sampleEndDate = NA, paStart = 10, paLong = 12, minNumObs = 100,
-  minNumUncen = 50, windowY = 7, windowQ = 2, windowS = 0.5,
-  edgeAdjust = TRUE)
+  wall = FALSE, oldSurface = FALSE, sample1EndDate = NA,
+  sampleStartDate = NA, sampleEndDate = NA, paStart = 10, paLong = 12,
+  minNumObs = 100, minNumUncen = 50, windowY = 7, windowQ = 2,
+  windowS = 0.5, edgeAdjust = TRUE)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -31,6 +31,8 @@ generated (if NA it is sampleEndDate)}
 \item{QEndDate}{The last Date used in the QD (if NA, which is default, it is the last Date in eList$Daily)}
 
 \item{wall}{logical set up a "wall" on the Sample data}
+
+\item{oldSurface}{logical specifying whether to use the original surface, or create a new one.}
 
 \item{sample1EndDate}{The Date of just before the wall}
 
