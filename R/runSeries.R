@@ -32,6 +32,7 @@
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
 #' The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
+#' @param oldSurface logical specifying whether to use the original surface, or create a new one.
 #' @export
 #' @examples 
 #' eList <- Choptank_Phos
@@ -61,7 +62,7 @@ runSeries <- function(eList, windowSide,
                       surfaceStart = NA, surfaceEnd = NA, 
                       flowBreak = FALSE, 
                       Q1EndDate = NA, QStartDate = NA, QEndDate = NA, 
-                      wall = FALSE, 
+                      wall = FALSE, oldSurface = FALSE,
                       sample1EndDate = NA, sampleStartDate = NA, sampleEndDate = NA,
                       paStart = 10, paLong = 12,
                       minNumObs = 100, minNumUncen = 50, windowY = 7, 
@@ -128,10 +129,13 @@ runSeries <- function(eList, windowSide,
                           windowQ = windowQ, windowS = windowS, minNumObs = minNumObs, 
                           minNumUncen = minNumUncen, edgeAdjust = TRUE)
   } else {
-    surfaces <- estSurfaces(eList, surfaceStart = surfaceStart, surfaceEnd = surfaceEnd,
-                                windowY = windowY, windowQ = windowQ, 
-                                windowS = windowS, minNumObs = minNumObs, minNumUncen = minNumUncen, 
-                                edgeAdjust = TRUE)
+    if(!oldSurface){
+      surfaces <- estSurfaces(eList, surfaceStart = surfaceStart, surfaceEnd = surfaceEnd,
+                                  windowY = windowY, windowQ = windowQ, 
+                                  windowS = windowS, minNumObs = minNumObs, minNumUncen = minNumUncen, 
+                                  edgeAdjust = TRUE)      
+    }
+
   }
   
   eListS <- as.egret(eList$INFO, localDaily, localSample, surfaces)
@@ -176,7 +180,7 @@ runSeries <- function(eList, windowSide,
   
   eListOut <- flexFN(eListS, dateInfo, flowNormStartCol = "flowNormStart", 
                      flowNormEndCol = "flowNormEnd", flowStartCol = "flowStart", 
-                     flowEndCol = "flowEnd")
+                     flowEndCol = "flowEnd", oldSurface = oldSurface)
   
   eListOut$INFO$wall <- wall
   eListOut$INFO$surfaceStart <- surfaceStart

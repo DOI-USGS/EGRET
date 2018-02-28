@@ -11,6 +11,7 @@
 #' for the portion of the flow to be populated with flow-normalized values.
 #' @param flowEndCol character, name of the column in dateInfo that ends the segment
 #' for the portion of the flow to be populated with flow-normalized values.
+#' @param oldSurface logical specifying whether to use the original surface, or create a new one.
 #' @export
 #' @importFrom dataRetrieval calcWaterYear
 #' @examples
@@ -34,14 +35,17 @@
 #' wallEList <- flexFN(eList, dateInfo, localsurface = wallSurface)
 #' plotFluxHist(wallEList)
 #' }
-flexFN <- function(eList, dateInfo, localsurfaces = NA,
+flexFN <- function(eList, dateInfo, localsurfaces = NA, oldSurface = FALSE,
                    flowNormStartCol = "flowNormStart", flowNormEndCol = "flowNormEnd",
                    flowStartCol="flowStart", flowEndCol="flowEnd"){
   
   localDaily <- getDaily(eList)
   
-  localDaily$ConcDay <- NA
-  localDaily$FluxDay <- NA
+  if(!oldSurface){
+    localDaily$ConcDay <- NA
+    localDaily$FluxDay <- NA    
+  }
+
   localDaily$FNConc <- NA
   localDaily$FNFlux <- NA
   
@@ -56,12 +60,24 @@ flexFN <- function(eList, dateInfo, localsurfaces = NA,
 
     flowNormIndex <- which(localDaily$Date >= as.Date(dateInfo[[flowNormStartCol]][seg]) & 
                              localDaily$Date <= as.Date(dateInfo[[flowNormEndCol]][seg]))
-    
-    DailySeg <- estDailyFromSurfaces(eList, localsurfaces = localsurfaces, localDaily = localDaily[flowNormIndex,])
-    
-    localDaily$ConcDay[flowIndex] <- DailySeg$ConcDay[which(flowNormIndex %in% flowIndex)]
-    localDaily$FluxDay[flowIndex] <- DailySeg$FluxDay[which(flowNormIndex %in% flowIndex)]
-  
+    if(oldSurface){
+      DailySeg <- localDaily
+      
+      allLogQsByDayOfYear <- bin_Qs(localDaily)
+      
+      concFlux_list <- getConcFluxFromSurface(eList, allLogQsByDayOfYear, localDaily = localDaily, localsurfaces=localsurfaces)
+      
+      # Finally bin the collective results by days (the decimal year), and calculate the desired means.
+      DailySeg$FNConc <-  as.numeric(tapply(concFlux_list[["allConcReplicated"]], concFlux_list[["allDatesReplicated"]], "mean"))
+      DailySeg$FNFlux <-  as.numeric(tapply(concFlux_list[["allFluxReplicated"]], concFlux_list[["allDatesReplicated"]], "mean"))
+      
+    } else {
+      DailySeg <- estDailyFromSurfaces(eList, localsurfaces = localsurfaces, localDaily = localDaily[flowNormIndex,])
+      
+      localDaily$ConcDay[flowIndex] <- DailySeg$ConcDay[which(flowNormIndex %in% flowIndex)]
+      localDaily$FluxDay[flowIndex] <- DailySeg$FluxDay[which(flowNormIndex %in% flowIndex)]      
+    }
+
     localDaily$FNConc[flowIndex] <- DailySeg$FNConc[which(flowNormIndex %in% flowIndex)]
     localDaily$FNFlux[flowIndex] <- DailySeg$FNFlux[which(flowNormIndex %in% flowIndex)]
   }
