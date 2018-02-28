@@ -61,11 +61,11 @@ flexFN <- function(eList, dateInfo, localsurfaces = NA, oldSurface = FALSE,
     flowNormIndex <- which(localDaily$Date >= as.Date(dateInfo[[flowNormStartCol]][seg]) & 
                              localDaily$Date <= as.Date(dateInfo[[flowNormEndCol]][seg]))
     if(oldSurface){
-      DailySeg <- localDaily
+      DailySeg <- localDaily[flowNormIndex,]
       
-      allLogQsByDayOfYear <- bin_Qs(localDaily)
+      allLogQsByDayOfYear <- bin_Qs(DailySeg)
       
-      concFlux_list <- getConcFluxFromSurface(eList, allLogQsByDayOfYear, localDaily = localDaily, localsurfaces=localsurfaces)
+      concFlux_list <- getConcFluxFromSurface(eList, allLogQsByDayOfYear, localDaily = DailySeg, localsurfaces=localsurfaces)
       
       # Finally bin the collective results by days (the decimal year), and calculate the desired means.
       DailySeg$FNConc <-  as.numeric(tapply(concFlux_list[["allConcReplicated"]], concFlux_list[["allDatesReplicated"]], "mean"))
