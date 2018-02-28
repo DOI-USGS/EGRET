@@ -70,6 +70,7 @@ runSeries <- function(eList, windowSide,
 
   localSample <- getSample(eList)
   localDaily <- getDaily(eList)
+  localsurfaces <- getSurfaces(eList)
   
   sampleStartDate <- if(is.na(sampleStartDate)) localSample$Date[1] else as.Date(sampleStartDate)
   numSamples <- length(localSample$Date)
@@ -96,8 +97,6 @@ runSeries <- function(eList, windowSide,
   localSample <- localSample[localSample$Date >= sampleStartDate & 
                                localSample$Date <= sampleEndDate, ]
   
-  eList <- as.egret(eList$INFO, localDaily, localSample)
-  
   surfaceStart <- as.Date(surfaceStart)
   if (is.na(surfaceStart)) {
     surfaceStart <- localSample$Date[1]
@@ -115,6 +114,8 @@ runSeries <- function(eList, windowSide,
     stop("surfaceEnd can't be after QEndDate")
   }
   
+  eList <- as.egret(eList$INFO, localDaily, localSample, localsurfaces)
+  
   if (wall) {
     if (is.na(sample1EndDate)) {
       stop("if there is a wall, the user must specify sample1EndDate")
@@ -129,13 +130,24 @@ runSeries <- function(eList, windowSide,
                           windowQ = windowQ, windowS = windowS, minNumObs = minNumObs, 
                           minNumUncen = minNumUncen, edgeAdjust = TRUE)
   } else {
+    
     if(!oldSurface){
+
       surfaces <- estSurfaces(eList, surfaceStart = surfaceStart, surfaceEnd = surfaceEnd,
                                   windowY = windowY, windowQ = windowQ, 
                                   windowS = windowS, minNumObs = minNumObs, minNumUncen = minNumUncen, 
                                   edgeAdjust = TRUE)      
+    } else {
+      if(all(is.na(localsurfaces))){
+        message("No surface included in eList, running estSurface function")
+        surfaces <- estSurfaces(eList, surfaceStart = surfaceStart, surfaceEnd = surfaceEnd,
+                                windowY = windowY, windowQ = windowQ, 
+                                windowS = windowS, minNumObs = minNumObs, minNumUncen = minNumUncen, 
+                                edgeAdjust = TRUE) 
+      } else {
+        surfaces <- localsurfaces
+      }
     }
-
   }
   
   eListS <- as.egret(eList$INFO, localDaily, localSample, surfaces)
