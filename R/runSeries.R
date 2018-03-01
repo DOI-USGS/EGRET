@@ -98,12 +98,12 @@ runSeries <- function(eList, windowSide,
   
   surfaceStart <- as.Date(surfaceStart)
   if (is.na(surfaceStart)) {
-    surfaceStart <- localDaily$Date[1]
+    surfaceStart <- QStartDate
   }
   
   surfaceEnd <- as.Date(surfaceEnd)
   if (is.na(surfaceEnd)) {
-    surfaceEnd <- localDaily$Date[nrow(localDaily)]
+    surfaceEnd <- QEndDate
   }
   
   if (isTRUE(surfaceStart < QStartDate)) {
