@@ -20,9 +20,9 @@
 #' @param sampleStartDate The Date of the first sample to be used (if NA, which is default, it is the first Date in eList$Sample)
 #' @param sampleEndDate The Date of the last sample to be used (if NA, which is default, it is the last Date in eList$Sample)
 #' @param surfaceStart The Date that is the start of the WRTDS model to be estimated and the last of the daily outputs to be 
-#' generated (if NA it is sampleStartDate)
+#' generated (if NA it is the first day of the flow record)
 #' @param surfaceEnd The Date that is the end of the WRTDS model to be estimated and the last of the daily outputs to be 
-#' generated (if NA it is sampleEndDate)
+#' generated (if NA it is the last day of the flow record)
 #' @param paLong numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12, default is 12
 #' @param paStart numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12, default is 10 
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
@@ -99,18 +99,18 @@ runSeries <- function(eList, windowSide,
   
   surfaceStart <- as.Date(surfaceStart)
   if (is.na(surfaceStart)) {
-    surfaceStart <- localSample$Date[1]
+    surfaceStart <- localDaily$Date[1]
   }
   
   surfaceEnd <- as.Date(surfaceEnd)
   if (is.na(surfaceEnd)) {
-    surfaceEnd <- localSample$Date[nrow(localSample)]
+    surfaceEnd <- localDaily$Date[nrow(localDaily)]
   }
   
-  if (surfaceStart < QStartDate) {
+  if (isTRUE(surfaceStart < QStartDate)) {
     stop("surfaceStart can't be before QStartDate")
   }
-  if (surfaceEnd > QEndDate) {
+  if (isTRUE(surfaceEnd > QEndDate)) {
     stop("surfaceEnd can't be after QEndDate")
   }
   
@@ -131,23 +131,23 @@ runSeries <- function(eList, windowSide,
                           minNumUncen = minNumUncen, edgeAdjust = TRUE)
   } else {
     
+    if(oldSurface){
+      if(all(is.na(localsurfaces))){
+        message("No surface included in eList, running estSurface function")
+        oldSurface <- FALSE
+      } else {
+        #Need to do surfaceStart/End
+        surfaces <- localsurfaces
+      }
+    }
+    
     if(!oldSurface){
-
       surfaces <- estSurfaces(eList, surfaceStart = surfaceStart, surfaceEnd = surfaceEnd,
                                   windowY = windowY, windowQ = windowQ, 
                                   windowS = windowS, minNumObs = minNumObs, minNumUncen = minNumUncen, 
                                   edgeAdjust = TRUE)      
-    } else {
-      if(all(is.na(localsurfaces))){
-        message("No surface included in eList, running estSurface function")
-        surfaces <- estSurfaces(eList, surfaceStart = surfaceStart, surfaceEnd = surfaceEnd,
-                                windowY = windowY, windowQ = windowQ, 
-                                windowS = windowS, minNumObs = minNumObs, minNumUncen = minNumUncen, 
-                                edgeAdjust = TRUE) 
-      } else {
-        surfaces <- localsurfaces
-      }
-    }
+    } 
+    
   }
   
   eListS <- as.egret(eList$INFO, localDaily, localSample, surfaces)

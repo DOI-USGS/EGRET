@@ -17,10 +17,10 @@ runSeries(eList, windowSide, surfaceStart = NA, surfaceEnd = NA,
 \item{windowSide}{integer The width of the flow normalization window on each side of the year being estimated.}
 
 \item{surfaceStart}{The Date that is the start of the WRTDS model to be estimated and the last of the daily outputs to be 
-generated (if NA it is sampleStartDate)}
+generated (if NA it is the first day of the flow record)}
 
 \item{surfaceEnd}{The Date that is the end of the WRTDS model to be estimated and the last of the daily outputs to be 
-generated (if NA it is sampleEndDate)}
+generated (if NA it is the last day of the flow record)}
 
 \item{flowBreak}{logical, is there an abrupt break in the QD}
 
