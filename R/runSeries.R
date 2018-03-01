@@ -9,7 +9,6 @@
 #' 
 #' 
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
-#' @param wall logical set up a "wall" on the Sample data
 #' @param windowSide integer The width of the flow normalization window on each side of the year being estimated.
 #' @param flowBreak logical, is there an abrupt break in the QD
 #' @param Q1EndDate The Date just before the flowBreak (or character in YYY-MM-DD format)
@@ -20,9 +19,9 @@
 #' @param sampleStartDate The Date of the first sample to be used (if NA, which is default, it is the first Date in eList$Sample)
 #' @param sampleEndDate The Date of the last sample to be used (if NA, which is default, it is the last Date in eList$Sample)
 #' @param surfaceStart The Date that is the start of the WRTDS model to be estimated and the last of the daily outputs to be 
-#' generated (if NA it is sampleStartDate)
+#' generated (if NA it is the first day of the flow record)
 #' @param surfaceEnd The Date that is the end of the WRTDS model to be estimated and the last of the daily outputs to be 
-#' generated (if NA it is sampleEndDate)
+#' generated (if NA it is the last day of the flow record)
 #' @param paLong numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12, default is 12
 #' @param paStart numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12, default is 10 
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
@@ -32,6 +31,7 @@
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
 #' The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
+#' @param oldSurface logical specifying whether to use the original surface, or create a new one.
 #' @export
 #' @examples 
 #' eList <- Choptank_Phos
@@ -61,7 +61,7 @@ runSeries <- function(eList, windowSide,
                       surfaceStart = NA, surfaceEnd = NA, 
                       flowBreak = FALSE, 
                       Q1EndDate = NA, QStartDate = NA, QEndDate = NA, 
-                      wall = FALSE, 
+                      wall = FALSE, oldSurface = FALSE,
                       sample1EndDate = NA, sampleStartDate = NA, sampleEndDate = NA,
                       paStart = 10, paLong = 12,
                       minNumObs = 100, minNumUncen = 50, windowY = 7, 
@@ -69,6 +69,7 @@ runSeries <- function(eList, windowSide,
 
   localSample <- getSample(eList)
   localDaily <- getDaily(eList)
+  localsurfaces <- getSurfaces(eList)
   
   sampleStartDate <- if(is.na(sampleStartDate)) localSample$Date[1] else as.Date(sampleStartDate)
   numSamples <- length(localSample$Date)
@@ -95,24 +96,24 @@ runSeries <- function(eList, windowSide,
   localSample <- localSample[localSample$Date >= sampleStartDate & 
                                localSample$Date <= sampleEndDate, ]
   
-  eList <- as.egret(eList$INFO, localDaily, localSample)
-  
   surfaceStart <- as.Date(surfaceStart)
   if (is.na(surfaceStart)) {
-    surfaceStart <- localSample$Date[1]
+    surfaceStart <- localDaily$Date[1]
   }
   
   surfaceEnd <- as.Date(surfaceEnd)
   if (is.na(surfaceEnd)) {
-    surfaceEnd <- localSample$Date[nrow(localSample)]
+    surfaceEnd <- localDaily$Date[nrow(localDaily)]
   }
   
-  if (surfaceStart < QStartDate) {
+  if (isTRUE(surfaceStart < QStartDate)) {
     stop("surfaceStart can't be before QStartDate")
   }
-  if (surfaceEnd > QEndDate) {
+  if (isTRUE(surfaceEnd > QEndDate)) {
     stop("surfaceEnd can't be after QEndDate")
   }
+  
+  eList <- as.egret(eList$INFO, localDaily, localSample, localsurfaces)
   
   if (wall) {
     if (is.na(sample1EndDate)) {
@@ -128,10 +129,24 @@ runSeries <- function(eList, windowSide,
                           windowQ = windowQ, windowS = windowS, minNumObs = minNumObs, 
                           minNumUncen = minNumUncen, edgeAdjust = TRUE)
   } else {
-    surfaces <- estSurfaces(eList, surfaceStart = surfaceStart, surfaceEnd = surfaceEnd,
-                                windowY = windowY, windowQ = windowQ, 
-                                windowS = windowS, minNumObs = minNumObs, minNumUncen = minNumUncen, 
-                                edgeAdjust = TRUE)
+    
+    if(oldSurface){
+      if(all(is.na(localsurfaces))){
+        message("No surface included in eList, running estSurface function")
+        oldSurface <- FALSE
+      } else {
+        #Need to do surfaceStart/End
+        surfaces <- localsurfaces
+      }
+    }
+    
+    if(!oldSurface){
+      surfaces <- estSurfaces(eList, surfaceStart = surfaceStart, surfaceEnd = surfaceEnd,
+                                  windowY = windowY, windowQ = windowQ, 
+                                  windowS = windowS, minNumObs = minNumObs, minNumUncen = minNumUncen, 
+                                  edgeAdjust = TRUE)      
+    } 
+    
   }
   
   eListS <- as.egret(eList$INFO, localDaily, localSample, surfaces)
@@ -176,7 +191,7 @@ runSeries <- function(eList, windowSide,
   
   eListOut <- flexFN(eListS, dateInfo, flowNormStartCol = "flowNormStart", 
                      flowNormEndCol = "flowNormEnd", flowStartCol = "flowStart", 
-                     flowEndCol = "flowEnd")
+                     flowEndCol = "flowEnd", oldSurface = oldSurface)
   
   eListOut$INFO$wall <- wall
   eListOut$INFO$surfaceStart <- surfaceStart

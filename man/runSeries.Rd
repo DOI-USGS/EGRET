@@ -6,10 +6,10 @@
 \usage{
 runSeries(eList, windowSide, surfaceStart = NA, surfaceEnd = NA,
   flowBreak = FALSE, Q1EndDate = NA, QStartDate = NA, QEndDate = NA,
-  wall = FALSE, sample1EndDate = NA, sampleStartDate = NA,
-  sampleEndDate = NA, paStart = 10, paLong = 12, minNumObs = 100,
-  minNumUncen = 50, windowY = 7, windowQ = 2, windowS = 0.5,
-  edgeAdjust = TRUE)
+  wall = FALSE, oldSurface = FALSE, sample1EndDate = NA,
+  sampleStartDate = NA, sampleEndDate = NA, paStart = 10, paLong = 12,
+  minNumObs = 100, minNumUncen = 50, windowY = 7, windowQ = 2,
+  windowS = 0.5, edgeAdjust = TRUE)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -17,10 +17,10 @@ runSeries(eList, windowSide, surfaceStart = NA, surfaceEnd = NA,
 \item{windowSide}{integer The width of the flow normalization window on each side of the year being estimated.}
 
 \item{surfaceStart}{The Date that is the start of the WRTDS model to be estimated and the last of the daily outputs to be 
-generated (if NA it is sampleStartDate)}
+generated (if NA it is the first day of the flow record)}
 
 \item{surfaceEnd}{The Date that is the end of the WRTDS model to be estimated and the last of the daily outputs to be 
-generated (if NA it is sampleEndDate)}
+generated (if NA it is the last day of the flow record)}
 
 \item{flowBreak}{logical, is there an abrupt break in the QD}
 
@@ -30,7 +30,9 @@ generated (if NA it is sampleEndDate)}
 
 \item{QEndDate}{The last Date used in the QD (if NA, which is default, it is the last Date in eList$Daily)}
 
-\item{wall}{logical set up a "wall" on the Sample data}
+\item{wall}{logical, there is an abrupt break in the CQR}
+
+\item{oldSurface}{logical specifying whether to use the original surface, or create a new one.}
 
 \item{sample1EndDate}{The Date of just before the wall}
 
@@ -54,8 +56,6 @@ generated (if NA it is sampleEndDate)}
 
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.
 The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
-
-\item{wall}{logical, there is an abrupt break in the CQR}
 }
 \description{
 runSeries

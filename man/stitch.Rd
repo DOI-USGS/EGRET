@@ -39,9 +39,9 @@ to be generated (if NA it is sampleEndDate)}
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.
 The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
 
-\item{paLong}{numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12, default is 12}
+\item{verbose}{logical specifying whether or not to display progress message}
 
-\item{paStart}{numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12, default is 10}
+\item{run.parallel}{logical to run bootstrapping in parallel or not}
 }
 \description{
 This function creates a continuous surfaces object that starts just before 

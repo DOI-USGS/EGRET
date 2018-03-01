@@ -24,6 +24,7 @@
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
 #' The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
+#' @param oldSurface logical specifying whether to use the original surface, or create a new one.
 #' 
 #' @examples 
 #' eList <- Choptank_Phos
@@ -53,7 +54,7 @@
 runPairs <- function(eList, year1, year2, windowSide, 
                      flowBreak = FALSE,
                      Q1EndDate = NA, QStartDate = NA, QEndDate = NA, 
-                     wall = FALSE, 
+                     wall = FALSE, oldSurface = FALSE,
                      sample1EndDate = NA, sampleStartDate = NA, sampleEndDate = NA,
                      paStart = 10, paLong = 12,
                      minNumObs = 100, minNumUncen = 50, 
@@ -64,20 +65,34 @@ runPairs <- function(eList, year1, year2, windowSide,
   sampleStartDate <- if(is.na(sampleStartDate)) localSample$Date[1] else as.Date(sampleStartDate)
   numSamples <- length(localSample$Date)
   sampleEndDate <- if(is.na(sampleEndDate)) localSample$Date[numSamples] else as.Date(sampleEndDate)
+  
   localDaily <- getDaily(eList)
   QStartDate <- if(is.na(QStartDate)) localDaily$Date[1] else as.Date(QStartDate)
   numQDays <- length(localDaily$Date)
   QEndDate <- if(is.na(QEndDate)) localDaily$Date[numQDays] else as.Date(QEndDate)
+  
   startEndSurface1 <- startEnd(paStart, paLong, year1)
   startEndSurface2 <- startEnd(paStart, paLong, year2)
+  
+  localsurfaces <- getSurfaces(eList)
+  
+  if(oldSurface){
+    if(all(is.na(localsurfaces))){
+      message("No surface included in eList, running estSurface function")
+      oldSurface <- FALSE
+    } 
+  }
+  
   if(flowBreak & is.na(Q1EndDate)) stop("if there is a flowBreak you must provide Q1EndDate")
+  
   # setting up the two flow windows
   # there are four cases
   flowNormStartCol <- "flowNormStart"
   flowNormEndCol <- "flowNormEnd"
   flowStartCol <- "flowStart"
   flowEndCol <- "flowEnd"
-  dateInfo <- if (windowSide <= 0 & !flowBreak) {
+  
+  if (windowSide <= 0 & !flowBreak) {
     option <- 1
     flowStart <- c(startEndSurface1[["startDate"]], startEndSurface2[["startDate"]])
     flowEnd <- c(startEndSurface1[["endDate"]], startEndSurface2[["endDate"]])
@@ -130,38 +145,75 @@ runPairs <- function(eList, year1, year2, windowSide,
     sample1EndDate <- as.Date(sampleEndDate)
     sample2EndDate <- as.Date(sampleEndDate)
   }
+  
   Sample1 <- localSample[localSample$Date >= sample1StartDate & 
                            localSample$Date <= sample1EndDate, ]
   Sample2 <- localSample[localSample$Date >= sample2StartDate & 
                            localSample$Date <= sample2EndDate, ]
+  
   minNumObs <- ceiling(min(minNumObs, 0.8 * length(Sample1$Date), 
                            0.8 * length(Sample2$Date)))
   minNumUncen <- ceiling(min(0.5 * minNumObs, 0.8 * sum(Sample1$Uncen), 
                              0.8 * sum(Sample2$Uncen)))
+  
   message("Sample1 has ", length(Sample1$Date), " Samples and ", 
           sum(Sample1$Uncen), " are uncensored")
   message("Sample2 has ", length(Sample2$Date), " Samples and ", 
           sum(Sample2$Uncen), " are uncensored")
   message("minNumObs has been set to ", minNumObs, " minNumUncen has been set to ", 
           minNumUncen)
+  
   Daily1 <- localDaily[localDaily$Date >= dateInfo$flowNormStart[1] & localDaily$Date <= 
                          dateInfo$flowNormEnd[1], ]
   Daily2 <- localDaily[localDaily$Date >= dateInfo$flowNormStart[2] & localDaily$Date <= 
                          dateInfo$flowNormEnd[2], ]
-  surfaces1 <- estSurfaces(eList, 
-                           surfaceStart = startEndSurface1[["startDate"]],
-                           surfaceEnd = startEndSurface1[["endDate"]], 
-                           localSample = Sample1,
-                           minNumObs = minNumObs, minNumUncen = minNumUncen, 
-                           windowY = windowY, windowQ = windowQ, windowS = windowS, 
-                           edgeAdjust = edgeAdjust, verbose = FALSE)
-  surfaces2 <- estSurfaces(eList, 
-                           surfaceStart = startEndSurface2[["startDate"]],
-                           surfaceEnd = startEndSurface2[["endDate"]], 
-                           localSample = Sample2,
-                           minNumObs = minNumObs, minNumUncen = minNumUncen, 
-                           windowY = windowY, windowQ = windowQ, windowS = windowS,
-                           edgeAdjust = edgeAdjust, verbose = FALSE)
+  if(oldSurface){
+    
+    if(all(c("Year","LogQ","surfaceIndex") %in% names(attributes(localsurfaces)))){
+      surfaceYear <- attr(localsurfaces, "Year")
+      LogQ <- attr(localsurfaces, "LogQ")
+    } else {
+      localINFO <- getInfo(eList)
+      LogQ <- seq(localINFO$bottomLogQ, by=localINFO$stepLogQ, length.out=localINFO$nVectorLogQ)
+      surfaceYear <- seq(localINFO$bottomYear, by=localINFO$stepYear, length.out=localINFO$nVectorYear)
+    }
+    
+    startDec1 <- decimalDate(startEndSurface1[["startDate"]])
+    endDec1 <- decimalDate(startEndSurface1[["endDate"]])
+    startDec2 <- decimalDate(startEndSurface2[["startDate"]])
+    endDec2 <- decimalDate(startEndSurface2[["endDate"]])
+    
+    surfIndex1 <- which(surfaceYear >= startDec1 & surfaceYear <= endDec1)
+    surfIndex1 <- c(surfIndex1[1]-1,surfIndex1,surfIndex1[length(surfIndex1)]+1)
+    surfIndex2 <- which(surfaceYear >= startDec2 & surfaceYear <= endDec2)
+    surfIndex2 <- c(surfIndex2[1]-1,surfIndex2,surfIndex2[length(surfIndex2)]+1)
+    
+    surfaces1 <- localsurfaces[,surfIndex1,]
+    surfaces2 <- localsurfaces[,surfIndex2,]
+    
+    attr(surfaces1, "LogQ") <- LogQ
+    attr(surfaces1, "Year") <- surfaceYear[surfIndex1]
+    
+    attr(surfaces2, "LogQ") <- LogQ
+    attr(surfaces2, "Year") <- surfaceYear[surfIndex2]
+    
+  } else {
+    surfaces1 <- estSurfaces(eList, 
+                             surfaceStart = startEndSurface1[["startDate"]],
+                             surfaceEnd = startEndSurface1[["endDate"]], 
+                             localSample = Sample1,
+                             minNumObs = minNumObs, minNumUncen = minNumUncen, 
+                             windowY = windowY, windowQ = windowQ, windowS = windowS, 
+                             edgeAdjust = edgeAdjust, verbose = FALSE)
+    surfaces2 <- estSurfaces(eList, 
+                             surfaceStart = startEndSurface2[["startDate"]],
+                             surfaceEnd = startEndSurface2[["endDate"]], 
+                             localSample = Sample2,
+                             minNumObs = minNumObs, minNumUncen = minNumUncen, 
+                             windowY = windowY, windowQ = windowQ, windowS = windowS,
+                             edgeAdjust = edgeAdjust, verbose = FALSE)    
+  }
+
   DailyRS1FD1 <- estDailyFromSurfaces(eList, localsurfaces = surfaces1, 
                                       localDaily = Daily1)
   annualFlex <- setupYears(DailyRS1FD1, paLong = paLong, paStart = paStart)

@@ -5,10 +5,10 @@
 \title{runPairs}
 \usage{
 runPairs(eList, year1, year2, windowSide, flowBreak = FALSE, Q1EndDate = NA,
-  QStartDate = NA, QEndDate = NA, wall = FALSE, sample1EndDate = NA,
-  sampleStartDate = NA, sampleEndDate = NA, paStart = 10, paLong = 12,
-  minNumObs = 100, minNumUncen = 50, windowY = 7, windowQ = 2,
-  windowS = 0.5, edgeAdjust = TRUE)
+  QStartDate = NA, QEndDate = NA, wall = FALSE, oldSurface = FALSE,
+  sample1EndDate = NA, sampleStartDate = NA, sampleEndDate = NA,
+  paStart = 10, paLong = 12, minNumObs = 100, minNumUncen = 50,
+  windowY = 7, windowQ = 2, windowS = 0.5, edgeAdjust = TRUE)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -28,6 +28,8 @@ runPairs(eList, year1, year2, windowSide, flowBreak = FALSE, Q1EndDate = NA,
 \item{QEndDate}{The last Date (or character in YYYY-MM-DD) used in the QD (if NA, which is default, it is the last Date in eList$Daily)}
 
 \item{wall}{logical, there is an abrupt break in the CQR}
+
+\item{oldSurface}{logical specifying whether to use the original surface, or create a new one.}
 
 \item{sample1EndDate}{The Date (or character in YYYY-MM-DD) of just before the wall}
 
