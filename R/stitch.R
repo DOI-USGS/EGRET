@@ -17,13 +17,13 @@
 #' @param sample1EndDate The Date (or character in YYYY-MM-DD) of the last sample to be used in the first section
 #' @param sample2StartDate The Date (or character in YYYY-MM-DD) of the first sample to be used in the second section
 #' @param sample2EndDate The Date (or character in YYYY-MM-DD) of the last sample to be used in the second section
-#' @param paLong numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12, default is 12
-#' @param paStart numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12, default is 10 
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
+#' @param verbose logical specifying whether or not to display progress message
+#' @param run.parallel logical to run bootstrapping in parallel or not
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
 #' The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
 #' @export

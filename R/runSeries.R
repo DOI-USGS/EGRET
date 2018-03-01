@@ -9,7 +9,6 @@
 #' 
 #' 
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
-#' @param wall logical set up a "wall" on the Sample data
 #' @param windowSide integer The width of the flow normalization window on each side of the year being estimated.
 #' @param flowBreak logical, is there an abrupt break in the QD
 #' @param Q1EndDate The Date just before the flowBreak (or character in YYY-MM-DD format)

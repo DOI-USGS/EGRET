@@ -30,7 +30,7 @@ generated (if NA it is the last day of the flow record)}
 
 \item{QEndDate}{The last Date used in the QD (if NA, which is default, it is the last Date in eList$Daily)}
 
-\item{wall}{logical set up a "wall" on the Sample data}
+\item{wall}{logical, there is an abrupt break in the CQR}
 
 \item{oldSurface}{logical specifying whether to use the original surface, or create a new one.}
 
@@ -56,8 +56,6 @@ generated (if NA it is the last day of the flow record)}
 
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.
 The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
-
-\item{wall}{logical, there is an abrupt break in the CQR}
 }
 \description{
 runSeries
