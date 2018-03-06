@@ -52,7 +52,7 @@ readNWISDaily <- function (siteNumber,parameterCd="00060",
   url <- constructNWISURL(siteNumber,parameterCd,startDate,endDate,"dv",statCd="00003", format = "tsv")
   
   data <- importRDB1(url, asDateTime=FALSE)
-  if(nrow(data)>0){
+  if(nrow(data)>1){
     names(data) <- c('agency', 'site', 'dateTime', 'value', 'code')
     data$dateTime <- as.Date(data$dateTime)
     data$value <- as.numeric(data$value)
@@ -62,6 +62,10 @@ readNWISDaily <- function (siteNumber,parameterCd="00060",
     
     localDaily <- populateDaily(data,qConvert,verbose = verbose)
   } else {
+    if("comment" %in% names(attributes(data))){
+      message(attr(data, "comment"))
+    }
+    
     localDaily <- data.frame(Date=as.Date(character()),
                          Q=numeric(), 
                          Julian=numeric(),
