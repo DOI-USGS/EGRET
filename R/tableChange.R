@@ -47,6 +47,7 @@ tableChange<-function(eList, fluxUnit = 9, yearPoints = NA) {
   }
   
   localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
+  localAnnualResults <- localAnnualResults[rowSums(is.na(localAnnualResults[,c("Conc","Flux","FNConc","FNFlux")])) != 4,]
   
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:

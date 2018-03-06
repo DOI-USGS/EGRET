@@ -66,6 +66,8 @@ modelEstimation<-function(eList,
   
   eList$Daily <- Daily1
   
+  checkSurfaceSpan(eList)
+  
   return(eList)
   
 }
