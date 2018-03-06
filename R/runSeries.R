@@ -137,6 +137,7 @@ runSeries <- function(eList, windowSide,
       } else {
         #Need to do surfaceStart/End
         surfaces <- localsurfaces
+        checkSurfaceSpan(eList)
       }
     }
     
@@ -300,4 +301,38 @@ makeDateInfo <- function(windowSide,
   return(dateInfo)
 }
 
-
+#' checkSurfaceSpan
+#' 
+#' @param eList named list with at least the Daily, Sample, and INFO dataframes
+checkSurfaceSpan <- function(eList){
+  
+  surfaces <- getSurfaces(eList)
+  localSample <- getSample(eList)
+  
+  if("Year" %in% names(attributes(surfaces))){
+    Year <- attr(surfaces, "Year")
+  } else {
+    localINFO <- getInfo(eList)
+    Year <- seq(localINFO$bottomYear, by=localINFO$stepYear, length.out=localINFO$nVectorYear)
+  }
+  
+  preSurface <- localSample$DecYear[1] - Year[1]
+  postSurface <- Year[length(Year)] - localSample$DecYear[length(localSample$DecYear)]
+  
+  preSurfaceFormat <- format(preSurface, digits = 2)
+  postSurfaceFormat <- format(postSurface, digits = 2)
+  
+  if(preSurface > 1 & postSurface > 1){
+    message(paste0("The surface you are using extends ", preSurfaceFormat , " years prior to the start,\n",
+                   "and ",postSurfaceFormat," years past the end of the data of the water quality data set.\n",
+                   "Extension of more than about a year is not recommended."))
+  } else if (preSurface > 1){
+    message(paste0("The surface you are using extends ",  preSurfaceFormat,
+                   "\nprior to the start of the water quality data set.",
+                   "\nExtension of more than about a year is not recommended."))           
+  } else if (postSurface > 1){
+    message(paste0("The surface you are using extends ",  postSurfaceFormat,
+                   "\nyears past the end of the data of the water quality data set.",
+                   "\nExtension of more than about a year is not recommended.")) 
+  }
+}

@@ -169,6 +169,8 @@ runPairs <- function(eList, year1, year2, windowSide,
                          dateInfo$flowNormEnd[2], ]
   if(oldSurface){
     
+    checkSurfaceSpan(eList)
+    
     if(all(c("Year","LogQ","surfaceIndex") %in% names(attributes(localsurfaces)))){
       surfaceYear <- attr(localsurfaces, "Year")
       LogQ <- attr(localsurfaces, "LogQ")
