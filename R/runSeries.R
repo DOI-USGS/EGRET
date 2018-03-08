@@ -323,16 +323,16 @@ checkSurfaceSpan <- function(eList){
   postSurfaceFormat <- format(postSurface, digits = 2)
   
   if(preSurface > 1 & postSurface > 1){
-    message(paste0("The surface you are using extends ", preSurfaceFormat , " years prior to the start,\n",
-                   "and ",postSurfaceFormat," years past the end of the data of the water quality data set.\n",
+    message(paste0("\nThe surface you are using extends ", preSurfaceFormat , " years prior to the start,",
+                   "and ",postSurfaceFormat," years past the end of the data of the water quality data set.",
                    "Extension of more than about a year is not recommended."))
   } else if (preSurface > 1){
-    message(paste0("The surface you are using extends ",  preSurfaceFormat,
-                   "\nprior to the start of the water quality data set.",
-                   "\nExtension of more than about a year is not recommended."))           
+    message(paste0("\nThe surface you are using extends ",  preSurfaceFormat,
+                   "prior to the start of the water quality data set.",
+                   "Extension of more than about a year is not recommended."))           
   } else if (postSurface > 1){
-    message(paste0("The surface you are using extends ",  postSurfaceFormat,
-                   "\nyears past the end of the data of the water quality data set.",
-                   "\nExtension of more than about a year is not recommended.")) 
+    message(paste0("\nThe surface you are using extends ",  postSurfaceFormat,
+                   "years past the end of the data of the water quality data set.",
+                   "Extension of more than about a year is not recommended.")) 
   }
 }
