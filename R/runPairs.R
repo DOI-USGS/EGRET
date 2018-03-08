@@ -252,12 +252,28 @@ runPairs <- function(eList, year1, year2, windowSide,
                         c11, c20, c22)
   pairResults[2, ] <- 0.00036525 * c(fDeltaTotal, fRSpart, 
                                      fFDpart, f10, f11, f20, f22)
-  attr(pairResults, "yearPair") <- c(paStart, paLong, year1, 
-                                     year2)
+  
+  yearPairInfo <- c(paStart, paLong, year1, year2)
+  names(yearPairInfo) <- c("paStart","paLong","year1","year2")
+  attr(pairResults, "yearPair") <- yearPairInfo
+  
   attr(pairResults, "dateInfo") <- dateInfo
-  attr(pairResults, "SampleBlocks") <- c(sample1StartDate, sample1EndDate, sample2StartDate, sample2EndDate)
-  attr(pairResults, "Other") <- c(minNumObs, minNumUncen, windowY, 
-                                  windowQ, windowS, wall, edgeAdjust, as.Date(QStartDate), as.Date(QEndDate))
+  
+  SampleBlocks <- c(sample1StartDate, sample1EndDate, sample2StartDate, sample2EndDate)
+  names(SampleBlocks) <- c("sample1StartDate", "sample1EndDate", "sample2StartDate", "sample2EndDate")
+  attr(pairResults, "SampleBlocks") <- SampleBlocks
+  
+  Other <- list(minNumObs=minNumObs, 
+                minNumUncen=minNumUncen, 
+                windowY=windowY, 
+                windowQ = windowQ, 
+                windowS=windowS, wall=wall,
+                edgeAdjust=edgeAdjust,
+                QStartDate = as.Date(QStartDate), 
+                QEndDate = as.Date(QEndDate))
+
+  attr(pairResults, "Other") <- Other
+  
   cat("\n  ", eList$INFO$shortName, "\n  ", eList$INFO$paramShortName)
   periodName <- setSeasonLabelByUser(paStart, paLong)
   cat("\n  ", periodName, "\n")
