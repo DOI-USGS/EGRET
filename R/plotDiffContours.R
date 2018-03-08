@@ -72,6 +72,10 @@ plotDiffContours<-function (eList, year0, year1,
                             lwd=1,cex.main=0.95,cex.axis=1,customPar=FALSE,
                             color.palette=colorRampPalette(c("blue","white","red")),...) {
   
+  if(.Device != "null device"){
+    grDevices::graphics.off()
+  }
+  
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
   localsurfaces <- getSurfaces(eList)
