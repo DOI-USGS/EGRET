@@ -86,8 +86,6 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
   PeriodLong<-rep(paLong,numYears)
 
   AnnualResults<-data.frame(DecYear,Q,Conc,Flux,FNConc,FNFlux,PeriodLong,PeriodStart)
-  
-  AnnualResults <- AnnualResults[rowSums(is.na(AnnualResults[,c("Conc","Flux","FNConc","FNFlux")])) != 4,]
-  
+
   return(AnnualResults)		
 }

@@ -59,6 +59,8 @@ tableChangeSingle<-function(eList, fluxUnit = 9, yearPoints = NA, flux = FALSE) 
   
   localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
   
+  localAnnualResults <- localAnnualResults[rowSums(is.na(localAnnualResults[,c("Conc","Flux","FNConc","FNFlux")])) != 4,]
+   
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(fluxUnit)){
@@ -85,6 +87,11 @@ tableChangeSingle<-function(eList, fluxUnit = 9, yearPoints = NA, flux = FALSE) 
   
   cat("\n  ",localINFO$shortName,"\n  ",localINFO$paramShortName)
   periodName<-setSeasonLabel(localAnnualResults = localAnnualResults)
+  hasFlex <- c("segmentInfo") %in% names(attributes(eList$INFO))
+  if(hasFlex){
+    periodName <- paste(periodName,"*")
+  }
+  
   cat("\n  ",periodName,"\n")
   
   header1<-"\n           Concentration trends\n   time span       change     slope    change     slope\n                     mg/L   mg/L/yr        %       %/yr"

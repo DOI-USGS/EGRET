@@ -73,6 +73,11 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
   localDaily <- getDaily(eList)
   localsurfaces <- getSurfaces(eList)
   
+  nVectorYear <- localINFO$nVectorYear
+  bottomLogQ <- localINFO$bottomLogQ
+  stepLogQ <- localINFO$stepLogQ
+  nVectorLogQ <- localINFO$nVectorLogQ
+  
   if (is.numeric(qUnit)){
     qUnit <- qConst[shortCode=qUnit][[1]]
   } else if (is.character(qUnit)){
@@ -93,14 +98,14 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
   surfaceSpan<-c(surfaceMin,surfaceMax)
   contourLevels<-if(is.na(contourLevels[1])) pretty(surfaceSpan,n=5) else contourLevels
   # computing the indexing of the surface, the whole thing, not just the part being plotted
-  bottomLogQ<-localINFO$bottomLogQ
-  stepLogQ<-localINFO$stepLogQ
-  nVectorLogQ<-localINFO$nVectorLogQ
-  bottomYear<-localINFO$bottomYear
-  stepYear<-localINFO$stepYear
-  nVectorYear<-localINFO$nVectorYear
-  x<-((1:nVectorYear)*stepYear) + (bottomYear - stepYear)
-  y<-((1:nVectorLogQ)*stepLogQ) + (bottomLogQ - stepLogQ)
+  if(all(c("Year","LogQ") %in% names(attributes(localsurfaces)))){
+    x <- attr(localsurfaces, "Year")
+    y <- attr(localsurfaces, "LogQ")
+  } else {
+    x <- seq(localINFO$bottomYear, by=localINFO$stepYear, length.out=localINFO$nVectorYear)
+    y <- ((1:nVectorLogQ)*stepLogQ) + (bottomLogQ - stepLogQ)
+  }
+  
   yLQ<-y
   qFactor<-qUnit@qUnitFactor
   y<-exp(y)*qFactor
@@ -192,6 +197,7 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
   deltaX <- (yearEnd-yearStart)/25
   
   yLab<-qUnit@qUnitExpress
+  logY <- log(y,10)
   filled.contour(x,log(y,10),surft,levels=contourLevels,xlim=c(yearStart,yearEnd),
                  ylim=c(log(yTicks[1],10),log(yTicks[nYTicks],10)),#main=plotTitle,
                  xlab="",ylab=yLab,xaxs="i",yaxs="i",cex.main=cex.main, 

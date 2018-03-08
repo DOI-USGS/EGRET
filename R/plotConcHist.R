@@ -51,7 +51,7 @@ plotConcHist<-function(eList, yearStart = NA, yearEnd = NA,
   localDaily <- getDaily(eList)
   localINFO <- getInfo(eList)
 
-  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+  if(all(c("paStart","paLong") %in% names(localINFO))){
     paLong <- localINFO$paLong
     paStart <- localINFO$paStart  
   } else {
@@ -66,7 +66,6 @@ plotConcHist<-function(eList, yearStart = NA, yearEnd = NA,
   localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
   hasFlex <- c("segmentInfo") %in% names(attributes(eList$INFO))
   
-
   periodName<-setSeasonLabel(localAnnualResults=localAnnualResults)
   
   if(hasFlex){

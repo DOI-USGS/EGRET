@@ -26,7 +26,7 @@ tableChange<-function(eList, fluxUnit = 9, yearPoints = NA) {
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
   
-  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+  if(all(c("paStart","paLong") %in% names(localINFO))){
     paLong <- localINFO$paLong
     paStart <- localINFO$paStart  
   } else {
@@ -47,6 +47,7 @@ tableChange<-function(eList, fluxUnit = 9, yearPoints = NA) {
   }
   
   localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
+  localAnnualResults <- localAnnualResults[rowSums(is.na(localAnnualResults[,c("Conc","Flux","FNConc","FNFlux")])) != 4,]
   
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
@@ -72,6 +73,11 @@ tableChange<-function(eList, fluxUnit = 9, yearPoints = NA) {
   fName<-fluxUnit@shortName
   cat("\n  ",localINFO$shortName,"\n  ",localINFO$paramShortName)
   periodName<-setSeasonLabel(localAnnualResults = localAnnualResults)
+  hasFlex <- c("segmentInfo") %in% names(attributes(eList$INFO))
+  if(hasFlex){
+    periodName <- paste(periodName,"*")
+  }
+  
   cat("\n  ",periodName,"\n")
   header1<-"\n           Concentration trends\n   time span       change     slope    change     slope\n                     mg/L   mg/L/yr        %       %/yr"
   header2<-"\n\n\n                 Flux Trends\n   time span          change        slope       change        slope"

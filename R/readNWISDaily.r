@@ -51,32 +51,39 @@ readNWISDaily <- function (siteNumber,parameterCd="00060",
   
   url <- constructNWISURL(siteNumber,parameterCd,startDate,endDate,"dv",statCd="00003", format = "tsv")
   
-  data <- importRDB1(url, asDateTime=FALSE)
-  if(nrow(data)>0){
-    names(data) <- c('agency', 'site', 'dateTime', 'value', 'code')
-    data$dateTime <- as.Date(data$dateTime)
-    data$value <- as.numeric(data$value)
-    #####################################
-    qConvert <- ifelse("00060" == parameterCd, 35.314667, 1)
-    qConvert<- ifelse(convert,qConvert,1)
-    
-    localDaily <- populateDaily(data,qConvert,verbose = verbose)
-  } else {
-    localDaily <- data.frame(Date=as.Date(character()),
-                         Q=numeric(), 
-                         Julian=numeric(),
-                         Month=numeric(),
-                         Day=numeric(),
-                         DecYear=numeric(),
-                         MonthSeq=numeric(),
-                         Qualifier=character(),
-                         i=integer(),
-                         LogQ=numeric(),
-                         Q7=numeric(),
-                         Q30=numeric(),
-                         stringsAsFactors=FALSE)
-  }
+  data_rdb <- importRDB1(url, asDateTime=FALSE)
+  
+  localDaily <- data.frame(Date=as.Date(character()),
+                           Q=numeric(), 
+                           Julian=numeric(),
+                           Month=numeric(),
+                           Day=numeric(),
+                           DecYear=numeric(),
+                           MonthSeq=numeric(),
+                           Qualifier=character(),
+                           i=integer(),
+                           LogQ=numeric(),
+                           Q7=numeric(),
+                           Q30=numeric(),
+                           stringsAsFactors=FALSE)
+  
+  if(nrow(data_rdb) > 0){
+    if(length(names(data_rdb)) >= 5){
+      names(data_rdb) <- c('agency', 'site', 'dateTime', 'value', 'code')
+      data_rdb$dateTime <- as.Date(data_rdb$dateTime)
+      data_rdb$value <- as.numeric(data_rdb$value)
+      #####################################
+      qConvert <- ifelse("00060" == parameterCd, 35.314667, 1)
+      qConvert<- ifelse(convert,qConvert,1)
+      
+      localDaily <- populateDaily(data_rdb,qConvert,verbose = verbose)      
+    } else {
+      if("comment" %in% names(attributes(data_rdb))){
+        message(attr(data_rdb, "comment"))
+      }
+    }
 
+  } 
 
   return (localDaily)
 }
