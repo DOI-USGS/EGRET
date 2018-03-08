@@ -73,6 +73,11 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
   localDaily <- getDaily(eList)
   localsurfaces <- getSurfaces(eList)
   
+  nVectorYear <- localINFO$nVectorYear
+  bottomLogQ <- localINFO$bottomLogQ
+  stepLogQ <- localINFO$stepLogQ
+  nVectorLogQ <- localINFO$nVectorLogQ
+  
   if (is.numeric(qUnit)){
     qUnit <- qConst[shortCode=qUnit][[1]]
   } else if (is.character(qUnit)){
@@ -97,13 +102,7 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
     x <- attr(localsurfaces, "Year")
     y <- attr(localsurfaces, "LogQ")
   } else {
-    localINFO <- getInfo(eList)
     x <- seq(localINFO$bottomYear, by=localINFO$stepYear, length.out=localINFO$nVectorYear)
-    
-    bottomLogQ <- localINFO$bottomLogQ
-    stepLogQ <- localINFO$stepLogQ
-    nVectorLogQ <- localINFO$nVectorLogQ
-    
     y <- ((1:nVectorLogQ)*stepLogQ) + (bottomLogQ - stepLogQ)
   }
   
