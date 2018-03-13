@@ -291,8 +291,8 @@ makeDateInfo <- function(windowSide,
   flowNormStart[tempEnd > lastQDate0] <- as.Date(paste(1900 + lastQDate0_lt$year-windowFull,lastQDate0_lt$mon+1, lastQDate0_lt$mday, sep = "-"))
   flowNormStart[tempEnd > lastQDate0] <-  as.Date(flowNormStart[tempEnd > lastQDate0] + 1)
   
-  flowNormEnd[tempEnd > lastQDate0] <- lastQDate0
-  flowNormStart[tempStart < firstQDate0] <- firstQDate0
+  flowNormEnd[flowNormEnd > lastQDate0] <- lastQDate0
+  flowNormStart[flowNormStart < firstQDate0] <- firstQDate0
   
   dateInfo <- data.frame(flowNormStart, flowNormEnd, flowStart, flowEnd, stringsAsFactors = FALSE)
   
