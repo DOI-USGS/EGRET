@@ -83,16 +83,6 @@ runSeries <- function(eList, windowSide,
   firstSample <- localSample$Date[1]
   lastSample <- localSample$Date[length(localSample$Date)]
   
-  sampleStartDate <- as.Date(sampleStartDate)
-  if (is.na(sampleStartDate)) {
-    sampleStartDate <- localSample$Date[1]
-  }
-  
-  sampleEndDate <- as.Date(sampleEndDate)
-  if (is.na(sampleEndDate)) {
-    sampleEndDate <- localSample$Date[length(localSample$Date)]
-  }
-  
   localSample <- localSample[localSample$Date >= sampleStartDate & 
                                localSample$Date <= sampleEndDate, ]
   
