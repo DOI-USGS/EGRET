@@ -98,8 +98,10 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA,
   unitFactorReturn <- fluxUnit@unitFactor
   
   numYears <- length(localAnnualResults$DecYear)
-  yearStart <- if(is.na(yearStart)) trunc(localAnnualResults$DecYear[1]) else yearStart
-  yearEnd <- if(is.na(yearEnd)) trunc(localAnnualResults$DecYear[numYears])+1 else yearEnd
+  
+  yearStart <- if(is.na(yearStart)) trunc(min(localAnnualResults$DecYear[!is.na(localAnnualResults$FNFlux)],na.rm = TRUE)) else yearStart
+  yearEnd <- if(is.na(yearEnd)) trunc(max(localAnnualResults$DecYear[!is.na(localAnnualResults$FNFlux)],na.rm = TRUE))+1 else yearEnd
+  
   subAnnualResults<-localAnnualResults[localAnnualResults$DecYear>=yearStart & localAnnualResults$DecYear <= yearEnd,]
   
   annFlux<-unitFactorReturn*subAnnualResults$Flux

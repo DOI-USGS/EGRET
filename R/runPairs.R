@@ -61,6 +61,12 @@ runPairs <- function(eList, year1, year2, windowSide,
                      windowY = 7, windowQ = 2, windowS = 0.5, 
                      edgeAdjust = TRUE){
   
+  if(wall & oldSurface){
+    message("Setting both arguments wall and oldSurfaces to TRUE are not allowed.")
+    message("Re-calculating surface.")
+    oldSurface <- FALSE
+  }
+  
   localSample <- getSample(eList)
   sampleStartDate <- if(is.na(sampleStartDate)) localSample$Date[1] else as.Date(sampleStartDate)
   numSamples <- length(localSample$Date)
@@ -267,7 +273,8 @@ runPairs <- function(eList, year1, year2, windowSide,
                 minNumUncen=minNumUncen, 
                 windowY=windowY, 
                 windowQ = windowQ, 
-                windowS=windowS, wall=wall,
+                windowS=windowS, 
+                wall=wall,
                 edgeAdjust=edgeAdjust,
                 QStartDate = as.Date(QStartDate), 
                 QEndDate = as.Date(QEndDate))
