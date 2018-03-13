@@ -86,6 +86,14 @@ plotConcHist<-function(eList, yearStart = NA, yearEnd = NA,
 
   ##################
 
+  if(is.na(yearStart)){
+    yearStart <- min(localAnnualResults$DecYear[!is.na(localAnnualResults$FNConc)], na.rm = TRUE)
+  }
+
+  if(is.na(yearEnd)){
+    yearEnd <- max(localAnnualResults$DecYear[!is.na(localAnnualResults$FNConc)], na.rm = TRUE)
+  }
+  
   xInfo <- generalAxis(x=localAnnualResults$DecYear, minVal=yearStart, maxVal=yearEnd, padPercent=0, tinyPlot=tinyPlot)
  
   combinedY <- c(localAnnualResults$Conc,localAnnualResults$FNConc[localAnnualResults$DecYear>xInfo$bottom & localAnnualResults$DecYear<xInfo$top])
