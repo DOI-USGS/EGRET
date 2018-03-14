@@ -216,6 +216,8 @@ runSeries <- function(eList, windowSide,
   eListOut$INFO$windowY <- windowY
   eListOut$INFO$windowS <- windowS
   
+  attr(eListOut, "runSeries") <- TRUE
+  
   return(eListOut)
   
 }
