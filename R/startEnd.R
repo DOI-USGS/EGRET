@@ -35,8 +35,8 @@ startEnd <- function(paStart, paLong, year){
 #' surfaceStartEnd
 #' @param paLong numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12, default is 12
 #' @param paStart numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12, default is 10 
-#' @param Date1
-#' @param Date2
+#' @param Date1 earliest date of Sample (to set surface start)
+#' @param Date2 latest date of Sample (to set surface end)
 #' @export
 #' @examples 
 #' eList <- Choptank_eList
@@ -45,36 +45,29 @@ startEnd <- function(paStart, paLong, year){
 #' surfaceStartEnd(10, 12, Date1, Date2)
 surfaceStartEnd <- function(paStart, paLong, Date1, Date2){
   
-  fractionOfYear1 <- decimalDate(Date1) - trunc(decimalDate(Date1))
-  fractionOfWaterYear <- fractionWaterYear(Date1)
-  
-  if(fractionOfYear1 > fractionOfWaterYear){
-    surfaceStart <- paste0(trunc(decimalDate(Date1)),"-10-01")
-  } else {
-    surfaceStart <- paste0(trunc(decimalDate(Date1))-1,"-10-01")
+  Date1 <- as.Date(Date1)
+  Date2 <- as.Date(Date2)
+  year1Temp <- trunc(decimalDate(Date1)) - 2
+  year2Temp <- trunc(decimalDate(Date2)) + 2
+  # first we march forward to find the starting date
+  for(i in year1Temp:year2Temp){
+    startEndPair <- startEnd(paStart, paLong, i)
+    if(Date1 <= startEndPair[[1]]) break
   }
-  
-  fractionOfYear2 <- decimalDate(Date2) - trunc(decimalDate(Date2))
-  fractionOfWaterYear <- fractionWaterYear(Date2)
-  
-  if(fractionOfYear2 > fractionOfWaterYear){
-    surfaceEnd <- paste0(trunc(decimalDate(Date2))+1,"-09-30")
-  } else {
-    surfaceEnd <- paste0(trunc(decimalDate(Date2)),"-09-30")
+  year <- i - 1 
+  startEndPair <- startEnd(paStart, paLong, year)
+  startSurface <- startEndPair[[1]]
+  # now we march backward to find the ending date
+  for(i in year2Temp:year1Temp){
+    startEndPair <- startEnd(paStart, paLong, i)
+    if(Date2 >= startEndPair[[1]]) break
   }
-  
-  return(list(surfaceStart = surfaceStart, surfaceEnd = surfaceEnd))
+  year <- i   
+
+  endSurface <- startEndPair[[2]]
+
+  return(list(surfaceStart = as.Date(startSurface), 
+              surfaceEnd = as.Date(endSurface)))
+
 }
 
-
-fractionWaterYear <- function(Date){
-  year <- trunc(decimalDate(Date))
-  
-  isLeap <- (year%%4 == 0) & ((year%%100 != 0) | (year%%400 == 0))
-  if(isLeap){
-    fractionOfWaterYear <- decimalDate("1976-09-30") - trunc(decimalDate("1976-09-30"))
-  } else {
-    fractionOfWaterYear <- decimalDate("1977-09-30") - trunc(decimalDate("1977-09-30"))
-  }
-  return(fractionOfWaterYear)
-}
