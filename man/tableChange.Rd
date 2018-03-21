@@ -4,8 +4,7 @@
 \alias{tableChange}
 \title{Create a table of the changes in flow-normalized values between various points in time in the record}
 \usage{
-tableChange(eList, fluxUnit = 9, yearPoints = NA, flowNormYears = "all",
-  waterYear = TRUE)
+tableChange(eList, fluxUnit = 9, yearPoints = NA)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes}
@@ -13,10 +12,6 @@ tableChange(eList, fluxUnit = 9, yearPoints = NA, flowNormYears = "all",
 \item{fluxUnit}{object of fluxUnit class. \code{\link{printFluxUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.}
 
 \item{yearPoints}{numeric vector listing the years for which the change or slope computations are made, they need to be in chronological order.  For example yearPoints=c(1975,1985,1995,2005), default is NA (which allows the program to set yearPoints automatically)}
-
-\item{flowNormYears}{vector of flow years}
-
-\item{waterYear}{logical. Should years be water years (\code{TRUE}) or calendar years (\code{FALSE})}
 }
 \description{
 These tables describe trends in flow-normalized concentration and in flow-normalized flux. 

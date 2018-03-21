@@ -8,8 +8,6 @@
 #' @param eList named list with at least the Daily and INFO dataframes
 #' @param fluxUnit object of fluxUnit class. \code{\link{printFluxUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.
 #' @param yearPoints numeric vector listing the years for which the change or slope computations are made, they need to be in chronological order.  For example yearPoints=c(1975,1985,1995,2005), default is NA (which allows the program to set yearPoints automatically)
-#' @param flowNormYears vector of flow years
-#' @param waterYear logical. Should years be water years (\code{TRUE}) or calendar years (\code{FALSE})
 #' @keywords water-quality statistics
 #' @export
 #' @examples
@@ -23,13 +21,12 @@
 #' eList <- setPA(eList, paStart=12,paLong=3)
 #' tableChange(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
 #' }
-tableChange<-function(eList, fluxUnit = 9, yearPoints = NA, 
-                      flowNormYears = "all", waterYear = TRUE) {
+tableChange<-function(eList, fluxUnit = 9, yearPoints = NA) {
   
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
   
-  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+  if(all(c("paStart","paLong") %in% names(localINFO))){
     paLong <- localINFO$paLong
     paStart <- localINFO$paStart  
   } else {
@@ -49,8 +46,8 @@ tableChange<-function(eList, fluxUnit = 9, yearPoints = NA,
             "\nFlux calculations will be wrong if units are not consistent")
   }
   
-  localDaily <- subFN(eList = eList, flowNormYears = flowNormYears, waterYear = waterYear)
   localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
+  localAnnualResults <- localAnnualResults[rowSums(is.na(localAnnualResults[,c("Conc","Flux","FNConc","FNFlux")])) != 4,]
   
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
@@ -76,6 +73,11 @@ tableChange<-function(eList, fluxUnit = 9, yearPoints = NA,
   fName<-fluxUnit@shortName
   cat("\n  ",localINFO$shortName,"\n  ",localINFO$paramShortName)
   periodName<-setSeasonLabel(localAnnualResults = localAnnualResults)
+  hasFlex <- c("segmentInfo") %in% names(attributes(eList$INFO))
+  if(hasFlex){
+    periodName <- paste(periodName,"*")
+  }
+  
   cat("\n  ",periodName,"\n")
   header1<-"\n           Concentration trends\n   time span       change     slope    change     slope\n                     mg/L   mg/L/yr        %       %/yr"
   header2<-"\n\n\n                 Flux Trends\n   time span          change        slope       change        slope"

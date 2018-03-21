@@ -59,6 +59,11 @@ plotSDLogQ<-function(eList, yearStart=NA,yearEnd=NA,window=15,sdMax=NA,
   numDays<-length(localDaily$LogQ)
   startDec<-localDaily$DecYear[1]
   endDec<-localDaily$DecYear[numDays]
+  
+  if(endDec-window < startDec){
+    stop(paste("Adjust 'window' argument to a value less than:", floor(endDec - startDec)))
+  }
+  
   startDays<-seq(startDec,endDec-window,0.1)
   numResults<-length(startDays)
   y<-rep(NA,numResults)

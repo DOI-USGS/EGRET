@@ -39,18 +39,18 @@ test_that("setupYears", {
   eList <- Choptank_eList
   expect_equal(as.numeric(signif(eList$Daily$FNConc[1], digits = 6)), 0.972757)
   
-  eList <- setUpEstimation(eList)
-  sampleSegStart <- c(1980,1990,2000)
-  flowSegStart <- c(1980,1985,1992)
-  flowSegEnd <- c(1994,2004,2011)
-  dateInfo <- data.frame(sampleSegStart,
-                         flowSegStart,
-                         flowSegEnd)
-  eList <- flexFN(eList, dateInfo)
-  expect_equal(as.numeric(signif(eList$Daily$FNConc[1], digits = 6)), 1.0283)
-  ar_calendarYear_fn <- setupYears(eList$Daily, paLong = 12, paStart = 1)
-  expect_equal(signif(ar_calendarYear_fn$FNConc[1], digits = 7), 1.021644)
-  expect_equal(signif(ar_calendarYear_fn$FNFlux[1], digits = 7), 271.6512)
+  # eList <- setUpEstimation(eList)
+  # sampleSegStart <- c(1980,1990,2000)
+  # flowSegStart <- c(1980,1985,1992)
+  # flowSegEnd <- c(1994,2004,2011)
+  # dateInfo <- data.frame(sampleSegStart,
+  #                        flowSegStart,
+  #                        flowSegEnd)
+  # eList <- flexFN(eList, dateInfo)
+  # expect_equal(as.numeric(signif(eList$Daily$FNConc[1], digits = 6)), 1.0283)
+  # ar_calendarYear_fn <- setupYears(eList$Daily, paLong = 12, paStart = 1)
+  # expect_equal(signif(ar_calendarYear_fn$FNConc[1], digits = 7), 1.021644)
+  # expect_equal(signif(ar_calendarYear_fn$FNFlux[1], digits = 7), 271.6512)
 })
 
 test_that("setupYears", {
@@ -146,21 +146,62 @@ test_that("bin_Qs",{
                c(1.041,0.425,1.118,0.830,1.773,-0.009))
 })
 
-test_that("flexFN",{
-  eList <- Choptank_eList
-  eList <- setUpEstimation(eList)
-  daily_1 <- eList$Daily
-  sampleSegStart <- c(1980,1985,2000)
-  flowSegStart <- c(1980,1990,2000)
-  flowSegEnd <- c(1990,2000,2010)
-  dateInfo <- data.frame(sampleSegStart, flowSegStart, flowSegEnd)
-  eList <- flexFN(eList, dateInfo)
-  daily_2 <- eList$Daily
-  expect_true(!identical(daily_1, daily_2))
-  expect_equal(round(head(daily_2$FNConc),3), 
-               c(0.999, 0.988, 0.965, 0.945, 0.970, 1.000))
-  expect_equal(round(head(daily_2$FNFlux),3), 
-               c(104.815, 107.577, 118.194, 130.000, 122.589, 110.149))
+test_that("dateInfo",{
+  dateInfoA <- makeDateInfo(windowSide = 7,
+                            surfaceStart = "1980-10-01", 
+                            surfaceEnd = "1981-09-30",
+                            firstQDate0 = "1970-10-01",
+                            lastQDate0 = "2017-09-30")
+  expect_equal(nrow(dateInfoA), 1)
+  expect_equal(dateInfoA[["flowNormStart"]][1], as.Date("1973-10-01"))
+  expect_equal(dateInfoA[["flowNormEnd"]][1], as.Date("1988-09-30"))
+  expect_equal(dateInfoA[["flowStart"]][1], as.Date("1980-10-01"))
+  expect_equal(dateInfoA[["flowEnd"]][1], as.Date("1981-09-30"))
+
+  dateInfoB <- makeDateInfo(windowSide = 7, 
+                             surfaceStart = "1980-10-01", 
+                             surfaceEnd = "2017-09-30", 
+                             firstQDate0 = "1970-10-01", 
+                             lastQDate0 = "2017-09-30")
+  expect_equal(dateInfoB[["flowNormStart"]][1], as.Date("1973-10-01"))
+  expect_equal(dateInfoB[["flowNormStart"]][37], as.Date("2002-10-01"))
+  expect_equal(dateInfoB[["flowNormEnd"]][1], as.Date("1988-09-30"))
+  expect_equal(dateInfoB[["flowNormEnd"]][37], as.Date("2017-09-30"))
+  expect_equal(dateInfoB[["flowStart"]][1], as.Date("1980-10-01"))
+  expect_equal(dateInfoB[["flowStart"]][37], as.Date("2016-10-01"))
+  expect_equal(dateInfoB[["flowEnd"]][1], as.Date("1981-09-30"))
+  expect_equal(dateInfoB[["flowEnd"]][37], as.Date("2017-09-30"))
+  
+  dateInfoC <- makeDateInfo(windowSide = 7, 
+                            surfaceStart = "1980-02-01", 
+                            surfaceEnd = "1984-01-31", 
+                            firstQDate0 = "1970-10-01", 
+                            lastQDate0 = "2017-09-30")
+  expect_equal(nrow(dateInfoC), 4)
+  expect_equal(dateInfoC[["flowNormStart"]][1], as.Date("1973-02-01"))
+  expect_equal(dateInfoC[["flowNormStart"]][4], as.Date("1976-02-01"))
+  expect_equal(dateInfoC[["flowNormEnd"]][1], as.Date("1988-01-31"))
+  expect_equal(dateInfoC[["flowNormEnd"]][4], as.Date("1991-01-31"))
+  expect_equal(dateInfoC[["flowStart"]][1], as.Date("1980-02-01"))
+  expect_equal(dateInfoC[["flowStart"]][4], as.Date("1983-02-01"))
+  expect_equal(dateInfoC[["flowEnd"]][1], as.Date("1981-01-31"))
+  expect_equal(dateInfoC[["flowEnd"]][4], as.Date("1984-01-31"))
+  
+  dateInfoD <- makeDateInfo(windowSide = 50, 
+                            surfaceStart = "1980-02-01", 
+                            surfaceEnd = "1984-01-31", 
+                            firstQDate0 = "1970-10-01", 
+                            lastQDate0 = "2017-09-30")
+  expect_equal(nrow(dateInfoD), 4)
+  expect_equal(dateInfoD[["flowNormStart"]][1], as.Date("1970-10-01"))
+  expect_equal(dateInfoD[["flowNormStart"]][4], as.Date("1970-10-01"))
+  # expect_equal(dateInfoD[["flowNormEnd"]][1], as.Date("2017-09-30"))
+  # expect_equal(dateInfoD[["flowNormEnd"]][4], as.Date("2017-09-30"))
+  expect_equal(dateInfoD[["flowStart"]][1], as.Date("1980-02-01"))
+  expect_equal(dateInfoD[["flowStart"]][4], as.Date("1983-02-01"))
+  expect_equal(dateInfoD[["flowEnd"]][1], as.Date("1981-01-31"))
+  expect_equal(dateInfoD[["flowEnd"]][4], as.Date("1984-01-31"))
+  
   
 })
 
@@ -182,20 +223,20 @@ test_that("getConcFluxFromSurface",{
                c(1979.75,1979.75,1979.75,1979.75,1979.75,1979.75))
 })
 
-test_that("subFN",{
-  eList <- Choptank_eList
-  d1 <- eList$Daily
-  
-  flowNormYears <- c(1985:2002,2006:2010)
-  temp_daily <- subFN(eList, flowNormYears)
-  expect_equal(19, ncol(temp_daily))
-  expect_equal(round(head(temp_daily$FNConc),3), 
-               c(1.094,0.892,1.100,0.924,1.087,0.936))
-  expect_equal(round(head(temp_daily$FNFlux),3), 
-               c(72.567 ,139.213,68.180,133.852,80.925,128.181))
-  
-  expect_silent(plotFluxHist(eList, flowNormYears =  c(1985:2002,2006:2010)))
-
-  
-})
+# test_that("subFN",{
+#   eList <- Choptank_eList
+#   d1 <- eList$Daily
+#   
+#   flowNormYears <- c(1985:2002,2006:2010)
+#   temp_daily <- subFN(eList, flowNormYears)
+#   expect_equal(19, ncol(temp_daily))
+#   expect_equal(round(head(temp_daily$FNConc),3), 
+#                c(1.094,0.892,1.100,0.924,1.087,0.936))
+#   expect_equal(round(head(temp_daily$FNFlux),3), 
+#                c(72.567 ,139.213,68.180,133.852,80.925,128.181))
+#   
+#   expect_silent(plotFluxHist(eList, flowNormYears =  c(1985:2002,2006:2010)))
+# 
+#   
+# })
   

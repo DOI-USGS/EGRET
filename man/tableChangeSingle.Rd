@@ -4,8 +4,7 @@
 \alias{tableChangeSingle}
 \title{Create a table of the changes in flow-normalized concentration or flux values between various points in time in the record}
 \usage{
-tableChangeSingle(eList, fluxUnit = 9, yearPoints = NA, flux = FALSE,
-  flowNormYears = "all", waterYear = TRUE)
+tableChangeSingle(eList, fluxUnit = 9, yearPoints = NA, flux = FALSE)
 }
 \arguments{
 \item{eList}{named list with at least Daily and INFO dataframes}
@@ -15,10 +14,6 @@ tableChangeSingle(eList, fluxUnit = 9, yearPoints = NA, flux = FALSE,
 \item{yearPoints}{numeric vector listing the years for which the change or slope computations are made, they need to be in chronological order.  For example yearPoints=c(1975,1985,1995,2005), default is NA (which allows the program to set yearPoints automatically)}
 
 \item{flux}{logical if TRUE results are returned in flux, if FALSE concentration. Default is set to FALSE.}
-
-\item{flowNormYears}{vector of flow years}
-
-\item{waterYear}{logical. Should years be water years (\code{TRUE}) or calendar years (\code{FALSE})}
 }
 \value{
 resultsDF dataframe describing trends in flow-normalized concentration or flux if returnDataFrame is TRUE

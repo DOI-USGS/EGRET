@@ -1,0 +1,353 @@
+---
+title: "WRTDS Flex"
+author: "Robert M. Hirsch"
+date: "2018-01-11"
+output: 
+  rmarkdown::html_vignette:
+    fig_height: 7
+    fig_width: 7
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{WRTDS Flex}
+  \usepackage[utf8]{inputenc}
+---
+
+
+
+# Introduction
+
+This new version provides a great deal of flexibility to the basic WRTDS concept and implements in in a new version of EGRET (and EGRETci although at this point EGRETci isn't changed).  This new version of EGRET along with EGRETci should be able to produce exactly the same outputs as the old versions.  There are a few major concepts that need to be introduced up front.
+
+# The "wall"
+
+The idea of the "wall" is to handle events that we believe may result in a sharp discontinuity in the way that concentrations behave as a function of discharge, year, and season (basically the view we see in the contour plots).  As you know, WRTDS was designed with a working assumption that changes in water quality are gradual, responding to changes in behavior of many actors in the watershed.  These can be changes in population (and hence wasteloads), changes in land use or land use practices by many landowners, or many changes in point source controls over many dischargers.  We know that there can be situations that depart from that assumption.  Some obvious ones are: upgrades to a single dominant point source discharge, large infrastructure changes in storm-water management (e.g. tunnel projects in big cities that significantly curtail combined sewer overflows), construction or removal of a major dam (causing the pollutant of interest to mix with a large volume of water in the reservoir significantly smoothing out the variability of water quality below the dam).  There is another category of abrupt change that could be considered, and that is a "reset" of river conditions that may be the result of an extreme flood or extreme drought.  The hypothesis is that the behavior of water quality changes as a result of this extreme event and that this change is not a short term thing (i.e. the duration of the event) but rather is something that persists for a number of years.  The new "wall" concept can provide an effective way to perform a hypothesis test that the event in question brought about a lasting change, and the approach allows us to describe the nature of the change that took place.
+
+Operationally the wall idea is this.  We will call the moment in time when we think this change happened as "the wall."  We know that it is unlikely to be truly a moment, but for our purposes here we need to define it as a specific day.  In the code, this day is called **lastDaySample1** and the next calendar day becomes **firstDaySample2** which is computed automatically by the code.  What the code does is split our Sample data frame into two non-overlapping data frames: **Sample1** and **Sample2**.  **Sample1** is all the samples collected before the wall and **Sample2** is all the samples collected after it.  When we estimate the **surfaces** object (that describes concentration as a function of time, discharge, and season) that describes the system behavior before the wall we only want to use data from **Sample1** and not data from **Sample2**.  And similarly, when we want to estimate the behavior after the wall we only want to use data from **Sample2** and not data from **Sample1**.  We also have the capability of computing a single surface that combines the surfaces from the two periods.
+
+All of the workflows described in this document allow the user to specify if they want to use a "wall" and if they do to then specify **lastDaySample1**.  It turns out for programming convenience we actually define a **Sample1** and **Sample2** whether or not we have a wall.  If there is no wall the two data frames are identical to each other and actually identical to the original **eList$Sample**.  
+
+# Flexible Flow Normalization (FFN)
+
+The idea here is that when we want to flow normalize our concentration or flux record we may be concerned that there has been a substantial change in the probability distribution of discharge over the period we are considering in our study. Remember that the idea of flow normalization is a way of removing the interannual variations in concentration or flux that arise from the interannual variations in discharge.  To put it another way, we use a flow distribution (FD) to integrate the changes in the response surface (RS) and this only makes sense if we believe the FD is approximately stationary over the period of record.  This FFN allows us to vary the FD over the period of record, and gives us a chance to see the combined impact of the FD change and the RS change on concentration or flux over the period of record, and also to evaluate the relative influence of the FD change and the RS change on the overall change that has taken place.  There are two ways that we might envision this change in the FD taking place: abrupt and gradual.
+
+### Abrupt change
+
+This is the situation where there is some singular engineered action that results in a change in the distribution of streamflow.  The most obvious examples would be the completion of a dam upstream of the monitoring site.  This needs to be a dam that has a rather clear impact on discharges at the monitoring site (e.g. decreasing the peak discharges of high flow and/or increasing the low flows).  Other changes could include: the removal of a dam, the institution of a new operating policy for the dam (e.g. greatly increasing the size of minimum flows to support habitat), or major new diversions of water into or out of the watershed.  There is no well-defined criteria for the magnitude of the change that should trigger the use of FFN except to say that it should be big enough that comparisons of flow duration curves before and after it show an easily discernible effect.  Having decided that there is an abrupt change in flow, the user must then define an exact day when this change happens.  In reality we might not be able to specify the exact date of the change (denoted in the code as **lastQDate1**), but the modeling approach demands that we pick a single day.  In the case of a new dam, it may be better to set this change date after some initial period of reservoir filling, rather than the day the dam construction was done.  The new code only allows for a single abrupt change.  
+
+### Gradual change
+
+This is the typical situation in which the distribution of discharges appears to have changed over the period of record.  This might arise because of changes in climate, changes in water use (increased consumptive use or increased groundwater pumping), changes in water imports or exports, or changes in artificial drainage (e.g. more tile drains or the restoration or destruction of wetlands).  It may be driven by several of these factors and we don't really have to understand the causes of these changes for us to use this FFN approach.  However, we don't want to use this approach to deal with natural quasi-periodic climate oscillations that operate on time scales as short as a decade or two.  There is no objective test for these changes, it is a matter of judgement whether FFN is appropriate to the case at hand.  
+
+There are two ways we might go about characterizing these different FD behaviors.  The first is by specifying a moving window for the discharge data.  We define the moving window by the parameter called **windowSide**.  For any given year in the middle part of our record the window used to characterize the FD is a set of years centered on the year for which we are making the WRTDS calculations plus **windowSide** number of years on either side of it.  For example if **windowSide** is equal to 7, and the year being evaluated in WRTDS is 2007, then the whole window runs for the 15 years: 2000 through 2014.  When the year being evaluated is close to the start or end of the period of record, then the window will not be centered on the year being evaluated.  Rather it will run for a duration of **(2 * windowSide) + 1** from either the start or end of the record.  So, if the year of interest were 2011, and the record ended with 2016, then the period covered would be 2002 through 2016.  There are other situations where we might not want to use this approach, but rather define the two periods by some particular date (perhaps for consistency across sites) and this option is available in the software, allowing the user to specify **lastQDate1** as the last day in the first period. 
+
+# Problem set up
+
+There are three distinct types of problem set-ups that are possible in the new formulation and each of them has its own distinct workflow and outputs.  They are known as *Pairs*, *Series*, and *Groups*.  What do these terms mean here?
+
+### Pairs
+
+This is the situation where the question is: How do the FFN estimates differ between one specific year and another specific year.  These may be the beginning and end of the period of record, or they may be years selected based on an overall study design (e.g. a report on water quality change from 1985 - 2015 at many sites).  The outputs are a FFN concentration and flux for each of these two years, an apportioning of that change between the RS and FD parts, and a bootstrap estimate of the uncertainty of the change magnitude.  The analysis can be done with or without a wall in the concentration records being analyzed.
+
+### Series
+
+This is the situation in which we want to produce a graphic that shows the water quality change over time.  These might be a graph of annual mean concentration, FN concentration, and FFN concentration or a graph showing annual flux, FN flux, and FFN flux.  These would be graphs similar to **plotConcHist** or **plotFluxHist**. There can also be table outputs of these time series.  There is also a bootstrap version that would allow for depicting a 90% confidence interval (or other percent interval) of FFN concentration or FFN flux  around these annual values.  The analysis could be done with or without a wall in the concentration records being analyzed.
+
+### Groups
+
+This is the situation where we might want to answer questions such as: How did the average flow-normalized flux for the period 1997 - 2006 compare to the average flow-normalized flux for the period 2007 - 2016.  This approach operates like the *Series* approach except in this case the emphasis is on the average of some group of years and the uncertainty about the difference between the group of years.  It would pose questions like: "What is the likelihood that flux increased from the decade 1997 - 2006 to the decade 2007- 2016?"  For purposes of this analysis it treats the record as if there is a wall which is set at the boundary between the two groups of years.  If there is a gap between the two groups of years then the wall can be placed anywhere in that gap.
+
+# Other general comments
+
+Note that the idea of the wall and the idea of flexible flow normalization are quite different from each other.  The wall deals with some event that suddenly and directly influenced water quality while flexible flow normalization deals with something that influences the probability distribution of discharge.  In some cases, the same event could be pivotal to both of these.  In particular the completion or removal of a dam, but in most cases they are probably not related to each other, and the time boundaries involved may be quite different. We can have analysis with a wall and not use flexible flow normalization, or we can have flexible flow normalization and not have a wall, or we can have both, or we can have neither.  In the latter case only, the original simpler EGRET workflows will provide all of the analyses needed.  For any of the others we need to use the WRTDS Flex workflows.
+
+In all of the analyses being introduced here there may be some advantage to having the discharge data set in the **Daily** data frame extend substantially beyond the period of water quality record being considered.  This is in contrast to the guidance given for the standard EGRET application, where we encourage the user to limit the Daily record to being only slightly longer (< 1 year longer) than the extent of the water quality record in the **Sample** data frame.  The user needs to decide how far to take it, but if the **windowSide** approach is being used, then there is no point in extending the **Daily** data frame more than **windowSide** years beyond the range of the **Sample** data frame.  
+
+In all of these problem types, the analysis must start with a standard EGRET eList (containing at least the **INFO**, **Daily**, and **Sample** data frames). For each type of problem (**Pairs, Series, or Group**) there will be one basic function with a name like **runPairs** that does the data processing (without bootstrap uncertainty analysis).  It is designed to run in batch mode, with the call to the function containing a list of all the parameters desired (e.g. **lastDaySample1**, or **paStart and paLong**) but many of them will have defaults.  There will also be an interactive version to help the user through this process.  The output of that function will create an object with a name like **pairResults**.  Associated with that object there would be a set of attributes and that set of attributes would contain all the necessary information about how the problem was set up.  This is crucial to proper documentation of results.  Then, there would be another function that does the bootstrap analysis and it would have a name like **runPairsBoot**.  One of the arguments for that function would be the object (such as **pairResults**).  The use of the attributes of that object would then be used to set up the bootstrap implementation (and there would be a few other arguments that relate specifically to the bootstrap).  The output of the bootstrap results would have a name like **pairBootOut** and it would also contain that full list of parameters that were used for running the original analysis and the bootstrap analysis.  
+
+For now, some of the functions will have temporary names, as we experiment (e.g. we have **runPairsAltB**) but eventually we would settle down to the standard name **runPairs**.
+
+
+# Pairs analysis
+
+```{r }
+# Note that this assumes you have loaded Laura's new version of EGRET
+#  If you haven't done so already 
+# you need to install the package "devtools"
+# and then run this command:  devtools::install_github("ldecicco-USGS/EGRET", ref = "flex_fn")
+# it also assumes that you have done these commands
+library(EGRET)
+library(EGRETci)
+eList <- Choptank_Phos
+
+
+```
+
+Now we are going to run the function **runPairs**.  In this example are going to compare two years 1985 and 2014.  Those are called year1 and year2 respectively.  They designate the calendar year in which the period of interest ends (like water years).  So if we had paStart = 10 and paLong = 12, and year1 = 1985, then we would be looking at results for 1984-10-01 through 1985-09-30.  If we had paStart = 3 and paLong = 4, and year1 = 1985, then we would be looking at results for 1985-03-01 through 1985-06-30.
+
+We can decide to include a wall or not.  Remember, a wall refers to a division of the sample record, such that the first surface only uses data from before the wall and the second only uses data from after the wall.  We indicate this by setting the logical variable **wall** to **TRUE** if we want a wall, and **FALSE** if we don't.  If we do want a wall then we need to specify where it goes.  We do that with the character variable **lastDaySample1**.  So, if we wanted the wall to come right after May 31, 1997 then we would set **lastDaySample1 = "1997-05-31"**.  Note that it will know that the start of the second sample will be the next day.  If we don't want to have a wall, then we can just leave out having a value for **lastDaySample1**.
+
+For flexible flow normalization there are two ways we can designate it.  We can use the **windowSide** argument with a value that is some integer greater than 1 to designate that we want the window automatically set, and the window for flow normalization will be of width **(2 * windowSide) + 1**.  The default for **windowSide** is 7, so we can leave it out if we want a window of 15 years.  If we want some other width to be set automatically we need to set **windowSide** to some other positive integer value.  If we use the automatic approach then we do not need to designate and of the following arguments in the call to **runPairs**: **firstQDate1, lastQDate1, firstQDate2, lastQDate2**.
+
+The other way of setting up the flexible flow normalization periods is to specify manually, specifying what the start and end of the two periods are.  One reason you might do that is because of an abrupt change in the flow distribution (say because of a new dam).  The other reason to do it is to have a consistant timing of change in flow distribution that will be used across many sites in the same region, and this approach will assure that consistency.  To do this we need to specify arguments for four dates.  They are: **firstQDate1, lastQDate1, firstQDate2, lastQDate2**.  
+
+One final thing about setting up the flow normalization periods.  If there is some reason you don't want to use the entire period of discharge record (in **eList$Daily**) then you can create a shorter period with the arguments **firstQDate0** and **lastQDate0**.  If you leave them out, then the full flow record will be used in computing the total change.
+
+In this first example we will specify that year1 is 1985 and year2 is 2014 and we will not have a wall, and we will use automatic flow window designation, with a **windowSide** value of 7.
+
+```{r}
+pairResults <- runPairs(eList, year1 = 1985, year2 = 2014, windowSide = 7)
+```
+What we see printed at the bottom of this output is the data frame called **pairResults** produced from a run of this run of the model.  It contains all of the relevant output from the run.  It also has attributes associated with it so that we know how the estimation was designed.  **pairResults** has two rows, the top for concentration (in mg/L) the bottom for flux (in 10^6 kg/yr).  The columns have the following meanings.
+
+| Column  | Description  |
+| ------------- |-----------------------------------------------------|
+|DeltaTotal | the difference between year2 and year1 (combined effect of the change in RS and FD)|
+|RSpart |the part of DeltaTotal that comes from the change in the RS|
+|FDpart|the part of DeltaTotal that comes from the change in the FD|
+|x10| the average value using RS1 and FD0|
+|x11| the average value using RS1 and FD1|
+|x20| the average value using RS2 and FD0|
+|x22| the average value using RS2 and FD2|
+|RS1| the response surface estimated for year1 (in this case 1985)|
+|RS2| the response surface estimated for year2 (in this case 2014)|
+|FD0| the flow distribution based on the span: firstQDate0 to lastQDate0|
+|FD1| the flow distribution based on the span: firstQDate1 to lastQDate1|
+|FD2| the flow distribution based on the span: firstQDate2 to lastQDate2|
+
+We can also look at all the attributes of **pairResults**.  Here they are printed out:
+
+The values are `paStart`, `paLong`, `year1`, and `year2`:
+```{r}
+attr(pairResults, "yearPair") 
+```
+
+The values are the start and end of `Daily0`, `Daily1`, and `Daily2`:
+
+```{r}
+attr(pairResults, "FDblocks") 
+```
+The values are the start and end of the two `Sample` groups:
+
+```{r}
+attr(pairResults, "SampleBlocks") 
+```
+
+The values are `minNumObs`, `minNumUncen`, `windowY`, `windowQ`, `windowS`, `wall`, `edgeAdjust` (for the last two 0 = F, 1 = T):
+
+```{r}
+attr(pairResults, "Other") 
+```
+
+Also note that if you want to report any of these flux values in units of kg/km^2/yr, you can achieve that as follows.  We will do it here for the Choptank, which has a drainage area of 292.6687 km^2.
+
+```{r}
+
+multiplier <- c(1, 1000000 / eList$INFO$drainSqKm)
+
+pairResultsKM2 <- pairResults * multiplier
+
+pairResultsKM2
+```
+
+So now the first line is concentration changes in mg/L, and the second line is flux changes in kg / km^2 / yr.
+
+## A more complex pairs example
+
+Let's say there was a dam built in the year 1995 (say 1995-06-01) so the flow distribution changed at that time, and we might anticipate that the water quality response to discharge (the RS) also changed at that time.  Let's start by looking at the range of dates that the data covers (the discharge data and the water quality data).
+
+```{r}
+summary(eList$Daily$Date)
+summary(eList$Sample$Date)
+```
+
+Let's say we want the analysis to only include the discharge data for water years 1980 - 2014. So we would set **firstQDate0 = "1979-10-01" and lastQDate0 = "2014-09-30".**  Let's also assume that we want a wall, and we want to place it "manually" at the end of May, 1995, so **windowSide = 0, wall = TRUE and firstQDate1 = "1979-10-01", lastQDate1 = "1995-05-31", firstQDate2 = "1995-06-01", and lastQDate2 = "2017-09-30".**  We want to put the break in the water quality record at the same place as the end of the first flow segment, so **lastDaySample1 = "1995-05-31".**  Finally, we would like to restrict our analysis to the period April - August of each year and we are doing our pair comparison between the years 1985 and 2014.  Thus: **paStart = 4, paLong = 5, year1 = 1985, and year2 = 2014.**  All of the other arguments will be left to their default values.  Note that we may not be sure going into the analysis, how many samples are in each segment and if we need to make an adjustment of minNumObs and minNumUncen.  The function will tell you how many samples you have in each segment and adjust those paramters if necessary, but on examining the output you may conclude that one of the segments simply had too few samples (e.g. fewer than 50) and you may want to do another run adjusting the placement of the wall or perhaps eliminating it so that the sample size in either subsample is great than about 50.  So, the call to the function would now look like this (and we will also see the attributes of the output).
+
+```{r}
+pairResults2 <- runPairs(eList,
+                         year1 = 1985, year2 = 2014,
+                         windowSide = 0, 
+                         wall = TRUE,
+                         sample1EndDate = "1992-06-01",
+                         paStart = 4, paLong = 5)
+
+attr(pairResults2, "yearPair")
+attr(pairResults2, "FDblocks")
+attr(pairResults2, "SampleBlocks")
+attr(pairResults2, "Other")
+```
+
+**Finally, we would like to bootstrap these results.**  To do this we use the function runPairsBootOut.  The function call looks like this:
+
+pairsBootOut <- runPairsBootAltC(eList, pairResults, nBoot, startSeed = 494817, blockLength = 200)
+
+*(Note to Laura: I've changed the call here and made pairResults an argument, I did that so that runPairsBoot could pull in all the arguments that were used in runPairs, because we are storing all of those within the attributes of pairResults.  There may be a better way to do this, but we need to assure that we know exactly how the pairsBootOut output was generated).*  
+
+The first two arguments we already know.
+
+nBoot is the number of bootstrap replicates.  We can get a very crude idea of the result with as few as 25 replicates (and below for brevity we will set nBoot = 3).
+
+startSeed is a random number seed for the selection of bootstrap replicates.  It only matters when we are concerned that we might want to verify the results exactly.  Or if we are getting some errors in the bootstrap runs we might want to change it and try again.  We can also change it in order to get a feel for the stability of the bootstrap results.
+
+blockLength is the same as we know about from EGRETci and 200 seems to be a good value (that is bootstapping in 200 day blocks) to preserve the serial correlation at lower lags.
+
+Here is a tiny application of it using the output from the first run of runPairsAltC (you will see what the output looks like, but because of the small number of replicates it is pretty meaningless).
+
+```{r}
+# source("~/Dropbox/NewFFN/V1/runPairsBootAltC.R")
+# pairsBootOut <- runPairsBootAltC(eList, pairResults, nBoot = 3)
+# 
+# # now we can view the results stored in pairsBootOut
+# 
+# pairsBootOut
+```
+The outputs are essentially the same as those stored in **eBoot** in the standard output of the **wBT** function in the standard EGRETci application.  It is worth recalling the meaning of the final four parts of the list:
+
+xConc are the **nBoot** iterations of the total change in concentration from year1 to year2 (mg/L)
+
+xFlux are the **nBoot** iterations of the total change in flux from year1 to year2 (10^6/kg/yr)
+
+pConc are the **nBoot** iterations of the percentage change in concentration from year1 to year2 (%)
+
+pFlux are the **nBoot** iterations of the percentage change in flux from year1 to year2 (%)
+
+
+(Just to be clear here, a value of pFlux of 181.1 means that year2 is 181.1 percent larger than year1, or year2 = 281.1 * year1).
+
+We can produce graphs like plotHistogramTrend from this output *(note here a little patchwork of changing terms between the wBT and the runPairsBoot outputs would be needed here, but it is pretty easily done.  I can do it later.  RMH 2018-01-16)*
+
+# Series Analysis 
+
+There are a large number of possible ways to produce a time series of annual values with flexible flow normalization and the possible use of the wall.  All of them use the function **runSeries**.  
+
+The first thing that needs to be considered is the choice of two different ways to estimate the Response Surface (RS).  The first of these is the traditional way, using the regular smoothing approach of WRTDS.  The alternative is to employ the **wall** as discussed at the begining of this document.  The **wall** might be used for several different kinds of reasons: 1) a nearly instantaneous change in a major pollutant source (e.g. a major nutrient removal system or a major stormwater diversion comes on line), 2) a natural event such as a very large flood happens which we believe may have an influence on the RS for a period of several years, or 3) a major reservoir is completed or removed thereby causing a major change in the RS (because of the mixing that happens in the reservoir and the potential for decoupling of discharge and concentration).  If any of these things are significant to the system we need to set the argument **wall = TRUE** and, if we have chosen to do this, we need to specify a date which is the end of the period before the change.  We do that with the argument **lastSampleDate1** which we set to a specific date, so the call to the function would say:  **lastSampleDate1 = "1998-06-30"** if we wanted to characterize the change in the response surface as coming at the end of June, 1998.  
+
+The second thing we need to think about is how we characterize the change in the flow distribution (FD).  We include the possibility that the flow distribution change can either be abrupt, or gradual, or it can be abrupt with gradual changes on either side.  An abrupt change would most likely be related to a change in water management: a new dam, a dam removal, or a major change in the operating policies at the dam.  We use the logical variable **flowBreak = TRUE** when we want there to be such an abrupt break in the FD.  If **flowBreak = TRUE** then we must define the time of the break, using the argument **lastQDate1**.  So if we think the change comes at the end of November, 2001 then we would say **lastQDate1 = "2001-11-30"**.  It is possible that **lastQDate1 and lastSampleDate1** would come on the same date, but it isn't necessarily the case.
+
+For the moment lets assume that **flowBreak = FALSE** but we want to use flexible flow normalization.  If that is the case then we need to specify the **windowSide** argument to decide how wide a span we will use to flow normalize each year.  Our default is **windowSide = 7** which means that the total width of the window for flow normalizing would be 15 years.  As an aside, I'm not convinced that 7 is a really good choice and I hope to do a bit more exploring to see what the trade-offs are for using a larger value.
+
+Now, what about the case where **flowBreak = TRUE**, we can choose to assume that the FD is stationary on either side of the break, or we can use a moving window on either side.  Note that this choice really matters when the number of years on one or both sides of the break is greater than about **2*windowSide**.  If we don't want the FD to change as we move through the years on either side then we set **windowSide = 0**, if we want to have a moving window for flow normalization on both sides then we don't need to specify **windowSide** because its default is 7, but if we want something larger or smaller than 7 years then we do need to set it to the desired value.
+
+To summarize these options about flow normalization, there are four cases:
+
+1) no flexible flow normalization at all: 
+             to do this: we set **flowBreak = FALSE and windowSide = 0**
+2) moving window flexible flow normalization, but no break
+            to do this: we set **flowBreak = FALSE and windowSide = ** some integer greater than 1 
+3) there is a break but no moving window on each side
+            to do this: we set **flowBreak = TRUE and specify the time as **lastQDate1** 
+            and we set **windowSide = 0**             
+4) there is a break but there is a moving window on each side
+           to do this: we set **flowBreak = TRUE and specify the time as **lastQDate1** 
+           and we set **windowSide = ** some integer greater than 1
+           
+We must specify the starting and ending dates of the period for which we want to get these flexible flow normalized results.  Recall that in the simple version, where we just use **modelEstimation**, the assumption is made that we want results calculated for the entire time span covered by the discharge data in the **Daily** data frame, and that the user is advised to make that time span run only slightly beyond the span of the data in the **Sample** data frame.  This new version is much more flexible in that respect.  The user MUST specify a **surfaceStart** and **surfaceEnd** date (these are both date variables, in the form "yyyy-mm-dd").  The function will compute the surfaces over this span of time and it will also compute the flexible flow normalize concentrations and fluxes over this span.  It may be useful to specify these as the start and end of water years, but it doesn't have to be.  They can be any dates the user chooses.  A typical example would be **surfaceStart = "1977-10-01" and "surfaceEnd = 2016-09-30"**.
+
+However, the user may want the discharge data that are available to the flexible flow normalization process to extend over a wider span of years than the span between surfaceStart and surfaceEnd.  This might be the case when we have a number of years of streamflow data prior to the start of the water quality data.  It would be a good idea to make use of those prior years for flow normalizing the earliest years of the water quality record.  We can specify the full amount of discharge record we want to have available for flow normalization.  We do that with the two arguments **firstQDate0 and lastQDate0**.  For example using the choice of **surfaceStart = "1977-10-01" and "surfaceEnd = 2016-09-30"** and a **windowSide = 7** we might want to set **firstQDate0 = 1970-10-01** and set **lastQDate0** to the last date we have available in the **Daily** data frame.  There are defaults for **firstQDate0 and lastQDate0** which are the first and last dates that exist in the **Daily** data frame.  There are cases where we might not want to run the flow normalization windows out to the full extent of the **Daily** record becuase we believe that it will include some period that is substantially different from the period we are developing results for.  
+
+Finally, the user may want to restrict the total span of sample data used to fit the surface.  The span is set by the two arguments **firstSampleDate0 and lastSampleDate0**.  If they are not specified then all of the data in the **Sample** data frame will be used.  We only need to specify these dates if we want to restrict the set of samples used.  One reason we may want to do this is because there may be an event that might have created an earlier abrut change in the RS that comes before the one specified by the **wall**.  We may want to restrict our analysis to just use the data from after that earlier event.  
+
+The call to runSeriesAlt also contains the usual options for period of analysis, windows, etc. which won't be discussed here again.  Note, that if the wall is being used and there are a rather small number of samples on one or both sides of the wall, the program adjust the minNumObs parameters to account for that, but it informs the user of what has been done.
+
+The full call to the function looks like this:
+
+```{r series}
+eListOut <- runSeries(eList, 
+                      windowSide = 7)
+```
+
+It is a good idea to name the output **eListOut** so that it doesn't change the content of **eList**.  
+
+Now let us look at a very simple application of **runSeries**.  It is the case where we have no wall, no flow break, we are using the moving flow normalization window with the default value of **windowSide = 7**.  
+
+The Sample data set we are using here runs from 1984-10-19 to 2014-09-25 but the Daily data set we are using runs from 1975-10-01 to 2017-09-30.
+
+So, we will load the data and run the analysis now.
+
+```{r}
+eList <- Choptank_Phos
+
+eListOut <- runSeries(eList, windowSide = 7,
+                      surfaceStart = "1984-10-01", 
+                      surfaceEnd = "2014-09-30")
+```
+
+Right now we only have a kluge approach to seeing the output, in the form of the function **makeSeriesOutputs**, to get it to work we have cheated and put the flexible flow normalized results into the place in the output data set where the annual averages and flow normalized values would ordinarily go.  But, it least it give us a table and graphs to see our results.  Stay tuned for this part.
+
+```{r}
+# eListBad <- makeSeriesOutputs(eListOut)
+```
+
+I would comment here that the flexible flow normalized flux graph is a bit too irregular for my taste and I would probably change to windowSide = 12 to see if I like the results better.  That's done at the end of this section.
+ 
+An important feature of the output (in **eListOut**) is that we have documentation here of all of the arguments that were used in setting up the problem (these are in **eListOut$INFO"**).  There is also a data frame stored as an attribute of **eListOut$INFO**.  We will use them later in the bootstrap so that we are sure that the problem is set up the same way.  By storing **eListOut** we have a complete accounting of all the data inputs, parameters for the calculations, and outputs.  This should be very helpful in the documentation process.
+
+```{r}
+eListOut$INFO
+attr(eListOut$INFO, "segmentInfo")
+```
+
+Here we will run the function again but change to **windowSide = 12**
+
+```{r}
+eListOut11 <- runSeries(eList, 
+                        surfaceStart = "1984-10-01", 
+                        surfaceEnd = "2014-09-30", 
+                        windowSide = 12)
+# eListBad11 <- makeSeriesOutputs(eListOut11)
+```
+
+I do think that the results with **windowSide = 12** is better.  The little up's and down's of the flux curve are not meaningful, in my opinion.  
+
+Later, we will take a look at a much more complex case, where a major dam was completed during the period of record and it had a major impact on both the FD and the RS.  
+
+When the bootstrap component is added we will see how it works with the runSeriesAlt function.
+
+
+
+
+# Group Analysis (the text is here, but I'm not running it for now, the Pairs and Series are a higher priority)
+
+In a group analysis we are comparing results for two different periods.  In these analyses there is always a wall.  It could be that it is set up to look at changes in water quality before and after some specific engineered action (treatment plant or dam) or it could simply be a hypothesis we want to examine (e.g. fluxes increased from the period before some agricultural practices were introduced versus after).  The two time periods to be examined are defined by their starting and ending dates.  The first period starts on **firstDaySurface1** and ends on **lastDaySurface1**.  The second period starts on **firstDaySurface2** and ends on **lastDaySurface2**.  
+
+We can run the function without flexible flow normalization (just using regular flow normalization).  We only need to specify four arguments to run it.  **eList, firstDaySurface1, lastDaySurface1, lastDaySurface2**.  If we do it this way it assumes that the second period just starts the day after **lastDaySurface1**.  If we want to put in a break between the two periods then we need to specify the **firstDaySurface2** argument. That would mean that we wouldn't be using the water quality data that falls after **lastDaySurface1** and before **firstDaySurface2**.  
+
+If we also want to do flexible flow normalization, then we need to specify four more arguments.  They are **firstQDay1, lastQDay1, firstQDay2, lastQDay2**.  We must specify all four if we want to do flexible flow normalization.  It is likely that we would want to specify these arguments as the same set of four dates used for the surfaces, but it doesn't have to be that way.
+
+Let's start with the simple case of just looking at two periods WY 1985 - 1999 and WY 2000 - WY 2014.
+
+```{r eval=FALSE}
+eList <- Choptank_Phos
+
+
+groupResults <- runGroups(eList, 
+                          firstDaySurface1 = "1984-10-01",
+                          lastDaySurface1 = "1999-09-30",
+                          lastDaySurface2 = "2014-09-30")
+```
+
+We can look at the attributes of groupResults so we know how it was created:
+```{r eval=FALSE}
+attr(groupResults, "surfaceDates")
+attr(groupResults, "FDblocks")
+attr(groupResults, "OtherParams")
+```
+
+It should come as no surprise here that the FD part of the change is 0, because we constrained the problem to not use flexible flow normalization.  One other thing in the output is that we have statements made about how many samples are in each period.  Take a look at these and decide if you are comfortable with them.  
+
+Let's run it again, but this time we will set the flow normalization periods to be the same as the periods we used for the surfaces.
+
+```{r eval=FALSE}
+groupResults <- runGroups(eList, 
+                          firstDaySurface1 = "1984-10-01",
+                          lastDaySurface1 = "1999-09-30",
+                          lastDaySurface2 = "2014-09-30", 
+                          firstQDay1 = "1984-10-01", 
+                          lastQDay1 = "1999-09-30", 
+                          firstQDay2 = "1999-10-01", 
+                          lastQDay2 = "2014-09-30")
+attr(groupResults, "surfaceDates")
+attr(groupResults, "FDblocks")
+attr(groupResults, "OtherParams")
+```
+
+

@@ -13,6 +13,8 @@
 #'  This array will be used to estimate these 3 quantities for any given day in the daily values record. 
 #'
 #' @param eList named list with at least the Sample and Daily dataframes
+#' @param surfaceStart Date object for start of surface slice (or character starting date for data retrieval in the form YYYY-MM-DD).
+#' @param surfaceEnd Date object for end of surface slice (or character starting date for data retrieval in the form YYYY-MM-DD).
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
@@ -22,14 +24,28 @@
 #' @param verbose logical specifying whether or not to display progress message
 #' @param interactive logical deprecated. Use 'verbose' instead
 #' @param run.parallel logical to run bootstrapping in parallel or not
+#' @param localSample data frame to override eList$Sample
 #' @keywords water-quality statistics
 #' @return surfaces array containing the three surfaces estimated, array is 3 dimensional
 #' @export
 #' @examples
 #' eList <- Choptank_eList
-#' \dontrun{surfaces <- estSurfaces(eList)}
-estSurfaces<-function(eList, windowY=7,windowQ=2,windowS=0.5,
-                      minNumObs=100,minNumUncen=50,edgeAdjust=TRUE,verbose = TRUE, interactive=NULL,
+#' \dontrun{
+#' surfaces <- estSurfaces(eList)
+#' 
+#' surfaceStart <- "1984-10-01"
+#' surfaceEnd <- "1986-09-30"
+#' surfaces_1 <- estSurfaces(eList, surfaceStart, surfaceEnd)
+#' 
+#' wall_sample <- head(eList$Sample, n=500)
+#' 
+#' surface_wall <- estSurfaces(eList, localSample = wall_sample)
+#' 
+#' }
+estSurfaces<-function(eList, surfaceStart=NA, surfaceEnd=NA, localSample=NA,
+                      windowY=7,windowQ=2,windowS=0.5,
+                      minNumObs=100,minNumUncen=50,edgeAdjust=TRUE,
+                      verbose = TRUE, interactive=NULL,
                       run.parallel = FALSE){
   # this function estimates the 3 surfaces based on the Sample data
   # one is the estimated log concentration (yHat)
@@ -46,32 +62,44 @@ estSurfaces<-function(eList, windowY=7,windowQ=2,windowS=0.5,
   }
   
   localINFO <- getInfo(eList)
-  localSample <- getSample(eList)
   localDaily <- getDaily(eList)
   
-  originalColumns <- names(localSample)
-  
-  numDays <- length(localDaily$DecYear)
-  DecLow <- localDaily$DecYear[1]
-  DecHigh <- localDaily$DecYear[numDays]
-  
-  bottomLogQ<-min(localDaily$LogQ) - 0.05
-  topLogQ<-max(localDaily$LogQ) + 0.05
-  stepLogQ<-(topLogQ-bottomLogQ)/13
-  vectorLogQ<-seq(bottomLogQ,topLogQ,stepLogQ)
-  stepYear<-1/16
-  bottomYear<-floor(min(localDaily$DecYear))
-  topYear<-ceiling(max(localDaily$DecYear))
-  vectorYear<-seq(bottomYear,topYear,stepYear)
-  nVectorYear<-length(vectorYear)
-  estPtLogQ<-rep(vectorLogQ,nVectorYear)
-  estPtYear<-rep(vectorYear,each=14)
+  if(all(is.na(localSample))){
+    localSample <- eList$Sample
+  }
 
-  colToKeep <- c("ConcLow","ConcHigh","Uncen","DecYear","SinDY","CosDY","LogQ")
+  highLow <- decimalHighLow(localSample)
   
-  localSampleMin <- localSample[,which(originalColumns %in% colToKeep)]
+  DecHigh <- highLow[["DecHigh"]]
+  DecLow <- highLow[["DecLow"]]
   
-  resultSurvReg<-runSurvReg(estPtYear,estPtLogQ,DecLow,DecHigh,localSampleMin,
+  surfaceInfo <- surfaceIndex(localDaily)
+  vectorYear <- surfaceInfo[['vectorYear']]
+  vectorLogQ <- surfaceInfo[['vectorLogQ']]
+  
+  LogQ <- seq(surfaceInfo[['bottomLogQ']], by=surfaceInfo[['stepLogQ']], length.out=surfaceInfo[['nVectorLogQ']])
+  
+  if(is.na(surfaceStart) && is.na(surfaceEnd)){
+
+    nVectorYear<-length(vectorYear)
+    estPtYear<-rep(vectorYear,each=14)
+    
+    Year <- seq(surfaceInfo[['bottomYear']], by=surfaceInfo[['stepYear']], length.out=surfaceInfo[['nVectorYear']])
+    
+  } else {
+
+    sliceIndex <- which(vectorYear >= decimalDate(as.Date(surfaceStart)) & vectorYear <= 
+                          decimalDate(as.Date(surfaceEnd)))
+    Year <- vectorYear[c(sliceIndex[1]-1, sliceIndex, tail(sliceIndex, n = 1)+1)]
+    
+    nVectorYear <- length(Year)
+    estPtYear <- rep(Year,each=14)
+
+  }
+  
+  estPtLogQ<-rep(vectorLogQ,nVectorYear)
+
+  resultSurvReg<-runSurvReg(estPtYear,estPtLogQ,DecLow,DecHigh,localSample,
                             windowY,windowQ,windowS,minNumObs,minNumUncen,
                             edgeAdjust=edgeAdjust,verbose = verbose,run.parallel=run.parallel)
   
@@ -84,5 +112,9 @@ estSurfaces<-function(eList, windowY=7,windowQ=2,windowS=0.5,
     }
   }
 
+  attr(surfaces, "surfaceIndex") <- surfaceInfo
+  attr(surfaces, "LogQ") <- LogQ
+  attr(surfaces, "Year") <- Year
+  
   return(surfaces)
 }

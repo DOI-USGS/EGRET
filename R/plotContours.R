@@ -69,9 +69,19 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
                        printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA, tcl=0.1,
                        flowDuration = TRUE, customPar=FALSE, yTicks=NA,tick.lwd=2,
                        lwd=1,cex.main=1,cex.axis=1,color.palette=colorRampPalette(c("white","gray","blue","red")),...) {
+  
+  if(.Device != "null device"){
+    grDevices::graphics.off()
+  }
+  
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
   localsurfaces <- getSurfaces(eList)
+  
+  nVectorYear <- localINFO$nVectorYear
+  bottomLogQ <- localINFO$bottomLogQ
+  stepLogQ <- localINFO$stepLogQ
+  nVectorLogQ <- localINFO$nVectorLogQ
   
   if (is.numeric(qUnit)){
     qUnit <- qConst[shortCode=qUnit][[1]]
@@ -93,14 +103,14 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
   surfaceSpan<-c(surfaceMin,surfaceMax)
   contourLevels<-if(is.na(contourLevels[1])) pretty(surfaceSpan,n=5) else contourLevels
   # computing the indexing of the surface, the whole thing, not just the part being plotted
-  bottomLogQ<-localINFO$bottomLogQ
-  stepLogQ<-localINFO$stepLogQ
-  nVectorLogQ<-localINFO$nVectorLogQ
-  bottomYear<-localINFO$bottomYear
-  stepYear<-localINFO$stepYear
-  nVectorYear<-localINFO$nVectorYear
-  x<-((1:nVectorYear)*stepYear) + (bottomYear - stepYear)
-  y<-((1:nVectorLogQ)*stepLogQ) + (bottomLogQ - stepLogQ)
+  if(all(c("Year","LogQ") %in% names(attributes(localsurfaces)))){
+    x <- attr(localsurfaces, "Year")
+    y <- attr(localsurfaces, "LogQ")
+  } else {
+    x <- seq(localINFO$bottomYear, by=localINFO$stepYear, length.out=localINFO$nVectorYear)
+    y <- ((1:nVectorLogQ)*stepLogQ) + (bottomLogQ - stepLogQ)
+  }
+  
   yLQ<-y
   qFactor<-qUnit@qUnitFactor
   y<-exp(y)*qFactor
@@ -192,6 +202,7 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
   deltaX <- (yearEnd-yearStart)/25
   
   yLab<-qUnit@qUnitExpress
+  logY <- log(y,10)
   filled.contour(x,log(y,10),surft,levels=contourLevels,xlim=c(yearStart,yearEnd),
                  ylim=c(log(yTicks[1],10),log(yTicks[nYTicks],10)),#main=plotTitle,
                  xlab="",ylab=yLab,xaxs="i",yaxs="i",cex.main=cex.main, 
