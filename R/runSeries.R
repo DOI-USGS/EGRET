@@ -85,30 +85,17 @@ runSeries <- function(eList, windowSide,
   
   localSample <- localSample[localSample$Date >= sampleStartDate & 
                                localSample$Date <= sampleEndDate, ]
-  
-  fractionOfWaterYear <- decimalDate("2010-09-30") - trunc(decimalDate("2010-09-30"))
-  
+
   surfaceStart <- as.Date(surfaceStart)
   if (is.na(surfaceStart)) {
-    fractionOfYear <- decimalDate(sampleStartDate) - trunc(decimalDate(sampleStartDate))
-    if(fractionOfYear > fractionOfWaterYear){
-      surfaceStart <- paste0(trunc(decimalDate(sampleStartDate)),"-10-01")
-    } else {
-      surfaceStart <- paste0(trunc(decimalDate(sampleStartDate))-1,"-10-01")
-    }
-  }
-  
-  surfaceEnd <- as.Date(surfaceEnd)
-  if (is.na(surfaceEnd)) {
-    fractionOfYear <- decimalDate(sampleEndDate) - trunc(decimalDate(sampleEndDate))
-    if(fractionOfYear > fractionOfWaterYear){
-      surfaceEnd <- paste0(trunc(decimalDate(sampleEndDate))+1,"-09-30")
-    } else {
-      surfaceEnd <- paste0(trunc(decimalDate(sampleEndDate)),"-09-30")
-    }
+    surfaceStart <- surfaceStartEnd(paStart, paLong, sampleStartDate, sampleEndDate)[["surfaceStart"]]
   }
 
-  
+  surfaceEnd <- as.Date(surfaceEnd)
+  if (is.na(surfaceEnd)) {
+    surfaceStartEnd(paStart, paLong, sampleStartDate, sampleEndDate)[["surfaceEnd"]]
+  }
+
   if (isTRUE(surfaceStart < QStartDate)) {
     stop("surfaceStart can't be before QStartDate")
   }
