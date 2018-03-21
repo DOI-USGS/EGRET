@@ -308,7 +308,13 @@ makeDateInfo <- function(windowSide,
 
 #' checkSurfaceSpan
 #' 
+#' checkSurfaceSpan
+#' 
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
+#' @export
+#' @examples  
+#' eList <- Choptank_eList
+#' checkSurfaceSpan(eList)
 checkSurfaceSpan <- function(eList){
   
   surfaces <- getSurfaces(eList)
@@ -333,7 +339,7 @@ checkSurfaceSpan <- function(eList){
                    "Extension of more than about a year is not recommended."))
   } else if (preSurface > 1){
     message(paste0("\nThe surface you are using extends ",  preSurfaceFormat,
-                   "prior to the start of the water quality data set.",
+                   " years prior to the start of the water quality data set.",
                    "Extension of more than about a year is not recommended."))           
   } else if (postSurface > 1){
     message(paste0("\nThe surface you are using extends ",  postSurfaceFormat,
