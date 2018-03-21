@@ -414,3 +414,43 @@ test_that("startEnd",{
   expect_equal(firstLast[["endDate"]], as.Date("2001-02-28"))
   
 })
+
+test_that("surfaceStartEnd",{
+  
+  paStart <- 10
+  paLong <- 12
+  Date1 <- "2000-10-15"
+  Date2 <- "2010-01-01"
+  
+  firstLast <- surfaceStartEnd(paStart, paLong, Date1, Date2)
+  expect_equal(firstLast[["surfaceStart"]], as.Date("2000-10-01"))
+  expect_equal(firstLast[["surfaceEnd"]], as.Date("2010-09-30"))
+  
+  #Leap years
+  paStart <- 3
+  paLong <- 12
+  Date1 <- "1976-10-15"
+  Date2 <- "1980-02-01"
+  
+  firstLast <- surfaceStartEnd(paStart, paLong, Date1, Date2)
+  expect_equal(firstLast[["surfaceStart"]], as.Date("1976-03-01"))
+  expect_equal(firstLast[["surfaceEnd"]], as.Date("1980-02-29"))
+  
+  #Not water years:
+  paStart <- 1
+  paLong <- 12
+  Date1 <- "2000-10-15"
+  Date2 <- "2010-01-01"
+  firstLast <- surfaceStartEnd(paStart, paLong, Date1, Date2)
+  expect_equal(firstLast[["surfaceStart"]], as.Date("2000-01-01"))
+  expect_equal(firstLast[["surfaceEnd"]], as.Date("2010-12-31"))
+  
+  paStart <- 3
+  paLong <- 6
+  Date1 <- "2000-04-15"
+  Date2 <- "2012-05-01"
+  firstLast <- surfaceStartEnd(paStart, paLong, Date1, Date2)
+  expect_equal(firstLast[["surfaceStart"]], as.Date("2000-03-01"))
+  expect_equal(firstLast[["surfaceEnd"]], as.Date("2012-08-30"))
+  
+})

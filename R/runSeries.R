@@ -85,30 +85,17 @@ runSeries <- function(eList, windowSide,
   
   localSample <- localSample[localSample$Date >= sampleStartDate & 
                                localSample$Date <= sampleEndDate, ]
-  
-  fractionOfWaterYear <- decimalDate("2010-09-30") - trunc(decimalDate("2010-09-30"))
-  
+
   surfaceStart <- as.Date(surfaceStart)
   if (is.na(surfaceStart)) {
-    fractionOfYear <- decimalDate(sampleStartDate) - trunc(decimalDate(sampleStartDate))
-    if(fractionOfYear > fractionOfWaterYear){
-      surfaceStart <- paste0(trunc(decimalDate(sampleStartDate)),"-10-01")
-    } else {
-      surfaceStart <- paste0(trunc(decimalDate(sampleStartDate))-1,"-10-01")
-    }
-  }
-  
-  surfaceEnd <- as.Date(surfaceEnd)
-  if (is.na(surfaceEnd)) {
-    fractionOfYear <- decimalDate(sampleEndDate) - trunc(decimalDate(sampleEndDate))
-    if(fractionOfYear > fractionOfWaterYear){
-      surfaceEnd <- paste0(trunc(decimalDate(sampleEndDate))+1,"-09-30")
-    } else {
-      surfaceEnd <- paste0(trunc(decimalDate(sampleEndDate)),"-09-30")
-    }
+    surfaceStart <- surfaceStartEnd(paStart, paLong, sampleStartDate, sampleEndDate)[["surfaceStart"]]
   }
 
-  
+  surfaceEnd <- as.Date(surfaceEnd)
+  if (is.na(surfaceEnd)) {
+    surfaceStartEnd(paStart, paLong, sampleStartDate, sampleEndDate)[["surfaceEnd"]]
+  }
+
   if (isTRUE(surfaceStart < QStartDate)) {
     stop("surfaceStart can't be before QStartDate")
   }
@@ -308,7 +295,13 @@ makeDateInfo <- function(windowSide,
 
 #' checkSurfaceSpan
 #' 
+#' checkSurfaceSpan
+#' 
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
+#' @export
+#' @examples  
+#' eList <- Choptank_eList
+#' checkSurfaceSpan(eList)
 checkSurfaceSpan <- function(eList){
   
   surfaces <- getSurfaces(eList)
@@ -327,15 +320,15 @@ checkSurfaceSpan <- function(eList){
   preSurfaceFormat <- format(preSurface, digits = 2)
   postSurfaceFormat <- format(postSurface, digits = 2)
   
-  if(preSurface > 1 & postSurface > 1){
+  if(preSurface > 2 & postSurface > 2){
     message(paste0("\nThe surface you are using extends ", preSurfaceFormat , " years prior to the start,",
                    "and ",postSurfaceFormat," years past the end of the data of the water quality data set.",
                    "Extension of more than about a year is not recommended."))
-  } else if (preSurface > 1){
+  } else if (preSurface > 2){
     message(paste0("\nThe surface you are using extends ",  preSurfaceFormat,
-                   "prior to the start of the water quality data set.",
+                   " years prior to the start of the water quality data set.",
                    "Extension of more than about a year is not recommended."))           
-  } else if (postSurface > 1){
+  } else if (postSurface > 2){
     message(paste0("\nThe surface you are using extends ",  postSurfaceFormat,
                    "years past the end of the data of the water quality data set.",
                    "Extension of more than about a year is not recommended.")) 

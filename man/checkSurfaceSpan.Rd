@@ -12,3 +12,8 @@ checkSurfaceSpan(eList)
 \description{
 checkSurfaceSpan
 }
+\examples{
+ 
+eList <- Choptank_eList
+checkSurfaceSpan(eList)
+}
