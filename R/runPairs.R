@@ -68,6 +68,18 @@ runPairs <- function(eList, year1, year2, windowSide,
   }
   
   localSample <- getSample(eList)
+  
+  startEndSurface1 <- startEnd(paStart, paLong, year1)
+  startEndSurface2 <- startEnd(paStart, paLong, year2)
+  
+  if(startEndSurface2$startDate > range(localSample$Date)[2]){
+    stop("year2 is outside the Sample range")
+  }
+  
+  if(startEndSurface1$endDate < range(localSample$Date)[1]){
+    stop("year1 is outside the Sample range")
+  }
+  
   sampleStartDate <- if(is.na(sampleStartDate)) localSample$Date[1] else as.Date(sampleStartDate)
   numSamples <- length(localSample$Date)
   sampleEndDate <- if(is.na(sampleEndDate)) localSample$Date[numSamples] else as.Date(sampleEndDate)
@@ -77,8 +89,13 @@ runPairs <- function(eList, year1, year2, windowSide,
   numQDays <- length(localDaily$Date)
   QEndDate <- if(is.na(QEndDate)) localDaily$Date[numQDays] else as.Date(QEndDate)
   
-  startEndSurface1 <- startEnd(paStart, paLong, year1)
-  startEndSurface2 <- startEnd(paStart, paLong, year2)
+  if (sampleStartDate > as.Date(startEndSuface1[[2]]) ){
+    stop("Sample start is later than year2")
+  }  
+  
+  if (sampleEndDate < as.Date(startEndSurface2[[1]]) ){
+    stop("Sample end is earlier than year1")
+  }
   
   localsurfaces <- getSurfaces(eList)
   
