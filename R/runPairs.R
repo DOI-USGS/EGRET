@@ -89,14 +89,13 @@ runPairs <- function(eList, year1, year2, windowSide,
   numQDays <- length(localDaily$Date)
   QEndDate <- if(is.na(QEndDate)) localDaily$Date[numQDays] else as.Date(QEndDate)
   
-  if (sampleStartDate > as.Date(startEndSuface1[[2]]) ){
+  if (sampleStartDate > as.Date(startEndSurface1[[2]]) ){
     stop("Sample start is later than year2")
   }  
   
   if (sampleEndDate < as.Date(startEndSurface2[[1]]) ){
     stop("Sample end is earlier than year1")
   }
-  
   localsurfaces <- getSurfaces(eList)
   
   if(oldSurface){
