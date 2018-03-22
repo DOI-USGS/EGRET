@@ -288,4 +288,95 @@ test_that("runPairs",{
   expect_equal(round(pairOut_4$TotalChange[1], digits = 4), 0.0218)
   
 })
+
+test_that("runSeries", {
+
+  skip_on_cran()
+  
+  eList <- Choptank_Phos
+
+  #Option 1:
+  seriesOut_1 <- runSeries(eList,  windowSide = 0)
+  seriesOut_1_orig <- runSeries(eList,  windowSide = 0, oldSurface = TRUE)
+  expect_equal(class(seriesOut_1),"egret")
+  expect_equal(class(seriesOut_1_orig),"egret")
+  expect_true(attr(seriesOut_1, "runSeries"))
+  expect_true(attr(seriesOut_1_orig, "runSeries"))
+  expect_equal(round(attr(seriesOut_1$surfaces, "LogQ")[1], digits = 2), -4.66)
+  expect_equal(round(attr(seriesOut_1$surfaces, "Year")[1], digits = 2), 1984.69)
+  
+  
+  # Option 2:
+  seriesOut_2 <- runSeries(eList, windowSide = 7, oldSurface = TRUE)
+  expect_equal(class(seriesOut_2),"egret")
+  expect_true(attr(seriesOut_2, "runSeries"))
+
+  # Option 3:
+  seriesOut_3 <- runSeries(eList,
+                         windowSide = 0,
+                         flowBreak = TRUE,
+                         Q1EndDate = "1990-09-30")
+  expect_equal(class(seriesOut_3),"egret")
+  expect_true(attr(seriesOut_3, "runSeries"))
+  expect_equal(round(attr(seriesOut_3$surfaces, "LogQ")[1], digits = 2), -4.66)
+  expect_equal(round(attr(seriesOut_3$surfaces, "Year")[1], digits = 2), 1984.69)
+  
+  # Option 4:
+  seriesOut_4 <- runSeries(eList,
+                        windowSide = 7, flowBreak = TRUE,
+                        Q1EndDate = "1990-09-30")
+  expect_equal(class(seriesOut_4),"egret")
+  expect_true(attr(seriesOut_4, "runSeries"))
+  expect_equal(round(attr(seriesOut_4$surfaces, "LogQ")[1], digits = 2), -4.66)
+  expect_equal(round(attr(seriesOut_4$surfaces, "Year")[1], digits = 2), 1984.69)
+  
+})
+
+
+test_that("stitch", {
+  
+  skip_on_cran()
+  
+  eList <- Choptank_Phos
+
+  surfaceStart <- "1986-10-01"
+  surfaceEnd <- "2012-09-30"
+
+  # Surface skips a few years:
+  sample1StartDate <- "1986-10-01"
+  sample1EndDate <- "1992-09-30"
+  sample2StartDate <- "1996-10-01"
+  sample2EndDate <- "2012-09-30"
+
+  surface_skip <- stitch(eList,
+                           sample1StartDate, sample1EndDate,
+                           sample2StartDate, sample2EndDate,
+                           surfaceStart, surfaceEnd)
+
+  expect_equal(names(attributes(surface_skip)), c("dim","Year","LogQ",          
+                                                  "surfaceStart","surfaceEnd","sample1StartDate",
+                                                  "sample1EndDate","sample2StartDate","sample2EndDate"))
+  
+  expect_equal(attr(surface_skip, "surfaceStart"), as.Date(surfaceStart))
+  expect_equal(attr(surface_skip, "sample1EndDate"), sample1EndDate)
+  expect_true(!(dim(surface_skip)[2] == dim(eList$surfaces)[2]))
+  expect_true(dim(surface_skip)[1] == dim(eList$surfaces)[1])
+  expect_true(dim(surface_skip)[3] == dim(eList$surfaces)[3])
+  
+  # Surface overlaps a few years:
+  sample1StartDate <- "1986-10-01"
+  sample1EndDate <- "1996-09-30"
+  sample2StartDate <- "1992-10-01"
+  sample2EndDate <- "2012-09-30"
+
+  surface_overlap <- stitch(eList,
+                           sample1StartDate, sample1EndDate,
+                           sample2StartDate, sample2EndDate)
+  
+  expect_equal(attr(surface_overlap, "surfaceStart"), as.Date(surfaceStart))
+  expect_equal(attr(surface_overlap, "sample1EndDate"), sample1EndDate)
+  expect_true(!(dim(surface_overlap)[2] == dim(eList$surfaces)[2]))
+  expect_true(dim(surface_overlap)[1] == dim(eList$surfaces)[1])
+  expect_true(dim(surface_overlap)[3] == dim(eList$surfaces)[3])
+})
   
