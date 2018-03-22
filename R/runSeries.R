@@ -93,7 +93,7 @@ runSeries <- function(eList, windowSide,
 
   surfaceEnd <- as.Date(surfaceEnd)
   if (is.na(surfaceEnd)) {
-    surfaceStartEnd(paStart, paLong, sampleStartDate, sampleEndDate)[["surfaceEnd"]]
+    surfaceEnd <- surfaceStartEnd(paStart, paLong, sampleStartDate, sampleEndDate)[["surfaceEnd"]]
   }
 
   if (isTRUE(surfaceStart < QStartDate)) {
