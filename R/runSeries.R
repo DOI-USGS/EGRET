@@ -96,10 +96,10 @@ runSeries <- function(eList, windowSide,
     surfaceEnd <- surfaceStartEnd(paStart, paLong, sampleStartDate, sampleEndDate)[["surfaceEnd"]]
   }
 
-  if (isTRUE(surfaceStart < QStartDate)) {
+  if (!oldSurface & isTRUE(surfaceStart < QStartDate)) {
     stop("surfaceStart can't be before QStartDate")
   }
-  if (isTRUE(surfaceEnd > QEndDate)) {
+  if (!oldSurface & isTRUE(surfaceEnd > QEndDate)) {
     stop("surfaceEnd can't be after QEndDate")
   }
   
@@ -185,8 +185,12 @@ runSeries <- function(eList, windowSide,
                      flowEndCol = "flowEnd", oldSurface = oldSurface)
   
   eListOut$INFO$wall <- wall
-  eListOut$INFO$surfaceStart <- surfaceStart
-  eListOut$INFO$surfaceEnd <- surfaceEnd
+  
+  if(!oldSurface){
+    eListOut$INFO$surfaceStart <- surfaceStart
+    eListOut$INFO$surfaceEnd <- surfaceEnd    
+  }
+
   eListOut$INFO$sampleStartDate <- sampleStartDate
   eListOut$INFO$sampleEndDate <- sampleEndDate
   eListOut$INFO$sample1EndDate <- sample1EndDate
