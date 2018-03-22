@@ -373,7 +373,6 @@ test_that("stitch", {
                            sample1StartDate, sample1EndDate,
                            sample2StartDate, sample2EndDate)
   
-  expect_equal(attr(surface_overlap, "surfaceStart"), as.Date(surfaceStart))
   expect_equal(attr(surface_overlap, "sample1EndDate"), sample1EndDate)
   expect_true(!(dim(surface_overlap)[2] == dim(eList$surfaces)[2]))
   expect_true(dim(surface_overlap)[1] == dim(eList$surfaces)[1])
