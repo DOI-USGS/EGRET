@@ -223,20 +223,159 @@ test_that("getConcFluxFromSurface",{
                c(1979.75,1979.75,1979.75,1979.75,1979.75,1979.75))
 })
 
-# test_that("subFN",{
-#   eList <- Choptank_eList
-#   d1 <- eList$Daily
-#   
-#   flowNormYears <- c(1985:2002,2006:2010)
-#   temp_daily <- subFN(eList, flowNormYears)
-#   expect_equal(19, ncol(temp_daily))
-#   expect_equal(round(head(temp_daily$FNConc),3), 
-#                c(1.094,0.892,1.100,0.924,1.087,0.936))
-#   expect_equal(round(head(temp_daily$FNFlux),3), 
-#                c(72.567 ,139.213,68.180,133.852,80.925,128.181))
-#   
-#   expect_silent(plotFluxHist(eList, flowNormYears =  c(1985:2002,2006:2010)))
-# 
-#   
-# })
+test_that("flexFN",{
+  skip_on_cran()
+  
+  eList <- Choptank_eList
+
+  eList <- setUpEstimation(eList)
+  flowNormStart <- c("1979-10-01","1990-01-01","1992-10-10")
+  flowNormEnd <- c("1995-06-06","2004-03-03","2011-09-29")
+  flowStart <- c("1979-10-01","1995-06-07","2004-03-04")
+  flowEnd <- c("1995-06-06","2004-03-03","2011-09-29")
+  dateInfo <- data.frame(flowNormStart,
+                         flowNormEnd,
+                         flowStart,
+                         flowEnd,
+                         stringsAsFactors = FALSE)
+  newEList <- flexFN(eList, dateInfo)
+  
+  expect_true("segmentInfo" %in% names(attributes(newEList$INFO)))
+  segmentInfo <- attr(newEList$INFO, "segmentInfo")
+  expect_equal(segmentInfo, dateInfo)
+  expect_true(!(all(eList$Daily$FNFlux == newEList$Daily$FNFlux)))
+  
+})
+  
+
+test_that("runPairs",{
+  skip_on_cran()
+  
+  eList <- Choptank_Phos
+  year1 <- 1985
+  year2 <- 2014
+
+  #Option 1:
+  pairOut_1 <- runPairs(eList, year1, year2, windowSide = 0)
+
+  pairOut_1_orig <- runPairs(eList, year1, year2, windowSide = 0, oldSurface = TRUE)
+  
+  expect_equal(attr(pairOut_1, "dateInfo"), attr(pairOut_1_orig, "dateInfo"))
+  expect_equal(attr(pairOut_1, "yearPair"), attr(pairOut_1_orig, "yearPair"))
+  expect_true(all(names(pairOut_1) %in% c("TotalChange","CQTC "," QTC  ","x10","x11","x20","x22" )))
+  
+  expect_equal(round(pairOut_1$TotalChange[1], digits = 4), 0.02)
+  
+  # Option 2:
+  pairOut_2 <- runPairs(eList, year1, year2, windowSide = 7)
+
+  expect_true(all(names(pairOut_2) %in% c("TotalChange","CQTC "," QTC  ","x10","x11","x20","x22" )))
+  expect_equal(round(pairOut_2$TotalChange[1], digits = 4), 0.0218)
+  
+  # Option 3:
+  pairOut_3 <- runPairs(eList, year1, year2,
+                        windowSide = 0, flowBreak = TRUE,
+                        Q1EndDate = "1990-09-30")
+  expect_true(all(names(pairOut_3) %in% c("TotalChange","CQTC "," QTC  ","x10","x11","x20","x22" )))
+  expect_equal(round(pairOut_3$TotalChange[1], digits = 4), 0.0208)
+  
+  # Option 4:
+  pairOut_4 <- runPairs(eList, year1, year2,
+                        windowSide = 7, flowBreak = TRUE,
+                        Q1EndDate = "1990-09-30")
+  
+  expect_true(all(names(pairOut_4) %in% c("TotalChange","CQTC "," QTC  ","x10","x11","x20","x22" )))
+  expect_equal(round(pairOut_4$TotalChange[1], digits = 4), 0.0218)
+  
+})
+
+test_that("runSeries", {
+
+  skip_on_cran()
+  
+  eList <- Choptank_Phos
+
+  #Option 1:
+  seriesOut_1 <- runSeries(eList,  windowSide = 0)
+  seriesOut_1_orig <- runSeries(eList,  windowSide = 0, oldSurface = TRUE)
+  expect_equal(class(seriesOut_1),"egret")
+  expect_equal(class(seriesOut_1_orig),"egret")
+  expect_true(attr(seriesOut_1, "runSeries"))
+  expect_true(attr(seriesOut_1_orig, "runSeries"))
+  expect_equal(round(attr(seriesOut_1$surfaces, "LogQ")[1], digits = 2), -4.66)
+  expect_equal(round(attr(seriesOut_1$surfaces, "Year")[1], digits = 2), 1984.69)
+  
+  
+  # Option 2:
+  seriesOut_2 <- runSeries(eList, windowSide = 7, oldSurface = TRUE)
+  expect_equal(class(seriesOut_2),"egret")
+  expect_true(attr(seriesOut_2, "runSeries"))
+
+  # Option 3:
+  seriesOut_3 <- runSeries(eList,
+                         windowSide = 0,
+                         flowBreak = TRUE,
+                         Q1EndDate = "1990-09-30")
+  expect_equal(class(seriesOut_3),"egret")
+  expect_true(attr(seriesOut_3, "runSeries"))
+  expect_equal(round(attr(seriesOut_3$surfaces, "LogQ")[1], digits = 2), -4.66)
+  expect_equal(round(attr(seriesOut_3$surfaces, "Year")[1], digits = 2), 1984.69)
+  
+  # Option 4:
+  seriesOut_4 <- runSeries(eList,
+                        windowSide = 7, flowBreak = TRUE,
+                        Q1EndDate = "1990-09-30")
+  expect_equal(class(seriesOut_4),"egret")
+  expect_true(attr(seriesOut_4, "runSeries"))
+  expect_equal(round(attr(seriesOut_4$surfaces, "LogQ")[1], digits = 2), -4.66)
+  expect_equal(round(attr(seriesOut_4$surfaces, "Year")[1], digits = 2), 1984.69)
+  
+})
+
+
+test_that("stitch", {
+  
+  skip_on_cran()
+  
+  eList <- Choptank_Phos
+
+  surfaceStart <- "1986-10-01"
+  surfaceEnd <- "2012-09-30"
+
+  # Surface skips a few years:
+  sample1StartDate <- "1986-10-01"
+  sample1EndDate <- "1992-09-30"
+  sample2StartDate <- "1996-10-01"
+  sample2EndDate <- "2012-09-30"
+
+  surface_skip <- stitch(eList,
+                           sample1StartDate, sample1EndDate,
+                           sample2StartDate, sample2EndDate,
+                           surfaceStart, surfaceEnd)
+
+  expect_equal(names(attributes(surface_skip)), c("dim","Year","LogQ",          
+                                                  "surfaceStart","surfaceEnd","sample1StartDate",
+                                                  "sample1EndDate","sample2StartDate","sample2EndDate"))
+  
+  expect_equal(attr(surface_skip, "surfaceStart"), as.Date(surfaceStart))
+  expect_equal(attr(surface_skip, "sample1EndDate"), sample1EndDate)
+  expect_true(!(dim(surface_skip)[2] == dim(eList$surfaces)[2]))
+  expect_true(dim(surface_skip)[1] == dim(eList$surfaces)[1])
+  expect_true(dim(surface_skip)[3] == dim(eList$surfaces)[3])
+  
+  # Surface overlaps a few years:
+  sample1StartDate <- "1986-10-01"
+  sample1EndDate <- "1996-09-30"
+  sample2StartDate <- "1992-10-01"
+  sample2EndDate <- "2012-09-30"
+
+  surface_overlap <- stitch(eList,
+                           sample1StartDate, sample1EndDate,
+                           sample2StartDate, sample2EndDate)
+  
+  expect_equal(attr(surface_overlap, "sample1EndDate"), sample1EndDate)
+  expect_true(!(dim(surface_overlap)[2] == dim(eList$surfaces)[2]))
+  expect_true(dim(surface_overlap)[1] == dim(eList$surfaces)[1])
+  expect_true(dim(surface_overlap)[3] == dim(eList$surfaces)[3])
+})
   
