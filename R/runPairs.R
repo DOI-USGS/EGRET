@@ -309,17 +309,17 @@ runPairs <- function(eList, year1, year2, windowSide,
   cat("\n For concentration: total change is ", totChange, 
       "mg/L")
   cat("\n expressed as Percent Change is ", totChangePct, "%")
-  pctRS <- format(100 * (cRSpart/cDeltaTotal), digits = 2)
-  pctFD <- format(100 * (cFDpart/cDeltaTotal), digits = 2)
-  cat("\n RS percent of total ", pctRS, "%,    FD percent of total ", 
+  pctRS <- format(100 * (cRSpart/c11), digits = 2)
+  pctFD <- format(100 * (cFDpart/c11), digits = 2)
+  cat("\n\n Concentration v. Q Trend Component ", pctRS, "%\n       Q Trend Component            ", 
       pctFD, "% \n\n")
   totChange <- format(pairResults[2, 1], digits = 3)
   totChangePct <- format(100 * ((f22 - f11)/f11), digits = 2)
   cat("\n For flux: total change is ", totChange, "million kg/year")
   cat("\n expressed as Percent Change is ", totChangePct, "%")
-  pctRS <- format(100 * (fRSpart/fDeltaTotal), digits = 2)
-  pctFD <- format(100 * (fFDpart/fDeltaTotal), digits = 2)
-  cat("\n RS percent of total ", pctRS, "%,    FD percent of total ", 
+  pctRS <- format(100 * (fRSpart/f11), digits = 2)
+  pctFD <- format(100 * (fFDpart/f11), digits = 2)
+  cat("\n\n Concentration v. Q Trend Component ", pctRS, "%\n       Q Trend Component            ", 
       pctFD, "% \n\n")
   print(pairResults)
   return(pairResults)
