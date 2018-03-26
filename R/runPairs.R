@@ -267,7 +267,7 @@ runPairs <- function(eList, year1, year2, windowSide,
   fRSpart <- f20 - f10
   fFDpart <- fDeltaTotal - fRSpart
   pairResults <- as.data.frame(matrix(ncol = 7, nrow = 2))
-  colnames(pairResults) <- c("TotalChange", "CQTC ", " QTC  ", 
+  colnames(pairResults) <- c("TotalChange", "CQTC", "QTC", 
                              "x10", "x11", "x20", "x22")
   rownames(pairResults) <- c("Conc", "Flux")
   pairResults[1, ] <- c(cDeltaTotal, cRSpart, cFDpart, c10, 
