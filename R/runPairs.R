@@ -321,7 +321,7 @@ runPairs <- function(eList, year1, year2, windowSide,
   pctFD <- format(100 * (fFDpart/f11), digits = 2)
   cat("\n\n Concentration v. Q Trend Component ", pctRS, "%\n       Q Trend Component            ", 
       pctFD, "% \n\n")
-  print(pairResults)
+  print(pairResults, digits = 2)
   return(pairResults)
   
 }
