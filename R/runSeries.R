@@ -32,6 +32,7 @@
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
 #' The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
 #' @param oldSurface logical specifying whether to use the original surface, or create a new one.
+#' @param verbose logical specifying whether or not to display progress message
 #' @export
 #' @examples 
 #' eList <- Choptank_Phos
@@ -65,7 +66,7 @@ runSeries <- function(eList, windowSide,
                       sample1EndDate = NA, sampleStartDate = NA, sampleEndDate = NA,
                       paStart = 10, paLong = 12,
                       minNumObs = 100, minNumUncen = 50, windowY = 7, 
-                      windowQ = 2, windowS = 0.5, edgeAdjust = TRUE){
+                      windowQ = 2, windowS = 0.5, edgeAdjust = TRUE, verbose = TRUE){
 
   localSample <- getSample(eList)
   localDaily <- getDaily(eList)
@@ -135,7 +136,7 @@ runSeries <- function(eList, windowSide,
       surfaces <- estSurfaces(eList, surfaceStart = surfaceStart, surfaceEnd = surfaceEnd,
                                   windowY = windowY, windowQ = windowQ, 
                                   windowS = windowS, minNumObs = minNumObs, minNumUncen = minNumUncen, 
-                                  edgeAdjust = TRUE)      
+                                  edgeAdjust = TRUE, verbose = verbose)      
     } 
     
   }

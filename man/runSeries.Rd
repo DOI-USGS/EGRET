@@ -9,7 +9,7 @@ runSeries(eList, windowSide, surfaceStart = NA, surfaceEnd = NA,
   wall = FALSE, oldSurface = FALSE, sample1EndDate = NA,
   sampleStartDate = NA, sampleEndDate = NA, paStart = 10, paLong = 12,
   minNumObs = 100, minNumUncen = 50, windowY = 7, windowQ = 2,
-  windowS = 0.5, edgeAdjust = TRUE)
+  windowS = 0.5, edgeAdjust = TRUE, verbose = TRUE)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -56,6 +56,8 @@ generated (if NA it is the last day of the flow record)}
 
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.
 The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
+
+\item{verbose}{logical specifying whether or not to display progress message}
 }
 \description{
 runSeries
