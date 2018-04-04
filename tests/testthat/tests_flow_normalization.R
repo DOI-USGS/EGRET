@@ -353,9 +353,10 @@ test_that("stitch", {
                            sample2StartDate, sample2EndDate,
                            surfaceStart, surfaceEnd)
 
-  expect_equal(names(attributes(surface_skip)), c("dim","Year","LogQ",          
-                                                  "surfaceStart","surfaceEnd","sample1StartDate",
-                                                  "sample1EndDate","sample2StartDate","sample2EndDate"))
+  expect_true(all(names(attributes(surface_skip)) %in%
+                    c("dim","surfaceIndex","Year","LogQ",          
+                      "surfaceStart","surfaceEnd","sample1StartDate",
+                      "sample1EndDate","sample2StartDate","sample2EndDate")))
   
   expect_equal(attr(surface_skip, "surfaceStart"), as.Date(surfaceStart))
   expect_equal(attr(surface_skip, "sample1EndDate"), sample1EndDate)

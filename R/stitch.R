@@ -94,7 +94,6 @@ stitch <- function(eList,
           " are uncensored")
   message("minNumObs has been set to ", minNumObs, " minNumUncen has been set to ", 
           minNumUncen)
-  
   surfaceStart <- as.Date(surfaceStart)
   if (is.na(surfaceStart)) {
     surfaceStart <- Sample1$Date[1]
@@ -103,15 +102,12 @@ stitch <- function(eList,
   if (is.na(surfaceEnd)) {
     surfaceEnd <- Sample2$Date[nrow(Sample2)]
   }
-  
   surface1End <- as.Date(sample1EndDate) + 1
   surface2Start <- as.Date(sample2StartDate) - 1
   
   highLow <- decimalHighLow(Sample1)
-  
   DecHigh <- highLow[["DecHigh"]]
   DecLow <- highLow[["DecLow"]]
-
   sliceIndex <- which(vectorYear >= decimalDate(surfaceStart) & 
                         vectorYear <= decimalDate(surface1End))
   Year <- vectorYear[c(sliceIndex[1] - 1, sliceIndex, tail(sliceIndex, n = 1) + 1)]
@@ -119,7 +115,6 @@ stitch <- function(eList,
   Year1 <- Year
   estPtYear <- rep(Year, each = 14)
   estPtLogQ <- rep(vectorLogQ, nVectorYear)
-  
   resultSurvReg <- runSurvReg(estPtYear, estPtLogQ, DecLow, 
                               DecHigh, Sample1, windowY, windowQ, windowS, minNumObs, 
                               minNumUncen, edgeAdjust = edgeAdjust, verbose = verbose, 
@@ -133,12 +128,10 @@ stitch <- function(eList,
   }
   attr(surfaces1, "LogQ") <- vectorLogQ
   attr(surfaces1, "Year") <- Year
-  
   highLow <- decimalHighLow(Sample2)
   DecHigh <- highLow[["DecHigh"]]
   DecLow <- highLow[["DecLow"]]
-  
-  sliceIndex <- which(vectorYear >= decimalDate(surface2Start) &
+  sliceIndex <- which(vectorYear >= decimalDate(surface2Start) & 
                         vectorYear <= decimalDate(surfaceEnd))
   Year <- vectorYear[c(sliceIndex[1] - 1, sliceIndex, tail(sliceIndex, n = 1) + 1)]
   nVectorYear <- length(Year)
@@ -159,19 +152,16 @@ stitch <- function(eList,
   attr(surfaces2, "LogQ") <- vectorLogQ
   attr(surfaces2, "Year") <- Year
   if (!(any(Year1 %in% Year2) | any(Year2 %in% Year1))) {
-    surfaceTotal <- array(c(surfaces1, surfaces2), dim = c(14, 
-                                                           length(Year1) + length(Year2), 3))
+    surfaceTotal <- array(c(surfaces1, surfaces2), dim = c(14, length(Year1) + length(Year2), 3))
     vectorYear <- c(Year1, Year2)
-  } else {
+  }
+  else {
     surfaces1Unique <- surfaces1[1:14, which(!(Year1 %in% Year2)), 1:3]
     surfaces2Unique <- surfaces2[1:14, which(!(Year2 %in% Year1)), 1:3]
-    
     surfaces1Slice <- surfaces1[1:14, which((Year1 %in% Year2)), 1:3]
     surfaces2Slice <- surfaces2[1:14, which((Year2 %in% Year1)), 1:3]
-    
     surfacesMean <- (surfaces1Slice + surfaces2Slice)/2
     surfacesMean[, , 3] <- exp((surfacesMean[, , 2]^2)/2) * exp(surfacesMean[, , 1])
-    
     YearStart <- Year1[1]
     YearEnd <- Year2[length(Year2)]
     vectorYear <- seq(YearStart, YearEnd, stepYear)
@@ -180,13 +170,17 @@ stitch <- function(eList,
     surfaceTotal <- array(0, dim = c(14, nVectorYear, 3))
     for (i in 1:14) {
       for (j in 1:3) {
-        surfaceTotal[i, , j] <- c(surfaces1Unique[i, , j], 
-                                  surfacesMean[i, , j], 
-                                  surfaces2Unique[i, , j])
+        surfaceTotal[i, , j] <- c(surfaces1Unique[i,  , j], surfacesMean[i, , j], surfaces2Unique[i, 
+                                                                                              , j])
       }
     }
   }
-  
+  attr(surfaceTotal, "surfaceIndex")[["bottomLogQ"]] <- vectorLogQ[1]
+  attr(surfaceTotal, "surfaceIndex")[["stepLogQ"]] <- vectorLogQ[2] - vectorLogQ[1]
+  attr(surfaceTotal, "surfaceIndex")[["nVectorLogQ"]] <- length(vectorLogQ)
+  attr(surfaceTotal, "surfaceIndex")[["bottomYear"]] <- vectorYear[1]
+  attr(surfaceTotal, "surfaceIndex")[["stepYear"]] <- vectorYear[2] - vectorYear[1]
+  attr(surfaceTotal, "surfaceIndex")[["nVectorYear"]] <- length(vectorYear)
   attr(surfaceTotal, "Year") <- vectorYear
   attr(surfaceTotal, "LogQ") <- vectorLogQ
   attr(surfaceTotal, "surfaceStart") <- surfaceStart

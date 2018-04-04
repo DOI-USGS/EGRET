@@ -97,13 +97,6 @@ runSeries <- function(eList, windowSide,
     surfaceEnd <- surfaceStartEnd(paStart, paLong, sampleStartDate, sampleEndDate)[["surfaceEnd"]]
   }
 
-  if (!oldSurface & isTRUE(surfaceStart < QStartDate)) {
-    stop("surfaceStart can't be before QStartDate")
-  }
-  if (!oldSurface & isTRUE(surfaceEnd > QEndDate)) {
-    stop("surfaceEnd can't be after QEndDate")
-  }
-  
   eList <- as.egret(eList$INFO, localDaily, localSample, localsurfaces)
   
   if (wall) {
