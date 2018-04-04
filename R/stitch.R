@@ -28,16 +28,16 @@
 #' The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
 #' @export
 #' @examples 
-#' eList <- Choptank_Phos
+#' eList <- Choptank_eList
 #' 
 #' surfaceStart <- "1986-10-01"
-#' surfaceEnd <- "2012-09-30"
+#' surfaceEnd <- "2010-09-30"
 #' 
 #' # Surface skips a few years:
 #' sample1StartDate <- "1986-10-01"
 #' sample1EndDate <- "1992-09-30"
 #' sample2StartDate <- "1996-10-01"
-#' sample2EndDate <- "2012-09-30"
+#' sample2EndDate <- "2011-09-30"
 #' 
 #' \dontrun{
 #' surface_skip <- stitch(eList, 
@@ -49,7 +49,7 @@
 #' sample1StartDate <- "1986-10-01"
 #' sample1EndDate <- "1996-09-30"
 #' sample2StartDate <- "1992-10-01"
-#' sample2EndDate <- "2012-09-30"
+#' sample2EndDate <- "2011-09-30"
 #' 
 #' surface_overlap <- stitch(eList, 
 #'                          sample1StartDate, sample1EndDate, 

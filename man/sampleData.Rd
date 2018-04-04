@@ -4,7 +4,6 @@
 \name{Choptank_eList}
 \alias{Choptank_eList}
 \alias{Arkansas_eList}
-\alias{Choptank_Phos}
 \title{Example eList}
 \description{
 Example data representing data from the Choptank River at Greensboro, MD,  USGS data
@@ -13,7 +12,6 @@ Data is a named list of the Daily, Sample, INFO dataframes, and the surface matr
 \examples{
 head(Choptank_eList$Daily)
 head(Arkansas_eList$Daily)
-head(Choptank_Phos$Daily)
 }
 \keyword{data}
 \keyword{quality}
