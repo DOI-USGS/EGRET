@@ -110,8 +110,7 @@ stitch <- function(eList,
   DecLow <- highLow[["DecLow"]]
   sliceIndex <- which(vectorYear >= decimalDate(surfaceStart) & 
                         vectorYear <= decimalDate(surface1End))
-  Year <- vectorYear[c(sliceIndex[1] - 1, sliceIndex, tail(sliceIndex, 
-                                                           n = 1) + 1)]
+  Year <- vectorYear[c(sliceIndex[1] - 1, sliceIndex, tail(sliceIndex, n = 1) + 1)]
   nVectorYear <- length(Year)
   Year1 <- Year
   estPtYear <- rep(Year, each = 14)
@@ -162,8 +161,7 @@ stitch <- function(eList,
     surfaces1Slice <- surfaces1[1:14, which((Year1 %in% Year2)), 1:3]
     surfaces2Slice <- surfaces2[1:14, which((Year2 %in% Year1)), 1:3]
     surfacesMean <- (surfaces1Slice + surfaces2Slice)/2
-    surfacesMean[, , 3] <- exp((surfacesMean[, , 2]^2)/2) * 
-      exp(surfacesMean[, , 1])
+    surfacesMean[, , 3] <- exp((surfacesMean[, , 2]^2)/2) * exp(surfacesMean[, , 1])
     YearStart <- Year1[1]
     YearEnd <- Year2[length(Year2)]
     vectorYear <- seq(YearStart, YearEnd, stepYear)
