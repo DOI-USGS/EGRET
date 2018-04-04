@@ -134,8 +134,7 @@ stitch <- function(eList,
   DecLow <- highLow[["DecLow"]]
   sliceIndex <- which(vectorYear >= decimalDate(surface2Start) & 
                         vectorYear <= decimalDate(surfaceEnd))
-  Year <- vectorYear[c(sliceIndex[1] - 1, sliceIndex, tail(sliceIndex, 
-                                                           n = 1) + 1)]
+  Year <- vectorYear[c(sliceIndex[1] - 1, sliceIndex, tail(sliceIndex, n = 1) + 1)]
   nVectorYear <- length(Year)
   Year2 <- Year
   estPtYear <- rep(Year, each = 14)
@@ -154,19 +153,14 @@ stitch <- function(eList,
   attr(surfaces2, "LogQ") <- vectorLogQ
   attr(surfaces2, "Year") <- Year
   if (!(any(Year1 %in% Year2) | any(Year2 %in% Year1))) {
-    surfaceTotal <- array(c(surfaces1, surfaces2), dim = c(14, 
-                                                           length(Year1) + length(Year2), 3))
+    surfaceTotal <- array(c(surfaces1, surfaces2), dim = c(14, length(Year1) + length(Year2), 3))
     vectorYear <- c(Year1, Year2)
   }
   else {
-    surfaces1Unique <- surfaces1[1:14, which(!(Year1 %in% 
-                                                 Year2)), 1:3]
-    surfaces2Unique <- surfaces2[1:14, which(!(Year2 %in% 
-                                                 Year1)), 1:3]
-    surfaces1Slice <- surfaces1[1:14, which((Year1 %in% Year2)), 
-                                1:3]
-    surfaces2Slice <- surfaces2[1:14, which((Year2 %in% Year1)), 
-                                1:3]
+    surfaces1Unique <- surfaces1[1:14, which(!(Year1 %in% Year2)), 1:3]
+    surfaces2Unique <- surfaces2[1:14, which(!(Year2 %in% Year1)), 1:3]
+    surfaces1Slice <- surfaces1[1:14, which((Year1 %in% Year2)), 1:3]
+    surfaces2Slice <- surfaces2[1:14, which((Year2 %in% Year1)), 1:3]
     surfacesMean <- (surfaces1Slice + surfaces2Slice)/2
     surfacesMean[, , 3] <- exp((surfacesMean[, , 2]^2)/2) * 
       exp(surfacesMean[, , 1])
@@ -178,8 +172,7 @@ stitch <- function(eList,
     surfaceTotal <- array(0, dim = c(14, nVectorYear, 3))
     for (i in 1:14) {
       for (j in 1:3) {
-        surfaceTotal[i, , j] <- c(surfaces1Unique[i, 
-                                                  , j], surfacesMean[i, , j], surfaces2Unique[i, 
+        surfaceTotal[i, , j] <- c(surfaces1Unique[i,  , j], surfacesMean[i, , j], surfaces2Unique[i, 
                                                                                               , j])
       }
     }
