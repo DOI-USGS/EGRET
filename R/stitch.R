@@ -200,7 +200,7 @@ stitch <- function(eList,
 #' @return list with DecHigh and DecLow (water year high/low decimal values)
 #' @export
 #' @examples 
-#' eList <- Choptank_Phos
+#' eList <- Choptank_eList
 #' highLow <- decimalHighLow(eList$Sample)
 #' 
 #' DecHigh <- highLow[["DecHigh"]]

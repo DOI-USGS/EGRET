@@ -35,7 +35,7 @@
 #' @param verbose logical specifying whether or not to display progress message
 #' @export
 #' @examples 
-#' eList <- Choptank_Phos
+#' eList <- Choptank_eList
 #' 
 #' \dontrun{
 #' # Automatic calculations based on windowSide=7

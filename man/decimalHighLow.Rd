@@ -16,7 +16,7 @@ list with DecHigh and DecLow (water year high/low decimal values)
 decimalHighLow
 }
 \examples{
-eList <- Choptank_Phos
+eList <- Choptank_eList
 highLow <- decimalHighLow(eList$Sample)
 
 DecHigh <- highLow[["DecHigh"]]

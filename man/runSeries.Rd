@@ -68,7 +68,7 @@ four possible situations
  4 there is a break (must be specified as lastQDate1) but there is a moving window on each side
 }
 \examples{
-eList <- Choptank_Phos
+eList <- Choptank_eList
 
 \dontrun{
 # Automatic calculations based on windowSide=7
