@@ -94,7 +94,6 @@ stitch <- function(eList,
           " are uncensored")
   message("minNumObs has been set to ", minNumObs, " minNumUncen has been set to ", 
           minNumUncen)
-
   surfaceStart <- as.Date(surfaceStart)
   if (is.na(surfaceStart)) {
     surfaceStart <- Sample1$Date[1]
@@ -105,6 +104,7 @@ stitch <- function(eList,
   }
   surface1End <- as.Date(sample1EndDate) + 1
   surface2Start <- as.Date(sample2StartDate) - 1
+  
   highLow <- decimalHighLow(Sample1)
   DecHigh <- highLow[["DecHigh"]]
   DecLow <- highLow[["DecLow"]]
