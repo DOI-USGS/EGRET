@@ -58,9 +58,9 @@ The modified method tends to reduce curvature near the start and end of record. 
 runPairs description
 }
 \examples{
-eList <- Choptank_Phos
+eList <- Choptank_eList
 year1 <- 1985
-year2 <- 2014
+year2 <- 2010
 
 \dontrun{
 # Automatic calculations based on windowSide=7

@@ -47,12 +47,6 @@ NULL
 #' head(Arkansas_eList$Daily)
 NULL
 
-#' @name Choptank_Phos
-#' @rdname sampleData
-#' @examples 
-#' head(Choptank_Phos$Daily)
-NULL
-
 #' Constants included with EGRET
 #' 
 #'\itemize{

@@ -39,18 +39,6 @@ test_that("setupYears", {
   eList <- Choptank_eList
   expect_equal(as.numeric(signif(eList$Daily$FNConc[1], digits = 6)), 0.972757)
   
-  # eList <- setUpEstimation(eList)
-  # sampleSegStart <- c(1980,1990,2000)
-  # flowSegStart <- c(1980,1985,1992)
-  # flowSegEnd <- c(1994,2004,2011)
-  # dateInfo <- data.frame(sampleSegStart,
-  #                        flowSegStart,
-  #                        flowSegEnd)
-  # eList <- flexFN(eList, dateInfo)
-  # expect_equal(as.numeric(signif(eList$Daily$FNConc[1], digits = 6)), 1.0283)
-  # ar_calendarYear_fn <- setupYears(eList$Daily, paLong = 12, paStart = 1)
-  # expect_equal(signif(ar_calendarYear_fn$FNConc[1], digits = 7), 1.021644)
-  # expect_equal(signif(ar_calendarYear_fn$FNFlux[1], digits = 7), 271.6512)
 })
 
 test_that("setupYears", {
@@ -251,9 +239,9 @@ test_that("flexFN",{
 test_that("runPairs",{
   skip_on_cran()
   
-  eList <- Choptank_Phos
+  eList <- Choptank_eList
   year1 <- 1985
-  year2 <- 2014
+  year2 <- 2010
 
   #Option 1:
   pairOut_1 <- runPairs(eList, year1, year2, windowSide = 0)
@@ -264,20 +252,20 @@ test_that("runPairs",{
   expect_equal(attr(pairOut_1, "yearPair"), attr(pairOut_1_orig, "yearPair"))
   expect_true(all(names(pairOut_1) %in% c("TotalChange","CQTC","QTC","x10","x11","x20","x22" )))
   
-  expect_equal(round(pairOut_1$TotalChange[1], digits = 4), 0.02)
+  expect_equal(round(pairOut_1$TotalChange[1], digits = 4), 0.429)
   
   # Option 2:
   pairOut_2 <- runPairs(eList, year1, year2, windowSide = 7)
 
   expect_true(all(names(pairOut_2) %in% c("TotalChange","CQTC","QTC","x10","x11","x20","x22" )))
-  expect_equal(round(pairOut_2$TotalChange[1], digits = 4), 0.0218)
+  expect_equal(round(pairOut_2$TotalChange[1], digits = 4), 0.3968)
   
   # Option 3:
   pairOut_3 <- runPairs(eList, year1, year2,
                         windowSide = 0, flowBreak = TRUE,
                         Q1EndDate = "1990-09-30")
   expect_true(all(names(pairOut_3) %in% c("TotalChange","CQTC","QTC","x10","x11","x20","x22" )))
-  expect_equal(round(pairOut_3$TotalChange[1], digits = 4), 0.0208)
+  expect_equal(round(pairOut_3$TotalChange[1], digits = 4), 0.4081)
   
   # Option 4:
   pairOut_4 <- runPairs(eList, year1, year2,

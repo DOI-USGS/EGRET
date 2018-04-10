@@ -27,9 +27,9 @@
 #' @param oldSurface logical specifying whether to use the original surface, or create a new one.
 #' 
 #' @examples 
-#' eList <- Choptank_Phos
+#' eList <- Choptank_eList
 #' year1 <- 1985
-#' year2 <- 2014
+#' year2 <- 2010
 #' 
 #' \dontrun{
 #' # Automatic calculations based on windowSide=7
