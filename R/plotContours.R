@@ -158,8 +158,8 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
   if(flowDuration) {
     numDays<-length(localDaily$Day)
     freq<-rep(0,nVectorLogQ)
-    durSurf<-rep(0,nVectorYear*nVectorLogQ)
-    dim(durSurf)<-c(nVectorYear,nVectorLogQ)
+    durSurf<-rep(0,length(x)*length(y))
+    dim(durSurf)<-c(length(x),length(y))
     centerDays<-seq(1,365,22.9)
     centerDays<-floor(centerDays)
     for (ix in 1:16) {
@@ -175,7 +175,7 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
       spanDaily<-subset(spanDaily,isGood)
       n<-length(spanDaily$Day)
       LogQ<-spanDaily$LogQ
-      for(jQ in 1:nVectorLogQ) {
+      for(jQ in 1:length(y)) {
         ind<-ifelse(LogQ < yLQ[jQ],1,0)
         freq[jQ]<-sum(ind)/n
       }
