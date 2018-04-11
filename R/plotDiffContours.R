@@ -72,9 +72,9 @@ plotDiffContours<-function (eList, year0, year1,
                             lwd=1,cex.main=0.95,cex.axis=1,customPar=FALSE,
                             color.palette=colorRampPalette(c("blue","white","red")),...) {
   
-  if(.Device != "null device"){
-    grDevices::graphics.off()
-  }
+  # if(.Device != "null device"){
+  #   grDevices::graphics.off()
+  # }
   
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
@@ -86,10 +86,10 @@ plotDiffContours<-function (eList, year0, year1,
     qUnit <- qConst[qUnit][[1]]
   }
   
-  if(!customPar){
-    par(oma=c(6,1,6,0))
-    par(mar=c(5,5,4,2)+0.1)
-  }
+  # if(!customPar){
+  #   par(oma=c(6,1,6,0))
+  #   par(mar=c(5,5,4,2)+0.1)
+  # }
 
   surfaceName <- c("log of Concentration", "Standard Error of log(C)", 
                    "Concentration")
