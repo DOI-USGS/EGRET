@@ -70,9 +70,9 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
                        flowDuration = TRUE, customPar=FALSE, yTicks=NA,tick.lwd=2,
                        lwd=1,cex.main=1,cex.axis=1,color.palette=colorRampPalette(c("white","gray","blue","red")),...) {
   
-  if(.Device != "null device"){
-    grDevices::graphics.off()
-  }
+  # if(.Device != "null device"){
+  #   grDevices::graphics.off()
+  # }
   
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
@@ -89,10 +89,12 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
     qUnit <- qConst[qUnit][[1]]
   }
 
-  if(!customPar){
-    par(oma=c(6,1,6,0))
-    par(mar=c(5,5,4,2)+0.1)
-  }
+  # if(!customPar){
+  #   # par(oma=c(6,1,6,0))
+  #   # par(mar=c(5,5,4,2)+0.1)
+  #   # par(mar=c(2,3,3,0.1))
+  #   # par(oma=c(0,0,0,0))
+  # }
   surfaceName<-c("log of Concentration","Standard Error of log(C)","Concentration")
   j<-3
   j<-if(whatSurface==1) 1 else j
@@ -154,7 +156,7 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
   surfj<-surf[,,j]
   surft<-t(surfj)
   # the next section does the flow duration information, using the whole period of record in Daily, not just the graph period
-  plotTitle<-if(printTitle) paste(localINFO$shortName," ",localINFO$paramShortName,"\nEstimated",surfaceName[j],"Surface in Color") else ""
+  plotTitle<-if(printTitle) paste(localINFO$shortName," ",localINFO$paramShortName,"\nEstimated",surfaceName[j],"Surface in Color") else NULL
   if(flowDuration) {
     numDays<-length(localDaily$Day)
     freq<-rep(0,nVectorLogQ)
@@ -189,7 +191,7 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
     plevels<-c(pval,1-pval)
     pct1<-format(plevels[1]*100,digits=2)
     pct2<-format(plevels[2]*100,digits=2)
-    plotTitle<-paste(localINFO$shortName,"  ",localINFO$paramShortName,"\nEstimated",surfaceName[j],"Surface in Color\nBlack lines are",pct1,"and",pct2,"flow percentiles")
+    plotTitle<- plotTitle<-if(printTitle)paste(localINFO$shortName,"  ",localINFO$paramShortName,"\nEstimated",surfaceName[j],"Surface in Color\nBlack lines are",pct1,"and",pct2,"flow percentiles")
   }
   # setting up for the possible 3 straight lines to go on the graph
   # if the lines aren't being plotted they are just located outside the plot area
@@ -204,7 +206,7 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
   yLab<-qUnit@qUnitExpress
   logY <- log(y,10)
   filled.contour(x,log(y,10),surft,levels=contourLevels,xlim=c(yearStart,yearEnd),
-                 ylim=c(log(yTicks[1],10),log(yTicks[nYTicks],10)),#main=plotTitle,
+                 ylim=c(log(yTicks[1],10),log(yTicks[nYTicks],10)),#plot.title = title(plotTitle,cex.main=cex.main, outer = TRUE),
                  xlab="",ylab=yLab,xaxs="i",yaxs="i",cex.main=cex.main, 
                  color.palette=color.palette, # ...,
                  plot.axes={
