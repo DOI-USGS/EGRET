@@ -86,10 +86,9 @@ plotDiffContours<-function (eList, year0, year1,
     qUnit <- qConst[qUnit][[1]]
   }
   
-  # if(!customPar){
-  #   par(oma=c(6,1,6,0))
-  #   par(mar=c(5,5,4,2)+0.1)
-  # }
+  if(!customPar){
+    par(mgp=c(2.5,0.5,0))
+  }
 
   surfaceName <- c("log of Concentration", "Standard Error of log(C)", 
                    "Concentration")
