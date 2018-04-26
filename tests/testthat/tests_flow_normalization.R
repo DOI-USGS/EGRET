@@ -281,7 +281,7 @@ test_that("runSeries", {
 
   skip_on_cran()
   
-  eList <- Choptank_Phos
+  eList <- Choptank_eList
 
   #Option 1:
   seriesOut_1 <- runSeries(eList,  windowSide = 0)
@@ -325,7 +325,7 @@ test_that("stitch", {
   
   skip_on_cran()
   
-  eList <- Choptank_Phos
+  eList <- Choptank_eList
 
   surfaceStart <- "1986-10-01"
   surfaceEnd <- "2012-09-30"
