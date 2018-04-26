@@ -86,17 +86,17 @@ runSeries <- function(eList, windowSide,
   
   localSample <- localSample[localSample$Date >= sampleStartDate & 
                                localSample$Date <= sampleEndDate, ]
-
-  surfaceStart <- as.Date(surfaceStart)
-  if (is.na(surfaceStart)) {
+  
+  if(is.null(surfaceStart) || is.na(surfaceStart)){
     surfaceStart <- surfaceStartEnd(paStart, paLong, sampleStartDate, sampleEndDate)[["surfaceStart"]]
   }
-
-  surfaceEnd <- as.Date(surfaceEnd)
-  if (is.na(surfaceEnd)) {
+  surfaceStart <- as.Date(surfaceStart)
+  
+  if (is.null(surfaceEnd) || is.na(surfaceEnd)) {
     surfaceEnd <- surfaceStartEnd(paStart, paLong, sampleStartDate, sampleEndDate)[["surfaceEnd"]]
   }
-
+  surfaceEnd <- as.Date(surfaceEnd)
+  
   eList <- as.egret(eList$INFO, localDaily, localSample, localsurfaces)
   
   if (wall) {
@@ -309,7 +309,15 @@ checkSurfaceSpan <- function(eList){
     Year <- attr(surfaces, "Year")
   } else {
     localINFO <- getInfo(eList)
-    Year <- seq(localINFO$bottomYear, by=localINFO$stepYear, length.out=localINFO$nVectorYear)
+    if(all(c("bottomYear","stepYear","nVectorYear") %in% names(localINFO))){
+      Year <- seq(localINFO$bottomYear, by=localINFO$stepYear, length.out=localINFO$nVectorYear)
+    } else {
+      surfaceIndexParameters <- surfaceIndex(eList$Daily)
+      bottomYear <- surfaceIndexParameters[['bottomYear']]
+      stepYear <- surfaceIndexParameters[['stepYear']]
+      nVectorYear <- surfaceIndexParameters[['nVectorYear']]
+      Year <- seq(bottomYear, by=stepYear, length.out=nVectorYear)
+    }
   }
   
   preSurface <- localSample$DecYear[1] - Year[1]

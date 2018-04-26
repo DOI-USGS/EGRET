@@ -63,14 +63,31 @@ getConcFluxFromSurface <- function(eList, allLogQsByDayOfYear, localDaily, local
     LogQ <- attr(localsurfaces, "LogQ")
   } else {
     localINFO <- getInfo(eList)
-    LogQ <- seq(localINFO$bottomLogQ, by=localINFO$stepLogQ, length.out=localINFO$nVectorLogQ)
+    if(all(c("bottomLogQ","stepLogQ","nVectorLogQ") %in% names(localINFO))){
+      LogQ <- seq(localINFO$bottomLogQ, by=localINFO$stepLogQ, length.out=localINFO$nVectorLogQ)
+    } else {
+      surfaceIndexParameters<-surfaceIndex(eList$Daily)
+      bottomLogQ<-surfaceIndexParameters[['bottomLogQ']]
+      stepLogQ<-surfaceIndexParameters[['stepLogQ']]
+      nVectorLogQ<-surfaceIndexParameters[['nVectorLogQ']]
+      LogQ <- seq(bottomLogQ, by=stepLogQ, length.out=nVectorLogQ)
+    }
+    
   }
   
   if("Year" %in% names(attributes(localsurfaces))){
     Year <- attr(localsurfaces, "Year")
   } else {
     localINFO <- getInfo(eList)
-    Year <- seq(localINFO$bottomYear, by=localINFO$stepYear, length.out=localINFO$nVectorYear)
+    if(all(c("bottomYear","stepYear","nVectorYear") %in% names(localINFO))){
+      Year <- seq(localINFO$bottomYear, by=localINFO$stepYear, length.out=localINFO$nVectorYear)
+    } else {
+      surfaceIndexParameters <- surfaceIndex(eList$Daily)
+      bottomYear <- surfaceIndexParameters[['bottomYear']]
+      stepYear <- surfaceIndexParameters[['stepYear']]
+      nVectorYear <- surfaceIndexParameters[['nVectorYear']]
+      Year <- seq(bottomYear, by=stepYear, length.out=nVectorYear)
+    }
   }
   
   # Using the above data structure as a "look-up" table, list all LogQ values that occured on every

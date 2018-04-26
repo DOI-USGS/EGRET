@@ -273,7 +273,7 @@ test_that("runPairs",{
                         Q1EndDate = "1990-09-30")
   
   expect_true(all(names(pairOut_4) %in% c("TotalChange","CQTC","QTC","x10","x11","x20","x22" )))
-  expect_equal(round(pairOut_4$TotalChange[1], digits = 4), 0.0218)
+  expect_equal(round(pairOut_4$TotalChange[1], digits = 4), 0.3995)
   
 })
 
@@ -281,7 +281,7 @@ test_that("runSeries", {
 
   skip_on_cran()
   
-  eList <- Choptank_Phos
+  eList <- Choptank_eList
 
   #Option 1:
   seriesOut_1 <- runSeries(eList,  windowSide = 0)
@@ -291,7 +291,7 @@ test_that("runSeries", {
   expect_true(attr(seriesOut_1, "runSeries"))
   expect_true(attr(seriesOut_1_orig, "runSeries"))
   expect_equal(round(attr(seriesOut_1$surfaces, "LogQ")[1], digits = 2), -4.66)
-  expect_equal(round(attr(seriesOut_1$surfaces, "Year")[1], digits = 2), 1984.69)
+  expect_equal(round(attr(seriesOut_1$surfaces, "Year")[1], digits = 2), 1979.69)
   
   
   # Option 2:
@@ -307,7 +307,7 @@ test_that("runSeries", {
   expect_equal(class(seriesOut_3),"egret")
   expect_true(attr(seriesOut_3, "runSeries"))
   expect_equal(round(attr(seriesOut_3$surfaces, "LogQ")[1], digits = 2), -4.66)
-  expect_equal(round(attr(seriesOut_3$surfaces, "Year")[1], digits = 2), 1984.69)
+  expect_equal(round(attr(seriesOut_3$surfaces, "Year")[1], digits = 2), 1979.69)
   
   # Option 4:
   seriesOut_4 <- runSeries(eList,
@@ -316,7 +316,7 @@ test_that("runSeries", {
   expect_equal(class(seriesOut_4),"egret")
   expect_true(attr(seriesOut_4, "runSeries"))
   expect_equal(round(attr(seriesOut_4$surfaces, "LogQ")[1], digits = 2), -4.66)
-  expect_equal(round(attr(seriesOut_4$surfaces, "Year")[1], digits = 2), 1984.69)
+  expect_equal(round(attr(seriesOut_4$surfaces, "Year")[1], digits = 2), 1979.69)
   
 })
 
@@ -325,7 +325,7 @@ test_that("stitch", {
   
   skip_on_cran()
   
-  eList <- Choptank_Phos
+  eList <- Choptank_eList
 
   surfaceStart <- "1986-10-01"
   surfaceEnd <- "2012-09-30"

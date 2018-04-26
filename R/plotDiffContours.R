@@ -234,7 +234,7 @@ plotDiffContours<-function (eList, year0, year1,
   filled.contour(x, log(y, 10), difft, levels = contourLevels, 
                  xlim = c(0,1), ylim = c(log(yTicks[1], 
                                              10), log(yTicks[nYTicks], 10)), #main = plotTitle, 
-                 xlab = "", ylab = yLab, xaxs = "i", yaxs = "i", cex.main = cex.main, 
+                 xlab = "", xaxs = "i", yaxs = "i", cex.main = cex.main, 
                  plot.axes = {
                    axis(1, tcl = 0, at = xTicks, labels = xLabels, cex.axis=0.9*cex.axis)
                    axis(2, tcl = 0, las = 1, at = log(yTicks, 10), 
@@ -253,8 +253,11 @@ plotDiffContours<-function (eList, year0, year1,
                    segments(rep(grconvertX(grconvertX(par("usr")[2],from="user",to="inches")-tcl,from="inches",to="user"),length(yTicks)), log(yTicks,10), rep(1,length(yTicks)),log(yTicks,10), lwd = tick.lwd)
                    
                  },
-                 plot.title = {title(main = plotTitle,outer=TRUE,cex.main=cex.main)
-                 }, color.palette=color.palette,...)
+                 plot.title = {
+                   title(main = plotTitle,outer=TRUE,cex.main=cex.main)
+                   mtext(yLab,2,cex=cex.main,line=2,las=0)
+                 }, 
+                 color.palette=color.palette,...)
 
 #   par(oma = c(0, 0, 0, 0))
 #   par(mar = c(5, 4, 4, 2) + 0.1)
