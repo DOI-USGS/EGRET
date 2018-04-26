@@ -88,6 +88,11 @@ plotDiffContours<-function (eList, year0, year1,
   
   if(!customPar){
     par(mgp=c(2.5,0.5,0))
+    if(printTitle){
+      par(oma=c(0,0,2,0))
+    } else {
+      par(oma=c(0,0,0,0))
+    }
   }
 
   surfaceName <- c("log of Concentration", "Standard Error of log(C)", 
@@ -247,8 +252,10 @@ plotDiffContours<-function (eList, year0, year1,
                    segments(rep(0,length(yTicks)), log(yTicks,10), rep(grconvertX(grconvertX(par("usr")[1],from="user",to="inches")+tcl,from="inches",to="user"),length(yTicks)),log(yTicks,10), lwd = tick.lwd)
                    segments(rep(grconvertX(grconvertX(par("usr")[2],from="user",to="inches")-tcl,from="inches",to="user"),length(yTicks)), log(yTicks,10), rep(1,length(yTicks)),log(yTicks,10), lwd = tick.lwd)
                    
+                 },
+                 plot.title = {title(main = plotTitle,outer=TRUE,cex.main=cex.main)
                  }, color.palette=color.palette,...)
-  if (printTitle) title(plotTitle,outer=TRUE,cex.main=cex.main,line=-3)
+
 #   par(oma = c(0, 0, 0, 0))
 #   par(mar = c(5, 4, 4, 2) + 0.1)
 }
