@@ -91,6 +91,11 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
 
   if(!customPar){
     par(mgp=c(2.5,0.5,0))
+    if(printTitle){
+      par(oma=c(0,0,2,0))
+    } else {
+      par(oma=c(0,0,0,0))
+    }
   }
   surfaceName<-c("log of Concentration","Standard Error of log(C)","Concentration")
   j<-3
@@ -224,7 +229,9 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
                    segments(xTicks, rep(log(yTicks[nYTicks],10),length(xTicks)), xTicks, rep(grconvertY(grconvertY(par("usr")[4],from="user",to="inches")-tcl,from="inches",to="user"),length(xTicks)), lwd = tick.lwd)
                    segments(rep(yearStart,length(yTicks)), log(yTicks,10), rep(grconvertX(grconvertX(par("usr")[1],from="user",to="inches")+tcl,from="inches",to="user"),length(yTicks)),log(yTicks,10), lwd = tick.lwd)
                    segments(rep(grconvertX(grconvertX(par("usr")[2],from="user",to="inches")-tcl,from="inches",to="user"),length(yTicks)), log(yTicks,10), rep(yearEnd,length(yTicks)),log(yTicks,10), lwd = tick.lwd)
-                 })
-  if (printTitle) title(plotTitle,outer=TRUE,cex.main=cex.main,line=-3)
+                 },
+                  plot.title = {title(main = plotTitle,outer=TRUE,cex.main=cex.main)
+                 }
+        )
 
 }
