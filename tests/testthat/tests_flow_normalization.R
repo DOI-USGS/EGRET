@@ -291,7 +291,7 @@ test_that("runSeries", {
   expect_true(attr(seriesOut_1, "runSeries"))
   expect_true(attr(seriesOut_1_orig, "runSeries"))
   expect_equal(round(attr(seriesOut_1$surfaces, "LogQ")[1], digits = 2), -4.66)
-  expect_equal(round(attr(seriesOut_1$surfaces, "Year")[1], digits = 2), 1984.69)
+  expect_equal(round(attr(seriesOut_1$surfaces, "Year")[1], digits = 2), 1979.69)
   
   
   # Option 2:
@@ -307,7 +307,7 @@ test_that("runSeries", {
   expect_equal(class(seriesOut_3),"egret")
   expect_true(attr(seriesOut_3, "runSeries"))
   expect_equal(round(attr(seriesOut_3$surfaces, "LogQ")[1], digits = 2), -4.66)
-  expect_equal(round(attr(seriesOut_3$surfaces, "Year")[1], digits = 2), 1984.69)
+  expect_equal(round(attr(seriesOut_3$surfaces, "Year")[1], digits = 2), 1979.69)
   
   # Option 4:
   seriesOut_4 <- runSeries(eList,
@@ -316,7 +316,7 @@ test_that("runSeries", {
   expect_equal(class(seriesOut_4),"egret")
   expect_true(attr(seriesOut_4, "runSeries"))
   expect_equal(round(attr(seriesOut_4$surfaces, "LogQ")[1], digits = 2), -4.66)
-  expect_equal(round(attr(seriesOut_4$surfaces, "Year")[1], digits = 2), 1984.69)
+  expect_equal(round(attr(seriesOut_4$surfaces, "Year")[1], digits = 2), 1979.69)
   
 })
 
