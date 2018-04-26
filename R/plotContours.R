@@ -209,7 +209,7 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
   logY <- log(y,10)
   filled.contour(x,log(y,10),surft,levels=contourLevels,xlim=c(yearStart,yearEnd),
                  ylim=c(log(yTicks[1],10),log(yTicks[nYTicks],10)),#plot.title = title(plotTitle,cex.main=cex.main, outer = TRUE),
-                 xlab="",ylab=yLab,xaxs="i",yaxs="i",cex.main=cex.main, 
+                 xlab="",xaxs="i",yaxs="i",cex.main=cex.main, 
                  color.palette=color.palette, # ...,
                  plot.axes={
                    
@@ -230,7 +230,9 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
                    segments(rep(yearStart,length(yTicks)), log(yTicks,10), rep(grconvertX(grconvertX(par("usr")[1],from="user",to="inches")+tcl,from="inches",to="user"),length(yTicks)),log(yTicks,10), lwd = tick.lwd)
                    segments(rep(grconvertX(grconvertX(par("usr")[2],from="user",to="inches")-tcl,from="inches",to="user"),length(yTicks)), log(yTicks,10), rep(yearEnd,length(yTicks)),log(yTicks,10), lwd = tick.lwd)
                  },
-                  plot.title = {title(main = plotTitle,outer=TRUE,cex.main=cex.main)
+                  plot.title = {
+                    title(main = plotTitle,outer=TRUE,cex.main=cex.main)
+                    mtext(yLab,2,cex=cex.main,line=2,las=0)
                  }
         )
 
