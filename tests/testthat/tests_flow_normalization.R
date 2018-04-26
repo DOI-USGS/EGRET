@@ -273,7 +273,7 @@ test_that("runPairs",{
                         Q1EndDate = "1990-09-30")
   
   expect_true(all(names(pairOut_4) %in% c("TotalChange","CQTC","QTC","x10","x11","x20","x22" )))
-  expect_equal(round(pairOut_4$TotalChange[1], digits = 4), 0.0218)
+  expect_equal(round(pairOut_4$TotalChange[1], digits = 4), 0.3995)
   
 })
 
