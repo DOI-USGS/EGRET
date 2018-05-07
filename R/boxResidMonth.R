@@ -22,7 +22,8 @@
 #' @param font.main font to be used for plot main titles
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' @param las numeric in {0,1,2,3}; the style of axis labels
-#' @param randomCensored logical. Show censored residuals as randomized.
+#' @param randomCensored logical. Show censored residuals as randomized. Default = FALSE.
+
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @seealso \code{\link[graphics]{boxplot}}

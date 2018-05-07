@@ -13,8 +13,8 @@
 #'  This array will be used to estimate these 3 quantities for any given day in the daily values record. 
 #'
 #' @param eList named list with at least the Sample and Daily dataframes
-#' @param surfaceStart Date object for start of surface slice (or character starting date for data retrieval in the form YYYY-MM-DD).
-#' @param surfaceEnd Date object for end of surface slice (or character starting date for data retrieval in the form YYYY-MM-DD).
+#' @param surfaceStart Date object for start of surface slice (or character starting date for data retrieval in the form YYYY-MM-DD). Default is NA .
+#' @param surfaceEnd Date object for end of surface slice (or character starting date for data retrieval in the form YYYY-MM-DD). Default is NA .
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
@@ -24,7 +24,7 @@
 #' @param verbose logical specifying whether or not to display progress message
 #' @param interactive logical deprecated. Use 'verbose' instead
 #' @param run.parallel logical to run bootstrapping in parallel or not
-#' @param localSample data frame to override eList$Sample
+#' @param localSample data frame to override eList$Sample. Default is NA .
 #' @keywords water-quality statistics
 #' @return surfaces array containing the three surfaces estimated, array is 3 dimensional
 #' @export

@@ -30,7 +30,10 @@ boxConcThree(eList, tinyPlot = FALSE, printTitle = TRUE,
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
 \description{
-This function is used to compare the distribution of concentration in the sample and predicted data set.
+This function is used to compare the distribution of concentration in the 
+sample and predicted data set. It shows three boxplots.  One for the sample, 
+one for the predictions on days with sample values, and one for all days 
+(whether or not they had sample values).
 
 Data come from named list, which contains a Sample dataframe with the sample data, 
 a Daily dataframe with the daily flow data,

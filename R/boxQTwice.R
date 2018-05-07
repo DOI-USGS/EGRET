@@ -3,8 +3,11 @@
 #' @description
 #' This function is used to compare the distribution of discharges in the sample data set 
 #' and the discharges in the full daily data set.
-#' Note that discharge is plotted on a logarithmic axis. The data is logged before the statistics are performed
-#' to determine the output of the boxplot.
+#' Note that discharge is plotted on a logarithmic axis. The boxplot is created 
+#' using the log values but the scale is presented in the original units. An 
+#' ideal situation would show the two boxes roughly similar to each other or 
+#' the sample boxplot having median, upper quartile, and higher values being 
+#' slightly greater than in the boxplot of all days.
 #' 
 #' Data come from named list, which contains a Sample dataframe with the sample data, 
 #' a Daily dataframe with the daily flow data,
