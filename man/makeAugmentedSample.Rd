@@ -2,7 +2,7 @@
 % Please edit documentation in R/makeRandomResiduals.R
 \name{makeAugmentedSample}
 \alias{makeAugmentedSample}
-\title{Create Randomized Residuals and Observations}
+\title{Create randomized residuals and observations for data sets that have some censored data}
 \usage{
 makeAugmentedSample(eList)
 }
@@ -16,6 +16,7 @@ eList named list with modified Sample data frame.
 This function is used to add two columns to the Sample data frame: rResid and rObserved.
  rResid is the randomized residual value computed in log concentration units, and rObserved
  is the randomized 'observed' value of concentration in concentration units.
+ Both of these are computed for all censored samples ("less than values").
 }
 \examples{
 choptankAugmented <- makeAugmentedSample(Choptank_eList)

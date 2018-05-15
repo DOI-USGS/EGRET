@@ -8,15 +8,16 @@ mergeReport(INFO, Daily, Sample, surfaces = NA, verbose = TRUE,
   interactive = NULL)
 }
 \arguments{
-\item{INFO}{dataframe containing the INFO dataframe}
+\item{INFO}{dataframe metadata about the Sample and Daily data frames.}
 
-\item{Daily}{dataframe containing the daily data}
+\item{Daily}{dataframe containing the daily discharge data}
 
 \item{Sample}{dataframe containing the sample data}
 
-\item{surfaces}{matrix returned from \code{modelEstimation}. Default is NA.}
+\item{surfaces}{matrix returned from \code{\link{modelEstimation}}. Default is NA.}
 
-\item{verbose}{logical specifying whether or not to display progress message}
+\item{verbose}{logical specifying whether or not to display summary information on 
+the Daily and Sample dataframes.}
 
 \item{interactive}{logical deprecated. Use 'verbose' instead}
 }
@@ -25,11 +26,14 @@ eList named list with Daily, Sample, and INFO dataframes, along with the surface
 Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
 }
 \description{
-Merge Sample and Daily Data into EGRET object
+This function does three things.  1) It transfers the daily discharge value 
+from the Daily data frame to to Sample data frame for those days with samples.
+2) It merges the INFO, Daily and Sample data frames to form an eList object, 
+3) and it prints out a "report" of basic information about the Daily and 
+Sample data frames.
 }
 \details{
-Merges the flow data from the daily record into the sample record, then creates a named list
-with the Daily, Sample, and INFO dataframe. The Sample dataframe in the global enviornment does 
+Note that the Sample dataframe in the global environment does 
 not update with the flow information.
 }
 \examples{

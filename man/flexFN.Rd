@@ -11,11 +11,13 @@ flexFN(eList, dateInfo, localsurfaces = NA, oldSurface = FALSE,
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
 
-\item{dateInfo}{data frame with 4 columns. The column names and descriptions are described in the next set of arguments}
+\item{dateInfo}{data frame with 4 columns. The column names and descriptions 
+are described below.  Default is NA.}
 
-\item{localsurfaces}{surface over-riding the one stored in eList}
+\item{localsurfaces}{surface  (3-dimensional matrix) over-riding the one stored in 
+eList Default = NA.}
 
-\item{oldSurface}{logical specifying whether to use the original surface, or create a new one.}
+\item{oldSurface}{logical, if TRUE, use the surface object in eList.  Default is FALSE.}
 
 \item{flowNormStartCol}{character, name of the column in dateInfo that starts the segment
 for the flow normalization}
@@ -29,8 +31,15 @@ for the portion of the flow to be populated with flow-normalized values.}
 \item{flowEndCol}{character, name of the column in dateInfo that ends the segment
 for the portion of the flow to be populated with flow-normalized values.}
 }
+\value{
+named list, eList, containing INFO, Daily, Sample, and surfaces objects
+}
 \description{
-Flexible Flow Normalization
+This function implements generalized flow normalization.  This means that for 
+determining the  flow normalized concentration and flow normalized flux for any 
+given year, there is a specified list of years from which to create the discharge 
+record used in the flow-normalization process.  That set of years is defined by 
+the dateInfo object.
 }
 \examples{
 eList <- Choptank_eList

@@ -1,6 +1,7 @@
 #' Populate Concentration Columns
 #'
-#' Creates ConcLow, ConcHigh, Uncen (0 if censored, 1 if uncensored) columns for Sample data frame for WRTDS study.
+#' Creates ConcLow, ConcHigh, Uncen (0 if censored, 1 if uncensored) columns 
+#' for Sample data frame for WRTDS analysis.
 #'
 #' @param rawData vector with value and code columns
 #' @return concentrationColumns dataframe

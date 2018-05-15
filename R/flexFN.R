@@ -1,8 +1,16 @@
 #' Flexible Flow Normalization
 #' 
+#' This function implements generalized flow normalization.  This means that for 
+#' determining the  flow normalized concentration and flow normalized flux for any 
+#' given year, there is a specified list of years from which to create the discharge 
+#' record used in the flow-normalization process.  That set of years is defined by 
+#' the dateInfo object.
+#' 
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
-#' @param dateInfo data frame with 4 columns. The column names and descriptions are described in the next set of arguments
-#' @param localsurfaces surface over-riding the one stored in eList
+#' @param dateInfo data frame with 4 columns. The column names and descriptions 
+#' are described below.  Default is NA.
+#' @param localsurfaces surface  (3-dimensional matrix) over-riding the one stored in 
+#' eList Default = NA.
 #' @param flowNormStartCol character, name of the column in dateInfo that starts the segment
 #' for the flow normalization
 #' @param flowNormEndCol character, name of the column in dateInfo that ends the segment
@@ -11,8 +19,9 @@
 #' for the portion of the flow to be populated with flow-normalized values.
 #' @param flowEndCol character, name of the column in dateInfo that ends the segment
 #' for the portion of the flow to be populated with flow-normalized values.
-#' @param oldSurface logical specifying whether to use the original surface, or create a new one.
+#' @param oldSurface logical, if TRUE, use the surface object in eList.  Default is FALSE.
 #' @export
+#' @return named list, eList, containing INFO, Daily, Sample, and surfaces objects
 #' @importFrom dataRetrieval calcWaterYear
 #' @examples
 #' eList <- Choptank_eList
