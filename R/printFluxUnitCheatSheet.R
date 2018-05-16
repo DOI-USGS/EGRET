@@ -1,4 +1,4 @@
-#' Available Flux Unit properties
+#' Reminder to user of flux unit properties  (such as kg/day, tons/year, etc).
 #'
 #' Cheat sheet to print out pre-defined flux unit properties from fluxUnit class
 #' Flux units included:

@@ -4,7 +4,8 @@
 #'
 #' @param INFO dataframe with value and code columns
 #' @param siteNumber character USGS site number
-#' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
+#' @param interactive logical Option for interactive mode.  If TRUE, there is user interaction for error handling 
+#' and data checks. Default is TRUE. If running in batch, should be set to FALSE.
 #' @return INFO dataframe
 #' @export
 #' @examples

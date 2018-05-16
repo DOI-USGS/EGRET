@@ -2,7 +2,7 @@
 % Please edit documentation in R/printqUnitCheatSheet.R
 \name{printqUnitCheatSheet}
 \alias{printqUnitCheatSheet}
-\title{Available Flow Unit properties}
+\title{Reminder to user of flow Unit properties such as cubic meters per second or thousands of cubic feet per second.}
 \usage{
 printqUnitCheatSheet()
 }

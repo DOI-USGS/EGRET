@@ -9,7 +9,7 @@ modelEstimation(eList, windowY = 7, windowQ = 2, windowS = 0.5,
   run.parallel = FALSE)
 }
 \arguments{
-\item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
+\item{eList}{named list with at least the INFO, Daily, and Sample dataframes}
 
 \item{windowY}{numeric specifying the half-window width in the time dimension, in units of years, default is 7}
 
@@ -22,14 +22,14 @@ modelEstimation(eList, windowY = 7, windowQ = 2, windowS = 0.5,
 \item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
 
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.
-The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
+The edgeAdjust method tends to reduce curvature near the start and end of record.  Default is TRUE.}
 
 \item{verbose}{logical specifying whether or not to display progress message}
 
 \item{run.parallel}{logical to run WRTDS in parallel or not}
 }
 \value{
-eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.
+eList named list with INFO, Daily, and Sample dataframes, along with the surfaces matrix.
 Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
 }
 \description{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/readUserSample.r
 \name{readUserSample}
 \alias{readUserSample}
-\title{Import user sample data for EGRET analysis}
+\title{Import user-supplied sample data for EGRET analysis}
 \usage{
 readUserSample(filePath, fileName, hasHeader = TRUE, separator = ",",
   verbose = TRUE, interactive = NULL)
@@ -14,7 +14,8 @@ readUserSample(filePath, fileName, hasHeader = TRUE, separator = ",",
 
 \item{hasHeader}{logical true if the first row of data is the column headers}
 
-\item{separator}{character character that separates data cells}
+\item{separator}{character character that separates data cells. , default is ","
+which is separator used in a .csv file.}
 
 \item{verbose}{logical specifying whether or not to display progress message}
 
@@ -42,7 +43,7 @@ CosDY \tab numeric \tab Cosine of the DecYear
 Imports data from a user-supplied file, and converts it to a Sample data frame 
 (including summing multiple constituents), appropriate for EGRET analysis. 
 First column is date, second is remark code, and third is value. If multiple constituents 
-are to be combinded with interval censoring, additional columns can be inserted, each starting with
+are to be combined with interval censoring, additional columns can be inserted, each starting with
 remark code (specifically looking for <), and values.
 }
 \examples{
