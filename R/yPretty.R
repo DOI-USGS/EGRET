@@ -7,8 +7,8 @@
 #' @export
 #' @return yTicks A numeric vector representing the values for each of the tick marks
 #' @examples
-#' yPretty(7.8)
-#' yPretty(125)
+#' yTicks <- yPretty(7.8)
+#' yTicks <- yPretty(125)
 yPretty<-function(yMax) {
   #This function sets up the ticks on the y axis
   #To run from zero, to some reasonable maximum  

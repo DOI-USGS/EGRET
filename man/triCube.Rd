@@ -16,8 +16,11 @@ w numeric vector of weights, all 0<=w<=1
 }
 \description{
 Computes the tricube weight function on a vector of distance values (d),
-     based on a half-window width of h,
-     and returns a vector of weights that range from zero to 1.
+based on a half-window width of h,
+and returns a vector of weights that range from zero to 1.
+}
+\details{
+See Cleveland, W. S. (1979). Robust locally weighted regression and smoothing scatterplots, JASA,  74, 829-836
 }
 \examples{
  h<-10

@@ -2,7 +2,7 @@
 % Please edit documentation in R/startEnd.R
 \name{surfaceStartEnd}
 \alias{surfaceStartEnd}
-\title{surfaceStartEnd}
+\title{Surface date limits}
 \usage{
 surfaceStartEnd(paStart, paLong, Date1, Date2)
 }
@@ -11,12 +11,16 @@ surfaceStartEnd(paStart, paLong, Date1, Date2)
 
 \item{paLong}{numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12, default is 12}
 
-\item{Date1}{earliest date of Sample (to set surface start)}
+\item{Date1}{Date set to Date of earliest data in Sample.}
 
-\item{Date2}{latest date of Sample (to set surface end)}
+\item{Date2}{Date set to Date of latest data in Sample.}
 }
 \description{
-surfaceStartEnd
+Sets the Date limits to the surfaces being estimated from the Sample data set.  The start is less 
+than a year prior to the first date (typically the date of the first sample) and the end is 
+less than a year after the last date (typically the date of the last sample).  The start is 
+constrained to be on the first day of the period of analysis and the end is constrained to 
+be on the last day of the the period of analysis
 }
 \examples{
 eList <- Choptank_eList

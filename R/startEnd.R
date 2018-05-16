@@ -1,10 +1,10 @@
 #' startEnd
 #' 
-#' Returns two date variables for a combination of paStart, paLong, and year
+#' Returns two date variables representing the starting date and ending date for a combination of paStart, paLong, and year
 #' 
 #' @param paLong numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12, default is 12
 #' @param paStart numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12, default is 10 
-#' @param year integer year
+#' @param year integer year, which is the calendar year in which the period ends 
 #' 
 #' @return Date list 
 #' @export
@@ -30,13 +30,18 @@ startEnd <- function(paStart, paLong, year){
   return(startEnd)	
 }
 
-#' surfaceStartEnd
+#' Surface date limits
 #' 
-#' surfaceStartEnd
+#' Sets the Date limits to the surfaces being estimated from the Sample data set.  The start is less 
+#' than a year prior to the first date (typically the date of the first sample) and the end is 
+#' less than a year after the last date (typically the date of the last sample).  The start is 
+#' constrained to be on the first day of the period of analysis and the end is constrained to 
+#' be on the last day of the the period of analysis
+#' 
 #' @param paLong numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12, default is 12
 #' @param paStart numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12, default is 10 
-#' @param Date1 earliest date of Sample (to set surface start)
-#' @param Date2 latest date of Sample (to set surface end)
+#' @param Date1 Date set to Date of earliest data in Sample.
+#' @param Date2 Date set to Date of latest data in Sample.
 #' @export
 #' @examples 
 #' eList <- Choptank_eList

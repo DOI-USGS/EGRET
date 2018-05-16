@@ -1,4 +1,4 @@
-#' Creates a character character that describes the period of analysis, when the period of analysis is being set by the user and not from AnnualResults
+#' Creates a character variable that describes the period of analysis, when the period of analysis is being set by the user and not from AnnualResults
 #'
 #' The period of analysis can be of any length from 1 month to 12 months. 
 #' The period of analysis can have any starting month from 1 (January) through 12 (December). 

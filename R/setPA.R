@@ -1,4 +1,4 @@
-#' Sets up the period of analysis 
+#' Sets up the period of analysis (the portion of the year being evaluated). 
 #'
 #' Period of analysis is defined by the starting month (paStart) and length in months (paLong). 
 #' paStart and paLong are constrained to be integers from 1 to 12. 
@@ -11,7 +11,7 @@
 #' @param window A numeric value for the half-width of a smoothing window for annual streamflow values, default is 20
 #' @keywords statistics streamflow
 #' @export
-#' @return eList named list at least the INFO dataframe, along any other part of the list that was input. 
+#' @return eList named list with at least the INFO dataframe, along any other part of the list that was input. 
 #' Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
 #' @examples
 #' eList <- Choptank_eList

@@ -14,9 +14,9 @@ runSurvReg(estPtYear, estPtLQ, DecLow, DecHigh, Sample, windowY = 7,
 
 \item{estPtLQ}{numeric vector of ln(Q) values at the estimation points, must be the same length as estPtYear}
 
-\item{DecLow}{number specifying minimum decimal year}
+\item{DecLow}{number specifying minimum decimal year (left edge of the estimated surfaces).}
 
-\item{DecHigh}{number specifying maximum decimal year}
+\item{DecHigh}{number specifying maximum decimal year (right edge of the estimated surfaces).}
 
 \item{Sample}{dataframe created for EGRET analysis}
 
@@ -43,10 +43,11 @@ resultSurvReg numeric array containing the yHat, SE, and ConcHat values array di
 }
 \description{
 This function runs the survival regression which is the concentration estimation method of WRTDS. 
-   It uses sample data from the data frame Sample. 
-   It does the estimation for a set of data points defined by two vectors: estPtYear and estPtLQ. 
-   It returns an array of results for the estimation points.  
-   The array returned contains yHat, SE and ConcHat (in that order).
+It uses sample data from the data frame Sample. 
+It does the estimation for a set of data points defined by two vectors: estPtYear and estPtLQ. 
+It returns an array of results for the estimation points.  
+The array returned contains yHat, SE and ConcHat (in that order). yHat is the expected value of log(concentration), SE is 
+the standard error of log(concentration) and ConcHat is the expected value of concentration.
 }
 \examples{
 eList <- Choptank_eList

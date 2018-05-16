@@ -1,7 +1,8 @@
 #' Table of annual results for discharge, concentration and flux
 #'
 #' Produce an ASCII table showing: year, mean discharge, mean concentration, flow-normalized concentration, 
-#' mean flux, and flow-normalized flux. 
+#' mean flux, and flow-normalized flux. Note that the flux and flow-normalized flux are rates and not a mass.  As such a value for some period shorter than a full year 
+#' could be larger than the value for a full year. 
 #'
 #' @param eList named list with at least Daily and INFO dataframes
 #' @param qUnit object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name. 

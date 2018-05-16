@@ -1,9 +1,9 @@
 #' Create a table of the changes in flow-normalized values between various points in time in the record
 #'
 #' These tables describe trends in flow-normalized concentration and in flow-normalized flux. 
-#' They are described as changes in real units or in percent and als as slopes in real units per year or in percent per year.
+#' They are described as changes in real units or in percent and as slopes in real units per year or in percent per year.
 #' They are computed over pairs of time points.  These time points can be user-defined or
-#' they can be set by the program to be the final year of the record and a set of years that are multiple of 5 years prior to that.
+#' they can be set by the program to be the final year of the record and a set of years that are multiples of 5 years prior to that.
 #'
 #' @param eList named list with at least the Daily and INFO dataframes
 #' @param fluxUnit object of fluxUnit class. \code{\link{printFluxUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.

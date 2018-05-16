@@ -2,7 +2,7 @@
 % Please edit documentation in R/setPA.R
 \name{setPA}
 \alias{setPA}
-\title{Sets up the period of analysis}
+\title{Sets up the period of analysis (the portion of the year being evaluated).}
 \usage{
 setPA(eList, paStart = 10, paLong = 12, window = 20)
 }
@@ -16,7 +16,7 @@ setPA(eList, paStart = 10, paLong = 12, window = 20)
 \item{window}{A numeric value for the half-width of a smoothing window for annual streamflow values, default is 20}
 }
 \value{
-eList named list at least the INFO dataframe, along any other part of the list that was input. 
+eList named list with at least the INFO dataframe, along any other part of the list that was input. 
 Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
 }
 \description{
