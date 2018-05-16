@@ -8,6 +8,10 @@
 #' @export
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param windowSide integer The width of the flow normalization window on each side of the year being estimated.  A common value is 7, but no default is specified.  If stationary flow normalization is to be used, then windowSide = 0 (this means that flow-normalization period for all years is the same).
+#' @param surfaceStart The Date (or character in YYYY-MM-DD) that is the start of the WRTDS model to be estimated and the first of the 
+#' daily outputs to be generated.  Default is NA, which means that the surfaceStart is based on the date of the first sample. 
+#' @param surfaceEnd The Date (or character in YYYY-MM-DD) that is the end of the WRTDS model to be estimated and the last of the daily outputs 
+#' to be generated.  Default is NA, which means that the surfaceEnd is based on the date of the last sample. 
 #' @param flowBreak logical, is there an abrupt break in the discharge record, default is FALSE.
 #' @param Q1EndDate The Date (as character in YYYY-MM-DD format) which is the last day, just before the flowBreak. Required if flowBreak = TRUE.
 #' @param QStartDate The first Date (as character in YYYY-MM-DD format) used in the flow normalization.  Default is NA, which makes the QStartDate become the first Date in eList$Daily. 
@@ -16,7 +20,7 @@
 #' @param sample1EndDate The Date (as character in YYYY-MM-DD format) of the last day just before the wall.  Default = NA.  A date must be specified if wall = TRUE.
 #' @param sampleStartDate The Date (as character in YYYY-MM-DD format) of the first sample to be used.  Default is NA which sets it to the first Date in eList$Sample.
 #' @param sampleEndDate The Date (as character in YYYY-MM-DD format) of the last sample to be used. Default is NA which sets it to the last Date in eList$Sample. 
-#’ @param oldSurface logical, if TRUE, use surface previously estimated using modelEstimation.  Default is FALSE.
+#' @param oldSurface logical, if TRUE, use surface previously estimated using modelEstimation.  Default is FALSE.
 #' @param paLong numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12, default is 12.
 #' @param paStart numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12, default is 10 (used when period is water year). 
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
@@ -25,6 +29,7 @@
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record. The edgeAdjust method tends to reduce curvature near the start and end of record.  Default is TRUE.
+#' @param verbose logical specifying whether to output status messages.
 #' @return eList named list with INFO, Daily, and Sample dataframes, along with the surfaces matrix.
 #' @examples 
 #' eList <- Choptank_eList
