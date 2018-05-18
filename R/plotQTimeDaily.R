@@ -24,6 +24,9 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param logScale logical whether or not to use a log scale in the y axis. Default is FALSE.
 #' @param prettyDate logical use 'pretty' limits for date axis if TRUE, or force the yearStart/yearEnd as limits if FALSE
+#' @param usgsStyle logical option to use USGS style guidelines. Setting this option
+#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' generated labels. 
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow
 #' @export
@@ -38,7 +41,7 @@
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' plotQTimeDaily(eList)
 plotQTimeDaily<-function (eList, yearStart=NA, yearEnd=NA, qLower = NA, qUnit = 1, logScale=FALSE,
-                          tinyPlot = FALSE, printTitle = TRUE, lwd = 3, col="red", 
+                          tinyPlot = FALSE, printTitle = TRUE, usgsStyle = FALSE, lwd = 3, col="red", 
                           cex.main = 1.2, cex.lab = 1.2, customPar=FALSE,prettyDate=TRUE,...){
   
   localINFO <- getInfo(eList)
@@ -73,7 +76,7 @@ plotQTimeDaily<-function (eList, yearStart=NA, yearEnd=NA, qLower = NA, qUnit = 
   if (tinyPlot){
     yLab <- qUnit@qUnitTiny
   } else {
-    yLab <- qUnit@qUnitExpress
+    yLab <- ifelse(usgsStyle,qUnit@unitUSGS,qUnit@qUnitExpress)
   }
   
   yearStart <- if (is.na(yearStart)) as.integer(min(localDaily$DecYear,na.rm=TRUE)) else yearStart
