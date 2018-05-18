@@ -24,6 +24,9 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
+#' @param usgsStyle logical option to use USGS style guidelines. Setting this option
+#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' generated labels. 
 #' @param randomCensored logical. Show censored values as randomized.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
@@ -39,6 +42,7 @@
 #' plotConcQ(eList)
 plotConcQ<-function(eList, qUnit = 2, tinyPlot = FALSE, logScale=FALSE,randomCensored=FALSE,
                     concMax = NA, concMin =NA, printTitle = TRUE, cex=0.8, cex.axis=1.1,cex.main=1.1,
+                    usgsStyle=FALSE,
                     rmSciX=FALSE,rmSciY=FALSE, customPar=FALSE,col="black",lwd=1,...){
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
@@ -72,7 +76,7 @@ plotConcQ<-function(eList, qUnit = 2, tinyPlot = FALSE, logScale=FALSE,randomCen
   if (tinyPlot){
     xLab<-qUnit@qUnitTiny
   } else {
-    xLab<-qUnit@qUnitExpress
+    xLab<-ifelse(usgsStyle, qUnit@unitUSGS, qUnit@qUnitExpress)
   }
   
   if(logScale){

@@ -26,6 +26,9 @@
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multi-plot figure, default is FALSE.
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' @param las numeric in {0,1,2,3}; the style of axis labels, see ?par
+#' @param usgsStyle logical option to use USGS style guidelines. Setting this option
+#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' generated labels. 
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @seealso \code{\link[graphics]{boxplot}}
@@ -41,7 +44,8 @@
 #' boxQTwice(eList)
 boxQTwice<-function(eList, 
                     printTitle = TRUE, qUnit = 2, cex=0.8,cex.main=1.1,logScale=TRUE, 
-                    cex.axis=1.1, tcl=0.5, las=1, tinyPlot = FALSE, customPar=FALSE,...){
+                    cex.axis=1.1, tcl=0.5, las=1, 
+                    tinyPlot = FALSE, usgsStyle=FALSE, customPar=FALSE,...){
   
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
@@ -87,7 +91,7 @@ boxQTwice<-function(eList,
     if (!customPar) par(mar=c(4,5,1,0.1),tcl=tcl,cex.lab=cex.axis)
     groupNames<-c("Sampled","All")
   } else {
-    yLabel <- qUnit@qUnitExpress
+    yLabel <- ifelse(usgsStyle, qUnit@unitUSGS, qUnit@qUnitExpress)
     if (!customPar) par(mar=c(5,6,4,2)+0.1,tcl=tcl,cex.lab=cex.axis)
     groupNames<-c("Sampled","All")
   }

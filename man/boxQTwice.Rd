@@ -6,7 +6,7 @@
 \usage{
 boxQTwice(eList, printTitle = TRUE, qUnit = 2, cex = 0.8,
   cex.main = 1.1, logScale = TRUE, cex.axis = 1.1, tcl = 0.5, las = 1,
-  tinyPlot = FALSE, customPar = FALSE, ...)
+  tinyPlot = FALSE, usgsStyle = FALSE, customPar = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -28,6 +28,10 @@ boxQTwice(eList, printTitle = TRUE, qUnit = 2, cex = 0.8,
 \item{las}{numeric in {0,1,2,3}; the style of axis labels, see ?par}
 
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be plotted small as part of a multi-plot figure, default is FALSE.}
+
+\item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
+to TRUE does NOT guarantee USGS complience. It will only change automatically
+generated labels.}
 
 \item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function}
 
