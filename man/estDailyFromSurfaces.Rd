@@ -19,9 +19,9 @@ bin_Qs(localDaily)
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes, and the surface matrix}
 
-\item{localsurfaces}{surface over-riding the one stored in eList}
+\item{localsurfaces}{surface over-riding the one stored in eList.  Default is NA.}
 
-\item{localDaily}{data frame to override eList$Daily}
+\item{localDaily}{data frame to override eList$Daily.  Default is NA.}
 
 \item{allLogQsByDayOfYear}{list}
 }

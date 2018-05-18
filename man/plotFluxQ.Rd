@@ -6,8 +6,8 @@
 \usage{
 plotFluxQ(eList, qUnit = 2, logScale = TRUE, fluxUnit = 3,
   tinyPlot = FALSE, fluxMax = NA, fluxMin = NA, col = "black",
-  lwd = 1, printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
-  cex.main = 1.1, customPar = FALSE, ...)
+  lwd = 1, printTitle = TRUE, usgsStyle = FALSE, cex = 0.8,
+  cex.axis = 1.1, cex.main = 1.1, customPar = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}
@@ -29,6 +29,10 @@ plotFluxQ(eList, qUnit = 2, logScale = TRUE, fluxUnit = 3,
 \item{lwd}{number line width}
 
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)}
+
+\item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
+to TRUE does NOT guarantee USGS complience. It will only change automatically
+generated labels.}
 
 \item{cex}{numerical value giving the amount by which plotting symbols should be magnified}
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/stitch.R
 \name{stitch}
 \alias{stitch}
-\title{stitch}
+\title{stitch surfaces}
 \usage{
 stitch(eList, sample1StartDate, sample1EndDate, sample2StartDate,
   sample2EndDate, surfaceStart = NA, surfaceEnd = NA, minNumObs = 100,
@@ -12,19 +12,19 @@ stitch(eList, sample1StartDate, sample1EndDate, sample2StartDate,
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
 
-\item{sample1StartDate}{The Date (or character in YYYY-MM-DD) of the first sample to be used (if NA it is the first Date in eList$Sample)}
+\item{sample1StartDate}{The Date (or character in YYYY-MM-DD) of the first sample to be used in estimating the first segment of the surfaces object.}
 
-\item{sample1EndDate}{The Date (or character in YYYY-MM-DD) of the last sample to be used in the first section}
+\item{sample1EndDate}{The Date (or character in YYYY-MM-DD) of the last sample to be used in the first segment of the surfaces object.}
 
-\item{sample2StartDate}{The Date (or character in YYYY-MM-DD) of the first sample to be used in the second section}
+\item{sample2StartDate}{The Date (or character in YYYY-MM-DD) of the first sample to be used in the second segment of the surfaces object.}
 
-\item{sample2EndDate}{The Date (or character in YYYY-MM-DD) of the last sample to be used in the second section}
+\item{sample2EndDate}{The Date (or character in YYYY-MM-DD) of the last sample to be used in the second segment of the surfaces object.}
 
-\item{surfaceStart}{The Date (or character in YYYY-MM-DD) that is the start of the WRTDS model to be estimated and the last of the 
-daily outputs to be generated (if NA it is sampleStartDate)}
+\item{surfaceStart}{The Date (or character in YYYY-MM-DD) that is the start of the WRTDS model to be estimated and the first of the 
+daily outputs to be generated. Default is NA, which means that the surfaceStart is based on the date of the first sample.}
 
 \item{surfaceEnd}{The Date (or character in YYYY-MM-DD) that is the end of the WRTDS model to be estimated and the last of the daily outputs 
-to be generated (if NA it is sampleEndDate)}
+to be generated.  Default is NA, which means that the surfaceEnd is based on the date of the last sample.}
 
 \item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
 
@@ -37,7 +37,7 @@ to be generated (if NA it is sampleEndDate)}
 \item{windowS}{numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5}
 
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.
-The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
+The edgeAdjust method tends to reduce curvature near the start and end of record.  Default is TRUE.}
 
 \item{verbose}{logical specifying whether or not to display progress message}
 
@@ -45,13 +45,12 @@ The modified method tends to reduce curvature near the start and end of record. 
 }
 \description{
 This function creates a continuous surfaces object that starts just before 
-surfaceStart and ends just after surfaceEnd.
-}
-\details{
-It has a wall in it and the wall comes just after lastDaySample1
-Arguments 2 through 5 are all dates, but just to make sure we will do a conversion to as.Date
-the only use being made of eList$Daily is to establish the minimum and maximum discharges for the surfaces
-the eList$Sample will be split out into Sample1 and Sample2 (there will be no overlap)
+surfaceStart and ends just after surfaceEnd. It is made up from two surfaces 
+objects created when there is a wall specified for the analysis.  The first 
+surfaces object is based on data prior to the wall and the second surfaces object 
+is based on data after the wall.  The wall is located just after sample1EndDate.
+The Daily data frame is used only to set the minimum and maximum discharges used 
+to construct the indices for discharges in the surfaces.
 }
 \examples{
 eList <- Choptank_eList

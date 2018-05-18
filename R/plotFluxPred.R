@@ -20,6 +20,9 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
+#' @param usgsStyle logical option to use USGS style guidelines. Setting this option
+#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' generated labels. 
 #' @param randomCensored logical. Show censored values as randomized.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
@@ -36,7 +39,8 @@
 #' plotFluxPred(eList)
 plotFluxPred<-function(eList, fluxUnit = 3, fluxMax = NA, 
                        printTitle = TRUE, oneToOneLine=TRUE, customPar=FALSE,col="black", lwd=1,
-                       cex=0.8, cex.axis=1.1,cex.main=1.1,tinyPlot=FALSE,logScale=FALSE,randomCensored = FALSE,...){
+                       cex=0.8, cex.axis=1.1,cex.main=1.1,
+                       tinyPlot=FALSE, usgsStyle=FALSE,logScale=FALSE,randomCensored = FALSE,...){
   # this function shows observed versus estimated flux
   # estimated flux on the x-axis (these include the bias correction), 
   # observed flux on y-axis 
@@ -91,8 +95,13 @@ plotFluxPred<-function(eList, fluxUnit = 3, fluxMax = NA,
     xLab <- fluxUnit@unitEstimateTiny
     yLab <- substitute(a ~ b, list(a="Obs.",b= fluxUnit@unitExpressTiny[[1]]))
   } else {
-    xLab <- fluxUnit@unitEstimate
-    yLab <- substitute(a ~ b, list(a="Observed",b= fluxUnit@unitExpress[[1]]))
+    if(usgsStyle){
+      xLab <- paste("Estimated", tolower(fluxUnit@unitUSGS))
+      yLab <- paste("Observed", tolower(fluxUnit@unitUSGS))
+    } else {
+      xLab <- fluxUnit@unitEstimate
+      yLab <- substitute(a ~ b, list(a="Observed",b= tolower(fluxUnit@unitExpress[[1]])))
+    }
   }
   
   if(logScale){

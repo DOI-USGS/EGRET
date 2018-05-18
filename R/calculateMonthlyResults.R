@@ -1,7 +1,7 @@
-#' Calculates monthly values of Q, Conc, Flux, FNConc, and FNFlux for the entire record
+#' Calculates monthly mean values of Q, Conc, Flux, FNConc, and FNFlux for the entire record.  
 #'
 #' Computes the monthly mean values of discharge, concentration, flux, flow-normalized concentration and flow-normalized flux (Q, Conc, Flux, FNConc, and FNFlux) in SI units 
-#' (For discharge they are in m3/s, concentration is mg/L, and flux is kg/day).
+#' Note that the Flux and FNFlux values are average flux values (not totals). For discharge they are in m3/s, concentration is mg/L, and flux is kg/day.
 #' It returns a data frame containing month, year, decimal year, and mean values of DecYear, Q, Conc, Flux, FNConc, and FNFlux.
 #'
 #' @param eList named list with at least the Daily dataframes

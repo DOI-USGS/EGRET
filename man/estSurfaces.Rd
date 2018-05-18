@@ -12,11 +12,11 @@ estSurfaces(eList, surfaceStart = NA, surfaceEnd = NA, localSample = NA,
 \arguments{
 \item{eList}{named list with at least the Sample and Daily dataframes}
 
-\item{surfaceStart}{Date object for start of surface slice (or character starting date for data retrieval in the form YYYY-MM-DD).}
+\item{surfaceStart}{Date object for start of surface slice (or character starting date for data retrieval in the form YYYY-MM-DD). Default is NA .}
 
-\item{surfaceEnd}{Date object for end of surface slice (or character starting date for data retrieval in the form YYYY-MM-DD).}
+\item{surfaceEnd}{Date object for end of surface slice (or character starting date for data retrieval in the form YYYY-MM-DD). Default is NA .}
 
-\item{localSample}{data frame to override eList$Sample}
+\item{localSample}{data frame to override eList$Sample. Default is NA .}
 
 \item{windowY}{numeric specifying the half-window width in the time dimension, in units of years, default is 7}
 

@@ -1,4 +1,4 @@
-#' Available Flow Unit properties
+#' Reminder to user of flow Unit properties such as cubic meters per second or thousands of cubic feet per second.
 #'
 #' Cheat sheet to print out pre-defined qUnit properties from qUnit class.
 #' Flow units included:

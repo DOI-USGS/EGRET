@@ -1,7 +1,8 @@
 #' Produces a 4 panel plot that gives an overview of the data set prior to any processing
 #'
 #' @description
-#' The four plots produced are 1) log concentration versus log discharge, 2) log concentration versus time
+#' This function produces the 4 plots based only on the data stored in the eList.  
+#' The four plots are 1) log concentration versus log discharge, 2) log concentration versus time
 #' 3) a boxplot of log concentration by month, and 
 #' 4) a side-by-side boxplot of the sampled discharges and all daily discharges. 
 #' To save space, the graphic is labeled only at the top of the 4 graph display. 
@@ -13,7 +14,9 @@
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param logScaleConc logical if TRUE y in concentration graphs plotted in log axis. Default is TRUE.
 #' @param logScaleQ logical if TRUE y in streamflow graphs plotted in log axis. Default is TRUE.
-#' @param randomCensored logical. Show censored values as randomized.
+#' @param randomCensored logical. Show censored values as randomized. Default is FALSE.  
+#' If TRUE, makeAugmentedSample must be run first.
+
 #' @keywords graphics water-quality statistics
 #' @seealso \code{\link{plotConcQ}}, \code{\link{boxConcMonth}}, \code{\link{plotConcTime}}, \code{\link{boxQTwice}}
 #' @export

@@ -14,14 +14,16 @@ multiPlotDataOverview(eList, qUnit = 2, cex.main = 1.2,
 
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
 
-\item{randomCensored}{logical. Show censored values as randomized.}
+\item{randomCensored}{logical. Show censored values as randomized. Default is FALSE.
+If TRUE, makeAugmentedSample must be run first.}
 
 \item{logScaleConc}{logical if TRUE y in concentration graphs plotted in log axis. Default is TRUE.}
 
 \item{logScaleQ}{logical if TRUE y in streamflow graphs plotted in log axis. Default is TRUE.}
 }
 \description{
-The four plots produced are 1) log concentration versus log discharge, 2) log concentration versus time
+This function produces the 4 plots based only on the data stored in the eList.  
+The four plots are 1) log concentration versus log discharge, 2) log concentration versus time
 3) a boxplot of log concentration by month, and 
 4) a side-by-side boxplot of the sampled discharges and all daily discharges. 
 To save space, the graphic is labeled only at the top of the 4 graph display. 

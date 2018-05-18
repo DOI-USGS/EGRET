@@ -11,7 +11,9 @@ printSeries(eList, istat, qUnit = 1, runoff = FALSE)
 
 \item{istat}{A numeric value for the flow statistic to be graphed (possible values are 1 through 8)}
 
-\item{qUnit}{object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.}
+\item{qUnit}{object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented 
+the short code, or character representing the descriptive name.
+Default is 1, which is cubic feet per second.}
 
 \item{runoff}{logical variable, if TRUE the streamflow data are converted to runoff values in mm/day}
 }

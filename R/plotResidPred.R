@@ -69,11 +69,11 @@ plotResidPred<-function(eList, stdResid = FALSE,
   Uncen<-localSample$Uncen
   
   if (tinyPlot){
-    xLab <- "Est. Conc. in natural log units"
-    yLab <- if(stdResid) "Std. Residual" else "Residual"
+    xLab <- "Est. conc. in natural log units"
+    yLab <- if(stdResid) "Std. residual" else "Residual"
   }  else {
-    xLab<-"Estimated Concentration in natural log units"
-    yLab<-if(stdResid) "Standardized Residual in natural log units" else "Residual in natural log units"
+    xLab<-"Estimated concentration in natural log units"
+    yLab<-if(stdResid) "Standardized residual in natural log units" else "Residual in natural log units"
   }
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Residual versus Estimated Concentration") else ""
   

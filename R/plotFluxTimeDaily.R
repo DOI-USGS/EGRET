@@ -24,6 +24,9 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
+#' @param usgsStyle logical option to use USGS style guidelines. Setting this option
+#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' generated labels. 
 #' @param prettyDate logical use 'pretty' limits for date axis if TRUE, or force the yearStart/yearEnd as limits if FALSE
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
@@ -39,7 +42,7 @@
 #' plotFluxTimeDaily(eList)
 plotFluxTimeDaily<-function (eList, yearStart=NA, yearEnd=NA, 
                              tinyPlot = FALSE, fluxUnit = 3, fluxMax = NA, 
-                             printTitle = TRUE, cex=0.8, cex.axis=1.1,cex.main=1.1, 
+                             printTitle = TRUE, usgsStyle = FALSE, cex=0.8, cex.axis=1.1,cex.main=1.1, 
                              customPar=FALSE,col="black",lwd=1,prettyDate=TRUE,...) {
   
   localINFO <- getInfo(eList)
@@ -117,7 +120,7 @@ plotFluxTimeDaily<-function (eList, yearStart=NA, yearEnd=NA,
   if (tinyPlot) {
     yLab <- fluxUnit@unitExpressTiny
   } else {
-    yLab <- fluxUnit@unitExpress
+    yLab <- ifelse(usgsStyle,fluxUnit@unitUSGS,fluxUnit@unitExpress)
   }
   
   genericEGRETDotPlot(x=xSample, y=yHigh,

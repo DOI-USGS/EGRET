@@ -5,8 +5,8 @@
 #'    The results are stored in an augmented version of the Daily data frame, which is returned as part of an EGRET object. 
 #'
 #' @param eList named list with at least the Daily and INFO dataframes, and the surface matrix
-#' @param localsurfaces surface over-riding the one stored in eList
-#' @param localDaily data frame to override eList$Daily
+#' @param localsurfaces surface over-riding the one stored in eList.  Default is NA.
+#' @param localDaily data frame to override eList$Daily.  Default is NA.
 #' @keywords water-quality statistics
 #' @rdname estDailyFromSurfaces
 #' @return egret object with altered Daily dataframe

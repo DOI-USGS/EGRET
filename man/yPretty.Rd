@@ -16,8 +16,8 @@ yTicks A numeric vector representing the values for each of the tick marks
 Axis tick marks that run from zero to some specified maximum, creates about 4 to 8 ticks marks.
 }
 \examples{
-yPretty(7.8)
-yPretty(125)
+yTicks <- yPretty(7.8)
+yTicks <- yPretty(125)
 }
 \keyword{graphics}
 \keyword{statistics}

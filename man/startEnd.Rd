@@ -11,13 +11,13 @@ startEnd(paStart, paLong, year)
 
 \item{paLong}{numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12, default is 12}
 
-\item{year}{integer year}
+\item{year}{integer year, which is the calendar year in which the period ends}
 }
 \value{
 Date list
 }
 \description{
-Returns two date variables for a combination of paStart, paLong, and year
+Returns two date variables representing the starting date and ending date for a combination of paStart, paLong, and year
 }
 \examples{
 paStart <- 10

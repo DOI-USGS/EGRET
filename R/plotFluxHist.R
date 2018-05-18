@@ -27,6 +27,9 @@
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col.pred color of flow normalized line on plot, see ?par 'Color Specification'
+#' @param usgsStyle logical option to use USGS style guidelines. Setting this option
+#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' generated labels. 
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -46,7 +49,7 @@
 #' 
 #' }
 plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA, 
-    fluxUnit = 9, fluxMax = NA, printTitle = TRUE, 
+    fluxUnit = 9, fluxMax = NA, printTitle = TRUE, usgsStyle = FALSE,
     plotFlowNorm = TRUE, plotAnnual = TRUE, tinyPlot=FALSE, col="black", col.pred="green",
     cex=0.8, cex.axis=1.1, cex.main=1.1, lwd=2, customPar=FALSE, ...){
 
@@ -88,11 +91,10 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA,
   }
   ################################################################################
   
-  
   if (tinyPlot) {
     ylabel <- fluxUnit@unitExpressTiny
   } else {
-    ylabel<-fluxUnit@unitExpress
+    ylabel<- ifelse(usgsStyle,fluxUnit@unitUSGS,fluxUnit@unitExpress)
   }
   
   unitFactorReturn <- fluxUnit@unitFactor

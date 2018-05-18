@@ -2,7 +2,7 @@
 % Please edit documentation in R/setSeasonLabelByUser.R
 \name{setSeasonLabelByUser}
 \alias{setSeasonLabelByUser}
-\title{Creates a character character that describes the period of analysis, when the period of analysis is being set by the user and not from AnnualResults}
+\title{Creates a character variable that describes the period of analysis, when the period of analysis is being set by the user and not from AnnualResults}
 \usage{
 setSeasonLabelByUser(paStartInput = 10, paLongInput = 12)
 }

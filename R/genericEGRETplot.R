@@ -75,7 +75,7 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,
     if (tinyPlot){
       par(mar=c(4,5,1,0.1),mgp=c(2.5,0.5,0))
     } else {
-      par(mar=c(5,6,4,2) + 0.1,mgp=c(3,1,0))
+      par(mar=c(5,6,4,2) + 0.1,mgp=c(3,0.5,0))
     }
   }
   

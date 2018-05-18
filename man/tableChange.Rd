@@ -15,9 +15,9 @@ tableChange(eList, fluxUnit = 9, yearPoints = NA)
 }
 \description{
 These tables describe trends in flow-normalized concentration and in flow-normalized flux. 
-They are described as changes in real units or in percent and als as slopes in real units per year or in percent per year.
+They are described as changes in real units or in percent and as slopes in real units per year or in percent per year.
 They are computed over pairs of time points.  These time points can be user-defined or
-they can be set by the program to be the final year of the record and a set of years that are multiple of 5 years prior to that.
+they can be set by the program to be the final year of the record and a set of years that are multiples of 5 years prior to that.
 }
 \examples{
 eList <- Choptank_eList

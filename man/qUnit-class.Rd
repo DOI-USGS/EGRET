@@ -17,6 +17,8 @@ Some details about the qUnit class
 
 \item{qUnitExpress}{An expression specifying the full name.}
    
+   \item{unitUSGS}{A character specifying flux with full text.}
+   
    \item{qUnitTiny}{An expression specifying the abbreviated name.}
 
 \item{shortCode}{A number for quick lookup}

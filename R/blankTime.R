@@ -1,4 +1,4 @@
-#'  Deletes the computed values during periods of time when there is no sample data
+#'  Deletes the computed values during periods of time when there are no sample data
 #'
 #'  This function is used when the data analyst believes that a gap in the sample data record
 #'  is so long that estimates during that period are not reliable. 

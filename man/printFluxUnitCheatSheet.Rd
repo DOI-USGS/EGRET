@@ -2,7 +2,7 @@
 % Please edit documentation in R/printFluxUnitCheatSheet.R
 \name{printFluxUnitCheatSheet}
 \alias{printFluxUnitCheatSheet}
-\title{Available Flux Unit properties}
+\title{Reminder to user of flux unit properties  (such as kg/day, tons/year, etc).}
 \usage{
 printFluxUnitCheatSheet()
 }

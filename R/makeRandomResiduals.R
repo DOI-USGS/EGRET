@@ -1,8 +1,9 @@
-#' Create Randomized Residuals and Observations
+#' Create randomized residuals and observations for data sets that have some censored data
 #'
 #'  This function is used to add two columns to the Sample data frame: rResid and rObserved.
 #'  rResid is the randomized residual value computed in log concentration units, and rObserved
 #'  is the randomized 'observed' value of concentration in concentration units.
+#'  Both of these are computed for all censored samples ("less than values").
 #'
 #' @param eList named list with at least the Sample dataframe
 #' @keywords water-quality statistics

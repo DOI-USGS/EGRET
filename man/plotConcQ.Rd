@@ -6,8 +6,9 @@
 \usage{
 plotConcQ(eList, qUnit = 2, tinyPlot = FALSE, logScale = FALSE,
   randomCensored = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,
-  cex = 0.8, cex.axis = 1.1, cex.main = 1.1, rmSciX = FALSE,
-  rmSciY = FALSE, customPar = FALSE, col = "black", lwd = 1, ...)
+  cex = 0.8, cex.axis = 1.1, cex.main = 1.1, usgsStyle = FALSE,
+  rmSciX = FALSE, rmSciY = FALSE, customPar = FALSE, col = "black",
+  lwd = 1, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}
@@ -32,6 +33,10 @@ plotConcQ(eList, qUnit = 2, tinyPlot = FALSE, logScale = FALSE,
 \item{cex.axis}{magnification to be used for axis annotation relative to the current setting of cex}
 
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
+
+\item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
+to TRUE does NOT guarantee USGS complience. It will only change automatically
+generated labels.}
 
 \item{rmSciX}{logical defaults to FALSE, changes x label from scientific to fixed}
 

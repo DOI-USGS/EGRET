@@ -9,7 +9,7 @@ modelEstimation(eList, windowY = 7, windowQ = 2, windowS = 0.5,
   run.parallel = FALSE)
 }
 \arguments{
-\item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
+\item{eList}{named list with at least the INFO, Daily, and Sample dataframes}
 
 \item{windowY}{numeric specifying the half-window width in the time dimension, in units of years, default is 7}
 
@@ -22,20 +22,23 @@ modelEstimation(eList, windowY = 7, windowQ = 2, windowS = 0.5,
 \item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
 
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.
-The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
+The edgeAdjust method tends to reduce curvature near the start and end of record.  Default is TRUE.}
 
 \item{verbose}{logical specifying whether or not to display progress message}
 
 \item{run.parallel}{logical to run WRTDS in parallel or not}
 }
 \value{
-eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.
+eList named list with INFO, Daily, and Sample dataframes, along with the surfaces matrix.
 Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
 }
 \description{
-This one function does a jack-knife cross-validation of a WRTDS model, fits the surface
-(concentration as a function of discharge and time), 
-estimates daily values of concentration and flux, and flow normalized values. 
+This one function does three things. 
+1) a jack-knife cross-validation of a WRTDS model in which it augments the Sample data frame in the eList
+2) fits the WRTDS model creating the, fits the surfaces matrix and places it in the eList
+(the surfaces matrix expresses the estimated concentration as a function of discharge and time), 
+3) estimates the daily values of concentration and flux, and flow normalized concentration and 
+flux and places these in the Daily data frame in the eList values. 
 It returns a named list with the following dataframes: Daily, INFO, Sample, and the matrix: surfaces.
 }
 \examples{
