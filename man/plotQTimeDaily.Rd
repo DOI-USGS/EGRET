@@ -6,8 +6,8 @@
 \usage{
 plotQTimeDaily(eList, yearStart = NA, yearEnd = NA, qLower = NA,
   qUnit = 1, logScale = FALSE, tinyPlot = FALSE, printTitle = TRUE,
-  lwd = 3, col = "red", cex.main = 1.2, cex.lab = 1.2,
-  customPar = FALSE, prettyDate = TRUE, ...)
+  usgsStyle = FALSE, lwd = 3, col = "red", cex.main = 1.2,
+  cex.lab = 1.2, customPar = FALSE, prettyDate = TRUE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes}
@@ -25,6 +25,10 @@ plotQTimeDaily(eList, yearStart = NA, yearEnd = NA, qLower = NA,
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be short and wide, default is FALSE.}
 
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)}
+
+\item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
+to TRUE does NOT guarantee USGS complience. It will only change automatically
+generated labels.}
 
 \item{lwd}{line width, a positive number, defaulting to 1}
 
