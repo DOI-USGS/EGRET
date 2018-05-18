@@ -102,9 +102,6 @@ plotFluxPred<-function(eList, fluxUnit = 3, fluxMax = NA,
       xLab <- fluxUnit@unitEstimate
       yLab <- substitute(a ~ b, list(a="Observed",b= tolower(fluxUnit@unitExpress[[1]])))
     }
-
-    
-    
   }
   
   if(logScale){
