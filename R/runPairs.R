@@ -33,6 +33,8 @@
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
+#' @param fractMin numeric specifying the minimum fraction of the observations required to run the weighted regression, default is 0.75. The
+#' minimum number will be the maximum of minNumObs and fractMin multiplied by total number of observations.
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
 #' The edgeAdjust method tends to reduce curvature near the start and end of record.  Default is TRUE.
 #' @param oldSurface logical specifying whether to use the original surface, or create a new one. Default is FALSE.
@@ -95,7 +97,7 @@ runPairs <- function(eList, year1, year2, windowSide,
                      wall = FALSE, oldSurface = FALSE,
                      sample1EndDate = NA, sampleStartDate = NA, sampleEndDate = NA,
                      paStart = 10, paLong = 12,
-                     minNumObs = 100, minNumUncen = 50, 
+                     minNumObs = 100, minNumUncen = 50, fractMin = 0.75,
                      windowY = 7, windowQ = 2, windowS = 0.5, 
                      edgeAdjust = TRUE){
   
@@ -211,10 +213,26 @@ runPairs <- function(eList, year1, year2, windowSide,
   Sample2 <- localSample[localSample$Date >= sample2StartDate & 
                            localSample$Date <= sample2EndDate, ]
   
-  minNumObs <- ceiling(min(minNumObs, 0.8 * length(Sample1$Date), 
-                           0.8 * length(Sample2$Date)))
-  minNumUncen <- ceiling(min(0.5 * minNumObs, 0.8 * sum(Sample1$Uncen), 
-                             0.8 * sum(Sample2$Uncen)))
+  fractMin <- min(fractMin, 1.0)
+  
+  minNumObs <- ceiling(min(minNumObs, fractMin * length(Sample1$Date), 
+                           fractMin * length(Sample2$Date)))
+  minNumUncen <- ceiling(min(0.5 * minNumObs, minNumUncen))
+  
+  message("Sample1 has ", length(Sample1$Date), " Samples and ", 
+          sum(Sample1$Uncen), " are uncensored")
+  message("Sample2 has ", length(Sample2$Date), " Samples and ", 
+          sum(Sample2$Uncen), " are uncensored")
+  message("minNumObs has been set to ", minNumObs, " minNumUncen has been set to ", 
+          minNumUncen)
+  check <- rep(1,4)
+  check[1] <- if(minNumObs < length(Sample1$Date)) 1 else 0
+  check[2] <- if(minNumObs < length(Sample2$Date)) 1 else 0
+  check[3] <- if(minNumUncen < sum(Sample1$Uncen)) 1 else 0
+  check[4] <- if(minNumUncen < sum(Sample2$Uncen)) 1 else 0
+  if(sum(check) < 4) {
+    stop("Data set too small for minNumObs or minNumUncen")
+  }
   
   message("Sample1 has ", length(Sample1$Date), " Samples and ", 
           sum(Sample1$Uncen), " are uncensored")
