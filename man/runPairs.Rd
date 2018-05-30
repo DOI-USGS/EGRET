@@ -8,7 +8,8 @@ runPairs(eList, year1, year2, windowSide, flowBreak = FALSE, Q1EndDate = NA,
   QStartDate = NA, QEndDate = NA, wall = FALSE, oldSurface = FALSE,
   sample1EndDate = NA, sampleStartDate = NA, sampleEndDate = NA,
   paStart = 10, paLong = 12, minNumObs = 100, minNumUncen = 50,
-  windowY = 7, windowQ = 2, windowS = 0.5, edgeAdjust = TRUE)
+  fractMin = 0.75, windowY = 7, windowQ = 2, windowS = 0.5,
+  edgeAdjust = TRUE)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -51,6 +52,9 @@ Default is NA which sets it to the last Date in eList$Sample.}
 \item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
 
 \item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
+
+\item{fractMin}{numeric specifying the minimum fraction of the observations required to run the weighted regression, default is 0.75. The
+minimum number will be the maximum of minNumObs and fractMin multiplied by total number of observations.}
 
 \item{windowY}{numeric specifying the half-window width in the time dimension, in units of years, default is 7}
 
