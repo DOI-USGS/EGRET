@@ -38,7 +38,7 @@
 #' eList <- mergeReport(INFO, Daily, Sample = NA)
 #' plotFour(eList)
 #' }
-mergeReport <- function(INFO, Daily, Sample, surfaces=NA, verbose = TRUE, interactive=NULL){
+mergeReport <- function(INFO, Daily, Sample = NA, surfaces=NA, verbose = TRUE, interactive=NULL){
   
   if(!is.null(interactive)) {
     warning("The argument 'interactive' is deprecated. Please use 'verbose' instead")
