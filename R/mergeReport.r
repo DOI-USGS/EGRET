@@ -23,14 +23,20 @@
 #' @seealso \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
 #' @examples
 #' 
-#' siteNumber <- '01594440'
-#' pCode <- '01075'
+#' siteNumber <- '01491000'
+#' pCode <- '00631'
 #' \dontrun{
-#' Daily <- readNWISDaily(siteNumber,'00060', '1985-01-01', '1990-03-31')
-#' Sample <- readNWISSample(siteNumber,pCode, '1985-01-01', '1990-03-31')
+#' Daily <- readNWISDaily(siteNumber,'00060', '1984-10-01', '')
+#' Sample <- readNWISSample(siteNumber,pCode, '1984-10-01', '')
 #' INFO <- readNWISInfo(siteNumber,pCode,interactive=FALSE)
 #' eList <- mergeReport(INFO, Daily, Sample)
 #' Sample <- eList$Sample
+#' plot(eList)
+#' 
+#' # Create eList with no water quality data:
+#' 
+#' eList <- mergeReport(INFO, Daily, Sample = NA)
+#' plotFour(eList)
 #' }
 mergeReport <- function(INFO, Daily, Sample, surfaces=NA, verbose = TRUE, interactive=NULL){
   
@@ -39,7 +45,7 @@ mergeReport <- function(INFO, Daily, Sample, surfaces=NA, verbose = TRUE, intera
     verbose <- interactive
   }
   
-  if (verbose){
+  if (verbose & all(!is.na(Sample))){
     dataOverview(Daily, Sample)  
   }
   
@@ -47,9 +53,6 @@ mergeReport <- function(INFO, Daily, Sample, surfaces=NA, verbose = TRUE, intera
     message("Please double check that the Daily dataframe is correctly defined.")
   }
   
-  if(!is.na(Sample) && !all((c("ConcLow","ConcHigh","Uncen","ConcAve") %in% names(Sample)))){
-    message("Please double check that the Sample dataframe is correctly defined.")
-  }
   
   if(!any(c("param.units", "shortName", "paramShortName", "constitAbbrev", "drainSqKm") %in% names(INFO))){
     message("Please double check that the INFO dataframe is correctly defined.")
@@ -61,22 +64,32 @@ mergeReport <- function(INFO, Daily, Sample, surfaces=NA, verbose = TRUE, intera
     }    
   }
   
-  if(!all(is.na(Sample)) & !all(is.na(Daily))){
-    if(all(c("Q","LogQ") %in% names(Sample))){
-      if(all(c("yHat","SE","ConcHat") %in% names(Sample))){
-        message("Merging new flow data will require modelEstimation to be rerun.")
+  if(!all(is.na(Sample))){
+
+    if(!all((c("ConcLow","ConcHigh","Uncen","ConcAve") %in% names(Sample)))){
+      message("Please double check that the Sample dataframe is correctly defined.")
+    }
+
+    if(!all(is.na(Daily))){
+      if(all(c("Q","LogQ") %in% names(Sample))){
+        if(all(c("yHat","SE","ConcHat") %in% names(Sample))){
+          message("Merging new flow data will require modelEstimation to be rerun.")
+        }
+        
+        Sample <- Sample[,!(names(Sample) %in% c("Q","LogQ"))]
+        
       }
-      
-      Sample <- Sample[,!(names(Sample) %in% c("Q","LogQ"))]
-      
-    }
-    Sample <- merge(Daily[,c("Date","Q","LogQ")],Sample,by = "Date",all.y = TRUE)
-    if(any(is.na(Sample$Q))){
-      message("Some Sample dates do not have corresponding flow data. Not all EGRET functions will work correctly.")
-    }
+      Sample <- merge(Daily[,c("Date","Q","LogQ")],Sample,by = "Date",all.y = TRUE)
+      if(any(is.na(Sample$Q))){
+        message("Some Sample dates do not have corresponding flow data. Not all EGRET functions will work correctly.")
+      }
+    }    
+    
+    eList <- as.egret(INFO, Daily, Sample, surfaces)
+    
+  } else {
+    eList <- as.egret(INFO, Daily, Sample = NA, surfaces = NA)
   }
-  
-  eList <- as.egret(INFO, Daily, Sample, surfaces)
   
   return(eList)
 }
