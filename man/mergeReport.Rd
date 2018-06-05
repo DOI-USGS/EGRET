@@ -38,14 +38,20 @@ not update with the flow information.
 }
 \examples{
 
-siteNumber <- '01594440'
-pCode <- '01075'
+siteNumber <- '01491000'
+pCode <- '00631'
 \dontrun{
-Daily <- readNWISDaily(siteNumber,'00060', '1985-01-01', '1990-03-31')
-Sample <- readNWISSample(siteNumber,pCode, '1985-01-01', '1990-03-31')
+Daily <- readNWISDaily(siteNumber,'00060', '1984-10-01', '')
+Sample <- readNWISSample(siteNumber,pCode, '1984-10-01', '')
 INFO <- readNWISInfo(siteNumber,pCode,interactive=FALSE)
 eList <- mergeReport(INFO, Daily, Sample)
 Sample <- eList$Sample
+plot(eList)
+
+# Create eList with no water quality data:
+
+eList <- mergeReport(INFO, Daily, Sample = NA)
+plotFour(eList)
 }
 }
 \seealso{
