@@ -1,0 +1,47 @@
+[
+  {
+    "name": "EGRET",
+    "organization": "U.S. Geological Survey",
+    "description": "An R-package for the analysis of long-term changes in water quality and streamflow, including the water-quality method Weighted Regressions on Time, Discharge, and Season (WRTDS)",
+    "version": "2.6.0",
+    "status": "Approved",
+    
+    "permissions": {
+      "usageType": "openSource",
+      "licenses": [
+        {
+          "name": "Public Domain, CC0-1.0",
+          "URL": "https://code.usgs.gov/WMA-Data-Science/EGRET/blob/master/LICENSE.note"
+        }
+        ]
+    },
+    
+    "homepageURL": "https://code.usgs.gov/WMA-Data-Science/EGRET",
+    "downloadURL": "https://code.usgs.gov/WMA-Data-Science/EGRET/-/archive/v2.6.0/EGRET-v2.6.0.zip",
+    "disclaimerURL": "https://code.usgs.gov/WMA-Data-Science/EGRET/blob/master/DISCLAIMER.md",
+    "repositoryURL": "https://code.usgs.gov/WMA-Data-Science/EGRET.git",
+    "vcs": "git",
+    
+    "laborHours": 500,
+    
+    "tags": [
+      "R",
+      "rstats",
+      "USGS",
+      "water"
+      ],
+    
+    "languages": [
+      "R"
+      ],
+    
+    "contact": {
+      "name": "Laura De Cicco",
+      "email": "ldecicco@usgs.gov"
+    },
+    
+    "date": {
+      "metadataLastUpdated": "2018-06-08"
+    }
+  }
+  ]
