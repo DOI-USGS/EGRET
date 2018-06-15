@@ -7,10 +7,10 @@
 runGroups(eList, windowSide, group1firstYear, group1lastYear, group2firstYear,
   group2lastYear, surfaceStart = NA, surfaceEnd = NA, flowBreak = FALSE,
   Q1EndDate = NA, QStartDate = NA, QEndDate = NA, wall = FALSE,
-  oldSurface = FALSE, sample1EndDate = NA, sampleStartDate = NA,
-  sampleEndDate = NA, paStart = 10, paLong = 12, minNumObs = 100,
-  minNumUncen = 50, windowY = 7, windowQ = 2, windowS = 0.5,
-  edgeAdjust = TRUE, verbose = TRUE)
+  oldSurface = FALSE, fractMin = 0.75, sample1EndDate = NA,
+  sampleStartDate = NA, sampleEndDate = NA, paStart = 10, paLong = 12,
+  minNumObs = 100, minNumUncen = 50, windowY = 7, windowQ = 2,
+  windowS = 0.5, edgeAdjust = TRUE, verbose = TRUE)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -47,6 +47,9 @@ which makes the QEndDate become the last Date in eList$Daily.}
 
 \item{oldSurface}{logical specifying whether to use the original surface, or create a new one. Default is FALSE.}
 
+\item{fractMin}{numeric specifying the minimum fraction of the observations required to run the weighted regression, default is 0.75. The
+minimum number will be the maximum of minNumObs and fractMin multiplied by total number of observations.}
+
 \item{sample1EndDate}{The Date (as character in YYYY-MM-DD) of the last date just before the wall. Default = NA. 
 A date must be specified if wall = TRUE.}
 
@@ -73,8 +76,7 @@ Default is NA which sets it to the last Date in eList$Sample.}
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.
 The edgeAdjust method tends to reduce curvature near the start and end of record.  Default is TRUE.}
 
-\item{fractMin}{numeric specifying the minimum fraction of the observations required to run the weighted regression, default is 0.75. The
-minimum number will be the maximum of minNumObs and fractMin multiplied by total number of observations.}
+\item{verbose}{logical specifying whether or not to display progress message}
 }
 \value{
 data frame with the following columns:
@@ -102,4 +104,13 @@ flow-normalized concentration and flow-normalzed flux for any groups of years
 of years in the water quality record.  Comparison could involve the 
 use of the "wall" and/or use of "generalized flow normalization".  
 These two concepts are described in detail in the vignette.
+}
+\examples{
+eList <- Choptank_eList
+\dontrun{
+
+groups_out <- runGroups(eList, windowSide = 7,
+                        1980,1995,1996,2010)
+
+}
 }

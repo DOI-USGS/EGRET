@@ -87,9 +87,11 @@ runGroups <- function (eList, windowSide,
   localSample <- getSample(eList)
   localDaily <- getDaily(eList)
   localsurfaces <- getSurfaces(eList)
-  sampleStartDate <- if (is.na(sampleStartDate)) 
-    localSample$Date[1]
-  else as.Date(sampleStartDate)
+  if (is.na(sampleStartDate)){ 
+    sampleStartDate <- localSample$Date[1]
+  } else {
+    sampleStartDate <- as.Date(sampleStartDate)
+  }
   numSamples <- length(localSample$Date)
   sampleEndDate <- if (is.na(sampleEndDate)) 
     localSample$Date[numSamples]
