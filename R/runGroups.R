@@ -39,6 +39,7 @@
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
+#' @param verbose logical specifying whether or not to display progress message
 #' @param fractMin numeric specifying the minimum fraction of the observations required to run the weighted regression, default is 0.75. The
 #' minimum number will be the maximum of minNumObs and fractMin multiplied by total number of observations.
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
@@ -76,7 +77,7 @@ runGroups <- function (eList, windowSide,
                        surfaceStart = NA, surfaceEnd = NA,
                        flowBreak = FALSE, 
                        Q1EndDate = NA, QStartDate = NA, QEndDate = NA, 
-                       wall = FALSE, oldSurface = FALSE, 
+                       wall = FALSE, oldSurface = FALSE,  fractMin = 0.75,
                        sample1EndDate = NA, sampleStartDate = NA, 
                        sampleEndDate = NA, 
                        paStart = 10, paLong = 12, 
@@ -211,10 +212,10 @@ runGroups <- function (eList, windowSide,
   annFlex$year <- floor(annFlex$DecYear + (annFlex$PeriodLong / 12) * 0.5)
   annSta <- setupYears(DailySta, paLong = paLong, paStart = paStart)
   annSta$year <- floor(annSta$DecYear + (annSta$PeriodLong / 12) * 0.5)
-  annFlex1 <- subset(annFlex, DecYear >= group1firstYear & DecYear <= group1lastYear)
-  annSta1 <- subset(annSta, DecYear >= group1firstYear & DecYear <= group1lastYear)
-  annFlex2 <- subset(annFlex, DecYear >= group2firstYear & DecYear <= group2lastYear)
-  annSta2 <- subset(annSta, DecYear >= group2firstYear & DecYear <= group2lastYear)
+  annFlex1 <- annFlex[annFlex$DecYear >= group1firstYear & annFlex$DecYear <= group1lastYear,]
+  annSta1 <- annSta[annSta$DecYear >= group1firstYear & annSta$DecYear <= group1lastYear,]
+  annFlex2 <- annFlex[annFlex$DecYear >= group2firstYear & annFlex$DecYear <= group2lastYear,]
+  annSta2 <- annSta[annSta$DecYear >= group2firstYear & annSta$DecYear <= group2lastYear,]
   c11 <- mean(annFlex1$FNConc, na.rm = TRUE)
   f11 <- mean(annFlex1$FNFlux, na.rm = TRUE)
   c22 <- mean(annFlex2$FNConc, na.rm = TRUE)
