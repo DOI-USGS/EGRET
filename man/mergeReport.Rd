@@ -4,7 +4,7 @@
 \alias{mergeReport}
 \title{mergeReport}
 \usage{
-mergeReport(INFO, Daily, Sample, surfaces = NA, verbose = TRUE,
+mergeReport(INFO, Daily, Sample = NA, surfaces = NA, verbose = TRUE,
   interactive = NULL)
 }
 \arguments{

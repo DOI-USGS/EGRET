@@ -378,7 +378,6 @@ test_that("flexPlotAddOn functions properly", {
 
 test_that("mergeReport",{
 
-  expect_error(mergeReport(daily_orig_Ch, sample_orig_Ch))
   expect_type(eList_orig_Ch, "list")
   expect_true(all(names(eList_orig_Ch) %in% c("INFO","Daily","Sample","surfaces")))
   
