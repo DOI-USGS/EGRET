@@ -14,18 +14,25 @@ vignette: >
   %\VignetteIndexEntry{Guide to EGRET 3.0 enhancements}
   \usepackage[utf8]{inputenc}
 ---
-```{r setup, message = FALSE, warning = FALSE, echo = FALSE}
+```{r setup, echo = FALSE, message=FALSE}
 library(EGRET)
 library(lubridate)
 library(dplyr)
 library(knitr)
+
+knitr::opts_chunk$set(echo = TRUE, 
+                      warning = FALSE, 
+                      message = FALSE, 
+                      eval = nzchar(Sys.getenv("EGRET_eval")),
+                      fig.width=7, fig.height=7)
+
 ```
 
 # Introduction
 
-This vignette documents a set of enhancements of the EGRET software package.  EGRET is "Exploration and Graphics for RivEr Trend" which has been developed my Robert M. Hirsch and Laura DeCicco of the U.S. Geological Survey.  The EGRET 2.0 release which has been available since ???? implements the WRTDS "Weighted Regressions on Time, Discharge, and Season" and a set of related exploratory tools for data sets of river discharge and river water quality.  This document, on the 3.0 enhancments assumes that the reader already has a good understanding of WRTDS and the EGRET 2.o implementation of that method.  Closely connected to the EGRET package is a package called EGRETci (which refers to confidence intervals) developed by Hirsch and DeCicco.  The EGRETci package adds a variety of uncertainty analysese to the WRTDS method contained in EGRET.  Accompanying the release of EGRET 3.0 is the release of EGRETci 2.0 which carries out various types of uncertainty analyses associated with the new methods presented in EGRET 3.0.  The two releases are tightly linked in terms of naming conventions and the sharing of various objects between them.  Reference will be made to these EGRETci functions in the course of describing the EGRET enhancements.  
+This vignette documents a set of enhancements of the `EGRET` software package.  `EGRET` stands for "Exploration and Graphics for RivEr Trend" which has been developed my Robert M. Hirsch and Laura DeCicco of the U.S. Geological Survey.  The `EGRET` package implements the WRTDS "Weighted Regressions on Time, Discharge, and Season" and a set of related exploratory tools for data sets of river discharge and river water quality. Version 2.0 was originally published in October, 2014. This document, on the 3.0 enhancments assumes that the reader already has a good understanding of WRTDS and the `EGRET` implementation of that method.  Closely connected to the `EGRET` package is a package called `EGRETci` (which refers to confidence intervals) developed by Hirsch and DeCicco.  The `EGRETci` package adds a variety of uncertainty analyses to the WRTDS method contained in `EGRET`.  Accompanying the release of `EGRET` 3.0 is the release of `EGRETci` 2.0 which carries out various types of uncertainty analyses associated with the new methods presented in `EGRET` 3.0.  The two releases are tightly linked in terms of naming conventions and the sharing of various objects between them.  Reference will be made to these `EGRETci` functions in the course of describing the `EGRET` enhancements.  
 
-The releases of **EGRET 3.0** add some new flexibility to the WRTDS method. The flexibility that the new version  provides are of two kinds.  One is an ability to partition the sample data into two periods, one before and one after, a change that happened in the watershed that we believe to have had an important, sudden, but lasting impact on water quality.  The other is the ability to relax the assumption of stationarity of streamflow in the flow normalization process.  As shorthand we refer to the first of these enhancements as the "wall", and the second as "Generalized Flow Normalization".
+The releases of `EGRET` 3.0 add some new flexibility to the WRTDS method. The flexibility that the new version  provides are of two kinds.  One is an ability to partition the sample data into two periods, one before and one after, a change that happened in the watershed that we believe to have had an important, sudden, but lasting impact on water quality.  The other is the ability to relax the assumption of stationarity of streamflow in the flow normalization process.  As shorthand we refer to the first of these enhancements as the "wall", and the second as "Generalized Flow Normalization".
 
 **EGRET 3.0**  is designed so that it will produce exactly the same outputs as **EGRET 2.0** version did using the same set of commands that would have been used there.   
 
@@ -33,7 +40,7 @@ This document discusses the motivations and general concepts behind these enhanc
 
 # The "wall"
 
-The idea of the "wall" is to appropriately handle events that you believe may result in a sharp discontinuity in the way that concentrations behave as a function of discharge, year, and season.  WRTDS was designed with a working assumption that changes in the concentration-discharge relationship (typically depicted in the EGRET contour plots) are gradual, responding to changes in behavior of many actors in the watershed.  The use of statistical smoothing in time, which is central to WRTDS, is predicated on the idea that the changes in the system are gradual.  The gradual changes could be driven by changes in population (and hence wasteloads), changes in land use or land use practices by many landowners, or many changes in point source controls implemented by many dischargers.  But we know that there can be situations that depart from that assumption of gradual change.  Some obvious ones are: upgrades to a single dominant point source discharge, large infrastructure changes in storm-water management (e.g. tunnel projects in big cities that significantly curtail combined sewer overflows), construction or removal of a major dam (causing the pollutant of interest to mix with a large volume of water in the reservoir significantly changing the concentration-discharge relationship and in the most extreme cases virtually eliminating any relationship between concentration and discharge).  There is another category of abrupt change that could also be considered, and that is a "reset" of river conditions that may be the result of an extreme flood or extreme drought.  The hypothesis is that the behavior of water quality has changed as a result of this extreme event and that this change is not a short term thing (i.e. the duration of the event) but rather is something that persists for a number of years.  The new "wall" concept can provide an effective way to perform a hypothesis test that the event in question brought about a lasting change, and the approach allows us to describe the nature of the change that took place.
+The idea of the "wall" is to appropriately handle events that you believe may result in a sharp discontinuity in the way that concentrations behave as a function of discharge, year, and season.  WRTDS was designed with a working assumption that changes in the concentration-discharge relationship (typically depicted in the `EGRET` contour plots) are gradual, responding to changes in behavior of many actors in the watershed.  The use of statistical smoothing in time, which is central to WRTDS, is predicated on the idea that the changes in the system are gradual.  The gradual changes could be driven by changes in population (and hence wasteloads), changes in land use or land use practices by many landowners, or many changes in point source controls implemented by many dischargers.  But we know that there can be situations that depart from that assumption of gradual change.  Some obvious ones are: upgrades to a single dominant point source discharge, large infrastructure changes in storm-water management (e.g. tunnel projects in big cities that significantly curtail combined sewer overflows), construction or removal of a major dam (causing the pollutant of interest to mix with a large volume of water in the reservoir significantly changing the concentration-discharge relationship and in the most extreme cases virtually eliminating any relationship between concentration and discharge).  There is another category of abrupt change that could also be considered, and that is a "reset" of river conditions that may be the result of an extreme flood or extreme drought.  The hypothesis is that the behavior of water quality has changed as a result of this extreme event and that this change is not a short term thing (i.e. the duration of the event) but rather is something that persists for a number of years.  The new "wall" concept can provide an effective way to perform a hypothesis test that the event in question brought about a lasting change, and the approach allows us to describe the nature of the change that took place.
 
 
 Operationally the wall idea is this.  We will refer the moment in time when we think this change happened as "the wall." For our purposes here we need to define it as a specific day, even though it might stretch over a period of a few weeks or months.  In the code, this day is called **sample1EndDate** and the next calendar day becomes **sample2StartDate** which is computed automatically by the code based on **sample1EndDate**.  What the code does is split our Sample data frame into two non-overlapping data frames: **Sample1** and **Sample2**.  **Sample1** is all the samples collected before the wall and **Sample2** is all the samples collected after it.  When we estimate the **surfaces** object (that describes concentration as a function of time, discharge, and season) we want our characterization of the part of the surface before the wall to only use data from **Sample1** and not data from **Sample2**.  And similarly, to characterize the part of the surface after the wall we only want to use data from **Sample2** and not data from **Sample1**.  The code has within it the ability to estimate these two segments of the surface separately and then "stitch" them together into a single continuous surface. 
@@ -148,9 +155,38 @@ We can use the **windowSide** argument with a value that is some integer greater
 
 In this first example we will specify that **year1** is 1985 and **year2** is 2014 and we will not have a wall, and we will use automatic flow window designation, with a **windowSide** value of 7.
 
-```{r}
+```{r loadDataPretend, echo=TRUE, eval=FALSE}
 library(EGRET)
 library(EGRETci)
+library(dplyr)
+
+# Gather discharge data:
+siteID <- "01491000" #Choptank River at Greensboro, MD
+# Gather sample data:
+parameter_cd<-"00671" #5 digit USGS code
+Sample <- readNWISSample(siteID,parameter_cd,"","")
+#Gets earliest date from Sample record:
+#This is just one of many ways to assure the Daily record
+#spans the Sample record
+startDate <- min(as.character(Sample$Date)) 
+# Gather discharge data:
+Daily <- readNWISDaily(siteID,"00060",startDate,"")
+
+INFO<- readNWISInfo(siteID,parameter_cd)
+INFO$shortName <- "Choptank River at Greensboro, MD"
+
+# Merge discharge with sample data:
+eList <- mergeReport(INFO, Daily, Sample)
+
+
+# then we run the function 
+pairResults <- runPairs(eList, year1 = 1985, year2 = 2014, windowSide = 7)
+```
+
+
+
+```{r loadDataReal, echo=FALSE}
+library(EGRET)
 library(dplyr)
 # first we will load a data set for orthophosphorus for the Choptank River
 # we are using it partly because it is set up differently than the example eList in the package
@@ -191,7 +227,7 @@ QTC: this number is the difference between the two years, but only the part that
 
 One final note about this output is that we can also express the flux information as yields, by dividing by the drainage area.  So we can do a matrix multiplication and end up with a new object that still has concentrations in the first row but has yields in the second row.  For example if we want to do yield in kg/km^2/year.  We could do this.  First we see **pairResults** and second we see **pairResultsYield**.
 
-```{r}
+```{r }
 knitr::kable(pairResults, digits = 4)
 # note that you don't have to use the kable function from knitr to 
 # see the results, you can just give the command pairResults
@@ -231,7 +267,13 @@ summary(eList$Sample$Date)
 Let's say we want the analysis to only include the discharge data for water years 1980 - 2014. So we would set **QStartDate = "1979-10-01" and QEndDate = "2014-09-30".**  Because the dam likely changed the discharge distribution we want to put in a **flowBreak** at the time of the dam construction so we need to specify: **flowBreak = TRUE and Q1EndDate = "1995-05-31"**.  And, let's say that we are concerned that there may also be trends in the flow distribution in both the pre-dam period and the post-dam period.  So let's set **windowSide = 7**. We also think that the existance of the dam would result in the change in the concentration versus discharge relationship (because the dam creates a large mixing volume and post-dam the concentrations are much less influenced by discharge than was the case before the dam was built).  So we want **wall = TRUE and sample1EndDate = "1995-05-31"**  Finally, we would like to restrict our analysis to the period April - August of each year and we are doing our pair comparison between the years 1985 and 2014.  Thus: **paStart = 4, paLong = 5, year1 = 1985, and year2 = 2014.**  All of the other arguments will be left to their default values.  
 
 ```{r}
-pairResults2 <- runPairs(eList, year1 = 1985, year2 = 2014, windowSide = 7, flowBreak = TRUE, Q1EndDate = "1995-05-31", wall = TRUE, sample1EndDate = "1995-05-31", QStartDate = "1979-10-01", QEndDate = "2014-09-30", paStart = 4, paLong = 5)
+pairResults2 <- runPairs(eList, year1 = 1985, year2 = 2014, 
+                         windowSide = 7, flowBreak = TRUE, 
+                         Q1EndDate = "1995-05-31", wall = TRUE,
+                         sample1EndDate = "1995-05-31", 
+                         QStartDate = "1979-10-01", 
+                         QEndDate = "2014-09-30", 
+                         paStart = 4, paLong = 5)
 
 attr(pairResults2, "yearPair") 
 attr(pairResults2, "dateInfo") 
@@ -243,18 +285,26 @@ The results are more extreme than the previous ones, because the analysis isolat
 
 # Series Analysis
 
-The purpose of Series analysis is to create a time series of flow-normalized concentrations and flow-normalized flux values.  The function that does this is **runSeries in the EGRET** package.  The arguments to this function are nearly identical to those used in **runPairs**.  The function call would look like this, showing all of the arguments.
+The purpose of Series analysis is to create a time series of flow-normalized concentrations and flow-normalized flux values.  The function that does this is `runSeries` in the `EGRET` package.  The arguments to this function are nearly identical to those used in `runPairs`.  The function call would look like this, showing all of the arguments.
 
-**eListOut <- runSeries(eList, windowSide, surfaceStart = NA, surfaceEnd = NA,
-  flowBreak = FALSE, Q1EndDate = NA, QStartDate = NA, QEndDate = NA,
-  wall = FALSE, oldSurface = FALSE, sample1EndDate = NA,
-  sampleStartDate = NA, sampleEndDate = NA, paStart = 10, paLong = 12,
-  minNumObs = 100, minNumUncen = 50, windowY = 7, windowQ = 2,
-  windowS = 0.5, edgeAdjust = TRUE, verbose = TRUE)**
+```{r eval=FALSE}
+eListOut <- runSeries(eList, windowSide, 
+                      surfaceStart = NA, surfaceEnd = NA,
+                      flowBreak = FALSE, Q1EndDate = NA,
+                      QStartDate = NA, QEndDate = NA,
+                      wall = FALSE, oldSurface = FALSE,
+                      sample1EndDate = NA,
+                      sampleStartDate = NA, sampleEndDate = NA,
+                      paStart = 10, paLong = 12,
+                      minNumObs = 100, minNumUncen = 50, 
+                      windowY = 7, windowQ = 2,
+                      windowS = 0.5, edgeAdjust = TRUE, 
+                      verbose = TRUE)
+```
   
 What we see here is that there are only two arguments with no default value.  The first is **eList** which will generally just be the **eList** for the data set we are working with.  The second is **windowSide**. If the user wants to use the same set of years discharge data to flow-normalize every year in the record then they should specify **windowSide = 0**.  If the user wants the window of years used for flow normalization to slide forward in time with the year being analyzed then **windowSide** should be set equal to some positive integer (7 is a suggested value, but in some cases it may be prudent to increase it, we will return to that question later).  
 
-The arguments **surfaceStart and surfaceEnd** can generally be left out of the call to the function, but sometimes they can be useful.  They define the time period for which we want to calculate our flow-normalized results.  They are date variables so they would be written as ""yyyy-mm-dd".  Left at their default values the period being analyzed will run from slightly before the first sample date to slightly after the last sample date.  If we are working with water years then they will be the start of the first water year with data and the end of the last water year with data.  If we are using some other period of analysis then they will be adjusted to correspond to the period of analysis.  There are times when we may wish to run the analysis for a shorter period because of the design of a multisite study or because we have a very low sample density in some early or later period and although we may want to use the data from those periods we are not comfortable with trying to make annual estimates during those times of low sampling density.  So, for example, if we are working in water years, and there are a handful of data from 1980-06-01 through 1981-09-30 and then the sampling starts in ernest in October of 1981, we may want to set **surfaceStart = "1981-10-01"**.
+The arguments **surfaceStart and surfaceEnd** can generally be left out of the call to the function, but sometimes they can be useful.  They define the time period for which we want to calculate our flow-normalized results.  They are date variables so they would be written as "yyyy-mm-dd".  Left at their default values the period being analyzed will run from slightly before the first sample date to slightly after the last sample date.  If we are working with water years then they will be the start of the first water year with data and the end of the last water year with data.  If we are using some other period of analysis then they will be adjusted to correspond to the period of analysis.  There are times when we may wish to run the analysis for a shorter period because of the design of a multisite study or because we have a very low sample density in some early or later period and although we may want to use the data from those periods we are not comfortable with trying to make annual estimates during those times of low sampling density.  So, for example, if we are working in water years, and there are a handful of data from 1980-06-01 through 1981-09-30 and then the sampling starts in ernest in October of 1981, we may want to set **surfaceStart = "1981-10-01"**.
 
 One other argument of note is **oldSurface**.  It is a logical variable.  The only situation we would use it is this.  We have an old analysis created with EGRET 2.6 or earlier code with the exact same data set so we already have created the object **surfaces** using modelEstimation.  We can avoid doing those computations again and just accept the old **surfaces** object and proceed with our computations.  If there is a **wall** then this will not work, because modelEstimation does not allow for it.  
 
@@ -299,9 +349,11 @@ load("eListOutNoWall.RData")
 
 ```{r, eval = FALSE}
 eListOut <- runSeries(eList, windowSide = 12,
-  flowBreak = TRUE, Q1EndDate = "1963-03-31",
-  wall = TRUE,  sample1EndDate = "1963-03-01", verbose = FALSE)
+                      flowBreak = TRUE, Q1EndDate = "1963-03-31",
+                      wall = TRUE,  sample1EndDate = "1963-03-01",
+                      verbose = FALSE)
 ```
+
 ```{r}
 plotConcHist(eListOut)
 plotFluxHist(eListOut)
@@ -309,10 +361,11 @@ tableResults(eListOut)
 tableChange(eListOut, yearPoints = c(1957, 1963, 1983, 2017))
 ```
 
-Now, one of the first things we should do is take account of the fact that we have this gap from August of 2000 to August of 2012 with no chloride data.  We can use the blankTime function just the way we did in the older versions of EGRET.
+Now, one of the first things we should do is take account of the fact that we have this gap from August of 2000 to August of 2012 with no chloride data.  We can use the `blankTime` function just the way we did in the older versions of `EGRET`.
 
 ```{r}
-eListOut <- blankTime(eListOut, startBlank = "2000-10-01", endBlank = "2012-09-30")
+eListOut <- blankTime(eListOut, 
+                      startBlank = "2000-10-01", endBlank = "2012-09-30")
 plotConcHist(eListOut)
 plotFluxHist(eListOut)
 ```
@@ -322,13 +375,15 @@ This gives us a more realistic picture, recognizing that we really know nothing 
 What are the figures telling us?  What we see is concentrations rising steeply around the time of the closure of the dam and then generally declining since then.  A reasonable hypothesis for the long period of chloride decline after dam closure is that as it filled the reservoir water came into contact with lowland soils and rocks that had very high levels of available chloride (from this high desert landscape) and over time the newly submerged landscape moved towards equilibrium with the reservoir water, with most of the highly available chloride having been removed.  
 
 ```{r, fig.height = 6, fig.width = 11}
-plotContours(eListOut, 1957, 2017, 10, 100, contourLevels = seq(0,55,5), flowDuration = FALSE)
+plotContours(eListOut, 1957, 2017, 10, 100, 
+             contourLevels = seq(0,55,5), flowDuration = FALSE)
 ```
 
 It is particularly interesting to look around the time of the closure of the dam so this figure zeros in on that period.  
 
 ```{r, fig.height = 6, fig.width = 11}
-plotContours(eListOut, 1961, 1966, 10, 100, contourLevels = seq(0,55,5), flowDuration = FALSE)
+plotContours(eListOut, 1961, 1966, 10, 100, 
+             contourLevels = seq(0,55,5), flowDuration = FALSE)
 ```
 
 What we see here is this total reversal of the concentration versus discharge relationship.  Before the closure of the dam, winter-time concentrations increased as a function of discharge but summer-time concentrations decreased with increasing discharge (probably representing the idea that large snow-melt events produced the most dilute water). Afer the dam was closed low discharges resulted in the highest concentrations and these high values peaked in the summer rather than the winter.  
@@ -336,7 +391,8 @@ What we see here is this total reversal of the concentration versus discharge re
 Next we can look at the period of 20 years after the closure of the dam to see how the system evolved as the reservoir grew in size and wetted larger and larger areas of previously dry landscape. 
 
 ```{r, fig.height = 6, fig.width = 11}
-plotContours(eListOut, 1964, 1984, 10, 100, contourLevels = seq(0,55,5), flowDuration = FALSE)
+plotContours(eListOut, 1964, 1984, 10, 100, 
+             contourLevels = seq(0,55,5), flowDuration = FALSE)
 ```
 
 What we see here is a gradual decline in chloride concentration and once we get past about 1972, an almost total vanishing of a relationship between discharge and concentration and a vanishing of a relationship between season and concentration.  All of this makes sense, since we now have a very large volume of stored water and the chloride concentration of the outflow just represents an average concentration of what is in the reservoir and that changes only very slightly over time.  
@@ -351,7 +407,8 @@ eListOutNoWall <- runSeries(eList, windowSide = 12,
 ```
 
 ```{r, fig.height = 6, fig.width = 11}
-plotContours(eListOutNoWall, 1961, 1966, 10, 100, contourLevels = seq(0,55,5), flowDuration = FALSE)
+plotContours(eListOutNoWall, 1961, 1966, 10, 100, 
+             contourLevels = seq(0,55,5), flowDuration = FALSE)
 ```
 
 The difference is that without the wall the transition in the contour plot is very gradual and doesn't reflect the abrupt nature of the change.
@@ -362,24 +419,46 @@ The concept in group analysis is that we wish to compare not just two different 
 
 The function that serves this purpose is **runGroups** and it functions very much like **runPairs** except that it considers two groups of contiguous years rather than considering simply two years.  The call to this function, with all of its arguments is this.
 
-**groupResults <- runGroups(eList, windowSide, group1firstYear, group1lastYear, 
-    group2firstYear, group2lastYear, surfaceStart = NA, surfaceEnd = NA, 
-    flowBreak = FALSE, Q1EndDate = NA, QStartDate = NA, QEndDate = NA, 
-    wall = FALSE, oldSurface = FALSE, fractMin = 0.75, sample1EndDate = NA, 
-    sampleStartDate = NA, sampleEndDate = NA, paStart = 10, paLong = 12, 
-    minNumObs = 100, minNumUncen = 50, windowY = 7, windowQ = 2, 
-    windowS = 0.5, edgeAdjust = TRUE, verbose = TRUE)**
+```{r eval=FALSE}
+groupResults <- runGroups(eList, windowSide, 
+                          group1firstYear, group1lastYear, 
+                          group2firstYear, group2lastYear,
+                          surfaceStart = NA, surfaceEnd = NA, 
+                          flowBreak = FALSE, Q1EndDate = NA,
+                          QStartDate = NA, QEndDate = NA,
+                          wall = FALSE, oldSurface = FALSE,
+                          fractMin = 0.75, sample1EndDate = NA, 
+                          sampleStartDate = NA, sampleEndDate = NA, 
+                          paStart = 10, paLong = 12, 
+                          minNumObs = 100, minNumUncen = 50,
+                          windowY = 7, windowQ = 2, windowS = 0.5, 
+                          edgeAdjust = TRUE, verbose = TRUE)
+```
 
 All of these arguments should look familiar from the **runPairs** or **runSeries functions**.  The new four new arguments are: group1firstYear, group1lastYear, 
     group2firstYear, group2lastYear.  All four of these are required (there are no defaults).  Each one of them is a numeric value which is a four-digit year.  Let's say we are working with water years and we want our analysis to compare the water years 1995 - 2004 with water years 2005 - 2014.  Then these four arguments would be 1995, 2004, 2005, 2014 respectively.  The years designated always represent the year in which the specific period ends.  Thus if we wanted to designate that group1 started with November 1, 1989 and ended with March 31, 2000, and we only wanted to consider the November through March averages, we would set **paLong = 5, paStart = 11, group1firstYear = 1990, and group1lastYear = 2000.**  
     
 As an example, suppose there were a sudden change in a point source of orthophosphate in the watershed (using the same Choptank watershed record used in the first analysis in this document), and those went into effect at the end of water year 2005 (2004-09-30), but we only wanted to evaluate their impact on the months of March and April.  And, furthermore we would like to make a clean separation with the early data to fit the early-period model and the later data to fit the late-period model. We can do this by placing a **wall** at **2004-09-30**.    Finally, we want to use GFN, with a windowSide = 7.  Here is what we would get.
 
-```{r}
+```{r echo=FALSE}
 rm(list = ls())
 load("Chop.OPbase.RData")
 # then we run the function 
-groupResults <- runGroups(eList, group1firstYear = 1995, group1lastYear = 2004, group2firstYear = 2005, group2lastYear = 2014, windowSide = 7, wall = TRUE, sample1EndDate = "2004-10-30", paStart = 4, paLong = 2, verbose = FALSE)
+groupResults <- runGroups(eList, 
+                          group1firstYear = 1995, group1lastYear = 2004, 
+                          group2firstYear = 2005, group2lastYear = 2014,
+                          windowSide = 7, wall = TRUE, 
+                          sample1EndDate = "2004-10-30", 
+                          paStart = 4, paLong = 2, verbose = FALSE)
+```
+
+```{r echo=TRUE, eval=FALSE}
+groupResults <- runGroups(eList, 
+                          group1firstYear = 1995, group1lastYear = 2004, 
+                          group2firstYear = 2005, group2lastYear = 2014,
+                          windowSide = 7, wall = TRUE, 
+                          sample1EndDate = "2004-10-30", 
+                          paStart = 4, paLong = 2, verbose = FALSE)
 ```
 
 The statement of the results in the output are fairly self-explanatory, and very similar to the outputs from runPairs.  For completeness, the explanation of these outputs is given here.
