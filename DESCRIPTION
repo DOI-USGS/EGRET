@@ -37,8 +37,7 @@ Suggests:
     rkt,
     doParallel,
     doSNOW,
-    parallel,
-    kable
+    parallel
 LazyLoad: yes
 LazyData: yes
 BugReports: https://github.com/USGS-R/EGRET/issues
