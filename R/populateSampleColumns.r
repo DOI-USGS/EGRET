@@ -1,9 +1,10 @@
 #' Populate Sample Columns
 #'
-#' Creates ConcAve and ConcLow based on Uncen. Removes any samples with NA values in ConcHigh
+#' Creates ConcAve and ConcLow based on Uncen. Removes any samples with NA values in ConcHigh.
 #'
 #' @param rawData dataframe with dateTime, ConcLow, ConcHigh, Uncen
-#' @return Sample2 dataframe
+#' @return Sample2 dataframe with columns: Date, ConcLow, ConcHigh, Uncen, ConcAve, Julian, 
+#' Month, Day, DecYear, MonthSeq, waterYear, SinDY, and CosDY (DY = decimal year)
 #' @export
 #' @examples
 #' dateTime <- c('1985-01-01', '1985-01-02', '1985-01-03')

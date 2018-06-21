@@ -2,7 +2,7 @@
 % Please edit documentation in R/processQWData.r
 \name{processQWData}
 \alias{processQWData}
-\title{Processing of USGS NWIS Water Quality Data}
+\title{Processing of Water Quality Data}
 \usage{
 processQWData(data, pCode = TRUE)
 }
@@ -16,7 +16,7 @@ data dataframe with first column dateTime, and at least one qualifier and value 
 (subsequent qualifier/value columns could follow depending on the number of parameter codes)
 }
 \description{
-Processes water quality portal data. This function looks at detection limit and detection 
+Processes water quality data. This function looks at detection limit and detection 
 conditions to determine if a value is left censored or not. Censored values are given the qualifier
 "<".  The dataframe is also converted from a long to wide format.
 }

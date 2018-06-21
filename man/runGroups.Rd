@@ -19,13 +19,13 @@ runGroups(eList, windowSide, group1firstYear, group1lastYear, group2firstYear,
 A common value is 7, but no default is specified.  If stationary flow normalization is to be used, then windowSide = 0 (this means that 
 flow-normalization period for all years is the same).}
 
-\item{group1firstYear}{date}
+\item{group1firstYear}{integer year. Starting year of first group.}
 
-\item{group1lastYear}{date}
+\item{group1lastYear}{integer year. Ending year of first group.}
 
-\item{group2firstYear}{date}
+\item{group2firstYear}{integer year. Starting year of second group.}
 
-\item{group2lastYear}{date}
+\item{group2lastYear}{integer year. Ending year of second group.}
 
 \item{surfaceStart}{The Date (or character in YYYY-MM-DD) that is the start of the WRTDS model to be estimated and the first of the 
 daily outputs to be generated. Default is NA, which means that the surfaceStart is based on the date of the first sample.}

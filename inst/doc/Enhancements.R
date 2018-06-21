@@ -1,7 +1,6 @@
 ## ----setup, echo = FALSE, message=FALSE----------------------------------
 library(EGRET)
-library(lubridate)
-library(dplyr)
+
 library(knitr)
 
 knitr::opts_chunk$set(echo = TRUE, 
@@ -13,6 +12,8 @@ knitr::opts_chunk$set(echo = TRUE,
 
 ## ----echo = FALSE--------------------------------------------------------
 library(EGRET)
+library(dplyr)
+
 firstQDate0 <- "1981-08-06"
 lastQDate0 <- "2016-01-14" 
 
@@ -27,7 +28,7 @@ par(new=TRUE)
 for(i in 1994:2014) {
   surfaceStart <- paste(i,"-10-01",sep="")
   surfaceEnd <- paste(i+1, "-09-30", sep = "")
-  x <- makeDateInfo(windowSide = 7, surfaceStart, surfaceEnd, 
+  x <- EGRET:::makeDateInfo(windowSide = 7, surfaceStart, surfaceEnd, 
             firstQDate0 = "1981-08-06", lastQDate0 = "2016-01-14")
   ns <- decimalDate(x$flowNormStart)
   ne <- decimalDate(x$flowNormEnd)
@@ -55,23 +56,15 @@ abline(v = decimalDate("2016-01-14"), col = "blue", lwd = 2)
 #  siteID <- "01491000" #Choptank River at Greensboro, MD
 #  # Gather sample data:
 #  parameter_cd<-"00671" #5 digit USGS code
-#  Sample <- readNWISSample(siteID,parameter_cd,"","")
-#  #Gets earliest date from Sample record:
-#  #This is just one of many ways to assure the Daily record
-#  #spans the Sample record
-#  startDate <- min(as.character(Sample$Date))
-#  # Gather discharge data:
-#  Daily <- readNWISDaily(siteID,"00060",startDate,"")
-#  
-#  INFO<- readNWISInfo(siteID,parameter_cd)
+#  Sample <- readNWISSample(siteID,parameter_cd,"1984-10-19","2014-09-25")
+#  Daily <- readNWISDaily(siteID,"00060","1975-10-01","2017-09-30")
+#  INFO<- readNWISInfo(siteID,parameter_cd, interactive = FALSE)
 #  INFO$shortName <- "Choptank River at Greensboro, MD"
-#  
-#  # Merge discharge with sample data:
 #  eList <- mergeReport(INFO, Daily, Sample)
 #  
-#  
-#  # then we run the function
-#  pairResults <- runPairs(eList, year1 = 1985, year2 = 2014, windowSide = 7)
+#  pairResults <- runPairs(eList,
+#                          year1 = 1985, year2 = 2014,
+#                          windowSide = 7)
 
 ## ----loadDataReal, echo=FALSE--------------------------------------------
 library(EGRET)
@@ -147,7 +140,17 @@ load("Green.Cl.RData")
 load("eListOut.RData")
 load("eListOutNoWall.RData")
 
-## ---- eval = FALSE-------------------------------------------------------
+
+## ----loadDataPretendGreen, echo=TRUE, eval=FALSE-------------------------
+#  
+#  siteID <- "09234500"
+#  parameter_cd<-"00940" #5 digit USGS code
+#  Sample <- readNWISSample(siteID,parameter_cd,"1956-10-04","2018-02-01")
+#  Daily <- readNWISDaily(siteID,"00060","1950-10-01","2018-04-01")
+#  INFO<- readNWISInfo(siteID,parameter_cd, interactive = FALSE)
+#  INFO$shortName <- "Green River near Greendale, UT"
+#  eList <- mergeReport(INFO, Daily, Sample)
+#  
 #  eListOut <- runSeries(eList, windowSide = 12,
 #                        flowBreak = TRUE, Q1EndDate = "1963-03-31",
 #                        wall = TRUE,  sample1EndDate = "1963-03-01",
@@ -161,7 +164,8 @@ tableChange(eListOut, yearPoints = c(1957, 1963, 1983, 2017))
 
 ## ------------------------------------------------------------------------
 eListOut <- blankTime(eListOut, 
-                      startBlank = "2000-10-01", endBlank = "2012-09-30")
+                      startBlank = "2000-10-01", 
+                      endBlank = "2012-09-30")
 plotConcHist(eListOut)
 plotFluxHist(eListOut)
 

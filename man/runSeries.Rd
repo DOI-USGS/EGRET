@@ -8,8 +8,8 @@ runSeries(eList, windowSide, surfaceStart = NA, surfaceEnd = NA,
   flowBreak = FALSE, Q1EndDate = NA, QStartDate = NA, QEndDate = NA,
   wall = FALSE, oldSurface = FALSE, sample1EndDate = NA,
   sampleStartDate = NA, sampleEndDate = NA, paStart = 10, paLong = 12,
-  minNumObs = 100, minNumUncen = 50, windowY = 7, windowQ = 2,
-  windowS = 0.5, edgeAdjust = TRUE, verbose = TRUE)
+  fractMin = 0.75, minNumObs = 100, minNumUncen = 50, windowY = 7,
+  windowQ = 2, windowS = 0.5, edgeAdjust = TRUE, verbose = TRUE)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -44,6 +44,9 @@ to be generated.  Default is NA, which means that the surfaceEnd is based on the
 
 \item{paLong}{numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12, default is 12.}
 
+\item{fractMin}{numeric specifying the minimum fraction of the observations required to run the weighted regression, default is 0.75. The
+minimum number will be the maximum of minNumObs and fractMin multiplied by total number of observations.}
+
 \item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
 
 \item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
@@ -76,10 +79,15 @@ eList <- Choptank_eList
 
 #Option 1:  Use all years for flow normalization.
 seriesOut_1 <- runSeries(eList,  windowSide = 0)
+plotConcHist(seriesOut_1)
+plotFluxHist(seriesOut_1)
 
 # Option 2: Use sliding window throughout the whole flow normalization process.
 #                In each case it is a 15 year window (15 = 1 + 2*7)
 seriesOut_2 <- runSeries(eList, windowSide = 7)
+
+plotConcHist(seriesOut_2)
+plotFluxHist(seriesOut_2)
 
 # Option 3: Flow normalization is based on splitting the flow record at 1990-09-30
 #                But in years before the break it uses all flow data from before the break, 
@@ -88,6 +96,9 @@ seriesOut_3 <- runSeries(eList,
                        windowSide = 0, 
                        flowBreak = TRUE,
                        Q1EndDate = "1990-09-30")
+                       
+plotConcHist(seriesOut_3)
+plotFluxHist(seriesOut_3)
 
 # Option 4: Flow normalization is based on splitting the flow record at 1990-09-30
 #                but before the break uses a 15 year window of years before the break
@@ -95,6 +106,9 @@ seriesOut_3 <- runSeries(eList,
 seriesOut_4 <- runSeries(eList, 
                       windowSide = 7, flowBreak = TRUE,
                       Q1EndDate = "1990-09-30")
+                      
+plotConcHist(seriesOut_4)
+plotFluxHist(seriesOut_4)
 
 }
 }

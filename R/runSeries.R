@@ -29,6 +29,8 @@
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record. The edgeAdjust method tends to reduce curvature near the start and end of record.  Default is TRUE.
+#' @param fractMin numeric specifying the minimum fraction of the observations required to run the weighted regression, default is 0.75. The
+#' minimum number will be the maximum of minNumObs and fractMin multiplied by total number of observations.
 #' @param verbose logical specifying whether to output status messages.
 #' @return eList named list with INFO, Daily, and Sample dataframes, along with the surfaces matrix.
 #' @examples 
@@ -40,10 +42,15 @@
 #' 
 #' #Option 1:  Use all years for flow normalization.
 #' seriesOut_1 <- runSeries(eList,  windowSide = 0)
+#' plotConcHist(seriesOut_1)
+#' plotFluxHist(seriesOut_1)
 #' 
 #' # Option 2: Use sliding window throughout the whole flow normalization process.
 #' #                In each case it is a 15 year window (15 = 1 + 2*7)
 #' seriesOut_2 <- runSeries(eList, windowSide = 7)
+#' 
+#' plotConcHist(seriesOut_2)
+#' plotFluxHist(seriesOut_2)
 #' 
 #' # Option 3: Flow normalization is based on splitting the flow record at 1990-09-30
 #' #                But in years before the break it uses all flow data from before the break, 
@@ -52,6 +59,9 @@
 #'                        windowSide = 0, 
 #'                        flowBreak = TRUE,
 #'                        Q1EndDate = "1990-09-30")
+#'                        
+#' plotConcHist(seriesOut_3)
+#' plotFluxHist(seriesOut_3)
 #' 
 #' # Option 4: Flow normalization is based on splitting the flow record at 1990-09-30
 #' #                but before the break uses a 15 year window of years before the break
@@ -59,6 +69,9 @@
 #' seriesOut_4 <- runSeries(eList, 
 #'                       windowSide = 7, flowBreak = TRUE,
 #'                       Q1EndDate = "1990-09-30")
+#'                       
+#' plotConcHist(seriesOut_4)
+#' plotFluxHist(seriesOut_4)
 #' 
 #' }
 runSeries <- function(eList, windowSide, 
@@ -67,7 +80,7 @@ runSeries <- function(eList, windowSide,
                       Q1EndDate = NA, QStartDate = NA, QEndDate = NA, 
                       wall = FALSE, oldSurface = FALSE,
                       sample1EndDate = NA, sampleStartDate = NA, sampleEndDate = NA,
-                      paStart = 10, paLong = 12,
+                      paStart = 10, paLong = 12, fractMin = 0.75,
                       minNumObs = 100, minNumUncen = 50, windowY = 7, 
                       windowQ = 2, windowS = 0.5, edgeAdjust = TRUE, verbose = TRUE){
 
@@ -112,7 +125,7 @@ runSeries <- function(eList, windowSide,
     surfaces <- stitch(eList, surfaceStart = surfaceStart, 
                           surfaceEnd = surfaceEnd, sample1StartDate = sampleStartDate, 
                           sample1EndDate = sample1EndDate, sample2StartDate = sample2StartDate, 
-                          sample2EndDate = sampleEndDate, windowY = windowY, 
+                          sample2EndDate = sampleEndDate, windowY = windowY, fractMin = fractMin,
                           windowQ = windowQ, windowS = windowS, minNumObs = minNumObs, 
                           minNumUncen = minNumUncen, edgeAdjust = TRUE)
   } else {
@@ -199,6 +212,7 @@ runSeries <- function(eList, windowSide,
   eListOut$INFO$paLong <- paLong
   eListOut$INFO$paStart <- paStart
   eListOut$INFO$minNumUncen <- minNumUncen
+  eListOut$INFO$fractMin <- fractMin
   eListOut$INFO$minNumObs <- minNumObs
   eListOut$INFO$windowQ <- windowQ
   eListOut$INFO$windowY <- windowY
@@ -213,7 +227,7 @@ runSeries <- function(eList, windowSide,
 
 #' makeDateInfo
 #' 
-#' makeDateInfo
+#' Create a data frame that organizes date segmentations for runSeries.
 #' 
 #' @param windowSide integer number of automatically generated span sections, 
 #' default is 7. If NA, code will use 

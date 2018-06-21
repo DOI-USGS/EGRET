@@ -125,6 +125,7 @@ pairOut_3 <- runPairs(eList, year1, year2,
 pairOut_4 <- runPairs(eList, year1, year2, 
                       windowSide = 7, flowBreak = TRUE,
                       Q1EndDate = "1990-09-30")
+                      
 
 }
 }

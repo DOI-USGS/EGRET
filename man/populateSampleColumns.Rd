@@ -10,10 +10,11 @@ populateSampleColumns(rawData)
 \item{rawData}{dataframe with dateTime, ConcLow, ConcHigh, Uncen}
 }
 \value{
-Sample2 dataframe
+Sample2 dataframe with columns: Date, ConcLow, ConcHigh, Uncen, ConcAve, Julian, 
+Month, Day, DecYear, MonthSeq, waterYear, SinDY, and CosDY (DY = decimal year)
 }
 \description{
-Creates ConcAve and ConcLow based on Uncen. Removes any samples with NA values in ConcHigh
+Creates ConcAve and ConcLow based on Uncen. Removes any samples with NA values in ConcHigh.
 }
 \examples{
 dateTime <- c('1985-01-01', '1985-01-02', '1985-01-03')
