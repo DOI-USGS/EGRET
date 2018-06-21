@@ -1,6 +1,6 @@
 #' Populate Daily data frame
 #'
-#' Using raw data that has at least dateTime, value, code, populates the rest of the basic Daily data frame used in EGRET analsis.
+#' Using raw data that has at least dateTime, value, code, populates the rest of the basic Daily data frame used in EGRET analysis.
 #'
 #' @param rawData dataframe contains at least dateTime, value, code columns
 #' @param qConvert character conversion to cubic meters per second
