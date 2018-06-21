@@ -1,3 +1,8 @@
+EGRET 3.0.0
+===========
+* Added enhancements for generalized flow normalization
+* Functions include runPairs, runSeries, and runGroups
+
 EGRET 2.6.1
 ===========
 * Added foreach dependency which allows parallelizing WRTDS.
