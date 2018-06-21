@@ -33,7 +33,7 @@ Q30 \tab numeric \tab 30 day running average of Q \cr
 }
 }
 \description{
-Using raw data that has at least dateTime, value, code, populates the rest of the basic Daily data frame used in WRTDS
+Using raw data that has at least dateTime, value, code, populates the rest of the basic Daily data frame used in EGRET analsis.
 }
 \examples{
 dateTime <- as.character(seq(as.Date("2001/1/1"), 

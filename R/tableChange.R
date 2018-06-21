@@ -10,6 +10,7 @@
 #' @param yearPoints numeric vector listing the years for which the change or slope computations are made, they need to be in chronological order.  For example yearPoints=c(1975,1985,1995,2005), default is NA (which allows the program to set yearPoints automatically)
 #' @keywords water-quality statistics
 #' @export
+#' @rdname tableChange
 #' @examples
 #' eList <- Choptank_eList
 #' # Water Year:
@@ -20,6 +21,19 @@
 #' # Winter:
 #' eList <- setPA(eList, paStart=12,paLong=3)
 #' tableChange(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
+#' 
+#' # Water Year:
+#' #This returns concentration ASCII table in the console:
+#' tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)
+#' #Returns a data frame:
+#' change <- tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), 
+#'                   flowNormYears=c(2003:2004, 2006:2009), flux=FALSE)
+#' #This returns flux values ASCII table in the console
+#' df <- tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=TRUE)  
+#' # Winter:
+#' eList <- setPA(eList, paStart=12,paLong=3)
+#' tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)
+#' 
 #' }
 tableChange<-function(eList, fluxUnit = 9, yearPoints = NA) {
   

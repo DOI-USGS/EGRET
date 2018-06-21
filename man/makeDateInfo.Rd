@@ -21,7 +21,7 @@ the start of eList$Daily}
 the end of eList$Daily}
 }
 \description{
-makeDateInfo
+Create a data frame that organizes date segmentations for runSeries.
 }
 \examples{
 windowSide <- 7

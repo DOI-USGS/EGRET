@@ -6,8 +6,9 @@
 \usage{
 stitch(eList, sample1StartDate, sample1EndDate, sample2StartDate,
   sample2EndDate, surfaceStart = NA, surfaceEnd = NA, minNumObs = 100,
-  minNumUncen = 50, windowY = 7, windowQ = 2, windowS = 0.5,
-  edgeAdjust = TRUE, verbose = FALSE, run.parallel = FALSE)
+  minNumUncen = 50, fractMin = 0.75, windowY = 7, windowQ = 2,
+  windowS = 0.5, edgeAdjust = TRUE, verbose = FALSE,
+  run.parallel = FALSE)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -29,6 +30,9 @@ to be generated.  Default is NA, which means that the surfaceEnd is based on the
 \item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
 
 \item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
+
+\item{fractMin}{numeric specifying the minimum fraction of the observations required to run the weighted regression, default is 0.75. The
+minimum number will be the maximum of minNumObs and fractMin multiplied by total number of observations.}
 
 \item{windowY}{numeric specifying the half-window width in the time dimension, in units of years, default is 7}
 

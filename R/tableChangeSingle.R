@@ -1,33 +1,8 @@
-#' Create a table of the changes in flow-normalized concentration or flux values between various points in time in the record
-#'
-#' This table describe trends in flow-normalized concentration or flux depending on if flux is defined as TRUE or FALSE. 
-#' The results are described as changes in real units or in percent and als as slopes in real units per year or in percent per year.
-#' They are computed over pairs of time points (Year1 to Year2).  These time points can be user-defined or
-#' they can be set by the program to be the final year of the record and a set of years that are multiple of 5 years prior to that.
-#'
-#' @param eList named list with at least Daily and INFO dataframes
-#' @param fluxUnit object of fluxUnit class. \code{\link{printFluxUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.
-#' @param yearPoints numeric vector listing the years for which the change or slope computations are made, they need to be in chronological order.  For example yearPoints=c(1975,1985,1995,2005), default is NA (which allows the program to set yearPoints automatically)
 #' @param flux logical if TRUE results are returned in flux, if FALSE concentration. Default is set to FALSE.
-#' @return resultsDF dataframe describing trends in flow-normalized concentration or flux if returnDataFrame is TRUE
-#' @keywords water-quality statistics
+#' @export
+#' @rdname tableChange
 #' @export
 #' @return dataframe with Year1, Year2, change[mg/L], slope[mg/L], change[percent], slope[percent] columns. The data in each row is the change or slope calculated from Year1 to Year2
-#' @examples
-#' eList <- Choptank_eList
-#' \dontrun{
-#' # Water Year:
-#' #This returns concentration ASCII table in the console:
-#' tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)
-#' #Returns a data frame:
-#' change <- tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), 
-#'                   flowNormYears=c(2003:2004, 2006:2009), flux=FALSE)
-#' #This returns flux values ASCII table in the console
-#' df <- tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=TRUE)  
-#' # Winter:
-#' eList <- setPA(eList, paStart=12,paLong=3)
-#' tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)
-#' }
 tableChangeSingle<-function(eList, fluxUnit = 9, yearPoints = NA, flux = FALSE) {
   
   localINFO <- getInfo(eList)

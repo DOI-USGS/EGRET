@@ -8,10 +8,10 @@
 #' 
 #' @export
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
-#' @param group1firstYear date
-#' @param group1lastYear date
-#' @param group2firstYear date
-#' @param group2lastYear date
+#' @param group1firstYear integer year. Starting year of first group.
+#' @param group1lastYear integer year. Ending year of first group.
+#' @param group2firstYear integer year. Starting year of second group.
+#' @param group2lastYear integer year. Ending year of second group.
 #' @param windowSide integer. The width of the flow normalization window on each side of the year being estimated.
 #' A common value is 7, but no default is specified.  If stationary flow normalization is to be used, then windowSide = 0 (this means that 
 #' flow-normalization period for all years is the same).
@@ -131,7 +131,7 @@ runGroups <- function (eList, windowSide,
     surfaces <- stitch(eList, surfaceStart = surfaceStart, 
                        surfaceEnd = surfaceEnd, sample1StartDate = sampleStartDate, 
                        sample1EndDate = sample1EndDate, sample2StartDate = sample2StartDate, 
-                       sample2EndDate = sampleEndDate, windowY = windowY, 
+                       sample2EndDate = sampleEndDate, windowY = windowY, fractMin = fractMin,
                        windowQ = windowQ, windowS = windowS, minNumObs = minNumObs, 
                        minNumUncen = minNumUncen, edgeAdjust = edgeAdjust)
   } else {
@@ -251,7 +251,7 @@ runGroups <- function (eList, windowSide,
   names(SampleBlocks) <- c("sample1StartDate", "sample1EndDate", 
                            "sample2StartDate", "sample2EndDate", "surfaceStart", "surfaceEnd")
   attr(groupResults, "SampleBlocks") <- SampleBlocks
-  Other <- list(minNumObs = minNumObs, minNumUncen = minNumUncen, 
+  Other <- list(minNumObs = minNumObs, minNumUncen = minNumUncen, fractMin = fractMin,
                 windowY = windowY, windowQ = windowQ, windowS = windowS, 
                 wall = wall, edgeAdjust = edgeAdjust, QStartDate = as.Date(QStartDate), 
                 QEndDate = as.Date(QEndDate))

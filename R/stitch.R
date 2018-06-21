@@ -22,6 +22,8 @@
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
+#' @param fractMin numeric specifying the minimum fraction of the observations required to run the weighted regression, default is 0.75. The
+#' minimum number will be the maximum of minNumObs and fractMin multiplied by total number of observations.
 #' @param verbose logical specifying whether or not to display progress message
 #' @param run.parallel logical to run bootstrapping in parallel or not
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
@@ -59,7 +61,7 @@ stitch <- function(eList,
                    sample1StartDate, sample1EndDate, 
                    sample2StartDate, sample2EndDate, 
                    surfaceStart = NA, surfaceEnd = NA, 
-                   minNumObs = 100, minNumUncen = 50, 
+                   minNumObs = 100, minNumUncen = 50,  fractMin = 0.75,
                    windowY = 7, windowQ = 2, windowS = 0.5, 
                    edgeAdjust = TRUE, verbose = FALSE, run.parallel = FALSE){
 
@@ -84,10 +86,13 @@ stitch <- function(eList,
   message("\n Sample1 mean concentration ", mean(Sample1$ConcAve))
   message("\n Sample2 mean concentration ", mean(Sample2$ConcAve))
   
-  minNumObs <- ceiling(min(minNumObs, 0.8 * length(Sample1$Date), 
-                           0.8 * length(Sample2$Date), na.rm = TRUE))
-  minNumUncen <- ceiling(min(0.5 * minNumObs, 0.8 * sum(Sample1$Uncen), 
-                             0.8 * sum(Sample2$Uncen), na.rm = TRUE))
+  fractMin <- min(fractMin, 1.0)
+  
+  minNumObs <- ceiling(min(minNumObs, fractMin * length(Sample1$Date), 
+                           fractMin * length(Sample2$Date)))
+
+  minNumUncen <- ceiling(min(0.5 * minNumObs, minNumUncen))
+  
   message("Sample1 has ", nrow(Sample1), " Samples and ", sum(Sample1$Uncen), 
           " are uncensored")
   message("Sample2 has ", nrow(Sample2), " Samples and ", sum(Sample2$Uncen), 
