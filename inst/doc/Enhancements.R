@@ -1,7 +1,6 @@
 ## ----setup, echo = FALSE, message=FALSE----------------------------------
 library(EGRET)
-library(lubridate)
-library(dplyr)
+
 library(knitr)
 
 knitr::opts_chunk$set(echo = TRUE, 
@@ -13,6 +12,8 @@ knitr::opts_chunk$set(echo = TRUE,
 
 ## ----echo = FALSE--------------------------------------------------------
 library(EGRET)
+library(dplyr)
+
 firstQDate0 <- "1981-08-06"
 lastQDate0 <- "2016-01-14" 
 
