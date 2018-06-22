@@ -1,4 +1,4 @@
-#' Create a character character that describes the period of analysis, when period of analysis has already been set in AnnualResults
+#' Create a character variable that describes the period of analysis, when period of analysis has already been set in AnnualResults
 #'
 #' The period of analysis can be of any length from 1 month to 12 months. 
 #' The period of analysis can have any starting month from 1 (January) through 12 (December). 

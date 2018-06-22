@@ -4,16 +4,16 @@
 #' streamflow for a particular part of the year or for the whole year. 
 #' This is particularly useful in setting up discharge scales for various other plots in this package. 
 #'
-#' @param centerDate character specifying the center date of the part of the year for which the flow
-#' duration is to be calculated, it is in the form "mm-dd" (it must be in quotes), default is 
-#' "09-30"
 #' @param eList named list with at least Daily and INFO dataframes
+#' @param centerDate character specifying the center date of the part of the year for which the flow
+#' duration is to be calculated, it is in the form "mm-dd" (it must be in quotes). Default is 
+#' "09-30"
 #' @param qUnit object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented the short code,
-#'  or character representing the descriptive name.
+#'  or character representing the descriptive name. Default is qUnit = 2, which corresponds to cubic meters per second.
 #' @param span number this is the half-width of the window over which the discharge values are to 
 #' be used in constructing the flow-duration curve. If the full year is desired any value greater 
-#' than 182 will provide serve. Note that for a window of about 2-months width, a span value shoud 
-#' be about 30.
+#' than 182 will provide serve. Note that for a window of about 2-months width, a span value should 
+#' be about 30. Default is 365.
 #' @return qDuration A named vector with flow duration information.
 #' @keywords streamflow, statistics
 #' @export

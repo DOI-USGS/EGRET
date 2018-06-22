@@ -23,6 +23,9 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param logScale logical, default TRUE, TRUE creates a log-log scale, FALSE creates an arithmatic scale.
 #' @param col color of points on plot, see ?par 'Color Specification'
+#' @param usgsStyle logical option to use USGS style guidelines. Setting this option
+#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' generated labels. 
 #' @param lwd number line width
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
@@ -38,8 +41,9 @@
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' plotFluxQ(eList)
 plotFluxQ<-function(eList, qUnit = 2,logScale=TRUE,
-                       fluxUnit = 3, tinyPlot = FALSE, fluxMax = NA, fluxMin = NA, col="black",lwd=1,
-                       printTitle = TRUE,cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,...){
+                    fluxUnit = 3, tinyPlot = FALSE, fluxMax = NA, fluxMin = NA, col="black",lwd=1,
+                    printTitle = TRUE,usgsStyle = FALSE,
+                    cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,...){
   # this function shows the sample data,
   # discharge on x-axis on a log scale,
   # flux on y-axis on a log scale
@@ -100,8 +104,8 @@ plotFluxQ<-function(eList, qUnit = 2,logScale=TRUE,
     xLab <- qUnit@qUnitTiny
     yLab <- fluxUnit@unitExpressTiny
   } else {
-    xLab<-qUnit@qUnitExpress
-    yLab<-fluxUnit@unitExpress
+    xLab <- ifelse(usgsStyle,qUnit@unitUSGS,qUnit@qUnitExpress)
+    yLab <- ifelse(usgsStyle,fluxUnit@unitUSGS,fluxUnit@unitExpress)
   }
   
   if(logScale){

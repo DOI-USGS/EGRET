@@ -50,6 +50,35 @@ The Water Mission Area of the USGS has supported the development and maintenance
 
 Funding for `EGRET` currently expires summer 2018. Expectations are that maintenance and customer service will continue to be supported past that date.
 
+### How to cite EGRET:
+
+``` r
+citation(package = "EGRET")
+```
+
+    ## 
+    ## To cite EGRET in publications, please use:
+    ## 
+    ##   Hirsch, R.M., and De Cicco, L.A., 2015, User guide to
+    ##   Exploration and Graphics for RivEr Trends (EGRET) and
+    ##   dataRetrieval: R packages for hydrologic data (version 2.0,
+    ##   February 2015): U.S. Geological Survey Techniques and Methods
+    ##   book 4, chap. A10, 93 p., http://dx.doi.org/10.3133/tm4A10
+    ## 
+    ## A BibTeX entry for LaTeX users is
+    ## 
+    ##   @InBook{,
+    ##     author = {Robert M. Hirsch and Laura A. {De Cicco}},
+    ##     title = {User guide to Exploration and Graphics for RivEr Trends (EGRET) and dataRetrieval: R packages for hydrologic data},
+    ##     publisher = {U.S. Geological Survey},
+    ##     address = {Reston, VA},
+    ##     booktitle = {Techniques and Methods},
+    ##     institution = {U.S. Geological Survey},
+    ##     year = {2015},
+    ##     chapter = {A10},
+    ##     url = {https://pubs.usgs.gov/tm/04/a10/},
+    ##   }
+
 ### Research software impact:
 
 [![Research software impact](http://depsy.org/api/package/cran/EGRET/badge.svg)](http://depsy.org/package/r/EGRET)
@@ -153,31 +182,31 @@ eList <- Choptank_eList
 boxConcMonth(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
 ``` r
 boxQTwice(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-2.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-2.png)
 
 ``` r
 plotConcTime(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-3.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-3.png)
 
 ``` r
 plotConcQ(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-4.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-4.png)
 
 ``` r
 multiPlotDataOverview(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-5.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-5.png)
 
 ``` r
 ############################
@@ -224,68 +253,68 @@ eList <- modelEstimation(eList)
 plotConcTimeDaily(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-6.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-6.png)
 
 ``` r
 plotFluxTimeDaily(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-7.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-7.png)
 
 ``` r
 plotConcPred(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-8.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-8.png)
 
 ``` r
 plotFluxPred(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-9.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-9.png)
 
 ``` r
 plotResidPred(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-10.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-10.png)
 
 ``` r
 plotResidQ(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-11.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-11.png)
 
 ``` r
 plotResidTime(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-12.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-12.png)
 
 ``` r
 boxResidMonth(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-13.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-13.png)
 
 ``` r
 boxConcThree(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-14.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-14.png)
 
 ``` r
 #Require Daily + INFO:
 plotConcHist(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-15.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-15.png)
 
 ``` r
 plotFluxHist(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-16.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-16.png)
 
 ``` r
 # Multi-line plots:
@@ -298,7 +327,7 @@ plotConcQSmooth(eList, date1, date2, date3, qBottom, qTop,
                    concMax=2,qUnit=1)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-17.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-17.png)
 
 ``` r
 q1 <- 10
@@ -310,14 +339,14 @@ yearStart <- 2000
 plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-18.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-18.png)
 
 ``` r
 # Multi-plots:
 fluxBiasMulti(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-19.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-19.png)
 
 ``` r
 #Contour plots:
@@ -330,14 +359,14 @@ plotContours(eList, yearStart,yearEnd,qBottom,qTop,
              contourLevels = clevel,qUnit=1)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-20.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-20.png)
 
 ``` r
 plotDiffContours(eList, yearStart,yearEnd,
                  qBottom,qTop,maxDiff,qUnit=1)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-6-21.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-21.png)
 
 ``` r
 # modify this for your own computer file structure
@@ -359,7 +388,7 @@ endDate <- "" # Get latest date
 Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
 ```
 
-    ## There are 25472 data points, and 25472 days.
+    ## There are 25563 data points, and 25563 days.
 
 ``` r
 # Gather site and parameter information:
@@ -411,31 +440,31 @@ eList <- as.egret(INFO, Daily, NA, NA)
 plotFlowSingle(eList, istat=7,qUnit="thousandCfs")
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-8-1.png)
+![](README_files/figure-markdown_github/unnamed-chunk-9-1.png)
 
 ``` r
 plotSDLogQ(eList)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-8-2.png)
+![](README_files/figure-markdown_github/unnamed-chunk-9-2.png)
 
 ``` r
 plotQTimeDaily(eList, qLower=1,qUnit=3)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-8-3.png)
+![](README_files/figure-markdown_github/unnamed-chunk-9-3.png)
 
 ``` r
 plotFour(eList, qUnit=3)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-8-4.png)
+![](README_files/figure-markdown_github/unnamed-chunk-9-4.png)
 
 ``` r
 plotFourStats(eList, qUnit=3)
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-8-5.png)
+![](README_files/figure-markdown_github/unnamed-chunk-9-5.png)
 
 ``` r
 ############################

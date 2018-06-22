@@ -2,7 +2,7 @@
 % Please edit documentation in R/blankTime.R
 \name{blankTime}
 \alias{blankTime}
-\title{Deletes the computed values during periods of time when there is no sample data}
+\title{Deletes the computed values during periods of time when there are no sample data}
 \usage{
 blankTime(eList, startBlank, endBlank)
 }
@@ -19,7 +19,7 @@ eList named list with modified Daily data frame.
 \description{
 This function is used when the data analyst believes that a gap in the sample data record
  is so long that estimates during that period are not reliable. 
- This is only unsed for periods of several years in duration. 
+ This is only used for periods of several years in duration. 
  For this period, the values of Conc, Flux, FNConc and FNFlux are all converted to NA.
 }
 \examples{

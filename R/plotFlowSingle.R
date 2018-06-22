@@ -30,6 +30,9 @@
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
+#' @param usgsStyle logical option to use USGS style guidelines. Setting this option
+#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' generated labels. 
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow statistics
 #' @export
@@ -52,8 +55,12 @@
 #' }
 plotFlowSingle<-function(eList, istat,yearStart=NA, yearEnd = NA,
                   qMax = NA, printTitle = TRUE, tinyPlot = FALSE, customPar=FALSE,
-                  runoff = FALSE, qUnit = 1, printStaName = TRUE, printPA = TRUE, 
+                  runoff = FALSE, qUnit = 1, printStaName = TRUE, printPA = TRUE, usgsStyle=FALSE,
                   printIstat = TRUE,cex=0.8, cex.axis=1.1,cex.main=1.1, lwd=2, col="black",...) {
+  
+  if(is.na(istat)){
+    stop("Choose a value for istat (options are 1-8)")
+  }
   
   localAnnualSeries <- makeAnnualSeries(eList)
   localINFO <- getInfo(eList)
@@ -101,10 +108,10 @@ plotFlowSingle<-function(eList, istat,yearStart=NA, yearEnd = NA,
   ##############################################
   
   if(tinyPlot){
-    yLab <- qUnit@qUnitTiny
+    yLab <- ifelse(usgsStyle, qUnit@unitUSGS, qUnit@qUnitTiny)
     title<-if(printTitle) paste(nameIstat[istat]) else ""
   } else {
-    yLab <- qUnit@qUnitExpress
+    yLab<-ifelse(usgsStyle, qUnit@unitUSGS, qUnit@qUnitExpress)
   }
   
   yLab <- if(runoff) "Runoff in mm/day" else yLab

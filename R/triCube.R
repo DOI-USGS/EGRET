@@ -1,8 +1,10 @@
-#'   Tricube weight function
+#' Tricube weight function
 #'
-#'      Computes the tricube weight function on a vector of distance values (d),
-#'      based on a half-window width of h,
-#'      and returns a vector of weights that range from zero to 1.
+#' Computes the tricube weight function on a vector of distance values (d),
+#' based on a half-window width of h,
+#' and returns a vector of weights that range from zero to 1.
+#' 
+#' See Cleveland, W. S. (1979). Robust locally weighted regression and smoothing scatterplots, JASA,  74, 829-836
 #'
 #' @param d numeric vector of distances from the point of estimation to the given sample value
 #' @param h numeric value, the half-window width, measured in the same units as d

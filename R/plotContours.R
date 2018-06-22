@@ -69,9 +69,19 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
                        printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA, tcl=0.1,
                        flowDuration = TRUE, customPar=FALSE, yTicks=NA,tick.lwd=2,
                        lwd=1,cex.main=1,cex.axis=1,color.palette=colorRampPalette(c("white","gray","blue","red")),...) {
+  
+  # if(.Device != "null device"){
+  #   grDevices::graphics.off()
+  # }
+  
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
   localsurfaces <- getSurfaces(eList)
+  
+  nVectorYear <- localINFO$nVectorYear
+  bottomLogQ <- localINFO$bottomLogQ
+  stepLogQ <- localINFO$stepLogQ
+  nVectorLogQ <- localINFO$nVectorLogQ
   
   if (is.numeric(qUnit)){
     qUnit <- qConst[shortCode=qUnit][[1]]
@@ -80,8 +90,12 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
   }
 
   if(!customPar){
-    par(oma=c(6,1,6,0))
-    par(mar=c(5,5,4,2)+0.1)
+    par(mgp=c(2.5,0.5,0))
+    if(printTitle){
+      par(oma=c(0,0,2,0))
+    } else {
+      par(oma=c(0,0,0,0))
+    }
   }
   surfaceName<-c("log of Concentration","Standard Error of log(C)","Concentration")
   j<-3
@@ -93,14 +107,14 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
   surfaceSpan<-c(surfaceMin,surfaceMax)
   contourLevels<-if(is.na(contourLevels[1])) pretty(surfaceSpan,n=5) else contourLevels
   # computing the indexing of the surface, the whole thing, not just the part being plotted
-  bottomLogQ<-localINFO$bottomLogQ
-  stepLogQ<-localINFO$stepLogQ
-  nVectorLogQ<-localINFO$nVectorLogQ
-  bottomYear<-localINFO$bottomYear
-  stepYear<-localINFO$stepYear
-  nVectorYear<-localINFO$nVectorYear
-  x<-((1:nVectorYear)*stepYear) + (bottomYear - stepYear)
-  y<-((1:nVectorLogQ)*stepLogQ) + (bottomLogQ - stepLogQ)
+  if(all(c("Year","LogQ") %in% names(attributes(localsurfaces)))){
+    x <- attr(localsurfaces, "Year")
+    y <- attr(localsurfaces, "LogQ")
+  } else {
+    x <- seq(localINFO$bottomYear, by=localINFO$stepYear, length.out=localINFO$nVectorYear)
+    y <- ((1:nVectorLogQ)*stepLogQ) + (bottomLogQ - stepLogQ)
+  }
+  
   yLQ<-y
   qFactor<-qUnit@qUnitFactor
   y<-exp(y)*qFactor
@@ -144,12 +158,12 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
   surfj<-surf[,,j]
   surft<-t(surfj)
   # the next section does the flow duration information, using the whole period of record in Daily, not just the graph period
-  plotTitle<-if(printTitle) paste(localINFO$shortName," ",localINFO$paramShortName,"\nEstimated",surfaceName[j],"Surface in Color") else ""
+  plotTitle<-if(printTitle) paste(localINFO$shortName," ",localINFO$paramShortName,"\nEstimated",surfaceName[j],"Surface in Color") else NULL
   if(flowDuration) {
     numDays<-length(localDaily$Day)
     freq<-rep(0,nVectorLogQ)
-    durSurf<-rep(0,nVectorYear*nVectorLogQ)
-    dim(durSurf)<-c(nVectorYear,nVectorLogQ)
+    durSurf<-rep(0,length(x)*length(y))
+    dim(durSurf)<-c(length(x),length(y))
     centerDays<-seq(1,365,22.9)
     centerDays<-floor(centerDays)
     for (ix in 1:16) {
@@ -165,7 +179,7 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
       spanDaily<-subset(spanDaily,isGood)
       n<-length(spanDaily$Day)
       LogQ<-spanDaily$LogQ
-      for(jQ in 1:nVectorLogQ) {
+      for(jQ in 1:length(y)) {
         ind<-ifelse(LogQ < yLQ[jQ],1,0)
         freq[jQ]<-sum(ind)/n
       }
@@ -179,7 +193,7 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
     plevels<-c(pval,1-pval)
     pct1<-format(plevels[1]*100,digits=2)
     pct2<-format(plevels[2]*100,digits=2)
-    plotTitle<-paste(localINFO$shortName,"  ",localINFO$paramShortName,"\nEstimated",surfaceName[j],"Surface in Color\nBlack lines are",pct1,"and",pct2,"flow percentiles")
+    plotTitle<- plotTitle<-if(printTitle)paste(localINFO$shortName,"  ",localINFO$paramShortName,"\nEstimated",surfaceName[j],"Surface in Color\nBlack lines are",pct1,"and",pct2,"flow percentiles")
   }
   # setting up for the possible 3 straight lines to go on the graph
   # if the lines aren't being plotted they are just located outside the plot area
@@ -192,9 +206,10 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
   deltaX <- (yearEnd-yearStart)/25
   
   yLab<-qUnit@qUnitExpress
+  logY <- log(y,10)
   filled.contour(x,log(y,10),surft,levels=contourLevels,xlim=c(yearStart,yearEnd),
-                 ylim=c(log(yTicks[1],10),log(yTicks[nYTicks],10)),#main=plotTitle,
-                 xlab="",ylab=yLab,xaxs="i",yaxs="i",cex.main=cex.main, 
+                 ylim=c(log(yTicks[1],10),log(yTicks[nYTicks],10)),#plot.title = title(plotTitle,cex.main=cex.main, outer = TRUE),
+                 xlab="",xaxs="i",yaxs="i",cex.main=cex.main, 
                  color.palette=color.palette, # ...,
                  plot.axes={
                    
@@ -214,7 +229,11 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
                    segments(xTicks, rep(log(yTicks[nYTicks],10),length(xTicks)), xTicks, rep(grconvertY(grconvertY(par("usr")[4],from="user",to="inches")-tcl,from="inches",to="user"),length(xTicks)), lwd = tick.lwd)
                    segments(rep(yearStart,length(yTicks)), log(yTicks,10), rep(grconvertX(grconvertX(par("usr")[1],from="user",to="inches")+tcl,from="inches",to="user"),length(yTicks)),log(yTicks,10), lwd = tick.lwd)
                    segments(rep(grconvertX(grconvertX(par("usr")[2],from="user",to="inches")-tcl,from="inches",to="user"),length(yTicks)), log(yTicks,10), rep(yearEnd,length(yTicks)),log(yTicks,10), lwd = tick.lwd)
-                 })
-  if (printTitle) title(plotTitle,outer=TRUE,cex.main=cex.main,line=-3)
+                 },
+                  plot.title = {
+                    title(main = plotTitle,outer=TRUE,cex.main=cex.main)
+                    mtext(yLab,2,cex=cex.main,line=2,las=0)
+                 }
+        )
 
 }

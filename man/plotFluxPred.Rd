@@ -7,7 +7,7 @@
 plotFluxPred(eList, fluxUnit = 3, fluxMax = NA, printTitle = TRUE,
   oneToOneLine = TRUE, customPar = FALSE, col = "black", lwd = 1,
   cex = 0.8, cex.axis = 1.1, cex.main = 1.1, tinyPlot = FALSE,
-  logScale = FALSE, randomCensored = FALSE, ...)
+  usgsStyle = FALSE, logScale = FALSE, randomCensored = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}
@@ -34,6 +34,10 @@ plotFluxPred(eList, fluxUnit = 3, fluxMax = NA, printTitle = TRUE,
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
 
 \item{tinyPlot}{logical variable if TRUE plot is designed to be small, if FALSE it is designed for page size, default is FALSE (not fully implemented yet)}
+
+\item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
+to TRUE does NOT guarantee USGS complience. It will only change automatically
+generated labels.}
 
 \item{logScale}{logical if TRUE x and y plotted in log axis}
 

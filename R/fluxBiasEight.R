@@ -4,13 +4,15 @@
 #' These plots use the jack-knife estimates from WRTDS to investigate the potential flux bias problem. 
 #' It can also be used for estimates constructed by other methods (such as LOADEST) if the results are
 #' stored in a data frame organized like the Sample data frame.  It allows additional label information
-#' to indicate what method is used. 
+#' to indicate what method is used. The use of this plot is described in Hirsch, Robert M., 2014. 
+#' Large Biases in Regression-Based Constituent Flux Estimates: Causes and Diagnostic
+#' Tools. Journal of the American Water Resources Association (JAWRA) 1-24. DOI: 10.1111/jawr.12195
+#'
 #'
 #' Although there are a lot of optional arguments to this function, most are set to a logical default. 
 #' 
 #' Data come from named list, which contains a Sample dataframe with the sample data, 
-#' a Daily dataframe with the daily flow data,
-#' and an INFO dataframe with metadata
+#' a Daily dataframe with the daily flow data, and an INFO dataframe with metadata.
 #'
 #' @param eList named list with at least Sample, Daily, and INFO dataframes
 #' @param qUnit object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name. 

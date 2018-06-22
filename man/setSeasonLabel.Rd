@@ -2,7 +2,7 @@
 % Please edit documentation in R/setSeasonLabel.R
 \name{setSeasonLabel}
 \alias{setSeasonLabel}
-\title{Create a character character that describes the period of analysis, when period of analysis has already been set in AnnualResults}
+\title{Create a character variable that describes the period of analysis, when period of analysis has already been set in AnnualResults}
 \usage{
 setSeasonLabel(localAnnualResults)
 }

@@ -1,23 +1,26 @@
 #' Estimation process for the WRTDS (Weighted Regressions on Time, Discharge, and Season)
 #'
-#' This one function does a jack-knife cross-validation of a WRTDS model, fits the surface
-#' (concentration as a function of discharge and time), 
-#' estimates daily values of concentration and flux, and flow normalized values. 
+#' This one function does three things. 
+#' 1) a jack-knife cross-validation of a WRTDS model in which it augments the Sample data frame in the eList
+#' 2) fits the WRTDS model creating the, fits the surfaces matrix and places it in the eList
+#' (the surfaces matrix expresses the estimated concentration as a function of discharge and time), 
+#' 3) estimates the daily values of concentration and flux, and flow normalized concentration and 
+#' flux and places these in the Daily data frame in the eList values. 
 #' It returns a named list with the following dataframes: Daily, INFO, Sample, and the matrix: surfaces.
-#'
-#' @param eList named list with at least the Daily, Sample, and INFO dataframes
+#' 
+#' @param eList named list with at least the INFO, Daily, and Sample dataframes
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
 #' @param minNumUncen numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
-#' The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
+#' The edgeAdjust method tends to reduce curvature near the start and end of record.  Default is TRUE.
 #' @param verbose logical specifying whether or not to display progress message
 #' @param run.parallel logical to run WRTDS in parallel or not
 #' @keywords water-quality statistics
 #' @export
-#' @return eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.
+#' @return eList named list with INFO, Daily, and Sample dataframes, along with the surfaces matrix.
 #' Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
 #' @examples
 #' eList <- Choptank_eList
@@ -65,6 +68,8 @@ modelEstimation<-function(eList,
   Daily1<-estDailyFromSurfaces(eList)
   
   eList$Daily <- Daily1
+  
+  checkSurfaceSpan(eList)
   
   return(eList)
   
@@ -120,12 +125,12 @@ setUpEstimation<-function(eList,
   DecHigh <- localDaily$DecYear[numDays]
     
   surfaceIndexParameters<-surfaceIndex(localDaily)
-  localINFO$bottomLogQ<-surfaceIndexParameters[1]
-  localINFO$stepLogQ<-surfaceIndexParameters[2]
-  localINFO$nVectorLogQ<-surfaceIndexParameters[3]
-  localINFO$bottomYear<-surfaceIndexParameters[4]
-  localINFO$stepYear<-surfaceIndexParameters[5]
-  localINFO$nVectorYear<-surfaceIndexParameters[6]
+  localINFO$bottomLogQ<-surfaceIndexParameters[['bottomLogQ']]
+  localINFO$stepLogQ<-surfaceIndexParameters[['stepLogQ']]
+  localINFO$nVectorLogQ<-surfaceIndexParameters[['nVectorLogQ']]
+  localINFO$bottomYear<-surfaceIndexParameters[['bottomYear']]
+  localINFO$stepYear<-surfaceIndexParameters[['stepYear']]
+  localINFO$nVectorYear<-surfaceIndexParameters[['nVectorYear']]
   localINFO$windowY<-windowY
   localINFO$windowQ<-windowQ
   localINFO$windowS<-windowS

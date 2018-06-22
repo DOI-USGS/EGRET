@@ -7,8 +7,8 @@
 plotFlowSingle(eList, istat, yearStart = NA, yearEnd = NA, qMax = NA,
   printTitle = TRUE, tinyPlot = FALSE, customPar = FALSE,
   runoff = FALSE, qUnit = 1, printStaName = TRUE, printPA = TRUE,
-  printIstat = TRUE, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
-  lwd = 2, col = "black", ...)
+  usgsStyle = FALSE, printIstat = TRUE, cex = 0.8, cex.axis = 1.1,
+  cex.main = 1.1, lwd = 2, col = "black", ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes}
@@ -35,6 +35,10 @@ plotFlowSingle(eList, istat, yearStart = NA, yearEnd = NA, qMax = NA,
 \item{printStaName}{logical variable, if TRUE station name is printed in title, if FALSE not printed, default is TRUE}
 
 \item{printPA}{logical variable, if TRUE Period of Analysis information is printed in title, if FALSE not printed, default is TRUE}
+
+\item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
+to TRUE does NOT guarantee USGS complience. It will only change automatically
+generated labels.}
 
 \item{printIstat}{logical variable, if TRUE print the statistic name is printed in title, if FALSE not printed, default is TRUE}
 

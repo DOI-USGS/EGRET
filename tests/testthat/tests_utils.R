@@ -314,38 +314,38 @@ test_that("flexPlotAddOn functions properly", {
   testthat::skip_on_cran()
   
   eList <- Choptank_eList
-  eList <- setUpEstimation(eList)
-  sampleSegStart <- c(1980,1985,2000)
-  flowSegStart <- c(1980,1990,2000)
-  flowSegEnd <- c(1990,2000,2010)
-  dateInfo <- data.frame(sampleSegStart, flowSegStart, flowSegEnd)
-  eList <- flexFN(eList, dateInfo)
-
-  graphics.off()
-  dev_start <- dev.cur()
-  expect_message(plotFluxHist(eList))
-  expect_silent(flexPlotAddOn(eList))
-  expect_true(dev_start + 1 == dev.cur())
-  
-  graphics.off()
-  dev_start <- dev.cur()
-  expect_message(plotFluxHist(eList))
-  expect_silent(flexPlotAddOn(eList, customPalette = 
-                                c("#02df77", "#dc28b2", "#2137a6")))
-  expect_true(dev_start + 1 == dev.cur())
-  
-  sampleSegStart <- seq(1980,2011)
-  flowSegStart <- seq(1980,2011)
-  flowSegEnd <- seq(1981,2012)
-  dateInfo <- data.frame(sampleSegStart, flowSegStart, flowSegEnd)
-  eList <- flexFN(eList, dateInfo)
-  
-  graphics.off()
-  dev_start <- dev.cur()
-  expect_message(plotFluxHist(eList))
-  expect_error(flexPlotAddOn(eList), 
-               "The number of segments exceed the length of the color palette. Supply custom palette of length 32")
-  expect_true(dev_start + 1 == dev.cur())
+  # eList <- setUpEstimation(eList)
+  # sampleSegStart <- c(1980,1985,2000)
+  # flowSegStart <- c(1980,1990,2000)
+  # flowSegEnd <- c(1990,2000,2010)
+  # dateInfo <- data.frame(sampleSegStart, flowSegStart, flowSegEnd)
+  # eList <- flexFN(eList, dateInfo)
+  # 
+  # graphics.off()
+  # dev_start <- dev.cur()
+  # expect_message(plotFluxHist(eList))
+  # expect_silent(flexPlotAddOn(eList))
+  # expect_true(dev_start + 1 == dev.cur())
+  # 
+  # graphics.off()
+  # dev_start <- dev.cur()
+  # expect_message(plotFluxHist(eList))
+  # expect_silent(flexPlotAddOn(eList, customPalette = 
+  #                               c("#02df77", "#dc28b2", "#2137a6")))
+  # expect_true(dev_start + 1 == dev.cur())
+  # 
+  # sampleSegStart <- seq(1980,2011)
+  # flowSegStart <- seq(1980,2011)
+  # flowSegEnd <- seq(1981,2012)
+  # dateInfo <- data.frame(sampleSegStart, flowSegStart, flowSegEnd)
+  # eList <- flexFN(eList, dateInfo)
+  # 
+  # graphics.off()
+  # dev_start <- dev.cur()
+  # expect_message(plotFluxHist(eList))
+  # expect_error(flexPlotAddOn(eList), 
+  #              "The number of segments exceed the length of the color palette. Supply custom palette of length 32")
+  # expect_true(dev_start + 1 == dev.cur())
   
   graphics.off()
   dev_start <- dev.cur()
@@ -378,11 +378,78 @@ test_that("flexPlotAddOn functions properly", {
 
 test_that("mergeReport",{
 
-  expect_error(mergeReport(daily_orig_Ch, sample_orig_Ch))
   expect_type(eList_orig_Ch, "list")
   expect_true(all(names(eList_orig_Ch) %in% c("INFO","Daily","Sample","surfaces")))
   
   expect_equal(round(head(eList_orig_Ch$Sample$Q), 3),
                c(3.200,2.973,2.945,10.902,3.228,6.371))
 
+})
+
+test_that("startEnd",{
+  
+  paStart <- 10
+  paLong <- 12
+  year <- 2000
+  firstLast <- startEnd(paStart, paLong, year)
+  expect_equal(firstLast[["startDate"]], as.Date("1999-10-01"))
+  expect_equal(firstLast[["endDate"]], as.Date("2000-09-30"))
+  
+  paStart <- 1
+  paLong <- 3
+  firstLast <- startEnd(paStart, paLong, year)
+  expect_equal(firstLast[["startDate"]], as.Date("2000-01-01"))
+  expect_equal(firstLast[["endDate"]], as.Date("2000-03-31"))
+  
+  paStart <- 3
+  paLong <- 12
+  firstLast <- startEnd(paStart, paLong, year)
+  expect_equal(firstLast[["startDate"]], as.Date("1999-03-01"))
+  expect_equal(firstLast[["endDate"]], as.Date("2000-02-29"))  
+  
+  year <- 2001
+  firstLast <- startEnd(paStart, paLong, year)
+  expect_equal(firstLast[["startDate"]], as.Date("2000-03-01"))
+  expect_equal(firstLast[["endDate"]], as.Date("2001-02-28"))
+  
+})
+
+test_that("surfaceStartEnd",{
+  
+  paStart <- 10
+  paLong <- 12
+  Date1 <- "2000-10-15"
+  Date2 <- "2010-01-01"
+  
+  firstLast <- surfaceStartEnd(paStart, paLong, Date1, Date2)
+  expect_equal(firstLast[["surfaceStart"]], as.Date("2000-10-01"))
+  expect_equal(firstLast[["surfaceEnd"]], as.Date("2010-09-30"))
+  
+  #Leap years
+  paStart <- 3
+  paLong <- 12
+  Date1 <- "1976-10-15"
+  Date2 <- "1980-02-01"
+  
+  firstLast <- surfaceStartEnd(paStart, paLong, Date1, Date2)
+  expect_equal(firstLast[["surfaceStart"]], as.Date("1976-03-01"))
+  expect_equal(firstLast[["surfaceEnd"]], as.Date("1980-02-29"))
+  
+  #Not water years:
+  paStart <- 1
+  paLong <- 12
+  Date1 <- "2000-10-15"
+  Date2 <- "2010-01-01"
+  firstLast <- surfaceStartEnd(paStart, paLong, Date1, Date2)
+  expect_equal(firstLast[["surfaceStart"]], as.Date("2000-01-01"))
+  expect_equal(firstLast[["surfaceEnd"]], as.Date("2010-12-31"))
+  
+  paStart <- 3
+  paLong <- 6
+  Date1 <- "2000-04-15"
+  Date2 <- "2012-05-01"
+  firstLast <- surfaceStartEnd(paStart, paLong, Date1, Date2)
+  expect_equal(firstLast[["surfaceStart"]], as.Date("2000-03-01"))
+  expect_equal(firstLast[["surfaceEnd"]], as.Date("2012-08-30"))
+  
 })

@@ -51,6 +51,8 @@ setClass("fluxUnit",
 #' 
 #'    \item{qUnitExpress}{An expression specifying the full name.}
 #'    
+#'    \item{unitUSGS}{A character specifying flux with full text.}
+#'    
 #'    \item{qUnitTiny}{An expression specifying the abbreviated name.}
 #'
 #'    \item{shortCode}{A number for quick lookup}
@@ -65,7 +67,8 @@ setClass("qUnit",
 		qUnitName    = "character",
     qUnitExpress = "expression",
     qUnitTiny = "expression",
-    shortCode    = "numeric"
+    shortCode    = "numeric",
+		unitUSGS = "character"
 	)	
 )
 

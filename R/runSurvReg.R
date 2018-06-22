@@ -1,10 +1,11 @@
 #' Run the weighted survival regression for a set of estimation points (defined by DecYear and Log(Q))
 #'
-#'   This function runs the survival regression which is the concentration estimation method of WRTDS. 
-#'    It uses sample data from the data frame Sample. 
-#'    It does the estimation for a set of data points defined by two vectors: estPtYear and estPtLQ. 
-#'    It returns an array of results for the estimation points.  
-#'    The array returned contains yHat, SE and ConcHat (in that order). 
+#' This function runs the survival regression which is the concentration estimation method of WRTDS. 
+#' It uses sample data from the data frame Sample. 
+#' It does the estimation for a set of data points defined by two vectors: estPtYear and estPtLQ. 
+#' It returns an array of results for the estimation points.  
+#' The array returned contains yHat, SE and ConcHat (in that order). yHat is the expected value of log(concentration), SE is 
+#' the standard error of log(concentration) and ConcHat is the expected value of concentration.
 #'
 #' @param Sample dataframe created for EGRET analysis
 #' @param estPtYear numeric vector of Decimal Year values at the estimation points
@@ -17,8 +18,8 @@
 #' @param verbose logical specifying whether or not to display progress message
 #' @param interactive logical deprecated. Use 'verbose' instead
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
-#' @param DecLow number specifying minimum decimal year
-#' @param DecHigh number specifying maximum decimal year
+#' @param DecLow number specifying minimum decimal year (left edge of the estimated surfaces).
+#' @param DecHigh number specifying maximum decimal year (right edge of the estimated surfaces).
 #' @param run.parallel logical to run bootstrapping in parallel or not
 #' @keywords water-quality statistics
 #' @importFrom survival survreg
@@ -48,6 +49,10 @@ runSurvReg<-function(estPtYear,estPtLQ,DecLow,DecHigh,Sample,
   }
   
   localSample <- Sample
+  if(any(is.na(localSample$LogQ))){
+    message("Removing Sample data that does not have corresponding flow data")
+    localSample <- localSample[!is.na(localSample$LogQ),]
+  }
   numSamples <- length(localSample$DecYear)
   
   numEstPt<-length(estPtYear)

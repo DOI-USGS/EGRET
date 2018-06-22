@@ -5,9 +5,9 @@
 \title{Plot of the time series of daily flux estimates and the sample values for the days that were sampled}
 \usage{
 plotFluxTimeDaily(eList, yearStart = NA, yearEnd = NA, tinyPlot = FALSE,
-  fluxUnit = 3, fluxMax = NA, printTitle = TRUE, cex = 0.8,
-  cex.axis = 1.1, cex.main = 1.1, customPar = FALSE, col = "black",
-  lwd = 1, prettyDate = TRUE, ...)
+  fluxUnit = 3, fluxMax = NA, printTitle = TRUE, usgsStyle = FALSE,
+  cex = 0.8, cex.axis = 1.1, cex.main = 1.1, customPar = FALSE,
+  col = "black", lwd = 1, prettyDate = TRUE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -23,6 +23,10 @@ plotFluxTimeDaily(eList, yearStart = NA, yearEnd = NA, tinyPlot = FALSE,
 \item{fluxMax}{number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)}
 
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)}
+
+\item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
+to TRUE does NOT guarantee USGS complience. It will only change automatically
+generated labels.}
 
 \item{cex}{numerical value giving the amount by which plotting symbols should be magnified}
 

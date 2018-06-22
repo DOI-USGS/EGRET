@@ -2,7 +2,7 @@
 % Please edit documentation in R/removeDuplicates.r
 \name{removeDuplicates}
 \alias{removeDuplicates}
-\title{Remove Duplicates}
+\title{Remove duplicates values from Sample data frame.}
 \usage{
 removeDuplicates(Sample)
 }

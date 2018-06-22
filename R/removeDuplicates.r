@@ -1,4 +1,4 @@
-#' Remove Duplicates
+#' Remove duplicates values from Sample data frame.
 #'
 #' Removes observations from the data frame Sample when the observation has the identical date and value as another observation
 #'
