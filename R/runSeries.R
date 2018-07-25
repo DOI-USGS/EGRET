@@ -84,6 +84,10 @@ runSeries <- function(eList, windowSide,
                       minNumObs = 100, minNumUncen = 50, windowY = 7, 
                       windowQ = 2, windowS = 0.5, edgeAdjust = TRUE, verbose = TRUE){
 
+  if(!is.egret(eList)){
+    stop("Please check eList argument")
+  }
+  
   localSample <- getSample(eList)
   localDaily <- getDaily(eList)
   localsurfaces <- getSurfaces(eList)

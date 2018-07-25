@@ -31,7 +31,11 @@
 #' Daily <- estDailyFromSurfaces(eList)
 #' }
 estDailyFromSurfaces <- function(eList, localsurfaces = NA, localDaily = NA) {
-
+  
+  if(!is.egret(eList)){
+    stop("Please check eList argument")
+  }
+  
   localDaily <- getSurfaceEstimates(eList, localsurfaces=localsurfaces, localDaily = localDaily)
   # Calculate "flow-normalized" concentration and flux:
   allLogQsByDayOfYear <- bin_Qs(localDaily)

@@ -108,6 +108,10 @@ runPairs <- function(eList, year1, year2, windowSide,
     oldSurface <- FALSE
   }
   
+  if(!is.egret(eList)){
+    stop("Please check eList argument")
+  }
+  
   localSample <- getSample(eList)
   
   startEndSurface1 <- startEnd(paStart, paLong, year1)
