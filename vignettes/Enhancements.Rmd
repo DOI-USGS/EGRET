@@ -200,24 +200,17 @@ A couple of things to note.  It is often the case that the QTC is relatively sma
 
 The last part of the output is the matrix consisting of 2 rows and 7 columns.  This is actually the object called **pairResults** which is what **runPairs** returns (the only difference being that what is printed has fewer significant figures).
 
-Everything on the first row is about concentration (in mg/L).  Everything on the second row is about flux (in million kg/year).  
+Everything on the first row is about concentration (in mg/L).  Everything on the second row is about flux (in million kg/year). Here's what the columns represent, but we will take them out of order here. Let’s interpret what these mean for the case used in the example:
 
-Here's what the columns represent, but we will take them out of order here:
-
-x10: these are the results using the concentration versus discharge relationship (CQR) for year 1, but using the discharge distribution (QD) for the entire period of record (starting with **QStartDate** and ending with **QEndDate**, or if they aren't specified, it is all the discharge data in the **Daily** data frame).  
-
-x11: these are the results using the CQR for year 1, but using the QD specified by the user for year 1.
-
-x20: these are the results using the CQR for year 2, but using the QD for the entire period.
-
-x22: these are the results for the CQR for year 2, but using the QD specified by the user for year 2.
-
-
-TotalChange: this is the difference between the results for year2 - year1.  They are equal to x22 - x11.  This is what is shown above in the output as "total change."
-
-CQTC: this number is the difference between between the two years, but only the part that is due to the change in the CQR.  It is x20 - x10.  In the results reported above as, "Concentration v. Q Trend Component" it is computed as 100 * (x20 - x10) / x11.
-
-QTC: this number is the difference between the two years, but only the part that is due to the change in the QD.  It is the Total Change - CQTC.  Or it can be stated as x22 - x11 - x20 + x10.  In the results reported above as, "Q Trend Component" it is computed as 100 * (x22 - x11 - x20 + x10) / x11. 
+| Name | Description |
+|-----------|---------------------------------------------------|
+|x10 |These are the results using the concentration versus discharge relationship (CQR) for 1985, and the discharge distribution (QD) for 1985-2014.|
+|x11|These are the results using the CQR for 1985, and QD for the water years 1985-1999.|
+|x20|These are the results using the CQR for 2014, and QD for the 1985-2014.|
+|x22|These are the results for the CQR for 2014, and QD for the water years 2000-2014.|
+|TotalChange|This is the difference between the results from 2014-1985.  They are equal to x22 - x11.  This is what is shown above in the output as "total change".|
+|CQTC|This number is the difference between between the two years, but only the part that is due to the change in the CQR.  It is x20 - x10.  In the results reported above as, "Concentration v. Q Trend Component" it is computed as 100 * (x20 - x10) / x11.|
+|QTC|This number is the difference between the two years, but only the part that is due to the change in the QD.  It is the Total Change - CQTC.  Or it can be stated as x22 - x11 - x20 + x10.  In the results reported above as, "Q Trend Component" it is computed as 100 * (x22 - x11 - x20 + x10) / x11.|
 
 One final note about this output is that we can also express the flux information as yields, by dividing by the drainage area.  So we can do a matrix multiplication and end up with a new object that still has concentrations in the first row but has yields in the second row.  For example if we want to do yield in kg/km^2/year.  We could do this.  First we see **pairResults** and second we see **pairResultsYield**.
 

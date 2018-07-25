@@ -66,7 +66,7 @@ abline(v = decimalDate("2016-01-14"), col = "blue", lwd = 2)
 #                          year1 = 1985, year2 = 2014,
 #                          windowSide = 7)
 
-## ----loadDataReal, echo=FALSE--------------------------------------------
+## ----loadDataReal, echo=FALSE, message=TRUE------------------------------
 library(EGRET)
 library(dplyr)
 # first we will load a data set for orthophosphorus for the Choptank River
