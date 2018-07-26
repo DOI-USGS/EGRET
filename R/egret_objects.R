@@ -24,14 +24,30 @@
 #' plotFluxQ(eList_full)
 as.egret <- function(INFO, Daily, Sample=NA, surfaces=NA) {
   
-  if(is.unsorted(Daily$Date)){
-    Daily <- Daily[order(Daily$Date, decreasing = FALSE),]
-    message("The Daily data frame was sorted chronologically.")
+  if(!all(is.na(Daily))){
+    
+    expectedCols <- c("Date","Q","LogQ","Julian","Month","Day","DecYear","MonthSeq")
+    if(!all(expectedCols %in% names(Daily))){
+      message("Daily data frame expecting columns: ",expectedCols[!expectedCols %in% names(Daily)])
+    }
+    if(any(duplicated(Daily$Date))){
+      message("There are ",sum(duplicated(eList$Daily$Date))," duplicated Daily dates.")
+    }
+    
+    if(is.unsorted(Daily$Date)){
+      Daily <- Daily[order(Daily$Date, decreasing = FALSE),]
+      message("The Daily data frame was sorted chronologically.")
+    }
   }
   
-  if(is.unsorted(Sample$Date)){
-    Sample <- Sample[order(Sample$Date, decreasing = FALSE),]
-    message("The Sample data frame was sorted chronologically.")
+  if(!all(is.na(Sample))){
+    if(any(duplicated(Sample$Date))){
+      message("There are ",sum(duplicated(eList$Sample$Date))," duplicated Sample dates.")
+    }
+    if(is.unsorted(Sample$Date)){
+      Sample <- Sample[order(Sample$Date, decreasing = FALSE),]
+      message("The Sample data frame was sorted chronologically.")
+    }
   }
   
   eList <- list(INFO=INFO, 
@@ -54,14 +70,6 @@ as.egret <- function(INFO, Daily, Sample=NA, surfaces=NA) {
   
   if(!is.na(surfaces) && 14 != nrow(surfaces)){
     message("Please double check that the surfaces matrix is correctly defined.")
-  }
-  
-  if(any(duplicated(eList$Sample$Date))){
-    message("There are ",sum(duplicated(eList$Sample$Date))," duplicated Sample dates.")
-  }
-  
-  if(any(duplicated(eList$Daily$Date))){
-    message("There are ",sum(duplicated(eList$Daily$Date))," duplicated Daily dates.")
   }
   
   attr(eList, "param.units") <- INFO$param.units
