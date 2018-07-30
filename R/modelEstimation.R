@@ -42,6 +42,9 @@ modelEstimation<-function(eList,
                           edgeAdjust=TRUE, verbose = TRUE,
                           run.parallel = FALSE){
 
+  if(!is.egret(eList)){
+    stop("Please check eList argument")
+  }
   eList <- setUpEstimation(eList=eList, windowY=windowY, windowQ=windowQ, windowS=windowS,
                   minNumObs=minNumObs, minNumUncen=minNumUncen,edgeAdjust=edgeAdjust, verbose=verbose)
 

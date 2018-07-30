@@ -23,17 +23,45 @@
 #' eList_full <- as.egret(INFO, Daily, Sample, surfaces)
 #' plotFluxQ(eList_full)
 as.egret <- function(INFO, Daily, Sample=NA, surfaces=NA) {
+  
+  if(!all(is.na(Daily))){
+    
+    expectedCols <- c("Date","Q","LogQ","Julian","Month","Day","DecYear","MonthSeq")
+    if(!all(expectedCols %in% names(Daily))){
+      message("Daily data frame expecting columns: ",expectedCols[!expectedCols %in% names(Daily)])
+    }
+    if(any(duplicated(Daily$Date))){
+      message("There are ",sum(duplicated(eList$Daily$Date))," duplicated Daily dates.")
+    }
+    
+    if(is.unsorted(Daily$Date)){
+      Daily <- Daily[order(Daily$Date, decreasing = FALSE),]
+      message("The Daily data frame was sorted chronologically.")
+    }
+  }
+  
+  if(!all(is.na(Sample))){
+    if(any(duplicated(Sample$Date))){
+      message("There are ",sum(duplicated(eList$Sample$Date))," duplicated Sample dates.")
+    }
+    if(is.unsorted(Sample$Date)){
+      Sample <- Sample[order(Sample$Date, decreasing = FALSE),]
+      message("The Sample data frame was sorted chronologically.")
+    }
+  }
+  
   eList <- list(INFO=INFO, 
                 Daily=Daily, 
                 Sample=Sample, 
                 surfaces=surfaces)
   
   if(!is.na(Daily) && !("Q" %in% names(Daily))){
-    message("Please double check that the Daily dataframe is correctly defined.")
+    stop("Missing column 'Q' in Daily dataframe.")
   }
   
   if(!is.na(Sample) && !all((c("ConcLow","ConcHigh","Uncen","ConcAve") %in% names(Sample)))){
     message("Please double check that the Sample dataframe is correctly defined.")
+    message("Missing columns:", c("ConcLow","ConcHigh","Uncen","ConcAve")[!(c("ConcLow","ConcHigh","Uncen","ConcAve") %in% names(Sample))])
   }
   
   if(!any(c("param.units", "shortName", "paramShortName", "constitAbbrev", "drainSqKm") %in% names(INFO))){
@@ -68,7 +96,14 @@ as.egret <- function(INFO, Daily, Sample=NA, surfaces=NA) {
 #' eList <- Choptank_eList
 #' is.egret(eList)
 is.egret <- function(x) {
-  inherits(x, "egret")
+  
+  # Added this because there was a situation
+  # where people were fiddling with the eList and removing critical bits 
+  if(!all(c("INFO","Daily") %in% names(x))){
+    stop("Missing ", c("INFO","Daily")[!(c("INFO","Daily") %in% names(x))], " data frame")
+  }
+  return(all(c(all(c("INFO","Daily") %in% names(x)),
+               inherits(x, "egret"))))
 }
 
 #' EGRET helper functinos
