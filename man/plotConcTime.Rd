@@ -5,10 +5,10 @@
 \title{Plot of Observed Concentration versus Time}
 \usage{
 plotConcTime(eList, qUnit = 2, yearStart = NA, yearEnd = NA,
-  qLower = NA, qUpper = NA, randomCensored = FALSE, tinyPlot = FALSE,
-  concMax = NA, concMin = NA, printTitle = TRUE, logScale = FALSE,
-  cex = 0.8, cex.axis = 1.1, cex.main = 1.1, customPar = FALSE,
-  col = "black", lwd = 1, ...)
+  qLower = NA, qUpper = NA, randomCensored = FALSE,
+  tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,
+  logScale = FALSE, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
+  customPar = FALSE, col = "black", lwd = 1, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}

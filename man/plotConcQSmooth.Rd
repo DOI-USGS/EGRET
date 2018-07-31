@@ -6,12 +6,12 @@
 \usage{
 plotConcQSmooth(eList, date1, date2, date3, qLow, qHigh, qUnit = 2,
   legendLeft = 0, legendTop = 0, concMax = NA, concMin = NA,
-  bw = FALSE, printTitle = TRUE, printValues = FALSE, minNumObs = 100,
-  minNumUncen = 50, colors = c("black", "red", "green"),
-  printLegend = TRUE, windowY = 7, windowQ = 2, windowS = 0.5,
-  tinyPlot = FALSE, customPar = FALSE, lwd = 2, cex = 0.8,
-  cex.axis = 1.1, cex.main = 1.1, cex.legend = 1.2, lineVal = c(1, 1,
-  1), logScale = FALSE, edgeAdjust = TRUE, ...)
+  bw = FALSE, printTitle = TRUE, printValues = FALSE,
+  minNumObs = 100, minNumUncen = 50, colors = c("black", "red",
+  "green"), printLegend = TRUE, windowY = 7, windowQ = 2,
+  windowS = 0.5, tinyPlot = FALSE, customPar = FALSE, lwd = 2,
+  cex = 0.8, cex.axis = 1.1, cex.main = 1.1, cex.legend = 1.2,
+  lineVal = c(1, 1, 1), logScale = FALSE, edgeAdjust = TRUE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}

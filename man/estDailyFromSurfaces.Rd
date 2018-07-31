@@ -35,10 +35,6 @@ Uses the surfaces estimated in estSurfaces to estimate these four time series
    in addition to the time series for standard error and yHat (estimated log concentration). 
    The results are stored in an augmented version of the Daily data frame, which is returned as part of an EGRET object.
 
-getConcFluxFromSurface
-
-getSurfaceEstimates
-
 Bin the LogQ values by day-of-year.
 }
 \examples{

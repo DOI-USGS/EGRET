@@ -5,11 +5,12 @@
 \title{Annual series of flow-normalized concentration and flow-normalzed flux}
 \usage{
 runSeries(eList, windowSide, surfaceStart = NA, surfaceEnd = NA,
-  flowBreak = FALSE, Q1EndDate = NA, QStartDate = NA, QEndDate = NA,
-  wall = FALSE, oldSurface = FALSE, sample1EndDate = NA,
-  sampleStartDate = NA, sampleEndDate = NA, paStart = 10, paLong = 12,
-  fractMin = 0.75, minNumObs = 100, minNumUncen = 50, windowY = 7,
-  windowQ = 2, windowS = 0.5, edgeAdjust = TRUE, verbose = TRUE)
+  flowBreak = FALSE, Q1EndDate = NA, QStartDate = NA,
+  QEndDate = NA, wall = FALSE, oldSurface = FALSE,
+  sample1EndDate = NA, sampleStartDate = NA, sampleEndDate = NA,
+  paStart = 10, paLong = 12, fractMin = 0.75, minNumObs = 100,
+  minNumUncen = 50, windowY = 7, windowQ = 2, windowS = 0.5,
+  edgeAdjust = TRUE, verbose = TRUE)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
