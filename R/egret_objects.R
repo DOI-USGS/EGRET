@@ -42,7 +42,7 @@ as.egret <- function(INFO, Daily, Sample=NA, surfaces=NA) {
   
   if(!all(is.na(Sample))){
     if(any(duplicated(Sample$Date))){
-      message("There are ",sum(duplicated(eList$Sample$Date))," duplicated Sample dates.")
+      message("There are ",sum(duplicated(Sample$Date))," duplicated Sample dates.")
     }
     if(is.unsorted(Sample$Date)){
       Sample <- Sample[order(Sample$Date, decreasing = FALSE),]
