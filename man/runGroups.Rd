@@ -4,13 +4,14 @@
 \alias{runGroups}
 \title{Runs a comparison of any group of years in the record.}
 \usage{
-runGroups(eList, windowSide, group1firstYear, group1lastYear, group2firstYear,
-  group2lastYear, surfaceStart = NA, surfaceEnd = NA, flowBreak = FALSE,
-  Q1EndDate = NA, QStartDate = NA, QEndDate = NA, wall = FALSE,
-  oldSurface = FALSE, fractMin = 0.75, sample1EndDate = NA,
-  sampleStartDate = NA, sampleEndDate = NA, paStart = 10, paLong = 12,
-  minNumObs = 100, minNumUncen = 50, windowY = 7, windowQ = 2,
-  windowS = 0.5, edgeAdjust = TRUE, verbose = TRUE)
+runGroups(eList, windowSide, group1firstYear, group1lastYear,
+  group2firstYear, group2lastYear, surfaceStart = NA, surfaceEnd = NA,
+  flowBreak = FALSE, Q1EndDate = NA, QStartDate = NA,
+  QEndDate = NA, wall = FALSE, oldSurface = FALSE, fractMin = 0.75,
+  sample1EndDate = NA, sampleStartDate = NA, sampleEndDate = NA,
+  paStart = 10, paLong = 12, minNumObs = 100, minNumUncen = 50,
+  windowY = 7, windowQ = 2, windowS = 0.5, edgeAdjust = TRUE,
+  verbose = TRUE)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}

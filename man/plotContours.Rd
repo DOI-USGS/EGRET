@@ -6,10 +6,11 @@
 \usage{
 plotContours(eList, yearStart, yearEnd, qBottom = NA, qTop = NA,
   whatSurface = 3, qUnit = 2, contourLevels = NA, span = 60,
-  pval = 0.05, printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA,
-  tcl = 0.1, flowDuration = TRUE, customPar = FALSE, yTicks = NA,
-  tick.lwd = 2, lwd = 1, cex.main = 1, cex.axis = 1,
-  color.palette = colorRampPalette(c("white", "gray", "blue", "red")), ...)
+  pval = 0.05, printTitle = TRUE, vert1 = NA, vert2 = NA,
+  horiz = NA, tcl = 0.1, flowDuration = TRUE, customPar = FALSE,
+  yTicks = NA, tick.lwd = 2, lwd = 1, cex.main = 1, cex.axis = 1,
+  color.palette = colorRampPalette(c("white", "gray", "blue", "red")),
+  ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes, and surfaces matrix}

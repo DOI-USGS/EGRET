@@ -6,8 +6,8 @@
 \usage{
 plotResidQ(eList, qUnit = 2, tinyPlot = FALSE, stdResid = FALSE,
   printTitle = TRUE, col = "black", lwd = 1, cex = 0.8,
-  cex.axis = 1.1, cex.main = 1.1, rmSciX = FALSE, customPar = FALSE,
-  randomCensored = FALSE, ...)
+  cex.axis = 1.1, cex.main = 1.1, rmSciX = FALSE,
+  customPar = FALSE, randomCensored = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}

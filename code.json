@@ -10,15 +10,15 @@
       "licenses": [
         {
           "name": "Public Domain, CC0-1.0",
-          "URL": "https://code.usgs.gov/WMA-Data-Science/EGRET/blob/master/LICENSE.note"
+          "URL": "https://code.usgs.gov/water/EGRET/blob/master/LICENSE.note"
         }
 
         ]
     },
-    "homepageURL": "https://code.usgs.gov/WMA-Data-Science/EGRET",
-    "downloadURL": "https://code.usgs.gov/WMA-Data-Science/EGRET/-/archive/v2.6.0/EGRET-v2.6.0.zip",
-    "disclaimerURL": "https://code.usgs.gov/WMA-Data-Science/EGRET/blob/master/DISCLAIMER.md",
-    "repositoryURL": "https://code.usgs.gov/WMA-Data-Science/EGRET.git",
+    "homepageURL": "https://code.usgs.gov/water/EGRET",
+    "downloadURL": "https://code.usgs.gov/water/EGRET/-/archive/v2.6.0/EGRET-v2.6.0.zip",
+    "disclaimerURL": "https://code.usgs.gov/water/EGRET/blob/master/DISCLAIMER.md",
+    "repositoryURL": "https://code.usgs.gov/water/EGRET.git",
     "vcs": "git",
     "laborHours": 500,
     
