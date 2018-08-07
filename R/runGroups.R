@@ -84,6 +84,11 @@ runGroups <- function (eList, windowSide,
                        minNumObs = 100, minNumUncen = 50, 
                        windowY = 7, windowQ = 2, windowS = 0.5, 
                        edgeAdjust = TRUE, verbose = TRUE) {
+  
+  if(!is.egret(eList)){
+    stop("Please check eList argument")
+  }
+  
   localSample <- getSample(eList)
   localDaily <- getDaily(eList)
   localsurfaces <- getSurfaces(eList)
@@ -164,20 +169,18 @@ runGroups <- function (eList, windowSide,
   dateInfoStationary <- data.frame(flowNormStart, flowNormEnd, flowStart, 
                          flowEnd, stringsAsFactors = FALSE)
 # end of stationary set up
-  if (windowSide <= 0 & !flowBreak) {
-    option <- 1
+  if (windowSide <= 0 && !flowBreak) {
     flowStart <- as.Date(surfaceStart)
     flowEnd <- as.Date(surfaceEnd)
     flowNormStart <- as.Date(QStartDate)
     flowNormEnd <- as.Date(QEndDate)
     dateInfo <- data.frame(flowNormStart, flowNormEnd, flowStart, 
                            flowEnd, stringsAsFactors = FALSE)
-  } else if (windowSide > 0 & !flowBreak) {
+  } else if (windowSide > 0 && !flowBreak) {
     option <- 2
     dateInfo <- makeDateInfo(windowSide, surfaceStart, surfaceEnd, 
                              QStartDate, QEndDate)
-  } else if (windowSide <= 0 & flowBreak) {
-    option <- 3
+  } else if (windowSide <= 0 && flowBreak) {
     Q1EndDate <- as.Date(Q1EndDate)
     Q2StartDate <- as.Date(Q1EndDate) + 1
     flowStart <- c(as.Date(surfaceStart), as.Date(Q2StartDate))
@@ -187,7 +190,6 @@ runGroups <- function (eList, windowSide,
     dateInfo <- data.frame(flowNormStart, flowNormEnd, flowStart, 
                            flowEnd, stringsAsFactors = FALSE)
   } else {
-    option <- 4
     Q1EndDate <- as.Date(Q1EndDate)
     Q2StartDate <- as.Date(Q1EndDate) + 1
     dateInfo1 <- makeDateInfo(windowSide, surfaceStart, Q1EndDate, 

@@ -108,6 +108,10 @@ runPairs <- function(eList, year1, year2, windowSide,
     oldSurface <- FALSE
   }
   
+  if(!is.egret(eList)){
+    stop("Please check eList argument")
+  }
+  
   localSample <- getSample(eList)
   
   startEndSurface1 <- startEnd(paStart, paLong, year1)
@@ -146,7 +150,7 @@ runPairs <- function(eList, year1, year2, windowSide,
     } 
   }
   
-  if(flowBreak & is.na(Q1EndDate)) stop("if there is a flowBreak you must provide Q1EndDate")
+  if(flowBreak && is.na(Q1EndDate)) stop("if there is a flowBreak you must provide Q1EndDate")
   
   # setting up the two flow windows
   # there are four cases
@@ -155,8 +159,7 @@ runPairs <- function(eList, year1, year2, windowSide,
   flowStartCol <- "flowStart"
   flowEndCol <- "flowEnd"
   
-  if (windowSide <= 0 & !flowBreak) {
-    option <- 1
+  if (windowSide <= 0 && !flowBreak) {
     flowStart <- c(startEndSurface1[["startDate"]], startEndSurface2[["startDate"]])
     flowEnd <- c(startEndSurface1[["endDate"]], startEndSurface2[["endDate"]])
     flowNormStart <- c(QStartDate, QStartDate)
@@ -164,14 +167,12 @@ runPairs <- function(eList, year1, year2, windowSide,
     dateInfo <- data.frame(flowNormStart, flowNormEnd, flowStart, 
                            flowEnd, stringsAsFactors = FALSE)
   } else if (windowSide > 0 & !flowBreak) {
-    option <- 2
     dateInfo1 <- makeDateInfo(windowSide, startEndSurface1[["startDate"]], startEndSurface1[["endDate"]], 
                                  QStartDate, QEndDate)
     dateInfo2 <- makeDateInfo(windowSide, startEndSurface2[["startDate"]], startEndSurface2[["endDate"]], 
                                  QStartDate, QEndDate)
     dateInfo <- rbind(dateInfo1, dateInfo2)
-  } else if (windowSide <= 0 & flowBreak) {
-    option <- 3
+  } else if (windowSide <= 0 && flowBreak) {
     Q1EndDate <- as.Date(Q1EndDate)
     Q2StartDate <- Q1EndDate + 1
     flowStart <- c(startEndSurface1[["startDate"]], startEndSurface2[["startDate"]])
@@ -181,7 +182,6 @@ runPairs <- function(eList, year1, year2, windowSide,
     dateInfo <- data.frame(flowNormStart, flowNormEnd, flowStart, 
                            flowEnd, stringsAsFactors = FALSE)
   } else {
-    option <- 4
     Q1EndDate <- as.Date(Q1EndDate)
     Q2StartDate <- Q1EndDate + 1
     dateInfo1 <- makeDateInfo(windowSide, startEndSurface1[["startDate"]], startEndSurface1[["endDate"]], 
@@ -329,6 +329,7 @@ runPairs <- function(eList, year1, year2, windowSide,
   rownames(pairResults) <- c("Conc", "Flux")
   pairResults[1, ] <- c(cDeltaTotal, cRSpart, cFDpart, c10, 
                         c11, c20, c22)
+  # 0.00036525 is magic number to convert from kg/day to thousands kg/yr
   pairResults[2, ] <- 0.00036525 * c(fDeltaTotal, fRSpart, 
                                      fFDpart, f10, f11, f20, f22)
   

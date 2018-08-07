@@ -2,7 +2,6 @@
 % Please edit documentation in R/egret_objects.R
 \name{getSample}
 \alias{getSample}
-\alias{getSample}
 \alias{getSample.default}
 \title{Get Sample dataframe from EGRET object}
 \usage{

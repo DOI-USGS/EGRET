@@ -12,7 +12,6 @@ knitr::opts_chunk$set(echo = TRUE,
 
 ## ----echo = FALSE--------------------------------------------------------
 library(EGRET)
-library(dplyr)
 
 firstQDate0 <- "1981-08-06"
 lastQDate0 <- "2016-01-14" 
@@ -26,22 +25,28 @@ axis(4,tick = FALSE, labels = FALSE)
 box()
 par(new=TRUE)
 for(i in 1994:2014) {
-  surfaceStart <- paste(i,"-10-01",sep="")
-  surfaceEnd <- paste(i+1, "-09-30", sep = "")
-  x <- EGRET:::makeDateInfo(windowSide = 7, surfaceStart, surfaceEnd, 
-            firstQDate0 = "1981-08-06", lastQDate0 = "2016-01-14")
+  surfaceStart <- paste0(i,"-10-01")
+  surfaceEnd <- paste0(i+1, "-09-30")
+  x <- EGRET:::makeDateInfo(windowSide = 7, 
+                            surfaceStart, surfaceEnd,
+                            firstQDate0 = "1981-08-06",
+                            lastQDate0 = "2016-01-14")
   ns <- decimalDate(x$flowNormStart)
   ne <- decimalDate(x$flowNormEnd)
   fs <- decimalDate(x$flowStart)
   fe <- decimalDate(x$flowEnd)
   xn <- c(ns,ne)
   y <- c(i-1993,i-1993)
-  plot(xn, y, type = "l", lwd = 3, col = "grey", xlim = c(1980,2020), xaxs = "i", ylim = c(0, 23), yaxs = "i",xlab = "",
-       ylab = "", axes = FALSE)
+  plot(xn, y, type = "l", lwd = 3, col = "grey", 
+       xlim = c(1980,2020), xaxs = "i", 
+       ylim = c(0, 23), yaxs = "i",
+       xlab = "", ylab = "", axes = FALSE)
   par(new=TRUE)
   xn <- c(fs,fe)
-  plot(xn, y, type = "l", lwd = 5, col = "red", xlim = c(1980,2020), xaxs = "i", ylim = c(0, 23), yaxs = "i",xlab = "",
-       ylab = "", axes = FALSE)
+  plot(xn, y, type = "l", lwd = 5, col = "red", 
+       xlim = c(1980,2020), xaxs = "i", 
+       ylim = c(0, 23), yaxs = "i",
+       xlab = "", ylab = "", axes = FALSE)
   if(i < 2014) par(new=TRUE)
 }
 abline(v = decimalDate("1981-08-06"), col = "blue", lwd = 2)
@@ -50,7 +55,6 @@ abline(v = decimalDate("2016-01-14"), col = "blue", lwd = 2)
 ## ----loadDataPretend, echo=TRUE, eval=FALSE------------------------------
 #  library(EGRET)
 #  library(EGRETci)
-#  library(dplyr)
 #  
 #  # Gather discharge data:
 #  siteID <- "01491000" #Choptank River at Greensboro, MD
@@ -66,15 +70,16 @@ abline(v = decimalDate("2016-01-14"), col = "blue", lwd = 2)
 #                          year1 = 1985, year2 = 2014,
 #                          windowSide = 7)
 
-## ----loadDataReal, echo=FALSE--------------------------------------------
+## ----loadDataReal, echo=FALSE, message=TRUE------------------------------
 library(EGRET)
-library(dplyr)
 # first we will load a data set for orthophosphorus for the Choptank River
 # we are using it partly because it is set up differently than the example eList in the package
 # that one has discharge data that doesn't extend well beyond the water quality data, this one does
 load("Chop.OPbase.RData")
 # then we run the function 
-pairResults <- runPairs(eList, year1 = 1985, year2 = 2014, windowSide = 7)
+pairResults <- runPairs(eList, 
+                        year1 = 1985, year2 = 2014, 
+                        windowSide = 7)
 
 ## ------------------------------------------------------------------------
 knitr::kable(pairResults, digits = 4)

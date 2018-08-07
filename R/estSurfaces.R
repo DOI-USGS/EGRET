@@ -60,7 +60,9 @@ estSurfaces<-function(eList, surfaceStart=NA, surfaceEnd=NA, localSample=NA,
     warning("The argument 'interactive' is deprecated. Please use 'verbose' instead")
     verbose <- interactive
   }
-  
+  if(!is.egret(eList)){
+    stop("Please check eList argument")
+  }
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
   

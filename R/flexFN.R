@@ -48,6 +48,9 @@ flexFN <- function(eList, dateInfo, localsurfaces = NA, oldSurface = FALSE,
                    flowNormStartCol = "flowNormStart", flowNormEndCol = "flowNormEnd",
                    flowStartCol="flowStart", flowEndCol="flowEnd"){
   
+  if(!is.egret(eList)){
+    stop("Please check eList argument")
+  }
   localDaily <- getDaily(eList)
   
   if(!oldSurface){

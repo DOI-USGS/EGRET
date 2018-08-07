@@ -4,7 +4,8 @@
 \alias{censoredSegments}
 \title{Generic plotting function to create censored line segments}
 \usage{
-censoredSegments(yBottom, yLow, yHigh, x, Uncen, col = "black", lwd = 1)
+censoredSegments(yBottom, yLow, yHigh, x, Uncen, col = "black",
+  lwd = 1)
 }
 \arguments{
 \item{yBottom}{number specifying minimum flux (required)}

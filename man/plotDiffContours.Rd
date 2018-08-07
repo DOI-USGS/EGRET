@@ -9,8 +9,8 @@ plotDiffContours(eList, year0, year1, qBottom = NA, qTop = NA,
   pval = 0.05, printTitle = TRUE, plotPercent = FALSE, vert1 = NA,
   vert2 = NA, horiz = NA, flowDuration = TRUE, yTicks = NA,
   tick.lwd = 2, lwd = 1, cex.main = 0.95, cex.axis = 1,
-  customPar = FALSE, color.palette = colorRampPalette(c("blue", "white",
-  "red")), ...)
+  customPar = FALSE, color.palette = colorRampPalette(c("blue",
+  "white", "red")), ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes, and surfaces matrix}

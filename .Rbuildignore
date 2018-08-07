@@ -15,3 +15,13 @@ README_files/
 CONDUCT.md
 DISCLAIMER.md
 code.json
+vignettes/Chop.OPbase.RData
+vignettes/eListOut.RData
+vignettes/eListOutChop.RData
+vignettes/eListOutNoWall.RData
+vignettes/eListColumbia.RData
+vignettes/eListMerced.RData
+vignettes/eListMiss.RData
+vignettes/Green.Cl.RData
+hexSticker.R
+code.json
