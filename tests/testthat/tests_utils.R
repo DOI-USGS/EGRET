@@ -98,7 +98,7 @@ test_that("data functions work", {
   Daily <- getDaily(Arkansas_eList)
   DailySubset <- selectDays(Daily, 4, 11)
   expect_is(DailySubset, "data.frame")
-  months <- lubridate::month(DailySubset$Date)
+  months <- as.numeric(format(as.Date(DailySubset$Date), "%m"))
   expect_true(all(months %in% c(11,12,1,2)))
   
 })

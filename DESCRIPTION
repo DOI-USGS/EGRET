@@ -36,7 +36,6 @@ Suggests:
     testthat,
     rkt,
     doParallel,
-    doSNOW,
     parallel
 LazyLoad: yes
 LazyData: yes
