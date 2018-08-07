@@ -35,7 +35,7 @@ The release of `EGRET` 3.0 adds some new flexibility to the WRTDS method. The fl
 
 **EGRET 3.0**  is designed so that it will produce exactly the same outputs as **EGRET 2.0** version did using the same set of commands that would have been used there.   
 
-This document discusses the motivations and general concepts behind these enhancements, and then moves to instructions for implementation.  It is assumed that the reader already has a good working knowledge of **WRTDS and EGRET**. Basic reference material for those not already familiar with the method and software include:  Hirsch, Moyer and Archfield, 2010 (http://onlinelibrary. wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full) and Hirsch and DeCicco, 2015 (https:// dx.doi.org/ 10.3133/ tm4A10) and the "Introduction to the EGRET package" included with the EGRET package.
+This document discusses the motivations and general concepts behind these enhancements, and then moves to instructions for implementation.  It is assumed that the reader already has a good working knowledge of **WRTDS and EGRET**. Basic reference material for those not already familiar with the method and software include:  Hirsch, Moyer and Archfield, 2010 (https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1752-1688.2010.00482.x) and Hirsch and DeCicco, 2015 (https://dx.doi.org/10.3133/tm4A10) and the "Introduction to the EGRET package" included with the EGRET package.
 
 # The "wall"
 
@@ -48,7 +48,7 @@ All of the workflows described in this document allow the user to specify if the
 
 # Gereralized Flow Normalization (GFN) 
 
-In the original implementations of WRTDS, the idea of flow normalization was to create records of summary statistics (e.g. annual means of concentration or flux) that are not influenced by the year-to-year random variations of discharge.  However, one problem with this approach is that flow normalization can end up not only removing the effect of random variations in discharge but it can also remove the effect of long-term trends in discharge, if such trends exist during our period of study.  The original WRTDS flow-normalization approach is based on the assumption that the probability distribution of discharge is stationary. It has a seasonal component but the distribution doesn't change from year to year.  The original paper on WRTDS (published in 2010) (http://onlinelibrary. wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full) identified this as a limitation of the method and indicated that the method should be enhanced in the future to deal with cases where, over the time frame of the analysis, discharges are substantially non-stationary.  The issue becomes serious either when the time period being analyzed is fairly long (say two or more decades) and/or when the trends are very strong.  This new technique (GFN) is the enhancement called for in 2010.  The original method of flow normalization becomes a special case of GFN, where we specify that the probability distribution of discharge is stationary (with respect to years).  We can call that special case, stationary flow normalization (SFN).  
+In the original implementations of WRTDS, the idea of flow normalization was to create records of summary statistics (e.g. annual means of concentration or flux) that are not influenced by the year-to-year random variations of discharge.  However, one problem with this approach is that flow normalization can end up not only removing the effect of random variations in discharge but it can also remove the effect of long-term trends in discharge, if such trends exist during our period of study.  The original WRTDS flow-normalization approach is based on the assumption that the probability distribution of discharge is stationary. It has a seasonal component but the distribution doesn't change from year to year.  The original paper on WRTDS (published in 2010) (https://onlinelibrary.wiley.com/doi/full/10.1111/j.1752-1688.2010.00482.x) identified this as a limitation of the method and indicated that the method should be enhanced in the future to deal with cases where, over the time frame of the analysis, discharges are substantially non-stationary.  The issue becomes serious either when the time period being analyzed is fairly long (say two or more decades) and/or when the trends are very strong.  This new technique (GFN) is the enhancement called for in 2010.  The original method of flow normalization becomes a special case of GFN, where we specify that the probability distribution of discharge is stationary (with respect to years).  We can call that special case, stationary flow normalization (SFN).  
 
 Using GFN, the overall trend in water quality (either in concentration or in flux) can be characterized as having two components.  The first of these components is the result of changes in the concentration versus discharge relationship.  In WRTDS there may be substantial differences in the amount of change in this relationship as a function of season and as a function of discharge, but we can integrate these changes over the seasons and over the probability distribution of discharge in order to get an integrated measure of the "Concentration versus Discharge Trend Component" which we abbreviate as **CQTC**.  The second component of trend in water quality is the result of changes in the probability distribution of discharge.  We call this the "Discharge Trend Component" or **QTC**.  The details of how these are calculated is provided in (a manuscript by Choquette, Hirsch, Murphy, Johnson and Confessor related to nutrient loadings to the western basin of Lake Erie, manuscript currently in review).  There are two ways that we might envision this change in the probability distribution of discharge taking place: abrupt and gradual.
 
@@ -70,7 +70,6 @@ We can illustrate what this looks like with a real example.  The Daily discharge
 
 ```{r echo = FALSE}
 library(EGRET)
-library(dplyr)
 
 firstQDate0 <- "1981-08-06"
 lastQDate0 <- "2016-01-14" 
@@ -84,22 +83,28 @@ axis(4,tick = FALSE, labels = FALSE)
 box()
 par(new=TRUE)
 for(i in 1994:2014) {
-  surfaceStart <- paste(i,"-10-01",sep="")
-  surfaceEnd <- paste(i+1, "-09-30", sep = "")
-  x <- EGRET:::makeDateInfo(windowSide = 7, surfaceStart, surfaceEnd, 
-            firstQDate0 = "1981-08-06", lastQDate0 = "2016-01-14")
+  surfaceStart <- paste0(i,"-10-01")
+  surfaceEnd <- paste0(i+1, "-09-30")
+  x <- EGRET:::makeDateInfo(windowSide = 7, 
+                            surfaceStart, surfaceEnd,
+                            firstQDate0 = "1981-08-06",
+                            lastQDate0 = "2016-01-14")
   ns <- decimalDate(x$flowNormStart)
   ne <- decimalDate(x$flowNormEnd)
   fs <- decimalDate(x$flowStart)
   fe <- decimalDate(x$flowEnd)
   xn <- c(ns,ne)
   y <- c(i-1993,i-1993)
-  plot(xn, y, type = "l", lwd = 3, col = "grey", xlim = c(1980,2020), xaxs = "i", ylim = c(0, 23), yaxs = "i",xlab = "",
-       ylab = "", axes = FALSE)
+  plot(xn, y, type = "l", lwd = 3, col = "grey", 
+       xlim = c(1980,2020), xaxs = "i", 
+       ylim = c(0, 23), yaxs = "i",
+       xlab = "", ylab = "", axes = FALSE)
   par(new=TRUE)
   xn <- c(fs,fe)
-  plot(xn, y, type = "l", lwd = 5, col = "red", xlim = c(1980,2020), xaxs = "i", ylim = c(0, 23), yaxs = "i",xlab = "",
-       ylab = "", axes = FALSE)
+  plot(xn, y, type = "l", lwd = 5, col = "red", 
+       xlim = c(1980,2020), xaxs = "i", 
+       ylim = c(0, 23), yaxs = "i",
+       xlab = "", ylab = "", axes = FALSE)
   if(i < 2014) par(new=TRUE)
 }
 abline(v = decimalDate("1981-08-06"), col = "blue", lwd = 2)
@@ -159,7 +164,6 @@ In this first example we will specify that **year1** is 1985 and **year2** is 20
 ```{r loadDataPretend, echo=TRUE, eval=FALSE}
 library(EGRET)
 library(EGRETci)
-library(dplyr)
 
 # Gather discharge data:
 siteID <- "01491000" #Choptank River at Greensboro, MD
@@ -180,13 +184,14 @@ pairResults <- runPairs(eList,
 
 ```{r loadDataReal, echo=FALSE, message=TRUE}
 library(EGRET)
-library(dplyr)
 # first we will load a data set for orthophosphorus for the Choptank River
 # we are using it partly because it is set up differently than the example eList in the package
 # that one has discharge data that doesn't extend well beyond the water quality data, this one does
 load("Chop.OPbase.RData")
 # then we run the function 
-pairResults <- runPairs(eList, year1 = 1985, year2 = 2014, windowSide = 7)
+pairResults <- runPairs(eList, 
+                        year1 = 1985, year2 = 2014, 
+                        windowSide = 7)
 ```
 
 

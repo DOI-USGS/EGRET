@@ -42,7 +42,7 @@ Evaluating long-term changes in river conditions (water quality and discharge) i
 
 <https://dx.doi.org/10.3133/tm4A10> The best ways to learn about the WRTDS approach is to read the User Guide and two journal articles. These articles are available, for free, from the journals in which they were published. The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay. The URL is:
 
-<http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full>.
+<https://onlinelibrary.wiley.com/doi/full/10.1111/j.1752-1688.2010.00482.x>.
 
 The second is an application to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries. The URL is:
 
