@@ -134,19 +134,19 @@ plotConcHist(eListOut)
 plotFluxHist(eListOut)
 tableChange(eListOut, yearPoints = c(1985, 1995, 2014))
 
-## ----------------------------------------------------------------------
+## ---------------------------------------------------------------
 eListOut <- runSeries(eList, windowSide = 9, verbose = FALSE)
 plotConcHist(eListOut)
 plotFluxHist(eListOut)
 tableChange(eListOut, yearPoints = c(1985, 1995, 2014))
 
-## ---- echo = FALSE-----------------------------------------------------
+## ---- echo = FALSE----------------------------------------------
 load("Green.Cl.RData")
 load("eListOut.RData")
 load("eListOutNoWall.RData")
 
 
-## ----loadDataPretendGreen, echo=TRUE, eval=FALSE-----------------------
+## ----loadDataPretendGreen, echo=TRUE, eval=FALSE----------------
 #  
 #  siteID <- "09234500"
 #  parameter_cd<-"00940" #5 digit USGS code
@@ -161,42 +161,42 @@ load("eListOutNoWall.RData")
 #                        wall = TRUE,  sample1EndDate = "1963-03-01",
 #                        verbose = FALSE)
 
-## ----------------------------------------------------------------------
+## ---------------------------------------------------------------
 plotConcHist(eListOut)
 plotFluxHist(eListOut)
 tableResults(eListOut)
 tableChange(eListOut, yearPoints = c(1957, 1963, 1983, 2017))
 
-## ----------------------------------------------------------------------
+## ---------------------------------------------------------------
 eListOut <- blankTime(eListOut, 
                       startBlank = "2000-10-01", 
                       endBlank = "2012-09-30")
 plotConcHist(eListOut)
 plotFluxHist(eListOut)
 
-## ---- fig.height = 6, fig.width = 11-----------------------------------
+## ---- fig.height = 6, fig.width = 11----------------------------
 plotContours(eListOut, 1957, 2017, 10, 100, 
              contourLevels = seq(0,55,5), flowDuration = FALSE)
 
-## ---- fig.height = 6, fig.width = 11-----------------------------------
+## ---- fig.height = 6, fig.width = 11----------------------------
 plotContours(eListOut, 1961, 1966, 10, 100, 
              contourLevels = seq(0,55,5), flowDuration = FALSE)
 
-## ---- fig.height = 6, fig.width = 11-----------------------------------
+## ---- fig.height = 6, fig.width = 11----------------------------
 plotContours(eListOut, 1964, 1984, 10, 100, 
              contourLevels = seq(0,55,5), flowDuration = FALSE)
 
-## ---- eval = FALSE-----------------------------------------------------
+## ---- eval = FALSE----------------------------------------------
 #  eListOutNoWall <- runSeries(eList, windowSide = 12,
 #    flowBreak = TRUE, Q1EndDate = "1963-03-31",
 #    wall = FALSE, verbose = FALSE)
 #  
 
-## ---- fig.height = 6, fig.width = 11-----------------------------------
+## ---- fig.height = 6, fig.width = 11----------------------------
 plotContours(eListOutNoWall, 1961, 1966, 10, 100, 
              contourLevels = seq(0,55,5), flowDuration = FALSE)
 
-## ----eval=FALSE--------------------------------------------------------
+## ----eval=FALSE-------------------------------------------------
 #  groupResults <- runGroups(eList, windowSide,
 #                            group1firstYear, group1lastYear,
 #                            group2firstYear, group2lastYear,
@@ -211,7 +211,7 @@ plotContours(eListOutNoWall, 1961, 1966, 10, 100,
 #                            windowY = 7, windowQ = 2, windowS = 0.5,
 #                            edgeAdjust = TRUE, verbose = TRUE)
 
-## ----echo=FALSE--------------------------------------------------------
+## ----echo=FALSE-------------------------------------------------
 rm(list = ls())
 load("Chop.OPbase.RData")
 # then we run the function 
@@ -222,7 +222,7 @@ groupResults <- runGroups(eList,
                           sample1EndDate = "2004-10-30", 
                           paStart = 4, paLong = 2, verbose = FALSE)
 
-## ----echo=TRUE, eval=FALSE---------------------------------------------
+## ----echo=TRUE, eval=FALSE--------------------------------------
 #  groupResults <- runGroups(eList,
 #                            group1firstYear = 1995, group1lastYear = 2004,
 #                            group2firstYear = 2005, group2lastYear = 2014,
@@ -230,7 +230,7 @@ groupResults <- runGroups(eList,
 #                            sample1EndDate = "2004-10-30",
 #                            paStart = 4, paLong = 2, verbose = FALSE)
 
-## ----------------------------------------------------------------------
+## ---------------------------------------------------------------
 attr(groupResults, "groupInfo")
 attr(groupResults, "dateInfo")
 attr(groupResults, "SampleBlocks")

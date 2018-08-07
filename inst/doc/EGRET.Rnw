@@ -139,11 +139,18 @@ library(EGRET)
 
 
 <<include=TRUE ,echo=FALSE,eval=TRUE>>=
-opts_chunk$set(highlight=TRUE, tidy=TRUE, keep.space=TRUE, keep.blank.space=FALSE, keep.comment=TRUE, concordance=TRUE,tidy=FALSE,comment="")
+opts_chunk$set(highlight=TRUE,
+               keep.space=TRUE, 
+               keep.blank.space=FALSE, 
+               keep.comment=TRUE, 
+               concordance=TRUE,
+               tidy=FALSE,comment="")
 
 knit_hooks$set(inline = function(x) {
    if (is.numeric(x)) round(x, 3)})
 knit_hooks$set(crop = hook_pdfcrop)
+
+knitr::opts_chunk$set(eval = nzchar(Sys.getenv("EGRET_eval")))
 
 bold.colHeaders <- function(x) {
   x <- gsub("\\^(\\d)","$\\^\\1$",x)
@@ -920,11 +927,9 @@ eList <- as.egret(INFO, Daily, NA, NA)
 
 @
 
-<<flowHistoryLoad,echo=FALSE,eval=TRUE>>=
-filePath <- system.file("extdata", package="EGRET")
+<<flowHistoryLoad,echo=FALSE>>=
 fileName <- "eListColumbia.RData"
-
-load(paste(filePath,fileName,sep="/"))
+load(fileName)
 eList <- eListColumbia
 
 @
@@ -1019,11 +1024,9 @@ INFO$shortName <- "Merced River at Happy Isles Bridge, CA"
 eListMerced <- as.egret(INFO, Daily, NA, NA)
 @
 
-<<Merceddata, echo=FALSE,eval=TRUE>>=
-filePath <- system.file("extdata", package="EGRET")
+<<Merceddata, echo=FALSE>>=
 fileName <- "eListMerced.RData"
-
-load(paste(filePath,fileName,sep="/"))
+load(fileName)
 @
 
 
@@ -1068,11 +1071,9 @@ INFO$shortName <- "Mississippi River at Keokuk Iowa"
 eListMiss <- as.egret(INFO, Daily, NA, NA)
 @
 
-<<MissDataRetrieval, echo=FALSE, eval=TRUE>>=
-filePath <- system.file("extdata", package="EGRET")
+<<MissDataRetrieval, echo=FALSE>>=
 fileName <- "eListMiss.RData"
-
-load(paste(filePath,fileName,sep="/"))
+load(fileName)
 
 @
 
@@ -1987,9 +1988,7 @@ dev.off()
 %-------------------------------------
 \section{Disclaimer}
 %------------------------------------
-Software created by USGS employees along with contractors and grantees (unless specific stipulations are made in a contract or grant award) are to be released as Public Domain and free of copyright or license. Contributions of software components such as specific algorithms to existing software licensed through a third party are encouraged, but those contributions should be annotated as freely available in the Public Domain wherever possible. If USGS software uses existing licensed components, those licenses must be adhered to and redistributed.
-
-Although this software has been used by the U.S. Geological Survey (USGS), no warranty, expressed or implied, is made by the USGS or the U.S. Government as to accuracy and functionality, nor shall the fact of distribution constitute any such warranty, and no responsibility is assumed by the USGS in connection therewith.
+This software has been approved for release by the U.S. Geological Survey (USGS). Although the software has been subjected to rigorous review, the USGS reserves the right to update the software as needed pursuant to further analysis and review. No warranty, expressed or implied, is made by the USGS or the U.S. Government as to the functionality of the software and related material nor shall the fact of release constitute any such warranty. Furthermore, the software is released on condition that neither the USGS nor the U.S. Government shall be held liable for any damages resulting from its authorized or unauthorized use.
 
 
 %------------------------------------------------------------

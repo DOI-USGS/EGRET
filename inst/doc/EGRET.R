@@ -6,11 +6,18 @@ library(knitr)
 library(EGRET)
 
 ## ----include=TRUE ,echo=FALSE,eval=TRUE-------------------
-opts_chunk$set(highlight=TRUE, tidy=TRUE, keep.space=TRUE, keep.blank.space=FALSE, keep.comment=TRUE, concordance=TRUE,tidy=FALSE,comment="")
+opts_chunk$set(highlight=TRUE,
+               keep.space=TRUE, 
+               keep.blank.space=FALSE, 
+               keep.comment=TRUE, 
+               concordance=TRUE,
+               tidy=FALSE,comment="")
 
 knit_hooks$set(inline = function(x) {
    if (is.numeric(x)) round(x, 3)})
 knit_hooks$set(crop = hook_pdfcrop)
+
+knitr::opts_chunk$set(eval = nzchar(Sys.getenv("EGRET_eval")))
 
 bold.colHeaders <- function(x) {
   x <- gsub("\\^(\\d)","$\\^\\1$",x)
@@ -298,11 +305,9 @@ printFluxUnitCheatSheet()
 #  eList <- as.egret(INFO, Daily, NA, NA)
 #  
 
-## ----flowHistoryLoad,echo=FALSE,eval=TRUE-----------------
-filePath <- system.file("extdata", package="EGRET")
+## ----flowHistoryLoad,echo=FALSE---------------------------
 fileName <- "eListColumbia.RData"
-
-load(paste(filePath,fileName,sep="/"))
+load(fileName)
 eList <- eListColumbia
 
 
@@ -324,11 +329,9 @@ plotSDLogQ(eList)
 #  INFO$shortName <- "Merced River at Happy Isles Bridge, CA"
 #  eListMerced <- as.egret(INFO, Daily, NA, NA)
 
-## ----Merceddata, echo=FALSE,eval=TRUE---------------------
-filePath <- system.file("extdata", package="EGRET")
+## ----Merceddata, echo=FALSE-------------------------------
 fileName <- "eListMerced.RData"
-
-load(paste(filePath,fileName,sep="/"))
+load(fileName)
 
 ## ----Mercedplot, echo=TRUE,eval=TRUE,fig.cap="Merced River winter trend",fig.subcap=c("Water Year", "December - February"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h"----
 plotFlowSingle(eListMerced, istat=5)
@@ -353,11 +356,9 @@ plotFourStats(eListMerced, qUnit=3)
 #  INFO$shortName <- "Mississippi River at Keokuk Iowa"
 #  eListMiss <- as.egret(INFO, Daily, NA, NA)
 
-## ----MissDataRetrieval, echo=FALSE, eval=TRUE-------------
-filePath <- system.file("extdata", package="EGRET")
+## ----MissDataRetrieval, echo=FALSE------------------------
 fileName <- "eListMiss.RData"
-
-load(paste(filePath,fileName,sep="/"))
+load(fileName)
 
 
 ## ----MississippiPlot, echo=TRUE,eval=TRUE,fig.cap="Mississippi River at Keokuk Iowa",fig.subcap=c("Water Year", "Dec-Feb"),out.width='1\\linewidth',out.height='1\\linewidth',fig.show='hold',fig.pos="h"----
