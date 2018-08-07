@@ -138,19 +138,21 @@ library(EGRET)
 @
 
 
-<<include=TRUE ,echo=FALSE,eval=TRUE>>=
+<<include=TRUE ,echo=FALSE,eval=TRUE, message=FALSE, warning=FALSE>>=
 opts_chunk$set(highlight=TRUE,
                keep.space=TRUE, 
                keep.blank.space=FALSE, 
                keep.comment=TRUE, 
                concordance=TRUE,
-               tidy=FALSE,comment="")
+               tidy=FALSE,
+               comment="",
+               eval = nzchar(Sys.getenv("EGRET_eval")))
 
 knit_hooks$set(inline = function(x) {
    if (is.numeric(x)) round(x, 3)})
+
 knit_hooks$set(crop = hook_pdfcrop)
 
-knitr::opts_chunk$set(eval = nzchar(Sys.getenv("EGRET_eval")))
 
 bold.colHeaders <- function(x) {
   x <- gsub("\\^(\\d)","$\\^\\1$",x)
@@ -357,7 +359,7 @@ vignette("dataRetrieval")
 
 EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units, which will be discussed in (\ref{sec:units}). To start our exploration, you must install the packages (check Section \ref{sec:appendix1} for detailed instructions), and then open EGRET with the following command:
 
-<<openlibraries, echo=TRUE,eval=TRUE>>=
+<<openlibraries, echo=TRUE,eval=FALSE>>=
 library(EGRET)
 @
 
@@ -961,7 +963,7 @@ eList <- setPA(eList,paStart=12,paLong=3)
 @
 
 To set the default value (water year):
-<<newChunck, echo=TRUE,eval=TRUE>>=
+<<newChunck, echo=TRUE>>=
 eList <- setPA(eList)
 @
 
@@ -1021,22 +1023,23 @@ siteNumber<-"11264500"
 Daily <-readNWISDaily(siteNumber,"00060",startDate="",endDate="")
 INFO <- readNWISInfo(siteNumber,"",interactive=FALSE)
 INFO$shortName <- "Merced River at Happy Isles Bridge, CA"
-eListMerced <- as.egret(INFO, Daily, NA, NA)
+eList <- as.egret(INFO, Daily, NA, NA)
 @
 
 <<Merceddata, echo=FALSE>>=
 fileName <- "eListMerced.RData"
 load(fileName)
+eList <- eListMerced
 @
 
 
-<<Mercedplot, echo=TRUE,eval=TRUE,fig.cap="Merced River winter trend",fig.subcap=c("Water Year", "December - February"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
-plotFlowSingle(eListMerced, istat=5)
+<<Mercedplot, echo=TRUE,fig.cap="Merced River winter trend",fig.subcap=c("Water Year", "December - February"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h">>=
+plotFlowSingle(eList, istat=5)
 
 # Then, we can run the same function, but first set 
 # the pa to start in December and only run for 3 months.
-eListMerced <- setPA(eListMerced,paStart=12,paLong=3)
-plotFlowSingle(eListMerced,istat=5,qMax=200)
+eListMerced <- setPA(eList,paStart=12,paLong=3)
+plotFlowSingle(eList,istat=5,qMax=200)
 
 @
 
@@ -1045,13 +1048,13 @@ What these figures show us is that on an annual basis there is very little indic
 \newpage
 \FloatBarrier
 <<plotFour, echo=TRUE, fig.cap="\\texttt{plotFour(eListMerced, qUnit=3)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h">>=
-plotFour(eListMerced, qUnit=3)
+plotFour(eList, qUnit=3)
 @
 
 \newpage
 \FloatBarrier
 <<plotFourStats,echo=TRUE, fig.cap="\\texttt{plotFourStats(eListMerced, qUnit=3)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h",cache=TRUE>>=
-plotFourStats(eListMerced, qUnit=3)
+plotFourStats(eList, qUnit=3)
 @
 
 \newpage
@@ -1068,18 +1071,18 @@ siteNumber<-"05474500"
 Daily <-readNWISDaily(siteNumber,"00060",startDate="",endDate="")
 INFO <- readNWISInfo(siteNumber,"",interactive=FALSE)
 INFO$shortName <- "Mississippi River at Keokuk Iowa"
-eListMiss <- as.egret(INFO, Daily, NA, NA)
+eList <- as.egret(INFO, Daily, NA, NA)
 @
 
 <<MissDataRetrieval, echo=FALSE>>=
 fileName <- "eListMiss.RData"
 load(fileName)
-
+eList <- eListMiss
 @
 
-<<MississippiPlot, echo=TRUE,eval=TRUE,fig.cap="Mississippi River at Keokuk Iowa",fig.subcap=c("Water Year", "Dec-Feb"),out.width='1\\linewidth',out.height='1\\linewidth',fig.show='hold',fig.pos="h">>=
+<<MississippiPlot, echo=TRUE,fig.cap="Mississippi River at Keokuk Iowa",fig.subcap=c("Water Year", "Dec-Feb"),out.width='1\\linewidth',out.height='1\\linewidth',fig.show='hold',fig.pos="h">>=
 
-plotQTimeDaily(eListMiss, qUnit=3,qLower=300)
+plotQTimeDaily(eList, qUnit=3,qLower=300)
 
 @
 
@@ -1094,7 +1097,7 @@ Sometimes it is easier to consider results in table formats rather than graphica
 
 
 <<printSeries, eval=FALSE,echo=TRUE>>=
-seriesResult <- printSeries(eListMiss, istat=3, qUnit=3)
+seriesResult <- printSeries(eList, istat=3, qUnit=3)
 @
 
 \singlespacing
@@ -1127,8 +1130,8 @@ Another way to look at the results is to consider how much the smoothed values c
 Another argument can be very useful in this function: yearPoints.  In the default case, the set of years that are compared are at 5 year intervals along the whole data set.  If the data set was quite long this can be a daunting number of comparisons.  For example, in an 80 year record, there would be 136 such pairs. Instead, we could look at changes between only 3 year points: 1890, 1950, and 2010: 
 
 
-<<tfc, eval=TRUE,echo=TRUE>>=
-tableFlowChange(eListMiss, istat=3, qUnit=3,yearPoints=c(1890,1950,2010))
+<<tfc, echo=TRUE>>=
+tableFlowChange(eList, istat=3, qUnit=3,yearPoints=c(1890,1950,2010))
 @
 
 See section \ref{app:createWordTable} for instructions on converting an R data frame to a table in Microsoft\textregistered\ software. Excel, Microsoft, PowerPoint, Windows, and Word are registered trademarks of Microsoft Corporation in the United States and other countries.
@@ -1224,7 +1227,7 @@ The \texttt{multiPlotDataOverview} (Figure \ref{fig:multiPlotDataOverview}) func
 %------------------------------------------------------------ 
 Another useful tool for checking the data before running the WRTDS estimations is \texttt{flowDuration}. This is a utility function that can help you define the discharge ranges that we want to explore.  It prints out key points on the discharge duration curve.  Define the points for a particular part of the year using the \texttt{"}centerDate\texttt{"} and \texttt{"}span\texttt{"} arguments, although the points can be defined for the entire year (default).  
 
-<<flowDuration, eval=TRUE, echo=TRUE>>=
+<<flowDuration, echo=TRUE>>=
 flowDuration(eList, qUnit=1)
 
 flowDuration(eList, qUnit=1, centerDate="09-30", span=30)

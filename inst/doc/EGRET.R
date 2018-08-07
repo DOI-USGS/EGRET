@@ -5,19 +5,21 @@ options(width=60)
 library(knitr)
 library(EGRET)
 
-## ----include=TRUE ,echo=FALSE,eval=TRUE-------------------
+## ----include=TRUE ,echo=FALSE,eval=TRUE, message=FALSE, warning=FALSE----
 opts_chunk$set(highlight=TRUE,
                keep.space=TRUE, 
                keep.blank.space=FALSE, 
                keep.comment=TRUE, 
                concordance=TRUE,
-               tidy=FALSE,comment="")
+               tidy=FALSE,
+               comment="",
+               eval = nzchar(Sys.getenv("EGRET_eval")))
 
 knit_hooks$set(inline = function(x) {
    if (is.numeric(x)) round(x, 3)})
+
 knit_hooks$set(crop = hook_pdfcrop)
 
-knitr::opts_chunk$set(eval = nzchar(Sys.getenv("EGRET_eval")))
 
 bold.colHeaders <- function(x) {
   x <- gsub("\\^(\\d)","$\\^\\1$",x)
@@ -159,8 +161,8 @@ addSpace <- function(x) ifelse(x != "1", "[5pt]","")
 #  library(dataRetrieval)
 #  vignette("dataRetrieval")
 
-## ----openlibraries, echo=TRUE,eval=TRUE-------------------
-library(EGRET)
+## ----openlibraries, echo=TRUE,eval=FALSE------------------
+#  library(EGRET)
 
 ## ----firstExample, echo=TRUE, eval=FALSE------------------
 #  siteNumber <- "01491000"
@@ -314,7 +316,7 @@ eList <- eListColumbia
 ## ----newChunckWinter, echo=TRUE,eval=FALSE----------------
 #  eList <- setPA(eList,paStart=12,paLong=3)
 
-## ----newChunck, echo=TRUE,eval=TRUE-----------------------
+## ----newChunck, echo=TRUE---------------------------------
 eList <- setPA(eList)
 
 ## ----plotSingleandSD, echo=TRUE, fig.cap="Plots of discharge statistics",fig.subcap=c("plotFlowSingle(eList, istat=5,qUnit='thousandCfs')","plotSDLogQ(eList)"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h",cache=TRUE----
@@ -327,26 +329,27 @@ plotSDLogQ(eList)
 #  Daily <-readNWISDaily(siteNumber,"00060",startDate="",endDate="")
 #  INFO <- readNWISInfo(siteNumber,"",interactive=FALSE)
 #  INFO$shortName <- "Merced River at Happy Isles Bridge, CA"
-#  eListMerced <- as.egret(INFO, Daily, NA, NA)
+#  eList <- as.egret(INFO, Daily, NA, NA)
 
 ## ----Merceddata, echo=FALSE-------------------------------
 fileName <- "eListMerced.RData"
 load(fileName)
+eList <- eListMerced
 
-## ----Mercedplot, echo=TRUE,eval=TRUE,fig.cap="Merced River winter trend",fig.subcap=c("Water Year", "December - February"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h"----
-plotFlowSingle(eListMerced, istat=5)
+## ----Mercedplot, echo=TRUE,fig.cap="Merced River winter trend",fig.subcap=c("Water Year", "December - February"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h"----
+plotFlowSingle(eList, istat=5)
 
 # Then, we can run the same function, but first set 
 # the pa to start in December and only run for 3 months.
-eListMerced <- setPA(eListMerced,paStart=12,paLong=3)
-plotFlowSingle(eListMerced,istat=5,qMax=200)
+eListMerced <- setPA(eList,paStart=12,paLong=3)
+plotFlowSingle(eList,istat=5,qMax=200)
 
 
 ## ----plotFour, echo=TRUE, fig.cap="\\texttt{plotFour(eListMerced, qUnit=3)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h"----
-plotFour(eListMerced, qUnit=3)
+plotFour(eList, qUnit=3)
 
 ## ----plotFourStats,echo=TRUE, fig.cap="\\texttt{plotFourStats(eListMerced, qUnit=3)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h",cache=TRUE----
-plotFourStats(eListMerced, qUnit=3)
+plotFourStats(eList, qUnit=3)
 
 ## ----MississippiData, echo=TRUE,eval=FALSE----------------
 #  #Mississippi River at Keokuk Iowa:
@@ -354,23 +357,23 @@ plotFourStats(eListMerced, qUnit=3)
 #  Daily <-readNWISDaily(siteNumber,"00060",startDate="",endDate="")
 #  INFO <- readNWISInfo(siteNumber,"",interactive=FALSE)
 #  INFO$shortName <- "Mississippi River at Keokuk Iowa"
-#  eListMiss <- as.egret(INFO, Daily, NA, NA)
+#  eList <- as.egret(INFO, Daily, NA, NA)
 
 ## ----MissDataRetrieval, echo=FALSE------------------------
 fileName <- "eListMiss.RData"
 load(fileName)
+eList <- eListMiss
 
+## ----MississippiPlot, echo=TRUE,fig.cap="Mississippi River at Keokuk Iowa",fig.subcap=c("Water Year", "Dec-Feb"),out.width='1\\linewidth',out.height='1\\linewidth',fig.show='hold',fig.pos="h"----
 
-## ----MississippiPlot, echo=TRUE,eval=TRUE,fig.cap="Mississippi River at Keokuk Iowa",fig.subcap=c("Water Year", "Dec-Feb"),out.width='1\\linewidth',out.height='1\\linewidth',fig.show='hold',fig.pos="h"----
-
-plotQTimeDaily(eListMiss, qUnit=3,qLower=300)
+plotQTimeDaily(eList, qUnit=3,qLower=300)
 
 
 ## ----printSeries, eval=FALSE,echo=TRUE--------------------
-#  seriesResult <- printSeries(eListMiss, istat=3, qUnit=3)
+#  seriesResult <- printSeries(eList, istat=3, qUnit=3)
 
-## ----tfc, eval=TRUE,echo=TRUE-----------------------------
-tableFlowChange(eListMiss, istat=3, qUnit=3,yearPoints=c(1890,1950,2010))
+## ----tfc, echo=TRUE---------------------------------------
+tableFlowChange(eList, istat=3, qUnit=3,yearPoints=c(1890,1950,2010))
 
 ## ----wrtds1,eval=FALSE,echo=TRUE--------------------------
 #  #Choptank River at Greensboro, MD:
@@ -409,7 +412,7 @@ plotFluxQ(eList, fluxUnit=4)
 ## ----multiPlotDataOverview, echo=TRUE, fig.cap="\\texttt{multiPlotDataOverview(eList, qUnit=1)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h"----
 multiPlotDataOverview(eList, qUnit=1)
 
-## ----flowDuration, eval=TRUE, echo=TRUE-------------------
+## ----flowDuration, echo=TRUE------------------------------
 flowDuration(eList, qUnit=1)
 
 flowDuration(eList, qUnit=1, centerDate="09-30", span=30)
