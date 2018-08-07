@@ -10,7 +10,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<meta name="author" content="Robert M. Hirsch and Laura A. De Cicco" />
+<meta name="author" content="Laura A. De Cicco and Robert M. Hirsch" />
 
 <meta name="date" content="2017-07-14" />
 
@@ -69,7 +69,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <h1 class="title toc-ignore">Running WRTDS in parallel</h1>
-<h4 class="author"><em>Robert M. Hirsch and Laura A. De Cicco</em></h4>
+<h4 class="author"><em>Laura A. De Cicco and Robert M. Hirsch</em></h4>
 <h4 class="date"><em>2017-07-14</em></h4>
 
 
@@ -90,9 +90,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="registering-your-cores" class="section level2">
 <h2>Registering your cores</h2>
 <p>Once you’ve checked that your computer has multiple cores, you need to register how many cores you want to use. There are a few ways to do this. It will depend on your operating system and general workflow what exactly is the best way to do this. There are currently 3 main packages that you can use to parallelize the <code>modelEstimation</code> function: <code>doParallel</code>, <code>doSNOW</code>, and <code>doMC</code>.</p>
-<p>The <code>doParallel</code> package recommend to most new users because it works best on all three major operating systems (Windows, Mac, Linux). However, <code>doMC</code> can be more efficient on Linux, and <code>doSNOW</code> can be more efficient on Macs. Therefore, we recommend <code>doParallel</code>, but will show workflows for each of the packages.</p>
+<p>The <code>doParallel</code> package recommend to most new users because it works best on all three major operating systems (Windows, Mac, Linux). However, <code>doMC</code> can be more efficient on Linux. Therefore, we recommend <code>doParallel</code>, but will show workflows for both of the packages.</p>
 <p>It is recommended to use at most <code>detectCores(logical = FALSE) - 1</code> cores for your calculations. This leaves one core available for other computer processes. Most modern CPU’s can handle registering all the cores on your computer without issue. In fact, you could register <em>more</em> cores than are physically on your computer, but could be inefficient. When using the function <code>detectCores</code>, we recommend specifying <code>logical = FALSE</code> because that will find the number of physical cores on your computer. <code>logical=TRUE</code> includes multithreading, which we have found to generally not improve the efficiency in these calculations.</p>
-<p>Note: the packages <code>doParallel</code>,<code>doSNOW</code>, or <code>doMC</code> are <em>suggested</em> for <code>EGRET</code>. This means they are not automatically installed with the <code>EGRET</code> installation. You will need to install separately the package of your choice.</p>
+<p>Note: the packages <code>doParallel</code> or <code>doMC</code> are <em>suggested</em> for <code>EGRET</code>. This means they are not automatically installed with the <code>EGRET</code> installation. You will need to install separately the package of your choice.</p>
 <p>Important for <em>all</em> workflows, when the processing is completed, you need to stop the cluster registration with the <code>stopCluster</code> function.</p>
 <p>We will now show 3 examples using the “Choptank River” example data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(EGRET)
@@ -108,16 +108,6 @@ nCores &lt;-<span class="st"> </span><span class="kw">detectCores</span>(<span c
 
 cl &lt;-<span class="st"> </span><span class="kw">makeCluster</span>(nCores)
 <span class="kw">registerDoParallel</span>(cl)
-eList &lt;-<span class="st"> </span><span class="kw">modelEstimation</span>(eList, <span class="dt">verbose =</span> <span class="ot">FALSE</span>, <span class="dt">run.parallel =</span> <span class="ot">TRUE</span>)
-<span class="kw">stopCluster</span>(cl)</code></pre></div>
-</div>
-<div id="dosnow" class="section level3">
-<h3>doSNOW</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(doSNOW)
-<span class="kw">library</span>(parallel)
-
-cl &lt;-<span class="st"> </span><span class="kw">makeCluster</span>(nCores)
-<span class="kw">registerDoSNOW</span>(cl)
 eList &lt;-<span class="st"> </span><span class="kw">modelEstimation</span>(eList, <span class="dt">verbose =</span> <span class="ot">FALSE</span>, <span class="dt">run.parallel =</span> <span class="ot">TRUE</span>)
 <span class="kw">stopCluster</span>(cl)</code></pre></div>
 </div>

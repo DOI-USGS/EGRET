@@ -20,16 +20,6 @@ detectCores()
 #  
 
 ## ----eval=FALSE----------------------------------------------------------
-#  library(doSNOW)
-#  library(parallel)
-#  
-#  cl <- makeCluster(nCores)
-#  registerDoSNOW(cl)
-#  eList <- modelEstimation(eList, verbose = FALSE, run.parallel = TRUE)
-#  stopCluster(cl)
-#  
-
-## ----eval=FALSE----------------------------------------------------------
 #  library(doMC)
 #  library(parallel)
 #  

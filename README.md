@@ -1,5 +1,5 @@
-EGRET <img src="man/figures/logo.png" alt="toxEval" height="150px" align="right" />
-===================================================================================
+EGRET
+=====
 
 [![travis](https://travis-ci.org/USGS-R/EGRET.svg?branch=master)](https://travis-ci.org/USGS-R/EGRET) [![Build status](https://ci.appveyor.com/api/projects/status/i2hr35abwxx85vgs?svg=true)](https://ci.appveyor.com/project/ldecicco-USGS/EGRET) [![Coverage Status](https://coveralls.io/repos/github/USGS-R/EGRET/badge.svg?branch=master)](https://coveralls.io/github/USGS-R/EGRET?branch=master) [![status](https://img.shields.io/badge/USGS-Research-blue.svg)](https://owi.usgs.gov/R/packages.html#research) [![CRAN version](http://www.r-pkg.org/badges/version/EGRET)](https://cran.r-project.org/package=EGRET) [![](http://cranlogs.r-pkg.org/badges/EGRET)](https://cran.r-project.org/package=EGRET) [![](http://cranlogs.r-pkg.org/badges/grand-total/EGRET)](https://cran.r-project.org/package=EGRET) [![Research software impact](http://depsy.org/api/package/cran/EGRET/badge.svg)](http://depsy.org/package/r/EGRET)
 
@@ -42,7 +42,7 @@ Evaluating long-term changes in river conditions (water quality and discharge) i
 
 <https://dx.doi.org/10.3133/tm4A10> The best ways to learn about the WRTDS approach is to read the User Guide and two journal articles. These articles are available, for free, from the journals in which they were published. The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay. The URL is:
 
-<http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full>.
+<https://onlinelibrary.wiley.com/doi/full/10.1111/j.1752-1688.2010.00482.x>.
 
 The second is an application to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries. The URL is:
 
@@ -290,7 +290,7 @@ siteID <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "" # Get earliest date
 endDate <- "" # Get latest date
 Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
-#> There are 25781 data points, and 25781 days.
+#> There are 25786 data points, and 25786 days.
 # Gather site and parameter information:
 # Here user must input some values for
 # the default (interactive=TRUE)
@@ -381,7 +381,7 @@ devtools::session_info()
 #>  language (EN)                        
 #>  collate  English_United States.1252  
 #>  tz       America/Chicago             
-#>  date     2018-08-02
+#>  date     2018-08-07
 #> Packages -----------------------------------------------------------------
 #>  package       * version date       source        
 #>  assertthat      0.2.0   2017-04-11 CRAN (R 3.5.0)
@@ -399,7 +399,7 @@ devtools::session_info()
 #>  digest          0.6.15  2018-01-28 CRAN (R 3.5.0)
 #>  dotCall64       1.0-0   2018-07-30 CRAN (R 3.5.1)
 #>  dplyr           0.7.6   2018-06-29 CRAN (R 3.5.0)
-#>  EGRET         * 3.0.0   2018-07-31 local         
+#>  EGRET         * 3.0.0   2018-08-07 local         
 #>  evaluate        0.11    2018-07-17 CRAN (R 3.5.1)
 #>  fields          9.6     2018-01-29 CRAN (R 3.5.0)
 #>  foreach         1.4.4   2017-12-12 CRAN (R 3.5.0)

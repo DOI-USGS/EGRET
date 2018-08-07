@@ -3,9 +3,11 @@ Type: Package
 Title: Exploration and Graphics for RivEr Trends (EGRET)
 Version: 3.0.0
 Authors@R: c( person("Robert", "Hirsch", role = c("aut"),
-    email = "rhirsch@usgs.gov"),
+    email = "rhirsch@usgs.gov", 
+    comment=c(ORCID="0000-0002-4534-075X")),
     person("Laura", "DeCicco", role = c("aut","cre"),
-    email = "ldecicco@usgs.gov"), 
+    email = "ldecicco@usgs.gov",
+    comment=c(ORCID="0000-0002-3915-9487")), 
     person("David", "Watkins", role = c("ctb"), 
     email = "wwatkins@usgs.gov"),
     person("Lindsay","Carr", role = c("ctb"),
@@ -36,7 +38,6 @@ Suggests:
     testthat,
     rkt,
     doParallel,
-    doSNOW,
     parallel
 LazyLoad: yes
 LazyData: yes
