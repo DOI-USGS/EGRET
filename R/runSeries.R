@@ -157,9 +157,7 @@ runSeries <- function(eList, windowSide,
   eListS <- as.egret(eList$INFO, localDaily, localSample, surfaces)
 
   
-  if (windowSide <= 0 & !flowBreak) {
-    option <- 1
-    
+  if (windowSide <= 0 && !flowBreak) {
     flowStart <- as.Date(surfaceStart)
     flowEnd <- as.Date(surfaceEnd)
     flowNormStart <- as.Date(QStartDate)
@@ -169,12 +167,10 @@ runSeries <- function(eList, windowSide,
                            flowStart,flowEnd, 
                            stringsAsFactors = FALSE)
     
-  } else if (windowSide > 0 & !flowBreak) {
-    option <- 2
+  } else if (windowSide > 0 && !flowBreak) {
     dateInfo <- makeDateInfo(windowSide, surfaceStart, surfaceEnd, 
                                 QStartDate, QEndDate)
-  } else if (windowSide <= 0 & flowBreak) {
-    option <- 3
+  } else if (windowSide <= 0 && flowBreak) {
     Q1EndDate <- as.Date(Q1EndDate)
     Q2StartDate <- as.Date(Q1EndDate) + 1
     flowStart <- c(as.Date(surfaceStart), as.Date(Q2StartDate))
@@ -184,7 +180,6 @@ runSeries <- function(eList, windowSide,
     dateInfo <- data.frame(flowNormStart, flowNormEnd, flowStart, 
                            flowEnd, stringsAsFactors = FALSE)
   } else {
-    option <- 4
     Q1EndDate <- as.Date(Q1EndDate)
     Q2StartDate <- as.Date(Q1EndDate) + 1
     dateInfo1 <- makeDateInfo(windowSide, surfaceStart, Q1EndDate, 
