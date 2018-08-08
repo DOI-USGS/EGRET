@@ -329,7 +329,7 @@ runPairs <- function(eList, year1, year2, windowSide,
   rownames(pairResults) <- c("Conc", "Flux")
   pairResults[1, ] <- c(cDeltaTotal, cRSpart, cFDpart, c10, 
                         c11, c20, c22)
-  # 0.00036525 is magic number to convert from kg/day to thousands kg/yr
+  # 0.00036525 is magic number to convert to million kg/year
   pairResults[2, ] <- 0.00036525 * c(fDeltaTotal, fRSpart, 
                                      fFDpart, f10, f11, f20, f22)
   
