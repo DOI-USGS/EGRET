@@ -320,6 +320,78 @@ test_that("runSeries", {
   
 })
 
+test_that("runGroups", {
+  
+  skip_on_cran()
+  
+  eList <- Choptank_eList
+  
+  groupOut_1 <- runGroups(eList,  windowSide = 0,
+                          group1firstYear = 1980, group1lastYear = 1990,
+                          group2firstYear = 1995, group2lastYear = 2005)
+  
+  expect_true(all(names(groupOut_1) %in% c("TotalChange","CQTC","QTC","x10",        
+                                       "x11","x20","x22")))
+  expect_true(all(round(groupOut_1$TotalChange, digits = 3) %in% c(0.226,0.022)))
+  expect_true(all(round(groupOut_1$CQTC, digits = 3) %in% c(0.226,0.022)))
+  expect_true(all(round(groupOut_1$QTC, digits = 3) %in% c(0,0)))
+  expect_true(all(round(groupOut_1$x10, digits = 3) %in% c(1.019,0.116)))
+  expect_true(all(round(groupOut_1$x11, digits = 3) %in% c(1.019,0.116)))
+  expect_true(all(round(groupOut_1$x20, digits = 3) %in% c(1.245,0.138)))
+  expect_true(all(round(groupOut_1$x22, digits = 3) %in% c(1.245,0.138)))
+  
+  # Option 2: Use sliding window.
+  #                In each case it is a 15 year window (15 = 1 + 2*7)
+  groupOut_2 <- runGroups(eList,  windowSide = 7,
+                          group1firstYear = 1980, group1lastYear = 1990,
+                          group2firstYear = 1995, group2lastYear = 2005)
+
+  expect_true(all(names(groupOut_2) %in% c("TotalChange","CQTC","QTC","x10",        
+                                           "x11","x20","x22")))
+  expect_true(all(round(groupOut_2$TotalChange, digits = 3) %in% c(0.200,0.039)))
+  expect_true(all(round(groupOut_2$CQTC, digits = 3) %in% c(0.226,0.022)))
+  expect_true(all(round(groupOut_2$QTC, digits = 3) %in% c(-0.025,0.017)))
+  expect_true(all(round(groupOut_2$x10, digits = 3) %in% c(1.019,0.116)))
+  expect_true(all(round(groupOut_2$x11, digits = 3) %in% c(1.034,0.107)))
+  expect_true(all(round(groupOut_2$x20, digits = 3) %in% c(1.245,0.138)))
+  expect_true(all(round(groupOut_2$x22, digits = 3) %in% c(1.234,0.146)))
+  # Option 3: Flow normalization is based on splitting the flow record at 1990-09-30
+  #                But in years before the break it uses all flow data from before the break,
+  #                and years after the break uses all flow data after the break
+  groupOut_3 <- runGroups(eList,  windowSide = 0,
+                          group1firstYear = 1980, group1lastYear = 1990,
+                          group2firstYear = 1995, group2lastYear = 2005,
+                          flowBreak = TRUE, 
+                          Q1EndDate = "1990-09-30")
+  expect_true(all(round(groupOut_3$TotalChange, digits = 3) %in% c(0.207,0.037)))
+  expect_true(all(round(groupOut_3$CQTC, digits = 3) %in% c(0.226,0.022)))
+  expect_true(all(round(groupOut_3$QTC, digits = 3) %in% c(-0.019,0.015)))
+  expect_true(all(round(groupOut_3$x10, digits = 3) %in% c(1.019,0.116)))
+  expect_true(all(round(groupOut_3$x11, digits = 3) %in% c(1.031,0.107)))
+  expect_true(all(round(groupOut_3$x20, digits = 3) %in% c(1.245,0.138)))
+  expect_true(all(round(groupOut_3$x22, digits = 3) %in% c(1.238,0.144)))
+  expect_true(all(names(groupOut_3) %in% c("TotalChange","CQTC","QTC","x10",        
+                                           "x11","x20","x22")))
+  
+  # Option 4: Flow normalization is based on splitting the flow record at 1990-09-30
+  #                but before the break uses a 15 year window of years before the break
+  #                after the break uses a 15 year window of years after the break
+  groupOut_4 <- runGroups(eList,  windowSide = 7,
+                          group1firstYear = 1980, group1lastYear = 1990,
+                          group2firstYear = 1995, group2lastYear = 2005,
+                          flowBreak = TRUE, 
+                          Q1EndDate = "1990-09-30")
+  expect_true(all(names(groupOut_4) %in% c("TotalChange","CQTC","QTC","x10",        
+                                           "x11","x20","x22")))
+  expect_true(all(round(groupOut_4$TotalChange, digits = 3) %in% c(0.203,0.040)))
+  expect_true(all(round(groupOut_4$CQTC, digits = 3) %in% c(0.226,0.022)))
+  expect_true(all(round(groupOut_4$QTC, digits = 3) %in% c(-0.023,0.018)))
+  expect_true(all(round(groupOut_4$x10, digits = 3) %in% c(1.019,0.116)))
+  expect_true(all(round(groupOut_4$x11, digits = 3) %in% c(1.031,0.107)))
+  expect_true(all(round(groupOut_4$x20, digits = 3) %in% c(1.245,0.138)))
+  expect_true(all(round(groupOut_4$x22, digits = 3) %in% c(1.234,0.147)))
+  
+})
 
 test_that("stitch", {
   

@@ -67,8 +67,36 @@
 #' eList <- Choptank_eList
 #' \dontrun{
 #' 
-#' groups_out <- runGroups(eList, windowSide = 7,
-#'                         1980,1995,1996,2010)
+#'#Option 1:  Use all years for group flow normalization.
+#'groupOut_1 <- runGroups(eList,  windowSide = 0,
+#'                        group1firstYear = 1980, group1lastYear = 1990,
+#'                        group2firstYear = 1995, group2lastYear = 2005)
+#'
+#'# Option 2: Use sliding window.
+#'#                In each case it is a 15 year window (15 = 1 + 2*7)
+#'
+#'groupOut_2 <- runGroups(eList,  windowSide = 7,
+#'                        group1firstYear = 1980, group1lastYear = 1990,
+#'                        group2firstYear = 1995, group2lastYear = 2005)
+#'
+#'# Option 3: Flow normalization is based on splitting the flow record at 1990-09-30
+#'#                But in years before the break it uses all flow data from before the break,
+#'#                and years after the break uses all flow data after the break
+#'
+#'groupOut_3 <- runGroups(eList,  windowSide = 0,
+#'                        group1firstYear = 1980, group1lastYear = 1990,
+#'                        group2firstYear = 1995, group2lastYear = 2005,
+#'                        flowBreak = TRUE, 
+#'                        Q1EndDate = "1990-09-30")
+#'
+#'# Option 4: Flow normalization is based on splitting the flow record at 1990-09-30
+#'#                but before the break uses a 15 year window of years before the break
+#'#                after the break uses a 15 year window of years after the break
+#'groupOut_4 <- runGroups(eList,  windowSide = 7,
+#'                        group1firstYear = 1980, group1lastYear = 1990,
+#'                        group2firstYear = 1995, group2lastYear = 2005,
+#'                        flowBreak = TRUE, 
+#'                        Q1EndDate = "1990-09-30")
 #' 
 #' }
 runGroups <- function (eList, windowSide, 
