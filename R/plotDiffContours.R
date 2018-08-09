@@ -71,11 +71,7 @@ plotDiffContours<-function (eList, year0, year1,
                             vert1 = NA, vert2 = NA, horiz = NA, flowDuration = TRUE, yTicks=NA,tick.lwd=2,
                             lwd=1,cex.main=0.95,cex.axis=1,customPar=FALSE,
                             color.palette=colorRampPalette(c("blue","white","red")),...) {
-  
-  # if(.Device != "null device"){
-  #   grDevices::graphics.off()
-  # }
-  
+
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
   localsurfaces <- getSurfaces(eList)
@@ -88,22 +84,13 @@ plotDiffContours<-function (eList, year0, year1,
   
   if(!customPar){
     par(mgp=c(2.5,0.5,0))
-    if(printTitle){
-      par(oma=c(0,0,2,0))
-    } else {
-      par(oma=c(0,0,0,0))
-    }
   }
 
   surfaceName <- c("log of Concentration", "Standard Error of log(C)", 
                    "Concentration")
   j <- 3
-  j <- if (whatSurface == 1) 
-    1
-  else j
-  j <- if (whatSurface == 2) 
-    2
-  else j
+  j <- if (whatSurface == 1) 1 else j
+  j <- if (whatSurface == 2) 2 else j
   surf <- localsurfaces
   
   bottomLogQ <- localINFO$bottomLogQ
@@ -146,18 +133,14 @@ plotDiffContours<-function (eList, year0, year1,
   qTopT <- ifelse(is.na(qTop), quantile(localDaily$Q, probs = 0.95)*qFactor, qTop)
   
   if(any(is.na(yTicks))){
-    qBottomT <- max(0.9*y[1],qBottomT)
-    qTopT <- min(1.1*y[numY],qTopT)
     
-    yTicks <- logPretty3(qBottomT,qTopT)
-  }
-  
-  if(!is.na(qBottom)){
-    yTicks <- c(qBottom, yTicks)
-  }
-  
-  if(!is.na(qTop)){
-    yTicks <- c(yTicks, qTop)
+    if(is.na(qBottom)){
+      qBottom <- max(0.9*y[1],qBottomT)
+    }
+    if(is.na(qTop)){
+      qTop <- min(1.1*y[numY],qTopT)
+    }
+    yTicks <- logPretty3(qBottom,qTop)
   }
 
   xTicks <- c(0,0.0848,0.1642,0.249,0.331,0.416,0.498,0.583,0.668,0.750,0.835,0.917,1)
@@ -217,12 +200,10 @@ plotDiffContours<-function (eList, year0, year1,
                   log(yTicks[1], 10) - 1)
   v1 <- if (is.na(vert1)) 
     vectorNone
-  else c(vert1, log(yTicks[1], 10), vert1, log(yTicks[nYTicks], 
-                                               10))
+  else c(vert1, log(yTicks[1], 10), vert1, log(yTicks[nYTicks], 10))
   v2 <- if (is.na(vert2)) 
     vectorNone
-  else c(vert2, log(yTicks[1], 10), vert2, log(yTicks[nYTicks], 
-                                               10))
+  else c(vert2, log(yTicks[1], 10), vert2, log(yTicks[nYTicks], 10))
   h1 <- if (is.na(horiz)) 
     vectorNone
   else c(year0, log(horiz, 10), year1, log(horiz, 10))
@@ -253,12 +234,10 @@ plotDiffContours<-function (eList, year0, year1,
                    segments(rep(grconvertX(grconvertX(par("usr")[2],from="user",to="inches")-tcl,from="inches",to="user"),length(yTicks)), log(yTicks,10), rep(1,length(yTicks)),log(yTicks,10), lwd = tick.lwd)
                    
                  },
-                 plot.title = {
-                   title(main = plotTitle,outer=TRUE,cex.main=cex.main)
-                   mtext(yLab,2,cex=cex.main,line=2,las=0)
-                 }, 
+                  plot.title = {
+                     if(printTitle) title(main = plotTitle,outer=TRUE,cex.main=cex.main, line=-3)
+                     mtext(yLab,2,cex=cex.main,line=2,las=0)
+                  }, 
                  color.palette=color.palette,...)
 
-#   par(oma = c(0, 0, 0, 0))
-#   par(mar = c(5, 4, 4, 2) + 0.1)
 }

@@ -70,10 +70,6 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
                        flowDuration = TRUE, customPar=FALSE, yTicks=NA,tick.lwd=2,
                        lwd=1,cex.main=1,cex.axis=1,color.palette=colorRampPalette(c("white","gray","blue","red")),...) {
   
-  # if(.Device != "null device"){
-  #   grDevices::graphics.off()
-  # }
-  
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
   localsurfaces <- getSurfaces(eList)
@@ -91,11 +87,6 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
 
   if(!customPar){
     par(mgp=c(2.5,0.5,0))
-    if(printTitle){
-      par(oma=c(0,0,2,0))
-    } else {
-      par(oma=c(0,0,0,0))
-    }
   }
   surfaceName<-c("log of Concentration","Standard Error of log(C)","Concentration")
   j<-3
@@ -126,20 +117,16 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
   qTopT <- ifelse(is.na(qTop), quantile(localDaily$Q, probs = 0.95)*qFactor, qTop)
   
   if(any(is.na(yTicks))){
-    qBottomT <- max(0.9*y[1],qBottomT)
-    qTopT <- min(1.1*y[numY],qTopT)
     
-    yTicks <- logPretty3(qBottomT,qTopT)
+    if(is.na(qBottom)){
+      qBottom <- max(0.9*y[1],qBottomT)
+    }
+    if(is.na(qTop)){
+      qTop <- min(1.1*y[numY],qTopT)
+    }
+    yTicks <- logPretty3(qBottom,qTop)
   }
-  
-  if(!is.na(qBottom)){
-    yTicks <- c(qBottom, yTicks)
-  }
-  
-  if(!is.na(qTop)){
-    yTicks <- c(yTicks, qTop)
-  }
-  
+
   if(yearEnd-yearStart >= 4){
     xSpan<-c(yearStart,yearEnd)
     xTicks<-pretty(xSpan,n=5)
@@ -208,7 +195,7 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
   yLab<-qUnit@qUnitExpress
   logY <- log(y,10)
   filled.contour(x,log(y,10),surft,levels=contourLevels,xlim=c(yearStart,yearEnd),
-                 ylim=c(log(yTicks[1],10),log(yTicks[nYTicks],10)),#plot.title = title(plotTitle,cex.main=cex.main, outer = TRUE),
+                 ylim=c(log(yTicks[1],10),log(yTicks[nYTicks],10)),
                  xlab="",xaxs="i",yaxs="i",cex.main=cex.main, 
                  color.palette=color.palette, # ...,
                  plot.axes={
@@ -231,7 +218,7 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
                    segments(rep(grconvertX(grconvertX(par("usr")[2],from="user",to="inches")-tcl,from="inches",to="user"),length(yTicks)), log(yTicks,10), rep(yearEnd,length(yTicks)),log(yTicks,10), lwd = tick.lwd)
                  },
                   plot.title = {
-                    title(main = plotTitle,outer=TRUE,cex.main=cex.main)
+                    if(printTitle) title(main = plotTitle,outer=TRUE,cex.main=cex.main, line=-3)
                     mtext(yLab,2,cex=cex.main,line=2,las=0)
                  }
         )
