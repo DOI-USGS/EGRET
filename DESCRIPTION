@@ -8,10 +8,9 @@ Authors@R: c( person("Robert", "Hirsch", role = c("aut"),
     person("Laura", "DeCicco", role = c("aut","cre"),
     email = "ldecicco@usgs.gov",
     comment=c(ORCID="0000-0002-3915-9487")), 
-    person("David", "Watkins", role = c("ctb"), 
-    email = "wwatkins@usgs.gov"),
-    person("Lindsay","Carr", role = c("ctb"),
-    email = "lcarr@usgs.gov "))
+    person("David", "Watkins", role = c("ctb")),
+    person("Lindsay","Carr", role = c("ctb")),
+    person("Jennifer","Murphy", role = c("ctb")))
 Description: Statistics and graphics for streamflow history,
     water quality trends, and the statistical modeling algorithm: Weighted
     Regressions on Time, Discharge, and Season (WRTDS).
