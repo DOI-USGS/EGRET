@@ -83,8 +83,8 @@ stitch <- function(eList,
   Sample2 <- localSample[localSample$Date >= sample2StartDate & 
                            localSample$Date <= sample2EndDate, ]
   
-  message("\n Sample1 mean concentration ", mean(Sample1$ConcAve))
-  message("\n Sample2 mean concentration ", mean(Sample2$ConcAve))
+  message("\n Sample1 mean concentration ", round(mean(Sample1$ConcAve), digits = 3))
+  message("\n Sample2 mean concentration ", round(mean(Sample2$ConcAve), digits = 3))
   
   fractMin <- min(fractMin, 1.0)
   
