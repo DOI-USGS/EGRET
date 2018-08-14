@@ -345,14 +345,23 @@ checkSurfaceSpan <- function(eList){
   if(preSurface > 2 & postSurface > 2){
     message(paste0("\nThe surface you are using extends ", preSurfaceFormat , " years prior to the start,",
                    "and ",postSurfaceFormat," years past the end of the data of the water quality data set.",
-                   "Extension of more than about a year is not recommended."))
+                   "The surface is only reliable within the time period of the water quality data set.",
+                   "Extensions of a year or more should not be used to characterize trends.  However, the fact",
+                   "that there are such extensions, does not harm the reliability of the surface or the trend",
+                   "results within the period for which there are water quality data"))
   } else if (preSurface > 2){
     message(paste0("\nThe surface you are using extends ",  preSurfaceFormat,
                    " years prior to the start of the water quality data set.",
-                   "Extension of more than about a year is not recommended."))           
+                   "The surface is only reliable within the time period of the water quality data set.",
+                   "Extensions of a year or more should not be used to characterize trends.  However, the fact",
+                   "that there are such extensions, does not harm the reliability of the surface or the trend",
+                   "results within the period for which there are water quality data"))           
   } else if (postSurface > 2){
     message(paste0("\nThe surface you are using extends ",  postSurfaceFormat,
-                   "years past the end of the data of the water quality data set.",
-                   "Extension of more than about a year is not recommended.")) 
+                   " years past the end of the data of the water quality data set.",
+                   "The surface is only reliable within the time period of the water quality data set.",
+                   "Extensions of a year or more should not be used to characterize trends.  However, the fact",
+                   "that there are such extensions, does not harm the reliability of the surface or the trend",
+                   "results within the period for which there are water quality data")) 
   }
 }

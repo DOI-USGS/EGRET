@@ -28,25 +28,25 @@ as.egret <- function(INFO, Daily, Sample=NA, surfaces=NA) {
     
     expectedCols <- c("Date","Q","LogQ","Julian","Month","Day","DecYear","MonthSeq")
     if(!all(expectedCols %in% names(Daily))){
-      message("Daily data frame expecting columns: ",expectedCols[!expectedCols %in% names(Daily)])
+      message("\nDaily data frame expecting columns: ",expectedCols[!expectedCols %in% names(Daily)])
     }
     if(any(duplicated(Daily$Date))){
-      message("There are ",sum(duplicated(eList$Daily$Date))," duplicated Daily dates.")
+      message("\nThere are ",sum(duplicated(eList$Daily$Date))," duplicated Daily dates.")
     }
     
     if(is.unsorted(Daily$Date)){
       Daily <- Daily[order(Daily$Date, decreasing = FALSE),]
-      message("The Daily data frame was sorted chronologically.")
+      message("\nThe Daily data frame was sorted chronologically.")
     }
   }
   
   if(!all(is.na(Sample))){
     if(any(duplicated(Sample$Date))){
-      message("There are ",sum(duplicated(Sample$Date))," duplicated Sample dates.")
+      message("\nThere are ",sum(duplicated(Sample$Date))," duplicated Sample dates.")
     }
     if(is.unsorted(Sample$Date)){
       Sample <- Sample[order(Sample$Date, decreasing = FALSE),]
-      message("The Sample data frame was sorted chronologically.")
+      message("\nThe Sample data frame was sorted chronologically.")
     }
   }
   
@@ -60,16 +60,16 @@ as.egret <- function(INFO, Daily, Sample=NA, surfaces=NA) {
   }
   
   if(!is.na(Sample) && !all((c("ConcLow","ConcHigh","Uncen","ConcAve") %in% names(Sample)))){
-    message("Please double check that the Sample dataframe is correctly defined.")
-    message("Missing columns:", c("ConcLow","ConcHigh","Uncen","ConcAve")[!(c("ConcLow","ConcHigh","Uncen","ConcAve") %in% names(Sample))])
+    message("\nPlease double check that the Sample dataframe is correctly defined.")
+    message("\nMissing columns:", c("ConcLow","ConcHigh","Uncen","ConcAve")[!(c("ConcLow","ConcHigh","Uncen","ConcAve") %in% names(Sample))])
   }
   
   if(!any(c("param.units", "shortName", "paramShortName", "constitAbbrev", "drainSqKm") %in% names(INFO))){
-    message("Please double check that the INFO dataframe is correctly defined.")
+    message("\nPlease double check that the INFO dataframe is correctly defined.")
   }
   
   if(!is.na(surfaces) && 14 != nrow(surfaces)){
-    message("Please double check that the surfaces matrix is correctly defined.")
+    message("\nPlease double check that the surfaces matrix is correctly defined.")
   }
   
   attr(eList, "param.units") <- INFO$param.units
