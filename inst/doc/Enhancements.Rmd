@@ -159,7 +159,8 @@ In this first example we will not use the **wall** and we will not have a **flow
 
 We can use the **windowSide** argument with a value that is some integer greater than 1 to designate that we want the window automatically set, and the window for flow normalization will be of width **(2 * windowSide) + 1**.  The suggested value for **windowSide** is 7 but you must specify the value you want.  There is no default.
 
-In this first example we will specify that **year1** is 1985 and **year2** is 2014 and we will not have a wall, and we will use automatic flow window designation, with a **windowSide** value of 7.
+In this first example we will specify that **year1** is 1985 and **year2** is 2014 and we will not have a wall, and we will use automatic flow window designation, with a **windowSide** value of 7. The analyses shown here use  data retrieved at the time this document was prepared (2018-08-14).  It is possible that data retrieved from future retrievals could be slightly different (although we'd expect only slight differences).
+
 
 ```{r loadDataPretend, echo=TRUE, eval=FALSE}
 library(EGRET)
@@ -298,7 +299,7 @@ What we see here is that there are only two arguments with no default value.  Th
 
 The arguments **surfaceStart and surfaceEnd** can generally be left out of the call to the function, but sometimes they can be useful.  They define the time period for which we want to calculate our flow-normalized results.  They are date variables so they would be written as "yyyy-mm-dd".  Left at their default values the period being analyzed will run from slightly before the first sample date to slightly after the last sample date.  If we are working with water years then they will be the start of the first water year with data and the end of the last water year with data.  If we are using some other period of analysis then they will be adjusted to correspond to the period of analysis.  There are times when we may wish to run the analysis for a shorter period because of the design of a multisite study or because we have a very low sample density in some early or later period and although we may want to use the data from those periods we are not comfortable with trying to make annual estimates during those times of low sampling density.  So, for example, if we are working in water years, and there are a handful of data from 1980-06-01 through 1981-09-30 and then the sampling starts in earnest in October of 1981, we may want to set **surfaceStart = "1981-10-01"**.
 
-One other argument of note is **oldSurface**.  It is a logical variable.  The only situation we would use it is this.  We have an old analysis created with EGRET 2.6 or earlier code with the exact same data set so we already have created the object **surfaces** using modelEstimation.  We can avoid doing those computations again and just accept the old **surfaces** object and proceed with our computations.  If there is a **wall** then this will not work, because modelEstimation does not allow for it.  
+One other argument of note is **oldSurface**. It is a logical variable. The only situation we would use it is this. We have an old analysis created with EGRET 2.6 or earlier code with the exact same data set so we already have created the object **surfaces** using modelEstimation. We can avoid doing those computations again and just accept the old **surfaces** object and proceed with our computations. If there is a wall then this will not work, because modelEstimation does not allow for it.  Note that if modelEstimation hasn’t been run, then it will not be possible to look at any of the diagnostic graphics that look at the quality of the model (such as fluxBiasMulti, or any involving the plotting of predictions or residuals such as plotConcPred or plotResidQ).  If these types of plots are desired then the best thing to do is first run modelEstimation and then runSeries, with oldSurfaces = TRUE.  If the wall has been used, then the only way to create these kinds of diagnostic plots is to split the Sample data set into two separate parts (before and after the wall), create eLists from each of these, and then run modelEstimation on each of them and then make the various plots to evaluate the quality of each of the two different models.
 
 You can also set the last argument **verbose** to FALSE if you want to avoid the printing of percentage progress indicators on the console.
 
@@ -438,10 +439,18 @@ groupResults <- runGroups(eList, windowSide,
                           edgeAdjust = TRUE, verbose = TRUE)
 ```
 
-All of these arguments should look familiar from the **runPairs** or **runSeries functions**.  The new four new arguments are: group1firstYear, group1lastYear, 
-    group2firstYear, group2lastYear.  All four of these are required (there are no defaults).  Each one of them is a numeric value which is a four-digit year.  Let's say we are working with water years and we want our analysis to compare the water years 1995 - 2004 with water years 2005 - 2014.  Then these four arguments would be 1995, 2004, 2005, 2014 respectively.  The years designated always represent the year in which the specific period ends.  Thus if we wanted to designate that group1 started with November 1, 1989 and ended with March 31, 2000, and we only wanted to consider the November through March averages, we would set **paLong = 5, paStart = 11, group1firstYear = 1990, and group1lastYear = 2000.**  
+All of these arguments should look familiar from the **runPairs** or **runSeries functions**.  The new four new arguments are: group1firstYear, group1lastYear, group2firstYear, group2lastYear.  All four of these are required (there are no defaults).  Each one of them is a numeric value which is a four-digit year.  Let's say we are working with water years and we want our analysis to compare the water years 1995 - 2004 with water years 2005 - 2014.  Then these four arguments would be 1995, 2004, 2005, 2014 respectively.  The years designated always represent the year in which the specific period ends.  Thus if we wanted to designate that group1 started with November 1, 1989 and ended with March 31, 2000, and we only wanted to consider the November through March averages, we would set **paLong = 5, paStart = 11, group1firstYear = 1990, and group1lastYear = 2000.**  
     
 As an example, suppose there were a sudden change in a point source of orthophosphate in the watershed (using the same Choptank watershed record used in the first analysis in this document), and those went into effect at the end of water year 2005 (2004-09-30), but we only wanted to evaluate their impact on the months of March and April.  And, furthermore we would like to make a clean separation with the early data to fit the early-period model and the later data to fit the late-period model. We can do this by placing a **wall** at **2004-09-30**.    Finally, we want to use GFN, with a windowSide = 7.  Here is what we would get.
+
+```{r echo=TRUE, eval=FALSE}
+groupResults <- runGroups(eList, 
+                          group1firstYear = 1995, group1lastYear = 2004, 
+                          group2firstYear = 2005, group2lastYear = 2014,
+                          windowSide = 7, wall = TRUE, 
+                          sample1EndDate = "2004-10-30", 
+                          paStart = 4, paLong = 2, verbose = FALSE)
+```
 
 ```{r echo=FALSE}
 rm(list = ls())
@@ -455,14 +464,6 @@ groupResults <- runGroups(eList,
                           paStart = 4, paLong = 2, verbose = FALSE)
 ```
 
-```{r echo=TRUE, eval=FALSE}
-groupResults <- runGroups(eList, 
-                          group1firstYear = 1995, group1lastYear = 2004, 
-                          group2firstYear = 2005, group2lastYear = 2014,
-                          windowSide = 7, wall = TRUE, 
-                          sample1EndDate = "2004-10-30", 
-                          paStart = 4, paLong = 2, verbose = FALSE)
-```
 
 The statement of the results in the output are fairly self-explanatory, and very similar to the outputs from runPairs.  For completeness, the explanation of these outputs is given here.
 
