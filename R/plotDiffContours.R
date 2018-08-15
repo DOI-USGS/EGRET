@@ -37,6 +37,9 @@
 #' using the function \code{colorRampPalette(c("blue","white","red"))}. A few preset options are heat.colors, topo.colors, and terrain.colors.
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins.
+#' @param usgsStyle logical option to use USGS style guidelines. Setting this option
+#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' generated labels. 
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords water-quality statistics graphics
 #' @export
@@ -69,7 +72,7 @@ plotDiffContours<-function (eList, year0, year1,
                             whatSurface = 3, tcl=0.1,
                             qUnit = 2, span = 60, pval = 0.05, printTitle = TRUE, plotPercent = FALSE,
                             vert1 = NA, vert2 = NA, horiz = NA, flowDuration = TRUE, yTicks=NA,tick.lwd=2,
-                            lwd=1,cex.main=0.95,cex.axis=1,customPar=FALSE,
+                            lwd=1,cex.main=0.95,cex.axis=1,customPar=FALSE,usgsStyle = FALSE,
                             color.palette=colorRampPalette(c("blue","white","red")),...) {
 
   localINFO <- getInfo(eList)
@@ -211,7 +214,7 @@ plotDiffContours<-function (eList, year0, year1,
   deltaY <- (log(yTicks[length(yTicks)],10)-log(yTicks[1],10))/25
   deltaX <- (1)/25
   
-  yLab <- qUnit@qUnitExpress
+  yLab <- ifelse(usgsStyle,qUnit@unitUSGS,qUnit@qUnitExpress)
   filled.contour(x, log(y, 10), difft, levels = contourLevels, 
                  xlim = c(0,1), ylim = c(log(yTicks[1], 
                                              10), log(yTicks[nYTicks], 10)), #main = plotTitle, 

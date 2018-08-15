@@ -8,7 +8,8 @@ plotContours(eList, yearStart, yearEnd, qBottom = NA, qTop = NA,
   whatSurface = 3, qUnit = 2, contourLevels = NA, span = 60,
   pval = 0.05, printTitle = TRUE, vert1 = NA, vert2 = NA,
   horiz = NA, tcl = 0.1, flowDuration = TRUE, customPar = FALSE,
-  yTicks = NA, tick.lwd = 2, lwd = 1, cex.main = 1, cex.axis = 1,
+  yTicks = NA, tick.lwd = 2, usgsStyle = FALSE, lwd = 1,
+  cex.main = 1, cex.axis = 1,
   color.palette = colorRampPalette(c("white", "gray", "blue", "red")),
   ...)
 }
@@ -51,6 +52,10 @@ plotContours(eList, yearStart, yearEnd, qBottom = NA, qTop = NA,
 \item{yTicks}{vector of yTick labels and marks that will be plotted in log space. (for example yTicks = c(3, 5, 10, 20, 50, 100, 200, 400). The first and last values determine the range of the y axis. If NA, the tick marks will be automatically generated.}
 
 \item{tick.lwd}{line width for axis ticks, default is 2}
+
+\item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
+to TRUE does NOT guarantee USGS complience. It will only change automatically
+generated labels.}
 
 \item{lwd}{numeric, line width of flowDuration curve, default is 1}
 
