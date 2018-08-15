@@ -15,8 +15,6 @@
 #' there is no conversion applied.
 #' @keywords data import USGS WRTDS
 #' @export
-#' @importFrom dataRetrieval constructNWISURL
-#' @importFrom dataRetrieval importRDB1
 #' @return A data frame 'Daily' with the following columns:
 #' \tabular{lll}{
 #' Name \tab Type \tab Description \cr
@@ -49,9 +47,9 @@ readNWISDaily <- function (siteNumber,parameterCd="00060",
     verbose <- interactive
   }
   
-  url <- constructNWISURL(siteNumber,parameterCd,startDate,endDate,"dv",statCd="00003", format = "tsv")
+  url <- dataRetrieval::constructNWISURL(siteNumber,parameterCd,startDate,endDate,"dv",statCd="00003", format = "tsv")
   
-  data_rdb <- importRDB1(url, asDateTime=FALSE)
+  data_rdb <- dataRetrieval::importRDB1(url, asDateTime=FALSE)
   
   localDaily <- data.frame(Date=as.Date(character()),
                            Q=numeric(), 

@@ -6,7 +6,7 @@
 \alias{nDischarge}
 \alias{nObservations}
 \alias{nCensoredVals}
-\title{EGRET helper functinos}
+\title{EGRET helper functions}
 \usage{
 \method{print}{egret}(x, ...)
 

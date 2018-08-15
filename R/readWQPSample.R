@@ -13,8 +13,6 @@
 #' @param interactive logical deprecated. Use 'verbose' instead
 #' @keywords data import USGS WRTDS
 #' @export
-#' @importFrom dataRetrieval constructWQPURL
-#' @importFrom dataRetrieval importWQP
 #' @return A data frame 'Sample' with the following columns:
 #' \tabular{lll}{
 #' Name \tab Type \tab Description \cr
@@ -36,7 +34,6 @@
 #' @examples
 #' # These examples require an internet connection to run
 #' \dontrun{
-#' Sample_01075 <- readWQPSample('USGS-01594440','Chloride', '', '')
 #' Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
 #' }
 readWQPSample <- function(siteNumber,characteristicName,startDate,endDate,verbose = TRUE, interactive=NULL){
@@ -45,8 +42,8 @@ readWQPSample <- function(siteNumber,characteristicName,startDate,endDate,verbos
     warning("The argument 'interactive' is deprecated. Please use 'verbose' instead")
     verbose <- interactive
   }
-  url <- constructWQPURL(siteNumber,characteristicName,startDate,endDate)
-  retval <- importWQP(url)
+  url <- dataRetrieval::constructWQPURL(siteNumber,characteristicName,startDate,endDate)
+  retval <- dataRetrieval::importWQP(url)
   if(nrow(retval) > 0){
     #Check for pcode:
     if(all(nchar(characteristicName) == 5)){

@@ -11,7 +11,6 @@
 #' @rdname estDailyFromSurfaces
 #' @return egret object with altered Daily dataframe
 #' @export
-#' @importFrom fields interp.surface
 #' @examples
 #' eList <- Choptank_eList
 #' #################################################
@@ -104,7 +103,7 @@ getConcFluxFromSurface <- function(eList, allLogQsByDayOfYear, localDaily, local
   allDatesReplicated <- rep(localDaily$DecYear, lapply(allLogQsReplicated, length))
   
   # Interpolate.
-  allConcReplicated <- interp.surface( obj=list(x=LogQ,y=Year,z=localsurfaces[,,3]), 
+  allConcReplicated <- fields::interp.surface( obj=list(x=LogQ,y=Year,z=localsurfaces[,,3]), 
                                        loc=data.frame(	unlist(x=allLogQsReplicated),
                                                        y=allDatesReplicated))
   allFluxReplicated <- allConcReplicated * exp(as.numeric(unlist(allLogQsReplicated))) * 86.4
