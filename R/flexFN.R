@@ -22,7 +22,6 @@
 #' @param oldSurface logical, if TRUE, use the surface object in eList.  Default is FALSE.
 #' @export
 #' @return named list, eList, containing INFO, Daily, Sample, and surfaces objects
-#' @importFrom dataRetrieval calcWaterYear
 #' @examples
 #' eList <- Choptank_eList
 #' eList <- setUpEstimation(eList)
@@ -126,8 +125,6 @@ flexFN <- function(eList, dateInfo, localsurfaces = NA, oldSurface = FALSE,
 #' @param customPalette character vector of colors as a hexadecimal string of the form "#rrggbb". 
 #' Defaults to NULL, which indicates the use of a default palette (up to 21 segments).
 #' @export
-#' @importFrom graphics rect
-#' @importFrom graphics arrows
 #' @examples
 #' eList <- Choptank_eList
 #' eList <- setUpEstimation(eList)
@@ -198,13 +195,13 @@ flexPlotAddOn <- function(eList, showArrows = TRUE, showRect = TRUE, customPalet
     for(i in seq_len(nrow(segmentINFO))){
       
       if(showRect){
-        rect(segmentINFO$flowStart[i], par()$usr[3], 
+        graphics::rect(segmentINFO$flowStart[i], par()$usr[3], 
              segmentINFO$flowEnd[i], par()$usr[4],
              col= paste0(colors[i],"50"))         
       }
       
       if(showArrows){
-        arrows(segmentINFO$flowNormStart[i], arrowYs[i], 
+        graphics::arrows(segmentINFO$flowNormStart[i], arrowYs[i], 
                segmentINFO$flowNormEnd[i]+1, arrowYs[i], code=3)
       }
     }

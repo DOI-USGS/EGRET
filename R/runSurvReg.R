@@ -22,12 +22,9 @@
 #' @param DecHigh number specifying maximum decimal year (right edge of the estimated surfaces).
 #' @param run.parallel logical to run bootstrapping in parallel or not
 #' @keywords water-quality statistics
-#' @importFrom survival survreg
-#' @importFrom survival Surv
-#' @importFrom foreach foreach
-#' @importFrom foreach %dopar%
 #' @return resultSurvReg numeric array containing the yHat, SE, and ConcHat values array dimensions are (numEstPts,3)
 #' @export
+#' @rdname runSurvReg
 #' @examples
 #' eList <- Choptank_eList
 #' estPtYear<-c(2001.0,2005.0,2009.0)
@@ -66,7 +63,8 @@ runSurvReg<-function(estPtYear,estPtLQ,DecLow,DecHigh,Sample,
   warningFlag <- 0
   n <- NULL
   if(run.parallel){
-    wrtds_return_list <- foreach(n = 1:numEstPt, .packages=c('EGRET')) %dopar% {
+    `%dopar%` <- foreach::`%dopar%`
+    wrtds_return_list <- foreach::foreach(n = 1:numEstPt, .packages=c('EGRET')) %dopar% {
                       wrtds_returns <- run_WRTDS(estY = estPtYear[n], estLQ = estPtLQ[n],
                                                  localSample =localSample,DecLow = DecLow,DecHigh = DecHigh,
                                                  minNumObs = minNumObs,minNumUncen = minNumUncen,
@@ -106,10 +104,11 @@ runSurvReg<-function(estPtYear,estPtLQ,DecLow,DecHigh,Sample,
   return(resultSurvReg)
 }
 
-
-
-#' @keywords internal
-#' @importFrom survival survreg
+#' @export
+#' @rdname runSurvReg
+#' @param localSample "Sample" data frame from the eList. 
+#' @param estY numeric decimal year values at the estimation point
+#' @param estLQ numeric ln(Q) values at the estimation point 
 run_WRTDS <- function(estY, estLQ,
                       localSample,DecLow,DecHigh,
                       minNumObs,minNumUncen,
@@ -172,10 +171,8 @@ run_WRTDS <- function(estY, estLQ,
   Sam <- data.frame(Sam)
   
   x <- tryCatch({
-    survModel<-survreg(Surv(log(ConcLow),log(ConcHigh),type="interval2") ~ 
+    survModel<- survival::survreg(survival::Surv(log(ConcLow),log(ConcHigh),type="interval2") ~ 
                          DecYear+LogQ+SinDY+CosDY,data=Sam,weights=weight,dist="gaus")
-    
-    
   }, warning=function(w) {
     return(NA)
   }, error=function(e) {

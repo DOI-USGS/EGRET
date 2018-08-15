@@ -106,7 +106,7 @@ is.egret <- function(x) {
                inherits(x, "egret"))))
 }
 
-#' EGRET helper functinos
+#' EGRET helper functions
 #' 
 #' A small collection of helper functions
 #' 

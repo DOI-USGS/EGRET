@@ -12,7 +12,6 @@
 #' @param verbose logical specifying whether or not to display progress message
 #' @param interactive logical deprecated. Use 'verbose' instead
 #' @keywords data import USGS WRTDS
-#' @importFrom dataRetrieval readNWISqw
 #' @export
 #' @return A data frame 'Sample' with the following columns:
 #' \tabular{lll}{
@@ -47,7 +46,7 @@ readNWISSample <- function(siteNumber,parameterCd,startDate="",endDate="",verbos
     verbose <- interactive
   }
   
-  rawSample <- readNWISqw(siteNumber,parameterCd,startDate,endDate, expanded=FALSE)
+  rawSample <- dataRetrieval::readNWISqw(siteNumber,parameterCd,startDate,endDate, expanded=FALSE)
   if(nrow(rawSample) > 0){
     dataColumns <- grep("p\\d{5}",names(rawSample))
     remarkColumns <- grep("r\\d{5}",names(rawSample))

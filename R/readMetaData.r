@@ -14,8 +14,6 @@
 #' @keywords data import USGS web service
 #' @export
 #' @name INFOdataframe
-#' @importFrom dataRetrieval readNWISsite
-#' @importFrom dataRetrieval readNWISpCode
 #' @seealso \code{\link[dataRetrieval]{readNWISsite}}, \code{\link[dataRetrieval]{readNWISpCode}}
 #' @seealso \code{\link[dataRetrieval]{whatWQPsites}}
 #' @return INFO data frame. Any metadata can be stored in INFO. However, there are 8 columns that EGRET uses by name in some functions:
@@ -44,7 +42,7 @@
 #' }
 readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
   if (nzchar(siteNumber)){
-    INFO <- readNWISsite(siteNumber)
+    INFO <- dataRetrieval::readNWISsite(siteNumber)
   } else {
     INFO <- as.data.frame(matrix(ncol = 2, nrow = 1))
     names(INFO) <- c('site_no', 'shortName')    
@@ -52,7 +50,7 @@ readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
   INFO <- populateSiteINFO(INFO, siteNumber,interactive=interactive)
   
   if (nzchar(parameterCd)){
-    parameterData <- readNWISpCode(parameterCd=parameterCd)
+    parameterData <- dataRetrieval::readNWISpCode(parameterCd=parameterCd)
     INFO$param.nm <- parameterData$parameter_nm
     INFO$param.units <- parameterData$parameter_units
     INFO$paramShortName <- parameterData$srsname
@@ -78,8 +76,6 @@ readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
 
 #' @rdname INFOdataframe
 #' @export
-#' @importFrom dataRetrieval whatWQPsites
-#' @importFrom dataRetrieval readNWISpCode
 #' @examples
 #' # These examples require an internet connection to run
 #' # Automatically gets information about site 01594440 and temperature, no interaction with user
@@ -100,9 +96,9 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
 
   if (pCodeLogic){
     
-    siteInfo <- whatWQPsites(siteid=siteNumber, pCode=parameterCd)
+    siteInfo <- dataRetrieval::whatWQPsites(siteid=siteNumber, pCode=parameterCd)
 
-    parameterData <- readNWISpCode(parameterCd = parameterCd)
+    parameterData <- dataRetrieval::readNWISpCode(parameterCd = parameterCd)
     
     siteInfo$param.nm <- parameterData$parameter_nm
     siteInfo$param.units <- parameterData$parameter_units
@@ -111,7 +107,7 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
     siteInfo$constitAbbrev <- parameterData$parameter_cd
 
   } else {
-    siteInfo <- whatWQPsites(siteid=siteNumber, characteristicName=URLencode(parameterCd))
+    siteInfo <- dataRetrieval::whatWQPsites(siteid=siteNumber, characteristicName=URLencode(parameterCd))
 
     siteInfo$param.nm <- parameterCd
     siteInfo$param.units <- ""
