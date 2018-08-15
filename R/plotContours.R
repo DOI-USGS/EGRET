@@ -38,6 +38,9 @@
 #' using the function \code{colorRampPalette(c("white","gray","blue","red"))}. A few preset options are heat.colors, topo.colors, and terrain.colors.
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @param flowDuration logical variable if TRUE plot the flow duration lines (5 and 95 flow percentiles), if FALSE do not plot them, default = TRUE
+#' @param usgsStyle logical option to use USGS style guidelines. Setting this option
+#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' generated labels. 
 #' @keywords water-quality statistics graphics
 #' @export
 #' @examples 
@@ -67,7 +70,7 @@
 plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurface = 3, 
                        qUnit = 2, contourLevels = NA, span = 60, pval = 0.05,
                        printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA, tcl=0.1,
-                       flowDuration = TRUE, customPar=FALSE, yTicks=NA,tick.lwd=2,
+                       flowDuration = TRUE, customPar=FALSE, yTicks=NA,tick.lwd=2,usgsStyle = FALSE,
                        lwd=1,cex.main=1,cex.axis=1,color.palette=colorRampPalette(c("white","gray","blue","red")),...) {
   
   localINFO <- getInfo(eList)
@@ -192,7 +195,8 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
   deltaY <- (log(yTicks[length(yTicks)],10)-log(yTicks[1],10))/25
   deltaX <- (yearEnd-yearStart)/25
   
-  yLab<-qUnit@qUnitExpress
+  yLab<-ifelse(usgsStyle,qUnit@unitUSGS,qUnit@qUnitExpress)
+  
   logY <- log(y,10)
   filled.contour(x,log(y,10),surft,levels=contourLevels,xlim=c(yearStart,yearEnd),
                  ylim=c(log(yTicks[1],10),log(yTicks[nYTicks],10)),

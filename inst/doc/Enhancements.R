@@ -211,6 +211,14 @@ plotContours(eListOutNoWall, 1961, 1966, 10, 100,
 #                            windowY = 7, windowQ = 2, windowS = 0.5,
 #                            edgeAdjust = TRUE, verbose = TRUE)
 
+## ----echo=TRUE, eval=FALSE-----------------------------------------------
+#  groupResults <- runGroups(eList,
+#                            group1firstYear = 1995, group1lastYear = 2004,
+#                            group2firstYear = 2005, group2lastYear = 2014,
+#                            windowSide = 7, wall = TRUE,
+#                            sample1EndDate = "2004-10-30",
+#                            paStart = 4, paLong = 2, verbose = FALSE)
+
 ## ----echo=FALSE----------------------------------------------------------
 rm(list = ls())
 load("Chop.OPbase.RData")
@@ -221,14 +229,6 @@ groupResults <- runGroups(eList,
                           windowSide = 7, wall = TRUE, 
                           sample1EndDate = "2004-10-30", 
                           paStart = 4, paLong = 2, verbose = FALSE)
-
-## ----echo=TRUE, eval=FALSE-----------------------------------------------
-#  groupResults <- runGroups(eList,
-#                            group1firstYear = 1995, group1lastYear = 2004,
-#                            group2firstYear = 2005, group2lastYear = 2014,
-#                            windowSide = 7, wall = TRUE,
-#                            sample1EndDate = "2004-10-30",
-#                            paStart = 4, paLong = 2, verbose = FALSE)
 
 ## ------------------------------------------------------------------------
 attr(groupResults, "groupInfo")

@@ -9,8 +9,8 @@ plotDiffContours(eList, year0, year1, qBottom = NA, qTop = NA,
   pval = 0.05, printTitle = TRUE, plotPercent = FALSE, vert1 = NA,
   vert2 = NA, horiz = NA, flowDuration = TRUE, yTicks = NA,
   tick.lwd = 2, lwd = 1, cex.main = 0.95, cex.axis = 1,
-  customPar = FALSE, color.palette = colorRampPalette(c("blue",
-  "white", "red")), ...)
+  customPar = FALSE, usgsStyle = FALSE,
+  color.palette = colorRampPalette(c("blue", "white", "red")), ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes, and surfaces matrix}
@@ -60,6 +60,10 @@ a vector with the minimum and maximum values in the change in concentration scal
 
 \item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins.}
+
+\item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
+to TRUE does NOT guarantee USGS complience. It will only change automatically
+generated labels.}
 
 \item{color.palette}{a function that creates a color palette for the contour plot. Default goes from blue to white to red 
 using the function \code{colorRampPalette(c("blue","white","red"))}. A few preset options are heat.colors, topo.colors, and terrain.colors.}
