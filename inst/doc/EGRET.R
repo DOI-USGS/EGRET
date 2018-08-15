@@ -342,7 +342,7 @@ plotFlowSingle(eList, istat=5)
 # Then, we can run the same function, but first set 
 # the pa to start in December and only run for 3 months.
 eListMerced <- setPA(eList,paStart=12,paLong=3)
-plotFlowSingle(eList,istat=5,qMax=200)
+plotFlowSingle(eListMerced,istat=5,qMax=200)
 
 
 ## ----plotFour, echo=TRUE, fig.cap="\\texttt{plotFour(eListMerced, qUnit=3)}",fig.show='asis',out.width='1\\linewidth',out.height='1\\linewidth',fig.pos="h"----
