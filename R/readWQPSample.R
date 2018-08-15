@@ -34,7 +34,6 @@
 #' @examples
 #' # These examples require an internet connection to run
 #' \dontrun{
-#' Sample_01075 <- readWQPSample('USGS-01594440','Chloride', '', '')
 #' Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
 #' }
 readWQPSample <- function(siteNumber,characteristicName,startDate,endDate,verbose = TRUE, interactive=NULL){
