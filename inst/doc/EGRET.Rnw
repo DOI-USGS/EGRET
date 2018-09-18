@@ -195,7 +195,7 @@ addSpace <- function(x) ifelse(x != "1", "[5pt]","")
 
 EGRET includes statistics and graphics for streamflow history, water quality trends, and the statistical modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS).  Please see the official EGRET User Guide \cite{HirschI} for more information on the EGRET package:
 
-(\url{https://dx.doi.org/10.3133/tm4A10}) 
+(\url{https://doi.org/10.3133/tm4A10}) 
 
 For information on getting started in R, downloading and installing the package, see section \ref{sec:appendix1}.
 
@@ -2003,7 +2003,7 @@ This software has been approved for release by the U.S. Geological Survey (USGS)
 % Helsel, D.R. and R. M. Hirsch, 2002. Statistical Methods in Water Resources Techniques of Water Resources Investigations, Book 4, chapter A3. U.S. Geological Survey. 522 pages. \url{https://pubs.usgs.gov/twri/twri4a3/}
 
 \bibitem{HirschI}
-Hirsch, R.M., De Cicco, L.A. (2014), User guide to Exploration and Graphics for RivEr Trends (EGRET) and dataRetrieval: R packages for hydrologic data (version 2.0, February 2015): U.S. Geological Survey Techniques and Methods book 4, chap. A10, 93 p. \url{https://dx.doi.org/10.3133/tm4A10}
+Hirsch, R.M., De Cicco, L.A. (2014), User guide to Exploration and Graphics for RivEr Trends (EGRET) and dataRetrieval: R packages for hydrologic data (version 2.0, February 2015): U.S. Geological Survey Techniques and Methods book 4, chap. A10, 93 p. \url{https://doi.org/10.3133/tm4A10}
 
 
 \bibitem{HirschII}

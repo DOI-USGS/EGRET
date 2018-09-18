@@ -40,7 +40,7 @@ Evaluating long-term changes in river conditions (water quality and discharge) i
 
 `EGRET` includes statistics and graphics for streamflow history, water quality trends, and the statistical modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS). Please see the official EGRET User Guide for more information on the `EGRET` package:
 
-<https://dx.doi.org/10.3133/tm4A10> The best ways to learn about the WRTDS approach is to read the User Guide and two journal articles. These articles are available, for free, from the journals in which they were published. The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay. The URL is:
+<https://doi.org/10.3133/tm4A10> The best ways to learn about the WRTDS approach is to read the User Guide and two journal articles. These articles are available, for free, from the journals in which they were published. The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay. The URL is:
 
 <https://onlinelibrary.wiley.com/doi/full/10.1111/j.1752-1688.2010.00482.x>.
 
@@ -491,7 +491,7 @@ citation(package = "EGRET")
 #>   Exploration and Graphics for RivEr Trends (EGRET) and
 #>   dataRetrieval: R packages for hydrologic data (version 2.0,
 #>   February 2015): U.S. Geological Survey Techniques and Methods
-#>   book 4, chap. A10, 93 p., http://dx.doi.org/10.3133/tm4A10
+#>   book 4, chap. A10, 93 p., https://doi.org/10.3133/tm4A10
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
