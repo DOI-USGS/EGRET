@@ -7,8 +7,8 @@
 plotContours(eList, yearStart, yearEnd, qBottom = NA, qTop = NA,
   whatSurface = 3, qUnit = 2, contourLevels = NA, span = 60,
   pval = 0.05, printTitle = TRUE, vert1 = NA, vert2 = NA,
-  horiz = NA, tcl = 0.1, flowDuration = TRUE, customPar = FALSE,
-  yTicks = NA, tick.lwd = 2, usgsStyle = FALSE, lwd = 1,
+  horiz = NA, tcl = 0.03, flowDuration = TRUE, customPar = FALSE,
+  yTicks = NA, tick.lwd = 1, usgsStyle = FALSE, lwd = 2,
   cex.main = 1, cex.axis = 1,
   color.palette = colorRampPalette(c("white", "gray", "blue", "red")),
   ...)
@@ -42,7 +42,7 @@ plotContours(eList, yearStart, yearEnd, qBottom = NA, qTop = NA,
 
 \item{horiz}{numeric, the location in discharge for a black horizontal line on the figure, qBottom<vert1<qTop, default is NA (no horizontal line is drawn)}
 
-\item{tcl}{numeric, length of tick marks in inches, default is 0.1}
+\item{tcl}{numeric, length of tick marks in inches, default is 0.03}
 
 \item{flowDuration}{logical variable if TRUE plot the flow duration lines (5 and 95 flow percentiles), if FALSE do not plot them, default = TRUE}
 
@@ -51,13 +51,13 @@ plotContours(eList, yearStart, yearEnd, qBottom = NA, qTop = NA,
 
 \item{yTicks}{vector of yTick labels and marks that will be plotted in log space. (for example yTicks = c(3, 5, 10, 20, 50, 100, 200, 400). The first and last values determine the range of the y axis. If NA, the tick marks will be automatically generated.}
 
-\item{tick.lwd}{line width for axis ticks, default is 2}
+\item{tick.lwd}{line width for axis ticks, default is 1}
 
 \item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
 to TRUE does NOT guarantee USGS complience. It will only change automatically
 generated labels.}
 
-\item{lwd}{numeric, line width of flowDuration curve, default is 1}
+\item{lwd}{numeric, line width of flowDuration curve, default is 2}
 
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
 
