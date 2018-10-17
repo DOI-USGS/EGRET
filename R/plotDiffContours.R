@@ -69,10 +69,10 @@
 #'        customPar=TRUE,flowDuration=FALSE)
 plotDiffContours<-function (eList, year0, year1, 
                             qBottom=NA, qTop=NA, maxDiff=NA, 
-                            whatSurface = 3, tcl=0.1,
+                            whatSurface = 3, tcl=0.03,
                             qUnit = 2, span = 60, pval = 0.05, printTitle = TRUE, plotPercent = FALSE,
-                            vert1 = NA, vert2 = NA, horiz = NA, flowDuration = TRUE, yTicks=NA,tick.lwd=2,
-                            lwd=1,cex.main=0.95,cex.axis=1,customPar=FALSE,usgsStyle = FALSE,
+                            vert1 = NA, vert2 = NA, horiz = NA, flowDuration = TRUE, yTicks=NA,tick.lwd=1,
+                            lwd=2,cex.main=0.95,cex.axis=1,customPar=FALSE,usgsStyle = FALSE,
                             color.palette=colorRampPalette(c("blue","white","red")),...) {
 
   localINFO <- getInfo(eList)
@@ -218,7 +218,7 @@ plotDiffContours<-function (eList, year0, year1,
   filled.contour(x, log(y, 10), difft, levels = contourLevels, 
                  xlim = c(0,1), ylim = c(log(yTicks[1], 
                                              10), log(yTicks[nYTicks], 10)), #main = plotTitle, 
-                 xlab = "", xaxs = "i", yaxs = "i", cex.main = cex.main, 
+                 xaxs = "i", yaxs = "i",
                  plot.axes = {
                    axis(1, tcl = 0, at = xTicks, labels = xLabels, cex.axis=0.9*cex.axis)
                    axis(2, tcl = 0, las = 1, at = log(yTicks, 10), 
@@ -238,8 +238,11 @@ plotDiffContours<-function (eList, year0, year1,
                    
                  },
                   plot.title = {
-                     if(printTitle) title(main = plotTitle,outer=TRUE,cex.main=cex.main, line=-3)
-                     mtext(yLab,2,cex=cex.main,line=2,las=0)
+                    if(printTitle) {
+                       title(main = plotTitle, ylab = yLab,cex.main = cex.main)
+                     } else {
+                       title(main = NULL, ylab = yLab)
+                     }
                   }, 
                  color.palette=color.palette,...)
 

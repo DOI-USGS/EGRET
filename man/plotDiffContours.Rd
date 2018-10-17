@@ -5,11 +5,11 @@
 \title{Plots the difference between two years from a contour plot created by plotContours}
 \usage{
 plotDiffContours(eList, year0, year1, qBottom = NA, qTop = NA,
-  maxDiff = NA, whatSurface = 3, tcl = 0.1, qUnit = 2, span = 60,
-  pval = 0.05, printTitle = TRUE, plotPercent = FALSE, vert1 = NA,
-  vert2 = NA, horiz = NA, flowDuration = TRUE, yTicks = NA,
-  tick.lwd = 2, lwd = 1, cex.main = 0.95, cex.axis = 1,
-  customPar = FALSE, usgsStyle = FALSE,
+  maxDiff = NA, whatSurface = 3, tcl = 0.03, qUnit = 2,
+  span = 60, pval = 0.05, printTitle = TRUE, plotPercent = FALSE,
+  vert1 = NA, vert2 = NA, horiz = NA, flowDuration = TRUE,
+  yTicks = NA, tick.lwd = 1, lwd = 2, cex.main = 0.95,
+  cex.axis = 1, customPar = FALSE, usgsStyle = FALSE,
   color.palette = colorRampPalette(c("blue", "white", "red")), ...)
 }
 \arguments{

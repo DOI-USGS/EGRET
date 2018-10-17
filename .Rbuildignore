@@ -25,3 +25,4 @@ vignettes/eListMiss.RData
 vignettes/Green.Cl.RData
 hexSticker.R
 code.json
+^docs$

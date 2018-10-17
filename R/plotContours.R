@@ -31,9 +31,9 @@
 #' @param yTicks vector of yTick labels and marks that will be plotted in log space. (for example yTicks = c(3, 5, 10, 20, 50, 100, 200, 400). The first and last values determine the range of the y axis. If NA, the tick marks will be automatically generated. 
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
-#' @param tick.lwd line width for axis ticks, default is 2
-#' @param lwd numeric, line width of flowDuration curve, default is 1
-#' @param tcl numeric, length of tick marks in inches, default is 0.1
+#' @param tick.lwd line width for axis ticks, default is 1
+#' @param lwd numeric, line width of flowDuration curve, default is 2
+#' @param tcl numeric, length of tick marks in inches, default is 0.03
 #' @param color.palette a function that creates a color palette for the contour plot. Default goes from white to gray to blue to red 
 #' using the function \code{colorRampPalette(c("white","gray","blue","red"))}. A few preset options are heat.colors, topo.colors, and terrain.colors.
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
@@ -69,9 +69,9 @@
 #'        contourLevels = clevel,customPar=TRUE,printTitle=FALSE,flowDuration=FALSE)
 plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurface = 3, 
                        qUnit = 2, contourLevels = NA, span = 60, pval = 0.05,
-                       printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA, tcl=0.1,
-                       flowDuration = TRUE, customPar=FALSE, yTicks=NA,tick.lwd=2,usgsStyle = FALSE,
-                       lwd=1,cex.main=1,cex.axis=1,color.palette=colorRampPalette(c("white","gray","blue","red")),...) {
+                       printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA, tcl=0.03,
+                       flowDuration = TRUE, customPar=FALSE, yTicks=NA,tick.lwd=1,usgsStyle = FALSE,
+                       lwd=2,cex.main=1,cex.axis=1,color.palette=colorRampPalette(c("white","gray","blue","red")),...) {
   
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
@@ -200,7 +200,7 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
   logY <- log(y,10)
   filled.contour(x,log(y,10),surft,levels=contourLevels,xlim=c(yearStart,yearEnd),
                  ylim=c(log(yTicks[1],10),log(yTicks[nYTicks],10)),
-                 xlab="",xaxs="i",yaxs="i",cex.main=cex.main, 
+                 xaxs="i",yaxs="i",
                  color.palette=color.palette, # ...,
                  plot.axes={
                    
@@ -222,8 +222,11 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
                    segments(rep(grconvertX(grconvertX(par("usr")[2],from="user",to="inches")-tcl,from="inches",to="user"),length(yTicks)), log(yTicks,10), rep(yearEnd,length(yTicks)),log(yTicks,10), lwd = tick.lwd)
                  },
                   plot.title = {
-                    if(printTitle) title(main = plotTitle,outer=TRUE,cex.main=cex.main, line=-3)
-                    mtext(yLab,2,cex=cex.main,line=2,las=0)
+                    if(printTitle) {
+                      title(main = plotTitle, ylab = yLab,cex.main = cex.main)
+                    } else {
+                      title(main = NULL, ylab = yLab)
+                    }
                  }
         )
 

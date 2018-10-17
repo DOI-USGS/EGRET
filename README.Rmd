@@ -5,6 +5,8 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   md_document:
     variant: markdown_github
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, echo = FALSE}
@@ -105,7 +107,7 @@ eList <- mergeReport(INFO, Daily, Sample)
 ```
 
 
-```{r }
+```{r startPlots}
 library(EGRET)
 # Sample data included in package:
 eList <- Choptank_eList
@@ -141,7 +143,9 @@ boxConcThree(eList)
 #Require Daily + INFO:
 plotConcHist(eList)
 plotFluxHist(eList)
+```
 
+```{r multiPlots}
 # Multi-line plots:
 date1 <- "2000-09-01"
 date2 <- "2005-09-01"
@@ -160,7 +164,9 @@ plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd)
 
 # Multi-plots:
 fluxBiasMulti(eList)
+```
 
+```{r contourPlots}
 #Contour plots:
 clevel<-seq(0,2,0.5)
 maxDiff<-0.8
