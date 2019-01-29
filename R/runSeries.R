@@ -119,6 +119,8 @@ runSeries <- function(eList, windowSide,
   
   eList <- as.egret(eList$INFO, localDaily, localSample, localsurfaces)
   
+  minNumUncen <- ceiling(min(0.5 * minNumObs, minNumUncen))
+  
   if (wall) {
     if (is.na(sample1EndDate)) {
       stop("if there is a wall, the user must specify sample1EndDate")
