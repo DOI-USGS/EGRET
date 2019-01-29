@@ -76,7 +76,6 @@ INFO$shortName <- "Little"
 INFO$paramShortName <- "SC"
 }
 filePath <- system.file("extdata", package="EGRET")
-filePath <- paste(filePath,"/",sep="")
 fileName <- 'infoTest.csv'
 INFO <- readUserInfo(filePath,fileName, separator=",",interactive=FALSE)
 }

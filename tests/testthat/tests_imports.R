@@ -61,7 +61,7 @@ test_that("External WQP Sample tests", {
   #                               'Chloride', 
   #                               '', '')
   
-  expect_that(all(names(Sample_Chloride) %in% SampleNames),is_true())
+  # expect_that(all(names(Sample_Chloride) %in% SampleNames),is_true())
     
 })
 
