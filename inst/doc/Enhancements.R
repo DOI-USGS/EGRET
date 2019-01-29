@@ -5,8 +5,7 @@ library(knitr)
 
 knitr::opts_chunk$set(echo = TRUE, 
                       warning = FALSE, 
-                      message = FALSE, 
-                      eval = nzchar(Sys.getenv("EGRET_eval")),
+                      message = FALSE,
                       fig.width=7, fig.height=7)
 
 
@@ -24,7 +23,7 @@ axis(3,tick = TRUE, labels = FALSE, tck = 0.02)
 axis(4,tick = FALSE, labels = FALSE)
 box()
 par(new=TRUE)
-for(i in 1994:2014) {
+for(i in 1994:2010) {
   surfaceStart <- paste0(i,"-10-01")
   surfaceEnd <- paste0(i+1, "-09-30")
   x <- EGRET:::makeDateInfo(windowSide = 7, 
@@ -47,41 +46,21 @@ for(i in 1994:2014) {
        xlim = c(1980,2020), xaxs = "i", 
        ylim = c(0, 23), yaxs = "i",
        xlab = "", ylab = "", axes = FALSE)
-  if(i < 2014) par(new=TRUE)
+  if(i < 2010) par(new=TRUE)
 }
 abline(v = decimalDate("1981-08-06"), col = "blue", lwd = 2)
 abline(v = decimalDate("2016-01-14"), col = "blue", lwd = 2)
 
-## ----loadDataPretend, echo=TRUE, eval=FALSE------------------------------
-#  library(EGRET)
-#  library(EGRETci)
-#  
-#  # Gather discharge data:
-#  siteID <- "01491000" #Choptank River at Greensboro, MD
-#  # Gather sample data:
-#  parameter_cd<-"00671" #5 digit USGS code
-#  Sample <- readNWISSample(siteID,parameter_cd,"1984-10-19","2014-09-25")
-#  Daily <- readNWISDaily(siteID,"00060","1975-10-01","2017-09-30")
-#  INFO<- readNWISInfo(siteID,parameter_cd, interactive = FALSE)
-#  INFO$shortName <- "Choptank River at Greensboro, MD"
-#  eList <- mergeReport(INFO, Daily, Sample)
-#  
-#  pairResults <- runPairs(eList,
-#                          year1 = 1985, year2 = 2014,
-#                          windowSide = 7)
-
-## ----loadDataReal, echo=FALSE, message=TRUE------------------------------
+## ----loadData------------------------------------------------------------
 library(EGRET)
-# first we will load a data set for orthophosphorus for the Choptank River
-# we are using it partly because it is set up differently than the example eList in the package
-# that one has discharge data that doesn't extend well beyond the water quality data, this one does
-load("Chop.OPbase.RData")
-# then we run the function 
+library(EGRETci)
+eList <- Choptank_eList
+
 pairResults <- runPairs(eList, 
-                        year1 = 1985, year2 = 2014, 
+                        year1 = 1985, year2 = 2010,
                         windowSide = 7)
 
-## ------------------------------------------------------------------------
+## ----tableOut------------------------------------------------------------
 knitr::kable(pairResults, digits = 4)
 # note that you don't have to use the kable function from knitr to 
 # see the results, you can just give the command pairResults
@@ -99,13 +78,13 @@ attr(pairResults, "Other")
 summary(eList$Daily$Date)
 summary(eList$Sample$Date)
 
-## ------------------------------------------------------------------------
-pairResults2 <- runPairs(eList, year1 = 1985, year2 = 2014, 
+## ----pairs2--------------------------------------------------------------
+pairResults2 <- runPairs(eList, year1 = 1985, year2 = 2010, 
                          windowSide = 7, flowBreak = TRUE, 
                          Q1EndDate = "1995-05-31", wall = TRUE,
                          sample1EndDate = "1995-05-31", 
                          QStartDate = "1979-10-01", 
-                         QEndDate = "2014-09-30", 
+                         QEndDate = "2010-09-30", 
                          paStart = 4, paLong = 5)
 
 attr(pairResults2, "yearPair") 
@@ -127,24 +106,23 @@ attr(pairResults2, "Other")
 #                        windowS = 0.5, edgeAdjust = TRUE,
 #                        verbose = TRUE)
 
-## ------------------------------------------------------------------------
+## ----series1-------------------------------------------------------------
 eListOut <- runSeries(eList, windowSide = 7, verbose = FALSE)
 tableResults(eListOut)
 plotConcHist(eListOut)
 plotFluxHist(eListOut)
-tableChange(eListOut, yearPoints = c(1985, 1995, 2014))
+tableChange(eListOut, yearPoints = c(1985, 1995, 2010))
 
-## ------------------------------------------------------------------------
+## ----series2-------------------------------------------------------------
 eListOut <- runSeries(eList, windowSide = 9, verbose = FALSE)
 plotConcHist(eListOut)
 plotFluxHist(eListOut)
-tableChange(eListOut, yearPoints = c(1985, 1995, 2014))
+tableChange(eListOut, yearPoints = c(1985, 1995, 2010))
 
 ## ---- echo = FALSE-------------------------------------------------------
 load("Green.Cl.RData")
-load("eListOut.RData")
-load("eListOutNoWall.RData")
-
+eList_Green <- eList
+eList <- Choptank_eList
 
 ## ----loadDataPretendGreen, echo=TRUE, eval=FALSE-------------------------
 #  
@@ -154,12 +132,13 @@ load("eListOutNoWall.RData")
 #  Daily <- readNWISDaily(siteID,"00060","1950-10-01","2018-04-01")
 #  INFO<- readNWISInfo(siteID,parameter_cd, interactive = FALSE)
 #  INFO$shortName <- "Green River near Greendale, UT"
-#  eList <- mergeReport(INFO, Daily, Sample)
-#  
-#  eListOut <- runSeries(eList, windowSide = 12,
-#                        flowBreak = TRUE, Q1EndDate = "1963-03-31",
-#                        wall = TRUE,  sample1EndDate = "1963-03-01",
-#                        verbose = FALSE)
+#  eList_Green <- mergeReport(INFO, Daily, Sample)
+
+## ----runSeries, echo=TRUE, eval=TRUE-------------------------------------
+eListOut <- runSeries(eList_Green, windowSide = 12,
+                      flowBreak = TRUE, Q1EndDate = "1963-03-31",
+                      wall = TRUE,  sample1EndDate = "1963-03-01",
+                      verbose = FALSE)
 
 ## ------------------------------------------------------------------------
 plotConcHist(eListOut)
@@ -167,7 +146,7 @@ plotFluxHist(eListOut)
 tableResults(eListOut)
 tableChange(eListOut, yearPoints = c(1957, 1963, 1983, 2017))
 
-## ------------------------------------------------------------------------
+## ----plotGreen-----------------------------------------------------------
 eListOut <- blankTime(eListOut, 
                       startBlank = "2000-10-01", 
                       endBlank = "2012-09-30")
@@ -186,11 +165,11 @@ plotContours(eListOut, 1961, 1966, 10, 100,
 plotContours(eListOut, 1964, 1984, 10, 100, 
              contourLevels = seq(0,55,5), flowDuration = FALSE)
 
-## ---- eval = FALSE-------------------------------------------------------
-#  eListOutNoWall <- runSeries(eList, windowSide = 12,
-#    flowBreak = TRUE, Q1EndDate = "1963-03-31",
-#    wall = FALSE, verbose = FALSE)
-#  
+## ----runWall, eval = TRUE------------------------------------------------
+eListOutNoWall <- runSeries(eList_Green, windowSide = 12,
+  flowBreak = TRUE, Q1EndDate = "1963-03-31",
+  wall = FALSE, verbose = FALSE)
+
 
 ## ---- fig.height = 6, fig.width = 11-------------------------------------
 plotContours(eListOutNoWall, 1961, 1966, 10, 100, 
@@ -211,21 +190,10 @@ plotContours(eListOutNoWall, 1961, 1966, 10, 100,
 #                            windowY = 7, windowQ = 2, windowS = 0.5,
 #                            edgeAdjust = TRUE, verbose = TRUE)
 
-## ----echo=TRUE, eval=FALSE-----------------------------------------------
-#  groupResults <- runGroups(eList,
-#                            group1firstYear = 1995, group1lastYear = 2004,
-#                            group2firstYear = 2005, group2lastYear = 2014,
-#                            windowSide = 7, wall = TRUE,
-#                            sample1EndDate = "2004-10-30",
-#                            paStart = 4, paLong = 2, verbose = FALSE)
-
-## ----echo=FALSE----------------------------------------------------------
-rm(list = ls())
-load("Chop.OPbase.RData")
-# then we run the function 
+## ----echo=TRUE, eval=TRUE------------------------------------------------
 groupResults <- runGroups(eList, 
                           group1firstYear = 1995, group1lastYear = 2004, 
-                          group2firstYear = 2005, group2lastYear = 2014,
+                          group2firstYear = 2005, group2lastYear = 2010,
                           windowSide = 7, wall = TRUE, 
                           sample1EndDate = "2004-10-30", 
                           paStart = 4, paLong = 2, verbose = FALSE)
