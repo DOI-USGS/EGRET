@@ -227,10 +227,11 @@ runPairs <- function(eList, year1, year2, windowSide,
   message("minNumObs has been set to ", minNumObs, " minNumUncen has been set to ", 
           minNumUncen)
   check <- rep(1,4)
-  check[1] <- if(minNumObs < length(Sample1$Date)) 1 else 0
-  check[2] <- if(minNumObs < length(Sample2$Date)) 1 else 0
-  check[3] <- if(minNumUncen < sum(Sample1$Uncen)) 1 else 0
-  check[4] <- if(minNumUncen < sum(Sample2$Uncen)) 1 else 0
+  if(minNumObs > length(Sample1$Date)) check[1] <- 0
+  if(minNumObs > length(Sample2$Date)) check[2] <- 0
+  if(minNumUncen > sum(Sample1$Uncen)) check[3] <- 0
+  if(minNumUncen > sum(Sample2$Uncen)) check[4] <- 0
+  
   if(sum(check) < 4) {
     stop("Data set too small for minNumObs or minNumUncen")
   }
