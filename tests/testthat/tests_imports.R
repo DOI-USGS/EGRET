@@ -57,9 +57,9 @@ test_that("External WQP Sample tests", {
   SampleNames <- c("Date","ConcLow","ConcHigh","Uncen","ConcAve","Julian","Month",   
                    "Day","DecYear","MonthSeq","waterYear","SinDY","CosDY")
   
-  Sample_Chloride <- readWQPSample('USGS-01594440',
-                                'Chloride', 
-                                '', '')
+  # Sample_Chloride <- readWQPSample('USGS-01594440',
+  #                               'Chloride', 
+  #                               '', '')
   
   expect_that(all(names(Sample_Chloride) %in% SampleNames),is_true())
     
