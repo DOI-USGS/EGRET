@@ -94,7 +94,11 @@ rivers draining to Chesapeake Bay. The URL is:
 The second is an application to nitrate data for 8 monitoring sites on
 the Mississippi River or its major tributaries. The URL is:
 
-<http://pubs.acs.org/doi/abs/10.1021/es201221s>
+<http://pubs.acs.org/doi/abs/10.1021/es201221s
+
+For a thorough use case of the EGRET enhancements, see the paper: "Tracking changes in nutrient delivery to western Lake Erie: Approaches to compensate for variability and trends in streamflow":
+
+<https://www.sciencedirect.com/science/article/pii/S0380133018302235>
 
 Sample Workflow
 ---------------
