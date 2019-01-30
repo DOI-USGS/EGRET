@@ -96,7 +96,7 @@ the Mississippi River or its major tributaries. The URL is:
 
 <http://pubs.acs.org/doi/abs/10.1021/es201221s
 
-For a thorough use case of the EGRET enhancements, see the paper: "Tracking changes in nutrient delivery to western Lake Erie: Approaches to compensate for variability and trends in streamflow":
+For a thorough discussion of the generalized flow normalization method implemented in the EGRET enhancements, see the paper: "Tracking changes in nutrient delivery to western Lake Erie: Approaches to compensate for variability and trends in streamflow":
 
 <https://www.sciencedirect.com/science/article/pii/S0380133018302235>
 
