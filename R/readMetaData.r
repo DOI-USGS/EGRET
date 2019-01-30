@@ -221,12 +221,17 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
 #' @export
 #' @examples
 #' filePath <- system.file("extdata", package="EGRET")
-#' filePath <- paste(filePath,"/",sep="")
 #' fileName <- 'infoTest.csv'
 #' INFO <- readUserInfo(filePath,fileName, separator=",",interactive=FALSE)
 readUserInfo <- function(filePath,fileName,hasHeader=TRUE,separator=",",interactive=TRUE){
-  
-  totalPath <- paste(filePath,fileName,sep="")
+
+  # Keeping things backwards compatible:
+  if("/" == substr(filePath, nchar(filePath), nchar(filePath))){
+    filePath <- substr(filePath, 1, nchar(filePath)-1)
+  }
+    
+  totalPath <- file.path(filePath, fileName)
+
   if(file.exists(totalPath)){
     siteInfo <- read.delim(  
       totalPath, 

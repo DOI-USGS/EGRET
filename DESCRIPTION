@@ -1,7 +1,7 @@
 Package: EGRET
 Type: Package
 Title: Exploration and Graphics for RivEr Trends (EGRET)
-Version: 3.0.1
+Version: 3.0.2
 Authors@R: c( person("Robert", "Hirsch", role = c("aut"),
     email = "rhirsch@usgs.gov", 
     comment=c(ORCID="0000-0002-4534-075X")),
@@ -49,4 +49,4 @@ Copyright: This software is in the public domain because it contains materials
     the United States Department of Interior. For more information, see the
     official USGS copyright policy at
     https://www.usgs.gov/visual-id/credit_usgs.html#copyright
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1

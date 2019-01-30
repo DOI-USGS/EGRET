@@ -19,10 +19,10 @@
 
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
+<style type="text/css" data-origin="pandoc">
 a.sourceLine { display: inline-block; line-height: 1.25; }
 a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
+a.sourceLine:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -35,13 +35,11 @@ code.sourceCode { white-space: pre-wrap; }
 a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
 pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
+  { position: relative; left: -4em; }
 pre.numberSource a.sourceLine::before
   { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -83,7 +81,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
 </style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 
@@ -333,10 +353,10 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <h1><span class="header-section-number">4</span> Details for how to include random residuals in your computations</h1>
 <p>In order to use the <strong>rObserved</strong> and <strong>rResid</strong> in making graphs in EGRET the process is the following.</p>
 <ol style="list-style-type: decimal">
-<li>Bring in your data and create the <strong>eList</strong> in the usual way: <strong>eList &lt;- mergeReport(INFO,Daily,Sample)</strong></li>
-<li>Run <strong>modelEstimation</strong> in the usual way: <strong>eList &lt;- modelEstimation(eList)</strong></li>
+<li>Bring in your data and create the <strong>eList</strong> in the usual way: <strong>eList &amp;lt;- mergeReport(INFO,Daily,Sample)</strong></li>
+<li>Run <strong>modelEstimation</strong> in the usual way: <strong>eList &amp;lt;- modelEstimation(eList)</strong></li>
 <li><p>Then augment the <strong>Sample data</strong> frame that is inside of the eList with the command:</p>
-<p><strong>eList &lt;- makeAugmentedSample(eList)</strong></p></li>
+<p><strong>eList &amp;lt;- makeAugmentedSample(eList)</strong></p></li>
 <li><p>To produce any one of the following graphics, using the <strong>rObserved</strong> or <strong>rResid</strong> values simply add the argument <strong>randomCensored = TRUE</strong> to the call to the graphical function. Note that it doesn’t matter if what is being plotted is an observed value or a residual, the argument is always <strong>randomCensored = TRUE</strong>. The original option of showing the vertical lines for censored values remains available as the default for any of these functions. The call can either say <strong>randomCensored = FALSE</strong> or just not include <strong>randomCensored</strong> in the argument list and the graphs will appear without these random values and without the open circle/closed circle symbology. The censored values or censored residuals will be shown as the vertical lines. The functions where this approach applies are these: <strong>plotConcPred, plotConcQ, plotConcTime, plotConcTimeDaily, plotFluxPred, plotFluxQ, plotFluxTImeDaily, plotResidPred, plotResidQ, plotResidTime</strong>. It is also available in the two multiple plot functions: <strong>multiPlotOverview, and fluxBiasMulti</strong></p></li>
 </ol>
 <p>For example.</p>
