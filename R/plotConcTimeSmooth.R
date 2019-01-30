@@ -42,6 +42,9 @@
 #' @param colors color vector of lines on plot, see ?par 'Color Specification'. Defaults to c("black","red","green")
 #' @param lineVal vector of line types. Defaults to c(1,1,1) which is a solid line for each line. Options: 0=blank, 1=solid (default), 2=dashed, 3=dotted, 4=dotdash, 5=longdash, 6=twodash
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
+#' @param usgsStyle logical option to use USGS style guidelines. Setting this option
+#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' generated labels
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords water-quality statistics graphics
 #' @export
@@ -61,7 +64,7 @@ plotConcTimeSmooth<-function (eList, q1, q2, q3, centerDate, yearStart, yearEnd,
                               printValues = FALSE, tinyPlot=FALSE, minNumObs = 100, minNumUncen =  50, 
                               windowY = 10, windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2, printLegend = TRUE,
                               cex.legend = 1.2, cex=0.8, cex.axis=1.1, customPar=FALSE,lineVal=c(1,1,1),logScale=FALSE,
-                              edgeAdjust=TRUE,...){
+                              edgeAdjust=TRUE, usgsStyle = FALSE,...){
   
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
@@ -156,7 +159,8 @@ plotConcTimeSmooth<-function (eList, q1, q2, q3, centerDate, yearStart, yearEnd,
   xInfo <- generalAxis(x=x, minVal=yearStart, maxVal=yearEnd, tinyPlot=tinyPlot)  
   combinedY <- c(y[1,], y[2,],y[3,])
   yInfo <- generalAxis(x=combinedY, minVal=concMin, maxVal=yTop, 
-                       tinyPlot=tinyPlot,logScale=logScale, units=localINFO$param.units)
+                       tinyPlot=tinyPlot,logScale=logScale, units=localINFO$param.units,
+                       usgsStyle = usgsStyle)
   
   genericEGRETDotPlot(x=x, y=y[1, ],
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,

@@ -17,9 +17,5 @@ README_files/
 CONDUCT.md
 DISCLAIMER.md
 code.json
-vignettes/eListColumbia.RData
-vignettes/eListMerced.RData
-vignettes/eListMiss.RData
-vignettes/Green.Cl.RData
 hexSticker.R
 ^docs$

@@ -32,6 +32,9 @@
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width.
 #' @param randomCensored logical. Show censored values as randomized.
+#' @param usgsStyle logical option to use USGS style guidelines. Setting this option
+#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' generated labels
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters.
 #' @keywords graphics water-quality statistics
 #' @export
@@ -48,7 +51,8 @@
 plotConcTime<-function(eList, qUnit = 2, yearStart = NA, yearEnd = NA,
                        qLower = NA, qUpper = NA, randomCensored=FALSE,
                        tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale=FALSE, 
-                       cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,col="black",lwd=1,...){
+                       cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,
+                       col="black",lwd=1, usgsStyle = FALSE,...){
 
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
@@ -124,7 +128,7 @@ plotConcTime<-function(eList, qUnit = 2, yearStart = NA, yearEnd = NA,
     yHigh<-subSample$ConcHigh
     
     yInfo <- generalAxis(x=yHigh, minVal=minYLow, maxVal=concMax, logScale=logScale, 
-                         tinyPlot=tinyPlot,units=attr(eList, "param.units"))
+                         tinyPlot=tinyPlot,units=localINFO$param.units, usgsStyle = usgsStyle)
     
     genericEGRETDotPlot(x=x, y=yHigh, 
                         xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),

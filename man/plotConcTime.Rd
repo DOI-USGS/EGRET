@@ -8,7 +8,8 @@ plotConcTime(eList, qUnit = 2, yearStart = NA, yearEnd = NA,
   qLower = NA, qUpper = NA, randomCensored = FALSE,
   tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,
   logScale = FALSE, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
-  customPar = FALSE, col = "black", lwd = 1, ...)
+  customPar = FALSE, col = "black", lwd = 1, usgsStyle = FALSE,
+  ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}
@@ -48,6 +49,10 @@ plotConcTime(eList, qUnit = 2, yearStart = NA, yearEnd = NA,
 \item{col}{color of points on plot, see ?par 'Color Specification'}
 
 \item{lwd}{number line width.}
+
+\item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
+to TRUE does NOT guarantee USGS complience. It will only change automatically
+generated labels}
 
 \item{\dots}{arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters.}
 }

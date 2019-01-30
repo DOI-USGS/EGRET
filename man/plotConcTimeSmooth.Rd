@@ -11,7 +11,8 @@ plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd,
   minNumObs = 100, minNumUncen = 50, windowY = 10, windowQ = 2,
   windowS = 0.5, cex.main = 1.1, lwd = 2, printLegend = TRUE,
   cex.legend = 1.2, cex = 0.8, cex.axis = 1.1, customPar = FALSE,
-  lineVal = c(1, 1, 1), logScale = FALSE, edgeAdjust = TRUE, ...)
+  lineVal = c(1, 1, 1), logScale = FALSE, edgeAdjust = TRUE,
+  usgsStyle = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}
@@ -79,6 +80,10 @@ plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd,
 \item{logScale}{logical whether or not to use a log scale in the y axis.}
 
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
+
+\item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
+to TRUE does NOT guarantee USGS complience. It will only change automatically
+generated labels}
 
 \item{\dots}{arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters}
 }

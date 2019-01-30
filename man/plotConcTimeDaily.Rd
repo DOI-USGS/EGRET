@@ -8,7 +8,7 @@ plotConcTimeDaily(eList, yearStart = NA, yearEnd = NA,
   tinyPlot = FALSE, concMax = NA, printTitle = TRUE, cex = 0.8,
   cex.axis = 1.1, randomCensored = FALSE, cex.main = 1.1,
   customPar = FALSE, col = "black", lwd = 1, prettyDate = TRUE,
-  ...)
+  usgsStyle = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -39,6 +39,10 @@ plotConcTimeDaily(eList, yearStart = NA, yearEnd = NA,
 \item{lwd}{number line width}
 
 \item{prettyDate}{logical use 'pretty' limits for date axis if TRUE, or force the yearStart/yearEnd as limits if FALSE}
+
+\item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
+to TRUE does NOT guarantee USGS complience. It will only change automatically
+generated labels}
 
 \item{\dots}{arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters}
 }

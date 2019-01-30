@@ -21,6 +21,10 @@ addons:
     packages:
     - libcurl4-openssl-dev
 
+repos:
+  CRAN: https://cloud.r-project.org
+  USGS: https://owi.usgs.gov/R
+
 env:
    global:
      - R_BUILD_ARGS="--no-vignettes --no-manual"

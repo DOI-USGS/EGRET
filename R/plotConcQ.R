@@ -93,7 +93,9 @@ plotConcQ<-function(eList, qUnit = 2, tinyPlot = FALSE, logScale=FALSE,randomCen
     yLow<-localSample$ConcLow
     yHigh<-localSample$ConcHigh
     
-    yInfo <- generalAxis(x=yHigh, maxVal=concMax, minVal=yMin, tinyPlot=tinyPlot,logScale=logScale,units=localINFO$param.units)
+    yInfo <- generalAxis(x=yHigh, maxVal=concMax, minVal=yMin, 
+                         tinyPlot=tinyPlot,logScale=logScale,
+                         units=localINFO$param.units, usgsStyle = usgsStyle)
     
     genericEGRETDotPlot(x=x, y=yHigh, 
                         xlim=c(xInfo$bottom, xInfo$top), ylim=c(yInfo$bottom,yInfo$top),

@@ -5,10 +5,10 @@
 \title{Graph of annual concentration and flow normalized concentration versus year}
 \usage{
 plotConcHist(eList, yearStart = NA, yearEnd = NA, concMax = NA,
-  printTitle = TRUE, tinyPlot = FALSE, plotFlowNorm = TRUE,
-  plotAnnual = TRUE, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
-  lwd = 2, col = "black", col.pred = "green", customPar = FALSE,
-  ...)
+  printTitle = TRUE, tinyPlot = FALSE, usgsStyle = FALSE,
+  plotFlowNorm = TRUE, plotAnnual = TRUE, cex = 0.8,
+  cex.axis = 1.1, cex.main = 1.1, lwd = 2, col = "black",
+  col.pred = "green", customPar = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes}
@@ -22,6 +22,10 @@ plotConcHist(eList, yearStart = NA, yearEnd = NA, concMax = NA,
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)}
 
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE}
+
+\item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
+to TRUE does NOT guarantee USGS complience. It will only change automatically
+generated labels}
 
 \item{plotFlowNorm}{logical variable if TRUE flow normalized line is plotted, if FALSE not plotted}
 
