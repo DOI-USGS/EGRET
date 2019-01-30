@@ -160,7 +160,7 @@ plotConcTime<-function(eList, qUnit = 2, yearStart = NA, yearEnd = NA,
     
     yHigh <- subSample$rObserved
     yInfo <- generalAxis(x=yHigh, minVal=minYLow, maxVal=concMax, logScale=logScale, 
-                         tinyPlot=tinyPlot,units=attr(eList, "param.units"))
+                         tinyPlot=tinyPlot,units=attr(eList, "param.units"), usgsStyle = usgsStyle)
     
     genericEGRETDotPlot(x=x[Uncen == 1], y=yHigh[Uncen == 1], 
                         xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),

@@ -7,7 +7,7 @@
 plotResidQ(eList, qUnit = 2, tinyPlot = FALSE, stdResid = FALSE,
   printTitle = TRUE, col = "black", lwd = 1, cex = 0.8,
   cex.axis = 1.1, cex.main = 1.1, rmSciX = FALSE,
-  customPar = FALSE, randomCensored = FALSE, ...)
+  customPar = FALSE, randomCensored = FALSE, usgsStyle = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}
@@ -36,6 +36,10 @@ plotResidQ(eList, qUnit = 2, tinyPlot = FALSE, stdResid = FALSE,
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
 \item{randomCensored}{logical. Show censored residuals as randomized.}
+
+\item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
+to TRUE does NOT guarantee USGS complience. It will only change automatically
+generated labels.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }

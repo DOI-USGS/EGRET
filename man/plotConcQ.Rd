@@ -65,7 +65,7 @@ plotConcQ(eList)
 plotConcQ(eList, logScale=TRUE)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
-plotConcQ(eList)
+plotConcQ(eList, usgsStyle = TRUE)
 }
 \seealso{
 \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}

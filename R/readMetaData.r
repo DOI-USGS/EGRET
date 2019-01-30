@@ -331,8 +331,13 @@ readUserInfo <- function(filePath,fileName,hasHeader=TRUE,separator=",",interact
     }
   }
   
-  localUnits <- toupper(siteInfo$param.units)  
-  if(length(grep("MG/L", localUnits)) == 0){
+  localUnits <- toupper(siteInfo$param.units)
+  possibleGoodUnits <- c("mg/l","mg/l as N", "mg/l as NO2", 
+                         "mg/l as NO3","mg/l as P","mg/l as PO3","mg/l as PO4","mg/l as CaCO3",
+                         "mg/l as Na","mg/l as H","mg/l as S","mg/l NH4" )
+  
+  allCaps <- toupper(possibleGoodUnits)
+  if(!(localUnits %in% allCaps)){
     if(interactive){
       message("Required concentration units are mg/l. \nThe INFO dataframe indicates:",siteInfo$param.units,
               "\nFlux calculations will be wrong if units are not consistent")

@@ -61,7 +61,19 @@ generalAxis <- function(x,
       label <- paste("Conc. (",units,")",sep="")
     } else {
       if(usgsStyle){
-        label <- paste("Concentration, in milligrams per liter")
+        localUnits <- toupper(units) 
+        possibleGoodUnits <- c("mg/l","mg/l as N", "mg/l as NO2", 
+                               "mg/l as NO3","mg/l as P","mg/l as PO3","mg/l as PO4","mg/l as CaCO3",
+                               "mg/l as Na","mg/l as H","mg/l as S","mg/l NH4" )
+        
+        allCaps <- toupper(possibleGoodUnits)
+        
+        if(localUnits %in% allCaps){
+          label <- "Concentration, in milligrams per liter"
+        } else {
+          label <- paste("Concentration, in",units)
+        }
+        
       } else {
         label <- paste("Concentration in", units)
       }

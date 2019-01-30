@@ -23,6 +23,9 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
+#' @param usgsStyle logical option to use USGS style guidelines. Setting this option
+#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' generated labels. 
 #' @param randomCensored logical. Show censored residuals as randomized.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
@@ -37,7 +40,8 @@
 #' plotResidQ(eList)
 plotResidQ<-function (eList, qUnit = 2, 
                       tinyPlot = FALSE, stdResid = FALSE, printTitle = TRUE,col="black",lwd=1,
-                      cex=0.8, cex.axis=1.1,cex.main=1.1,rmSciX=FALSE, customPar=FALSE,randomCensored=FALSE,...){  
+                      cex=0.8, cex.axis=1.1,cex.main=1.1,rmSciX=FALSE, customPar=FALSE,
+                      randomCensored=FALSE,usgsStyle=FALSE,...){  
    
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
@@ -73,7 +77,7 @@ plotResidQ<-function (eList, qUnit = 2,
      xLab <- qUnit@qUnitTiny
      yLab <- ifelse(stdResid, "Standardized residual", "Residual")
   } else {
-     xLab <- qUnit@qUnitExpress
+     xLab <- ifelse(usgsStyle, qUnit@unitUSGS, qUnit@qUnitExpress)
      yLab <- ifelse(stdResid, "Standardized residual in natural log units", "Residual in natural log units")
   }
   

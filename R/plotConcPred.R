@@ -33,7 +33,7 @@
 #' plotConcPred(eList, logScale=TRUE)
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
-#' plotConcPred(eList)
+#' plotConcPred(eList, usgsStyle=TRUE)
 plotConcPred<-function(eList, concMax = NA, logScale=FALSE,
                        printTitle = TRUE,tinyPlot=FALSE,cex=0.8, cex.axis=1.1,
                        cex.main=1.1, customPar=FALSE,col="black",lwd=1, 
@@ -67,8 +67,17 @@ plotConcPred<-function(eList, concMax = NA, logScale=FALSE,
     yLab<-"Obs. Conc."
   } else {
     if(usgsStyle){
-      xLab <- "Estimated concentration, in milligrams per liter"
-      yLab <- "Observed concentration, in milligrams per liter"    
+      localUnits <- toupper(localINFO$param.units) 
+      localUnits <- gsub(" ","", localUnits)
+      
+      if(length(grep("MG/L",localUnits)) > 0){
+        xLab <- "Estimated concentration, in milligrams per liter"
+        yLab <- "Observed concentration, in milligrams per liter" 
+      } else {
+        xLab <- paste("Estimated concentration, in",units)
+        yLab <- paste("Observed concentration, in" ,units)
+      }
+      
     } else {
       xLab<-paste("Estimated Concentration in",localINFO$param.units)
       yLab<-paste("Observed Concentration in",localINFO$param.units)      

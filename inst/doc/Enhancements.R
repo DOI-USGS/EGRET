@@ -53,7 +53,7 @@ abline(v = decimalDate("2016-01-14"), col = "blue", lwd = 2)
 
 ## ----loadData------------------------------------------------------------
 library(EGRET)
-library(EGRETci)
+
 eList <- Choptank_eList
 
 pairResults <- runPairs(eList, 
