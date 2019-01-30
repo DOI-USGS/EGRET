@@ -36,7 +36,6 @@ warnings_are_errors: true
 
 r_github_packages:
   - jimhester/covr
-  - USGS-R/EGRETci
 
 script: 
   - |
