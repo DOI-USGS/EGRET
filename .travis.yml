@@ -21,6 +21,10 @@ addons:
     packages:
     - libcurl4-openssl-dev
 
+repos:
+  CRAN: https://cloud.r-project.org
+  USGS: https://owi.usgs.gov/R
+
 env:
    global:
      - R_BUILD_ARGS="--no-vignettes --no-manual"
@@ -32,6 +36,7 @@ warnings_are_errors: true
 
 r_github_packages:
   - jimhester/covr
+  - USGS-R/EGRETci
 
 script: 
   - |
