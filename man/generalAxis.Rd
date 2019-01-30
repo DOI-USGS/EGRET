@@ -6,7 +6,7 @@
 \usage{
 generalAxis(x, maxVal, minVal, units = NA, logScale = FALSE,
   tinyPlot = FALSE, padPercent = 5, concentration = TRUE,
-  prettyDate = TRUE)
+  usgsStyle = FALSE, prettyDate = TRUE)
 }
 \arguments{
 \item{x}{vector to create scale about}
@@ -24,6 +24,10 @@ generalAxis(x, maxVal, minVal, units = NA, logScale = FALSE,
 \item{padPercent}{number used to pad the max and min if not specified}
 
 \item{concentration}{logical if concentration=TRUE, labels returned as concentration units, otherwise flux units.}
+
+\item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
+to TRUE does NOT guarantee USGS complience. It will only change automatically
+generated labels}
 
 \item{prettyDate}{logical use 'pretty' limits for date axis if TRUE, or force the yearStart/yearEnd as limits if FALSE}
 }
