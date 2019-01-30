@@ -111,7 +111,7 @@ plotConcTimeDaily<-function(eList, yearStart=NA, yearEnd=NA, tinyPlot = FALSE,
     
     yCombined <- c(yHigh,subDaily$ConcDay)
     yInfo <- generalAxis(x = yCombined, minVal = yBottom, maxVal = concMax, 
-                         tinyPlot = tinyPlot, padPercent = 5,units=localINFO$param.units)
+                         tinyPlot = tinyPlot, padPercent = 5,units=localINFO$param.units,usgsStyle = usgsStyle)
     genericEGRETDotPlot(x=xSample[subSample$Uncen == 1], y=yHigh[subSample$Uncen == 1], xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                         xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
                         ylab=yInfo$label,plotTitle=plotTitle,cex.axis=cex.axis,col=col,lwd=lwd,cex=cex,

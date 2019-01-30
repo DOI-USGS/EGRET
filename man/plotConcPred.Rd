@@ -54,7 +54,7 @@ plotConcPred(eList)
 plotConcPred(eList, logScale=TRUE)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
-plotConcPred(eList)
+plotConcPred(eList, usgsStyle=TRUE)
 }
 \seealso{
 \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}

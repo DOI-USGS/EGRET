@@ -39,7 +39,7 @@
 #' plotConcQ(eList, logScale=TRUE)
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
-#' plotConcQ(eList)
+#' plotConcQ(eList, usgsStyle = TRUE)
 plotConcQ<-function(eList, qUnit = 2, tinyPlot = FALSE, logScale=FALSE,randomCensored=FALSE,
                     concMax = NA, concMin =NA, printTitle = TRUE, cex=0.8, cex.axis=1.1,cex.main=1.1,
                     usgsStyle=FALSE,
@@ -114,7 +114,7 @@ plotConcQ<-function(eList, qUnit = 2, tinyPlot = FALSE, logScale=FALSE,randomCen
     }
     yHigh <- localSample$rObserved
     
-    yInfo <- generalAxis(x=yHigh, maxVal=concMax, minVal=yMin, tinyPlot=tinyPlot,logScale=logScale,units=localINFO$param.units)
+    yInfo <- generalAxis(x=yHigh, maxVal=concMax, minVal=yMin, tinyPlot=tinyPlot,logScale=logScale,units=localINFO$param.units, usgsStyle = usgsStyle)
     
     genericEGRETDotPlot(x=x[Uncen == 1], y=yHigh[Uncen == 1], 
                         xlim=c(xInfo$bottom, xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
