@@ -10,6 +10,9 @@
 #' @param padPercent number used to pad the max and min if not specified
 #' @param concentration logical if concentration=TRUE, labels returned as concentration units, otherwise flux units.
 #' @param units character concentration units. Typically found in INFO$param.units.
+#' @param usgsStyle logical option to use USGS style guidelines. Setting this option
+#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' generated labels
 #' @param prettyDate logical use 'pretty' limits for date axis if TRUE, or force the yearStart/yearEnd as limits if FALSE
 #' @keywords graphics water-quality statistics
 #' @export
@@ -32,6 +35,7 @@ generalAxis <- function(x,
                         tinyPlot = FALSE,
                         padPercent = 5,
                         concentration = TRUE,
+                        usgsStyle = FALSE,
                         prettyDate = TRUE) {
   
   
@@ -56,7 +60,11 @@ generalAxis <- function(x,
     if (tinyPlot){
       label <- paste("Conc. (",units,")",sep="")
     } else {
-      label <- paste("Concentration in", units)
+      if(usgsStyle){
+        label <- paste("Concentration, in milligrams per liter")
+      } else {
+        label <- paste("Concentration in", units)
+      }
     }
   } else {
     label <- ""

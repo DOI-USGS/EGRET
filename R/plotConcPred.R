@@ -19,6 +19,9 @@
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
 #' @param randomCensored logical. Show censored values as randomized.
+#' @param usgsStyle logical option to use USGS style guidelines. Setting this option
+#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' generated labels
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @seealso \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}
@@ -33,7 +36,8 @@
 #' plotConcPred(eList)
 plotConcPred<-function(eList, concMax = NA, logScale=FALSE,
                        printTitle = TRUE,tinyPlot=FALSE,cex=0.8, cex.axis=1.1,
-                       cex.main=1.1, customPar=FALSE,col="black",lwd=1, randomCensored = FALSE,...){
+                       cex.main=1.1, customPar=FALSE,col="black",lwd=1, 
+                       randomCensored = FALSE, usgsStyle = FALSE,...){
 
   localINFO <- getInfo(eList)
   localSample <- getSample(eList) 
@@ -62,8 +66,14 @@ plotConcPred<-function(eList, concMax = NA, logScale=FALSE,
     xLab<-"Est. Conc."
     yLab<-"Obs. Conc."
   } else {
-    xLab<-paste("Estimated Concentration in",localINFO$param.units)
-    yLab<-paste("Observed Concentration in",localINFO$param.units)
+    if(usgsStyle){
+      xLab <- "Estimated concentration, in milligrams per liter"
+      yLab <- "Observed concentration, in milligrams per liter"    
+    } else {
+      xLab<-paste("Estimated Concentration in",localINFO$param.units)
+      yLab<-paste("Observed Concentration in",localINFO$param.units)      
+    }
+
   }
   
   if (logScale){

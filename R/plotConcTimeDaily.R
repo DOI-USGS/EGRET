@@ -27,6 +27,9 @@
 #' @param lwd number line width
 #' @param randomCensored logical. Show censored values as randomized.
 #' @param prettyDate logical use 'pretty' limits for date axis if TRUE, or force the yearStart/yearEnd as limits if FALSE
+#' @param usgsStyle logical option to use USGS style guidelines. Setting this option
+#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' generated labels
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords graphics water-quality statistics
 #' @export
@@ -41,7 +44,8 @@
 #' plotConcTimeDaily(eList)
 plotConcTimeDaily<-function(eList, yearStart=NA, yearEnd=NA, tinyPlot = FALSE, 
                             concMax = NA, printTitle = TRUE,cex=0.8, cex.axis=1.1,randomCensored=FALSE,
-                            cex.main=1.1, customPar=FALSE,col="black",lwd=1,prettyDate=TRUE,...){
+                            cex.main=1.1, customPar=FALSE,col="black",lwd=1,
+                            prettyDate=TRUE, usgsStyle = FALSE,...){
 
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
@@ -86,7 +90,8 @@ plotConcTimeDaily<-function(eList, yearStart=NA, yearEnd=NA, tinyPlot = FALSE,
     
     yCombined <- c(yHigh,subDaily$ConcDay)
     yInfo <- generalAxis(x = yCombined, minVal = yBottom, maxVal = concMax, 
-                         tinyPlot = tinyPlot, padPercent = 5,units=localINFO$param.units)
+                         tinyPlot = tinyPlot, padPercent = 5,units=localINFO$param.units,
+                         usgsStyle = usgsStyle)
     
     genericEGRETDotPlot(x=xSample, y=yHigh, xTicks=xInfo$ticks, yTicks=yInfo$ticks,
                         xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),

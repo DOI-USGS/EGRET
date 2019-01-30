@@ -27,6 +27,9 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param col.pred color of flow normalized line on plot, see ?par 'Color Specification'
+#' @param usgsStyle logical option to use USGS style guidelines. Setting this option
+#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' generated labels
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -43,7 +46,7 @@
 #' plotConcHist(eList)
 plotConcHist<-function(eList, yearStart = NA, yearEnd = NA, 
                        concMax = NA, printTitle = TRUE, 
-                       tinyPlot = FALSE,
+                       tinyPlot = FALSE,usgsStyle = FALSE,
                        plotFlowNorm = TRUE, plotAnnual = TRUE,
                         cex=0.8, cex.axis=1.1,cex.main=1.1, 
                        lwd=2, col="black", col.pred="green", customPar=FALSE,...){
@@ -99,7 +102,7 @@ plotConcHist<-function(eList, yearStart = NA, yearEnd = NA,
   combinedY <- c(localAnnualResults$Conc,localAnnualResults$FNConc[localAnnualResults$DecYear>xInfo$bottom & localAnnualResults$DecYear<xInfo$top])
  
   yInfo <- generalAxis(x=combinedY, minVal=0, maxVal=concMax, padPercent=5, 
-                       tinyPlot=tinyPlot,units=localINFO$param.units)
+                       tinyPlot=tinyPlot,units=localINFO$param.units, usgsStyle = usgsStyle)
   
   genericEGRETDotPlot(x=NA, y=NA,
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,xDate=TRUE,
