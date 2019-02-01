@@ -6,7 +6,6 @@
 
 language: r
 cache: packages
-dist: trusty
 
 matrix:
   include:
