@@ -250,21 +250,29 @@ test_that("runPairs",{
   
   expect_equal(attr(pairOut_1, "dateInfo"), attr(pairOut_1_orig, "dateInfo"))
   expect_equal(attr(pairOut_1, "yearPair"), attr(pairOut_1_orig, "yearPair"))
-  expect_true(all(names(pairOut_1) %in% c("TotalChange","CQTC","QTC","x10","x11","x20","x22" )))
+  expect_true(all(names(pairOut_1) %in% c("TotalChange","CQTC","QTC","x10","x11","x20","x22",
+                                          "Total Percent Change",
+                                          "CQTC Percent",
+                                          "QTC Percent" )))
   
   expect_equal(round(pairOut_1$TotalChange[1], digits = 4), 0.429)
   
   # Option 2:
   pairOut_2 <- runPairs(eList, year1, year2, windowSide = 7)
 
-  expect_true(all(names(pairOut_2) %in% c("TotalChange","CQTC","QTC","x10","x11","x20","x22" )))
+  expect_true(all(names(pairOut_2) %in% c("TotalChange","CQTC","QTC","x10","x11","x20","x22",
+                                          "Total Percent Change",
+                                          "CQTC Percent",
+                                          "QTC Percent" )))
   expect_equal(round(pairOut_2$TotalChange[1], digits = 4), 0.3968)
   
   # Option 3:
   pairOut_3 <- runPairs(eList, year1, year2,
                         windowSide = 0, flowBreak = TRUE,
                         Q1EndDate = "1990-09-30")
-  expect_true(all(names(pairOut_3) %in% c("TotalChange","CQTC","QTC","x10","x11","x20","x22" )))
+  expect_true(all(names(pairOut_3) %in% c("TotalChange","CQTC","QTC","x10","x11","x20","x22","Total Percent Change",
+                                          "CQTC Percent",
+                                          "QTC Percent")))
   expect_equal(round(pairOut_3$TotalChange[1], digits = 4), 0.4081)
   
   # Option 4:
@@ -272,7 +280,10 @@ test_that("runPairs",{
                         windowSide = 7, flowBreak = TRUE,
                         Q1EndDate = "1990-09-30")
   
-  expect_true(all(names(pairOut_4) %in% c("TotalChange","CQTC","QTC","x10","x11","x20","x22" )))
+  expect_true(all(names(pairOut_4) %in% c("TotalChange","CQTC","QTC","x10","x11","x20","x22",
+                                          "Total Percent Change",
+                                          "CQTC Percent",
+                                          "QTC Percent")))
   expect_equal(round(pairOut_4$TotalChange[1], digits = 4), 0.3995)
   
 })
