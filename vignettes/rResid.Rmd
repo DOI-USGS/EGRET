@@ -107,11 +107,13 @@ In order to use the **rObserved** and **rResid** in making graphs in EGRET the p
 2. Run **modelEstimation** in the usual way: **eList <- modelEstimation(eList)**
 3. Then augment the **Sample data** frame that is inside of the eList with the command:
 
-      **eList <- makeAugmentedSample(eList)**
-      
+```{r augment1, eval=FALSE}
+eList <- makeAugmentedSample(eList)
+```
+
 4. To produce any one of the following graphics, using the **rObserved** or **rResid** values simply add the argument **randomCensored = TRUE** to the call to the graphical function.  Note that it doesn't matter if what is being plotted is an observed value or a residual, the argument is always **randomCensored = TRUE**.  The original option of showing the vertical lines for censored values remains available as the default for any of these functions.  The call can either say **randomCensored = FALSE** or just not include **randomCensored** in the argument list and the graphs will appear without these random values and without the open circle/closed circle symbology.  The censored values or censored residuals will be shown as the vertical lines.  The functions where this approach applies are these: **plotConcPred, plotConcQ, plotConcTime, plotConcTimeDaily, plotFluxPred, plotFluxQ, plotFluxTImeDaily, plotResidPred, plotResidQ, plotResidTime**.  It is also available in the two multiple plot functions: **multiPlotOverview, and fluxBiasMulti**
 
-For example.
+For example:
 
 ```{r, fig.height = 9, fig.width = 8}
 multiPlotDataOverview(eList, qUnit = 4, randomCensored = TRUE)
