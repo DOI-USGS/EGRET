@@ -38,8 +38,8 @@ r_github_packages:
 
 script: 
   - |
-    R CMD build .
-    travis_wait 20 R CMD check EGRET*tar.gz
+    R CMD build . --no-build-vignettes --no-manual --no-resave-data
+    travis_wait 20 R CMD check EGRET*tar.gz --no-build-vignettes --no-manual --as-cran
 
 after_success:
   - if [[ "${R_CODECOV}" ]]; then travis_wait 20 R -e 'covr::coveralls()'; fi
