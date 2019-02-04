@@ -223,6 +223,9 @@ Everything on the first row is about concentration (in mg/L).  Everything on the
 |TotalChange|This is the difference between the results from 2010-1985.  They are equal to x22 - x11.  This is what is shown above in the output as "total change".|
 |CQTC|This number is the difference between between the two years, but only the part that is due to the change in the CQR.  It is x20 - x10.  In the results reported above as, "Concentration v. Q Trend Component" it is computed as x20 - x10.|
 |QTC|This number is the difference between the two years, but only the part that is due to the change in the QD.  It is the Total Change - CQTC.  Or it can be stated as x22 - x11 - x20 + x10.  It is known as the "Q Trend Component."|
+|Total Percent Change|This is the Total Change divided by x11|
+|CQTC Percent|This is the CQTC divided by x11|
+|QTC Percent|This is the QTC divided by x11|
 
 One final note about this output is that we can also express the flux information as yields, by dividing by the drainage area.  So we can do a matrix multiplication and end up with a new object that still has concentrations in the first row but has yields in the second row.  For example if we want to do yield in kg/km^2/year.  We could do this.  First we see **pairResults** and second we see **pairResultsYield**.
 
@@ -532,19 +535,15 @@ Everything on the first row is about concentration (in mg/L).  Everything on the
 
 Here's what the columns represent, but we will take them out of order here:
 
-x10: these are the results using the concentration versus discharge relationship (CQR) for group 1, but using the discharge distribution (QD) for the entire period of record (starting with **QStartDate** and ending with **QEndDate**, or if they aren't specified, it is all the discharge data in the **Daily** data frame).  
-
-x11: these are the results using the CQR for group 1, but using the QD specified by the user for group 1.
-
-x20: these are the results using the CQR for group 2, but using the QD for the entire period.
-
-x22: these are the results for the CQR for group 2, but using the QD specified by the user for group 2.
-
-TotalChange: this is the difference between the results for group2 - group1.  They are equal to x22 - x11.  This is what is shown above in the output as "total change."
-
-CQTC: this number is the difference between the two groups, but only the part that is due to the change in the CQR.  It is x20 - x10.  In the results reported above as, "Concentration v. Q Trend Component" it is computed as x20 - x10.
-
-QTC: this number is the difference between the two groups, but only the part that is due to the change in the QD.  It is the Total Change - CQTC.  Or it can be stated as x22 - x11 - x20 + x10.  In the results it is reported as, "Q Trend Component". 
+| Name | Description |
+|-----------|---------------------------------------------------|
+|x10| these are the results using the concentration versus discharge relationship (CQR) for group 1, but using the discharge distribution (QD) for the entire period of record (starting with **QStartDate** and ending with **QEndDate**, or if they aren't specified, it is all the discharge data in the **Daily** data frame).|  
+|x11| These are the results using the CQR for group 1, but using the QD specified by the user for group 1.|
+|x20| These are the results using the CQR for group 2, but using the QD for the entire period.|
+|x22| These are the results for the CQR for group 2, but using the QD specified by the user for group 2.|
+|TotalChange| This is the difference between the results for group2 - group1.  They are equal to x22 - x11.  This is what is shown above in the output as "total change."|
+|CQTC| |his number is the difference between the two groups, but only the part that is due to the change in the CQR.  It is x20 - x10.  In the results reported above as, "Concentration v. Q Trend Component" it is computed as x20 - x10.|
+|QTC| This number is the difference between the two groups, but only the part that is due to the change in the QD.  It is the Total Change - CQTC.  Or it can be stated as x22 - x11 - x20 + x10.  In the results it is reported as, "Q Trend Component".|
 
 The analysis of uncertainty about these results is done with the **runGroupsBoot** function in the **EGRETci** package.  All of the information that sets up the problem is passed to that function via the **groupResults** object.  All of the argument values that were used by **runGroups** are in the attributes of **groupResults**. To see them just requires using the following commands.
 
