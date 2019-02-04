@@ -160,7 +160,7 @@ We can use the **windowSide** argument with a value that is some integer greater
 
 In this first example we will specify that **year1** is 1985 and **year2** is 2010 and we will not have a wall, and we will use automatic flow window designation, with a **windowSide** value of 7. 
 
-```{r loadData}
+```{r loadData, eval=FALSE}
 library(EGRET)
 
 eList <- Choptank_eList
@@ -170,10 +170,41 @@ pairResults <- runPairs(eList,
                         windowSide = 7)
 ```
 
+```{r loadDataReal, echo=FALSE}
+eList <- Choptank_eList
+pairResults <- readRDS("pairResults.rds")
+
+```
+
+```
+## 
+##    Choptank River 
+##    Inorganic nitrogen (nitrate and nitrite)
+##    Water Year 
+## 
+##  Change estimates  2010  minus  1985 
+## 
+##  For concentration: total change is  0.397 mg/L
+##  expressed as Percent Change is  39 %
+## 
+##  Concentration v. Q Trend Component  42 %
+##        Q Trend Component             -3.1 % 
+## 
+## 
+##  For flux: total change is  0.0543 million kg/year
+##  expressed as Percent Change is  51 %
+## 
+##  Concentration v. Q Trend Component  32 %
+##        Q Trend Component             19 % 
+## 
+##      TotalChange  CQTC    QTC  x10  x11  x20  x22
+## Conc       0.397 0.429 -0.032 1.01 1.03 1.44 1.43
+## Flux       0.054 0.034  0.020 0.12 0.11 0.15 0.16
+```
 
 Let's take a look at this output.  The information about Sample1 and Sample2 is there so we can visually check on the size of our Sample data set to make sure that the default settings for minNumObs and minNumUncen are reasonable.  In this case Sample1 and Sample2 are the same, but if we had a **wall** they would be different and we want to make sure that neither of them is too small (e.g. less than 100 samples). 
 
-Next we see output that is pretty self-explanatory.  We express the change in concentration first in concentration units and then as a percentage change, in this case + `r format(100 * ((pairResults$x22[1] - pairResults$x11[1])/pairResults$x11[1]), digits = 2)` %.  Then we see the line that tells us what part of that change was due to a change in the Concentration versus Discharge Trend Component (CQTC).  In this case it is `r format(100 * (pairResults$x20[1] - pairResults$x10[1]/pairResults$x11[1]), digits = 2)` %.  What this means is that if there had been no change in the probability distribution of discharge the concentration trend would have been  `r format(100 * (pairResults$x20[1] - pairResults$x10[1]/pairResults$x11[1]), digits = 2)` %.  Then we see the Discharge Trend Component (QTC) which is `r format(100 * ((pairResults$x22[1] - pairResults$x11[1] - (pairResults$x20[1] - pairResults$x10[1]) )/pairResults$x11[1]), digits = 2)` %.  This would be the amount of the trend if the Concentration versus Discharge relationships hadn't changed at all over the period, but the probability distribution of discharge had changed.  
+Next we see output that is pretty self-explanatory.  We express the change in concentration first in concentration units and then as a percentage change, in this case + `r format(100 * pairResults[1, "Total Percent Change"], digits = 2)` %.  Then we see the line that tells us what part of that change was due to a change in the Concentration versus Discharge Trend Component (CQTC).  In this case it is `r format(100 * pairResults[1, "CQTC Percent"], digits = 2)` %.  What this means is that if there had been no change in the probability distribution of discharge the concentration trend would have been  `r format(100 * pairResults[1,"CQTC Percent"], digits = 2)` %.  Then we see the Discharge Trend Component (QTC) which is `r format(100 * pairResults[1,"QTC Percent"], digits = 2)` %.  This would be the amount of the trend if the Concentration versus Discharge relationships hadn't changed at all over the period, but the probability distribution of discharge had changed.  
 
 Then we see the exact same kind of results for flux expressed in millions of kg / year.  In this case it is a much larger percentage change than we see for concentration and that is because the changes in concentration are most pronounced at high discharge and there is a good deal of positive trend in the upper end of the distribution of discharge.  
 
@@ -192,6 +223,9 @@ Everything on the first row is about concentration (in mg/L).  Everything on the
 |TotalChange|This is the difference between the results from 2010-1985.  They are equal to x22 - x11.  This is what is shown above in the output as "total change".|
 |CQTC|This number is the difference between between the two years, but only the part that is due to the change in the CQR.  It is x20 - x10.  In the results reported above as, "Concentration v. Q Trend Component" it is computed as x20 - x10.|
 |QTC|This number is the difference between the two years, but only the part that is due to the change in the QD.  It is the Total Change - CQTC.  Or it can be stated as x22 - x11 - x20 + x10.  It is known as the "Q Trend Component."|
+|Total Percent Change|This is the Total Change divided by x11|
+|CQTC Percent|This is the CQTC divided by x11|
+|QTC Percent|This is the QTC divided by x11|
 
 One final note about this output is that we can also express the flux information as yields, by dividing by the drainage area.  So we can do a matrix multiplication and end up with a new object that still has concentrations in the first row but has yields in the second row.  For example if we want to do yield in kg/km^2/year.  We could do this.  First we see **pairResults** and second we see **pairResultsYield**.
 
@@ -234,7 +268,7 @@ summary(eList$Sample$Date)
 
 Let's say we want the analysis to only include the discharge data for water years 1980 - 2010. So we would set **QStartDate = "1979-10-01" and QEndDate = "2010-09-30".**  Because the dam likely changed the discharge distribution we want to put in a **flowBreak** at the time of the dam construction so we need to specify: **flowBreak = TRUE and Q1EndDate = "1995-05-31"**.  And, let's say that we are concerned that there may also be trends in the flow distribution in both the pre-dam period and the post-dam period.  So let's set **windowSide = 7**. We also think that the existence of the dam would result in the change in the concentration versus discharge relationship (because the dam creates a large mixing volume and post-dam the concentrations are much less influenced by discharge than was the case before the dam was built).  So we want **wall = TRUE and sample1EndDate = "1995-05-31"**  Finally, we would like to restrict our analysis to the period April - August of each year and we are doing our pair comparison between the years 1985 and 2010.  Thus: **paStart = 4, paLong = 5, year1 = 1985, and year2 = 2010.**  All of the other arguments will be left to their default values.  
 
-```{r pairs2}
+```{r pairs2, eval=FALSE}
 pairResults2 <- runPairs(eList, year1 = 1985, year2 = 2010, 
                          windowSide = 7, flowBreak = TRUE, 
                          Q1EndDate = "1995-05-31", wall = TRUE,
@@ -242,7 +276,43 @@ pairResults2 <- runPairs(eList, year1 = 1985, year2 = 2010,
                          QStartDate = "1979-10-01", 
                          QEndDate = "2010-09-30", 
                          paStart = 4, paLong = 5)
+```
 
+```{r loadPair2, echo=FALSE}
+pairResults2 <- readRDS("pairResults2.rds")
+
+```
+
+```
+## 
+##    Choptank River 
+##    Inorganic nitrogen (nitrate and nitrite)
+##    Season Consisting of Apr May Jun Jul Aug 
+## 
+##  Sample data set was partitioned with a wall right after  1995-05-31 
+## 
+##  Change estimates  2010  minus  1985 
+## 
+##  For concentration: total change is  0.412 mg/L
+##  expressed as Percent Change is  45 %
+## 
+##  Concentration v. Q Trend Component  47 %
+##        Q Trend Component             -2.4 % 
+## 
+## 
+##  For flux: total change is  0.0456 million kg/year
+##  expressed as Percent Change is  51 %
+## 
+##  Concentration v. Q Trend Component  37 %
+##        Q Trend Component             14 % 
+## 
+##      TotalChange  CQTC    QTC   x10   x11  x20  x22
+## Conc       0.412 0.435 -0.022 0.915 0.923 1.35 1.34
+## Flux       0.046 0.033  0.012 0.092 0.089 0.13 0.13
+
+```
+
+```{r pairResultsAttrs}
 attr(pairResults2, "yearPair") 
 attr(pairResults2, "dateInfo") 
 attr(pairResults2, "SampleBlocks") 
@@ -278,10 +348,13 @@ One other argument of note is **oldSurface**. It is a logical variable. The only
 
 You can also set the last argument **verbose** to FALSE if you want to avoid the printing of percentage progress indicators on the console.
 
-Let's do an analysis with the same set up that we used in the first example.  Then we will look at some of the standard outputs we might want to consider.
+Let's do an analysis with the same set up that we used in the first example.  Then we will look at some of the standard outputs we might want to consider. To comply with CRAN requirements on how long it takes to build a vignette, we’ll leave this example up to be run by the user.
 
-```{r series1}
+```{r series1, eval=FALSE}
 eListOut <- runSeries(eList, windowSide = 7, verbose = FALSE)
+```
+
+```{r series1run, eval=FALSE}
 tableResults(eListOut)
 plotConcHist(eListOut)
 plotFluxHist(eListOut)
@@ -290,7 +363,7 @@ tableChange(eListOut, yearPoints = c(1985, 1995, 2010))
 
 We might be uncomfortable with the slightly jagged nature of the flow-normalized flux line and may prefer to use a higher value of windowSide.  Let's see what happens if we increase to **windowSide = 9** .
 
-```{r series2}
+```{r series2, eval=FALSE}
 eListOut <- runSeries(eList, windowSide = 9, verbose = FALSE)
 plotConcHist(eListOut)
 plotFluxHist(eListOut)
@@ -309,8 +382,7 @@ In the case of **runSeries** we can do uncertainty analysis which provides us wi
 We will run an analysis here of a very long record that requires the use of several important features of **EGRET 3.0** and **EGRETci 2.0**.  The record is from USGS streamgage 09234500, Green River near Greendale, UT and the constituent is chloride (parameter code 00940).  The streamgage is located less than a kilometer downstream of Flaming Gorge Dam, which is about 150 meters tall and stores up to 4.7 km^3 which is equivalent to a little more than twice the long-term annual discharge of the river.  So it is a very large dam in comparison to the discharge of the river.  The closure of the dam was around 1962-1963 and we will, somewhat arbitrarily place it at 1963-03-31.  The discharge record we will work with runs from 1950-10-01 to 2018-04-01.  The chloride record consists of 601 observations running from 1956-10-04 through 2018-02-01.  However, there is a large gap in the chloride record from 2000-08-03 to 2012-08-09 and there are only 51 observations after this gap.  
 
 ```{r, echo = FALSE}
-load("Green.Cl.RData")
-eList_Green <- eList
+eListOut <- readRDS("eListOut.rds")
 eList <- Choptank_eList
 ```
 
@@ -325,7 +397,7 @@ INFO$shortName <- "Green River near Greendale, UT"
 eList_Green <- mergeReport(INFO, Daily, Sample)
 ```
 
-```{r runSeries, echo=TRUE, eval=TRUE}
+```{r runSeries, eval=FALSE}
 eListOut <- runSeries(eList_Green, windowSide = 12,
                       flowBreak = TRUE, Q1EndDate = "1963-03-31",
                       wall = TRUE,  sample1EndDate = "1963-03-01",
@@ -333,7 +405,7 @@ eListOut <- runSeries(eList_Green, windowSide = 12,
 ```
 
 
-```{r}
+```{r greenOutRun}
 plotConcHist(eListOut)
 plotFluxHist(eListOut)
 tableResults(eListOut)
@@ -379,19 +451,17 @@ What we see here is a gradual decline in chloride concentration and once we get 
 
 Now, we might want to consider how the results would have been different if we had run this same data set with no wall.  What we would anticipate is that the transition at the time of the dam closure would be smeared out rather than changing abruptly.  Let's run through such a case:
 
-```{r runWall, eval = TRUE}
+```{r runWall, eval = FALSE}
 eListOutNoWall <- runSeries(eList_Green, windowSide = 12,
   flowBreak = TRUE, Q1EndDate = "1963-03-31",
   wall = FALSE, verbose = FALSE)
 
-```
-
-```{r, fig.height = 6, fig.width = 11}
 plotContours(eListOutNoWall, 1961, 1966, 10, 100, 
              contourLevels = seq(0,55,5), flowDuration = FALSE)
+
 ```
 
-The difference is that without the wall the transition in the contour plot is very gradual and doesn't reflect the abrupt nature of the change.
+The difference is that without the wall the transition in the contour plot is very gradual and doesn't reflect the abrupt nature of the change. To comply with CRAN requirements on how long it takes to build a vignette, we'll leave this example up to be run by the user.
 
 # Group analysis
 
@@ -419,13 +489,42 @@ All of these arguments should look familiar from the **runPairs** or **runSeries
     
 As an example, suppose there were a sudden change in a point source of nitrate in the watershed (using the same Choptank watershed example data), and those went into effect at the end of water year 2005 (2004-09-30), but we only wanted to evaluate their impact on the months of March and April.  And, furthermore we would like to make a clean separation with the early data to fit the early-period model and the later data to fit the late-period model. We can do this by placing a **wall** at **2004-09-30**.    Finally, we want to use GFN, with a windowSide = 7.  Here is what we would get.
 
-```{r echo=TRUE, eval=TRUE}
+```{r echo=TRUE, eval=FALSE}
 groupResults <- runGroups(eList, 
                           group1firstYear = 1995, group1lastYear = 2004, 
                           group2firstYear = 2005, group2lastYear = 2010,
                           windowSide = 7, wall = TRUE, 
                           sample1EndDate = "2004-10-30", 
                           paStart = 4, paLong = 2, verbose = FALSE)
+```
+
+```
+## 
+##    Choptank River 
+##    Inorganic nitrogen (nitrate and nitrite)
+##    Season Consisting of Apr May 
+## 
+##  Sample data set was partitioned with a wall right after  2004-10-30 
+## 
+##  Change estimates for
+##  average of 2005  through 2010  minus average of 1995  through 2004 
+## 
+##  For concentration: total change is  0.153 mg/L
+##  expressed as Percent Change is  14 %
+## 
+##  Concentration v. Q Trend Component  13 %
+##        Q Trend Component             0.95 % 
+## 
+## 
+##  For flux: total change is  0.00931 million kg/year
+##  expressed as Percent Change is  5.2 %
+## 
+##  Concentration v. Q Trend Component  9.1 %
+##        Q Trend Component             -3.9 % 
+## 
+##      TotalChange  CQTC     QTC  x10  x11  x20  x22
+## Conc      0.1529 0.142  0.0106 1.12 1.12 1.26 1.27
+## Flux      0.0093 0.016 -0.0069 0.18 0.18 0.19 0.19
 ```
 
 The statement of the results in the output are fairly self-explanatory, and very similar to the outputs from runPairs.  For completeness, the explanation of these outputs is given here.
@@ -436,24 +535,19 @@ Everything on the first row is about concentration (in mg/L).  Everything on the
 
 Here's what the columns represent, but we will take them out of order here:
 
-x10: these are the results using the concentration versus discharge relationship (CQR) for group 1, but using the discharge distribution (QD) for the entire period of record (starting with **QStartDate** and ending with **QEndDate**, or if they aren't specified, it is all the discharge data in the **Daily** data frame).  
-
-x11: these are the results using the CQR for group 1, but using the QD specified by the user for group 1.
-
-x20: these are the results using the CQR for group 2, but using the QD for the entire period.
-
-x22: these are the results for the CQR for group 2, but using the QD specified by the user for group 2.
-
-
-TotalChange: this is the difference between the results for group2 - group1.  They are equal to x22 - x11.  This is what is shown above in the output as "total change."
-
-CQTC: this number is the difference between the two groups, but only the part that is due to the change in the CQR.  It is x20 - x10.  In the results reported above as, "Concentration v. Q Trend Component" it is computed as x20 - x10.
-
-QTC: this number is the difference between the two groups, but only the part that is due to the change in the QD.  It is the Total Change - CQTC.  Or it can be stated as x22 - x11 - x20 + x10.  In the results it is reported as, "Q Trend Component". 
+| Name | Description |
+|-----------|---------------------------------------------------|
+|x10| these are the results using the concentration versus discharge relationship (CQR) for group 1, but using the discharge distribution (QD) for the entire period of record (starting with **QStartDate** and ending with **QEndDate**, or if they aren't specified, it is all the discharge data in the **Daily** data frame).|  
+|x11| These are the results using the CQR for group 1, but using the QD specified by the user for group 1.|
+|x20| These are the results using the CQR for group 2, but using the QD for the entire period.|
+|x22| These are the results for the CQR for group 2, but using the QD specified by the user for group 2.|
+|TotalChange| This is the difference between the results for group2 - group1.  They are equal to x22 - x11.  This is what is shown above in the output as "total change."|
+|CQTC| |his number is the difference between the two groups, but only the part that is due to the change in the CQR.  It is x20 - x10.  In the results reported above as, "Concentration v. Q Trend Component" it is computed as x20 - x10.|
+|QTC| This number is the difference between the two groups, but only the part that is due to the change in the QD.  It is the Total Change - CQTC.  Or it can be stated as x22 - x11 - x20 + x10.  In the results it is reported as, "Q Trend Component".|
 
 The analysis of uncertainty about these results is done with the **runGroupsBoot** function in the **EGRETci** package.  All of the information that sets up the problem is passed to that function via the **groupResults** object.  All of the argument values that were used by **runGroups** are in the attributes of **groupResults**. To see them just requires using the following commands.
 
-```{r}
+```{r groupResultsAttr, eval=FALSE}
 attr(groupResults, "groupInfo")
 attr(groupResults, "dateInfo")
 attr(groupResults, "SampleBlocks")
