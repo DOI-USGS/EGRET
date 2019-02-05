@@ -228,7 +228,7 @@ pairResults &lt;-<span class="st"> </span><span class="kw">runPairs</span>(eList
 ## Conc       0.397 0.429 -0.032 1.01 1.03 1.44 1.43
 ## Flux       0.054 0.034  0.020 0.12 0.11 0.15 0.16</code></pre>
 <p>Let’s take a look at this output. The information about Sample1 and Sample2 is there so we can visually check on the size of our Sample data set to make sure that the default settings for minNumObs and minNumUncen are reasonable. In this case Sample1 and Sample2 are the same, but if we had a <strong>wall</strong> they would be different and we want to make sure that neither of them is too small (e.g. less than 100 samples).</p>
-<p>Next we see output that is pretty self-explanatory. We express the change in concentration first in concentration units and then as a percentage change, in this case + %. Then we see the line that tells us what part of that change was due to a change in the Concentration versus Discharge Trend Component (CQTC). In this case it is %. What this means is that if there had been no change in the probability distribution of discharge the concentration trend would have been %. Then we see the Discharge Trend Component (QTC) which is %. This would be the amount of the trend if the Concentration versus Discharge relationships hadn’t changed at all over the period, but the probability distribution of discharge had changed.</p>
+<p>Next we see output that is pretty self-explanatory. We express the change in concentration first in concentration units and then as a percentage change, in this case + 39 %. Then we see the line that tells us what part of that change was due to a change in the Concentration versus Discharge Trend Component (CQTC). In this case it is 42 %. What this means is that if there had been no change in the probability distribution of discharge the concentration trend would have been 42 %. Then we see the Discharge Trend Component (QTC) which is -3.1 %. This would be the amount of the trend if the Concentration versus Discharge relationships hadn’t changed at all over the period, but the probability distribution of discharge had changed.</p>
 <p>Then we see the exact same kind of results for flux expressed in millions of kg / year. In this case it is a much larger percentage change than we see for concentration and that is because the changes in concentration are most pronounced at high discharge and there is a good deal of positive trend in the upper end of the distribution of discharge.</p>
 <p>A couple of things to note. It is often the case that the QTC is relatively small for the concentration trend but can be quite large for the flux trend. That stands to reason since discharge is such an important aspect of flux. But, also note that it is entirely possible for the CQTC and QTC to have opposite signs, and in some cases they virtually cancel each other out. These relationships are important in interpretations. For example, we could have a case where the CQTC is negative meaning more dilute water while the QTC is positive meaning more water and the net effect is a near zero trend in flux.</p>
 <p>The last part of the output is the matrix consisting of 2 rows and 7 columns. This is actually the object called <strong>pairResults</strong> which is what <strong>runPairs</strong> returns (the only difference being that what is printed has fewer significant figures).</p>
@@ -300,6 +300,9 @@ pairResults &lt;-<span class="st"> </span><span class="kw">runPairs</span>(eList
 <th align="right">x11</th>
 <th align="right">x20</th>
 <th align="right">x22</th>
+<th align="right">Total Percent Change</th>
+<th align="right">CQTC Percent</th>
+<th align="right">QTC Percent</th>
 </tr>
 </thead>
 <tbody>
@@ -312,6 +315,9 @@ pairResults &lt;-<span class="st"> </span><span class="kw">runPairs</span>(eList
 <td align="right">1.0289</td>
 <td align="right">1.4438</td>
 <td align="right">1.4257</td>
+<td align="right">0.3856</td>
+<td align="right">0.4170</td>
+<td align="right">-0.0313</td>
 </tr>
 <tr class="even">
 <td>Flux</td>
@@ -322,6 +328,9 @@ pairResults &lt;-<span class="st"> </span><span class="kw">runPairs</span>(eList
 <td align="right">0.1071</td>
 <td align="right">0.1504</td>
 <td align="right">0.1613</td>
+<td align="right">0.0002</td>
+<td align="right">0.0001</td>
+<td align="right">0.0001</td>
 </tr>
 </tbody>
 </table>
@@ -341,6 +350,9 @@ knitr<span class="op">::</span><span class="kw">kable</span>(pairResultsYield, <
 <th align="right">x11</th>
 <th align="right">x20</th>
 <th align="right">x22</th>
+<th align="right">Total Percent Change</th>
+<th align="right">CQTC Percent</th>
+<th align="right">QTC Percent</th>
 </tr>
 </thead>
 <tbody>
@@ -353,6 +365,9 @@ knitr<span class="op">::</span><span class="kw">kable</span>(pairResultsYield, <
 <td align="right">1.0289</td>
 <td align="right">1.4438</td>
 <td align="right">1.4257</td>
+<td align="right">0.3856</td>
+<td align="right">0.4170</td>
+<td align="right">-0.0313</td>
 </tr>
 <tr class="even">
 <td>Flux</td>
@@ -363,6 +378,9 @@ knitr<span class="op">::</span><span class="kw">kable</span>(pairResultsYield, <
 <td align="right">365.7999</td>
 <td align="right">513.7885</td>
 <td align="right">551.2012</td>
+<td align="right">0.6325</td>
+<td align="right">0.3987</td>
+<td align="right">0.2339</td>
 </tr>
 </tbody>
 </table>
