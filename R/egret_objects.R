@@ -55,11 +55,11 @@ as.egret <- function(INFO, Daily, Sample=NA, surfaces=NA) {
                 Sample=Sample, 
                 surfaces=surfaces)
   
-  if(!is.na(Daily) && !("Q" %in% names(Daily))){
+  if(!all(is.na(Daily)) && !("Q" %in% names(Daily))){
     stop("Missing column 'Q' in Daily dataframe.")
   }
   
-  if(!is.na(Sample) && !all((c("ConcLow","ConcHigh","Uncen","ConcAve") %in% names(Sample)))){
+  if(!all(is.na(Sample)) && !all((c("ConcLow","ConcHigh","Uncen","ConcAve") %in% names(Sample)))){
     message("\nPlease double check that the Sample dataframe is correctly defined.")
     message("\nMissing columns:", c("ConcLow","ConcHigh","Uncen","ConcAve")[!(c("ConcLow","ConcHigh","Uncen","ConcAve") %in% names(Sample))])
   }
@@ -68,7 +68,7 @@ as.egret <- function(INFO, Daily, Sample=NA, surfaces=NA) {
     message("\nPlease double check that the INFO dataframe is correctly defined.")
   }
   
-  if(!is.na(surfaces) && 14 != nrow(surfaces)){
+  if(exists("surfaces") && isTRUE(14 != nrow(surfaces))){
     message("\nPlease double check that the surfaces matrix is correctly defined.")
   }
   
