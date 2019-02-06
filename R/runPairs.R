@@ -335,8 +335,8 @@ runPairs <- function(eList, year1, year2, windowSide,
   fRSpart <- f20 - f10
   fFDpart <- fDeltaTotal - fRSpart
   
-  totChangePct_conc <- cDeltaTotal/c11
-  totChangePct_flux <- fDeltaTotal/f11
+  totChangePct_conc <- 100*cDeltaTotal/c11
+  totChangePct_flux <- 100*fDeltaTotal/f11
   
   CQTC_percent_conc <- 100*cRSpart / c11 # CQTC Percent
   QTC_percent_conc  <- 100*cFDpart / c11 # Q Trend Component Percent
