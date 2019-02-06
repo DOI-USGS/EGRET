@@ -65,6 +65,14 @@ eList <- Choptank_eList
 pairResults <- readRDS("pairResults.rds")
 
 
+## ----showPercentages-----------------------------------------------------
+concPercents <- attr(pairResults, "Other")[["PercentChangeConc"]]
+concPercents
+
+fluxPercents <- attr(pairResults, "Other")[["PercentChangeFlux"]]
+fluxPercents
+
+
 ## ----tableOut------------------------------------------------------------
 knitr::kable(pairResults, digits = 4)
 # note that you don't have to use the kable function from knitr to 

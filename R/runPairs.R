@@ -55,10 +55,16 @@
 #' x11 \tab The results using the CQR for year 1, but using the QD specified by the user for year 1.\tab \cr
 #' x20 \tab The results using the CQR for year 2, but using the QD for the entire period. \cr
 #' x22 \tab The results for the CQR for year 2, but using the QD specified by the user for year 2. \cr
-#' Total Percent Change \tab this is the Total Change divided by x11\cr
-#' CQTC Percent \tab this is the CQTC divided by x11\cr
-#' QTC Percent  \tab this is the QTC divided by x11\cr
 #' }
+#' Additionally, there is an attribute on the data frame "Other", containing
+#' a list that includes minNumObs=minNumObs, minNumUncen, windowY, windowQ, 
+#' windowS, wall, edgeAdjust, QStartDate, QEndDate, PercentChangeConc, and PercentChangeFlux.
+#' 
+#' PercentChangeConc, and PercentChangeFlux are vectors with:
+#' Total Percent Change  is the Total Change divided by x11
+#' CQTC Percent is the CQTC divided by x11
+#' QTC Percent  is the QTC divided by x11
+#' 
 #' @examples 
 #' eList <- Choptank_eList
 #' year1 <- 1985
@@ -332,26 +338,21 @@ runPairs <- function(eList, year1, year2, windowSide,
   totChangePct_conc <- cDeltaTotal/c11
   totChangePct_flux <- fDeltaTotal/f11
   
-  CQTC_percent_conc <- cRSpart / c11 # CQTC Percent
-  QTC_percent_conc  <- cFDpart / c11 # Q Trend Component Percent
+  CQTC_percent_conc <- 100*cRSpart / c11 # CQTC Percent
+  QTC_percent_conc  <- 100*cFDpart / c11 # Q Trend Component Percent
 
-  CQTC_percent_flux <- fRSpart / f11
-  QTC_percent_flux  <- fFDpart / f11
+  CQTC_percent_flux <- 100*fRSpart / f11
+  QTC_percent_flux  <- 100*fFDpart / f11
   
-  pairResults <- as.data.frame(matrix(ncol = 10, nrow = 2))
+  pairResults <- as.data.frame(matrix(ncol = 7, nrow = 2))
   colnames(pairResults) <- c("TotalChange", "CQTC", "QTC", 
-                             "x10", "x11", "x20", "x22", 
-                             "Total Percent Change",
-                             "CQTC Percent",
-                             "QTC Percent")
+                             "x10", "x11", "x20", "x22")
   rownames(pairResults) <- c("Conc", "Flux")
   pairResults[1, ] <- c(cDeltaTotal, cRSpart, cFDpart, c10, 
-                        c11, c20, c22, 
-                        totChangePct_conc, CQTC_percent_conc, QTC_percent_conc)
+                        c11, c20, c22)
   # 0.00036525 is magic number to convert to million kg/year
   pairResults[2, ] <- 0.00036525 * c(fDeltaTotal, fRSpart, 
-                                     fFDpart, f10, f11, f20, f22, 
-                                     totChangePct_flux, CQTC_percent_flux, QTC_percent_flux)
+                                     fFDpart, f10, f11, f20, f22)
   
   yearPairInfo <- c(paStart, paLong, year1, year2)
   names(yearPairInfo) <- c("paStart","paLong","year1","year2")
@@ -371,7 +372,13 @@ runPairs <- function(eList, year1, year2, windowSide,
                 wall=wall,
                 edgeAdjust=edgeAdjust,
                 QStartDate = as.Date(QStartDate), 
-                QEndDate = as.Date(QEndDate))
+                QEndDate = as.Date(QEndDate),
+                PercentChangeConc = c("Total Percent Change" = totChangePct_conc, 
+                                      "CQTC Percent" = CQTC_percent_conc, 
+                                      "QTC Percent" = QTC_percent_conc),
+                PercentChangeFlux = c("Total Percent Change" = totChangePct_flux, 
+                                      "CQTC Percent" = CQTC_percent_flux, 
+                                      "QTC Percent" = QTC_percent_flux))
 
   attr(pairResults, "Other") <- Other
   
@@ -383,20 +390,20 @@ runPairs <- function(eList, year1, year2, windowSide,
         as.character(sample1EndDate), "\n")
   cat("\n Change estimates ", year2, " minus ", year1, "\n")
   totChange <- format(pairResults[1, 1], digits = 3)
-  totChangePct_conc_f <- format(100 *totChangePct_conc, digits = 2)
+  totChangePct_conc_f <- format(totChangePct_conc, digits = 2)
   cat("\n For concentration: total change is ", totChange, 
       "mg/L")
   cat("\n expressed as Percent Change is ", totChangePct_conc_f, "%")
-  pctRS <- format(100 * CQTC_percent_conc, digits = 2)
-  pctFD <- format(100 * QTC_percent_conc, digits = 2)
+  pctRS <- format(CQTC_percent_conc, digits = 2)
+  pctFD <- format(QTC_percent_conc, digits = 2)
   cat("\n\n Concentration v. Q Trend Component ", pctRS, "%\n       Q Trend Component            ", 
       pctFD, "% \n\n")
   totChange <- format(pairResults[2, 1], digits = 3)
-  totChangePct_flux_f <- format(100 * (totChangePct_flux), digits = 2)
+  totChangePct_flux_f <- format((totChangePct_flux), digits = 2)
   cat("\n For flux: total change is ", totChange, "million kg/year")
   cat("\n expressed as Percent Change is ", totChangePct_flux_f, "%")
-  pctRS <- format(100 * CQTC_percent_flux, digits = 2)
-  pctFD <- format(100 * QTC_percent_flux, digits = 2)
+  pctRS <- format(CQTC_percent_flux, digits = 2)
+  pctFD <- format(QTC_percent_flux, digits = 2)
   cat("\n\n Concentration v. Q Trend Component ", pctRS, "%\n       Q Trend Component            ", 
       pctFD, "% \n\n")
   print(pairResults[,1:7], digits = 2)

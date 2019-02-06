@@ -204,7 +204,7 @@ pairResults <- readRDS("pairResults.rds")
 
 Let's take a look at this output.  The information about Sample1 and Sample2 is there so we can visually check on the size of our Sample data set to make sure that the default settings for minNumObs and minNumUncen are reasonable.  In this case Sample1 and Sample2 are the same, but if we had a **wall** they would be different and we want to make sure that neither of them is too small (e.g. less than 100 samples). 
 
-Next we see output that is pretty self-explanatory.  We express the change in concentration first in concentration units and then as a percentage change, in this case + `r format(100 * pairResults[1, "Total Percent Change"], digits = 2)` %.  Then we see the line that tells us what part of that change was due to a change in the Concentration versus Discharge Trend Component (CQTC).  In this case it is `r format(100 * pairResults[1, "CQTC Percent"], digits = 2)` %.  What this means is that if there had been no change in the probability distribution of discharge the concentration trend would have been  `r format(100 * pairResults[1,"CQTC Percent"], digits = 2)` %.  Then we see the Discharge Trend Component (QTC) which is `r format(100 * pairResults[1,"QTC Percent"], digits = 2)` %.  This would be the amount of the trend if the Concentration versus Discharge relationships hadn't changed at all over the period, but the probability distribution of discharge had changed.  
+Next we see output that is pretty self-explanatory.  We express the change in concentration first in concentration units and then as a percentage change, in this case + `r format(attr(pairResults, "Other")[["PercentChangeConc"]][["Total Percent Change"]], digits = 2)` %.  Then we see the line that tells us what part of that change was due to a change in the Concentration versus Discharge Trend Component (CQTC).  In this case it is `r format(attr(pairResults, "Other")[["PercentChangeConc"]][["CQTC Percent"]], digits = 2)` %.  What this means is that if there had been no change in the probability distribution of discharge the concentration trend would have been  `r format(attr(pairResults, "Other")[["PercentChangeConc"]][["CQTC Percent"]], digits = 2)` %.  Then we see the Discharge Trend Component (QTC) which is `r format(attr(pairResults, "Other")[["PercentChangeConc"]][["QTC Percent"]], digits = 2)` %.  This would be the amount of the trend if the Concentration versus Discharge relationships hadn't changed at all over the period, but the probability distribution of discharge had changed.  
 
 Then we see the exact same kind of results for flux expressed in millions of kg / year.  In this case it is a much larger percentage change than we see for concentration and that is because the changes in concentration are most pronounced at high discharge and there is a good deal of positive trend in the upper end of the distribution of discharge.  
 
@@ -223,9 +223,18 @@ Everything on the first row is about concentration (in mg/L).  Everything on the
 |TotalChange|This is the difference between the results from 2010-1985.  They are equal to x22 - x11.  This is what is shown above in the output as "total change".|
 |CQTC|This number is the difference between between the two years, but only the part that is due to the change in the CQR.  It is x20 - x10.  In the results reported above as, "Concentration v. Q Trend Component" it is computed as x20 - x10.|
 |QTC|This number is the difference between the two years, but only the part that is due to the change in the QD.  It is the Total Change - CQTC.  Or it can be stated as x22 - x11 - x20 + x10.  It is known as the "Q Trend Component."|
-|Total Percent Change|This is the Total Change divided by x11|
-|CQTC Percent|This is the CQTC divided by x11|
-|QTC Percent|This is the QTC divided by x11|
+
+To get the percent changes as described above, use the information provided in the attribute "Other". There are 2 vectors, one for concentration, one for flux:
+
+```{r showPercentages}
+concPercents <- attr(pairResults, "Other")[["PercentChangeConc"]]
+concPercents
+
+fluxPercents <- attr(pairResults, "Other")[["PercentChangeFlux"]]
+fluxPercents
+
+```
+
 
 One final note about this output is that we can also express the flux information as yields, by dividing by the drainage area.  So we can do a matrix multiplication and end up with a new object that still has concentrations in the first row but has yields in the second row.  For example if we want to do yield in kg/km^2/year.  We could do this.  First we see **pairResults** and second we see **pairResultsYield**.
 
