@@ -303,6 +303,35 @@ test_that("other plot functions don't error", {
   expect_silent(plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd))
   expect_true(dev_start + 1 == dev.cur())
   
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(fluxBiasMulti(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  clevel <- seq(0,3.5,0.5)
+  yearStart <- 2001
+  yearEnd <- 2010
+  qBottom <- 0.5
+  qTop<- 22
+  expect_silent(plotContours(eList, yearStart,yearEnd,qBottom,qTop, contourLevels = clevel) )
+  expect_true(dev_start + 1 == dev.cur())
+
+  graphics.off()
+  dev_start <- dev.cur()  
+  year0<-2001
+  year1<-2009
+  qBottom<-0.33
+  qTop<-22
+  maxDiff<-0.5
+  expect_silent(plotDiffContours(eList, year0,year1))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(plotFourStats(eList))
+  expect_true(dev_start + 1 == dev.cur())
   
 })
 
