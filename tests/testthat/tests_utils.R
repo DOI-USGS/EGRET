@@ -450,3 +450,28 @@ test_that("surfaceStartEnd",{
   expect_equal(firstLast[["surfaceEnd"]], as.Date("2012-08-30"))
   
 })
+
+test_that("fixSampleFrame", {
+  
+  eList <- Choptank_eList
+  Sample <- eList$Sample
+  Sample[1,c("ConcLow","ConcHigh")] <- c(NA, 0.01) # Adjusted to left-censored
+  Sample[2,c("ConcLow","ConcHigh")] <- c(1.1, 1.3) # Adjusted to interval-censored
+  Sample[3,c("ConcLow","ConcHigh")] <- c(1.3, 1.3) # Simple adjustment
+  eListNew <- eList
+  eListNew$Sample <- Sample
+  eListNew <- fixSampleFrame(eListNew)
+  expect_equal(eList$Sample$Uncen[1:3], c(1,1,1))
+  expect_equal(eListNew$Sample$Uncen[1:3], c(0,0,1))
+})
+
+test_that("removeDuplicates", {
+  
+  DecYear <- c('1985.01', '1985.01', '1985.02', '1985.02', '1985.03')
+  ConcHigh <- c(1,2,3,3,5)
+  dataInput <- data.frame(DecYear, ConcHigh, stringsAsFactors=FALSE)
+  dataInput_removed <- removeDuplicates(dataInput)
+
+  expect_equal(nrow(dataInput), 5)
+  expect_equal(nrow(dataInput_removed), 4)
+})
