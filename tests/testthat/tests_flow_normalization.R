@@ -250,30 +250,84 @@ test_that("runPairs",{
   
   expect_equal(attr(pairOut_1, "dateInfo"), attr(pairOut_1_orig, "dateInfo"))
   expect_equal(attr(pairOut_1, "yearPair"), attr(pairOut_1_orig, "yearPair"))
-  expect_true(all(names(pairOut_1) %in% c("TotalChange","CQTC","QTC","x10","x11","x20","x22" )))
+  expect_true(all(names(pairOut_1) %in% c("TotalChange","CQTC","QTC","x10","x11","x20","x22")))
   
   expect_equal(round(pairOut_1$TotalChange[1], digits = 4), 0.429)
+  
+  expect_equal(round(attr(pairOut_1, "Other")[["PercentChangeConc"]][["Total Percent Change"]],digits = 2),
+               42.27)
+  expect_equal(round(attr(pairOut_1, "Other")[["PercentChangeConc"]][["CQTC Percent"]],digits = 2),
+               42.27)
+  expect_equal(round(attr(pairOut_1, "Other")[["PercentChangeConc"]][["QTC Percent"]],digits = 2),
+               0)
+  expect_equal(round(attr(pairOut_1, "Other")[["PercentChangeFlux"]][["Total Percent Change"]],digits = 2),
+               29.44)
+  expect_equal(round(attr(pairOut_1, "Other")[["PercentChangeFlux"]][["CQTC Percent"]],digits = 2),
+               29.44)
+  expect_equal(round(attr(pairOut_1, "Other")[["PercentChangeFlux"]][["QTC Percent"]],digits = 2),
+               0)
   
   # Option 2:
   pairOut_2 <- runPairs(eList, year1, year2, windowSide = 7)
 
-  expect_true(all(names(pairOut_2) %in% c("TotalChange","CQTC","QTC","x10","x11","x20","x22" )))
+  expect_true(all(names(pairOut_2) %in% c("TotalChange","CQTC","QTC","x10","x11","x20","x22")))
   expect_equal(round(pairOut_2$TotalChange[1], digits = 4), 0.3968)
+  
+  expect_equal(round(pairOut_1$TotalChange[1], digits = 4), 0.429)
+  
+  expect_equal(round(attr(pairOut_2, "Other")[["PercentChangeConc"]][["Total Percent Change"]],digits = 2),
+               38.56)
+  expect_equal(round(attr(pairOut_2, "Other")[["PercentChangeConc"]][["CQTC Percent"]],digits = 2),
+               41.7)
+  expect_equal(round(attr(pairOut_2, "Other")[["PercentChangeConc"]][["QTC Percent"]],digits = 2),
+               -3.13)
+  expect_equal(round(attr(pairOut_2, "Other")[["PercentChangeFlux"]][["Total Percent Change"]],digits = 2),
+               50.68)
+  expect_equal(round(attr(pairOut_2, "Other")[["PercentChangeFlux"]][["CQTC Percent"]],digits = 2),
+               31.94)
+  expect_equal(round(attr(pairOut_2, "Other")[["PercentChangeFlux"]][["QTC Percent"]],digits = 2),
+               18.74)
   
   # Option 3:
   pairOut_3 <- runPairs(eList, year1, year2,
                         windowSide = 0, flowBreak = TRUE,
                         Q1EndDate = "1990-09-30")
-  expect_true(all(names(pairOut_3) %in% c("TotalChange","CQTC","QTC","x10","x11","x20","x22" )))
+  expect_true(all(names(pairOut_3) %in% c("TotalChange","CQTC","QTC","x10","x11","x20","x22")))
   expect_equal(round(pairOut_3$TotalChange[1], digits = 4), 0.4081)
+  
+  expect_equal(round(attr(pairOut_3, "Other")[["PercentChangeConc"]][["Total Percent Change"]],digits = 2),
+               39.77)
+  expect_equal(round(attr(pairOut_3, "Other")[["PercentChangeConc"]][["CQTC Percent"]],digits = 2),
+               41.81)
+  expect_equal(round(attr(pairOut_3, "Other")[["PercentChangeConc"]][["QTC Percent"]],digits = 2),
+               -2.04)
+  expect_equal(round(attr(pairOut_3, "Other")[["PercentChangeFlux"]][["Total Percent Change"]],digits = 2),
+               45.81)
+  expect_equal(round(attr(pairOut_3, "Other")[["PercentChangeFlux"]][["CQTC Percent"]],digits = 2),
+               31.89)
+  expect_equal(round(attr(pairOut_3, "Other")[["PercentChangeFlux"]][["QTC Percent"]],digits = 2),
+               13.91)
   
   # Option 4:
   pairOut_4 <- runPairs(eList, year1, year2,
                         windowSide = 7, flowBreak = TRUE,
                         Q1EndDate = "1990-09-30")
   
-  expect_true(all(names(pairOut_4) %in% c("TotalChange","CQTC","QTC","x10","x11","x20","x22" )))
+  expect_true(all(names(pairOut_4) %in% c("TotalChange","CQTC","QTC","x10","x11","x20","x22")))
   expect_equal(round(pairOut_4$TotalChange[1], digits = 4), 0.3995)
+  
+  expect_equal(round(attr(pairOut_4, "Other")[["PercentChangeConc"]][["Total Percent Change"]],digits = 2),
+               38.93)
+  expect_equal(round(attr(pairOut_4, "Other")[["PercentChangeConc"]][["CQTC Percent"]],digits = 2),
+               41.81)
+  expect_equal(round(attr(pairOut_4, "Other")[["PercentChangeConc"]][["QTC Percent"]],digits = 2),
+               -2.88)
+  expect_equal(round(attr(pairOut_4, "Other")[["PercentChangeFlux"]][["Total Percent Change"]],digits = 2),
+               50.44)
+  expect_equal(round(attr(pairOut_4, "Other")[["PercentChangeFlux"]][["CQTC Percent"]],digits = 2),
+               31.89)
+  expect_equal(round(attr(pairOut_4, "Other")[["PercentChangeFlux"]][["QTC Percent"]],digits = 2),
+               18.55)
   
 })
 

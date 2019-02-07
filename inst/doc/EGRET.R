@@ -393,10 +393,11 @@ siteNumber <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "1979-10-01"
 endDate <- "2011-09-30"
 param<-"00631"
+eList <- Choptank_eList
 Daily <- getDaily(eList)
 Sample <- getSample(eList)
 INFO <- getInfo(eList)
-eList <- Choptank_eList
+
 
 ## ----plotBoxes, echo=TRUE, fig.cap="Concentration box plots",fig.subcap=c("\\texttt{boxConcMonth(eList)}","\\texttt{boxQTwice(eList, qUnit=1)}"),out.width='.5\\linewidth',out.height='.5\\linewidth',fig.show='hold',fig.pos="h"----
 boxConcMonth(eList)

@@ -1,8 +1,6 @@
 #' Import NWIS Daily Data for EGRET analysis
 #'
 #' Imports daily data from NWIS web service. This function gets the data from here: \url{https://waterservices.usgs.gov/}
-#' A list of parameter codes can be found here: \url{https://nwis.waterdata.usgs.gov/nwis/pmcodes/}
-#' A list of statistic codes can be found here: \url{https://nwis.waterdata.usgs.gov/nwis/help/?read_file=stat&format=table}
 #'
 #' @param siteNumber character USGS site number.  This is usually an 8 digit number
 #' @param parameterCd character USGS parameter code.  This is usually an 5 digit number.

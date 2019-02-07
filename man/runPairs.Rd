@@ -84,6 +84,14 @@ x11 \tab The results using the CQR for year 1, but using the QD specified by the
 x20 \tab The results using the CQR for year 2, but using the QD for the entire period. \cr
 x22 \tab The results for the CQR for year 2, but using the QD specified by the user for year 2. \cr
 }
+Additionally, there is an attribute on the data frame "Other", containing
+a list that includes minNumObs=minNumObs, minNumUncen, windowY, windowQ, 
+windowS, wall, edgeAdjust, QStartDate, QEndDate, PercentChangeConc, and PercentChangeFlux.
+
+PercentChangeConc, and PercentChangeFlux are vectors with:
+Total Percent Change  is the Total Change divided by x11
+CQTC Percent is the CQTC divided by x11
+QTC Percent  is the QTC divided by x11
 }
 \description{
 \code{runPairs} provides comparisons of results, in terms of 

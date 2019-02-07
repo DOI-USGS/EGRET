@@ -1168,10 +1168,11 @@ siteNumber <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "1979-10-01"
 endDate <- "2011-09-30"
 param<-"00631"
+eList <- Choptank_eList
 Daily <- getDaily(eList)
 Sample <- getSample(eList)
 INFO <- getInfo(eList)
-eList <- Choptank_eList
+
 @
 
 

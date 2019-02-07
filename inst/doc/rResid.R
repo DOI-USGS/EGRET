@@ -44,6 +44,9 @@ plotConcQ(eList, qUnit = 4, randomCensored = TRUE)
 plotResidTime(eList, randomCensored = TRUE)
 plotResidQ(eList, qUnit = 4, randomCensored = TRUE)
 
+## ----augment1, eval=FALSE------------------------------------------------
+#  eList <- makeAugmentedSample(eList)
+
 ## ---- fig.height = 9, fig.width = 8--------------------------------------
 multiPlotDataOverview(eList, qUnit = 4, randomCensored = TRUE)
 fluxBiasMulti(eList, qUnit = 4, fluxUnit = 9, randomCensored = TRUE)

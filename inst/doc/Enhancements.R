@@ -51,14 +51,27 @@ for(i in 1994:2010) {
 abline(v = decimalDate("1981-08-06"), col = "blue", lwd = 2)
 abline(v = decimalDate("2016-01-14"), col = "blue", lwd = 2)
 
-## ----loadData------------------------------------------------------------
-library(EGRET)
+## ----loadData, eval=FALSE------------------------------------------------
+#  library(EGRET)
+#  
+#  eList <- Choptank_eList
+#  
+#  pairResults <- runPairs(eList,
+#                          year1 = 1985, year2 = 2010,
+#                          windowSide = 7)
 
+## ----loadDataReal, echo=FALSE--------------------------------------------
 eList <- Choptank_eList
+pairResults <- readRDS("pairResults.rds")
 
-pairResults <- runPairs(eList, 
-                        year1 = 1985, year2 = 2010,
-                        windowSide = 7)
+
+## ----showPercentages-----------------------------------------------------
+concPercents <- attr(pairResults, "Other")[["PercentChangeConc"]]
+concPercents
+
+fluxPercents <- attr(pairResults, "Other")[["PercentChangeFlux"]]
+fluxPercents
+
 
 ## ----tableOut------------------------------------------------------------
 knitr::kable(pairResults, digits = 4)
@@ -78,15 +91,20 @@ attr(pairResults, "Other")
 summary(eList$Daily$Date)
 summary(eList$Sample$Date)
 
-## ----pairs2--------------------------------------------------------------
-pairResults2 <- runPairs(eList, year1 = 1985, year2 = 2010, 
-                         windowSide = 7, flowBreak = TRUE, 
-                         Q1EndDate = "1995-05-31", wall = TRUE,
-                         sample1EndDate = "1995-05-31", 
-                         QStartDate = "1979-10-01", 
-                         QEndDate = "2010-09-30", 
-                         paStart = 4, paLong = 5)
+## ----pairs2, eval=FALSE--------------------------------------------------
+#  pairResults2 <- runPairs(eList, year1 = 1985, year2 = 2010,
+#                           windowSide = 7, flowBreak = TRUE,
+#                           Q1EndDate = "1995-05-31", wall = TRUE,
+#                           sample1EndDate = "1995-05-31",
+#                           QStartDate = "1979-10-01",
+#                           QEndDate = "2010-09-30",
+#                           paStart = 4, paLong = 5)
 
+## ----loadPair2, echo=FALSE-----------------------------------------------
+pairResults2 <- readRDS("pairResults2.rds")
+
+
+## ----pairResultsAttrs----------------------------------------------------
 attr(pairResults2, "yearPair") 
 attr(pairResults2, "dateInfo") 
 attr(pairResults2, "SampleBlocks") 
@@ -106,22 +124,23 @@ attr(pairResults2, "Other")
 #                        windowS = 0.5, edgeAdjust = TRUE,
 #                        verbose = TRUE)
 
-## ----series1-------------------------------------------------------------
-eListOut <- runSeries(eList, windowSide = 7, verbose = FALSE)
-tableResults(eListOut)
-plotConcHist(eListOut)
-plotFluxHist(eListOut)
-tableChange(eListOut, yearPoints = c(1985, 1995, 2010))
+## ----series1, eval=FALSE-------------------------------------------------
+#  eListOut <- runSeries(eList, windowSide = 7, verbose = FALSE)
 
-## ----series2-------------------------------------------------------------
-eListOut <- runSeries(eList, windowSide = 9, verbose = FALSE)
-plotConcHist(eListOut)
-plotFluxHist(eListOut)
-tableChange(eListOut, yearPoints = c(1985, 1995, 2010))
+## ----series1run, eval=FALSE----------------------------------------------
+#  tableResults(eListOut)
+#  plotConcHist(eListOut)
+#  plotFluxHist(eListOut)
+#  tableChange(eListOut, yearPoints = c(1985, 1995, 2010))
+
+## ----series2, eval=FALSE-------------------------------------------------
+#  eListOut <- runSeries(eList, windowSide = 9, verbose = FALSE)
+#  plotConcHist(eListOut)
+#  plotFluxHist(eListOut)
+#  tableChange(eListOut, yearPoints = c(1985, 1995, 2010))
 
 ## ---- echo = FALSE-------------------------------------------------------
-load("Green.Cl.RData")
-eList_Green <- eList
+eListOut <- readRDS("eListOut.rds")
 eList <- Choptank_eList
 
 ## ----loadDataPretendGreen, echo=TRUE, eval=FALSE-------------------------
@@ -134,13 +153,13 @@ eList <- Choptank_eList
 #  INFO$shortName <- "Green River near Greendale, UT"
 #  eList_Green <- mergeReport(INFO, Daily, Sample)
 
-## ----runSeries, echo=TRUE, eval=TRUE-------------------------------------
-eListOut <- runSeries(eList_Green, windowSide = 12,
-                      flowBreak = TRUE, Q1EndDate = "1963-03-31",
-                      wall = TRUE,  sample1EndDate = "1963-03-01",
-                      verbose = FALSE)
+## ----runSeries, eval=FALSE-----------------------------------------------
+#  eListOut <- runSeries(eList_Green, windowSide = 12,
+#                        flowBreak = TRUE, Q1EndDate = "1963-03-31",
+#                        wall = TRUE,  sample1EndDate = "1963-03-01",
+#                        verbose = FALSE)
 
-## ------------------------------------------------------------------------
+## ----greenOutRun---------------------------------------------------------
 plotConcHist(eListOut)
 plotFluxHist(eListOut)
 tableResults(eListOut)
@@ -165,15 +184,14 @@ plotContours(eListOut, 1961, 1966, 10, 100,
 plotContours(eListOut, 1964, 1984, 10, 100, 
              contourLevels = seq(0,55,5), flowDuration = FALSE)
 
-## ----runWall, eval = TRUE------------------------------------------------
-eListOutNoWall <- runSeries(eList_Green, windowSide = 12,
-  flowBreak = TRUE, Q1EndDate = "1963-03-31",
-  wall = FALSE, verbose = FALSE)
-
-
-## ---- fig.height = 6, fig.width = 11-------------------------------------
-plotContours(eListOutNoWall, 1961, 1966, 10, 100, 
-             contourLevels = seq(0,55,5), flowDuration = FALSE)
+## ----runWall, eval = FALSE-----------------------------------------------
+#  eListOutNoWall <- runSeries(eList_Green, windowSide = 12,
+#    flowBreak = TRUE, Q1EndDate = "1963-03-31",
+#    wall = FALSE, verbose = FALSE)
+#  
+#  plotContours(eListOutNoWall, 1961, 1966, 10, 100,
+#               contourLevels = seq(0,55,5), flowDuration = FALSE)
+#  
 
 ## ----eval=FALSE----------------------------------------------------------
 #  groupResults <- runGroups(eList, windowSide,
@@ -190,17 +208,17 @@ plotContours(eListOutNoWall, 1961, 1966, 10, 100,
 #                            windowY = 7, windowQ = 2, windowS = 0.5,
 #                            edgeAdjust = TRUE, verbose = TRUE)
 
-## ----echo=TRUE, eval=TRUE------------------------------------------------
-groupResults <- runGroups(eList, 
-                          group1firstYear = 1995, group1lastYear = 2004, 
-                          group2firstYear = 2005, group2lastYear = 2010,
-                          windowSide = 7, wall = TRUE, 
-                          sample1EndDate = "2004-10-30", 
-                          paStart = 4, paLong = 2, verbose = FALSE)
+## ----echo=TRUE, eval=FALSE-----------------------------------------------
+#  groupResults <- runGroups(eList,
+#                            group1firstYear = 1995, group1lastYear = 2004,
+#                            group2firstYear = 2005, group2lastYear = 2010,
+#                            windowSide = 7, wall = TRUE,
+#                            sample1EndDate = "2004-10-30",
+#                            paStart = 4, paLong = 2, verbose = FALSE)
 
-## ------------------------------------------------------------------------
-attr(groupResults, "groupInfo")
-attr(groupResults, "dateInfo")
-attr(groupResults, "SampleBlocks")
-attr(groupResults, "Other")
+## ----groupResultsAttr, eval=FALSE----------------------------------------
+#  attr(groupResults, "groupInfo")
+#  attr(groupResults, "dateInfo")
+#  attr(groupResults, "SampleBlocks")
+#  attr(groupResults, "Other")
 
