@@ -260,8 +260,13 @@ The edgeAdjust method tends to reduce curvature near the start and end of record
 <tr><td>x20</td><td>The results using the CQR for year 2, but using the QD for the entire period.</td><td></td></tr>
 <tr><td>x22</td><td>The results for the CQR for year 2, but using the QD specified by the user for year 2.</td><td></td></tr>
 </table>
-
-
+<p>Additionally, there is an attribute on the data frame "Other", containing
+a list that includes minNumObs=minNumObs, minNumUncen, windowY, windowQ, 
+windowS, wall, edgeAdjust, QStartDate, QEndDate, PercentChangeConc, and PercentChangeFlux.</p>
+<p>PercentChangeConc, and PercentChangeFlux are vectors with:
+Total Percent Change  is the Total Change divided by x11
+CQTC Percent is the CQTC divided by x11
+QTC Percent  is the QTC divided by x11</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
