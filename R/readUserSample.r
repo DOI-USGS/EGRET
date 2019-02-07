@@ -35,7 +35,7 @@
 #' @examples
 #' filePath <- system.file("extdata", package="EGRET")
 #' fileName <- 'ChoptankRiverNitrate.csv'
-#' Sample <- readUserSample(filePath,fileName, separator=";",interactive=FALSE)
+#' Sample <- readUserSample(filePath,fileName, separator=";",verbose=FALSE)
 readUserSample <- function (filePath,fileName,hasHeader=TRUE,separator=",", verbose=TRUE, interactive=NULL){
   
   if(!is.null(interactive)) {

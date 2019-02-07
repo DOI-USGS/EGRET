@@ -235,16 +235,21 @@ fluxPercents
 
 ```
 
-
-One final note about this output is that we can also express the flux information as yields, by dividing by the drainage area.  So we can do a matrix multiplication and end up with a new object that still has concentrations in the first row but has yields in the second row.  For example if we want to do yield in kg/km^2/year.  We could do this.  First we see **pairResults** and second we see **pairResultsYield**.
+We can provide a nice looking table of these results as follows (with a specified number of significant digits):
 
 ```{r tableOut}
 knitr::kable(pairResults, digits = 4)
 # note that you don't have to use the kable function from knitr to 
 # see the results, you can just give the command pairResults
 # and you will get the output, it just won't look as nice as this
+```
+
+One final note about this output is that we can also express the flux information as yields, by dividing by the drainage area. This can be very handy when looking at many watersheds. It would be nice to see how their flux trends compare on a unit area basis.  To get the yields we can do a matrix multiplication and end up with a new object that still has concentrations in the first row but has yields in the second row. For example if we want to do yield in kg/km^2/year. We could do this. First we can create another data frame called **pairResultsYield**, and then print it as a table.
+
+```{r tableOutYield}
 pairResultsYield <- pairResults * c(1, 1000000 / eList$INFO$drainSqKm )
 knitr::kable(pairResultsYield, digits = 4)
+
 ```
 
 ## Attributes of **pairResults**

@@ -49,7 +49,7 @@ remark code (specifically looking for <), and values.
 \examples{
 filePath <- system.file("extdata", package="EGRET")
 fileName <- 'ChoptankRiverNitrate.csv'
-Sample <- readUserSample(filePath,fileName, separator=";",interactive=FALSE)
+Sample <- readUserSample(filePath,fileName, separator=";",verbose=FALSE)
 }
 \seealso{
 \code{\link{compressData}}, \code{\link{populateSampleColumns}}

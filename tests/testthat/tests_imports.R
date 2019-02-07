@@ -57,11 +57,9 @@ test_that("External WQP Sample tests", {
   SampleNames <- c("Date","ConcLow","ConcHigh","Uncen","ConcAve","Julian","Month",   
                    "Day","DecYear","MonthSeq","waterYear","SinDY","CosDY")
   
-  # Sample_Chloride <- readWQPSample('USGS-01594440',
-  #                               'Chloride', 
-  #                               '', '')
+  Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
   
-  # expect_that(all(names(Sample_Chloride) %in% SampleNames),is_true())
+  expect_that(all(names(Sample_All) %in% SampleNames),is_true())
     
 })
 
@@ -83,4 +81,36 @@ test_that("External INFO tests", {
   expect_that(all(requiredColumns %in% names(INFO2)),is_true())
   
   
+})
+
+test_that("User tests", {
+  
+  filePath <- system.file("extdata", package="EGRET")
+  fileName <- 'ChoptankRiverFlow.txt'
+  ChopData <- readDataFromFile(filePath,fileName, separator="\t")
+  
+  expect_equal(ncol(ChopData), 2)
+  fileNameDaily <- "ChoptankRiverFlow.txt"
+  Daily_user <- readUserDaily(filePath,fileNameDaily,separator="\t",verbose=FALSE)
+  
+  DailyNames <- c("Date","Q","Julian","Month","MonthSeq","waterYear",  
+                  "Day","DecYear","Qualifier","i","LogQ","Q7","Q30")
+  expect_that(all(names(Daily_user) %in% DailyNames),is_true())
+  
+  fileNameSample <- 'ChoptankRiverNitrate.csv'
+  Sample_user <- readUserSample(filePath,fileNameSample, separator=";",verbose=FALSE)
+  
+  SampleNames <- c("Date","ConcLow","ConcHigh","Uncen","ConcAve","Julian","Month",   
+                   "Day","DecYear","MonthSeq","waterYear","SinDY","CosDY")
+
+  expect_that(all(names(Sample_user) %in% SampleNames),is_true())
+  
+})
+
+
+test_that("processQWData", {
+  testthat::skip_on_cran()
+  rawWQP <- dataRetrieval::readWQPqw('WIDNR_WQX-10032762','Specific conductance', '2012-01-01', '2012-12-31')
+  Sample2 <- processQWData(rawWQP, pCode=FALSE)
+  expect_true(all(Sample2[[2]] == ""))
 })

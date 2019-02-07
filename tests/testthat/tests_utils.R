@@ -303,6 +303,35 @@ test_that("other plot functions don't error", {
   expect_silent(plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd))
   expect_true(dev_start + 1 == dev.cur())
   
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(fluxBiasMulti(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  clevel <- seq(0,3.5,0.5)
+  yearStart <- 2001
+  yearEnd <- 2010
+  qBottom <- 0.5
+  qTop<- 22
+  expect_silent(plotContours(eList, yearStart,yearEnd,qBottom,qTop, contourLevels = clevel) )
+  expect_true(dev_start + 1 == dev.cur())
+
+  graphics.off()
+  dev_start <- dev.cur()  
+  year0<-2001
+  year1<-2009
+  qBottom<-0.33
+  qTop<-22
+  maxDiff<-0.5
+  expect_silent(plotDiffContours(eList, year0,year1))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(plotFourStats(eList))
+  expect_true(dev_start + 1 == dev.cur())
   
 })
 
@@ -314,38 +343,6 @@ test_that("flexPlotAddOn functions properly", {
   testthat::skip_on_cran()
   
   eList <- Choptank_eList
-  # eList <- setUpEstimation(eList)
-  # sampleSegStart <- c(1980,1985,2000)
-  # flowSegStart <- c(1980,1990,2000)
-  # flowSegEnd <- c(1990,2000,2010)
-  # dateInfo <- data.frame(sampleSegStart, flowSegStart, flowSegEnd)
-  # eList <- flexFN(eList, dateInfo)
-  # 
-  # graphics.off()
-  # dev_start <- dev.cur()
-  # expect_message(plotFluxHist(eList))
-  # expect_silent(flexPlotAddOn(eList))
-  # expect_true(dev_start + 1 == dev.cur())
-  # 
-  # graphics.off()
-  # dev_start <- dev.cur()
-  # expect_message(plotFluxHist(eList))
-  # expect_silent(flexPlotAddOn(eList, customPalette = 
-  #                               c("#02df77", "#dc28b2", "#2137a6")))
-  # expect_true(dev_start + 1 == dev.cur())
-  # 
-  # sampleSegStart <- seq(1980,2011)
-  # flowSegStart <- seq(1980,2011)
-  # flowSegEnd <- seq(1981,2012)
-  # dateInfo <- data.frame(sampleSegStart, flowSegStart, flowSegEnd)
-  # eList <- flexFN(eList, dateInfo)
-  # 
-  # graphics.off()
-  # dev_start <- dev.cur()
-  # expect_message(plotFluxHist(eList))
-  # expect_error(flexPlotAddOn(eList), 
-  #              "The number of segments exceed the length of the color palette. Supply custom palette of length 32")
-  # expect_true(dev_start + 1 == dev.cur())
   
   graphics.off()
   dev_start <- dev.cur()
@@ -452,4 +449,29 @@ test_that("surfaceStartEnd",{
   expect_equal(firstLast[["surfaceStart"]], as.Date("2000-03-01"))
   expect_equal(firstLast[["surfaceEnd"]], as.Date("2012-08-30"))
   
+})
+
+test_that("fixSampleFrame", {
+  
+  eList <- Choptank_eList
+  Sample <- eList$Sample
+  Sample[1,c("ConcLow","ConcHigh")] <- c(NA, 0.01) # Adjusted to left-censored
+  Sample[2,c("ConcLow","ConcHigh")] <- c(1.1, 1.3) # Adjusted to interval-censored
+  Sample[3,c("ConcLow","ConcHigh")] <- c(1.3, 1.3) # Simple adjustment
+  eListNew <- eList
+  eListNew$Sample <- Sample
+  eListNew <- fixSampleFrame(eListNew)
+  expect_equal(eList$Sample$Uncen[1:3], c(1,1,1))
+  expect_equal(eListNew$Sample$Uncen[1:3], c(0,0,1))
+})
+
+test_that("removeDuplicates", {
+  
+  DecYear <- c('1985.01', '1985.01', '1985.02', '1985.02', '1985.03')
+  ConcHigh <- c(1,2,3,3,5)
+  dataInput <- data.frame(DecYear, ConcHigh, stringsAsFactors=FALSE)
+  dataInput_removed <- removeDuplicates(dataInput)
+
+  expect_equal(nrow(dataInput), 5)
+  expect_equal(nrow(dataInput_removed), 4)
 })
