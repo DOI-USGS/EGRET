@@ -49,12 +49,12 @@ mergeReport <- function(INFO, Daily, Sample = NA, surfaces=NA, verbose = TRUE, i
     dataOverview(Daily, Sample)  
   }
   
-  if(!is.na(Daily) && !("Q" %in% names(Daily))){
+  if(exists("Daily") && !all(is.na(Daily)) && !("Q" %in% names(Daily))){
     message("Please double check that the Daily dataframe is correctly defined.")
   }
   
   
-  if(!any(c("param.units", "shortName", "paramShortName", "constitAbbrev", "drainSqKm") %in% names(INFO))){
+  if(exists("INFO") && !any(c("param.units", "shortName", "paramShortName", "constitAbbrev", "drainSqKm") %in% names(INFO))){
     message("Please double check that the INFO dataframe is correctly defined.")
   }
   

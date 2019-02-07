@@ -24,7 +24,11 @@
 #' plotFluxQ(eList_full)
 as.egret <- function(INFO, Daily, Sample=NA, surfaces=NA) {
   
-  if(!all(is.na(Daily))){
+  if(exists("Daily") && !all(is.na(Daily))){
+    
+    if(!("Q" %in% names(Daily))){
+      stop("Missing column 'Q' in Daily dataframe.")
+    }
     
     expectedCols <- c("Date","Q","LogQ","Julian","Month","Day","DecYear","MonthSeq")
     if(!all(expectedCols %in% names(Daily))){
@@ -40,7 +44,7 @@ as.egret <- function(INFO, Daily, Sample=NA, surfaces=NA) {
     }
   }
   
-  if(!all(is.na(Sample))){
+  if(exists("Sample") && !all(is.na(Sample))){
     if(any(duplicated(Sample$Date))){
       message("\nThere are ",sum(duplicated(Sample$Date))," duplicated Sample dates.")
     }
@@ -48,29 +52,25 @@ as.egret <- function(INFO, Daily, Sample=NA, surfaces=NA) {
       Sample <- Sample[order(Sample$Date, decreasing = FALSE),]
       message("\nThe Sample data frame was sorted chronologically.")
     }
+    
+    if(!all((c("ConcLow","ConcHigh","Uncen","ConcAve") %in% names(Sample)))){
+      message("\nPlease double check that the Sample dataframe is correctly defined.")
+      message("\nMissing columns:", c("ConcLow","ConcHigh","Uncen","ConcAve")[!(c("ConcLow","ConcHigh","Uncen","ConcAve") %in% names(Sample))])
+    }
   }
   
-  eList <- list(INFO=INFO, 
-                Daily=Daily, 
-                Sample=Sample, 
-                surfaces=surfaces)
-  
-  if(!all(is.na(Daily)) && !("Q" %in% names(Daily))){
-    stop("Missing column 'Q' in Daily dataframe.")
-  }
-  
-  if(!all(is.na(Sample)) && !all((c("ConcLow","ConcHigh","Uncen","ConcAve") %in% names(Sample)))){
-    message("\nPlease double check that the Sample dataframe is correctly defined.")
-    message("\nMissing columns:", c("ConcLow","ConcHigh","Uncen","ConcAve")[!(c("ConcLow","ConcHigh","Uncen","ConcAve") %in% names(Sample))])
-  }
-  
-  if(!any(c("param.units", "shortName", "paramShortName", "constitAbbrev", "drainSqKm") %in% names(INFO))){
+  if(exists("INFO") && !any(c("param.units", "shortName", "paramShortName", "constitAbbrev", "drainSqKm") %in% names(INFO))){
     message("\nPlease double check that the INFO dataframe is correctly defined.")
   }
   
   if(exists("surfaces") && isTRUE(14 != nrow(surfaces))){
     message("\nPlease double check that the surfaces matrix is correctly defined.")
   }
+  
+  eList <- list(INFO=INFO, 
+                Daily=Daily, 
+                Sample=Sample, 
+                surfaces=surfaces)
   
   attr(eList, "param.units") <- INFO$param.units
   attr(eList, "shortName") <- INFO$shortName
