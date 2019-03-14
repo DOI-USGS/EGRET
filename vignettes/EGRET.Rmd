@@ -7,13 +7,14 @@ output:
     toc: true
     number_sections: true
     fig_caption: yes
-
 vignette: >
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{Introduction to the EGRET package}
   %\VignetteSuggests{extrafont,knitr}
   %\VignetteImports{methods,survival, fields,dataRetrieval, stats, lubridate}
   \usepackage[utf8]{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 ---
 
 
@@ -425,7 +426,7 @@ knitr::kable(DF,  caption="Example data",
 
 ```
 
-EGRET will "add up" all the values in a given row to form the total for that sample when using the Sample data frame. Thus, you only want to enter data that should be added together. If you want a data frame with multiple constituents that are not summed, do not use `readNWISSample`, `readWQPSample`, or `readUserSample`. The raw data functions: `getWQPData`, `getNWISqwData`, `getWQPqwData`, `getWQPData` from the EGRET package will not sum constituents, but leave them in their individual columns. 
+EGRET will "add up" all the values in a given row to form the total for that sample when using the Sample data frame. Thus, you only want to enter data that should be added together. If you want a data frame with multiple constituents that are not summed, do not use `readNWISSample`, `readWQPSample`, or `readUserSample`. The raw data functions: `getWQPdata`, `readNWISqw`, `readWQPqw`, `readWQPdata` from the EGRET package will not sum constituents, but leave them in their individual columns. 
 
 For example, we might know the value for dp on 5/30/2005, but we don't want to put it in the table because under the rules of this data set, we are not supposed to add it in to the values in 2005.
 
@@ -1220,9 +1221,6 @@ This section describes variables that are common for a variety of function types
 
 ## Water Quality Plotting Input {#wqVariables}
 
-\caption{Selected variables used in water quality analysis plots}
-
-
 |Argument|Definition|Default|
 |:----------|--------------------------------------:|-----:|
 |qUnit|Determines what units will be used for discharge, see section \ref{#units}|2|
@@ -1235,21 +1233,19 @@ This section describes variables that are common for a variety of function types
 |concMin|The lower limit on the vertical axis of graphs showing concentration values in mg/L (NA sets value to just below minimum for log scales, zero for linear).|NA|
 |fluxUnit|Determines what units will be used for flux (see Section \ref{#units}).|9|
 |fluxMax|The upper limit on the vertical axis of graphs showing flux values.||
-
+[Selected variables used in water quality analysis plots]  (#qwVariables)
 
 ## WRTDS Estimation Input {#wrtdsInputVariables}
-
-
-\caption{Selected variables in WRTDS
 
 |Argument|Definition|Default|
 |:----------|--------------------------------------:|-----:|
 |windowY|The half window width for the time weighting, measured in years.  Values much shorter than 7 usually result in a good deal of oscillations in the system that are likely not very realistic|7|
 |windowQ|The half window width for the weighting in terms of ln(Q).  For very large rivers (average discharge values in the range of many tens of thousands of cfs) a smaller value than 2 may be appropriate, but probably not less than 1|2|
-|windowS|The half window width for the seasonal weighting, measured in years.  Any value `>}0.5 will make data from all seasons have some weight.  Values should probably not be lower than 0.3|0.5|
+|windowS|The half window width for the seasonal weighting, measured in years.  Any value >0.5 will make data from all seasons have some weight.  Values should probably not be lower than 0.3|0.5|
 |minNumObs|This is the minimum number of observations with non-zero weight that the individual regressions will require before they will be used.  If there too few observations the program will iterate, making the windows wider until the number increases above this minimum.  The only reason to lower this is in cases where the data set is rather small.  It should always be set to a number at least slightly smaller than the sample size.  Any value less than about 60 is probably in the "dangerous} range, in terms of the reliability of the regression|100| 
 |minNumUncen|This is the minimum number of uncensored observations with non-zero weight that the individual regressions will require before they will be used.  If there are too few uncensored observations the program will iterate, making the windows wider until the number increases above this minimum.  The only reason to lower this is in cases where the number of uncensored values is rather small.  The method has never been tested in situations where there are very few uncensored values|50|
 |edgeAdjust|Specify whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record|TRUE|
+[Selected variables in WRTDS](#wrtdsVariables)
 
 ## Post-WRTDS Plotting Input {#wrtdsOutputVariables}
 
