@@ -41,13 +41,15 @@ EGRET includes statistics and graphics for streamflow history, water quality tre
 
 [https://doi.org/10.3133/tm4A10](https://doi.org/10.3133/tm4A10)
 
-For information on getting started in R, downloading and installing the package, see section \ref{#appendix1}.
+For information on getting started in R, downloading and installing the package, see the [New to R](#new-to-r) section.
 
-The best ways to learn about the WRTDS approach is to read the User Guide and two journal articles. These articles are available, for free, from the journals in which they were published. The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay. The URL is \cite{HirschII}: [http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full](http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full). The second is an application to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries \cite{HirschIII}.  The URL is: [http://pubs.acs.org/doi/abs/10.1021/es201221s](http://pubs.acs.org/doi/abs/10.1021/es201221s)
+The best ways to learn about the WRTDS approach is to read the User Guide and two journal articles. These articles are available, for free, from the journals in which they were published. 
 
-This vignette assumes that you understand the concepts underlying WRTDS, and reading the relevant sections of the User Guide at least the first of these papers. 
+The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay. The URL is \cite{HirschII}: [http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full](http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full). 
 
-Any use of trade, firm, or product names is for descriptive purposes only and does not imply endorsement by the U.S. Government.
+The second is an application to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries \cite{HirschIII}.  The URL is: [http://pubs.acs.org/doi/abs/10.1021/es201221s](http://pubs.acs.org/doi/abs/10.1021/es201221s)
+
+This vignette assumes that you understand the concepts underlying WRTDS, and reading the relevant sections of the User Guide at least the first of these papers. Any use of trade, firm, or product names is for descriptive purposes only and does not imply endorsement by the U.S. Government.
 
 
 # EGRET Workflow
@@ -189,7 +191,7 @@ saveResults(savePath, eList)
 
 # EGRET Data Frames and Retrieval Options {#data_frame}
 
-The EGRET package uses 3 default data frames throughout the calculations, analysis, and graphing. These data frames are [Daily](#data_frame_Daily), [Sample](#data_frame_Sample), and [INFO](#data_frame_INFO). The data frames are combined into a named list for all EGRET functions using the `as.egret` function (\ref{#eList}). 
+The EGRET package uses 3 default data frames throughout the calculations, analysis, and graphing. These data frames are [Daily](#data_frame_Daily), [Sample](#data_frame_Sample), and [INFO](#data_frame_INFO). The data frames are combined into a named list for all EGRET functions using the `as.egret` function (see [Merge Report](#eList)). 
 
 A package that EGRET depends on is called dataRetrieval. This package provides the core functionality to import hydrologic data from USGS and EPA web services. See the dataRetrieval vignette for more information.
 
@@ -198,7 +200,7 @@ library(dataRetrieval)
 vignette("dataRetrieval")
 ```
 
-EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units, which will be discussed in (\ref{#units}). To start our exploration, you must install the packages (check Section \ref{#appendix1} for detailed instructions), and then open EGRET with the following command:
+EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units, which will be discussed in the [Units](#units) section. To start our exploration, you must install the packages, then open EGRET with the following command:
 
 ```{r openlibraries, echo=TRUE,eval=FALSE}
 library(EGRET)
@@ -206,14 +208,8 @@ library(EGRET)
 
 ## Daily {#data_frame_Daily}
 
-The Daily data frame can be imported into R either from USGS web services (`readNWISDaily`) or user-generated files (`readUserDaily`).  After you run the WRTDS calculations by using the function `modelEstimation` (as will be described in the [WRTDS section](#wrtds), additional columns are inserted (Table \ref{table:Daily2}).
+The Daily data frame can be imported into R either from USGS web services (`readNWISDaily`) or user-generated files (`readUserDaily`).  After you run the WRTDS calculations by using the function `modelEstimation` (as will be described in the [WRTDS section](#wrtds), additional columns are inserted.
 
-
-
-\caption{Daily data frame} 
-\label{table:Daily1}
-
-  
 |ColumnName|Type|Description|Units| 
 |:----------|:---------|----------------:|-----:|
 |Date|Date|Date|date| 
@@ -228,9 +224,6 @@ The Daily data frame can be imported into R either from USGS web services (`read
 |LogQ|number|Natural logarithm of Q|numeric| 
 |Q7|number|7 day running average of Q|m^3^/s| 
 |Q30|number|30 day running average of Q|m^3^/s| 
- 
-\caption{Columns added to Daily data frame after running `modelEstimation} }
-
 
   
 |ColumnName|Type|Description|Units| 
@@ -241,6 +234,7 @@ The Daily data frame can be imported into R either from USGS web services (`read
 |FluxDay|number|The WRTDS estimate of flux|kg/day| 
 |FNConc|number|Flow-normalized estimate of concentration|mg/L| 
 |FNFlux|number|Flow-normalized estimate of flux|kg/day| 
+Table: Columns added to Daily data frame after running `modelEstimation`
 
 Notice that the "Day of the year" column can span from 1 to 366. The 366 accounts for leap years. Every day has a consistent day of the year. This means, February 28^th^ is always the 59^th^ day of the year, Feb. 29^th^ is always the 60^th^ day of the year, and March 1^st^ is always the 61^st^ day of the year whether or not it is a leap year.
 
@@ -248,7 +242,7 @@ Notice that the "Day of the year" column can span from 1 to 366. The 366 account
 
 The `readNWISDaily` function retrieves the daily values (discharge in this case) from a USGS web service.  It requires the inputs siteNumber, parameterCd, startDate, endDate, interactive, and convert. 
 
-These arguments are described in detail in the `dataRetrieval` vignette, however `convert` is a new argument (which defaults to TRUE). The convert argument tells the program to convert the values from cubic feet per second (ft^3^/s) to cubic meters per second (m^3^/s) as shown in the example Daily data frame in Table \ref{table:Daily1}. For EGRET applications with NWIS Web retrieval, do not use this argument (the default is TRUE), EGRET assumes that discharge is always stored in units of cubic meters per second. If you don't want this conversion and are not using EGRET, set convert=FALSE in the function call. 
+These arguments are described in detail in the `dataRetrieval` vignette, however `convert` is a new argument (which defaults to TRUE). The convert argument tells the program to convert the values from cubic feet per second (ft^3^/s) to cubic meters per second (m^3^/s) as shown in the example Daily data frame. For EGRET applications with NWIS Web retrieval, do not use this argument (the default is TRUE), EGRET assumes that discharge is always stored in units of cubic meters per second. If you don't want this conversion and are not using EGRET, set convert=FALSE in the function call. 
 
 ```{r firstExample, echo=TRUE, eval=FALSE}
 siteNumber <- "01491000"
@@ -258,9 +252,7 @@ endDate <- "2013-01-01"
 Daily <- readNWISDaily(siteNumber, "00060", startDate, endDate)
 ```
 
-
-If discharge values are negative or zero, the code will set all of these values to zero and then add a small constant to all of the daily discharge values.  This constant is 0.001 times the mean discharge.  The code will also report on the number of zero and negative values and the size of the constant.  Use EGRET analysis only if the number of zero values is a very small fraction of the total days in the record (say less than 0.1% of the days), and there are no negative discharge values.  Columns Q7 and Q30 are the 7 and 30 day running averages for the 7 or 30 days ending on this specific date. Table \ref{table:Daily1} lists details of the Daily data frame.
-
+If discharge values are negative or zero, the code will set all of these values to zero and then add a small constant to all of the daily discharge values.  This constant is 0.001 times the mean discharge.  The code will also report on the number of zero and negative values and the size of the constant.  Use EGRET analysis only if the number of zero values is a very small fraction of the total days in the record (say less than 0.1% of the days), and there are no negative discharge values.  Columns Q7 and Q30 are the 7 and 30 day running averages for the 7 or 30 days ending on this specific date. 
 
 ### readUserDaily {#DailyFile}
  
@@ -294,10 +286,9 @@ Daily <- readDataFromFile(filePath,fileName,
 
 Microsoft&trade; Excel files can be a bit tricky to import into R directly. The simplest way to get Excel data into R is to open the Excel file in Excel, then save it as a .csv file (comma-separated values). 
 
-
 ## Sample {#data_frame_Sample}
  
-The Sample data frame initially is populated with columns generated by either the `readNWISSample`, `readWQPSample`, or `readUserSample` functions (Table \ref{table:Sample1}). After you run the WRTDS calculations using the `modelEstimation} function (as described in the [WRTDS](#wrtds) section, additional columns are inserted (Table \ref{table:Sample2}):
+The Sample data frame initially is populated with columns generated by either the `readNWISSample`, `readWQPSample`, or `readUserSample` functions. After you run the WRTDS calculations using the `modelEstimation` function (as described in the [WRTDS](#wrtds) section, additional columns are inserted:
 
 |ColumnName|Type|Description|Units| 
 |:----------|:---------|----------------:|-----:|
@@ -315,16 +306,14 @@ The Sample data frame initially is populated with columns generated by either th
 |CosDY|number|Cosine of DecYear|numeric| 
 |Q|number|Discharge|cms| 
 |LogQ|number|Natural logarithm of discharge|numeric| 
-   
-\caption{Columns added to Sample data frame after running `modelEstimation}}
 
-  
 |ColumnName|Type|Description|Units| 
 |:----------|:---------|----------------:|-----:|
 |yHat|number|estimate of the log of concentration|numeric| 
 |SE|number|estimate of the standard error of yHat|numeric|
 |ConcHat|number|unbiased estimate of concentration|mg/L| 
-   
+Table: Columns added to Sample data frame after running `modelEstimation`
+
 As with the Daily data frame, the "Day of the year" column can span from 1 to 366. The 366 accounts for leap years. Every day has a consistent day of the year. This means, February 28^th^ is always the 59^th^ day of the year, Feb. 29^th^ is always the 60^th^ day of the year, and March 1^st^ is always the 61^st^ day of the year whether or not it is a leap year.
 
 The [censored value](#cenValues) section is about summing multiple constituents, including how interval censoring is used. Since the Sample data frame is structured to only contain one constituent, when more than one parameter codes are requested, the `readNWISSample` function will sum the values of each constituent as described below.
@@ -406,9 +395,7 @@ Sample <-readUserSample(filePath,fileName,
 
 In the typical case where none of the data are censored (that is, no values are reported as "less-than" values), the ConcLow = ConcHigh = ConcAve which are all equal to the reported value, and Uncen = 1 for all values.  For the most common type of censoring, where a value is reported as less than the reporting limit, then ConcLow = NA, ConcHigh = reporting limit, ConcAve = 0.5 * reporting limit, and Uncen = 0.
 
-To illustrate how the EGRET package handles a more complex censoring problem, let us say that in 2004 and earlier, we computed total phosphorus (tp) as the sum of dissolved phosphorus (dp) and particulate phosphorus (pp). From 2005 and onward, we have direct measurements of total phosphorus (tp). A small subset of this fictional data looks like Table \ref{tab:exampleComplexQW}.
-
-
+To illustrate how the EGRET package handles a more complex censoring problem, let us say that in 2004 and earlier, we computed total phosphorus (tp) as the sum of dissolved phosphorus (dp) and particulate phosphorus (pp). From 2005 and onward, we have direct measurements of total phosphorus (tp). A small subset of this fictional data is provided:
 
 ```{r label=tab:exampleComplexQW, echo=FALSE, eval=TRUE,results='asis'}
 cdate <- c("2003-02-15","2003-06-30","2004-09-15","2005-01-30","2005-05-30","2005-10-30")
@@ -443,10 +430,9 @@ For the more complex example case, let us say dp is reported as <0.01 and pp is 
   Sample
 ```
 
- 
 ## INFO {#data_frame_INFO}
  
-The INFO data frame stores information about the measurements, such as station name, parameter name, drainage area, and so forth. There can be many additional, optional columns, but the columns in Table \ref{table:Info1} are required to initiate the EGRET analysis. After you run the WRTDS calculations (as described in the [WRTDS](#wrtds) section, additional columns (Table \ref{table:Info2}) are automatically inserted into the INFO data frame (see the EGRET User Guide for complete description of each term):
+The INFO data frame stores information about the measurements, such as station name, parameter name, drainage area, and so forth. There can be many additional, optional columns, but the columns in the table below are required to initiate the EGRET analysis. After you run the WRTDS calculations (as described in the [WRTDS](#wrtds) section, additional columns are automatically inserted into the INFO data frame (see the EGRET User Guide for complete description of each term):
 
 |ColumnName|Type|Description| 
 |:----------|---------:|---------------------------------:|
@@ -457,10 +443,7 @@ The INFO data frame stores information about the measurements, such as station n
 |drainSqKm|numeric|Drainage area in  km^2^| 
 |paStart|integer (1-12)|Starting month of period of analysis| 
 |paLong|integer (1-12)|Length of period of analysis in months| 
-  
-\caption{INFO data frame after running `modelEstimation`} 
 
-  
 |ColumnName|Description|Units| 
 |:----------|-----------------------------------:|-----:|  
 |bottomLogQ|Lowest discharge in prediction surfaces|dimensionless| 
@@ -474,11 +457,9 @@ The INFO data frame stores information about the measurements, such as station n
 |windowS|Half-window width in the seasonal dimension|years|
 |minNumObs|Minimum number of observations for regression|integer| 
 |minNumUncen|Minimum number of uncensored observations|integer| 
-
-
+Table: INFO data frame after running `modelEstimation`
 
 ### readNWISInfo {#nwisINFO}
-
 
 The function `readNWISInfo` combines `readNWISsite` and `readNWISpCode` from the `dataRetrieval` package, producing one data frame called INFO.
 
@@ -487,7 +468,6 @@ parameterCd <- "00618"
 siteNumber <- "01491000"
 INFO <- readNWISInfo(siteNumber,parameterCd, interactive=FALSE)
 ```
-
 
 ### readWQPInfo {#wqpINFO}
  
@@ -498,18 +478,14 @@ parameterCd <- "00618"
 INFO_WQP <- readWQPInfo("USGS-01491000",parameterCd)
 ```
 
- 
 ### readUserInfo {#userINFO}
 
 The function `readUserInfo` can be used to convert comma separated files into an INFO data frame. At a minimum, EGRET analysis uses columns: param.units, shortName, paramShortName, constitAbbrev, and drainSqKm. For example, if the following comma-separated file (csv) was available as a file called "INFO.csv", located in a folder called "RData" on the C drive (this examples is for Windows&trade; operation system), the function to convert it to an INFO data frame is as follows.
-
 
 ```
 param.units, shortName, paramShortName, constitAbbrev, drainSqKm
 mg/l, Choptank River, Inorganic nitrogen, N, 292.67
 ```
-
-
 ```{r addInfoCustom, eval=FALSE, echo=TRUE}
 
 fileName <- "INFO.csv"
@@ -518,7 +494,6 @@ filePath <- "C:/RData/"
 INFO <- readUserInfo(filePath, fileName)
 
 ```
-
 
 ### Inserting Additional Info {#addINFO}
 
@@ -530,7 +505,6 @@ INFO$riverInfo <- "Major tributary of the Chesapeake Bay"
 INFO$GreensboroPopulation <- 1931
 
 ```
-
 
 ## Merge Report: eList {#eList}
 
@@ -548,31 +522,25 @@ Daily <- readNWISDaily(siteNumber, "00060", startDate, endDate)
 Sample <- readNWISSample(siteNumber,parameterCd, startDate, endDate)
 INFO <- readNWISInfo(siteNumber, parameterCd)
 
-
 eList <- mergeReport(INFO, Daily,Sample)
-
 ```
 
 Perhaps you already have Daily, Sample, and INFO data frames, and surfaces matrix (created after running the WRTDS `modelEstimation`) that have gone though a deprecated version of EGRET. You can create and edit an EGRET object as follows:
 
 ```{r egretObedit, echo=TRUE, eval=FALSE}
-
 eListNew <- as.egret(INFO, Daily, Sample, surfaces)
-
 #To pull out the INFO data frame:
 INFO <- getInfo(eListNew)
 #Edit the INFO data frame:
 INFO$importantNews <- "New EGRET workflow started"
 #Put new data frame in eListNew
 eListNew$INFO <- INFO
-
 #To pull out Daily:
 Daily <- getDaily(eListNew)
 #Edit for some reason:
 DailyNew <- Daily[Daily$DecYear > 1985,]
 #Put new Daily data frame back in eListNew:
 eListNew$Daily <- DailyNew
-
 #To create a whole new egret object:
 eList_2 <- as.egret(INFO, DailyNew, getSample(eListNew), NA)
 
@@ -613,19 +581,15 @@ INFO <- readNWISInfo(siteNumber,"",interactive=FALSE)
 INFO$shortName <- "Columbia River at The Dalles, OR"
 
 eList <- as.egret(INFO, Daily, NA, NA)
-
 ```
 
 ```{r flowHistoryLoad,echo=FALSE}
 fileName <- "eListColumbia.RData"
 load(fileName)
 eList <- eListColumbia
-
 ```
 
-You first must determine the period of analysis to use (PA). What is the period of analysis?  If you want to examine your data set as a time series of water years, then the period of analysis is October through September.  If you want to examine the data set as calendar years then the period of analysis is January through December.  You might want to examine the winter season, which you could define as December through February, then those 3 months become the period of analysis. The only constraints on the definition of a period of analysis are these: it must be defined in terms of whole months; it must be a set of contiguous months (like March-April-May), and have a length that is no less than 1 month and no more than 12 months.  Define the PA by using two arguments: paLong and paStart.  paLong is the length of the PA, and paStart is the first month of the PA. Table \ref{table:paINFO} summarizes paLong and paStart.
-
-\caption{Period of Analysis Information} 
+You first must determine the period of analysis to use (PA). What is the period of analysis?  If you want to examine your data set as a time series of water years, then the period of analysis is October through September.  If you want to examine the data set as calendar years then the period of analysis is January through December.  You might want to examine the winter season, which you could define as December through February, then those 3 months become the period of analysis. The only constraints on the definition of a period of analysis are these: it must be defined in terms of whole months; it must be a set of contiguous months (like March-April-May), and have a length that is no less than 1 month and no more than 12 months.  Define the PA by using two arguments: paLong and paStart.  paLong is the length of the PA, and paStart is the first month of the PA. 
 
 |Period of Analysis|paStart|paLong| 
 |:----------|---:|---:|
@@ -633,6 +597,7 @@ You first must determine the period of analysis to use (PA). What is the period 
 |Water Year|10|12| 
 |Winter|12|3| 
 |September|9|1| 
+Table: Period of Analysis Information
 
 To set a period running from December through February:
 ```{r newChunckWinter, echo=TRUE,eval=FALSE}
@@ -644,9 +609,7 @@ To set the default value (water year):
 eList <- setPA(eList)
 ```
 
-The next step can be to create the annual series of discharge statistics.  These are returned in a matrix that contain the statistics described in table \ref{table:istat}. The statistics are based on the period of analysis set with the `setPA` function.
-
-\caption{Index of discharge statistics information} 
+The next step can be to create the annual series of discharge statistics.  These are returned in a matrix that contain the statistics described below. The statistics are based on the period of analysis set with the `setPA` function.
 
 |istat|Name| 
 |---:|--------------------:|
@@ -658,6 +621,7 @@ The next step can be to create the annual series of discharge statistics.  These
 |6|maximum 30-day mean of the daily mean discharges| 
 |7|maximum 7-day mean of the daily mean discharges| 
 |8|maximum 1-day daily mean discharge| 
+Table: Index of discharge statistics information
 
 ## Plotting Options {#plotOptions}
 
@@ -667,8 +631,7 @@ The simplest way to look at these time series is with the function `plotFlowSing
 
 `plotSDLogQ` produces a graphic of the running standard deviation of the log of daily discharge over time to visualize how variability of daily discharge is changing over time.  By using the standard deviation of the log discharge the statistic becomes dimensionless.  The standard deviation plot is a way of looking at variability quite aside from average values, so, in the case of a system where discharge might be increasing over a period of years, this graphic provides a way of looking at the variability relative to that changing mean value.  The standard deviation of the log discharge is much like a coefficient of variation, but it has sample properties that make it a smoother measure of variability.  People often comment about how things like urbanization or enhanced greenhouse gases in the atmosphere are bringing about an increase in variability, and this analysis is one way to explore that idea. `plotFour`, `plotFourStats`, and `plot15` are all designed to plot several graphs from the other functions in a single figure. 
 
-
-```{r plotSingleandSD, echo=TRUE, fig.cap="\\label{fig:plotSingleandSD}Plots of discharge statistics"}
+```{r plotSingleandSD, echo=TRUE, fig.cap="}Plots of discharge statistics"}
 plotFlowSingle(eList, istat=5,qUnit="thousandCfs")
 plotSDLogQ(eList)
 ```
@@ -715,8 +678,7 @@ plotFourStats(eList, qUnit=3)
 
 `plotQTimeDaily` is simply a time series plot of discharge.  But, it is most suited for showing events above some discharge threshold.  In the simplest case, it can plot the entire record, but given the line weight and use of an arithmetic scale it primarily provides a visual focus on the higher values.
 
-The example shown in Figure \ref{fig:MississippiPlot} illustrates a very long record with a long gap of more than 60 years with no discharges above 300,000 cfs, followed by the last followed by the 49 years from 1965 through 2013 with 6 events above that threshold. `plotQTimeDaily` requires startYear and endYear, along with some other optional arguements (see `?plotQTimeDail` for more details).
-
+The Mississippi example illustrates a very long record with a long gap of more than 60 years with no discharges above 300,000 cfs, followed by the last followed by the 49 years from 1965 through 2013 with 6 events above that threshold. `plotQTimeDaily` requires startYear and endYear, along with some other optional arguements (see `?plotQTimeDaily` for more details).
 
 ```{r MississippiData, echo=TRUE,eval=FALSE}
 #Mississippi River at Keokuk Iowa:
@@ -733,7 +695,7 @@ load(fileName)
 eList <- eListMiss
 ```
 
-```{r MississippiPlot, echo=TRUE,fig.cap="Mississippi River at Keokuk Iowa",fig.subcap=c("Water Year", "Dec-Feb")}
+```{r MississippiPlot, echo=TRUE,fig.cap="Mississippi River at Keokuk Iowa"}
 plotQTimeDaily(eList, qUnit=3,qLower=300)
 
 ```
@@ -775,7 +737,7 @@ Another argument can be very useful in this function: yearPoints.  In the defaul
 tableFlowChange(eList, istat=3, qUnit=3,yearPoints=c(1890,1950,2010))
 ```
 
-See section \ref{app:createWordTable} for instructions on converting an R data frame to a table in Microsoft&trade; software. Excel, Microsoft, PowerPoint, Windows, and Word are registered trademarks of Microsoft Corporation in the United States and other countries.
+See [here](#createWordTable) for instructions on converting an R data frame to a table in Microsoft&trade; software. Excel, Microsoft, PowerPoint, Windows, and Word are registered trademarks of Microsoft Corporation in the United States and other countries.
 
 # Summary of Water Quality Data (without using WRTDS) {#wqa}
 
@@ -811,7 +773,7 @@ INFO <- getInfo(eList)
 
 ## Plotting Options {#plotOptionsWQ}
 
-This section shows examples of the available plots appropriate for analyzing data prior to performing a WRTDS analysis. The plots here use the default variable input options.  For any function, you can get a complete list of input variables in a help file by typing a ? before the function name in the R console. See section \ref{#wqVariables} for information on the available input variables for these plotting functions.
+This section shows examples of the available plots appropriate for analyzing data prior to performing a WRTDS analysis. The plots here use the default variable input options.  For any function, you can get a complete list of input variables in a help file by typing a ? before the function name in the R console. See [Water Quality Plotting Input](#wqVariables) for information on the available input variables for these plotting functions.
 
 Note that for any of the plotting functions that show the sample data, if a value in the data set is a non-detect (censored), it is displayed on the graph as a vertical line.  The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values the minimum value on the y-axis.  This line is an "honest" representation of what we know about about that observation and doesn't attempt to use a statistical model to make an estimate below the reporting limit. 
 
@@ -827,19 +789,17 @@ plotConcTime(eList)
 plotConcQ(eList, qUnit=1)
 ```
 
-It is interesting to note in Figure \ref{fig:plotConcTime} the change in the convention for rounding of data values that occurred around 1995.
+It is interesting to note the change in the convention for rounding of data values that occurred around 1995.
 
 ```{r plotFluxQ,echo=TRUE, fig.cap="The relation of flux vs discharge"}
 plotFluxQ(eList, fluxUnit=4)
 ```
 
-The `plotFluxQ` (Figure \ref{fig:plotFluxQ}) function only plots in a log-log scale.
-
 ```{r multiPlotDataOverview, echo=TRUE,out.width="100%", fig.cap="`multiPlotDataOverview(eList, qUnit=1)`"}
 multiPlotDataOverview(eList, qUnit=1)
 ```
 
-The `multiPlotDataOverview` (Figure \ref{fig:multiPlotDataOverview}) function uses a log scale as default. To change the concentration axes to an arithmetic scale, use logScaleConc=FALSE in the `multiPlotDataOverview` function call.
+The `multiPlotDataOverview` function uses a log scale as default. To change the concentration axes to an arithmetic scale, use logScaleConc=FALSE in the `multiPlotDataOverview` function call.
 
 ## Table Options {#tableOptionsWQ}
 
@@ -851,18 +811,17 @@ flowDuration(eList, qUnit=1)
 flowDuration(eList, qUnit=1, centerDate="09-30", span=30)
 ```
 
-
 # Weighted Regressions on Time, Discharge and Season (WRTDS) {#wrtds}
 
-WRTDS creates a model of the behavior of concentration as a function of three components: time trend, discharge, and season.  You can use WRTDS to estimate annual or seasonal mean concentrations and fluxes as well as describe long-term trends in the behavior of the system. In this section, we will step though the process required for a WRTDS analysis. Section (\ref{#wrtdsResults}) provides details about the available methods for viewing and evaluating the model results. 
+WRTDS creates a model of the behavior of concentration as a function of three components: time trend, discharge, and season.  You can use WRTDS to estimate annual or seasonal mean concentrations and fluxes as well as describe long-term trends in the behavior of the system. In this section, we will step though the process required for a WRTDS analysis. [WRTDS Results](#wrtdsResults) provides details about the available methods for viewing and evaluating the model results. 
 
-Once you have looked at your data using the tools described in section \ref{#wqa}, and have determined there are sufficient representative data, it is time to run the WRTDS model. Assuming you are using the defaults, with data frames called Daily, Sample, and INFO, the `modelEstimation` function runs the WRTDS modeling algorithm:
+Once you have looked at your data using the tools described in [Summary of Water Quality Data](#wqa), and have determined there are sufficient representative data, it is time to run the WRTDS model. Assuming you are using the defaults, with data frames called Daily, Sample, and INFO, the `modelEstimation` function runs the WRTDS modeling algorithm:
 
 ```{r wrtds3, eval=FALSE, echo=TRUE}
 eList <- modelEstimation(eList)
 ```
 
-Details of the options available when running `modelEstimation` can be found in Section \ref{#wrtdsInputVariables}. This function is slow, and shows the progress in percent complete. See the references and manual for more information. It's important to understand that this is the one function that will globally change your Daily, Sample, and INFO data frames. It also creates a new matrix `surfaces`, and a new data frame `AnnualResults`. 
+Details of the options available when running `modelEstimation` can be found in [WRTDS Estimation Input](#wrtdsInputVariables). This function is slow, and shows the progress in percent complete. See the references and manual for more information. It's important to understand that this is the one function that will globally change your Daily, Sample, and INFO data frames. It also creates a new matrix `surfaces`, and a new data frame `AnnualResults`. 
 
 Finally, it is a good idea to save your results because of the computational time that has been invested in producing these results. The workspace is saved to a directory that you designate savePath and the file name is determined by the abbreviations for station and constituent that were required entries when the `readNWISInfo` function was used. The command for saving the workspace is:
 
@@ -887,11 +846,11 @@ load(pathToFile)
 
 #WRTDS Results {#wrtdsResults}
  
-At this point (after having run `modelEstimation`) we can start considering how to view the annual averages for the variables that have been calculated.  See section \ref{#wrtdsOutputVariables} for common input variables for these functions. Additionally, check the help files (in the R console, type ? followed by the function name). 
+At this point (after having run `modelEstimation`) we can start considering how to view the annual averages for the variables that have been calculated.  See [Post-WRTDS Plotting Input](#wrtdsOutputVariables) for common input variables for these functions. Additionally, check the help files (in the R console, type ? followed by the function name). 
 
 ## Plotting Options {#wrtdsPlotting}
 
-Check the help files or manual for more details on the following functions.  See section \ref{app:savingPlots} for information on saving plots. In these examples, we will return to looking at the data in the water year by using the `setPA` function. Most plotting functions will use the period of analysis information in the INFO data frame to determine what data are plotted. There are only four graph or table functions that don't allow the user to specify a Period of Analysis (PA). These are: `plotContour`, `plotDiffContour`, `plotConcTimeSmooth`, `plotConcQSmooth`.
+Check the help files or manual for more details on the following functions.  See [Saving Plots](#savingPlots) for information on saving plots. In these examples, we will return to looking at the data in the water year by using the `setPA` function. Most plotting functions will use the period of analysis information in the INFO data frame to determine what data are plotted. There are only four graph or table functions that don't allow the user to specify a Period of Analysis (PA). These are: `plotContour`, `plotDiffContour`, `plotConcTimeSmooth`, `plotConcQSmooth`.
 
 ```{r getChopData1,echo=FALSE,eval=TRUE}
 # Sample <- getSample(eList)
@@ -936,7 +895,7 @@ plotConcHist(eList)
 plotFluxHist(eList)
 ```
 
-Figures \ref{fig:plotConcQSmooth} and \ref{fig:plotConcTimeSmooth} contain legends. The placement of the legend is controlled by legendLeft and legendTop. If both are set to 0 (the default values), the legend is placed near the lower left corner of the graphic. Otherwise, the value specified for legendLeft places the left edge of the legend, and legendTop specifies the top edge of the legend. The units for legendLeft and legendTop are discharge (in units specified by qUnit) and concentration, respectively. The legend can also be turned off with printLegend=FALSE. These are also functions that do not recognize the period of analysis in the INFO data frame. However, by choosing centering dates and appropriate half-windows, seasonal behavior can easily be observed in these plots. 
+The placement of the legend is controlled by legendLeft and legendTop. If both are set to 0 (the default values), the legend is placed near the lower left corner of the graphic. Otherwise, the value specified for legendLeft places the left edge of the legend, and legendTop specifies the top edge of the legend. The units for legendLeft and legendTop are discharge (in units specified by qUnit) and concentration, respectively. The legend can also be turned off with printLegend=FALSE. These are also functions that do not recognize the period of analysis in the INFO data frame. However, by choosing centering dates and appropriate half-windows, seasonal behavior can easily be observed in these plots. 
 
 ```{r plotConcQSmooth, echo=TRUE, fig.cap="Concentration vs. discharge"}
 qLow <- 20
@@ -960,8 +919,6 @@ plotConcTimeSmooth(eList, q1, q2, q3, centerDate,
                    2000, 2010,logScale=TRUE)
 ```
 
-Figure \ref{fig:fluxBiasMulti} shows a predefined multipanel graph using `fluxBiasMulti}.
-
 ```{r fluxBiasMulti, echo=TRUE, fig.cap="`fluxBiasMulti(eList, qUnit=1)`",fig.show='asis',fig.width=8, fig.height=10,fig.pos="h", out.width="100%"}
 fluxBiasMulti(eList, qUnit=1)
 ```
@@ -983,7 +940,7 @@ plotDiffContours(eList, year0=2000,year1=2010,
 
 ## Table Options {#wrtdsTable}
  
-Sometimes it is easier to consider the results in table form rather than graphically. The function `tableResults} produces a simple text table that contains the annual values for the results.  Each row of the output represents a year and includes: year, average discharge, average concentration, flow-normalized concentration, average flux, and flow-normalized flux.   If paLong \textless 12 make sure you take note of the explanation of the seasonal flux values discussed at the end of section \ref{#units}.  A small sample of the output is printed below. 
+Sometimes it is easier to consider the results in table form rather than graphically. The function `tableResults} produces a simple text table that contains the annual values for the results.  Each row of the output represents a year and includes: year, average discharge, average concentration, flow-normalized concentration, average flux, and flow-normalized flux.   If paLong != 12 make sure you take note of the explanation of the seasonal flux values discussed at the end of [Units](#units).  A small sample of the output is printed below. 
 
 ```{r tableResults1, echo=TRUE, eval=FALSE}
 tableResults(eList)
@@ -1020,7 +977,7 @@ The other table option is `tableChange`. This is a function that provides for th
 tableChange(eList, yearPoints=c(2000,2005,2010))
 ```
 
-Finally, `tableChangeSingle` (Table \ref{table:tableChangeSingle}) operates exactly the same as `tableChange` except for the addition argument flux. This function provides either concentration results or flux results, but not both.  This can be useful when you are producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except for the final two arguments.  The argument `flux` defaults to TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  See section \ref{app:createWordTable} for instructions on converting an R data frame to a table in Microsoft&trade; software.
+Finally, `tableChangeSingle` operates exactly the same as `tableChange` except for the addition argument flux. This function provides either concentration results or flux results, but not both.  This can be useful when you are producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux.  The arguments are identical to those for tableChange, except for the final two arguments.  The argument `flux` defaults to TRUE.  When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration.  See [Creating tables](#createWordTable) for instructions on converting an R data frame to a table in Microsoft&trade; software.
 
 ```{r tableChangeSingleR, eval=TRUE, echo=TRUE,results='hide'}
 returnDF <- tableChangeSingle(eList, yearPoints=c(2000,2005,2010))
@@ -1034,9 +991,9 @@ knitr::kable(returnDF,
 
 #Extending Plots Past Defaults {#extendedPlots}
 
-The basic plotting options were shown in the section \ref{#wrtdsResults}.  This section demonstrates some ways to extend the capabilities of the EGRET plots. EGRET plots use R's basic plotting options. You set many of the formatting details of plotting routines in R by using "Graphical Parameters".  To read about all of these graphical parameters see `?par`.  When the graphical functions in EGRET are coded, a set of default values for many of these parameters are chosen, but you can override all of these default values. Additionally, you can add features to a plot after calling the plot function. To change the plot margins (mar), font, or other graphical parameters initially assigned, set the argument customPar to TRUE.
+The basic plotting options were shown in the section [WRTDS Results](#wrtdsResults).  This section demonstrates some ways to extend the capabilities of the EGRET plots. EGRET plots use R's basic plotting options. You set many of the formatting details of plotting routines in R by using "Graphical Parameters".  To read about all of these graphical parameters see `?par`.  When the graphical functions in EGRET are coded, a set of default values for many of these parameters are chosen, but you can override all of these default values. Additionally, you can add features to a plot after calling the plot function. To change the plot margins (mar), font, or other graphical parameters initially assigned, set the argument customPar to TRUE.
 
-A few of R's base graphical parameters are especially useful within the plot functions. These are shown in Table \ref{table:tableChangeSingle}.
+A few of R's base graphical parameters are especially useful within the plot functions. 
 
 |Argument|Description|Values|
 |:----------|----------------------------:|----------:|
@@ -1048,12 +1005,9 @@ A few of R's base graphical parameters are especially useful within the plot fun
 |lwd|Width of lines, relative to default|decimal number|
 |pch|Type of symbol to use for data points|integer values|
 |lty|Line type number (such as dash or dot)|integer values|
-   
+Table: Useful plotting parameters to adjust in EGRET plotting functions.  For details of any of these see ?par.
 
-\caption{Useful plotting parameters to adjust in EGRET plotting functions.  For details of any of these see ?par.} 
-
-After the plot is made, many other functions that might be useful to call, such as to add text, legend, lines, etc. Table \ref{table:addOns} lists a few common options.
-
+After the plot is made, many other functions that might be useful to call, such as to add text, legend, lines, etc. 
 
 |Function|Description|
 |:------|--------------------:|
@@ -1063,20 +1017,16 @@ After the plot is made, many other functions that might be useful to call, such 
 |grid|add grid| 
 |abline|add line|
 |arrows|add arrow| 
-   
-
-\caption{Useful functions to add on to default plots. Type ? then the function name to get help on the individual function.} 
+Table: Useful functions to add on to default plots. Type ? then the function name to get help on the individual function.
 
 Some basic examples are shown below.
-
-Figure \ref{fig:adjustSize} shows a larger title and axis number (left), and larger axis labels and point size (right).
 
 ```{r adjustSize,echo=TRUE,eval=TRUE,fig.cap="Modifying text and point size, as shown using the `plotConcQ` function"}
 plotConcQ(eList, cex.axis=2,cex.main=1.5,logScale=TRUE)
 plotConcQ(eList, cex.lab=2,cex=2,logScale=TRUE)
 ```
 
-Figure \ref{fig:plotConcQComparison} shows the default on the left, and several features on the right. First, the margin is adjusted to c(8,8,8,8), requiring customPar set to TRUE. The margin vector represents the margin spacing of the 4 `sides` of a plot in the order: bottom, left, top, right. Next, the text labels were adjusted, color set to `"}blue`"}, point and line size increased, and the point type changed form a solid circle(pch=20) to solid diamond (pch=18). A grid, legend, arrow, and text are added after the plot is produced.
+First, the margin is adjusted to c(8,8,8,8), requiring customPar set to TRUE. The margin vector represents the margin spacing of the 4 `sides` of a plot in the order: bottom, left, top, right. Next, the text labels were adjusted, color set to `"blue"`, point and line size increased, and the point type changed form a solid circle(pch=20) to solid diamond (pch=18). A grid, legend, arrow, and text are added after the plot is produced.
 
 ```{r plotConcQComparison,echo=TRUE,eval=TRUE,fig.cap="Modified `plotConcQ`"}
 plotConcQ(eList, logScale=TRUE)
@@ -1090,7 +1040,7 @@ arrows(3, 0.14, 1, .05,lwd=2)
 text(12,.14,"Censored Value")
 ```
 
-Only a few fonts are consistent on all operating systems. Figure \ref{fig:easyFontChange} shows how to change to the Serif font, as well as how to use the mtext function. To see the available fonts for pdf output on your computer, type `names(pdfFonts())`.The available fonts are quite limited in base R. To expand the font choices, a useful R library, "extrafont" can help.
+Only a few fonts are consistent on all operating systems. The following figure shows how to change to the Serif font, as well as how to use the mtext function. To see the available fonts for pdf output on your computer, type `names(pdfFonts())`.The available fonts are quite limited in base R. To expand the font choices, a useful R library, "extrafont" can help.
 
 ```{r easyFontChange,echo=TRUE,eval=TRUE,fig.cap="Serif font"}
 # Switching to serif font:
@@ -1099,7 +1049,7 @@ plotFluxPred(eList, customPar=TRUE)
 mtext(side=3,line=-3,"Serif font example",cex=3)
 ```
 
-You can also extend the contour plots. The default y-axis is determined from qTop and qBottom. Occasionally, you may need to use a custom axis by specifying yTicks. It is also nice to be able to adjust the color scheme of the contour plots. There are some color schemes built into base R such as heat.colors, topo.colors, terrain.colors, and cm.colors. Alternatively, you can set colors by using the `colorRampPalette` function. For example, a black and white color scheme might be required. In another example, the `plotDiffContours` might make more sense to go from yellow to white for the negative values, and white to blue for the positive values. Examples are shown below for modifying a contour plot in Figure \ref{fig:modifiedContour1} and modifying a difference contour plot in Figure \ref{fig:modifiedDiffContour}. 
+You can also extend the contour plots. The default y-axis is determined from qTop and qBottom. Occasionally, you may need to use a custom axis by specifying yTicks. It is also nice to be able to adjust the color scheme of the contour plots. There are some color schemes built into base R such as heat.colors, topo.colors, terrain.colors, and cm.colors. Alternatively, you can set colors by using the `colorRampPalette` function. For example, a black and white color scheme might be required. In another example, the `plotDiffContours` might make more sense to go from yellow to white for the negative values, and white to blue for the positive values. Examples are shown below for modifying a contour plot and modifying a difference contour plot. 
 
 ```{r modifiedContour1,echo=TRUE,eval=TRUE,fig.cap="Contour plot with modified axis and color scheme", out.width="100%",fig.height=5}
 colors <- colorRampPalette(c("white","black"))
@@ -1112,7 +1062,6 @@ plotContours(eList, 2001,2010,0.5,50,
              tcl=0.2,tick.lwd=2.5)  
 ```
 
-
 ```{r modifiedDiffContour,echo=TRUE,eval=TRUE,fig.cap="Difference contour plot with modified color scheme",out.width="100%",fig.height=5}
 colors <- colorRampPalette(c("yellow","white","blue"))
 maxDiff<-0.6
@@ -1123,7 +1072,7 @@ plotDiffContours(eList, year0=2001,year1=2010,qBottom=0.5,qTop=50,
              flowDuration=FALSE, customPar=TRUE)
 ```
 
-It is also possible to create custom multi-panel plots. In the simplest example (figure \ref{fig:tinyPlot1}), you can use the `tinyPlot=TRUE` option.
+It is also possible to create custom multi-panel plots. In the simplest example, you can use the `tinyPlot=TRUE` option.
 
 ```{r tinyPlot1,echo=TRUE,eval=TRUE,fig.cap="Custom multipanel plot using tinyPlot", out.width="100%"}
 par(mfcol = c(2, 2), oma = c(0, 1.7, 6, 1.7))
@@ -1136,7 +1085,7 @@ plotConcHist(eList, tinyPlot=TRUE,printTitle=FALSE,concMax=3)
 mtext("Custom multi-pane graph using tinyPlot=TRUE", outer=TRUE, font=2)
 ```
 
-Finally, figure \ref{fig:customPanel} shows a method to create a panel of plots with a finer control.
+Finally, the following figure shows a method to create a panel of plots with a finer control.
 
 ```{r customPanel,echo=TRUE,eval=TRUE,fig.cap="Custom multipanel plot", out.width="100%"}
 par(mar=c(3.5,3.5,0.2,0.2), # whitespace around the plots
@@ -1161,7 +1110,6 @@ plotConcHist(eList, tinyPlot=TRUE,printTitle=FALSE,concMax=3,
 mtext("Custom multi-pane graph using customPar", outer=TRUE, font=2)
 ```
 
-
 #Getting Started in R {#appendix1}
 
 This section describes the options for installing the EGRET package.
@@ -1180,7 +1128,6 @@ To see the raw code for a particular function, type the name of the function, wi
 ```{r rawFunc,eval = FALSE}
 plotConcQ
 ```
-
 
 ## R User: Installing EGRET
 
@@ -1202,9 +1149,6 @@ This section describes variables that are common for a variety of function types
  
 ## Flow History Plotting Input {#flowHistoryVariables}
 
-
-\caption{Variables used in flow history plots (`plot15`, `plotFour`, `plotFourStats`, `plotQTimeDaily`, `plotSDLogQ`) 
-
 |Argument|Definition|Default|
 |:----------|--------------------------------------:|-----:|
 |istat|The discharge statistic to be plotted: 1-8.  Must be specified, see Table \ref{table:istat}.||
@@ -1218,12 +1162,13 @@ This section describes variables that are common for a variety of function types
 |printStaName|Can be TRUE or FALSE, if TRUE the name of the streamgage is stated in the plot title.|TRUE|
 |printPA|Can be TRUE or FALSE, if TRUE the period of analysis is stated in the plot title.|TRUE|
 |printIstat|Can be TRUE or FALSE, if TRUE the name of the statistic (e.g. 7-day minimum discharge) is stated in the plot title.|TRUE|
+Table: Variables used in flow history plots (`plot15`, `plotFour`, `plotFourStats`, `plotQTimeDaily`, `plotSDLogQ`)
 
 ## Water Quality Plotting Input {#wqVariables}
 
 |Argument|Definition|Default|
 |:----------|--------------------------------------:|-----:|
-|qUnit|Determines what units will be used for discharge, see section \ref{#units}|2|
+|qUnit|Determines what units will be used for discharge, see [Units](#units)|2|
 |printTitle|If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption)|TRUE|
 |qLower|The lower bound on the discharge on the day of sampling that will be used in forming a subset of the sample data set that will be displayed in the graph.  It is expressed in the units specified in qUnit.  If qLower = NA, then the lower bound is set to zero.||
 |qUpper|The upper bound on the discharge on the day of sampling that will be used in forming a subset of the sample data set that will be displayed in the graph.  It is expressed in the units specified in qUnit.  If qUpper = NA, then the upper bound is set to infinity.||
@@ -1233,7 +1178,7 @@ This section describes variables that are common for a variety of function types
 |concMin|The lower limit on the vertical axis of graphs showing concentration values in mg/L (NA sets value to just below minimum for log scales, zero for linear).|NA|
 |fluxUnit|Determines what units will be used for flux (see Section \ref{#units}).|9|
 |fluxMax|The upper limit on the vertical axis of graphs showing flux values.||
-[Selected variables used in water quality analysis plots]  (#qwVariables)
+Table: Selected variables used in water quality analysis plots
 
 ## WRTDS Estimation Input {#wrtdsInputVariables}
 
@@ -1245,16 +1190,14 @@ This section describes variables that are common for a variety of function types
 |minNumObs|This is the minimum number of observations with non-zero weight that the individual regressions will require before they will be used.  If there too few observations the program will iterate, making the windows wider until the number increases above this minimum.  The only reason to lower this is in cases where the data set is rather small.  It should always be set to a number at least slightly smaller than the sample size.  Any value less than about 60 is probably in the "dangerous} range, in terms of the reliability of the regression|100| 
 |minNumUncen|This is the minimum number of uncensored observations with non-zero weight that the individual regressions will require before they will be used.  If there are too few uncensored observations the program will iterate, making the windows wider until the number increases above this minimum.  The only reason to lower this is in cases where the number of uncensored values is rather small.  The method has never been tested in situations where there are very few uncensored values|50|
 |edgeAdjust|Specify whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record|TRUE|
-[Selected variables in WRTDS](#wrtdsVariables)
+Table: Selected variables in WRTDS
 
 ## Post-WRTDS Plotting Input {#wrtdsOutputVariables}
 
-\caption{Selected variables used in plots for analysis of WRTDS model results 
-
 |Argument|Definition|Default|
 |:----------|--------------------------------------:|-----:|
-|qUnit|Determines what units will be used for discharge, see section \ref{#units}|2|
-|fluxUnit|An index indicating what flux units will be used , see section \ref{#units}|3|
+|qUnit|Determines what units will be used for discharge, see section [Units](#units)|2|
+|fluxUnit|An index indicating what flux units will be used , see section [Units](#units)|3|
 |stdResid|This is an option.  If FALSE, it prints the regular residuals (they are in ln concentration units).  If TRUE, it is the standardized residuals.  These are the residuals divided by their estimated standard error (each residual has its own unique standard error).  In theory, the standardized residuals should have mean zero and standard deviation of 1|FALSE|
 |printTitle|If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption)|TRUE|
 |startYear|The starting date for the graph, expressed as decimal years, for example, 1989|NA|
@@ -1263,12 +1206,11 @@ This section describes variables that are common for a variety of function types
 |fluxMax|The upper limit on the vertical axis of graphs showing flux values.|NA|
 |concMax|The upper limit on the vertical axis of graphs showing concentration values.|NA|
 |plotFlowNorm|If TRUE the graph shows the annual values as circles and the flow-normalized values as a green curve.  If false, it only shows the annual values.|TRUE|
-
-\caption{Variables used in EGRET contour plots: `plotContours` and `plotDiffContours`
+Table: Selected variables used in plots for analysis of WRTDS model results
 
 |Argument|Definition|Defaults|
 |:----------|--------------------------------------:|-----:|
-|qUnit|Determines what units will be used for discharge, see section \ref{#units}|2|
+|qUnit|Determines what units will be used for discharge, see section [Units](#units)|2|
 |qBottom|The lower limit of the discharge value for the graphs in the units specified by qUnit ||
 |qTop|The upper limit of the discharge value for the graphs in the units specified by qUnit ||
 |printTitle|If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption)|TRUE|
@@ -1283,9 +1225,7 @@ This section describes variables that are common for a variety of function types
 |vert2|This gives the location of a second vertical black line on the graph at a particular time (defined in decimal years).|NA|
 |horiz|This simply plots a horizontal black line on the graph at a particular discharge value (defined in the units specified by qUnit).  It is used to illustrate the idea of the seasonal cycle in concentrations for a given discharge and the long-term change in this cycle. |NA|
 |flowDuration|If TRUE it draws the discharge duration lines at the specified probabilities.  If FALSE, the discharge duration lines are left off.|TRUE|
-
-
-\caption{Variables used in EGRET `plotConcQSmooth` and/or `plotConcTimeSmooth` functions
+Table: Variables used in EGRET contour plots: `plotContours` and `plotDiffContours`
 
 |Argument|Definition|Default|
 |:----------|--------------------------------------:|-----:|
@@ -1312,6 +1252,7 @@ concMin|[This one is only used when logScale=TRUE].  Minimum value for the verti
 |windowQ|This is the half-window width for discharge in WRTDS.  It has units of ln(discharge). |2|
 |windowS|This is the half-window width for seasons in WRTDS.  It has units of years. |0.5|
 |edgeAdjust|Specify whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record|TRUE|
+Table: Variables used in EGRET `plotConcQSmooth` and/or `plotConcTimeSmooth` functions
 
 # Creating tables in Microsoft&trade; software from an R data frame {#createWordTable}
  
@@ -1407,23 +1348,23 @@ This software has been approved for release by the U.S. Geological Survey (USGS)
 # Bibliography
 
 % \bibitem{HirschI}
-% Helsel, D.R. and R. M. Hirsch, 2002. Statistical Methods in Water Resources Techniques of Water Resources Investigations, Book 4, chapter A3. U.S. Geological Survey. 522 pages. \url{https://pubs.usgs.gov/twri/twri4a3/}
+% Helsel, D.R. and R. M. Hirsch, 2002. Statistical Methods in Water Resources Techniques of Water Resources Investigations, Book 4, chapter A3. U.S. Geological Survey. 522 pages. [https://pubs.usgs.gov/twri/twri4a3/](https://pubs.usgs.gov/twri/twri4a3/)
 
 \bibitem{HirschI}
-Hirsch, R.M., De Cicco, L.A. (2014), User guide to Exploration and Graphics for RivEr Trends (EGRET) and dataRetrieval: R packages for hydrologic data (version 2.0, February 2015): U.S. Geological Survey Techniques and Methods book 4, chap. A10, 93 p. \url{https://doi.org/10.3133/tm4A10}
+Hirsch, R.M., De Cicco, L.A. (2014), User guide to Exploration and Graphics for RivEr Trends (EGRET) and dataRetrieval: R packages for hydrologic data (version 2.0, February 2015): U.S. Geological Survey Techniques and Methods book 4, chap. A10, 93 p. [https://doi.org/10.3133/tm4A10](https://doi.org/10.3133/tm4A10)
 
 
 \bibitem{HirschII}
-Hirsch, R.M., Moyer, D.L. and Archfield, S.A. (2010), Weighted Regressions on Time, Discharge, and Season (WRTDS), with an Application to Chesapeake Bay River Inputs. JAWRA Journal of the American Water Resources Association, 46: 857-880. doi: 10.1111/j.1752-1688.2010.00482.x \url{http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full}
+Hirsch, R.M., Moyer, D.L. and Archfield, S.A. (2010), Weighted Regressions on Time, Discharge, and Season (WRTDS), with an Application to Chesapeake Bay River Inputs. JAWRA Journal of the American Water Resources Association, 46: 857-880. doi: 10.1111/j.1752-1688.2010.00482.x [http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full](http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full)
 
 \bibitem{HirschIII}
-Sprague, L.A., Hirsch, R.M., and Aulenbach, B.T. (2011), Nitrate in the Mississippi River and Its Tributaries, 1980 to 2008: Are We Making Progress? Environmental Science \& Technology, 45 (17): 7209-7216. doi: 10.1021/es201221s 
+Sprague, L.A., Hirsch, R.M., and Aulenbach, B.T. (2011), Nitrate in the Mississippi River and Its Tributaries, 1980 to 2008: Are We Making Progress? Environmental Science & Technology, 45 (17): 7209-7216. doi: 10.1021/es201221s 
 
 \bibitem{HirschIV}
-Moyer, D.L., Hirsch, R.M., and Hyer, K.E. (2012), Comparison of Two Regression-Based Approaches for Determining Nutrient and Sediment Fluxes and Trends in the Chesapeake Bay Watershed: U.S. Geological Survey Scientific Investigations Report 2012-5244, 118 p. \url{https://pubs.usgs.gov/sir/2012/5244/}
+Moyer, D.L., Hirsch, R.M., and Hyer, K.E. (2012), Comparison of Two Regression-Based Approaches for Determining Nutrient and Sediment Fluxes and Trends in the Chesapeake Bay Watershed: U.S. Geological Survey Scientific Investigations Report 2012-5244, 118 p. [https://pubs.usgs.gov/sir/2012/5244/](https://pubs.usgs.gov/sir/2012/5244/)
 
 \bibitem{HirschV}
-Rice, K.C., and Hirsch, R.M. (2012), Spatial and temporal trends in runoff at long-term streamgages within and near the Chesapeake Bay Watershed: U.S. Geological Survey Scientific Investigations Report 2012-5151, 56 p. \url{https://pubs.usgs.gov/sir/2012/5151}
+Rice, K.C., and Hirsch, R.M. (2012), Spatial and temporal trends in runoff at long-term streamgages within and near the Chesapeake Bay Watershed: U.S. Geological Survey Scientific Investigations Report 2012-5151, 56 p. [https://pubs.usgs.gov/sir/2012/5151](https://pubs.usgs.gov/sir/2012/5151)
 
 
 
