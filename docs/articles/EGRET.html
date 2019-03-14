@@ -103,10 +103,11 @@
 <a href="#introduction" class="anchor"></a>Introduction</h1>
 <p>EGRET includes statistics and graphics for streamflow history, water quality trends, and the statistical modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS). Please see the official EGRET User Guide  for more information on the EGRET package:</p>
 <p><a href="https://doi.org/10.3133/tm4A10" class="uri">https://doi.org/10.3133/tm4A10</a></p>
-<p>For information on getting started in R, downloading and installing the package, see section .</p>
-<p>The best ways to learn about the WRTDS approach is to read the User Guide and two journal articles. These articles are available, for free, from the journals in which they were published. The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay. The URL is : <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full" class="uri">http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full</a>. The second is an application to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries . The URL is: <a href="http://pubs.acs.org/doi/abs/10.1021/es201221s" class="uri">http://pubs.acs.org/doi/abs/10.1021/es201221s</a></p>
-<p>This vignette assumes that you understand the concepts underlying WRTDS, and reading the relevant sections of the User Guide at least the first of these papers.</p>
-<p>Any use of trade, firm, or product names is for descriptive purposes only and does not imply endorsement by the U.S. Government.</p>
+<p>For information on getting started in R, downloading and installing the package, see the <a href="#new-to-r">New to R</a> section.</p>
+<p>The best ways to learn about the WRTDS approach is to read the User Guide and two journal articles. These articles are available, for free, from the journals in which they were published.</p>
+<p>The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay. The URL is : <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full" class="uri">http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full</a>.</p>
+<p>The second is an application to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries . The URL is: <a href="http://pubs.acs.org/doi/abs/10.1021/es201221s" class="uri">http://pubs.acs.org/doi/abs/10.1021/es201221s</a></p>
+<p>This vignette assumes that you understand the concepts underlying WRTDS, and reading the relevant sections of the User Guide at least the first of these papers. Any use of trade, firm, or product names is for descriptive purposes only and does not imply endorsement by the U.S. Government.</p>
 </div>
 <div id="egret-workflow" class="section level1">
 <h1 class="hasAnchor">
@@ -238,17 +239,16 @@ savePath&lt;-<span class="st">"/Users/rhirsch/Desktop/"</span>
 <div id="data_frame" class="section level1">
 <h1 class="hasAnchor">
 <a href="#data_frame" class="anchor"></a>EGRET Data Frames and Retrieval Options</h1>
-<p>The EGRET package uses 3 default data frames throughout the calculations, analysis, and graphing. These data frames are <a href="#data_frame_Daily">Daily</a>, <a href="#data_frame_Sample">Sample</a>, and <a href="#data_frame_INFO">INFO</a>. The data frames are combined into a named list for all EGRET functions using the <code>as.egret</code> function ().</p>
+<p>The EGRET package uses 3 default data frames throughout the calculations, analysis, and graphing. These data frames are <a href="#data_frame_Daily">Daily</a>, <a href="#data_frame_Sample">Sample</a>, and <a href="#data_frame_INFO">INFO</a>. The data frames are combined into a named list for all EGRET functions using the <code>as.egret</code> function (see <a href="#eList">Merge Report</a>).</p>
 <p>A package that EGRET depends on is called dataRetrieval. This package provides the core functionality to import hydrologic data from USGS and EPA web services. See the dataRetrieval vignette for more information.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dataRetrieval)
 <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/vignette">vignette</a></span>(<span class="st">"dataRetrieval"</span>)</code></pre></div>
-<p>EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units, which will be discussed in (). To start our exploration, you must install the packages (check Section  for detailed instructions), and then open EGRET with the following command:</p>
+<p>EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units, which will be discussed in the <a href="#units">Units</a> section. To start our exploration, you must install the packages, then open EGRET with the following command:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(EGRET)</code></pre></div>
 <div id="data_frame_Daily" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data_frame_Daily" class="anchor"></a>Daily</h2>
-<p>The Daily data frame can be imported into R either from USGS web services (<code>readNWISDaily</code>) or user-generated files (<code>readUserDaily</code>). After you run the WRTDS calculations by using the function <code>modelEstimation</code> (as will be described in the <a href="#wrtds">WRTDS section</a>, additional columns are inserted (Table ).</p>
-
+<p>The Daily data frame can be imported into R either from USGS web services (<code>readNWISDaily</code>) or user-generated files (<code>readUserDaily</code>). After you run the WRTDS calculations by using the function <code>modelEstimation</code> (as will be described in the <a href="#wrtds">WRTDS section</a>, additional columns are inserted.</p>
 <table class="table">
 <thead><tr class="header">
 <th align="left">ColumnName</th>
@@ -331,8 +331,9 @@ savePath&lt;-<span class="st">"/Users/rhirsch/Desktop/"</span>
 </tr>
 </tbody>
 </table>
-<p>}</p>
 <table class="table">
+<caption>Columns added to Daily data frame after running <code>modelEstimation</code>
+</caption>
 <thead><tr class="header">
 <th align="left">ColumnName</th>
 <th align="left">Type</th>
@@ -383,13 +384,13 @@ savePath&lt;-<span class="st">"/Users/rhirsch/Desktop/"</span>
 <h3 class="hasAnchor">
 <a href="#nwisDailyFile" class="anchor"></a>readNWISDaily</h3>
 <p>The <code>readNWISDaily</code> function retrieves the daily values (discharge in this case) from a USGS web service. It requires the inputs siteNumber, parameterCd, startDate, endDate, interactive, and convert.</p>
-<p>These arguments are described in detail in the <code>dataRetrieval</code> vignette, however <code>convert</code> is a new argument (which defaults to TRUE). The convert argument tells the program to convert the values from cubic feet per second (ft<sup>3</sup>/s) to cubic meters per second (m<sup>3</sup>/s) as shown in the example Daily data frame in Table . For EGRET applications with NWIS Web retrieval, do not use this argument (the default is TRUE), EGRET assumes that discharge is always stored in units of cubic meters per second. If you don’t want this conversion and are not using EGRET, set convert=FALSE in the function call.</p>
+<p>These arguments are described in detail in the <code>dataRetrieval</code> vignette, however <code>convert</code> is a new argument (which defaults to TRUE). The convert argument tells the program to convert the values from cubic feet per second (ft<sup>3</sup>/s) to cubic meters per second (m<sup>3</sup>/s) as shown in the example Daily data frame. For EGRET applications with NWIS Web retrieval, do not use this argument (the default is TRUE), EGRET assumes that discharge is always stored in units of cubic meters per second. If you don’t want this conversion and are not using EGRET, set convert=FALSE in the function call.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">siteNumber &lt;-<span class="st"> "01491000"</span>
 startDate &lt;-<span class="st"> "2000-01-01"</span>
 endDate &lt;-<span class="st"> "2013-01-01"</span>
 <span class="co"># This call will get NWIS (ft3/s) data , and convert it to m3/s:</span>
 Daily &lt;-<span class="st"> </span><span class="kw"><a href="../reference/readNWISDaily.html">readNWISDaily</a></span>(siteNumber, <span class="st">"00060"</span>, startDate, endDate)</code></pre></div>
-<p>If discharge values are negative or zero, the code will set all of these values to zero and then add a small constant to all of the daily discharge values. This constant is 0.001 times the mean discharge. The code will also report on the number of zero and negative values and the size of the constant. Use EGRET analysis only if the number of zero values is a very small fraction of the total days in the record (say less than 0.1% of the days), and there are no negative discharge values. Columns Q7 and Q30 are the 7 and 30 day running averages for the 7 or 30 days ending on this specific date. Table  lists details of the Daily data frame.</p>
+<p>If discharge values are negative or zero, the code will set all of these values to zero and then add a small constant to all of the daily discharge values. This constant is 0.001 times the mean discharge. The code will also report on the number of zero and negative values and the size of the constant. Use EGRET analysis only if the number of zero values is a very small fraction of the total days in the record (say less than 0.1% of the days), and there are no negative discharge values. Columns Q7 and Q30 are the 7 and 30 day running averages for the 7 or 30 days ending on this specific date.</p>
 </div>
 <div id="DailyFile" class="section level3">
 <h3 class="hasAnchor">
@@ -417,7 +418,7 @@ Daily &lt;-<span class="st"> </span><span class="kw"><a href="../reference/readD
 <div id="data_frame_Sample" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data_frame_Sample" class="anchor"></a>Sample</h2>
-<p>The Sample data frame initially is populated with columns generated by either the <code>readNWISSample</code>, <code>readWQPSample</code>, or <code>readUserSample</code> functions (Table ). After you run the WRTDS calculations using the `modelEstimation} function (as described in the <a href="#wrtds">WRTDS</a> section, additional columns are inserted (Table ):</p>
+<p>The Sample data frame initially is populated with columns generated by either the <code>readNWISSample</code>, <code>readWQPSample</code>, or <code>readUserSample</code> functions. After you run the WRTDS calculations using the <code>modelEstimation</code> function (as described in the <a href="#wrtds">WRTDS</a> section, additional columns are inserted:</p>
 <table class="table">
 <thead><tr class="header">
 <th align="left">ColumnName</th>
@@ -512,8 +513,9 @@ Daily &lt;-<span class="st"> </span><span class="kw"><a href="../reference/readD
 </tr>
 </tbody>
 </table>
-<p>}</p>
 <table class="table">
+<caption>Columns added to Sample data frame after running <code>modelEstimation</code>
+</caption>
 <thead><tr class="header">
 <th align="left">ColumnName</th>
 <th align="left">Type</th>
@@ -599,7 +601,7 @@ Sample &lt;-<span class="kw"><a href="../reference/readUserSample.html">readUser
 <h3 class="hasAnchor">
 <a href="#cenValues" class="anchor"></a>Censored Values: Summation Explanation</h3>
 <p>In the typical case where none of the data are censored (that is, no values are reported as “less-than” values), the ConcLow = ConcHigh = ConcAve which are all equal to the reported value, and Uncen = 1 for all values. For the most common type of censoring, where a value is reported as less than the reporting limit, then ConcLow = NA, ConcHigh = reporting limit, ConcAve = 0.5 * reporting limit, and Uncen = 0.</p>
-<p>To illustrate how the EGRET package handles a more complex censoring problem, let us say that in 2004 and earlier, we computed total phosphorus (tp) as the sum of dissolved phosphorus (dp) and particulate phosphorus (pp). From 2005 and onward, we have direct measurements of total phosphorus (tp). A small subset of this fictional data looks like Table .</p>
+<p>To illustrate how the EGRET package handles a more complex censoring problem, let us say that in 2004 and earlier, we computed total phosphorus (tp) as the sum of dissolved phosphorus (dp) and particulate phosphorus (pp). From 2005 and onward, we have direct measurements of total phosphorus (tp). A small subset of this fictional data is provided:</p>
 <table class="table">
 <caption>Example data</caption>
 <thead><tr class="header">
@@ -692,7 +694,7 @@ Sample &lt;-<span class="kw"><a href="../reference/readUserSample.html">readUser
 <div id="data_frame_INFO" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data_frame_INFO" class="anchor"></a>INFO</h2>
-<p>The INFO data frame stores information about the measurements, such as station name, parameter name, drainage area, and so forth. There can be many additional, optional columns, but the columns in Table  are required to initiate the EGRET analysis. After you run the WRTDS calculations (as described in the <a href="#wrtds">WRTDS</a> section, additional columns (Table ) are automatically inserted into the INFO data frame (see the EGRET User Guide for complete description of each term):</p>
+<p>The INFO data frame stores information about the measurements, such as station name, parameter name, drainage area, and so forth. There can be many additional, optional columns, but the columns in the table below are required to initiate the EGRET analysis. After you run the WRTDS calculations (as described in the <a href="#wrtds">WRTDS</a> section, additional columns are automatically inserted into the INFO data frame (see the EGRET User Guide for complete description of each term):</p>
 <table class="table">
 <colgroup>
 <col width="16%">
@@ -744,6 +746,8 @@ Sample &lt;-<span class="kw"><a href="../reference/readUserSample.html">readUser
 </tbody>
 </table>
 <table class="table">
+<caption>INFO data frame after running <code>modelEstimation</code>
+</caption>
 <thead><tr class="header">
 <th align="left">ColumnName</th>
 <th align="right">Description</th>
@@ -855,25 +859,21 @@ Daily &lt;-<span class="st"> </span><span class="kw"><a href="../reference/readN
 Sample &lt;-<span class="st"> </span><span class="kw"><a href="../reference/readNWISSample.html">readNWISSample</a></span>(siteNumber,parameterCd, startDate, endDate)
 INFO &lt;-<span class="st"> </span><span class="kw"><a href="../reference/INFOdataframe.html">readNWISInfo</a></span>(siteNumber, parameterCd)
 
-
 eList &lt;-<span class="st"> </span><span class="kw"><a href="../reference/mergeReport.html">mergeReport</a></span>(INFO, Daily,Sample)</code></pre></div>
 <p>Perhaps you already have Daily, Sample, and INFO data frames, and surfaces matrix (created after running the WRTDS <code>modelEstimation</code>) that have gone though a deprecated version of EGRET. You can create and edit an EGRET object as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eListNew &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as.egret.html">as.egret</a></span>(INFO, Daily, Sample, surfaces)
-
 <span class="co">#To pull out the INFO data frame:</span>
 INFO &lt;-<span class="st"> </span><span class="kw"><a href="../reference/getInfo.html">getInfo</a></span>(eListNew)
 <span class="co">#Edit the INFO data frame:</span>
 INFO<span class="op">$</span>importantNews &lt;-<span class="st"> "New EGRET workflow started"</span>
 <span class="co">#Put new data frame in eListNew</span>
 eListNew<span class="op">$</span>INFO &lt;-<span class="st"> </span>INFO
-
 <span class="co">#To pull out Daily:</span>
 Daily &lt;-<span class="st"> </span><span class="kw"><a href="../reference/getDaily.html">getDaily</a></span>(eListNew)
 <span class="co">#Edit for some reason:</span>
 DailyNew &lt;-<span class="st"> </span>Daily[Daily<span class="op">$</span>DecYear <span class="op">&gt;</span><span class="st"> </span><span class="dv">1985</span>,]
 <span class="co">#Put new Daily data frame back in eListNew:</span>
 eListNew<span class="op">$</span>Daily &lt;-<span class="st"> </span>DailyNew
-
 <span class="co">#To create a whole new egret object:</span>
 eList_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as.egret.html">as.egret</a></span>(INFO, DailyNew, <span class="kw"><a href="../reference/getSample.html">getSample</a></span>(eListNew), <span class="ot">NA</span>)</code></pre></div>
 </div>
@@ -921,9 +921,9 @@ INFO &lt;-<span class="st"> </span><span class="kw"><a href="../reference/INFOda
 INFO<span class="op">$</span>shortName &lt;-<span class="st"> "Columbia River at The Dalles, OR"</span>
 
 eList &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as.egret.html">as.egret</a></span>(INFO, Daily, <span class="ot">NA</span>, <span class="ot">NA</span>)</code></pre></div>
-<p>You first must determine the period of analysis to use (PA). What is the period of analysis? If you want to examine your data set as a time series of water years, then the period of analysis is October through September. If you want to examine the data set as calendar years then the period of analysis is January through December. You might want to examine the winter season, which you could define as December through February, then those 3 months become the period of analysis. The only constraints on the definition of a period of analysis are these: it must be defined in terms of whole months; it must be a set of contiguous months (like March-April-May), and have a length that is no less than 1 month and no more than 12 months. Define the PA by using two arguments: paLong and paStart. paLong is the length of the PA, and paStart is the first month of the PA. Table  summarizes paLong and paStart.</p>
-
+<p>You first must determine the period of analysis to use (PA). What is the period of analysis? If you want to examine your data set as a time series of water years, then the period of analysis is October through September. If you want to examine the data set as calendar years then the period of analysis is January through December. You might want to examine the winter season, which you could define as December through February, then those 3 months become the period of analysis. The only constraints on the definition of a period of analysis are these: it must be defined in terms of whole months; it must be a set of contiguous months (like March-April-May), and have a length that is no less than 1 month and no more than 12 months. Define the PA by using two arguments: paLong and paStart. paLong is the length of the PA, and paStart is the first month of the PA.</p>
 <table class="table">
+<caption>Period of Analysis Information</caption>
 <thead><tr class="header">
 <th align="left">Period of Analysis</th>
 <th align="right">paStart</th>
@@ -956,9 +956,9 @@ eList &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as.eg
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eList &lt;-<span class="st"> </span><span class="kw"><a href="../reference/setPA.html">setPA</a></span>(eList,<span class="dt">paStart=</span><span class="dv">12</span>,<span class="dt">paLong=</span><span class="dv">3</span>)</code></pre></div>
 <p>To set the default value (water year):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eList &lt;-<span class="st"> </span><span class="kw"><a href="../reference/setPA.html">setPA</a></span>(eList)</code></pre></div>
-<p>The next step can be to create the annual series of discharge statistics. These are returned in a matrix that contain the statistics described in table . The statistics are based on the period of analysis set with the <code>setPA</code> function.</p>
-
+<p>The next step can be to create the annual series of discharge statistics. These are returned in a matrix that contain the statistics described below. The statistics are based on the period of analysis set with the <code>setPA</code> function.</p>
 <table class="table">
+<caption>Index of discharge statistics information</caption>
 <thead><tr class="header">
 <th align="right">istat</th>
 <th align="right">Name</th>
@@ -1007,8 +1007,8 @@ eList &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as.eg
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(eList, <span class="dt">istat=</span><span class="dv">5</span>,<span class="dt">qUnit=</span><span class="st">"thousandCfs"</span>)
 <span class="kw"><a href="../reference/plotSDLogQ.html">plotSDLogQ</a></span>(eList)</code></pre></div>
 <div class="figure" style="text-align: center">
-<img src="EGRET_files/figure-html/plotSingleandSD-1.png" alt="\label{fig:plotSingleandSD}Plots of discharge statistics" width="45%"><img src="EGRET_files/figure-html/plotSingleandSD-2.png" alt="\label{fig:plotSingleandSD}Plots of discharge statistics" width="45%"><p class="caption">
-Plots of discharge statistics
+<img src="EGRET_files/figure-html/plotSingleandSD-1.png" alt="}Plots of discharge statistics" width="45%"><img src="EGRET_files/figure-html/plotSingleandSD-2.png" alt="}Plots of discharge statistics" width="45%"><p class="caption">
+}Plots of discharge statistics
 </p>
 </div>
 <p>Here is an example of looking at daily mean discharge for the full water year and then looking at mean daily discharge for the winter season only for the Merced River at Happy Isles Bridge in Yosemite National Park in California. First, we look at the mean daily discharge for the full year (after having read in the data and metadata):</p>
@@ -1042,7 +1042,7 @@ Merced River winter trend
 </p>
 </div>
 <p><code>plotQTimeDaily</code> is simply a time series plot of discharge. But, it is most suited for showing events above some discharge threshold. In the simplest case, it can plot the entire record, but given the line weight and use of an arithmetic scale it primarily provides a visual focus on the higher values.</p>
-<p>The example shown in Figure  illustrates a very long record with a long gap of more than 60 years with no discharges above 300,000 cfs, followed by the last followed by the 49 years from 1965 through 2013 with 6 events above that threshold. <code>plotQTimeDaily</code> requires startYear and endYear, along with some other optional arguements (see <code>?plotQTimeDail</code> for more details).</p>
+<p>The Mississippi example illustrates a very long record with a long gap of more than 60 years with no discharges above 300,000 cfs, followed by the last followed by the 49 years from 1965 through 2013 with 6 events above that threshold. <code>plotQTimeDaily</code> requires startYear and endYear, along with some other optional arguements (see <code><a href="../reference/plotQTimeDaily.html">?plotQTimeDaily</a></code> for more details).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Mississippi River at Keokuk Iowa:</span>
 siteNumber&lt;-<span class="st">"05474500"</span>
 Daily &lt;-<span class="kw"><a href="../reference/readNWISDaily.html">readNWISDaily</a></span>(siteNumber,<span class="st">"00060"</span>,<span class="dt">startDate=</span><span class="st">""</span>,<span class="dt">endDate=</span><span class="st">""</span>)
@@ -1094,7 +1094,7 @@ Mississippi River at Keokuk Iowa
 ##  1890  to  1950          1.3        0.022          5.7        0.095
 ##  1890  to  2010          9.6         0.08           42         0.35
 ##  1950  to  2010          8.3         0.14           34         0.57</code></pre>
-<p>See section  for instructions on converting an R data frame to a table in Microsoft™ software. Excel, Microsoft, PowerPoint, Windows, and Word are registered trademarks of Microsoft Corporation in the United States and other countries.</p>
+<p>See <a href="#createWordTable">here</a> for instructions on converting an R data frame to a table in Microsoft™ software. Excel, Microsoft, PowerPoint, Windows, and Word are registered trademarks of Microsoft Corporation in the United States and other countries.</p>
 </div>
 </div>
 <div id="wqa" class="section level1">
@@ -1116,7 +1116,7 @@ eList &lt;-<span class="st"> </span><span class="kw"><a href="../reference/merge
 <div id="plotOptionsWQ" class="section level2">
 <h2 class="hasAnchor">
 <a href="#plotOptionsWQ" class="anchor"></a>Plotting Options</h2>
-<p>This section shows examples of the available plots appropriate for analyzing data prior to performing a WRTDS analysis. The plots here use the default variable input options. For any function, you can get a complete list of input variables in a help file by typing a ? before the function name in the R console. See section  for information on the available input variables for these plotting functions.</p>
+<p>This section shows examples of the available plots appropriate for analyzing data prior to performing a WRTDS analysis. The plots here use the default variable input options. For any function, you can get a complete list of input variables in a help file by typing a ? before the function name in the R console. See <a href="#wqVariables">Water Quality Plotting Input</a> for information on the available input variables for these plotting functions.</p>
 <p>Note that for any of the plotting functions that show the sample data, if a value in the data set is a non-detect (censored), it is displayed on the graph as a vertical line. The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values the minimum value on the y-axis. This line is an “honest” representation of what we know about about that observation and doesn’t attempt to use a statistical model to make an estimate below the reporting limit.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/boxConcMonth.html">boxConcMonth</a></span>(eList)
 <span class="kw"><a href="../reference/boxQTwice.html">boxQTwice</a></span>(eList,<span class="dt">qUnit=</span><span class="dv">1</span>)</code></pre></div>
@@ -1133,21 +1133,20 @@ Concentration box plots
 The relation of concentration vs time or discharge
 </p>
 </div>
-<p>It is interesting to note in Figure  the change in the convention for rounding of data values that occurred around 1995.</p>
+<p>It is interesting to note the change in the convention for rounding of data values that occurred around 1995.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotFluxQ.html">plotFluxQ</a></span>(eList, <span class="dt">fluxUnit=</span><span class="dv">4</span>)</code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotFluxQ-1.png" alt="The relation of flux vs discharge" width="45%"><p class="caption">
 The relation of flux vs discharge
 </p>
 </div>
-<p>The <code>plotFluxQ</code> (Figure ) function only plots in a log-log scale.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/multiPlotDataOverview.html">multiPlotDataOverview</a></span>(eList, <span class="dt">qUnit=</span><span class="dv">1</span>)</code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/multiPlotDataOverview-1.png" alt="`multiPlotDataOverview(eList, qUnit=1)`" width="100%"><p class="caption">
 <code><a href="../reference/multiPlotDataOverview.html">multiPlotDataOverview(eList, qUnit=1)</a></code>
 </p>
 </div>
-<p>The <code>multiPlotDataOverview</code> (Figure ) function uses a log scale as default. To change the concentration axes to an arithmetic scale, use logScaleConc=FALSE in the <code>multiPlotDataOverview</code> function call.</p>
+<p>The <code>multiPlotDataOverview</code> function uses a log scale as default. To change the concentration axes to an arithmetic scale, use logScaleConc=FALSE in the <code>multiPlotDataOverview</code> function call.</p>
 </div>
 <div id="tableOptionsWQ" class="section level2">
 <h2 class="hasAnchor">
@@ -1177,10 +1176,10 @@ The relation of flux vs discharge
 <div id="wrtds" class="section level1">
 <h1 class="hasAnchor">
 <a href="#wrtds" class="anchor"></a>Weighted Regressions on Time, Discharge and Season (WRTDS)</h1>
-<p>WRTDS creates a model of the behavior of concentration as a function of three components: time trend, discharge, and season. You can use WRTDS to estimate annual or seasonal mean concentrations and fluxes as well as describe long-term trends in the behavior of the system. In this section, we will step though the process required for a WRTDS analysis. Section () provides details about the available methods for viewing and evaluating the model results.</p>
-<p>Once you have looked at your data using the tools described in section , and have determined there are sufficient representative data, it is time to run the WRTDS model. Assuming you are using the defaults, with data frames called Daily, Sample, and INFO, the <code>modelEstimation</code> function runs the WRTDS modeling algorithm:</p>
+<p>WRTDS creates a model of the behavior of concentration as a function of three components: time trend, discharge, and season. You can use WRTDS to estimate annual or seasonal mean concentrations and fluxes as well as describe long-term trends in the behavior of the system. In this section, we will step though the process required for a WRTDS analysis. <a href="#wrtdsResults">WRTDS Results</a> provides details about the available methods for viewing and evaluating the model results.</p>
+<p>Once you have looked at your data using the tools described in <a href="#wqa">Summary of Water Quality Data</a>, and have determined there are sufficient representative data, it is time to run the WRTDS model. Assuming you are using the defaults, with data frames called Daily, Sample, and INFO, the <code>modelEstimation</code> function runs the WRTDS modeling algorithm:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">eList &lt;-<span class="st"> </span><span class="kw"><a href="../reference/modelEstimation.html">modelEstimation</a></span>(eList)</code></pre></div>
-<p>Details of the options available when running <code>modelEstimation</code> can be found in Section . This function is slow, and shows the progress in percent complete. See the references and manual for more information. It’s important to understand that this is the one function that will globally change your Daily, Sample, and INFO data frames. It also creates a new matrix <code>surfaces</code>, and a new data frame <code>AnnualResults</code>.</p>
+<p>Details of the options available when running <code>modelEstimation</code> can be found in <a href="#wrtdsInputVariables">WRTDS Estimation Input</a>. This function is slow, and shows the progress in percent complete. See the references and manual for more information. It’s important to understand that this is the one function that will globally change your Daily, Sample, and INFO data frames. It also creates a new matrix <code>surfaces</code>, and a new data frame <code>AnnualResults</code>.</p>
 <p>Finally, it is a good idea to save your results because of the computational time that has been invested in producing these results. The workspace is saved to a directory that you designate savePath and the file name is determined by the abbreviations for station and constituent that were required entries when the <code>readNWISInfo</code> function was used. The command for saving the workspace is:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#An example directory name</span>
 savePath &lt;-<span class="st"> "C:/Users/egretUser/WRTDS_Output/"</span> 
@@ -1197,11 +1196,11 @@ pathToFile &lt;-<span class="st"> </span><span class="kw"><a href="https://www.r
 <div id="wrtdsResults" class="section level1">
 <h1 class="hasAnchor">
 <a href="#wrtdsResults" class="anchor"></a>WRTDS Results</h1>
-<p>At this point (after having run <code>modelEstimation</code>) we can start considering how to view the annual averages for the variables that have been calculated. See section  for common input variables for these functions. Additionally, check the help files (in the R console, type ? followed by the function name).</p>
+<p>At this point (after having run <code>modelEstimation</code>) we can start considering how to view the annual averages for the variables that have been calculated. See <a href="#wrtdsOutputVariables">Post-WRTDS Plotting Input</a> for common input variables for these functions. Additionally, check the help files (in the R console, type ? followed by the function name).</p>
 <div id="wrtdsPlotting" class="section level2">
 <h2 class="hasAnchor">
 <a href="#wrtdsPlotting" class="anchor"></a>Plotting Options</h2>
-<p>Check the help files or manual for more details on the following functions. See section  for information on saving plots. In these examples, we will return to looking at the data in the water year by using the <code>setPA</code> function. Most plotting functions will use the period of analysis information in the INFO data frame to determine what data are plotted. There are only four graph or table functions that don’t allow the user to specify a Period of Analysis (PA). These are: <code>plotContour</code>, <code>plotDiffContour</code>, <code>plotConcTimeSmooth</code>, <code>plotConcQSmooth</code>.</p>
+<p>Check the help files or manual for more details on the following functions. See <a href="#savingPlots">Saving Plots</a> for information on saving plots. In these examples, we will return to looking at the data in the water year by using the <code>setPA</code> function. Most plotting functions will use the period of analysis information in the INFO data frame to determine what data are plotted. There are only four graph or table functions that don’t allow the user to specify a Period of Analysis (PA). These are: <code>plotContour</code>, <code>plotDiffContour</code>, <code>plotConcTimeSmooth</code>, <code>plotConcQSmooth</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Return to water year:</span>
 eList &lt;-<span class="st"> </span><span class="kw"><a href="../reference/setPA.html">setPA</a></span>(eList)
 
@@ -1249,7 +1248,7 @@ Default <code><a href="../reference/boxConcThree.html">boxConcThree(eList)</a></
 Concentration and flux history
 </p>
 </div>
-<p>Figures  and  contain legends. The placement of the legend is controlled by legendLeft and legendTop. If both are set to 0 (the default values), the legend is placed near the lower left corner of the graphic. Otherwise, the value specified for legendLeft places the left edge of the legend, and legendTop specifies the top edge of the legend. The units for legendLeft and legendTop are discharge (in units specified by qUnit) and concentration, respectively. The legend can also be turned off with printLegend=FALSE. These are also functions that do not recognize the period of analysis in the INFO data frame. However, by choosing centering dates and appropriate half-windows, seasonal behavior can easily be observed in these plots.</p>
+<p>The placement of the legend is controlled by legendLeft and legendTop. If both are set to 0 (the default values), the legend is placed near the lower left corner of the graphic. Otherwise, the value specified for legendLeft places the left edge of the legend, and legendTop specifies the top edge of the legend. The units for legendLeft and legendTop are discharge (in units specified by qUnit) and concentration, respectively. The legend can also be turned off with printLegend=FALSE. These are also functions that do not recognize the period of analysis in the INFO data frame. However, by choosing centering dates and appropriate half-windows, seasonal behavior can easily be observed in these plots.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">qLow &lt;-<span class="st"> </span><span class="dv">20</span>
 qHigh &lt;-<span class="st"> </span><span class="dv">700</span>
 date1 &lt;-<span class="st"> "2000-09-01"</span>
@@ -1276,7 +1275,6 @@ centerDate &lt;-<span class="st"> "07-01"</span>
 <code>plotConcTimeSmooth(eList))</code>
 </p>
 </div>
-<p>Figure  shows a predefined multipanel graph using `fluxBiasMulti}.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/fluxBiasMulti.html">fluxBiasMulti</a></span>(eList, <span class="dt">qUnit=</span><span class="dv">1</span>)</code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/fluxBiasMulti-1.png" alt="`fluxBiasMulti(eList, qUnit=1)`" width="100%"><p class="caption">
@@ -1304,7 +1302,7 @@ centerDate &lt;-<span class="st"> "07-01"</span>
 <div id="wrtdsTable" class="section level2">
 <h2 class="hasAnchor">
 <a href="#wrtdsTable" class="anchor"></a>Table Options</h2>
-<p>Sometimes it is easier to consider the results in table form rather than graphically. The function `tableResults} produces a simple text table that contains the annual values for the results. Each row of the output represents a year and includes: year, average discharge, average concentration, flow-normalized concentration, average flux, and flow-normalized flux. If paLong 12 make sure you take note of the explanation of the seasonal flux values discussed at the end of section . A small sample of the output is printed below.</p>
+<p>Sometimes it is easier to consider the results in table form rather than graphically. The function `tableResults} produces a simple text table that contains the annual values for the results. Each row of the output represents a year and includes: year, average discharge, average concentration, flow-normalized concentration, average flux, and flow-normalized flux. If paLong != 12 make sure you take note of the explanation of the seasonal flux values discussed at the end of <a href="#units">Units</a>. A small sample of the output is printed below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/tableResults.html">tableResults</a></span>(eList)
 returnDF &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tableResults.html">tableResults</a></span>(eList)</code></pre></div>
 <pre><code>   Choptank River 
@@ -1402,7 +1400,7 @@ returnDF &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ta
 ##  2000  to  2005       0.0065       0.0013          4.7         0.93
 ##  2000  to  2010       0.0097      0.00097          6.9         0.69
 ##  2005  to  2010       0.0032      0.00063          2.2         0.43</code></pre>
-<p>Finally, <code>tableChangeSingle</code> (Table ) operates exactly the same as <code>tableChange</code> except for the addition argument flux. This function provides either concentration results or flux results, but not both. This can be useful when you are producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux. The arguments are identical to those for tableChange, except for the final two arguments. The argument <code>flux</code> defaults to TRUE. When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration. See section  for instructions on converting an R data frame to a table in Microsoft™ software.</p>
+<p>Finally, <code>tableChangeSingle</code> operates exactly the same as <code>tableChange</code> except for the addition argument flux. This function provides either concentration results or flux results, but not both. This can be useful when you are producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux. The arguments are identical to those for tableChange, except for the final two arguments. The argument <code>flux</code> defaults to TRUE. When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration. See <a href="#createWordTable">Creating tables</a> for instructions on converting an R data frame to a table in Microsoft™ software.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">returnDF &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tableChange.html">tableChangeSingle</a></span>(eList, <span class="dt">yearPoints=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2000</span>,<span class="dv">2005</span>,<span class="dv">2010</span>))</code></pre></div>
 <table class="table">
 <caption>Table created from <code>tableChangeSingle</code> function</caption>
@@ -1446,9 +1444,10 @@ returnDF &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ta
 <div id="extendedPlots" class="section level1">
 <h1 class="hasAnchor">
 <a href="#extendedPlots" class="anchor"></a>Extending Plots Past Defaults</h1>
-<p>The basic plotting options were shown in the section . This section demonstrates some ways to extend the capabilities of the EGRET plots. EGRET plots use R’s basic plotting options. You set many of the formatting details of plotting routines in R by using “Graphical Parameters”. To read about all of these graphical parameters see <code><a href="https://www.rdocumentation.org/packages/graphics/topics/par">?par</a></code>. When the graphical functions in EGRET are coded, a set of default values for many of these parameters are chosen, but you can override all of these default values. Additionally, you can add features to a plot after calling the plot function. To change the plot margins (mar), font, or other graphical parameters initially assigned, set the argument customPar to TRUE.</p>
-<p>A few of R’s base graphical parameters are especially useful within the plot functions. These are shown in Table .</p>
+<p>The basic plotting options were shown in the section <a href="#wrtdsResults">WRTDS Results</a>. This section demonstrates some ways to extend the capabilities of the EGRET plots. EGRET plots use R’s basic plotting options. You set many of the formatting details of plotting routines in R by using “Graphical Parameters”. To read about all of these graphical parameters see <code><a href="https://www.rdocumentation.org/packages/graphics/topics/par">?par</a></code>. When the graphical functions in EGRET are coded, a set of default values for many of these parameters are chosen, but you can override all of these default values. Additionally, you can add features to a plot after calling the plot function. To change the plot margins (mar), font, or other graphical parameters initially assigned, set the argument customPar to TRUE.</p>
+<p>A few of R’s base graphical parameters are especially useful within the plot functions.</p>
 <table class="table">
+<caption>Useful plotting parameters to adjust in EGRET plotting functions. For details of any of these see ?par.</caption>
 <colgroup>
 <col width="16%">
 <col width="41%">
@@ -1503,8 +1502,9 @@ returnDF &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ta
 </tr>
 </tbody>
 </table>
-<p>After the plot is made, many other functions that might be useful to call, such as to add text, legend, lines, etc. Table  lists a few common options.</p>
+<p>After the plot is made, many other functions that might be useful to call, such as to add text, legend, lines, etc.</p>
 <table class="table">
+<caption>Useful functions to add on to default plots. Type ? then the function name to get help on the individual function.</caption>
 <thead><tr class="header">
 <th align="left">Function</th>
 <th align="right">Description</th>
@@ -1537,7 +1537,6 @@ returnDF &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ta
 </tbody>
 </table>
 <p>Some basic examples are shown below.</p>
-<p>Figure  shows a larger title and axis number (left), and larger axis labels and point size (right).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(eList, <span class="dt">cex.axis=</span><span class="dv">2</span>,<span class="dt">cex.main=</span><span class="fl">1.5</span>,<span class="dt">logScale=</span><span class="ot">TRUE</span>)
 <span class="kw"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(eList, <span class="dt">cex.lab=</span><span class="dv">2</span>,<span class="dt">cex=</span><span class="dv">2</span>,<span class="dt">logScale=</span><span class="ot">TRUE</span>)</code></pre></div>
 <div class="figure" style="text-align: center">
@@ -1545,7 +1544,7 @@ returnDF &lt;-<span class="st"> </span><span class="kw"><a href="../reference/ta
 Modifying text and point size, as shown using the <code>plotConcQ</code> function
 </p>
 </div>
-<p>Figure  shows the default on the left, and several features on the right. First, the margin is adjusted to c(8,8,8,8), requiring customPar set to TRUE. The margin vector represents the margin spacing of the 4 <code>sides</code> of a plot in the order: bottom, left, top, right. Next, the text labels were adjusted, color set to <code>"}blue</code>“}, point and line size increased, and the point type changed form a solid circle(pch=20) to solid diamond (pch=18). A grid, legend, arrow, and text are added after the plot is produced.</p>
+<p>First, the margin is adjusted to c(8,8,8,8), requiring customPar set to TRUE. The margin vector represents the margin spacing of the 4 <code>sides</code> of a plot in the order: bottom, left, top, right. Next, the text labels were adjusted, color set to <code>"blue"</code>, point and line size increased, and the point type changed form a solid circle(pch=20) to solid diamond (pch=18). A grid, legend, arrow, and text are added after the plot is produced.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(eList, <span class="dt">logScale=</span><span class="ot">TRUE</span>)
 <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mar=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">8</span>))
 <span class="kw"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(eList, <span class="dt">customPar=</span><span class="ot">TRUE</span>,<span class="dt">col=</span><span class="st">"blue"</span>,<span class="dt">cex=</span><span class="fl">1.1</span>,
@@ -1560,7 +1559,7 @@ Modifying text and point size, as shown using the <code>plotConcQ</code> functio
 Modified <code>plotConcQ</code>
 </p>
 </div>
-<p>Only a few fonts are consistent on all operating systems. Figure  shows how to change to the Serif font, as well as how to use the mtext function. To see the available fonts for pdf output on your computer, type <code><a href="https://www.rdocumentation.org/packages/base/topics/names">names(pdfFonts())</a></code>.The available fonts are quite limited in base R. To expand the font choices, a useful R library, “extrafont” can help.</p>
+<p>Only a few fonts are consistent on all operating systems. The following figure shows how to change to the Serif font, as well as how to use the mtext function. To see the available fonts for pdf output on your computer, type <code><a href="https://www.rdocumentation.org/packages/base/topics/names">names(pdfFonts())</a></code>.The available fonts are quite limited in base R. To expand the font choices, a useful R library, “extrafont” can help.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Switching to serif font:</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">family=</span><span class="st">"serif"</span>)
 <span class="kw"><a href="../reference/plotFluxPred.html">plotFluxPred</a></span>(eList, <span class="dt">customPar=</span><span class="ot">TRUE</span>)
@@ -1570,7 +1569,7 @@ Modified <code>plotConcQ</code>
 Serif font
 </p>
 </div>
-<p>You can also extend the contour plots. The default y-axis is determined from qTop and qBottom. Occasionally, you may need to use a custom axis by specifying yTicks. It is also nice to be able to adjust the color scheme of the contour plots. There are some color schemes built into base R such as heat.colors, topo.colors, terrain.colors, and cm.colors. Alternatively, you can set colors by using the <code>colorRampPalette</code> function. For example, a black and white color scheme might be required. In another example, the <code>plotDiffContours</code> might make more sense to go from yellow to white for the negative values, and white to blue for the positive values. Examples are shown below for modifying a contour plot in Figure  and modifying a difference contour plot in Figure .</p>
+<p>You can also extend the contour plots. The default y-axis is determined from qTop and qBottom. Occasionally, you may need to use a custom axis by specifying yTicks. It is also nice to be able to adjust the color scheme of the contour plots. There are some color schemes built into base R such as heat.colors, topo.colors, terrain.colors, and cm.colors. Alternatively, you can set colors by using the <code>colorRampPalette</code> function. For example, a black and white color scheme might be required. In another example, the <code>plotDiffContours</code> might make more sense to go from yellow to white for the negative values, and white to blue for the positive values. Examples are shown below for modifying a contour plot and modifying a difference contour plot.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">colors &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/grDevices/topics/colorRamp">colorRampPalette</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"white"</span>,<span class="st">"black"</span>))
 yTicksModified &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">25</span>)
 <span class="kw"><a href="../reference/plotContours.html">plotContours</a></span>(eList, <span class="dv">2001</span>,<span class="dv">2010</span>,<span class="fl">0.5</span>,<span class="dv">50</span>, 
@@ -1596,7 +1595,7 @@ maxDiff&lt;-<span class="fl">0.6</span>
 Difference contour plot with modified color scheme
 </p>
 </div>
-<p>It is also possible to create custom multi-panel plots. In the simplest example (figure ), you can use the <code>tinyPlot=TRUE</code> option.</p>
+<p>It is also possible to create custom multi-panel plots. In the simplest example, you can use the <code>tinyPlot=TRUE</code> option.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mfcol =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">2</span>), <span class="dt">oma =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="fl">1.7</span>, <span class="dv">6</span>, <span class="fl">1.7</span>))
 
 <span class="kw"><a href="../reference/plotFluxQ.html">plotFluxQ</a></span>(eList, <span class="dt">tinyPlot=</span><span class="ot">TRUE</span>,<span class="dt">printTitle=</span><span class="ot">FALSE</span>,
@@ -1610,7 +1609,7 @@ Difference contour plot with modified color scheme
 Custom multipanel plot using tinyPlot
 </p>
 </div>
-<p>Finally, figure  shows a method to create a panel of plots with a finer control.</p>
+<p>Finally, the following figure shows a method to create a panel of plots with a finer control.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mar=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">3.5</span>,<span class="fl">3.5</span>,<span class="fl">0.2</span>,<span class="fl">0.2</span>), <span class="co"># whitespace around the plots</span>
     <span class="dt">oma=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">1</span>), <span class="co"># outer margin</span>
     <span class="dt">mgp=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="fl">0.5</span>,<span class="dv">0</span>), <span class="co"># spacing between the label numbers and plots</span>
@@ -1666,8 +1665,8 @@ Custom multipanel plot
 <div id="flowHistoryVariables" class="section level2">
 <h2 class="hasAnchor">
 <a href="#flowHistoryVariables" class="anchor"></a>Flow History Plotting Input</h2>
-<p>\caption{Variables used in flow history plots (<code>plot15</code>, <code>plotFour</code>, <code>plotFourStats</code>, <code>plotQTimeDaily</code>, <code>plotSDLogQ</code>)</p>
 <table class="table">
+<caption>Variables used in flow history plots (<code>plot15</code>, <code>plotFour</code>, <code>plotFourStats</code>, <code>plotQTimeDaily</code>, <code>plotSDLogQ</code>)</caption>
 <colgroup>
 <col width="16%">
 <col width="55%">
@@ -1741,6 +1740,7 @@ Custom multipanel plot
 <h2 class="hasAnchor">
 <a href="#wqVariables" class="anchor"></a>Water Quality Plotting Input</h2>
 <table class="table">
+<caption>Selected variables used in water quality analysis plots</caption>
 <colgroup>
 <col width="16%">
 <col width="55%">
@@ -1754,7 +1754,8 @@ Custom multipanel plot
 <tbody>
 <tr class="odd">
 <td align="left">qUnit</td>
-<td align="right">Determines what units will be used for discharge, see section </td>
+<td align="right">Determines what units will be used for discharge, see <a href="#units">Units</a>
+</td>
 <td align="right">2</td>
 </tr>
 <tr class="even">
@@ -1804,12 +1805,12 @@ Custom multipanel plot
 </tr>
 </tbody>
 </table>
-<p>[Selected variables used in water quality analysis plots] (#qwVariables)</p>
 </div>
 <div id="wrtdsInputVariables" class="section level2">
 <h2 class="hasAnchor">
 <a href="#wrtdsInputVariables" class="anchor"></a>WRTDS Estimation Input</h2>
 <table class="table">
+<caption>Selected variables in WRTDS</caption>
 <colgroup>
 <col width="16%">
 <col width="55%">
@@ -1853,13 +1854,12 @@ Custom multipanel plot
 </tr>
 </tbody>
 </table>
-<p><a href="#wrtdsVariables">Selected variables in WRTDS</a></p>
 </div>
 <div id="wrtdsOutputVariables" class="section level2">
 <h2 class="hasAnchor">
 <a href="#wrtdsOutputVariables" class="anchor"></a>Post-WRTDS Plotting Input</h2>
-<p>\caption{Selected variables used in plots for analysis of WRTDS model results</p>
 <table class="table">
+<caption>Selected variables used in plots for analysis of WRTDS model results</caption>
 <colgroup>
 <col width="16%">
 <col width="55%">
@@ -1873,12 +1873,14 @@ Custom multipanel plot
 <tbody>
 <tr class="odd">
 <td align="left">qUnit</td>
-<td align="right">Determines what units will be used for discharge, see section </td>
+<td align="right">Determines what units will be used for discharge, see section <a href="#units">Units</a>
+</td>
 <td align="right">2</td>
 </tr>
 <tr class="even">
 <td align="left">fluxUnit</td>
-<td align="right">An index indicating what flux units will be used , see section </td>
+<td align="right">An index indicating what flux units will be used , see section <a href="#units">Units</a>
+</td>
 <td align="right">3</td>
 </tr>
 <tr class="odd">
@@ -1923,8 +1925,9 @@ Custom multipanel plot
 </tr>
 </tbody>
 </table>
-<p>\caption{Variables used in EGRET contour plots: <code>plotContours</code> and <code>plotDiffContours</code></p>
 <table class="table">
+<caption>Variables used in EGRET contour plots: <code>plotContours</code> and <code>plotDiffContours</code>
+</caption>
 <colgroup>
 <col width="16%">
 <col width="55%">
@@ -1938,7 +1941,8 @@ Custom multipanel plot
 <tbody>
 <tr class="odd">
 <td align="left">qUnit</td>
-<td align="right">Determines what units will be used for discharge, see section </td>
+<td align="right">Determines what units will be used for discharge, see section <a href="#units">Units</a>
+</td>
 <td align="right">2</td>
 </tr>
 <tr class="even">
@@ -2008,8 +2012,8 @@ Custom multipanel plot
 </tr>
 </tbody>
 </table>
-<p>\caption{Variables used in EGRET <code>plotConcQSmooth</code> and/or <code>plotConcTimeSmooth</code> functions</p>
 <table class="table">
+<caption>Variables used in EGRET <code>plotConcQSmooth</code> and/or <code>plotConcTimeSmooth</code> functions</caption>
 <colgroup>
 <col width="16%">
 <col width="55%">
@@ -2254,12 +2258,12 @@ Custom multipanel plot
 <div id="bibliography" class="section level1">
 <h1 class="hasAnchor">
 <a href="#bibliography" class="anchor"></a>Bibliography</h1>
-<p>%  % Helsel, D.R. and R. M. Hirsch, 2002. Statistical Methods in Water Resources Techniques of Water Resources Investigations, Book 4, chapter A3. U.S. Geological Survey. 522 pages. </p>
-<p> Hirsch, R.M., De Cicco, L.A. (2014), User guide to Exploration and Graphics for RivEr Trends (EGRET) and dataRetrieval: R packages for hydrologic data (version 2.0, February 2015): U.S. Geological Survey Techniques and Methods book 4, chap. A10, 93 p. </p>
-<p> Hirsch, R.M., Moyer, D.L. and Archfield, S.A. (2010), Weighted Regressions on Time, Discharge, and Season (WRTDS), with an Application to Chesapeake Bay River Inputs. JAWRA Journal of the American Water Resources Association, 46: 857-880. doi: 10.1111/j.1752-1688.2010.00482.x </p>
+<p>%  % Helsel, D.R. and R. M. Hirsch, 2002. Statistical Methods in Water Resources Techniques of Water Resources Investigations, Book 4, chapter A3. U.S. Geological Survey. 522 pages. <a href="https://pubs.usgs.gov/twri/twri4a3/" class="uri">https://pubs.usgs.gov/twri/twri4a3/</a></p>
+<p> Hirsch, R.M., De Cicco, L.A. (2014), User guide to Exploration and Graphics for RivEr Trends (EGRET) and dataRetrieval: R packages for hydrologic data (version 2.0, February 2015): U.S. Geological Survey Techniques and Methods book 4, chap. A10, 93 p. <a href="https://doi.org/10.3133/tm4A10" class="uri">https://doi.org/10.3133/tm4A10</a></p>
+<p> Hirsch, R.M., Moyer, D.L. and Archfield, S.A. (2010), Weighted Regressions on Time, Discharge, and Season (WRTDS), with an Application to Chesapeake Bay River Inputs. JAWRA Journal of the American Water Resources Association, 46: 857-880. doi: 10.1111/j.1752-1688.2010.00482.x <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full" class="uri">http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full</a></p>
 <p> Sprague, L.A., Hirsch, R.M., and Aulenbach, B.T. (2011), Nitrate in the Mississippi River and Its Tributaries, 1980 to 2008: Are We Making Progress? Environmental Science &amp; Technology, 45 (17): 7209-7216. doi: 10.1021/es201221s</p>
-<p> Moyer, D.L., Hirsch, R.M., and Hyer, K.E. (2012), Comparison of Two Regression-Based Approaches for Determining Nutrient and Sediment Fluxes and Trends in the Chesapeake Bay Watershed: U.S. Geological Survey Scientific Investigations Report 2012-5244, 118 p. </p>
-<p> Rice, K.C., and Hirsch, R.M. (2012), Spatial and temporal trends in runoff at long-term streamgages within and near the Chesapeake Bay Watershed: U.S. Geological Survey Scientific Investigations Report 2012-5151, 56 p. </p>
+<p> Moyer, D.L., Hirsch, R.M., and Hyer, K.E. (2012), Comparison of Two Regression-Based Approaches for Determining Nutrient and Sediment Fluxes and Trends in the Chesapeake Bay Watershed: U.S. Geological Survey Scientific Investigations Report 2012-5244, 118 p. <a href="https://pubs.usgs.gov/sir/2012/5244/" class="uri">https://pubs.usgs.gov/sir/2012/5244/</a></p>
+<p> Rice, K.C., and Hirsch, R.M. (2012), Spatial and temporal trends in runoff at long-term streamgages within and near the Chesapeake Bay Watershed: U.S. Geological Survey Scientific Investigations Report 2012-5151, 56 p. <a href="https://pubs.usgs.gov/sir/2012/5151" class="uri">https://pubs.usgs.gov/sir/2012/5151</a></p>
 </div>
   </div>
 
