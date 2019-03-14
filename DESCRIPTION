@@ -32,7 +32,6 @@ Imports:
     foreach
 Suggests:
     EGRETci,
-    xtable,
     knitr,
     rmarkdown,
     extrafont,

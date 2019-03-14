@@ -28,9 +28,7 @@ env:
    global:
      - NOT_CRAN="true"
      - _R_CHECK_FORCE_SUGGESTS_=false
-
-r_build_args: --no-build-vignettes --no-manual --no-resave-data
-r_check_args: --no-build-vignettes --no-manual --as-cran    
+  
 warnings_are_errors: true
 
 r_github_packages:
@@ -38,8 +36,8 @@ r_github_packages:
 
 script: 
   - |
-    R CMD build . --no-build-vignettes --no-manual --no-resave-data
-    travis_wait 20 R CMD check EGRET*tar.gz --no-build-vignettes --no-manual --as-cran
+    R CMD build . 
+    travis_wait 20 R CMD check EGRET*tar.gz --as-cran
 
 after_success:
   - if [[ "${R_CODECOV}" ]]; then travis_wait 20 R -e 'covr::coveralls()'; fi
