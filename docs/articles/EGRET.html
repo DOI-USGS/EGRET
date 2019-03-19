@@ -221,20 +221,20 @@ eList &lt;-<span class="st"> </span><span class="kw"><a href="../reference/model
 <span class="kw"><a href="../reference/plotFluxHist.html">plotFluxHist</a></span>(eList)
 
 <span class="co"># Multi-line plots:</span>
-date1 &lt;-<span class="st"> "2000-09-01"</span>
-date2 &lt;-<span class="st"> "2005-09-01"</span>
-date3 &lt;-<span class="st"> "2009-09-01"</span>
-qBottom&lt;-<span class="dv">5</span>
-qTop&lt;-<span class="dv">1000</span>
+date1 &lt;-<span class="st"> "1985-09-01"</span>
+date2 &lt;-<span class="st"> "1997-09-0"</span>
+date3 &lt;-<span class="st"> "2010-09-01"</span>
+qBottom&lt;-<span class="fl">0.2</span>
+qTop&lt;-<span class="dv">10</span>
 <span class="kw"><a href="../reference/plotConcQSmooth.html">plotConcQSmooth</a></span>(eList, date1, date2, date3, qBottom, qTop, 
-                   <span class="dt">concMax=</span><span class="dv">2</span>,<span class="dt">qUnit=</span><span class="dv">1</span>)
-q1 &lt;-<span class="st"> </span><span class="dv">10</span>
-q2 &lt;-<span class="st"> </span><span class="dv">25</span>
-q3 &lt;-<span class="st"> </span><span class="dv">75</span>
+                   <span class="dt">concMax=</span><span class="dv">2</span>,<span class="dt">legendTop =</span> <span class="fl">0.8</span>)
+q1 &lt;-<span class="st"> </span><span class="dv">2</span>
+q2 &lt;-<span class="st"> </span><span class="dv">10</span>
+q3 &lt;-<span class="st"> </span><span class="dv">20</span>
 centerDate &lt;-<span class="st"> "07-01"</span>
-yearEnd &lt;-<span class="st"> </span><span class="dv">2009</span>
-yearStart &lt;-<span class="st"> </span><span class="dv">2000</span>
-<span class="kw"><a href="../reference/plotConcTimeSmooth.html">plotConcTimeSmooth</a></span>(eList, q1, q2, q3, centerDate, yearStart, yearEnd)
+yearEnd &lt;-<span class="st"> </span><span class="dv">1980</span>
+yearStart &lt;-<span class="st"> </span><span class="dv">2010</span>
+<span class="kw"><a href="../reference/plotConcTimeSmooth.html">plotConcTimeSmooth</a></span>(eList, q1, q2, q3, centerDate, yearStart, yearEnd, <span class="dt">legendTop =</span> <span class="fl">0.7</span>)
 
 <span class="co"># Multi-plots:</span>
 <span class="kw"><a href="../reference/fluxBiasMulti.html">fluxBiasMulti</a></span>(eList)
@@ -1267,27 +1267,34 @@ Concentration and flux history
 </p>
 </div>
 <p>The placement of the legend is controlled by legendLeft and legendTop. If both are set to 0 (the default values), the legend is placed near the lower left corner of the graphic. Otherwise, the value specified for legendLeft places the left edge of the legend, and legendTop specifies the top edge of the legend. The units for legendLeft and legendTop are discharge (in units specified by qUnit) and concentration, respectively. The legend can also be turned off with printLegend=FALSE. These are also functions that do not recognize the period of analysis in the INFO data frame. However, by choosing centering dates and appropriate half-windows, seasonal behavior can easily be observed in these plots.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">qLow &lt;-<span class="st"> </span><span class="dv">20</span>
-qHigh &lt;-<span class="st"> </span><span class="dv">700</span>
-date1 &lt;-<span class="st"> "2000-09-01"</span>
-date2 &lt;-<span class="st"> "2005-09-01"</span>
-date3 &lt;-<span class="st"> "2009-09-01"</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Multi-line plots:</span>
+date1 &lt;-<span class="st"> "1985-09-01"</span>
+date2 &lt;-<span class="st"> "1997-09-01"</span>
+date3 &lt;-<span class="st"> "2010-09-01"</span>
+qBottom &lt;-<span class="st"> </span><span class="fl">0.2</span>
+qTop &lt;-<span class="st"> </span><span class="dv">10</span>
+<span class="kw"><a href="../reference/plotConcQSmooth.html">plotConcQSmooth</a></span>(eList, date1, date2, date3, qBottom, qTop, 
+                   <span class="dt">concMax=</span><span class="dv">2</span>,<span class="dt">legendTop =</span> <span class="fl">0.5</span>)
+
 <span class="kw"><a href="../reference/plotConcQSmooth.html">plotConcQSmooth</a></span>(eList, date1, date2, date3,
-                qLow, qHigh, <span class="dt">qUnit=</span><span class="dv">1</span>)
-<span class="kw"><a href="../reference/plotConcQSmooth.html">plotConcQSmooth</a></span>(eList, date1, date2, date3,
-                qLow, qHigh, <span class="dt">qUnit=</span><span class="dv">1</span>,<span class="dt">logScale=</span><span class="ot">TRUE</span>)</code></pre></div>
+                qBottom, qTop, <span class="dt">legendTop =</span> <span class="fl">0.5</span>,<span class="dt">logScale=</span><span class="ot">TRUE</span>)</code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotConcQSmooth-1.png" alt="Concentration vs. discharge" width="45%"><img src="EGRET_files/figure-html/plotConcQSmooth-2.png" alt="Concentration vs. discharge" width="45%"><p class="caption">
 Concentration vs. discharge
 </p>
 </div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">q1 &lt;-<span class="st"> </span><span class="dv">10</span>
-q2 &lt;-<span class="st"> </span><span class="dv">25</span>
-q3 &lt;-<span class="st"> </span><span class="dv">75</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">q1 &lt;-<span class="st"> </span><span class="dv">2</span>
+q2 &lt;-<span class="st"> </span><span class="dv">10</span>
+q3 &lt;-<span class="st"> </span><span class="dv">20</span>
 centerDate &lt;-<span class="st"> "07-01"</span>
-<span class="kw"><a href="../reference/plotConcTimeSmooth.html">plotConcTimeSmooth</a></span>(eList, q1, q2, q3, centerDate, <span class="dv">2000</span>, <span class="dv">2010</span>)
+yearEnd &lt;-<span class="st"> </span><span class="dv">1980</span>
+yearStart &lt;-<span class="st"> </span><span class="dv">2010</span>
 <span class="kw"><a href="../reference/plotConcTimeSmooth.html">plotConcTimeSmooth</a></span>(eList, q1, q2, q3, centerDate, 
-                   <span class="dv">2000</span>, <span class="dv">2010</span>,<span class="dt">logScale=</span><span class="ot">TRUE</span>)</code></pre></div>
+                   yearStart, yearEnd, <span class="dt">legendTop =</span> <span class="fl">0.4</span>)
+
+<span class="kw"><a href="../reference/plotConcTimeSmooth.html">plotConcTimeSmooth</a></span>(eList, q1, q2, q3, centerDate, 
+                   yearStart, yearEnd, 
+                   <span class="dt">legendTop =</span> <span class="fl">0.4</span>,<span class="dt">logScale=</span><span class="ot">TRUE</span>)</code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotConcTimeSmooth-1.png" alt="`plotConcTimeSmooth(eList))`" width="45%"><img src="EGRET_files/figure-html/plotConcTimeSmooth-2.png" alt="`plotConcTimeSmooth(eList))`" width="45%"><p class="caption">
 <code>plotConcTimeSmooth(eList))</code>
@@ -1301,7 +1308,7 @@ centerDate &lt;-<span class="st"> "07-01"</span>
 </div>
 <p>The contour plot functions also do not recognize the PA from the INFO data frame. They represent the overall results of the WRTDS analysis. To specify contourLevels in the contour plots use the <code>seq</code> function (type <code><a href="https://www.rdocumentation.org/packages/base/topics/seq">?seq</a></code> for details). In general, use of the <code>seq</code> function would look like this: <code>contourLevels = seq(from,to,by)</code>. In the example shown above we are requesting contour levels that run from 0 to 2 in steps of 0.2.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">clevel&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">0</span>,<span class="dv">2</span>,<span class="fl">0.2</span>)
-<span class="kw"><a href="../reference/plotContours.html">plotContours</a></span>(eList, <span class="dt">yearStart=</span><span class="dv">2008</span>,<span class="dt">yearEnd=</span><span class="dv">2010</span>,<span class="dt">qBottom=</span><span class="dv">20</span>,<span class="dt">qTop=</span><span class="dv">1000</span>, 
+<span class="kw"><a href="../reference/plotContours.html">plotContours</a></span>(eList, <span class="dt">yearStart=</span><span class="dv">1980</span>,<span class="dt">yearEnd=</span><span class="dv">2010</span>,<span class="dt">qBottom=</span><span class="fl">0.5</span>,<span class="dt">qTop=</span><span class="dv">20</span>, 
              <span class="dt">contourLevels =</span> clevel,<span class="dt">qUnit=</span><span class="dv">1</span>)</code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotContours-1.png" alt="`plotContours(eList)`" width="100%"><p class="caption">
@@ -1309,8 +1316,8 @@ centerDate &lt;-<span class="st"> "07-01"</span>
 </p>
 </div>
 <p>The function <code>plotDiffContours</code> plots the difference between two selected years (year0 and year1). It can help clarify what combinations of seasons and flow conditions have been showing increases and decreases over the period covered.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotDiffContours.html">plotDiffContours</a></span>(eList, <span class="dt">year0=</span><span class="dv">2000</span>,<span class="dt">year1=</span><span class="dv">2010</span>,
-                 <span class="dt">qBottom=</span><span class="dv">20</span>,<span class="dt">qTop=</span><span class="dv">1000</span>,<span class="dt">maxDiff=</span><span class="fl">0.6</span>,<span class="dt">qUnit=</span><span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotDiffContours.html">plotDiffContours</a></span>(eList, <span class="dt">year0=</span><span class="dv">1990</span>,<span class="dt">year1=</span><span class="dv">2010</span>,
+                 <span class="dt">qBottom=</span><span class="fl">0.5</span>,<span class="dt">qTop=</span><span class="dv">20</span>,<span class="dt">maxDiff=</span><span class="fl">0.6</span>)</code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotDiffContours-1.png" alt="`plotDiffContours(eList)`" width="100%"><p class="caption">
 <code><a href="../reference/plotDiffContours.html">plotDiffContours(eList)</a></code>
