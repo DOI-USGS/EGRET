@@ -13,7 +13,6 @@ link-citations: yes
 vignette: >
   %\VignetteIndexEntry{Introduction to the EGRET package}
   %\VignetteSuggests{extrafont,knitr}
-  %\VignetteImports{methods,survival, fields,dataRetrieval, stats, lubridate}
   \usepackage[utf8]{inputenc}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
