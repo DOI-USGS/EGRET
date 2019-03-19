@@ -124,7 +124,7 @@
 <p>For information on getting started in R, downloading and installing the package, see the <a href="#new-to-r">New to R</a> section.</p>
 <p>The best ways to learn about the WRTDS approach is to read the User Guide and two journal articles. These articles are available, for free, from the journals in which they were published.</p>
 <p>The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay. The URL is <span class="citation">Robert M. Hirsch, Moyer, and Archfield (<a href="#ref-hirsch_weighted_2010">2010</a>)</span>: <a href="http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full" class="uri">http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full</a>.</p>
-<p>The second is an application to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries . The URL is: <a href="http://pubs.acs.org/doi/abs/10.1021/es201221s" class="uri">http://pubs.acs.org/doi/abs/10.1021/es201221s</a></p>
+<p>The second is an application to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries <span class="citation">Sprague, Hirsch, and Aulenbach (<a href="#ref-sprague_nitrate_2011">2011</a>)</span>. The URL is: <a href="http://pubs.acs.org/doi/abs/10.1021/es201221s" class="uri">http://pubs.acs.org/doi/abs/10.1021/es201221s</a></p>
 <p>This vignette assumes that you understand the concepts underlying WRTDS, and reading the relevant sections of the User Guide at least the first of these papers. Any use of trade, firm, or product names is for descriptive purposes only and does not imply endorsement by the U.S. Government.</p>
 </div>
 <div id="egret-workflow" class="section level1">
@@ -221,20 +221,20 @@ eList &lt;-<span class="st"> </span><span class="kw"><a href="../reference/model
 <span class="kw"><a href="../reference/plotFluxHist.html">plotFluxHist</a></span>(eList)
 
 <span class="co"># Multi-line plots:</span>
-date1 &lt;-<span class="st"> "2000-09-01"</span>
-date2 &lt;-<span class="st"> "2005-09-01"</span>
-date3 &lt;-<span class="st"> "2009-09-01"</span>
-qBottom&lt;-<span class="dv">5</span>
-qTop&lt;-<span class="dv">1000</span>
+date1 &lt;-<span class="st"> "1985-09-01"</span>
+date2 &lt;-<span class="st"> "1997-09-0"</span>
+date3 &lt;-<span class="st"> "2010-09-01"</span>
+qBottom&lt;-<span class="fl">0.2</span>
+qTop&lt;-<span class="dv">10</span>
 <span class="kw"><a href="../reference/plotConcQSmooth.html">plotConcQSmooth</a></span>(eList, date1, date2, date3, qBottom, qTop, 
-                   <span class="dt">concMax=</span><span class="dv">2</span>,<span class="dt">qUnit=</span><span class="dv">1</span>)
-q1 &lt;-<span class="st"> </span><span class="dv">10</span>
-q2 &lt;-<span class="st"> </span><span class="dv">25</span>
-q3 &lt;-<span class="st"> </span><span class="dv">75</span>
+                   <span class="dt">concMax=</span><span class="dv">2</span>,<span class="dt">legendTop =</span> <span class="fl">0.8</span>)
+q1 &lt;-<span class="st"> </span><span class="dv">2</span>
+q2 &lt;-<span class="st"> </span><span class="dv">10</span>
+q3 &lt;-<span class="st"> </span><span class="dv">20</span>
 centerDate &lt;-<span class="st"> "07-01"</span>
-yearEnd &lt;-<span class="st"> </span><span class="dv">2009</span>
-yearStart &lt;-<span class="st"> </span><span class="dv">2000</span>
-<span class="kw"><a href="../reference/plotConcTimeSmooth.html">plotConcTimeSmooth</a></span>(eList, q1, q2, q3, centerDate, yearStart, yearEnd)
+yearEnd &lt;-<span class="st"> </span><span class="dv">1980</span>
+yearStart &lt;-<span class="st"> </span><span class="dv">2010</span>
+<span class="kw"><a href="../reference/plotConcTimeSmooth.html">plotConcTimeSmooth</a></span>(eList, q1, q2, q3, centerDate, yearStart, yearEnd, <span class="dt">legendTop =</span> <span class="fl">0.7</span>)
 
 <span class="co"># Multi-plots:</span>
 <span class="kw"><a href="../reference/fluxBiasMulti.html">fluxBiasMulti</a></span>(eList)
@@ -1267,27 +1267,34 @@ Concentration and flux history
 </p>
 </div>
 <p>The placement of the legend is controlled by legendLeft and legendTop. If both are set to 0 (the default values), the legend is placed near the lower left corner of the graphic. Otherwise, the value specified for legendLeft places the left edge of the legend, and legendTop specifies the top edge of the legend. The units for legendLeft and legendTop are discharge (in units specified by qUnit) and concentration, respectively. The legend can also be turned off with printLegend=FALSE. These are also functions that do not recognize the period of analysis in the INFO data frame. However, by choosing centering dates and appropriate half-windows, seasonal behavior can easily be observed in these plots.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">qLow &lt;-<span class="st"> </span><span class="dv">20</span>
-qHigh &lt;-<span class="st"> </span><span class="dv">700</span>
-date1 &lt;-<span class="st"> "2000-09-01"</span>
-date2 &lt;-<span class="st"> "2005-09-01"</span>
-date3 &lt;-<span class="st"> "2009-09-01"</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Multi-line plots:</span>
+date1 &lt;-<span class="st"> "1985-09-01"</span>
+date2 &lt;-<span class="st"> "1997-09-01"</span>
+date3 &lt;-<span class="st"> "2010-09-01"</span>
+qBottom &lt;-<span class="st"> </span><span class="fl">0.2</span>
+qTop &lt;-<span class="st"> </span><span class="dv">10</span>
+<span class="kw"><a href="../reference/plotConcQSmooth.html">plotConcQSmooth</a></span>(eList, date1, date2, date3, qBottom, qTop, 
+                   <span class="dt">concMax=</span><span class="dv">2</span>,<span class="dt">legendTop =</span> <span class="fl">0.5</span>)
+
 <span class="kw"><a href="../reference/plotConcQSmooth.html">plotConcQSmooth</a></span>(eList, date1, date2, date3,
-                qLow, qHigh, <span class="dt">qUnit=</span><span class="dv">1</span>)
-<span class="kw"><a href="../reference/plotConcQSmooth.html">plotConcQSmooth</a></span>(eList, date1, date2, date3,
-                qLow, qHigh, <span class="dt">qUnit=</span><span class="dv">1</span>,<span class="dt">logScale=</span><span class="ot">TRUE</span>)</code></pre></div>
+                qBottom, qTop, <span class="dt">legendTop =</span> <span class="fl">0.5</span>,<span class="dt">logScale=</span><span class="ot">TRUE</span>)</code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotConcQSmooth-1.png" alt="Concentration vs. discharge" width="45%"><img src="EGRET_files/figure-html/plotConcQSmooth-2.png" alt="Concentration vs. discharge" width="45%"><p class="caption">
 Concentration vs. discharge
 </p>
 </div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">q1 &lt;-<span class="st"> </span><span class="dv">10</span>
-q2 &lt;-<span class="st"> </span><span class="dv">25</span>
-q3 &lt;-<span class="st"> </span><span class="dv">75</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">q1 &lt;-<span class="st"> </span><span class="dv">2</span>
+q2 &lt;-<span class="st"> </span><span class="dv">10</span>
+q3 &lt;-<span class="st"> </span><span class="dv">20</span>
 centerDate &lt;-<span class="st"> "07-01"</span>
-<span class="kw"><a href="../reference/plotConcTimeSmooth.html">plotConcTimeSmooth</a></span>(eList, q1, q2, q3, centerDate, <span class="dv">2000</span>, <span class="dv">2010</span>)
+yearEnd &lt;-<span class="st"> </span><span class="dv">1980</span>
+yearStart &lt;-<span class="st"> </span><span class="dv">2010</span>
 <span class="kw"><a href="../reference/plotConcTimeSmooth.html">plotConcTimeSmooth</a></span>(eList, q1, q2, q3, centerDate, 
-                   <span class="dv">2000</span>, <span class="dv">2010</span>,<span class="dt">logScale=</span><span class="ot">TRUE</span>)</code></pre></div>
+                   yearStart, yearEnd, <span class="dt">legendTop =</span> <span class="fl">0.4</span>)
+
+<span class="kw"><a href="../reference/plotConcTimeSmooth.html">plotConcTimeSmooth</a></span>(eList, q1, q2, q3, centerDate, 
+                   yearStart, yearEnd, 
+                   <span class="dt">legendTop =</span> <span class="fl">0.4</span>,<span class="dt">logScale=</span><span class="ot">TRUE</span>)</code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotConcTimeSmooth-1.png" alt="`plotConcTimeSmooth(eList))`" width="45%"><img src="EGRET_files/figure-html/plotConcTimeSmooth-2.png" alt="`plotConcTimeSmooth(eList))`" width="45%"><p class="caption">
 <code>plotConcTimeSmooth(eList))</code>
@@ -1301,7 +1308,7 @@ centerDate &lt;-<span class="st"> "07-01"</span>
 </div>
 <p>The contour plot functions also do not recognize the PA from the INFO data frame. They represent the overall results of the WRTDS analysis. To specify contourLevels in the contour plots use the <code>seq</code> function (type <code><a href="https://www.rdocumentation.org/packages/base/topics/seq">?seq</a></code> for details). In general, use of the <code>seq</code> function would look like this: <code>contourLevels = seq(from,to,by)</code>. In the example shown above we are requesting contour levels that run from 0 to 2 in steps of 0.2.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">clevel&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">0</span>,<span class="dv">2</span>,<span class="fl">0.2</span>)
-<span class="kw"><a href="../reference/plotContours.html">plotContours</a></span>(eList, <span class="dt">yearStart=</span><span class="dv">2008</span>,<span class="dt">yearEnd=</span><span class="dv">2010</span>,<span class="dt">qBottom=</span><span class="dv">20</span>,<span class="dt">qTop=</span><span class="dv">1000</span>, 
+<span class="kw"><a href="../reference/plotContours.html">plotContours</a></span>(eList, <span class="dt">yearStart=</span><span class="dv">1980</span>,<span class="dt">yearEnd=</span><span class="dv">2010</span>,<span class="dt">qBottom=</span><span class="fl">0.5</span>,<span class="dt">qTop=</span><span class="dv">20</span>, 
              <span class="dt">contourLevels =</span> clevel,<span class="dt">qUnit=</span><span class="dv">1</span>)</code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotContours-1.png" alt="`plotContours(eList)`" width="100%"><p class="caption">
@@ -1309,8 +1316,8 @@ centerDate &lt;-<span class="st"> "07-01"</span>
 </p>
 </div>
 <p>The function <code>plotDiffContours</code> plots the difference between two selected years (year0 and year1). It can help clarify what combinations of seasons and flow conditions have been showing increases and decreases over the period covered.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotDiffContours.html">plotDiffContours</a></span>(eList, <span class="dt">year0=</span><span class="dv">2000</span>,<span class="dt">year1=</span><span class="dv">2010</span>,
-                 <span class="dt">qBottom=</span><span class="dv">20</span>,<span class="dt">qTop=</span><span class="dv">1000</span>,<span class="dt">maxDiff=</span><span class="fl">0.6</span>,<span class="dt">qUnit=</span><span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plotDiffContours.html">plotDiffContours</a></span>(eList, <span class="dt">year0=</span><span class="dv">1990</span>,<span class="dt">year1=</span><span class="dv">2010</span>,
+                 <span class="dt">qBottom=</span><span class="fl">0.5</span>,<span class="dt">qTop=</span><span class="dv">20</span>,<span class="dt">maxDiff=</span><span class="fl">0.6</span>)</code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotDiffContours-1.png" alt="`plotDiffContours(eList)`" width="100%"><p class="caption">
 <code><a href="../reference/plotDiffContours.html">plotDiffContours(eList)</a></code>
@@ -2288,6 +2295,9 @@ Custom multipanel plot
 </div>
 <div id="ref-hirsch_weighted_2010">
 <p>Hirsch, Robert M., Douglas L. Moyer, and Stacey A. Archfield. 2010. “Weighted Regressions on Time, Discharge, and Season (WRTDS), with an Application to Chesapeake Bay River Inputs1.” <em>JAWRA Journal of the American Water Resources Association</em> 46 (5): 857–80. doi:<a href="https://doi.org/10.1111/j.1752-1688.2010.00482.x">10.1111/j.1752-1688.2010.00482.x</a>.</p>
+</div>
+<div id="ref-sprague_nitrate_2011">
+<p>Sprague, Lori A., Robert M. Hirsch, and Brent T. Aulenbach. 2011. “Nitrate in the Mississippi River and Its Tributaries, 1980 to 2008: Are We Making Progress?” <em>Environmental Science &amp; Technology</em> 45 (17): 7209–16. doi:<a href="https://doi.org/10.1021/es201221s">10.1021/es201221s</a>.</p>
 </div>
 </div>
 </div>

@@ -49,7 +49,7 @@ The best ways to learn about the WRTDS approach is to read the User Guide and tw
 
 The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay. The URL is @hirsch_weighted_2010: [http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full](http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full). 
 
-The second is an application to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries \cite{HirschIII}.  The URL is: [http://pubs.acs.org/doi/abs/10.1021/es201221s](http://pubs.acs.org/doi/abs/10.1021/es201221s)
+The second is an application to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries @sprague_nitrate_2011.  The URL is: [http://pubs.acs.org/doi/abs/10.1021/es201221s](http://pubs.acs.org/doi/abs/10.1021/es201221s)
 
 This vignette assumes that you understand the concepts underlying WRTDS, and reading the relevant sections of the User Guide at least the first of these papers. Any use of trade, firm, or product names is for descriptive purposes only and does not imply endorsement by the U.S. Government.
 
@@ -156,20 +156,20 @@ plotConcHist(eList)
 plotFluxHist(eList)
 
 # Multi-line plots:
-date1 <- "2000-09-01"
-date2 <- "2005-09-01"
-date3 <- "2009-09-01"
-qBottom<-5
-qTop<-1000
+date1 <- "1985-09-01"
+date2 <- "1997-09-0"
+date3 <- "2010-09-01"
+qBottom<-0.2
+qTop<-10
 plotConcQSmooth(eList, date1, date2, date3, qBottom, qTop, 
-                   concMax=2,qUnit=1)
-q1 <- 10
-q2 <- 25
-q3 <- 75
+                   concMax=2,legendTop = 0.8)
+q1 <- 2
+q2 <- 10
+q3 <- 20
 centerDate <- "07-01"
-yearEnd <- 2009
-yearStart <- 2000
-plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd)
+yearEnd <- 1980
+yearStart <- 2010
+plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd, legendTop = 0.7)
 
 # Multi-plots:
 fluxBiasMulti(eList)
@@ -673,7 +673,7 @@ plotFour(eList, qUnit=3)
 ```
 
 
-```{r plotFourStats,echo=TRUE,out.width="100%", fig.cap="`plotFourStats(eListMerced, qUnit=3)`",cache=TRUE}
+```{r plotFourStats,echo=TRUE,out.width="100%", fig.cap="`plotFourStats(eListMerced, qUnit=3)`"}
 plotFourStats(eList, qUnit=3)
 ```
 
@@ -900,25 +900,32 @@ plotFluxHist(eList)
 The placement of the legend is controlled by legendLeft and legendTop. If both are set to 0 (the default values), the legend is placed near the lower left corner of the graphic. Otherwise, the value specified for legendLeft places the left edge of the legend, and legendTop specifies the top edge of the legend. The units for legendLeft and legendTop are discharge (in units specified by qUnit) and concentration, respectively. The legend can also be turned off with printLegend=FALSE. These are also functions that do not recognize the period of analysis in the INFO data frame. However, by choosing centering dates and appropriate half-windows, seasonal behavior can easily be observed in these plots. 
 
 ```{r plotConcQSmooth, echo=TRUE, fig.cap="Concentration vs. discharge"}
-qLow <- 20
-qHigh <- 700
-date1 <- "2000-09-01"
-date2 <- "2005-09-01"
-date3 <- "2009-09-01"
+# Multi-line plots:
+date1 <- "1985-09-01"
+date2 <- "1997-09-01"
+date3 <- "2010-09-01"
+qBottom <- 0.2
+qTop <- 10
+plotConcQSmooth(eList, date1, date2, date3, qBottom, qTop, 
+                   concMax=2,legendTop = 0.5)
+
 plotConcQSmooth(eList, date1, date2, date3,
-                qLow, qHigh, qUnit=1)
-plotConcQSmooth(eList, date1, date2, date3,
-                qLow, qHigh, qUnit=1,logScale=TRUE)
+                qBottom, qTop, legendTop = 0.5,logScale=TRUE)
 ```
 
 ```{r plotConcTimeSmooth, echo=TRUE, fig.cap="`plotConcTimeSmooth(eList))`"}
-q1 <- 10
-q2 <- 25
-q3 <- 75
+q1 <- 2
+q2 <- 10
+q3 <- 20
 centerDate <- "07-01"
-plotConcTimeSmooth(eList, q1, q2, q3, centerDate, 2000, 2010)
+yearEnd <- 1980
+yearStart <- 2010
 plotConcTimeSmooth(eList, q1, q2, q3, centerDate, 
-                   2000, 2010,logScale=TRUE)
+                   yearStart, yearEnd, legendTop = 0.4)
+
+plotConcTimeSmooth(eList, q1, q2, q3, centerDate, 
+                   yearStart, yearEnd, 
+                   legendTop = 0.4,logScale=TRUE)
 ```
 
 ```{r fluxBiasMulti, echo=TRUE, fig.cap="`fluxBiasMulti(eList, qUnit=1)`",fig.show='asis',fig.width=8, fig.height=10,fig.pos="h", out.width="100%"}
@@ -929,15 +936,15 @@ The contour plot functions also do not recognize the PA from the INFO data frame
 
 ```{r plotContours,out.width="100%",fig.height=5, echo=TRUE,fig.cap="`plotContours(eList)`"}
 clevel<-seq(0,2,0.2)
-plotContours(eList, yearStart=2008,yearEnd=2010,qBottom=20,qTop=1000, 
+plotContours(eList, yearStart=1980,yearEnd=2010,qBottom=0.5,qTop=20, 
              contourLevels = clevel,qUnit=1)
 ```
 
 The function `plotDiffContours` plots the difference between two selected years (year0 and year1). It can help clarify what combinations of seasons and flow conditions have been showing increases and decreases over the period covered.
 
 ```{r plotDiffContours, echo=TRUE,out.width="100%",fig.height=5, fig.cap="`plotDiffContours(eList)`"}
-plotDiffContours(eList, year0=2000,year1=2010,
-                 qBottom=20,qTop=1000,maxDiff=0.6,qUnit=1)
+plotDiffContours(eList, year0=1990,year1=2010,
+                 qBottom=0.5,qTop=20,maxDiff=0.6)
 ```
 
 ## Table Options {#wrtdsTable}
