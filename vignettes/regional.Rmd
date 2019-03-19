@@ -1,0 +1,16 @@
+---
+title: "Regional Studies"
+output: 
+  rmarkdown::html_vignette
+bibliography: Regional_studies.bib
+nocite: '@*'
+link-citations: yes
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Regional Studies}
+  \usepackage[utf8]{inputenc}
+---
+
+The following are publications of regional studies using the EGRET package.
+
+# Bibliography

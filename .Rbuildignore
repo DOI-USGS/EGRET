@@ -20,3 +20,8 @@ code.json
 hexSticker.R
 ^docs$
 EGRET.Rcheck
+vignettes/regional.Rmd
+vignettes/Regional_studies.bib
+vignettes/SeasonalFraction.Rmd
+vignettes/streamflow_trend.Rmd
+_pkgdown.yml
