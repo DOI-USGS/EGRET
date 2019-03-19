@@ -49,7 +49,7 @@ The best ways to learn about the WRTDS approach is to read the User Guide and tw
 
 The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay. The URL is @hirsch_weighted_2010: [http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full](http://onlinelibrary.wiley.com/doi/10.1111/j.1752-1688.2010.00482.x/full). 
 
-The second is an application to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries \cite{HirschIII}.  The URL is: [http://pubs.acs.org/doi/abs/10.1021/es201221s](http://pubs.acs.org/doi/abs/10.1021/es201221s)
+The second is an application to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries @sprague_nitrate_2011.  The URL is: [http://pubs.acs.org/doi/abs/10.1021/es201221s](http://pubs.acs.org/doi/abs/10.1021/es201221s)
 
 This vignette assumes that you understand the concepts underlying WRTDS, and reading the relevant sections of the User Guide at least the first of these papers. Any use of trade, firm, or product names is for descriptive purposes only and does not imply endorsement by the U.S. Government.
 
