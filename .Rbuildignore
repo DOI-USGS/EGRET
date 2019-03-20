@@ -27,3 +27,4 @@ vignettes/Exported_Items.bib
 vignettes/SeasonalFraction.Rmd
 vignettes/streamflow_trend.Rmd
 _pkgdown.yml
+pkgdown/favicon/*

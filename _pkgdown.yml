@@ -22,6 +22,9 @@ navbar:
       href: articles/streamflow_trend.html
   - text: Bibliograpy
     href: articles/References.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/USGS-R/EGRET
 reference:
   - title: Import Data
     desc:  Functions for user-generated or web retrieval data.
