@@ -9,4 +9,4 @@ vignette: >
   \usepackage[utf8]{inputenc}
 ---
 
-# Bibliography
+# References on Extending the WRTDS Method
