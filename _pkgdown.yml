@@ -56,6 +56,12 @@ reference:
     desc: Functions for plotting eList objects
     contents:
       - multiPlotDataOverview
+      - plotFlowSingle
+      - plotFluxQ
+      - plotFour
+      - plotFourStats
+      - plotQTimeDaily
+      - plotSDLogQ
       - boxConcMonth
       - boxQTwice
       - plotConcTime
