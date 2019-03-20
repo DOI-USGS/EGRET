@@ -1,0 +1,23 @@
+---
+title: "WRTDS bibliography"
+output: 
+  rmarkdown::html_vignette
+bibliography: 
+ - Extend_Method.bib
+ - Regional_studies.bib
+ - Exported_Items.bib
+nocite: '@*'
+link-citations: yes
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Extending EGRET}
+  \usepackage[utf8]{inputenc}
+---
+
+# WRTDS methods
+
+
+# Extend or evaluate EGRET methods
+
+
+# Applications and regional studies
