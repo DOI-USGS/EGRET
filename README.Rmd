@@ -150,14 +150,14 @@ date3 <- "2010-09-01"
 qBottom<-0.2
 qTop<-10
 plotConcQSmooth(eList, date1, date2, date3, qBottom, qTop, 
-                   concMax=2,legendTop = 0.8)
+                   concMax=2,legendTop = 0.85)
 q1 <- 2
 q2 <- 10
 q3 <- 20
 centerDate <- "07-01"
 yearEnd <- 1980
 yearStart <- 2010
-plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd, legendTop = 0.5, legendLeft = 1995)
+plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd, legendTop = 0.55, legendLeft = 1990)
 
 ```
 

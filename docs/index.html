@@ -47,16 +47,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
+  <a href="articles/EGRET.html">Introduction</a>
 </li>
 <li>
-  <a href="articles/EGRET.html">Get started</a>
-</li>
-<li>
-  <a href="reference/index.html">Reference</a>
+  <a href="reference/index.html">Function Help Pages</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -66,27 +60,24 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/Enhancements.html">Guide to EGRET 3.0 enhancements</a>
+      <a href="articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="articles/extending.html">Extending EGRET Methods</a>
+      <a href="articles/parallel.html">Running in Parallel</a>
     </li>
     <li>
-      <a href="articles/parallel.html">Running WRTDS in parallel</a>
+      <a href="articles/rResid.html">Random Residuals</a>
     </li>
     <li>
-      <a href="articles/regional.html">Regional Studies</a>
+      <a href="articles/SeasonalFraction.html">Seasonal Analysis</a>
     </li>
     <li>
-      <a href="articles/rResid.html">Using Random Residuals for Censored Data in EGRET</a>
-    </li>
-    <li>
-      <a href="articles/SeasonalFraction.html">Seasonal Analysis in EGRET</a>
-    </li>
-    <li>
-      <a href="articles/streamflow_trend.html">Daily Streamflow Trend Analysis</a>
+      <a href="articles/streamflow_trend.html">Daily Streamflow Trends</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="articles/References.html">Bibliograpy</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -170,14 +161,11 @@ INFO&lt;-<span class="st"> </span><span class="kw"><a href="reference/INFOdatafr
 INFO<span class="op">$</span>shortName &lt;-<span class="st"> "Choptank River at Greensboro, MD"</span>
 
 <span class="co"># Merge discharge with sample data:</span>
-eList &lt;-<span class="st"> </span><span class="kw"><a href="reference/mergeReport.html">mergeReport</a></span>(INFO, Daily, Sample)
-############################</code></pre></div>
+eList &lt;-<span class="st"> </span><span class="kw"><a href="reference/mergeReport.html">mergeReport</a></span>(INFO, Daily, Sample)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(EGRET)
 <span class="co"># Sample data included in package:</span>
 eList &lt;-<span class="st"> </span>Choptank_eList
 
-############################
-<span class="co"># Check sample data:</span>
 <span class="kw"><a href="reference/boxConcMonth.html">boxConcMonth</a></span>(eList)</code></pre></div>
 <p><img src="reference/figures/startPlots-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/boxQTwice.html">boxQTwice</a></span>(eList)</code></pre></div>
@@ -186,69 +174,60 @@ eList &lt;-<span class="st"> </span>Choptank_eList
 <p><img src="reference/figures/startPlots-3.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/plotConcQ.html">plotConcQ</a></span>(eList)</code></pre></div>
 <p><img src="reference/figures/startPlots-4.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/multiPlotDataOverview.html">multiPlotDataOverview</a></span>(eList)
-############################
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/multiPlotDataOverview.html">multiPlotDataOverview</a></span>(eList)</code></pre></div>
+<p><img src="reference/figures/multiPlot-1.png" width="700"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Run WRTDS model:</span>
+eList &lt;-<span class="st"> </span><span class="kw"><a href="reference/modelEstimation.html">modelEstimation</a></span>(eList)
+<span class="co">#&gt; </span>
+<span class="co">#&gt;  first step running estCrossVal may take about 1 minute</span>
+<span class="co">#&gt;  estCrossVal % complete:</span>
+<span class="co">#&gt; 0    1   2   3   4   5   6   7   8   9   10  </span>
+<span class="co">#&gt; 11   12  13  14  15  16  17  18  19  20  </span>
+<span class="co">#&gt; 21   22  23  24  25  26  27  28  29  30  </span>
+<span class="co">#&gt; 31   32  33  34  35  36  37  38  39  40  </span>
+<span class="co">#&gt; 41   42  43  44  45  46  47  48  49  50  </span>
+<span class="co">#&gt; 51   52  53  54  55  56  57  58  59  60  </span>
+<span class="co">#&gt; 61   62  63  64  65  66  67  68  69  70  </span>
+<span class="co">#&gt; 71   72  73  74  75  76  77  78  79  80  </span>
+<span class="co">#&gt; 81   82  83  84  85  86  87  88  89  90  </span>
+<span class="co">#&gt; 91   92  93  94  95  96  97  98  99  </span>
+<span class="co">#&gt; Next step running  estSurfaces with survival regression:</span>
+<span class="co">#&gt; Survival regression (% complete):</span>
+<span class="co">#&gt; 0    1   2   3   4   5   6   7   8   9   10  </span>
+<span class="co">#&gt; 11   12  13  14  15  16  17  18  19  20  </span>
+<span class="co">#&gt; 21   22  23  24  25  26  27  28  29  30  </span>
+<span class="co">#&gt; 31   32  33  34  35  36  37  38  39  40  </span>
+<span class="co">#&gt; 41   42  43  44  45  46  47  48  49  50  </span>
+<span class="co">#&gt; 51   52  53  54  55  56  57  58  59  60  </span>
+<span class="co">#&gt; 61   62  63  64  65  66  67  68  69  70  </span>
+<span class="co">#&gt; 71   72  73  74  75  76  77  78  79  80  </span>
+<span class="co">#&gt; 81   82  83  84  85  86  87  88  89  90  </span>
+<span class="co">#&gt; 91   92  93  94  95  96  97  98  99  </span>
+<span class="co">#&gt; Survival regression: Done</span>
 
-############################
-<span class="co"># Run WRTDS model:</span>
-eList &lt;-<span class="st"> </span><span class="kw"><a href="reference/modelEstimation.html">modelEstimation</a></span>(eList)</code></pre></div>
-<p><img src="reference/figures/startPlots-5.png" width="700"></p>
-<pre><code>#&gt; 
-#&gt;  first step running estCrossVal may take about 1 minute
-#&gt;  estCrossVal % complete:
-#&gt; 0    1   2   3   4   5   6   7   8   9   10  
-#&gt; 11   12  13  14  15  16  17  18  19  20  
-#&gt; 21   22  23  24  25  26  27  28  29  30  
-#&gt; 31   32  33  34  35  36  37  38  39  40  
-#&gt; 41   42  43  44  45  46  47  48  49  50  
-#&gt; 51   52  53  54  55  56  57  58  59  60  
-#&gt; 61   62  63  64  65  66  67  68  69  70  
-#&gt; 71   72  73  74  75  76  77  78  79  80  
-#&gt; 81   82  83  84  85  86  87  88  89  90  
-#&gt; 91   92  93  94  95  96  97  98  99  
-#&gt; Next step running  estSurfaces with survival regression:
-#&gt; Survival regression (% complete):
-#&gt; 0    1   2   3   4   5   6   7   8   9   10  
-#&gt; 11   12  13  14  15  16  17  18  19  20  
-#&gt; 21   22  23  24  25  26  27  28  29  30  
-#&gt; 31   32  33  34  35  36  37  38  39  40  
-#&gt; 41   42  43  44  45  46  47  48  49  50  
-#&gt; 51   52  53  54  55  56  57  58  59  60  
-#&gt; 61   62  63  64  65  66  67  68  69  70  
-#&gt; 71   72  73  74  75  76  77  78  79  80  
-#&gt; 81   82  83  84  85  86  87  88  89  90  
-#&gt; 91   92  93  94  95  96  97  98  99  
-#&gt; Survival regression: Done
-############################
-
-############################
-#Check model results:
-
-#eList:
-plotConcTimeDaily(eList)</code></pre>
-<p><img src="reference/figures/startPlots-6.png" width="700"></p>
+<span class="co">#eList:</span>
+<span class="kw"><a href="reference/plotConcTimeDaily.html">plotConcTimeDaily</a></span>(eList)</code></pre></div>
+<p><img src="reference/figures/runModel-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/plotFluxTimeDaily.html">plotFluxTimeDaily</a></span>(eList)</code></pre></div>
-<p><img src="reference/figures/startPlots-7.png" width="700"></p>
+<p><img src="reference/figures/runModel-2.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/plotConcPred.html">plotConcPred</a></span>(eList)</code></pre></div>
-<p><img src="reference/figures/startPlots-8.png" width="700"></p>
+<p><img src="reference/figures/runModel-3.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/plotFluxPred.html">plotFluxPred</a></span>(eList)</code></pre></div>
-<p><img src="reference/figures/startPlots-9.png" width="700"></p>
+<p><img src="reference/figures/runModel-4.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/plotResidPred.html">plotResidPred</a></span>(eList)</code></pre></div>
-<p><img src="reference/figures/startPlots-10.png" width="700"></p>
+<p><img src="reference/figures/runModel-5.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/plotResidQ.html">plotResidQ</a></span>(eList)</code></pre></div>
-<p><img src="reference/figures/startPlots-11.png" width="700"></p>
+<p><img src="reference/figures/runModel-6.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/plotResidTime.html">plotResidTime</a></span>(eList)</code></pre></div>
-<p><img src="reference/figures/startPlots-12.png" width="700"></p>
+<p><img src="reference/figures/runModel-7.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/boxResidMonth.html">boxResidMonth</a></span>(eList)</code></pre></div>
-<p><img src="reference/figures/startPlots-13.png" width="700"></p>
+<p><img src="reference/figures/runModel-8.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/boxConcThree.html">boxConcThree</a></span>(eList)</code></pre></div>
-<p><img src="reference/figures/startPlots-14.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-<span class="co">#Require Daily + INFO:</span>
-<span class="kw"><a href="reference/plotConcHist.html">plotConcHist</a></span>(eList)</code></pre></div>
-<p><img src="reference/figures/startPlots-15.png" width="700"></p>
+<p><img src="reference/figures/runModel-9.png" width="700"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/plotConcHist.html">plotConcHist</a></span>(eList)</code></pre></div>
+<p><img src="reference/figures/runModel-10.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/plotFluxHist.html">plotFluxHist</a></span>(eList)</code></pre></div>
-<p><img src="reference/figures/startPlots-16.png" width="700"></p>
+<p><img src="reference/figures/runModel-11.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Multi-line plots:</span>
 date1 &lt;-<span class="st"> "1985-09-01"</span>
 date2 &lt;-<span class="st"> "1997-09-01"</span>
@@ -256,7 +235,7 @@ date3 &lt;-<span class="st"> "2010-09-01"</span>
 qBottom&lt;-<span class="fl">0.2</span>
 qTop&lt;-<span class="dv">10</span>
 <span class="kw"><a href="reference/plotConcQSmooth.html">plotConcQSmooth</a></span>(eList, date1, date2, date3, qBottom, qTop, 
-                   <span class="dt">concMax=</span><span class="dv">2</span>,<span class="dt">legendTop =</span> <span class="fl">0.5</span>)</code></pre></div>
+                   <span class="dt">concMax=</span><span class="dv">2</span>,<span class="dt">legendTop =</span> <span class="fl">0.85</span>)</code></pre></div>
 <p><img src="reference/figures/multiPlots-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">q1 &lt;-<span class="st"> </span><span class="dv">2</span>
 q2 &lt;-<span class="st"> </span><span class="dv">10</span>
@@ -264,12 +243,11 @@ q3 &lt;-<span class="st"> </span><span class="dv">20</span>
 centerDate &lt;-<span class="st"> "07-01"</span>
 yearEnd &lt;-<span class="st"> </span><span class="dv">1980</span>
 yearStart &lt;-<span class="st"> </span><span class="dv">2010</span>
-<span class="kw"><a href="reference/plotConcTimeSmooth.html">plotConcTimeSmooth</a></span>(eList, q1, q2, q3, centerDate, yearStart, yearEnd, <span class="dt">legendTop =</span> <span class="fl">0.4</span>)</code></pre></div>
+<span class="kw"><a href="reference/plotConcTimeSmooth.html">plotConcTimeSmooth</a></span>(eList, q1, q2, q3, centerDate, yearStart, yearEnd, <span class="dt">legendTop =</span> <span class="fl">0.55</span>, <span class="dt">legendLeft =</span> <span class="dv">1990</span>)</code></pre></div>
 <p><img src="reference/figures/multiPlots-2.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-<span class="co"># Multi-plots:</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Multi-plots:</span>
 <span class="kw"><a href="reference/fluxBiasMulti.html">fluxBiasMulti</a></span>(eList)</code></pre></div>
-<p><img src="reference/figures/multiPlots-3.png" width="700"></p>
+<p><img src="reference/figures/fluxPlots-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Contour plots:</span>
 clevel&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">0</span>,<span class="dv">2</span>,<span class="fl">0.5</span>)
 yearStart &lt;-<span class="st"> </span><span class="dv">1980</span>
@@ -290,7 +268,6 @@ yearEnd &lt;-<span class="st"> </span><span class="dv">2010</span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(EGRET)
 
 <span class="co"># Flow history analysis</span>
-############################
 <span class="co"># Gather discharge data:</span>
 siteID &lt;-<span class="st"> "01491000"</span> <span class="co">#Choptank River at Greensboro, MD</span>
 startDate &lt;-<span class="st"> ""</span> <span class="co"># Get earliest date</span>
@@ -335,9 +312,7 @@ INFO&lt;-<span class="st"> </span><span class="kw"><a href="reference/INFOdatafr
 <span class="co">#&gt; Flux calculations will be wrong if units are not consistent.</span>
 INFO<span class="op">$</span>shortName &lt;-<span class="st"> "Choptank River at Greensboro, MD"</span>
 eList &lt;-<span class="st"> </span><span class="kw"><a href="reference/as.egret.html">as.egret</a></span>(INFO, Daily, <span class="ot">NA</span>, <span class="ot">NA</span>)
-############################
 
-############################
 <span class="co"># Check flow history data:</span>
 <span class="kw"><a href="reference/plotFlowSingle.html">plotFlowSingle</a></span>(eList, <span class="dt">istat=</span><span class="dv">7</span>,<span class="dt">qUnit=</span><span class="st">"thousandCfs"</span>)</code></pre></div>
 <p><img src="reference/figures/unnamed-chunk-6-1.png" width="700"></p>
@@ -346,10 +321,9 @@ eList &lt;-<span class="st"> </span><span class="kw"><a href="reference/as.egret
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/plotQTimeDaily.html">plotQTimeDaily</a></span>(eList, <span class="dt">qLower=</span><span class="dv">1</span>,<span class="dt">qUnit=</span><span class="dv">3</span>)</code></pre></div>
 <p><img src="reference/figures/unnamed-chunk-6-3.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/plotFour.html">plotFour</a></span>(eList, <span class="dt">qUnit=</span><span class="dv">3</span>)</code></pre></div>
-<p><img src="reference/figures/unnamed-chunk-6-4.png" width="700"></p>
+<p><img src="reference/figures/plotFours-1.png" width="700"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/plotFourStats.html">plotFourStats</a></span>(eList, <span class="dt">qUnit=</span><span class="dv">3</span>)</code></pre></div>
-<p><img src="reference/figures/unnamed-chunk-6-5.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">############################</code></pre></div>
+<p><img src="reference/figures/plotFours-2.png" width="700"></p>
 </div>
 </div>
 <div id="model-archive" class="section level2">

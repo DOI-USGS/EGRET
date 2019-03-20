@@ -43,16 +43,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
+  <a href="../articles/EGRET.html">Introduction</a>
 </li>
 <li>
-  <a href="../articles/EGRET.html">Get started</a>
-</li>
-<li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Function Help Pages</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -62,27 +56,24 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/Enhancements.html">Guide to EGRET 3.0 enhancements</a>
+      <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/extending.html">Extending EGRET Methods</a>
+      <a href="../articles/parallel.html">Running in Parallel</a>
     </li>
     <li>
-      <a href="../articles/parallel.html">Running WRTDS in parallel</a>
+      <a href="../articles/rResid.html">Random Residuals</a>
     </li>
     <li>
-      <a href="../articles/regional.html">Regional Studies</a>
+      <a href="../articles/SeasonalFraction.html">Seasonal Analysis</a>
     </li>
     <li>
-      <a href="../articles/rResid.html">Using Random Residuals for Censored Data in EGRET</a>
-    </li>
-    <li>
-      <a href="../articles/SeasonalFraction.html">Seasonal Analysis in EGRET</a>
-    </li>
-    <li>
-      <a href="../articles/streamflow_trend.html">Daily Streamflow Trend Analysis</a>
+      <a href="../articles/streamflow_trend.html">Daily Streamflow Trends</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../articles/References.html">Bibliograpy</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -242,13 +233,13 @@ yearStart &lt;-<span class="st"> </span><span class="dv">2010</span>
 <span class="co">#Contour plots:</span>
 clevel&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">0</span>,<span class="dv">2</span>,<span class="fl">0.5</span>)
 maxDiff&lt;-<span class="fl">0.8</span>
-yearStart &lt;-<span class="st"> </span><span class="dv">2000</span>
+yearStart &lt;-<span class="st"> </span><span class="dv">1980</span>
 yearEnd &lt;-<span class="st"> </span><span class="dv">2010</span>
 
 <span class="kw"><a href="../reference/plotContours.html">plotContours</a></span>(eList, yearStart,yearEnd,qBottom,qTop, 
-             <span class="dt">contourLevels =</span> clevel,<span class="dt">qUnit=</span><span class="dv">1</span>)
+             <span class="dt">contourLevels =</span> clevel,<span class="dt">qUnit=</span><span class="dv">2</span>)
 <span class="kw"><a href="../reference/plotDiffContours.html">plotDiffContours</a></span>(eList, yearStart,yearEnd,
-                 qBottom,qTop,maxDiff,<span class="dt">qUnit=</span><span class="dv">1</span>)
+                 qBottom,qTop,maxDiff,<span class="dt">qUnit=</span><span class="dv">2</span>)
 
 <span class="co"># modify this for your own computer file structure:</span>
 savePath&lt;-<span class="st">"/Users/rhirsch/Desktop/"</span> 
@@ -1309,7 +1300,7 @@ yearStart &lt;-<span class="st"> </span><span class="dv">2010</span>
 <p>The contour plot functions also do not recognize the PA from the INFO data frame. They represent the overall results of the WRTDS analysis. To specify contourLevels in the contour plots use the <code>seq</code> function (type <code><a href="https://www.rdocumentation.org/packages/base/topics/seq">?seq</a></code> for details). In general, use of the <code>seq</code> function would look like this: <code>contourLevels = seq(from,to,by)</code>. In the example shown above we are requesting contour levels that run from 0 to 2 in steps of 0.2.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">clevel&lt;-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq</a></span>(<span class="dv">0</span>,<span class="dv">2</span>,<span class="fl">0.2</span>)
 <span class="kw"><a href="../reference/plotContours.html">plotContours</a></span>(eList, <span class="dt">yearStart=</span><span class="dv">1980</span>,<span class="dt">yearEnd=</span><span class="dv">2010</span>,<span class="dt">qBottom=</span><span class="fl">0.5</span>,<span class="dt">qTop=</span><span class="dv">20</span>, 
-             <span class="dt">contourLevels =</span> clevel,<span class="dt">qUnit=</span><span class="dv">1</span>)</code></pre></div>
+             <span class="dt">contourLevels =</span> clevel)</code></pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotContours-1.png" alt="`plotContours(eList)`" width="100%"><p class="caption">
 <code><a href="../reference/plotContours.html">plotContours(eList)</a></code>

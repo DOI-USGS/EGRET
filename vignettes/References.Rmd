@@ -10,14 +10,105 @@ nocite: '@*'
 link-citations: yes
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{Extending EGRET}
+  %\VignetteIndexEntry{WRTDS bibliography}
   \usepackage[utf8]{inputenc}
 ---
 
 # WRTDS methods
 
+* @hirsch_user_2015
+* @hirsch_weighted_2010
+* @hirsch_bootstrap_2015
+* @choquette_tracking_2019
+* @sprague_nitrate_2011
 
 # Extend or evaluate EGRET methods
 
+* @chanat_application_2016
+* @kandel_comparison_2018
+* @chanat_exploring_2018
+* @kandel_comparative_2018
+* @murphy_water-quality_2019
+* @parr_overlapping_2019
+* @libera_non-parametric_2018
+* @zhang_evaluation_2018
+* @strickling_leveraging_2018
+* @maestre_machine_2014
+* @beck_numerical_2017
+* @reisinger_changes_2019
+* @fanelli_point_2019
+* @beck_adaptation_2015
+* @zhang_improving_2017
+* @zhang_synthesis_2018
+* @beck_improving_2015
+* @murphy_antecedent_2014
+* @zhang_improved_2016
+* @lee_evaluation_2016
+* @zhang_longterm_2015
+* @markus_sensitivity_2013
+* @appling_reducing_2015
+* @hirsch_large_2014
+* @warrick_trend_2015
 
 # Applications and regional studies
+
+* @medalie_concentration_2013
+* @savoie_analysis_2017
+* @mullaney_nutrient_2016
+* @hickman_trends_2017
+* @oelsner_water-quality_2017
+* @zhang_longterm_2015
+* @zhang_longterm_2015-1
+* @schramm_escherichia_2018
+* @liu_nitrogen_2016
+* @verma_quantifying_2018
+* @schlegel_nutrient_2014
+* @oelsner_recent_2019
+* @rankinen_changes_nodate
+* @ha_nitrogen_nodate
+* @shoda_water-quality_2019
+* @beck_four_2018
+* @getahun_water_2019
+* @scavia_st._2019
+* @mize_suspended-sediment_2018
+* @bird_steady-state_2018
+* @ryberg_changes_2006
+* @smith_longterm_2018
+* @rumsey_role_2017
+* @morway_long-term_2017
+* @wilkison_waterquality_2016
+* @ryberg_structural_2017
+* @testa_nutrient-and_2018
+* @ryberg_modeling_2018
+* @vidon_path_2018
+* @zhang_watershed_2018
+* @vrzel_nutrient_2015
+* @rosenberg_coupling_2017
+* @schilling_variability_2017
+* @kelly_long-term_2015
+* @stackpoole_spatial_2017
+* @kreiling_long-term_2016
+* @bowen_assessment_2015
+* @stets_increasing_2018
+* @zhang_long-term_2016
+* @zhang_decadal-scale_2016
+* @abbott_unexpected_2018
+* @duncan_mechanisms_2015
+* @murphy_nitrate_2013
+* @ator_understanding_2015
+* @kalkhoff_effect_2016
+* @green_decadal_2014
+* @van_meter_two_2017
+* @eshleman_surface_2013
+* @national_research_council_achieving_2011
+* @moatar_elemental_2017
+* @hirsch_flux_2012
+* @sanford_quantifying_2013
+* @corsi_river_2015
+* @zhang_long-term_2013
+* @sprague_nitrate_2011
+* @medalie_use_2012
+
+# Bibliography
+
+

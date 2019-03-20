@@ -77,16 +77,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
+  <a href="../articles/EGRET.html">Introduction</a>
 </li>
 <li>
-  <a href="../articles/EGRET.html">Get started</a>
-</li>
-<li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Function Help Pages</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -96,27 +90,24 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Enhancements.html">Guide to EGRET 3.0 enhancements</a>
+      <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/extending.html">Extending EGRET Methods</a>
+      <a href="../articles/parallel.html">Running in Parallel</a>
     </li>
     <li>
-      <a href="../articles/parallel.html">Running WRTDS in parallel</a>
+      <a href="../articles/rResid.html">Random Residuals</a>
     </li>
     <li>
-      <a href="../articles/regional.html">Regional Studies</a>
+      <a href="../articles/SeasonalFraction.html">Seasonal Analysis</a>
     </li>
     <li>
-      <a href="../articles/rResid.html">Using Random Residuals for Censored Data in EGRET</a>
-    </li>
-    <li>
-      <a href="../articles/SeasonalFraction.html">Seasonal Analysis in EGRET</a>
-    </li>
-    <li>
-      <a href="../articles/streamflow_trend.html">Daily Streamflow Trend Analysis</a>
+      <a href="../articles/streamflow_trend.html">Daily Streamflow Trends</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../articles/References.html">Bibliograpy</a>
 </li>
       </ul>
       
@@ -153,22 +144,110 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-import-data" class="hasAnchor"><a href="#section-import-data" class="anchor"></a>Import Data</h2>
+          <p class="section-desc"><p>Functions for user-generated or web retrieval data.</p></p>
         </th>
       </tr>
       <tr>
         
         <td>
-          <p><code><a href="as.egret.html">as.egret()</a></code> </p>
+          <p><code><a href="readUserDaily.html">readUserDaily()</a></code> </p>
         </td>
-        <td><p>Create named list for EGRET analysis</p></td>
+        <td><p>Import user daily data for EGRET analysis</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="blankTime.html">blankTime()</a></code> </p>
+          <p><code><a href="readUserSample.html">readUserSample()</a></code> </p>
         </td>
-        <td><p>Deletes the computed values during periods of time when there are no sample data</p></td>
+        <td><p>Import user-supplied sample data for EGRET analysis</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="readNWISDaily.html">readNWISDaily()</a></code> </p>
+        </td>
+        <td><p>Import NWIS Daily Data for EGRET analysis</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="readNWISSample.html">readNWISSample()</a></code> </p>
+        </td>
+        <td><p>Import NWIS Sample Data for EGRET analysis</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="readWQPSample.html">readWQPSample()</a></code> </p>
+        </td>
+        <td><p>Import Sample Data from the Water Quality Portal for WRTDS</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="INFOdataframe.html">readNWISInfo()</a></code> <code><a href="INFOdataframe.html">readWQPInfo()</a></code> <code><a href="INFOdataframe.html">readUserInfo()</a></code> </p>
+        </td>
+        <td><p>Import metadata to create INFO data frame</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-wrtds" class="hasAnchor"><a href="#section-wrtds" class="anchor"></a>WRTDS</h2>
+          <p class="section-desc"><p>Functions working running and analyzing the WRTDS model</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="modelEstimation.html">modelEstimation()</a></code> </p>
+        </td>
+        <td><p>Estimation process for the WRTDS (Weighted Regressions on Time, Discharge, and Season)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="runPairs.html">runPairs()</a></code> </p>
+        </td>
+        <td><p>Runs a comparison of any two years in the record.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="runGroups.html">runGroups()</a></code> </p>
+        </td>
+        <td><p>Runs a comparison of any group of years in the record.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="runSeries.html">runSeries()</a></code> </p>
+        </td>
+        <td><p>Annual series of flow-normalized concentration and flow-normalzed flux</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="runSurvReg.html">runSurvReg()</a></code> <code><a href="runSurvReg.html">run_WRTDS()</a></code> </p>
+        </td>
+        <td><p>Run the weighted survival regression for a set of estimation points (defined by DecYear and Log(Q))</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="setupYears.html">setupYears()</a></code> </p>
+        </td>
+        <td><p>Creates the AnnualResults data frame from the Daily data frame</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="setPA.html">setPA()</a></code> </p>
+        </td>
+        <td><p>Sets up the period of analysis (the portion of the year being evaluated).</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-plotting" class="hasAnchor"><a href="#section-plotting" class="anchor"></a>Plotting</h2>
+          <p class="section-desc"><p>Functions for plotting eList objects</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="multiPlotDataOverview.html">multiPlotDataOverview()</a></code> </p>
+        </td>
+        <td><p>Produces a 4 panel plot that gives an overview of the data set prior to any processing</p></td>
       </tr><tr>
         
         <td>
@@ -178,303 +257,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="boxConcThree.html">boxConcThree()</a></code> </p>
-        </td>
-        <td><p>Three box plots side-by-side</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="boxQTwice.html">boxQTwice()</a></code> </p>
         </td>
         <td><p>Two box plots side-by-side, discharge on sample days, and discharge on all days</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="boxResidMonth.html">boxResidMonth()</a></code> </p>
-        </td>
-        <td><p>A box plot of WRTDS residuals by month</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="calculateMonthlyResults.html">calculateMonthlyResults()</a></code> </p>
-        </td>
-        <td><p>Calculates monthly mean values of Q, Conc, Flux, FNConc, and FNFlux for the entire record.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="censoredSegments.html">censoredSegments()</a></code> </p>
-        </td>
-        <td><p>Generic plotting function to create censored line segments</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="checkStartEndDate.html">checkStartEndDate()</a></code> </p>
-        </td>
-        <td><p>checkStartEndDate</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="checkSurfaceSpan.html">checkSurfaceSpan()</a></code> </p>
-        </td>
-        <td><p>checkSurfaceSpan</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="compressData.html">compressData()</a></code> </p>
-        </td>
-        <td><p>Compress sample data frame</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="Constants.html">Constants</a></code> </p>
-        </td>
-        <td><p>Constants included with EGRET</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="dataOverview.html">dataOverview()</a></code> </p>
-        </td>
-        <td><p>Data Overview for WRTDS</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="dateFormatCheck.html">dateFormatCheck()</a></code> </p>
-        </td>
-        <td><p>Check date format</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="dateFuncs.html">populateDateColumns()</a></code> <code><a href="dateFuncs.html">decimalDate()</a></code> </p>
-        </td>
-        <td><p>Populate Date Columns</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="decimalHighLow.html">decimalHighLow()</a></code> </p>
-        </td>
-        <td><p>decimalHighLow</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="EGRET-package.html">EGRET-package</a></code> </p>
-        </td>
-        <td><p>EGRET package includes WRTDS and flowHistory</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="estCrossVal.html">estCrossVal()</a></code> </p>
-        </td>
-        <td><p>Jack-Knife cross validation of the WRTDS (Weighted Regressions on Time, Discharge, and Season)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="estDailyFromSurfaces.html">estDailyFromSurfaces()</a></code> <code><a href="estDailyFromSurfaces.html">getConcFluxFromSurface()</a></code> <code><a href="estDailyFromSurfaces.html">getSurfaceEstimates()</a></code> <code><a href="estDailyFromSurfaces.html">bin_Qs()</a></code> </p>
-        </td>
-        <td><p>Estimates all daily values of Concentration, Flux, Flow-Normalized Concentration, and Flow Normalized Flux</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="estSurfaces.html">estSurfaces()</a></code> </p>
-        </td>
-        <td><p>Estimate the three surfaces (for yHat, SE and ConcHat) as a function of DecYear and logQ and store in the three-dimensional object called surfaces</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fixSampleFrame.html">fixSampleFrame()</a></code> </p>
-        </td>
-        <td><p>Update Sample dataframe</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="flexFN.html">flexFN()</a></code> </p>
-        </td>
-        <td><p>Flexible Flow Normalization</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="flexPlotAddOn.html">flexPlotAddOn()</a></code> </p>
-        </td>
-        <td><p>Flexible Flow Normalization Plot Add On</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="flowDuration.html">flowDuration()</a></code> </p>
-        </td>
-        <td><p>Computes several values of the flow duration curve for streamflow centered on a specific date of the year</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fluxBiasMulti.html">fluxBiasMulti()</a></code> </p>
-        </td>
-        <td><p>Produces 8-panel plot that is useful for determining if there is a flux bias problem</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fluxBiasStat.html">fluxBiasStat()</a></code> </p>
-        </td>
-        <td><p>Compute the flux bias statistic: (mean of estimated flux - mean of observed flux)  / mean of observed flux</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fluxUnit-class.html">fluxUnit-class</a></code> </p>
-        </td>
-        <td><p>fluxUnit class</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="formatCheckDate.html">formatCheckDate()</a></code> </p>
-        </td>
-        <td><p>formatCheckDate</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="formatCheckParameterCd.html">formatCheckParameterCd()</a></code> </p>
-        </td>
-        <td><p>formatCheckParameterCd</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="generalAxis.html">generalAxis()</a></code> </p>
-        </td>
-        <td><p>Axis generation for log discharge</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="genericEGRETDotPlot.html">genericEGRETDotPlot()</a></code> </p>
-        </td>
-        <td><p>Generic EGRET plotting function</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="getDaily.html">getDaily()</a></code> </p>
-        </td>
-        <td><p>Get Daily dataframe from EGRET object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="getInfo.html">getInfo()</a></code> </p>
-        </td>
-        <td><p>Get INFO dataframe from EGRET object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="getSample.html">getSample()</a></code> <code><a href="getSample.html">getSample()</a></code> <code><a href="getSample.html">getSample.default()</a></code> </p>
-        </td>
-        <td><p>Get Sample dataframe from EGRET object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="getSurfaces.html">getSurfaces()</a></code> </p>
-        </td>
-        <td><p>Get surfaces matrix from EGRET object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="helperEGRET.html">print(<i>&lt;egret&gt;</i>)</a></code> <code><a href="helperEGRET.html">plot(<i>&lt;egret&gt;</i>)</a></code> <code><a href="helperEGRET.html">nDischarge()</a></code> <code><a href="helperEGRET.html">nObservations()</a></code> <code><a href="helperEGRET.html">nCensoredVals()</a></code> </p>
-        </td>
-        <td><p>EGRET helper functions</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="INFOdataframe.html">readNWISInfo()</a></code> <code><a href="INFOdataframe.html">readWQPInfo()</a></code> <code><a href="INFOdataframe.html">readUserInfo()</a></code> </p>
-        </td>
-        <td><p>Import metadata to create INFO data frame</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="is.egret.html">is.egret()</a></code> </p>
-        </td>
-        <td><p>Check for EGRET object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="logPretty1.html">logPretty1()</a></code> </p>
-        </td>
-        <td><p>Sets up tick marks for an axis with a log scale, where the graph is small</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="logPretty3.html">logPretty3()</a></code> </p>
-        </td>
-        <td><p>Sets up tick marks for an axis with a log scale</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="makeAnnualSeries.html">makeAnnualSeries()</a></code> </p>
-        </td>
-        <td><p>Produces annual series of 8 streamflow statistics (and a lowess smooth of them) from daily streamflow data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="makeAugmentedSample.html">makeAugmentedSample()</a></code> </p>
-        </td>
-        <td><p>Create randomized residuals and observations for data sets that have some censored data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="makeDateInfo.html">makeDateInfo()</a></code> </p>
-        </td>
-        <td><p>makeDateInfo</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="mergeReport.html">mergeReport()</a></code> </p>
-        </td>
-        <td><p>mergeReport</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="modelEstimation.html">modelEstimation()</a></code> </p>
-        </td>
-        <td><p>Estimation process for the WRTDS (Weighted Regressions on Time, Discharge, and Season)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="monthLabel-class.html">monthLabel-class</a></code> </p>
-        </td>
-        <td><p>monthLabel class</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="multiPlotDataOverview.html">multiPlotDataOverview()</a></code> </p>
-        </td>
-        <td><p>Produces a 4 panel plot that gives an overview of the data set prior to any processing</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plot15.html">plot15()</a></code> </p>
-        </td>
-        <td><p>Makes 15 graphs of streamflow statistics on a single page</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plot1of15.html">plot1of15()</a></code> </p>
-        </td>
-        <td><p>plots 1 of the 15 graphs of streamflow statistics on a single page</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotConcHist.html">plotConcHist()</a></code> </p>
-        </td>
-        <td><p>Graph of annual concentration and flow normalized concentration versus year</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotConcPred.html">plotConcPred()</a></code> </p>
-        </td>
-        <td><p>Plot of Observed Concentration versus Estimated Concentration</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotConcQ.html">plotConcQ()</a></code> </p>
-        </td>
-        <td><p>Plot of Observed Concentration versus Discharge</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotConcQSmooth.html">plotConcQSmooth()</a></code> </p>
-        </td>
-        <td><p>Plot up to three curves representing the concentration versus discharge relationship. Each curve is a different point in time.</p></td>
       </tr><tr>
         
         <td>
@@ -484,51 +269,15 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="plotConcQ.html">plotConcQ()</a></code> </p>
+        </td>
+        <td><p>Plot of Observed Concentration versus Discharge</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="plotConcTimeDaily.html">plotConcTimeDaily()</a></code> </p>
         </td>
         <td><p>Plot of the time series of daily concentration estimates and the sample values for the days that were sampled</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotConcTimeSmooth.html">plotConcTimeSmooth()</a></code> </p>
-        </td>
-        <td><p>Plot up to three curves representing the concentration versus time relationship, each curve representing a different flow.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotContours.html">plotContours()</a></code> </p>
-        </td>
-        <td><p>Color contour plot of the estimated surfaces as a function of discharge and time (surfaces include log concentration, standard error, and concentration)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotDiffContours.html">plotDiffContours()</a></code> </p>
-        </td>
-        <td><p>Plots the difference between two years from a contour plot created by plotContours</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotFlowSingle.html">plotFlowSingle()</a></code> </p>
-        </td>
-        <td><p>Creates a plot of a time series of a particular flow statistic and a lowess smooth of that flow statistic</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotFluxHist.html">plotFluxHist()</a></code> </p>
-        </td>
-        <td><p>Graph of annual flux and flow normalized flux versus year</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotFluxPred.html">plotFluxPred()</a></code> </p>
-        </td>
-        <td><p>Graph of observed versus estimated flux</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotFluxQ.html">plotFluxQ()</a></code> </p>
-        </td>
-        <td><p>Sample data plot: observed log flux vs log discharge</p></td>
       </tr><tr>
         
         <td>
@@ -538,21 +287,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="plotFour.html">plotFour()</a></code> </p>
+          <p><code><a href="plotConcPred.html">plotConcPred()</a></code> </p>
         </td>
-        <td><p>Makes four graphs of streamflow statistics on a single page</p></td>
+        <td><p>Plot of Observed Concentration versus Estimated Concentration</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="plotFourStats.html">plotFourStats()</a></code> </p>
+          <p><code><a href="plotFluxPred.html">plotFluxPred()</a></code> </p>
         </td>
-        <td><p>Makes four graphs of annual streamflow statistics on a single page</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plotQTimeDaily.html">plotQTimeDaily()</a></code> </p>
-        </td>
-        <td><p>Plot of the discharge time series</p></td>
+        <td><p>Graph of observed versus estimated flux</p></td>
       </tr><tr>
         
         <td>
@@ -574,211 +317,66 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="plotSDLogQ.html">plotSDLogQ()</a></code> </p>
+          <p><code><a href="boxResidMonth.html">boxResidMonth()</a></code> </p>
         </td>
-        <td><p>Graph of the standard deviation of the log of daily discharge versus year</p></td>
+        <td><p>A box plot of WRTDS residuals by month</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="populateConcentrations.html">populateConcentrations()</a></code> </p>
+          <p><code><a href="boxConcThree.html">boxConcThree()</a></code> </p>
         </td>
-        <td><p>Populate Concentration Columns</p></td>
+        <td><p>Three box plots side-by-side</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="populateDaily.html">populateDaily()</a></code> </p>
+          <p><code><a href="plotConcHist.html">plotConcHist()</a></code> </p>
         </td>
-        <td><p>Populate Daily data frame</p></td>
+        <td><p>Graph of annual concentration and flow normalized concentration versus year</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="populateParameterINFO.html">populateParameterINFO()</a></code> </p>
+          <p><code><a href="plotFluxHist.html">plotFluxHist()</a></code> </p>
         </td>
-        <td><p>Populate Parameter Information Columns</p></td>
+        <td><p>Graph of annual flux and flow normalized flux versus year</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="populateSampleColumns.html">populateSampleColumns()</a></code> </p>
+          <p><code><a href="plotConcQSmooth.html">plotConcQSmooth()</a></code> </p>
         </td>
-        <td><p>Populate Sample Columns</p></td>
+        <td><p>Plot up to three curves representing the concentration versus discharge relationship. Each curve is a different point in time.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="populateSiteINFO.html">populateSiteINFO()</a></code> </p>
+          <p><code><a href="plotConcTimeSmooth.html">plotConcTimeSmooth()</a></code> </p>
         </td>
-        <td><p>Populate Site Information Columns</p></td>
+        <td><p>Plot up to three curves representing the concentration versus time relationship, each curve representing a different flow.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="printFluxUnitCheatSheet.html">printFluxUnitCheatSheet()</a></code> </p>
+          <p><code><a href="fluxBiasMulti.html">fluxBiasMulti()</a></code> </p>
         </td>
-        <td><p>Reminder to user of flux unit properties  (such as kg/day, tons/year, etc).</p></td>
+        <td><p>Produces 8-panel plot that is useful for determining if there is a flux bias problem</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="printqUnitCheatSheet.html">printqUnitCheatSheet()</a></code> </p>
+          <p><code><a href="plotContours.html">plotContours()</a></code> </p>
         </td>
-        <td><p>Reminder to user of flow Unit properties such as cubic meters per second or thousands of cubic feet per second.</p></td>
+        <td><p>Color contour plot of the estimated surfaces as a function of discharge and time (surfaces include log concentration, standard error, and concentration)</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="printSeries.html">printSeries()</a></code> </p>
+          <p><code><a href="plotDiffContours.html">plotDiffContours()</a></code> </p>
         </td>
-        <td><p>Print annual results for a given streamflow statistic</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="processQWData.html">processQWData()</a></code> </p>
-        </td>
-        <td><p>Processing of Water Quality Data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="qUnit-class.html">qUnit-class</a></code> </p>
-        </td>
-        <td><p>qUnit class</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="readDataFromFile.html">readDataFromFile()</a></code> </p>
-        </td>
-        <td><p>Basic Data Import for Water Flow Data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="readNWISDaily.html">readNWISDaily()</a></code> </p>
-        </td>
-        <td><p>Import NWIS Daily Data for EGRET analysis</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="readNWISSample.html">readNWISSample()</a></code> </p>
-        </td>
-        <td><p>Import NWIS Sample Data for EGRET analysis</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="readUserDaily.html">readUserDaily()</a></code> </p>
-        </td>
-        <td><p>Import user daily data for EGRET analysis</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="readUserSample.html">readUserSample()</a></code> </p>
-        </td>
-        <td><p>Import user-supplied sample data for EGRET analysis</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="readWQPSample.html">readWQPSample()</a></code> </p>
-        </td>
-        <td><p>Import Sample Data from the Water Quality Portal for WRTDS</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="removeDuplicates.html">removeDuplicates()</a></code> </p>
-        </td>
-        <td><p>Remove duplicates values from Sample data frame.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="runGroups.html">runGroups()</a></code> </p>
-        </td>
-        <td><p>Runs a comparison of any group of years in the record.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="runPairs.html">runPairs()</a></code> </p>
-        </td>
-        <td><p>Runs a comparison of any two years in the record.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="runSeries.html">runSeries()</a></code> </p>
-        </td>
-        <td><p>Annual series of flow-normalized concentration and flow-normalzed flux</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="runSurvReg.html">runSurvReg()</a></code> <code><a href="runSurvReg.html">run_WRTDS()</a></code> </p>
-        </td>
-        <td><p>Run the weighted survival regression for a set of estimation points (defined by DecYear and Log(Q))</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sampleData.html">Choptank_eList</a></code> </p>
-        </td>
-        <td><p>Example eList</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="saveResults.html">saveResults()</a></code> </p>
-        </td>
-        <td><p>A utility program for saving the contents of the workspace
-  
- This function saves the workspace. 
- It assigns the file a name using the abbreviations for station and constituent.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="selectDays.html">selectDays()</a></code> </p>
-        </td>
-        <td><p>Creates a subset Daily data frame that only contains daily estimates for the specified period of analysis</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="setPA.html">setPA()</a></code> </p>
-        </td>
-        <td><p>Sets up the period of analysis (the portion of the year being evaluated).</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="setSeasonLabel.html">setSeasonLabel()</a></code> </p>
-        </td>
-        <td><p>Create a character variable that describes the period of analysis, when period of analysis has already been set in AnnualResults</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="setSeasonLabelByUser.html">setSeasonLabelByUser()</a></code> </p>
-        </td>
-        <td><p>Creates a character variable that describes the period of analysis, when the period of analysis is being set by the user and not from AnnualResults</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="setUpEstimation.html">setUpEstimation()</a></code> </p>
-        </td>
-        <td><p>setUpEstimation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="setupYears.html">setupYears()</a></code> </p>
-        </td>
-        <td><p>Creates the AnnualResults data frame from the Daily data frame</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="startEnd.html">startEnd()</a></code> </p>
-        </td>
-        <td><p>startEnd</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="stitch.html">stitch()</a></code> </p>
-        </td>
-        <td><p>stitch surfaces</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="surfaceIndex.html">surfaceIndex()</a></code> </p>
-        </td>
-        <td><p>Compute the 6 parameters needed to lay out the grid for the surfaces computed in estSurfaces</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="surfaceStartEnd.html">surfaceStartEnd()</a></code> </p>
-        </td>
-        <td><p>Surface date limits</p></td>
-      </tr><tr>
+        <td><p>Plots the difference between two years from a contour plot created by plotContours</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-table" class="hasAnchor"><a href="#section-table" class="anchor"></a>Table</h2>
+          <p class="section-desc"><p>Functions for creating tables from eList objects</p></p>
+        </th>
+      </tr>
+      <tr>
         
         <td>
           <p><code><a href="tableChange.html">tableChange()</a></code> <code><a href="tableChange.html">tableChangeSingle()</a></code> </p>
@@ -796,18 +394,6 @@
           <p><code><a href="tableResults.html">tableResults()</a></code> </p>
         </td>
         <td><p>Table of annual results for discharge, concentration and flux</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="triCube.html">triCube()</a></code> </p>
-        </td>
-        <td><p>Tricube weight function</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="yPretty.html">yPretty()</a></code> </p>
-        </td>
-        <td><p>Sets up tick marks for an axis for a graph with an arithmetic scale which starts at zero</p></td>
       </tr>
     </tbody>
     </table>
@@ -816,7 +402,10 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#section-import-data">Import Data</a></li>
+      <li><a href="#section-wrtds">WRTDS</a></li>
+      <li><a href="#section-plotting">Plotting</a></li>
+      <li><a href="#section-table">Table</a></li>
     </ul>
   </div>
 </div>

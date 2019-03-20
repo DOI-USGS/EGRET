@@ -177,13 +177,13 @@ fluxBiasMulti(eList)
 #Contour plots:
 clevel<-seq(0,2,0.5)
 maxDiff<-0.8
-yearStart <- 2000
+yearStart <- 1980
 yearEnd <- 2010
 
 plotContours(eList, yearStart,yearEnd,qBottom,qTop, 
-             contourLevels = clevel,qUnit=1)
+             contourLevels = clevel,qUnit=2)
 plotDiffContours(eList, yearStart,yearEnd,
-                 qBottom,qTop,maxDiff,qUnit=1)
+                 qBottom,qTop,maxDiff,qUnit=2)
 
 # modify this for your own computer file structure:
 savePath<-"/Users/rhirsch/Desktop/" 
@@ -937,7 +937,7 @@ The contour plot functions also do not recognize the PA from the INFO data frame
 ```{r plotContours,out.width="100%",fig.height=5, echo=TRUE,fig.cap="`plotContours(eList)`"}
 clevel<-seq(0,2,0.2)
 plotContours(eList, yearStart=1980,yearEnd=2010,qBottom=0.5,qTop=20, 
-             contourLevels = clevel,qUnit=1)
+             contourLevels = clevel)
 ```
 
 The function `plotDiffContours` plots the difference between two selected years (year0 and year1). It can help clarify what combinations of seasons and flow conditions have been showing increases and decreases over the period covered.
