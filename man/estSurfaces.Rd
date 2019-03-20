@@ -54,7 +54,7 @@ The second index is time, layed out as 16 increments of the calendar year, start
 }
 \examples{
 eList <- Choptank_eList
-\dontrun{
+\donttest{
 surfaces <- estSurfaces(eList)
 
 surfaceStart <- "1984-10-01"

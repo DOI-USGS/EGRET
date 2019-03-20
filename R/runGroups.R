@@ -65,7 +65,7 @@
 #' }
 #' @examples 
 #' eList <- Choptank_eList
-#' \dontrun{
+#' \donttest{
 #' 
 #'#Option 1:  Use all years for group flow normalization.
 #'groupOut_1 <- runGroups(eList,  windowSide = 0,

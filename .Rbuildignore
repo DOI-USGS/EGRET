@@ -7,8 +7,6 @@ appveyor.yml
 .gitignore
 .travis.yml
 vignettes/figure
-vignettes/EGRET-concordance.tex
-vignettes/EGRET.bbl
 ^\.Rproj/.RData
 ^.*\.Rproj$
 ^\.Rproj\.user$
@@ -20,7 +18,9 @@ code.json
 hexSticker.R
 ^docs$
 EGRET.Rcheck
-vignettes/References.Rmd
+vignettes/References_WRTDS.Rmd
+vignettes/References_Extend.Rmd
+vignettes/References_Region.Rmd
 vignettes/Regional_studies.bib
 vignettes/Extend_Method.bib
 vignettes/Exported_Items.bib

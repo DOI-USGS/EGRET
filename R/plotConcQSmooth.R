@@ -59,8 +59,10 @@
 #' qLow<-1
 #' qHigh<-100
 #' eList <- Choptank_eList
+#' \donttest{
 #' plotConcQSmooth(eList, date1,date2,date3,qLow,qHigh)
 #' plotConcQSmooth(eList, date1,date2,date3,qLow,qHigh,logScale=TRUE)
+#' }
 plotConcQSmooth<-function(eList, date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0,legendTop = 0, 
                           concMax = NA, concMin=NA, bw = FALSE, printTitle = TRUE, printValues = FALSE, 
                           minNumObs = 100, minNumUncen =  50,

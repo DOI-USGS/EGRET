@@ -41,7 +41,7 @@
 #' sample2StartDate <- "1996-10-01"
 #' sample2EndDate <- "2011-09-30"
 #' 
-#' \dontrun{
+#' \donttest{
 #' surface_skip <- stitch(eList, 
 #'                          sample1StartDate, sample1EndDate, 
 #'                          sample2StartDate, sample2EndDate,

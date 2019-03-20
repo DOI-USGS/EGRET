@@ -32,7 +32,7 @@
 #' @seealso \code{\link{compressData}}, \code{\link{populateSampleColumns}},
 #' \code{\link[dataRetrieval]{readNWISqw}}
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # These examples require an internet connection to run
 #' 
 #' Sample_01075 <- readNWISSample('01594440','01075', '1985-01-01', '1985-03-31')

@@ -12,7 +12,7 @@
 #' @export
 #' @seealso \code{\link[dataRetrieval]{readWQPqw}}
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' library(dataRetrieval)
 #'  
 #' rawWQP <- readWQPqw('21FLEECO_WQX-IMPRGR80','Phosphorus', '', '')

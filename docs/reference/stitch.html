@@ -255,12 +255,12 @@ The edgeAdjust method tends to reduce curvature near the start and end of record
 <span class='no'>sample1StartDate</span> <span class='kw'>&lt;-</span> <span class='st'>"1986-10-01"</span>
 <span class='no'>sample1EndDate</span> <span class='kw'>&lt;-</span> <span class='st'>"1992-09-30"</span>
 <span class='no'>sample2StartDate</span> <span class='kw'>&lt;-</span> <span class='st'>"1996-10-01"</span>
-<span class='no'>sample2EndDate</span> <span class='kw'>&lt;-</span> <span class='st'>"2011-09-30"</span></div><span class='co'># NOT RUN {</span>
-<span class='no'>surface_skip</span> <span class='kw'>&lt;-</span> <span class='fu'>stitch</span>(<span class='no'>eList</span>,
+<span class='no'>sample2EndDate</span> <span class='kw'>&lt;-</span> <span class='st'>"2011-09-30"</span></div><div class='input'><span class='no'>surface_skip</span> <span class='kw'>&lt;-</span> <span class='fu'>stitch</span>(<span class='no'>eList</span>,
                          <span class='no'>sample1StartDate</span>, <span class='no'>sample1EndDate</span>,
                          <span class='no'>sample2StartDate</span>, <span class='no'>sample2EndDate</span>,
-                         <span class='no'>surfaceStart</span>, <span class='no'>surfaceEnd</span>)
-
+                         <span class='no'>surfaceStart</span>, <span class='no'>surfaceEnd</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'> Sample1 mean concentration 1.095</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'> Sample2 mean concentration 1.217</span></div><div class='output co'>#&gt; <span class='message'>Sample1 has 183 Samples and 183 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 259 Samples and 258 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='input'>
 <span class='co'># Surface overlaps a few years:</span>
 <span class='no'>sample1StartDate</span> <span class='kw'>&lt;-</span> <span class='st'>"1986-10-01"</span>
 <span class='no'>sample1EndDate</span> <span class='kw'>&lt;-</span> <span class='st'>"1996-09-30"</span>
@@ -269,8 +269,9 @@ The edgeAdjust method tends to reduce curvature near the start and end of record
 
 <span class='no'>surface_overlap</span> <span class='kw'>&lt;-</span> <span class='fu'>stitch</span>(<span class='no'>eList</span>,
                          <span class='no'>sample1StartDate</span>, <span class='no'>sample1EndDate</span>,
-                         <span class='no'>sample2StartDate</span>, <span class='no'>sample2EndDate</span>)
-<span class='co'># }</span></pre>
+                         <span class='no'>sample2StartDate</span>, <span class='no'>sample2EndDate</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'> Sample1 mean concentration 1.103</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'> Sample2 mean concentration 1.193</span></div><div class='output co'>#&gt; <span class='message'>Sample1 has 267 Samples and 267 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 343 Samples and 342 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

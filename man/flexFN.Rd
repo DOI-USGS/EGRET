@@ -53,7 +53,7 @@ dateInfo <- data.frame(flowNormStart,
                        flowStart, 
                        flowEnd, 
                        stringsAsFactors = FALSE)
-\dontrun{
+\donttest{
 newEList <- flexFN(eList, dateInfo)
 plotFluxHist(newEList)
 flexPlotAddOn(newEList)

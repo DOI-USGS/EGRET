@@ -26,7 +26,7 @@
 #' numDays <- length(Daily$DecYear)
 #' DecLow <- Daily$DecYear[1]
 #' DecHigh <- Daily$DecYear[numDays]
-#' \dontrun{
+#' \donttest{
 #' SampleCrossV <- estCrossVal(numDays,DecLow,DecHigh,Sample)
 #' }
 estCrossVal<-function(DecLow,DecHigh, Sample, windowY = 7, windowQ = 2, 

@@ -269,15 +269,7 @@ generated labels.</p></td>
 <span class='co'># Water year:</span>
 <span class='fu'>plotFlowSingle</span>(<span class='no'>eList</span>, <span class='fl'>1</span>)</div><div class='img'><img src='plotFlowSingle-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Graphs consisting of Jun-Aug</span>
 <span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span>(<span class='no'>eList</span>, <span class='kw'>paStart</span><span class='kw'>=</span><span class='fl'>6</span>,<span class='kw'>paLong</span><span class='kw'>=</span><span class='fl'>3</span>)
-<span class='fu'>plotFlowSingle</span>(<span class='no'>eList</span>, <span class='fl'>1</span>)</div><div class='img'><img src='plotFlowSingle-2.png' alt='' width='700' height='433' /></div><span class='co'># NOT RUN {</span>
-<span class='no'>siteNumber</span> <span class='kw'>&lt;-</span> <span class='st'>'01010000'</span>
-<span class='no'>StartDate</span> <span class='kw'>&lt;-</span> <span class='st'>''</span>
-<span class='no'>EndDate</span> <span class='kw'>&lt;-</span> <span class='st'>'2014-10-01'</span>
-<span class='no'>Daily</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='readNWISDaily.html'>readNWISDaily</a></span>(<span class='no'>siteNumber</span>, <span class='st'>'00060'</span>, <span class='no'>StartDate</span>, <span class='no'>EndDate</span>)
-<span class='no'>INFO</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='INFOdataframe.html'>readNWISInfo</a></span>(<span class='no'>siteNumber</span>, <span class='st'>'00060'</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as.egret.html'>as.egret</a></span>(<span class='no'>INFO</span>, <span class='no'>Daily</span>)
-<span class='fu'>plotFlowSingle</span>(<span class='no'>eList</span>, <span class='fl'>5</span>)
-<span class='co'># }</span></pre>
+<span class='fu'>plotFlowSingle</span>(<span class='no'>eList</span>, <span class='fl'>1</span>)</div><div class='img'><img src='plotFlowSingle-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

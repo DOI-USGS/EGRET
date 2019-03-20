@@ -29,7 +29,7 @@
 #' @seealso \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}
 #' @examples
 #' eList <- Choptank_eList
-#' \dontrun{
+#' \donttest{
 #' # Water year:
 #' plotSDLogQ(eList) 
 #' plotSDLogQ(eList, 1998,2000) 

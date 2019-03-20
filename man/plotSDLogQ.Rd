@@ -51,7 +51,7 @@ and an INFO dataframe with metadata.
 }
 \examples{
 eList <- Choptank_eList
-\dontrun{
+\donttest{
 # Water year:
 plotSDLogQ(eList) 
 plotSDLogQ(eList, 1998,2000) 

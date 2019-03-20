@@ -221,9 +221,7 @@ error analysis that uses all the data.</p>
 <span class='no'>Daily</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='getDaily.html'>getDaily</a></span>(<span class='no'>eList</span>)
 <span class='no'>numDays</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>Daily</span>$<span class='no'>DecYear</span>)
 <span class='no'>DecLow</span> <span class='kw'>&lt;-</span> <span class='no'>Daily</span>$<span class='no'>DecYear</span>[<span class='fl'>1</span>]
-<span class='no'>DecHigh</span> <span class='kw'>&lt;-</span> <span class='no'>Daily</span>$<span class='no'>DecYear</span>[<span class='no'>numDays</span>]</div><span class='co'># NOT RUN {</span>
-<span class='no'>SampleCrossV</span> <span class='kw'>&lt;-</span> <span class='fu'>estCrossVal</span>(<span class='no'>numDays</span>,<span class='no'>DecLow</span>,<span class='no'>DecHigh</span>,<span class='no'>Sample</span>)
-<span class='co'># }</span></pre>
+<span class='no'>DecHigh</span> <span class='kw'>&lt;-</span> <span class='no'>Daily</span>$<span class='no'>DecYear</span>[<span class='no'>numDays</span>]</div><div class='input'><span class='no'>SampleCrossV</span> <span class='kw'>&lt;-</span> <span class='fu'>estCrossVal</span>(<span class='no'>numDays</span>,<span class='no'>DecLow</span>,<span class='no'>DecHigh</span>,<span class='no'>Sample</span>)</div><div class='output co'>#&gt; <span class='error'>Error in rep(0, numObs): invalid 'times' argument</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

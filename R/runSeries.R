@@ -36,7 +36,7 @@
 #' @examples 
 #' eList <- Choptank_eList
 #' 
-#' \dontrun{
+#' \donttest{
 #' # Automatic calculations based on windowSide=7
 #' # four possible ways to do generalized flow normalization
 #' 

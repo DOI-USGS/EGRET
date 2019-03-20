@@ -21,7 +21,7 @@ conditions to determine if a value is left censored or not. Censored values are 
 "<".  The dataframe is also converted from a long to wide format.
 }
 \examples{
-\dontrun{
+\donttest{
 library(dataRetrieval)
  
 rawWQP <- readWQPqw('21FLEECO_WQX-IMPRGR80','Phosphorus', '', '')

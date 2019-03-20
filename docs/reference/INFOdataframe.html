@@ -234,19 +234,103 @@ is because the conversion from mg/l to the user-specified flux unit (e.g., kg/da
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'># These examples require an internet connection to run
 # Automatically gets information about site 05114000 and temperature
-</div><span class='co'># NOT RUN {</span>
-<span class='no'>INFO</span> <span class='kw'>&lt;-</span> <span class='fu'>readNWISInfo</span>(<span class='st'>'05114000'</span>,<span class='st'>'00010'</span>)
-<span class='co'># }</span><div class='input'><span class='co'># These examples require an internet connection to run</span>
+</div><div class='input'><span class='no'>INFO</span> <span class='kw'>&lt;-</span> <span class='fu'>readNWISInfo</span>(<span class='st'>'05114000'</span>,<span class='st'>'00010'</span>)</div><div class='output co'>#&gt; Your site for streamflow data is:
+#&gt;  05114000 .
+#&gt; Your site name is SOURIS RIVER NR SHERWOOD, ND 
+#&gt; but you can modify this to a short name in a style you prefer. 
+#&gt; This name will be used to label graphs and tables. 
+#&gt; If you want the program to use the name given above, just do a carriage return,
+#&gt; otherwise enter the preferred short name(no quotes):
+#&gt; 
+#&gt; The latitude and longitude of the site are:  48.99002 ,  -101.9582 (degrees north and west).
+#&gt; 
+#&gt; The drainage area at this site is  8940 square miles
+#&gt;  which is being stored as 23154.49 square kilometers.
+#&gt; 
+#&gt; It is helpful to set up a station abbreviation when doing multi-site studies,
+#&gt; enter a unique id (three or four characters should work). It is case sensitive.  
+#&gt; Even if you don't feel you need an abbreviation for your site you need to enter something(no quotes):
+#&gt; 
+#&gt; Your water quality data are for parameter number:
+#&gt; 00010 
+#&gt; which has the name:' Temperature, water, degrees Celsius '.
+#&gt; Typically you will want a shorter name to be used in graphs and tables.
+#&gt; The suggested short name is:' Temperature, water '.
+#&gt; If you would like to change the short name, enter it here, 
+#&gt; otherwise just hit enter (no quotes):
+#&gt; The units for the water quality data are:  deg C .
+#&gt; It is helpful to set up a constiuent abbreviation, enter a unique id 
+#&gt; three or four characters should work something like tn or tp or NO3).
+#&gt; Even if you don't feel you need an abbreviation you need to enter something (no quotes):
+#&gt; 
+#&gt; Required concentration units are mg/l. 
+#&gt; The INFO dataframe indicates: deg C 
+#&gt; Flux calculations will be wrong if units are not consistent.</div><div class='input'><span class='co'># These examples require an internet connection to run</span>
 <span class='co'># Automatically gets information about site 01594440 and temperature, no interaction with user</span>
 <span class='no'>nameToUse</span> <span class='kw'>&lt;-</span> <span class='st'>'Specific conductance'</span>
-<span class='no'>pcodeToUse</span> <span class='kw'>&lt;-</span> <span class='st'>'00095'</span></div><span class='co'># NOT RUN {</span>
-<span class='no'>INFO</span> <span class='kw'>&lt;-</span> <span class='fu'>readWQPInfo</span>(<span class='st'>'USGS-04024315'</span>,<span class='no'>pcodeToUse</span>)
-
-<span class='no'>INFO2</span> <span class='kw'>&lt;-</span> <span class='fu'>readWQPInfo</span>(<span class='st'>'WIDNR_WQX-10032762'</span>,<span class='no'>nameToUse</span>)
-<span class='co'># To adjust the label names:</span>
+<span class='no'>pcodeToUse</span> <span class='kw'>&lt;-</span> <span class='st'>'00095'</span></div><div class='input'><span class='no'>INFO</span> <span class='kw'>&lt;-</span> <span class='fu'>readWQPInfo</span>(<span class='st'>'USGS-04024315'</span>,<span class='no'>pcodeToUse</span>)</div><div class='output co'>#&gt; Your site for data is USGS-04024315 .
+#&gt; Your site name is LITTLE BALSAM CREEK NEAR PATZAU, WI ,
+#&gt; but you can modify this to a short name in a style you prefer. 
+#&gt; This name will be used to label graphs and tables. 
+#&gt; If you want the program to use the name given above, just do a carriage return, 
+#&gt; otherwise enter the preferred short name(no quotes):
+#&gt; 
+#&gt; Your water quality data are for parameter number 00095 
+#&gt; which has the name:' Specific conductance, water, unfiltered, microsiemens per centimeter at 25 degrees Celsius '.
+#&gt; Typically you will want a shorter name to be used in graphs and tables. 
+#&gt; The suggested short name is:' Specific conductance '.
+#&gt; If you would like to change the short name, enter it here, otherwise just hit enter (no quotes):
+#&gt; It is helpful to set up a constiuent abbreviation when doing multi-constituent studies,
+#&gt; enter a unique id (three or four characters should work something like tn or tp or NO3).
+#&gt; Even if you don't feel you need an abbreviation you need to enter something (no quotes):
+#&gt; 
+#&gt; It is helpful to set up a station abbreviation when doing multi-site studies, 
+#&gt; enter a unique id (three or four characters should work).
+#&gt; Even if you don't feel you need an abbreviation for your site you need to enter something(no quotes):
+#&gt; 
+#&gt; Required concentration units are mg/l. 
+#&gt; The INFO dataframe indicates: uS/cm @25C 
+#&gt; Flux calculations will be wrong if units are not consistent</div><div class='input'>
+<span class='no'>INFO2</span> <span class='kw'>&lt;-</span> <span class='fu'>readWQPInfo</span>(<span class='st'>'WIDNR_WQX-10032762'</span>,<span class='no'>nameToUse</span>)</div><div class='output co'>#&gt; Your site for data is WIDNR_WQX-10032762 .
+#&gt; Your site name is North Branch Pheasant Branch downstream of pond at Deming Way ,
+#&gt; but you can modify this to a short name in a style you prefer. 
+#&gt; This name will be used to label graphs and tables. 
+#&gt; If you want the program to use the name given above, just do a carriage return, 
+#&gt; otherwise enter the preferred short name(no quotes):
+#&gt; 
+#&gt; Your water quality data are for parameter number  
+#&gt; which has the name:' Specific conductance '.
+#&gt; Typically you will want a shorter name to be used in graphs and tables. 
+#&gt; The suggested short name is:' Specific conductance '.
+#&gt; If you would like to change the short name, enter it here, otherwise just hit enter (no quotes):
+#&gt; Water Quality Portal does not offer a simple method to obtain unit information.
+#&gt; EGRET requires concentration units in mg/l for all functions to work correctly. 
+#&gt; Enter the concentration units of Sample data:
+#&gt; 
+#&gt; It is helpful to set up a constiuent abbreviation when doing multi-constituent studies,
+#&gt; enter a unique id (three or four characters should work something like tn or tp or NO3).
+#&gt; Even if you don't feel you need an abbreviation you need to enter something (no quotes):
+#&gt; 
+#&gt; It is helpful to set up a station abbreviation when doing multi-site studies, 
+#&gt; enter a unique id (three or four characters should work).
+#&gt; Even if you don't feel you need an abbreviation for your site you need to enter something(no quotes):
+#&gt; 
+#&gt; No drainage area (and/or units) was listed in the WQP site file for this site.
+#&gt; Drainage area is used to calculate runoff parameters in flow history calculations.
+#&gt; Please enter the drainage area, you can enter it in the units of your choice.
+#&gt; Enter the area, then enter drainage area code, 
+#&gt; 1 is square miles, 
+#&gt; 2 is square kilometers, 
+#&gt; 3 is acres, 
+#&gt; 4 is hectares.
+#&gt; Area(no quotes):
+#&gt; 
+#&gt; Unit Code (1-4, no quotes):
+#&gt; Required concentration units are mg/l. 
+#&gt; The INFO dataframe indicates:  
+#&gt; Flux calculations will be wrong if units are not consistent</div><div class='input'><span class='co'># To adjust the label names:</span>
 <span class='no'>INFO</span>$<span class='no'>shortName</span> <span class='kw'>&lt;-</span> <span class='st'>"Little"</span>
-<span class='no'>INFO</span>$<span class='no'>paramShortName</span> <span class='kw'>&lt;-</span> <span class='st'>"SC"</span>
-<span class='co'># }</span><div class='input'><span class='no'>filePath</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"EGRET"</span>)
+<span class='no'>INFO</span>$<span class='no'>paramShortName</span> <span class='kw'>&lt;-</span> <span class='st'>"SC"</span></div><div class='input'><span class='no'>filePath</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"EGRET"</span>)
 <span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='st'>'infoTest.csv'</span>
 <span class='no'>INFO</span> <span class='kw'>&lt;-</span> <span class='fu'>readUserInfo</span>(<span class='no'>filePath</span>,<span class='no'>fileName</span>, <span class='kw'>separator</span><span class='kw'>=</span><span class='st'>","</span>,<span class='kw'>interactive</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div></pre>
   </div>

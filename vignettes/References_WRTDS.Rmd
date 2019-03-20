@@ -1,0 +1,12 @@
+---
+output: 
+  rmarkdown::html_vignette
+bibliography: Exported_Items.bib
+nocite: '@*'
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{WRTDS bibliography}
+  \usepackage[utf8]{inputenc}
+---
+
+# Bibliography

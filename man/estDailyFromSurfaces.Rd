@@ -52,7 +52,7 @@ INFO$stepYear<-surfaceIndexParameters[['stepYear']]
 INFO$nVectorYear<-surfaceIndexParameters[['nVectorYear']]
 eList$INFO <- INFO
 #################################################
-\dontrun{
+\donttest{
 Daily <- estDailyFromSurfaces(eList)
 }
 }

@@ -23,10 +23,12 @@ A utility program for saving the contents of the workspace
 \examples{
 eList <- Choptank_eList
 savePath <- "~/"
-\dontrun{saveResults(savePath, eList)
+\donttest{
+saveResults(savePath, eList)
 
 #To load:
-load(paste(savePath,"Chop.nitrogen.RData",sep=""))}
+load(paste(savePath,"Chop.nitrogen.RData",sep=""))
+}
 }
 \keyword{statistics}
 \keyword{water-quality}
