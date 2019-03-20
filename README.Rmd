@@ -106,7 +106,6 @@ INFO$shortName <- "Choptank River at Greensboro, MD"
 
 # Merge discharge with sample data:
 eList <- mergeReport(INFO, Daily, Sample)
-############################
 ```
 
 
@@ -115,22 +114,19 @@ library(EGRET)
 # Sample data included in package:
 eList <- Choptank_eList
 
-############################
-# Check sample data:
 boxConcMonth(eList)
 boxQTwice(eList)
 plotConcTime(eList)
 plotConcQ(eList)
-multiPlotDataOverview(eList)
-############################
+```
 
-############################
+```{r multiPlot, fig.height=7}
+multiPlotDataOverview(eList)
+```
+
+```{r runModel}
 # Run WRTDS model:
 eList <- modelEstimation(eList)
-############################
-
-############################
-#Check model results:
 
 #eList:
 plotConcTimeDaily(eList)
@@ -142,29 +138,30 @@ plotResidQ(eList)
 plotResidTime(eList)
 boxResidMonth(eList)
 boxConcThree(eList)
-
-#Require Daily + INFO:
 plotConcHist(eList)
 plotFluxHist(eList)
 ```
 
 ```{r multiPlots}
 # Multi-line plots:
-date1 <- "2000-09-01"
-date2 <- "2005-09-01"
-date3 <- "2009-09-01"
-qBottom<-100
-qTop<-5000
+date1 <- "1985-09-01"
+date2 <- "1997-09-01"
+date3 <- "2010-09-01"
+qBottom<-0.2
+qTop<-10
 plotConcQSmooth(eList, date1, date2, date3, qBottom, qTop, 
-                   concMax=2,qUnit=1)
-q1 <- 10
-q2 <- 25
-q3 <- 75
+                   concMax=2,legendTop = 0.85)
+q1 <- 2
+q2 <- 10
+q3 <- 20
 centerDate <- "07-01"
-yearEnd <- 2009
-yearStart <- 2000
-plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd)
+yearEnd <- 1980
+yearStart <- 2010
+plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd, legendTop = 0.55, legendLeft = 1990)
 
+```
+
+```{r fluxPlots, fig.height=9}
 # Multi-plots:
 fluxBiasMulti(eList)
 ```
@@ -172,14 +169,16 @@ fluxBiasMulti(eList)
 ```{r contourPlots}
 #Contour plots:
 clevel<-seq(0,2,0.5)
-maxDiff<-0.8
-yearStart <- 2000
+yearStart <- 1980
 yearEnd <- 2010
 
-plotContours(eList, yearStart,yearEnd,qBottom,qTop, 
-             contourLevels = clevel,qUnit=1)
-plotDiffContours(eList, yearStart,yearEnd,
-                 qBottom,qTop,maxDiff,qUnit=1)
+plotContours(eList, yearStart,yearEnd,qBottom=0.5,
+             qTop=20, contourLevels = clevel)
+plotDiffContours(eList, year0 = 1990,
+                 year1 = 2010,
+                 qBottom=0.5,
+                 qTop=20,
+                 maxDiff=0.6)
 ```
 
 
@@ -189,7 +188,6 @@ plotDiffContours(eList, yearStart,yearEnd,
 library(EGRET)
 
 # Flow history analysis
-############################
 # Gather discharge data:
 siteID <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "" # Get earliest date
@@ -201,16 +199,17 @@ Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
 INFO<- readNWISInfo(siteID,"00060")
 INFO$shortName <- "Choptank River at Greensboro, MD"
 eList <- as.egret(INFO, Daily, NA, NA)
-############################
 
-############################
 # Check flow history data:
 plotFlowSingle(eList, istat=7,qUnit="thousandCfs")
 plotSDLogQ(eList)
 plotQTimeDaily(eList, qLower=1,qUnit=3)
+```
+
+```{r plotFours, fig.height=7}
 plotFour(eList, qUnit=3)
 plotFourStats(eList, qUnit=3)
-############################
+
 ```
 
 

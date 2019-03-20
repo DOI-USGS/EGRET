@@ -1,3 +1,75 @@
 template:
   params:
     ganalytics: UA-53797708-7
+navbar:
+  type: default
+  left:
+  - text: Introduction
+    href: articles/EGRET.html
+  - text: Function Help Pages
+    href: reference/index.html
+  - text: Articles
+    menu:
+    - text: Enhancements
+      href: articles/Enhancements.html
+    - text: Running in Parallel
+      href: articles/parallel.html
+    - text: Random Residuals
+      href: articles/rResid.html
+    - text: Seasonal Analysis
+      href: articles/SeasonalFraction.html
+    - text: Daily Streamflow Trends
+      href: articles/streamflow_trend.html
+  - text: Bibliograpy
+    href: articles/References.html
+reference:
+  - title: Import Data
+    desc:  Functions for user-generated or web retrieval data.
+    contents:
+      - readUserDaily
+      - readUserSample
+      - readNWISDaily
+      - readNWISSample
+      - readWQPSample
+      - readNWISInfo
+      - readWQPInfo
+  - title: WRTDS
+    desc: Functions working running and analyzing the WRTDS model
+    contents:
+      - modelEstimation
+      - runPairs
+      - runGroups
+      - runSeries
+      - run_WRTDS
+      - setupYears
+      - setPA
+  - title: Plotting
+    desc: Functions for plotting eList objects
+    contents:
+      - multiPlotDataOverview
+      - boxConcMonth
+      - boxQTwice
+      - plotConcTime
+      - plotConcQ
+      - plotConcTimeDaily
+      - plotFluxTimeDaily
+      - plotConcPred
+      - plotFluxPred
+      - plotResidPred
+      - plotResidQ
+      - plotResidTime
+      - boxResidMonth
+      - boxConcThree
+      - plotConcHist
+      - plotFluxHist
+      - plotConcQSmooth
+      - plotConcTimeSmooth
+      - fluxBiasMulti
+      - plotContours
+      - plotDiffContours
+  - title: Table
+    desc: Functions for creating tables from eList objects
+    contents:
+      - tableChange
+      - tableFlowChange
+      - tableResults

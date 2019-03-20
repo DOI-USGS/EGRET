@@ -4,9 +4,8 @@ pkgdown_sha: ~
 articles:
   EGRET: EGRET.html
   Enhancements: Enhancements.html
-  extending: extending.html
   parallel: parallel.html
-  regional: regional.html
+  References: References.html
   rResid: rResid.html
   SeasonalFraction: SeasonalFraction.html
   streamflow_trend: streamflow_trend.html
