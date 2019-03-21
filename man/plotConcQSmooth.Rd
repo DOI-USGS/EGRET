@@ -104,8 +104,10 @@ date3<-"2010-06-01"
 qLow<-1
 qHigh<-100
 eList <- Choptank_eList
+\donttest{
 plotConcQSmooth(eList, date1,date2,date3,qLow,qHigh)
 plotConcQSmooth(eList, date1,date2,date3,qLow,qHigh,logScale=TRUE)
+}
 }
 \seealso{
 \code{\link{genericEGRETDotPlot}}, \code{\link{runSurvReg}}

@@ -18,10 +18,8 @@ Part of flowHistory system.
 }
 \examples{
 eList <- Choptank_eList
-\dontrun{
-pdf("plot15.pdf",heigh=10,width=8)
+\donttest{
 plot15(eList, yearStart=1990,yearEnd=2000)
-dev.off()
 }
 }
 \seealso{

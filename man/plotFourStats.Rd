@@ -43,7 +43,7 @@ and an INFO dataframe with metadata.
 }
 \examples{
 eList <- Choptank_eList
-\dontrun{
+\donttest{
 # Water year:
 plotFourStats(eList)
 # Graphs consisting of Jun-Aug

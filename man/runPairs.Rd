@@ -105,7 +105,7 @@ eList <- Choptank_eList
 year1 <- 1985
 year2 <- 2010
 
-\dontrun{
+\donttest{
 # Automatic calculations based on windowSide=7
 # four possible ways to do generalized flow normalization:
 

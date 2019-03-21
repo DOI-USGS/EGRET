@@ -43,17 +43,8 @@ It returns a named list with the following dataframes: Daily, INFO, Sample, and 
 }
 \examples{
 eList <- Choptank_eList
-\dontrun{
- 
-#Run an estimation adjusting windowQ from default:
-eList <- modelEstimation(eList, windowQ=5)
-
-library(doParallel)
-nCores <- parallel::detectCores() - 1
-cl <- makePSOCKcluster(nCores)
-registerDoParallel(cl)
-eList <- modelEstimation(eList, windowQ=5, run.parallel = TRUE)
-stopCluster(cl)
+\donttest{
+eList <- modelEstimation(eList)
 }
 }
 \keyword{statistics}

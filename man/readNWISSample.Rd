@@ -45,7 +45,7 @@ For raw data, use \code{\link[dataRetrieval]{readNWISqw}} from the dataRetrieval
 section 3.2.4 of the vignette for more details.
 }
 \examples{
-\dontrun{
+\donttest{
 # These examples require an internet connection to run
 
 Sample_01075 <- readNWISSample('01594440','01075', '1985-01-01', '1985-03-31')

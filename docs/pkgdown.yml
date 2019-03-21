@@ -1,11 +1,13 @@
-pandoc: 1.19.2.1
+pandoc: 2.7.1
 pkgdown: 1.3.0
 pkgdown_sha: ~
 articles:
   EGRET: EGRET.html
   Enhancements: Enhancements.html
   parallel: parallel.html
-  References: References.html
+  References_Extend: References_Extend.html
+  References_Region: References_Region.html
+  References_WRTDS: References_WRTDS.html
   rResid: rResid.html
   SeasonalFraction: SeasonalFraction.html
   streamflow_trend: streamflow_trend.html

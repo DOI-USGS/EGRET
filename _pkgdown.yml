@@ -21,7 +21,13 @@ navbar:
     - text: Daily Streamflow Trends
       href: articles/streamflow_trend.html
   - text: Bibliograpy
-    href: articles/References.html
+    menu:
+      - text: WRTDS
+        href: articles/References_WRTDS.html
+      - text: Extending Methods
+        href: articles/References_Extend.html
+      - text: Regional Studies
+        href: articles/References_Region.html
   right:
   - icon: fa-github fa-lg
     href: https://github.com/USGS-R/EGRET
@@ -50,6 +56,12 @@ reference:
     desc: Functions for plotting eList objects
     contents:
       - multiPlotDataOverview
+      - plotFlowSingle
+      - plotFluxQ
+      - plotFour
+      - plotFourStats
+      - plotQTimeDaily
+      - plotSDLogQ
       - boxConcMonth
       - boxQTwice
       - plotConcTime

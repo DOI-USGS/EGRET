@@ -30,7 +30,7 @@
 #' @export
 #' @examples
 #' eList <- Choptank_eList
-#' \dontrun{
+#' \donttest{
 #' surfaces <- estSurfaces(eList)
 #' 
 #' surfaceStart <- "1984-10-01"

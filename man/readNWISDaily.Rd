@@ -46,7 +46,7 @@ Q30 \tab numeric \tab 30 day running average of Q \cr
 Imports daily data from NWIS web service. This function gets the data from here: \url{https://waterservices.usgs.gov/}
 }
 \examples{
-\dontrun{
+\donttest{
 
 Daily <- readNWISDaily('01594440','00060', '1985-01-01', '1985-03-31')
 DailySuspSediment <- readNWISDaily('01594440','80154', '1985-01-01', '1985-03-31',convert=FALSE)

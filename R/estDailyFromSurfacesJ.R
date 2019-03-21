@@ -26,7 +26,7 @@
 #' INFO$nVectorYear<-surfaceIndexParameters[['nVectorYear']]
 #' eList$INFO <- INFO
 #' #################################################
-#' \dontrun{
+#' \donttest{
 #' Daily <- estDailyFromSurfaces(eList)
 #' }
 estDailyFromSurfaces <- function(eList, localsurfaces = NA, localDaily = NA) {

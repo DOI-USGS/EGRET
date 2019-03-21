@@ -74,7 +74,7 @@ normalization".  These two concepts are described in detail in the vignette
 \examples{
 eList <- Choptank_eList
 
-\dontrun{
+\donttest{
 # Automatic calculations based on windowSide=7
 # four possible ways to do generalized flow normalization
 

@@ -24,17 +24,8 @@
 #' Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
 #' @examples
 #' eList <- Choptank_eList
-#' \dontrun{
-#'  
-#' #Run an estimation adjusting windowQ from default:
-#' eList <- modelEstimation(eList, windowQ=5)
-#' 
-#' library(doParallel)
-#' nCores <- parallel::detectCores() - 1
-#' cl <- makePSOCKcluster(nCores)
-#' registerDoParallel(cl)
-#' eList <- modelEstimation(eList, windowQ=5, run.parallel = TRUE)
-#' stopCluster(cl)
+#' \donttest{
+#' eList <- modelEstimation(eList)
 #' }
 modelEstimation<-function(eList, 
                           windowY=7, windowQ=2, windowS=0.5,

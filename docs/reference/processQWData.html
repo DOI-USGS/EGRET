@@ -120,8 +120,23 @@ conditions to determine if a value is left censored or not. Censored values are 
     </li>
   </ul>
 </li>
-<li>
-  <a href="../articles/References.html">Bibliograpy</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Bibliograpy
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/References_WRTDS.html">WRTDS</a>
+    </li>
+    <li>
+      <a href="../articles/References_Extend.html">Extending Methods</a>
+    </li>
+    <li>
+      <a href="../articles/References_Region.html">Regional Studies</a>
+    </li>
+  </ul>
 </li>
       </ul>
       
@@ -183,12 +198,10 @@ conditions to determine if a value is left censored or not. Censored values are 
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dataRetrieval</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dataRetrieval</span>)
 
 <span class='no'>rawWQP</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/dataRetrieval/topics/readWQPqw'>readWQPqw</a></span>(<span class='st'>'21FLEECO_WQX-IMPRGR80'</span>,<span class='st'>'Phosphorus'</span>, <span class='st'>''</span>, <span class='st'>''</span>)
-<span class='no'>Sample2</span> <span class='kw'>&lt;-</span> <span class='fu'>processQWData</span>(<span class='no'>rawWQP</span>, <span class='kw'>pCode</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
-<span class='co'># }</span></pre>
+<span class='no'>Sample2</span> <span class='kw'>&lt;-</span> <span class='fu'>processQWData</span>(<span class='no'>rawWQP</span>, <span class='kw'>pCode</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

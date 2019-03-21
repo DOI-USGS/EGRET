@@ -34,7 +34,7 @@
 #'                        flowStart, 
 #'                        flowEnd, 
 #'                        stringsAsFactors = FALSE)
-#' \dontrun{
+#' \donttest{
 #' newEList <- flexFN(eList, dateInfo)
 #' plotFluxHist(newEList)
 #' flexPlotAddOn(newEList)
@@ -137,7 +137,7 @@ flexFN <- function(eList, dateInfo, localsurfaces = NA, oldSurface = FALSE,
 #'                        flowStart, 
 #'                        flowEnd, 
 #'                        stringsAsFactors = FALSE)
-#' \dontrun{
+#' \donttest{
 #' newEList <- flexFN(eList, dateInfo)
 #' plotFluxHist(newEList)
 #' flexPlotAddOn(newEList)

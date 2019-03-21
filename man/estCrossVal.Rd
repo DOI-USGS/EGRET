@@ -46,7 +46,7 @@ Daily <- getDaily(eList)
 numDays <- length(Daily$DecYear)
 DecLow <- Daily$DecYear[1]
 DecHigh <- Daily$DecYear[numDays]
-\dontrun{
+\donttest{
 SampleCrossV <- estCrossVal(numDays,DecLow,DecHigh,Sample)
 }
 }

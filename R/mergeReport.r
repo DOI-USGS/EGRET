@@ -25,7 +25,7 @@
 #' 
 #' siteNumber <- '01491000'
 #' pCode <- '00631'
-#' \dontrun{
+#' \donttest{
 #' Daily <- readNWISDaily(siteNumber,'00060', '1984-10-01', '')
 #' Sample <- readNWISSample(siteNumber,pCode, '1984-10-01', '')
 #' INFO <- readNWISInfo(siteNumber,pCode,interactive=FALSE)
