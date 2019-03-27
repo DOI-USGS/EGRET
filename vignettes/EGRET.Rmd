@@ -1125,7 +1125,7 @@ This section describes the options for installing the EGRET package.
 
 ## New to R?
 
-If you are new to R, you will need to first install the latest version of R, which can be found here: [http://www.r-project.org/](http://www.r-project.org/).
+If you are new to R, you will need to first install the latest version of R, which can be found here: [https://www.r-project.org/](https://www.r-project.org/).
 
 At any time, you can get information about any function in R by typing a question mark before the function's name.  This opens a file that describes the function, the required arguments, and provides working examples.
 

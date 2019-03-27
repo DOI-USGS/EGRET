@@ -227,6 +227,17 @@ Follow `@USGS_R` on Twitter for updates on USGS R packages:
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/USGS_R.svg?style=social&label=Follow%20USGS_R)](https://twitter.com/USGS_R)
 
+## Download Presentations
+
+Recent presentations:
+
+* [NWQMC 1a](https://github.com/USGS-R/EGRET/raw/master/docs/presentations/Hirsch%20Workshop1B(input).pptx)
+* [NWQMC 1b](https://github.com/USGS-R/EGRET/raw/master/docs/presentations/Hirsch%20Workshop1B(input).pptx)
+* [NWQMC 2a](https://github.com/USGS-R/EGRET/raw/master/docs/presentations/Hirsch%20Workshop2A(ci).pptx)
+* [NWQMC 2a](https://github.com/USGS-R/EGRET/raw/master/docs/presentations/Hirsch%20Workshop2B(GFN).pptx)
+
+
+
 ## Subscribe
 
 Please email questions, comments, and feedback to: 
