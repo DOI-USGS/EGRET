@@ -907,7 +907,11 @@ mg/l, Choptank River, Inorganic nitrogen, N, 292.67</code></pre>
 <a class="sourceLine" id="cb22-13" title="13">eListNew<span class="op">$</span>Daily &lt;-<span class="st"> </span>DailyNew</a>
 <a class="sourceLine" id="cb22-14" title="14"><span class="co">#To create a whole new egret object:</span></a>
 <a class="sourceLine" id="cb22-15" title="15">eList_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as.egret.html">as.egret</a></span>(INFO, DailyNew, <span class="kw"><a href="../reference/getSample.html">getSample</a></span>(eListNew), <span class="ot">NA</span>)</a></code></pre></div>
-<p>#Units {#units}</p>
+</div>
+</div>
+<div id="units" class="section level1">
+<h1 class="hasAnchor">
+<a href="#units" class="anchor"></a>Units</h1>
 <p>EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units. The defaults are mg/L for concentration, cubic meters per second (m<sup>3</sup>/s) for discharge, kg/day for flux, and km<sup>2</sup> for drainage area. When discharge values are imported from USGS Web services, they are automatically converted from cubic feet per second (cfs) to cms unless the argument <code>convert</code> in function <code>readNWISDaily</code> is set to FALSE. This can cause confusion if you are not careful. For all functions that provide output, you can define two arguments to set the output units: qUnit and fluxUnit. qUnit and fluxUnit are defined by either a numeric code or name. You can call two functions that can be called to see the options: <code>printqUnitCheatSheet</code> and <code>printFluxUnitCheatSheet</code>.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="kw"><a href="../reference/printqUnitCheatSheet.html">printqUnitCheatSheet</a></span>()</a></code></pre></div>
 <pre><code>## The following codes apply to the qUnit list:
@@ -933,7 +937,10 @@ mg/l, Choptank River, Inorganic nitrogen, N, 292.67</code></pre>
 ## 13 =  kgYear  ( kg/year )</code></pre>
 <p>When a function has an input argument fluxUnit, you can define the flux units with the index (1-12) as shown above. Base the choice on the units that are customary for your intended audience, but also so that the flux values don’t have too many digits to the right or left of the decimal point. Tons are always “short tons” and not “metric tons”.</p>
 <p>Note that when the analysis being done is for a single month or season (see discussion of “Period of Analysis” in <a href="#flowHistory">Flow History</a> that the flux values represent a rate (mass per unit time). Thus, if the period of analysis is the combination of April and May, then a reported flux of 1000 kg/year translates to a mass of 1000 * 61 / 365.25 = 167 kg. Thus, in general, if the flux is reported as a mass per year, then to get a mass for the season that value should be multiplied by the number of days in the season and then divided by 365.25.</p>
-<p>#Flow History {#flowHistory}</p>
+</div>
+<div id="flowHistory" class="section level1">
+<h1 class="hasAnchor">
+<a href="#flowHistory" class="anchor"></a>Flow History</h1>
 <p>This section describes functions included in the EGRET package that provide a variety of table and graphical outputs for examining discharge statistics based on time-series smoothing. These functions are designed for studies of long-term change and work best for daily discharge data sets of 50 years or longer. This type of analysis might be useful for studying issues such as the influence of land use change, water management change, or climate change on discharge conditions. This includes potential impacts on average discharges, high discharges, and low discharges, at annual time scales as well as seasonal or monthly time scales.</p>
 <p>Consider this example from Columbia River at The Dalles, OR.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1">siteNumber &lt;-<span class="st"> "14105700"</span>  </a>
@@ -1022,7 +1029,6 @@ mg/l, Choptank River, Inorganic nitrogen, N, 292.67</code></pre>
 </tr>
 </tbody>
 </table>
-</div>
 <div id="plotOptions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#plotOptions" class="anchor"></a>Plotting Options</h2>
@@ -1217,7 +1223,10 @@ The relation of flux vs discharge
 <a class="sourceLine" id="cb54-4" title="4">pathToFile &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste0</a></span>(loadPath,staAbbrev,<span class="st">"."</span>,</a>
 <a class="sourceLine" id="cb54-5" title="5">                    constitAbbrev,<span class="st">".RData"</span>)</a>
 <a class="sourceLine" id="cb54-6" title="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/load">load</a></span>(pathToFile) </a></code></pre></div>
-<p>#WRTDS Results {#wrtdsResults}</p>
+</div>
+<div id="wrtdsResults" class="section level1">
+<h1 class="hasAnchor">
+<a href="#wrtdsResults" class="anchor"></a>WRTDS Results</h1>
 <p>At this point (after having run <code>modelEstimation</code>) we can start considering how to view the annual averages for the variables that have been calculated. See <a href="#wrtdsOutputVariables">Post-WRTDS Plotting Input</a> for common input variables for these functions. Additionally, check the help files (in the R console, type ? followed by the function name).</p>
 <div id="wrtdsPlotting" class="section level2">
 <h2 class="hasAnchor">
@@ -1468,7 +1477,11 @@ Concentration vs. discharge
 </tr>
 </tbody>
 </table>
-<p>#Extending Plots Past Defaults {#extendedPlots}</p>
+</div>
+</div>
+<div id="extendedPlots" class="section level1">
+<h1 class="hasAnchor">
+<a href="#extendedPlots" class="anchor"></a>Extending Plots Past Defaults</h1>
 <p>The basic plotting options were shown in the section <a href="#wrtdsResults">WRTDS Results</a>. This section demonstrates some ways to extend the capabilities of the EGRET plots. EGRET plots use R’s basic plotting options. You set many of the formatting details of plotting routines in R by using “Graphical Parameters”. To read about all of these graphical parameters see <code><a href="https://www.rdocumentation.org/packages/graphics/topics/par">?par</a></code>. When the graphical functions in EGRET are coded, a set of default values for many of these parameters are chosen, but you can override all of these default values. Additionally, you can add features to a plot after calling the plot function. To change the plot margins (mar), font, or other graphical parameters initially assigned, set the argument customPar to TRUE.</p>
 <p>A few of R’s base graphical parameters are especially useful within the plot functions.</p>
 <table class="table">
@@ -1660,13 +1673,15 @@ Custom multipanel plot using tinyPlot
 Custom multipanel plot
 </p>
 </div>
-<p>#Getting Started in R {#appendix1}</p>
-<p>This section describes the options for installing the EGRET package.</p>
 </div>
+<div id="appendix1" class="section level1">
+<h1 class="hasAnchor">
+<a href="#appendix1" class="anchor"></a>Getting Started in R</h1>
+<p>This section describes the options for installing the EGRET package.</p>
 <div id="new-to-r" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-to-r" class="anchor"></a>New to R?</h2>
-<p>If you are new to R, you will need to first install the latest version of R, which can be found here: <a href="http://www.r-project.org/">http://www.r-project.org/</a>.</p>
+<p>If you are new to R, you will need to first install the latest version of R, which can be found here: <a href="https://www.r-project.org/">https://www.r-project.org/</a>.</p>
 <p>At any time, you can get information about any function in R by typing a question mark before the function’s name. This opens a file that describes the function, the required arguments, and provides working examples.</p>
 <div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" title="1">?plotConcQ</a></code></pre></div>
 <p>To see the raw code for a particular function, type the name of the function, without parentheses:</p>
@@ -2272,7 +2287,10 @@ Custom multipanel plot
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/grDevices/topics/postscript">postscript</a></span>(<span class="st">"fluxBiasMulti.ps"</span>, <span class="dt">height=</span><span class="dv">10</span>,<span class="dt">width=</span><span class="dv">8</span>)</a>
 <a class="sourceLine" id="cb87-2" title="2"><span class="kw"><a href="../reference/fluxBiasMulti.html">fluxBiasMulti</a></span>(eList)</a>
 <a class="sourceLine" id="cb87-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/grDevices/topics/dev">dev.off</a></span>()</a></code></pre></div>
-<p>#Disclaimer</p>
+</div>
+<div id="disclaimer" class="section level1">
+<h1 class="hasAnchor">
+<a href="#disclaimer" class="anchor"></a>Disclaimer</h1>
 <p>This software has been approved for release by the U.S. Geological Survey (USGS). Although the software has been subjected to rigorous review, the USGS reserves the right to update the software as needed pursuant to further analysis and review. No warranty, expressed or implied, is made by the USGS or the U.S. Government as to the functionality of the software and related material nor shall the fact of release constitute any such warranty. Furthermore, the software is released on condition that neither the USGS nor the U.S. Government shall be held liable for any damages resulting from its authorized or unauthorized use.</p>
 </div>
 <div id="bibliography" class="section level1 unnumbered">
@@ -2311,7 +2329,12 @@ Custom multipanel plot
       <li><a href="#data_frame_Sample">Sample</a></li>
       <li><a href="#data_frame_INFO">INFO</a></li>
       <li><a href="#eList">Merge Report: eList</a></li>
-      <li><a href="#plotOptions">Plotting Options</a></li>
+      </ul>
+</li>
+      <li><a href="#units">Units</a></li>
+      <li>
+<a href="#flowHistory">Flow History</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#plotOptions">Plotting Options</a></li>
       <li><a href="#tableOptions">Table Options</a></li>
       </ul>
 </li>
@@ -2321,11 +2344,17 @@ Custom multipanel plot
       <li><a href="#tableOptionsWQ">Table Options</a></li>
       </ul>
 </li>
+      <li><a href="#wrtds">Weighted Regressions on Time, Discharge and Season (WRTDS)</a></li>
       <li>
-<a href="#wrtds">Weighted Regressions on Time, Discharge and Season (WRTDS)</a><ul class="nav nav-pills nav-stacked">
+<a href="#wrtdsResults">WRTDS Results</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#wrtdsPlotting">Plotting Options</a></li>
       <li><a href="#wrtdsTable">Table Options</a></li>
-      <li><a href="#new-to-r">New to R?</a></li>
+      </ul>
+</li>
+      <li><a href="#extendedPlots">Extending Plots Past Defaults</a></li>
+      <li>
+<a href="#appendix1">Getting Started in R</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#new-to-r">New to R?</a></li>
       <li><a href="#r-user-installing-egret">R User: Installing EGRET</a></li>
       </ul>
 </li>
@@ -2339,6 +2368,7 @@ Custom multipanel plot
 </li>
       <li><a href="#createWordTable">Creating tables in Microsoft™ software from an R data frame</a></li>
       <li><a href="#savingPlots">Saving Plots</a></li>
+      <li><a href="#disclaimer">Disclaimer</a></li>
       <li><a href="#bibliography">Bibliography</a></li>
       </ul>
 </div>
