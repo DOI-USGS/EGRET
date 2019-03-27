@@ -548,7 +548,7 @@ eList_2 <- as.egret(INFO, DailyNew, getSample(eListNew), NA)
 
 ```
 
-#Units {#units}
+# Units {#units}
 
 EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units. The defaults are mg/L for concentration, cubic meters per second (m^3^/s) for discharge, kg/day for flux, and km^2^ for drainage area. When discharge values are imported from USGS Web services, they are automatically converted from cubic feet per second (cfs) to cms unless the argument `convert` in function `readNWISDaily` is set to FALSE.  This can cause confusion if you are not careful. 
 For all functions that provide output, you can define two arguments to set the output units: qUnit and fluxUnit.  qUnit and fluxUnit are defined by either a numeric code or name.  You can call two functions that can be called to see the options: `printqUnitCheatSheet` and `printFluxUnitCheatSheet`.
@@ -567,7 +567,7 @@ When a function has an input argument fluxUnit, you can define the flux units wi
 
 Note that when the analysis being done is for a single month or season (see discussion of "Period of Analysis" in [Flow History](#flowHistory) that the flux values represent a rate (mass per unit time).  Thus, if the period of analysis is the combination of April and May, then a reported flux of 1000 kg/year translates to a mass of 1000 * 61 / 365.25 = 167 kg.  Thus, in general, if the flux is reported as a mass per year, then to get a mass for the season that value should be multiplied by the number of days in the season and then divided by 365.25.
 
-#Flow History {#flowHistory}
+# Flow History {#flowHistory}
  
 This section describes functions included in the EGRET package that provide a variety of table and graphical outputs for examining discharge statistics based on time-series smoothing. These functions are designed for studies of long-term change and work best for daily discharge data sets of 50 years or longer. This type of analysis might be useful for studying issues such as the influence of land use change, water management change, or climate change on discharge conditions.  This includes potential impacts on average discharges, high discharges, and low discharges, at annual time scales as well as seasonal or monthly time scales. 
 
@@ -846,7 +846,7 @@ pathToFile <- paste0(loadPath,staAbbrev,".",
 load(pathToFile) 
 ```
 
-#WRTDS Results {#wrtdsResults}
+# WRTDS Results {#wrtdsResults}
  
 At this point (after having run `modelEstimation`) we can start considering how to view the annual averages for the variables that have been calculated.  See [Post-WRTDS Plotting Input](#wrtdsOutputVariables) for common input variables for these functions. Additionally, check the help files (in the R console, type ? followed by the function name). 
 
@@ -998,7 +998,7 @@ knitr::kable(returnDF,
        digits=c(0,0,0,3,2,1,1))
 ```
 
-#Extending Plots Past Defaults {#extendedPlots}
+# Extending Plots Past Defaults {#extendedPlots}
 
 The basic plotting options were shown in the section [WRTDS Results](#wrtdsResults).  This section demonstrates some ways to extend the capabilities of the EGRET plots. EGRET plots use R's basic plotting options. You set many of the formatting details of plotting routines in R by using "Graphical Parameters".  To read about all of these graphical parameters see `?par`.  When the graphical functions in EGRET are coded, a set of default values for many of these parameters are chosen, but you can override all of these default values. Additionally, you can add features to a plot after calling the plot function. To change the plot margins (mar), font, or other graphical parameters initially assigned, set the argument customPar to TRUE.
 
@@ -1119,7 +1119,7 @@ plotConcHist(eList, tinyPlot=TRUE,printTitle=FALSE,concMax=3,
 mtext("Custom multi-pane graph using customPar", outer=TRUE, font=2)
 ```
 
-#Getting Started in R {#appendix1}
+# Getting Started in R {#appendix1}
 
 This section describes the options for installing the EGRET package.
 
@@ -1348,7 +1348,7 @@ dev.off()
 ```
 
 
-#Disclaimer
+# Disclaimer
 
 This software has been approved for release by the U.S. Geological Survey (USGS). Although the software has been subjected to rigorous review, the USGS reserves the right to update the software as needed pursuant to further analysis and review. No warranty, expressed or implied, is made by the USGS or the U.S. Government as to the functionality of the software and related material nor shall the fact of release constitute any such warranty. Furthermore, the software is released on condition that neither the USGS nor the U.S. Government shall be held liable for any damages resulting from its authorized or unauthorized use.
 
