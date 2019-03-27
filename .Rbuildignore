@@ -27,3 +27,5 @@ vignettes/SeasonalFraction.Rmd
 vignettes/streamflow_trend.Rmd
 _pkgdown.yml
 pkgdown/favicon/*
+vignettes/css/*
+vignettes/img/*
