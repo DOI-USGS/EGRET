@@ -114,7 +114,7 @@ boxQTwice<-function(eList,
           ylim=c(yInfo$bottom,yInfo$top),
           main=plotTitle,cex=cex,ylab=yLabel,
           cex.main=cex.main,
-          cex.axis=cex.axis, las=las,yaxt = "n",yaxs="i",
+          cex.axis=cex.axis, las=las,yaxs="i",
           log=logScaleText,yaxt="n",
           ...)
   axis(2,tcl=tcl,las=las,at=yInfo$ticks,cex.axis=cex.axis,labels=yTicksLab)
