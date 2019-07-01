@@ -59,7 +59,7 @@ test_that("External WQP Sample tests", {
   
   Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
   
-  expect_that(all(names(Sample_All) %in% SampleNames),is_true())
+  expect_true(all(names(Sample_All) %in% SampleNames))
     
 })
 
