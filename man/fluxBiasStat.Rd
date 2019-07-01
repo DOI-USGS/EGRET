@@ -2,7 +2,7 @@
 % Please edit documentation in R/fluxBiasStat.R
 \name{fluxBiasStat}
 \alias{fluxBiasStat}
-\title{Compute the flux bias statistic: (mean of estimated flux - mean of observed flux)  / mean of observed flux}
+\title{Compute the flux bias statistic: (mean of estimated flux - mean of observed flux)  / mean of estimated flux}
 \usage{
 fluxBiasStat(localSample)
 }

@@ -1,4 +1,4 @@
-#'  Compute the flux bias statistic: (mean of estimated flux - mean of observed flux)  / mean of observed flux
+#'  Compute the flux bias statistic: (mean of estimated flux - mean of observed flux)  / mean of estimated flux
 #'
 #'  Computes three versions of the flux bias: 
 #'   The first where all censored values are set to their miniumum. 
