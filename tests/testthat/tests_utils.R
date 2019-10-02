@@ -37,7 +37,10 @@ test_that("censoredSegments doesn't error", {
   yLow <- c(NA,3,4,3.3,4,7)
   yHigh <- c(1,3,4,3.3,5,NA)
   Uncen <- c(0,1,1,1,0,0)
-  censoredSegments(yBottom=yBottom,yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
+  expect_silent({
+    censoredSegments(yBottom=yBottom,yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
+  })
+  
 })
 
 test_that("date functions work", {
