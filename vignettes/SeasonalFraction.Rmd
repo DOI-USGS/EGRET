@@ -111,13 +111,13 @@ Next we will look at descriptions of change.
 Let's use the tableChange function to explore the change from 1990 to 2010.  We will do it first for the full water year and then for the winter season.
 
 ```{r}
-eList <- setPA(eList, paStart = 3, paLong = 12)
+eList <- setPA(eList, paStart = 12, paLong = 12)
 change_annual_flux <- tableChangeSingle(eList, flux = TRUE,
                                    yearPoints = c(1990,2010))
 change_annual_conc <- tableChangeSingle(eList, flux = FALSE,
                                    yearPoints = c(1990,2010))
 
-eList <- setPA(eList, paStart = 3, paLong = 3)
+eList <- setPA(eList, paStart = 12, paLong = 3)
 change_season_flux <- tableChangeSingle(eList, flux = TRUE,
                                    yearPoints = c(1990,2010))
 change_season_conc <- tableChangeSingle(eList, flux = FALSE,
