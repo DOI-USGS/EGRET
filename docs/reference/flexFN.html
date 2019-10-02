@@ -15,21 +15,25 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,16 +41,16 @@
 
 
 
-<meta property="og:title" content="Flexible Flow Normalization — flexFN" />
 
+<meta property="og:title" content="Flexible Flow Normalization — flexFN" />
 <meta property="og:description" content="This function implements generalized flow normalization.  This means that for 
 determining the  flow normalized concentration and flow normalized flux for any 
 given year, there is a specified list of years from which to create the discharge 
 record used in the flow-normalization process.  That set of years is defined by 
 the dateInfo object." />
-
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -70,6 +74,7 @@ the dateInfo object." />
   gtag('config', 'UA-53797708-7');
 </script>
 
+
   </head>
 
   <body>
@@ -86,7 +91,7 @@ the dateInfo object." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EGRET</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.3.9000</span>
       </span>
     </div>
 
@@ -141,7 +146,6 @@ the dateInfo object." />
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/USGS-R/EGRET">
@@ -156,6 +160,7 @@ the dateInfo object." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -167,19 +172,17 @@ the dateInfo object." />
     </div>
 
     <div class="ref-description">
-    
     <p>This function implements generalized flow normalization.  This means that for 
 determining the  flow normalized concentration and flow normalized flux for any 
 given year, there is a specified list of years from which to create the discharge 
 record used in the flow-normalization process.  That set of years is defined by 
 the dateInfo object.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>flexFN</span>(<span class='no'>eList</span>, <span class='no'>dateInfo</span>, <span class='kw'>localsurfaces</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>oldSurface</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>flowNormStartCol</span> <span class='kw'>=</span> <span class='st'>"flowNormStart"</span>, <span class='kw'>flowNormEndCol</span> <span class='kw'>=</span> <span class='st'>"flowNormEnd"</span>,
   <span class='kw'>flowStartCol</span> <span class='kw'>=</span> <span class='st'>"flowStart"</span>, <span class='kw'>flowEndCol</span> <span class='kw'>=</span> <span class='st'>"flowEnd"</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -222,24 +225,25 @@ for the portion of the flow to be populated with flow-normalized values.</p></td
 for the portion of the flow to be populated with flow-normalized values.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>named list, eList, containing INFO, Daily, Sample, and surfaces objects</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
 <span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='setUpEstimation.html'>setUpEstimation</a></span>(<span class='no'>eList</span>)
-<span class='no'>flowNormStart</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1979-10-01"</span>,<span class='st'>"1990-01-01"</span>,<span class='st'>"1992-10-10"</span>)
-<span class='no'>flowNormEnd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1995-06-06"</span>,<span class='st'>"2004-03-03"</span>,<span class='st'>"2011-09-29"</span>)
-<span class='no'>flowStart</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1979-10-01"</span>,<span class='st'>"1995-06-07"</span>,<span class='st'>"2004-03-04"</span>)
-<span class='no'>flowEnd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1995-06-06"</span>,<span class='st'>"2004-03-03"</span>,<span class='st'>"2011-09-29"</span>)
-<span class='no'>dateInfo</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='no'>flowNormStart</span>,
+<span class='no'>flowNormStart</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1979-10-01"</span>,<span class='st'>"1990-01-01"</span>,<span class='st'>"1992-10-10"</span>)
+<span class='no'>flowNormEnd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1995-06-06"</span>,<span class='st'>"2004-03-03"</span>,<span class='st'>"2011-09-29"</span>)
+<span class='no'>flowStart</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1979-10-01"</span>,<span class='st'>"1995-06-07"</span>,<span class='st'>"2004-03-04"</span>)
+<span class='no'>flowEnd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1995-06-06"</span>,<span class='st'>"2004-03-03"</span>,<span class='st'>"2011-09-29"</span>)
+<span class='no'>dateInfo</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>flowNormStart</span>,
                        <span class='no'>flowNormEnd</span>,
                        <span class='no'>flowStart</span>,
                        <span class='no'>flowEnd</span>,
-                       <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='input'><span class='no'>newEList</span> <span class='kw'>&lt;-</span> <span class='fu'>flexFN</span>(<span class='no'>eList</span>, <span class='no'>dateInfo</span>)
+                       <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='co'># \donttest{</span>
+<span class='no'>newEList</span> <span class='kw'>&lt;-</span> <span class='fu'>flexFN</span>(<span class='no'>eList</span>, <span class='no'>dateInfo</span>)
 <span class='fu'><a href='plotFluxHist.html'>plotFluxHist</a></span>(<span class='no'>newEList</span>)</div><div class='input'><span class='fu'><a href='flexPlotAddOn.html'>flexPlotAddOn</a></span>(<span class='no'>newEList</span>)</div><div class='img'><img src='flexFN-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>wallSurface</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='estSurfaces.html'>estSurfaces</a></span>(<span class='no'>eList</span>, <span class='kw'>localSample</span> <span class='kw'>=</span> <span class='no'>eList</span>$<span class='no'>Sample</span>[<span class='fl'>1</span>:<span class='fl'>500</span>,])</div><div class='output co'>#&gt; Survival regression (% complete):
 #&gt; 0 	1 	2 	3 	4 	5 	6 	7 	8 	9 	10 	
@@ -253,20 +257,20 @@ for the portion of the flow to be populated with flow-normalized values.</p></td
 #&gt; 81 	82 	83 	84 	85 	86 	87 	88 	89 	90 	
 #&gt; 91 	92 	93 	94 	95 	96 	97 	98 	99 	
 #&gt; Survival regression: Done</div><div class='input'><span class='no'>wallEList</span> <span class='kw'>&lt;-</span> <span class='fu'>flexFN</span>(<span class='no'>eList</span>, <span class='no'>dateInfo</span>, <span class='kw'>localsurface</span> <span class='kw'>=</span> <span class='no'>wallSurface</span>)
-<span class='fu'><a href='plotFluxHist.html'>plotFluxHist</a></span>(<span class='no'>wallEList</span>)</div><div class='img'><img src='flexFN-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='plotFluxHist.html'>plotFluxHist</a></span>(<span class='no'>wallEList</span>)</div><div class='img'><img src='flexFN-2.png' alt='' width='700' height='433' /></div><div class='input'># }
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -274,13 +278,16 @@ for the portion of the flow to be populated with flow-normalized values.</p></td
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

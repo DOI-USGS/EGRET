@@ -24,6 +24,7 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
+#' @param randomCensored logical. Show censored values as randomized.
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
 #' to TRUE does NOT guarantee USGS complience. It will only change automatically
 #' generated labels. 
@@ -41,7 +42,7 @@
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' plotFluxTimeDaily(eList)
 plotFluxTimeDaily<-function (eList, yearStart=NA, yearEnd=NA, 
-                             tinyPlot = FALSE, fluxUnit = 3, fluxMax = NA, 
+                             tinyPlot = FALSE, fluxUnit = 3, fluxMax = NA, randomCensored=FALSE,
                              printTitle = TRUE, usgsStyle = FALSE, cex=0.8, cex.axis=1.1,cex.main=1.1, 
                              customPar=FALSE,col="black",lwd=1,prettyDate=TRUE,...) {
   
@@ -106,6 +107,11 @@ plotFluxTimeDaily<-function (eList, yearStart=NA, yearEnd=NA,
     ""
   }
   
+  if (tinyPlot) {
+    yLab <- fluxUnit@unitExpressTiny
+  } else {
+    yLab <- ifelse(usgsStyle,fluxUnit@unitUSGS,fluxUnit@unitExpress)
+  }
   ###################################
   
   yBottom <- 0
@@ -115,24 +121,41 @@ plotFluxTimeDaily<-function (eList, yearStart=NA, yearEnd=NA,
   
   yCombined <- c(yHigh,subDaily$ConcDay*subDaily$Q*fluxFactor)
   
-  yInfo <- generalAxis(x=yCombined, minVal=yBottom, maxVal=fluxMax, tinyPlot=tinyPlot,padPercent=5)
+  if(!randomCensored){
   
-  if (tinyPlot) {
-    yLab <- fluxUnit@unitExpressTiny
+    yInfo <- generalAxis(x=yCombined, minVal=yBottom, maxVal=fluxMax, tinyPlot=tinyPlot,padPercent=5)
+  
+    genericEGRETDotPlot(x=xSample, y=yHigh,
+                        xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
+                        xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+                        ylab = yLab, customPar=customPar,cex=cex,
+                        plotTitle=plotTitle, tinyPlot=tinyPlot,cex.axis=cex.axis,
+                        cex.main=cex.main,col=col,lwd=lwd, xDate=TRUE,...
+      )
+    censoredSegments(yBottom=yInfo$bottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen,col=col,lwd=lwd)
   } else {
-    yLab <- ifelse(usgsStyle,fluxUnit@unitUSGS,fluxUnit@unitExpress)
+    if(!("rObserved" %in% names(localSample))){
+      eList <- makeAugmentedSample(eList)
+      localSample <- eList$Sample
+      subSample<-localSample[localSample$DecYear>=yearStart & localSample$DecYear<= yearEnd,]
+    }
+
+    yCombined <- c(yHigh,subDaily$rObserved*subDaily$Q*fluxFactor)
+    
+    yInfo <- generalAxis(x=yCombined, minVal=yBottom, maxVal=fluxMax, tinyPlot=tinyPlot,padPercent=5)
+    
+    genericEGRETDotPlot(x=xSample, y=yHigh,
+                        xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
+                        xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+                        ylab = yLab, customPar=customPar,cex=cex,
+                        plotTitle=plotTitle, tinyPlot=tinyPlot,cex.axis=cex.axis,
+                        cex.main=cex.main,col=col,lwd=lwd, xDate=TRUE,...
+    )
+    points(x=xSample[Uncen == 0], y=yHigh[Uncen == 0], pch=1,cex=cex,col=col)
   }
   
-  genericEGRETDotPlot(x=xSample, y=yHigh,
-                      xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
-                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
-                      ylab = yLab, customPar=customPar,cex=cex,
-                      plotTitle=plotTitle, tinyPlot=tinyPlot,cex.axis=cex.axis,
-                      cex.main=cex.main,col=col,lwd=lwd, xDate=TRUE,...
-    )
-
   lines(xDaily, subDaily$ConcDay*subDaily$Q*fluxFactor,col=col,lwd=lwd)
-  censoredSegments(yBottom=yInfo$bottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen,col=col,lwd=lwd)
+  
   if (!tinyPlot) mtext(title2,side=3,line=-1.5)
 
 }

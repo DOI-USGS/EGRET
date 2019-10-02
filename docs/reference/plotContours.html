@@ -15,21 +15,25 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,8 +41,8 @@
 
 
 
-<meta property="og:title" content="Color contour plot of the estimated surfaces as a function of discharge and time (surfaces include log concentration, standard error, and concentration) — plotContours" />
 
+<meta property="og:title" content="Color contour plot of the estimated surfaces as a function of discharge and time (surfaces include log concentration, standard error, and concentration) — plotContours" />
 <meta property="og:description" content="These plots are normally used for plotting the estimated concentration surface (whatSurface=3) but can be used to explore the 
 estimated surfaces for the log of concentration or for the standard error (in log space) which is what determines the bias correction. 
 The plots are often more interpretable when the time limits are only about 4 years apart.
@@ -47,9 +51,9 @@ Although there are a lot of optional arguments to this function, most are set to
 Data come from named list, which contains a Sample dataframe with the sample data, 
 a Daily dataframe with the daily flow data,
 and an INFO dataframe with metadata." />
-
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -73,6 +77,7 @@ and an INFO dataframe with metadata." />
   gtag('config', 'UA-53797708-7');
 </script>
 
+
   </head>
 
   <body>
@@ -89,7 +94,7 @@ and an INFO dataframe with metadata." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EGRET</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.3.9000</span>
       </span>
     </div>
 
@@ -144,7 +149,6 @@ and an INFO dataframe with metadata." />
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/USGS-R/EGRET">
@@ -159,6 +163,7 @@ and an INFO dataframe with metadata." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -170,7 +175,6 @@ and an INFO dataframe with metadata." />
     </div>
 
     <div class="ref-description">
-    
     <p>These plots are normally used for plotting the estimated concentration surface (whatSurface=3) but can be used to explore the 
 estimated surfaces for the log of concentration or for the standard error (in log space) which is what determines the bias correction. 
 The plots are often more interpretable when the time limits are only about 4 years apart.
@@ -179,7 +183,6 @@ To explore changes over a long time period it is best to do this multiple times,
 <p>Data come from named list, which contains a Sample dataframe with the sample data, 
 a Daily dataframe with the daily flow data,
 and an INFO dataframe with metadata.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>plotContours</span>(<span class='no'>eList</span>, <span class='no'>yearStart</span>, <span class='no'>yearEnd</span>, <span class='kw'>qBottom</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>qTop</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
@@ -188,9 +191,9 @@ and an INFO dataframe with metadata.</p>
   <span class='kw'>horiz</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>tcl</span> <span class='kw'>=</span> <span class='fl'>0.03</span>, <span class='kw'>flowDuration</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>customPar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>yTicks</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>tick.lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>usgsStyle</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>2</span>,
   <span class='kw'>cex.main</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>cex.axis</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>color.palette</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/colorRamp'>colorRampPalette</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"white"</span>, <span class='st'>"gray"</span>, <span class='st'>"blue"</span>, <span class='st'>"red"</span>)),
+  <span class='kw'>color.palette</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/colorRamp.html'>colorRampPalette</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"white"</span>, <span class='st'>"gray"</span>, <span class='st'>"blue"</span>, <span class='st'>"red"</span>)),
   <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -292,31 +295,31 @@ generated labels.</p></td>
     <tr>
       <th>color.palette</th>
       <td><p>a function that creates a color palette for the contour plot. Default goes from white to gray to blue to red 
-using the function <code><a href='https://www.rdocumentation.org/packages/grDevices/topics/colorRamp'>colorRampPalette(c("white","gray","blue","red"))</a></code>. A few preset options are heat.colors, topo.colors, and terrain.colors.</p></td>
+using the function <code><a href='https://rdrr.io/r/grDevices/colorRamp.html'>colorRampPalette(c("white","gray","blue","red"))</a></code>. A few preset options are heat.colors, topo.colors, and terrain.colors.</p></td>
     </tr>
     <tr>
-      <th>&#8230;</th>
+      <th>...</th>
       <td><p>arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters</p></td>
     </tr>
     </table>
-    
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>yearStart</span> <span class='kw'>&lt;-</span> <span class='fl'>2001</span>
 <span class='no'>yearEnd</span> <span class='kw'>&lt;-</span> <span class='fl'>2010</span>
 <span class='no'>qBottom</span> <span class='kw'>&lt;-</span> <span class='fl'>0.5</span>
 <span class='no'>qTop</span><span class='kw'>&lt;-</span> <span class='fl'>22</span>
-<span class='no'>clevel</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>0</span>,<span class='fl'>3.5</span>,<span class='fl'>0.5</span>)
+<span class='no'>clevel</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>,<span class='fl'>3.5</span>,<span class='fl'>0.5</span>)
 <span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
-<span class='fu'>plotContours</span>(<span class='no'>eList</span>, <span class='no'>yearStart</span>,<span class='no'>yearEnd</span>,<span class='no'>qBottom</span>,<span class='no'>qTop</span>, <span class='kw'>contourLevels</span> <span class='kw'>=</span> <span class='no'>clevel</span>)</div><div class='img'><img src='plotContours-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotContours</span>(<span class='no'>eList</span>, <span class='no'>yearStart</span>,<span class='no'>yearEnd</span>,<span class='kw'>qBottom</span><span class='kw'>=</span><span class='fl'>0.1</span>,<span class='kw'>qTop</span><span class='kw'>=</span><span class='fl'>NA</span>, <span class='kw'>contourLevels</span> <span class='kw'>=</span> <span class='no'>clevel</span>)</div><div class='img'><img src='plotContours-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>yTicksModified</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>.1</span>,<span class='fl'>1</span>,<span class='fl'>10</span>,<span class='fl'>25</span>)
+<span class='fu'>plotContours</span>(<span class='no'>eList</span>, <span class='no'>yearStart</span>,<span class='no'>yearEnd</span>,<span class='no'>qBottom</span>,<span class='no'>qTop</span>, <span class='kw'>contourLevels</span> <span class='kw'>=</span> <span class='no'>clevel</span>)</div><div class='img'><img src='plotContours-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotContours</span>(<span class='no'>eList</span>, <span class='no'>yearStart</span>,<span class='no'>yearEnd</span>,<span class='kw'>qBottom</span><span class='kw'>=</span><span class='fl'>0.1</span>,<span class='kw'>qTop</span><span class='kw'>=</span><span class='fl'>NA</span>, <span class='kw'>contourLevels</span> <span class='kw'>=</span> <span class='no'>clevel</span>)</div><div class='img'><img src='plotContours-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>yTicksModified</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.1</span>,<span class='fl'>1</span>,<span class='fl'>10</span>,<span class='fl'>25</span>)
 <span class='fu'>plotContours</span>(<span class='no'>eList</span>, <span class='no'>yearStart</span>,<span class='no'>yearEnd</span>,<span class='no'>qBottom</span>,<span class='no'>qTop</span>,
-      <span class='kw'>contourLevels</span> <span class='kw'>=</span> <span class='no'>clevel</span>,<span class='kw'>yTicks</span><span class='kw'>=</span><span class='no'>yTicksModified</span>,<span class='kw'>flowDuration</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='img'><img src='plotContours-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>colors</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/colorRamp'>colorRampPalette</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"white"</span>,<span class='st'>"red"</span>))
+      <span class='kw'>contourLevels</span> <span class='kw'>=</span> <span class='no'>clevel</span>,<span class='kw'>yTicks</span><span class='kw'>=</span><span class='no'>yTicksModified</span>,<span class='kw'>flowDuration</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='img'><img src='plotContours-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>colors</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/colorRamp.html'>colorRampPalette</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"white"</span>,<span class='st'>"red"</span>))
 <span class='fu'>plotContours</span>(<span class='no'>eList</span>, <span class='no'>yearStart</span>,<span class='no'>yearEnd</span>,<span class='no'>qBottom</span>,<span class='no'>qTop</span>,
        <span class='kw'>contourLevels</span> <span class='kw'>=</span> <span class='no'>clevel</span>,<span class='kw'>yTicks</span><span class='kw'>=</span><span class='no'>yTicksModified</span>,
        <span class='kw'>color.palette</span><span class='kw'>=</span><span class='no'>colors</span>,<span class='kw'>flowDuration</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='img'><img src='plotContours-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>colors2</span> <span class='kw'>&lt;-</span> <span class='no'>heat.colors</span> <span class='co'># Some other options: topo.colors, terrain.colors, cm.colors</span>
 <span class='fu'>plotContours</span>(<span class='no'>eList</span>, <span class='no'>yearStart</span>,<span class='no'>yearEnd</span>,<span class='no'>qBottom</span>,<span class='no'>qTop</span>,
        <span class='kw'>contourLevels</span> <span class='kw'>=</span> <span class='no'>clevel</span>,<span class='kw'>color.palette</span><span class='kw'>=</span><span class='no'>colors2</span>,<span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>flowDuration</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='img'><img src='plotContours-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotContours</span>(<span class='no'>eList</span>, <span class='no'>yearStart</span>,<span class='no'>yearEnd</span>,<span class='no'>qBottom</span>,<span class='no'>qTop</span>,
-       <span class='kw'>contourLevels</span> <span class='kw'>=</span> <span class='no'>clevel</span>,<span class='kw'>cex.axis</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>flowDuration</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='img'><img src='plotContours-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mar</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>5</span>,<span class='fl'>8</span>,<span class='fl'>5</span>,<span class='fl'>8</span>))
+       <span class='kw'>contourLevels</span> <span class='kw'>=</span> <span class='no'>clevel</span>,<span class='kw'>cex.axis</span><span class='kw'>=</span><span class='fl'>2</span>,<span class='kw'>flowDuration</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='img'><img src='plotContours-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mar</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>,<span class='fl'>8</span>,<span class='fl'>5</span>,<span class='fl'>8</span>))
 <span class='fu'>plotContours</span>(<span class='no'>eList</span>, <span class='no'>yearStart</span>,<span class='no'>yearEnd</span>,<span class='no'>qBottom</span>,<span class='no'>qTop</span>,
        <span class='kw'>contourLevels</span> <span class='kw'>=</span> <span class='no'>clevel</span>,<span class='kw'>customPar</span><span class='kw'>=</span><span class='fl'>TRUE</span>,<span class='kw'>printTitle</span><span class='kw'>=</span><span class='fl'>FALSE</span>,<span class='kw'>flowDuration</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='img'><img src='plotContours-7.png' alt='' width='700' height='433' /></div></pre>
   </div>
@@ -324,12 +327,12 @@ using the function <code><a href='https://www.rdocumentation.org/packages/grDevi
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -337,13 +340,16 @@ using the function <code><a href='https://www.rdocumentation.org/packages/grDevi
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
