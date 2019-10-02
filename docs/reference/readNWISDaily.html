@@ -15,21 +15,25 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,12 +41,12 @@
 
 
 
+
 <meta property="og:title" content="Import NWIS Daily Data for EGRET analysis — readNWISDaily" />
-
 <meta property="og:description" content="Imports daily data from NWIS web service. This function gets the data from here: https://waterservices.usgs.gov/" />
-
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -66,6 +70,7 @@
   gtag('config', 'UA-53797708-7');
 </script>
 
+
   </head>
 
   <body>
@@ -82,7 +87,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EGRET</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.3.9000</span>
       </span>
     </div>
 
@@ -137,7 +142,6 @@
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/USGS-R/EGRET">
@@ -152,6 +156,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -163,14 +168,12 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Imports daily data from NWIS web service. This function gets the data from here: <a href='https://waterservices.usgs.gov/'>https://waterservices.usgs.gov/</a></p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>readNWISDaily</span>(<span class='no'>siteNumber</span>, <span class='kw'>parameterCd</span> <span class='kw'>=</span> <span class='st'>"00060"</span>, <span class='kw'>startDate</span> <span class='kw'>=</span> <span class='st'>""</span>,
   <span class='kw'>endDate</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -205,55 +208,48 @@ which is appropriate for using NWIS data in the EGRET package.  Set this to FALS
 there is no conversion applied.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A data frame 'Daily' with the following columns:</p><table class='table'>
-<tr><td></td><td>Name</td><td>Type</td></tr>
-<tr><td>Description</td><td></td><td>Date</td></tr>
-<tr><td>Date</td><td>Date</td><td></td></tr>
+<tr><td>Name</td><td>Type</td><td>Description</td></tr>
+<tr><td>Date</td><td>Date</td><td>Date</td></tr>
 <tr><td>Q</td><td>numeric</td><td>Discharge in m^3/s</td></tr>
-<tr><td></td><td>Julian</td><td>integer</td></tr>
-<tr><td>Number of days since Jan. 1, 1850</td><td></td><td>Month</td></tr>
-<tr><td>integer</td><td>Month of the year [1-12]</td><td></td></tr>
+<tr><td>Julian</td><td>integer</td><td>Number of days since Jan. 1, 1850</td></tr>
+<tr><td>Month</td><td>integer</td><td>Month of the year [1-12]</td></tr>
 <tr><td>Day</td><td>integer</td><td>Day of the year [1-366]</td></tr>
-<tr><td></td><td>DecYear</td><td>numeric</td></tr>
-<tr><td>Decimal year</td><td></td><td>MonthSeq</td></tr>
-<tr><td>integer</td><td>Number of months since January 1, 1850</td><td></td></tr>
+<tr><td>DecYear</td><td>numeric</td><td>Decimal year</td></tr>
+<tr><td>MonthSeq</td><td>integer</td><td>Number of months since January 1, 1850</td></tr>
 <tr><td>Qualifier</td><td>character</td><td>Qualifying code</td></tr>
-<tr><td></td><td>i</td><td>integer</td></tr>
-<tr><td>Index of days, starting with 1</td><td></td><td>LogQ</td></tr>
-<tr><td>numeric</td><td>Natural logarithm of Q</td><td></td></tr>
+<tr><td>i</td><td>integer</td><td>Index of days, starting with 1</td></tr>
+<tr><td>LogQ</td><td>numeric</td><td>Natural logarithm of Q</td></tr>
 <tr><td>Q7</td><td>numeric</td><td>7 day running average of Q</td></tr>
-<tr><td></td><td>Q30</td><td>numeric</td></tr>
-<tr><td>30 day running average of Q</td><td></td><td></td></tr>
+<tr><td>Q30</td><td>numeric</td><td>30 day running average of Q</td></tr>
 </table>
 
 
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://www.rdocumentation.org/packages/dataRetrieval/topics/readNWISdv'>readNWISdv</a></code>, <code><a href='populateDaily.html'>populateDaily</a></code></p></div>
-    
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/dataRetrieval/man/readNWISdv.html'>readNWISdv</a></code>, <code><a href='populateDaily.html'>populateDaily</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>Daily</span> <span class='kw'>&lt;-</span> <span class='fu'>readNWISDaily</span>(<span class='st'>'01594440'</span>,<span class='st'>'00060'</span>, <span class='st'>'1985-01-01'</span>, <span class='st'>'1985-03-31'</span>)</div><div class='output co'>#&gt; There are 90 data points, and 90 days.</div><div class='input'><span class='no'>DailySuspSediment</span> <span class='kw'>&lt;-</span> <span class='fu'>readNWISDaily</span>(<span class='st'>'01594440'</span>,<span class='st'>'80154'</span>, <span class='st'>'1985-01-01'</span>, <span class='st'>'1985-03-31'</span>,<span class='kw'>convert</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; There are 90 data points, and 90 days.</div></pre>
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+
+<span class='no'>Daily</span> <span class='kw'>&lt;-</span> <span class='fu'>readNWISDaily</span>(<span class='st'>'01594440'</span>,<span class='st'>'00060'</span>, <span class='st'>'1985-01-01'</span>, <span class='st'>'1985-03-31'</span>)</div><div class='output co'>#&gt; There are 90 data points, and 90 days.</div><div class='input'><span class='no'>DailySuspSediment</span> <span class='kw'>&lt;-</span> <span class='fu'>readNWISDaily</span>(<span class='st'>'01594440'</span>,<span class='st'>'80154'</span>, <span class='st'>'1985-01-01'</span>, <span class='st'>'1985-03-31'</span>,<span class='kw'>convert</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; There are 90 data points, and 90 days.</div><div class='input'># }
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -261,13 +257,16 @@ there is no conversion applied.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

@@ -112,5 +112,5 @@ test_that("processQWData", {
   testthat::skip_on_cran()
   rawWQP <- dataRetrieval::readWQPqw('WIDNR_WQX-10032762','Specific conductance', '2012-01-01', '2012-12-31')
   Sample2 <- processQWData(rawWQP, pCode=FALSE)
-  expect_true(all(Sample2[[2]] == ""))
+  expect_true(all(unique(Sample2[[2]]) %in% c("","<")))
 })

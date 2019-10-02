@@ -15,21 +15,25 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,13 +41,13 @@
 
 
 
-<meta property="og:title" content="Import metadata to create INFO data frame — INFOdataframe" />
 
+<meta property="og:title" content="Import metadata to create INFO data frame — INFOdataframe" />
 <meta property="og:description" content="Populates INFO data frame from either NWIS (readNWISInfo),
 Water Quality Portal (readWQPInfo), or user-supplied files (readUserInfo)." />
-
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -67,6 +71,7 @@ Water Quality Portal (readWQPInfo), or user-supplied files (readUserInfo)." />
   gtag('config', 'UA-53797708-7');
 </script>
 
+
   </head>
 
   <body>
@@ -83,7 +88,7 @@ Water Quality Portal (readWQPInfo), or user-supplied files (readUserInfo)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EGRET</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.3.9000</span>
       </span>
     </div>
 
@@ -138,7 +143,6 @@ Water Quality Portal (readWQPInfo), or user-supplied files (readUserInfo)." />
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/USGS-R/EGRET">
@@ -153,6 +157,7 @@ Water Quality Portal (readWQPInfo), or user-supplied files (readUserInfo)." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -164,10 +169,8 @@ Water Quality Portal (readWQPInfo), or user-supplied files (readUserInfo)." />
     </div>
 
     <div class="ref-description">
-    
     <p>Populates INFO data frame from either NWIS (<code>readNWISInfo</code>),
 Water Quality Portal (<code>readWQPInfo</code>), or user-supplied files (<code>readUserInfo</code>).</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>readNWISInfo</span>(<span class='no'>siteNumber</span>, <span class='no'>parameterCd</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
@@ -176,7 +179,7 @@ Water Quality Portal (<code>readWQPInfo</code>), or user-supplied files (<code>r
 
 <span class='fu'>readUserInfo</span>(<span class='no'>filePath</span>, <span class='no'>fileName</span>, <span class='kw'>hasHeader</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>separator</span> <span class='kw'>=</span> <span class='st'>","</span>,
   <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -214,42 +217,35 @@ option allows users to enter required information by hand, otherwise those field
       <td><p>character that separates data cells (used in <code>readUserInfo</code>)</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>INFO data frame. Any metadata can be stored in INFO. However, there are 8 columns that EGRET uses by name in some functions:</p>
 <table class='table'>
-<tr><td></td><td>Required column</td><td>Used in function</td></tr>
-<tr><td>Description</td><td></td><td>param.units***</td></tr>
-<tr><td>All concentration plotting functions</td><td>The units as listed in this field are used</td><td>to create the concentration axis labels</td></tr>
-<tr><td></td><td>shortName</td><td>All plotting functions</td></tr>
-<tr><td>Station short name, used to label plots</td><td></td><td>paramShortName</td></tr>
-<tr><td>All plotting functions</td><td>Parameter short name, used to label plots</td><td></td></tr>
-<tr><td>drainSqKm</td><td></td><td><code>plotFlowSingle</code></td></tr>
-<tr><td>,</td><td><code>printSeries</code></td><td></td></tr>
-<tr><td>Calculate runoff</td><td></td><td>constitAbbrev</td></tr>
-<tr><td></td><td><code>saveResults</code></td><td></td></tr>
-<tr><td>Parameter abbrieviation, used to auto-name workspace</td><td></td><td>staAbbrev</td></tr>
-<tr><td></td><td><code>saveResults</code></td><td></td></tr>
-<tr><td>Station abbrieviation, used to auto-name workspace</td><td></td><td>paStart</td></tr>
-<tr><td>Most EGRET functions</td><td>Starting month of period of analysis. Defaults to 10</td><td></td></tr>
+<tr><td>Required column</td><td>Used in function</td><td>Description</td></tr>
+<tr><td>param.units***</td><td>All concentration plotting functions</td><td>The units as listed in this field are used
+to create the concentration axis labels</td></tr>
+<tr><td>shortName</td><td>All plotting functions</td><td>Station short name, used to label plots</td></tr>
+<tr><td>paramShortName</td><td>All plotting functions</td><td>Parameter short name, used to label plots</td></tr>
+<tr><td>drainSqKm</td><td><code>plotFlowSingle</code>, <code>printSeries</code></td><td>Calculate runoff</td></tr>
+<tr><td>constitAbbrev</td><td><code>saveResults</code></td><td>Parameter abbrieviation, used to auto-name workspace</td></tr>
+<tr><td>staAbbrev</td><td><code>saveResults</code></td><td>Station abbrieviation, used to auto-name workspace</td></tr>
+<tr><td>paStart</td><td>Most EGRET functions</td><td>Starting month of period of analysis. Defaults to 10</td></tr>
 <tr><td>paLong</td><td>Most EGRET functions</td><td>Length in number of months of period of analysis. Defaults to 12</td></tr>
-<tr><td></td><td></td><td>Required column</td></tr>
 </table>
 <p>*** Additionally, EGRET assumes that all concentrations are saved in mg/l. If some variation of
 'mg/l' is not found in INFO$param.units, functions that calculate flux will issue a warning. This 
 is because the conversion from mg/l to the user-specified flux unit (e.g., kg/day) uses hard-coded conversion factors.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://www.rdocumentation.org/packages/dataRetrieval/topics/readNWISsite'>readNWISsite</a></code>, <code><a href='https://www.rdocumentation.org/packages/dataRetrieval/topics/readNWISpCode'>readNWISpCode</a></code></p>
-<p><code><a href='https://www.rdocumentation.org/packages/dataRetrieval/topics/whatWQPsites'>whatWQPsites</a></code></p></div>
-    
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/dataRetrieval/man/readNWISsite.html'>readNWISsite</a></code>, <code><a href='https://rdrr.io/pkg/dataRetrieval/man/readNWISpCode.html'>readNWISpCode</a></code></p>
+<p><code><a href='https://rdrr.io/pkg/dataRetrieval/man/wqpSpecials.html'>whatWQPsites</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'># These examples require an internet connection to run
-# Automatically gets information about site 05114000 and temperature
-</div><div class='input'><span class='no'>INFO</span> <span class='kw'>&lt;-</span> <span class='fu'>readNWISInfo</span>(<span class='st'>'05114000'</span>,<span class='st'>'00010'</span>)</div><div class='output co'>#&gt; Your site for streamflow data is:
+    <pre class="examples"><div class='input'><span class='co'># These examples require an internet connection to run</span>
+<span class='co'># Automatically gets information about site 05114000 and temperature</span>
+<span class='co'># \donttest{</span>
+<span class='no'>INFO</span> <span class='kw'>&lt;-</span> <span class='fu'>readNWISInfo</span>(<span class='st'>'05114000'</span>,<span class='st'>'00010'</span>)</div><div class='output co'>#&gt; Your site for streamflow data is:
 #&gt;  05114000 .
 #&gt; Your site name is SOURIS RIVER NR SHERWOOD, ND 
 #&gt; but you can modify this to a short name in a style you prefer. 
@@ -280,10 +276,13 @@ is because the conversion from mg/l to the user-specified flux unit (e.g., kg/da
 #&gt; 
 #&gt; Required concentration units are mg/l. 
 #&gt; The INFO dataframe indicates: deg C 
-#&gt; Flux calculations will be wrong if units are not consistent.</div><div class='input'><span class='co'># These examples require an internet connection to run</span>
+#&gt; Flux calculations will be wrong if units are not consistent.</div><div class='input'><span class='co'># }</span>
+<span class='co'># These examples require an internet connection to run</span>
 <span class='co'># Automatically gets information about site 01594440 and temperature, no interaction with user</span>
 <span class='no'>nameToUse</span> <span class='kw'>&lt;-</span> <span class='st'>'Specific conductance'</span>
-<span class='no'>pcodeToUse</span> <span class='kw'>&lt;-</span> <span class='st'>'00095'</span></div><div class='input'><span class='no'>INFO</span> <span class='kw'>&lt;-</span> <span class='fu'>readWQPInfo</span>(<span class='st'>'USGS-04024315'</span>,<span class='no'>pcodeToUse</span>)</div><div class='output co'>#&gt; Your site for data is USGS-04024315 .
+<span class='no'>pcodeToUse</span> <span class='kw'>&lt;-</span> <span class='st'>'00095'</span>
+<span class='co'># \donttest{</span>
+<span class='no'>INFO</span> <span class='kw'>&lt;-</span> <span class='fu'>readWQPInfo</span>(<span class='st'>'USGS-04024315'</span>,<span class='no'>pcodeToUse</span>)</div><div class='output co'>#&gt; Your site for data is USGS-04024315 .
 #&gt; Your site name is LITTLE BALSAM CREEK NEAR PATZAU, WI ,
 #&gt; but you can modify this to a short name in a style you prefer. 
 #&gt; This name will be used to label graphs and tables. 
@@ -345,7 +344,9 @@ is because the conversion from mg/l to the user-specified flux unit (e.g., kg/da
 #&gt; The INFO dataframe indicates:  
 #&gt; Flux calculations will be wrong if units are not consistent</div><div class='input'><span class='co'># To adjust the label names:</span>
 <span class='no'>INFO</span>$<span class='no'>shortName</span> <span class='kw'>&lt;-</span> <span class='st'>"Little"</span>
-<span class='no'>INFO</span>$<span class='no'>paramShortName</span> <span class='kw'>&lt;-</span> <span class='st'>"SC"</span></div><div class='input'><span class='no'>filePath</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"EGRET"</span>)
+<span class='no'>INFO</span>$<span class='no'>paramShortName</span> <span class='kw'>&lt;-</span> <span class='st'>"SC"</span>
+<span class='co'># }</span>
+<span class='no'>filePath</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"EGRET"</span>)
 <span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='st'>'infoTest.csv'</span>
 <span class='no'>INFO</span> <span class='kw'>&lt;-</span> <span class='fu'>readUserInfo</span>(<span class='no'>filePath</span>,<span class='no'>fileName</span>, <span class='kw'>separator</span><span class='kw'>=</span><span class='st'>","</span>,<span class='kw'>interactive</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div></pre>
   </div>
@@ -353,16 +354,14 @@ is because the conversion from mg/l to the user-specified flux unit (e.g., kg/da
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -370,13 +369,16 @@ is because the conversion from mg/l to the user-specified flux unit (e.g., kg/da
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
