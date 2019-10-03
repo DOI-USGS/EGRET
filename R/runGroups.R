@@ -35,7 +35,8 @@
 #' @param paLong numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12. 
 #' Default is NA, which will use the paLong in the eList$INFO data frame. See also \code{\link{setPA}}.
 #' @param paStart numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12.
-#' Default is NA, which will use the paStart in the eList$INFO data frame. See also \code{\link{setPA}}.#' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
+#' Default is NA, which will use the paStart in the eList$INFO data frame. See also \code{\link{setPA}}.
+#' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
 #' @param minNumObs numeric specifying the miniumum number of observations required to run the weighted regression, default is 100
@@ -129,18 +130,27 @@ runGroups <- function (eList, windowSide,
   }
   
   numSamples <- length(localSample$Date)
-  sampleEndDate <- if (is.na(sampleEndDate)) 
-    localSample$Date[numSamples]
-  else as.Date(sampleEndDate)
-  QStartDate <- if (is.na(QStartDate)) 
-    localDaily$Date[1]
-  else as.Date(QStartDate)
   
+  if(is.na(sampleEndDate)){
+    sampleEndDate <- localSample$Date[numSamples]
+  } else {
+    sampleEndDate <- as.Date(sampleEndDate)
+  }
+                       
+  
+  if(is.na(QStartDate)){
+    QStartDate <- localDaily$Date[1]
+  } else {
+    QStartDate <- as.Date(QStartDate)
+  }
+
   numQDays <- length(localDaily$Date)
   
-  QEndDate <- ifelse(is.na(QEndDate), 
-                     localDaily$Date[numQDays], 
-                     as.Date(QEndDate))
+  if(is.na(QEndDate)){
+    QEndDate <- localDaily$Date[numQDays]
+  } else {
+    QEndDate <- as.Date(QEndDate)
+  }
   
   if(is.na(paStart)){
     paStart <- eList$INFO$paStart

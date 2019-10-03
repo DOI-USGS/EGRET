@@ -61,7 +61,7 @@ to the first Date in eList$Sample.}
 Default is NA which sets it to the last Date in eList$Sample.}
 
 \item{paStart}{numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12.
-Default is NA, which will use the paStart in the eList$INFO data frame. See also \code{\link{setPA}}.#' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7}
+Default is NA, which will use the paStart in the eList$INFO data frame. See also \code{\link{setPA}}.}
 
 \item{paLong}{numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12. 
 Default is NA, which will use the paLong in the eList$INFO data frame. See also \code{\link{setPA}}.}
@@ -69,6 +69,8 @@ Default is NA, which will use the paLong in the eList$INFO data frame. See also 
 \item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
 
 \item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
+
+\item{windowY}{numeric specifying the half-window width in the time dimension, in units of years, default is 7}
 
 \item{windowQ}{numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2}
 
