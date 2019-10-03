@@ -39,7 +39,10 @@ r_github_packages:
   - jimhester/covr
 
 script: 
-  - Rscript -e 'cat(Sys.getenv("PKG_TARBALL", ""))'
+  - |
+    R CMD build .
+    export PKG_TARBALL=EGRET*tar.gz
+    travis_wait 20 R CMD check EGRET*tar.gz --as-cran
 
 
 notifications:
