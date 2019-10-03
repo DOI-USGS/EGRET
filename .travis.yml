@@ -12,8 +12,6 @@ matrix:
     - r: release
       after_success:
         - travis_wait 20 R -e 'covr::coveralls()'
-      before_cache:
-        - Rscript -e 'remotes::install_cran("pkgdown")'
       before_deploy: Rscript -e 'remotes::install_cran("pkgdown")'
       deploy:
         provider: script
@@ -42,7 +40,8 @@ r_github_packages:
 
 script: 
   - |
-    R CMD build . 
+    R CMD build .
+    export PKG_TARBALL=EGRET*tar.gz
     travis_wait 20 R CMD check EGRET*tar.gz --as-cran
 
 
