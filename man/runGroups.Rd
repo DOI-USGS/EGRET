@@ -9,7 +9,7 @@ runGroups(eList, windowSide, group1firstYear, group1lastYear,
   flowBreak = FALSE, Q1EndDate = NA, QStartDate = NA,
   QEndDate = NA, wall = FALSE, oldSurface = FALSE, fractMin = 0.75,
   sample1EndDate = NA, sampleStartDate = NA, sampleEndDate = NA,
-  paStart = 10, paLong = 12, minNumObs = 100, minNumUncen = 50,
+  paStart = NA, paLong = NA, minNumObs = 100, minNumUncen = 50,
   windowY = 7, windowQ = 2, windowS = 0.5, edgeAdjust = TRUE,
   verbose = TRUE)
 }
@@ -60,9 +60,11 @@ to the first Date in eList$Sample.}
 \item{sampleEndDate}{The Date (as character in YYYY-MM-DD) of the last sample to be used. 
 Default is NA which sets it to the last Date in eList$Sample.}
 
-\item{paStart}{numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12, default is 10  (used when period is water year).}
+\item{paStart}{numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12.
+Default is NA, which will use the paStart in the eList$INFO data frame. See also \code{\link{setPA}}.}
 
-\item{paLong}{numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12, default is 12.}
+\item{paLong}{numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12. 
+Default is NA, which will use the paLong in the eList$INFO data frame. See also \code{\link{setPA}}.}
 
 \item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
 

@@ -21,8 +21,10 @@
 #' @param sampleStartDate The Date (as character in YYYY-MM-DD format) of the first sample to be used.  Default is NA which sets it to the first Date in eList$Sample.
 #' @param sampleEndDate The Date (as character in YYYY-MM-DD format) of the last sample to be used. Default is NA which sets it to the last Date in eList$Sample. 
 #' @param oldSurface logical, if TRUE, use surface previously estimated using modelEstimation.  Default is FALSE.
-#' @param paLong numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12, default is 12.
-#' @param paStart numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12, default is 10 (used when period is water year). 
+#' @param paLong numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12. 
+#' Default is NA, which will use the paLong in the eList$INFO data frame. See also \code{\link{setPA}}.
+#' @param paStart numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12.
+#' Default is NA, which will use the paStart in the eList$INFO data frame. See also \code{\link{setPA}}.
 #' @param windowY numeric specifying the half-window width in the time dimension, in units of years, default is 7
 #' @param windowQ numeric specifying the half-window width in the discharge dimension, units are natural log units, default is 2
 #' @param windowS numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5
@@ -80,7 +82,7 @@ runSeries <- function(eList, windowSide,
                       Q1EndDate = NA, QStartDate = NA, QEndDate = NA, 
                       wall = FALSE, oldSurface = FALSE,
                       sample1EndDate = NA, sampleStartDate = NA, sampleEndDate = NA,
-                      paStart = 10, paLong = 12, fractMin = 0.75,
+                      paStart = NA, paLong = NA, fractMin = 0.75,
                       minNumObs = 100, minNumUncen = 50, windowY = 7, 
                       windowQ = 2, windowS = 0.5, edgeAdjust = TRUE, verbose = TRUE){
 
@@ -107,11 +109,15 @@ runSeries <- function(eList, windowSide,
   localSample <- localSample[localSample$Date >= sampleStartDate & 
                                localSample$Date <= sampleEndDate, ]
   
-  if(paStart != eList$INFO$paStart){
+  if(is.na(paStart)){
+    paStart <- eList$INFO$paStart
+  } else {
     eList$INFO$paStart <- paStart
   }
   
-  if(paLong != eList$INFO$paLong){
+  if(is.na(paLong)){
+    paLong <- eList$INFO$paLong
+  } else {
     eList$INFO$paLong <- paLong
   }
   
