@@ -107,6 +107,14 @@ runSeries <- function(eList, windowSide,
   localSample <- localSample[localSample$Date >= sampleStartDate & 
                                localSample$Date <= sampleEndDate, ]
   
+  if(paStart != eList$INFO$paStart){
+    eList$INFO$paStart <- paStart
+  }
+  
+  if(paLong != eList$INFO$paLong){
+    eList$INFO$paLong <- paLong
+  }
+  
   if(is.null(surfaceStart) || is.na(surfaceStart)){
     surfaceStart <- surfaceStartEnd(paStart, paLong, sampleStartDate, sampleEndDate)[["surfaceStart"]]
   }
