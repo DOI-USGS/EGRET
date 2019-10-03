@@ -34,6 +34,8 @@ warnings_are_errors: true
 r_github_packages:
   - jimhester/covr
 
+before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
+
 script: 
   - |
     R CMD build . 
