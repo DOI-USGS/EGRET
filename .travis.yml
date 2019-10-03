@@ -10,12 +10,14 @@ cache: packages
 matrix:
   include:
     - r: release
-      before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
-      after_success: travis_wait 20 R -e 'covr::coveralls()'
+      after_success:
+        - travis_wait 20 R -e 'covr::coveralls()'
+      before_cache:
+        - Rscript -e 'remotes::install_cran("pkgdown")'
       before_deploy: Rscript -e 'remotes::install_cran("pkgdown")'
       deploy:
         provider: script
-        script: Rscript -e 'pkgdown::deploy_site_github()'
+        script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
         skip_cleanup: true
     - r: devel
 
