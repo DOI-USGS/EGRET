@@ -1303,7 +1303,7 @@ Next, follow the steps below to open this file in Excel:
 
 From Excel, it is simple to copy and paste the tables in other word processing or presentation software products. An example using one of the default Excel table formats is here.
 
-```{r, echo = FALSE}
+```{r getTable, echo = FALSE}
 embed_png <- function(path, dpi = NULL) {
   meta <- attr(png::readPNG(path, native = TRUE, info = TRUE), "info")
   if (!is.null(dpi)) meta$dpi <- rep(dpi, 2)
@@ -1316,11 +1316,7 @@ embed_png <- function(path, dpi = NULL) {
 }
 knitr::opts_chunk$set(comment = "#>", collapse = TRUE)
 
-
-embed_png("table1.png")
-
 ```
-
 
 A simple table produced in Microsoft&trade; Excel
 
