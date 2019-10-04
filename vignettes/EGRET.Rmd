@@ -628,12 +628,12 @@ Table: Index of discharge statistics information
 ## Plotting Options {#plotOptions}
 
 This section shows examples of the available plots appropriate for studying discharge history. The plots here use the default variable input options.  For any function, you can get a complete list of input variables (as described in the [flow history](#flowHistoryVariables) section) in a help file by typing a ? before the function name in the R console. The EGRET user guide has more detailed information for each plot type ([https://pubs.usgs.gov/tm/04/a10/](https://pubs.usgs.gov/tm/04/a10/)). Finally, see the [saving plots](#savingPlots) section for information on saving plots.
-
-The simplest way to look at these time series is with the function `plotFlowSingle`. The statistic index (istat) must be defined by the user, but for all other arguments there are default values so the user isn't required to specify anything else. To see a list of these optional arguments and other information about the function, type `?plotFlowSingle` in the R console. All of the graphs in `plotFlowSingle`, `plotFourStats`, and all but one of the graphs in plotFour, show both the individual annual values of the selected discharge statistic (e.g. the annual mean or 7-day minimum), but they also show a curve that is a smooth fit to those data.  The curve is a LOWESS (locally weighted scatterplot smooth).  The algorithm for computing it is provided in the User Guide ([https://pubs.usgs.gov/tm/04/a10/](https://pubs.usgs.gov/tm/04/a10/)), in the section titled "The Smoothing Method Used in Flow History Analyses." The default is that the annual values of the selected discharge statistics are smoothed with a "half-window width" of 20 years.  The smoothing window is an optional user-defined option. 
+  
+  The simplest way to look at these time series is with the function `plotFlowSingle`. The statistic index (istat) must be defined by the user, but for all other arguments there are default values so the user isn't required to specify anything else. To see a list of these optional arguments and other information about the function, type `?plotFlowSingle` in the R console. All of the graphs in `plotFlowSingle`, `plotFourStats`, and all but one of the graphs in plotFour, show both the individual annual values of the selected discharge statistic (e.g. the annual mean or 7-day minimum), but they also show a curve that is a smooth fit to those data.  The curve is a LOWESS (locally weighted scatterplot smooth).  The algorithm for computing it is provided in the User Guide ([https://pubs.usgs.gov/tm/04/a10/](https://pubs.usgs.gov/tm/04/a10/)), in the section titled "The Smoothing Method Used in Flow History Analyses." The default is that the annual values of the selected discharge statistics are smoothed with a "half-window width" of 20 years.  The smoothing window is an optional user-defined option. 
 
 `plotSDLogQ` produces a graphic of the running standard deviation of the log of daily discharge over time to visualize how variability of daily discharge is changing over time.  By using the standard deviation of the log discharge the statistic becomes dimensionless.  The standard deviation plot is a way of looking at variability quite aside from average values, so, in the case of a system where discharge might be increasing over a period of years, this graphic provides a way of looking at the variability relative to that changing mean value.  The standard deviation of the log discharge is much like a coefficient of variation, but it has sample properties that make it a smoother measure of variability.  People often comment about how things like urbanization or enhanced greenhouse gases in the atmosphere are bringing about an increase in variability, and this analysis is one way to explore that idea. `plotFour`, `plotFourStats`, and `plot15` are all designed to plot several graphs from the other functions in a single figure. 
 
-```{r plotSingleandSD, echo=TRUE, fig.cap="}Plots of discharge statistics"}
+```{r plotSingleandSD, echo=TRUE, fig.cap="Plots of discharge statistics"}
 plotFlowSingle(eList, istat=5,qUnit="thousandCfs")
 plotSDLogQ(eList)
 ```
@@ -701,6 +701,7 @@ eList <- eListMiss
 plotQTimeDaily(eList, qUnit=3,qLower=300)
 
 ```
+
 
 ## Table Options {#tableOptions}
  
@@ -778,26 +779,26 @@ INFO <- getInfo(eList)
 This section shows examples of the available plots appropriate for analyzing data prior to performing a WRTDS analysis. The plots here use the default variable input options.  For any function, you can get a complete list of input variables in a help file by typing a ? before the function name in the R console. See [Water Quality Plotting Input](#wqVariables) for information on the available input variables for these plotting functions.
 
 Note that for any of the plotting functions that show the sample data, if a value in the data set is a non-detect (censored), it is displayed on the graph as a vertical line.  The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values the minimum value on the y-axis.  This line is an "honest" representation of what we know about about that observation and doesn't attempt to use a statistical model to make an estimate below the reporting limit. 
-
-```{r plotBoxes, echo=TRUE, fig.cap="Concentration box plots"}
-boxConcMonth(eList)
-boxQTwice(eList,qUnit=1)
-```
-
-Note that the statistics to create the boxplot in `boxQTwice` are performed after the data are log-transformed.
-
-```{r plotConcTime,echo=TRUE, fig.cap="The relation of concentration vs time or discharge"}
-plotConcTime(eList)
-plotConcQ(eList, qUnit=1)
-```
-
-It is interesting to note the change in the convention for rounding of data values that occurred around 1995.
-
-```{r plotFluxQ,echo=TRUE, fig.cap="The relation of flux vs discharge"}
-plotFluxQ(eList, fluxUnit=4)
-```
-
-```{r multiPlotDataOverview, echo=TRUE,out.width="100%", fig.cap="`multiPlotDataOverview(eList, qUnit=1)`"}
+  
+  ```{r plotBoxes, echo=TRUE, fig.cap="Concentration box plots"}
+  boxConcMonth(eList)
+  boxQTwice(eList,qUnit=1)
+  ```
+  
+  Note that the statistics to create the boxplot in `boxQTwice` are performed after the data are log-transformed.
+  
+  ```{r plotConcTime,echo=TRUE, fig.cap="The relation of concentration vs time or discharge"}
+  plotConcTime(eList)
+  plotConcQ(eList, qUnit=1)
+  ```
+  
+  It is interesting to note the change in the convention for rounding of data values that occurred around 1995.
+  
+  ```{r plotFluxQ,echo=TRUE, fig.cap="The relation of flux vs discharge"}
+  plotFluxQ(eList, fluxUnit=4)
+  ```
+  
+  ```{r multiPlotDataOverview, echo=TRUE,out.width="100%", fig.cap="`multiPlotDataOverview(eList, qUnit=1)`"}
 multiPlotDataOverview(eList, qUnit=1)
 ```
 
@@ -1197,40 +1198,40 @@ Table: Selected variables used in water quality analysis plots
 |windowQ|The half window width for the weighting in terms of ln(Q).  For very large rivers (average discharge values in the range of many tens of thousands of cfs) a smaller value than 2 may be appropriate, but probably not less than 1|2|
 |windowS|The half window width for the seasonal weighting, measured in years.  Any value >0.5 will make data from all seasons have some weight.  Values should probably not be lower than 0.3|0.5|
 |minNumObs|This is the minimum number of observations with non-zero weight that the individual regressions will require before they will be used.  If there too few observations the program will iterate, making the windows wider until the number increases above this minimum.  The only reason to lower this is in cases where the data set is rather small.  It should always be set to a number at least slightly smaller than the sample size.  Any value less than about 60 is probably in the "dangerous} range, in terms of the reliability of the regression|100| 
-|minNumUncen|This is the minimum number of uncensored observations with non-zero weight that the individual regressions will require before they will be used.  If there are too few uncensored observations the program will iterate, making the windows wider until the number increases above this minimum.  The only reason to lower this is in cases where the number of uncensored values is rather small.  The method has never been tested in situations where there are very few uncensored values|50|
-|edgeAdjust|Specify whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record|TRUE|
-Table: Selected variables in WRTDS
+  |minNumUncen|This is the minimum number of uncensored observations with non-zero weight that the individual regressions will require before they will be used.  If there are too few uncensored observations the program will iterate, making the windows wider until the number increases above this minimum.  The only reason to lower this is in cases where the number of uncensored values is rather small.  The method has never been tested in situations where there are very few uncensored values|50|
+  |edgeAdjust|Specify whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record|TRUE|
+  Table: Selected variables in WRTDS
 
 ## Post-WRTDS Plotting Input {#wrtdsOutputVariables}
 
 |Argument|Definition|Default|
-|:----------|--------------------------------------:|-----:|
-|qUnit|Determines what units will be used for discharge, see section [Units](#units)|2|
-|fluxUnit|An index indicating what flux units will be used , see section [Units](#units)|3|
-|stdResid|This is an option.  If FALSE, it prints the regular residuals (they are in ln concentration units).  If TRUE, it is the standardized residuals.  These are the residuals divided by their estimated standard error (each residual has its own unique standard error).  In theory, the standardized residuals should have mean zero and standard deviation of 1|FALSE|
-|printTitle|If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption)|TRUE|
-|startYear|The starting date for the graph, expressed as decimal years, for example, 1989|NA|
-|endYear|The ending date for the graph, expressed as decimal years, for example, 1996|NA|
-|moreTitle|A character variable that adds additional information to the graphic title.  Typically used to indicate the estimation method.|
-|fluxMax|The upper limit on the vertical axis of graphs showing flux values.|NA|
-|concMax|The upper limit on the vertical axis of graphs showing concentration values.|NA|
-|plotFlowNorm|If TRUE the graph shows the annual values as circles and the flow-normalized values as a green curve.  If false, it only shows the annual values.|TRUE|
-Table: Selected variables used in plots for analysis of WRTDS model results
-
-|Argument|Definition|Defaults|
-|:----------|--------------------------------------:|-----:|
-|qUnit|Determines what units will be used for discharge, see section [Units](#units)|2|
-|qBottom|The lower limit of the discharge value for the graphs in the units specified by qUnit ||
-|qTop|The upper limit of the discharge value for the graphs in the units specified by qUnit ||
-|printTitle|If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption)|TRUE|
-|yearStart|The starting date for the graph, expressed as decimal years, for example, 1989||
-|yearEnd|The ending date for the graph, expressed as decimal years, for example, 1996||
-|whatSurface|This should generally be at its default value.  At whatSurface = 3, the plotted surface shows the expected value of concentration.  For whatSurface = 1, it shows the yHat surface (natural log of concentration).  For whatSurface = 2, it shows the SE surface (the standard error in log concentration).|3|
-|contourLevels|With the default value the contour intervals are set automatically, which generally will NOT be a very good choice, but they may provide a starting point.  If you want to specify contourLevels, use the `seq} function.  In general it would look like: contourLevels = seq(from,to,by).|NA|
-|maxDiff|In the `plotDiffCountours} function instead of using contourLevels, the contours are set by maxDiff which is the absolute value of the maximum difference to be plotted.  Contour intervals are set to run from -maxDiff to maxDiff. ||
-|span|Specifies the smoothness of the discharge duration information that goes on this graph.  A larger value will make it smoother.  The default should work well in most cases.|60|
-|pval|The probability value for the discharge frequency information shown on the plot.  When flowDuration=TRUE, the plot has two black curves on it.  In the default value case these are at the 5 and 95 percent levels on the seasonal discharge duration curve.  pval = 0.01 would place these at the 1 and 99 percent points.  pval = 0.1 would place them at 10  and 90.|0.05|
-|vert1|This simply plots a vertical black line on the graph at a particular time (defined in decimal years).  It is used to illustrate the idea of a "vertical slice} through the contour plot, which might then be shown in a subsequent use of `plotConcQSmooth`.|NA |
+  |:----------|--------------------------------------:|-----:|
+  |qUnit|Determines what units will be used for discharge, see section [Units](#units)|2|
+    |fluxUnit|An index indicating what flux units will be used , see section [Units](#units)|3|
+      |stdResid|This is an option.  If FALSE, it prints the regular residuals (they are in ln concentration units).  If TRUE, it is the standardized residuals.  These are the residuals divided by their estimated standard error (each residual has its own unique standard error).  In theory, the standardized residuals should have mean zero and standard deviation of 1|FALSE|
+        |printTitle|If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption)|TRUE|
+        |startYear|The starting date for the graph, expressed as decimal years, for example, 1989|NA|
+        |endYear|The ending date for the graph, expressed as decimal years, for example, 1996|NA|
+        |moreTitle|A character variable that adds additional information to the graphic title.  Typically used to indicate the estimation method.|
+        |fluxMax|The upper limit on the vertical axis of graphs showing flux values.|NA|
+        |concMax|The upper limit on the vertical axis of graphs showing concentration values.|NA|
+        |plotFlowNorm|If TRUE the graph shows the annual values as circles and the flow-normalized values as a green curve.  If false, it only shows the annual values.|TRUE|
+        Table: Selected variables used in plots for analysis of WRTDS model results
+      
+      |Argument|Definition|Defaults|
+        |:----------|--------------------------------------:|-----:|
+        |qUnit|Determines what units will be used for discharge, see section [Units](#units)|2|
+          |qBottom|The lower limit of the discharge value for the graphs in the units specified by qUnit ||
+            |qTop|The upper limit of the discharge value for the graphs in the units specified by qUnit ||
+            |printTitle|If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption)|TRUE|
+            |yearStart|The starting date for the graph, expressed as decimal years, for example, 1989||
+            |yearEnd|The ending date for the graph, expressed as decimal years, for example, 1996||
+            |whatSurface|This should generally be at its default value.  At whatSurface = 3, the plotted surface shows the expected value of concentration.  For whatSurface = 1, it shows the yHat surface (natural log of concentration).  For whatSurface = 2, it shows the SE surface (the standard error in log concentration).|3|
+            |contourLevels|With the default value the contour intervals are set automatically, which generally will NOT be a very good choice, but they may provide a starting point.  If you want to specify contourLevels, use the `seq} function.  In general it would look like: contourLevels = seq(from,to,by).|NA|
+              |maxDiff|In the `plotDiffCountours} function instead of using contourLevels, the contours are set by maxDiff which is the absolute value of the maximum difference to be plotted.  Contour intervals are set to run from -maxDiff to maxDiff. ||
+  |span|Specifies the smoothness of the discharge duration information that goes on this graph.  A larger value will make it smoother.  The default should work well in most cases.|60|
+  |pval|The probability value for the discharge frequency information shown on the plot.  When flowDuration=TRUE, the plot has two black curves on it.  In the default value case these are at the 5 and 95 percent levels on the seasonal discharge duration curve.  pval = 0.01 would place these at the 1 and 99 percent points.  pval = 0.1 would place them at 10  and 90.|0.05|
+    |vert1|This simply plots a vertical black line on the graph at a particular time (defined in decimal years).  It is used to illustrate the idea of a "vertical slice} through the contour plot, which might then be shown in a subsequent use of `plotConcQSmooth`.|NA |
 |vert2|This gives the location of a second vertical black line on the graph at a particular time (defined in decimal years).|NA|
 |horiz|This simply plots a horizontal black line on the graph at a particular discharge value (defined in the units specified by qUnit).  It is used to illustrate the idea of the seasonal cycle in concentrations for a given discharge and the long-term change in this cycle. |NA|
 |flowDuration|If TRUE it draws the discharge duration lines at the specified probabilities.  If FALSE, the discharge duration lines are left off.|TRUE|
@@ -1302,7 +1303,24 @@ Next, follow the steps below to open this file in Excel:
 
 From Excel, it is simple to copy and paste the tables in other word processing or presentation software products. An example using one of the default Excel table formats is here.
 
-![ExampleTable](table1.png)
+```{r, echo = FALSE}
+embed_png <- function(path, dpi = NULL) {
+  meta <- attr(png::readPNG(path, native = TRUE, info = TRUE), "info")
+  if (!is.null(dpi)) meta$dpi <- rep(dpi, 2)
+  knitr::asis_output(paste0(
+    "<img src='", path, "'",
+    " width=", round(meta$dim[1] / (meta$dpi[1] / 96)),
+    " height=", round(meta$dim[2] / (meta$dpi[2] / 96)),
+    " />"
+  ))
+}
+knitr::opts_chunk$set(comment = "#>", collapse = TRUE)
+
+
+embed_png("table1.png")
+
+```
+
 
 A simple table produced in Microsoft&trade; Excel
 
@@ -1354,3 +1372,4 @@ This software has been approved for release by the U.S. Geological Survey (USGS)
 
 
 # Bibliography
+
