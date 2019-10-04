@@ -40,7 +40,10 @@ Suggests:
     doParallel,
     parallel,
     pkgdown,
-    png
+    png,
+    dplyr,
+    zyp,
+    lubridate
 LazyLoad: yes
 LazyData: yes
 BugReports: https://github.com/USGS-R/EGRET/issues
