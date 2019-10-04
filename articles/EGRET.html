@@ -1899,6 +1899,7 @@ Custom multipanel plot
 <h2 class="hasAnchor">
 <a href="#wrtdsOutputVariables" class="anchor"></a>Post-WRTDS Plotting Input</h2>
 <table class="table">
+<caption>Selected variables used in plots for analysis of WRTDS model results</caption>
 <colgroup>
 <col width="19%">
 <col width="69%">
@@ -1964,20 +1965,98 @@ Custom multipanel plot
 </tr>
 </tbody>
 </table>
-<pre><code>    Table: Selected variables used in plots for analysis of WRTDS model results
-  
-  |Argument|Definition|Defaults|
-    |:----------|--------------------------------------:|-----:|
-    |qUnit|Determines what units will be used for discharge, see section [Units](#units)|2|
-      |qBottom|The lower limit of the discharge value for the graphs in the units specified by qUnit ||
-        |qTop|The upper limit of the discharge value for the graphs in the units specified by qUnit ||
-        |printTitle|If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption)|TRUE|
-        |yearStart|The starting date for the graph, expressed as decimal years, for example, 1989||
-        |yearEnd|The ending date for the graph, expressed as decimal years, for example, 1996||
-        |whatSurface|This should generally be at its default value.  At whatSurface = 3, the plotted surface shows the expected value of concentration.  For whatSurface = 1, it shows the yHat surface (natural log of concentration).  For whatSurface = 2, it shows the SE surface (the standard error in log concentration).|3|
-        |contourLevels|With the default value the contour intervals are set automatically, which generally will NOT be a very good choice, but they may provide a starting point.  If you want to specify contourLevels, use the `seq} function.  In general it would look like: contourLevels = seq(from,to,by).|NA|
-          |maxDiff|In the `plotDiffCountours} function instead of using contourLevels, the contours are set by maxDiff which is the absolute value of the maximum difference to be plotted.  Contour intervals are set to run from -maxDiff to maxDiff. ||</code></pre>
-<p>|span|Specifies the smoothness of the discharge duration information that goes on this graph. A larger value will make it smoother. The default should work well in most cases.|60| |pval|The probability value for the discharge frequency information shown on the plot. When flowDuration=TRUE, the plot has two black curves on it. In the default value case these are at the 5 and 95 percent levels on the seasonal discharge duration curve. pval = 0.01 would place these at the 1 and 99 percent points. pval = 0.1 would place them at 10 and 90.|0.05| |vert1|This simply plots a vertical black line on the graph at a particular time (defined in decimal years). It is used to illustrate the idea of a "vertical slice} through the contour plot, which might then be shown in a subsequent use of <code>plotConcQSmooth</code>.|NA | |vert2|This gives the location of a second vertical black line on the graph at a particular time (defined in decimal years).|NA| |horiz|This simply plots a horizontal black line on the graph at a particular discharge value (defined in the units specified by qUnit). It is used to illustrate the idea of the seasonal cycle in concentrations for a given discharge and the long-term change in this cycle. |NA| |flowDuration|If TRUE it draws the discharge duration lines at the specified probabilities. If FALSE, the discharge duration lines are left off.|TRUE| Table: Variables used in EGRET contour plots: <code>plotContours</code> and <code>plotDiffContours</code></p>
+<table class="table">
+<caption>Variables used in EGRET contour plots: <code>plotContours</code> and <code>plotDiffContours</code>
+</caption>
+<colgroup>
+<col width="19%">
+<col width="69%">
+<col width="10%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Argument</th>
+<th align="right">Definition</th>
+<th align="right">Defaults</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">qUnit</td>
+<td align="right">Determines what units will be used for discharge, see section <a href="#units">Units</a>
+</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">qBottom</td>
+<td align="right">The lower limit of the discharge value for the graphs in the units specified by qUnit</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">qTop</td>
+<td align="right">The upper limit of the discharge value for the graphs in the units specified by qUnit</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">printTitle</td>
+<td align="right">If TRUE the plot has a title. If FALSE no title (useful for publications where there will be a caption)</td>
+<td align="right">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">yearStart</td>
+<td align="right">The starting date for the graph, expressed as decimal years, for example, 1989</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">yearEnd</td>
+<td align="right">The ending date for the graph, expressed as decimal years, for example, 1996</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left">whatSurface</td>
+<td align="right">This should generally be at its default value. At whatSurface = 3, the plotted surface shows the expected value of concentration. For whatSurface = 1, it shows the yHat surface (natural log of concentration). For whatSurface = 2, it shows the SE surface (the standard error in log concentration).</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">contourLevels</td>
+<td align="right">With the default value the contour intervals are set automatically, which generally will NOT be a very good choice, but they may provide a starting point. If you want to specify contourLevels, use the <code>seq</code> function. In general it would look like: contourLevels = seq(from,to,by).</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">maxDiff</td>
+<td align="right">In the <code>plotDiffCountours</code> function instead of using contourLevels, the contours are set by maxDiff which is the absolute value of the maximum difference to be plotted. Contour intervals are set to run from -maxDiff to maxDiff.</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">span</td>
+<td align="right">Specifies the smoothness of the discharge duration information that goes on this graph. A larger value will make it smoother. The default should work well in most cases.</td>
+<td align="right">60</td>
+</tr>
+<tr class="odd">
+<td align="left">pval</td>
+<td align="right">The probability value for the discharge frequency information shown on the plot. When flowDuration=TRUE, the plot has two black curves on it. In the default value case these are at the 5 and 95 percent levels on the seasonal discharge duration curve. pval = 0.01 would place these at the 1 and 99 percent points. pval = 0.1 would place them at 10 and 90.</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="even">
+<td align="left">vert1</td>
+<td align="right">This simply plots a vertical black line on the graph at a particular time (defined in decimal years). It is used to illustrate the idea of a “vertical slice” through the contour plot, which might then be shown in a subsequent use of <code>plotConcQSmooth</code>.</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">vert2</td>
+<td align="right">This gives the location of a second vertical black line on the graph at a particular time (defined in decimal years).</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">horiz</td>
+<td align="right">This simply plots a horizontal black line on the graph at a particular discharge value (defined in the units specified by qUnit). It is used to illustrate the idea of the seasonal cycle in concentrations for a given discharge and the long-term change in this cycle.</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">flowDuration</td>
+<td align="right">If TRUE it draws the discharge duration lines at the specified probabilities. If FALSE, the discharge duration lines are left off.</td>
+<td align="right">TRUE</td>
+</tr>
+</tbody>
+</table>
 <table class="table">
 <caption>Variables used in EGRET <code>plotConcQSmooth</code> and/or <code>plotConcTimeSmooth</code> functions</caption>
 <colgroup>
@@ -2115,7 +2194,7 @@ Custom multipanel plot
 <h1 class="hasAnchor">
 <a href="#createWordTable" class="anchor"></a>Creating tables in Microsoft™ software from an R data frame</h1>
 <p>A few steps that are required to create a table in Microsoft™ software (Excel, Word, PowerPoint, etc.) from an R data frame. There are a variety of good methods, one of which is detailed here. The example we will step through is creation of a table in Microsoft™ Excel based on the data frame tableData:</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1">tableData &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tableResults.html">tableResults</a></span>(eList)</a></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1">tableData &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tableResults.html">tableResults</a></span>(eList)</a></code></pre></div>
 <pre><code>## 
 ##    Choptank River 
 ##    Inorganic nitrogen (nitrate and nitrite)
@@ -2157,8 +2236,8 @@ Custom multipanel plot
 ##    2010      7.19     1.323     1.438    0.2236     0.149
 ##    2011      5.24     1.438     1.457    0.1554     0.148</code></pre>
 <p>First, save the data frame as a tab delimited file (you don’t want to use comma delimited because there are commas in some of the data elements):</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span>(tableData, <span class="dt">file=</span><span class="st">"tableData.tsv"</span>,<span class="dt">sep=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>, </a>
-<a class="sourceLine" id="cb85-2" data-line-number="2">            <span class="dt">row.names =</span> <span class="ot">FALSE</span>,<span class="dt">quote=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span>(tableData, <span class="dt">file=</span><span class="st">"tableData.tsv"</span>,<span class="dt">sep=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>, </a>
+<a class="sourceLine" id="cb84-2" data-line-number="2">            <span class="dt">row.names =</span> <span class="ot">FALSE</span>,<span class="dt">quote=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 <p>This will save a file in your working directory called tableData.tsv. You can see your working directory by typing <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> in the R console. Opening the file in a general-purpose text editor, you should see the following:</p>
 <pre><code>Year  Discharge [cms]   Conc [mg/L] FN_Conc [mg/L]  Flux [10^6kg/yr]    FN_Flux [10^6kg/yr]
 1980       4.25            0.949          1.003          0.1154             0.106  
@@ -2178,6 +2257,7 @@ Custom multipanel plot
 <li>Use the many formatting tools within Excel to customize the table</li>
 </ul>
 <p>From Excel, it is simple to copy and paste the tables in other word processing or presentation software products. An example using one of the default Excel table formats is here.</p>
+<p><img src="table1.png" width="45%" style="display: block; margin: auto;"></p>
 <p>A simple table produced in Microsoft™ Excel</p>
 </div>
 <div id="savingPlots" class="section level1">
@@ -2185,33 +2265,33 @@ Custom multipanel plot
 <a href="#savingPlots" class="anchor"></a>Saving Plots</h1>
 <p>Plots can be saved from R as JPG, PNG, PDF, and Postscript files. JPG and PNG are easy to use in any number of programs (Microsoft™ Word or PowerPoint, for example), but the images cannot be resized later. PDF and Postscript images are easily re-sizable.</p>
 <p>There are three steps to saving plots. The first is to open the “device” (and declare the output type and file name). The second step is to execute the function just as you would when plotting to the screen, but no output will appear. The third step is to turn off the device. It is also possible to put many plots within the same pdf. Some simple examples should demonstrate this easily:</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/grDevices/png.html">jpeg</a></span>(<span class="st">"plotFlowSingle.jpg"</span>)</a>
-<a class="sourceLine" id="cb87-2" data-line-number="2"><span class="kw"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(eList, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb87-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()</a>
-<a class="sourceLine" id="cb87-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb87-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/grDevices/png.html">png</a></span>(<span class="st">"plotFlowSingle.png"</span>)</a>
-<a class="sourceLine" id="cb87-6" data-line-number="6"><span class="kw"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(eList,<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb87-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()</a>
-<a class="sourceLine" id="cb87-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb87-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/r/grDevices/pdf.html">pdf</a></span>(<span class="st">"plotFlowSingle.pdf"</span>)</a>
-<a class="sourceLine" id="cb87-10" data-line-number="10"><span class="kw"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(eList,<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb87-11" data-line-number="11"><span class="kw"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()</a>
-<a class="sourceLine" id="cb87-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb87-13" data-line-number="13"><span class="kw"><a href="https://rdrr.io/r/grDevices/postscript.html">postscript</a></span>(<span class="st">"plotFlowSingle.ps"</span>)</a>
-<a class="sourceLine" id="cb87-14" data-line-number="14"><span class="kw"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(eList,<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb87-15" data-line-number="15"><span class="kw"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()</a>
-<a class="sourceLine" id="cb87-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb87-17" data-line-number="17"><span class="co">#Many plots saved to one pdf:</span></a>
-<a class="sourceLine" id="cb87-18" data-line-number="18"><span class="kw"><a href="https://rdrr.io/r/grDevices/pdf.html">pdf</a></span>(<span class="st">"manyPlots.pdf"</span>)</a>
-<a class="sourceLine" id="cb87-19" data-line-number="19"><span class="kw"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(eList,<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb87-20" data-line-number="20"><span class="kw"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(eList,<span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb87-21" data-line-number="21"><span class="kw"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(eList,<span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb87-22" data-line-number="22"><span class="kw"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(eList,<span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb87-23" data-line-number="23"><span class="kw"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/grDevices/png.html">jpeg</a></span>(<span class="st">"plotFlowSingle.jpg"</span>)</a>
+<a class="sourceLine" id="cb86-2" data-line-number="2"><span class="kw"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(eList, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb86-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()</a>
+<a class="sourceLine" id="cb86-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb86-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/grDevices/png.html">png</a></span>(<span class="st">"plotFlowSingle.png"</span>)</a>
+<a class="sourceLine" id="cb86-6" data-line-number="6"><span class="kw"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(eList,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb86-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()</a>
+<a class="sourceLine" id="cb86-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb86-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/r/grDevices/pdf.html">pdf</a></span>(<span class="st">"plotFlowSingle.pdf"</span>)</a>
+<a class="sourceLine" id="cb86-10" data-line-number="10"><span class="kw"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(eList,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb86-11" data-line-number="11"><span class="kw"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()</a>
+<a class="sourceLine" id="cb86-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb86-13" data-line-number="13"><span class="kw"><a href="https://rdrr.io/r/grDevices/postscript.html">postscript</a></span>(<span class="st">"plotFlowSingle.ps"</span>)</a>
+<a class="sourceLine" id="cb86-14" data-line-number="14"><span class="kw"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(eList,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb86-15" data-line-number="15"><span class="kw"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()</a>
+<a class="sourceLine" id="cb86-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb86-17" data-line-number="17"><span class="co">#Many plots saved to one pdf:</span></a>
+<a class="sourceLine" id="cb86-18" data-line-number="18"><span class="kw"><a href="https://rdrr.io/r/grDevices/pdf.html">pdf</a></span>(<span class="st">"manyPlots.pdf"</span>)</a>
+<a class="sourceLine" id="cb86-19" data-line-number="19"><span class="kw"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(eList,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb86-20" data-line-number="20"><span class="kw"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(eList,<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb86-21" data-line-number="21"><span class="kw"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(eList,<span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb86-22" data-line-number="22"><span class="kw"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(eList,<span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb86-23" data-line-number="23"><span class="kw"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()</a></code></pre></div>
 <p>There are many additional options for each of these devices. See the R help files for more information. One useful option for the larger <code>fluxBiasMulti</code> graph is to adjust the height and width of the output. The output of <code>fluxBiasMulti</code> is larger than the default pdf or postscript devices. Therefore, specifying the height and width eliminates R having to re-size the graphic:</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/grDevices/postscript.html">postscript</a></span>(<span class="st">"fluxBiasMulti.ps"</span>, <span class="dt">height=</span><span class="dv">10</span>,<span class="dt">width=</span><span class="dv">8</span>)</a>
-<a class="sourceLine" id="cb88-2" data-line-number="2"><span class="kw"><a href="../reference/fluxBiasMulti.html">fluxBiasMulti</a></span>(eList)</a>
-<a class="sourceLine" id="cb88-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/grDevices/postscript.html">postscript</a></span>(<span class="st">"fluxBiasMulti.ps"</span>, <span class="dt">height=</span><span class="dv">10</span>,<span class="dt">width=</span><span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb87-2" data-line-number="2"><span class="kw"><a href="../reference/fluxBiasMulti.html">fluxBiasMulti</a></span>(eList)</a>
+<a class="sourceLine" id="cb87-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()</a></code></pre></div>
 </div>
 <div id="disclaimer" class="section level1">
 <h1 class="hasAnchor">
