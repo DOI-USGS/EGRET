@@ -39,7 +39,8 @@ Suggests:
     rkt,
     doParallel,
     parallel,
-    pkgdown
+    pkgdown,
+    png
 LazyLoad: yes
 LazyData: yes
 BugReports: https://github.com/USGS-R/EGRET/issues
