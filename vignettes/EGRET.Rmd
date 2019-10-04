@@ -1301,15 +1301,6 @@ Next, follow the steps below to open this file in Excel:
 * In the second window, click on the Tab delimiter if it is not automatically checked, then click Finished.
 * Use the many formatting tools within Excel to customize the table
 
-From Excel, it is simple to copy and paste the tables in other word processing or presentation software products. An example using one of the default Excel table formats is here.
-
-```{r, echo = FALSE}
-knitr::include_graphics("table1.png")
-
-```
-
-
-A simple table produced in Microsoft&trade; Excel
 
 # Saving Plots {#savingPlots}
  
