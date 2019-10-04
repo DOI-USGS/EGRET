@@ -1216,22 +1216,22 @@ Table: Selected variables used in water quality analysis plots
         |fluxMax|The upper limit on the vertical axis of graphs showing flux values.|NA|
         |concMax|The upper limit on the vertical axis of graphs showing concentration values.|NA|
         |plotFlowNorm|If TRUE the graph shows the annual values as circles and the flow-normalized values as a green curve.  If false, it only shows the annual values.|TRUE|
-        Table: Selected variables used in plots for analysis of WRTDS model results
+Table: Selected variables used in plots for analysis of WRTDS model results
       
-      |Argument|Definition|Defaults|
-        |:----------|--------------------------------------:|-----:|
-        |qUnit|Determines what units will be used for discharge, see section [Units](#units)|2|
-          |qBottom|The lower limit of the discharge value for the graphs in the units specified by qUnit ||
-            |qTop|The upper limit of the discharge value for the graphs in the units specified by qUnit ||
-            |printTitle|If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption)|TRUE|
-            |yearStart|The starting date for the graph, expressed as decimal years, for example, 1989||
-            |yearEnd|The ending date for the graph, expressed as decimal years, for example, 1996||
-            |whatSurface|This should generally be at its default value.  At whatSurface = 3, the plotted surface shows the expected value of concentration.  For whatSurface = 1, it shows the yHat surface (natural log of concentration).  For whatSurface = 2, it shows the SE surface (the standard error in log concentration).|3|
-            |contourLevels|With the default value the contour intervals are set automatically, which generally will NOT be a very good choice, but they may provide a starting point.  If you want to specify contourLevels, use the `seq} function.  In general it would look like: contourLevels = seq(from,to,by).|NA|
-              |maxDiff|In the `plotDiffCountours} function instead of using contourLevels, the contours are set by maxDiff which is the absolute value of the maximum difference to be plotted.  Contour intervals are set to run from -maxDiff to maxDiff. ||
-  |span|Specifies the smoothness of the discharge duration information that goes on this graph.  A larger value will make it smoother.  The default should work well in most cases.|60|
-  |pval|The probability value for the discharge frequency information shown on the plot.  When flowDuration=TRUE, the plot has two black curves on it.  In the default value case these are at the 5 and 95 percent levels on the seasonal discharge duration curve.  pval = 0.01 would place these at the 1 and 99 percent points.  pval = 0.1 would place them at 10  and 90.|0.05|
-    |vert1|This simply plots a vertical black line on the graph at a particular time (defined in decimal years).  It is used to illustrate the idea of a "vertical slice} through the contour plot, which might then be shown in a subsequent use of `plotConcQSmooth`.|NA |
+|Argument|Definition|Defaults|
+|:----------|--------------------------------------:|-----:|
+|qUnit|Determines what units will be used for discharge, see section [Units](#units)|2|
+|qBottom|The lower limit of the discharge value for the graphs in the units specified by qUnit ||
+|qTop|The upper limit of the discharge value for the graphs in the units specified by qUnit ||
+|printTitle|If TRUE the plot has a title.  If FALSE no title (useful for publications where there will be a caption)|TRUE|
+|yearStart|The starting date for the graph, expressed as decimal years, for example, 1989||
+|yearEnd|The ending date for the graph, expressed as decimal years, for example, 1996||
+|whatSurface|This should generally be at its default value.  At whatSurface = 3, the plotted surface shows the expected value of concentration.  For whatSurface = 1, it shows the yHat surface (natural log of concentration).  For whatSurface = 2, it shows the SE surface (the standard error in log concentration).|3|
+|contourLevels|With the default value the contour intervals are set automatically, which generally will NOT be a very good choice, but they may provide a starting point.  If you want to specify contourLevels, use the `seq` function.  In general it would look like: contourLevels = seq(from,to,by).|NA|
+|maxDiff|In the `plotDiffCountours` function instead of using contourLevels, the contours are set by maxDiff which is the absolute value of the maximum difference to be plotted.  Contour intervals are set to run from -maxDiff to maxDiff. ||
+|span|Specifies the smoothness of the discharge duration information that goes on this graph.  A larger value will make it smoother.  The default should work well in most cases.|60|
+|pval|The probability value for the discharge frequency information shown on the plot.  When flowDuration=TRUE, the plot has two black curves on it.  In the default value case these are at the 5 and 95 percent levels on the seasonal discharge duration curve.  pval = 0.01 would place these at the 1 and 99 percent points.  pval = 0.1 would place them at 10  and 90.|0.05|
+|vert1|This simply plots a vertical black line on the graph at a particular time (defined in decimal years).  It is used to illustrate the idea of a "vertical slice" through the contour plot, which might then be shown in a subsequent use of `plotConcQSmooth`.|NA |
 |vert2|This gives the location of a second vertical black line on the graph at a particular time (defined in decimal years).|NA|
 |horiz|This simply plots a horizontal black line on the graph at a particular discharge value (defined in the units specified by qUnit).  It is used to illustrate the idea of the seasonal cycle in concentrations for a given discharge and the long-term change in this cycle. |NA|
 |flowDuration|If TRUE it draws the discharge duration lines at the specified probabilities.  If FALSE, the discharge duration lines are left off.|TRUE|
@@ -1304,18 +1304,7 @@ Next, follow the steps below to open this file in Excel:
 From Excel, it is simple to copy and paste the tables in other word processing or presentation software products. An example using one of the default Excel table formats is here.
 
 ```{r getTable, echo = FALSE}
-embed_png <- function(path, dpi = NULL) {
-  meta <- attr(png::readPNG(path, native = TRUE, info = TRUE), "info")
-  if (!is.null(dpi)) meta$dpi <- rep(dpi, 2)
-  knitr::asis_output(paste0(
-    "<img src='", path, "'",
-    " width=", round(meta$dim[1] / (meta$dpi[1] / 96)),
-    " height=", round(meta$dim[2] / (meta$dpi[2] / 96)),
-    " />"
-  ))
-}
-knitr::opts_chunk$set(comment = "#>", collapse = TRUE)
-
+knitr::include_graphics("table1.png")
 ```
 
 A simple table produced in Microsoft&trade; Excel
