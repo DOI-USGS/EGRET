@@ -1301,7 +1301,7 @@ Next, follow the steps below to open this file in Excel:
 * In the second window, click on the Tab delimiter if it is not automatically checked, then click Finished.
 * Use the many formatting tools within Excel to customize the table
 
-From Excel, it is simple to copy and paste the tables in other word processing or presentation software products. 
+From Excel, it is simple to copy and paste the tables in other word processing or presentation software products. An example using one of the default Excel table formats is here.
 
 ```{r getTable, echo = FALSE}
 embed_png <- function(path, dpi = NULL) {
