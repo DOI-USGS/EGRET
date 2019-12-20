@@ -23,7 +23,7 @@ You need two functions.  One is called **runPairsMonths.R** to do the computatio
 
 Here is the code
 
-```{r include=TRUE, eval = FALSE}
+```{r include=TRUE, eval = TRUE}
 # This is function called runPairsMonths
 # It is virtually identical to the EGRET function runPairs
 # To learn the meaning of each of these initial arguments
@@ -360,14 +360,15 @@ for(m in 1: 12){
 }
 }
 ```
+
 Now let's run it
 
 ```{r eval = TRUE, echo = TRUE}
-setwd("~/Dropbox/MonthlyTrends")  # obviously specific to my computer
+
 library(EGRET)
 load("Conowingo.PO4.RData")
-source("runPairsMonths.R")
-source("plotOne.R")
+# source("runPairsMonths.R")
+# source("plotOne.R")
 z <- runPairsMonths(eList, year1 = 2006, year2 = 2017)
 # z contains the results, they are expressed as yields in kg/month/km^2
 # z[1,1:12] are the yields in year 1, by month Jan, Feb, ... Dec
