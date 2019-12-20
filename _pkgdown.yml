@@ -23,7 +23,7 @@ navbar:
     - text: Daily Streamflow Trends
       href: articles/streamflow_trend.html
     - text: Trends by month
-      href: articles/TrendsByMonth.Rmd
+      href: articles/TrendsByMonth.html
   - text: Bibliograpy
     menu:
       - text: WRTDS
