@@ -26,6 +26,10 @@ vignettes/Extend_Method.bib
 vignettes/SeasonalFraction.Rmd
 vignettes/streamflow_trend.Rmd
 vignettes/data_prep.Rmd
+vignettes/Conwingo.PO4.RData
+vignettes/plotOne.R
+vignettes/runPairsMonths.R
+vignettes/TrendByMonth.Rmd
 _pkgdown.yml
 pkgdown/favicon/*
 vignettes/css/*
