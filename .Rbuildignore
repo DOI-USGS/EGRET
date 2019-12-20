@@ -14,6 +14,7 @@ README.Rmd
 README_files/
 CONDUCT.md
 DISCLAIMER.md
+LICENSE.md
 code.json
 hexSticker.R
 ^docs$
@@ -30,6 +31,10 @@ vignettes/Conwingo.PO4.RData
 vignettes/plotOne.R
 vignettes/runPairsMonths.R
 vignettes/TrendByMonth.Rmd
+vignettes/Making WRTDS_K flux estimates.Rmd
+vignettes/functionsForK.R
+vignettes/rockCr.tp.RData
+vignettes/test.RData
 _pkgdown.yml
 pkgdown/favicon/*
 vignettes/css/*
