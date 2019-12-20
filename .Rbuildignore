@@ -29,6 +29,7 @@ vignettes/data_prep.Rmd
 vignettes/Conwingo.PO4.RData
 vignettes/plotOne.R
 vignettes/runPairsMonths.R
+vignettes/TrendByMonth.Rmd
 _pkgdown.yml
 pkgdown/favicon/*
 vignettes/css/*
