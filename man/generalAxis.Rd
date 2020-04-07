@@ -4,9 +4,18 @@
 \alias{generalAxis}
 \title{Axis generation for log discharge}
 \usage{
-generalAxis(x, maxVal, minVal, units = NA, logScale = FALSE,
-  tinyPlot = FALSE, padPercent = 5, concentration = TRUE,
-  usgsStyle = FALSE, prettyDate = TRUE)
+generalAxis(
+  x,
+  maxVal,
+  minVal,
+  units = NA,
+  logScale = FALSE,
+  tinyPlot = FALSE,
+  padPercent = 5,
+  concentration = TRUE,
+  usgsStyle = FALSE,
+  prettyDate = TRUE
+)
 }
 \arguments{
 \item{x}{vector to create scale about}

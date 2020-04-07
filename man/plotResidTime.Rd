@@ -4,10 +4,21 @@
 \alias{plotResidTime}
 \title{Plot of the residuals from WRTDS (in log concentration units) versus time}
 \usage{
-plotResidTime(eList, stdResid = FALSE, printTitle = TRUE,
-  hLine = TRUE, tinyPlot = FALSE, col = "black", lwd = 1,
-  cex = 0.8, cex.axis = 1.1, cex.main = 1.1, customPar = FALSE,
-  randomCensored = FALSE, ...)
+plotResidTime(
+  eList,
+  stdResid = FALSE,
+  printTitle = TRUE,
+  hLine = TRUE,
+  tinyPlot = FALSE,
+  col = "black",
+  lwd = 1,
+  cex = 0.8,
+  cex.axis = 1.1,
+  cex.main = 1.1,
+  customPar = FALSE,
+  randomCensored = FALSE,
+  ...
+)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}

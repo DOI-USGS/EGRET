@@ -4,11 +4,26 @@
 \alias{plotFluxHist}
 \title{Graph of annual flux and flow normalized flux versus year}
 \usage{
-plotFluxHist(eList, yearStart = NA, yearEnd = NA, fluxUnit = 9,
-  fluxMax = NA, printTitle = TRUE, usgsStyle = FALSE,
-  plotFlowNorm = TRUE, plotAnnual = TRUE, tinyPlot = FALSE,
-  col = "black", col.pred = "green", cex = 0.8, cex.axis = 1.1,
-  cex.main = 1.1, lwd = 2, customPar = FALSE, ...)
+plotFluxHist(
+  eList,
+  yearStart = NA,
+  yearEnd = NA,
+  fluxUnit = 9,
+  fluxMax = NA,
+  printTitle = TRUE,
+  usgsStyle = FALSE,
+  plotFlowNorm = TRUE,
+  plotAnnual = TRUE,
+  tinyPlot = FALSE,
+  col = "black",
+  col.pred = "green",
+  cex = 0.8,
+  cex.axis = 1.1,
+  cex.main = 1.1,
+  lwd = 2,
+  customPar = FALSE,
+  ...
+)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes}

@@ -4,11 +4,24 @@
 \alias{plotConcTimeDaily}
 \title{Plot of the time series of daily concentration estimates and the sample values for the days that were sampled}
 \usage{
-plotConcTimeDaily(eList, yearStart = NA, yearEnd = NA,
-  tinyPlot = FALSE, concMax = NA, printTitle = TRUE, cex = 0.8,
-  cex.axis = 1.1, randomCensored = FALSE, cex.main = 1.1,
-  customPar = FALSE, col = "black", lwd = 1, prettyDate = TRUE,
-  usgsStyle = FALSE, ...)
+plotConcTimeDaily(
+  eList,
+  yearStart = NA,
+  yearEnd = NA,
+  tinyPlot = FALSE,
+  concMax = NA,
+  printTitle = TRUE,
+  cex = 0.8,
+  cex.axis = 1.1,
+  randomCensored = FALSE,
+  cex.main = 1.1,
+  customPar = FALSE,
+  col = "black",
+  lwd = 1,
+  prettyDate = TRUE,
+  usgsStyle = FALSE,
+  ...
+)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}

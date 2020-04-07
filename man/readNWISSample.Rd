@@ -4,8 +4,14 @@
 \alias{readNWISSample}
 \title{Import NWIS Sample Data for EGRET analysis}
 \usage{
-readNWISSample(siteNumber, parameterCd, startDate = "", endDate = "",
-  verbose = TRUE, interactive = NULL)
+readNWISSample(
+  siteNumber,
+  parameterCd,
+  startDate = "",
+  endDate = "",
+  verbose = TRUE,
+  interactive = NULL
+)
 }
 \arguments{
 \item{siteNumber}{character USGS site number.  This is usually an 8 digit number}

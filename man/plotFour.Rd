@@ -4,9 +4,21 @@
 \alias{plotFour}
 \title{Makes four graphs of streamflow statistics on a single page}
 \usage{
-plotFour(eList, yearStart = NA, yearEnd = NA, printTitle = TRUE,
-  runoff = FALSE, qUnit = 1, window = 15, cex = 0.8,
-  cex.axis = 1.2, cex.main = 1.2, col = "black", lwd = 1, ...)
+plotFour(
+  eList,
+  yearStart = NA,
+  yearEnd = NA,
+  printTitle = TRUE,
+  runoff = FALSE,
+  qUnit = 1,
+  window = 15,
+  cex = 0.8,
+  cex.axis = 1.2,
+  cex.main = 1.2,
+  col = "black",
+  lwd = 1,
+  ...
+)
 }
 \arguments{
 \item{eList}{named list with at least Daily and INFO dataframes}

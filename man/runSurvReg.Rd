@@ -5,13 +5,36 @@
 \alias{run_WRTDS}
 \title{Run the weighted survival regression for a set of estimation points (defined by DecYear and Log(Q))}
 \usage{
-runSurvReg(estPtYear, estPtLQ, DecLow, DecHigh, Sample, windowY = 7,
-  windowQ = 2, windowS = 0.5, minNumObs = 100, minNumUncen = 50,
-  verbose = TRUE, interactive = NULL, edgeAdjust = TRUE,
-  run.parallel = FALSE)
+runSurvReg(
+  estPtYear,
+  estPtLQ,
+  DecLow,
+  DecHigh,
+  Sample,
+  windowY = 7,
+  windowQ = 2,
+  windowS = 0.5,
+  minNumObs = 100,
+  minNumUncen = 50,
+  verbose = TRUE,
+  interactive = NULL,
+  edgeAdjust = TRUE,
+  run.parallel = FALSE
+)
 
-run_WRTDS(estY, estLQ, localSample, DecLow, DecHigh, minNumObs,
-  minNumUncen, windowY, windowQ, windowS, edgeAdjust)
+run_WRTDS(
+  estY,
+  estLQ,
+  localSample,
+  DecLow,
+  DecHigh,
+  minNumObs,
+  minNumUncen,
+  windowY,
+  windowQ,
+  windowS,
+  edgeAdjust
+)
 }
 \arguments{
 \item{estPtYear}{numeric vector of Decimal Year values at the estimation points}

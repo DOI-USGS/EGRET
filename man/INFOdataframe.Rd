@@ -11,8 +11,13 @@ readNWISInfo(siteNumber, parameterCd, interactive = TRUE)
 
 readWQPInfo(siteNumber, parameterCd, interactive = TRUE)
 
-readUserInfo(filePath, fileName, hasHeader = TRUE, separator = ",",
-  interactive = TRUE)
+readUserInfo(
+  filePath,
+  fileName,
+  hasHeader = TRUE,
+  separator = ",",
+  interactive = TRUE
+)
 }
 \arguments{
 \item{siteNumber}{character site number.  For \code{readNWISInfo}, this is usually an 8 digit number,

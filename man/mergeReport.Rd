@@ -4,8 +4,14 @@
 \alias{mergeReport}
 \title{mergeReport}
 \usage{
-mergeReport(INFO, Daily, Sample = NA, surfaces = NA, verbose = TRUE,
-  interactive = NULL)
+mergeReport(
+  INFO,
+  Daily,
+  Sample = NA,
+  surfaces = NA,
+  verbose = TRUE,
+  interactive = NULL
+)
 }
 \arguments{
 \item{INFO}{dataframe metadata about the Sample and Daily data frames.}

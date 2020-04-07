@@ -4,14 +4,33 @@
 \alias{plotContours}
 \title{Color contour plot of the estimated surfaces as a function of discharge and time (surfaces include log concentration, standard error, and concentration)}
 \usage{
-plotContours(eList, yearStart, yearEnd, qBottom = NA, qTop = NA,
-  whatSurface = 3, qUnit = 2, contourLevels = NA, span = 60,
-  pval = 0.05, printTitle = TRUE, vert1 = NA, vert2 = NA,
-  horiz = NA, tcl = 0.03, flowDuration = TRUE, customPar = FALSE,
-  yTicks = NA, tick.lwd = 1, usgsStyle = FALSE, lwd = 2,
-  cex.main = 1, cex.axis = 1,
+plotContours(
+  eList,
+  yearStart,
+  yearEnd,
+  qBottom = NA,
+  qTop = NA,
+  whatSurface = 3,
+  qUnit = 2,
+  contourLevels = NA,
+  span = 60,
+  pval = 0.05,
+  printTitle = TRUE,
+  vert1 = NA,
+  vert2 = NA,
+  horiz = NA,
+  tcl = 0.03,
+  flowDuration = TRUE,
+  customPar = FALSE,
+  yTicks = NA,
+  tick.lwd = 1,
+  usgsStyle = FALSE,
+  lwd = 2,
+  cex.main = 1,
+  cex.axis = 1,
   color.palette = colorRampPalette(c("white", "gray", "blue", "red")),
-  ...)
+  ...
+)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes, and surfaces matrix}

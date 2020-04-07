@@ -4,8 +4,14 @@
 \alias{readUserSample}
 \title{Import user-supplied sample data for EGRET analysis}
 \usage{
-readUserSample(filePath, fileName, hasHeader = TRUE, separator = ",",
-  verbose = TRUE, interactive = NULL)
+readUserSample(
+  filePath,
+  fileName,
+  hasHeader = TRUE,
+  separator = ",",
+  verbose = TRUE,
+  interactive = NULL
+)
 }
 \arguments{
 \item{filePath}{character specifying the path to the file}

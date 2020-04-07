@@ -4,8 +4,15 @@
 \alias{readUserDaily}
 \title{Import user daily data for EGRET analysis}
 \usage{
-readUserDaily(filePath, fileName, hasHeader = TRUE, separator = ",",
-  qUnit = 1, verbose = TRUE, interactive = NULL)
+readUserDaily(
+  filePath,
+  fileName,
+  hasHeader = TRUE,
+  separator = ",",
+  qUnit = 1,
+  verbose = TRUE,
+  interactive = NULL
+)
 }
 \arguments{
 \item{filePath}{character specifying the path to the file}
@@ -46,7 +53,7 @@ Imports data from a user-supplied file, and converts it to a Daily data frame, a
 \examples{
 filePath <- system.file("extdata", package="EGRET")
 fileName <- "ChoptankRiverFlow.txt"
-Daily <- readUserDaily(filePath,fileName,separator="\\t")
+Daily <- readUserDaily(filePath,fileName,separator="\t")
 }
 \keyword{USGS}
 \keyword{WRTDS}

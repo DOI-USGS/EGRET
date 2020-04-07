@@ -4,10 +4,23 @@
 \alias{plotSDLogQ}
 \title{Graph of the standard deviation of the log of daily discharge versus year}
 \usage{
-plotSDLogQ(eList, yearStart = NA, yearEnd = NA, window = 15,
-  sdMax = NA, printTitle = TRUE, tinyPlot = FALSE,
-  printStaName = TRUE, printPA = TRUE, cex = 0.8, cex.main = 1.1,
-  cex.axis = 1.1, lwd = 2, customPar = FALSE, ...)
+plotSDLogQ(
+  eList,
+  yearStart = NA,
+  yearEnd = NA,
+  window = 15,
+  sdMax = NA,
+  printTitle = TRUE,
+  tinyPlot = FALSE,
+  printStaName = TRUE,
+  printPA = TRUE,
+  cex = 0.8,
+  cex.main = 1.1,
+  cex.axis = 1.1,
+  lwd = 2,
+  customPar = FALSE,
+  ...
+)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes}
