@@ -4,12 +4,30 @@
 \alias{runPairs}
 \title{Runs a comparison of any two years in the record.}
 \usage{
-runPairs(eList, year1, year2, windowSide, flowBreak = FALSE,
-  Q1EndDate = NA, QStartDate = NA, QEndDate = NA, wall = FALSE,
-  oldSurface = FALSE, sample1EndDate = NA, sampleStartDate = NA,
-  sampleEndDate = NA, paStart = NA, paLong = NA, minNumObs = 100,
-  minNumUncen = 50, fractMin = 0.75, windowY = 7, windowQ = 2,
-  windowS = 0.5, edgeAdjust = TRUE)
+runPairs(
+  eList,
+  year1,
+  year2,
+  windowSide,
+  flowBreak = FALSE,
+  Q1EndDate = NA,
+  QStartDate = NA,
+  QEndDate = NA,
+  wall = FALSE,
+  oldSurface = FALSE,
+  sample1EndDate = NA,
+  sampleStartDate = NA,
+  sampleEndDate = NA,
+  paStart = NA,
+  paLong = NA,
+  minNumObs = 100,
+  minNumUncen = 50,
+  fractMin = 0.75,
+  windowY = 7,
+  windowQ = 2,
+  windowS = 0.5,
+  edgeAdjust = TRUE
+)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}

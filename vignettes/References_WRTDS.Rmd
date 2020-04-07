@@ -1,8 +1,7 @@
 ---
+title: "Bibliography"
 output: 
   rmarkdown::html_vignette
-bibliography: Exported_Items.bib
-nocite: '@*'
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{WRTDS bibliography}
@@ -10,3 +9,243 @@ vignette: >
 ---
 
 # WRTDS References
+
+1. Abbott, Benjamin W, Gérard Gruau, Jay P Zarnetske, Florentina Moatar, Lou Barbe, Zahra Thomas, Ophélie Fovet, Tamara Kolbe, Sen Gu, and Anne‐Catherine Pierson‐Wickmann. 2018. "Unexpected Spatial Stability of Water Chemistry in Headwater Stream Networks." Ecology Letters 21 (2): 296–308.
+
+2. Ator, Scott W, and Judith M Denver. 2015. Understanding the Nutrients in the Chesapeake Bay Watershed and Implications for Management and Restoration: The Eastern Shore. US Geological Survey Circular 1406, 72 p.
+
+3. Beck, Marcus W, Thomas W Jabusch, Philip R Trowbridge, and David B Senn. 2018. "Four Decades of Water Quality Change in the Upper San Francisco Estuary." Estuarine, Coastal and Shelf Science 212: 11–22.
+
+4. Ballard, Tristan C., Eva Sinha, and Anna M. Michalak. 2019. "Long-term changes in precipitation and temperature have already impacted nitrogen loading." Environmental science & technology 53, no. 9: 5080-5090.
+
+5. Bettez, Neil D., Jonathan M. Duncan, Peter M. Groffman, Lawrence E. Band, Jarlath O’Neil-Dunne, Sujay S. Kaushal, Kenneth T. Belt, and Neely Law. 2015. "Climate variation overwhelms efforts to reduce nitrogen delivery to coastal waters." Ecosystems 18, no. 8: 1319-1331.
+
+6. Bird, Darcy L, Peter M Groffman, Christopher J Salice, and Joel Moore. 2018. "Steady-State Land Cover but Non-Steady-State Major Ion Chemistry in Urban Streams." Environmental Science & Technology 52 (22): 13015–26.
+
+7. Bowen, Zachary H, Gretchen P Oelsner, Brian S Cade, Tanya J Gallegos, Aida M Farag, David N Mott, Christopher J Potter, Peter J Cinotto, Melanie L Clark, and William M Kappel. 2015. "Assessment of Surface Water Chloride and Conductivity Trends in Areas of Unconventional Oil and Gas Development—Why Existing National Data Sets Cannot Tell Us What We Would Like to Know." Water Resources Research 51 (1): 704–15.
+
+8. Corsi, Steven R, Laura A De Cicco, Michelle A Lutz, and Robert M Hirsch. 2015. "River Chloride Trends in Snow-Affected Urban Watersheds: Increasing Concentrations Outpace Urban Growth Rate and Are Common Among All Seasons." Science of the Total Environment 508: 488–97.
+
+9. Cosh, M. H., D. D. Bosch, A. Coffin, T. J. Jackson, A. Colliander, S. Chan, R. Bindlish, W. Crow, and S. Yueh. 2019.  "SOIL MOISTURE SCALING FUNCTION DEVELOPMENT FOR THE LITTLE RIVER EXPERIMENTAL WATERSHED." Working Watersheds and Coastal Systems: Research and Management: 91.
+
+10. Crawford, John T., Edward G. Stets, and Lori A. Sprague. 2019. "Network Controls on Mean and Variance of Nitrate Loads from the Mississippi River to the Gulf of Mexico." Journal of Environmental Quality 48, no. 6: 1789-1799.
+
+11. Crawford, John T., Eve-Lyn S. Hinckley, M. Iggy Litaor, Janice Brahney, and Jason C. Neff. 2019. "Evidence for accelerated weathering and sulfate export in high alpine environments." Environmental Research Letters 14, no. 12: 124092.
+
+12. Deemer, Bridget R., Edward G. Stets, and Charles B. Yackulic. 2020. "Calcite precipitation in Lake Powell reduces alkalinity and total salt loading to the Lower Colorado River Basin." Limnology and Oceanography.
+
+13. Duncan, Jonathan M, Lawrence E Band, Peter M Groffman, and Emily S Bernhardt. 2015. "Mechanisms Driving the Seasonality of Catchment Scale Nitrate Export: Evidence for Riparian Ecohydrologic Controls." Water Resources Research 51 (6): 3982–97.
+
+14. Ehrhardt, Sophie, Rohini Kumar, Jan H. Fleckenstein, Sabine Attinger, and Andreas Musolff. 2019. "Trajectories of nitrate input and output in three nested catchments along a land use gradient." Hydrology & Earth System Sciences 23, no. 9.
+
+15. Eshleman, Keith N, Robert D Sabo, and Kathleen M Kline. 2013. "Surface Water Quality Is Improving Due to Declining Atmospheric N Deposition." Environmental Science & Technology 47 (21): 12193–12200.
+
+16. Fanelli, Rosemary M., Joel D. Blomquist, and Robert M. Hirsch. 2019. "Point sources and agricultural practices control spatial-temporal patterns of orthophosphate in tributaries to Chesapeake Bay." Science of The Total Environment 652: 422-433.
+
+17. Getahun, Elias, Laura Keefer, Sangeetha Chandrasekaran, and Atticus Zavelle. 2019. "Water Quality Trend Analysis for the Fox River Watershed: Stratton Dam to the Illinois River." Illinois State Water Survey CR 2019-04.
+
+18. Gloege, Lucas, Galen A. McKinley, Robert J. Mooney, J. David Allan, Matthew W. Diebel, and Peter B. McIntyre. 2020. "Lake hydrodynamics intensify the potential impact of watershed pollutants on coastal ecosystem services." Environmental Research Letters.
+
+19. Green, Christopher T, Barbara A Bekins, Stephen J Kalkhoff, Robert M Hirsch, Lixia Liao, and Kimberlee K Barnes. 2014. "Decadal Surface Water Quality Trends Under Variable Climate, Land Use, and Hydrogeochemical Setting in Iowa, USA." Water Resources Research 50 (3): 2425–43.
+
+20. Gurbisz, Cassie, and W. Michael Kemp. 2014. "Unexpected resurgence of a large submersed plant bed in Chesapeake Bay: Analysis of time series data." Limnology and Oceanography 59, no. 2: 482-494.
+
+21. Ha, Di, Hengchen Wei, Qian Zhang, and William P Ball. n.d. "Nitrogen Source Input from the Non-Tidal Chesapeake Bay Watershed and Output in the Major Rivers: Evaluation of Changes Based on Long-Term Data."
+
+22. Hickman, RE, and RM Hirsch. 2017. "Trends in the Quality of Water in New Jersey Streams, Water Years 1971–2011: US Geological Survey Scientific Investigations Report 2016-5176."
+
+23. Hirsch, Robert M. 2012. Flux of Nitrogen, Phosphorus, and Suspended Sediment from the Susquehanna River Basin to the Chesapeake Bay During Tropical Storm Lee, September 2011, as an Indicator of the Effects of Reservoir Sedimentation on Water Quality. US Geological Survey Scientific Investigations Report, 2012-5185, 17 p.
+
+24. Ilampooranan, Idhayachandhiran, Kimberly J. Van Meter, and Nandita B. Basu. 2019. "A race against time: modeling time lags in watershed response." Water Resources Research 55, no. 5: 3941-3959.
+
+25. Isles, Peter DF, Courtney D. Giles, Trevor A. Gearhart, Yaoyang Xu, Greg K. Druschel, and Andrew W. Schroth. 2015. "Dynamic internal drivers of a historically severe cyanobacteria bloom in Lake Champlain revealed through comprehensive monitoring." Journal of Great Lakes Research 41, no. 3: 818-829.
+
+26. Kalkhoff, Stephen J, Laura E Hubbard, Mark D Tomer, and DE James. 2016. "Effect of Variable Annual Precipitation and Nutrient Input on Nitrogen and Phosphorus Transport from Two Midwestern Agricultural Watersheds." Science of the Total Environment 559: 53–62.
+
+27. Kelly, Valerie, Edward G Stets, and Charlie Crawford. 2015. "Long-Term Changes in Nitrate Conditions over the 20th Century in Two Midwestern Corn Belt Streams." Journal of Hydrology 525: 559–71.
+
+28. Kleinman, Peter JA, Rosemary M. Fanelli, Robert M. Hirsch, Anthony R. Buda, Zachary M. Easton, Lisa A. Wainger, Chris Brosch, Martin Lowenfish, Amy S. Collick, Adel Shirmohammadi, Kathy Boomer, Jason A. Hubbart, Ray B. Bryant, and Gary W. Shenk. 2019. "Phosphorus and the Chesapeake Bay: Lingering issues and emerging concerns for agriculture." Journal of environmental quality 48, no. 5: 1191-1203.
+
+29. Kreiling, Rebecca M, and Jeffrey N Houser. 2016. "Long-Term Decreases in Phosphorus and Suspended Solids, but Not Nitrogen, in Six Upper Mississippi River Tributaries, 1991–2014." Environmental Monitoring and Assessment 188 (8): 454.
+
+30. Liu, Bingcai. 2016. "Nitrogen Price and Concentration in the Mississippi River—-Based on WRTDS Model."
+
+31. Medalie, Laura. 2013. Concentration, Flux, and the Analysis of Trends of Total and Dissolved Phosphorus, Total Nitrogen, and Chloride in 18 Tributaries to Lake Champlain, Vermont and New York, 1990-2011. US Geological Survey Scientific Investigations Report 2013-502, 29 p.
+
+32. Medalie, Laura, Robert M. Hirsch, and Stacey A. Archfield. 2012. "Use of Flow-Normalization to Evaluate Nutrient Concentration and Flux Changes in Lake Champlain Tributaries, 1990–2009." Lake Champlain in 2010 38, Supplement 1 (0): 58–67. 
+
+33. Mize, Scott V, Jennifer C Murphy, Timothy H Diehl, and Dennis K Demcheck. 2018. "Suspended-Sediment Concentrations and Loads in the Lower Mississippi and Atchafalaya Rivers Decreased by Half Between 1980 and 2015." Journal of Hydrology 564: 1–11.
+
+34. Moatar, Florentina, Benjamin W Abbott, Camille Minaudo, Florence Curie, and Gilles Pinay. 2017. "Elemental Properties, Hydrology, and Biology Interact to Shape Concentration‐discharge Curves for Carbon, Nutrients, Sediment, and Major Ions." Water Resources Research 53 (2): 1270–87.
+
+35. Morway, Eric D, Carl E Thodal, and Mark Marvin-DiPasquale. 2017. "Long-Term Trends of Surface-Water Mercury and Methylmercury Concentrations Downstream of Historic Mining Within the Carson River Watershed." Environmental Pollution 229: 1006–18.
+
+36. Mullaney, John R. 2016. "Nutrient, Organic Carbon, and Chloride Concentrations and Loads in Selected Long Island Sound Tributaries—Four Decades of Change Following the Passage of the Federal Clean Water Act." 2328-0328. US Geological Survey.
+
+37. Murphy, Jennifer, Robert M Hirsch, and Lori A Sprague. 2013. Nitrate in the Mississippi River and Its Tributaries, 1980-2010: An Update. US Geological Survey, Scientific Investigations Report 2013-5169, 31 p.
+
+38. Murphy, Jennifer, and Lori Sprague. 2019. "Water-quality trends in US rivers: Exploring effects from streamflow trends and changes in watershed management." Science of the Total Environment 656: 645-658.
+
+39. Murphy, Jennifer C. 2019. "Declining suspended sediment in United States rivers and streams: Linking sediment trends to changes in land use/cover, hydrology and climate." Hydrology and Earth System Sciences Discussions: 1-37.
+
+40. Najjar, Raymond G., Maria Herrmann, Sebastián M. Cintrón Del Valle, Jaclyn R. Friedman, Marjorie AM Friedrichs, Lora A. Harris, Elizabeth H. Shadwick, Edward G. Stets, and Ryan J. Woodland. 2020. "Alkalinity in Tidal Tributaries of the Chesapeake Bay." Journal of Geophysical Research: Oceans 125, no. 1: e2019JC015597.
+
+41. National Research Council. 2011. Achieving Nutrient and Sediment Reduction Goals in the Chesapeake Bay: An Evaluation of Program Strategies and Implementation. National Academies Press.
+
+42. Oelsner, Gretchen P, Lori A Sprague, Jennifer C Murphy, Robert E Zuellig, Henry M Johnson, Karen R Ryberg, James A Falcone, Edward G Stets, Aldo V Vecchia, and Melissa L Riskin. 2017. "Water-Quality Trends in the Nation’s Rivers and Streams, 1972–2012—Data Preparation, Statistical Methods, and Trend Results." 2328-0328. US Geological Survey.
+
+43. Oelsner, Gretchen P, and Edward G Stets. 2019. "Recent Trends in Nutrient and Sediment Loading to Coastal Areas of the Conterminous US: Insights and Global Context." Science of the Total Environment 654: 1225–40.
+
+44. Paerl, Hans W., Joseph R. Crosswell, Bryce Van Dam, Nathan S. Hall, Karen L. Rossignol, Christopher L. Osburn, Alexandria G. Hounshell, Randolph S. Sloup, and Lawrence W. Harding. 2018. "Two decades of tropical cyclone impacts on North Carolina’s estuarine carbon, nutrient and phytoplankton dynamics: implications for biogeochemical cycling and water quality in a stormier world." Biogeochemistry 141, no. 3: 307-332.
+
+45. Paerl, Hans W., Nathan S. Hall, Alexandria G. Hounshell, Richard A. Luettich, Karen L. Rossignol, Christopher L. Osburn, and Jerad Bales. "Recent increase in catastrophic tropical cyclone flooding in coastal North Carolina, USA: Long-term observations suggest a regime shift." 2019. Scientific reports 9, no. 1: 1-9.
+
+46. Parr, Thomas B., Shreeram P. Inamdar, and Matthew J. Miller. 2019. "Overlapping anthropogenic effects on hydrologic and seasonal trends in DOC in a surface water dependent water utility." Water research 148: 407-415.
+
+47. Pellerin, Brian A., Brian A. Bergamaschi, Robert J. Gilliom, Charles G. Crawford, JohnFranco Saraceno, C. Paul Frederick, Bryan D. Downing, and Jennifer C. Murphy. 2014.  "Mississippi River nitrate loads from high frequency sensor measurements and regression-based load estimation." Environmental science & technology 48, no. 21: 12612-12619.
+
+48. Rankinen, K., G. Gao, K. Granlund, J. Grönroos, and L. Vesikko. 2015. "Comparison of impacts of human activities and climate change on water quantity and quality in Finnish agricultural catchments." Landscape ecology 30, no. 3: 415-428.
+
+49. Rankinen, Katri, Hanna Keinänen, and José Enrique Cano Bernal. 2016. "Influence of climate and land use changes on nutrient fluxes from Finnish rivers to the Baltic Sea." Agriculture, Ecosystems & Environment 216: 100-115.
+
+50. Rosenberg, Braden D, and Andrew W Schroth. 2017. "Coupling of Reactive Riverine Phosphorus and Iron Species During Hot Transport Moments: Impacts of Land Cover and Seasonality." Biogeochemistry 132 (1-2): 103–22.
+
+51. Rumsey, Christine A, Matthew P Miller, Gregory E Schwarz, Robert M Hirsch, and David D Susong. 2017. "The Role of Baseflow in Dissolved Solids Delivery to Streams in the Upper Colorado River Basin." Hydrological Processes 31 (26): 4705–18.
+
+52. Ryberg, Karen R. 2017. "Structural Equation Model of Total Phosphorus Loads in the Red River of the North Basin, USA and Canada." Journal of Environmental Quality 46 (5): 1072–80.
+
+53. Ryberg, Karen R, F Adnan Akyüz, and Wei Lin. 2006. "Changes in Total Phosphorus Concentration in the Red River of the North Basin, 1970-2012." In, 1. American Society of Agricultural; Biological Engineers.
+
+54. Ryberg, Karen R, Joel D Blomquist, Lori A Sprague, Andrew J Sekellick, and Jennifer Keisman. 2018. "Modeling Drivers of Phosphorus Loads in Chesapeake Bay Tributaries and Inferences About Long-Term Change." Science of the Total Environment 616: 1423–30.
+
+55. Sanford, Ward E, and Jason P Pope. 2013. "Quantifying Groundwater’s Role in Delaying Improvements to Chesapeake Bay Water Quality." Environmental Science & Technology 47 (23): 13330–8.
+
+56. Savoie, Jennifer G, John R Mullaney, and Gardner C Bent. 2017. Analysis of Trends of Water Quality and Streamflow in the Blackstone, Branch, Pawtuxet, and Pawcatuck Rivers, Massachusetts and Rhode Island, 1979 to 2015. US Geological Survey.
+
+57. Scavia, Donald, Serghei A Bocaniov, Awoke Dagnew, Colleen Long, and Yu-Chen Wang. 2019. "St. Clair-Detroit River System: Phosphorus Mass Balance and Implications for Lake Erie Load Reduction, Monitoring, and Climate Change." Journal of Great Lakes Research 45 (1): 40–49.
+
+58. Schilling, KE, CS Jones, CF Wolter, X Liang, Y-K Zhang, A Seeman, T Isenhart, D Schnoebelen, and M Skopec. 2017. "Variability of Nitrate-Nitrogen Load Estimation Results Will Make Quantifying Load Reduction Strategies Difficult in Iowa." Journal of Soil and Water Conservation 72 (4): 317–25.
+
+59. Schramm, Michael, Tyson Broad, and Tom Arsuffi. 2018. "Escherichia Coli and Dissolved Oxygen Trends in the Upper Llano River Watershed, Texas (2001-2016)."
+
+60. Shoda, Megan E, Lori A Sprague, Jennifer C Murphy, and Melissa L Riskin. 2019. "Water-Quality Trends in US Rivers, 2002 to 2012: Relations to Levels of Concern." Science of the Total Environment 650: 2314–24.
+
+61. Sinha, Eva, and Anna M. Michalak. 2016. "Precipitation dominates interannual variability of riverine nitrogen loading across the continental United States." Environmental science & technology 50, no. 23: 12874-12884.
+
+62. Smith, AJ, BT Duffy, A Onion, DL Heitzman, JL Lojpersberger, EA Mosher, and MA Novak. 2018. "Long‐term Trends in Biological Indicators and Water Quality in Rivers and Streams of N Ew Y Ork S Tate (1972–2012)." River Research and Applications 34 (5): 442–50.
+
+63. Sprague, Lori A., Robert M. Hirsch, and Brent T. Aulenbach. 2011. "Nitrate in the Mississippi River and Its Tributaries, 1980 to 2008: Are We Making Progress?" Environmental Science & Technology 45 (17): 7209–16. https://doi.org/10.1021/es201221s.
+
+64. Sprague, Lori A., Richard M. Mitchell, Amina I. Pollard, and James A. Falcone. 2019. "Assessing water-quality changes in US rivers at multiple geographic scales using results from probabilistic and targeted monitoring." Environmental monitoring and assessment 191, no. 6: 348.
+
+65. Stackpoole, Sarah M, Edward G Stets, David W Clow, Douglas A Burns, George R Aiken, Brent T Aulenbach, Irena F Creed, Robert M Hirsch, Hjalmar Laudon, and Brian A Pellerin. 2017. "Spatial and Temporal Patterns of Dissolved Organic Matter Quantity and Quality in the Mississippi River Basin, 1997–2013." Hydrological Processes 31 (4): 902–15.
+
+66. Stackpoole, Sarah M., Edward G. Stets, and Lori A. Sprague. 2019. "Variable impacts of contemporary versus legacy agricultural phosphorus on US river water quality." Proceedings of the National Academy of Sciences 116, no. 41: 20562-20567.
+
+67. Stelzer, Robert S., Thomas B. Parr, and Mamadou Coulibaly. 2020. "A ten year record of nitrate retention and solute trends in a Wisconsin sand plains stream: temporal variation at multiple scales." Biogeochemistry 147, no. 2: 125-147.
+
+68. Stets, Edward G., Lori A. Sprague, Gretchen P. Oelsner, Hank M. Johnson, Jennifer C. Murphy, Karen Ryberg, Aldo V. Vecchia, Robert E. Zuellig, James A. Falcone, and Melissa L. Riskin. "Landscape Drivers of Dynamic Change in Water Quality of US Rivers." 2020. Environmental Science & Technology.
+
+69. Stets, Edward G, Casey J Lee, Darren A Lytle, and Michael R Schock. 2018. "Increasing Chloride in Rivers of the Conterminous US and Linkages to Potential Corrosivity and Lead Action Level Exceedances in Drinking Water." Science of the Total Environment 613: 1498–1509.
+
+70. Testa, Jeremy M, Rebecca R Murphy, Damian C Brady, and William M Kemp. 2018. "Nutrient-and Climate-Induced Shifts in the Phenology of Linked Biogeochemical Cycles in a Temperate Estuary." Frontiers in Marine Science 5: 114.
+
+71. Testa, Jeremy M., Vyacheslav Lyubchich, and Qian Zhang. 2019. "Patterns and Trends in Secchi Disk Depth over Three Decades in the Chesapeake Bay Estuarine Complex." Estuaries and Coasts 42, no. 4: 927-943.
+
+72. Van Meter, KJ, NB Basu, and Philippe Van Cappellen. 2017. "Two Centuries of Nitrogen Dynamics: Legacy Sources and Sinks in the Mississippi and Susquehanna River Basins." Global Biogeochemical Cycles 31 (1): 2–23.
+
+73. Van Meter, Kim J., and N. B. Basu. 2017. "Time lags in watershed-scale nutrient transport: an exploration of dominant controls." Environmental Research Letters 12, no. 8: 084017.
+
+74. Van Meter, Kim J., Shadman Chowdhury, Danyka K. Byrnes, and Nandita B. Basu. 2019. "Biogeochemical asynchrony: Ecosystem drivers of seasonal concentration regimes across the Great Lakes Basin." Limnology and Oceanography.
+
+75. Verma, Siddhartha, Alena Bartosova, Momcilo Markus, Richard Cooke, Myoung-Jin Um, and Daeryong Park. 2018. "Quantifying the Role of Large Floods in Riverine Nutrient Loadings Using Linear Regression and Analysis of Covariance." Sustainability 10 (8): 2876.
+
+76. Vidon, Philippe, Diana L Karwan, A Scott Andres, Shreeram Inamdar, Sujay Kaushal, Jonathan Morrison, John Mullaney, Donald S Ross, Andrew W Schroth, and James B Shanley. 2018. "In the Path of the Hurricane: Impact of Hurricane Irene and Tropical Storm Lee on Watershed Hydrology and Biogeochemistry from North Carolina to Maine, USA." Biogeochemistry 141 (3): 351–64.
+
+77. Vrzel, Janja, and Nives Ogrinc. 2015. "Nutrient Variations in the Sava River Basin." Journal of Soils and Sediments 15 (12): 2380–6.
+
+78. Wilkison, Donald H, and Daniel J Armstrong. 2016. "Water‐Quality Assessment of the Lower Grand River Basin, Missouri and Iowa, USA, in Support of Integrated Conservation Practices." River Research and Applications 32 (4): 583–96.
+
+79. Zhang, Q., D.C. Brady, and W.P. Ball. 2013. "Long-Term Seasonal Trends of Nitrogen, Phosphorus, and Suspended Sediment Load from the Non-Tidal Susquehanna River Basin to Chesapeake Bay." Science of the Total Environment 452–453 (0): 208–21. https://doi.org/10.1016/j.scitotenv.2013.02.012.
+
+80. Zhang, Qian, William P Ball, and Douglas L Moyer. 2016. "Decadal-Scale Export of Nitrogen, Phosphorus, and Sediment from the Susquehanna River Basin, USA: Analysis and Synthesis of Temporal and Spatial Patterns." Science of the Total Environment 563: 1016–29.
+
+81. Zhang, Qian, and Joel D Blomquist. 2018. "Watershed Export of Fine Sediment, Organic Carbon, and Chlorophyll-a to Chesapeake Bay: Spatial and Temporal Patterns in 1984–2016." Science of the Total Environment 619: 1066–78.
+
+82. Zhang, Qian, Damian C Brady, Walter R Boynton, and William P Ball. 2015a. "Long‐Term Trends of Nutrients and Sediment from the Nontidal Chesapeake Watershed: An Assessment of Progress by River and Season." JAWRA Journal of the American Water Resources Association 51 (6): 1534–55.
+
+83. Zhang, Qian, Robert M Hirsch, and William P Ball. 2016. "Long-Term Changes in Sediment and Nutrient Delivery from Conowingo Dam to Chesapeake Bay: Effects of Reservoir Sedimentation." Environmental Science & Technology 50 (4): 1877–86.
+
+## References on Extending the WRTDS Method
+
+1. Appling, Alison P, Miguel C Leon, and William H McDowell. 2015. "Reducing Bias and Quantifying Uncertainty in Watershed Flux Estimates: The R Package Loadflex." Ecosphere 6 (12): 1–25.
+
+2. Ator, Scott W., Ana Maria García, Gregory E. Schwarz, Joel D. Blomquist, and Andrew J. Sekellick. 2019. "Toward explaining nitrogen and phosphorus trends in Chesapeake Bay tributaries, 1992–2012." JAWRA Journal of the American Water Resources Association 55, no. 5: 1149-1168.
+
+3. Beck, Marcus W, and James D Hagy. 2015. "Adaptation of a Weighted Regression Approach to Evaluate Water Quality Trends in an Estuary." Environmental Modeling & Assessment 20 (6): 637–55.
+
+4. Beck, Marcus W, James D Hagy, and Michael C Murrell. 2015. "Improving Estimates of Ecosystem Metabolism by Reducing Effects of Tidal Advection on Dissolved Oxygen Time Series." Limnology and Oceanography: Methods 13 (12): 731–45.
+
+5. Beck, Marcus W, and Rebecca R Murphy. 2017. "Numerical and Qualitative Contrasts of Two Statistical Models for Water Quality Change in Tidal Waters." JAWRA Journal of the American Water Resources Association 53 (1): 197–219.
+
+6. Chanat, Jeffrey G, Douglas L Moyer, Joel D Blomquist, Kenneth E Hyer, and Michael J Langland. 2016. "Application of a Weighted Regression Model for Reporting Nutrient and Sediment Concentrations, Fluxes, and Trends in Concentration and Flux for the Chesapeake Bay Nontidal Water-Quality Monitoring Network, Results Through Water Year 2012." 2328-0328. US Geological Survey.
+
+7. Chanat, Jeffrey G, and Guoxiang Yang. 2018. "Exploring Drivers of Regional Water‐Quality Change Using Differential Spatially Referenced Regression—A Pilot Study in the Chesapeake Bay Watershed." Water Resources Research 54 (10): 8120–45.
+
+8. Fanelli, Rosemary M, Joel D Blomquist, and Robert M Hirsch. 2019. "Point Sources and Agricultural Practices Control Spatial-Temporal Patterns of Orthophosphate in Tributaries to Chesapeake Bay." Science of the Total Environment 652: 422–33.
+
+9. Hirsch, Robert M. 2014. "Large Biases in Regression‐based Constituent Flux Estimates: Causes and Diagnostic Tools." JAWRA Journal of the American Water Resources Association 50 (6): 1401–24.
+
+10. Kandel, Rajesh. 2018. "Comparative Analysis of Nitrate Load Estimation Techniques in Watersheds with Different Land-Use Characteristics."
+
+11. Kandel, Rajesh, and Rabin Bhattarai. 2018. "Comparison of Various Estimation Techniques to Predict Nitrate Load in Maumee River." In, 1. American Society of Agricultural; Biological Engineers.
+
+12. Kumar, Saurav, Adil Godrej, Harold Post, and Karl Berger. "The Value of Intensive Sampling—A Comparison of Fluvial Loads." 2019. Water Resources Management 33, no. 12: 4303-4318.
+
+13. Lee, Casey J, Robert M Hirsch, Gregory E Schwarz, David J Holtschlag, Stephen D Preston, Charles G Crawford, and Aldo V Vecchia. 2016. "An Evaluation of Methods for Estimating Decadal Stream Loads." Journal of Hydrology 542: 185–203.
+
+14. Libera, Dominic A, A Sankarasubramanian, Ashish Sharma, and Brian J Reich. 2018. "A Non-Parametric Bootstrapping Framework Embedded in a Toolkit for Assessing Water Quality Model Performance." Environmental Modelling & Software 107: 25–33.
+
+15. Maestre, Alexander, Derek Williamson, Eman El-Sheikh, and Amelia Ward. 2014. "A Machine Learning Tool for Weighted Regressions in Time, Discharge, and Season." Inter J Adv Comp Sci App 5 (3): 99–106.
+
+16. Markus, Momcilo, Misganaw Demissie, Matthew B Short, Siddhartha Verma, and Richard A Cooke. 2013. "Sensitivity Analysis of Annual Nitrate Loads and the Corresponding Trends in the Lower Illinois River." Journal of Hydrologic Engineering 19 (3): 533–43.
+
+17. Murphy, Jennifer C, Robert M Hirsch, and Lori A Sprague. 2014. "Antecedent Flow Conditions and Nitrate Concentrations in the Mississippi River Basin." Hydrology and Earth System Sciences 18 (3): 967–79.
+
+18. Murphy, Jennifer, and Lori Sprague. 2019. "Water-Quality Trends in US Rivers: Exploring Effects from Streamflow Trends and Changes in Watershed Management." Science of the Total Environment 656: 645–58.
+
+19. Parr, Thomas B., Shreeram P. Inamdar, and Matthew J. Miller. 2019. "Overlapping Anthropogenic Effects on Hydrologic and Seasonal Trends in DOC in a Surface Water Dependent Water Utility." Water Research 148: 407–15.
+
+20. Reisinger, Alexander J, Ellen Woytowitz, Emily Majcher, Emma J Rosi, Kenneth T Belt, Jonathan M Duncan, Sujay S Kaushal, and Peter M Groffman. 2019. "Changes in Long‐term Water Quality of Baltimore Streams Are Associated with Both Gray and Green Infrastructure." Limnology and Oceanography 64 (S1): S60–S76.
+
+21. Scavia, Donald, Serghei A. Bocaniov, Awoke Dagnew, Colleen Long, and Yu-Chen Wang. 2019. "St. Clair-Detroit River system: Phosphorus mass balance and implications for Lake Erie load reduction, monitoring, and climate change." Journal of Great Lakes Research 45, no. 1: 40-49.
+
+22. Strickling, HL, and DR Obenour. 2018. "Leveraging Spatial and Temporal Variability to Probabilistically Characterize Nutrient Sources and Export Rates in a Developing Watershed." Water Resources Research 54 (7): 5143–62.
+
+23. Warrick, Jonathan A. 2015. "Trend Analyses with River Sediment Rating Curves." Hydrological Processes 29 (6): 936–49.
+
+24. Zhang, Qian. 2018. "Synthesis of Nutrient and Sediment Export Patterns in the Chesapeake Bay Watershed: Complex and Non-Stationary Concentration-Discharge Relationships." Science of the Total Environment 618: 1268–83.
+
+25. Zhang, Qian, and William P Ball. 2017. "Improving Riverine Constituent Concentration and Flux Estimation by Accounting for Antecedent Discharge Conditions." Journal of Hydrology 547: 387–402.
+
+26. Zhang, Qian, Damian C Brady, Walter R Boynton, and William P Ball. 2015. "Long‐Term Trends of Nutrients and Sediment from the Nontidal Chesapeake Watershed: An Assessment of Progress by River and Season." JAWRA Journal of the American Water Resources Association 51 (6): 1534–55.
+
+27. Zhang, Qian, Ciaran J Harman, and William P Ball. 2016. "An Improved Method for Interpretation of Riverine Concentration‐discharge Relationships Indicates Long‐term Shifts in Reservoir Sediment Trapping." Geophysical Research Letters 43 (19): 10–215.
+
+28. Zhang, Qian, Ciaran J Harman, and James W Kirchner. 2018. "Evaluation of Statistical Methods for Quantifying Fractal Scaling in Water-Quality Time Series with Irregular Sampling." Hydrology and Earth System Sciences 22 (2): 1175–92.
+
+## Methods
+
+1. Choquette, Anne F, Robert M Hirsch, Jennifer C Murphy, LT Johnson, and RB Confesor Jr. 2019. "Tracking Changes in Nutrient Delivery to Western Lake Erie: Approaches to Compensate for Variability and Trends in Streamflow." Journal of Great Lakes Research 45 (1): 21–39.
+
+2. Hirsch, Robert M, Stacey A Archfield, and Laura A De Cicco. 2015. "A Bootstrap Method for Estimating Uncertainty of Water Quality Trends." Environmental Modelling & Software 73: 148–66.
+
+3. Hirsch, Robert M, and Laura A De Cicco. 2015. "User Guide to Exploration and Graphics for RivEr Trends (EGRET) and dataRetrieval: R Packages for Hydrologic Data." US Geological Survey, Techniques and Methods, No. 4-A10, 93 p.
+
+4. Hirsch, Robert M., Douglas L. Moyer, and Stacey A. Archfield. 2010. "Weighted Regressions on Time, Discharge, and Season (WRTDS), with an Application to Chesapeake Bay River Inputs1." JAWRA Journal of the American Water Resources Association 46 (5): 857–80. 
+
+5. Lee, Casey J., Robert M. Hirsch, and Charles G. Crawford. 2019. An evaluation of methods for computing annual water-quality loads. No. 2019-5084. US Geological Survey.
+
+6. Sprague, Lori A., Robert M. Hirsch, and Brent T. Aulenbach. 2011. "Nitrate in the Mississippi River and Its Tributaries, 1980 to 2008: Are We Making Progress?" Environmental Science & Technology 45 (17): 7209–16. 
+
+7. Zhang, Qian, and Robert M. Hirsch. 2019.  "River water‐quality concentration and flux estimation can be improved by accounting for serial correlation through an autoregressive model." Water Resources Research 55, no. 11: 9705-9723.

@@ -25,13 +25,7 @@ navbar:
     - text: Trends by month
       href: articles/TrendsByMonth.html
   - text: Bibliograpy
-    menu:
-      - text: WRTDS
-        href: articles/References_WRTDS.html
-      - text: Extending Methods
-        href: articles/References_Extend.html
-      - text: Regional Studies
-        href: articles/References_Region.html
+    href: articles/References_WRTDS.html
   right:
   - icon: fa-github fa-lg
     href: https://github.com/USGS-R/EGRET

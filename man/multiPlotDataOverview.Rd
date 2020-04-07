@@ -4,8 +4,14 @@
 \alias{multiPlotDataOverview}
 \title{Produces a 4 panel plot that gives an overview of the data set prior to any processing}
 \usage{
-multiPlotDataOverview(eList, qUnit = 2, cex.main = 1.2,
-  randomCensored = FALSE, logScaleConc = TRUE, logScaleQ = TRUE)
+multiPlotDataOverview(
+  eList,
+  qUnit = 2,
+  cex.main = 1.2,
+  randomCensored = FALSE,
+  logScaleConc = TRUE,
+  logScaleQ = TRUE
+)
 }
 \arguments{
 \item{eList}{named list with at least Daily, Sample, and INFO dataframes}

@@ -11,8 +11,8 @@ Some details about the monthLabel class
 \describe{
    \item{monthAbbrev}{A character specifying the abbreviated month name.}
 
-\item{monthFull}{A character specifying the full month name}
+   \item{monthFull}{A character specifying the full month name}
 
-\item{monthSingle}{A character specifying the single letter of the month.}
+   \item{monthSingle}{A character specifying the single letter of the month.}
  }
 }

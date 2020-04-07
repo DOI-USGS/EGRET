@@ -27,7 +27,7 @@ column is values.
 \examples{
 filePath <- system.file("extdata", package="EGRET")
 fileName <- 'ChoptankRiverFlow.txt'
-ChopData <- readDataFromFile(filePath,fileName, separator="\\t")
+ChopData <- readDataFromFile(filePath,fileName, separator="\t")
 }
 \keyword{data}
 \keyword{file}

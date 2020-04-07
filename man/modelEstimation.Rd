@@ -4,9 +4,17 @@
 \alias{modelEstimation}
 \title{Estimation process for the WRTDS (Weighted Regressions on Time, Discharge, and Season)}
 \usage{
-modelEstimation(eList, windowY = 7, windowQ = 2, windowS = 0.5,
-  minNumObs = 100, minNumUncen = 50, edgeAdjust = TRUE,
-  verbose = TRUE, run.parallel = FALSE)
+modelEstimation(
+  eList,
+  windowY = 7,
+  windowQ = 2,
+  windowS = 0.5,
+  minNumObs = 100,
+  minNumUncen = 50,
+  edgeAdjust = TRUE,
+  verbose = TRUE,
+  run.parallel = FALSE
+)
 }
 \arguments{
 \item{eList}{named list with at least the INFO, Daily, and Sample dataframes}

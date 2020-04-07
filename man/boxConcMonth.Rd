@@ -4,10 +4,23 @@
 \alias{boxConcMonth}
 \title{Box plot of the water quality data by month}
 \usage{
-boxConcMonth(eList, printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
-  cex.main = 1.1, las = 1, logScale = FALSE, tcl = 0.5,
-  tinyPlot = FALSE, customPar = FALSE, showYLabels = TRUE,
-  showXLabels = TRUE, showXAxis = TRUE, showYAxis = TRUE, ...)
+boxConcMonth(
+  eList,
+  printTitle = TRUE,
+  cex = 0.8,
+  cex.axis = 1.1,
+  cex.main = 1.1,
+  las = 1,
+  logScale = FALSE,
+  tcl = 0.5,
+  tinyPlot = FALSE,
+  customPar = FALSE,
+  showYLabels = TRUE,
+  showXLabels = TRUE,
+  showXAxis = TRUE,
+  showYAxis = TRUE,
+  ...
+)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}

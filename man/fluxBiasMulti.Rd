@@ -4,9 +4,19 @@
 \alias{fluxBiasMulti}
 \title{Produces 8-panel plot that is useful for determining if there is a flux bias problem}
 \usage{
-fluxBiasMulti(eList, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS",
-  cex = 0.7, cex.axis = 1.1, cex.main = 1.1,
-  randomCensored = FALSE, col = "black", lwd = 1, ...)
+fluxBiasMulti(
+  eList,
+  qUnit = 2,
+  fluxUnit = 3,
+  moreTitle = "WRTDS",
+  cex = 0.7,
+  cex.axis = 1.1,
+  cex.main = 1.1,
+  randomCensored = FALSE,
+  col = "black",
+  lwd = 1,
+  ...
+)
 }
 \arguments{
 \item{eList}{named list with at least Sample, Daily, and INFO dataframes}
