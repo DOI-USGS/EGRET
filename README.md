@@ -1,9 +1,19 @@
-EGRET
-=====
+EGRET <img src="man/figures/egret-02.png" alt="EGRET" height="150px" align="right" />
+=====================================================================================
 
-[![travis](https://travis-ci.org/USGS-R/EGRET.svg?branch=master)](https://travis-ci.org/USGS-R/EGRET) [![Coverage Status](https://coveralls.io/repos/github/USGS-R/EGRET/badge.svg?branch=master)](https://coveralls.io/github/USGS-R/EGRET?branch=master) [![status](https://img.shields.io/badge/USGS-Research-blue.svg)](https://owi.usgs.gov/R/packages.html#research) [![CRAN version](http://www.r-pkg.org/badges/version/EGRET)](https://cran.r-project.org/package=EGRET) [![](http://cranlogs.r-pkg.org/badges/EGRET)](https://cran.r-project.org/package=EGRET) [![](http://cranlogs.r-pkg.org/badges/grand-total/EGRET)](https://cran.r-project.org/package=EGRET) 
+[![travis](https://travis-ci.org/USGS-R/EGRET.svg?branch=master)](https://travis-ci.org/USGS-R/EGRET)
+[![Coverage
+Status](https://coveralls.io/repos/github/USGS-R/EGRET/badge.svg?branch=master)](https://coveralls.io/github/USGS-R/EGRET?branch=master)
+[![status](https://img.shields.io/badge/USGS-Research-blue.svg)](https://owi.usgs.gov/R/packages.html#research)
+[![CRAN
+version](http://www.r-pkg.org/badges/version/EGRET)](https://cran.r-project.org/package=EGRET)
+[![](http://cranlogs.r-pkg.org/badges/EGRET)](https://cran.r-project.org/package=EGRET)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/EGRET)](https://cran.r-project.org/package=EGRET)
 
-Exploration and Graphics for RivEr Trends (`EGRET`): An R-package for the analysis of long-term changes in water quality and streamflow, including the water-quality method Weighted Regressions on Time, Discharge, and Season (WRTDS).
+Exploration and Graphics for RivEr Trends (`EGRET`): An R-package for
+the analysis of long-term changes in water quality and streamflow,
+including the water-quality method Weighted Regressions on Time,
+Discharge, and Season (WRTDS).
 
 The link for the official USGS publication user guide is here:
 
@@ -12,7 +22,8 @@ The link for the official USGS publication user guide is here:
 Package Installation
 --------------------
 
-To install the EGRET package, you must be using R 3.0 or greater and run the following command:
+To install the EGRET package, you must be using R 3.0 or greater and run
+the following command:
 
 ``` r
 install.packages("EGRET")
@@ -24,7 +35,8 @@ To get inter-CRAN release updates, use the command:
 install.packages("EGRET",repos="https://owi.usgs.gov/R")
 ```
 
-To get cutting-edge changes, install from GitHub using the `devtools` packages:
+To get cutting-edge changes, install from GitHub using the `devtools`
+packages:
 
 ``` r
 library(devtools)
@@ -34,21 +46,55 @@ install_github("USGS-R/EGRET")
 Background:
 -----------
 
-Evaluating long-term changes in river conditions (water quality and discharge) is an important use of hydrologic data. To carry out such evaluations, the hydrologist needs tools to facilitate several key steps in the process: acquiring the data records from a variety of sources, structuring it in ways that facilitate the analysis, routines that will process the data to extract information about changes that may be happening, and graphical techniques that can display findings about change. The R package `EGRET` (Exploration and Graphics for RivEr Trends) was developed for carrying out each of these steps in an integrated manner. It is designed to accept easily data from three sources: U.S. Geological Survey hydrologic data, Water Quality Portal Data (currently including U.S. Environmental Protection Agency (EPA) STORET data, and USDA STEWARDS data), and user-supplied flat files. The `EGRET` package has components oriented towards the description of long-term changes in streamflow statistics (high flow, average flow, and low flow) as well as changes in water quality. For the water-quality analysis, it uses Weighted Regressions on Time, Discharge and Season (WRTDS) to describe long-term trends in both concentration and flux. `EGRET` also creates a wide range of graphical presentations of the water-quality data and of the WRTDS results. The following report serves as a user guide, providing detailed guidance on installation and use of the software, documentation of the analysis methods used, as well as guidance on some of the kinds of questions and approaches that the software can facilitate.
+Evaluating long-term changes in river conditions (water quality and
+discharge) is an important use of hydrologic data. To carry out such
+evaluations, the hydrologist needs tools to facilitate several key steps
+in the process: acquiring the data records from a variety of sources,
+structuring it in ways that facilitate the analysis, routines that will
+process the data to extract information about changes that may be
+happening, and graphical techniques that can display findings about
+change. The R package `EGRET` (Exploration and Graphics for RivEr
+Trends) was developed for carrying out each of these steps in an
+integrated manner. It is designed to accept easily data from three
+sources: U.S. Geological Survey hydrologic data, Water Quality Portal
+Data (currently including U.S. Environmental Protection Agency (EPA)
+STORET data, and USDA STEWARDS data), and user-supplied flat files. The
+`EGRET` package has components oriented towards the description of
+long-term changes in streamflow statistics (high flow, average flow, and
+low flow) as well as changes in water quality. For the water-quality
+analysis, it uses Weighted Regressions on Time, Discharge and Season
+(WRTDS) to describe long-term trends in both concentration and flux.
+`EGRET` also creates a wide range of graphical presentations of the
+water-quality data and of the WRTDS results. The following report serves
+as a user guide, providing detailed guidance on installation and use of
+the software, documentation of the analysis methods used, as well as
+guidance on some of the kinds of questions and approaches that the
+software can facilitate.
 
-`EGRET` includes statistics and graphics for streamflow history, water quality trends, and the statistical modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS). Please see the official EGRET User Guide for more information on the `EGRET` package:
+`EGRET` includes statistics and graphics for streamflow history, water
+quality trends, and the statistical modeling algorithm Weighted
+Regressions on Time, Discharge, and Season (WRTDS). Please see the
+official EGRET User Guide for more information on the `EGRET` package:
 
-<https://doi.org/10.3133/tm4A10> The best ways to learn about the WRTDS approach is to read the User Guide and two journal articles. These articles are available, for free, from the journals in which they were published. The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay. The URL is:
+<https://doi.org/10.3133/tm4A10> The best ways to learn about the WRTDS
+approach is to read the User Guide and two journal articles. These
+articles are available, for free, from the journals in which they were
+published. The first relates to nitrate and total phosphorus data for 9
+rivers draining to Chesapeake Bay. The URL is:
 
 <https://onlinelibrary.wiley.com/doi/full/10.1111/j.1752-1688.2010.00482.x>.
 
-The second is an application to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries. The URL is:
+The second is an application to nitrate data for 8 monitoring sites on
+the Mississippi River or its major tributaries. The URL is:
 
 <http://pubs.acs.org/doi/abs/10.1021/es201221s>
 
-For a thorough discussion of the generalized flow normalization method implemented in the EGRET enhancements, see the paper: "Tracking changes in nutrient delivery to western Lake Erie: Approaches to compensate for variability and trends in streamflow":
+For a thorough discussion of the generalized flow normalization method
+implemented in the EGRET enhancements, see the paper: “Tracking changes
+in nutrient delivery to western Lake Erie: Approaches to compensate for
+variability and trends in streamflow”:
 
-(<https://www.sciencedirect.com/science/article/pii/S0380133018302235>).
+(<a href="https://www.sciencedirect.com/science/article/pii/S0380133018302235" class="uri">https://www.sciencedirect.com/science/article/pii/S0380133018302235</a>).
 
 Sample Workflow
 ---------------
@@ -221,7 +267,7 @@ date3 <- "2010-09-01"
 qBottom<-0.2
 qTop<-10
 plotConcQSmooth(eList, date1, date2, date3, qBottom, qTop, 
-                   concMax=2,legendTop = 0.8)
+                   concMax=2,legendTop = 0.85)
 ```
 
 ![](man/figures/multiPlots-1.png)
@@ -233,7 +279,7 @@ q3 <- 20
 centerDate <- "07-01"
 yearEnd <- 1980
 yearStart <- 2010
-plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd, legendTop = 0.5, legendLeft = 1995)
+plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd, legendTop = 0.55, legendLeft = 1990)
 ```
 
 ![](man/figures/multiPlots-2.png)
@@ -278,7 +324,7 @@ siteID <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "" # Get earliest date
 endDate <- "" # Get latest date
 Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
-#> There are 26011 data points, and 26011 days.
+#> There are 26412 data points, and 26412 days.
 # Gather site and parameter information:
 # Here user must input some values for
 # the default (interactive=TRUE)
@@ -351,13 +397,19 @@ plotFourStats(eList, qUnit=3)
 Model Archive
 -------------
 
-When using the `WRTDS` model, it is important to be able to reproduce the results in the future. The following version of R and package dependencies were used most recently to pass the embedded tests within this package. There is no guarantee of reproducible results using future versions of R or updated versions of package dependencies; however, we will make diligent efforts to test and update future modeling environments.
+When using the `WRTDS` model, it is important to be able to reproduce
+the results in the future. The following version of R and package
+dependencies were used most recently to pass the embedded tests within
+this package. There is no guarantee of reproducible results using future
+versions of R or updated versions of package dependencies; however, we
+will make diligent efforts to test and update future modeling
+environments.
 
 ``` r
 devtools::session_info()
-#> - Session info ----------------------------------------------------------
+#> - Session info ---------------------------------------------------------------
 #>  setting  value                       
-#>  version  R version 3.5.3 (2019-03-11)
+#>  version  R version 4.0.0 (2020-04-24)
 #>  os       Windows 10 x64              
 #>  system   x86_64, mingw32             
 #>  ui       RTerm                       
@@ -365,101 +417,131 @@ devtools::session_info()
 #>  collate  English_United States.1252  
 #>  ctype    English_United States.1252  
 #>  tz       America/Chicago             
-#>  date     2019-03-20                  
+#>  date     2020-04-24                  
 #> 
-#> - Packages --------------------------------------------------------------
-#>  package       * version date       lib source        
-#>  assertthat      0.2.0   2017-04-11 [1] CRAN (R 3.5.2)
-#>  backports       1.1.3   2018-12-14 [1] CRAN (R 3.5.1)
-#>  callr           3.2.0   2019-03-15 [1] CRAN (R 3.5.3)
-#>  cli             1.1.0   2019-03-19 [1] CRAN (R 3.5.2)
-#>  crayon          1.3.4   2017-09-16 [1] CRAN (R 3.5.2)
-#>  curl            3.3     2019-01-10 [1] CRAN (R 3.5.2)
-#>  dataRetrieval   2.7.4   2019-02-27 [1] local         
-#>  desc            1.2.0   2018-05-01 [1] CRAN (R 3.5.1)
-#>  devtools        2.0.1   2018-10-26 [1] CRAN (R 3.5.1)
-#>  digest          0.6.18  2018-10-10 [1] CRAN (R 3.5.2)
-#>  dotCall64       1.0-0   2018-07-30 [1] CRAN (R 3.5.2)
-#>  dplyr           0.8.0.1 2019-02-15 [1] CRAN (R 3.5.2)
-#>  EGRET         * 3.0.3   2019-03-19 [1] local         
-#>  evaluate        0.13    2019-02-12 [1] CRAN (R 3.5.2)
-#>  fields          9.6     2018-01-29 [1] CRAN (R 3.5.2)
-#>  fs              1.2.6   2018-08-23 [1] CRAN (R 3.5.3)
-#>  glue            1.3.1   2019-03-12 [1] CRAN (R 3.5.3)
-#>  hms             0.4.2   2018-03-10 [1] CRAN (R 3.5.2)
-#>  htmltools       0.3.6   2017-04-28 [1] CRAN (R 3.5.2)
-#>  httr            1.4.0   2018-12-11 [1] CRAN (R 3.5.2)
-#>  knitr           1.22    2019-03-08 [1] CRAN (R 3.5.2)
-#>  lattice         0.20-38 2018-11-04 [2] CRAN (R 3.5.3)
-#>  magrittr        1.5     2014-11-22 [1] CRAN (R 3.5.2)
-#>  maps            3.3.0   2018-04-03 [1] CRAN (R 3.5.2)
-#>  Matrix          1.2-15  2018-11-01 [2] CRAN (R 3.5.3)
-#>  memoise         1.1.0   2017-04-21 [1] CRAN (R 3.5.1)
-#>  pillar          1.3.1   2018-12-15 [1] CRAN (R 3.5.2)
-#>  pkgbuild        1.0.2   2018-10-16 [1] CRAN (R 3.5.1)
-#>  pkgconfig       2.0.2   2018-08-16 [1] CRAN (R 3.5.2)
-#>  pkgload         1.0.2   2018-10-29 [1] CRAN (R 3.5.2)
-#>  prettyunits     1.0.2   2015-07-13 [1] CRAN (R 3.5.1)
-#>  processx        3.3.0   2019-03-10 [1] CRAN (R 3.5.3)
-#>  ps              1.3.0   2018-12-21 [1] CRAN (R 3.5.1)
-#>  purrr           0.3.2   2019-03-15 [1] CRAN (R 3.5.3)
-#>  R6              2.4.0   2019-02-14 [1] CRAN (R 3.5.2)
-#>  Rcpp            1.0.1   2019-03-17 [1] CRAN (R 3.5.3)
-#>  readr           1.3.1   2018-12-21 [1] CRAN (R 3.5.2)
-#>  remotes         2.0.2   2018-10-30 [1] CRAN (R 3.5.1)
-#>  rlang           0.3.1   2019-01-08 [1] CRAN (R 3.5.2)
-#>  rmarkdown       1.12    2019-03-14 [1] CRAN (R 3.5.2)
-#>  rprojroot       1.3-2   2018-01-03 [1] CRAN (R 3.5.1)
-#>  sessioninfo     1.1.1   2018-11-05 [1] CRAN (R 3.5.1)
-#>  spam            2.2-2   2019-03-08 [1] CRAN (R 3.5.3)
-#>  stringi         1.4.3   2019-03-12 [1] CRAN (R 3.5.3)
-#>  stringr         1.4.0   2019-02-10 [1] CRAN (R 3.5.2)
-#>  survival        2.43-3  2018-11-26 [1] CRAN (R 3.5.2)
-#>  testthat        2.0.1   2018-10-13 [1] CRAN (R 3.5.2)
-#>  tibble          2.1.1   2019-03-16 [1] CRAN (R 3.5.3)
-#>  tidyselect      0.2.5   2018-10-11 [1] CRAN (R 3.5.2)
-#>  usethis         1.4.0   2018-08-14 [1] CRAN (R 3.5.1)
-#>  withr           2.1.2   2018-03-15 [1] CRAN (R 3.5.2)
-#>  xfun            0.5     2019-02-20 [1] CRAN (R 3.5.2)
-#>  xml2            1.2.0   2018-01-24 [1] CRAN (R 3.5.2)
-#>  yaml            2.2.0   2018-07-25 [1] CRAN (R 3.5.2)
+#> - Packages -------------------------------------------------------------------
+#>  package       * version    date       lib source        
+#>  assertthat      0.2.1      2019-03-21 [1] CRAN (R 4.0.0)
+#>  backports       1.1.6      2020-04-05 [1] CRAN (R 4.0.0)
+#>  callr           3.4.3      2020-03-28 [1] CRAN (R 4.0.0)
+#>  cli             2.0.2      2020-02-28 [1] CRAN (R 4.0.0)
+#>  crayon          1.3.4      2017-09-16 [1] CRAN (R 4.0.0)
+#>  curl            4.3        2019-12-02 [1] CRAN (R 4.0.0)
+#>  dataRetrieval   2.7.6      2020-03-11 [1] CRAN (R 4.0.0)
+#>  desc            1.2.0      2018-05-01 [1] CRAN (R 4.0.0)
+#>  devtools        2.3.0      2020-04-10 [1] CRAN (R 4.0.0)
+#>  digest          0.6.25     2020-02-23 [1] CRAN (R 4.0.0)
+#>  dotCall64       1.0-0      2018-07-30 [1] CRAN (R 4.0.0)
+#>  EGRET         * 3.0.3.9000 2020-04-24 [1] local         
+#>  ellipsis        0.3.0      2019-09-20 [1] CRAN (R 4.0.0)
+#>  evaluate        0.14       2019-05-28 [1] CRAN (R 4.0.0)
+#>  fansi           0.4.1      2020-01-08 [1] CRAN (R 4.0.0)
+#>  fields          10.3       2020-02-04 [1] CRAN (R 4.0.0)
+#>  fs              1.4.1      2020-04-04 [1] CRAN (R 4.0.0)
+#>  glue            1.4.0      2020-04-03 [1] CRAN (R 4.0.0)
+#>  hms             0.5.3      2020-01-08 [1] CRAN (R 4.0.0)
+#>  htmltools       0.4.0      2019-10-04 [1] CRAN (R 4.0.0)
+#>  httr            1.4.1      2019-08-05 [1] CRAN (R 4.0.0)
+#>  knitr           1.28       2020-02-06 [1] CRAN (R 4.0.0)
+#>  lattice         0.20-41    2020-04-02 [2] CRAN (R 4.0.0)
+#>  lifecycle       0.2.0      2020-03-06 [1] CRAN (R 4.0.0)
+#>  magrittr        1.5        2014-11-22 [1] CRAN (R 4.0.0)
+#>  maps            3.3.0      2018-04-03 [1] CRAN (R 4.0.0)
+#>  Matrix          1.2-18     2019-11-27 [2] CRAN (R 4.0.0)
+#>  memoise         1.1.0      2017-04-21 [1] CRAN (R 4.0.0)
+#>  pillar          1.4.3      2019-12-20 [1] CRAN (R 4.0.0)
+#>  pkgbuild        1.0.6      2019-10-09 [1] CRAN (R 4.0.0)
+#>  pkgconfig       2.0.3      2019-09-22 [1] CRAN (R 4.0.0)
+#>  pkgload         1.0.2      2018-10-29 [1] CRAN (R 4.0.0)
+#>  prettyunits     1.1.1      2020-01-24 [1] CRAN (R 4.0.0)
+#>  processx        3.4.2      2020-02-09 [1] CRAN (R 4.0.0)
+#>  ps              1.3.2      2020-02-13 [1] CRAN (R 4.0.0)
+#>  R6              2.4.1      2019-11-12 [1] CRAN (R 4.0.0)
+#>  Rcpp            1.0.4.6    2020-04-09 [1] CRAN (R 4.0.0)
+#>  readr           1.3.1      2018-12-21 [1] CRAN (R 4.0.0)
+#>  remotes         2.1.1      2020-02-15 [1] CRAN (R 4.0.0)
+#>  rlang           0.4.5      2020-03-01 [1] CRAN (R 4.0.0)
+#>  rmarkdown       2.1        2020-01-20 [1] CRAN (R 4.0.0)
+#>  rprojroot       1.3-2      2018-01-03 [1] CRAN (R 4.0.0)
+#>  sessioninfo     1.1.1      2018-11-05 [1] CRAN (R 4.0.0)
+#>  spam            2.5-1      2019-12-12 [1] CRAN (R 4.0.0)
+#>  stringi         1.4.6      2020-02-17 [1] CRAN (R 4.0.0)
+#>  stringr         1.4.0      2019-02-10 [1] CRAN (R 4.0.0)
+#>  survival        3.1-12     2020-04-10 [2] CRAN (R 4.0.0)
+#>  testthat        2.3.2      2020-03-02 [1] CRAN (R 4.0.0)
+#>  tibble          3.0.0      2020-03-30 [1] CRAN (R 4.0.0)
+#>  usethis         1.6.0      2020-04-09 [1] CRAN (R 4.0.0)
+#>  vctrs           0.2.4      2020-03-10 [1] CRAN (R 4.0.0)
+#>  withr           2.2.0      2020-04-20 [1] CRAN (R 4.0.0)
+#>  xfun            0.13       2020-04-13 [1] CRAN (R 4.0.0)
+#>  xml2            1.3.1      2020-04-09 [1] CRAN (R 4.0.0)
+#>  yaml            2.2.1      2020-02-01 [1] CRAN (R 4.0.0)
 #> 
-#> [1] C:/Users/ldecicco/Documents/R/win-library/3.5
-#> [2] C:/Program Files/R/R-3.5.3/library
+#> [1] C:/Users/ldecicco/Documents/R/win-library/4.0
+#> [2] C:/Program Files/R/R-4.0.0/library
 ```
 
 Reporting bugs
 --------------
 
-Please consider reporting bugs and asking questions on the Issues page: <https://github.com/USGS-R/EGRET/issues>
+Please consider reporting bugs and asking questions on the Issues page:
+<https://github.com/USGS-R/EGRET/issues>
 
 Follow `@USGS_R` on Twitter for updates on USGS R packages:
 
-[![Twitter Follow](https://img.shields.io/twitter/follow/USGS_R.svg?style=social&label=Follow%20USGS_R)](https://twitter.com/USGS_R)
+[![Twitter
+Follow](https://img.shields.io/twitter/follow/USGS_R.svg?style=social&label=Follow%20USGS_R)](https://twitter.com/USGS_R)
+
+Download Presentations
+----------------------
+
+Recent presentations:
+
+-   [NWQMC
+    1a](https://github.com/USGS-R/EGRET/raw/master/docs/presentations/Hirsch%20Workshop1B(input).pptx)
+-   [NWQMC
+    1b](https://github.com/USGS-R/EGRET/raw/master/docs/presentations/Hirsch%20Workshop1B(input).pptx)
+-   [NWQMC
+    2a](https://github.com/USGS-R/EGRET/raw/master/docs/presentations/Hirsch%20Workshop2A(ci).pptx)
+-   [NWQMC
+    2a](https://github.com/USGS-R/EGRET/raw/master/docs/presentations/Hirsch%20Workshop2B(GFN).pptx)
 
 Subscribe
 ---------
 
-Please email questions, comments, and feedback to: <egret_comments@usgs.gov>
+Please email questions, comments, and feedback to:
+<a href="mailto:egret_comments@usgs.gov" class="email">egret_comments@usgs.gov</a>
 
-Additionally, to subscribe to an email list concerning updates to these R packages, please send a request to <egret_comments@usgs.gov>.
+Additionally, to subscribe to an email list concerning updates to these
+R packages, please send a request to
+<a href="mailto:egret_comments@usgs.gov" class="email">egret_comments@usgs.gov</a>.
 
 Code of Conduct
 ---------------
 
-We want to encourage a warm, welcoming, and safe environment for contributing to this project. See the [code of conduct](https://github.com/USGS-R/EGRET/blob/master/CONDUCT.md) for more information.
+We want to encourage a warm, welcoming, and safe environment for
+contributing to this project. See the [code of
+conduct](https://github.com/USGS-R/EGRET/blob/master/CONDUCT.md) for
+more information.
 
 Package Support
 ---------------
 
-The Water Mission Area of the USGS has supported the development and maintenance of the `EGRET` R-package. Further maintenance is expected to be stable through September 2019. Resources are available primarily for maintenance and responding to user questions. Priorities on the development of new features are determined by the `EGRET` development team.
+The Water Mission Area of the USGS has supported the development and
+maintenance of the `EGRET` R-package. Further maintenance is expected to
+be stable through September 2019. Resources are available primarily for
+maintenance and responding to user questions. Priorities on the
+development of new features are determined by the `EGRET` development
+team.
 
 [![USGS](http://usgs-r.github.io/images/usgs.png)](https://www.usgs.gov/)
 
 Sunset date
 -----------
 
-Funding for `EGRET` currently expires summer 2019. Expectations are that maintenance and customer service will continue to be supported past that date.
+Funding for `EGRET` currently expires summer 2019. Expectations are that
+maintenance and customer service will continue to be supported past that
+date.
 
 How to cite EGRET:
 ------------------
@@ -469,11 +551,10 @@ citation(package = "EGRET")
 #> 
 #> To cite EGRET in publications, please use:
 #> 
-#>   Hirsch, R.M., and De Cicco, L.A., 2015, User guide to
-#>   Exploration and Graphics for RivEr Trends (EGRET) and
-#>   dataRetrieval: R packages for hydrologic data (version 2.0,
-#>   February 2015): U.S. Geological Survey Techniques and Methods
-#>   book 4, chap. A10, 93 p., doi:10.3133/tm4A10
+#>   Hirsch, R.M., and De Cicco, L.A., 2015, User guide to Exploration and
+#>   Graphics for RivEr Trends (EGRET) and dataRetrieval: R packages for
+#>   hydrologic data (version 2.0, February 2015): U.S. Geological Survey
+#>   Techniques and Methods book 4, chap. A10, 93 p., doi:10.3133/tm4A10
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -493,4 +574,13 @@ citation(package = "EGRET")
 Disclaimer
 ----------
 
-This software has been approved for release by the U.S. Geological Survey (USGS). Although the software has been subjected to rigorous review, the USGS reserves the right to update the software as needed pursuant to further analysis and review. No warranty, expressed or implied, is made by the USGS or the U.S. Government as to the functionality of the software and related material nor shall the fact of release constitute any such warranty. Furthermore, the software is released on condition that neither the USGS nor the U.S. Government shall be held liable for any damages resulting from its authorized or unauthorized use.
+This software has been approved for release by the U.S. Geological
+Survey (USGS). Although the software has been subjected to rigorous
+review, the USGS reserves the right to update the software as needed
+pursuant to further analysis and review. No warranty, expressed or
+implied, is made by the USGS or the U.S. Government as to the
+functionality of the software and related material nor shall the fact of
+release constitute any such warranty. Furthermore, the software is
+released on condition that neither the USGS nor the U.S. Government
+shall be held liable for any damages resulting from its authorized or
+unauthorized use.

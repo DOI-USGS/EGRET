@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# EGRET 
+# EGRET <img src="man/figures/egret-02.png" alt="EGRET" height="150px" align="right" />
 
 [![travis](https://travis-ci.org/USGS-R/EGRET.svg?branch=master)](https://travis-ci.org/USGS-R/EGRET)
 [![Coverage Status](https://coveralls.io/repos/github/USGS-R/EGRET/badge.svg?branch=master)](https://coveralls.io/github/USGS-R/EGRET?branch=master)
