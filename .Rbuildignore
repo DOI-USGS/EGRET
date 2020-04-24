@@ -39,3 +39,4 @@ _pkgdown.yml
 pkgdown/favicon/*
 vignettes/css/*
 vignettes/img/*
+^pkgdown$
