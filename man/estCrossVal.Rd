@@ -56,7 +56,7 @@ numDays <- length(Daily$DecYear)
 DecLow <- Daily$DecYear[1]
 DecHigh <- Daily$DecYear[numDays]
 \donttest{
-SampleCrossV <- estCrossVal(numDays,DecLow,DecHigh,Sample)
+SampleCrossV <- estCrossVal(DecLow,DecHigh,Sample)
 }
 }
 \keyword{statistics}
