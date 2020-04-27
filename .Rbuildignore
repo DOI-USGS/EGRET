@@ -40,3 +40,5 @@ pkgdown/favicon/*
 vignettes/css/*
 vignettes/img/*
 ^pkgdown$
+^codecov\.yml$
+^\.github$

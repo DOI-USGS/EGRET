@@ -43,7 +43,8 @@ Suggests:
     png,
     dplyr,
     zyp,
-    lubridate
+    lubridate,
+    covr
 LazyLoad: yes
 LazyData: yes
 BugReports: https://github.com/USGS-R/EGRET/issues
