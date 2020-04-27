@@ -243,7 +243,18 @@ error analysis that uses all the data.</p>
 <span class='no'>DecLow</span> <span class='kw'>&lt;-</span> <span class='no'>Daily</span>$<span class='no'>DecYear</span>[<span class='fl'>1</span>]
 <span class='no'>DecHigh</span> <span class='kw'>&lt;-</span> <span class='no'>Daily</span>$<span class='no'>DecYear</span>[<span class='no'>numDays</span>]
 <span class='co'># \donttest{</span>
-<span class='no'>SampleCrossV</span> <span class='kw'>&lt;-</span> <span class='fu'>estCrossVal</span>(<span class='no'>numDays</span>,<span class='no'>DecLow</span>,<span class='no'>DecHigh</span>,<span class='no'>Sample</span>)</div><div class='output co'>#&gt; <span class='error'>Error in rep(0, numObs): invalid 'times' argument</span></div><div class='input'># }
+<span class='no'>SampleCrossV</span> <span class='kw'>&lt;-</span> <span class='fu'>estCrossVal</span>(<span class='no'>DecLow</span>,<span class='no'>DecHigh</span>,<span class='no'>Sample</span>)</div><div class='output co'>#&gt; 
+#&gt;  estCrossVal % complete:
+#&gt; 0 	1 	2 	3 	4 	5 	6 	7 	8 	9 	10 	
+#&gt; 11 	12 	13 	14 	15 	16 	17 	18 	19 	20 	
+#&gt; 21 	22 	23 	24 	25 	26 	27 	28 	29 	30 	
+#&gt; 31 	32 	33 	34 	35 	36 	37 	38 	39 	40 	
+#&gt; 41 	42 	43 	44 	45 	46 	47 	48 	49 	50 	
+#&gt; 51 	52 	53 	54 	55 	56 	57 	58 	59 	60 	
+#&gt; 61 	62 	63 	64 	65 	66 	67 	68 	69 	70 	
+#&gt; 71 	72 	73 	74 	75 	76 	77 	78 	79 	80 	
+#&gt; 81 	82 	83 	84 	85 	86 	87 	88 	89 	90 	
+#&gt; 91 	92 	93 	94 	95 	96 	97 	98 	99 	</div><div class='input'># }
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -260,7 +271,7 @@ error analysis that uses all the data.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>
