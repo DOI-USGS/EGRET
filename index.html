@@ -126,11 +126,9 @@
 <a href="#package-installation" class="anchor"></a>Package Installation</h2>
 <p>To install the EGRET package, you must be using R 3.0 or greater and run the following command:</p>
 <div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"EGRET"</span>)</pre></div>
-<p>To get inter-CRAN release updates, use the command:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"EGRET"</span>,<span class="kw">repos</span><span class="kw">=</span><span class="st">"https://owi.usgs.gov/R"</span>)</pre></div>
-<p>To get cutting-edge changes, install from GitHub using the <code>devtools</code> packages:</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">devtools</span>)
-<span class="fu">install_github</span>(<span class="st">"USGS-R/EGRET"</span>)</pre></div>
+<p>To get cutting-edge changes, install from GitHub using the <code>remotes</code> packages:</p>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">remotes</span>)
+<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"USGS-R/EGRET"</span>)</pre></div>
 </div>
 <div id="background" class="section level2">
 <h2 class="hasAnchor">
@@ -148,7 +146,7 @@
 <h2 class="hasAnchor">
 <a href="#sample-workflow" class="anchor"></a>Sample Workflow</h2>
 <p>WRTDS on the Choptank River at Greensboro MD, for Nitrate:</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">EGRET</span>)
+<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">EGRET</span>)
 
 <span class="co">############################</span>
 <span class="co"># Gather discharge data:</span>
@@ -173,21 +171,21 @@
 
 <span class="co"># Merge discharge with sample data:</span>
 <span class="no">eList</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/mergeReport.html">mergeReport</a></span>(<span class="no">INFO</span>, <span class="no">Daily</span>, <span class="no">Sample</span>)</pre></div>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">EGRET</span>)
+<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">EGRET</span>)
 <span class="co"># Sample data included in package:</span>
 <span class="no">eList</span> <span class="kw">&lt;-</span> <span class="no">Choptank_eList</span>
 
 <span class="fu"><a href="reference/boxConcMonth.html">boxConcMonth</a></span>(<span class="no">eList</span>)</pre></div>
-<p><img src="reference/figures/startPlots-1.png"></p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="reference/boxQTwice.html">boxQTwice</a></span>(<span class="no">eList</span>)</pre></div>
-<p><img src="reference/figures/startPlots-2.png"></p>
-<div class="sourceCode" id="cb7"><pre class="r"><span class="fu"><a href="reference/plotConcTime.html">plotConcTime</a></span>(<span class="no">eList</span>)</pre></div>
-<p><img src="reference/figures/startPlots-3.png"></p>
-<div class="sourceCode" id="cb8"><pre class="r"><span class="fu"><a href="reference/plotConcQ.html">plotConcQ</a></span>(<span class="no">eList</span>)</pre></div>
-<p><img src="reference/figures/startPlots-4.png"></p>
-<div class="sourceCode" id="cb9"><pre class="r"><span class="fu"><a href="reference/multiPlotDataOverview.html">multiPlotDataOverview</a></span>(<span class="no">eList</span>)</pre></div>
-<p><img src="reference/figures/multiPlot-1.png"></p>
-<div class="sourceCode" id="cb10"><pre class="r"><span class="co"># Run WRTDS model:</span>
+<p><img src="reference/figures/README-startPlots-1.png"></p>
+<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="reference/boxQTwice.html">boxQTwice</a></span>(<span class="no">eList</span>)</pre></div>
+<p><img src="reference/figures/README-startPlots-2.png"></p>
+<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="reference/plotConcTime.html">plotConcTime</a></span>(<span class="no">eList</span>)</pre></div>
+<p><img src="reference/figures/README-startPlots-3.png"></p>
+<div class="sourceCode" id="cb7"><pre class="r"><span class="fu"><a href="reference/plotConcQ.html">plotConcQ</a></span>(<span class="no">eList</span>)</pre></div>
+<p><img src="reference/figures/README-startPlots-4.png"></p>
+<div class="sourceCode" id="cb8"><pre class="r"><span class="fu"><a href="reference/multiPlotDataOverview.html">multiPlotDataOverview</a></span>(<span class="no">eList</span>)</pre></div>
+<p><img src="reference/figures/README-multiPlot-1.png"></p>
+<div class="sourceCode" id="cb9"><pre class="r"><span class="co"># Run WRTDS model:</span>
 <span class="no">eList</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/modelEstimation.html">modelEstimation</a></span>(<span class="no">eList</span>)
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  first step running estCrossVal may take about 1 minute</span>
@@ -218,28 +216,28 @@
 
 <span class="co">#eList:</span>
 <span class="fu"><a href="reference/plotConcTimeDaily.html">plotConcTimeDaily</a></span>(<span class="no">eList</span>)</pre></div>
-<p><img src="reference/figures/runModel-1.png"></p>
-<div class="sourceCode" id="cb11"><pre class="r"><span class="fu"><a href="reference/plotFluxTimeDaily.html">plotFluxTimeDaily</a></span>(<span class="no">eList</span>)</pre></div>
-<p><img src="reference/figures/runModel-2.png"></p>
-<div class="sourceCode" id="cb12"><pre class="r"><span class="fu"><a href="reference/plotConcPred.html">plotConcPred</a></span>(<span class="no">eList</span>)</pre></div>
-<p><img src="reference/figures/runModel-3.png"></p>
-<div class="sourceCode" id="cb13"><pre class="r"><span class="fu"><a href="reference/plotFluxPred.html">plotFluxPred</a></span>(<span class="no">eList</span>)</pre></div>
-<p><img src="reference/figures/runModel-4.png"></p>
-<div class="sourceCode" id="cb14"><pre class="r"><span class="fu"><a href="reference/plotResidPred.html">plotResidPred</a></span>(<span class="no">eList</span>)</pre></div>
-<p><img src="reference/figures/runModel-5.png"></p>
-<div class="sourceCode" id="cb15"><pre class="r"><span class="fu"><a href="reference/plotResidQ.html">plotResidQ</a></span>(<span class="no">eList</span>)</pre></div>
-<p><img src="reference/figures/runModel-6.png"></p>
-<div class="sourceCode" id="cb16"><pre class="r"><span class="fu"><a href="reference/plotResidTime.html">plotResidTime</a></span>(<span class="no">eList</span>)</pre></div>
-<p><img src="reference/figures/runModel-7.png"></p>
-<div class="sourceCode" id="cb17"><pre class="r"><span class="fu"><a href="reference/boxResidMonth.html">boxResidMonth</a></span>(<span class="no">eList</span>)</pre></div>
-<p><img src="reference/figures/runModel-8.png"></p>
-<div class="sourceCode" id="cb18"><pre class="r"><span class="fu"><a href="reference/boxConcThree.html">boxConcThree</a></span>(<span class="no">eList</span>)</pre></div>
-<p><img src="reference/figures/runModel-9.png"></p>
-<div class="sourceCode" id="cb19"><pre class="r"><span class="fu"><a href="reference/plotConcHist.html">plotConcHist</a></span>(<span class="no">eList</span>)</pre></div>
-<p><img src="reference/figures/runModel-10.png"></p>
-<div class="sourceCode" id="cb20"><pre class="r"><span class="fu"><a href="reference/plotFluxHist.html">plotFluxHist</a></span>(<span class="no">eList</span>)</pre></div>
-<p><img src="reference/figures/runModel-11.png"></p>
-<div class="sourceCode" id="cb21"><pre class="r"><span class="co"># Multi-line plots:</span>
+<p><img src="reference/figures/README-runModel-1.png"></p>
+<div class="sourceCode" id="cb10"><pre class="r"><span class="fu"><a href="reference/plotFluxTimeDaily.html">plotFluxTimeDaily</a></span>(<span class="no">eList</span>)</pre></div>
+<p><img src="reference/figures/README-runModel-2.png"></p>
+<div class="sourceCode" id="cb11"><pre class="r"><span class="fu"><a href="reference/plotConcPred.html">plotConcPred</a></span>(<span class="no">eList</span>)</pre></div>
+<p><img src="reference/figures/README-runModel-3.png"></p>
+<div class="sourceCode" id="cb12"><pre class="r"><span class="fu"><a href="reference/plotFluxPred.html">plotFluxPred</a></span>(<span class="no">eList</span>)</pre></div>
+<p><img src="reference/figures/README-runModel-4.png"></p>
+<div class="sourceCode" id="cb13"><pre class="r"><span class="fu"><a href="reference/plotResidPred.html">plotResidPred</a></span>(<span class="no">eList</span>)</pre></div>
+<p><img src="reference/figures/README-runModel-5.png"></p>
+<div class="sourceCode" id="cb14"><pre class="r"><span class="fu"><a href="reference/plotResidQ.html">plotResidQ</a></span>(<span class="no">eList</span>)</pre></div>
+<p><img src="reference/figures/README-runModel-6.png"></p>
+<div class="sourceCode" id="cb15"><pre class="r"><span class="fu"><a href="reference/plotResidTime.html">plotResidTime</a></span>(<span class="no">eList</span>)</pre></div>
+<p><img src="reference/figures/README-runModel-7.png"></p>
+<div class="sourceCode" id="cb16"><pre class="r"><span class="fu"><a href="reference/boxResidMonth.html">boxResidMonth</a></span>(<span class="no">eList</span>)</pre></div>
+<p><img src="reference/figures/README-runModel-8.png"></p>
+<div class="sourceCode" id="cb17"><pre class="r"><span class="fu"><a href="reference/boxConcThree.html">boxConcThree</a></span>(<span class="no">eList</span>)</pre></div>
+<p><img src="reference/figures/README-runModel-9.png"></p>
+<div class="sourceCode" id="cb18"><pre class="r"><span class="fu"><a href="reference/plotConcHist.html">plotConcHist</a></span>(<span class="no">eList</span>)</pre></div>
+<p><img src="reference/figures/README-runModel-10.png"></p>
+<div class="sourceCode" id="cb19"><pre class="r"><span class="fu"><a href="reference/plotFluxHist.html">plotFluxHist</a></span>(<span class="no">eList</span>)</pre></div>
+<p><img src="reference/figures/README-runModel-11.png"></p>
+<div class="sourceCode" id="cb20"><pre class="r"><span class="co"># Multi-line plots:</span>
 <span class="no">date1</span> <span class="kw">&lt;-</span> <span class="st">"1985-09-01"</span>
 <span class="no">date2</span> <span class="kw">&lt;-</span> <span class="st">"1997-09-01"</span>
 <span class="no">date3</span> <span class="kw">&lt;-</span> <span class="st">"2010-09-01"</span>
@@ -247,36 +245,36 @@
 <span class="no">qTop</span><span class="kw">&lt;-</span><span class="fl">10</span>
 <span class="fu"><a href="reference/plotConcQSmooth.html">plotConcQSmooth</a></span>(<span class="no">eList</span>, <span class="no">date1</span>, <span class="no">date2</span>, <span class="no">date3</span>, <span class="no">qBottom</span>, <span class="no">qTop</span>,
                    <span class="kw">concMax</span><span class="kw">=</span><span class="fl">2</span>,<span class="kw">legendTop</span> <span class="kw">=</span> <span class="fl">0.85</span>)</pre></div>
-<p><img src="reference/figures/multiPlots-1.png"></p>
-<div class="sourceCode" id="cb22"><pre class="r"><span class="no">q1</span> <span class="kw">&lt;-</span> <span class="fl">2</span>
+<p><img src="reference/figures/README-multiPlots-1.png"></p>
+<div class="sourceCode" id="cb21"><pre class="r"><span class="no">q1</span> <span class="kw">&lt;-</span> <span class="fl">2</span>
 <span class="no">q2</span> <span class="kw">&lt;-</span> <span class="fl">10</span>
 <span class="no">q3</span> <span class="kw">&lt;-</span> <span class="fl">20</span>
 <span class="no">centerDate</span> <span class="kw">&lt;-</span> <span class="st">"07-01"</span>
 <span class="no">yearEnd</span> <span class="kw">&lt;-</span> <span class="fl">1980</span>
 <span class="no">yearStart</span> <span class="kw">&lt;-</span> <span class="fl">2010</span>
 <span class="fu"><a href="reference/plotConcTimeSmooth.html">plotConcTimeSmooth</a></span>(<span class="no">eList</span>, <span class="no">q1</span>, <span class="no">q2</span>, <span class="no">q3</span>, <span class="no">centerDate</span>, <span class="no">yearStart</span>, <span class="no">yearEnd</span>, <span class="kw">legendTop</span> <span class="kw">=</span> <span class="fl">0.55</span>, <span class="kw">legendLeft</span> <span class="kw">=</span> <span class="fl">1990</span>)</pre></div>
-<p><img src="reference/figures/multiPlots-2.png"></p>
-<div class="sourceCode" id="cb23"><pre class="r"><span class="co"># Multi-plots:</span>
+<p><img src="reference/figures/README-multiPlots-2.png"></p>
+<div class="sourceCode" id="cb22"><pre class="r"><span class="co"># Multi-plots:</span>
 <span class="fu"><a href="reference/fluxBiasMulti.html">fluxBiasMulti</a></span>(<span class="no">eList</span>)</pre></div>
-<p><img src="reference/figures/fluxPlots-1.png"></p>
-<div class="sourceCode" id="cb24"><pre class="r"><span class="co">#Contour plots:</span>
+<p><img src="reference/figures/README-fluxPlots-1.png"></p>
+<div class="sourceCode" id="cb23"><pre class="r"><span class="co">#Contour plots:</span>
 <span class="no">clevel</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">0.5</span>)
 <span class="no">yearStart</span> <span class="kw">&lt;-</span> <span class="fl">1980</span>
 <span class="no">yearEnd</span> <span class="kw">&lt;-</span> <span class="fl">2010</span>
 
 <span class="fu"><a href="reference/plotContours.html">plotContours</a></span>(<span class="no">eList</span>, <span class="no">yearStart</span>,<span class="no">yearEnd</span>,<span class="kw">qBottom</span><span class="kw">=</span><span class="fl">0.5</span>,
              <span class="kw">qTop</span><span class="kw">=</span><span class="fl">20</span>, <span class="kw">contourLevels</span> <span class="kw">=</span> <span class="no">clevel</span>)</pre></div>
-<p><img src="reference/figures/contourPlots-1.png"></p>
-<div class="sourceCode" id="cb25"><pre class="r"><span class="fu"><a href="reference/plotDiffContours.html">plotDiffContours</a></span>(<span class="no">eList</span>, <span class="kw">year0</span> <span class="kw">=</span> <span class="fl">1990</span>,
+<p><img src="reference/figures/README-contourPlots-1.png"></p>
+<div class="sourceCode" id="cb24"><pre class="r"><span class="fu"><a href="reference/plotDiffContours.html">plotDiffContours</a></span>(<span class="no">eList</span>, <span class="kw">year0</span> <span class="kw">=</span> <span class="fl">1990</span>,
                  <span class="kw">year1</span> <span class="kw">=</span> <span class="fl">2010</span>,
                  <span class="kw">qBottom</span><span class="kw">=</span><span class="fl">0.5</span>,
                  <span class="kw">qTop</span><span class="kw">=</span><span class="fl">20</span>,
                  <span class="kw">maxDiff</span><span class="kw">=</span><span class="fl">0.6</span>)</pre></div>
-<p><img src="reference/figures/contourPlots-2.png"></p>
+<p><img src="reference/figures/README-contourPlots-2.png"></p>
 <div id="sample-workflow-for-a-flowhistory-application-for-the-entire-record" class="section level3">
 <h3 class="hasAnchor">
 <a href="#sample-workflow-for-a-flowhistory-application-for-the-entire-record" class="anchor"></a>Sample workflow for a flowHistory application for the entire record</h3>
-<div class="sourceCode" id="cb26"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">EGRET</span>)
+<div class="sourceCode" id="cb25"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">EGRET</span>)
 
 <span class="co"># Flow history analysis</span>
 <span class="co"># Gather discharge data:</span>
@@ -284,7 +282,7 @@
 <span class="no">startDate</span> <span class="kw">&lt;-</span> <span class="st">""</span> <span class="co"># Get earliest date</span>
 <span class="no">endDate</span> <span class="kw">&lt;-</span> <span class="st">""</span> <span class="co"># Get latest date</span>
 <span class="no">Daily</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/readNWISDaily.html">readNWISDaily</a></span>(<span class="no">siteID</span>,<span class="st">"00060"</span>,<span class="no">startDate</span>,<span class="no">endDate</span>)
-<span class="co">#&gt; There are 26415 data points, and 26415 days.</span>
+<span class="co">#&gt; There are 26429 data points, and 26429 days.</span>
 <span class="co"># Gather site and parameter information:</span>
 <span class="co"># Here user must input some values for</span>
 <span class="co"># the default (interactive=TRUE)</span>
@@ -326,94 +324,79 @@
 
 <span class="co"># Check flow history data:</span>
 <span class="fu"><a href="reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="no">eList</span>, <span class="kw">istat</span><span class="kw">=</span><span class="fl">7</span>,<span class="kw">qUnit</span><span class="kw">=</span><span class="st">"thousandCfs"</span>)</pre></div>
-<p><img src="reference/figures/unnamed-chunk-6-1.png"></p>
-<div class="sourceCode" id="cb27"><pre class="r"><span class="fu"><a href="reference/plotSDLogQ.html">plotSDLogQ</a></span>(<span class="no">eList</span>)</pre></div>
-<p><img src="reference/figures/unnamed-chunk-6-2.png"></p>
-<div class="sourceCode" id="cb28"><pre class="r"><span class="fu"><a href="reference/plotQTimeDaily.html">plotQTimeDaily</a></span>(<span class="no">eList</span>, <span class="kw">qLower</span><span class="kw">=</span><span class="fl">1</span>,<span class="kw">qUnit</span><span class="kw">=</span><span class="fl">3</span>)</pre></div>
-<p><img src="reference/figures/unnamed-chunk-6-3.png"></p>
-<div class="sourceCode" id="cb29"><pre class="r"><span class="fu"><a href="reference/plotFour.html">plotFour</a></span>(<span class="no">eList</span>, <span class="kw">qUnit</span><span class="kw">=</span><span class="fl">3</span>)</pre></div>
-<p><img src="reference/figures/plotFours-1.png"></p>
-<div class="sourceCode" id="cb30"><pre class="r"><span class="fu"><a href="reference/plotFourStats.html">plotFourStats</a></span>(<span class="no">eList</span>, <span class="kw">qUnit</span><span class="kw">=</span><span class="fl">3</span>)</pre></div>
-<p><img src="reference/figures/plotFours-2.png"></p>
+<p><img src="reference/figures/README-unnamed-chunk-5-1.png"></p>
+<div class="sourceCode" id="cb26"><pre class="r"><span class="fu"><a href="reference/plotSDLogQ.html">plotSDLogQ</a></span>(<span class="no">eList</span>)</pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-5-2.png"></p>
+<div class="sourceCode" id="cb27"><pre class="r"><span class="fu"><a href="reference/plotQTimeDaily.html">plotQTimeDaily</a></span>(<span class="no">eList</span>, <span class="kw">qLower</span><span class="kw">=</span><span class="fl">1</span>,<span class="kw">qUnit</span><span class="kw">=</span><span class="fl">3</span>)</pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-5-3.png"></p>
+<div class="sourceCode" id="cb28"><pre class="r"><span class="fu"><a href="reference/plotFour.html">plotFour</a></span>(<span class="no">eList</span>, <span class="kw">qUnit</span><span class="kw">=</span><span class="fl">3</span>)</pre></div>
+<p><img src="reference/figures/README-plotFours-1.png"></p>
+<div class="sourceCode" id="cb29"><pre class="r"><span class="fu"><a href="reference/plotFourStats.html">plotFourStats</a></span>(<span class="no">eList</span>, <span class="kw">qUnit</span><span class="kw">=</span><span class="fl">3</span>)</pre></div>
+<p><img src="reference/figures/README-plotFours-2.png"></p>
 </div>
 </div>
 <div id="model-archive" class="section level2">
 <h2 class="hasAnchor">
 <a href="#model-archive" class="anchor"></a>Model Archive</h2>
 <p>When using the <code>WRTDS</code> model, it is important to be able to reproduce the results in the future. The following version of R and package dependencies were used most recently to pass the embedded tests within this package. There is no guarantee of reproducible results using future versions of R or updated versions of package dependencies; however, we will make diligent efforts to test and update future modeling environments.</p>
-<div class="sourceCode" id="cb31"><pre class="r"><span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu">session_info</span>()
-<span class="co">#&gt; - Session info ---------------------------------------------------------------</span>
+<div class="sourceCode" id="cb30"><pre class="r"><span class="kw pkg">sessioninfo</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/sessioninfo/man/session_info.html">session_info</a></span>()
+<span class="co">#&gt; ─ Session info ───────────────────────────────────────────────────────────────</span>
 <span class="co">#&gt;  setting  value                       </span>
-<span class="co">#&gt;  version  R version 3.6.3 (2020-02-29)</span>
-<span class="co">#&gt;  os       Windows 10 x64              </span>
-<span class="co">#&gt;  system   x86_64, mingw32             </span>
-<span class="co">#&gt;  ui       RTerm                       </span>
+<span class="co">#&gt;  version  R version 4.0.0 (2020-04-24)</span>
+<span class="co">#&gt;  os       macOS Catalina 10.15.4      </span>
+<span class="co">#&gt;  system   x86_64, darwin17.0          </span>
+<span class="co">#&gt;  ui       X11                         </span>
 <span class="co">#&gt;  language (EN)                        </span>
-<span class="co">#&gt;  collate  English_United States.1252  </span>
-<span class="co">#&gt;  ctype    English_United States.1252  </span>
-<span class="co">#&gt;  tz       America/Chicago             </span>
-<span class="co">#&gt;  date     2020-04-27                  </span>
+<span class="co">#&gt;  collate  en_US.UTF-8                 </span>
+<span class="co">#&gt;  ctype    en_US.UTF-8                 </span>
+<span class="co">#&gt;  tz       UTC                         </span>
+<span class="co">#&gt;  date     2020-05-11                  </span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; - Packages -------------------------------------------------------------------</span>
+<span class="co">#&gt; ─ Packages ───────────────────────────────────────────────────────────────────</span>
 <span class="co">#&gt;  package       * version    date       lib source        </span>
-<span class="co">#&gt;  assertthat      0.2.1      2019-03-21 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  backports       1.1.6      2020-04-05 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  callr           3.4.3      2020-03-28 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  cli             2.0.2      2020-02-28 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  crayon          1.3.4      2017-09-16 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  curl            4.3        2019-12-02 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  dataRetrieval   2.7.6      2020-03-10 [1] local         </span>
-<span class="co">#&gt;  desc            1.2.0      2018-05-01 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  devtools        2.3.0      2020-04-10 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  digest          0.6.25     2020-02-23 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  dotCall64       1.0-0      2018-07-30 [1] CRAN (R 3.5.2)</span>
-<span class="co">#&gt;  EGRET         * 3.0.3.9000 2020-04-07 [1] local         </span>
-<span class="co">#&gt;  ellipsis        0.3.0      2019-09-20 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  evaluate        0.14       2019-05-28 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  fansi           0.4.1      2020-01-08 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  fields          10.3       2020-02-04 [1] CRAN (R 3.6.2)</span>
-<span class="co">#&gt;  fs              1.4.1      2020-04-04 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  glue            1.4.0      2020-04-03 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  hms             0.5.3      2020-01-08 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  htmltools       0.4.0      2019-10-04 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  httr            1.4.1      2019-08-05 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  knitr           1.28       2020-02-06 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  lattice         0.20-38    2018-11-04 [2] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  lifecycle       0.2.0      2020-03-06 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  magrittr        1.5        2014-11-22 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  maps            3.3.0      2018-04-03 [1] CRAN (R 3.5.2)</span>
-<span class="co">#&gt;  Matrix          1.2-18     2019-11-27 [2] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  memoise         1.1.0      2017-04-21 [1] CRAN (R 3.5.2)</span>
-<span class="co">#&gt;  pillar          1.4.3      2019-12-20 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  pkgbuild        1.0.6      2019-10-09 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  pkgconfig       2.0.3      2019-09-22 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  pkgload         1.0.2      2018-10-29 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  prettyunits     1.1.1      2020-01-24 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  processx        3.4.2      2020-02-09 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  ps              1.3.2      2020-02-13 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  R6              2.4.1      2019-11-12 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  Rcpp            1.0.4.6    2020-04-09 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  readr           1.3.1      2018-12-21 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  remotes         2.1.1      2020-02-15 [1] CRAN (R 3.6.2)</span>
-<span class="co">#&gt;  rlang           0.4.5      2020-03-01 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  rmarkdown       2.1        2020-01-20 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  rprojroot       1.3-2      2018-01-03 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  sessioninfo     1.1.1      2018-11-05 [1] CRAN (R 3.5.2)</span>
-<span class="co">#&gt;  spam            2.5-1      2019-12-12 [1] CRAN (R 3.6.1)</span>
-<span class="co">#&gt;  stringi         1.4.6      2020-02-17 [1] CRAN (R 3.6.2)</span>
-<span class="co">#&gt;  stringr         1.4.0      2019-02-10 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  survival        3.1-8      2019-12-03 [2] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  testthat        2.3.2      2020-03-02 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  tibble          3.0.0      2020-03-30 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  usethis         1.6.0      2020-04-09 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  vctrs           0.2.4      2020-03-10 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  withr           2.2.0      2020-04-20 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  xfun            0.13       2020-04-13 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  xml2            1.3.1      2020-04-09 [1] CRAN (R 3.6.3)</span>
-<span class="co">#&gt;  yaml            2.2.1      2020-02-01 [1] CRAN (R 3.6.2)</span>
+<span class="co">#&gt;  assertthat      0.2.1      2019-03-21 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  cli             2.0.2      2020-02-28 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  crayon          1.3.4      2017-09-16 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  curl            4.3        2019-12-02 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  dataRetrieval   2.7.6      2020-03-11 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  digest          0.6.25     2020-02-23 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  dotCall64       1.0-0      2018-07-30 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  EGRET         * 3.0.3.9000 2020-05-11 [1] local         </span>
+<span class="co">#&gt;  ellipsis        0.3.0      2019-09-20 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  evaluate        0.14       2019-05-28 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  fansi           0.4.1      2020-01-08 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  fields          10.3       2020-02-04 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  glue            1.4.0      2020-04-03 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  hms             0.5.3      2020-01-08 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  htmltools       0.4.0      2019-10-04 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  httr            1.4.1      2019-08-05 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  knitr           1.28       2020-02-06 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  lattice         0.20-41    2020-04-02 [2] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  lifecycle       0.2.0      2020-03-06 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  magrittr        1.5        2014-11-22 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  maps            3.3.0      2018-04-03 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  Matrix          1.2-18     2019-11-27 [2] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  pillar          1.4.4      2020-05-05 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  pkgconfig       2.0.3      2019-09-22 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  R6              2.4.1      2019-11-12 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  Rcpp            1.0.4.6    2020-04-09 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  readr           1.3.1      2018-12-21 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  rlang           0.4.6      2020-05-02 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  rmarkdown       2.1        2020-01-20 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  sessioninfo     1.1.1      2018-11-05 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  spam            2.5-1      2019-12-12 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  stringi         1.4.6      2020-02-17 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  stringr         1.4.0      2019-02-10 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  survival        3.1-12     2020-04-10 [2] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  tibble          3.0.1      2020-04-20 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  vctrs           0.2.4      2020-03-10 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  withr           2.2.0      2020-04-20 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  xfun            0.13       2020-04-13 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  xml2            1.3.2      2020-04-23 [1] CRAN (R 4.0.0)</span>
+<span class="co">#&gt;  yaml            2.2.1      2020-02-01 [1] CRAN (R 4.0.0)</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [1] C:/Users/ldecicco/Documents/R/win-library/3.6</span>
-<span class="co">#&gt; [2] C:/Program Files/R/R-3.6.3/library</span></pre></div>
+<span class="co">#&gt; [1] /Users/runner/runners/2.169.1/work/_temp/Library</span>
+<span class="co">#&gt; [2] /Library/Frameworks/R.framework/Versions/4.0/Resources/library</span></pre></div>
 </div>
 <div id="reporting-bugs" class="section level2">
 <h2 class="hasAnchor">
@@ -458,7 +441,7 @@
 <div id="how-to-cite-egret" class="section level2">
 <h2 class="hasAnchor">
 <a href="#how-to-cite-egret" class="anchor"></a>How to cite EGRET:</h2>
-<div class="sourceCode" id="cb32"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="kw">package</span> <span class="kw">=</span> <span class="st">"EGRET"</span>)
+<div class="sourceCode" id="cb31"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="kw">package</span> <span class="kw">=</span> <span class="st">"EGRET"</span>)
 <span class="co">#&gt; </span>
 <span class="co">#&gt; To cite EGRET in publications, please use:</span>
 <span class="co">#&gt; </span>
@@ -528,6 +511,7 @@
 <ul class="list-unstyled">
 <li><a href="https://github.com/USGS-R/EGRET/actions"><img src="https://github.com/USGS-R/EGRET/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 <li><a href="https://coveralls.io/github/USGS-R/EGRET?branch=master"><img src="https://coveralls.io/repos/github/USGS-R/EGRET/badge.svg?branch=master" alt="Coverage Status"></a></li>
+<li><a href="https://codecov.io/gh/USGS-R/EGRET"><img src="https://codecov.io/gh/USGS-R/EGRET/branch/master/graph/badge.svg" alt="codecov"></a></li>
 <li><a href="https://owi.usgs.gov/R/packages.html#research"><img src="https://img.shields.io/badge/USGS-Research-blue.svg" alt="status"></a></li>
 <li><a href="https://cran.r-project.org/package=EGRET"><img src="http://www.r-pkg.org/badges/version/EGRET" alt="CRAN version"></a></li>
 <li><a href="https://cran.r-project.org/package=EGRET"><img src="http://cranlogs.r-pkg.org/badges/EGRET"></a></li>

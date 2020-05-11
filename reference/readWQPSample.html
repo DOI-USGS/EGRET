@@ -236,8 +236,8 @@ chapter 7 of the EGRET user guide for more details, then converts it to the Samp
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># These examples require an internet connection to run</span>
 <span class='co'># \donttest{</span>
-<span class='no'>Sample_All</span> <span class='kw'>&lt;-</span> <span class='fu'>readWQPSample</span>(<span class='st'>'WIDNR_WQX-10032762'</span>,<span class='st'>'Specific conductance'</span>, <span class='st'>''</span>, <span class='st'>''</span>)
-<span class='co'># }</span></div></pre>
+<span class='no'>Sample_All</span> <span class='kw'>&lt;-</span> <span class='fu'>readWQPSample</span>(<span class='st'>'WIDNR_WQX-10032762'</span>,<span class='st'>'Specific conductance'</span>, <span class='st'>''</span>, <span class='st'>''</span>)</div><div class='output co'>#&gt; <span class='message'>Request failed [502]. Retrying in 1 seconds...</span></div><div class='output co'>#&gt; <span class='message'>Request failed [502]. Retrying in 1.2 seconds...</span></div><div class='output co'>#&gt; <span class='message'>For: https://www.waterqualitydata.us/data/Result/search?siteid=WIDNR_WQX-10032762&amp;characteristicName=Specific%20conductance&amp;mimeType=tsv&amp;zip=yes</span></div><div class='output co'>#&gt; <span class='error'>Error in getWebServiceData(obs_url, httr::write_disk(temp), httr::accept("application/zip")): Bad Gateway (HTTP 502).</span></div><div class='input'># }
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
