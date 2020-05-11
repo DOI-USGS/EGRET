@@ -33,6 +33,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          options(pkgType = "binary")
           install.packages(c("remotes"))
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("covr")
