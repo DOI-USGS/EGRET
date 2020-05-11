@@ -13,7 +13,7 @@ editor_options:
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "man/figures/"
+  fig.path = "man/figures/README-"
 )
 ```
 
@@ -21,6 +21,7 @@ knitr::opts_chunk$set(
 
 [![R build status](https://github.com/USGS-R/EGRET/workflows/R-CMD-check/badge.svg)](https://github.com/USGS-R/EGRET/actions)
 [![Coverage Status](https://coveralls.io/repos/github/USGS-R/EGRET/badge.svg?branch=master)](https://coveralls.io/github/USGS-R/EGRET?branch=master)
+[![codecov](https://codecov.io/gh/USGS-R/EGRET/branch/master/graph/badge.svg)](https://codecov.io/gh/USGS-R/EGRET)
 [![status](https://img.shields.io/badge/USGS-Research-blue.svg)](https://owi.usgs.gov/R/packages.html#research)
 [![CRAN version](http://www.r-pkg.org/badges/version/EGRET)](https://cran.r-project.org/package=EGRET)
 [![](http://cranlogs.r-pkg.org/badges/EGRET)](https://cran.r-project.org/package=EGRET)
