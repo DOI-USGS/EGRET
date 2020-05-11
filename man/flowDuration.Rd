@@ -37,4 +37,4 @@ flowDuration(eList,"06-25", qUnit=1,span=30)
 flowDuration(eList, "01-01", qUnit=2) 
 }
 \keyword{statistics}
-\keyword{streamflow,}
+\keyword{streamflow}

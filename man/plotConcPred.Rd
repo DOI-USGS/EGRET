@@ -62,11 +62,12 @@ Although there are a lot of optional arguments to this function, most are set to
 \examples{
 eList <- Choptank_eList
 # Water year:
-plotConcPred(eList)
-plotConcPred(eList, logScale=TRUE)
+plotConcPred(eList, tinyPlot = TRUE)
+graphics.off()
+plotConcPred(eList, logScale=TRUE, tinyPlot = TRUE)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
-plotConcPred(eList, usgsStyle=TRUE)
+plotConcPred(eList, usgsStyle=TRUE, tinyPlot = TRUE)
 }
 \seealso{
 \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}

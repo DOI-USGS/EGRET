@@ -18,7 +18,7 @@ Description: Statistics and graphics for streamflow history,
     and expanded in Hirsch and De Cicco (2015) <doi:10.3133/tm4A10>.
 License: CC0
 Depends:
-    R (>= 3.0)
+    R (>= 3.5)
 Imports:
     dataRetrieval (>= 2.0.1),
     survival,

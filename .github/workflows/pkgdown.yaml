@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies
         run: |
           options(pkgType = "binary")
-          install.packages(c("remotes","rmarkdown"))
+          install.packages(c("remotes", "rmarkdown", "sessioninfo"))
           remotes::install_deps(dependencies = TRUE)
           remotes::install_dev("pkgdown")
         shell: Rscript {0}
