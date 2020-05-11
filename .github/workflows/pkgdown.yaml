@@ -29,6 +29,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          options(pkgType = "binary")
           install.packages("remotes")
           remotes::install_deps(dependencies = TRUE)
           remotes::install_dev("pkgdown")
