@@ -26,8 +26,8 @@ savePath <- "~/"
 \donttest{
 saveResults(savePath, eList)
 
-#To load:
-load(paste(savePath,"Chop.nitrogen.RData",sep=""))
+#To load that file:
+#load(paste(savePath,"Chop.nitrogen.RData",sep=""))
 }
 }
 \keyword{statistics}
