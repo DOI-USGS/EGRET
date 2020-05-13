@@ -399,7 +399,21 @@ they can be set by the program to be the final year of the record and a set of y
 #&gt;  2005  to  2009     0.086     0.021       5.8       1.5
 #&gt;  2008  to  2009      0.01      0.01      0.65      0.65</div><div class='input'><span class='co'>#Returns a data frame:</span>
 <span class='no'>change</span> <span class='kw'>&lt;-</span> <span class='fu'>tableChangeSingle</span>(<span class='no'>eList</span>, <span class='kw'>fluxUnit</span><span class='kw'>=</span><span class='fl'>6</span>,<span class='kw'>yearPoints</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2001</span>,<span class='fl'>2005</span>,<span class='fl'>2008</span>,<span class='fl'>2009</span>),
-                  <span class='kw'>flowNormYears</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2003</span>:<span class='fl'>2004</span>, <span class='fl'>2006</span>:<span class='fl'>2009</span>), <span class='kw'>flux</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in tableChangeSingle(eList, fluxUnit = 6, yearPoints = c(2001, 2005,     2008, 2009), flowNormYears = c(2003:2004, 2006:2009), flux = FALSE): unused argument (flowNormYears = c(2003:2004, 2006:2009))</span></div><div class='input'><span class='co'>#This returns flux values ASCII table in the console</span>
+                  <span class='kw'>flux</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; 
+#&gt;    Choptank River 
+#&gt;    Inorganic nitrogen (nitrate and nitrite)
+#&gt;    Season Consisting of Dec Jan Feb 
+#&gt; 
+#&gt;            Concentration trends
+#&gt;    time span       change     slope    change     slope
+#&gt;                      mg/L   mg/L/yr        %       %/yr
+#&gt; 
+#&gt;  2001  to  2005       0.1     0.026       7.6       1.9
+#&gt;  2001  to  2008      0.18     0.026        13       1.9
+#&gt;  2001  to  2009      0.19     0.024        14       1.7
+#&gt;  2005  to  2008     0.076     0.025       5.1       1.7
+#&gt;  2005  to  2009     0.086     0.021       5.8       1.5
+#&gt;  2008  to  2009      0.01      0.01      0.65      0.65</div><div class='input'><span class='co'>#This returns flux values ASCII table in the console</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>tableChangeSingle</span>(<span class='no'>eList</span>, <span class='kw'>fluxUnit</span><span class='kw'>=</span><span class='fl'>6</span>,<span class='kw'>yearPoints</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2001</span>,<span class='fl'>2005</span>,<span class='fl'>2008</span>,<span class='fl'>2009</span>), <span class='kw'>flux</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; 
 #&gt;    Choptank River 
 #&gt;    Inorganic nitrogen (nitrate and nitrite)
