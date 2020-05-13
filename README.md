@@ -320,7 +320,7 @@ siteID <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "" # Get earliest date
 endDate <- "" # Get latest date
 Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
-#> There are 26430 data points, and 26430 days.
+#> There are 26431 data points, and 26431 days.
 # Gather site and parameter information:
 # Here user must input some values for
 # the default (interactive=TRUE)
