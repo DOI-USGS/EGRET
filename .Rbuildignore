@@ -42,3 +42,4 @@ vignettes/img/*
 ^pkgdown$
 ^codecov\.yml$
 ^\.github$
+Newstuff/*

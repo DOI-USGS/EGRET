@@ -29,11 +29,12 @@
 #' @examples
 #' eList <- Choptank_eList
 #' # Water year:
-#' plotConcPred(eList)
-#' plotConcPred(eList, logScale=TRUE)
+#' plotConcPred(eList, tinyPlot = TRUE)
+#' graphics.off()
+#' plotConcPred(eList, logScale=TRUE, tinyPlot = TRUE)
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
-#' plotConcPred(eList, usgsStyle=TRUE)
+#' plotConcPred(eList, usgsStyle=TRUE, tinyPlot = TRUE)
 plotConcPred<-function(eList, concMax = NA, logScale=FALSE,
                        printTitle = TRUE,tinyPlot=FALSE,cex=0.8, cex.axis=1.1,
                        cex.main=1.1, customPar=FALSE,col="black",lwd=1, 

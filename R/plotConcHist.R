@@ -38,13 +38,13 @@
 #' yearStart <- 2001
 #' yearEnd <- 2010
 #' eList <- Choptank_eList
-#' \donttest{
+#' 
 #' # Water year:
-#' plotConcHist(eList, yearStart, yearEnd)
+#' plotConcHist(eList, yearStart, yearEnd, tinyPlot = TRUE)
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
-#' plotConcHist(eList)
-#' }
+#' plotConcHist(eList, tinyPlot = TRUE)
+#' 
 plotConcHist<-function(eList, yearStart = NA, yearEnd = NA, 
                        concMax = NA, printTitle = TRUE, 
                        tinyPlot = FALSE,usgsStyle = FALSE,

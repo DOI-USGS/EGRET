@@ -5,6 +5,7 @@ EGRET <img src="man/figures/egret-02.png" alt="EGRET" height="150px" align="righ
 status](https://github.com/USGS-R/EGRET/workflows/R-CMD-check/badge.svg)](https://github.com/USGS-R/EGRET/actions)
 [![Coverage
 Status](https://coveralls.io/repos/github/USGS-R/EGRET/badge.svg?branch=master)](https://coveralls.io/github/USGS-R/EGRET?branch=master)
+[![codecov](https://codecov.io/gh/USGS-R/EGRET/branch/master/graph/badge.svg)](https://codecov.io/gh/USGS-R/EGRET)
 [![status](https://img.shields.io/badge/USGS-Research-blue.svg)](https://owi.usgs.gov/R/packages.html#research)
 [![CRAN
 version](http://www.r-pkg.org/badges/version/EGRET)](https://cran.r-project.org/package=EGRET)
@@ -30,17 +31,11 @@ the following command:
 install.packages("EGRET")
 ```
 
-To get inter-CRAN release updates, use the command:
-
-``` r
-install.packages("EGRET",repos="https://owi.usgs.gov/R")
-```
-
-To get cutting-edge changes, install from GitHub using the `devtools`
+To get cutting-edge changes, install from GitHub using the `remotes`
 packages:
 
 ``` r
-library(devtools)
+library(remotes)
 install_github("USGS-R/EGRET")
 ```
 
@@ -138,31 +133,31 @@ eList <- Choptank_eList
 boxConcMonth(eList)
 ```
 
-![](man/figures/startPlots-1.png)
+![](man/figures/README-startPlots-1.png)
 
 ``` r
 boxQTwice(eList)
 ```
 
-![](man/figures/startPlots-2.png)
+![](man/figures/README-startPlots-2.png)
 
 ``` r
 plotConcTime(eList)
 ```
 
-![](man/figures/startPlots-3.png)
+![](man/figures/README-startPlots-3.png)
 
 ``` r
 plotConcQ(eList)
 ```
 
-![](man/figures/startPlots-4.png)
+![](man/figures/README-startPlots-4.png)
 
 ``` r
 multiPlotDataOverview(eList)
 ```
 
-![](man/figures/multiPlot-1.png)
+![](man/figures/README-multiPlot-1.png)
 
 ``` r
 # Run WRTDS model:
@@ -198,67 +193,67 @@ eList <- modelEstimation(eList)
 plotConcTimeDaily(eList)
 ```
 
-![](man/figures/runModel-1.png)
+![](man/figures/README-runModel-1.png)
 
 ``` r
 plotFluxTimeDaily(eList)
 ```
 
-![](man/figures/runModel-2.png)
+![](man/figures/README-runModel-2.png)
 
 ``` r
 plotConcPred(eList)
 ```
 
-![](man/figures/runModel-3.png)
+![](man/figures/README-runModel-3.png)
 
 ``` r
 plotFluxPred(eList)
 ```
 
-![](man/figures/runModel-4.png)
+![](man/figures/README-runModel-4.png)
 
 ``` r
 plotResidPred(eList)
 ```
 
-![](man/figures/runModel-5.png)
+![](man/figures/README-runModel-5.png)
 
 ``` r
 plotResidQ(eList)
 ```
 
-![](man/figures/runModel-6.png)
+![](man/figures/README-runModel-6.png)
 
 ``` r
 plotResidTime(eList)
 ```
 
-![](man/figures/runModel-7.png)
+![](man/figures/README-runModel-7.png)
 
 ``` r
 boxResidMonth(eList)
 ```
 
-![](man/figures/runModel-8.png)
+![](man/figures/README-runModel-8.png)
 
 ``` r
 boxConcThree(eList)
 ```
 
-![](man/figures/runModel-9.png)
+![](man/figures/README-runModel-9.png)
 
 ``` r
 plotConcHist(eList)
 ```
 
-![](man/figures/runModel-10.png)
+![](man/figures/README-runModel-10.png)
 
 ``` r
 plotFluxHist(eList)
 ```
 
-![](man/figures/runModel-11.png)
+![](man/figures/README-runModel-11.png)
 
 ``` r
 # Multi-line plots:
@@ -271,7 +266,7 @@ plotConcQSmooth(eList, date1, date2, date3, qBottom, qTop,
                    concMax=2,legendTop = 0.85)
 ```
 
-![](man/figures/multiPlots-1.png)
+![](man/figures/README-multiPlots-1.png)
 
 ``` r
 q1 <- 2
@@ -283,14 +278,14 @@ yearStart <- 2010
 plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd, legendTop = 0.55, legendLeft = 1990)
 ```
 
-![](man/figures/multiPlots-2.png)
+![](man/figures/README-multiPlots-2.png)
 
 ``` r
 # Multi-plots:
 fluxBiasMulti(eList)
 ```
 
-![](man/figures/fluxPlots-1.png)
+![](man/figures/README-fluxPlots-1.png)
 
 ``` r
 #Contour plots:
@@ -302,7 +297,7 @@ plotContours(eList, yearStart,yearEnd,qBottom=0.5,
              qTop=20, contourLevels = clevel)
 ```
 
-![](man/figures/contourPlots-1.png)
+![](man/figures/README-contourPlots-1.png)
 
 ``` r
 plotDiffContours(eList, year0 = 1990,
@@ -312,7 +307,7 @@ plotDiffContours(eList, year0 = 1990,
                  maxDiff=0.6)
 ```
 
-![](man/figures/contourPlots-2.png)
+![](man/figures/README-contourPlots-2.png)
 
 ### Sample workflow for a flowHistory application for the entire record
 
@@ -325,7 +320,7 @@ siteID <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "" # Get earliest date
 endDate <- "" # Get latest date
 Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
-#> There are 26415 data points, and 26415 days.
+#> There are 26430 data points, and 26430 days.
 # Gather site and parameter information:
 # Here user must input some values for
 # the default (interactive=TRUE)
@@ -369,31 +364,31 @@ eList <- as.egret(INFO, Daily, NA, NA)
 plotFlowSingle(eList, istat=7,qUnit="thousandCfs")
 ```
 
-![](man/figures/unnamed-chunk-6-1.png)
+![](man/figures/README-unnamed-chunk-5-1.png)
 
 ``` r
 plotSDLogQ(eList)
 ```
 
-![](man/figures/unnamed-chunk-6-2.png)
+![](man/figures/README-unnamed-chunk-5-2.png)
 
 ``` r
 plotQTimeDaily(eList, qLower=1,qUnit=3)
 ```
 
-![](man/figures/unnamed-chunk-6-3.png)
+![](man/figures/README-unnamed-chunk-5-3.png)
 
 ``` r
 plotFour(eList, qUnit=3)
 ```
 
-![](man/figures/plotFours-1.png)
+![](man/figures/README-plotFours-1.png)
 
 ``` r
 plotFourStats(eList, qUnit=3)
 ```
 
-![](man/figures/plotFours-2.png)
+![](man/figures/README-plotFours-2.png)
 
 Model Archive
 -------------
@@ -407,79 +402,64 @@ will make diligent efforts to test and update future modeling
 environments.
 
 ``` r
-devtools::session_info()
-#> - Session info ---------------------------------------------------------------
+sessioninfo::session_info()
+#> ─ Session info ───────────────────────────────────────────────────────────────
 #>  setting  value                       
-#>  version  R version 3.6.3 (2020-02-29)
-#>  os       Windows 10 x64              
-#>  system   x86_64, mingw32             
-#>  ui       RTerm                       
+#>  version  R version 4.0.0 (2020-04-24)
+#>  os       macOS Catalina 10.15.4      
+#>  system   x86_64, darwin17.0          
+#>  ui       X11                         
 #>  language (EN)                        
-#>  collate  English_United States.1252  
-#>  ctype    English_United States.1252  
-#>  tz       America/Chicago             
-#>  date     2020-04-27                  
+#>  collate  en_US.UTF-8                 
+#>  ctype    en_US.UTF-8                 
+#>  tz       UTC                         
+#>  date     2020-05-13                  
 #> 
-#> - Packages -------------------------------------------------------------------
+#> ─ Packages ───────────────────────────────────────────────────────────────────
 #>  package       * version    date       lib source        
-#>  assertthat      0.2.1      2019-03-21 [1] CRAN (R 3.6.3)
-#>  backports       1.1.6      2020-04-05 [1] CRAN (R 3.6.3)
-#>  callr           3.4.3      2020-03-28 [1] CRAN (R 3.6.3)
-#>  cli             2.0.2      2020-02-28 [1] CRAN (R 3.6.3)
-#>  crayon          1.3.4      2017-09-16 [1] CRAN (R 3.6.3)
-#>  curl            4.3        2019-12-02 [1] CRAN (R 3.6.3)
-#>  dataRetrieval   2.7.6      2020-03-10 [1] local         
-#>  desc            1.2.0      2018-05-01 [1] CRAN (R 3.6.3)
-#>  devtools        2.3.0      2020-04-10 [1] CRAN (R 3.6.3)
-#>  digest          0.6.25     2020-02-23 [1] CRAN (R 3.6.3)
-#>  dotCall64       1.0-0      2018-07-30 [1] CRAN (R 3.5.2)
-#>  EGRET         * 3.0.3.9000 2020-04-07 [1] local         
-#>  ellipsis        0.3.0      2019-09-20 [1] CRAN (R 3.6.3)
-#>  evaluate        0.14       2019-05-28 [1] CRAN (R 3.6.3)
-#>  fansi           0.4.1      2020-01-08 [1] CRAN (R 3.6.3)
-#>  fields          10.3       2020-02-04 [1] CRAN (R 3.6.2)
-#>  fs              1.4.1      2020-04-04 [1] CRAN (R 3.6.3)
-#>  glue            1.4.0      2020-04-03 [1] CRAN (R 3.6.3)
-#>  hms             0.5.3      2020-01-08 [1] CRAN (R 3.6.3)
-#>  htmltools       0.4.0      2019-10-04 [1] CRAN (R 3.6.3)
-#>  httr            1.4.1      2019-08-05 [1] CRAN (R 3.6.3)
-#>  knitr           1.28       2020-02-06 [1] CRAN (R 3.6.3)
-#>  lattice         0.20-38    2018-11-04 [2] CRAN (R 3.6.3)
-#>  lifecycle       0.2.0      2020-03-06 [1] CRAN (R 3.6.3)
-#>  magrittr        1.5        2014-11-22 [1] CRAN (R 3.6.3)
-#>  maps            3.3.0      2018-04-03 [1] CRAN (R 3.5.2)
-#>  Matrix          1.2-18     2019-11-27 [2] CRAN (R 3.6.3)
-#>  memoise         1.1.0      2017-04-21 [1] CRAN (R 3.5.2)
-#>  pillar          1.4.3      2019-12-20 [1] CRAN (R 3.6.3)
-#>  pkgbuild        1.0.6      2019-10-09 [1] CRAN (R 3.6.3)
-#>  pkgconfig       2.0.3      2019-09-22 [1] CRAN (R 3.6.3)
-#>  pkgload         1.0.2      2018-10-29 [1] CRAN (R 3.6.3)
-#>  prettyunits     1.1.1      2020-01-24 [1] CRAN (R 3.6.3)
-#>  processx        3.4.2      2020-02-09 [1] CRAN (R 3.6.3)
-#>  ps              1.3.2      2020-02-13 [1] CRAN (R 3.6.3)
-#>  R6              2.4.1      2019-11-12 [1] CRAN (R 3.6.3)
-#>  Rcpp            1.0.4.6    2020-04-09 [1] CRAN (R 3.6.3)
-#>  readr           1.3.1      2018-12-21 [1] CRAN (R 3.6.3)
-#>  remotes         2.1.1      2020-02-15 [1] CRAN (R 3.6.2)
-#>  rlang           0.4.5      2020-03-01 [1] CRAN (R 3.6.3)
-#>  rmarkdown       2.1        2020-01-20 [1] CRAN (R 3.6.3)
-#>  rprojroot       1.3-2      2018-01-03 [1] CRAN (R 3.6.3)
-#>  sessioninfo     1.1.1      2018-11-05 [1] CRAN (R 3.5.2)
-#>  spam            2.5-1      2019-12-12 [1] CRAN (R 3.6.1)
-#>  stringi         1.4.6      2020-02-17 [1] CRAN (R 3.6.2)
-#>  stringr         1.4.0      2019-02-10 [1] CRAN (R 3.6.3)
-#>  survival        3.1-8      2019-12-03 [2] CRAN (R 3.6.3)
-#>  testthat        2.3.2      2020-03-02 [1] CRAN (R 3.6.3)
-#>  tibble          3.0.0      2020-03-30 [1] CRAN (R 3.6.3)
-#>  usethis         1.6.0      2020-04-09 [1] CRAN (R 3.6.3)
-#>  vctrs           0.2.4      2020-03-10 [1] CRAN (R 3.6.3)
-#>  withr           2.2.0      2020-04-20 [1] CRAN (R 3.6.3)
-#>  xfun            0.13       2020-04-13 [1] CRAN (R 3.6.3)
-#>  xml2            1.3.1      2020-04-09 [1] CRAN (R 3.6.3)
-#>  yaml            2.2.1      2020-02-01 [1] CRAN (R 3.6.2)
+#>  assertthat      0.2.1      2019-03-21 [1] CRAN (R 4.0.0)
+#>  cli             2.0.2      2020-02-28 [1] CRAN (R 4.0.0)
+#>  crayon          1.3.4      2017-09-16 [1] CRAN (R 4.0.0)
+#>  curl            4.3        2019-12-02 [1] CRAN (R 4.0.0)
+#>  dataRetrieval   2.7.6      2020-03-11 [1] CRAN (R 4.0.0)
+#>  digest          0.6.25     2020-02-23 [1] CRAN (R 4.0.0)
+#>  dotCall64       1.0-0      2018-07-30 [1] CRAN (R 4.0.0)
+#>  EGRET         * 3.0.3.9000 2020-05-13 [1] local         
+#>  ellipsis        0.3.0      2019-09-20 [1] CRAN (R 4.0.0)
+#>  evaluate        0.14       2019-05-28 [1] CRAN (R 4.0.0)
+#>  fansi           0.4.1      2020-01-08 [1] CRAN (R 4.0.0)
+#>  fields          10.3       2020-02-04 [1] CRAN (R 4.0.0)
+#>  glue            1.4.0      2020-04-03 [1] CRAN (R 4.0.0)
+#>  hms             0.5.3      2020-01-08 [1] CRAN (R 4.0.0)
+#>  htmltools       0.4.0      2019-10-04 [1] CRAN (R 4.0.0)
+#>  httr            1.4.1      2019-08-05 [1] CRAN (R 4.0.0)
+#>  knitr           1.28       2020-02-06 [1] CRAN (R 4.0.0)
+#>  lattice         0.20-41    2020-04-02 [2] CRAN (R 4.0.0)
+#>  lifecycle       0.2.0      2020-03-06 [1] CRAN (R 4.0.0)
+#>  magrittr        1.5        2014-11-22 [1] CRAN (R 4.0.0)
+#>  maps            3.3.0      2018-04-03 [1] CRAN (R 4.0.0)
+#>  Matrix          1.2-18     2019-11-27 [2] CRAN (R 4.0.0)
+#>  pillar          1.4.4      2020-05-05 [1] CRAN (R 4.0.0)
+#>  pkgconfig       2.0.3      2019-09-22 [1] CRAN (R 4.0.0)
+#>  R6              2.4.1      2019-11-12 [1] CRAN (R 4.0.0)
+#>  Rcpp            1.0.4.6    2020-04-09 [1] CRAN (R 4.0.0)
+#>  readr           1.3.1      2018-12-21 [1] CRAN (R 4.0.0)
+#>  rlang           0.4.6      2020-05-02 [1] CRAN (R 4.0.0)
+#>  rmarkdown       2.1        2020-01-20 [1] CRAN (R 4.0.0)
+#>  sessioninfo     1.1.1      2018-11-05 [1] CRAN (R 4.0.0)
+#>  spam            2.5-1      2019-12-12 [1] CRAN (R 4.0.0)
+#>  stringi         1.4.6      2020-02-17 [1] CRAN (R 4.0.0)
+#>  stringr         1.4.0      2019-02-10 [1] CRAN (R 4.0.0)
+#>  survival        3.1-12     2020-04-10 [2] CRAN (R 4.0.0)
+#>  tibble          3.0.1      2020-04-20 [1] CRAN (R 4.0.0)
+#>  vctrs           0.2.4      2020-03-10 [1] CRAN (R 4.0.0)
+#>  withr           2.2.0      2020-04-20 [1] CRAN (R 4.0.0)
+#>  xfun            0.13       2020-04-13 [1] CRAN (R 4.0.0)
+#>  xml2            1.3.2      2020-04-23 [1] CRAN (R 4.0.0)
+#>  yaml            2.2.1      2020-02-01 [1] CRAN (R 4.0.0)
 #> 
-#> [1] C:/Users/ldecicco/Documents/R/win-library/3.6
-#> [2] C:/Program Files/R/R-3.6.3/library
+#> [1] /Users/runner/runners/2.169.1/work/_temp/Library
+#> [2] /Library/Frameworks/R.framework/Versions/4.0/Resources/library
 ```
 
 Reporting bugs

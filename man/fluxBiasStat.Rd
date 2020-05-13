@@ -25,5 +25,5 @@ Sample <- getSample(eList)
 fluxBias <- fluxBiasStat(Sample) 
 }
 \keyword{bias}
-\keyword{statistics,}
+\keyword{statistics}
 \keyword{water-quality}

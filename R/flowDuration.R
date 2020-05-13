@@ -15,7 +15,7 @@
 #' than 182 will provide serve. Note that for a window of about 2-months width, a span value should 
 #' be about 30. Default is 365.
 #' @return qDuration A named vector with flow duration information.
-#' @keywords streamflow, statistics
+#' @keywords streamflow statistics
 #' @export
 #' @examples
 #' eList <- Choptank_eList
