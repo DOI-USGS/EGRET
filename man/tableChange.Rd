@@ -33,7 +33,7 @@ eList <- Choptank_eList
 \donttest{
 tableChange(eList, fluxUnit=6, yearPoints=c(2001,2005,2008,2009))
 tableChange(eList, fluxUnit=9) 
-tableChange(eList, fluxUnit=9, flowNormYear=c(2001:2006, 2008:2009)) 
+tableChange(eList, fluxUnit=9, yearPoints=c(2001:2006, 2008:2009)) 
 # Winter:
 eList <- setPA(eList, paStart=12,paLong=3)
 tableChange(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
