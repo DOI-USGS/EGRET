@@ -200,9 +200,9 @@ This function saves the workspace.
 <span class='co'># \donttest{</span>
 <span class='fu'>saveResults</span>(<span class='no'>savePath</span>, <span class='no'>eList</span>)
 
-<span class='co'>#To load:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/load.html'>load</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>savePath</span>,<span class='st'>"Chop.nitrogen.RData"</span>,<span class='kw'>sep</span><span class='kw'>=</span><span class='st'>""</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: cannot open compressed file '/Users/runner/Chop.nitrogen.RData', probable reason 'No such file or directory'</span></div><div class='output co'>#&gt; <span class='error'>Error in readChar(con, 5L, useBytes = TRUE): cannot open the connection</span></div><div class='input'># }
-</div></pre>
+<span class='co'>#To load that file:</span>
+<span class='co'>#load(paste(savePath,"Chop.nitrogen.RData",sep=""))</span>
+<span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
