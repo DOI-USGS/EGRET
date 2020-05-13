@@ -196,8 +196,9 @@ conditions to determine if a value is left censored or not. Censored values are 
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dataRetrieval</span>)
 
-<span class='no'>rawWQP</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/dataRetrieval/man/readWQPqw.html'>readWQPqw</a></span>(<span class='st'>'21FLEECO_WQX-IMPRGR80'</span>,<span class='st'>'Phosphorus'</span>, <span class='st'>''</span>, <span class='st'>''</span>)</div><div class='output co'>#&gt; <span class='message'>Request failed [400]. Retrying in 1 seconds...</span></div><div class='output co'>#&gt; <span class='message'>Request failed [400]. Retrying in 1.9 seconds...</span></div><div class='output co'>#&gt; <span class='error'>Error: '' does not exist in current working directory ('/private/var/folders/24/8k48jl6d249_n_qfxwsl6xvm0000gn/T/Rtmpi9DbTX/file83a528e594a/reference').</span></div><div class='input'><span class='no'>Sample2</span> <span class='kw'>&lt;-</span> <span class='fu'>processQWData</span>(<span class='no'>rawWQP</span>, <span class='kw'>pCode</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in processQWData(rawWQP, pCode = FALSE): object 'rawWQP' not found</span></div><div class='input'># }
-</div></pre>
+<span class='no'>rawWQP</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/dataRetrieval/man/readWQPqw.html'>readWQPqw</a></span>(<span class='st'>'21FLEECO_WQX-IMPRGR80'</span>,<span class='st'>'Phosphorus'</span>, <span class='st'>''</span>, <span class='st'>''</span>)
+<span class='no'>Sample2</span> <span class='kw'>&lt;-</span> <span class='fu'>processQWData</span>(<span class='no'>rawWQP</span>, <span class='kw'>pCode</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+<span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
