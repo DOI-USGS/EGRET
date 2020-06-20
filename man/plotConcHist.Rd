@@ -8,6 +8,7 @@ plotConcHist(
   eList,
   yearStart = NA,
   yearEnd = NA,
+  DailyK = NA,
   concMax = NA,
   printTitle = TRUE,
   tinyPlot = FALSE,
@@ -30,6 +31,8 @@ plotConcHist(
 \item{yearStart}{numeric is the calendar year containing the first estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)}
 
 \item{yearEnd}{numeric is the calendar year just after the last estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)}
+
+\item{DailyK}{data frame returned from \code{makeDailyK}}
 
 \item{concMax}{numeric. Maximum value of concentration to be plotted.}
 

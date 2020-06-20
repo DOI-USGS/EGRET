@@ -8,6 +8,7 @@ plotFluxHist(
   eList,
   yearStart = NA,
   yearEnd = NA,
+  DailyK = NA,
   fluxUnit = 9,
   fluxMax = NA,
   printTitle = TRUE,
@@ -31,6 +32,8 @@ plotFluxHist(
 \item{yearStart}{numeric is the calendar year containing the first estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)}
 
 \item{yearEnd}{numeric is the calendar year just after the last estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)}
+
+\item{DailyK}{data frame returned from \code{makeDailyK}}
 
 \item{fluxUnit}{number representing entry in pre-defined fluxUnit class array. \code{\link{printFluxUnitCheatSheet}}}
 
