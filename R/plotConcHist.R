@@ -57,10 +57,10 @@ plotConcHist<-function(eList, yearStart = NA, yearEnd = NA,
   localINFO <- getInfo(eList)
 
   if(all(is.na(DailyK))){
+    localDaily <- getDaily(eList)
+  } else {
     localDaily <- DailyK
     localDaily$ConcDay <- DailyK$GenConc
-  } else {
-    localDaily <- getDaily(eList)
   }
   
   if(all(c("paStart","paLong") %in% names(localINFO))){

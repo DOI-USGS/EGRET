@@ -60,10 +60,10 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA,
   localINFO <- getInfo(eList)
   
   if(all(is.na(DailyK))){
+    localDaily <- getDaily(eList)
+  } else {
     localDaily <- DailyK
     localDaily$FluxDay <- localDaily$GenFlux
-  } else {
-    localDaily <- getDaily(eList)
   }
   
   
