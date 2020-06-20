@@ -11,7 +11,7 @@
 \usage{
 makeDailyK(eList, rho = 0.9, niter = 200, seed = 376168)
 
-random_subset(df, col_name, seed = 376168)
+random_subset(df, col_name)
 
 populateDailySamp(eList)
 
@@ -43,6 +43,10 @@ it is two more than the gap length}
 
 \item{DailyK}{Daily data frame run through the WRTDS-K analysis}
 
+\item{paStart}{A numeric value for the starting month of the Period of Analysis, default is 10}
+
+\item{paLong}{A numeric value for the length of the Period of Analysis in months, default is 12}
+
 \item{start}{numeric start of DecYear for plot}
 
 \item{end}{numeric end of DecYear for plot}
@@ -65,7 +69,7 @@ random_subset(Sample, col_name = "Julian")
 
 df <- data.frame(Julian = c(1,2,2,3,4,4,4,6),
                  y = 1:8)
-
+random_subset(df, "Julian")
 
 d2 <- populateDailySamp(eList)
 
