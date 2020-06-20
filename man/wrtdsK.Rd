@@ -2,6 +2,7 @@
 % Please edit documentation in R/kalman_functions.R
 \name{makeDailyK}
 \alias{makeDailyK}
+\alias{cleanUp}
 \alias{random_subset}
 \alias{populateDailySamp}
 \alias{genmissing}
@@ -10,6 +11,8 @@
 \title{WRTDS-K}
 \usage{
 makeDailyK(eList, rho = 0.9, niter = 200, seed = 376168)
+
+cleanUp(eList)
 
 random_subset(df, col_name)
 
@@ -62,6 +65,9 @@ DailyK <- makeDailyK(eList)
 summary(DailyK)
 
 AnnualResults <- setupYears(DailyK)
+
+
+eList <- cleanUp(eList)
 
 eList <- Choptank_eList
 Sample <- eList$Sample

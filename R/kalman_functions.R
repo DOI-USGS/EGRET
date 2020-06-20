@@ -84,6 +84,7 @@ makeDailyK <- function(eList, rho = 0.90, niter = 200, seed = 376168){
 
 
 #' @export
+#' @rdname wrtdsK
 #' @examples 
 #' 
 #' eList <- cleanUp(eList)
