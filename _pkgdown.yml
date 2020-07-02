@@ -86,3 +86,9 @@ reference:
       - tableChange
       - tableFlowChange
       - tableResults
+  - title: WRTDS-K
+    desc: Functions for WRTDS with Kalman filtering
+    contents:
+     - makeDailyK
+     - computeAnnual
+     - plotTimeSlice
