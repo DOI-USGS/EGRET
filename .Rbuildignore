@@ -33,7 +33,6 @@ vignettes/runPairsMonths.R
 vignettes/TrendByMonth.Rmd
 vignettes/Making WRTDS_K flux estimates.Rmd
 vignettes/functionsForK.R
-vignettes/test.RData
 _pkgdown.yml
 pkgdown/favicon/*
 vignettes/css/*
