@@ -18,6 +18,9 @@
 #' AnnualResults <- setupYears(DailyK)
 #' 
 makeDailyK <- function(eList, rho = 0.90, niter = 200, seed = 376168){
+  
+  message("This function is currently in development")
+  
   set.seed(seed)
   # this part is to set up the array of runs of missing values
   localEList <- cleanUp(eList)
@@ -91,6 +94,8 @@ makeDailyK <- function(eList, rho = 0.90, niter = 200, seed = 376168){
 #' 
 cleanUp <- function(eList){
   
+  message("This function is currently in development")
+  
   Sample <- random_subset(eList$Sample, "Julian")
   eListClean <- as.egret(eList$INFO, eList$Daily, Sample, eList$surfaces)
   eListClean <- makeAugmentedSample(eListClean)
@@ -118,6 +123,8 @@ cleanUp <- function(eList){
 #'                  y = 1:8)
 #' random_subset(df, "Julian")
 random_subset <- function(df, col_name){
+  
+  message("This function is currently in development")
   
   dup_index <- unique(c(which(duplicated(df[[col_name]], fromLast = FALSE)), 
                         which(duplicated(df[[col_name]], fromLast = TRUE))))
@@ -152,6 +159,8 @@ random_subset <- function(df, col_name){
 #' 
 populateDailySamp <- function(eList) {
   
+  message("This function is currently in development")
+  
   localSample <- eList$Sample
   localDaily <- eList$Daily
   
@@ -182,6 +191,8 @@ populateDailySamp <- function(eList) {
 genmissing <- function(X1, XN, rho, N){
   # this code was done by Tim Cohn
 
+  message("This function is currently in development")
+  
   C <- t(chol(rho^abs(outer(1:N,1:N, "-"))[c(1,N,2:(N-1)),c(1,N,2:(N-1))]))
   
   (C %*% c(MASS::ginv(C[1:2,1:2]) %*% 
@@ -212,6 +223,8 @@ specialCase <- function(eList) {
 #' computeAnnual(eList, DailyK)
 computeAnnual <- function(eList, DailyK, paStart = 10, paLong = 12) {
 
+  message("This function is currently in development")
+  
   AnnualResults <- setupYears(DailyK, paStart = paStart, paLong = paLong)
   # in the print out Q is the annual mean value in m^3/s
   # the two flux values are in metric tons kilograms (1000 kg)
@@ -256,6 +269,9 @@ computeAnnual <- function(eList, DailyK, paStart = 10, paLong = 12) {
 #' @examples 
 #' plotTimeSlice(eList, DailyK, start = 1990, end = 1991)
 plotTimeSlice <- function(eList, DailyK, start, end){
+  
+  message("This function is currently in development")
+  
   Daily <- subset(DailyK,DecYear >= start & DecYear <= end)
   concHigh <- 1.1 * max(Daily$ConcDay,Daily$GenConc,Daily$ConcDay,na.rm = TRUE)
   concLow <- 0.9 * min(Daily$ConcDay,Daily$GenConc,Daily$ConcDay,na.rm = TRUE)

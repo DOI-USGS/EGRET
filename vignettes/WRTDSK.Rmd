@@ -23,6 +23,7 @@ opts_chunk$set(
 
 ```
 
+Important note! This is a work-in-progress. No future behavior on new functions are promised based during this development phase.
 
 ## Introduction
  
