@@ -93,9 +93,7 @@ makeDailyK <- function(eList, rho = 0.90, niter = 200, seed = 376168){
 #' eList <- cleanUp(eList)
 #' 
 cleanUp <- function(eList){
-  
-  message("This function is currently in development")
-  
+
   Sample <- random_subset(eList$Sample, "Julian")
   eListClean <- as.egret(eList$INFO, eList$Daily, Sample, eList$surfaces)
   eListClean <- makeAugmentedSample(eListClean)
@@ -123,9 +121,7 @@ cleanUp <- function(eList){
 #'                  y = 1:8)
 #' random_subset(df, "Julian")
 random_subset <- function(df, col_name){
-  
-  message("This function is currently in development")
-  
+
   dup_index <- unique(c(which(duplicated(df[[col_name]], fromLast = FALSE)), 
                         which(duplicated(df[[col_name]], fromLast = TRUE))))
   
@@ -158,9 +154,7 @@ random_subset <- function(df, col_name){
 #' 
 #' 
 populateDailySamp <- function(eList) {
-  
-  message("This function is currently in development")
-  
+
   localSample <- eList$Sample
   localDaily <- eList$Daily
   
@@ -191,8 +185,6 @@ populateDailySamp <- function(eList) {
 genmissing <- function(X1, XN, rho, N){
   # this code was done by Tim Cohn
 
-  message("This function is currently in development")
-  
   C <- t(chol(rho^abs(outer(1:N,1:N, "-"))[c(1,N,2:(N-1)),c(1,N,2:(N-1))]))
   
   (C %*% c(MASS::ginv(C[1:2,1:2]) %*% 
