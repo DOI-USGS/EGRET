@@ -96,7 +96,7 @@ monthInfoMonth object
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EGRET</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.4.9000</span>
       </span>
     </div>
 
@@ -119,7 +119,7 @@ monthInfoMonth object
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K</a>
+      <a href="../articles/WRTDSK.html">WRTDS-K</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -181,7 +181,7 @@ monthInfoMonth object
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>fluxConst</span></div><div class='output co'>#&gt; $poundsDay
+    <pre class="examples"><div class='input'><span class='kw'>fluxConst</span></div><div class='output co'>#&gt; $poundsDay
 #&gt; An object of class "fluxUnit"
 #&gt; Slot "shortName":
 #&gt; [1] "   lbs/day  "
@@ -570,7 +570,7 @@ monthInfoMonth object
 #&gt; Slot "shortCode":
 #&gt; [1] 13
 #&gt; 
-#&gt; </div><div class='input'><span class='no'>fluxConst</span><span class='kw'>[[</span><span class='st'>'kgDay'</span>]]</div><div class='output co'>#&gt; An object of class "fluxUnit"
+#&gt; </div><div class='input'><span class='kw'>fluxConst</span>[[<span class='st'>'kgDay'</span>]]</div><div class='output co'>#&gt; An object of class "fluxUnit"
 #&gt; Slot "shortName":
 #&gt; [1] "    kg/day  "
 #&gt; 
@@ -597,7 +597,7 @@ monthInfoMonth object
 #&gt; 
 #&gt; Slot "shortCode":
 #&gt; [1] 3
-#&gt; </div><div class='input'><span class='no'>fluxConst</span><span class='kw'>[[</span><span class='st'>'kgDay'</span>]]@<span class='kw'>unitName</span></div><div class='output co'>#&gt; [1] "kg/day"</div><div class='input'><span class='no'>qConst</span></div><div class='output co'>#&gt; $cfs
+#&gt; </div><div class='input'><span class='kw'>fluxConst</span>[[<span class='st'>'kgDay'</span>]]<span class='op'>@</span>unitName</div><div class='output co'>#&gt; [1] "kg/day"</div><div class='input'><span class='kw'>qConst</span></div><div class='output co'>#&gt; $cfs
 #&gt; An object of class "qUnit"
 #&gt; Slot "qShortName":
 #&gt; [1] "   cfs  "
@@ -716,7 +716,7 @@ monthInfoMonth object
 #&gt; Slot "unitUSGS":
 #&gt; [1] "Discharge, in cubic millimeters per day"
 #&gt; 
-#&gt; </div><div class='input'><span class='no'>qConst</span><span class='kw'>[[</span><span class='st'>'cfs'</span>]]</div><div class='output co'>#&gt; An object of class "qUnit"
+#&gt; </div><div class='input'><span class='kw'>qConst</span>[[<span class='st'>'cfs'</span>]]</div><div class='output co'>#&gt; An object of class "qUnit"
 #&gt; Slot "qShortName":
 #&gt; [1] "   cfs  "
 #&gt; 
@@ -737,7 +737,7 @@ monthInfoMonth object
 #&gt; 
 #&gt; Slot "unitUSGS":
 #&gt; [1] "Discharge, in cubic feet per second"
-#&gt; </div><div class='input'><span class='no'>qConst</span><span class='kw'>[[</span><span class='st'>'cfs'</span>]]@<span class='kw'>qUnitName</span></div><div class='output co'>#&gt; [1] "Cubic Feet per Second"</div></pre>
+#&gt; </div><div class='input'><span class='kw'>qConst</span>[[<span class='st'>'cfs'</span>]]<span class='op'>@</span>qUnitName</div><div class='output co'>#&gt; [1] "Cubic Feet per Second"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

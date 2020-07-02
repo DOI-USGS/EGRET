@@ -94,7 +94,7 @@ These two concepts are described in detail in the vignette." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EGRET</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.4.9000</span>
       </span>
     </div>
 
@@ -117,7 +117,7 @@ These two concepts are described in detail in the vignette." />
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K</a>
+      <a href="../articles/WRTDSK.html">WRTDS-K</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -173,29 +173,29 @@ use of the "wall" and/or use of "generalized flow normalization".
 These two concepts are described in detail in the vignette.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>runPairs</span>(
-  <span class='no'>eList</span>,
-  <span class='no'>year1</span>,
-  <span class='no'>year2</span>,
-  <span class='no'>windowSide</span>,
-  <span class='kw'>flowBreak</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>Q1EndDate</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>QStartDate</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>QEndDate</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>wall</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>oldSurface</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>sample1EndDate</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>sampleStartDate</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>sampleEndDate</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>paStart</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>paLong</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>minNumObs</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>minNumUncen</span> <span class='kw'>=</span> <span class='fl'>50</span>,
-  <span class='kw'>fractMin</span> <span class='kw'>=</span> <span class='fl'>0.75</span>,
-  <span class='kw'>windowY</span> <span class='kw'>=</span> <span class='fl'>7</span>,
-  <span class='kw'>windowQ</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>windowS</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>edgeAdjust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/runPairs.html'>runPairs</a></span>(
+  <span class='kw'>eList</span>,
+  <span class='kw'>year1</span>,
+  <span class='kw'>year2</span>,
+  <span class='kw'>windowSide</span>,
+  flowBreak = <span class='fl'>FALSE</span>,
+  Q1EndDate = <span class='fl'>NA</span>,
+  QStartDate = <span class='fl'>NA</span>,
+  QEndDate = <span class='fl'>NA</span>,
+  wall = <span class='fl'>FALSE</span>,
+  oldSurface = <span class='fl'>FALSE</span>,
+  sample1EndDate = <span class='fl'>NA</span>,
+  sampleStartDate = <span class='fl'>NA</span>,
+  sampleEndDate = <span class='fl'>NA</span>,
+  paStart = <span class='fl'>NA</span>,
+  paLong = <span class='fl'>NA</span>,
+  minNumObs = <span class='fl'>100</span>,
+  minNumUncen = <span class='fl'>50</span>,
+  fractMin = <span class='fl'>0.75</span>,
+  windowY = <span class='fl'>7</span>,
+  windowQ = <span class='fl'>2</span>,
+  windowS = <span class='fl'>0.5</span>,
+  edgeAdjust = <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -263,12 +263,12 @@ Default is NA which sets it to the last Date in eList$Sample.</p></td>
     <tr>
       <th>paStart</th>
       <td><p>numeric integer specifying the starting month for the period of analysis, 1&lt;=paStart&lt;=12.
-Default is NA, which will use the paStart in the eList$INFO data frame. See also <code><a href='setPA.html'>setPA</a></code>.</p></td>
+Default is NA, which will use the paStart in the eList$INFO data frame. See also <code><a href='https://rdrr.io/pkg/EGRET/man/setPA.html'>setPA</a></code>.</p></td>
     </tr>
     <tr>
       <th>paLong</th>
       <td><p>numeric integer specifying the length of the period of analysis, in months, 1&lt;=paLong&lt;=12. 
-Default is NA, which will use the paLong in the eList$INFO data frame. See also <code><a href='setPA.html'>setPA</a></code>.</p></td>
+Default is NA, which will use the paLong in the eList$INFO data frame. See also <code><a href='https://rdrr.io/pkg/EGRET/man/setPA.html'>setPA</a></code>.</p></td>
     </tr>
     <tr>
       <th>minNumObs</th>
@@ -328,9 +328,9 @@ CQTC Percent is the CQTC divided by x11
 QTC Percent  is the QTC divided by x11</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
-<span class='no'>year1</span> <span class='kw'>&lt;-</span> <span class='fl'>1985</span>
-<span class='no'>year2</span> <span class='kw'>&lt;-</span> <span class='fl'>2010</span>
+    <pre class="examples"><div class='input'><span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='kw'>Choptank_eList</span>
+<span class='kw'>year1</span> <span class='op'>&lt;-</span> <span class='fl'>1985</span>
+<span class='kw'>year2</span> <span class='op'>&lt;-</span> <span class='fl'>2010</span>
 
 <span class='co'># \donttest{</span>
 <span class='co'># Automatic calculations based on windowSide=7</span>
@@ -338,7 +338,7 @@ QTC Percent  is the QTC divided by x11</p>
 
 <span class='co'>#Option 1: Use all years for flow normalization.</span>
 
-<span class='no'>pairOut_1</span> <span class='kw'>&lt;-</span> <span class='fu'>runPairs</span>(<span class='no'>eList</span>, <span class='no'>year1</span>, <span class='no'>year2</span>, <span class='kw'>windowSide</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; 
+<span class='kw'>pairOut_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/runPairs.html'>runPairs</a></span>(<span class='kw'>eList</span>, <span class='kw'>year1</span>, <span class='kw'>year2</span>, windowSide = <span class='fl'>0</span>)</div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; 
 #&gt;    Choptank River 
 #&gt;    Inorganic nitrogen (nitrate and nitrite)
 #&gt;    Water Year 
@@ -364,7 +364,7 @@ QTC Percent  is the QTC divided by x11</p>
 <span class='co'># Option 2:  Use different windows for flow normalization for year1 versus year2</span>
 <span class='co'>#            In each case it is a 15 year window (15 = 1 + 2*7)</span>
 
-<span class='no'>pairOut_2</span> <span class='kw'>&lt;-</span> <span class='fu'>runPairs</span>(<span class='no'>eList</span>, <span class='no'>year1</span>, <span class='no'>year2</span>, <span class='kw'>windowSide</span> <span class='kw'>=</span> <span class='fl'>7</span>)</div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; 
+<span class='kw'>pairOut_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/runPairs.html'>runPairs</a></span>(<span class='kw'>eList</span>, <span class='kw'>year1</span>, <span class='kw'>year2</span>, windowSide = <span class='fl'>7</span>)</div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; 
 #&gt;    Choptank River 
 #&gt;    Inorganic nitrogen (nitrate and nitrite)
 #&gt;    Water Year 
@@ -391,9 +391,9 @@ QTC Percent  is the QTC divided by x11</p>
 <span class='co'>#          But year1 uses all flow data from before the break, </span>
 <span class='co'>#          year2 uses all flow data after the break</span>
 
-<span class='no'>pairOut_3</span> <span class='kw'>&lt;-</span> <span class='fu'>runPairs</span>(<span class='no'>eList</span>, <span class='no'>year1</span>, <span class='no'>year2</span>,
-                      <span class='kw'>windowSide</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>flowBreak</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-                      <span class='kw'>Q1EndDate</span> <span class='kw'>=</span> <span class='st'>"1990-09-30"</span>)</div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; 
+<span class='kw'>pairOut_3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/runPairs.html'>runPairs</a></span>(<span class='kw'>eList</span>, <span class='kw'>year1</span>, <span class='kw'>year2</span>, 
+                      windowSide = <span class='fl'>0</span>, flowBreak = <span class='fl'>TRUE</span>,
+                      Q1EndDate = <span class='st'>"1990-09-30"</span>)</div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; 
 #&gt;    Choptank River 
 #&gt;    Inorganic nitrogen (nitrate and nitrite)
 #&gt;    Water Year 
@@ -420,9 +420,9 @@ QTC Percent  is the QTC divided by x11</p>
 <span class='co'>#           but year1 uses a 15 year window before the break</span>
 <span class='co'>#           year2 uses a 15 year window after the break</span>
 
-<span class='no'>pairOut_4</span> <span class='kw'>&lt;-</span> <span class='fu'>runPairs</span>(<span class='no'>eList</span>, <span class='no'>year1</span>, <span class='no'>year2</span>,
-                      <span class='kw'>windowSide</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>flowBreak</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-                      <span class='kw'>Q1EndDate</span> <span class='kw'>=</span> <span class='st'>"1990-09-30"</span>)</div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; 
+<span class='kw'>pairOut_4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/runPairs.html'>runPairs</a></span>(<span class='kw'>eList</span>, <span class='kw'>year1</span>, <span class='kw'>year2</span>, 
+                      windowSide = <span class='fl'>7</span>, flowBreak = <span class='fl'>TRUE</span>,
+                      Q1EndDate = <span class='st'>"1990-09-30"</span>)</div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; 
 #&gt;    Choptank River 
 #&gt;    Inorganic nitrogen (nitrate and nitrite)
 #&gt;    Water Year 
@@ -446,8 +446,7 @@ QTC Percent  is the QTC divided by x11</p>
 #&gt; Conc       0.399 0.429 -0.03 1.01 1.03 1.44 1.43
 #&gt; Flux       0.054 0.034  0.02 0.12 0.11 0.15 0.16</div><div class='input'>                      
 
-# }
-</div></pre>
+<span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

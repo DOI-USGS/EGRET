@@ -100,7 +100,7 @@ Although there are a lot of optional arguments to this function, most are set to
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EGRET</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.4.9000</span>
       </span>
     </div>
 
@@ -123,7 +123,7 @@ Although there are a lot of optional arguments to this function, most are set to
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K</a>
+      <a href="../articles/WRTDSK.html">WRTDS-K</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -185,20 +185,20 @@ and an INFO dataframe with metadata.</p>
 <p>Although there are a lot of optional arguments to this function, most are set to a logical default.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>boxQTwice</span>(
-  <span class='no'>eList</span>,
-  <span class='kw'>printTitle</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>qUnit</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-  <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>0.8</span>,
-  <span class='kw'>cex.main</span> <span class='kw'>=</span> <span class='fl'>1.1</span>,
-  <span class='kw'>logScale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>cex.axis</span> <span class='kw'>=</span> <span class='fl'>1.1</span>,
-  <span class='kw'>tcl</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>las</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>tinyPlot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>usgsStyle</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>customPar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/boxQTwice.html'>boxQTwice</a></span>(
+  <span class='kw'>eList</span>,
+  printTitle = <span class='fl'>TRUE</span>,
+  qUnit = <span class='fl'>2</span>,
+  cex = <span class='fl'>0.8</span>,
+  cex.main = <span class='fl'>1.1</span>,
+  logScale = <span class='fl'>TRUE</span>,
+  cex.axis = <span class='fl'>1.1</span>,
+  tcl = <span class='fl'>0.5</span>,
+  las = <span class='fl'>1</span>,
+  tinyPlot = <span class='fl'>FALSE</span>,
+  usgsStyle = <span class='fl'>FALSE</span>,
+  customPar = <span class='fl'>FALSE</span>,
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -214,7 +214,7 @@ and an INFO dataframe with metadata.</p>
     </tr>
     <tr>
       <th>qUnit</th>
-      <td><p>object of qUnit class <code><a href='printqUnitCheatSheet.html'>printqUnitCheatSheet</a></code>, or numeric represented the short code, or character representing the descriptive name.</p></td>
+      <td><p>object of qUnit class <code><a href='https://rdrr.io/pkg/EGRET/man/printqUnitCheatSheet.html'>printqUnitCheatSheet</a></code>, or numeric represented the short code, or character representing the descriptive name.</p></td>
     </tr>
     <tr>
       <th>cex</th>
@@ -265,11 +265,11 @@ generated labels.</p></td>
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/graphics/boxplot.html'>boxplot</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
+    <pre class="examples"><div class='input'><span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='kw'>Choptank_eList</span>
 <span class='co'># Water year:</span>
-<span class='fu'>boxQTwice</span>(<span class='no'>eList</span>)</div><div class='img'><img src='boxQTwice-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>boxQTwice</span>(<span class='no'>eList</span>, <span class='kw'>qUnit</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='input'><span class='fu'>boxQTwice</span>(<span class='no'>eList</span>, <span class='kw'>qUnit</span><span class='kw'>=</span><span class='st'>'cfs'</span>)</div><div class='img'><img src='boxQTwice-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Graphs consisting of Jun-Aug</span>
-<span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span>(<span class='no'>eList</span>, <span class='kw'>paStart</span><span class='kw'>=</span><span class='fl'>6</span>,<span class='kw'>paLong</span><span class='kw'>=</span><span class='fl'>3</span>)
-<span class='fu'>boxQTwice</span>(<span class='no'>eList</span>)</div><div class='img'><img src='boxQTwice-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/boxQTwice.html'>boxQTwice</a></span>(<span class='kw'>eList</span>)</div><div class='img'><img src='boxQTwice-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/boxQTwice.html'>boxQTwice</a></span>(<span class='kw'>eList</span>, qUnit=<span class='fl'>1</span>)</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/boxQTwice.html'>boxQTwice</a></span>(<span class='kw'>eList</span>, qUnit=<span class='st'>'cfs'</span>)</div><div class='img'><img src='boxQTwice-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Graphs consisting of Jun-Aug</span>
+<span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/setPA.html'>setPA</a></span>(<span class='kw'>eList</span>, paStart=<span class='fl'>6</span>,paLong=<span class='fl'>3</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/boxQTwice.html'>boxQTwice</a></span>(<span class='kw'>eList</span>)</div><div class='img'><img src='boxQTwice-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

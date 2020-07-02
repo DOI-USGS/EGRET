@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EGRET</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.4.9000</span>
       </span>
     </div>
 
@@ -113,7 +113,7 @@
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K</a>
+      <a href="../articles/WRTDSK.html">WRTDS-K</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -166,16 +166,16 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for egret</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
 <span class='co'># S3 method for egret</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
-<span class='fu'>nDischarge</span>(<span class='no'>x</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/helperEGRET.html'>nDischarge</a></span>(<span class='kw'>x</span>)
 
-<span class='fu'>nObservations</span>(<span class='no'>x</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/helperEGRET.html'>nObservations</a></span>(<span class='kw'>x</span>)
 
-<span class='fu'>nCensoredVals</span>(<span class='no'>x</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/helperEGRET.html'>nCensoredVals</a></span>(<span class='kw'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -192,10 +192,10 @@
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='multiPlotDataOverview.html'>multiPlotDataOverview</a></code></p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/EGRET/man/multiPlotDataOverview.html'>multiPlotDataOverview</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>Choptank_eList</span></div><div class='output co'>#&gt; Daily discharge:
+    <pre class="examples"><div class='input'><span class='kw'>Choptank_eList</span></div><div class='output co'>#&gt; Daily discharge:
 #&gt;         Date        Q
 #&gt; 1 1979-10-01 1.897229
 #&gt; ...
@@ -211,7 +211,7 @@
 #&gt; 
 #&gt; Choptank River:Inorganic nitrogen (nitrate and nitrite)
 #&gt; Parameter units: mg/l as N 
-#&gt; Drainage area: 292.6687 km^2</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>Arkansas_eList</span>)</div><div class='output co'>#&gt; Daily discharge:
+#&gt; Drainage area: 292.6687 km^2</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>Arkansas_eList</span>)</div><div class='output co'>#&gt; Daily discharge:
 #&gt;            Date     Q
 #&gt; 9132 1989-10-01 37600
 #&gt; ...
@@ -227,7 +227,7 @@
 #&gt; 
 #&gt; Arkansas River at Murray Lock and Dam (Lock and Dam No. 7):Ammonia
 #&gt; Parameter units: mg/l as N 
-#&gt; Drainage area: 395783.7 km^2</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>Choptank_eList</span>)</div><div class='img'><img src='helperEGRET-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>Choptank_eList</span>, <span class='kw'>cex.main</span><span class='kw'>=</span><span class='fl'>0.7</span>)</div><div class='img'><img src='helperEGRET-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>nDischarge</span>(<span class='no'>Arkansas_eList</span>)</div><div class='output co'>#&gt; [1] 8401</div><div class='input'><span class='fu'>nObservations</span>(<span class='no'>Arkansas_eList</span>)</div><div class='output co'>#&gt; [1] 254</div><div class='input'><span class='fu'>nCensoredVals</span>(<span class='no'>Arkansas_eList</span>)</div><div class='output co'>#&gt; [1] 115</div></pre>
+#&gt; Drainage area: 395783.7 km^2</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>Choptank_eList</span>)</div><div class='img'><img src='helperEGRET-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>Choptank_eList</span>, cex.main=<span class='fl'>0.7</span>)</div><div class='img'><img src='helperEGRET-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/helperEGRET.html'>nDischarge</a></span>(<span class='kw'>Arkansas_eList</span>)</div><div class='output co'>#&gt; [1] 8401</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/helperEGRET.html'>nObservations</a></span>(<span class='kw'>Arkansas_eList</span>)</div><div class='output co'>#&gt; [1] 254</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/helperEGRET.html'>nCensoredVals</a></span>(<span class='kw'>Arkansas_eList</span>)</div><div class='output co'>#&gt; [1] 115</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

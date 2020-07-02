@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EGRET</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.4.9000</span>
       </span>
     </div>
 
@@ -67,7 +67,7 @@
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/Making%20WRTDS_K%20flux%20estimates.html">WRTDS-K</a>
+      <a href="../articles/WRTDSK.html">WRTDS-K</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -107,7 +107,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="EGRET_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to the EGRET package</h1>
@@ -137,138 +137,146 @@
 <h1 class="hasAnchor">
 <a href="#egret-workflow" class="anchor"></a>EGRET Workflow</h1>
 <p>Subsequent sections of this vignette discuss the EGRET workflow steps in greater detail. This section provides a handy cheat sheet for diving into an EGRET analysis. The first example is for a flow history analysis:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">EGRET</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://pubs.usgs.gov/tm/04/a10">EGRET</a></span>)
 
 <span class="co"># Flow history analysis</span>
 
 <span class="co">############################</span>
 <span class="co"># Gather discharge data:</span>
-<span class="no">siteNumber</span> <span class="kw">&lt;-</span> <span class="st">"01491000"</span> <span class="co">#Choptank River at Greensboro, MD</span>
-<span class="no">startDate</span> <span class="kw">&lt;-</span> <span class="st">""</span> <span class="co"># Get earliest date</span>
-<span class="no">endDate</span> <span class="kw">&lt;-</span> <span class="st">""</span> <span class="co"># Get latest date</span>
-<span class="no">Daily</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/readNWISDaily.html">readNWISDaily</a></span>(<span class="no">siteNumber</span>,<span class="st">"00060"</span>,<span class="no">startDate</span>,<span class="no">endDate</span>)
+<span class="kw">siteNumber</span> <span class="op">&lt;-</span> <span class="st">"01491000"</span> <span class="co">#Choptank River at Greensboro, MD</span>
+<span class="kw">startDate</span> <span class="op">&lt;-</span> <span class="st">""</span> <span class="co"># Get earliest date</span>
+<span class="kw">endDate</span> <span class="op">&lt;-</span> <span class="st">""</span> <span class="co"># Get latest date</span>
+<span class="kw">Daily</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readNWISDaily.html">readNWISDaily</a></span>(<span class="kw">siteNumber</span>,<span class="st">"00060"</span>,<span class="kw">startDate</span>,<span class="kw">endDate</span>)
 <span class="co"># Gather site and parameter information:</span>
 <span class="co"># Here user must input some values for</span>
 <span class="co"># the default (interactive=TRUE)</span>
-<span class="no">INFO</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/INFOdataframe.html">readNWISInfo</a></span>(<span class="no">siteNumber</span>,<span class="st">"00060"</span>)
-<span class="no">INFO</span>$<span class="no">shortName</span> <span class="kw">&lt;-</span> <span class="st">"Choptank River near Greensboro, MD"</span>
+<span class="kw">INFO</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/INFOdataframe.html">readNWISInfo</a></span>(<span class="kw">siteNumber</span>,<span class="st">"00060"</span>)
+<span class="kw">INFO</span><span class="op">$</span><span class="kw">shortName</span> <span class="op">&lt;-</span> <span class="st">"Choptank River near Greensboro, MD"</span>
 <span class="co">############################</span>
 
 <span class="co">############################</span>
 <span class="co"># Check flow history data:</span>
-<span class="no">eList</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/as.egret.html">as.egret</a></span>(<span class="no">INFO</span>, <span class="no">Daily</span>, <span class="fl">NA</span>, <span class="fl">NA</span>)
-<span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="no">eList</span>, <span class="kw">istat</span><span class="kw">=</span><span class="fl">7</span>,<span class="kw">qUnit</span><span class="kw">=</span><span class="st">"thousandCfs"</span>)
-<span class="fu"><a href="../reference/plotSDLogQ.html">plotSDLogQ</a></span>(<span class="no">eList</span>)
-<span class="fu"><a href="../reference/plotQTimeDaily.html">plotQTimeDaily</a></span>(<span class="no">eList</span>, <span class="kw">qLower</span><span class="kw">=</span><span class="fl">1</span>,<span class="kw">qUnit</span><span class="kw">=</span><span class="fl">3</span>)
-<span class="fu"><a href="../reference/plotFour.html">plotFour</a></span>(<span class="no">eList</span>, <span class="kw">qUnit</span><span class="kw">=</span><span class="fl">3</span>)
-<span class="fu"><a href="../reference/plotFourStats.html">plotFourStats</a></span>(<span class="no">eList</span>, <span class="kw">qUnit</span><span class="kw">=</span><span class="fl">3</span>)
+<span class="kw">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as.egret.html">as.egret</a></span>(<span class="kw">INFO</span>, <span class="kw">Daily</span>, <span class="fl">NA</span>, <span class="fl">NA</span>)
+<span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="kw">eList</span>, istat=<span class="fl">7</span>,qUnit=<span class="st">"thousandCfs"</span>)
+<span class="fu"><a href="../reference/plotSDLogQ.html">plotSDLogQ</a></span>(<span class="kw">eList</span>)
+<span class="fu"><a href="../reference/plotQTimeDaily.html">plotQTimeDaily</a></span>(<span class="kw">eList</span>, qLower=<span class="fl">1</span>,qUnit=<span class="fl">3</span>)
+<span class="fu"><a href="../reference/plotFour.html">plotFour</a></span>(<span class="kw">eList</span>, qUnit=<span class="fl">3</span>)
+<span class="fu"><a href="../reference/plotFourStats.html">plotFourStats</a></span>(<span class="kw">eList</span>, qUnit=<span class="fl">3</span>)
 <span class="co">############################</span>
 
 <span class="co"># modify this for your own computer file structure:</span>
-<span class="no">savePath</span><span class="kw">&lt;-</span><span class="st">"/Users/rhirsch/Desktop/"</span>
-<span class="fu"><a href="../reference/saveResults.html">saveResults</a></span>(<span class="no">savePath</span>, <span class="no">eList</span>)</pre></body></html></div>
+<span class="kw">savePath</span><span class="op">&lt;-</span><span class="st">"/Users/rhirsch/Desktop/"</span> 
+<span class="fu"><a href="../reference/saveResults.html">saveResults</a></span>(<span class="kw">savePath</span>, <span class="kw">eList</span>)
+</pre></div>
 <p>The second workflow example is for a water quality analysis. It includes data retrieval, merging of water quality and streamflow data, running the WRTDS estimation, and various plotting functions available in the EGRET package.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">EGRET</span>)
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://pubs.usgs.gov/tm/04/a10">EGRET</a></span>)
 
 <span class="co">############################</span>
 <span class="co"># Gather discharge data:</span>
-<span class="no">siteNumber</span> <span class="kw">&lt;-</span> <span class="st">"01491000"</span> <span class="co">#Choptank River near Greensboro, MD</span>
-<span class="no">startDate</span> <span class="kw">&lt;-</span> <span class="st">""</span> <span class="co">#Gets earliest date</span>
-<span class="no">endDate</span> <span class="kw">&lt;-</span> <span class="st">"2011-09-30"</span>
+<span class="kw">siteNumber</span> <span class="op">&lt;-</span> <span class="st">"01491000"</span> <span class="co">#Choptank River near Greensboro, MD</span>
+<span class="kw">startDate</span> <span class="op">&lt;-</span> <span class="st">""</span> <span class="co">#Gets earliest date</span>
+<span class="kw">endDate</span> <span class="op">&lt;-</span> <span class="st">"2011-09-30"</span>
 <span class="co"># Gather sample data:</span>
-<span class="no">parameter_cd</span><span class="kw">&lt;-</span><span class="st">"00631"</span> <span class="co">#5 digit USGS code</span>
-<span class="no">Sample</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/readNWISSample.html">readNWISSample</a></span>(<span class="no">siteNumber</span>,<span class="no">parameter_cd</span>,<span class="no">startDate</span>,<span class="no">endDate</span>)
+<span class="kw">parameter_cd</span><span class="op">&lt;-</span><span class="st">"00631"</span> <span class="co">#5 digit USGS code</span>
+<span class="kw">Sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readNWISSample.html">readNWISSample</a></span>(<span class="kw">siteNumber</span>,<span class="kw">parameter_cd</span>,<span class="kw">startDate</span>,<span class="kw">endDate</span>)
 <span class="co">#Gets earliest date from Sample record:</span>
 <span class="co">#This is just one of many ways to assure the Daily record</span>
 <span class="co">#spans the Sample record</span>
-<span class="no">startDate</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="no">Sample</span>$<span class="no">Date</span>))
+<span class="kw">startDate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(<span class="kw">Sample</span><span class="op">$</span><span class="kw">Date</span>)) 
 <span class="co"># Gather discharge data:</span>
-<span class="no">Daily</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/readNWISDaily.html">readNWISDaily</a></span>(<span class="no">siteNumber</span>,<span class="st">"00060"</span>,<span class="no">startDate</span>,<span class="no">endDate</span>)
+<span class="kw">Daily</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readNWISDaily.html">readNWISDaily</a></span>(<span class="kw">siteNumber</span>,<span class="st">"00060"</span>,<span class="kw">startDate</span>,<span class="kw">endDate</span>)
 <span class="co"># Gather site and parameter information:</span>
 
 <span class="co"># Here user must input some values:</span>
-<span class="no">INFO</span><span class="kw">&lt;-</span> <span class="fu"><a href="../reference/INFOdataframe.html">readNWISInfo</a></span>(<span class="no">siteNumber</span>,<span class="no">parameter_cd</span>)
-<span class="no">INFO</span>$<span class="no">shortName</span> <span class="kw">&lt;-</span> <span class="st">"Choptank River at Greensboro, MD"</span>
+<span class="kw">INFO</span><span class="op">&lt;-</span> <span class="fu"><a href="../reference/INFOdataframe.html">readNWISInfo</a></span>(<span class="kw">siteNumber</span>,<span class="kw">parameter_cd</span>)
+<span class="kw">INFO</span><span class="op">$</span><span class="kw">shortName</span> <span class="op">&lt;-</span> <span class="st">"Choptank River at Greensboro, MD"</span>
 
 <span class="co"># Merge discharge with sample data:</span>
-<span class="no">eList</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/mergeReport.html">mergeReport</a></span>(<span class="no">INFO</span>, <span class="no">Daily</span>, <span class="no">Sample</span>)
+<span class="kw">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mergeReport.html">mergeReport</a></span>(<span class="kw">INFO</span>, <span class="kw">Daily</span>, <span class="kw">Sample</span>)
 <span class="co">############################</span>
 
 <span class="co">############################</span>
 <span class="co"># Check sample data:</span>
-<span class="fu"><a href="../reference/boxConcMonth.html">boxConcMonth</a></span>(<span class="no">eList</span>)
-<span class="fu"><a href="../reference/boxQTwice.html">boxQTwice</a></span>(<span class="no">eList</span>)
-<span class="fu"><a href="../reference/plotConcTime.html">plotConcTime</a></span>(<span class="no">eList</span>)
-<span class="fu"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(<span class="no">eList</span>)
-<span class="fu"><a href="../reference/multiPlotDataOverview.html">multiPlotDataOverview</a></span>(<span class="no">eList</span>)
+<span class="fu"><a href="../reference/boxConcMonth.html">boxConcMonth</a></span>(<span class="kw">eList</span>)
+<span class="fu"><a href="../reference/boxQTwice.html">boxQTwice</a></span>(<span class="kw">eList</span>)
+<span class="fu"><a href="../reference/plotConcTime.html">plotConcTime</a></span>(<span class="kw">eList</span>)
+<span class="fu"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(<span class="kw">eList</span>)
+<span class="fu"><a href="../reference/multiPlotDataOverview.html">multiPlotDataOverview</a></span>(<span class="kw">eList</span>)
 <span class="co">############################</span>
 
 <span class="co">############################</span>
 <span class="co"># Run WRTDS model:</span>
-<span class="no">eList</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/modelEstimation.html">modelEstimation</a></span>(<span class="no">eList</span>)
+<span class="kw">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/modelEstimation.html">modelEstimation</a></span>(<span class="kw">eList</span>)
 <span class="co">############################</span>
 
 <span class="co">############################</span>
 <span class="co">#Check model results:</span>
 
 <span class="co">#Require Sample + INFO:</span>
-<span class="fu"><a href="../reference/plotConcTimeDaily.html">plotConcTimeDaily</a></span>(<span class="no">eList</span>)
-<span class="fu"><a href="../reference/plotFluxTimeDaily.html">plotFluxTimeDaily</a></span>(<span class="no">eList</span>)
-<span class="fu"><a href="../reference/plotConcPred.html">plotConcPred</a></span>(<span class="no">eList</span>)
-<span class="fu"><a href="../reference/plotFluxPred.html">plotFluxPred</a></span>(<span class="no">eList</span>)
-<span class="fu"><a href="../reference/plotResidPred.html">plotResidPred</a></span>(<span class="no">eList</span>)
-<span class="fu"><a href="../reference/plotResidQ.html">plotResidQ</a></span>(<span class="no">eList</span>)
-<span class="fu"><a href="../reference/plotResidTime.html">plotResidTime</a></span>(<span class="no">eList</span>)
-<span class="fu"><a href="../reference/boxResidMonth.html">boxResidMonth</a></span>(<span class="no">eList</span>)
-<span class="fu"><a href="../reference/boxConcThree.html">boxConcThree</a></span>(<span class="no">eList</span>)
+<span class="fu"><a href="../reference/plotConcTimeDaily.html">plotConcTimeDaily</a></span>(<span class="kw">eList</span>)
+<span class="fu"><a href="../reference/plotFluxTimeDaily.html">plotFluxTimeDaily</a></span>(<span class="kw">eList</span>)
+<span class="fu"><a href="../reference/plotConcPred.html">plotConcPred</a></span>(<span class="kw">eList</span>)
+<span class="fu"><a href="../reference/plotFluxPred.html">plotFluxPred</a></span>(<span class="kw">eList</span>)
+<span class="fu"><a href="../reference/plotResidPred.html">plotResidPred</a></span>(<span class="kw">eList</span>)
+<span class="fu"><a href="../reference/plotResidQ.html">plotResidQ</a></span>(<span class="kw">eList</span>)
+<span class="fu"><a href="../reference/plotResidTime.html">plotResidTime</a></span>(<span class="kw">eList</span>)
+<span class="fu"><a href="../reference/boxResidMonth.html">boxResidMonth</a></span>(<span class="kw">eList</span>)
+<span class="fu"><a href="../reference/boxConcThree.html">boxConcThree</a></span>(<span class="kw">eList</span>)
 
 <span class="co">#Require Daily + INFO:</span>
-<span class="fu"><a href="../reference/plotConcHist.html">plotConcHist</a></span>(<span class="no">eList</span>)
-<span class="fu"><a href="../reference/plotFluxHist.html">plotFluxHist</a></span>(<span class="no">eList</span>)
+<span class="fu"><a href="../reference/plotConcHist.html">plotConcHist</a></span>(<span class="kw">eList</span>)
+<span class="fu"><a href="../reference/plotFluxHist.html">plotFluxHist</a></span>(<span class="kw">eList</span>)
 
 <span class="co"># Multi-line plots:</span>
-<span class="no">date1</span> <span class="kw">&lt;-</span> <span class="st">"1985-09-01"</span>
-<span class="no">date2</span> <span class="kw">&lt;-</span> <span class="st">"1997-09-0"</span>
-<span class="no">date3</span> <span class="kw">&lt;-</span> <span class="st">"2010-09-01"</span>
-<span class="no">qBottom</span><span class="kw">&lt;-</span><span class="fl">0.2</span>
-<span class="no">qTop</span><span class="kw">&lt;-</span><span class="fl">10</span>
-<span class="fu"><a href="../reference/plotConcQSmooth.html">plotConcQSmooth</a></span>(<span class="no">eList</span>, <span class="no">date1</span>, <span class="no">date2</span>, <span class="no">date3</span>, <span class="no">qBottom</span>, <span class="no">qTop</span>,
-                   <span class="kw">concMax</span><span class="kw">=</span><span class="fl">2</span>,<span class="kw">legendTop</span> <span class="kw">=</span> <span class="fl">0.8</span>)
-<span class="no">q1</span> <span class="kw">&lt;-</span> <span class="fl">2</span>
-<span class="no">q2</span> <span class="kw">&lt;-</span> <span class="fl">10</span>
-<span class="no">q3</span> <span class="kw">&lt;-</span> <span class="fl">20</span>
-<span class="no">centerDate</span> <span class="kw">&lt;-</span> <span class="st">"07-01"</span>
-<span class="no">yearEnd</span> <span class="kw">&lt;-</span> <span class="fl">1980</span>
-<span class="no">yearStart</span> <span class="kw">&lt;-</span> <span class="fl">2010</span>
-<span class="fu"><a href="../reference/plotConcTimeSmooth.html">plotConcTimeSmooth</a></span>(<span class="no">eList</span>, <span class="no">q1</span>, <span class="no">q2</span>, <span class="no">q3</span>, <span class="no">centerDate</span>, <span class="no">yearStart</span>, <span class="no">yearEnd</span>, <span class="kw">legendTop</span> <span class="kw">=</span> <span class="fl">0.7</span>)
+<span class="kw">date1</span> <span class="op">&lt;-</span> <span class="st">"1985-09-01"</span>
+<span class="kw">date2</span> <span class="op">&lt;-</span> <span class="st">"1997-09-0"</span>
+<span class="kw">date3</span> <span class="op">&lt;-</span> <span class="st">"2010-09-01"</span>
+<span class="kw">qBottom</span><span class="op">&lt;-</span><span class="fl">0.2</span>
+<span class="kw">qTop</span><span class="op">&lt;-</span><span class="fl">10</span>
+<span class="fu"><a href="../reference/plotConcQSmooth.html">plotConcQSmooth</a></span>(<span class="kw">eList</span>, <span class="kw">date1</span>, <span class="kw">date2</span>, <span class="kw">date3</span>, <span class="kw">qBottom</span>, <span class="kw">qTop</span>, 
+                   concMax=<span class="fl">2</span>,legendTop = <span class="fl">0.8</span>)
+<span class="kw">q1</span> <span class="op">&lt;-</span> <span class="fl">2</span>
+<span class="kw">q2</span> <span class="op">&lt;-</span> <span class="fl">10</span>
+<span class="kw">q3</span> <span class="op">&lt;-</span> <span class="fl">20</span>
+<span class="kw">centerDate</span> <span class="op">&lt;-</span> <span class="st">"07-01"</span>
+<span class="kw">yearEnd</span> <span class="op">&lt;-</span> <span class="fl">1980</span>
+<span class="kw">yearStart</span> <span class="op">&lt;-</span> <span class="fl">2010</span>
+<span class="fu"><a href="../reference/plotConcTimeSmooth.html">plotConcTimeSmooth</a></span>(<span class="kw">eList</span>, <span class="kw">q1</span>, <span class="kw">q2</span>, <span class="kw">q3</span>, <span class="kw">centerDate</span>, <span class="kw">yearStart</span>, <span class="kw">yearEnd</span>, legendTop = <span class="fl">0.7</span>)
 
 <span class="co"># Multi-plots:</span>
-<span class="fu"><a href="../reference/fluxBiasMulti.html">fluxBiasMulti</a></span>(<span class="no">eList</span>)
+<span class="fu"><a href="../reference/fluxBiasMulti.html">fluxBiasMulti</a></span>(<span class="kw">eList</span>)
 
 <span class="co">#Contour plots:</span>
-<span class="no">clevel</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">0.5</span>)
-<span class="no">maxDiff</span><span class="kw">&lt;-</span><span class="fl">0.8</span>
-<span class="no">yearStart</span> <span class="kw">&lt;-</span> <span class="fl">1980</span>
-<span class="no">yearEnd</span> <span class="kw">&lt;-</span> <span class="fl">2010</span>
+<span class="kw">clevel</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">0.5</span>)
+<span class="kw">maxDiff</span><span class="op">&lt;-</span><span class="fl">0.8</span>
+<span class="kw">yearStart</span> <span class="op">&lt;-</span> <span class="fl">1980</span>
+<span class="kw">yearEnd</span> <span class="op">&lt;-</span> <span class="fl">2010</span>
 
-<span class="fu"><a href="../reference/plotContours.html">plotContours</a></span>(<span class="no">eList</span>, <span class="no">yearStart</span>,<span class="no">yearEnd</span>,<span class="no">qBottom</span>,<span class="no">qTop</span>,
-             <span class="kw">contourLevels</span> <span class="kw">=</span> <span class="no">clevel</span>,<span class="kw">qUnit</span><span class="kw">=</span><span class="fl">2</span>)
-<span class="fu"><a href="../reference/plotDiffContours.html">plotDiffContours</a></span>(<span class="no">eList</span>, <span class="no">yearStart</span>,<span class="no">yearEnd</span>,
-                 <span class="no">qBottom</span>,<span class="no">qTop</span>,<span class="no">maxDiff</span>,<span class="kw">qUnit</span><span class="kw">=</span><span class="fl">2</span>)
+<span class="fu"><a href="../reference/plotContours.html">plotContours</a></span>(<span class="kw">eList</span>, <span class="kw">yearStart</span>,<span class="kw">yearEnd</span>,<span class="kw">qBottom</span>,<span class="kw">qTop</span>, 
+             contourLevels = <span class="kw">clevel</span>,qUnit=<span class="fl">2</span>)
+<span class="fu"><a href="../reference/plotDiffContours.html">plotDiffContours</a></span>(<span class="kw">eList</span>, <span class="kw">yearStart</span>,<span class="kw">yearEnd</span>,
+                 <span class="kw">qBottom</span>,<span class="kw">qTop</span>,<span class="kw">maxDiff</span>,qUnit=<span class="fl">2</span>)
 
 <span class="co"># modify this for your own computer file structure:</span>
-<span class="no">savePath</span><span class="kw">&lt;-</span><span class="st">"/Users/rhirsch/Desktop/"</span>
-<span class="fu"><a href="../reference/saveResults.html">saveResults</a></span>(<span class="no">savePath</span>, <span class="no">eList</span>)</pre></body></html></div>
+<span class="kw">savePath</span><span class="op">&lt;-</span><span class="st">"/Users/rhirsch/Desktop/"</span> 
+<span class="fu"><a href="../reference/saveResults.html">saveResults</a></span>(<span class="kw">savePath</span>, <span class="kw">eList</span>)
+</pre></div>
 </div>
 <div id="data_frame" class="section level1">
 <h1 class="hasAnchor">
 <a href="#data_frame" class="anchor"></a>EGRET Data Frames and Retrieval Options</h1>
 <p>The EGRET package uses 3 default data frames throughout the calculations, analysis, and graphing. These data frames are <a href="#data_frame_Daily">Daily</a>, <a href="#data_frame_Sample">Sample</a>, and <a href="#data_frame_INFO">INFO</a>. The data frames are combined into a named list for all EGRET functions using the <code>as.egret</code> function (see <a href="#eList">Merge Report</a>).</p>
 <p>A package that EGRET depends on is called dataRetrieval. This package provides the core functionality to import hydrologic data from USGS and EPA web services. See the dataRetrieval vignette for more information.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dataRetrieval</span>)
-<span class="fu"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span>(<span class="st">"dataRetrieval"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://pubs.usgs.gov/tm/04/a10">dataRetrieval</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span>(<span class="st">"dataRetrieval"</span>)
+</pre></div>
 <p>EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units, which will be discussed in the <a href="#units">Units</a> section. To start our exploration, you must install the packages, then open EGRET with the following command:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">EGRET</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://pubs.usgs.gov/tm/04/a10">EGRET</a></span>)
+</pre></div>
 <div id="data_frame_Daily" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data_frame_Daily" class="anchor"></a>Daily</h2>
@@ -409,11 +417,13 @@
 <a href="#nwisDailyFile" class="anchor"></a>readNWISDaily</h3>
 <p>The <code>readNWISDaily</code> function retrieves the daily values (discharge in this case) from a USGS web service. It requires the inputs siteNumber, parameterCd, startDate, endDate, interactive, and convert.</p>
 <p>These arguments are described in detail in the <code>dataRetrieval</code> vignette, however <code>convert</code> is a new argument (which defaults to TRUE). The convert argument tells the program to convert the values from cubic feet per second (ft<sup>3</sup>/s) to cubic meters per second (m<sup>3</sup>/s) as shown in the example Daily data frame. For EGRET applications with NWIS Web retrieval, do not use this argument (the default is TRUE), EGRET assumes that discharge is always stored in units of cubic meters per second. If you don’t want this conversion and are not using EGRET, set convert=FALSE in the function call.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">siteNumber</span> <span class="kw">&lt;-</span> <span class="st">"01491000"</span>
-<span class="no">startDate</span> <span class="kw">&lt;-</span> <span class="st">"2000-01-01"</span>
-<span class="no">endDate</span> <span class="kw">&lt;-</span> <span class="st">"2013-01-01"</span>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="kw">siteNumber</span> <span class="op">&lt;-</span> <span class="st">"01491000"</span>
+<span class="kw">startDate</span> <span class="op">&lt;-</span> <span class="st">"2000-01-01"</span>
+<span class="kw">endDate</span> <span class="op">&lt;-</span> <span class="st">"2013-01-01"</span>
 <span class="co"># This call will get NWIS (ft3/s) data , and convert it to m3/s:</span>
-<span class="no">Daily</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/readNWISDaily.html">readNWISDaily</a></span>(<span class="no">siteNumber</span>, <span class="st">"00060"</span>, <span class="no">startDate</span>, <span class="no">endDate</span>)</pre></body></html></div>
+<span class="kw">Daily</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readNWISDaily.html">readNWISDaily</a></span>(<span class="kw">siteNumber</span>, <span class="st">"00060"</span>, <span class="kw">startDate</span>, <span class="kw">endDate</span>)
+</pre></div>
 <p>If discharge values are negative or zero, the code will set all of these values to zero and then add a small constant to all of the daily discharge values. This constant is 0.001 times the mean discharge. The code will also report on the number of zero and negative values and the size of the constant. Use EGRET analysis only if the number of zero values is a very small fraction of the total days in the record (say less than 0.1% of the days), and there are no negative discharge values. Columns Q7 and Q30 are the 7 and 30 day running averages for the 7 or 30 days ending on this specific date.</p>
 </div>
 <div id="DailyFile" class="section level3">
@@ -432,10 +442,12 @@
 10/6/1999   98
 ...</code></pre>
 <p>The call to open this file, convert the discharge to cubic meters per second, and populate the Daily data frame would be:</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">fileName</span> <span class="kw">&lt;-</span> <span class="st">"ChoptankRiverFlow.txt"</span>
-<span class="no">filePath</span> <span class="kw">&lt;-</span>  <span class="st">"C:/RData/"</span>
-<span class="no">Daily</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/readDataFromFile.html">readDataFromFile</a></span>(<span class="no">filePath</span>,<span class="no">fileName</span>,
-                    <span class="kw">separator</span><span class="kw">=</span><span class="st">"\t"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="kw">fileName</span> <span class="op">&lt;-</span> <span class="st">"ChoptankRiverFlow.txt"</span>
+<span class="kw">filePath</span> <span class="op">&lt;-</span>  <span class="st">"C:/RData/"</span>
+<span class="kw">Daily</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readDataFromFile.html">readDataFromFile</a></span>(<span class="kw">filePath</span>,<span class="kw">fileName</span>,
+                    separator=<span class="st">"\t"</span>)
+</pre></div>
 <p>Microsoft™ Excel files can be a bit tricky to import into R directly. The simplest way to get Excel data into R is to open the Excel file in Excel, then save it as a .csv file (comma-separated values).</p>
 </div>
 </div>
@@ -573,10 +585,12 @@
 <h3 class="hasAnchor">
 <a href="#readNWISSample" class="anchor"></a>readNWISSample</h3>
 <p>The <code>readNWISSample</code> function retrieves USGS sample data from NWIS. The arguments for this function are also siteNumber, parameterCd, startDate, endDate, interactive. These are the same inputs as <code>readNWISDaily</code> as described in the previous section.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">siteNumber</span> <span class="kw">&lt;-</span> <span class="st">"01491000"</span>
-<span class="no">parameterCd</span> <span class="kw">&lt;-</span> <span class="st">"00618"</span>
-<span class="no">Sample</span> <span class="kw">&lt;-</span><span class="fu"><a href="../reference/readNWISSample.html">readNWISSample</a></span>(<span class="no">siteNumber</span>,<span class="no">parameterCd</span>,
-      <span class="no">startDate</span>, <span class="no">endDate</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="kw">siteNumber</span> <span class="op">&lt;-</span> <span class="st">"01491000"</span>
+<span class="kw">parameterCd</span> <span class="op">&lt;-</span> <span class="st">"00618"</span>
+<span class="kw">Sample</span> <span class="op">&lt;-</span><span class="fu"><a href="../reference/readNWISSample.html">readNWISSample</a></span>(<span class="kw">siteNumber</span>,<span class="kw">parameterCd</span>,
+      <span class="kw">startDate</span>, <span class="kw">endDate</span>)
+</pre></div>
 <p>Information on USGS parameter codes can be found here:</p>
 <p><a href="https://help.waterdata.usgs.gov/codes-and-parameters/parameters">https://help.waterdata.usgs.gov/codes-and-parameters/parameters</a></p>
 </div>
@@ -584,17 +598,19 @@
 <h3 class="hasAnchor">
 <a href="#readWQPSample" class="anchor"></a>readWQPSample</h3>
 <p>The <code>readWQPSample</code> function retrieves Water Quality Portal sample data (STORET, NWIS, STEWARDS). The arguments for this function are siteNumber, characteristicName, startDate, endDate, interactive.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">site</span> <span class="kw">&lt;-</span> <span class="st">'WIDNR_WQX-10032762'</span>
-<span class="no">characteristicName</span> <span class="kw">&lt;-</span> <span class="st">'Specific conductance'</span>
-<span class="no">Sample</span> <span class="kw">&lt;-</span><span class="fu"><a href="../reference/readWQPSample.html">readWQPSample</a></span>(<span class="no">site</span>,<span class="no">characteristicName</span>,
-      <span class="no">startDate</span>, <span class="no">endDate</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="kw">site</span> <span class="op">&lt;-</span> <span class="st">'WIDNR_WQX-10032762'</span>
+<span class="kw">characteristicName</span> <span class="op">&lt;-</span> <span class="st">'Specific conductance'</span>
+<span class="kw">Sample</span> <span class="op">&lt;-</span><span class="fu"><a href="../reference/readWQPSample.html">readWQPSample</a></span>(<span class="kw">site</span>,<span class="kw">characteristicName</span>,
+      <span class="kw">startDate</span>, <span class="kw">endDate</span>)
+</pre></div>
 <p>To request USGS data from the Water Quality Portal, the siteNumber must have “USGS-” pasted before the identification number. For USGS data, the <code>characteristicName</code> argument can be either a list of 5-digit parameter codes, or the characteristic name. A table that describes how USGS parameters relate with the defined characteristic name can be found here:</p>
 <p><a href="https://www.waterqualitydata.us/public_srsnames">https://www.waterqualitydata.us/public_srsnames</a></p>
 </div>
 <div id="SampleFile" class="section level3">
 <h3 class="hasAnchor">
 <a href="#SampleFile" class="anchor"></a>readUserSample</h3>
-<p>The <code>readUserSample</code> function will import a user-generated file and populate the Sample data frame. The difference between sample data and discharge data is that the code requires a third column that contains a remark code, either blank or <code><a href="https://rdrr.io/r/base/Comparison.html">"&lt;"</a></code>, which will tell the program that the data were “left-censored” (or, below the detection limit of the sensor). Therefore, the data must be in the form: date, remark, value. An example of a comma-delimited file is:</p>
+<p>The <code>readUserSample</code> function will import a user-generated file and populate the Sample data frame. The difference between sample data and discharge data is that the code requires a third column that contains a remark code, either blank or <code>"&lt;"</code>, which will tell the program that the data were “left-censored” (or, below the detection limit of the sensor). Therefore, the data must be in the form: date, remark, value. An example of a comma-delimited file is:</p>
 <pre><code>cdate;remarkCode;Nitrate
 10/7/1999,,1.4
 11/4/1999,&lt;,0.99
@@ -603,10 +619,12 @@
 2/3/2000,,1.54
 ...</code></pre>
 <p>The call to open this file, and populate the Sample data frame is:</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">fileName</span> <span class="kw">&lt;-</span> <span class="st">"ChoptankRiverNitrate.csv"</span>
-<span class="no">filePath</span> <span class="kw">&lt;-</span>  <span class="st">"C:/RData/"</span>
-<span class="no">Sample</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/readUserSample.html">readUserSample</a></span>(<span class="no">filePath</span>,<span class="no">fileName</span>,
-                                <span class="kw">separator</span><span class="kw">=</span><span class="st">","</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb11"><pre class="downlit">
+<span class="kw">fileName</span> <span class="op">&lt;-</span> <span class="st">"ChoptankRiverNitrate.csv"</span>
+<span class="kw">filePath</span> <span class="op">&lt;-</span>  <span class="st">"C:/RData/"</span>
+<span class="kw">Sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readUserSample.html">readUserSample</a></span>(<span class="kw">filePath</span>,<span class="kw">fileName</span>,
+                                separator=<span class="st">","</span>)
+</pre></div>
 <p>When multiple constituents are to be summed, the format can be date, remark_A, value_A, remark_b, value_b, etc… A tab-separated example might look like the file below, where the columns are date, remark dissolved phosphate (rdp), dissolved phosphate (dp), remark particulate phosphorus (rpp), particulate phosphorus (pp), remark total phosphate (rtp), and total phosphate (tp):</p>
 <pre><code>date  rdp  dp   rpp pp  rtp tp
 2003-02-15      0.020       0.500       
@@ -616,10 +634,12 @@
 2005-05-30                  &lt;   0.050
 2005-10-30                  &lt;   0.020
 ...</code></pre>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">fileName</span> <span class="kw">&lt;-</span> <span class="st">"ChoptankPhosphorus.txt"</span>
-<span class="no">filePath</span> <span class="kw">&lt;-</span>  <span class="st">"C:/RData/"</span>
-<span class="no">Sample</span> <span class="kw">&lt;-</span><span class="fu"><a href="../reference/readUserSample.html">readUserSample</a></span>(<span class="no">filePath</span>,<span class="no">fileName</span>,
-                                <span class="kw">separator</span><span class="kw">=</span><span class="st">"\t"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb13"><pre class="downlit">
+<span class="kw">fileName</span> <span class="op">&lt;-</span> <span class="st">"ChoptankPhosphorus.txt"</span>
+<span class="kw">filePath</span> <span class="op">&lt;-</span>  <span class="st">"C:/RData/"</span>
+<span class="kw">Sample</span> <span class="op">&lt;-</span><span class="fu"><a href="../reference/readUserSample.html">readUserSample</a></span>(<span class="kw">filePath</span>,<span class="kw">fileName</span>,
+                                separator=<span class="st">"\t"</span>)
+</pre></div>
 </div>
 <div id="cenValues" class="section level3">
 <h3 class="hasAnchor">
@@ -698,7 +718,9 @@
 <p>For example, we might know the value for dp on 5/30/2005, but we don’t want to put it in the table because under the rules of this data set, we are not supposed to add it in to the values in 2005.</p>
 <p>For every sample, the EGRET package requires a pair of numbers to define an interval in which the true value lies (ConcLow and ConcHigh). In a simple uncensored case (the reported value is above the detection limit), ConcLow equals ConcHigh and the interval collapses down to a single point. In a simple censored case, the value might be reported as &lt;0.2, then ConcLow=NA and ConcHigh=0.2. We use NA instead of 0 as a way to elegantly handle future logarithm calculations.</p>
 <p>For the more complex example case, let us say dp is reported as &lt;0.01 and pp is reported as 0.3. We know that the total must be at least 0.3 and could be as much as 0.31. Therefore, ConcLow=0.3 and ConcHigh=0.31. Another case would be if dp is reported as &lt;0.005 and pp is reported &lt;0.2. We know in this case that the true value could be as low as zero, but could be as high as 0.205. Therefore, in this case, ConcLow=NA and ConcHigh=0.205. The Sample data frame for the example data would be:</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r">  <span class="no">Sample</span></pre></body></html></div>
+<div class="sourceCode" id="cb14"><pre class="downlit">
+  <span class="kw">Sample</span>
+</pre></div>
 <pre><code>##         Date ConcLow ConcHigh Uncen ConcAve Julian Month Day  DecYear MonthSeq
 ## 1 2003-02-15    0.52    0.520     1  0.5200  55927     2  46 2003.125     1838
 ## 2 2003-06-30    0.30    0.310     0  0.3050  56062     6 182 2003.495     1842
@@ -839,16 +861,20 @@
 <h3 class="hasAnchor">
 <a href="#nwisINFO" class="anchor"></a>readNWISInfo</h3>
 <p>The function <code>readNWISInfo</code> combines <code>readNWISsite</code> and <code>readNWISpCode</code> from the <code>dataRetrieval</code> package, producing one data frame called INFO.</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">parameterCd</span> <span class="kw">&lt;-</span> <span class="st">"00618"</span>
-<span class="no">siteNumber</span> <span class="kw">&lt;-</span> <span class="st">"01491000"</span>
-<span class="no">INFO</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/INFOdataframe.html">readNWISInfo</a></span>(<span class="no">siteNumber</span>,<span class="no">parameterCd</span>, <span class="kw">interactive</span><span class="kw">=</span><span class="fl">FALSE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb16"><pre class="downlit">
+<span class="kw">parameterCd</span> <span class="op">&lt;-</span> <span class="st">"00618"</span>
+<span class="kw">siteNumber</span> <span class="op">&lt;-</span> <span class="st">"01491000"</span>
+<span class="kw">INFO</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/INFOdataframe.html">readNWISInfo</a></span>(<span class="kw">siteNumber</span>,<span class="kw">parameterCd</span>, interactive=<span class="fl">FALSE</span>)
+</pre></div>
 </div>
 <div id="wqpINFO" class="section level3">
 <h3 class="hasAnchor">
 <a href="#wqpINFO" class="anchor"></a>readWQPInfo</h3>
 <p>It is also possible to create the INFO data frame using information from the Water Quality Portal. As with <code>readWQPSample</code>, if the requested site is a USGS siteNumber, “USGS-” needs to be appended to the siteNumber.</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">parameterCd</span> <span class="kw">&lt;-</span> <span class="st">"00618"</span>
-<span class="no">INFO_WQP</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/INFOdataframe.html">readWQPInfo</a></span>(<span class="st">"USGS-01491000"</span>,<span class="no">parameterCd</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb17"><pre class="downlit">
+<span class="kw">parameterCd</span> <span class="op">&lt;-</span> <span class="st">"00618"</span>
+<span class="kw">INFO_WQP</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/INFOdataframe.html">readWQPInfo</a></span>(<span class="st">"USGS-01491000"</span>,<span class="kw">parameterCd</span>)
+</pre></div>
 </div>
 <div id="userINFO" class="section level3">
 <h3 class="hasAnchor">
@@ -856,17 +882,21 @@
 <p>The function <code>readUserInfo</code> can be used to convert comma separated files into an INFO data frame. At a minimum, EGRET analysis uses columns: param.units, shortName, paramShortName, constitAbbrev, and drainSqKm. For example, if the following comma-separated file (csv) was available as a file called “INFO.csv”, located in a folder called “RData” on the C drive (this examples is for Windows™ operation system), the function to convert it to an INFO data frame is as follows.</p>
 <pre><code>param.units, shortName, paramShortName, constitAbbrev, drainSqKm
 mg/l, Choptank River, Inorganic nitrogen, N, 292.67</code></pre>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="no">fileName</span> <span class="kw">&lt;-</span> <span class="st">"INFO.csv"</span>
-<span class="no">filePath</span> <span class="kw">&lt;-</span> <span class="st">"C:/RData/"</span>
+<div class="sourceCode" id="cb19"><pre class="downlit">
+<span class="kw">fileName</span> <span class="op">&lt;-</span> <span class="st">"INFO.csv"</span>
+<span class="kw">filePath</span> <span class="op">&lt;-</span> <span class="st">"C:/RData/"</span>
 
-<span class="no">INFO</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/INFOdataframe.html">readUserInfo</a></span>(<span class="no">filePath</span>, <span class="no">fileName</span>)</pre></body></html></div>
+<span class="kw">INFO</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/INFOdataframe.html">readUserInfo</a></span>(<span class="kw">filePath</span>, <span class="kw">fileName</span>)
+</pre></div>
 </div>
 <div id="addINFO" class="section level3">
 <h3 class="hasAnchor">
 <a href="#addINFO" class="anchor"></a>Inserting Additional Info</h3>
 <p>Any supplemental column that would be useful can be added to the INFO data frame.</p>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="no">INFO</span>$<span class="no">riverInfo</span> <span class="kw">&lt;-</span> <span class="st">"Major tributary of the Chesapeake Bay"</span>
-<span class="no">INFO</span>$<span class="no">GreensboroPopulation</span> <span class="kw">&lt;-</span> <span class="fl">1931</span></pre></body></html></div>
+<div class="sourceCode" id="cb20"><pre class="downlit">
+<span class="kw">INFO</span><span class="op">$</span><span class="kw">riverInfo</span> <span class="op">&lt;-</span> <span class="st">"Major tributary of the Chesapeake Bay"</span>
+<span class="kw">INFO</span><span class="op">$</span><span class="kw">GreensboroPopulation</span> <span class="op">&lt;-</span> <span class="fl">1931</span>
+</pre></div>
 </div>
 </div>
 <div id="eList" class="section level2">
@@ -874,46 +904,54 @@ mg/l, Choptank River, Inorganic nitrogen, N, 292.67</code></pre>
 <a href="#eList" class="anchor"></a>Merge Report: eList</h2>
 <p>Finally, there is a function called <code>mergeReport</code> that will look at both the Daily and Sample data frame, and populate Q and LogQ columns into the Sample data frame. Once <code>mergeReport</code> has been run, the Sample data frame will be augmented with the daily discharges for all the days with samples, and a named list with all of the data frames will be created. In this vignette, we will refer to this named list as <code>eList</code>: it is a list with potentially 3 data frames: Daily, Sample, and INFO. For flow history analysis, the Sample data frame can be NA.You can use the function <code>as.egret</code> to create this “EGRET” object.</p>
 <p>None of the water quality functions in EGRET will work without first having run the <code>mergeReport</code> function.</p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="no">siteNumber</span> <span class="kw">&lt;-</span> <span class="st">"01491000"</span>
-<span class="no">parameterCd</span> <span class="kw">&lt;-</span> <span class="st">"00631"</span>  <span class="co"># Nitrate</span>
-<span class="no">startDate</span> <span class="kw">&lt;-</span> <span class="st">"2000-01-01"</span>
-<span class="no">endDate</span> <span class="kw">&lt;-</span> <span class="st">"2013-01-01"</span>
+<div class="sourceCode" id="cb21"><pre class="downlit">
+<span class="kw">siteNumber</span> <span class="op">&lt;-</span> <span class="st">"01491000"</span>
+<span class="kw">parameterCd</span> <span class="op">&lt;-</span> <span class="st">"00631"</span>  <span class="co"># Nitrate</span>
+<span class="kw">startDate</span> <span class="op">&lt;-</span> <span class="st">"2000-01-01"</span>
+<span class="kw">endDate</span> <span class="op">&lt;-</span> <span class="st">"2013-01-01"</span>
 
-<span class="no">Daily</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/readNWISDaily.html">readNWISDaily</a></span>(<span class="no">siteNumber</span>, <span class="st">"00060"</span>, <span class="no">startDate</span>, <span class="no">endDate</span>)
-<span class="no">Sample</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/readNWISSample.html">readNWISSample</a></span>(<span class="no">siteNumber</span>,<span class="no">parameterCd</span>, <span class="no">startDate</span>, <span class="no">endDate</span>)
-<span class="no">INFO</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/INFOdataframe.html">readNWISInfo</a></span>(<span class="no">siteNumber</span>, <span class="no">parameterCd</span>)
+<span class="kw">Daily</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readNWISDaily.html">readNWISDaily</a></span>(<span class="kw">siteNumber</span>, <span class="st">"00060"</span>, <span class="kw">startDate</span>, <span class="kw">endDate</span>)
+<span class="kw">Sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readNWISSample.html">readNWISSample</a></span>(<span class="kw">siteNumber</span>,<span class="kw">parameterCd</span>, <span class="kw">startDate</span>, <span class="kw">endDate</span>)
+<span class="kw">INFO</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/INFOdataframe.html">readNWISInfo</a></span>(<span class="kw">siteNumber</span>, <span class="kw">parameterCd</span>)
 
-<span class="no">eList</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/mergeReport.html">mergeReport</a></span>(<span class="no">INFO</span>, <span class="no">Daily</span>,<span class="no">Sample</span>)</pre></body></html></div>
+<span class="kw">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mergeReport.html">mergeReport</a></span>(<span class="kw">INFO</span>, <span class="kw">Daily</span>,<span class="kw">Sample</span>)
+</pre></div>
 <p>Perhaps you already have Daily, Sample, and INFO data frames, and surfaces matrix (created after running the WRTDS <code>modelEstimation</code>) that have gone though a deprecated version of EGRET. You can create and edit an EGRET object as follows:</p>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="no">eListNew</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/as.egret.html">as.egret</a></span>(<span class="no">INFO</span>, <span class="no">Daily</span>, <span class="no">Sample</span>, <span class="no">surfaces</span>)
+<div class="sourceCode" id="cb22"><pre class="downlit">
+<span class="kw">eListNew</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as.egret.html">as.egret</a></span>(<span class="kw">INFO</span>, <span class="kw">Daily</span>, <span class="kw">Sample</span>, <span class="kw">surfaces</span>)
 <span class="co">#To pull out the INFO data frame:</span>
-<span class="no">INFO</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/getInfo.html">getInfo</a></span>(<span class="no">eListNew</span>)
+<span class="kw">INFO</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getInfo.html">getInfo</a></span>(<span class="kw">eListNew</span>)
 <span class="co">#Edit the INFO data frame:</span>
-<span class="no">INFO</span>$<span class="no">importantNews</span> <span class="kw">&lt;-</span> <span class="st">"New EGRET workflow started"</span>
+<span class="kw">INFO</span><span class="op">$</span><span class="kw">importantNews</span> <span class="op">&lt;-</span> <span class="st">"New EGRET workflow started"</span>
 <span class="co">#Put new data frame in eListNew</span>
-<span class="no">eListNew</span>$<span class="no">INFO</span> <span class="kw">&lt;-</span> <span class="no">INFO</span>
+<span class="kw">eListNew</span><span class="op">$</span><span class="kw">INFO</span> <span class="op">&lt;-</span> <span class="kw">INFO</span>
 <span class="co">#To pull out Daily:</span>
-<span class="no">Daily</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/getDaily.html">getDaily</a></span>(<span class="no">eListNew</span>)
+<span class="kw">Daily</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getDaily.html">getDaily</a></span>(<span class="kw">eListNew</span>)
 <span class="co">#Edit for some reason:</span>
-<span class="no">DailyNew</span> <span class="kw">&lt;-</span> <span class="no">Daily</span>[<span class="no">Daily</span>$<span class="no">DecYear</span> <span class="kw">&gt;</span> <span class="fl">1985</span>,]
+<span class="kw">DailyNew</span> <span class="op">&lt;-</span> <span class="kw">Daily</span>[<span class="kw">Daily</span><span class="op">$</span><span class="kw">DecYear</span> <span class="op">&gt;</span> <span class="fl">1985</span>,]
 <span class="co">#Put new Daily data frame back in eListNew:</span>
-<span class="no">eListNew</span>$<span class="no">Daily</span> <span class="kw">&lt;-</span> <span class="no">DailyNew</span>
+<span class="kw">eListNew</span><span class="op">$</span><span class="kw">Daily</span> <span class="op">&lt;-</span> <span class="kw">DailyNew</span>
 <span class="co">#To create a whole new egret object:</span>
-<span class="no">eList_2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/as.egret.html">as.egret</a></span>(<span class="no">INFO</span>, <span class="no">DailyNew</span>, <span class="fu"><a href="../reference/getSample.html">getSample</a></span>(<span class="no">eListNew</span>), <span class="fl">NA</span>)</pre></body></html></div>
+<span class="kw">eList_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as.egret.html">as.egret</a></span>(<span class="kw">INFO</span>, <span class="kw">DailyNew</span>, <span class="fu"><a href="../reference/getSample.html">getSample</a></span>(<span class="kw">eListNew</span>), <span class="fl">NA</span>)
+</pre></div>
 </div>
 </div>
 <div id="units" class="section level1">
 <h1 class="hasAnchor">
 <a href="#units" class="anchor"></a>Units</h1>
 <p>EGRET uses entirely SI units to store the data, but for purposes of output, it can report results in a wide variety of units. The defaults are mg/L for concentration, cubic meters per second (m<sup>3</sup>/s) for discharge, kg/day for flux, and km<sup>2</sup> for drainage area. When discharge values are imported from USGS Web services, they are automatically converted from cubic feet per second (cfs) to cms unless the argument <code>convert</code> in function <code>readNWISDaily</code> is set to FALSE. This can cause confusion if you are not careful. For all functions that provide output, you can define two arguments to set the output units: qUnit and fluxUnit. qUnit and fluxUnit are defined by either a numeric code or name. You can call two functions that can be called to see the options: <code>printqUnitCheatSheet</code> and <code>printFluxUnitCheatSheet</code>.</p>
-<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="fu"><a href="../reference/printqUnitCheatSheet.html">printqUnitCheatSheet</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb23"><pre class="downlit">
+<span class="fu"><a href="../reference/printqUnitCheatSheet.html">printqUnitCheatSheet</a></span>()
+</pre></div>
 <pre><code>## The following codes apply to the qUnit list:
 ## 1 =  cfs  ( Cubic Feet per Second )
 ## 2 =  cms  ( Cubic Meters per Second )
 ## 3 =  thousandCfs  ( Thousand Cubic Feet per Second )
 ## 4 =  thousandCms  ( Thousand Cubic Meters per Second )</code></pre>
 <p>When a function has an input argument qUnit, you can define the discharge units that will be used in the figure or table that is generated by the function with the index (1-4) as shown above. Base your choice on the units that are customary for your intended audience, but also so that the discharge values don’t have too many digits to the right or left of the decimal point.</p>
-<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="fu"><a href="../reference/printFluxUnitCheatSheet.html">printFluxUnitCheatSheet</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb25"><pre class="downlit">
+<span class="fu"><a href="../reference/printFluxUnitCheatSheet.html">printFluxUnitCheatSheet</a></span>()
+</pre></div>
 <pre><code>## The following codes apply to the fluxUnit list:
 ## 1 =  poundsDay  ( pounds/day )
 ## 2 =  tonsDay  ( tons/day )
@@ -936,15 +974,17 @@ mg/l, Choptank River, Inorganic nitrogen, N, 292.67</code></pre>
 <a href="#flowHistory" class="anchor"></a>Flow History</h1>
 <p>This section describes functions included in the EGRET package that provide a variety of table and graphical outputs for examining discharge statistics based on time-series smoothing. These functions are designed for studies of long-term change and work best for daily discharge data sets of 50 years or longer. This type of analysis might be useful for studying issues such as the influence of land use change, water management change, or climate change on discharge conditions. This includes potential impacts on average discharges, high discharges, and low discharges, at annual time scales as well as seasonal or monthly time scales.</p>
 <p>Consider this example from Columbia River at The Dalles, OR.</p>
-<div class="sourceCode" id="cb27"><html><body><pre class="r"><span class="no">siteNumber</span> <span class="kw">&lt;-</span> <span class="st">"14105700"</span>
-<span class="no">startDate</span> <span class="kw">&lt;-</span> <span class="st">""</span>
-<span class="no">endDate</span> <span class="kw">&lt;-</span> <span class="st">""</span>
+<div class="sourceCode" id="cb27"><pre class="downlit">
+<span class="kw">siteNumber</span> <span class="op">&lt;-</span> <span class="st">"14105700"</span>  
+<span class="kw">startDate</span> <span class="op">&lt;-</span> <span class="st">""</span>
+<span class="kw">endDate</span> <span class="op">&lt;-</span> <span class="st">""</span>
 
-<span class="no">Daily</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/readNWISDaily.html">readNWISDaily</a></span>(<span class="no">siteNumber</span>,<span class="st">"00060"</span>,<span class="no">startDate</span>,<span class="no">endDate</span>)
-<span class="no">INFO</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/INFOdataframe.html">readNWISInfo</a></span>(<span class="no">siteNumber</span>,<span class="st">""</span>,<span class="kw">interactive</span><span class="kw">=</span><span class="fl">FALSE</span>)
-<span class="no">INFO</span>$<span class="no">shortName</span> <span class="kw">&lt;-</span> <span class="st">"Columbia River at The Dalles, OR"</span>
+<span class="kw">Daily</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readNWISDaily.html">readNWISDaily</a></span>(<span class="kw">siteNumber</span>,<span class="st">"00060"</span>,<span class="kw">startDate</span>,<span class="kw">endDate</span>)
+<span class="kw">INFO</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/INFOdataframe.html">readNWISInfo</a></span>(<span class="kw">siteNumber</span>,<span class="st">""</span>,interactive=<span class="fl">FALSE</span>)
+<span class="kw">INFO</span><span class="op">$</span><span class="kw">shortName</span> <span class="op">&lt;-</span> <span class="st">"Columbia River at The Dalles, OR"</span>
 
-<span class="no">eList</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/as.egret.html">as.egret</a></span>(<span class="no">INFO</span>, <span class="no">Daily</span>, <span class="fl">NA</span>, <span class="fl">NA</span>)</pre></body></html></div>
+<span class="kw">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as.egret.html">as.egret</a></span>(<span class="kw">INFO</span>, <span class="kw">Daily</span>, <span class="fl">NA</span>, <span class="fl">NA</span>)
+</pre></div>
 <p>You first must determine the period of analysis to use (PA). What is the period of analysis? If you want to examine your data set as a time series of water years, then the period of analysis is October through September. If you want to examine the data set as calendar years then the period of analysis is January through December. You might want to examine the winter season, which you could define as December through February, then those 3 months become the period of analysis. The only constraints on the definition of a period of analysis are these: it must be defined in terms of whole months; it must be a set of contiguous months (like March-April-May), and have a length that is no less than 1 month and no more than 12 months. Define the PA by using two arguments: paLong and paStart. paLong is the length of the PA, and paStart is the first month of the PA.</p>
 <table class="table">
 <caption>Period of Analysis Information</caption>
@@ -977,9 +1017,13 @@ mg/l, Choptank River, Inorganic nitrogen, N, 292.67</code></pre>
 </tbody>
 </table>
 <p>To set a period running from December through February:</p>
-<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="no">eList</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/setPA.html">setPA</a></span>(<span class="no">eList</span>,<span class="kw">paStart</span><span class="kw">=</span><span class="fl">12</span>,<span class="kw">paLong</span><span class="kw">=</span><span class="fl">3</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb28"><pre class="downlit">
+<span class="kw">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setPA.html">setPA</a></span>(<span class="kw">eList</span>,paStart=<span class="fl">12</span>,paLong=<span class="fl">3</span>)
+</pre></div>
 <p>To set the default value (water year):</p>
-<div class="sourceCode" id="cb29"><html><body><pre class="r"><span class="no">eList</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/setPA.html">setPA</a></span>(<span class="no">eList</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb29"><pre class="downlit">
+<span class="kw">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setPA.html">setPA</a></span>(<span class="kw">eList</span>)
+</pre></div>
 <p>The next step can be to create the annual series of discharge statistics. These are returned in a matrix that contain the statistics described below. The statistics are based on the period of analysis set with the <code>setPA</code> function.</p>
 <table class="table">
 <caption>Index of discharge statistics information</caption>
@@ -1028,38 +1072,48 @@ mg/l, Choptank River, Inorganic nitrogen, N, 292.67</code></pre>
 <p>This section shows examples of the available plots appropriate for studying discharge history. The plots here use the default variable input options. For any function, you can get a complete list of input variables (as described in the <a href="#flowHistoryVariables">flow history</a> section) in a help file by typing a ? before the function name in the R console. The EGRET user guide has more detailed information for each plot type (<a href="https://pubs.usgs.gov/tm/04/a10/">https://pubs.usgs.gov/tm/04/a10/</a>). Finally, see the <a href="#savingPlots">saving plots</a> section for information on saving plots.</p>
 <p>The simplest way to look at these time series is with the function <code>plotFlowSingle</code>. The statistic index (istat) must be defined by the user, but for all other arguments there are default values so the user isn’t required to specify anything else. To see a list of these optional arguments and other information about the function, type <code><a href="../reference/plotFlowSingle.html">?plotFlowSingle</a></code> in the R console. All of the graphs in <code>plotFlowSingle</code>, <code>plotFourStats</code>, and all but one of the graphs in plotFour, show both the individual annual values of the selected discharge statistic (e.g. the annual mean or 7-day minimum), but they also show a curve that is a smooth fit to those data. The curve is a LOWESS (locally weighted scatterplot smooth). The algorithm for computing it is provided in the User Guide (<a href="https://pubs.usgs.gov/tm/04/a10/">https://pubs.usgs.gov/tm/04/a10/</a>), in the section titled “The Smoothing Method Used in Flow History Analyses.” The default is that the annual values of the selected discharge statistics are smoothed with a “half-window width” of 20 years. The smoothing window is an optional user-defined option.</p>
 <p><code>plotSDLogQ</code> produces a graphic of the running standard deviation of the log of daily discharge over time to visualize how variability of daily discharge is changing over time. By using the standard deviation of the log discharge the statistic becomes dimensionless. The standard deviation plot is a way of looking at variability quite aside from average values, so, in the case of a system where discharge might be increasing over a period of years, this graphic provides a way of looking at the variability relative to that changing mean value. The standard deviation of the log discharge is much like a coefficient of variation, but it has sample properties that make it a smoother measure of variability. People often comment about how things like urbanization or enhanced greenhouse gases in the atmosphere are bringing about an increase in variability, and this analysis is one way to explore that idea. <code>plotFour</code>, <code>plotFourStats</code>, and <code>plot15</code> are all designed to plot several graphs from the other functions in a single figure.</p>
-<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="no">eList</span>, <span class="kw">istat</span><span class="kw">=</span><span class="fl">5</span>,<span class="kw">qUnit</span><span class="kw">=</span><span class="st">"thousandCfs"</span>)
-<span class="fu"><a href="../reference/plotSDLogQ.html">plotSDLogQ</a></span>(<span class="no">eList</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb30"><pre class="downlit">
+<span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="kw">eList</span>, istat=<span class="fl">5</span>,qUnit=<span class="st">"thousandCfs"</span>)
+<span class="fu"><a href="../reference/plotSDLogQ.html">plotSDLogQ</a></span>(<span class="kw">eList</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotSingleandSD-1.png" alt="Plots of discharge statistics" width="45%"><img src="EGRET_files/figure-html/plotSingleandSD-2.png" alt="Plots of discharge statistics" width="45%"><p class="caption">
 Plots of discharge statistics
 </p>
 </div>
 <p>Here is an example of looking at daily mean discharge for the full water year and then looking at mean daily discharge for the winter season only for the Merced River at Happy Isles Bridge in Yosemite National Park in California. First, we look at the mean daily discharge for the full year (after having read in the data and metadata):</p>
-<div class="sourceCode" id="cb31"><html><body><pre class="r"><span class="co"># Merced River at Happy Isles Bridge, CA:</span>
-<span class="no">siteNumber</span><span class="kw">&lt;-</span><span class="st">"11264500"</span>
-<span class="no">Daily</span> <span class="kw">&lt;-</span><span class="fu"><a href="../reference/readNWISDaily.html">readNWISDaily</a></span>(<span class="no">siteNumber</span>,<span class="st">"00060"</span>,<span class="kw">startDate</span><span class="kw">=</span><span class="st">""</span>,<span class="kw">endDate</span><span class="kw">=</span><span class="st">""</span>)
-<span class="no">INFO</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/INFOdataframe.html">readNWISInfo</a></span>(<span class="no">siteNumber</span>,<span class="st">""</span>,<span class="kw">interactive</span><span class="kw">=</span><span class="fl">FALSE</span>)
-<span class="no">INFO</span>$<span class="no">shortName</span> <span class="kw">&lt;-</span> <span class="st">"Merced River at Happy Isles Bridge, CA"</span>
-<span class="no">eList</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/as.egret.html">as.egret</a></span>(<span class="no">INFO</span>, <span class="no">Daily</span>, <span class="fl">NA</span>, <span class="fl">NA</span>)</pre></body></html></div>
-<div class="sourceCode" id="cb32"><html><body><pre class="r"><span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="no">eList</span>, <span class="kw">istat</span><span class="kw">=</span><span class="fl">5</span>)
+<div class="sourceCode" id="cb31"><pre class="downlit">
+<span class="co"># Merced River at Happy Isles Bridge, CA:</span>
+<span class="kw">siteNumber</span><span class="op">&lt;-</span><span class="st">"11264500"</span>
+<span class="kw">Daily</span> <span class="op">&lt;-</span><span class="fu"><a href="../reference/readNWISDaily.html">readNWISDaily</a></span>(<span class="kw">siteNumber</span>,<span class="st">"00060"</span>,startDate=<span class="st">""</span>,endDate=<span class="st">""</span>)
+<span class="kw">INFO</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/INFOdataframe.html">readNWISInfo</a></span>(<span class="kw">siteNumber</span>,<span class="st">""</span>,interactive=<span class="fl">FALSE</span>)
+<span class="kw">INFO</span><span class="op">$</span><span class="kw">shortName</span> <span class="op">&lt;-</span> <span class="st">"Merced River at Happy Isles Bridge, CA"</span>
+<span class="kw">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as.egret.html">as.egret</a></span>(<span class="kw">INFO</span>, <span class="kw">Daily</span>, <span class="fl">NA</span>, <span class="fl">NA</span>)
+</pre></div>
+<div class="sourceCode" id="cb32"><pre class="downlit">
+<span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="kw">eList</span>, istat=<span class="fl">5</span>)
 <span class="co"># Then, we can run the same function, but first set </span>
 <span class="co"># the pa to start in December and only run for 3 months.</span>
-<span class="no">eListMerced</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/setPA.html">setPA</a></span>(<span class="no">eList</span>,<span class="kw">paStart</span><span class="kw">=</span><span class="fl">12</span>,<span class="kw">paLong</span><span class="kw">=</span><span class="fl">3</span>)
-<span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="no">eListMerced</span>,<span class="kw">istat</span><span class="kw">=</span><span class="fl">5</span>,<span class="kw">qMax</span><span class="kw">=</span><span class="fl">200</span>)</pre></body></html></div>
+<span class="kw">eListMerced</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setPA.html">setPA</a></span>(<span class="kw">eList</span>,paStart=<span class="fl">12</span>,paLong=<span class="fl">3</span>)
+<span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="kw">eListMerced</span>,istat=<span class="fl">5</span>,qMax=<span class="fl">200</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/Mercedplot-1.png" alt="Merced River winter trend" width="45%"><img src="EGRET_files/figure-html/Mercedplot-2.png" alt="Merced River winter trend" width="45%"><p class="caption">
 Merced River winter trend
 </p>
 </div>
 <p>What these figures show us is that on an annual basis there is very little indication of a long-term trend in mean discharge, but for the winter months there is a pretty strong indication of an upward trend. This could well be related to the climate warming in the Sierra Nevada, resulting in a general increase in the ratio of rain to snow in the winter and more thawing events.</p>
-<div class="sourceCode" id="cb33"><html><body><pre class="r"><span class="fu"><a href="../reference/plotFour.html">plotFour</a></span>(<span class="no">eList</span>, <span class="kw">qUnit</span><span class="kw">=</span><span class="fl">3</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb33"><pre class="downlit">
+<span class="fu"><a href="../reference/plotFour.html">plotFour</a></span>(<span class="kw">eList</span>, qUnit=<span class="fl">3</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotFour-1.png" alt="`plotFour(eListMerced, qUnit=3)`" width="100%"><p class="caption">
 <code><a href="../reference/plotFour.html">plotFour(eListMerced, qUnit=3)</a></code>
 </p>
 </div>
-<div class="sourceCode" id="cb34"><html><body><pre class="r"><span class="fu"><a href="../reference/plotFourStats.html">plotFourStats</a></span>(<span class="no">eList</span>, <span class="kw">qUnit</span><span class="kw">=</span><span class="fl">3</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb34"><pre class="downlit">
+<span class="fu"><a href="../reference/plotFourStats.html">plotFourStats</a></span>(<span class="kw">eList</span>, qUnit=<span class="fl">3</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotFourStats-1.png" alt="`plotFourStats(eListMerced, qUnit=3)`" width="100%"><p class="caption">
 <code><a href="../reference/plotFourStats.html">plotFourStats(eListMerced, qUnit=3)</a></code>
@@ -1067,13 +1121,17 @@ Merced River winter trend
 </div>
 <p><code>plotQTimeDaily</code> is simply a time series plot of discharge. But, it is most suited for showing events above some discharge threshold. In the simplest case, it can plot the entire record, but given the line weight and use of an arithmetic scale it primarily provides a visual focus on the higher values.</p>
 <p>The Mississippi example illustrates a very long record with a long gap of more than 60 years with no discharges above 300,000 cfs, followed by the last followed by the 49 years from 1965 through 2013 with 6 events above that threshold. <code>plotQTimeDaily</code> requires startYear and endYear, along with some other optional arguements (see <code><a href="../reference/plotQTimeDaily.html">?plotQTimeDaily</a></code> for more details).</p>
-<div class="sourceCode" id="cb35"><html><body><pre class="r"><span class="co">#Mississippi River at Keokuk Iowa:</span>
-<span class="no">siteNumber</span><span class="kw">&lt;-</span><span class="st">"05474500"</span>
-<span class="no">Daily</span> <span class="kw">&lt;-</span><span class="fu"><a href="../reference/readNWISDaily.html">readNWISDaily</a></span>(<span class="no">siteNumber</span>,<span class="st">"00060"</span>,<span class="kw">startDate</span><span class="kw">=</span><span class="st">""</span>,<span class="kw">endDate</span><span class="kw">=</span><span class="st">""</span>)
-<span class="no">INFO</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/INFOdataframe.html">readNWISInfo</a></span>(<span class="no">siteNumber</span>,<span class="st">""</span>,<span class="kw">interactive</span><span class="kw">=</span><span class="fl">FALSE</span>)
-<span class="no">INFO</span>$<span class="no">shortName</span> <span class="kw">&lt;-</span> <span class="st">"Mississippi River at Keokuk Iowa"</span>
-<span class="no">eList</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/as.egret.html">as.egret</a></span>(<span class="no">INFO</span>, <span class="no">Daily</span>, <span class="fl">NA</span>, <span class="fl">NA</span>)</pre></body></html></div>
-<div class="sourceCode" id="cb36"><html><body><pre class="r"><span class="fu"><a href="../reference/plotQTimeDaily.html">plotQTimeDaily</a></span>(<span class="no">eList</span>, <span class="kw">qUnit</span><span class="kw">=</span><span class="fl">3</span>,<span class="kw">qLower</span><span class="kw">=</span><span class="fl">300</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb35"><pre class="downlit">
+<span class="co">#Mississippi River at Keokuk Iowa:</span>
+<span class="kw">siteNumber</span><span class="op">&lt;-</span><span class="st">"05474500"</span>
+<span class="kw">Daily</span> <span class="op">&lt;-</span><span class="fu"><a href="../reference/readNWISDaily.html">readNWISDaily</a></span>(<span class="kw">siteNumber</span>,<span class="st">"00060"</span>,startDate=<span class="st">""</span>,endDate=<span class="st">""</span>)
+<span class="kw">INFO</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/INFOdataframe.html">readNWISInfo</a></span>(<span class="kw">siteNumber</span>,<span class="st">""</span>,interactive=<span class="fl">FALSE</span>)
+<span class="kw">INFO</span><span class="op">$</span><span class="kw">shortName</span> <span class="op">&lt;-</span> <span class="st">"Mississippi River at Keokuk Iowa"</span>
+<span class="kw">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as.egret.html">as.egret</a></span>(<span class="kw">INFO</span>, <span class="kw">Daily</span>, <span class="fl">NA</span>, <span class="fl">NA</span>)
+</pre></div>
+<div class="sourceCode" id="cb36"><pre class="downlit">
+<span class="fu"><a href="../reference/plotQTimeDaily.html">plotQTimeDaily</a></span>(<span class="kw">eList</span>, qUnit=<span class="fl">3</span>,qLower=<span class="fl">300</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/MississippiPlot-1.png" alt="Mississippi River at Keokuk Iowa" width="45%"><p class="caption">
 Mississippi River at Keokuk Iowa
@@ -1084,7 +1142,9 @@ Mississippi River at Keokuk Iowa
 <h2 class="hasAnchor">
 <a href="#tableOptions" class="anchor"></a>Table Options</h2>
 <p>Sometimes it is easier to consider results in table formats rather than graphically. Similar to the function <code>plotFlowSingle</code>, the <code>printSeries</code> will print the requested discharge statistics (Table ), as well as return the results in a data frame. A small sample of the output is printed below.</p>
-<div class="sourceCode" id="cb37"><html><body><pre class="r"><span class="no">seriesResult</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/printSeries.html">printSeries</a></span>(<span class="no">eList</span>, <span class="kw">istat</span><span class="kw">=</span><span class="fl">3</span>, <span class="kw">qUnit</span><span class="kw">=</span><span class="fl">3</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb37"><pre class="downlit">
+<span class="kw">seriesResult</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/printSeries.html">printSeries</a></span>(<span class="kw">eList</span>, istat=<span class="fl">3</span>, qUnit=<span class="fl">3</span>)
+</pre></div>
 <pre><code>Mississippi River at Keokuk Iowa
  Water Year
     30-day minimum
@@ -1106,7 +1166,9 @@ Mississippi River at Keokuk Iowa
 <li>As a slope between the first and last year of the pair, expressed as a percentage change per year (a percentage based on the value in the first year).</li>
 </ul>
 <p>Another argument can be very useful in this function: yearPoints. In the default case, the set of years that are compared are at 5 year intervals along the whole data set. If the data set was quite long this can be a daunting number of comparisons. For example, in an 80 year record, there would be 136 such pairs. Instead, we could look at changes between only 3 year points: 1890, 1950, and 2010:</p>
-<div class="sourceCode" id="cb39"><html><body><pre class="r"><span class="fu"><a href="../reference/tableFlowChange.html">tableFlowChange</a></span>(<span class="no">eList</span>, <span class="kw">istat</span><span class="kw">=</span><span class="fl">3</span>, <span class="kw">qUnit</span><span class="kw">=</span><span class="fl">3</span>,<span class="kw">yearPoints</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1890</span>,<span class="fl">1950</span>,<span class="fl">2010</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb39"><pre class="downlit">
+<span class="fu"><a href="../reference/tableFlowChange.html">tableFlowChange</a></span>(<span class="kw">eList</span>, istat=<span class="fl">3</span>, qUnit=<span class="fl">3</span>,yearPoints=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1890</span>,<span class="fl">1950</span>,<span class="fl">2010</span>))
+</pre></div>
 <pre><code>## 
 ##    Mississippi River at Keokuk Iowa
 ##    Water Year
@@ -1126,45 +1188,55 @@ Mississippi River at Keokuk Iowa
 <a href="#wqa" class="anchor"></a>Summary of Water Quality Data (without using WRTDS)</h1>
 <p>Before you run the WRTDS model, it is helpful to examine the measured water quality data graphically to better understand its behavior, identify possible data errors, and visualize the temporal distribution of the data (identify gaps). It is always best to clear up these issues before moving forward.</p>
 <p>The examples below use the Choptank River at Greensboro, MD. The Choptank River is a small tributary of the Chesapeake Bay. Inorganic nitrogen (nitrate and nitrite) has been measured from 1979 onward. First, we need to load the discharge and nitrate data into R. Before we can graph or use it for WRTDS analysis, we must bring the discharge data into the Sample data frame. We do this by using the <code>mergeReport</code> function which merges the discharge information and also provides a compact report about some major features of the data set.</p>
-<div class="sourceCode" id="cb41"><html><body><pre class="r"><span class="co">#Choptank River at Greensboro, MD:</span>
-<span class="no">siteNumber</span> <span class="kw">&lt;-</span> <span class="st">"01491000"</span>
-<span class="no">startDate</span> <span class="kw">&lt;-</span> <span class="st">"1979-10-01"</span>
-<span class="no">endDate</span> <span class="kw">&lt;-</span> <span class="st">"2011-09-30"</span>
-<span class="no">param</span><span class="kw">&lt;-</span><span class="st">"00631"</span>
-<span class="no">Daily</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/readNWISDaily.html">readNWISDaily</a></span>(<span class="no">siteNumber</span>,<span class="st">"00060"</span>,<span class="no">startDate</span>,<span class="no">endDate</span>)
-<span class="no">INFO</span><span class="kw">&lt;-</span> <span class="fu"><a href="../reference/INFOdataframe.html">readNWISInfo</a></span>(<span class="no">siteNumber</span>,<span class="no">param</span>,<span class="kw">interactive</span><span class="kw">=</span><span class="fl">FALSE</span>)
-<span class="no">INFO</span>$<span class="no">shortName</span> <span class="kw">&lt;-</span> <span class="st">"Choptank River"</span>
+<div class="sourceCode" id="cb41"><pre class="downlit">
+<span class="co">#Choptank River at Greensboro, MD:</span>
+<span class="kw">siteNumber</span> <span class="op">&lt;-</span> <span class="st">"01491000"</span> 
+<span class="kw">startDate</span> <span class="op">&lt;-</span> <span class="st">"1979-10-01"</span>
+<span class="kw">endDate</span> <span class="op">&lt;-</span> <span class="st">"2011-09-30"</span>
+<span class="kw">param</span><span class="op">&lt;-</span><span class="st">"00631"</span>
+<span class="kw">Daily</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readNWISDaily.html">readNWISDaily</a></span>(<span class="kw">siteNumber</span>,<span class="st">"00060"</span>,<span class="kw">startDate</span>,<span class="kw">endDate</span>)
+<span class="kw">INFO</span><span class="op">&lt;-</span> <span class="fu"><a href="../reference/INFOdataframe.html">readNWISInfo</a></span>(<span class="kw">siteNumber</span>,<span class="kw">param</span>,interactive=<span class="fl">FALSE</span>)
+<span class="kw">INFO</span><span class="op">$</span><span class="kw">shortName</span> <span class="op">&lt;-</span> <span class="st">"Choptank River"</span>
 
-<span class="no">Sample</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/readNWISSample.html">readNWISSample</a></span>(<span class="no">siteNumber</span>,<span class="no">param</span>,<span class="no">startDate</span>,<span class="no">endDate</span>)
-<span class="no">eList</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/mergeReport.html">mergeReport</a></span>(<span class="no">INFO</span>, <span class="no">Daily</span>, <span class="no">Sample</span>)</pre></body></html></div>
+<span class="kw">Sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readNWISSample.html">readNWISSample</a></span>(<span class="kw">siteNumber</span>,<span class="kw">param</span>,<span class="kw">startDate</span>,<span class="kw">endDate</span>)
+<span class="kw">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mergeReport.html">mergeReport</a></span>(<span class="kw">INFO</span>, <span class="kw">Daily</span>, <span class="kw">Sample</span>)
+</pre></div>
 <div id="plotOptionsWQ" class="section level2">
 <h2 class="hasAnchor">
 <a href="#plotOptionsWQ" class="anchor"></a>Plotting Options</h2>
 <p>This section shows examples of the available plots appropriate for analyzing data prior to performing a WRTDS analysis. The plots here use the default variable input options. For any function, you can get a complete list of input variables in a help file by typing a ? before the function name in the R console. See <a href="#wqVariables">Water Quality Plotting Input</a> for information on the available input variables for these plotting functions.</p>
 <p>Note that for any of the plotting functions that show the sample data, if a value in the data set is a non-detect (censored), it is displayed on the graph as a vertical line. The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values the minimum value on the y-axis. This line is an “honest” representation of what we know about about that observation and doesn’t attempt to use a statistical model to make an estimate below the reporting limit.</p>
-<div class="sourceCode" id="cb42"><html><body><pre class="r"><span class="fu"><a href="../reference/boxConcMonth.html">boxConcMonth</a></span>(<span class="no">eList</span>)
-<span class="fu"><a href="../reference/boxQTwice.html">boxQTwice</a></span>(<span class="no">eList</span>,<span class="kw">qUnit</span><span class="kw">=</span><span class="fl">1</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb42"><pre class="downlit">
+<span class="fu"><a href="../reference/boxConcMonth.html">boxConcMonth</a></span>(<span class="kw">eList</span>)
+<span class="fu"><a href="../reference/boxQTwice.html">boxQTwice</a></span>(<span class="kw">eList</span>,qUnit=<span class="fl">1</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotBoxes-1.png" alt="Concentration box plots" width="45%"><img src="EGRET_files/figure-html/plotBoxes-2.png" alt="Concentration box plots" width="45%"><p class="caption">
 Concentration box plots
 </p>
 </div>
 <p>Note that the statistics to create the boxplot in <code>boxQTwice</code> are performed after the data are log-transformed.</p>
-<div class="sourceCode" id="cb43"><html><body><pre class="r"><span class="fu"><a href="../reference/plotConcTime.html">plotConcTime</a></span>(<span class="no">eList</span>)
-<span class="fu"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(<span class="no">eList</span>, <span class="kw">qUnit</span><span class="kw">=</span><span class="fl">1</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb43"><pre class="downlit">
+<span class="fu"><a href="../reference/plotConcTime.html">plotConcTime</a></span>(<span class="kw">eList</span>)
+<span class="fu"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(<span class="kw">eList</span>, qUnit=<span class="fl">1</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotConcTime-1.png" alt="The relation of concentration vs time or discharge" width="45%"><img src="EGRET_files/figure-html/plotConcTime-2.png" alt="The relation of concentration vs time or discharge" width="45%"><p class="caption">
 The relation of concentration vs time or discharge
 </p>
 </div>
 <p>It is interesting to note the change in the convention for rounding of data values that occurred around 1995.</p>
-<div class="sourceCode" id="cb44"><html><body><pre class="r"><span class="fu"><a href="../reference/plotFluxQ.html">plotFluxQ</a></span>(<span class="no">eList</span>, <span class="kw">fluxUnit</span><span class="kw">=</span><span class="fl">4</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb44"><pre class="downlit">
+<span class="fu"><a href="../reference/plotFluxQ.html">plotFluxQ</a></span>(<span class="kw">eList</span>, fluxUnit=<span class="fl">4</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotFluxQ-1.png" alt="The relation of flux vs discharge" width="45%"><p class="caption">
 The relation of flux vs discharge
 </p>
 </div>
-<div class="sourceCode" id="cb45"><html><body><pre class="r"><span class="fu"><a href="../reference/multiPlotDataOverview.html">multiPlotDataOverview</a></span>(<span class="no">eList</span>, <span class="kw">qUnit</span><span class="kw">=</span><span class="fl">1</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb45"><pre class="downlit">
+<span class="fu"><a href="../reference/multiPlotDataOverview.html">multiPlotDataOverview</a></span>(<span class="kw">eList</span>, qUnit=<span class="fl">1</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/multiPlotDataOverview-1.png" alt="`multiPlotDataOverview(eList, qUnit=1)`" width="100%"><p class="caption">
 <code><a href="../reference/multiPlotDataOverview.html">multiPlotDataOverview(eList, qUnit=1)</a></code>
@@ -1176,7 +1248,9 @@ The relation of flux vs discharge
 <h2 class="hasAnchor">
 <a href="#tableOptionsWQ" class="anchor"></a>Table Options</h2>
 <p>Another useful tool for checking the data before running the WRTDS estimations is <code>flowDuration</code>. This is a utility function that can help you define the discharge ranges that we want to explore. It prints out key points on the discharge duration curve. Define the points for a particular part of the year using the <code>centerDate</code> and <code>span</code> arguments, although the points can be defined for the entire year (default).</p>
-<div class="sourceCode" id="cb46"><html><body><pre class="r"><span class="fu"><a href="../reference/flowDuration.html">flowDuration</a></span>(<span class="no">eList</span>, <span class="kw">qUnit</span><span class="kw">=</span><span class="fl">1</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb46"><pre class="downlit">
+<span class="fu"><a href="../reference/flowDuration.html">flowDuration</a></span>(<span class="kw">eList</span>, qUnit=<span class="fl">1</span>)
+</pre></div>
 <pre><code>## 
 ## Flow Duration for Choptank River 
 ## 
@@ -1185,7 +1259,9 @@ The relation of flux vs discharge
 ## Discharge units are Cubic Feet per Second</code></pre>
 <pre><code>##     min      5%     10%     25%     50%     75%     90%     95%     max 
 ##    0.35   12.00   16.00   33.00   85.00  163.00  290.00  462.00 8700.00</code></pre>
-<div class="sourceCode" id="cb49"><html><body><pre class="r"><span class="fu"><a href="../reference/flowDuration.html">flowDuration</a></span>(<span class="no">eList</span>, <span class="kw">qUnit</span><span class="kw">=</span><span class="fl">1</span>, <span class="kw">centerDate</span><span class="kw">=</span><span class="st">"09-30"</span>, <span class="kw">span</span><span class="kw">=</span><span class="fl">30</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb49"><pre class="downlit">
+<span class="fu"><a href="../reference/flowDuration.html">flowDuration</a></span>(<span class="kw">eList</span>, qUnit=<span class="fl">1</span>, centerDate=<span class="st">"09-30"</span>, span=<span class="fl">30</span>)
+</pre></div>
 <pre><code>## 
 ## Flow Duration for Choptank River 
 ## 
@@ -1202,20 +1278,26 @@ The relation of flux vs discharge
 <a href="#wrtds" class="anchor"></a>Weighted Regressions on Time, Discharge and Season (WRTDS)</h1>
 <p>WRTDS creates a model of the behavior of concentration as a function of three components: time trend, discharge, and season. You can use WRTDS to estimate annual or seasonal mean concentrations and fluxes as well as describe long-term trends in the behavior of the system. In this section, we will step though the process required for a WRTDS analysis. <a href="#wrtdsResults">WRTDS Results</a> provides details about the available methods for viewing and evaluating the model results.</p>
 <p>Once you have looked at your data using the tools described in <a href="#wqa">Summary of Water Quality Data</a>, and have determined there are sufficient representative data, it is time to run the WRTDS model. Assuming you are using the defaults, with data frames called Daily, Sample, and INFO, the <code>modelEstimation</code> function runs the WRTDS modeling algorithm:</p>
-<div class="sourceCode" id="cb52"><html><body><pre class="r"><span class="no">eList</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/modelEstimation.html">modelEstimation</a></span>(<span class="no">eList</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb52"><pre class="downlit">
+<span class="kw">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/modelEstimation.html">modelEstimation</a></span>(<span class="kw">eList</span>)
+</pre></div>
 <p>Details of the options available when running <code>modelEstimation</code> can be found in <a href="#wrtdsInputVariables">WRTDS Estimation Input</a>. This function is slow, and shows the progress in percent complete. See the references and manual for more information. It’s important to understand that this is the one function that will globally change your Daily, Sample, and INFO data frames. It also creates a new matrix <code>surfaces</code>, and a new data frame <code>AnnualResults</code>.</p>
 <p>Finally, it is a good idea to save your results because of the computational time that has been invested in producing these results. The workspace is saved to a directory that you designate savePath and the file name is determined by the abbreviations for station and constituent that were required entries when the <code>readNWISInfo</code> function was used. The command for saving the workspace is:</p>
-<div class="sourceCode" id="cb53"><html><body><pre class="r"><span class="co">#An example directory name</span>
-<span class="no">savePath</span> <span class="kw">&lt;-</span> <span class="st">"C:/Users/egretUser/WRTDS_Output/"</span>
-<span class="fu"><a href="../reference/saveResults.html">saveResults</a></span>(<span class="no">savePath</span>, <span class="no">eList</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb53"><pre class="downlit">
+<span class="co">#An example directory name</span>
+<span class="kw">savePath</span> <span class="op">&lt;-</span> <span class="st">"C:/Users/egretUser/WRTDS_Output/"</span> 
+<span class="fu"><a href="../reference/saveResults.html">saveResults</a></span>(<span class="kw">savePath</span>, <span class="kw">eList</span>) 
+</pre></div>
 <p>This saves all of the objects in your workspace. If you have saved workspaces from R versions earlier than 3.0, a warning will appear when you open them in R 3.0 (or later). Re-saving the workspace using R 3.0 (or later) should get rid of the warning.</p>
 <p>Using <code>saveResults</code>, the workspace is saved with <code>INFO$staAbbrev</code> and <code>INFO$constitAbbrev</code> as the filename (separated by a period), and the extension .RData. So, if staAbbrev was “Chop” and the constitAbbrev was “NO3” the file name would be “Chop.NO3.RData”. To load the data in some future session the commands could be:</p>
-<div class="sourceCode" id="cb54"><html><body><pre class="r"><span class="no">loadPath</span> <span class="kw">&lt;-</span> <span class="st">"C:/Users/egretUser/WRTDS_Output/"</span>
-<span class="no">staAbbrev</span> <span class="kw">&lt;-</span> <span class="st">"Chop"</span>
-<span class="no">constitAbbrev</span> <span class="kw">&lt;-</span> <span class="st">"NO3"</span>
-<span class="no">pathToFile</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">loadPath</span>,<span class="no">staAbbrev</span>,<span class="st">"."</span>,
-                    <span class="no">constitAbbrev</span>,<span class="st">".RData"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span>(<span class="no">pathToFile</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb54"><pre class="downlit">
+<span class="kw">loadPath</span> <span class="op">&lt;-</span> <span class="st">"C:/Users/egretUser/WRTDS_Output/"</span>
+<span class="kw">staAbbrev</span> <span class="op">&lt;-</span> <span class="st">"Chop"</span>
+<span class="kw">constitAbbrev</span> <span class="op">&lt;-</span> <span class="st">"NO3"</span>
+<span class="kw">pathToFile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="kw">loadPath</span>,<span class="kw">staAbbrev</span>,<span class="st">"."</span>,
+                    <span class="kw">constitAbbrev</span>,<span class="st">".RData"</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span>(<span class="kw">pathToFile</span>) 
+</pre></div>
 </div>
 <div id="wrtdsResults" class="section level1">
 <h1 class="hasAnchor">
@@ -1225,105 +1307,127 @@ The relation of flux vs discharge
 <h2 class="hasAnchor">
 <a href="#wrtdsPlotting" class="anchor"></a>Plotting Options</h2>
 <p>Check the help files or manual for more details on the following functions. See <a href="#savingPlots">Saving Plots</a> for information on saving plots. In these examples, we will return to looking at the data in the water year by using the <code>setPA</code> function. Most plotting functions will use the period of analysis information in the INFO data frame to determine what data are plotted. There are only four graph or table functions that don’t allow the user to specify a Period of Analysis (PA). These are: <code>plotContour</code>, <code>plotDiffContour</code>, <code>plotConcTimeSmooth</code>, <code>plotConcQSmooth</code>.</p>
-<div class="sourceCode" id="cb55"><html><body><pre class="r"><span class="co"># Return to water year:</span>
-<span class="no">eList</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/setPA.html">setPA</a></span>(<span class="no">eList</span>)
+<div class="sourceCode" id="cb55"><pre class="downlit">
+<span class="co"># Return to water year:</span>
+<span class="kw">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setPA.html">setPA</a></span>(<span class="kw">eList</span>)
 
-<span class="no">yearStart</span> <span class="kw">&lt;-</span> <span class="fl">2008</span>
-<span class="no">yearEnd</span> <span class="kw">&lt;-</span> <span class="fl">2010</span>
+<span class="kw">yearStart</span> <span class="op">&lt;-</span> <span class="fl">2008</span>
+<span class="kw">yearEnd</span> <span class="op">&lt;-</span> <span class="fl">2010</span>
 
-<span class="fu"><a href="../reference/plotConcTimeDaily.html">plotConcTimeDaily</a></span>(<span class="no">eList</span>, <span class="no">yearStart</span>, <span class="no">yearEnd</span>)
-<span class="fu"><a href="../reference/plotFluxTimeDaily.html">plotFluxTimeDaily</a></span>(<span class="no">eList</span>, <span class="no">yearStart</span>, <span class="no">yearEnd</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/plotConcTimeDaily.html">plotConcTimeDaily</a></span>(<span class="kw">eList</span>, <span class="kw">yearStart</span>, <span class="kw">yearEnd</span>)
+<span class="fu"><a href="../reference/plotFluxTimeDaily.html">plotFluxTimeDaily</a></span>(<span class="kw">eList</span>, <span class="kw">yearStart</span>, <span class="kw">yearEnd</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotConcTimeDaily-1.png" alt="Concentration and flux vs time" width="45%"><img src="EGRET_files/figure-html/plotConcTimeDaily-2.png" alt="Concentration and flux vs time" width="45%"><p class="caption">
 Concentration and flux vs time
 </p>
 </div>
-<div class="sourceCode" id="cb56"><html><body><pre class="r"><span class="fu"><a href="../reference/plotConcPred.html">plotConcPred</a></span>(<span class="no">eList</span>)
-<span class="fu"><a href="../reference/plotFluxPred.html">plotFluxPred</a></span>(<span class="no">eList</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb56"><pre class="downlit">
+<span class="fu"><a href="../reference/plotConcPred.html">plotConcPred</a></span>(<span class="kw">eList</span>)
+<span class="fu"><a href="../reference/plotFluxPred.html">plotFluxPred</a></span>(<span class="kw">eList</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotFluxPred-1.png" alt="Concentration and flux predictions" width="45%"><img src="EGRET_files/figure-html/plotFluxPred-2.png" alt="Concentration and flux predictions" width="45%"><p class="caption">
 Concentration and flux predictions
 </p>
 </div>
-<div class="sourceCode" id="cb57"><html><body><pre class="r"><span class="fu"><a href="../reference/plotResidPred.html">plotResidPred</a></span>(<span class="no">eList</span>)
-<span class="fu"><a href="../reference/plotResidQ.html">plotResidQ</a></span>(<span class="no">eList</span>, <span class="kw">qUnit</span><span class="kw">=</span><span class="fl">1</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb57"><pre class="downlit">
+<span class="fu"><a href="../reference/plotResidPred.html">plotResidPred</a></span>(<span class="kw">eList</span>)
+<span class="fu"><a href="../reference/plotResidQ.html">plotResidQ</a></span>(<span class="kw">eList</span>, qUnit=<span class="fl">1</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotResidQ-1.png" alt="Residuals" width="45%"><img src="EGRET_files/figure-html/plotResidQ-2.png" alt="Residuals" width="45%"><p class="caption">
 Residuals
 </p>
 </div>
-<div class="sourceCode" id="cb58"><html><body><pre class="r"><span class="fu"><a href="../reference/plotResidTime.html">plotResidTime</a></span>(<span class="no">eList</span>)
-<span class="fu"><a href="../reference/boxResidMonth.html">boxResidMonth</a></span>(<span class="no">eList</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb58"><pre class="downlit">
+<span class="fu"><a href="../reference/plotResidTime.html">plotResidTime</a></span>(<span class="kw">eList</span>)
+<span class="fu"><a href="../reference/boxResidMonth.html">boxResidMonth</a></span>(<span class="kw">eList</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/boxResidMonth-1.png" alt="Residuals with respect to time" width="45%"><img src="EGRET_files/figure-html/boxResidMonth-2.png" alt="Residuals with respect to time" width="45%"><p class="caption">
 Residuals with respect to time
 </p>
 </div>
-<div class="sourceCode" id="cb59"><html><body><pre class="r"><span class="fu"><a href="../reference/boxConcThree.html">boxConcThree</a></span>(<span class="no">eList</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb59"><pre class="downlit">
+<span class="fu"><a href="../reference/boxConcThree.html">boxConcThree</a></span>(<span class="kw">eList</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/boxConcThree-1.png" alt="Default `boxConcThree(eList)`" width="45%"><p class="caption">
 Default <code><a href="../reference/boxConcThree.html">boxConcThree(eList)</a></code>
 </p>
 </div>
-<div class="sourceCode" id="cb60"><html><body><pre class="r"><span class="fu"><a href="../reference/plotConcHist.html">plotConcHist</a></span>(<span class="no">eList</span>)
-<span class="fu"><a href="../reference/plotFluxHist.html">plotFluxHist</a></span>(<span class="no">eList</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb60"><pre class="downlit">
+<span class="fu"><a href="../reference/plotConcHist.html">plotConcHist</a></span>(<span class="kw">eList</span>)
+<span class="fu"><a href="../reference/plotFluxHist.html">plotFluxHist</a></span>(<span class="kw">eList</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotFluxHist-1.png" alt="Concentration and flux history" width="45%"><img src="EGRET_files/figure-html/plotFluxHist-2.png" alt="Concentration and flux history" width="45%"><p class="caption">
 Concentration and flux history
 </p>
 </div>
 <p>The placement of the legend is controlled by legendLeft and legendTop. If both are set to 0 (the default values), the legend is placed near the lower left corner of the graphic. Otherwise, the value specified for legendLeft places the left edge of the legend, and legendTop specifies the top edge of the legend. The units for legendLeft and legendTop are discharge (in units specified by qUnit) and concentration, respectively. The legend can also be turned off with printLegend=FALSE. These are also functions that do not recognize the period of analysis in the INFO data frame. However, by choosing centering dates and appropriate half-windows, seasonal behavior can easily be observed in these plots.</p>
-<div class="sourceCode" id="cb61"><html><body><pre class="r"><span class="co"># Multi-line plots:</span>
-<span class="no">date1</span> <span class="kw">&lt;-</span> <span class="st">"1985-09-01"</span>
-<span class="no">date2</span> <span class="kw">&lt;-</span> <span class="st">"1997-09-01"</span>
-<span class="no">date3</span> <span class="kw">&lt;-</span> <span class="st">"2010-09-01"</span>
-<span class="no">qBottom</span> <span class="kw">&lt;-</span> <span class="fl">0.2</span>
-<span class="no">qTop</span> <span class="kw">&lt;-</span> <span class="fl">10</span>
-<span class="fu"><a href="../reference/plotConcQSmooth.html">plotConcQSmooth</a></span>(<span class="no">eList</span>, <span class="no">date1</span>, <span class="no">date2</span>, <span class="no">date3</span>, <span class="no">qBottom</span>, <span class="no">qTop</span>,
-                   <span class="kw">concMax</span><span class="kw">=</span><span class="fl">2</span>,<span class="kw">legendTop</span> <span class="kw">=</span> <span class="fl">0.5</span>)
+<div class="sourceCode" id="cb61"><pre class="downlit">
+<span class="co"># Multi-line plots:</span>
+<span class="kw">date1</span> <span class="op">&lt;-</span> <span class="st">"1985-09-01"</span>
+<span class="kw">date2</span> <span class="op">&lt;-</span> <span class="st">"1997-09-01"</span>
+<span class="kw">date3</span> <span class="op">&lt;-</span> <span class="st">"2010-09-01"</span>
+<span class="kw">qBottom</span> <span class="op">&lt;-</span> <span class="fl">0.2</span>
+<span class="kw">qTop</span> <span class="op">&lt;-</span> <span class="fl">10</span>
+<span class="fu"><a href="../reference/plotConcQSmooth.html">plotConcQSmooth</a></span>(<span class="kw">eList</span>, <span class="kw">date1</span>, <span class="kw">date2</span>, <span class="kw">date3</span>, <span class="kw">qBottom</span>, <span class="kw">qTop</span>, 
+                   concMax=<span class="fl">2</span>,legendTop = <span class="fl">0.5</span>)
 
-<span class="fu"><a href="../reference/plotConcQSmooth.html">plotConcQSmooth</a></span>(<span class="no">eList</span>, <span class="no">date1</span>, <span class="no">date2</span>, <span class="no">date3</span>,
-                <span class="no">qBottom</span>, <span class="no">qTop</span>, <span class="kw">legendTop</span> <span class="kw">=</span> <span class="fl">0.5</span>,<span class="kw">logScale</span><span class="kw">=</span><span class="fl">TRUE</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/plotConcQSmooth.html">plotConcQSmooth</a></span>(<span class="kw">eList</span>, <span class="kw">date1</span>, <span class="kw">date2</span>, <span class="kw">date3</span>,
+                <span class="kw">qBottom</span>, <span class="kw">qTop</span>, legendTop = <span class="fl">0.5</span>,logScale=<span class="fl">TRUE</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotConcQSmooth-1.png" alt="Concentration vs. discharge" width="45%"><img src="EGRET_files/figure-html/plotConcQSmooth-2.png" alt="Concentration vs. discharge" width="45%"><p class="caption">
 Concentration vs. discharge
 </p>
 </div>
-<div class="sourceCode" id="cb62"><html><body><pre class="r"><span class="no">q1</span> <span class="kw">&lt;-</span> <span class="fl">2</span>
-<span class="no">q2</span> <span class="kw">&lt;-</span> <span class="fl">10</span>
-<span class="no">q3</span> <span class="kw">&lt;-</span> <span class="fl">20</span>
-<span class="no">centerDate</span> <span class="kw">&lt;-</span> <span class="st">"07-01"</span>
-<span class="no">yearEnd</span> <span class="kw">&lt;-</span> <span class="fl">1980</span>
-<span class="no">yearStart</span> <span class="kw">&lt;-</span> <span class="fl">2010</span>
-<span class="fu"><a href="../reference/plotConcTimeSmooth.html">plotConcTimeSmooth</a></span>(<span class="no">eList</span>, <span class="no">q1</span>, <span class="no">q2</span>, <span class="no">q3</span>, <span class="no">centerDate</span>,
-                   <span class="no">yearStart</span>, <span class="no">yearEnd</span>, <span class="kw">legendTop</span> <span class="kw">=</span> <span class="fl">0.4</span>)
+<div class="sourceCode" id="cb62"><pre class="downlit">
+<span class="kw">q1</span> <span class="op">&lt;-</span> <span class="fl">2</span>
+<span class="kw">q2</span> <span class="op">&lt;-</span> <span class="fl">10</span>
+<span class="kw">q3</span> <span class="op">&lt;-</span> <span class="fl">20</span>
+<span class="kw">centerDate</span> <span class="op">&lt;-</span> <span class="st">"07-01"</span>
+<span class="kw">yearEnd</span> <span class="op">&lt;-</span> <span class="fl">1980</span>
+<span class="kw">yearStart</span> <span class="op">&lt;-</span> <span class="fl">2010</span>
+<span class="fu"><a href="../reference/plotConcTimeSmooth.html">plotConcTimeSmooth</a></span>(<span class="kw">eList</span>, <span class="kw">q1</span>, <span class="kw">q2</span>, <span class="kw">q3</span>, <span class="kw">centerDate</span>, 
+                   <span class="kw">yearStart</span>, <span class="kw">yearEnd</span>, legendTop = <span class="fl">0.4</span>)
 
-<span class="fu"><a href="../reference/plotConcTimeSmooth.html">plotConcTimeSmooth</a></span>(<span class="no">eList</span>, <span class="no">q1</span>, <span class="no">q2</span>, <span class="no">q3</span>, <span class="no">centerDate</span>,
-                   <span class="no">yearStart</span>, <span class="no">yearEnd</span>,
-                   <span class="kw">legendTop</span> <span class="kw">=</span> <span class="fl">0.4</span>,<span class="kw">logScale</span><span class="kw">=</span><span class="fl">TRUE</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/plotConcTimeSmooth.html">plotConcTimeSmooth</a></span>(<span class="kw">eList</span>, <span class="kw">q1</span>, <span class="kw">q2</span>, <span class="kw">q3</span>, <span class="kw">centerDate</span>, 
+                   <span class="kw">yearStart</span>, <span class="kw">yearEnd</span>, 
+                   legendTop = <span class="fl">0.4</span>,logScale=<span class="fl">TRUE</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotConcTimeSmooth-1.png" alt="`plotConcTimeSmooth(eList))`" width="45%"><img src="EGRET_files/figure-html/plotConcTimeSmooth-2.png" alt="`plotConcTimeSmooth(eList))`" width="45%"><p class="caption">
 <code>plotConcTimeSmooth(eList))</code>
 </p>
 </div>
-<div class="sourceCode" id="cb63"><html><body><pre class="r"><span class="fu"><a href="../reference/fluxBiasMulti.html">fluxBiasMulti</a></span>(<span class="no">eList</span>, <span class="kw">qUnit</span><span class="kw">=</span><span class="fl">1</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb63"><pre class="downlit">
+<span class="fu"><a href="../reference/fluxBiasMulti.html">fluxBiasMulti</a></span>(<span class="kw">eList</span>, qUnit=<span class="fl">1</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/fluxBiasMulti-1.png" alt="`fluxBiasMulti(eList, qUnit=1)`" width="100%"><p class="caption">
 <code><a href="../reference/fluxBiasMulti.html">fluxBiasMulti(eList, qUnit=1)</a></code>
 </p>
 </div>
 <p>The contour plot functions also do not recognize the PA from the INFO data frame. They represent the overall results of the WRTDS analysis. To specify contourLevels in the contour plots use the <code>seq</code> function (type <code><a href="https://rdrr.io/r/base/seq.html">?seq</a></code> for details). In general, use of the <code>seq</code> function would look like this: <code>contourLevels = seq(from,to,by)</code>. In the example shown above we are requesting contour levels that run from 0 to 2 in steps of 0.2.</p>
-<div class="sourceCode" id="cb64"><html><body><pre class="r"><span class="no">clevel</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">0.2</span>)
-<span class="fu"><a href="../reference/plotContours.html">plotContours</a></span>(<span class="no">eList</span>, <span class="kw">yearStart</span><span class="kw">=</span><span class="fl">1980</span>,<span class="kw">yearEnd</span><span class="kw">=</span><span class="fl">2010</span>,<span class="kw">qBottom</span><span class="kw">=</span><span class="fl">0.5</span>,<span class="kw">qTop</span><span class="kw">=</span><span class="fl">20</span>,
-             <span class="kw">contourLevels</span> <span class="kw">=</span> <span class="no">clevel</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb64"><pre class="downlit">
+<span class="kw">clevel</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">0.2</span>)
+<span class="fu"><a href="../reference/plotContours.html">plotContours</a></span>(<span class="kw">eList</span>, yearStart=<span class="fl">1980</span>,yearEnd=<span class="fl">2010</span>,qBottom=<span class="fl">0.5</span>,qTop=<span class="fl">20</span>, 
+             contourLevels = <span class="kw">clevel</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotContours-1.png" alt="`plotContours(eList)`" width="100%"><p class="caption">
 <code><a href="../reference/plotContours.html">plotContours(eList)</a></code>
 </p>
 </div>
 <p>The function <code>plotDiffContours</code> plots the difference between two selected years (year0 and year1). It can help clarify what combinations of seasons and flow conditions have been showing increases and decreases over the period covered.</p>
-<div class="sourceCode" id="cb65"><html><body><pre class="r"><span class="fu"><a href="../reference/plotDiffContours.html">plotDiffContours</a></span>(<span class="no">eList</span>, <span class="kw">year0</span><span class="kw">=</span><span class="fl">1990</span>,<span class="kw">year1</span><span class="kw">=</span><span class="fl">2010</span>,
-                 <span class="kw">qBottom</span><span class="kw">=</span><span class="fl">0.5</span>,<span class="kw">qTop</span><span class="kw">=</span><span class="fl">20</span>,<span class="kw">maxDiff</span><span class="kw">=</span><span class="fl">0.6</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb65"><pre class="downlit">
+<span class="fu"><a href="../reference/plotDiffContours.html">plotDiffContours</a></span>(<span class="kw">eList</span>, year0=<span class="fl">1990</span>,year1=<span class="fl">2010</span>,
+                 qBottom=<span class="fl">0.5</span>,qTop=<span class="fl">20</span>,maxDiff=<span class="fl">0.6</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotDiffContours-1.png" alt="`plotDiffContours(eList)`" width="100%"><p class="caption">
 <code><a href="../reference/plotDiffContours.html">plotDiffContours(eList)</a></code>
@@ -1334,8 +1438,10 @@ Concentration vs. discharge
 <h2 class="hasAnchor">
 <a href="#wrtdsTable" class="anchor"></a>Table Options</h2>
 <p>Sometimes it is easier to consider the results in table form rather than graphically. The function `tableResults} produces a simple text table that contains the annual values for the results. Each row of the output represents a year and includes: year, average discharge, average concentration, flow-normalized concentration, average flux, and flow-normalized flux. If paLong != 12 make sure you take note of the explanation of the seasonal flux values discussed at the end of <a href="#units">Units</a>. A small sample of the output is printed below.</p>
-<div class="sourceCode" id="cb66"><html><body><pre class="r"><span class="fu"><a href="../reference/tableResults.html">tableResults</a></span>(<span class="no">eList</span>)
-<span class="no">returnDF</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/tableResults.html">tableResults</a></span>(<span class="no">eList</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb66"><pre class="downlit">
+<span class="fu"><a href="../reference/tableResults.html">tableResults</a></span>(<span class="kw">eList</span>)
+<span class="kw">returnDF</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tableResults.html">tableResults</a></span>(<span class="kw">eList</span>)
+</pre></div>
 <pre><code>   Choptank River 
    Inorganic nitrogen (nitrate and nitrite)
    Water Year 
@@ -1350,6 +1456,14 @@ Concentration vs. discharge
 <table class="table">
 <caption>Table created from <code><a href="https://rdrr.io/r/utils/head.html">head(returnDF)</a></code>
 </caption>
+<colgroup>
+<col width="5%">
+<col width="18%">
+<col width="14%">
+<col width="17%">
+<col width="20%">
+<col width="23%">
+</colgroup>
 <thead><tr class="header">
 <th align="right">Year</th>
 <th align="right">Discharge [cms]</th>
@@ -1410,7 +1524,9 @@ Concentration vs. discharge
 </tbody>
 </table>
 <p>The other table option is <code>tableChange</code>. This is a function that provides for the computation of changes or slopes between any selected pairs of time points. These computations are made only on the flow-normalized results. A detailed explaination of “flow-normalized” result is in the official EGRET user guide.</p>
-<div class="sourceCode" id="cb68"><html><body><pre class="r"><span class="fu"><a href="../reference/tableChange.html">tableChange</a></span>(<span class="no">eList</span>, <span class="kw">yearPoints</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2000</span>,<span class="fl">2005</span>,<span class="fl">2010</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb68"><pre class="downlit">
+<span class="fu"><a href="../reference/tableChange.html">tableChange</a></span>(<span class="kw">eList</span>, yearPoints=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2000</span>,<span class="fl">2005</span>,<span class="fl">2010</span>))
+</pre></div>
 <pre><code>## 
 ##    Choptank River 
 ##    Inorganic nitrogen (nitrate and nitrite)
@@ -1432,7 +1548,9 @@ Concentration vs. discharge
 ##  2000  to  2010       0.0097      0.00097          6.9         0.69
 ##  2005  to  2010       0.0032      0.00063          2.2         0.43</code></pre>
 <p>Finally, <code>tableChangeSingle</code> operates exactly the same as <code>tableChange</code> except for the addition argument flux. This function provides either concentration results or flux results, but not both. This can be useful when you are producing many output tables for a report that is entirely focused on concentration or one that is entirely focused on flux. The arguments are identical to those for tableChange, except for the final two arguments. The argument <code>flux</code> defaults to TRUE. When flux=TRUE the output is only for flux, and when flux=FALSE the output is only for concentration. See <a href="#createWordTable">Creating tables</a> for instructions on converting an R data frame to a table in Microsoft™ software.</p>
-<div class="sourceCode" id="cb70"><html><body><pre class="r"><span class="no">returnDF</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/tableChange.html">tableChangeSingle</a></span>(<span class="no">eList</span>, <span class="kw">yearPoints</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2000</span>,<span class="fl">2005</span>,<span class="fl">2010</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb70"><pre class="downlit">
+<span class="kw">returnDF</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tableChange.html">tableChangeSingle</a></span>(<span class="kw">eList</span>, yearPoints=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2000</span>,<span class="fl">2005</span>,<span class="fl">2010</span>))
+</pre></div>
 <table class="table">
 <caption>Table created from <code>tableChangeSingle</code> function</caption>
 <thead><tr class="header">
@@ -1568,99 +1686,113 @@ Concentration vs. discharge
 </tbody>
 </table>
 <p>Some basic examples are shown below.</p>
-<div class="sourceCode" id="cb71"><html><body><pre class="r"><span class="fu"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(<span class="no">eList</span>, <span class="kw">cex.axis</span><span class="kw">=</span><span class="fl">2</span>,<span class="kw">cex.main</span><span class="kw">=</span><span class="fl">1.5</span>,<span class="kw">logScale</span><span class="kw">=</span><span class="fl">TRUE</span>)
-<span class="fu"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(<span class="no">eList</span>, <span class="kw">cex.lab</span><span class="kw">=</span><span class="fl">2</span>,<span class="kw">cex</span><span class="kw">=</span><span class="fl">2</span>,<span class="kw">logScale</span><span class="kw">=</span><span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb71"><pre class="downlit">
+<span class="fu"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(<span class="kw">eList</span>, cex.axis=<span class="fl">2</span>,cex.main=<span class="fl">1.5</span>,logScale=<span class="fl">TRUE</span>)
+<span class="fu"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(<span class="kw">eList</span>, cex.lab=<span class="fl">2</span>,cex=<span class="fl">2</span>,logScale=<span class="fl">TRUE</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/adjustSize-1.png" alt="Modifying text and point size, as shown using the `plotConcQ` function" width="45%"><img src="EGRET_files/figure-html/adjustSize-2.png" alt="Modifying text and point size, as shown using the `plotConcQ` function" width="45%"><p class="caption">
 Modifying text and point size, as shown using the <code>plotConcQ</code> function
 </p>
 </div>
 <p>First, the margin is adjusted to c(8,8,8,8), requiring customPar set to TRUE. The margin vector represents the margin spacing of the 4 <code>sides</code> of a plot in the order: bottom, left, top, right. Next, the text labels were adjusted, color set to <code>"blue"</code>, point and line size increased, and the point type changed form a solid circle(pch=20) to solid diamond (pch=18). A grid, legend, arrow, and text are added after the plot is produced.</p>
-<div class="sourceCode" id="cb72"><html><body><pre class="r"><span class="fu"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(<span class="no">eList</span>, <span class="kw">logScale</span><span class="kw">=</span><span class="fl">TRUE</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mar</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">8</span>,<span class="fl">8</span>,<span class="fl">8</span>,<span class="fl">8</span>))
-<span class="fu"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(<span class="no">eList</span>, <span class="kw">customPar</span><span class="kw">=</span><span class="fl">TRUE</span>,<span class="kw">col</span><span class="kw">=</span><span class="st">"blue"</span>,<span class="kw">cex</span><span class="kw">=</span><span class="fl">1.1</span>,
-          <span class="kw">cex.axis</span><span class="kw">=</span><span class="fl">1.4</span>,<span class="kw">cex.main</span><span class="kw">=</span><span class="fl">1.5</span>,<span class="kw">cex.lab</span><span class="kw">=</span><span class="fl">1.2</span>,
-          <span class="kw">pch</span><span class="kw">=</span><span class="fl">18</span>,<span class="kw">lwd</span><span class="kw">=</span><span class="fl">2</span>,<span class="kw">logScale</span><span class="kw">=</span><span class="fl">TRUE</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/grid.html">grid</a></span>(<span class="kw">lwd</span><span class="kw">=</span><span class="fl">2</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span>(<span class="fl">4.5</span>,<span class="fl">.09</span>,<span class="st">"Choptank Nitrogen"</span>, <span class="kw">pch</span><span class="kw">=</span><span class="fl">18</span>, <span class="kw">col</span><span class="kw">=</span><span class="st">"blue"</span>,<span class="kw">bg</span><span class="kw">=</span><span class="st">"white"</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/arrows.html">arrows</a></span>(<span class="fl">3</span>, <span class="fl">0.14</span>, <span class="fl">1</span>, <span class="fl">.05</span>,<span class="kw">lwd</span><span class="kw">=</span><span class="fl">2</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span>(<span class="fl">12</span>,<span class="fl">.14</span>,<span class="st">"Censored Value"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb72"><pre class="downlit">
+<span class="fu"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(<span class="kw">eList</span>, logScale=<span class="fl">TRUE</span>)
+<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(mar=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">8</span>,<span class="fl">8</span>,<span class="fl">8</span>,<span class="fl">8</span>))
+<span class="fu"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(<span class="kw">eList</span>, customPar=<span class="fl">TRUE</span>,col=<span class="st">"blue"</span>,cex=<span class="fl">1.1</span>,
+          cex.axis=<span class="fl">1.4</span>,cex.main=<span class="fl">1.5</span>,cex.lab=<span class="fl">1.2</span>,
+          pch=<span class="fl">18</span>,lwd=<span class="fl">2</span>,logScale=<span class="fl">TRUE</span>)
+<span class="fu"><a href="https://rdrr.io/r/graphics/grid.html">grid</a></span>(lwd=<span class="fl">2</span>)
+<span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span>(<span class="fl">4.5</span>,<span class="fl">.09</span>,<span class="st">"Choptank Nitrogen"</span>, pch=<span class="fl">18</span>, col=<span class="st">"blue"</span>,bg=<span class="st">"white"</span>)
+<span class="fu"><a href="https://rdrr.io/r/graphics/arrows.html">arrows</a></span>(<span class="fl">3</span>, <span class="fl">0.14</span>, <span class="fl">1</span>, <span class="fl">.05</span>,lwd=<span class="fl">2</span>)
+<span class="fu"><a href="https://rdrr.io/r/graphics/text.html">text</a></span>(<span class="fl">12</span>,<span class="fl">.14</span>,<span class="st">"Censored Value"</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/plotConcQComparison-1.png" alt="Modified `plotConcQ`" width="45%"><img src="EGRET_files/figure-html/plotConcQComparison-2.png" alt="Modified `plotConcQ`" width="45%"><p class="caption">
 Modified <code>plotConcQ</code>
 </p>
 </div>
 <p>Only a few fonts are consistent on all operating systems. The following figure shows how to change to the Serif font, as well as how to use the mtext function. To see the available fonts for pdf output on your computer, type <code><a href="https://rdrr.io/r/base/names.html">names(pdfFonts())</a></code>.The available fonts are quite limited in base R. To expand the font choices, a useful R library, “extrafont” can help.</p>
-<div class="sourceCode" id="cb73"><html><body><pre class="r"><span class="co"># Switching to serif font:</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">family</span><span class="kw">=</span><span class="st">"serif"</span>)
-<span class="fu"><a href="../reference/plotFluxPred.html">plotFluxPred</a></span>(<span class="no">eList</span>, <span class="kw">customPar</span><span class="kw">=</span><span class="fl">TRUE</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span>(<span class="kw">side</span><span class="kw">=</span><span class="fl">3</span>,<span class="kw">line</span><span class="kw">=</span>-<span class="fl">3</span>,<span class="st">"Serif font example"</span>,<span class="kw">cex</span><span class="kw">=</span><span class="fl">3</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb73"><pre class="downlit">
+<span class="co"># Switching to serif font:</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(family=<span class="st">"serif"</span>)
+<span class="fu"><a href="../reference/plotFluxPred.html">plotFluxPred</a></span>(<span class="kw">eList</span>, customPar=<span class="fl">TRUE</span>)
+<span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span>(side=<span class="fl">3</span>,line=<span class="op">-</span><span class="fl">3</span>,<span class="st">"Serif font example"</span>,cex=<span class="fl">3</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/easyFontChange-1.png" alt="Serif font" width="45%"><p class="caption">
 Serif font
 </p>
 </div>
 <p>You can also extend the contour plots. The default y-axis is determined from qTop and qBottom. Occasionally, you may need to use a custom axis by specifying yTicks. It is also nice to be able to adjust the color scheme of the contour plots. There are some color schemes built into base R such as heat.colors, topo.colors, terrain.colors, and cm.colors. Alternatively, you can set colors by using the <code>colorRampPalette</code> function. For example, a black and white color scheme might be required. In another example, the <code>plotDiffContours</code> might make more sense to go from yellow to white for the negative values, and white to blue for the positive values. Examples are shown below for modifying a contour plot and modifying a difference contour plot.</p>
-<div class="sourceCode" id="cb74"><html><body><pre class="r"><span class="no">colors</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html">colorRampPalette</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"white"</span>,<span class="st">"black"</span>))
-<span class="no">yTicksModified</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">.5</span>,<span class="fl">1</span>,<span class="fl">10</span>,<span class="fl">25</span>)
-<span class="fu"><a href="../reference/plotContours.html">plotContours</a></span>(<span class="no">eList</span>, <span class="fl">2001</span>,<span class="fl">2010</span>,<span class="fl">0.5</span>,<span class="fl">50</span>,
-             <span class="kw">contourLevels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>,<span class="fl">2.5</span>,<span class="fl">0.5</span>),<span class="kw">qUnit</span><span class="kw">=</span><span class="fl">2</span>,
-             <span class="kw">yTicks</span><span class="kw">=</span><span class="no">yTicksModified</span>,
-             <span class="kw">color.palette</span><span class="kw">=</span><span class="no">colors</span>,
-             <span class="kw">flowDuration</span><span class="kw">=</span><span class="fl">FALSE</span>,
-             <span class="kw">tcl</span><span class="kw">=</span><span class="fl">0.2</span>,<span class="kw">tick.lwd</span><span class="kw">=</span><span class="fl">2.5</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb74"><pre class="downlit">
+<span class="kw">colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html">colorRampPalette</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"white"</span>,<span class="st">"black"</span>))
+<span class="kw">yTicksModified</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">.5</span>,<span class="fl">1</span>,<span class="fl">10</span>,<span class="fl">25</span>)
+<span class="fu"><a href="../reference/plotContours.html">plotContours</a></span>(<span class="kw">eList</span>, <span class="fl">2001</span>,<span class="fl">2010</span>,<span class="fl">0.5</span>,<span class="fl">50</span>, 
+             contourLevels = <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>,<span class="fl">2.5</span>,<span class="fl">0.5</span>),qUnit=<span class="fl">2</span>,
+             yTicks=<span class="kw">yTicksModified</span>,
+             color.palette=<span class="kw">colors</span>,
+             flowDuration=<span class="fl">FALSE</span>,
+             tcl=<span class="fl">0.2</span>,tick.lwd=<span class="fl">2.5</span>)  
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/modifiedContour1-1.png" alt="Contour plot with modified axis and color scheme" width="100%"><p class="caption">
 Contour plot with modified axis and color scheme
 </p>
 </div>
-<div class="sourceCode" id="cb75"><html><body><pre class="r"><span class="no">colors</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html">colorRampPalette</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"yellow"</span>,<span class="st">"white"</span>,<span class="st">"blue"</span>))
-<span class="no">maxDiff</span><span class="kw">&lt;-</span><span class="fl">0.6</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">oma</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>))
-<span class="fu"><a href="../reference/plotDiffContours.html">plotDiffContours</a></span>(<span class="no">eList</span>, <span class="kw">year0</span><span class="kw">=</span><span class="fl">2001</span>,<span class="kw">year1</span><span class="kw">=</span><span class="fl">2010</span>,<span class="kw">qBottom</span><span class="kw">=</span><span class="fl">0.5</span>,<span class="kw">qTop</span><span class="kw">=</span><span class="fl">50</span>,
-             <span class="no">maxDiff</span>,<span class="kw">lwd</span><span class="kw">=</span><span class="fl">2</span>,<span class="kw">qUnit</span><span class="kw">=</span><span class="fl">2</span>,
-             <span class="kw">color.palette</span><span class="kw">=</span><span class="no">colors</span>,
-             <span class="kw">flowDuration</span><span class="kw">=</span><span class="fl">FALSE</span>, <span class="kw">customPar</span><span class="kw">=</span><span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb75"><pre class="downlit">
+<span class="kw">colors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html">colorRampPalette</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"yellow"</span>,<span class="st">"white"</span>,<span class="st">"blue"</span>))
+<span class="kw">maxDiff</span><span class="op">&lt;-</span><span class="fl">0.6</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(oma=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>))
+<span class="fu"><a href="../reference/plotDiffContours.html">plotDiffContours</a></span>(<span class="kw">eList</span>, year0=<span class="fl">2001</span>,year1=<span class="fl">2010</span>,qBottom=<span class="fl">0.5</span>,qTop=<span class="fl">50</span>, 
+             <span class="kw">maxDiff</span>,lwd=<span class="fl">2</span>,qUnit=<span class="fl">2</span>,
+             color.palette=<span class="kw">colors</span>,
+             flowDuration=<span class="fl">FALSE</span>, customPar=<span class="fl">TRUE</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/modifiedDiffContour-1.png" alt="Difference contour plot with modified color scheme" width="100%"><p class="caption">
 Difference contour plot with modified color scheme
 </p>
 </div>
 <p>It is also possible to create custom multi-panel plots. In the simplest example, you can use the <code>tinyPlot=TRUE</code> option.</p>
-<div class="sourceCode" id="cb76"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mfcol</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">2</span>), <span class="kw">oma</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">1.7</span>, <span class="fl">6</span>, <span class="fl">1.7</span>))
+<div class="sourceCode" id="cb76"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(mfcol = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">2</span>), oma = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">1.7</span>, <span class="fl">6</span>, <span class="fl">1.7</span>))
 
-<span class="fu"><a href="../reference/plotFluxQ.html">plotFluxQ</a></span>(<span class="no">eList</span>, <span class="kw">tinyPlot</span><span class="kw">=</span><span class="fl">TRUE</span>,<span class="kw">printTitle</span><span class="kw">=</span><span class="fl">FALSE</span>,
-          <span class="kw">fluxUnit</span><span class="kw">=</span><span class="fl">9</span>,<span class="kw">logScale</span><span class="kw">=</span><span class="fl">TRUE</span>,<span class="kw">fluxMax</span><span class="kw">=</span><span class="fl">1</span>)
-<span class="fu"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(<span class="no">eList</span>, <span class="kw">tinyPlot</span><span class="kw">=</span><span class="fl">TRUE</span>,<span class="kw">printTitle</span><span class="kw">=</span><span class="fl">FALSE</span>)
-<span class="fu"><a href="../reference/plotFluxHist.html">plotFluxHist</a></span>(<span class="no">eList</span>, <span class="kw">tinyPlot</span><span class="kw">=</span><span class="fl">TRUE</span>,<span class="kw">printTitle</span><span class="kw">=</span><span class="fl">FALSE</span>,<span class="kw">fluxMax</span><span class="kw">=</span><span class="fl">1</span>)
-<span class="fu"><a href="../reference/plotConcHist.html">plotConcHist</a></span>(<span class="no">eList</span>, <span class="kw">tinyPlot</span><span class="kw">=</span><span class="fl">TRUE</span>,<span class="kw">printTitle</span><span class="kw">=</span><span class="fl">FALSE</span>,<span class="kw">concMax</span><span class="kw">=</span><span class="fl">3</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span>(<span class="st">"Custom multi-pane graph using tinyPlot=TRUE"</span>, <span class="kw">outer</span><span class="kw">=</span><span class="fl">TRUE</span>, <span class="kw">font</span><span class="kw">=</span><span class="fl">2</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/plotFluxQ.html">plotFluxQ</a></span>(<span class="kw">eList</span>, tinyPlot=<span class="fl">TRUE</span>,printTitle=<span class="fl">FALSE</span>,
+          fluxUnit=<span class="fl">9</span>,logScale=<span class="fl">TRUE</span>,fluxMax=<span class="fl">1</span>)
+<span class="fu"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(<span class="kw">eList</span>, tinyPlot=<span class="fl">TRUE</span>,printTitle=<span class="fl">FALSE</span>)
+<span class="fu"><a href="../reference/plotFluxHist.html">plotFluxHist</a></span>(<span class="kw">eList</span>, tinyPlot=<span class="fl">TRUE</span>,printTitle=<span class="fl">FALSE</span>,fluxMax=<span class="fl">1</span>)
+<span class="fu"><a href="../reference/plotConcHist.html">plotConcHist</a></span>(<span class="kw">eList</span>, tinyPlot=<span class="fl">TRUE</span>,printTitle=<span class="fl">FALSE</span>,concMax=<span class="fl">3</span>)
+<span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span>(<span class="st">"Custom multi-pane graph using tinyPlot=TRUE"</span>, outer=<span class="fl">TRUE</span>, font=<span class="fl">2</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/tinyPlot1-1.png" alt="Custom multipanel plot using tinyPlot" width="100%"><p class="caption">
 Custom multipanel plot using tinyPlot
 </p>
 </div>
 <p>Finally, the following figure shows a method to create a panel of plots with a finer control.</p>
-<div class="sourceCode" id="cb77"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mar</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3.5</span>,<span class="fl">3.5</span>,<span class="fl">0.2</span>,<span class="fl">0.2</span>), <span class="co"># whitespace around the plots</span>
-    <span class="kw">oma</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">1</span>), <span class="co"># outer margin</span>
-    <span class="kw">mgp</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>,<span class="fl">0.5</span>,<span class="fl">0</span>), <span class="co"># spacing between the label numbers and plots</span>
-    <span class="kw">mfcol</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>,<span class="fl">2</span>)) <span class="co"># rows/columns</span>
+<div class="sourceCode" id="cb77"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(mar=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3.5</span>,<span class="fl">3.5</span>,<span class="fl">0.2</span>,<span class="fl">0.2</span>), <span class="co"># whitespace around the plots</span>
+    oma=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">1</span>), <span class="co"># outer margin</span>
+    mgp=<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>,<span class="fl">0.5</span>,<span class="fl">0</span>), <span class="co"># spacing between the label numbers and plots</span>
+    mfcol = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>,<span class="fl">2</span>)) <span class="co"># rows/columns</span>
 
-<span class="fu"><a href="../reference/plotFluxQ.html">plotFluxQ</a></span>(<span class="no">eList</span>, <span class="kw">tinyPlot</span><span class="kw">=</span><span class="fl">TRUE</span>,<span class="kw">printTitle</span><span class="kw">=</span><span class="fl">FALSE</span>,
-          <span class="kw">fluxUnit</span><span class="kw">=</span><span class="fl">9</span>,<span class="kw">logScale</span><span class="kw">=</span><span class="fl">TRUE</span>,<span class="kw">fluxMax</span><span class="kw">=</span><span class="fl">1</span>,
-          <span class="kw">showXLabels</span><span class="kw">=</span><span class="fl">FALSE</span>,<span class="kw">showXAxis</span><span class="kw">=</span><span class="fl">FALSE</span>,
-          <span class="kw">showYLabels</span><span class="kw">=</span><span class="fl">TRUE</span>,<span class="kw">customPar</span><span class="kw">=</span><span class="fl">TRUE</span>)
+<span class="fu"><a href="../reference/plotFluxQ.html">plotFluxQ</a></span>(<span class="kw">eList</span>, tinyPlot=<span class="fl">TRUE</span>,printTitle=<span class="fl">FALSE</span>,
+          fluxUnit=<span class="fl">9</span>,logScale=<span class="fl">TRUE</span>,fluxMax=<span class="fl">1</span>,
+          showXLabels=<span class="fl">FALSE</span>,showXAxis=<span class="fl">FALSE</span>, 
+          showYLabels=<span class="fl">TRUE</span>,customPar=<span class="fl">TRUE</span>)
 
-<span class="fu"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(<span class="no">eList</span>, <span class="kw">tinyPlot</span><span class="kw">=</span><span class="fl">TRUE</span>,<span class="kw">printTitle</span><span class="kw">=</span><span class="fl">FALSE</span>, <span class="kw">customPar</span><span class="kw">=</span><span class="fl">TRUE</span>,
-          <span class="kw">removeLastY</span><span class="kw">=</span><span class="fl">TRUE</span>,<span class="kw">removeLastX</span><span class="kw">=</span><span class="fl">TRUE</span>,
-          <span class="kw">showYLabels</span><span class="kw">=</span><span class="fl">TRUE</span>)
+<span class="fu"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(<span class="kw">eList</span>, tinyPlot=<span class="fl">TRUE</span>,printTitle=<span class="fl">FALSE</span>, customPar=<span class="fl">TRUE</span>,
+          removeLastY=<span class="fl">TRUE</span>,removeLastX=<span class="fl">TRUE</span>,
+          showYLabels=<span class="fl">TRUE</span>)
 
-<span class="fu"><a href="../reference/plotFluxHist.html">plotFluxHist</a></span>(<span class="no">eList</span>, <span class="kw">tinyPlot</span><span class="kw">=</span><span class="fl">TRUE</span>,<span class="kw">printTitle</span><span class="kw">=</span><span class="fl">FALSE</span>,<span class="kw">fluxMax</span><span class="kw">=</span><span class="fl">1</span>,
-          <span class="kw">showYLabels</span><span class="kw">=</span><span class="fl">FALSE</span>,<span class="kw">showYAxis</span><span class="kw">=</span><span class="fl">FALSE</span>,
-          <span class="kw">showXLabels</span><span class="kw">=</span><span class="fl">FALSE</span>,<span class="kw">showXAxis</span><span class="kw">=</span><span class="fl">FALSE</span>, <span class="kw">customPar</span><span class="kw">=</span><span class="fl">TRUE</span>)
-<span class="fu"><a href="../reference/plotConcHist.html">plotConcHist</a></span>(<span class="no">eList</span>, <span class="kw">tinyPlot</span><span class="kw">=</span><span class="fl">TRUE</span>,<span class="kw">printTitle</span><span class="kw">=</span><span class="fl">FALSE</span>,<span class="kw">concMax</span><span class="kw">=</span><span class="fl">3</span>,
-          <span class="kw">showYLabels</span><span class="kw">=</span><span class="fl">FALSE</span>, <span class="kw">showYAxis</span><span class="kw">=</span><span class="fl">FALSE</span>, <span class="kw">customPar</span><span class="kw">=</span><span class="fl">TRUE</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span>(<span class="st">"Custom multi-pane graph using customPar"</span>, <span class="kw">outer</span><span class="kw">=</span><span class="fl">TRUE</span>, <span class="kw">font</span><span class="kw">=</span><span class="fl">2</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/plotFluxHist.html">plotFluxHist</a></span>(<span class="kw">eList</span>, tinyPlot=<span class="fl">TRUE</span>,printTitle=<span class="fl">FALSE</span>,fluxMax=<span class="fl">1</span>,
+          showYLabels=<span class="fl">FALSE</span>,showYAxis=<span class="fl">FALSE</span>,
+          showXLabels=<span class="fl">FALSE</span>,showXAxis=<span class="fl">FALSE</span>, customPar=<span class="fl">TRUE</span>)
+<span class="fu"><a href="../reference/plotConcHist.html">plotConcHist</a></span>(<span class="kw">eList</span>, tinyPlot=<span class="fl">TRUE</span>,printTitle=<span class="fl">FALSE</span>,concMax=<span class="fl">3</span>,
+          showYLabels=<span class="fl">FALSE</span>, showYAxis=<span class="fl">FALSE</span>, customPar=<span class="fl">TRUE</span>)
+<span class="fu"><a href="https://rdrr.io/r/graphics/mtext.html">mtext</a></span>(<span class="st">"Custom multi-pane graph using customPar"</span>, outer=<span class="fl">TRUE</span>, font=<span class="fl">2</span>)
+</pre></div>
 <div class="figure" style="text-align: center">
 <img src="EGRET_files/figure-html/customPanel-1.png" alt="Custom multipanel plot" width="100%"><p class="caption">
 Custom multipanel plot
@@ -1676,17 +1808,25 @@ Custom multipanel plot
 <a href="#new-to-r" class="anchor"></a>New to R?</h2>
 <p>If you are new to R, you will need to first install the latest version of R, which can be found here: <a href="https://www.r-project.org/">https://www.r-project.org/</a>.</p>
 <p>At any time, you can get information about any function in R by typing a question mark before the function’s name. This opens a file that describes the function, the required arguments, and provides working examples.</p>
-<div class="sourceCode" id="cb78"><html><body><pre class="r">?<span class="no">plotConcQ</span></pre></body></html></div>
+<div class="sourceCode" id="cb78"><pre class="downlit">
+<span class="op">?</span><span class="kw">plotConcQ</span>
+</pre></div>
 <p>To see the raw code for a particular function, type the name of the function, without parentheses:</p>
-<div class="sourceCode" id="cb79"><html><body><pre class="r"><span class="no">plotConcQ</span></pre></body></html></div>
+<div class="sourceCode" id="cb79"><pre class="downlit">
+<span class="kw">plotConcQ</span>
+</pre></div>
 </div>
 <div id="r-user-installing-egret" class="section level2">
 <h2 class="hasAnchor">
 <a href="#r-user-installing-egret" class="anchor"></a>R User: Installing EGRET</h2>
 <p>To install the EGRET packages and its dependencies:</p>
-<div class="sourceCode" id="cb80"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"EGRET"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb80"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"EGRET"</span>)
+</pre></div>
 <p>After installing the package, you need to open the library each time you re-start R. This is done with the simple command:</p>
-<div class="sourceCode" id="cb81"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">EGRET</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb81"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://pubs.usgs.gov/tm/04/a10">EGRET</a></span>)
+</pre></div>
 </div>
 </div>
 <div id="appendixPlot" class="section level1">
@@ -2185,7 +2325,9 @@ Custom multipanel plot
 <h1 class="hasAnchor">
 <a href="#createWordTable" class="anchor"></a>Creating tables in Microsoft™ software from an R data frame</h1>
 <p>A few steps that are required to create a table in Microsoft™ software (Excel, Word, PowerPoint, etc.) from an R data frame. There are a variety of good methods, one of which is detailed here. The example we will step through is creation of a table in Microsoft™ Excel based on the data frame tableData:</p>
-<div class="sourceCode" id="cb82"><html><body><pre class="r"><span class="no">tableData</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/tableResults.html">tableResults</a></span>(<span class="no">eList</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb82"><pre class="downlit">
+<span class="kw">tableData</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tableResults.html">tableResults</a></span>(<span class="kw">eList</span>)
+</pre></div>
 <pre><code>## 
 ##    Choptank River 
 ##    Inorganic nitrogen (nitrate and nitrite)
@@ -2227,8 +2369,10 @@ Custom multipanel plot
 ##    2010      7.19     1.323     1.438    0.2236     0.149
 ##    2011      5.24     1.438     1.457    0.1554     0.148</code></pre>
 <p>First, save the data frame as a tab delimited file (you don’t want to use comma delimited because there are commas in some of the data elements):</p>
-<div class="sourceCode" id="cb84"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span>(<span class="no">tableData</span>, <span class="kw">file</span><span class="kw">=</span><span class="st">"tableData.tsv"</span>,<span class="kw">sep</span><span class="kw">=</span><span class="st">"\t"</span>,
-            <span class="kw">row.names</span> <span class="kw">=</span> <span class="fl">FALSE</span>,<span class="kw">quote</span><span class="kw">=</span><span class="fl">FALSE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb84"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span>(<span class="kw">tableData</span>, file=<span class="st">"tableData.tsv"</span>,sep=<span class="st">"\t"</span>, 
+            row.names = <span class="fl">FALSE</span>,quote=<span class="fl">FALSE</span>)
+</pre></div>
 <p>This will save a file in your working directory called tableData.tsv. You can see your working directory by typing <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> in the R console. Opening the file in a general-purpose text editor, you should see the following:</p>
 <pre><code>Year  Discharge [cms]   Conc [mg/L] FN_Conc [mg/L]  Flux [10^6kg/yr]    FN_Flux [10^6kg/yr]
 1980       4.25            0.949          1.003          0.1154             0.106  
@@ -2256,33 +2400,37 @@ Custom multipanel plot
 <a href="#savingPlots" class="anchor"></a>Saving Plots</h1>
 <p>Plots can be saved from R as JPG, PNG, PDF, and Postscript files. JPG and PNG are easy to use in any number of programs (Microsoft™ Word or PowerPoint, for example), but the images cannot be resized later. PDF and Postscript images are easily re-sizable.</p>
 <p>There are three steps to saving plots. The first is to open the “device” (and declare the output type and file name). The second step is to execute the function just as you would when plotting to the screen, but no output will appear. The third step is to turn off the device. It is also possible to put many plots within the same pdf. Some simple examples should demonstrate this easily:</p>
-<div class="sourceCode" id="cb86"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/grDevices/png.html">jpeg</a></span>(<span class="st">"plotFlowSingle.jpg"</span>)
-<span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="no">eList</span>, <span class="fl">1</span>)
+<div class="sourceCode" id="cb86"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/grDevices/png.html">jpeg</a></span>(<span class="st">"plotFlowSingle.jpg"</span>)
+<span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="kw">eList</span>, <span class="fl">1</span>)
 <span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()
 
 <span class="fu"><a href="https://rdrr.io/r/grDevices/png.html">png</a></span>(<span class="st">"plotFlowSingle.png"</span>)
-<span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="no">eList</span>,<span class="fl">1</span>)
+<span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="kw">eList</span>,<span class="fl">1</span>)
 <span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()
 
 <span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html">pdf</a></span>(<span class="st">"plotFlowSingle.pdf"</span>)
-<span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="no">eList</span>,<span class="fl">1</span>)
+<span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="kw">eList</span>,<span class="fl">1</span>)
 <span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()
 
 <span class="fu"><a href="https://rdrr.io/r/grDevices/postscript.html">postscript</a></span>(<span class="st">"plotFlowSingle.ps"</span>)
-<span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="no">eList</span>,<span class="fl">1</span>)
+<span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="kw">eList</span>,<span class="fl">1</span>)
 <span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()
 
 <span class="co">#Many plots saved to one pdf:</span>
 <span class="fu"><a href="https://rdrr.io/r/grDevices/pdf.html">pdf</a></span>(<span class="st">"manyPlots.pdf"</span>)
-<span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="no">eList</span>,<span class="fl">1</span>)
-<span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="no">eList</span>,<span class="fl">2</span>)
-<span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="no">eList</span>,<span class="fl">3</span>)
-<span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="no">eList</span>,<span class="fl">4</span>)
-<span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()</pre></body></html></div>
+<span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="kw">eList</span>,<span class="fl">1</span>)
+<span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="kw">eList</span>,<span class="fl">2</span>)
+<span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="kw">eList</span>,<span class="fl">3</span>)
+<span class="fu"><a href="../reference/plotFlowSingle.html">plotFlowSingle</a></span>(<span class="kw">eList</span>,<span class="fl">4</span>)
+<span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()
+</pre></div>
 <p>There are many additional options for each of these devices. See the R help files for more information. One useful option for the larger <code>fluxBiasMulti</code> graph is to adjust the height and width of the output. The output of <code>fluxBiasMulti</code> is larger than the default pdf or postscript devices. Therefore, specifying the height and width eliminates R having to re-size the graphic:</p>
-<div class="sourceCode" id="cb87"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/grDevices/postscript.html">postscript</a></span>(<span class="st">"fluxBiasMulti.ps"</span>, <span class="kw">height</span><span class="kw">=</span><span class="fl">10</span>,<span class="kw">width</span><span class="kw">=</span><span class="fl">8</span>)
-<span class="fu"><a href="../reference/fluxBiasMulti.html">fluxBiasMulti</a></span>(<span class="no">eList</span>)
-<span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb87"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/grDevices/postscript.html">postscript</a></span>(<span class="st">"fluxBiasMulti.ps"</span>, height=<span class="fl">10</span>,width=<span class="fl">8</span>)
+<span class="fu"><a href="../reference/fluxBiasMulti.html">fluxBiasMulti</a></span>(<span class="kw">eList</span>)
+<span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.off</a></span>()
+</pre></div>
 </div>
 <div id="disclaimer" class="section level1">
 <h1 class="hasAnchor">
