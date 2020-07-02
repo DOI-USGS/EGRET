@@ -271,6 +271,7 @@ computeAnnual <- function(eList, DailyK, paStart = 10, paLong = 12) {
 plotTimeSlice <- function(eList, DailyK, start, end){
   
   message("This function is currently in development")
+  DecYear <- ".nse"
   
   Daily <- subset(DailyK,DecYear >= start & DecYear <= end)
   concHigh <- 1.1 * max(Daily$ConcDay,Daily$GenConc,Daily$ConcDay,na.rm = TRUE)
