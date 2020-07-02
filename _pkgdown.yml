@@ -13,7 +13,7 @@ navbar:
     - text: Enhancements
       href: articles/Enhancements.html
     - text: WRTDS-K
-      href: articles/Making WRTDS_K flux estimates.html
+      href: articles/WRTDSK.html
     - text: Running in Parallel
       href: articles/parallel.html
     - text: Random Residuals
@@ -86,3 +86,9 @@ reference:
       - tableChange
       - tableFlowChange
       - tableResults
+  - title: WRTDS-K
+    desc: Functions for WRTDS with Kalman filtering
+    contents:
+     - makeDailyK
+     - computeAnnual
+     - plotTimeSlice

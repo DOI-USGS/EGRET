@@ -1,13 +1,14 @@
 Package: EGRET
 Type: Package
 Title: Exploration and Graphics for RivEr Trends
-Version: 3.0.3.9000
+Version: 3.0.4.9000
 Authors@R: c( person("Robert", "Hirsch", role = c("aut"),
     email = "rhirsch@usgs.gov", 
     comment=c(ORCID="0000-0002-4534-075X")),
     person("Laura", "DeCicco", role = c("aut","cre"),
     email = "ldecicco@usgs.gov",
     comment=c(ORCID="0000-0002-3915-9487")), 
+    person("Tim", "Cohn", role = c("ctb")),
     person("David", "Watkins", role = c("ctb")),
     person("Lindsay","Carr", role = c("ctb")),
     person("Jennifer","Murphy", role = c("ctb")))
@@ -29,7 +30,8 @@ Imports:
     stats,
     grDevices,
     truncnorm,
-    foreach
+    foreach,
+    MASS
 Suggests:
     EGRETci,
     knitr,

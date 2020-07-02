@@ -14,6 +14,7 @@
 #' @param yearStart numeric is the calendar year containing the first estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)
 #' @param yearEnd numeric is the calendar year just after the last estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)
 #' @param eList named list with at least the Daily and INFO dataframes
+#' @param DailyK data frame returned from \code{makeDailyK}
 #' @param concMax numeric. Maximum value of concentration to be plotted.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
 #' @param plotFlowNorm logical variable if TRUE flow normalized line is plotted, if FALSE not plotted 
@@ -46,15 +47,22 @@
 #' plotConcHist(eList, tinyPlot = TRUE)
 #' 
 plotConcHist<-function(eList, yearStart = NA, yearEnd = NA, 
+                       DailyK = NA,
                        concMax = NA, printTitle = TRUE, 
                        tinyPlot = FALSE,usgsStyle = FALSE,
                        plotFlowNorm = TRUE, plotAnnual = TRUE,
                         cex=0.8, cex.axis=1.1,cex.main=1.1, 
                        lwd=2, col="black", col.pred="green", customPar=FALSE,...){
 
-  localDaily <- getDaily(eList)
   localINFO <- getInfo(eList)
 
+  if(all(is.na(DailyK))){
+    localDaily <- getDaily(eList)
+  } else {
+    localDaily <- DailyK
+    localDaily$ConcDay <- DailyK$GenConc
+  }
+  
   if(all(c("paStart","paLong") %in% names(localINFO))){
     paLong <- localINFO$paLong
     paStart <- localINFO$paStart  
