@@ -120,7 +120,10 @@
 
     
     
-<p>Important note! This is a work-in-progress. No future behavior on new functions are promised based during this development phase.</p>
+<p>Important note! This is a work-in-progress. No future behavior on new functions are promised based during this development phase. In order to run these functions, you will need to install the development version of <code>EGRET</code>. This can be done using the <code>remotes</code> package:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw">remotes</span>::<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"USGS-R/EGRET"</span>)
+</pre></div>
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
@@ -131,9 +134,10 @@
 <h2 class="hasAnchor">
 <a href="#what-one-needs-in-order-to-run-this-are-the-following-items" class="anchor"></a>What one needs, in order to run this are the following items:</h2>
 <ul>
+<li>Install the development version of <code>EGRET</code> via the <code>remotes</code> package (see above).</li>
 <li>A data set which must already be in the form of an EGRET workspace containing an eList that has all four components of an <strong>eList (INFO, Daily, Sample, surfaces)</strong>. That is, it must be the data and a WRTDS model based on that data that is already estimated. The data set must be in the form of an “.RData” file that contains an <strong>eList</strong>, Nothing else needs to be in that file but if there is other stuff, that’s ok. The discussion and example shown here is carried out on a data set that contains no censored data (“less than values”) and it never has more than one observation on a given day. The description of the method and the examples run in the two papers mentioned are this kind of data set. In the last section of this vignette there will be an explanation of how the method has been generalized to handle these two special cases. The software presented here is able to properly handle data sets that have either or both of these properties (censoring and multiple observations per day).</li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="downlit">
+<div class="sourceCode" id="cb2"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://pubs.usgs.gov/tm/04/a10">EGRET</a></span>)
 
 <span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span>(<span class="st">"rockCr.tp.RData"</span>) 
@@ -200,7 +204,7 @@
 <h1 class="hasAnchor">
 <a href="#summarizing-results-at-an-annual-time-step" class="anchor"></a>Summarizing results at an annual time step</h1>
 <p>Now we can take the results from the <strong>DailyK</strong> data frame and compute annual flux values. We will do that for the regular WRTDS and for WRTDS_K (using the data in two columns of <strong>DailyK</strong> the <strong>FluxDay</strong> column and the <strong>GenFlux</strong> column). We can also do these computations for some period of analysis other than the water year, but for now, we will just show the water year computations. The function used is called <strong>computeAnnual</strong> and it produces a data frame called <strong>AnnualResults</strong> and also produces some graphics that show the two types of results. Notice that <strong>AnnualResults</strong> has some attributes that go with it that will tell you what the period of analysis was. They are printed here. Note that the function <strong>computeAnnual</strong> actually does more than the computations, it prints out the content of AnnualResults and it also makes two graphs that tell you some things about how the two types of estimates compare to each other.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
+<div class="sourceCode" id="cb4"><pre class="downlit">
 <span class="kw">AnnualResults</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeDailyK.html">computeAnnual</a></span>(<span class="kw">eList</span>, Daily = <span class="kw">DailyK</span>)
 </pre></div>
 <pre><code>## [1] "Rock Creek at Kentucky Road in Independence, MO"
@@ -249,11 +253,11 @@
 <a href="#looking-at-parts-of-the-record-to-see-how-wrtds-and-wrtds_k-are-working" class="anchor"></a>Looking at parts of the record to see how WRTDS and WRTDS_K are working</h1>
 <p>We have a function that produces graphics that show, as a time series, the daily true values (for the days that have samples), the WRTDS estimates for every day, and the WRTDS_K estimates for every day. We could plot the whole record, but the ups and downs of the curves would be so tight that we really couldn’t see what’s going on. So, we let the user pick a time slice to look at. It produces two plots, the first is for concentration (it is typically easier to see what is happening in the estimation with the concentration graphs) and the second is for flux (discharge plays such a big role here that the propagation of error from the concentrations gets somewhat obscured, but flux is, after all, what we are interested in here).</p>
 <p>We will look at two examples here, in each case looking at about a half a year. The first one (2018) is a year in which there was very good agreement between the estimates, and the second one (2015) is a year with a large difference between the methods. Let’s see what those results look like.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
+<div class="sourceCode" id="cb6"><pre class="downlit">
 <span class="fu"><a href="../reference/makeDailyK.html">plotTimeSlice</a></span>(<span class="kw">eList</span>, Daily = <span class="kw">DailyK</span>, start = <span class="fl">2018.2</span>, end = <span class="fl">2018.7</span>)
 </pre></div>
 <p><img src="WRTDSK_files/figure-html/unnamed-chunk-3-1.png" width="700"><img src="WRTDSK_files/figure-html/unnamed-chunk-3-2.png" width="700"></p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
+<div class="sourceCode" id="cb7"><pre class="downlit">
 <span class="fu"><a href="../reference/makeDailyK.html">plotTimeSlice</a></span>(<span class="kw">eList</span>, Daily = <span class="kw">DailyK</span>, start = <span class="fl">2015.2</span>, end = <span class="fl">2015.7</span>)
 </pre></div>
 <p><img src="WRTDSK_files/figure-html/unnamed-chunk-3-3.png" width="700"><img src="WRTDSK_files/figure-html/unnamed-chunk-3-4.png" width="700"></p>
@@ -267,16 +271,16 @@
 <a href="#two-options-available-setting-rho-and-setting-niter" class="anchor"></a>Two options available (setting rho and setting niter)</h1>
 <p>One of the things that the user must select is the rho value. We don’t have a strong theoretical basis for selecting the right value of rho, although our research has shown that the results are not highly sensitive to it. In the paper published in Zhang and Hirsch (2019) (see the second URL near the start of this document) we do make some generalizations about the selection of rho. We found that for nitrate a slightly higher rho value (such as 0.95) may be better than for other constitutents such as TP, OrthoP, Suspended Sediment, or Chloride for which values like 0.85 or 0.9 may be better. The somewhat different behavior for nitrate is explained by the fact that at many sites there are some other factors probably related to denitrification the discharge and term does not have a great amount of explanatory power in the WRTDS model. As such, placing more reliance on the results of samples that are close in time is appropriate. One can experiment with different values of rho because it is an argument in the <strong>makeDailyK</strong> function.</p>
 <p>We can re-run the analysis with rho of 0.85 and see how much difference it makes. The table shown here lists the ratio the difference in annual values divided by the original annual value (so multiplying these numbers by 100 would result in differences in percent).</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
+<div class="sourceCode" id="cb8"><pre class="downlit">
 <span class="kw">DailyK2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeDailyK.html">makeDailyK</a></span>(<span class="kw">eList</span>, rho = <span class="fl">0.85</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="kw">DailyK2</span>,<span class="st">"rho"</span>))
 </pre></div>
 <pre><code>## [1] 0.85</code></pre>
-<div class="sourceCode" id="cb9"><pre class="downlit">
+<div class="sourceCode" id="cb10"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="kw">DailyK2</span>,<span class="st">"niter"</span>))
 </pre></div>
 <pre><code>## [1] 200</code></pre>
-<div class="sourceCode" id="cb11"><pre class="downlit">
+<div class="sourceCode" id="cb12"><pre class="downlit">
 <span class="kw">AnnualResults2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeDailyK.html">computeAnnual</a></span>(<span class="kw">eList</span>, Daily = <span class="kw">DailyK2</span>)
 </pre></div>
 <pre><code>## [1] "Rock Creek at Kentucky Road in Independence, MO"
@@ -309,7 +313,7 @@
 ## 11 0.2421669 10.879251         12          10
 ## 12 0.1716476  3.333916         12          10</code></pre>
 <p><img src="WRTDSK_files/figure-html/unnamed-chunk-4-1.png" width="700"><img src="WRTDSK_files/figure-html/unnamed-chunk-4-2.png" width="700"></p>
-<div class="sourceCode" id="cb13"><pre class="downlit">
+<div class="sourceCode" id="cb14"><pre class="downlit">
 <span class="kw">Ratios</span> <span class="op">&lt;-</span> (<span class="kw">AnnualResults2</span> <span class="op">-</span> <span class="kw">AnnualResults</span>) <span class="op">/</span> <span class="kw">AnnualResults</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">Ratios</span>)
 </pre></div>
@@ -341,7 +345,7 @@
 ## 12          0           0</code></pre>
 <p>What we see here is that the change in rho from 0.9 to 0.85 makes less than a 10% difference in any of the years.</p>
 <p>Setting the number of iterations to 200 (the default) seems to be sufficient. We can set a different random number seed and see how much difference it makes in the results.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit">
+<div class="sourceCode" id="cb16"><pre class="downlit">
 <span class="kw">DailyK2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeDailyK.html">makeDailyK</a></span>(<span class="kw">eList</span>, seed = <span class="fl">38109695</span>)
 <span class="kw">AnnualResults2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeDailyK.html">computeAnnual</a></span>(<span class="kw">eList</span>, Daily = <span class="kw">DailyK2</span>)
 </pre></div>
@@ -375,7 +379,7 @@
 ## 11 0.2452966 11.080569         12          10
 ## 12 0.1748340  3.781166         12          10</code></pre>
 <p><img src="WRTDSK_files/figure-html/unnamed-chunk-5-1.png" width="700"><img src="WRTDSK_files/figure-html/unnamed-chunk-5-2.png" width="700"></p>
-<div class="sourceCode" id="cb17"><pre class="downlit">
+<div class="sourceCode" id="cb18"><pre class="downlit">
 <span class="kw">Ratios</span> <span class="op">&lt;-</span> (<span class="kw">AnnualResults2</span> <span class="op">-</span> <span class="kw">AnnualResults</span>) <span class="op">/</span> <span class="kw">AnnualResults</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">Ratios</span>)
 </pre></div>
@@ -414,11 +418,11 @@
 <p><strong>plotConcHistK</strong> works exactly like <strong>plotConcHist</strong> but there is a new second argument, it is <strong>DailyK</strong>. So in it’s simplest form the call would be <strong>plotConcHistK(eList, DailyK)</strong>. The markings in the title have a <em>(K)</em> after the word <em>Estimates</em>.</p>
 <p><strong>plotFluxHistK</strong> works exactly like <strong>plotFluxHist</strong> but there is a new second argument, it is <strong>DailyK</strong>. So in it’s simplest form the call would be <strong>plotFluxHistK(eList, DailyK)</strong>. The markings in the title have a <em>(K)</em> after the word <em>Estimates</em>.</p>
 <p>Here they are being used.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit">
+<div class="sourceCode" id="cb20"><pre class="downlit">
 <span class="fu"><a href="../reference/plotConcHist.html">plotConcHist</a></span>(<span class="kw">eList</span>, DailyK = <span class="kw">DailyK</span>)
 </pre></div>
 <p><img src="WRTDSK_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
-<div class="sourceCode" id="cb20"><pre class="downlit">
+<div class="sourceCode" id="cb21"><pre class="downlit">
 <span class="fu"><a href="../reference/plotFluxHist.html">plotFluxHist</a></span>(<span class="kw">eList</span>, DailyK = <span class="kw">DailyK</span>, fluxUnit = <span class="fl">8</span>)
 </pre></div>
 <p><img src="WRTDSK_files/figure-html/unnamed-chunk-6-2.png" width="700"></p>
@@ -462,7 +466,7 @@
 <div id="an-example-with-both-special-issues" class="section level2">
 <h2 class="hasAnchor">
 <a href="#an-example-with-both-special-issues" class="anchor"></a>An example with both special issues</h2>
-<div class="sourceCode" id="cb21"><pre class="downlit">
+<div class="sourceCode" id="cb22"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span>(<span class="kw">eList</span>, <span class="kw">DailyK</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span>(<span class="st">"test.RData"</span>) <span class="co"># the name of your EGRET workspace</span>
 <span class="kw">DailyK</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeDailyK.html">makeDailyK</a></span>(<span class="kw">eList</span>)
