@@ -23,8 +23,12 @@ opts_chunk$set(
 
 ```
 
-Important note! This is a work-in-progress. No future behavior on new functions are promised based during this development phase.
+Important note! This is a work-in-progress. No future behavior on new functions are promised based during this development phase. In order to run these functions, you will need to install the development version of `EGRET`. This can be done using the `remotes` package:
 
+```{r install, eval=FALSE, echo=TRUE}
+remotes::install_github("USGS-R/EGRET")
+
+```
 ## Introduction
  
 This document provides a basic set of instructions for calculating WRTDS_K estimates of both concentration and flux (or "load").  It will not give the background or motivation for WRTDS_K.  There are now two published papers that lay out the motivation for using this approach, describe the mathematics, and show the results compared to other methods.  Those two publications can be found at:  https://pubs.er.usgs.gov/publication/sir20195084 and https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2019WR025338 .
@@ -33,7 +37,8 @@ The most important thing to know is that these are intended for use for providin
 
 ## What one needs, in order to run this are the following items:
  
- * A data set which must already be in the form of an EGRET workspace containing an eList that has all four components of an **eList (INFO, Daily, Sample, surfaces)**.  That is, it must be the data and a WRTDS model based on that data that is already estimated.  The data set must be in the form of an ".RData" file that contains an **eList**,  Nothing else needs to be in that file but if there is other stuff, that's ok. The discussion and example shown here is carried out on a data set that contains no censored data ("less than values") and it never has more than one observation on a given day.  The description of the method and the examples run in the two papers mentioned are this kind of data set.  In the last section of this vignette there will be an explanation of how the method has been generalized to handle these two special cases.  The software presented here is able to properly handle data sets that have either or both of these properties (censoring and multiple observations per day).  
+  * Install the development version of `EGRET` via the `remotes` package (see above).
+  * A data set which must already be in the form of an EGRET workspace containing an eList that has all four components of an **eList (INFO, Daily, Sample, surfaces)**.  That is, it must be the data and a WRTDS model based on that data that is already estimated.  The data set must be in the form of an ".RData" file that contains an **eList**,  Nothing else needs to be in that file but if there is other stuff, that's ok. The discussion and example shown here is carried out on a data set that contains no censored data ("less than values") and it never has more than one observation on a given day.  The description of the method and the examples run in the two papers mentioned are this kind of data set.  In the last section of this vignette there will be an explanation of how the method has been generalized to handle these two special cases.  The software presented here is able to properly handle data sets that have either or both of these properties (censoring and multiple observations per day).  
  
 
 ```{r eval = TRUE, echo = TRUE, warning=FALSE, message=FALSE}
