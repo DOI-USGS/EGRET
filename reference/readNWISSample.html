@@ -93,7 +93,7 @@ section 3.2.4 of the vignette for more details." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EGRET</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.4.9000</span>
       </span>
     </div>
 
@@ -116,7 +116,7 @@ section 3.2.4 of the vignette for more details." />
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K</a>
+      <a href="../articles/WRTDSK.html">WRTDS-K</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -171,13 +171,13 @@ For raw data, use <code><a href='https://rdrr.io/pkg/dataRetrieval/man/readNWISq
 section 3.2.4 of the vignette for more details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>readNWISSample</span>(
-  <span class='no'>siteNumber</span>,
-  <span class='no'>parameterCd</span>,
-  <span class='kw'>startDate</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>endDate</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/readNWISSample.html'>readNWISSample</a></span>(
+  <span class='kw'>siteNumber</span>,
+  <span class='kw'>parameterCd</span>,
+  startDate = <span class='st'>""</span>,
+  endDate = <span class='st'>""</span>,
+  verbose = <span class='fl'>TRUE</span>,
+  interactive = <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -230,14 +230,14 @@ section 3.2.4 of the vignette for more details.</p>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='compressData.html'>compressData</a></code>, <code><a href='populateSampleColumns.html'>populateSampleColumns</a></code>,
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/EGRET/man/compressData.html'>compressData</a></code>, <code><a href='https://rdrr.io/pkg/EGRET/man/populateSampleColumns.html'>populateSampleColumns</a></code>,
 <code><a href='https://rdrr.io/pkg/dataRetrieval/man/readNWISqw.html'>readNWISqw</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='co'># These examples require an internet connection to run</span>
 
-<span class='no'>Sample_01075</span> <span class='kw'>&lt;-</span> <span class='fu'>readNWISSample</span>(<span class='st'>'01594440'</span>,<span class='st'>'01075'</span>, <span class='st'>'1985-01-01'</span>, <span class='st'>'1985-03-31'</span>)
+<span class='kw'>Sample_01075</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/readNWISSample.html'>readNWISSample</a></span>(<span class='st'>'01594440'</span>,<span class='st'>'01075'</span>, <span class='st'>'1985-01-01'</span>, <span class='st'>'1985-03-31'</span>)
 <span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EGRET</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.4.9000</span>
       </span>
     </div>
 
@@ -67,7 +67,7 @@
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/Making%20WRTDS_K%20flux%20estimates.html">WRTDS-K</a>
+      <a href="../articles/WRTDSK.html">WRTDS-K</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -107,7 +107,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="parallel_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Running WRTDS in parallel</h1>
@@ -133,8 +133,10 @@
 <h1 class="hasAnchor">
 <a href="#setup" class="anchor"></a>Setup</h1>
 <p>In order to run WRTDS in parallel and get a computationally efficient advantage, you will first need a computer with multiple cores. Most newer computers are multi-core. To check how many cores your computer has, use the <code><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores()</a></code> function in the <code>parallel</code> packages (which is shipped with the base R installation):</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">parallel</span>)
-<span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">parallel</span>)
+<span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span>()
+</pre></div>
 <pre><code>## [1] 4</code></pre>
 <p>There is some overhead involved in going from serial to parallel computing, so you should not expect a 1:1 speed-up. If your computer only has 2 cores, you might not see any improvements in efficiency.</p>
 <div id="registering-your-cores" class="section level2">
@@ -146,33 +148,39 @@
 <p>Note: the packages <code>doParallel</code> or <code>doMC</code> are <em>suggested</em> for <code>EGRET</code>. This means they are not automatically installed with the <code>EGRET</code> installation. You will need to install separately the package of your choice.</p>
 <p>Important for <em>all</em> workflows, when the processing is completed, you need to stop the cluster registration with the <code>stopCluster</code> function.</p>
 <p>We will now show 3 examples using the “Choptank River” example data:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">EGRET</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">parallel</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://pubs.usgs.gov/tm/04/a10">EGRET</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">parallel</span>)
 
-<span class="no">eList</span> <span class="kw">&lt;-</span> <span class="no">Choptank_eList</span>
-<span class="no">nCores</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span>(<span class="kw">logical</span> <span class="kw">=</span> <span class="fl">FALSE</span>) - <span class="fl">1</span></pre></body></html></div>
+<span class="kw">eList</span> <span class="op">&lt;-</span> <span class="kw">Choptank_eList</span>
+<span class="kw">nCores</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span>(logical = <span class="fl">FALSE</span>) <span class="op">-</span> <span class="fl">1</span>
+</pre></div>
 <div id="doparellel" class="section level3">
 <h3 class="hasAnchor">
 <a href="#doparellel" class="anchor"></a>doParellel</h3>
 <p>The most generalized workflow uses the <code>doParallel</code> package:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">doParallel</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">parallel</span>)
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">doParallel</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">parallel</span>)
 
-<span class="no">cl</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">makeCluster</a></span>(<span class="no">nCores</span>)
-<span class="fu"><a href="https://rdrr.io/pkg/doParallel/man/registerDoParallel.html">registerDoParallel</a></span>(<span class="no">cl</span>)
-<span class="no">eList</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/modelEstimation.html">modelEstimation</a></span>(<span class="no">eList</span>, <span class="kw">verbose</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">run.parallel</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-<span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">stopCluster</a></span>(<span class="no">cl</span>)</pre></body></html></div>
+<span class="kw">cl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">makeCluster</a></span>(<span class="kw">nCores</span>)
+<span class="fu"><a href="https://rdrr.io/pkg/doParallel/man/registerDoParallel.html">registerDoParallel</a></span>(<span class="kw">cl</span>)
+<span class="kw">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/modelEstimation.html">modelEstimation</a></span>(<span class="kw">eList</span>, verbose = <span class="fl">FALSE</span>, run.parallel = <span class="fl">TRUE</span>)
+<span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">stopCluster</a></span>(<span class="kw">cl</span>)
+</pre></div>
 </div>
 <div id="domc" class="section level3">
 <h3 class="hasAnchor">
 <a href="#domc" class="anchor"></a>doMC</h3>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">doMC</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">parallel</span>)
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">doMC</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">parallel</span>)
 
-<span class="no">cl</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">makeCluster</a></span>(<span class="no">nCores</span>)
-<span class="fu">registerDoMC</span>(<span class="no">cl</span>)
-<span class="no">eList</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/modelEstimation.html">modelEstimation</a></span>(<span class="no">eList</span>, <span class="kw">verbose</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">run.parallel</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-<span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">stopCluster</a></span>(<span class="no">cl</span>)</pre></body></html></div>
+<span class="kw">cl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">makeCluster</a></span>(<span class="kw">nCores</span>)
+<span class="fu">registerDoMC</span>(<span class="kw">cl</span>)
+<span class="kw">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/modelEstimation.html">modelEstimation</a></span>(<span class="kw">eList</span>, verbose = <span class="fl">FALSE</span>, run.parallel = <span class="fl">TRUE</span>)
+<span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">stopCluster</a></span>(<span class="kw">cl</span>)
+</pre></div>
 </div>
 </div>
 </div>
@@ -180,25 +188,29 @@
 <h1 class="hasAnchor">
 <a href="#simple-benchmarking" class="anchor"></a>Simple Benchmarking</h1>
 <p>If you plan to use the <code>modelEstimation</code> function frequently, it will be worth trying a simple benchmark test to determine if running the code in parallel makes sense on your system. While significantly more robust benchmark testing is available from several R packages (see <code>microbenchmark</code> for example), a very simple test can be done with the <code>system.time</code> function:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">doParallel</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">parallel</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">EGRET</span>)
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">doParallel</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">parallel</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://pubs.usgs.gov/tm/04/a10">EGRET</a></span>)
 
-<span class="no">eList</span> <span class="kw">&lt;-</span> <span class="no">Choptank_eList</span>
+<span class="kw">eList</span> <span class="op">&lt;-</span> <span class="kw">Choptank_eList</span>
 
-<span class="no">nCores</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span>(<span class="kw">logical</span> <span class="kw">=</span> <span class="fl">FALSE</span>) - <span class="fl">1</span>
+<span class="kw">nCores</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/detectCores.html">detectCores</a></span>(logical = <span class="fl">FALSE</span>) <span class="op">-</span> <span class="fl">1</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>({
-  <span class="no">cl</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">makeCluster</a></span>(<span class="no">nCores</span>)
-  <span class="fu"><a href="https://rdrr.io/pkg/doParallel/man/registerDoParallel.html">registerDoParallel</a></span>(<span class="no">cl</span>)
-  <span class="no">eList</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/modelEstimation.html">modelEstimation</a></span>(<span class="no">eList</span>, <span class="kw">verbose</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">run.parallel</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-  <span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">stopCluster</a></span>(<span class="no">cl</span>)
-})</pre></body></html></div>
+  <span class="kw">cl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">makeCluster</a></span>(<span class="kw">nCores</span>)
+  <span class="fu"><a href="https://rdrr.io/pkg/doParallel/man/registerDoParallel.html">registerDoParallel</a></span>(<span class="kw">cl</span>)
+  <span class="kw">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/modelEstimation.html">modelEstimation</a></span>(<span class="kw">eList</span>, verbose = <span class="fl">FALSE</span>, run.parallel = <span class="fl">TRUE</span>)
+  <span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html">stopCluster</a></span>(<span class="kw">cl</span>)
+})
+</pre></div>
 <pre><code>user  system elapsed 
    9.11    0.95   33.34</code></pre>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>({
-  <span class="no">eList</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/modelEstimation.html">modelEstimation</a></span>(<span class="no">eList</span>, <span class="kw">verbose</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">run.parallel</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-})</pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span>({
+  <span class="kw">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/modelEstimation.html">modelEstimation</a></span>(<span class="kw">eList</span>, verbose = <span class="fl">FALSE</span>, run.parallel = <span class="fl">FALSE</span>)
+})
+</pre></div>
 <pre><code>   user  system elapsed 
   60.05    0.05   60.51 </code></pre>
 <p>If the timing of the parallel code is not significantly faster (or even slower!) than the regular non-parallel code, it is not worth running in parallel on your current computer.</p>

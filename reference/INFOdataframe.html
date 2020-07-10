@@ -91,7 +91,7 @@ Water Quality Portal (readWQPInfo), or user-supplied files (readUserInfo)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EGRET</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.4.9000</span>
       </span>
     </div>
 
@@ -114,7 +114,7 @@ Water Quality Portal (readWQPInfo), or user-supplied files (readUserInfo)." />
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K</a>
+      <a href="../articles/WRTDSK.html">WRTDS-K</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -167,16 +167,16 @@ Water Quality Portal (readWQPInfo), or user-supplied files (readUserInfo)." />
 Water Quality Portal (<code>readWQPInfo</code>), or user-supplied files (<code>readUserInfo</code>).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>readNWISInfo</span>(<span class='no'>siteNumber</span>, <span class='no'>parameterCd</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/INFOdataframe.html'>readNWISInfo</a></span>(<span class='kw'>siteNumber</span>, <span class='kw'>parameterCd</span>, interactive = <span class='fl'>TRUE</span>)
 
-<span class='fu'>readWQPInfo</span>(<span class='no'>siteNumber</span>, <span class='no'>parameterCd</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/INFOdataframe.html'>readWQPInfo</a></span>(<span class='kw'>siteNumber</span>, <span class='kw'>parameterCd</span>, interactive = <span class='fl'>TRUE</span>)
 
-<span class='fu'>readUserInfo</span>(
-  <span class='no'>filePath</span>,
-  <span class='no'>fileName</span>,
-  <span class='kw'>hasHeader</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>separator</span> <span class='kw'>=</span> <span class='st'>","</span>,
-  <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/INFOdataframe.html'>readUserInfo</a></span>(
+  <span class='kw'>filePath</span>,
+  <span class='kw'>fileName</span>,
+  hasHeader = <span class='fl'>TRUE</span>,
+  separator = <span class='st'>","</span>,
+  interactive = <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -244,7 +244,7 @@ is because the conversion from mg/l to the user-specified flux unit (e.g., kg/da
     <pre class="examples"><div class='input'><span class='co'># These examples require an internet connection to run</span>
 <span class='co'># Automatically gets information about site 05114000 and temperature</span>
 <span class='co'># \donttest{</span>
-<span class='no'>INFO</span> <span class='kw'>&lt;-</span> <span class='fu'>readNWISInfo</span>(<span class='st'>'05114000'</span>,<span class='st'>'00010'</span>)</div><div class='output co'>#&gt; Your site for streamflow data is:
+<span class='kw'>INFO</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/INFOdataframe.html'>readNWISInfo</a></span>(<span class='st'>'05114000'</span>,<span class='st'>'00010'</span>)</div><div class='output co'>#&gt; Your site for streamflow data is:
 #&gt;  05114000 .
 #&gt; Your site name is SOURIS RIVER NR SHERWOOD, ND 
 #&gt; but you can modify this to a short name in a style you prefer. 
@@ -278,10 +278,10 @@ is because the conversion from mg/l to the user-specified flux unit (e.g., kg/da
 #&gt; Flux calculations will be wrong if units are not consistent.</div><div class='input'><span class='co'># }</span>
 <span class='co'># These examples require an internet connection to run</span>
 <span class='co'># Automatically gets information about site 01594440 and temperature, no interaction with user</span>
-<span class='no'>nameToUse</span> <span class='kw'>&lt;-</span> <span class='st'>'Specific conductance'</span>
-<span class='no'>pcodeToUse</span> <span class='kw'>&lt;-</span> <span class='st'>'00095'</span>
+<span class='kw'>nameToUse</span> <span class='op'>&lt;-</span> <span class='st'>'Specific conductance'</span>
+<span class='kw'>pcodeToUse</span> <span class='op'>&lt;-</span> <span class='st'>'00095'</span>
 <span class='co'># \donttest{</span>
-<span class='no'>INFO</span> <span class='kw'>&lt;-</span> <span class='fu'>readWQPInfo</span>(<span class='st'>'USGS-04024315'</span>,<span class='no'>pcodeToUse</span>)</div><div class='output co'>#&gt; Your site for data is USGS-04024315 .
+<span class='kw'>INFO</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/INFOdataframe.html'>readWQPInfo</a></span>(<span class='st'>'USGS-04024315'</span>,<span class='kw'>pcodeToUse</span>)</div><div class='output co'>#&gt; Your site for data is USGS-04024315 .
 #&gt; Your site name is LITTLE BALSAM CREEK NEAR PATZAU, WI ,
 #&gt; but you can modify this to a short name in a style you prefer. 
 #&gt; This name will be used to label graphs and tables. 
@@ -304,7 +304,7 @@ is because the conversion from mg/l to the user-specified flux unit (e.g., kg/da
 #&gt; Required concentration units are mg/l. 
 #&gt; The INFO dataframe indicates: uS/cm @25C 
 #&gt; Flux calculations will be wrong if units are not consistent</div><div class='input'>
-<span class='no'>INFO2</span> <span class='kw'>&lt;-</span> <span class='fu'>readWQPInfo</span>(<span class='st'>'WIDNR_WQX-10032762'</span>,<span class='no'>nameToUse</span>)</div><div class='output co'>#&gt; Your site for data is WIDNR_WQX-10032762 .
+<span class='kw'>INFO2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/INFOdataframe.html'>readWQPInfo</a></span>(<span class='st'>'WIDNR_WQX-10032762'</span>,<span class='kw'>nameToUse</span>)</div><div class='output co'>#&gt; Your site for data is WIDNR_WQX-10032762 .
 #&gt; Your site name is North Branch Pheasant Branch downstream of pond at Deming Way ,
 #&gt; but you can modify this to a short name in a style you prefer. 
 #&gt; This name will be used to label graphs and tables. 
@@ -342,12 +342,12 @@ is because the conversion from mg/l to the user-specified flux unit (e.g., kg/da
 #&gt; Required concentration units are mg/l. 
 #&gt; The INFO dataframe indicates:  
 #&gt; Flux calculations will be wrong if units are not consistent</div><div class='input'><span class='co'># To adjust the label names:</span>
-<span class='no'>INFO</span>$<span class='no'>shortName</span> <span class='kw'>&lt;-</span> <span class='st'>"Little"</span>
-<span class='no'>INFO</span>$<span class='no'>paramShortName</span> <span class='kw'>&lt;-</span> <span class='st'>"SC"</span>
+<span class='kw'>INFO</span><span class='op'>$</span><span class='kw'>shortName</span> <span class='op'>&lt;-</span> <span class='st'>"Little"</span>
+<span class='kw'>INFO</span><span class='op'>$</span><span class='kw'>paramShortName</span> <span class='op'>&lt;-</span> <span class='st'>"SC"</span>
 <span class='co'># }</span>
-<span class='no'>filePath</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"EGRET"</span>)
-<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='st'>'infoTest.csv'</span>
-<span class='no'>INFO</span> <span class='kw'>&lt;-</span> <span class='fu'>readUserInfo</span>(<span class='no'>filePath</span>,<span class='no'>fileName</span>, <span class='kw'>separator</span><span class='kw'>=</span><span class='st'>","</span>,<span class='kw'>interactive</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div></pre>
+<span class='kw'>filePath</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, package=<span class='st'>"EGRET"</span>)
+<span class='kw'>fileName</span> <span class='op'>&lt;-</span> <span class='st'>'infoTest.csv'</span>
+<span class='kw'>INFO</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/INFOdataframe.html'>readUserInfo</a></span>(<span class='kw'>filePath</span>,<span class='kw'>fileName</span>, separator=<span class='st'>","</span>,interactive=<span class='fl'>FALSE</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
