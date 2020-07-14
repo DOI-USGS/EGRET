@@ -271,14 +271,13 @@ plotTimeSlice <- function(eList, start, end, conc = TRUE,
   
   message("This function is currently in development")
   DecYear <- ".nse"
-  DailyK <- eList$Daily
   
-  if(!all((c("GenFlux","GenConc") %in% names(DailyK)))){
+  if(!all((c("GenFlux","GenConc") %in% names(eList$Daily)))){
     stop("This function requires running WRTDS_K on eList")
   }
   
   # if(start <)
-  Daily <- subset(DailyK,DecYear >= start & DecYear <= end)
+  Daily <- subset(eList$Daily, DecYear >= start & DecYear <= end)
 
  # figure out which data symbol to use, red for uncensored, brown for censored
   eList$Sample$color <- ifelse(eList$Sample$Uncen == 1, "red", "cyan4")
@@ -294,7 +293,7 @@ plotTimeSlice <- function(eList, start, end, conc = TRUE,
   localUnits <- toupper(eList$INFO$param.units)
   
   if(!(localUnits %in% allCaps)){
-    warning("Expected concentration units are mg/l, \nThe INFO dataframe indicates:",localINFO$param.units,
+    warning("Expected concentration units are mg/l, \nThe INFO dataframe indicates:",eList$INFO$param.units,
             "\nFlux calculations will be wrong if units are not consistent")
   }
   
