@@ -1,5 +1,5 @@
 ---
-title: "WRTDS-K"
+title: "WRTDS-K In Development"
 output: 
   rmarkdown::html_vignette:
     fig_height: 5
@@ -46,9 +46,9 @@ The most important thing to know is that these are intended for use for providin
 library(EGRET)
 
 load("rockCr.tp.RData") 
-# now we will run the WRTDS_K estimation (I'm using the defaults for now)
-DailyK <- makeDailyK(eList)
-print(summary(DailyK))
+# now we will run the WRTDS_K estimation (using the defaults for now)
+eList_K <- WRTDS_K(eList)
+print(summary(eList_K$Daily))
 
 ```
 The object being created here is a data frame called **DailyK**.  It looks just like **Daily** but with some columns added.  What are the extra columns?
@@ -69,8 +69,12 @@ The object being created here is a data frame called **DailyK**.  It looks just 
 Now we can take the results from the **DailyK** data frame and compute annual flux values.  We will do that for the regular WRTDS and for WRTDS_K (using the data in two columns of **DailyK** the **FluxDay** column and the **GenFlux** column).  We can also do these computations for some period of analysis other than the water year, but for now, we will just show the water year computations.  The function used is called **computeAnnual** and it produces a data frame called **AnnualResults** and also produces some graphics that show the two types of results.  Notice that **AnnualResults** has some attributes that go with it that will tell you what the period of analysis was.  They are printed here.  Note that the function **computeAnnual** actually does more than the computations, it prints out the content of AnnualResults and it also makes two graphs that tell you some things about how the two types of estimates compare to each other.
 
 ```{r eval = TRUE, echo = TRUE}
-AnnualResults <- computeAnnual(eList, Daily = DailyK)
+AnnualResults <- setupYears(eList_K$Daily)
+AnnualResults[,c("DecYear", "Q", 
+                 "ConcDay", "GenConc", "FluxDay", "GenFlux")]
+summary(AnnualResults)
 
+plotWRTDS_K(eList_K)
 ```
 
 The content of **AnnualResults** is fairly obvious.
@@ -100,8 +104,10 @@ We have a function that produces graphics that show, as a time series, the daily
 We will look at two examples here, in each case looking at about a half a year.  The first one (2018) is a year in which there was very good agreement between the estimates, and the second one (2015) is a year with a large difference between the methods.  Let's see what those results look like.
 
 ```{r eval = TRUE, echo = TRUE}
-plotTimeSlice(eList, Daily = DailyK, start = 2018.2, end = 2018.7)
-plotTimeSlice(eList, Daily = DailyK, start = 2015.2, end = 2015.7)
+plotTimeSlice(eList_K, start = 2018.2, end = 2018.7, conc = TRUE)
+plotTimeSlice(eList_K, start = 2018.2, end = 2018.7, conc = FALSE)
+plotTimeSlice(eList_K, start = 2015.2, end = 2015.7, conc = TRUE)
+plotTimeSlice(eList_K, start = 2015.2, end = 2015.7, conc = FALSE)
 ```
 
 What can we learn from these figures?  The first, which is a half year in 2018.  Note before we start that all of these graphs show either concentration or flux on a log scale.  We will start with the concentration graph.  We see that there are 7 observed values.  When we compare the observed values (red dots) with the WRTDS estimates (black line) for each of those days we see two negative residuals followed by a positive residual a negative a positive and the final two have residuals that are close to zero.  Once we get past the second observation (around 2018.25) we see the WRTDS_K curve (in green) going back a forth from being a little above the WRTDS curve to a little below.  This alternation indicates that the errors of the model are not ones that persist for very many days and thus the corrections based on these errors don't persist for very many days.  One other thing to note is that the model suggests a big spike in concentration around 2018.4 but there are no samples very close in time to this event (there is a gap of about a month) and the big discharge event took place about half way between these two sample dates.  Given this lack of information close to the date of the large flow event, the WRTDS_K will not result in much of a change during this event as compared to what we estimate from WRTDS.  The upshot of all of this is that the residuals information doesn't make much difference during this half year in WRTDS_K results and we really don't change our estimate by much.
@@ -119,11 +125,13 @@ One of the things that the user must select is the rho value.  We don't have a s
 We can re-run the analysis with rho of 0.85 and see how much difference it makes.  The table shown here lists the ratio the difference in annual values divided by the original annual value (so multiplying these numbers by 100 would result in differences in percent).
 
 ```{r eval = TRUE, echo = TRUE}
-DailyK2 <- makeDailyK(eList, rho = 0.85)
-print(attr(DailyK2,"rho"))
-print(attr(DailyK2,"niter"))
-AnnualResults2 <- computeAnnual(eList, Daily = DailyK2)
-Ratios <- (AnnualResults2 - AnnualResults) / AnnualResults
+eList_2 <- WRTDS_K(eList, rho = 0.85)
+print(attr(eList_2$Daily,"rho"))
+print(attr(eList_2$Daily,"niter"))
+AnnualResults2 <- setupYears(eList_2$Daily)
+AnnualResults2 <- AnnualResults2[,c("ConcDay", "GenConc", "FluxDay", "GenFlux")]
+Ratios <- (AnnualResults2 - AnnualResults[, c("ConcDay", "GenConc", "FluxDay", "GenFlux")]) / AnnualResults[, c("ConcDay", "GenConc", "FluxDay", "GenFlux")]
+row.names(Ratios) <- round(AnnualResults$DecYear, 2)
 print(Ratios)
 ```
 
@@ -133,9 +141,11 @@ Setting the number of iterations to 200 (the default) seems to be sufficient.  W
 
 
 ```{r eval = TRUE, echo = TRUE}
-DailyK2 <- makeDailyK(eList, seed = 38109695)
-AnnualResults2 <- computeAnnual(eList, Daily = DailyK2)
-Ratios <- (AnnualResults2 - AnnualResults) / AnnualResults
+eList3 <- WRTDS_K(eList, seed = 1)
+AnnualResults3 <- setupYears(eList3$Daily)
+AnnualResults3 <- AnnualResults3[,c("ConcDay", "GenConc", "FluxDay", "GenFlux")]
+Ratios <- (AnnualResults3 - AnnualResults[, c("ConcDay", "GenConc", "FluxDay", "GenFlux")]) / AnnualResults[, c("ConcDay", "GenConc", "FluxDay", "GenFlux")]
+row.names(Ratios) <- round(AnnualResults$DecYear, 2)
 print(Ratios)
 ```
 
@@ -152,22 +162,22 @@ Typically when we do some type of trend study we may want to create graphic outp
 Here they are being used.
 
 ```{r EVAL = TRUE, echo = TRUE}
-plotConcHist(eList, DailyK = DailyK)
-plotFluxHist(eList, DailyK = DailyK, fluxUnit = 8)
+plotConcHist(eList_K, plotGenConc = TRUE)
+plotFluxHist(eList_K, plotGenFlux = TRUE, fluxUnit = 8)
 ```
 
 # Operationalizing this in a batch job
 
-The process after loading the necessary packages and the functionsForK code is this.
+The process after installing the development version of EGRET.
 
 * load the workspace for a site
-* give the command **DailyK <- makeDailyK(eList)**
-* give the command **AnnualResults <- computeAnnual(eList, Daily = DailyK)**
+* give the command **eList <- WRTDS_K(eList)**
+* give the command **AnnualResults <- setupYears(eList)**
 * then save the object **AnnualResults**
-* there is an alternative to this that doesn't print out anything or plot anything.  It is:  **AnnualResults <- setupYears()**
+* plot the results **plotWRTDS_K(eList)** 
 * the tables and graphs you will probably want can all be made from the content of Annual Results, and the meta data are all in the **INFO** object in the **eList**
-* if the iterest is in only one season of the year then modify the call to **computeAnnual** by adding the **paStart** and **paLong** arguments for the season you are interested in.
-* note that **AnnualResults** has two attributes that tell the **paStart** and **paLong**, so you can always tell what you used as your period of analysis
+* if the interest is in only one season of the year then modify the call to **setupYears** by adding the **paStart** and **paLong** arguments for the season you are interested in.
+* note that **setupYears** has two attributes that tell the **paStart** and **paLong**, so you can always tell what you used as your period of analysis
 
 # How the code handles two kinds of special situations
 
@@ -188,10 +198,13 @@ When a day has more than one observation (i.e. more than one sample value) the a
 ## An example with both special issues
 
 ```{r EVAL = TRUE, echo = TRUE}
-rm(eList, DailyK)
+
 load("test.RData") # the name of your EGRET workspace
-DailyK <- makeDailyK(eList)
-plotTimeSlice(eList, DailyK, start = 2010.2, end = 2010.4)
+eList <- WRTDS_K(eList)
+plotTimeSlice(eList, start = 2010.2, end = 2010.4, 
+              conc = TRUE)
+plotTimeSlice(eList, start = 2010.2, end = 2010.4, 
+              conc = FALSE)
 ```
 
 If we look at the concentration graph we see two things of interest here.  Right after 2010.30 there appear to be three days with censored values with a reporting limit at 0.004 mg/L.  What is interesting here is that generally the green line (WRTDS_K estimates) go right through the samples (the red dots), here they don't.  That is because in the Monte Carlo simulation to "true" samples generated are always less than the reporting limit (the blue dots) so the green line lies below these points.  Also, there is a case at around 2010.38 where there are two data points (red points) that lie one directly above the other.  These are two sample values from the same day.  The WRTDS_K estimate (green line) goes right between these two sample values because in the Monte Carlo simulation sometimes the sample value is the lower one and sometimes it is the upper one and the result is that the estimate lies between the two.
