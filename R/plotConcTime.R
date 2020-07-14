@@ -49,10 +49,10 @@
 #' plotConcTime(eList, logScale=TRUE)
 #' plotConcTime(eList, qUnit = 1, qLower = 100, qUpper = 10000, randomCensored = TRUE)
 plotConcTime<-function(eList, qUnit = 2, yearStart = NA, yearEnd = NA,
-                       qLower = NA, qUpper = NA, randomCensored=FALSE,
-                       tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale=FALSE, 
-                       cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,
-                       col="black",lwd=1, usgsStyle = FALSE,...){
+                       qLower = NA, qUpper = NA, randomCensored = FALSE,
+                       tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale = FALSE, 
+                       cex = 0.8, cex.axis = 1.1,cex.main = 1.1, customPar = FALSE,
+                       col = "black", lwd=1, usgsStyle = FALSE, ...){
 
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)

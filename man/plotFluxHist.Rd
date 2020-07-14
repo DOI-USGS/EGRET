@@ -8,16 +8,17 @@ plotFluxHist(
   eList,
   yearStart = NA,
   yearEnd = NA,
-  DailyK = NA,
   fluxUnit = 9,
   fluxMax = NA,
   printTitle = TRUE,
   usgsStyle = FALSE,
   plotFlowNorm = TRUE,
   plotAnnual = TRUE,
+  plotGenFlux = FALSE,
   tinyPlot = FALSE,
   col = "black",
   col.pred = "green",
+  col.gen = "red",
   cex = 0.8,
   cex.axis = 1.1,
   cex.main = 1.1,
@@ -33,8 +34,6 @@ plotFluxHist(
 
 \item{yearEnd}{numeric is the calendar year just after the last estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)}
 
-\item{DailyK}{data frame returned from \code{makeDailyK}}
-
 \item{fluxUnit}{number representing entry in pre-defined fluxUnit class array. \code{\link{printFluxUnitCheatSheet}}}
 
 \item{fluxMax}{number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)}
@@ -42,7 +41,7 @@ plotFluxHist(
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)}
 
 \item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
-to TRUE does NOT guarantee USGS complience. It will only change automatically
+to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels.}
 
 \item{plotFlowNorm}{logical variable if TRUE the flow normalized line is plotted, if FALSE not plotted}
@@ -54,6 +53,8 @@ generated labels.}
 \item{col}{color of points on plot, see ?par 'Color Specification'}
 
 \item{col.pred}{color of flow normalized line on plot, see ?par 'Color Specification'}
+
+\item{col.gen}{color of points for WRTDS_K output on plot, see ?par 'Color Specification'}
 
 \item{cex}{numerical value giving the amount by which plotting symbols should be magnified}
 
@@ -67,6 +68,8 @@ generated labels.}
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
+
+\item{plotPoints}{character variable. If "WRTDS", will plot WRTDS estimates of concentration. If "WRTDS-K", will plot Kalman estimates. Default is "WRTDS".}
 }
 \description{
 The annual results reported are for a specified "period of analysis" which can be 

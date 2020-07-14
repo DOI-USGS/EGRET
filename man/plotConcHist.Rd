@@ -8,19 +8,20 @@ plotConcHist(
   eList,
   yearStart = NA,
   yearEnd = NA,
-  DailyK = NA,
   concMax = NA,
   printTitle = TRUE,
   tinyPlot = FALSE,
   usgsStyle = FALSE,
   plotFlowNorm = TRUE,
   plotAnnual = TRUE,
+  plotGenConc = FALSE,
   cex = 0.8,
   cex.axis = 1.1,
   cex.main = 1.1,
   lwd = 2,
   col = "black",
   col.pred = "green",
+  col.gen = "red",
   customPar = FALSE,
   ...
 )
@@ -32,8 +33,6 @@ plotConcHist(
 
 \item{yearEnd}{numeric is the calendar year just after the last estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)}
 
-\item{DailyK}{data frame returned from \code{makeDailyK}}
-
 \item{concMax}{numeric. Maximum value of concentration to be plotted.}
 
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)}
@@ -41,12 +40,14 @@ plotConcHist(
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE}
 
 \item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
-to TRUE does NOT guarantee USGS complience. It will only change automatically
+to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels}
 
 \item{plotFlowNorm}{logical variable if TRUE flow normalized line is plotted, if FALSE not plotted}
 
-\item{plotAnnual}{logical variable if TRUE annual concentration points are plotted, if FALSE not plotted}
+\item{plotAnnual}{logical variable if \code{TRUE}, annual concentration points from WRTDS output are plotted, if \code{FALSE} not plotted}
+
+\item{plotGenConc}{logical variable. If \code{TRUE}, annual concentration points from WRTDS_K output are plotted, if \code{FALSE} not plotted}
 
 \item{cex}{numerical value giving the amount by which plotting symbols should be magnified}
 
@@ -60,10 +61,14 @@ generated labels}
 
 \item{col.pred}{color of flow normalized line on plot, see ?par 'Color Specification'}
 
+\item{col.gen}{color of points for WRTDS_K output on plot, see ?par 'Color Specification'}
+
 \item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
+
+\item{plotPoints}{character variable. If "WRTDS", will plot WRTDS estimates of concentration. If "WRTDS-K", will plot Kalman estimates. Default is "WRTDS".}
 }
 \description{
 Data come from named list, which contains a Daily dataframe with the daily flow data,

@@ -12,8 +12,10 @@ navbar:
     menu:
     - text: Enhancements
       href: articles/Enhancements.html
-    - text: WRTDS-K
+    - text: WRTDS-K In Development
       href: articles/WRTDSK.html
+    - text: WRTDS-K Blog Article
+      href: articles/Making WRTDS_K flux estimates.html
     - text: Running in Parallel
       href: articles/parallel.html
     - text: Random Residuals

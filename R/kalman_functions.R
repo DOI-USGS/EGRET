@@ -12,14 +12,18 @@
 #' @param seed setSeed value. Defaults to 376168 This is used to make repeatable output.
 #' @examples 
 #' eList <- Choptank_eList
-#' DailyK <- makeDailyK(eList)
-#' summary(DailyK)
+#' eList <- WRTDS_K(eList)
+#' summary(eList$Daily)
 #' 
-#' AnnualResults <- setupYears(DailyK)
-#' 
-makeDailyK <- function(eList, rho = 0.90, niter = 200, seed = 376168){
+#' AnnualResults <- setupYears(eList$Daily)
+#' head(AnnualResults)
+WRTDS_K <- function(eList, rho = 0.90, niter = 200, seed = 376168){
   
   message("This function is currently in development")
+  
+  if(!is.egret(eList)){
+    stop("Please check eList argument")
+  }
   
   set.seed(seed)
   # this part is to set up the array of runs of missing values
@@ -82,16 +86,13 @@ makeDailyK <- function(eList, rho = 0.90, niter = 200, seed = 376168){
   Daily$GenConc <- Daily$GenFlux / (Daily$Q * 86.4)
   attr(Daily, "niter") <- niter
   attr(Daily, "rho") <- rho
-  return(Daily)
+  
+  eList$Daily <- Daily
+  
+  return(eList)
 }
 
 
-#' @export
-#' @rdname wrtdsK
-#' @examples 
-#' 
-#' eList <- cleanUp(eList)
-#' 
 cleanUp <- function(eList){
 
   Sample <- random_subset(eList$Sample, "Julian")
@@ -113,13 +114,11 @@ cleanUp <- function(eList){
 #' @param col_name column name
 #' @param seed number to set seed for reproducibility
 #' @examples 
-#' eList <- Choptank_eList
-#' Sample <- eList$Sample
-#' random_subset(Sample, col_name = "Julian")
-#' 
 #' df <- data.frame(Julian = c(1,2,2,3,4,4,4,6),
 #'                  y = 1:8)
-#' random_subset(df, "Julian")
+#' df
+#' df_random <- random_subset(df, "Julian")
+#' df_random
 random_subset <- function(df, col_name){
 
   dup_index <- unique(c(which(duplicated(df[[col_name]], fromLast = FALSE)), 
@@ -146,13 +145,6 @@ random_subset <- function(df, col_name){
   return(subDF)
 }
 
-#' @rdname wrtdsK
-#' @export
-#' @examples 
-#' 
-#' d2 <- populateDailySamp(eList)
-#' 
-#' 
 populateDailySamp <- function(eList) {
 
   localSample <- eList$Sample
@@ -171,20 +163,14 @@ populateDailySamp <- function(eList) {
   return(retDaily)
 }
 
-#' @param X1 the value before the gap
-#' @param XN  value after the gap
-#' @param rho the lag one autocorrelation
-#' @param N  the length of the sequence including X1 and XN 
-#' it is two more than the gap length
-#' @rdname wrtdsK
-#' @export
-#'  
-#' @examples 
-#' 
-#' 
+ 
 genmissing <- function(X1, XN, rho, N){
   # this code was done by Tim Cohn
-
+  # @param X1 the value before the gap
+  # @param XN  value after the gap
+  # @param rho the lag one autocorrelation
+  # @param N  the length of the sequence including X1 and XN 
+  # it is two more than the gap length
   C <- t(chol(rho^abs(outer(1:N,1:N, "-"))[c(1,N,2:(N-1)),c(1,N,2:(N-1))]))
   
   (C %*% c(MASS::ginv(C[1:2,1:2]) %*% 
@@ -209,22 +195,26 @@ specialCase <- function(eList) {
 
 #' @export
 #' @rdname wrtdsK
-#' @param paStart A numeric value for the starting month of the Period of Analysis, default is 10
-#' @param paLong A numeric value for the length of the Period of Analysis in months, default is 12
 #' @examples 
-#' computeAnnual(eList, DailyK)
-computeAnnual <- function(eList, DailyK, paStart = 10, paLong = 12) {
+#' plotWRTDS_K(eList)
+plotWRTDS_K <- function(eList) {
 
   message("This function is currently in development")
+
+  if(!all((c("GenFlux","GenConc") %in% names(eList$Daily)))){
+    stop("This function requires running WRTDS_K on eList")
+  }
   
-  AnnualResults <- setupYears(DailyK, paStart = paStart, paLong = paLong)
-  # in the print out Q is the annual mean value in m^3/s
-  # the two flux values are in metric tons kilograms (1000 kg)
-  print(eList$INFO$shortName)
-  print(eList$INFO$paramShortName)
-  period <- paste("paStart is",paStart," paLong is",paLong, sep = " ")
-  print(period)
-  print(AnnualResults)
+  if(all(c("paStart","paLong") %in% names(eList$INFO))){
+    paLong <- eList$INFO$paLong
+    paStart <- eList$INFO$paStart  
+  } else {
+    paLong <- 12
+    paStart <- 10
+  } 
+    
+  AnnualResults <- setupYears(eList$Daily)
+  
   yMax <- 1.1 * max(AnnualResults$FluxDay, AnnualResults$GenFlux)
   nYears <- length(AnnualResults[,1])
   # first a plot of just the WRTDS estimate
@@ -232,80 +222,138 @@ computeAnnual <- function(eList, DailyK, paStart = 10, paLong = 12) {
   xMax <- ceiling(AnnualResults$DecYear[nYears])
   xlim <- c(xMin,xMax)
   title1 <- paste(eList$INFO$shortName,eList$INFO$paramShortName,
-                  "\nAnnual Flux Estimates: WRTDS in red, WRTDS-K in green\n",period,sep="  ")
+                  "\nAnnual Flux Estimates: WRTDS in red, WRTDS-K in green\n",
+                  setSeasonLabelByUser(paStartInput = paStart, paLongInput = paLong), sep="  ")
   title2 <- paste(eList$INFO$shortName,eList$INFO$paramShortName,
-                  "\nComparison of the two flux estimates\n",period,sep="  ")
-  #
-  plot(AnnualResults$DecYear, AnnualResults$FluxDay, pch = 20, cex = 1.3, xlim = xlim, xaxs = "i",
-       ylim = c(0, yMax), yaxs = "i", xlab = "", ylab = "Annual flux, metric tons",
-       main = title1, las = 1, col = "red",
-       tck = 0.02, cex.main = 1.1, cex.lab = 0.95)
-  par(new = TRUE)
-  plot(AnnualResults$DecYear, AnnualResults$GenFlux, pch = 20, cex = 1.4, col = "green", xlim = xlim, xaxs = "i",
-       ylim = c(0, yMax), yaxs = "i", xlab = "", ylab = "", main = "", las = 1, tck = 0.02, axes = FALSE)
+                  "\nComparison of the two flux estimates\n",
+                  setSeasonLabelByUser(paStartInput = paStart, paLongInput = paLong),sep="  ")
+   
+  genericEGRETDotPlot(AnnualResults$DecYear, AnnualResults$FluxDay,
+                      plotTitle =  title1, 
+                      xlim = xlim, xaxs = "i",
+                      ylim = c(0, yMax),  cex.main = 0.9,
+                      xlab = "", ylab = "Annual flux, metric tons",
+                      col = "red", cex = 1.4)
+  points(AnnualResults$DecYear, AnnualResults$GenFlux, 
+         col = "green", pch = 20, cex = 1.4)
+  
   # scatter plot
-  plot(AnnualResults$FluxDay, AnnualResults$GenFlux, pch = 20, cex = 1.3, col = "red", xlim = c(0, yMax), xaxs = "i",
-       ylim = c(0, yMax), las = 1, yaxs = "i", xlab = "WRTDS estimate of annual flux, in metric tons", ylab =
-         "WRTDS_K estimate of annual flux, in metric tons", cex.main = 1.1, cex.lab = 0.95, cex.axis = 1.2,
-       main = title2)
+  genericEGRETDotPlot(AnnualResults$FluxDay, AnnualResults$GenFlux, 
+                      cex = 1.3, col = "red", 
+                      xlim = c(0, yMax), 
+                      ylim = c(0, yMax), 
+                      xlab = "WRTDS estimate of annual flux, in metric tons", 
+                      ylab = "WRTDS_K estimate of annual flux, in metric tons", 
+                      cex.main = 0.9, 
+                      plotTitle = title2)
   abline(a = 0, b = 1)
+  
   return(AnnualResults)
 }
 
 
 #' @export
+#' @param conc logical. If \code{TRUE}, plot concentration, otherwise plot flux.
 #' @param start numeric start of DecYear for plot
-#' @param DailyK Daily data frame run through the WRTDS-K analysis
 #' @param end numeric end of DecYear for plot
+#' @param usgsStyle logical option to use USGS style guidelines. Setting this option
+#' to TRUE does NOT guarantee USGS compliance. It will only change automatically
+#' generated labels
+#' @param fluxUnit number representing entry in pre-defined fluxUnit class array. \code{\link{printFluxUnitCheatSheet}}
 #' @rdname wrtdsK
 #' @examples 
-#' plotTimeSlice(eList, DailyK, start = 1990, end = 1991)
-plotTimeSlice <- function(eList, DailyK, start, end){
+#' plotTimeSlice(eList, start = 1990, end = 1991, conc = TRUE)
+#' 
+#' plotTimeSlice(eList, start = 1990, end = 1991, conc = FALSE)
+#' 
+plotTimeSlice <- function(eList, start, end, conc = TRUE, 
+                          fluxUnit = 3, usgsStyle = FALSE){
   
   message("This function is currently in development")
   DecYear <- ".nse"
+  DailyK <- eList$Daily
   
+  if(!all((c("GenFlux","GenConc") %in% names(DailyK)))){
+    stop("This function requires running WRTDS_K on eList")
+  }
+  
+  # if(start <)
   Daily <- subset(DailyK,DecYear >= start & DecYear <= end)
-  concHigh <- 1.1 * max(Daily$ConcDay,Daily$GenConc,Daily$ConcDay,na.rm = TRUE)
-  concLow <- 0.9 * min(Daily$ConcDay,Daily$GenConc,Daily$ConcDay,na.rm = TRUE)
-  fluxHigh <- 1.1 * max(Daily$FluxDay,Daily$GenFlux,Daily$FluxDay,na.rm = TRUE)
-  fluxLow <- 0.9 * min(Daily$FluxDay,Daily$GenFlux,Daily$FluxDay,na.rm = TRUE)
-  # figure out which data symbol to use, red for uncensored, brown for censored
+
+ # figure out which data symbol to use, red for uncensored, brown for censored
   eList$Sample$color <- ifelse(eList$Sample$Uncen == 1, "red", "cyan4")
-  par(tck = 0.02, las = 1)
+
   # first concentration, then flux
-  name <- paste(eList$INFO$shortName, eList$INFO$paramShortName, sep = " ")
-  ratio <- mean(Daily$GenConc) / mean(Daily$ConcDay)
-  fratio <- format(ratio, digits = 2)
-  concTitle <- paste(name,"\nConcentrations, Black is WRTDS, Green is WRTDS_K\nData in red, (rl in blue if <), Ratio of means is", fratio, sep = " ")
+  name <- paste(eList$INFO$shortName, eList$INFO$paramShortName)
+
+  possibleGoodUnits <- c("mg/l","mg/l as N", "mg/l as NO2", "mg/L",
+                         "mg/l as NO3","mg/l as P","mg/l as PO3","mg/l as PO4","mg/l as CaCO3",
+                         "mg/l as Na","mg/l as H","mg/l as S","mg/l NH4" )
   
-  plot(Daily$DecYear, Daily$ConcDay, log = "y", type = "l", las = 1, xlim = c(start, end),
-       xaxs = "i", ylim = c(concLow,concHigh), yaxs = "i", xlab = "", cex.main = 0.9,
-       ylab = "Concentration, in milligrams per Liter",
-       main = concTitle)
-  par(new = TRUE)
-  plot(eList$Sample$DecYear, eList$Sample$ConcHigh, log = "y", pch = 20, cex = 1.1, col = eList$Sample$color,
-       xlim = c(start, end), xaxs = "i", ylim = c(concLow,concHigh), yaxs = "i", xlab = "",
-       ylab = "", main = "", axes = FALSE)
-  par(new = TRUE)
-  plot(Daily$DecYear, Daily$GenConc, log = "y", type = "l", xlim = c(start, end),
-       xaxs = "i", ylim = c(concLow,concHigh), yaxs = "i", xlab = "", col = "green",
-       ylab = "", main = "", axes = FALSE)
-  # flux graph
-  ratio <- mean(Daily$GenFlux) / mean(Daily$FluxDay)
-  fratio <- format(ratio, digits = 2)
-  fluxTitle <- paste(name,"\nFlux, Black is WRTDS, Green is WRTDS_K\nData in red, (rl in blue if <), Ratio of means is", fratio, sep = " ")
-  plot(Daily$DecYear, Daily$FluxDay, log = "y", type = "l", xlim = c(start, end),
-       xaxs = "i", ylim = c(fluxLow,fluxHigh), yaxs = "i", xlab = "", las = 1,
-       ylab = "Flux, in kg per day", cex.main = 0.95,
-       main = fluxTitle)
-  par(new = TRUE)
-  plot(eList$Sample$DecYear, eList$Sample$ConcHigh * eList$Sample$Q * 86.4, log = "y", pch = 20,
-       cex = 1.1, col = eList$Sample$color,
-       xlim = c(start, end), xaxs = "i", ylim = c(fluxLow,fluxHigh), yaxs = "i", xlab = "",
-       ylab = "", main = "", axes = FALSE)
-  par(new = TRUE)
-  plot(Daily$DecYear, Daily$GenFlux, log = "y", type = "l", xlim = c(start, end),
-       xaxs = "i", ylim = c(fluxLow,fluxHigh), yaxs = "i", xlab = "", col = "green",
-       ylab = "", main = "", axes = FALSE)
+  allCaps <- toupper(possibleGoodUnits)
+  localUnits <- toupper(eList$INFO$param.units)
+  
+  if(!(localUnits %in% allCaps)){
+    warning("Expected concentration units are mg/l, \nThe INFO dataframe indicates:",localINFO$param.units,
+            "\nFlux calculations will be wrong if units are not consistent")
+  }
+  
+  if(conc){
+    ratio <- mean(Daily$GenConc) / mean(Daily$ConcDay)
+    fratio <- format(ratio, digits = 2)
+    
+    y1 <- Daily$ConcDay
+    y2 <- Daily$GenConc
+    y3 <- eList$Sample$ConcHigh
+
+    plotTitle <- paste(name,"\nConcentrations, Black is WRTDS, Green is WRTDS_K\nData in red, (rl in blue if <), Ratio of means is", fratio)
+    
+  } else {
+
+    if (is.numeric(fluxUnit)){
+      fluxUnit <- fluxConst[shortCode=fluxUnit][[1]]    
+    } else if (is.character(fluxUnit)){
+      fluxUnit <- fluxConst[fluxUnit][[1]]
+    }
+
+    fluxFactor <- fluxUnit@unitFactor
+    
+    ratio <- mean(Daily$GenFlux) / mean(Daily$FluxDay)
+    fratio <- format(ratio, digits = 2)
+    
+    y1 <- Daily$FluxDay * fluxFactor
+    y2 <- Daily$GenFlux * fluxFactor
+    y3 <- eList$Sample$ConcHigh * eList$Sample$Q * fluxFactor *86.40
+
+    if(usgsStyle){
+      yLab <- fluxUnit@unitUSGS[[1]]
+    } else {
+      yLab <- fluxUnit@unitExpress[[1]]
+    }
+    
+    plotTitle <- paste(name,"\nFlux, Black is WRTDS, Green is WRTDS_K\nData in red, (rl in blue if <), Ratio of means is", fratio)
+  }
+
+  high_y <- max(y1, y2, y3, na.rm = TRUE)
+  low_y <- min(y1, y2, y3, na.rm = TRUE)
+  
+  yInfo <- generalAxis(x = y1, 
+                       minVal = low_y, 
+                       maxVal = high_y, padPercent = 10,
+                       units = eList$INFO$param.units,
+                       logScale = TRUE, concentration = conc)
+  
+  genericEGRETDotPlot(Daily$DecYear, xDate = TRUE,
+                      y1, log = "y", type = "l", 
+                      xlim = c(start, end),
+                      ylim = c(yInfo$bottom,yInfo$top),
+                      yTicks = yInfo$ticks, 
+                      xlab = "", cex.main = 0.9,
+                      ylab = ifelse(conc, yInfo$label, yLab),
+                      plotTitle = plotTitle)
+  lines(Daily$DecYear, y2,
+        col = "green")
+  points(eList$Sample$DecYear, y3, 
+         pch = 20, cex = 1.1, col = eList$Sample$color)
+
 }
