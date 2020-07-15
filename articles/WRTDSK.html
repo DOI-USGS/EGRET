@@ -123,7 +123,8 @@
 
     
     
-<p>Important note! This is a work-in-progress. No future behavior on new functions are promised based during this development phase. In order to run these functions, you will need to install the development version of <code>EGRET</code>. This can be done using the <code>remotes</code> package:</p>
+<p>Important note! This is a work-in-progress. No future behavior on new functions are promised based during this development phase.</p>
+<p>In order to run these functions, you will need to install the development version of <code>EGRET</code>. This can be done using the <code>remotes</code> package:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
 <span class="kw">remotes</span>::<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"USGS-R/EGRET"</span>)
 </pre></div>
@@ -209,47 +210,7 @@
 <p>Now we can take the results from the <strong>DailyK</strong> data frame and compute annual flux values. We will do that for the regular WRTDS and for WRTDS_K (using the data in two columns of <strong>DailyK</strong> the <strong>FluxDay</strong> column and the <strong>GenFlux</strong> column). We can also do these computations for some period of analysis other than the water year, but for now, we will just show the water year computations. The function used is called <strong>computeAnnual</strong> and it produces a data frame called <strong>AnnualResults</strong> and also produces some graphics that show the two types of results. Notice that <strong>AnnualResults</strong> has some attributes that go with it that will tell you what the period of analysis was. They are printed here. Note that the function <strong>computeAnnual</strong> actually does more than the computations, it prints out the content of AnnualResults and it also makes two graphs that tell you some things about how the two types of estimates compare to each other.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
 <span class="kw">AnnualResults</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setupYears.html">setupYears</a></span>(<span class="kw">eList_K</span><span class="op">$</span><span class="kw">Daily</span>)
-<span class="kw">AnnualResults</span>[,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"DecYear"</span>, <span class="st">"Q"</span>, 
-                 <span class="st">"ConcDay"</span>, <span class="st">"GenConc"</span>, <span class="st">"FluxDay"</span>, <span class="st">"GenFlux"</span>)]
-</pre></div>
-<pre><code>##     DecYear          Q   ConcDay   GenConc   FluxDay   GenFlux
-## 1  2007.247 0.17898031 0.2962950 0.3035116 10.503918 11.412228
-## 2  2008.248 0.27055586 0.3516980 0.3027088 16.375702 14.377783
-## 3  2009.247 0.26025897 0.3759310 0.3822140  9.550358  9.926332
-## 4  2010.247 0.27538327 0.3747984 0.3130897  8.891109  7.960983
-## 5  2011.247 0.14896523 0.2471670 0.2414275  5.124139  4.921882
-## 6  2012.248 0.08488400 0.1868972 0.1980234  1.476794  1.548080
-## 7  2013.247 0.13601784 0.2226408 0.1978812  3.398696  2.656734
-## 8  2014.247 0.10545581 0.1980464 0.1976627  3.090438  3.171315
-## 9  2015.247 0.20777738 0.2707080 0.2217504  8.453969  6.268860
-## 10 2016.248 0.25410346 0.2935102 0.2302717  8.170745  5.707152
-## 11 2017.247 0.19541107 0.2342773 0.2421715 12.077357 10.410761
-## 12 2018.247 0.09552708 0.1734324 0.1714012  3.436251  3.403874</code></pre>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="kw">AnnualResults</span>)
-</pre></div>
-<pre><code>##     DecYear           Q                Conc             Flux       
-##  Min.   :2007   Min.   :0.08488   Min.   :0.1734   Min.   : 4.035  
-##  1st Qu.:2010   1st Qu.:0.12838   1st Qu.:0.2165   1st Qu.: 9.389  
-##  Median :2013   Median :0.18720   Median :0.2589   Median :22.743  
-##  Mean   :2013   Mean   :0.18444   Mean   :0.2688   Mean   :20.657  
-##  3rd Qu.:2015   3rd Qu.:0.25564   3rd Qu.:0.3101   3rd Qu.:26.818  
-##  Max.   :2018   Max.   :0.27538   Max.   :0.3759   Max.   :44.742  
-##     ConcDay          FluxDay           FNConc           FNFlux     
-##  Min.   :0.1734   Min.   : 1.477   Min.   :0.2275   Min.   :16.52  
-##  1st Qu.:0.2165   1st Qu.: 3.427   1st Qu.:0.2408   1st Qu.:17.54  
-##  Median :0.2589   Median : 8.312   Median :0.2543   Median :18.63  
-##  Mean   :0.2688   Mean   : 7.546   Mean   :0.2585   Mean   :18.83  
-##  3rd Qu.:0.3101   3rd Qu.: 9.789   3rd Qu.:0.2750   3rd Qu.:20.04  
-##  Max.   :0.3759   Max.   :16.376   Max.   :0.2984   Max.   :21.65  
-##     GenConc          GenFlux         PeriodLong  PeriodStart
-##  Min.   :0.1714   Min.   : 1.548   Min.   :12   Min.   :10  
-##  1st Qu.:0.1980   1st Qu.: 3.346   1st Qu.:12   1st Qu.:10  
-##  Median :0.2358   Median : 5.988   Median :12   Median :10  
-##  Mean   :0.2502   Mean   : 6.814   Mean   :12   Mean   :10  
-##  3rd Qu.:0.3029   3rd Qu.:10.047   3rd Qu.:12   3rd Qu.:10  
-##  Max.   :0.3822   Max.   :14.378   Max.   :12   Max.   :10</code></pre>
-<div class="sourceCode" id="cb8"><pre class="downlit">
+
 <span class="fu"><a href="../reference/WRTDS_K.html">plotWRTDS_K</a></span>(<span class="kw">eList_K</span>)
 </pre></div>
 <p><img src="WRTDSK_files/figure-html/unnamed-chunk-2-1.png" width="700"><img src="WRTDSK_files/figure-html/unnamed-chunk-2-2.png" width="700"></p>
@@ -279,6 +240,114 @@
 ## 10 17.25350 0.2302717  5.707152         12          10
 ## 11 16.88022 0.2421715 10.410761         12          10
 ## 12 16.52462 0.1714012  3.403874         12          10</code></pre>
+<table class="table">
+<thead><tr class="header">
+<th align="right">DecYear</th>
+<th align="right">Q</th>
+<th align="right">ConcDay</th>
+<th align="right">GenConc</th>
+<th align="right">FluxDay</th>
+<th align="right">GenFlux</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">2007.247</td>
+<td align="right">0.1789803</td>
+<td align="right">0.2962950</td>
+<td align="right">0.3035116</td>
+<td align="right">10.503918</td>
+<td align="right">11.412228</td>
+</tr>
+<tr class="even">
+<td align="right">2008.248</td>
+<td align="right">0.2705559</td>
+<td align="right">0.3516980</td>
+<td align="right">0.3027088</td>
+<td align="right">16.375702</td>
+<td align="right">14.377783</td>
+</tr>
+<tr class="odd">
+<td align="right">2009.247</td>
+<td align="right">0.2602590</td>
+<td align="right">0.3759310</td>
+<td align="right">0.3822140</td>
+<td align="right">9.550358</td>
+<td align="right">9.926332</td>
+</tr>
+<tr class="even">
+<td align="right">2010.247</td>
+<td align="right">0.2753833</td>
+<td align="right">0.3747984</td>
+<td align="right">0.3130897</td>
+<td align="right">8.891109</td>
+<td align="right">7.960983</td>
+</tr>
+<tr class="odd">
+<td align="right">2011.247</td>
+<td align="right">0.1489652</td>
+<td align="right">0.2471670</td>
+<td align="right">0.2414275</td>
+<td align="right">5.124139</td>
+<td align="right">4.921882</td>
+</tr>
+<tr class="even">
+<td align="right">2012.248</td>
+<td align="right">0.0848840</td>
+<td align="right">0.1868972</td>
+<td align="right">0.1980234</td>
+<td align="right">1.476794</td>
+<td align="right">1.548080</td>
+</tr>
+<tr class="odd">
+<td align="right">2013.247</td>
+<td align="right">0.1360178</td>
+<td align="right">0.2226408</td>
+<td align="right">0.1978812</td>
+<td align="right">3.398696</td>
+<td align="right">2.656734</td>
+</tr>
+<tr class="even">
+<td align="right">2014.247</td>
+<td align="right">0.1054558</td>
+<td align="right">0.1980464</td>
+<td align="right">0.1976627</td>
+<td align="right">3.090438</td>
+<td align="right">3.171315</td>
+</tr>
+<tr class="odd">
+<td align="right">2015.247</td>
+<td align="right">0.2077774</td>
+<td align="right">0.2707080</td>
+<td align="right">0.2217504</td>
+<td align="right">8.453969</td>
+<td align="right">6.268860</td>
+</tr>
+<tr class="even">
+<td align="right">2016.248</td>
+<td align="right">0.2541035</td>
+<td align="right">0.2935102</td>
+<td align="right">0.2302717</td>
+<td align="right">8.170745</td>
+<td align="right">5.707152</td>
+</tr>
+<tr class="odd">
+<td align="right">2017.247</td>
+<td align="right">0.1954111</td>
+<td align="right">0.2342773</td>
+<td align="right">0.2421715</td>
+<td align="right">12.077357</td>
+<td align="right">10.410761</td>
+</tr>
+<tr class="even">
+<td align="right">2018.247</td>
+<td align="right">0.0955271</td>
+<td align="right">0.1734324</td>
+<td align="right">0.1714012</td>
+<td align="right">3.436251</td>
+<td align="right">3.403875</td>
+</tr>
+</tbody>
+</table>
 <p>The content of <strong>AnnualResults</strong> is fairly obvious.</p>
 <p><strong>DecYear</strong> is the mean day of the year for the period of analysis, for example, water year 2007 would have a mean day of 2007.247 (end of March of 2007).</p>
 <p><strong>Q</strong> is the mean discharge in m^3/s.</p>
@@ -295,19 +364,19 @@
 <a href="#looking-at-parts-of-the-record-to-see-how-wrtds-and-wrtds_k-are-working" class="anchor"></a>Looking at parts of the record to see how WRTDS and WRTDS_K are working</h1>
 <p>We have a function that produces graphics that show, as a time series, the daily true values (for the days that have samples), the WRTDS estimates for every day, and the WRTDS_K estimates for every day. We could plot the whole record, but the ups and downs of the curves would be so tight that we really couldn’t see what’s going on. So, we let the user pick a time slice to look at. It produces two plots, the first is for concentration (it is typically easier to see what is happening in the estimation with the concentration graphs) and the second is for flux (discharge plays such a big role here that the propagation of error from the concentrations gets somewhat obscured, but flux is, after all, what we are interested in here).</p>
 <p>We will look at two examples here, in each case looking at about a half a year. The first one (2018) is a year in which there was very good agreement between the estimates, and the second one (2015) is a year with a large difference between the methods. Let’s see what those results look like.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit">
+<div class="sourceCode" id="cb6"><pre class="downlit">
 <span class="fu"><a href="../reference/WRTDS_K.html">plotTimeSlice</a></span>(<span class="kw">eList_K</span>, start = <span class="fl">2018.2</span>, end = <span class="fl">2018.7</span>, conc = <span class="fl">TRUE</span>)
 </pre></div>
 <p><img src="WRTDSK_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
-<div class="sourceCode" id="cb11"><pre class="downlit">
+<div class="sourceCode" id="cb7"><pre class="downlit">
 <span class="fu"><a href="../reference/WRTDS_K.html">plotTimeSlice</a></span>(<span class="kw">eList_K</span>, start = <span class="fl">2018.2</span>, end = <span class="fl">2018.7</span>, conc = <span class="fl">FALSE</span>)
 </pre></div>
 <p><img src="WRTDSK_files/figure-html/unnamed-chunk-3-2.png" width="700"></p>
-<div class="sourceCode" id="cb12"><pre class="downlit">
+<div class="sourceCode" id="cb8"><pre class="downlit">
 <span class="fu"><a href="../reference/WRTDS_K.html">plotTimeSlice</a></span>(<span class="kw">eList_K</span>, start = <span class="fl">2015.2</span>, end = <span class="fl">2015.7</span>, conc = <span class="fl">TRUE</span>)
 </pre></div>
 <p><img src="WRTDSK_files/figure-html/unnamed-chunk-3-3.png" width="700"></p>
-<div class="sourceCode" id="cb13"><pre class="downlit">
+<div class="sourceCode" id="cb9"><pre class="downlit">
 <span class="fu"><a href="../reference/WRTDS_K.html">plotTimeSlice</a></span>(<span class="kw">eList_K</span>, start = <span class="fl">2015.2</span>, end = <span class="fl">2015.7</span>, conc = <span class="fl">FALSE</span>)
 </pre></div>
 <p><img src="WRTDSK_files/figure-html/unnamed-chunk-3-4.png" width="700"></p>
@@ -321,72 +390,239 @@
 <a href="#two-options-available-setting-rho-and-setting-niter" class="anchor"></a>Two options available (setting rho and setting niter)</h1>
 <p>One of the things that the user must select is the rho value. We don’t have a strong theoretical basis for selecting the right value of rho, although our research has shown that the results are not highly sensitive to it. In the paper published in Zhang and Hirsch (2019) (see the second URL near the start of this document) we do make some generalizations about the selection of rho. We found that for nitrate a slightly higher rho value (such as 0.95) may be better than for other constitutents such as TP, OrthoP, Suspended Sediment, or Chloride for which values like 0.85 or 0.9 may be better. The somewhat different behavior for nitrate is explained by the fact that at many sites there are some other factors probably related to denitrification the discharge and term does not have a great amount of explanatory power in the WRTDS model. As such, placing more reliance on the results of samples that are close in time is appropriate. One can experiment with different values of rho because it is an argument in the <strong>makeDailyK</strong> function.</p>
 <p>We can re-run the analysis with rho of 0.85 and see how much difference it makes. The table shown here lists the ratio the difference in annual values divided by the original annual value (so multiplying these numbers by 100 would result in differences in percent).</p>
-<div class="sourceCode" id="cb14"><pre class="downlit">
+<div class="sourceCode" id="cb10"><pre class="downlit">
 <span class="kw">eList_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/WRTDS_K.html">WRTDS_K</a></span>(<span class="kw">eList</span>, rho = <span class="fl">0.85</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="kw">eList_2</span><span class="op">$</span><span class="kw">Daily</span>,<span class="st">"rho"</span>))
 </pre></div>
 <pre><code>## [1] 0.85</code></pre>
-<div class="sourceCode" id="cb16"><pre class="downlit">
+<div class="sourceCode" id="cb12"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="kw">eList_2</span><span class="op">$</span><span class="kw">Daily</span>,<span class="st">"niter"</span>))
 </pre></div>
 <pre><code>## [1] 200</code></pre>
-<div class="sourceCode" id="cb18"><pre class="downlit">
+<div class="sourceCode" id="cb14"><pre class="downlit">
 <span class="kw">AnnualResults2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setupYears.html">setupYears</a></span>(<span class="kw">eList_2</span><span class="op">$</span><span class="kw">Daily</span>)
+
 <span class="kw">AnnualResults2</span> <span class="op">&lt;-</span> <span class="kw">AnnualResults2</span>[,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"ConcDay"</span>, <span class="st">"GenConc"</span>, <span class="st">"FluxDay"</span>, <span class="st">"GenFlux"</span>)]
+
 <span class="kw">Ratios</span> <span class="op">&lt;-</span> (<span class="kw">AnnualResults2</span> <span class="op">-</span> <span class="kw">AnnualResults</span>[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"ConcDay"</span>, <span class="st">"GenConc"</span>, <span class="st">"FluxDay"</span>, <span class="st">"GenFlux"</span>)]) <span class="op">/</span> <span class="kw">AnnualResults</span>[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"ConcDay"</span>, <span class="st">"GenConc"</span>, <span class="st">"FluxDay"</span>, <span class="st">"GenFlux"</span>)]
+
 <span class="fu"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span>(<span class="kw">Ratios</span>) <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="kw">AnnualResults</span><span class="op">$</span><span class="kw">DecYear</span>, <span class="fl">2</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">Ratios</span>)
+<span class="fu">kable</span>(<span class="kw">Ratios</span>)
 </pre></div>
-<pre><code>##         ConcDay       GenConc FluxDay      GenFlux
-## 2007.25       0  0.0039807650       0  0.006313677
-## 2008.25       0  0.0422655465       0  0.059837223
-## 2009.25       0 -0.0042540636       0  0.002249681
-## 2010.25       0  0.0580542534       0  0.039320859
-## 2011.25       0  0.0005039279       0  0.006035998
-## 2012.25       0 -0.0100482896       0  0.003416747
-## 2013.25       0  0.0253266865       0  0.049907775
-## 2014.25       0  0.0021594544       0  0.006782641
-## 2015.25       0  0.0509659590       0  0.038690539
-## 2016.25       0  0.0638065343       0  0.079911354
-## 2017.25       0 -0.0000189604       0  0.045000568
-## 2018.25       0  0.0014377375       0 -0.020552659</code></pre>
+<table class="table">
+<thead><tr class="header">
+<th align="left"></th>
+<th align="right">ConcDay</th>
+<th align="right">GenConc</th>
+<th align="right">FluxDay</th>
+<th align="right">GenFlux</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">2007.25</td>
+<td align="right">0</td>
+<td align="right">0.0039808</td>
+<td align="right">0</td>
+<td align="right">0.0063137</td>
+</tr>
+<tr class="even">
+<td align="left">2008.25</td>
+<td align="right">0</td>
+<td align="right">0.0422655</td>
+<td align="right">0</td>
+<td align="right">0.0598372</td>
+</tr>
+<tr class="odd">
+<td align="left">2009.25</td>
+<td align="right">0</td>
+<td align="right">-0.0042541</td>
+<td align="right">0</td>
+<td align="right">0.0022497</td>
+</tr>
+<tr class="even">
+<td align="left">2010.25</td>
+<td align="right">0</td>
+<td align="right">0.0580543</td>
+<td align="right">0</td>
+<td align="right">0.0393209</td>
+</tr>
+<tr class="odd">
+<td align="left">2011.25</td>
+<td align="right">0</td>
+<td align="right">0.0005039</td>
+<td align="right">0</td>
+<td align="right">0.0060360</td>
+</tr>
+<tr class="even">
+<td align="left">2012.25</td>
+<td align="right">0</td>
+<td align="right">-0.0100483</td>
+<td align="right">0</td>
+<td align="right">0.0034167</td>
+</tr>
+<tr class="odd">
+<td align="left">2013.25</td>
+<td align="right">0</td>
+<td align="right">0.0253267</td>
+<td align="right">0</td>
+<td align="right">0.0499078</td>
+</tr>
+<tr class="even">
+<td align="left">2014.25</td>
+<td align="right">0</td>
+<td align="right">0.0021595</td>
+<td align="right">0</td>
+<td align="right">0.0067826</td>
+</tr>
+<tr class="odd">
+<td align="left">2015.25</td>
+<td align="right">0</td>
+<td align="right">0.0509660</td>
+<td align="right">0</td>
+<td align="right">0.0386905</td>
+</tr>
+<tr class="even">
+<td align="left">2016.25</td>
+<td align="right">0</td>
+<td align="right">0.0638065</td>
+<td align="right">0</td>
+<td align="right">0.0799114</td>
+</tr>
+<tr class="odd">
+<td align="left">2017.25</td>
+<td align="right">0</td>
+<td align="right">-0.0000190</td>
+<td align="right">0</td>
+<td align="right">0.0450006</td>
+</tr>
+<tr class="even">
+<td align="left">2018.25</td>
+<td align="right">0</td>
+<td align="right">0.0014377</td>
+<td align="right">0</td>
+<td align="right">-0.0205527</td>
+</tr>
+</tbody>
+</table>
 <p>What we see here is that the change in rho from 0.9 to 0.85 makes less than a 10% difference in any of the years.</p>
 <p>Setting the number of iterations to 200 (the default) seems to be sufficient. We can set a different random number seed and see how much difference it makes in the results.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit">
+<div class="sourceCode" id="cb15"><pre class="downlit">
 <span class="kw">eList3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/WRTDS_K.html">WRTDS_K</a></span>(<span class="kw">eList</span>, seed = <span class="fl">1</span>)
 <span class="kw">AnnualResults3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setupYears.html">setupYears</a></span>(<span class="kw">eList3</span><span class="op">$</span><span class="kw">Daily</span>)
 <span class="kw">AnnualResults3</span> <span class="op">&lt;-</span> <span class="kw">AnnualResults3</span>[,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"ConcDay"</span>, <span class="st">"GenConc"</span>, <span class="st">"FluxDay"</span>, <span class="st">"GenFlux"</span>)]
+
 <span class="kw">Ratios</span> <span class="op">&lt;-</span> (<span class="kw">AnnualResults3</span> <span class="op">-</span> <span class="kw">AnnualResults</span>[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"ConcDay"</span>, <span class="st">"GenConc"</span>, <span class="st">"FluxDay"</span>, <span class="st">"GenFlux"</span>)]) <span class="op">/</span> <span class="kw">AnnualResults</span>[, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"ConcDay"</span>, <span class="st">"GenConc"</span>, <span class="st">"FluxDay"</span>, <span class="st">"GenFlux"</span>)]
+
 <span class="fu"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span>(<span class="kw">Ratios</span>) <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="kw">AnnualResults</span><span class="op">$</span><span class="kw">DecYear</span>, <span class="fl">2</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">Ratios</span>)
+<span class="fu">kable</span>(<span class="kw">Ratios</span>)
 </pre></div>
-<pre><code>##         ConcDay      GenConc FluxDay      GenFlux
-## 2007.25       0 -0.027169454       0 -0.030913185
-## 2008.25       0 -0.024581987       0 -0.058234225
-## 2009.25       0  0.008257410       0  0.016108761
-## 2010.25       0 -0.005331448       0 -0.006430747
-## 2011.25       0  0.006565750       0  0.019496869
-## 2012.25       0 -0.006316013       0 -0.049755669
-## 2013.25       0 -0.012149283       0 -0.025257981
-## 2014.25       0  0.028069542       0  0.036201809
-## 2015.25       0 -0.006275061       0 -0.003807351
-## 2016.25       0 -0.001266295       0 -0.026582623
-## 2017.25       0 -0.005790784       0  0.012124825
-## 2018.25       0  0.026107903       0  0.164603460</code></pre>
+<table class="table">
+<thead><tr class="header">
+<th align="left"></th>
+<th align="right">ConcDay</th>
+<th align="right">GenConc</th>
+<th align="right">FluxDay</th>
+<th align="right">GenFlux</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">2007.25</td>
+<td align="right">0</td>
+<td align="right">-0.0271695</td>
+<td align="right">0</td>
+<td align="right">-0.0309132</td>
+</tr>
+<tr class="even">
+<td align="left">2008.25</td>
+<td align="right">0</td>
+<td align="right">-0.0245820</td>
+<td align="right">0</td>
+<td align="right">-0.0582342</td>
+</tr>
+<tr class="odd">
+<td align="left">2009.25</td>
+<td align="right">0</td>
+<td align="right">0.0082574</td>
+<td align="right">0</td>
+<td align="right">0.0161088</td>
+</tr>
+<tr class="even">
+<td align="left">2010.25</td>
+<td align="right">0</td>
+<td align="right">-0.0053314</td>
+<td align="right">0</td>
+<td align="right">-0.0064307</td>
+</tr>
+<tr class="odd">
+<td align="left">2011.25</td>
+<td align="right">0</td>
+<td align="right">0.0065658</td>
+<td align="right">0</td>
+<td align="right">0.0194969</td>
+</tr>
+<tr class="even">
+<td align="left">2012.25</td>
+<td align="right">0</td>
+<td align="right">-0.0063160</td>
+<td align="right">0</td>
+<td align="right">-0.0497557</td>
+</tr>
+<tr class="odd">
+<td align="left">2013.25</td>
+<td align="right">0</td>
+<td align="right">-0.0121493</td>
+<td align="right">0</td>
+<td align="right">-0.0252580</td>
+</tr>
+<tr class="even">
+<td align="left">2014.25</td>
+<td align="right">0</td>
+<td align="right">0.0280695</td>
+<td align="right">0</td>
+<td align="right">0.0362018</td>
+</tr>
+<tr class="odd">
+<td align="left">2015.25</td>
+<td align="right">0</td>
+<td align="right">-0.0062751</td>
+<td align="right">0</td>
+<td align="right">-0.0038074</td>
+</tr>
+<tr class="even">
+<td align="left">2016.25</td>
+<td align="right">0</td>
+<td align="right">-0.0012663</td>
+<td align="right">0</td>
+<td align="right">-0.0265826</td>
+</tr>
+<tr class="odd">
+<td align="left">2017.25</td>
+<td align="right">0</td>
+<td align="right">-0.0057908</td>
+<td align="right">0</td>
+<td align="right">0.0121248</td>
+</tr>
+<tr class="even">
+<td align="left">2018.25</td>
+<td align="right">0</td>
+<td align="right">0.0261079</td>
+<td align="right">0</td>
+<td align="right">0.1646035</td>
+</tr>
+</tbody>
+</table>
 <p>This table shows us that, at worst the individual annual fluxes differ by about 11% and many of them differ by less than 2% in successive runs with different seeds The annual concentrations never differ by more than about 2%. This suggests that 200 is a sufficient number of iterations to run to obtain a stable result. For final calculations for publication one might want to specify niter = 500 or niter = 1000 in the call to <strong>makeDailyK</strong>, but the idea here is not perfection, but rather to make a reasonable adjustment of the flux record to account for the serial correlation of the residuals.</p>
 </div>
 <div id="what-about-putting-these-results-into-the-plotconchist-or-plotfluxhist-graphs" class="section level1">
 <h1 class="hasAnchor">
 <a href="#what-about-putting-these-results-into-the-plotconchist-or-plotfluxhist-graphs" class="anchor"></a>What about putting these results into the <strong>plotConcHist</strong> or <strong>plotFluxHist</strong> graphs</h1>
-<p>Typically when we do some type of trend study we may want to create graphic outputs showing the Flow Normalized values (connected by a line) and the estimated annual values (as dots). If you want to put the WRTDS_K values on these graphs you can use some substitute functions.</p>
-<p><strong>plotConcHistK</strong> works exactly like <strong>plotConcHist</strong> but there is a new second argument, it is <strong>DailyK</strong>. So in it’s simplest form the call would be <strong>plotConcHistK(eList, DailyK)</strong>. The markings in the title have a <em>(K)</em> after the word <em>Estimates</em>.</p>
-<p><strong>plotFluxHistK</strong> works exactly like <strong>plotFluxHist</strong> but there is a new second argument, it is <strong>DailyK</strong>. So in it’s simplest form the call would be <strong>plotFluxHistK(eList, DailyK)</strong>. The markings in the title have a <em>(K)</em> after the word <em>Estimates</em>.</p>
+<p>Typically when we do some type of trend study we may want to create graphic outputs showing the Flow Normalized values (connected by a line) and the estimated annual values (as dots). If you want to put the WRTDS_K values on these graphs you can use the functions (still in development), setting the argument <code>plotGenConc</code> or <code>plotGenFlux</code> to <code>TRUE</code>.</p>
 <p>Here they are being used.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit">
+<div class="sourceCode" id="cb16"><pre class="downlit">
 <span class="fu"><a href="../reference/plotConcHist.html">plotConcHist</a></span>(<span class="kw">eList_K</span>, plotGenConc = <span class="fl">TRUE</span>)
 </pre></div>
 <p><img src="WRTDSK_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
-<div class="sourceCode" id="cb23"><pre class="downlit">
+<div class="sourceCode" id="cb17"><pre class="downlit">
 <span class="fu"><a href="../reference/plotFluxHist.html">plotFluxHist</a></span>(<span class="kw">eList_K</span>, plotGenFlux = <span class="fl">TRUE</span>, fluxUnit = <span class="fl">8</span>)
 </pre></div>
 <p><img src="WRTDSK_files/figure-html/unnamed-chunk-6-2.png" width="700"></p>
@@ -425,19 +661,19 @@
 <div id="multiple-observations-on-a-day" class="section level2">
 <h2 class="hasAnchor">
 <a href="#multiple-observations-on-a-day" class="anchor"></a>Multiple observations on a day</h2>
-<p>When a day has more than one observation (i.e. more than one sample value) the approach we use here is much the same as what we used in the censored value situation. What we need in order to generate the full WRTDS_K record is a set of unique values for the sampled days. So, for any day with two or more samples we will randomly pick one of them and use it as an end point for the adjacent gap periods. Then once we pick it we generate the values between the sampled days regardless of whether the sample value used is a unique value for that day or if it is randomly selected from the multiple values observed on that day. Then on the next iteration we randomly select the values for these multiply sampled days and proceed with the AR(1) process to fill in between the sampled days. In the plot produced by plotTimeSlice all of the observations are shown as red dots. Thus if there are multiple sample values on a given day they will plot along a vertical line situated on that day.</p>
+<p>When a day has more than one observation (i.e. more than one sample value) the approach we use here is much the same as what we used in the censored value situation. What we need in order to generate the full WRTDS_K record is a set of unique values for the sampled days. So, for any day with two or more samples we will randomly pick one of them and use it as an end point for the adjacent gap periods. Then once we pick it we generate the values between the sampled days regardless of whether the sample value used is a unique value for that day or if it is randomly selected from the multiple values observed on that day. Then on the next iteration we randomly select the values for these multiply sampled days and proceed with the AR(1) process to fill in between the sampled days. In the plot produced by <code>plotTimeSlice</code> all of the observations are shown as red dots. Thus if there are multiple sample values on a given day they will plot along a vertical line situated on that day.</p>
 </div>
 <div id="an-example-with-both-special-issues" class="section level2">
 <h2 class="hasAnchor">
 <a href="#an-example-with-both-special-issues" class="anchor"></a>An example with both special issues</h2>
-<div class="sourceCode" id="cb24"><pre class="downlit">
+<div class="sourceCode" id="cb18"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span>(<span class="st">"test.RData"</span>) <span class="co"># the name of your EGRET workspace</span>
 <span class="kw">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/WRTDS_K.html">WRTDS_K</a></span>(<span class="kw">eList</span>)
 <span class="fu"><a href="../reference/WRTDS_K.html">plotTimeSlice</a></span>(<span class="kw">eList</span>, start = <span class="fl">2010.2</span>, end = <span class="fl">2010.4</span>, 
               conc = <span class="fl">TRUE</span>)
 </pre></div>
 <p><img src="WRTDSK_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<div class="sourceCode" id="cb25"><pre class="downlit">
+<div class="sourceCode" id="cb19"><pre class="downlit">
 <span class="fu"><a href="../reference/WRTDS_K.html">plotTimeSlice</a></span>(<span class="kw">eList</span>, start = <span class="fl">2010.2</span>, end = <span class="fl">2010.4</span>, 
               conc = <span class="fl">FALSE</span>)
 </pre></div>
