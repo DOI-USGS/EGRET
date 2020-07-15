@@ -91,6 +91,6 @@ reference:
   - title: WRTDS-K
     desc: Functions for WRTDS with Kalman filtering
     contents:
-     - makeDailyK
-     - computeAnnual
+     - WRTDS_K
+     - plotWRTDS_K
      - plotTimeSlice
