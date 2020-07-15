@@ -341,8 +341,8 @@ plotTimeSlice <- function(eList, start, end, conc = TRUE,
                        maxVal = high_y, padPercent = 10,
                        units = eList$INFO$param.units,
                        logScale = TRUE, concentration = conc)
-  
-  genericEGRETDotPlot(Daily$DecYear, xDate = TRUE,
+
+  genericEGRETDotPlot(Daily$DecYear,
                       y1, log = "y", type = "l", 
                       xlim = c(start, end),
                       ylim = c(yInfo$bottom,yInfo$top),
