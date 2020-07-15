@@ -48,6 +48,8 @@ generated labels.}
 
 \item{plotAnnual}{logical variable if TRUE annual flux points are plotted, if FALSE not plotted}
 
+\item{plotGenFlux}{logical variable. If \code{TRUE}, annual flux points from WRTDS_K output are plotted, if \code{FALSE} not plotted}
+
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE}
 
 \item{col}{color of points on plot, see ?par 'Color Specification'}
@@ -68,8 +70,6 @@ generated labels.}
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
-
-\item{plotPoints}{character variable. If "WRTDS", will plot WRTDS estimates of concentration. If "WRTDS-K", will plot Kalman estimates. Default is "WRTDS".}
 }
 \description{
 The annual results reported are for a specified "period of analysis" which can be 
