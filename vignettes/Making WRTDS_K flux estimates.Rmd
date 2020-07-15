@@ -140,7 +140,6 @@ cleanUp <- function(eList){
 #
 ####################################
 # function written by Laura De Cicco October 2019
-#  requires library(dplyr)
 # makes a copy of a data frame but when there are
 # multiple values with the specified col_name it randomly
 # picks one of them and drops the others
@@ -148,18 +147,29 @@ cleanUp <- function(eList){
 ###################################
 random_subset <- function(df, col_name){
   
-  df_dups <- df %>% 
-    group_by({{col_name}}) %>%
-    filter(n() > 1) %>%
-    group_by({{col_name}}) %>%
-    sample_n(1)
+  dup_index <- unique(c(which(duplicated(df[[col_name]], 
+                                         fromLast = FALSE)),
+                          which(duplicated(df[[col_name]], 
+                                           fromLast = TRUE))))
   
-  subDF <- df %>% 
-    group_by({{col_name}}) %>%
-    filter(n() == 1) %>%
-    bind_rows(df_dups) %>% 
-    arrange({{col_name}})
+  if(length(dup_index) == 0){
+    return(df)
+  }
   
+  dup_index <- dup_index[order(dup_index)]
+
+  unique_groups <- unique(df[[col_name]][dup_index])
+  
+  slice_index <- sapply(unique_groups, function(x){
+    sample(which(df[[col_name]] == x), size = 1)
+  })
+  
+  df_dups <- df[slice_index, ] 
+  df_no_dups <- df[-dup_index,]
+  
+  subDF <- rbind(df_no_dups, df_dups)
+  subDF <- subDF[order(subDF[[col_name]]),]
+
   return(subDF)
 }
 #
