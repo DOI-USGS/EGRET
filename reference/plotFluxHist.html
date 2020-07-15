@@ -118,7 +118,10 @@ and an INFO dataframe with metadata." />
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/WRTDSK.html">WRTDS-K</a>
+      <a href="../articles/WRTDSK.html">WRTDS-K In Development</a>
+    </li>
+    <li>
+      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K Blog Article</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -179,16 +182,17 @@ and an INFO dataframe with metadata.</p>
   <span class='kw'>eList</span>,
   yearStart = <span class='fl'>NA</span>,
   yearEnd = <span class='fl'>NA</span>,
-  DailyK = <span class='fl'>NA</span>,
   fluxUnit = <span class='fl'>9</span>,
   fluxMax = <span class='fl'>NA</span>,
   printTitle = <span class='fl'>TRUE</span>,
   usgsStyle = <span class='fl'>FALSE</span>,
   plotFlowNorm = <span class='fl'>TRUE</span>,
   plotAnnual = <span class='fl'>TRUE</span>,
+  plotGenFlux = <span class='fl'>FALSE</span>,
   tinyPlot = <span class='fl'>FALSE</span>,
   col = <span class='st'>"black"</span>,
   col.pred = <span class='st'>"green"</span>,
+  col.gen = <span class='st'>"red"</span>,
   cex = <span class='fl'>0.8</span>,
   cex.axis = <span class='fl'>1.1</span>,
   cex.main = <span class='fl'>1.1</span>,
@@ -213,10 +217,6 @@ and an INFO dataframe with metadata.</p>
       <td><p>numeric is the calendar year just after the last estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)</p></td>
     </tr>
     <tr>
-      <th>DailyK</th>
-      <td><p>data frame returned from <code>makeDailyK</code></p></td>
-    </tr>
-    <tr>
       <th>fluxUnit</th>
       <td><p>number representing entry in pre-defined fluxUnit class array. <code><a href='https://rdrr.io/pkg/EGRET/man/printFluxUnitCheatSheet.html'>printFluxUnitCheatSheet</a></code></p></td>
     </tr>
@@ -231,7 +231,7 @@ and an INFO dataframe with metadata.</p>
     <tr>
       <th>usgsStyle</th>
       <td><p>logical option to use USGS style guidelines. Setting this option
-to TRUE does NOT guarantee USGS complience. It will only change automatically
+to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels.</p></td>
     </tr>
     <tr>
@@ -241,6 +241,10 @@ generated labels.</p></td>
     <tr>
       <th>plotAnnual</th>
       <td><p>logical variable if TRUE annual flux points are plotted, if FALSE not plotted</p></td>
+    </tr>
+    <tr>
+      <th>plotGenFlux</th>
+      <td><p>logical variable. If <code>TRUE</code>, annual flux points from WRTDS_K output are plotted, if <code>FALSE</code> not plotted</p></td>
     </tr>
     <tr>
       <th>tinyPlot</th>
@@ -253,6 +257,10 @@ generated labels.</p></td>
     <tr>
       <th>col.pred</th>
       <td><p>color of flow normalized line on plot, see ?par 'Color Specification'</p></td>
+    </tr>
+    <tr>
+      <th>col.gen</th>
+      <td><p>color of points for WRTDS_K output on plot, see ?par 'Color Specification'</p></td>
     </tr>
     <tr>
       <th>cex</th>
