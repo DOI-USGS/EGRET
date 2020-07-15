@@ -28,20 +28,23 @@
 #' eList <- modelEstimation(eList)
 #' }
 modelEstimation<-function(eList, 
-                          windowY=7, windowQ=2, windowS=0.5,
-                          minNumObs=100,minNumUncen=50, 
-                          edgeAdjust=TRUE, verbose = TRUE,
+                          windowY = 7, windowQ = 2, windowS = 0.5,
+                          minNumObs = 100, minNumUncen = 50, 
+                          edgeAdjust = TRUE, verbose = TRUE,
                           run.parallel = FALSE){
 
   if(!is.egret(eList)){
     stop("Please check eList argument")
   }
-  eList <- setUpEstimation(eList=eList, windowY=windowY, windowQ=windowQ, windowS=windowS,
-                  minNumObs=minNumObs, minNumUncen=minNumUncen,edgeAdjust=edgeAdjust, verbose=verbose)
+  
+  eList <- setUpEstimation(eList = eList, 
+                           windowY = windowY, windowQ = windowQ, windowS = windowS,
+                           minNumObs = minNumObs, minNumUncen = minNumUncen,
+                           edgeAdjust = edgeAdjust, verbose = verbose)
 
   if(verbose) cat("\n first step running estCrossVal may take about 1 minute")
   
-  Sample1<-estCrossVal(eList$Daily$DecYear[1],
+  Sample1 <- estCrossVal(eList$Daily$DecYear[1],
                        eList$Daily$DecYear[length(eList$Daily$DecYear)], 
                        eList$Sample, 
                        windowY=windowY, windowQ=windowQ, windowS=windowS,
@@ -53,13 +56,13 @@ modelEstimation<-function(eList,
   if(verbose) cat("\nNext step running  estSurfaces with survival regression:\n")
   
   surfaces1 <- estSurfaces(eList, 
-                         windowY=windowY, windowQ=windowQ, windowS=windowS,
-                         minNumObs=minNumObs, minNumUncen=minNumUncen,edgeAdjust=edgeAdjust,
-                         verbose=verbose, run.parallel = run.parallel)
+                         windowY = windowY, windowQ=windowQ, windowS=windowS,
+                         minNumObs = minNumObs, minNumUncen = minNumUncen, edgeAdjust = edgeAdjust,
+                         verbose = verbose, run.parallel = run.parallel)
 
   eList$surfaces <- surfaces1
   
-  Daily1<-estDailyFromSurfaces(eList)
+  Daily1 <- estDailyFromSurfaces(eList)
   
   eList$Daily <- Daily1
   

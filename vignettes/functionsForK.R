@@ -98,7 +98,7 @@ genmissing<-function(X1,XN,rho,N){
 # and the Sample data frame in the eList needs to have yHat and SE already calculated
 ####################################
 cleanUp <- function(eList){
-  Sample <- random_subset(eList$Sample, Julian)
+  Sample <- random_subset(eList$Sample, "Julian")
   eListClean <- as.egret(eList$INFO, eList$Daily, Sample, eList$surfaces)
   eListClean <- makeAugmentedSample(eListClean)
   Sample <- eListClean$Sample
@@ -121,17 +121,26 @@ cleanUp <- function(eList){
 ###################################
 random_subset <- function(df, col_name){
   
-  df_dups <- df %>% 
-    group_by({{col_name}}) %>%
-    filter(n() > 1) %>%
-    group_by({{col_name}}) %>%
-    sample_n(1)
+  dup_index <- unique(c(which(duplicated(df[[col_name]], fromLast = FALSE)), 
+                        which(duplicated(df[[col_name]], fromLast = TRUE))))
   
-  subDF <- df %>% 
-    group_by({{col_name}}) %>%
-    filter(n() == 1) %>%
-    bind_rows(df_dups) %>% 
-    arrange({{col_name}})
+  if(length(dup_index) == 0){
+    return(df)
+  }
+  
+  dup_index <- dup_index[order(dup_index)]
+  
+  unique_groups <- unique(df[[col_name]][dup_index])
+  
+  slice_index <- sapply(unique_groups, function(x){
+    sample(which(df[[col_name]] == x), size = 1)
+  })
+  
+  df_dups <- df[slice_index, ] 
+  df_no_dups <- df[-dup_index,]
+  
+  subDF <- rbind(df_no_dups, df_dups)
+  subDF <- subDF[order(subDF[[col_name]]),]
   
   return(subDF)
 }

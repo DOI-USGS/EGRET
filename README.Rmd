@@ -13,7 +13,7 @@ editor_options:
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "man/figures/"
+  fig.path = "man/figures/README-"
 )
 ```
 
@@ -21,6 +21,7 @@ knitr::opts_chunk$set(
 
 [![R build status](https://github.com/USGS-R/EGRET/workflows/R-CMD-check/badge.svg)](https://github.com/USGS-R/EGRET/actions)
 [![Coverage Status](https://coveralls.io/repos/github/USGS-R/EGRET/badge.svg?branch=master)](https://coveralls.io/github/USGS-R/EGRET?branch=master)
+[![codecov](https://codecov.io/gh/USGS-R/EGRET/branch/master/graph/badge.svg)](https://codecov.io/gh/USGS-R/EGRET)
 [![status](https://img.shields.io/badge/USGS-Research-blue.svg)](https://owi.usgs.gov/R/packages.html#research)
 [![CRAN version](http://www.r-pkg.org/badges/version/EGRET)](https://cran.r-project.org/package=EGRET)
 [![](http://cranlogs.r-pkg.org/badges/EGRET)](https://cran.r-project.org/package=EGRET)
@@ -42,15 +43,10 @@ To install the EGRET package, you must be using R 3.0 or greater and run the fol
 install.packages("EGRET")
 ```
 
-To get inter-CRAN release updates, use the command:
-```{r eval=FALSE}
-install.packages("EGRET",repos="https://owi.usgs.gov/R")
-```
-
-To get cutting-edge changes, install from GitHub using the `devtools` packages:
+To get cutting-edge changes, install from GitHub using the `remotes` packages:
 
 ```{r eval=FALSE}
-library(devtools)
+library(remotes)
 install_github("USGS-R/EGRET")
 ```
 
@@ -215,7 +211,7 @@ plotFourStats(eList, qUnit=3)
 When using the `WRTDS` model, it is important to be able to reproduce the results in the future. The following version of R and package dependencies were used most recently to pass the embedded tests within this package. There is no guarantee of reproducible results using future versions of R or updated versions of package dependencies; however, we will make diligent efforts to test and update future modeling environments.
 
 ```{r eval=TRUE}
-devtools::session_info()
+sessioninfo::session_info()
 ```
 
 ## Reporting bugs

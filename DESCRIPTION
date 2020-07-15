@@ -1,13 +1,14 @@
 Package: EGRET
 Type: Package
 Title: Exploration and Graphics for RivEr Trends
-Version: 3.0.3.9000
+Version: 3.0.4.9000
 Authors@R: c( person("Robert", "Hirsch", role = c("aut"),
     email = "rhirsch@usgs.gov", 
     comment=c(ORCID="0000-0002-4534-075X")),
     person("Laura", "DeCicco", role = c("aut","cre"),
     email = "ldecicco@usgs.gov",
     comment=c(ORCID="0000-0002-3915-9487")), 
+    person("Tim", "Cohn", role = c("ctb")),
     person("David", "Watkins", role = c("ctb")),
     person("Lindsay","Carr", role = c("ctb")),
     person("Jennifer","Murphy", role = c("ctb")))
@@ -18,7 +19,7 @@ Description: Statistics and graphics for streamflow history,
     and expanded in Hirsch and De Cicco (2015) <doi:10.3133/tm4A10>.
 License: CC0
 Depends:
-    R (>= 3.0)
+    R (>= 3.5)
 Imports:
     dataRetrieval (>= 2.0.1),
     survival,
@@ -29,7 +30,8 @@ Imports:
     stats,
     grDevices,
     truncnorm,
-    foreach
+    foreach,
+    MASS
 Suggests:
     EGRETci,
     knitr,
@@ -56,4 +58,4 @@ Copyright: This software is in the public domain because it contains materials
     the United States Department of Interior. For more information, see the
     official USGS copyright policy at
     https://www.usgs.gov/visual-id/credit_usgs.html#copyright
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1

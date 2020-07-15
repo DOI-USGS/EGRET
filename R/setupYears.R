@@ -45,15 +45,19 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
   
   numYears<-length(StartEndSeq$Starts)
   DecYear<-rep(NA,numYears)
-  Q<-rep(NA,numYears)
-  Conc<-rep(NA,numYears)
-  Flux<-rep(NA,numYears)
-  FNConc<-rep(NA,numYears)
-  FNFlux<-rep(NA,numYears)
+  Q <- rep(NA,numYears)
+  Conc <- rep(NA,numYears)
+  Flux <- rep(NA,numYears)
+  FluxDay <- rep(NA, numYears)
+  ConcDay <- rep(NA, numYears)
+  FNConc <- rep(NA,numYears)
+  FNFlux <- rep(NA,numYears)
   
   # hasFlex <- all(c("flexConc","flexFlux") %in% names(localDaily))
   flexConc <- rep(NA, numYears)
   flexFlux <- rep(NA, numYears)
+  GenConc <- rep(NA, numYears)
+  GenFlux <- rep(NA, numYears)
   
   for(i in 1:numYears) {
     
@@ -77,8 +81,18 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
     if(good) {
       Conc[i] <- mean(DailyYear$ConcDay,na.rm=TRUE)
       Flux[i] <- mean(DailyYear$FluxDay,na.rm=TRUE)
+      
       FNConc[i] <- mean(DailyYear$FNConc,na.rm=TRUE)
       FNFlux[i] <- mean(DailyYear$FNFlux,na.rm=TRUE)
+      
+      wrtdsK <- all(c("GenConc", "GenFlux") %in% names(DailyYear))
+      if(wrtdsK){
+        ConcDay[i] <- mean(DailyYear$ConcDay, na.rm = TRUE)
+        FluxDay[i] <- sum(DailyYear$FluxDay, na.rm = TRUE) / 1000
+        GenConc[i] <- mean(DailyYear$GenConc, na.rm = TRUE)
+        GenFlux[i] <- sum(DailyYear$GenFlux, na.rm = TRUE) / 1000
+      }
+
     }
   }
   #  create two more variables that just report paStart and paLong
@@ -86,7 +100,20 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
   PeriodStart <- rep(paStart,numYears)
   PeriodLong <- rep(paLong,numYears)
 
-  AnnualResults <- data.frame(DecYear,Q,Conc,Flux,FNConc,FNFlux,PeriodLong,PeriodStart)
+  if(wrtdsK){
+    AnnualResults <- data.frame(DecYear,Q,
+                                Conc, Flux,
+                                ConcDay,FluxDay,
+                                FNConc,FNFlux,
+                                GenConc, GenFlux,
+                                PeriodLong,PeriodStart)    
+  } else {
+    AnnualResults <- data.frame(DecYear,Q,
+                                Conc,Flux,
+                                FNConc,FNFlux,
+                                PeriodLong,PeriodStart)    
+  }
+
 
   return(AnnualResults)		
 }

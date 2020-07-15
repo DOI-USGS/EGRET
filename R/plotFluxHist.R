@@ -18,6 +18,7 @@
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
 #' @param plotFlowNorm logical variable if TRUE the flow normalized line is plotted, if FALSE not plotted 
 #' @param plotAnnual logical variable if TRUE annual flux points are plotted, if FALSE not plotted 
+#' @param plotGenFlux logical variable. If \code{TRUE}, annual flux points from WRTDS_K output are plotted, if \code{FALSE} not plotted 
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
@@ -27,8 +28,9 @@
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col.pred color of flow normalized line on plot, see ?par 'Color Specification'
+#' @param col.gen color of points for WRTDS_K output on plot, see ?par 'Color Specification'
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
-#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' to TRUE does NOT guarantee USGS compliance. It will only change automatically
 #' generated labels. 
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
@@ -48,12 +50,22 @@
 #' plotFluxHist(eList) #' 
 #' }
 plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA, 
-    fluxUnit = 9, fluxMax = NA, printTitle = TRUE, usgsStyle = FALSE,
-    plotFlowNorm = TRUE, plotAnnual = TRUE, tinyPlot=FALSE, col="black", col.pred="green",
-    cex=0.8, cex.axis=1.1, cex.main=1.1, lwd=2, customPar=FALSE, ...){
+                       fluxUnit = 9, fluxMax = NA, 
+                       printTitle = TRUE, usgsStyle = FALSE,
+                       plotFlowNorm = TRUE, plotAnnual = TRUE, plotGenFlux = FALSE,
+                       tinyPlot=FALSE, 
+                       col="black", col.pred="green", col.gen = "red",
+                       cex=0.8, cex.axis=1.1, cex.main=1.1, 
+                       lwd=2, customPar=FALSE, ...){
 
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
+  
+  if(plotGenFlux){
+    if(!all((c("GenFlux","GenConc") %in% names(eList$Daily)))){
+      stop("This option requires running WRTDS_K on eList")
+    }
+  } 
   
   if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
     paLong <- localINFO$paLong
@@ -79,7 +91,9 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA,
             "\nFlux calculations will be wrong if units are not consistent")
   }
   
-  localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
+  localAnnualResults <- setupYears(paStart = paStart,
+                                   paLong = paLong,
+                                   localDaily = localDaily)
   
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
@@ -93,7 +107,7 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA,
   if (tinyPlot) {
     ylabel <- fluxUnit@unitExpressTiny
   } else {
-    ylabel<- ifelse(usgsStyle,fluxUnit@unitUSGS,fluxUnit@unitExpress)
+    ylabel <- ifelse(usgsStyle,fluxUnit@unitUSGS,fluxUnit@unitExpress)
   }
   
   unitFactorReturn <- fluxUnit@unitFactor
@@ -103,24 +117,27 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA,
   yearStart <- if(is.na(yearStart)) trunc(min(localAnnualResults$DecYear[!is.na(localAnnualResults$FNFlux)],na.rm = TRUE)) else yearStart
   yearEnd <- if(is.na(yearEnd)) trunc(max(localAnnualResults$DecYear[!is.na(localAnnualResults$FNFlux)],na.rm = TRUE))+1 else yearEnd
   
-  subAnnualResults<-localAnnualResults[localAnnualResults$DecYear>=yearStart & localAnnualResults$DecYear <= yearEnd,]
-  
-  annFlux<-unitFactorReturn*subAnnualResults$Flux
-  
-  fnFlux<-unitFactorReturn*subAnnualResults$FNFlux
+  subAnnualResults <- localAnnualResults[localAnnualResults$DecYear>=yearStart & localAnnualResults$DecYear <= yearEnd,]
   
   hasFlex <- c("segmentInfo") %in% names(attributes(eList$INFO))
   
   periodName<-setSeasonLabel(localAnnualResults=localAnnualResults)
+  
   if(hasFlex){
     periodName <- paste(periodName,"*")
   }
   
-  if(plotAnnual & plotFlowNorm){
-    title3 <- "\nFlux Estimates (dots) & Flow Normalized Flux (line)" 
-  } else if(plotAnnual & !plotFlowNorm){
-    title3 <- "\nAnnual Flux Estimates"
-  } else if(!plotAnnual & plotFlowNorm){
+  if(plotGenFlux){
+    flux_words <- "Flux Estimates (K)"
+  } else {
+    flux_words <- "Flux Estimates"
+  }
+  
+  if((plotAnnual | plotGenFlux) & plotFlowNorm){
+    title3 <- paste0("\n", flux_words," (dots) & Flow Normalized Flux (line)")
+  } else if((plotAnnual | plotGenFlux) & !plotFlowNorm){
+    title3 <- paste("\nAnnual", flux_words)
+  } else if(!(plotAnnual | plotGenFlux) & plotFlowNorm){
     title3 <- "\nFlow Normalized Flux"
   } else {
     title3 <- "\n"
@@ -130,16 +147,31 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA,
   
   xInfo <- generalAxis(x=subAnnualResults$DecYear, minVal=yearStart, maxVal=yearEnd,padPercent=0, tinyPlot=tinyPlot)  
   
-  combinedY <- c(annFlux,fnFlux)
-  yInfo <- generalAxis(x=combinedY, minVal=0, maxVal=fluxMax, padPercent=5, tinyPlot=tinyPlot)
+  annFlux <- unitFactorReturn*subAnnualResults$Flux
+  
+  fnFlux <- unitFactorReturn*subAnnualResults$FNFlux
+  
+  combinedY <- fnFlux
+  
+  if(plotAnnual){
+    combinedY <- c(combinedY, annFlux)
+  }
+  
+  if(plotGenFlux){
+    combinedY <- c(combinedY, unitFactorReturn*subAnnualResults$GenFlux)
+  }
+  
+  yInfo <- generalAxis(x = combinedY, 
+                       minVal = 0, maxVal = fluxMax, 
+                       tinyPlot = tinyPlot)
   
   ###############################################
   
   genericEGRETDotPlot(x=NA, y = NA,
-                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,xDate=TRUE,
-                      xlim=c(xInfo$bottom,xInfo$top), ylim=c(0,yInfo$top),col=col,
-                      ylab=ylabel, plotTitle=title, customPar=customPar,cex=cex,
-                      cex.axis=cex.axis,cex.main=cex.main, tinyPlot=tinyPlot,...
+                      xTicks = xInfo$ticks, yTicks = yInfo$ticks, xDate = TRUE,
+                      xlim = c(xInfo$bottom, xInfo$top), ylim = c(0, yInfo$top), col = col,
+                      ylab = ylabel, plotTitle = title, customPar = customPar, cex = cex,
+                      cex.axis = cex.axis, cex.main = cex.main, tinyPlot = tinyPlot,...
                       
     )
 
@@ -147,7 +179,13 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA,
     with(subAnnualResults, 
          points(subAnnualResults$DecYear[DecYear>xInfo$bottom & DecYear<xInfo$top], 
                 annFlux[DecYear>xInfo$bottom & DecYear<xInfo$top], 
-                col=col, cex=cex, pch=20))
+                col = col, cex = cex, pch = 20))
+  }
+  
+  if(plotGenFlux){
+    points(subAnnualResults$DecYear[subAnnualResults$DecYear > xInfo$bottom & subAnnualResults$DecYear < xInfo$top], 
+           unitFactorReturn*subAnnualResults$GenFlux[subAnnualResults$DecYear > xInfo$bottom & subAnnualResults$DecYear < xInfo$top], 
+           col = col.gen, cex = cex, pch = 20)
   }
   
   if(plotFlowNorm) {

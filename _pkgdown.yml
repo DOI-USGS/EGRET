@@ -12,7 +12,9 @@ navbar:
     menu:
     - text: Enhancements
       href: articles/Enhancements.html
-    - text: WRTDS-K
+    - text: WRTDS-K In Development
+      href: articles/WRTDSK.html
+    - text: WRTDS-K Blog Article
       href: articles/Making WRTDS_K flux estimates.html
     - text: Running in Parallel
       href: articles/parallel.html
@@ -86,3 +88,9 @@ reference:
       - tableChange
       - tableFlowChange
       - tableResults
+  - title: WRTDS-K
+    desc: Functions for WRTDS with Kalman filtering
+    contents:
+     - WRTDS_K
+     - plotWRTDS_K
+     - plotTimeSlice

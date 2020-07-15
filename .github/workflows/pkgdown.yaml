@@ -12,7 +12,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r@master
 
-      - uses: r-lib/actions/setup-pandoc@master
+      - uses: r-lib/actions/setup-pandoc@v1
 
       - name: Query dependencies
         run: |
@@ -29,14 +29,28 @@ jobs:
 
       - name: Install dependencies
         run: |
-          install.packages("remotes")
+          options(pkgType = "binary")
+          install.packages(c("remotes", "rmarkdown", "sessioninfo"))
           remotes::install_deps(dependencies = TRUE)
           remotes::install_dev("pkgdown")
         shell: Rscript {0}
 
       - name: Install package
         run: R CMD INSTALL .
-
+        
+      - name: Git setup
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          
       - name: Deploy package
-        run: pkgdown::deploy_to_branch(new_process = FALSE)
+        run: |
+          rmarkdown::render("README.Rmd", output_format = "md_document")
+          pkgdown::deploy_to_branch(new_process = FALSE)
         shell: Rscript {0}
+        
+      - name: commit rendered README
+        run: |
+          git add README.md man/figures/README-*
+          git commit -m "Re-build README.md" || echo "No changes to commit"
+          git push origin master || echo "No changes to commit"

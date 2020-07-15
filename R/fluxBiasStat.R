@@ -7,7 +7,7 @@
 #'      In practice there is rarely a noticable difference among them.
 #'
 #' @param localSample data frame that contains the concentration data, default name is Sample
-#' @keywords water-quality statistics, bias
+#' @keywords water-quality statistics bias
 #' @export
 #' @return fluxBias a vector of three numerical values, a lower bound, upper bound and an average estimate of the ratio of (mean estimated flux - mean observed flux) / mean estimated flux.  Typically one should use fluxBias[3]
 #' @examples
