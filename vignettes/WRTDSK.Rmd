@@ -23,7 +23,9 @@ opts_chunk$set(
 
 ```
 
-Important note! This is a work-in-progress. No future behavior on new functions are promised based during this development phase. In order to run these functions, you will need to install the development version of `EGRET`. This can be done using the `remotes` package:
+Important note! This is a work-in-progress. No future behavior on new functions are promised based during this development phase. 
+
+In order to run these functions, you will need to install the development version of `EGRET`. This can be done using the `remotes` package:
 
 ```{r install, eval=FALSE, echo=TRUE}
 remotes::install_github("USGS-R/EGRET")
