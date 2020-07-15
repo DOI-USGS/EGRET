@@ -119,7 +119,10 @@ Although there are a lot of optional arguments to this function, most are set to
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/WRTDSK.html">WRTDS-K</a>
+      <a href="../articles/WRTDSK.html">WRTDS-K In Development</a>
+    </li>
+    <li>
+      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K Blog Article</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -181,19 +184,20 @@ User specifies this period of analysis in the call to <code>setupYears</code>.</
   <span class='kw'>eList</span>,
   yearStart = <span class='fl'>NA</span>,
   yearEnd = <span class='fl'>NA</span>,
-  DailyK = <span class='fl'>NA</span>,
   concMax = <span class='fl'>NA</span>,
   printTitle = <span class='fl'>TRUE</span>,
   tinyPlot = <span class='fl'>FALSE</span>,
   usgsStyle = <span class='fl'>FALSE</span>,
   plotFlowNorm = <span class='fl'>TRUE</span>,
   plotAnnual = <span class='fl'>TRUE</span>,
+  plotGenConc = <span class='fl'>FALSE</span>,
   cex = <span class='fl'>0.8</span>,
   cex.axis = <span class='fl'>1.1</span>,
   cex.main = <span class='fl'>1.1</span>,
   lwd = <span class='fl'>2</span>,
   col = <span class='st'>"black"</span>,
   col.pred = <span class='st'>"green"</span>,
+  col.gen = <span class='st'>"red"</span>,
   customPar = <span class='fl'>FALSE</span>,
   <span class='kw'>...</span>
 )</pre>
@@ -214,10 +218,6 @@ User specifies this period of analysis in the call to <code>setupYears</code>.</
       <td><p>numeric is the calendar year just after the last estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)</p></td>
     </tr>
     <tr>
-      <th>DailyK</th>
-      <td><p>data frame returned from <code>makeDailyK</code></p></td>
-    </tr>
-    <tr>
       <th>concMax</th>
       <td><p>numeric. Maximum value of concentration to be plotted.</p></td>
     </tr>
@@ -232,7 +232,7 @@ User specifies this period of analysis in the call to <code>setupYears</code>.</
     <tr>
       <th>usgsStyle</th>
       <td><p>logical option to use USGS style guidelines. Setting this option
-to TRUE does NOT guarantee USGS complience. It will only change automatically
+to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels</p></td>
     </tr>
     <tr>
@@ -241,7 +241,11 @@ generated labels</p></td>
     </tr>
     <tr>
       <th>plotAnnual</th>
-      <td><p>logical variable if TRUE annual concentration points are plotted, if FALSE not plotted</p></td>
+      <td><p>logical variable if <code>TRUE</code>, annual concentration points from WRTDS output are plotted, if <code>FALSE</code> not plotted</p></td>
+    </tr>
+    <tr>
+      <th>plotGenConc</th>
+      <td><p>logical variable. If <code>TRUE</code>, annual concentration points from WRTDS_K output are plotted, if <code>FALSE</code> not plotted</p></td>
     </tr>
     <tr>
       <th>cex</th>
@@ -266,6 +270,10 @@ generated labels</p></td>
     <tr>
       <th>col.pred</th>
       <td><p>color of flow normalized line on plot, see ?par 'Color Specification'</p></td>
+    </tr>
+    <tr>
+      <th>col.gen</th>
+      <td><p>color of points for WRTDS_K output on plot, see ?par 'Color Specification'</p></td>
     </tr>
     <tr>
       <th>customPar</th>
