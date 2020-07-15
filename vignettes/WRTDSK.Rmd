@@ -70,12 +70,17 @@ Now we can take the results from the **DailyK** data frame and compute annual fl
 
 ```{r eval = TRUE, echo = TRUE}
 AnnualResults <- setupYears(eList_K$Daily)
-AnnualResults[,c("DecYear", "Q", 
-                 "ConcDay", "GenConc", "FluxDay", "GenFlux")]
-summary(AnnualResults)
 
 plotWRTDS_K(eList_K)
 ```
+
+```{r antable, echo=FALSE}
+
+kable(AnnualResults[,c("DecYear", "Q", 
+                 "ConcDay", "GenConc", "FluxDay", "GenFlux")])
+
+```
+
 
 The content of **AnnualResults** is fairly obvious.
 
@@ -129,10 +134,13 @@ eList_2 <- WRTDS_K(eList, rho = 0.85)
 print(attr(eList_2$Daily,"rho"))
 print(attr(eList_2$Daily,"niter"))
 AnnualResults2 <- setupYears(eList_2$Daily)
+
 AnnualResults2 <- AnnualResults2[,c("ConcDay", "GenConc", "FluxDay", "GenFlux")]
+
 Ratios <- (AnnualResults2 - AnnualResults[, c("ConcDay", "GenConc", "FluxDay", "GenFlux")]) / AnnualResults[, c("ConcDay", "GenConc", "FluxDay", "GenFlux")]
+
 row.names(Ratios) <- round(AnnualResults$DecYear, 2)
-print(Ratios)
+kable(Ratios)
 ```
 
 What we see here is that the change in rho from 0.9 to 0.85 makes less than a 10% difference in any of the years.
@@ -144,20 +152,19 @@ Setting the number of iterations to 200 (the default) seems to be sufficient.  W
 eList3 <- WRTDS_K(eList, seed = 1)
 AnnualResults3 <- setupYears(eList3$Daily)
 AnnualResults3 <- AnnualResults3[,c("ConcDay", "GenConc", "FluxDay", "GenFlux")]
+
 Ratios <- (AnnualResults3 - AnnualResults[, c("ConcDay", "GenConc", "FluxDay", "GenFlux")]) / AnnualResults[, c("ConcDay", "GenConc", "FluxDay", "GenFlux")]
+
 row.names(Ratios) <- round(AnnualResults$DecYear, 2)
-print(Ratios)
+kable(Ratios)
 ```
 
 This table shows us that, at worst the individual annual fluxes differ by about 11% and many of them differ by less than 2% in successive runs with different seeds  The annual concentrations never differ by more than about 2%.  This suggests that 200 is a sufficient number of iterations to run to obtain a stable result.  For final calculations for publication one might want to specify niter = 500 or niter = 1000 in the call to **makeDailyK**, but the idea here is not perfection, but rather to make a reasonable adjustment of the flux record to account for the serial correlation of the residuals.
 
 # What about putting these results into the **plotConcHist** or **plotFluxHist** graphs
 
-Typically when we do some type of trend study we may want to create graphic outputs showing the Flow Normalized values (connected by a line) and the estimated annual values (as dots).  If you want to put the WRTDS_K values on these graphs you can use some substitute functions.  
+Typically when we do some type of trend study we may want to create graphic outputs showing the Flow Normalized values (connected by a line) and the estimated annual values (as dots).  If you want to put the WRTDS_K values on these graphs you can use the functions (still in development), setting the argument `plotGenConc` or `plotGenFlux` to `TRUE`.  
 
-**plotConcHistK** works exactly like **plotConcHist** but there is a new second argument, it is **DailyK**.  So in it's simplest form the call would be **plotConcHistK(eList, DailyK)**.  The markings in the title have a *(K)* after the word *Estimates*.
-
-**plotFluxHistK** works exactly like **plotFluxHist** but there is a new second argument, it is **DailyK**.  So in it's simplest form the call would be **plotFluxHistK(eList, DailyK)**.  The markings in the title have a *(K)* after the word *Estimates*.
 
 Here they are being used.
 
@@ -193,7 +200,7 @@ When we plot these data sets using **plotTimeSlice**, when there are censored va
 
 ## Multiple observations on a day
 
-When a day has more than one observation (i.e. more than one sample value) the approach we use here is much the same as what we used in the censored value situation.  What we need in order to generate the full WRTDS_K record is a set of unique values for the sampled days.  So, for any day with two or more samples we will randomly pick one of them and use it as an end point for the adjacent gap periods.  Then once we pick it we generate the values between the sampled days regardless of whether the sample value used is a unique value for that day or if it is randomly selected from the multiple values observed on that day.  Then on the next iteration we randomly select the values for these multiply sampled days and proceed with the AR(1) process to fill in between the sampled days.  In the plot produced by plotTimeSlice all of the observations are shown as red dots.  Thus if there are multiple sample values on a given day they will plot along a vertical line situated on that day.
+When a day has more than one observation (i.e. more than one sample value) the approach we use here is much the same as what we used in the censored value situation.  What we need in order to generate the full WRTDS_K record is a set of unique values for the sampled days.  So, for any day with two or more samples we will randomly pick one of them and use it as an end point for the adjacent gap periods.  Then once we pick it we generate the values between the sampled days regardless of whether the sample value used is a unique value for that day or if it is randomly selected from the multiple values observed on that day.  Then on the next iteration we randomly select the values for these multiply sampled days and proceed with the AR(1) process to fill in between the sampled days.  In the plot produced by `plotTimeSlice` all of the observations are shown as red dots.  Thus if there are multiple sample values on a given day they will plot along a vertical line situated on that day.
 
 ## An example with both special issues
 
