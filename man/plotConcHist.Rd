@@ -67,8 +67,6 @@ generated labels}
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
-
-\item{plotPoints}{character variable. If "WRTDS", will plot WRTDS estimates of concentration. If "WRTDS-K", will plot Kalman estimates. Default is "WRTDS".}
 }
 \description{
 Data come from named list, which contains a Daily dataframe with the daily flow data,
