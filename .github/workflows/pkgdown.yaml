@@ -37,7 +37,12 @@ jobs:
 
       - name: Install package
         run: R CMD INSTALL .
-
+        
+      - name: Git setup
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          
       - name: Deploy package
         run: |
           rmarkdown::render("README.Rmd", output_format = "md_document")
