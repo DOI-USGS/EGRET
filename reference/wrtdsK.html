@@ -172,13 +172,13 @@ Including the estimated model (the surfaces object in the eList)
 And produces the daily WRTDS_K estimates of concentration and flux</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/wrtdsK.html'>WRTDS_K</a></span>(<span class='kw'>eList</span>, rho = <span class='fl'>0.9</span>, niter = <span class='fl'>200</span>, seed = <span class='fl'>376168</span>)
+    <pre class="usage"><span class='fu'>WRTDS_K</span>(<span class='kw'>eList</span>, rho = <span class='fl'>0.9</span>, niter = <span class='fl'>200</span>, seed = <span class='fl'>376168</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/wrtdsK.html'>random_subset</a></span>(<span class='kw'>df</span>, <span class='kw'>col_name</span>)
+<span class='fu'>random_subset</span>(<span class='kw'>df</span>, <span class='kw'>col_name</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/wrtdsK.html'>plotWRTDS_K</a></span>(<span class='kw'>eList</span>)
+<span class='fu'>plotWRTDS_K</span>(<span class='kw'>eList</span>)
 
-<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/wrtdsK.html'>plotTimeSlice</a></span>(<span class='kw'>eList</span>, <span class='kw'>start</span>, <span class='kw'>end</span>, conc = <span class='fl'>TRUE</span>, fluxUnit = <span class='fl'>3</span>, usgsStyle = <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>plotTimeSlice</span>(<span class='kw'>eList</span>, <span class='kw'>start</span>, <span class='kw'>end</span>, conc = <span class='fl'>TRUE</span>, fluxUnit = <span class='fl'>3</span>, usgsStyle = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -221,7 +221,7 @@ And produces the daily WRTDS_K estimates of concentration and flux</p>
     </tr>
     <tr>
       <th>fluxUnit</th>
-      <td><p>number representing entry in pre-defined fluxUnit class array. <code><a href='https://rdrr.io/pkg/EGRET/man/printFluxUnitCheatSheet.html'>printFluxUnitCheatSheet</a></code></p></td>
+      <td><p>number representing entry in pre-defined fluxUnit class array. <code><a href='printFluxUnitCheatSheet.html'>printFluxUnitCheatSheet</a></code></p></td>
     </tr>
     <tr>
       <th>usgsStyle</th>
@@ -234,7 +234,7 @@ generated labels</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='kw'>Choptank_eList</span>
-<span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/wrtdsK.html'>WRTDS_K</a></span>(<span class='kw'>eList</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='kw'>eList</span><span class='op'>$</span><span class='kw'>Daily</span>)</div><div class='output co'>#&gt;       Date                  Q                 Julian          Month       
+<span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='fu'>WRTDS_K</span>(<span class='kw'>eList</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='kw'>eList</span><span class='op'>$</span><span class='kw'>Daily</span>)</div><div class='output co'>#&gt;       Date                  Q                 Julian          Month       
 #&gt;  Min.   :1979-10-01   Min.   :  0.00991   Min.   :47389   Min.   : 1.000  
 #&gt;  1st Qu.:1987-09-30   1st Qu.:  0.93446   1st Qu.:50311   1st Qu.: 4.000  
 #&gt;  Median :1995-09-30   Median :  2.40693   Median :53232   Median : 7.000  
@@ -274,7 +274,7 @@ generated labels</p></td>
 #&gt;  3rd Qu.:1.3314   3rd Qu.:538.44   3rd Qu.:  500.540   3rd Qu.:1.40929  
 #&gt;  Max.   :1.6882   Max.   :943.75   Max.   :11927.056   Max.   :2.43000  
 #&gt;                                                                         </div><div class='input'>
-<span class='kw'>AnnualResults</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/setupYears.html'>setupYears</a></span>(<span class='kw'>eList</span><span class='op'>$</span><span class='kw'>Daily</span>)
+<span class='kw'>AnnualResults</span> <span class='op'>&lt;-</span> <span class='fu'><a href='setupYears.html'>setupYears</a></span>(<span class='kw'>eList</span><span class='op'>$</span><span class='kw'>Daily</span>)
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='kw'>AnnualResults</span>)</div><div class='output co'>#&gt;    DecYear        Q      Conc     Flux   ConcDay   FluxDay    FNConc   FNFlux
 #&gt; 1 1980.249 4.251937 0.9485403 316.0491 0.9485403 115.67395 1.0027237 291.2176
 #&gt; 2 1981.249 2.217248 1.0351962 184.6712 1.0351962  67.40498 0.9988918 296.7260
@@ -298,13 +298,13 @@ generated labels</p></td>
 #&gt; 5      4 5
 #&gt; 6      4 6
 #&gt; 7      4 7
-#&gt; 8      6 8</div><div class='input'><span class='kw'>df_random</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/wrtdsK.html'>random_subset</a></span>(<span class='kw'>df</span>, <span class='st'>"Julian"</span>)
+#&gt; 8      6 8</div><div class='input'><span class='kw'>df_random</span> <span class='op'>&lt;-</span> <span class='fu'>random_subset</span>(<span class='kw'>df</span>, <span class='st'>"Julian"</span>)
 <span class='kw'>df_random</span></div><div class='output co'>#&gt;   Julian y
 #&gt; 1      1 1
 #&gt; 2      2 2
 #&gt; 4      3 4
 #&gt; 6      4 6
-#&gt; 8      6 8</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/wrtdsK.html'>plotWRTDS_K</a></span>(<span class='kw'>eList</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='img'><img src='wrtdsK-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='wrtdsK-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt;     DecYear        Q      Conc     Flux   ConcDay   FluxDay    FNConc   FNFlux
+#&gt; 8      6 8</div><div class='input'><span class='fu'>plotWRTDS_K</span>(<span class='kw'>eList</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='img'><img src='wrtdsK-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='wrtdsK-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt;     DecYear        Q      Conc     Flux   ConcDay   FluxDay    FNConc   FNFlux
 #&gt; 1  1980.249 4.251937 0.9485403 316.0491 0.9485403 115.67395 1.0027237 291.2176
 #&gt; 2  1981.249 2.217248 1.0351962 184.6712 1.0351962  67.40498 0.9988918 296.7260
 #&gt; 3  1982.249 3.046039 1.0361327 269.6309 1.0361327  98.41529 0.9931881 300.7424
@@ -369,8 +369,8 @@ generated labels</p></td>
 #&gt; 29 1.4801310 103.41478         12          10
 #&gt; 30 1.3632245 126.79269         12          10
 #&gt; 31 1.4070154 237.64665         12          10
-#&gt; 32 1.4297565 150.17670         12          10</div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/wrtdsK.html'>plotTimeSlice</a></span>(<span class='kw'>eList</span>, start = <span class='fl'>1990</span>, end = <span class='fl'>1991</span>, conc = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='img'><img src='wrtdsK-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/wrtdsK.html'>plotTimeSlice</a></span>(<span class='kw'>eList</span>, start = <span class='fl'>1990</span>, end = <span class='fl'>1991</span>, conc = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='img'><img src='wrtdsK-4.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
+#&gt; 32 1.4297565 150.17670         12          10</div><div class='input'><span class='fu'>plotTimeSlice</span>(<span class='kw'>eList</span>, start = <span class='fl'>1990</span>, end = <span class='fl'>1991</span>, conc = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='img'><img src='wrtdsK-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotTimeSlice</span>(<span class='kw'>eList</span>, start = <span class='fl'>1990</span>, end = <span class='fl'>1991</span>, conc = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='img'><img src='wrtdsK-4.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

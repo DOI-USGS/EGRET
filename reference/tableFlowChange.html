@@ -176,7 +176,7 @@ The index of the flow statistics is istat.  These statistics are:
 A dataframe is returned, as well as a printout in the R console.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/tableFlowChange.html'>tableFlowChange</a></span>(<span class='kw'>eList</span>, <span class='kw'>istat</span>, qUnit = <span class='fl'>1</span>, runoff = <span class='fl'>FALSE</span>, yearPoints = <span class='fl'>NA</span>)</pre>
+    <pre class="usage"><span class='fu'>tableFlowChange</span>(<span class='kw'>eList</span>, <span class='kw'>istat</span>, qUnit = <span class='fl'>1</span>, runoff = <span class='fl'>FALSE</span>, yearPoints = <span class='fl'>NA</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -191,7 +191,7 @@ A dataframe is returned, as well as a printout in the R console.</p>
     </tr>
     <tr>
       <th>qUnit</th>
-      <td><p>object of qUnit class <code><a href='https://rdrr.io/pkg/EGRET/man/printqUnitCheatSheet.html'>printqUnitCheatSheet</a></code>, or numeric represented the short code, or character representing the descriptive name.</p></td>
+      <td><p>object of qUnit class <code><a href='printqUnitCheatSheet.html'>printqUnitCheatSheet</a></code>, or numeric represented the short code, or character representing the descriptive name.</p></td>
     </tr>
     <tr>
       <th>runoff</th>
@@ -206,7 +206,7 @@ A dataframe is returned, as well as a printout in the R console.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='kw'>Choptank_eList</span>
-<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/tableFlowChange.html'>tableFlowChange</a></span>(<span class='kw'>eList</span>, istat=<span class='fl'>5</span>,yearPoints=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2001</span>,<span class='fl'>2005</span>,<span class='fl'>2009</span>))</div><div class='output co'>#&gt; 
+<span class='fu'>tableFlowChange</span>(<span class='kw'>eList</span>, istat=<span class='fl'>5</span>,yearPoints=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2001</span>,<span class='fl'>2005</span>,<span class='fl'>2009</span>))</div><div class='output co'>#&gt; 
 #&gt;    Choptank River
 #&gt;    Water Year
 #&gt;     mean daily 
@@ -216,7 +216,7 @@ A dataframe is returned, as well as a printout in the R console.</p>
 #&gt;                         cfs         cfs/yr        %            %/yr
 #&gt;  2001  to  2005          7.7          1.9          5.4          1.4
 #&gt;  2001  to  2009           16            2           11          1.4
-#&gt;  2005  to  2009          8.1            2          5.4          1.4</div><div class='input'><span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/tableFlowChange.html'>tableFlowChange</a></span>(<span class='kw'>eList</span>, istat=<span class='fl'>5</span>,yearPoints=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2001</span>,<span class='fl'>2005</span>,<span class='fl'>2009</span>))</div><div class='output co'>#&gt; 
+#&gt;  2005  to  2009          8.1            2          5.4          1.4</div><div class='input'><span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'>tableFlowChange</span>(<span class='kw'>eList</span>, istat=<span class='fl'>5</span>,yearPoints=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2001</span>,<span class='fl'>2005</span>,<span class='fl'>2009</span>))</div><div class='output co'>#&gt; 
 #&gt;    Choptank River
 #&gt;    Water Year
 #&gt;     mean daily 

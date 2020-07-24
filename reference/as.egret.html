@@ -170,7 +170,7 @@ not available, an NA should be" />
 not available, an NA should be</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/as.egret.html'>as.egret</a></span>(<span class='kw'>INFO</span>, <span class='kw'>Daily</span>, Sample = <span class='fl'>NA</span>, surfaces = <span class='fl'>NA</span>)</pre>
+    <pre class="usage"><span class='fu'>as.egret</span>(<span class='kw'>INFO</span>, <span class='kw'>Daily</span>, Sample = <span class='fl'>NA</span>, surfaces = <span class='fl'>NA</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -199,17 +199,17 @@ not available, an NA should be</p>
 Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/EGRET/man/readNWISDaily.html'>readNWISDaily</a></code>, <code><a href='https://rdrr.io/pkg/EGRET/man/readNWISSample.html'>readNWISSample</a></code></p></div>
+    <div class='dont-index'><p><code><a href='readNWISDaily.html'>readNWISDaily</a></code>, <code><a href='readNWISSample.html'>readNWISSample</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='kw'>Choptank_eList</span>
-<span class='kw'>Daily</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/getDaily.html'>getDaily</a></span>(<span class='kw'>eList</span>)
-<span class='kw'>INFO</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/getInfo.html'>getInfo</a></span>(<span class='kw'>eList</span>)
-<span class='kw'>eList_flowHistory</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/as.egret.html'>as.egret</a></span>(<span class='kw'>INFO</span>, <span class='kw'>Daily</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/plotFlowSingle.html'>plotFlowSingle</a></span>(<span class='kw'>eList_flowHistory</span>, <span class='fl'>1</span>)</div><div class='img'><img src='as.egret-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>Sample</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/getSample.html'>getSample</a></span>(<span class='kw'>eList</span>)
-<span class='kw'>surfaces</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/getSurfaces.html'>getSurfaces</a></span>(<span class='kw'>eList</span>)
-<span class='kw'>eList_full</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/as.egret.html'>as.egret</a></span>(<span class='kw'>INFO</span>, <span class='kw'>Daily</span>, <span class='kw'>Sample</span>, <span class='kw'>surfaces</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/plotFluxQ.html'>plotFluxQ</a></span>(<span class='kw'>eList_full</span>)</div><div class='img'><img src='as.egret-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='kw'>Daily</span> <span class='op'>&lt;-</span> <span class='fu'><a href='getDaily.html'>getDaily</a></span>(<span class='kw'>eList</span>)
+<span class='kw'>INFO</span> <span class='op'>&lt;-</span> <span class='fu'><a href='getInfo.html'>getInfo</a></span>(<span class='kw'>eList</span>)
+<span class='kw'>eList_flowHistory</span> <span class='op'>&lt;-</span> <span class='fu'>as.egret</span>(<span class='kw'>INFO</span>, <span class='kw'>Daily</span>)
+<span class='fu'><a href='plotFlowSingle.html'>plotFlowSingle</a></span>(<span class='kw'>eList_flowHistory</span>, <span class='fl'>1</span>)</div><div class='img'><img src='as.egret-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>Sample</span> <span class='op'>&lt;-</span> <span class='fu'><a href='getSample.html'>getSample</a></span>(<span class='kw'>eList</span>)
+<span class='kw'>surfaces</span> <span class='op'>&lt;-</span> <span class='fu'><a href='getSurfaces.html'>getSurfaces</a></span>(<span class='kw'>eList</span>)
+<span class='kw'>eList_full</span> <span class='op'>&lt;-</span> <span class='fu'>as.egret</span>(<span class='kw'>INFO</span>, <span class='kw'>Daily</span>, <span class='kw'>Sample</span>, <span class='kw'>surfaces</span>)
+<span class='fu'><a href='plotFluxQ.html'>plotFluxQ</a></span>(<span class='kw'>eList_full</span>)</div><div class='img'><img src='as.egret-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

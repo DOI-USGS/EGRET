@@ -180,17 +180,9 @@ flux and places these in the Daily data frame in the eList values.
 It returns a named list with the following dataframes: Daily, INFO, Sample, and the matrix: surfaces.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/modelEstimation.html'>modelEstimation</a></span>(
-  <span class='kw'>eList</span>,
-  windowY = <span class='fl'>7</span>,
-  windowQ = <span class='fl'>2</span>,
-  windowS = <span class='fl'>0.5</span>,
-  minNumObs = <span class='fl'>100</span>,
-  minNumUncen = <span class='fl'>50</span>,
-  edgeAdjust = <span class='fl'>TRUE</span>,
-  verbose = <span class='fl'>TRUE</span>,
-  run.parallel = <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>modelEstimation</span>(<span class='kw'>eList</span>, windowY = <span class='fl'>7</span>, windowQ = <span class='fl'>2</span>, windowS = <span class='fl'>0.5</span>,
+  minNumObs = <span class='fl'>100</span>, minNumUncen = <span class='fl'>50</span>, edgeAdjust = <span class='fl'>TRUE</span>, verbose = <span class='fl'>TRUE</span>,
+  run.parallel = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -242,7 +234,7 @@ Any of these values can be NA, not all EGRET functions will work with missing pa
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='kw'>Choptank_eList</span>
 <span class='co'># \donttest{</span>
-<span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/modelEstimation.html'>modelEstimation</a></span>(<span class='kw'>eList</span>)</div><div class='output co'>#&gt; 
+<span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='fu'>modelEstimation</span>(<span class='kw'>eList</span>)</div><div class='output co'>#&gt; 
 #&gt;  first step running estCrossVal may take about 1 minute
 #&gt;  estCrossVal % complete:
 #&gt; 0 	1 	2 	3 	4 	5 	6 	7 	8 	9 	10 	

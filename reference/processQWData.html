@@ -172,7 +172,7 @@ conditions to determine if a value is left censored or not. Censored values are 
 "&lt;".  The dataframe is also converted from a long to wide format.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/processQWData.html'>processQWData</a></span>(<span class='kw'>data</span>, pCode = <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>processQWData</span>(<span class='kw'>data</span>, pCode = <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -200,7 +200,7 @@ conditions to determine if a value is left censored or not. Censored values are 
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://pubs.usgs.gov/tm/04/a10'>dataRetrieval</a></span>)
  
 <span class='kw'>rawWQP</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/dataRetrieval/man/readWQPqw.html'>readWQPqw</a></span>(<span class='st'>'21FLEECO_WQX-IMPRGR80'</span>,<span class='st'>'Phosphorus'</span>, <span class='st'>''</span>, <span class='st'>''</span>)
-<span class='kw'>Sample2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/processQWData.html'>processQWData</a></span>(<span class='kw'>rawWQP</span>, pCode=<span class='fl'>FALSE</span>)
+<span class='kw'>Sample2</span> <span class='op'>&lt;-</span> <span class='fu'>processQWData</span>(<span class='kw'>rawWQP</span>, pCode=<span class='fl'>FALSE</span>)
 <span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -182,33 +182,13 @@ a Daily dataframe with the daily flow data,
 and an INFO dataframe with metadata.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/plotContours.html'>plotContours</a></span>(
-  <span class='kw'>eList</span>,
-  <span class='kw'>yearStart</span>,
-  <span class='kw'>yearEnd</span>,
-  qBottom = <span class='fl'>NA</span>,
-  qTop = <span class='fl'>NA</span>,
-  whatSurface = <span class='fl'>3</span>,
-  qUnit = <span class='fl'>2</span>,
-  contourLevels = <span class='fl'>NA</span>,
-  span = <span class='fl'>60</span>,
-  pval = <span class='fl'>0.05</span>,
-  printTitle = <span class='fl'>TRUE</span>,
-  vert1 = <span class='fl'>NA</span>,
-  vert2 = <span class='fl'>NA</span>,
-  horiz = <span class='fl'>NA</span>,
-  tcl = <span class='fl'>0.03</span>,
-  flowDuration = <span class='fl'>TRUE</span>,
-  customPar = <span class='fl'>FALSE</span>,
-  yTicks = <span class='fl'>NA</span>,
-  tick.lwd = <span class='fl'>1</span>,
-  usgsStyle = <span class='fl'>FALSE</span>,
-  lwd = <span class='fl'>2</span>,
-  cex.main = <span class='fl'>1</span>,
-  cex.axis = <span class='fl'>1</span>,
-  color.palette = <span class='fu'><a href='https://rdrr.io/r/grDevices/colorRamp.html'>colorRampPalette</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"white"</span>, <span class='st'>"gray"</span>, <span class='st'>"blue"</span>, <span class='st'>"red"</span>)),
-  <span class='kw'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>plotContours</span>(<span class='kw'>eList</span>, <span class='kw'>yearStart</span>, <span class='kw'>yearEnd</span>, qBottom = <span class='fl'>NA</span>, qTop = <span class='fl'>NA</span>,
+  whatSurface = <span class='fl'>3</span>, qUnit = <span class='fl'>2</span>, contourLevels = <span class='fl'>NA</span>, span = <span class='fl'>60</span>,
+  pval = <span class='fl'>0.05</span>, printTitle = <span class='fl'>TRUE</span>, vert1 = <span class='fl'>NA</span>, vert2 = <span class='fl'>NA</span>, horiz = <span class='fl'>NA</span>,
+  tcl = <span class='fl'>0.03</span>, flowDuration = <span class='fl'>TRUE</span>, customPar = <span class='fl'>FALSE</span>, yTicks = <span class='fl'>NA</span>,
+  tick.lwd = <span class='fl'>1</span>, usgsStyle = <span class='fl'>FALSE</span>, lwd = <span class='fl'>2</span>, cex.main = <span class='fl'>1</span>,
+  cex.axis = <span class='fl'>1</span>, color.palette = <span class='fu'><a href='https://rdrr.io/r/grDevices/colorRamp.html'>colorRampPalette</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"white"</span>, <span class='st'>"gray"</span>, <span class='st'>"blue"</span>,
+  <span class='st'>"red"</span>)), <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -239,7 +219,7 @@ and an INFO dataframe with metadata.</p>
     </tr>
     <tr>
       <th>qUnit</th>
-      <td><p>object of qUnit class. <code><a href='https://rdrr.io/pkg/EGRET/man/printqUnitCheatSheet.html'>printqUnitCheatSheet</a></code>, or numeric represented the short code, or character representing the descriptive name.</p></td>
+      <td><p>object of qUnit class. <code><a href='printqUnitCheatSheet.html'>printqUnitCheatSheet</a></code>, or numeric represented the short code, or character representing the descriptive name.</p></td>
     </tr>
     <tr>
       <th>contourLevels</th>
@@ -327,16 +307,16 @@ using the function <code><a href='https://rdrr.io/r/grDevices/colorRamp.html'>co
 <span class='kw'>qTop</span><span class='op'>&lt;-</span> <span class='fl'>22</span>
 <span class='kw'>clevel</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>,<span class='fl'>3.5</span>,<span class='fl'>0.5</span>)
 <span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='kw'>Choptank_eList</span>
-<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/plotContours.html'>plotContours</a></span>(<span class='kw'>eList</span>, <span class='kw'>yearStart</span>,<span class='kw'>yearEnd</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>, contourLevels = <span class='kw'>clevel</span>)  </div><div class='img'><img src='plotContours-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/plotContours.html'>plotContours</a></span>(<span class='kw'>eList</span>, <span class='kw'>yearStart</span>,<span class='kw'>yearEnd</span>,qBottom=<span class='fl'>0.1</span>,qTop=<span class='fl'>NA</span>, contourLevels = <span class='kw'>clevel</span>) </div><div class='img'><img src='plotContours-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>yTicksModified</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.1</span>,<span class='fl'>1</span>,<span class='fl'>10</span>,<span class='fl'>25</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/plotContours.html'>plotContours</a></span>(<span class='kw'>eList</span>, <span class='kw'>yearStart</span>,<span class='kw'>yearEnd</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>, 
+<span class='fu'>plotContours</span>(<span class='kw'>eList</span>, <span class='kw'>yearStart</span>,<span class='kw'>yearEnd</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>, contourLevels = <span class='kw'>clevel</span>)  </div><div class='img'><img src='plotContours-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotContours</span>(<span class='kw'>eList</span>, <span class='kw'>yearStart</span>,<span class='kw'>yearEnd</span>,qBottom=<span class='fl'>0.1</span>,qTop=<span class='fl'>NA</span>, contourLevels = <span class='kw'>clevel</span>) </div><div class='img'><img src='plotContours-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>yTicksModified</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.1</span>,<span class='fl'>1</span>,<span class='fl'>10</span>,<span class='fl'>25</span>)
+<span class='fu'>plotContours</span>(<span class='kw'>eList</span>, <span class='kw'>yearStart</span>,<span class='kw'>yearEnd</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>, 
       contourLevels = <span class='kw'>clevel</span>,yTicks=<span class='kw'>yTicksModified</span>,flowDuration=<span class='fl'>FALSE</span>)  </div><div class='img'><img src='plotContours-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>colors</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/colorRamp.html'>colorRampPalette</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"white"</span>,<span class='st'>"red"</span>))
-<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/plotContours.html'>plotContours</a></span>(<span class='kw'>eList</span>, <span class='kw'>yearStart</span>,<span class='kw'>yearEnd</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>, 
+<span class='fu'>plotContours</span>(<span class='kw'>eList</span>, <span class='kw'>yearStart</span>,<span class='kw'>yearEnd</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>, 
        contourLevels = <span class='kw'>clevel</span>,yTicks=<span class='kw'>yTicksModified</span>,
        color.palette=<span class='kw'>colors</span>,flowDuration=<span class='fl'>FALSE</span>)</div><div class='img'><img src='plotContours-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>colors2</span> <span class='op'>&lt;-</span> <span class='kw'>heat.colors</span> <span class='co'># Some other options: topo.colors, terrain.colors, cm.colors</span>
-<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/plotContours.html'>plotContours</a></span>(<span class='kw'>eList</span>, <span class='kw'>yearStart</span>,<span class='kw'>yearEnd</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>,
-       contourLevels = <span class='kw'>clevel</span>,color.palette=<span class='kw'>colors2</span>,lwd=<span class='fl'>2</span>,flowDuration=<span class='fl'>FALSE</span>)</div><div class='img'><img src='plotContours-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/plotContours.html'>plotContours</a></span>(<span class='kw'>eList</span>, <span class='kw'>yearStart</span>,<span class='kw'>yearEnd</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>, 
+<span class='fu'>plotContours</span>(<span class='kw'>eList</span>, <span class='kw'>yearStart</span>,<span class='kw'>yearEnd</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>,
+       contourLevels = <span class='kw'>clevel</span>,color.palette=<span class='kw'>colors2</span>,lwd=<span class='fl'>2</span>,flowDuration=<span class='fl'>FALSE</span>)</div><div class='img'><img src='plotContours-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotContours</span>(<span class='kw'>eList</span>, <span class='kw'>yearStart</span>,<span class='kw'>yearEnd</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>, 
        contourLevels = <span class='kw'>clevel</span>,cex.axis=<span class='fl'>2</span>,flowDuration=<span class='fl'>FALSE</span>)</div><div class='img'><img src='plotContours-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(mar=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>,<span class='fl'>8</span>,<span class='fl'>5</span>,<span class='fl'>8</span>))
-<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/plotContours.html'>plotContours</a></span>(<span class='kw'>eList</span>, <span class='kw'>yearStart</span>,<span class='kw'>yearEnd</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>, 
+<span class='fu'>plotContours</span>(<span class='kw'>eList</span>, <span class='kw'>yearStart</span>,<span class='kw'>yearEnd</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>, 
        contourLevels = <span class='kw'>clevel</span>,customPar=<span class='fl'>TRUE</span>,printTitle=<span class='fl'>FALSE</span>,flowDuration=<span class='fl'>FALSE</span>)</div><div class='img'><img src='plotContours-7.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

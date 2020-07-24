@@ -168,7 +168,7 @@
     <p>Creates ConcAve and ConcLow based on Uncen. Removes any samples with NA values in ConcHigh.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/populateSampleColumns.html'>populateSampleColumns</a></span>(<span class='kw'>rawData</span>)</pre>
+    <pre class="usage"><span class='fu'>populateSampleColumns</span>(<span class='kw'>rawData</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -190,7 +190,7 @@ Month, Day, DecYear, MonthSeq, waterYear, SinDY, and CosDY (DY = decimal year)</
 <span class='kw'>ConcHigh</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>)
 <span class='kw'>Uncen</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>0</span>)
 <span class='kw'>dataInput</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>dateTime</span>, <span class='kw'>ConcLow</span>, <span class='kw'>ConcHigh</span>, <span class='kw'>Uncen</span>, stringsAsFactors=<span class='fl'>FALSE</span>)
-<span class='kw'>Sample</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/populateSampleColumns.html'>populateSampleColumns</a></span>(<span class='kw'>dataInput</span>)</div></pre>
+<span class='kw'>Sample</span> <span class='op'>&lt;-</span> <span class='fu'>populateSampleColumns</span>(<span class='kw'>dataInput</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

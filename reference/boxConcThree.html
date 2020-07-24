@@ -182,18 +182,9 @@ and an INFO dataframe with metadata.</p>
 <p>Although there are a lot of optional arguments to this function, most are set to a logical default.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/boxConcThree.html'>boxConcThree</a></span>(
-  <span class='kw'>eList</span>,
-  tinyPlot = <span class='fl'>FALSE</span>,
-  printTitle = <span class='fl'>TRUE</span>,
-  moreTitle = <span class='st'>"WRTDS"</span>,
-  customPar = <span class='fl'>FALSE</span>,
-  font.main = <span class='fl'>2</span>,
-  cex = <span class='fl'>0.8</span>,
-  cex.main = <span class='fl'>1.1</span>,
-  cex.axis = <span class='fl'>1.1</span>,
-  <span class='kw'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>boxConcThree</span>(<span class='kw'>eList</span>, tinyPlot = <span class='fl'>FALSE</span>, printTitle = <span class='fl'>TRUE</span>,
+  moreTitle = <span class='st'>"WRTDS"</span>, customPar = <span class='fl'>FALSE</span>, font.main = <span class='fl'>2</span>, cex = <span class='fl'>0.8</span>,
+  cex.main = <span class='fl'>1.1</span>, cex.axis = <span class='fl'>1.1</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -247,9 +238,9 @@ and an INFO dataframe with metadata.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='kw'>Choptank_eList</span>
 <span class='co'># Water year:</span>
-<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/boxConcThree.html'>boxConcThree</a></span>(<span class='kw'>eList</span>)</div><div class='img'><img src='boxConcThree-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Graphs consisting of Jun-Aug</span>
-<span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/setPA.html'>setPA</a></span>(<span class='kw'>eList</span>, paStart=<span class='fl'>6</span>,paLong=<span class='fl'>3</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/boxConcThree.html'>boxConcThree</a></span>(<span class='kw'>eList</span>)</div><div class='img'><img src='boxConcThree-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>boxConcThree</span>(<span class='kw'>eList</span>)</div><div class='img'><img src='boxConcThree-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Graphs consisting of Jun-Aug</span>
+<span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span>(<span class='kw'>eList</span>, paStart=<span class='fl'>6</span>,paLong=<span class='fl'>3</span>)
+<span class='fu'>boxConcThree</span>(<span class='kw'>eList</span>)</div><div class='img'><img src='boxConcThree-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

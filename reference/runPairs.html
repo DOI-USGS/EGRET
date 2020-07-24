@@ -176,30 +176,12 @@ use of the "wall" and/or use of "generalized flow normalization".
 These two concepts are described in detail in the vignette.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/runPairs.html'>runPairs</a></span>(
-  <span class='kw'>eList</span>,
-  <span class='kw'>year1</span>,
-  <span class='kw'>year2</span>,
-  <span class='kw'>windowSide</span>,
-  flowBreak = <span class='fl'>FALSE</span>,
-  Q1EndDate = <span class='fl'>NA</span>,
-  QStartDate = <span class='fl'>NA</span>,
-  QEndDate = <span class='fl'>NA</span>,
-  wall = <span class='fl'>FALSE</span>,
-  oldSurface = <span class='fl'>FALSE</span>,
-  sample1EndDate = <span class='fl'>NA</span>,
-  sampleStartDate = <span class='fl'>NA</span>,
-  sampleEndDate = <span class='fl'>NA</span>,
-  paStart = <span class='fl'>NA</span>,
-  paLong = <span class='fl'>NA</span>,
-  minNumObs = <span class='fl'>100</span>,
-  minNumUncen = <span class='fl'>50</span>,
-  fractMin = <span class='fl'>0.75</span>,
-  windowY = <span class='fl'>7</span>,
-  windowQ = <span class='fl'>2</span>,
-  windowS = <span class='fl'>0.5</span>,
-  edgeAdjust = <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>runPairs</span>(<span class='kw'>eList</span>, <span class='kw'>year1</span>, <span class='kw'>year2</span>, <span class='kw'>windowSide</span>, flowBreak = <span class='fl'>FALSE</span>,
+  Q1EndDate = <span class='fl'>NA</span>, QStartDate = <span class='fl'>NA</span>, QEndDate = <span class='fl'>NA</span>, wall = <span class='fl'>FALSE</span>,
+  oldSurface = <span class='fl'>FALSE</span>, sample1EndDate = <span class='fl'>NA</span>, sampleStartDate = <span class='fl'>NA</span>,
+  sampleEndDate = <span class='fl'>NA</span>, paStart = <span class='fl'>NA</span>, paLong = <span class='fl'>NA</span>, minNumObs = <span class='fl'>100</span>,
+  minNumUncen = <span class='fl'>50</span>, fractMin = <span class='fl'>0.75</span>, windowY = <span class='fl'>7</span>, windowQ = <span class='fl'>2</span>,
+  windowS = <span class='fl'>0.5</span>, edgeAdjust = <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -266,12 +248,12 @@ Default is NA which sets it to the last Date in eList$Sample.</p></td>
     <tr>
       <th>paStart</th>
       <td><p>numeric integer specifying the starting month for the period of analysis, 1&lt;=paStart&lt;=12.
-Default is NA, which will use the paStart in the eList$INFO data frame. See also <code><a href='https://rdrr.io/pkg/EGRET/man/setPA.html'>setPA</a></code>.</p></td>
+Default is NA, which will use the paStart in the eList$INFO data frame. See also <code><a href='setPA.html'>setPA</a></code>.</p></td>
     </tr>
     <tr>
       <th>paLong</th>
       <td><p>numeric integer specifying the length of the period of analysis, in months, 1&lt;=paLong&lt;=12. 
-Default is NA, which will use the paLong in the eList$INFO data frame. See also <code><a href='https://rdrr.io/pkg/EGRET/man/setPA.html'>setPA</a></code>.</p></td>
+Default is NA, which will use the paLong in the eList$INFO data frame. See also <code><a href='setPA.html'>setPA</a></code>.</p></td>
     </tr>
     <tr>
       <th>minNumObs</th>
@@ -341,7 +323,7 @@ QTC Percent  is the QTC divided by x11</p>
 
 <span class='co'>#Option 1: Use all years for flow normalization.</span>
 
-<span class='kw'>pairOut_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/runPairs.html'>runPairs</a></span>(<span class='kw'>eList</span>, <span class='kw'>year1</span>, <span class='kw'>year2</span>, windowSide = <span class='fl'>0</span>)</div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; 
+<span class='kw'>pairOut_1</span> <span class='op'>&lt;-</span> <span class='fu'>runPairs</span>(<span class='kw'>eList</span>, <span class='kw'>year1</span>, <span class='kw'>year2</span>, windowSide = <span class='fl'>0</span>)</div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; 
 #&gt;    Choptank River 
 #&gt;    Inorganic nitrogen (nitrate and nitrite)
 #&gt;    Water Year 
@@ -367,7 +349,7 @@ QTC Percent  is the QTC divided by x11</p>
 <span class='co'># Option 2:  Use different windows for flow normalization for year1 versus year2</span>
 <span class='co'>#            In each case it is a 15 year window (15 = 1 + 2*7)</span>
 
-<span class='kw'>pairOut_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/runPairs.html'>runPairs</a></span>(<span class='kw'>eList</span>, <span class='kw'>year1</span>, <span class='kw'>year2</span>, windowSide = <span class='fl'>7</span>)</div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; 
+<span class='kw'>pairOut_2</span> <span class='op'>&lt;-</span> <span class='fu'>runPairs</span>(<span class='kw'>eList</span>, <span class='kw'>year1</span>, <span class='kw'>year2</span>, windowSide = <span class='fl'>7</span>)</div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; 
 #&gt;    Choptank River 
 #&gt;    Inorganic nitrogen (nitrate and nitrite)
 #&gt;    Water Year 
@@ -394,7 +376,7 @@ QTC Percent  is the QTC divided by x11</p>
 <span class='co'>#          But year1 uses all flow data from before the break, </span>
 <span class='co'>#          year2 uses all flow data after the break</span>
 
-<span class='kw'>pairOut_3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/runPairs.html'>runPairs</a></span>(<span class='kw'>eList</span>, <span class='kw'>year1</span>, <span class='kw'>year2</span>, 
+<span class='kw'>pairOut_3</span> <span class='op'>&lt;-</span> <span class='fu'>runPairs</span>(<span class='kw'>eList</span>, <span class='kw'>year1</span>, <span class='kw'>year2</span>, 
                       windowSide = <span class='fl'>0</span>, flowBreak = <span class='fl'>TRUE</span>,
                       Q1EndDate = <span class='st'>"1990-09-30"</span>)</div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; 
 #&gt;    Choptank River 
@@ -423,7 +405,7 @@ QTC Percent  is the QTC divided by x11</p>
 <span class='co'>#           but year1 uses a 15 year window before the break</span>
 <span class='co'>#           year2 uses a 15 year window after the break</span>
 
-<span class='kw'>pairOut_4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/runPairs.html'>runPairs</a></span>(<span class='kw'>eList</span>, <span class='kw'>year1</span>, <span class='kw'>year2</span>, 
+<span class='kw'>pairOut_4</span> <span class='op'>&lt;-</span> <span class='fu'>runPairs</span>(<span class='kw'>eList</span>, <span class='kw'>year1</span>, <span class='kw'>year2</span>, 
                       windowSide = <span class='fl'>7</span>, flowBreak = <span class='fl'>TRUE</span>,
                       Q1EndDate = <span class='st'>"1990-09-30"</span>)</div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; 
 #&gt;    Choptank River 
