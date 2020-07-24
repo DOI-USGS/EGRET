@@ -176,14 +176,8 @@ from the Daily data frame to to Sample data frame for those days with samples.
 Sample data frames.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/mergeReport.html'>mergeReport</a></span>(
-  <span class='kw'>INFO</span>,
-  <span class='kw'>Daily</span>,
-  Sample = <span class='fl'>NA</span>,
-  surfaces = <span class='fl'>NA</span>,
-  verbose = <span class='fl'>TRUE</span>,
-  interactive = <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>mergeReport</span>(<span class='kw'>INFO</span>, <span class='kw'>Daily</span>, Sample = <span class='fl'>NA</span>, surfaces = <span class='fl'>NA</span>, verbose = <span class='fl'>TRUE</span>,
+  interactive = <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -202,7 +196,7 @@ Sample data frames.</p>
     </tr>
     <tr>
       <th>surfaces</th>
-      <td><p>matrix returned from <code><a href='https://rdrr.io/pkg/EGRET/man/modelEstimation.html'>modelEstimation</a></code>. Default is NA.</p></td>
+      <td><p>matrix returned from <code><a href='modelEstimation.html'>modelEstimation</a></code>. Default is NA.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -225,22 +219,22 @@ Any of these values can be NA, not all EGRET functions will work with missing pa
 not update with the flow information.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/EGRET/man/readNWISDaily.html'>readNWISDaily</a></code>, <code><a href='https://rdrr.io/pkg/EGRET/man/readNWISSample.html'>readNWISSample</a></code></p></div>
+    <div class='dont-index'><p><code><a href='readNWISDaily.html'>readNWISDaily</a></code>, <code><a href='readNWISSample.html'>readNWISSample</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='kw'>siteNumber</span> <span class='op'>&lt;-</span> <span class='st'>'01491000'</span>
 <span class='kw'>pCode</span> <span class='op'>&lt;-</span> <span class='st'>'00631'</span>
 <span class='co'># \donttest{</span>
-<span class='kw'>Daily</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/readNWISDaily.html'>readNWISDaily</a></span>(<span class='kw'>siteNumber</span>,<span class='st'>'00060'</span>, <span class='st'>'1984-10-01'</span>, <span class='st'>''</span>)</div><div class='output co'>#&gt; There are 13071 data points, and 13071 days.</div><div class='input'><span class='kw'>Sample</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/readNWISSample.html'>readNWISSample</a></span>(<span class='kw'>siteNumber</span>,<span class='kw'>pCode</span>, <span class='st'>'1984-10-01'</span>, <span class='st'>''</span>)
-<span class='kw'>INFO</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/INFOdataframe.html'>readNWISInfo</a></span>(<span class='kw'>siteNumber</span>,<span class='kw'>pCode</span>,interactive=<span class='fl'>FALSE</span>)
-<span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/mergeReport.html'>mergeReport</a></span>(<span class='kw'>INFO</span>, <span class='kw'>Daily</span>, <span class='kw'>Sample</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+<span class='kw'>Daily</span> <span class='op'>&lt;-</span> <span class='fu'><a href='readNWISDaily.html'>readNWISDaily</a></span>(<span class='kw'>siteNumber</span>,<span class='st'>'00060'</span>, <span class='st'>'1984-10-01'</span>, <span class='st'>''</span>)</div><div class='output co'>#&gt; There are 13080 data points, and 13080 days.</div><div class='input'><span class='kw'>Sample</span> <span class='op'>&lt;-</span> <span class='fu'><a href='readNWISSample.html'>readNWISSample</a></span>(<span class='kw'>siteNumber</span>,<span class='kw'>pCode</span>, <span class='st'>'1984-10-01'</span>, <span class='st'>''</span>)
+<span class='kw'>INFO</span> <span class='op'>&lt;-</span> <span class='fu'><a href='INFOdataframe.html'>readNWISInfo</a></span>(<span class='kw'>siteNumber</span>,<span class='kw'>pCode</span>,interactive=<span class='fl'>FALSE</span>)
+<span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='fu'>mergeReport</span>(<span class='kw'>INFO</span>, <span class='kw'>Daily</span>, <span class='kw'>Sample</span>)</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>There are 47 duplicated Sample dates.</span></div><div class='input'><span class='kw'>Sample</span> <span class='op'>&lt;-</span> <span class='kw'>eList</span><span class='op'>$</span><span class='kw'>Sample</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>eList</span>)</div><div class='img'><img src='mergeReport-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Create eList with no water quality data:</span>
 
-<span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/mergeReport.html'>mergeReport</a></span>(<span class='kw'>INFO</span>, <span class='kw'>Daily</span>, Sample = <span class='fl'>NA</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/plotFour.html'>plotFour</a></span>(<span class='kw'>eList</span>)</div><div class='img'><img src='mergeReport-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
+<span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='fu'>mergeReport</span>(<span class='kw'>INFO</span>, <span class='kw'>Daily</span>, Sample = <span class='fl'>NA</span>)
+<span class='fu'><a href='plotFour.html'>plotFour</a></span>(<span class='kw'>eList</span>)</div><div class='img'><img src='mergeReport-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

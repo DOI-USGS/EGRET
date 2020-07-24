@@ -188,21 +188,10 @@ The second index is time, layed out as 16 increments of the calendar year, start
  This array will be used to estimate these 3 quantities for any given day in the daily values record.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/estSurfaces.html'>estSurfaces</a></span>(
-  <span class='kw'>eList</span>,
-  surfaceStart = <span class='fl'>NA</span>,
-  surfaceEnd = <span class='fl'>NA</span>,
-  localSample = <span class='fl'>NA</span>,
-  windowY = <span class='fl'>7</span>,
-  windowQ = <span class='fl'>2</span>,
-  windowS = <span class='fl'>0.5</span>,
-  minNumObs = <span class='fl'>100</span>,
-  minNumUncen = <span class='fl'>50</span>,
-  edgeAdjust = <span class='fl'>TRUE</span>,
-  verbose = <span class='fl'>TRUE</span>,
-  interactive = <span class='kw'>NULL</span>,
-  run.parallel = <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>estSurfaces</span>(<span class='kw'>eList</span>, surfaceStart = <span class='fl'>NA</span>, surfaceEnd = <span class='fl'>NA</span>, localSample = <span class='fl'>NA</span>,
+  windowY = <span class='fl'>7</span>, windowQ = <span class='fl'>2</span>, windowS = <span class='fl'>0.5</span>, minNumObs = <span class='fl'>100</span>,
+  minNumUncen = <span class='fl'>50</span>, edgeAdjust = <span class='fl'>TRUE</span>, verbose = <span class='fl'>TRUE</span>,
+  interactive = <span class='kw'>NULL</span>, run.parallel = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -268,7 +257,7 @@ The second index is time, layed out as 16 increments of the calendar year, start
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='kw'>Choptank_eList</span>
 <span class='co'># \donttest{</span>
-<span class='kw'>surfaces</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/estSurfaces.html'>estSurfaces</a></span>(<span class='kw'>eList</span>)</div><div class='output co'>#&gt; Survival regression (% complete):
+<span class='kw'>surfaces</span> <span class='op'>&lt;-</span> <span class='fu'>estSurfaces</span>(<span class='kw'>eList</span>)</div><div class='output co'>#&gt; Survival regression (% complete):
 #&gt; 0 	1 	2 	3 	4 	5 	6 	7 	8 	9 	10 	
 #&gt; 11 	12 	13 	14 	15 	16 	17 	18 	19 	20 	
 #&gt; 21 	22 	23 	24 	25 	26 	27 	28 	29 	30 	
@@ -282,7 +271,7 @@ The second index is time, layed out as 16 increments of the calendar year, start
 #&gt; Survival regression: Done</div><div class='input'>
 <span class='kw'>surfaceStart</span> <span class='op'>&lt;-</span> <span class='st'>"1984-10-01"</span>
 <span class='kw'>surfaceEnd</span> <span class='op'>&lt;-</span> <span class='st'>"1986-09-30"</span>
-<span class='kw'>surfaces_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/estSurfaces.html'>estSurfaces</a></span>(<span class='kw'>eList</span>, <span class='kw'>surfaceStart</span>, <span class='kw'>surfaceEnd</span>)</div><div class='output co'>#&gt; Survival regression (% complete):
+<span class='kw'>surfaces_1</span> <span class='op'>&lt;-</span> <span class='fu'>estSurfaces</span>(<span class='kw'>eList</span>, <span class='kw'>surfaceStart</span>, <span class='kw'>surfaceEnd</span>)</div><div class='output co'>#&gt; Survival regression (% complete):
 #&gt; 0 	1 	2 	3 	4 	5 	6 	7 	8 	9 	10 	
 #&gt; 11 	12 	13 	14 	15 	16 	17 	18 	19 	20 	
 #&gt; 21 	22 	23 	24 	25 	26 	27 	28 	29 	30 	
@@ -296,7 +285,7 @@ The second index is time, layed out as 16 increments of the calendar year, start
 #&gt; Survival regression: Done</div><div class='input'>
 <span class='kw'>wall_sample</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='kw'>eList</span><span class='op'>$</span><span class='kw'>Sample</span>, n=<span class='fl'>500</span>)
 
-<span class='kw'>surface_wall</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/estSurfaces.html'>estSurfaces</a></span>(<span class='kw'>eList</span>, localSample = <span class='kw'>wall_sample</span>)</div><div class='output co'>#&gt; Survival regression (% complete):
+<span class='kw'>surface_wall</span> <span class='op'>&lt;-</span> <span class='fu'>estSurfaces</span>(<span class='kw'>eList</span>, localSample = <span class='kw'>wall_sample</span>)</div><div class='output co'>#&gt; Survival regression (% complete):
 #&gt; 0 	1 	2 	3 	4 	5 	6 	7 	8 	9 	10 	
 #&gt; 11 	12 	13 	14 	15 	16 	17 	18 	19 	20 	
 #&gt; 21 	22 	23 	24 	25 	26 	27 	28 	29 	30 	

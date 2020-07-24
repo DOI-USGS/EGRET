@@ -176,14 +176,8 @@ are to be combined with interval censoring, additional columns can be inserted, 
 remark code (specifically looking for &lt;), and values.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/readUserSample.html'>readUserSample</a></span>(
-  <span class='kw'>filePath</span>,
-  <span class='kw'>fileName</span>,
-  hasHeader = <span class='fl'>TRUE</span>,
-  separator = <span class='st'>","</span>,
-  verbose = <span class='fl'>TRUE</span>,
-  interactive = <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>readUserSample</span>(<span class='kw'>filePath</span>, <span class='kw'>fileName</span>, hasHeader = <span class='fl'>TRUE</span>, separator = <span class='st'>","</span>,
+  verbose = <span class='fl'>TRUE</span>, interactive = <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -236,12 +230,12 @@ which is separator used in a .csv file.</p></td>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/EGRET/man/compressData.html'>compressData</a></code>, <code><a href='https://rdrr.io/pkg/EGRET/man/populateSampleColumns.html'>populateSampleColumns</a></code></p></div>
+    <div class='dont-index'><p><code><a href='compressData.html'>compressData</a></code>, <code><a href='populateSampleColumns.html'>populateSampleColumns</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>filePath</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, package=<span class='st'>"EGRET"</span>)
 <span class='kw'>fileName</span> <span class='op'>&lt;-</span> <span class='st'>'ChoptankRiverNitrate.csv'</span>
-<span class='kw'>Sample</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/readUserSample.html'>readUserSample</a></span>(<span class='kw'>filePath</span>,<span class='kw'>fileName</span>, separator=<span class='st'>";"</span>,verbose=<span class='fl'>FALSE</span>)</div></pre>
+<span class='kw'>Sample</span> <span class='op'>&lt;-</span> <span class='fu'>readUserSample</span>(<span class='kw'>filePath</span>,<span class='kw'>fileName</span>, separator=<span class='st'>";"</span>,verbose=<span class='fl'>FALSE</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

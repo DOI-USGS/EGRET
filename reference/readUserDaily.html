@@ -168,15 +168,8 @@
     <p>Imports data from a user-supplied file, and converts it to a Daily data frame, appropriate for WRTDS calculations.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/readUserDaily.html'>readUserDaily</a></span>(
-  <span class='kw'>filePath</span>,
-  <span class='kw'>fileName</span>,
-  hasHeader = <span class='fl'>TRUE</span>,
-  separator = <span class='st'>","</span>,
-  qUnit = <span class='fl'>1</span>,
-  verbose = <span class='fl'>TRUE</span>,
-  interactive = <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>readUserDaily</span>(<span class='kw'>filePath</span>, <span class='kw'>fileName</span>, hasHeader = <span class='fl'>TRUE</span>, separator = <span class='st'>","</span>,
+  qUnit = <span class='fl'>1</span>, verbose = <span class='fl'>TRUE</span>, interactive = <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -234,7 +227,7 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>filePath</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, package=<span class='st'>"EGRET"</span>)
 <span class='kw'>fileName</span> <span class='op'>&lt;-</span> <span class='st'>"ChoptankRiverFlow.txt"</span>
-<span class='kw'>Daily</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/readUserDaily.html'>readUserDaily</a></span>(<span class='kw'>filePath</span>,<span class='kw'>fileName</span>,separator=<span class='st'>"\t"</span>)</div><div class='output co'>#&gt; <span class='message'>The input discharge are assumed to be in cubic feet per second, if they are in cubic meters per second, then the call to readUserDaily should specify qUnit=2</span></div><div class='output co'>#&gt; There are 4383 data points, and 4383 days.</div></pre>
+<span class='kw'>Daily</span> <span class='op'>&lt;-</span> <span class='fu'>readUserDaily</span>(<span class='kw'>filePath</span>,<span class='kw'>fileName</span>,separator=<span class='st'>"\t"</span>)</div><div class='output co'>#&gt; <span class='message'>The input discharge are assumed to be in cubic feet per second, if they are in cubic meters per second, then the call to readUserDaily should specify qUnit=2</span></div><div class='output co'>#&gt; There are 4383 data points, and 4383 days.</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

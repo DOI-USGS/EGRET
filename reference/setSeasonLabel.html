@@ -182,7 +182,7 @@ This might arise in a call from plotConcTime or plotLogConcTime.
 That function is called setSeasonLabelByUser.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/setSeasonLabel.html'>setSeasonLabel</a></span>(<span class='kw'>localAnnualResults</span>)</pre>
+    <pre class="usage"><span class='fu'>setSeasonLabel</span>(<span class='kw'>localAnnualResults</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -199,9 +199,9 @@ That function is called setSeasonLabelByUser.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='kw'>Choptank_eList</span>
-<span class='kw'>Daily</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/getDaily.html'>getDaily</a></span>(<span class='kw'>eList</span>)
-<span class='kw'>AnnualResults</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/setupYears.html'>setupYears</a></span>(<span class='kw'>Daily</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/setSeasonLabel.html'>setSeasonLabel</a></span>(<span class='kw'>AnnualResults</span>)</div><div class='output co'>#&gt; [1] "Water Year"</div></pre>
+<span class='kw'>Daily</span> <span class='op'>&lt;-</span> <span class='fu'><a href='getDaily.html'>getDaily</a></span>(<span class='kw'>eList</span>)
+<span class='kw'>AnnualResults</span> <span class='op'>&lt;-</span> <span class='fu'><a href='setupYears.html'>setupYears</a></span>(<span class='kw'>Daily</span>)
+<span class='fu'>setSeasonLabel</span>(<span class='kw'>AnnualResults</span>)</div><div class='output co'>#&gt; [1] "Water Year"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -176,35 +176,13 @@ use of the "wall" and/or use of "generalized flow normalization".
 These two concepts are described in detail in the vignette.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/runGroups.html'>runGroups</a></span>(
-  <span class='kw'>eList</span>,
-  <span class='kw'>windowSide</span>,
-  <span class='kw'>group1firstYear</span>,
-  <span class='kw'>group1lastYear</span>,
-  <span class='kw'>group2firstYear</span>,
-  <span class='kw'>group2lastYear</span>,
-  surfaceStart = <span class='fl'>NA</span>,
-  surfaceEnd = <span class='fl'>NA</span>,
-  flowBreak = <span class='fl'>FALSE</span>,
-  Q1EndDate = <span class='fl'>NA</span>,
-  QStartDate = <span class='fl'>NA</span>,
-  QEndDate = <span class='fl'>NA</span>,
-  wall = <span class='fl'>FALSE</span>,
-  oldSurface = <span class='fl'>FALSE</span>,
-  fractMin = <span class='fl'>0.75</span>,
-  sample1EndDate = <span class='fl'>NA</span>,
-  sampleStartDate = <span class='fl'>NA</span>,
-  sampleEndDate = <span class='fl'>NA</span>,
-  paStart = <span class='fl'>NA</span>,
-  paLong = <span class='fl'>NA</span>,
-  minNumObs = <span class='fl'>100</span>,
-  minNumUncen = <span class='fl'>50</span>,
-  windowY = <span class='fl'>7</span>,
-  windowQ = <span class='fl'>2</span>,
-  windowS = <span class='fl'>0.5</span>,
-  edgeAdjust = <span class='fl'>TRUE</span>,
-  verbose = <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>runGroups</span>(<span class='kw'>eList</span>, <span class='kw'>windowSide</span>, <span class='kw'>group1firstYear</span>, <span class='kw'>group1lastYear</span>, <span class='kw'>group2firstYear</span>,
+  <span class='kw'>group2lastYear</span>, surfaceStart = <span class='fl'>NA</span>, surfaceEnd = <span class='fl'>NA</span>, flowBreak = <span class='fl'>FALSE</span>,
+  Q1EndDate = <span class='fl'>NA</span>, QStartDate = <span class='fl'>NA</span>, QEndDate = <span class='fl'>NA</span>, wall = <span class='fl'>FALSE</span>,
+  oldSurface = <span class='fl'>FALSE</span>, fractMin = <span class='fl'>0.75</span>, sample1EndDate = <span class='fl'>NA</span>,
+  sampleStartDate = <span class='fl'>NA</span>, sampleEndDate = <span class='fl'>NA</span>, paStart = <span class='fl'>NA</span>, paLong = <span class='fl'>NA</span>,
+  minNumObs = <span class='fl'>100</span>, minNumUncen = <span class='fl'>50</span>, windowY = <span class='fl'>7</span>, windowQ = <span class='fl'>2</span>,
+  windowS = <span class='fl'>0.5</span>, edgeAdjust = <span class='fl'>TRUE</span>, verbose = <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -294,12 +272,12 @@ Default is NA which sets it to the last Date in eList$Sample.</p></td>
     <tr>
       <th>paStart</th>
       <td><p>numeric integer specifying the starting month for the period of analysis, 1&lt;=paStart&lt;=12.
-Default is NA, which will use the paStart in the eList$INFO data frame. See also <code><a href='https://rdrr.io/pkg/EGRET/man/setPA.html'>setPA</a></code>.</p></td>
+Default is NA, which will use the paStart in the eList$INFO data frame. See also <code><a href='setPA.html'>setPA</a></code>.</p></td>
     </tr>
     <tr>
       <th>paLong</th>
       <td><p>numeric integer specifying the length of the period of analysis, in months, 1&lt;=paLong&lt;=12. 
-Default is NA, which will use the paLong in the eList$INFO data frame. See also <code><a href='https://rdrr.io/pkg/EGRET/man/setPA.html'>setPA</a></code>.</p></td>
+Default is NA, which will use the paLong in the eList$INFO data frame. See also <code><a href='setPA.html'>setPA</a></code>.</p></td>
     </tr>
     <tr>
       <th>minNumObs</th>
@@ -357,7 +335,7 @@ in the Daily data frame).</td><td>x11</td><td>The results using the CQR for year
 <span class='co'># \donttest{</span>
 
 <span class='co'>#Option 1:  Use all years for group flow normalization.</span>
-<span class='kw'>groupOut_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/runGroups.html'>runGroups</a></span>(<span class='kw'>eList</span>,  windowSide = <span class='fl'>0</span>,
+<span class='kw'>groupOut_1</span> <span class='op'>&lt;-</span> <span class='fu'>runGroups</span>(<span class='kw'>eList</span>,  windowSide = <span class='fl'>0</span>,
                        group1firstYear = <span class='fl'>1980</span>, group1lastYear = <span class='fl'>1990</span>,
                        group2firstYear = <span class='fl'>1995</span>, group2lastYear = <span class='fl'>2005</span>)</div><div class='output co'>#&gt; Survival regression (% complete):
 #&gt; 0 	1 	2 	3 	4 	5 	6 	7 	8 	9 	10 	
@@ -397,7 +375,7 @@ in the Daily data frame).</td><td>x11</td><td>The results using the CQR for year
 <span class='co'># Option 2: Use sliding window.</span>
 <span class='co'>#                In each case it is a 15 year window (15 = 1 + 2*7)</span>
 
-<span class='kw'>groupOut_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/runGroups.html'>runGroups</a></span>(<span class='kw'>eList</span>,  windowSide = <span class='fl'>7</span>,
+<span class='kw'>groupOut_2</span> <span class='op'>&lt;-</span> <span class='fu'>runGroups</span>(<span class='kw'>eList</span>,  windowSide = <span class='fl'>7</span>,
                        group1firstYear = <span class='fl'>1980</span>, group1lastYear = <span class='fl'>1990</span>,
                        group2firstYear = <span class='fl'>1995</span>, group2lastYear = <span class='fl'>2005</span>)</div><div class='output co'>#&gt; Survival regression (% complete):
 #&gt; 0 	1 	2 	3 	4 	5 	6 	7 	8 	9 	10 	
@@ -438,7 +416,7 @@ in the Daily data frame).</td><td>x11</td><td>The results using the CQR for year
 <span class='co'>#                But in years before the break it uses all flow data from before the break,</span>
 <span class='co'>#                and years after the break uses all flow data after the break</span>
 
-<span class='kw'>groupOut_3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/runGroups.html'>runGroups</a></span>(<span class='kw'>eList</span>,  windowSide = <span class='fl'>0</span>,
+<span class='kw'>groupOut_3</span> <span class='op'>&lt;-</span> <span class='fu'>runGroups</span>(<span class='kw'>eList</span>,  windowSide = <span class='fl'>0</span>,
                        group1firstYear = <span class='fl'>1980</span>, group1lastYear = <span class='fl'>1990</span>,
                        group2firstYear = <span class='fl'>1995</span>, group2lastYear = <span class='fl'>2005</span>,
                        flowBreak = <span class='fl'>TRUE</span>, 
@@ -480,7 +458,7 @@ in the Daily data frame).</td><td>x11</td><td>The results using the CQR for year
 <span class='co'># Option 4: Flow normalization is based on splitting the flow record at 1990-09-30</span>
 <span class='co'>#                but before the break uses a 15 year window of years before the break</span>
 <span class='co'>#                after the break uses a 15 year window of years after the break</span>
-<span class='kw'>groupOut_4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/runGroups.html'>runGroups</a></span>(<span class='kw'>eList</span>,  windowSide = <span class='fl'>7</span>,
+<span class='kw'>groupOut_4</span> <span class='op'>&lt;-</span> <span class='fu'>runGroups</span>(<span class='kw'>eList</span>,  windowSide = <span class='fl'>7</span>,
                        group1firstYear = <span class='fl'>1980</span>, group1lastYear = <span class='fl'>1990</span>,
                        group2firstYear = <span class='fl'>1995</span>, group2lastYear = <span class='fl'>2005</span>,
                        flowBreak = <span class='fl'>TRUE</span>, 

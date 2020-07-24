@@ -178,23 +178,10 @@ The function also provides an alternative for viewing the standardized residuals
 and an INFO dataframe with metadata.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/plotResidQ.html'>plotResidQ</a></span>(
-  <span class='kw'>eList</span>,
-  qUnit = <span class='fl'>2</span>,
-  tinyPlot = <span class='fl'>FALSE</span>,
-  stdResid = <span class='fl'>FALSE</span>,
-  printTitle = <span class='fl'>TRUE</span>,
-  col = <span class='st'>"black"</span>,
-  lwd = <span class='fl'>1</span>,
-  cex = <span class='fl'>0.8</span>,
-  cex.axis = <span class='fl'>1.1</span>,
-  cex.main = <span class='fl'>1.1</span>,
-  rmSciX = <span class='fl'>FALSE</span>,
-  customPar = <span class='fl'>FALSE</span>,
-  randomCensored = <span class='fl'>FALSE</span>,
-  usgsStyle = <span class='fl'>FALSE</span>,
-  <span class='kw'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>plotResidQ</span>(<span class='kw'>eList</span>, qUnit = <span class='fl'>2</span>, tinyPlot = <span class='fl'>FALSE</span>, stdResid = <span class='fl'>FALSE</span>,
+  printTitle = <span class='fl'>TRUE</span>, col = <span class='st'>"black"</span>, lwd = <span class='fl'>1</span>, cex = <span class='fl'>0.8</span>,
+  cex.axis = <span class='fl'>1.1</span>, cex.main = <span class='fl'>1.1</span>, rmSciX = <span class='fl'>FALSE</span>, customPar = <span class='fl'>FALSE</span>,
+  randomCensored = <span class='fl'>FALSE</span>, usgsStyle = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -205,7 +192,7 @@ and an INFO dataframe with metadata.</p>
     </tr>
     <tr>
       <th>qUnit</th>
-      <td><p>object of qUnit class <code><a href='https://rdrr.io/pkg/EGRET/man/printqUnitCheatSheet.html'>printqUnitCheatSheet</a></code>, or numeric represented the short code, or character representing the descriptive name.</p></td>
+      <td><p>object of qUnit class <code><a href='printqUnitCheatSheet.html'>printqUnitCheatSheet</a></code>, or numeric represented the short code, or character representing the descriptive name.</p></td>
     </tr>
     <tr>
       <th>tinyPlot</th>
@@ -266,14 +253,14 @@ generated labels.</p></td>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/EGRET/man/selectDays.html'>selectDays</a></code>, <code><a href='https://rdrr.io/pkg/EGRET/man/genericEGRETDotPlot.html'>genericEGRETDotPlot</a></code></p></div>
+    <div class='dont-index'><p><code><a href='selectDays.html'>selectDays</a></code>, <code><a href='genericEGRETDotPlot.html'>genericEGRETDotPlot</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='kw'>Choptank_eList</span>
 <span class='co'># Water year:</span>
-<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/plotResidQ.html'>plotResidQ</a></span>(<span class='kw'>eList</span>)</div><div class='img'><img src='plotResidQ-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Graphs consisting of Jun-Aug</span>
-<span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/setPA.html'>setPA</a></span>(<span class='kw'>eList</span>, paStart=<span class='fl'>6</span>,paLong=<span class='fl'>3</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/plotResidQ.html'>plotResidQ</a></span>(<span class='kw'>eList</span>)</div><div class='img'><img src='plotResidQ-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>plotResidQ</span>(<span class='kw'>eList</span>)</div><div class='img'><img src='plotResidQ-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Graphs consisting of Jun-Aug</span>
+<span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span>(<span class='kw'>eList</span>, paStart=<span class='fl'>6</span>,paLong=<span class='fl'>3</span>)
+<span class='fu'>plotResidQ</span>(<span class='kw'>eList</span>)</div><div class='img'><img src='plotResidQ-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

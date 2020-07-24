@@ -178,34 +178,13 @@ a Daily dataframe with the daily flow data,
 and an INFO dataframe with metadata.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/plotDiffContours.html'>plotDiffContours</a></span>(
-  <span class='kw'>eList</span>,
-  <span class='kw'>year0</span>,
-  <span class='kw'>year1</span>,
-  qBottom = <span class='fl'>NA</span>,
-  qTop = <span class='fl'>NA</span>,
-  maxDiff = <span class='fl'>NA</span>,
-  whatSurface = <span class='fl'>3</span>,
-  tcl = <span class='fl'>0.03</span>,
-  qUnit = <span class='fl'>2</span>,
-  span = <span class='fl'>60</span>,
-  pval = <span class='fl'>0.05</span>,
-  printTitle = <span class='fl'>TRUE</span>,
-  plotPercent = <span class='fl'>FALSE</span>,
-  vert1 = <span class='fl'>NA</span>,
-  vert2 = <span class='fl'>NA</span>,
-  horiz = <span class='fl'>NA</span>,
-  flowDuration = <span class='fl'>TRUE</span>,
-  yTicks = <span class='fl'>NA</span>,
-  tick.lwd = <span class='fl'>1</span>,
-  lwd = <span class='fl'>2</span>,
-  cex.main = <span class='fl'>0.95</span>,
-  cex.axis = <span class='fl'>1</span>,
-  customPar = <span class='fl'>FALSE</span>,
-  usgsStyle = <span class='fl'>FALSE</span>,
-  color.palette = <span class='fu'><a href='https://rdrr.io/r/grDevices/colorRamp.html'>colorRampPalette</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"blue"</span>, <span class='st'>"white"</span>, <span class='st'>"red"</span>)),
-  <span class='kw'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>plotDiffContours</span>(<span class='kw'>eList</span>, <span class='kw'>year0</span>, <span class='kw'>year1</span>, qBottom = <span class='fl'>NA</span>, qTop = <span class='fl'>NA</span>,
+  maxDiff = <span class='fl'>NA</span>, whatSurface = <span class='fl'>3</span>, tcl = <span class='fl'>0.03</span>, qUnit = <span class='fl'>2</span>, span = <span class='fl'>60</span>,
+  pval = <span class='fl'>0.05</span>, printTitle = <span class='fl'>TRUE</span>, plotPercent = <span class='fl'>FALSE</span>, vert1 = <span class='fl'>NA</span>,
+  vert2 = <span class='fl'>NA</span>, horiz = <span class='fl'>NA</span>, flowDuration = <span class='fl'>TRUE</span>, yTicks = <span class='fl'>NA</span>,
+  tick.lwd = <span class='fl'>1</span>, lwd = <span class='fl'>2</span>, cex.main = <span class='fl'>0.95</span>, cex.axis = <span class='fl'>1</span>,
+  customPar = <span class='fl'>FALSE</span>, usgsStyle = <span class='fl'>FALSE</span>,
+  color.palette = <span class='fu'><a href='https://rdrr.io/r/grDevices/colorRamp.html'>colorRampPalette</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"blue"</span>, <span class='st'>"white"</span>, <span class='st'>"red"</span>)), <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -245,7 +224,7 @@ a vector with the minimum and maximum values in the change in concentration scal
     </tr>
     <tr>
       <th>qUnit</th>
-      <td><p>object of qUnit class. <code><a href='https://rdrr.io/pkg/EGRET/man/printqUnitCheatSheet.html'>printqUnitCheatSheet</a></code>, or numeric represented the short code, or character representing the descriptive name.</p></td>
+      <td><p>object of qUnit class. <code><a href='printqUnitCheatSheet.html'>printqUnitCheatSheet</a></code>, or numeric represented the short code, or character representing the descriptive name.</p></td>
     </tr>
     <tr>
       <th>span</th>
@@ -329,15 +308,15 @@ using the function <code><a href='https://rdrr.io/r/grDevices/colorRamp.html'>co
 <span class='kw'>qTop</span><span class='op'>&lt;-</span><span class='fl'>22</span>
 <span class='kw'>maxDiff</span><span class='op'>&lt;-</span><span class='fl'>0.5</span>
 <span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='kw'>Choptank_eList</span>
-<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/plotDiffContours.html'>plotDiffContours</a></span>(<span class='kw'>eList</span>, <span class='kw'>year0</span>,<span class='kw'>year1</span>)</div><div class='img'><img src='plotDiffContours-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/plotDiffContours.html'>plotDiffContours</a></span>(<span class='kw'>eList</span>, <span class='kw'>year0</span>,<span class='kw'>year1</span>,maxDiff=<span class='kw'>maxDiff</span>)</div><div class='img'><img src='plotDiffContours-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/plotDiffContours.html'>plotDiffContours</a></span>(<span class='kw'>eList</span>, <span class='kw'>year0</span>,<span class='kw'>year1</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>,<span class='kw'>maxDiff</span>)</div><div class='img'><img src='plotDiffContours-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotDiffContours</span>(<span class='kw'>eList</span>, <span class='kw'>year0</span>,<span class='kw'>year1</span>)</div><div class='img'><img src='plotDiffContours-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotDiffContours</span>(<span class='kw'>eList</span>, <span class='kw'>year0</span>,<span class='kw'>year1</span>,maxDiff=<span class='kw'>maxDiff</span>)</div><div class='img'><img src='plotDiffContours-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotDiffContours</span>(<span class='kw'>eList</span>, <span class='kw'>year0</span>,<span class='kw'>year1</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>,<span class='kw'>maxDiff</span>)</div><div class='img'><img src='plotDiffContours-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='kw'>yTicksModified</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>.1</span>,<span class='fl'>1</span>,<span class='fl'>10</span>,<span class='fl'>25</span>)
-<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/plotDiffContours.html'>plotDiffContours</a></span>(<span class='kw'>eList</span>, <span class='kw'>year0</span>, <span class='kw'>year1</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>,<span class='kw'>maxDiff</span>,
+<span class='fu'>plotDiffContours</span>(<span class='kw'>eList</span>, <span class='kw'>year0</span>, <span class='kw'>year1</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>,<span class='kw'>maxDiff</span>,
        yTicks=<span class='kw'>yTicksModified</span>,flowDuration=<span class='fl'>FALSE</span>)</div><div class='img'><img src='plotDiffContours-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>colors</span> <span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/grDevices/colorRamp.html'>colorRampPalette</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"blue"</span>,<span class='st'>"white"</span>,<span class='st'>"red"</span>))
-<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/plotDiffContours.html'>plotDiffContours</a></span>(<span class='kw'>eList</span>, <span class='kw'>year0</span>,<span class='kw'>year1</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>,<span class='kw'>maxDiff</span>,
+<span class='fu'>plotDiffContours</span>(<span class='kw'>eList</span>, <span class='kw'>year0</span>,<span class='kw'>year1</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>,<span class='kw'>maxDiff</span>,
        color.palette=<span class='kw'>colors</span>,flowDuration=<span class='fl'>FALSE</span>)</div><div class='img'><img src='plotDiffContours-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='kw'>colors2</span> <span class='op'>&lt;-</span> <span class='kw'>heat.colors</span> <span class='co'># Some other options: topo.colors, terrain.colors, cm.colors</span>
-<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/plotDiffContours.html'>plotDiffContours</a></span>(<span class='kw'>eList</span>, <span class='kw'>year0</span>,<span class='kw'>year1</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>,<span class='kw'>maxDiff</span>,
-       lwd=<span class='fl'>2</span>,color.palette=<span class='kw'>colors2</span>,flowDuration=<span class='fl'>FALSE</span>)</div><div class='img'><img src='plotDiffContours-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/plotDiffContours.html'>plotDiffContours</a></span>(<span class='kw'>eList</span>, <span class='kw'>year0</span>,<span class='kw'>year1</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>,<span class='kw'>maxDiff</span>,cex.lab=<span class='fl'>2</span>,flowDuration=<span class='fl'>FALSE</span>)</div><div class='img'><img src='plotDiffContours-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(mar=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>,<span class='fl'>8</span>,<span class='fl'>5</span>,<span class='fl'>8</span>))
-<span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/plotDiffContours.html'>plotDiffContours</a></span>(<span class='kw'>eList</span>, <span class='kw'>year0</span>,<span class='kw'>year1</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>,<span class='kw'>maxDiff</span>,
+<span class='fu'>plotDiffContours</span>(<span class='kw'>eList</span>, <span class='kw'>year0</span>,<span class='kw'>year1</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>,<span class='kw'>maxDiff</span>,
+       lwd=<span class='fl'>2</span>,color.palette=<span class='kw'>colors2</span>,flowDuration=<span class='fl'>FALSE</span>)</div><div class='img'><img src='plotDiffContours-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotDiffContours</span>(<span class='kw'>eList</span>, <span class='kw'>year0</span>,<span class='kw'>year1</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>,<span class='kw'>maxDiff</span>,cex.lab=<span class='fl'>2</span>,flowDuration=<span class='fl'>FALSE</span>)</div><div class='img'><img src='plotDiffContours-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(mar=<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>,<span class='fl'>8</span>,<span class='fl'>5</span>,<span class='fl'>8</span>))
+<span class='fu'>plotDiffContours</span>(<span class='kw'>eList</span>, <span class='kw'>year0</span>,<span class='kw'>year1</span>,<span class='kw'>qBottom</span>,<span class='kw'>qTop</span>,<span class='kw'>maxDiff</span>,
        customPar=<span class='fl'>TRUE</span>,flowDuration=<span class='fl'>FALSE</span>)</div><div class='img'><img src='plotDiffContours-8.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

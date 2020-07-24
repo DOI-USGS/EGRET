@@ -174,14 +174,8 @@ For raw data, use readWQPdata.  This function will retrieve the raw data, and co
 chapter 7 of the EGRET user guide for more details, then converts it to the Sample dataframe structure.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/readWQPSample.html'>readWQPSample</a></span>(
-  <span class='kw'>siteNumber</span>,
-  <span class='kw'>characteristicName</span>,
-  <span class='kw'>startDate</span>,
-  <span class='kw'>endDate</span>,
-  verbose = <span class='fl'>TRUE</span>,
-  interactive = <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>readWQPSample</span>(<span class='kw'>siteNumber</span>, <span class='kw'>characteristicName</span>, <span class='kw'>startDate</span>, <span class='kw'>endDate</span>,
+  verbose = <span class='fl'>TRUE</span>, interactive = <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -234,12 +228,12 @@ chapter 7 of the EGRET user guide for more details, then converts it to the Samp
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/dataRetrieval/man/readWQPdata.html'>readWQPdata</a></code>, <code><a href='https://rdrr.io/pkg/dataRetrieval/man/wqpSpecials.html'>whatWQPsites</a></code>, 
-<code><a href='https://rdrr.io/pkg/dataRetrieval/man/readWQPqw.html'>readWQPqw</a></code>, <code><a href='https://rdrr.io/pkg/EGRET/man/compressData.html'>compressData</a></code>, <code><a href='https://rdrr.io/pkg/EGRET/man/populateSampleColumns.html'>populateSampleColumns</a></code></p></div>
+<code><a href='https://rdrr.io/pkg/dataRetrieval/man/readWQPqw.html'>readWQPqw</a></code>, <code><a href='compressData.html'>compressData</a></code>, <code><a href='populateSampleColumns.html'>populateSampleColumns</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># These examples require an internet connection to run</span>
 <span class='co'># \donttest{</span>
-<span class='kw'>Sample_All</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/readWQPSample.html'>readWQPSample</a></span>(<span class='st'>'WIDNR_WQX-10032762'</span>,<span class='st'>'Specific conductance'</span>, <span class='st'>''</span>, <span class='st'>''</span>)
+<span class='kw'>Sample_All</span> <span class='op'>&lt;-</span> <span class='fu'>readWQPSample</span>(<span class='st'>'WIDNR_WQX-10032762'</span>,<span class='st'>'Specific conductance'</span>, <span class='st'>''</span>, <span class='st'>''</span>)
 <span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

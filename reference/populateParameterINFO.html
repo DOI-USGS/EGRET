@@ -168,7 +168,7 @@
     <p>Populates INFO data frame with additional user-supplied information concerning the measured parameter.</p>
     </div>
 
-    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/populateParameterINFO.html'>populateParameterINFO</a></span>(<span class='kw'>parameterCd</span>, <span class='kw'>INFO</span>, interactive = <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>populateParameterINFO</span>(<span class='kw'>parameterCd</span>, <span class='kw'>INFO</span>, interactive = <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -203,7 +203,7 @@ and data checks. Default is TRUE. If running in batch, should be set to FALSE.</
 <span class='kw'>INFO</span><span class='op'>$</span><span class='kw'>paramShortName</span> <span class='op'>&lt;-</span> <span class='kw'>parameterData</span><span class='op'>$</span><span class='kw'>srsname</span>
 <span class='kw'>INFO</span><span class='op'>$</span><span class='kw'>paramNumber</span> <span class='op'>&lt;-</span> <span class='kw'>parameterData</span><span class='op'>$</span><span class='kw'>parameter_cd</span>
 
-<span class='kw'>INFO</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/EGRET/man/populateParameterINFO.html'>populateParameterINFO</a></span>(<span class='kw'>parameterCd</span>, <span class='kw'>INFO</span>)</div><div class='output co'>#&gt; Your water quality data are for parameter number:
+<span class='kw'>INFO</span> <span class='op'>&lt;-</span> <span class='fu'>populateParameterINFO</span>(<span class='kw'>parameterCd</span>, <span class='kw'>INFO</span>)</div><div class='output co'>#&gt; Your water quality data are for parameter number:
 #&gt; 01075 
 #&gt; which has the name:' Silver, water, filtered, micrograms per liter '.
 #&gt; Typically you will want a shorter name to be used in graphs and tables.
