@@ -1,8 +1,8 @@
-#' WRTDS-K 
+#' WRTDS-Kalman
 #' 
 #' This function takes an existing eList 
 #' Including the estimated model (the surfaces object in the eList)
-#' And produces the daily WRTDS_K estimates of concentration and flux
+#' And produces the daily WRTDSKalman estimates of concentration and flux
 #'
 #' @rdname wrtdsK
 #' @export
@@ -12,12 +12,12 @@
 #' @param seed setSeed value. Defaults to 376168 This is used to make repeatable output.
 #' @examples 
 #' eList <- Choptank_eList
-#' eList <- WRTDS_K(eList)
+#' eList <- WRTDSKalman(eList)
 #' summary(eList$Daily)
 #' 
 #' AnnualResults <- setupYears(eList$Daily)
 #' head(AnnualResults)
-WRTDS_K <- function(eList, rho = 0.90, niter = 200, seed = 376168){
+WRTDSKalman <- function(eList, rho = 0.90, niter = 200, seed = 376168){
   
   message("This function is currently in development")
   
@@ -95,7 +95,7 @@ WRTDS_K <- function(eList, rho = 0.90, niter = 200, seed = 376168){
 
 cleanUp <- function(eList){
 
-  Sample <- random_subset(eList$Sample, "Julian")
+  Sample <- randomSubset(eList$Sample, "Julian")
   eListClean <- as.egret(eList$INFO, eList$Daily, Sample, eList$surfaces)
   eListClean <- makeAugmentedSample(eListClean)
   Sample <- eListClean$Sample
@@ -111,36 +111,36 @@ cleanUp <- function(eList){
 #' @export
 #' @rdname wrtdsK
 #' @param df data frame
-#' @param col_name column name
+#' @param colName column name
 #' @param seed number to set seed for reproducibility
 #' @examples 
 #' df <- data.frame(Julian = c(1,2,2,3,4,4,4,6),
 #'                  y = 1:8)
 #' df
-#' df_random <- random_subset(df, "Julian")
+#' df_random <- randomSubset(df, "Julian")
 #' df_random
-random_subset <- function(df, col_name){
+randomSubset <- function(df, colName){
 
-  dup_index <- unique(c(which(duplicated(df[[col_name]], fromLast = FALSE)), 
-                        which(duplicated(df[[col_name]], fromLast = TRUE))))
+  dupIndex <- unique(c(which(duplicated(df[[colName]], fromLast = FALSE)), 
+                        which(duplicated(df[[colName]], fromLast = TRUE))))
   
-  if(length(dup_index) == 0){
+  if(length(dupIndex) == 0){
     return(df)
   }
   
-  dup_index <- dup_index[order(dup_index)]
+  dupIndex <- dupIndex[order(dupIndex)]
 
-  unique_groups <- unique(df[[col_name]][dup_index])
+  unique_groups <- unique(df[[colName]][dupIndex])
   
-  slice_index <- sapply(unique_groups, function(x){
-    sample(which(df[[col_name]] == x), size = 1)
+  sliceIndex <- sapply(unique_groups, function(x){
+    sample(which(df[[colName]] == x), size = 1)
   })
   
-  df_dups <- df[slice_index, ] 
-  df_no_dups <- df[-dup_index,]
+  dfDuplicates <- df[sliceIndex, ] 
+  dfNoDuplicates <- df[-dupIndex,]
   
-  subDF <- rbind(df_no_dups, df_dups)
-  subDF <- subDF[order(subDF[[col_name]]),]
+  subDF <- rbind(dfNoDuplicates, dfDuplicates)
+  subDF <- subDF[order(subDF[[colName]]),]
 
   return(subDF)
 }
@@ -196,13 +196,13 @@ specialCase <- function(eList) {
 #' @export
 #' @rdname wrtdsK
 #' @examples 
-#' plotWRTDS_K(eList)
-plotWRTDS_K <- function(eList) {
+#' plotWRTDSKalman(eList)
+plotWRTDSKalman <- function(eList) {
 
   message("This function is currently in development")
 
   if(!all((c("GenFlux","GenConc") %in% names(eList$Daily)))){
-    stop("This function requires running WRTDS_K on eList")
+    stop("This function requires running WRTDSKalman on eList")
   }
   
   if(all(c("paStart","paLong") %in% names(eList$INFO))){
@@ -215,7 +215,7 @@ plotWRTDS_K <- function(eList) {
     
   AnnualResults <- setupYears(eList$Daily)
   
-  yMax <- 1.1 * max(AnnualResults$FluxDay, AnnualResults$GenFlux)
+  yMax <- 1.1 * max(AnnualResults$Flux, AnnualResults$GenFlux)
   nYears <- length(AnnualResults[,1])
   # first a plot of just the WRTDS estimate
   xMin <- floor(AnnualResults$DecYear[1])
@@ -228,7 +228,7 @@ plotWRTDS_K <- function(eList) {
                   "\nComparison of the two flux estimates\n",
                   setSeasonLabelByUser(paStartInput = paStart, paLongInput = paLong),sep="  ")
    
-  genericEGRETDotPlot(AnnualResults$DecYear, AnnualResults$FluxDay,
+  genericEGRETDotPlot(AnnualResults$DecYear, AnnualResults$Flux,
                       plotTitle =  title1, 
                       xlim = xlim, xaxs = "i",
                       ylim = c(0, yMax),  cex.main = 0.9,
@@ -238,12 +238,12 @@ plotWRTDS_K <- function(eList) {
          col = "green", pch = 20, cex = 1.4)
   
   # scatter plot
-  genericEGRETDotPlot(AnnualResults$FluxDay, AnnualResults$GenFlux, 
+  genericEGRETDotPlot(AnnualResults$Flux, AnnualResults$GenFlux, 
                       cex = 1.3, col = "red", 
                       xlim = c(0, yMax), 
                       ylim = c(0, yMax), 
                       xlab = "WRTDS estimate of annual flux, in metric tons", 
-                      ylab = "WRTDS_K estimate of annual flux, in metric tons", 
+                      ylab = "WRTDSKalman estimate of annual flux, in metric tons", 
                       cex.main = 0.9, 
                       plotTitle = title2)
   abline(a = 0, b = 1)
@@ -273,7 +273,7 @@ plotTimeSlice <- function(eList, start, end, conc = TRUE,
   DecYear <- ".nse"
   
   if(!all((c("GenFlux","GenConc") %in% names(eList$Daily)))){
-    stop("This function requires running WRTDS_K on eList")
+    stop("This function requires running WRTDSKalman on eList")
   }
   
   # if(start <)
@@ -305,7 +305,7 @@ plotTimeSlice <- function(eList, start, end, conc = TRUE,
     y2 <- Daily$GenConc
     y3 <- eList$Sample$ConcHigh
 
-    plotTitle <- paste(name,"\nConcentrations, Black is WRTDS, Green is WRTDS_K\nData in red, (rl in blue if <), Ratio of means is", fratio)
+    plotTitle <- paste(name,"\nConcentrations, Black is WRTDS, Green is WRTDSKalman\nData in red, (rl in blue if <), Ratio of means is", fratio)
     
   } else {
 
@@ -330,7 +330,7 @@ plotTimeSlice <- function(eList, start, end, conc = TRUE,
       yLab <- fluxUnit@unitExpress[[1]]
     }
     
-    plotTitle <- paste(name,"\nFlux, Black is WRTDS, Green is WRTDS_K\nData in red, (rl in blue if <), Ratio of means is", fratio)
+    plotTitle <- paste(name,"\nFlux, Black is WRTDS, Green is WRTDSKalman\nData in red, (rl in blue if <), Ratio of means is", fratio)
   }
 
   high_y <- max(y1, y2, y3, na.rm = TRUE)

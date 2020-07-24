@@ -4,25 +4,11 @@
 \alias{plotFluxTimeDaily}
 \title{Plot of the time series of daily flux estimates and the sample values for the days that were sampled}
 \usage{
-plotFluxTimeDaily(
-  eList,
-  yearStart = NA,
-  yearEnd = NA,
-  tinyPlot = FALSE,
-  fluxUnit = 3,
-  fluxMax = NA,
-  randomCensored = FALSE,
-  printTitle = TRUE,
-  usgsStyle = FALSE,
-  cex = 0.8,
-  cex.axis = 1.1,
-  cex.main = 1.1,
-  customPar = FALSE,
-  col = "black",
-  lwd = 1,
-  prettyDate = TRUE,
-  ...
-)
+plotFluxTimeDaily(eList, yearStart = NA, yearEnd = NA, tinyPlot = FALSE,
+  fluxUnit = 3, fluxMax = NA, randomCensored = FALSE,
+  printTitle = TRUE, usgsStyle = FALSE, cex = 0.8, cex.axis = 1.1,
+  cex.main = 1.1, customPar = FALSE, col = "black", lwd = 1,
+  prettyDate = TRUE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}

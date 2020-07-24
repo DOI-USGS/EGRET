@@ -4,24 +4,10 @@
 \alias{plotFluxQ}
 \title{Sample data plot: observed log flux vs log discharge}
 \usage{
-plotFluxQ(
-  eList,
-  qUnit = 2,
-  logScale = TRUE,
-  fluxUnit = 3,
-  tinyPlot = FALSE,
-  fluxMax = NA,
-  fluxMin = NA,
-  col = "black",
-  lwd = 1,
-  printTitle = TRUE,
-  usgsStyle = FALSE,
-  cex = 0.8,
-  cex.axis = 1.1,
-  cex.main = 1.1,
-  customPar = FALSE,
-  ...
-)
+plotFluxQ(eList, qUnit = 2, logScale = TRUE, fluxUnit = 3,
+  tinyPlot = FALSE, fluxMax = NA, fluxMin = NA, col = "black",
+  lwd = 1, printTitle = TRUE, usgsStyle = FALSE, cex = 0.8,
+  cex.axis = 1.1, cex.main = 1.1, customPar = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}

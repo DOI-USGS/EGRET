@@ -4,28 +4,11 @@
 \alias{plotFlowSingle}
 \title{Creates a plot of a time series of a particular flow statistic and a lowess smooth of that flow statistic}
 \usage{
-plotFlowSingle(
-  eList,
-  istat,
-  yearStart = NA,
-  yearEnd = NA,
-  qMax = NA,
-  printTitle = TRUE,
-  tinyPlot = FALSE,
-  customPar = FALSE,
-  runoff = FALSE,
-  qUnit = 1,
-  printStaName = TRUE,
-  printPA = TRUE,
-  usgsStyle = FALSE,
-  printIstat = TRUE,
-  cex = 0.8,
-  cex.axis = 1.1,
-  cex.main = 1.1,
-  lwd = 2,
-  col = "black",
-  ...
-)
+plotFlowSingle(eList, istat, yearStart = NA, yearEnd = NA, qMax = NA,
+  printTitle = TRUE, tinyPlot = FALSE, customPar = FALSE,
+  runoff = FALSE, qUnit = 1, printStaName = TRUE, printPA = TRUE,
+  usgsStyle = FALSE, printIstat = TRUE, cex = 0.8, cex.axis = 1.1,
+  cex.main = 1.1, lwd = 2, col = "black", ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes}

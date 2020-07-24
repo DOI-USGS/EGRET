@@ -4,14 +4,8 @@
 \alias{readWQPSample}
 \title{Import Sample Data from the Water Quality Portal for WRTDS}
 \usage{
-readWQPSample(
-  siteNumber,
-  characteristicName,
-  startDate,
-  endDate,
-  verbose = TRUE,
-  interactive = NULL
-)
+readWQPSample(siteNumber, characteristicName, startDate, endDate,
+  verbose = TRUE, interactive = NULL)
 }
 \arguments{
 \item{siteNumber}{character site number.  If USGS, it should be in the form :'USGS-XXXXXXXXX...'}

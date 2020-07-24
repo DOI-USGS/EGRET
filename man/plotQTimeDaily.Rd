@@ -4,24 +4,10 @@
 \alias{plotQTimeDaily}
 \title{Plot of the discharge time series}
 \usage{
-plotQTimeDaily(
-  eList,
-  yearStart = NA,
-  yearEnd = NA,
-  qLower = NA,
-  qUnit = 1,
-  logScale = FALSE,
-  tinyPlot = FALSE,
-  printTitle = TRUE,
-  usgsStyle = FALSE,
-  lwd = 3,
-  col = "red",
-  cex.main = 1.2,
-  cex.lab = 1.2,
-  customPar = FALSE,
-  prettyDate = TRUE,
-  ...
-)
+plotQTimeDaily(eList, yearStart = NA, yearEnd = NA, qLower = NA,
+  qUnit = 1, logScale = FALSE, tinyPlot = FALSE, printTitle = TRUE,
+  usgsStyle = FALSE, lwd = 3, col = "red", cex.main = 1.2,
+  cex.lab = 1.2, customPar = FALSE, prettyDate = TRUE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes}

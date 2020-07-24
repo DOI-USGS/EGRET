@@ -4,18 +4,9 @@
 \alias{estCrossVal}
 \title{Jack-Knife cross validation of the WRTDS (Weighted Regressions on Time, Discharge, and Season)}
 \usage{
-estCrossVal(
-  DecLow,
-  DecHigh,
-  Sample,
-  windowY = 7,
-  windowQ = 2,
-  windowS = 0.5,
-  minNumObs = 100,
-  minNumUncen = 50,
-  edgeAdjust = TRUE,
-  verbose = TRUE
-)
+estCrossVal(DecLow, DecHigh, Sample, windowY = 7, windowQ = 2,
+  windowS = 0.5, minNumObs = 100, minNumUncen = 50, edgeAdjust = TRUE,
+  verbose = TRUE)
 }
 \arguments{
 \item{DecLow}{number specifying minimum decimal year}

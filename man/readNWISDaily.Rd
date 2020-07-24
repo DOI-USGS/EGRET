@@ -4,15 +4,8 @@
 \alias{readNWISDaily}
 \title{Import NWIS Daily Data for EGRET analysis}
 \usage{
-readNWISDaily(
-  siteNumber,
-  parameterCd = "00060",
-  startDate = "",
-  endDate = "",
-  verbose = TRUE,
-  interactive = NULL,
-  convert = TRUE
-)
+readNWISDaily(siteNumber, parameterCd = "00060", startDate = "",
+  endDate = "", verbose = TRUE, interactive = NULL, convert = TRUE)
 }
 \arguments{
 \item{siteNumber}{character USGS site number.  This is usually an 8 digit number}

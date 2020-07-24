@@ -4,46 +4,16 @@
 \alias{genericEGRETDotPlot}
 \title{Generic EGRET plotting function}
 \usage{
-genericEGRETDotPlot(
-  x,
-  y,
-  xlim,
-  ylim,
-  xTicks = pretty(xlim),
-  yTicks = pretty(ylim),
-  printTitle = TRUE,
-  xaxs = "i",
-  xlab = "",
-  yaxs = "i",
-  ylab = "",
-  plotTitle = "",
-  pch = 20,
-  cex = 0.7,
-  cex.main = 1.3,
-  font.main = 2,
-  cex.lab = 1.2,
-  tcl = 0.5,
-  cex.axis = 1,
-  las = 1,
-  xDate = FALSE,
-  tinyPlot = FALSE,
-  hLine = FALSE,
-  oneToOneLine = FALSE,
-  rmSciX = FALSE,
-  rmSciY = FALSE,
-  customPar = FALSE,
-  col = "black",
-  lwd = 1,
-  showXLabels = TRUE,
-  showYLabels = TRUE,
-  showXAxis = TRUE,
-  showYAxis = TRUE,
-  removeFirstX = FALSE,
-  removeLastX = FALSE,
-  removeFirstY = FALSE,
-  removeLastY = FALSE,
-  ...
-)
+genericEGRETDotPlot(x, y, xlim, ylim, xTicks = pretty(xlim),
+  yTicks = pretty(ylim), printTitle = TRUE, xaxs = "i", xlab = "",
+  yaxs = "i", ylab = "", plotTitle = "", pch = 20, cex = 0.7,
+  cex.main = 1.3, font.main = 2, cex.lab = 1.2, tcl = 0.5,
+  cex.axis = 1, las = 1, xDate = FALSE, tinyPlot = FALSE,
+  hLine = FALSE, oneToOneLine = FALSE, rmSciX = FALSE, rmSciY = FALSE,
+  customPar = FALSE, col = "black", lwd = 1, showXLabels = TRUE,
+  showYLabels = TRUE, showXAxis = TRUE, showYAxis = TRUE,
+  removeFirstX = FALSE, removeLastX = FALSE, removeFirstY = FALSE,
+  removeLastY = FALSE, ...)
 }
 \arguments{
 \item{x}{vector specifying the x data (required)}

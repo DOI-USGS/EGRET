@@ -4,24 +4,10 @@
 \alias{plotFluxPred}
 \title{Graph of observed versus estimated flux}
 \usage{
-plotFluxPred(
-  eList,
-  fluxUnit = 3,
-  fluxMax = NA,
-  printTitle = TRUE,
-  oneToOneLine = TRUE,
-  customPar = FALSE,
-  col = "black",
-  lwd = 1,
-  cex = 0.8,
-  cex.axis = 1.1,
-  cex.main = 1.1,
-  tinyPlot = FALSE,
-  usgsStyle = FALSE,
-  logScale = FALSE,
-  randomCensored = FALSE,
-  ...
-)
+plotFluxPred(eList, fluxUnit = 3, fluxMax = NA, printTitle = TRUE,
+  oneToOneLine = TRUE, customPar = FALSE, col = "black", lwd = 1,
+  cex = 0.8, cex.axis = 1.1, cex.main = 1.1, tinyPlot = FALSE,
+  usgsStyle = FALSE, logScale = FALSE, randomCensored = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}

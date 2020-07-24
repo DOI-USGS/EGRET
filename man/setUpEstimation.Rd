@@ -4,17 +4,9 @@
 \alias{setUpEstimation}
 \title{setUpEstimation}
 \usage{
-setUpEstimation(
-  eList,
-  windowY = 7,
-  windowQ = 2,
-  windowS = 0.5,
-  minNumObs = 100,
-  minNumUncen = 50,
-  edgeAdjust = TRUE,
-  verbose = TRUE,
-  interactive = NULL
-)
+setUpEstimation(eList, windowY = 7, windowQ = 2, windowS = 0.5,
+  minNumObs = 100, minNumUncen = 50, edgeAdjust = TRUE, verbose = TRUE,
+  interactive = NULL)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}

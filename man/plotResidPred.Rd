@@ -4,20 +4,10 @@
 \alias{plotResidPred}
 \title{Plot of the residuals from WRTDS versus the estimated values (all in log concentration units)}
 \usage{
-plotResidPred(
-  eList,
-  stdResid = FALSE,
-  tinyPlot = FALSE,
-  printTitle = TRUE,
-  col = "black",
-  lwd = 1,
-  cex = 0.8,
-  cex.axis = 1.1,
-  cex.main = 1.1,
-  customPar = FALSE,
-  randomCensored = FALSE,
-  ...
-)
+plotResidPred(eList, stdResid = FALSE, tinyPlot = FALSE,
+  printTitle = TRUE, col = "black", lwd = 1, cex = 0.8,
+  cex.axis = 1.1, cex.main = 1.1, customPar = FALSE,
+  randomCensored = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}
