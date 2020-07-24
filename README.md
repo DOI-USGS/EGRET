@@ -320,7 +320,7 @@ siteID <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "" # Get earliest date
 endDate <- "" # Get latest date
 Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
-#> There are 26489 data points, and 26489 days.
+#> There are 26494 data points, and 26494 days.
 # Gather site and parameter information:
 # Here user must input some values for
 # the default (interactive=TRUE)
@@ -413,7 +413,7 @@ sessioninfo::session_info()
 #>  collate  en_US.UTF-8                 
 #>  ctype    en_US.UTF-8                 
 #>  tz       UTC                         
-#>  date     2020-07-10                  
+#>  date     2020-07-15                  
 #> 
 #> ─ Packages ───────────────────────────────────────────────────────────────────
 #>  package       * version    date       lib source                            
@@ -424,7 +424,7 @@ sessioninfo::session_info()
 #>  dataRetrieval   2.7.6      2020-03-11 [1] CRAN (R 4.0.0)                    
 #>  digest          0.6.25     2020-02-23 [1] CRAN (R 4.0.0)                    
 #>  dotCall64       1.0-0      2018-07-30 [1] CRAN (R 4.0.0)                    
-#>  EGRET         * 3.0.4.9000 2020-07-10 [1] local                             
+#>  EGRET         * 3.0.4.9000 2020-07-15 [1] local                             
 #>  ellipsis        0.3.1      2020-05-15 [1] CRAN (R 4.0.0)                    
 #>  evaluate        0.14       2019-05-28 [1] CRAN (R 4.0.0)                    
 #>  fansi           0.4.1      2020-01-08 [1] CRAN (R 4.0.0)                    
@@ -445,8 +445,8 @@ sessioninfo::session_info()
 #>  Rcpp            1.0.5      2020-07-06 [1] CRAN (R 4.0.0)                    
 #>  readr           1.3.1      2018-12-21 [1] CRAN (R 4.0.0)                    
 #>  rlang           0.4.6      2020-05-02 [1] CRAN (R 4.0.0)                    
-#>  rmarkdown       2.3.2      2020-07-10 [1] Github (rstudio/rmarkdown@ff1b279)
-#>  sessioninfo     1.1.1      2018-11-05 [1] CRAN (R 4.0.0)                    
+#>  rmarkdown       2.3.2      2020-07-15 [1] Github (rstudio/rmarkdown@ff1b279)
+#>  sessioninfo     1.1.1      2018-11-05 [1] CRAN (R 4.0.1)                    
 #>  spam            2.5-1      2019-12-12 [1] CRAN (R 4.0.0)                    
 #>  stringi         1.4.6      2020-02-17 [1] CRAN (R 4.0.0)                    
 #>  stringr         1.4.0      2019-02-10 [1] CRAN (R 4.0.0)                    
