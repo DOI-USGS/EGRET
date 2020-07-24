@@ -4,16 +4,9 @@
 \alias{flexFN}
 \title{Flexible Flow Normalization}
 \usage{
-flexFN(
-  eList,
-  dateInfo,
-  localsurfaces = NA,
-  oldSurface = FALSE,
-  flowNormStartCol = "flowNormStart",
-  flowNormEndCol = "flowNormEnd",
-  flowStartCol = "flowStart",
-  flowEndCol = "flowEnd"
-)
+flexFN(eList, dateInfo, localsurfaces = NA, oldSurface = FALSE,
+  flowNormStartCol = "flowNormStart", flowNormEndCol = "flowNormEnd",
+  flowStartCol = "flowStart", flowEndCol = "flowEnd")
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}

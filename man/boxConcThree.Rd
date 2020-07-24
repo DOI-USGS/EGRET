@@ -4,18 +4,9 @@
 \alias{boxConcThree}
 \title{Three box plots side-by-side}
 \usage{
-boxConcThree(
-  eList,
-  tinyPlot = FALSE,
-  printTitle = TRUE,
-  moreTitle = "WRTDS",
-  customPar = FALSE,
-  font.main = 2,
-  cex = 0.8,
-  cex.main = 1.1,
-  cex.axis = 1.1,
-  ...
-)
+boxConcThree(eList, tinyPlot = FALSE, printTitle = TRUE,
+  moreTitle = "WRTDS", customPar = FALSE, font.main = 2, cex = 0.8,
+  cex.main = 1.1, cex.axis = 1.1, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}

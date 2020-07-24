@@ -4,21 +4,9 @@
 \alias{boxQTwice}
 \title{Two box plots side-by-side, discharge on sample days, and discharge on all days}
 \usage{
-boxQTwice(
-  eList,
-  printTitle = TRUE,
-  qUnit = 2,
-  cex = 0.8,
-  cex.main = 1.1,
-  logScale = TRUE,
-  cex.axis = 1.1,
-  tcl = 0.5,
-  las = 1,
-  tinyPlot = FALSE,
-  usgsStyle = FALSE,
-  customPar = FALSE,
-  ...
-)
+boxQTwice(eList, printTitle = TRUE, qUnit = 2, cex = 0.8,
+  cex.main = 1.1, logScale = TRUE, cex.axis = 1.1, tcl = 0.5,
+  las = 1, tinyPlot = FALSE, usgsStyle = FALSE, customPar = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}

@@ -4,15 +4,8 @@
 \alias{readUserDaily}
 \title{Import user daily data for EGRET analysis}
 \usage{
-readUserDaily(
-  filePath,
-  fileName,
-  hasHeader = TRUE,
-  separator = ",",
-  qUnit = 1,
-  verbose = TRUE,
-  interactive = NULL
-)
+readUserDaily(filePath, fileName, hasHeader = TRUE, separator = ",",
+  qUnit = 1, verbose = TRUE, interactive = NULL)
 }
 \arguments{
 \item{filePath}{character specifying the path to the file}

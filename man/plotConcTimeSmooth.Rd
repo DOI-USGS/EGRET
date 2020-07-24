@@ -4,42 +4,15 @@
 \alias{plotConcTimeSmooth}
 \title{Plot up to three curves representing the concentration versus time relationship, each curve representing a different flow.}
 \usage{
-plotConcTimeSmooth(
-  eList,
-  q1,
-  q2,
-  q3,
-  centerDate,
-  yearStart,
-  yearEnd,
-  qUnit = 2,
-  legendLeft = 0,
-  legendTop = 0,
-  concMax = NA,
-  concMin = NA,
-  bw = FALSE,
-  printTitle = TRUE,
-  colors = c("black", "red", "green"),
-  printValues = FALSE,
-  tinyPlot = FALSE,
-  minNumObs = 100,
-  minNumUncen = 50,
-  windowY = 10,
-  windowQ = 2,
-  windowS = 0.5,
-  cex.main = 1.1,
-  lwd = 2,
-  printLegend = TRUE,
-  cex.legend = 1.2,
-  cex = 0.8,
-  cex.axis = 1.1,
-  customPar = FALSE,
-  lineVal = c(1, 1, 1),
-  logScale = FALSE,
-  edgeAdjust = TRUE,
-  usgsStyle = FALSE,
-  ...
-)
+plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd,
+  qUnit = 2, legendLeft = 0, legendTop = 0, concMax = NA,
+  concMin = NA, bw = FALSE, printTitle = TRUE, colors = c("black",
+  "red", "green"), printValues = FALSE, tinyPlot = FALSE,
+  minNumObs = 100, minNumUncen = 50, windowY = 10, windowQ = 2,
+  windowS = 0.5, cex.main = 1.1, lwd = 2, printLegend = TRUE,
+  cex.legend = 1.2, cex = 0.8, cex.axis = 1.1, customPar = FALSE,
+  lineVal = c(1, 1, 1), logScale = FALSE, edgeAdjust = TRUE,
+  usgsStyle = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}

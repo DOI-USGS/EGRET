@@ -9,12 +9,8 @@
 \usage{
 estDailyFromSurfaces(eList, localsurfaces = NA, localDaily = NA)
 
-getConcFluxFromSurface(
-  eList,
-  allLogQsByDayOfYear,
-  localDaily,
-  localsurfaces = NA
-)
+getConcFluxFromSurface(eList, allLogQsByDayOfYear, localDaily,
+  localsurfaces = NA)
 
 getSurfaceEstimates(eList, localsurfaces = NA, localDaily = NA)
 

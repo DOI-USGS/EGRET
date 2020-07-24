@@ -4,20 +4,9 @@
 \alias{boxResidMonth}
 \title{A box plot of WRTDS residuals by month}
 \usage{
-boxResidMonth(
-  eList,
-  stdResid = FALSE,
-  las = 1,
-  printTitle = TRUE,
-  cex = 0.8,
-  cex.axis = 1.1,
-  cex.main = 1.1,
-  font.main = 2,
-  tinyPlot = FALSE,
-  customPar = FALSE,
-  randomCensored = FALSE,
-  ...
-)
+boxResidMonth(eList, stdResid = FALSE, las = 1, printTitle = TRUE,
+  cex = 0.8, cex.axis = 1.1, cex.main = 1.1, font.main = 2,
+  tinyPlot = FALSE, customPar = FALSE, randomCensored = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}
