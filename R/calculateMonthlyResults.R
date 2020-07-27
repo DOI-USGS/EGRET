@@ -25,9 +25,26 @@ calculateMonthlyResults<-function(eList){
   Flux <- aggregate(localDaily$FluxDay, by=list(localDaily$MonthSeq), mean)$x
   FNConc <- aggregate(localDaily$FNConc, by=list(localDaily$MonthSeq), mean)$x
   FNFlux <- aggregate(localDaily$FNFlux, by=list(localDaily$MonthSeq), mean)$x
+
+  kalman <- all(c("GenConc","GenFlux") %in% names(localDaily))
   
-  MonthlyResults <- data.frame(Month, Year, DecYear, Q, Conc, 
-                               Flux, FNConc, FNFlux)
+  if(kalman){
+    GenConc <- aggregate(localDaily$GenConc, by=list(localDaily$MonthSeq), mean)$x
+    GenFlux <- aggregate(localDaily$GenFlux, by=list(localDaily$MonthSeq), mean)$x
+
+    MonthlyResults <- data.frame(Month, Year, 
+                                 DecYear, Q,
+                                 Conc, Flux, 
+                                 GenConc, GenFlux,
+                                 FNConc, FNFlux)
+    
+  } else {
+    MonthlyResults <- data.frame(Month, Year, 
+                                 DecYear, Q,
+                                 Conc, Flux, 
+                                 FNConc, FNFlux)  
+  }
+  
   MonthlyResults <- MonthlyResults[(UseIt > 15),]
   
   return(MonthlyResults)
