@@ -320,7 +320,7 @@ siteID <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "" # Get earliest date
 endDate <- "" # Get latest date
 Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
-#> There are 26506 data points, and 26506 days.
+#> There are 26507 data points, and 26507 days.
 # Gather site and parameter information:
 # Here user must input some values for
 # the default (interactive=TRUE)
@@ -413,7 +413,7 @@ sessioninfo::session_info()
 #>  collate  en_US.UTF-8                 
 #>  ctype    en_US.UTF-8                 
 #>  tz       UTC                         
-#>  date     2020-07-27                  
+#>  date     2020-07-28                  
 #> 
 #> ─ Packages ───────────────────────────────────────────────────────────────────
 #>  package       * version    date       lib source        
@@ -424,7 +424,7 @@ sessioninfo::session_info()
 #>  dataRetrieval   2.7.6      2020-03-11 [1] CRAN (R 4.0.2)
 #>  digest          0.6.25     2020-02-23 [1] CRAN (R 4.0.2)
 #>  dotCall64       1.0-0      2018-07-30 [1] CRAN (R 4.0.2)
-#>  EGRET         * 3.0.4.9000 2020-07-27 [1] local         
+#>  EGRET         * 3.0.4.9000 2020-07-28 [1] local         
 #>  ellipsis        0.3.1      2020-05-15 [1] CRAN (R 4.0.2)
 #>  evaluate        0.14       2019-05-28 [1] CRAN (R 4.0.1)
 #>  fansi           0.4.1      2020-01-08 [1] CRAN (R 4.0.2)
