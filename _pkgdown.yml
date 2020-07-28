@@ -91,6 +91,6 @@ reference:
   - title: WRTDS-K
     desc: Functions for WRTDS with Kalman filtering
     contents:
-     - WRTDS_K
-     - plotWRTDS_K
+     - WRTDSKalman
+     - plotWRTDSKalman
      - plotTimeSlice

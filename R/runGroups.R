@@ -1,17 +1,17 @@
 #' Runs a comparison of any group of years in the record.
 #' 
 #' \code{runGroups} provides comparisons of results, in terms of 
-#' flow-normalized concentration and flow-normalzed flux for any groups of years
+#' flow-normalized concentration and flow-normalized flux for any groups of years
 #' of years in the water quality record.  Comparison could involve the 
 #' use of the "wall" and/or use of "generalized flow normalization".  
 #' These two concepts are described in detail in the vignette.
 #' 
 #' @export
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
-#' @param group1firstYear integer year. Starting year of first group.
-#' @param group1lastYear integer year. Ending year of first group.
-#' @param group2firstYear integer year. Starting year of second group.
-#' @param group2lastYear integer year. Ending year of second group.
+#' @param group1firstYear decimal year. Starting year of first group.
+#' @param group1lastYear decimal year. Ending year of first group.
+#' @param group2firstYear decimal year. Starting year of second group.
+#' @param group2lastYear decimal year. Ending year of second group.
 #' @param windowSide integer. The width of the flow normalization window on each side of the year being estimated.
 #' A common value is 7, but no default is specified.  If stationary flow normalization is to be used, then windowSide = 0 (this means that 
 #' flow-normalization period for all years is the same).
