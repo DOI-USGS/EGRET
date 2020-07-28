@@ -178,7 +178,8 @@ And produces the daily WRTDSKalman estimates of concentration and flux</p>
 
 <span class='fu'>plotWRTDSKalman</span>(<span class='kw'>eList</span>)
 
-<span class='fu'>plotTimeSlice</span>(<span class='kw'>eList</span>, <span class='kw'>start</span>, <span class='kw'>end</span>, conc = <span class='fl'>TRUE</span>, fluxUnit = <span class='fl'>3</span>, usgsStyle = <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>plotTimeSlice</span>(<span class='kw'>eList</span>, start = <span class='fl'>NA</span>, end = <span class='fl'>NA</span>, conc = <span class='fl'>TRUE</span>, fluxUnit = <span class='fl'>3</span>,
+  usgsStyle = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -209,11 +210,11 @@ And produces the daily WRTDSKalman estimates of concentration and flux</p>
     </tr>
     <tr>
       <th>start</th>
-      <td><p>numeric start of DecYear for plot</p></td>
+      <td><p>numeric start of DecYear for plot. If <code>NA</code>, plot will start at the earliest date in the record.</p></td>
     </tr>
     <tr>
       <th>end</th>
-      <td><p>numeric end of DecYear for plot</p></td>
+      <td><p>numeric end of DecYear for plot. If <code>NA</code>, plot will end at the latest date in the record.</p></td>
     </tr>
     <tr>
       <th>conc</th>
@@ -370,7 +371,8 @@ generated labels</p></td>
 #&gt; 30         12          10
 #&gt; 31         12          10
 #&gt; 32         12          10</div><div class='input'><span class='fu'>plotTimeSlice</span>(<span class='kw'>eList</span>, start = <span class='fl'>1990</span>, end = <span class='fl'>1991</span>, conc = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='img'><img src='wrtdsK-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>plotTimeSlice</span>(<span class='kw'>eList</span>, start = <span class='fl'>1990</span>, end = <span class='fl'>1991</span>, conc = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='img'><img src='wrtdsK-4.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
+<span class='fu'>plotTimeSlice</span>(<span class='kw'>eList</span>, start = <span class='fl'>1990</span>, end = <span class='fl'>1991</span>, conc = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='img'><img src='wrtdsK-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotTimeSlice</span>(<span class='kw'>eList</span>, start = <span class='fl'>NA</span>, end = <span class='fl'>1991</span>, conc = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='img'><img src='wrtdsK-5.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
