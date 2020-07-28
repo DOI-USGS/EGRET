@@ -282,7 +282,7 @@ The call to open this file, convert the discharge to cubic meters per second, an
 ```{r openDaily, eval = FALSE}
 fileName <- "ChoptankRiverFlow.txt"
 filePath <-  "C:/RData/"
-Daily <- readDataFromFile(filePath,fileName,
+Daily <- readUserDaily(filePath,fileName,
                     separator="\t")
 ```
 
