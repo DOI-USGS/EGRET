@@ -254,8 +254,8 @@ plotWRTDSKalman <- function(eList) {
 
 #' @export
 #' @param conc logical. If \code{TRUE}, plot concentration, otherwise plot flux.
-#' @param start numeric start of DecYear for plot
-#' @param end numeric end of DecYear for plot
+#' @param start numeric start of DecYear for plot. If \code{NA}, plot will start at the earliest date in the record.
+#' @param end numeric end of DecYear for plot. If \code{NA}, plot will end at the latest date in the record.
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
 #' to TRUE does NOT guarantee USGS compliance. It will only change automatically
 #' generated labels
@@ -266,21 +266,41 @@ plotWRTDSKalman <- function(eList) {
 #' 
 #' plotTimeSlice(eList, start = 1990, end = 1991, conc = FALSE)
 #' 
-plotTimeSlice <- function(eList, start, end, conc = TRUE, 
+#' plotTimeSlice(eList, start = NA, end = 1991, conc = FALSE)
+#' 
+plotTimeSlice <- function(eList, start = NA, end = NA, conc = TRUE, 
                           fluxUnit = 3, usgsStyle = FALSE){
   
   message("This function is currently in development")
-  DecYear <- ".nse"
-  
+
   if(!all((c("GenFlux","GenConc") %in% names(eList$Daily)))){
     stop("This function requires running WRTDSKalman on eList")
   }
   
-  # if(start <)
-  Daily <- subset(eList$Daily, DecYear >= start & DecYear <= end)
+  eList <- makeAugmentedSample(eList)
+  
+  Daily <- eList$Daily
+  Sample <- eList$Sample
+  
+  if(!is.na(start)){
+    Daily <- Daily[Daily$DecYear >= start,]
+    
+    Sample <- Sample[Sample$DecYear >= start,]    
+  } else {
+    start <- min(c(Daily$DecYear, Sample$DecYear))
+  }
+  
+  if(!is.na(end)){
+    Daily <- Daily[Daily$DecYear <= end,]
+    
+    Sample <- Sample[Sample$DecYear <= end,]    
+  } else {
+    end <- max(c(Daily$DecYear, Sample$DecYear))
+  }
+
 
  # figure out which data symbol to use, red for uncensored, brown for censored
-  eList$Sample$color <- ifelse(eList$Sample$Uncen == 1, "red", "cyan4")
+  Sample$color <- ifelse(Sample$Uncen == 1, "red", "cyan4")
 
   # first concentration, then flux
   name <- paste(eList$INFO$shortName, eList$INFO$paramShortName)
@@ -303,7 +323,7 @@ plotTimeSlice <- function(eList, start, end, conc = TRUE,
     
     y1 <- Daily$ConcDay
     y2 <- Daily$GenConc
-    y3 <- eList$Sample$ConcHigh
+    y3 <- Sample$rObserved
 
     plotTitle <- paste(name,"\nConcentrations, Black is WRTDS, Green is WRTDSKalman\nData in red, (rl in blue if <), Ratio of means is", fratio)
     
@@ -322,7 +342,7 @@ plotTimeSlice <- function(eList, start, end, conc = TRUE,
     
     y1 <- Daily$FluxDay * fluxFactor
     y2 <- Daily$GenFlux * fluxFactor
-    y3 <- eList$Sample$ConcHigh * eList$Sample$Q * fluxFactor *86.40
+    y3 <- Sample$rObserved * Sample$Q * fluxFactor *86.40
 
     if(usgsStyle){
       yLab <- fluxUnit@unitUSGS[[1]]
@@ -352,7 +372,7 @@ plotTimeSlice <- function(eList, start, end, conc = TRUE,
                       plotTitle = plotTitle)
   lines(Daily$DecYear, y2,
         col = "green")
-  points(eList$Sample$DecYear, y3, 
-         pch = 20, cex = 1.1, col = eList$Sample$color)
+  points(Sample$DecYear, y3, 
+         pch = 20, cex = 1.1, col = Sample$color)
 
 }
