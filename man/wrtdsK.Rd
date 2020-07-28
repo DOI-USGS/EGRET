@@ -13,7 +13,8 @@ randomSubset(df, colName)
 
 plotWRTDSKalman(eList)
 
-plotTimeSlice(eList, start, end, conc = TRUE, fluxUnit = 3, usgsStyle = FALSE)
+plotTimeSlice(eList, start = NA, end = NA, conc = TRUE, fluxUnit = 3,
+  usgsStyle = FALSE)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -28,9 +29,9 @@ plotTimeSlice(eList, start, end, conc = TRUE, fluxUnit = 3, usgsStyle = FALSE)
 
 \item{colName}{column name}
 
-\item{start}{numeric start of DecYear for plot}
+\item{start}{numeric start of DecYear for plot. If \code{NA}, plot will start at the earliest date in the record.}
 
-\item{end}{numeric end of DecYear for plot}
+\item{end}{numeric end of DecYear for plot. If \code{NA}, plot will end at the latest date in the record.}
 
 \item{conc}{logical. If \code{TRUE}, plot concentration, otherwise plot flux.}
 
@@ -61,5 +62,7 @@ plotWRTDSKalman(eList)
 plotTimeSlice(eList, start = 1990, end = 1991, conc = TRUE)
 
 plotTimeSlice(eList, start = 1990, end = 1991, conc = FALSE)
+
+plotTimeSlice(eList, start = NA, end = 1991, conc = FALSE)
 
 }
