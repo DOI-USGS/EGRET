@@ -27,6 +27,9 @@ generated labels}
 Plot of either concentration or flux over time showing both the WRTDS and WRTDSKalman estimates.
 }
 \examples{
+eList <- Choptank_eList
+eList <- WRTDSKalman(eList)
+
 plotTimeSlice(eList, start = 1990, end = 1991, conc = TRUE)
 
 plotTimeSlice(eList, start = 1990, end = 1991, conc = FALSE)

@@ -313,6 +313,9 @@ plotWRTDSKalman <- function(eList, sideBySide = FALSE) {
 #' generated labels
 #' @param fluxUnit number representing entry in pre-defined fluxUnit class array. \code{\link{printFluxUnitCheatSheet}}
 #' @examples 
+#' eList <- Choptank_eList
+#' eList <- WRTDSKalman(eList)
+#' 
 #' plotTimeSlice(eList, start = 1990, end = 1991, conc = TRUE)
 #' 
 #' plotTimeSlice(eList, start = 1990, end = 1991, conc = FALSE)
