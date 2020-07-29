@@ -60,7 +60,7 @@ In summary **Use the WRTDSKalman when you want the best estimates for a given da
 
 ```{r eval = TRUE, echo = TRUE, warning=FALSE, message=FALSE}
 library(EGRET)
-setwd("~/Dropbox/EGRETpackageJuly2020/")
+
 load("ChainBridge.TP.RData") 
 # now we will run the WRTDSKalman estimation (using the defaults for now)
 eList_K <- WRTDSKalman(eList, niter = 200)

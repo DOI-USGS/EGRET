@@ -7,8 +7,8 @@
 #' @rdname wrtdsK
 #' @export
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
-#' @param rho numeric 
-#' @param niter numeric
+#' @param rho numeric the lag one autocorrelation. Default is 0.9.
+#' @param niter number of iterations. Default is 200.
 #' @param seed setSeed value. Defaults to 376168 This is used to make repeatable output.
 #' @examples 
 #' eList <- Choptank_eList
@@ -92,7 +92,19 @@ WRTDSKalman <- function(eList, rho = 0.90, niter = 200, seed = 376168){
   return(eList)
 }
 
-
+#' cleanUp eList
+#' 
+#' Takes an eList as the input. If there are duplicated dates in the Sample data frame, 
+#' will randomly select one value for that date.
+#' 
+#' @param eList named list with at least the Daily, Sample, and INFO dataframes. 
+#' @export
+#' @return eList with duplicated dates in the Sample data frame randomly sampled.
+#' @examples 
+#' eList <- Choptank_eList
+#' 
+#' eList <- cleanUp(eList)
+#' 
 cleanUp <- function(eList){
 
   Sample <- randomSubset(eList$Sample, "Julian")
@@ -108,10 +120,14 @@ cleanUp <- function(eList){
 }
 
 
+#' randomSubset
+#' 
+#' Calculates a random subset of the data based on repeated values from
+#' a specified column. 
+#' 
 #' @export
-#' @rdname wrtdsK
-#' @param df data frame
-#' @param colName column name
+#' @param df data frame. Must include a column named by the argument colName.
+#' @param colName column name to check for duplicates
 #' @param seed number to set seed for reproducibility
 #' @examples 
 #' df <- data.frame(Julian = c(1,2,2,3,4,4,4,6),
@@ -193,11 +209,29 @@ specialCase <- function(eList) {
   return(special)
 }
 
+#' plotWRTDSKalman
+#' 
+#' Two plots to check the flux estimates using the WRTDS_K vs classic WRTDS.
+#' The first is annual flux over time, where the two fluxes are shown in different colors.
+#' The second is WRTDS vs WRTDSKalman flux estimates. The graphs can be output
+#' either on top of each other, or side by side using the \code{sideBySide} argument.
+#' 
+#' 
+#' @param eList named list with at least the Daily, Sample, and INFO dataframes. This
+#' eList must be run through \code{WRTDSKalman}.
+#' @param sideBySide logical. If \code{TRUE}, the two plots will be plotted
+#' side by side, otherwise, one by one vertically.
+#' 
 #' @export
-#' @rdname wrtdsK
 #' @examples 
+#' 
+#' eList <- Choptank_eList
+#' eList <- WRTDSKalman(eList)
 #' plotWRTDSKalman(eList)
-plotWRTDSKalman <- function(eList) {
+#' 
+#' plotWRTDSKalman(eList, sideBySide = TRUE)
+#' 
+plotWRTDSKalman <- function(eList, sideBySide = FALSE) {
 
   message("This function is currently in development")
 
@@ -221,13 +255,21 @@ plotWRTDSKalman <- function(eList) {
   xMin <- floor(AnnualResults$DecYear[1])
   xMax <- ceiling(AnnualResults$DecYear[nYears])
   xlim <- c(xMin,xMax)
-  title1 <- paste(eList$INFO$shortName,eList$INFO$paramShortName,
-                  "\nAnnual Flux Estimates: WRTDS in red, WRTDS-K in green\n",
-                  setSeasonLabelByUser(paStartInput = paStart, paLongInput = paLong), sep="  ")
-  title2 <- paste(eList$INFO$shortName,eList$INFO$paramShortName,
-                  "\nComparison of the two flux estimates\n",
-                  setSeasonLabelByUser(paStartInput = paStart, paLongInput = paLong),sep="  ")
-   
+  if(sideBySide){
+    title1 <- "Annual Flux Estimates: WRTDS in red, WRTDS-K in green"
+    title2 <- "Comparison of the two flux estimates"
+    mainTitle <- paste(eList$INFO$shortName,eList$INFO$paramShortName,"\n",
+                       setSeasonLabelByUser(paStartInput = paStart, paLongInput = paLong))
+    par(mfrow=c(1,2), oma=c(0,0,2,0))
+  } else {
+    title1 <- paste(eList$INFO$shortName,eList$INFO$paramShortName,
+                    "\nAnnual Flux Estimates: WRTDS in red, WRTDS-K in green\n",
+                    setSeasonLabelByUser(paStartInput = paStart, paLongInput = paLong), sep="  ")
+    title2 <- paste(eList$INFO$shortName,eList$INFO$paramShortName,
+                    "\nComparison of the two flux estimates\n",
+                    setSeasonLabelByUser(paStartInput = paStart, paLongInput = paLong),sep="  ")
+  }
+
   genericEGRETDotPlot(AnnualResults$DecYear, AnnualResults$Flux,
                       plotTitle =  title1, 
                       xlim = xlim, xaxs = "i",
@@ -247,12 +289,22 @@ plotWRTDSKalman <- function(eList) {
                       cex.main = 0.9, 
                       plotTitle = title2)
   abline(a = 0, b = 1)
-  
-  return(AnnualResults)
+
+  if(sideBySide){
+    mtext(mainTitle, line = -1, side = 3, outer = TRUE, cex= 1)
+  }
 }
 
 
+#' plotTimeSlice
+#' 
+#' Plot of either concentration or flux over time showing both the WRTDS and WRTDSKalman estimates.
+#' 
+#' 
+#' 
 #' @export
+#' @param eList named list with at least the Daily, Sample, and INFO dataframes. This
+#' eList must be run through \code{WRTDSKalman}.
 #' @param conc logical. If \code{TRUE}, plot concentration, otherwise plot flux.
 #' @param start numeric start of DecYear for plot. If \code{NA}, plot will start at the earliest date in the record.
 #' @param end numeric end of DecYear for plot. If \code{NA}, plot will end at the latest date in the record.
@@ -260,7 +312,6 @@ plotWRTDSKalman <- function(eList) {
 #' to TRUE does NOT guarantee USGS compliance. It will only change automatically
 #' generated labels
 #' @param fluxUnit number representing entry in pre-defined fluxUnit class array. \code{\link{printFluxUnitCheatSheet}}
-#' @rdname wrtdsK
 #' @examples 
 #' plotTimeSlice(eList, start = 1990, end = 1991, conc = TRUE)
 #' 

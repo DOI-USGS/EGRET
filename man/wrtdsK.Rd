@@ -2,44 +2,18 @@
 % Please edit documentation in R/kalman_functions.R
 \name{WRTDSKalman}
 \alias{WRTDSKalman}
-\alias{randomSubset}
-\alias{plotWRTDSKalman}
-\alias{plotTimeSlice}
 \title{WRTDS-Kalman}
 \usage{
 WRTDSKalman(eList, rho = 0.9, niter = 200, seed = 376168)
-
-randomSubset(df, colName)
-
-plotWRTDSKalman(eList)
-
-plotTimeSlice(eList, start = NA, end = NA, conc = TRUE, fluxUnit = 3,
-  usgsStyle = FALSE)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
 
-\item{rho}{numeric}
+\item{rho}{numeric the lag one autocorrelation. Default is 0.9.}
 
-\item{niter}{numeric}
+\item{niter}{number of iterations. Default is 200.}
 
-\item{seed}{number to set seed for reproducibility}
-
-\item{df}{data frame}
-
-\item{colName}{column name}
-
-\item{start}{numeric start of DecYear for plot. If \code{NA}, plot will start at the earliest date in the record.}
-
-\item{end}{numeric end of DecYear for plot. If \code{NA}, plot will end at the latest date in the record.}
-
-\item{conc}{logical. If \code{TRUE}, plot concentration, otherwise plot flux.}
-
-\item{fluxUnit}{number representing entry in pre-defined fluxUnit class array. \code{\link{printFluxUnitCheatSheet}}}
-
-\item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
-to TRUE does NOT guarantee USGS compliance. It will only change automatically
-generated labels}
+\item{seed}{setSeed value. Defaults to 376168 This is used to make repeatable output.}
 }
 \description{
 This function takes an existing eList 
@@ -53,16 +27,4 @@ summary(eList$Daily)
 
 AnnualResults <- setupYears(eList$Daily)
 head(AnnualResults)
-df <- data.frame(Julian = c(1,2,2,3,4,4,4,6),
-                 y = 1:8)
-df
-df_random <- randomSubset(df, "Julian")
-df_random
-plotWRTDSKalman(eList)
-plotTimeSlice(eList, start = 1990, end = 1991, conc = TRUE)
-
-plotTimeSlice(eList, start = 1990, end = 1991, conc = FALSE)
-
-plotTimeSlice(eList, start = NA, end = 1991, conc = FALSE)
-
 }
