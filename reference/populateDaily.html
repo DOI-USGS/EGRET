@@ -222,7 +222,9 @@
 <span class='kw'>value</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>365</span>
 <span class='kw'>code</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>""</span>,<span class='fl'>365</span>)
 <span class='kw'>dataInput</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>dateTime</span>, <span class='kw'>value</span>, <span class='kw'>code</span>, stringsAsFactors=<span class='fl'>FALSE</span>)
-<span class='kw'>Daily</span> <span class='op'>&lt;-</span> <span class='fu'>populateDaily</span>(<span class='kw'>dataInput</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; There are 365 data points, and 365 days.</div></pre>
+<span class='kw'>Daily</span> <span class='op'>&lt;-</span> <span class='fu'>populateDaily</span>(<span class='kw'>dataInput</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; There are 365 data points, and 365 days.
+#&gt; 
+#&gt;  discharge data jumps from 2001-10-28 to 2001-10-29</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
