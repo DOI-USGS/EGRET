@@ -14,13 +14,11 @@ vignette: >
 ```{r setup, include=FALSE}
 library(knitr)
 library(EGRET)
-
 opts_chunk$set(
   echo=TRUE,
   warning = FALSE,
   message = FALSE
 )
-
 ```
 
 Important note! This is a work-in-progress. No future behavior on new functions are promised based during this development phase. 
@@ -29,40 +27,51 @@ In order to run these functions, you will need to install the development versio
 
 ```{r install, eval=FALSE, echo=TRUE}
 remotes::install_github("USGS-R/EGRET")
-
 ```
 ## Introduction
  
-This document provides a basic set of instructions for calculating WRTDSKalman estimates of both concentration and flux (or "load").  It will not give the background or motivation for WRTDSKalman.  There are now two published papers that lay out the motivation for using this approach, describe the mathematics, and show the results compared to other methods.  Those two publications can be found at:  https://pubs.er.usgs.gov/publication/sir20195084 and https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2019WR025338 .
+This document provides a basic set of instructions for calculating WRTDSKalman estimates of both concentration and flux (or "load").  There are now two published papers that lay out the motivation for using this approach (called "WRTDS_K"" in those papers), describe the mathematics, and show the results compared to other methods.  Those two publications can be found at:  https://pubs.er.usgs.gov/publication/sir20195084 and https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2019WR025338 .
+
+## Why would one use WRTDSKalman?
  
-The most important thing to know is that these are intended for use for providing the best possible estimates of the actual fluxes on each day, or month, or season, or year in the record.  They are not intended for use in evaluating trends (which we would do using flow-normalized flux).
+The most important thing to know is that these are intended for use for providing the best possible estimates of the actual fluxes on each day, or month, or season, or year in the record.  (This discussion will emphasize their use in estimating fluxes, but the same thing can be said of the concentration record.)  It has been shown in the papers mentioned above that they will provide more accurate estimates of flux than are provided by the flux values in the original WRTDS model.  They are not intended for use in evaluating trends, which we would do using the flow-normalized flux values.
+
+Here are some examples of when these WRTDSKalman estimates would be most appropriate.
+
+* Say we have a model (statistical or deterministic) that describes how a receiving water body (such as a reservoir, lake or estuary) responds to the inputs of water, nutrients, as well as air temperature, wind, etc.  The response might be chlorophyl concentrations or dissolved oxygen in the receiving water body.  For running such a model to evaluate its performance we would want to use the WRTDSKalman estimates.
+
+* Say we are interested in the mass balance of some material in a lake or reservoir and we want to make computations at a daily time step of the change in storage of that material.  We will do that by accumulating the sum of the inputs minus the sum of the outputs.  This record would represent the change in storage.  The assumption here is that both of these records are produced by WRTDS models (at the upstream and downstream points) but this concept can work when the outputs are estimated by some other means.  (As an aside we know that a WRTDS model can provide very poor estimates of outflows from a reservoir because the discharge is not really a representation of the state of the system but is really a decision variable.  We have work underway in 2020 that deals with that issue).
+
+* Say we have concerns about the harmful effects of some constituent in the river itself and wish to know the mean concentration over a period of days or weeks.  The WRTDSKalman values would be the most appropriate to use to describe the levels that organisims in the river have been exposed to.
+
+* We are producing "Nowcasts" of inputs to a receiving water body.  We are using it to assist water resources managers to make decisions about releases or diversions or levels of treatment that may be needed for the expected quality of the water currently or over the next few days.  We may also want it as a matter of public information and environmental awareness.  If we are working towards reducing nutrient loads in the river we may want to report where things stand as a function of current flow conditions and put out a number, e.g. "today's estimated load of phosphorus from the watershed is 2 metric tons" or "our estimate of last month's load of nitrogen is 50 metric tons".  These estimates would be produced by using the most up-to-date sample data that are available and the most up-to-date discharge data (typically less than 24-hours old) and estimate the WRTDS model and then compute the WRTDSKalman estimates.  It is important that when such estimates are made that it be clear that these numbers are subject to substantial revision once a few more data points are added to the data set.
+
+None of these are related to the detection or assessment of trends in concentration or flux.  For these purposes the flow normalized concentration or flow normalized flux remain the preferred output to consider because they remove the noise due to the interannual variations in discharge.
+
+There is one drawback to the WRTDSKalman estimates and that is the fact that running the computations on a given set of data will produce slightly different results each time it is run.  This is due to the fact that the computations involve the use of a random number generator.  Using a large number of iterations will result in very small variations between results.  The default number of iterations is 200 which can take a minute or two of computer time and result in only minimal variations in results.  The names of the variable used in the code "GenFlux" and "GenConc" use the prefix "Gen" as a reminder that their computation involves the use of a random number generator.
+
+In summary **Use the WRTDSKalman when you want the best estimates for a given day, month, season, or year.  Use the Flow Normalized values when you want to describe trends.**
 
 ## What one needs, in order to run this are the following items:
  
   * Install the development version of `EGRET` via the `remotes` package (see above).
-  * A data set which must already be in the form of an EGRET workspace containing an eList that has all four components of an **eList (INFO, Daily, Sample, surfaces)**.  That is, it must be the data and a WRTDS model based on that data that is already estimated.  The data set must be in the form of an ".RData" file that contains an **eList**,  Nothing else needs to be in that file but if there is other stuff, that's ok. The discussion and example shown here is carried out on a data set that contains no censored data ("less than values") and it never has more than one observation on a given day.  The description of the method and the examples run in the two papers mentioned are this kind of data set.  In the last section of this vignette there will be an explanation of how the method has been generalized to handle these two special cases.  The software presented here is able to properly handle data sets that have either or both of these properties (censoring and multiple observations per day).  
+  * A data set which must already be in the form of an EGRET workspace containing an eList that has all four components of an **eList (INFO, Daily, Sample, surfaces)**.  That is, it must be the data and a WRTDS model based on that data that is already estimated.  The data set must be in the form of an ".RData" file that contains an **eList**,  Nothing else needs to be in that file but if there is other stuff, that's ok.  The data set can contain multiple concentration values on a given day and it can also contain censored data ("less than values").  The two papers referenced above do not consider either of these special situations, but the software in this package is able to properly handle data sets that have either or both of these properties.  The way these issues are handled is described in a section at the end of this document.  
  
 
 ```{r eval = TRUE, echo = TRUE, warning=FALSE, message=FALSE}
-
 library(EGRET)
-
-load("rockCr.tp.RData") 
+setwd("~/Dropbox/EGRETpackageJuly2020/")
+load("ChainBridge.TP.RData") 
 # now we will run the WRTDSKalman estimation (using the defaults for now)
-eList_K <- WRTDSKalman(eList)
+eList_K <- WRTDSKalman(eList, niter = 200)
 print(summary(eList_K$Daily))
-
 ```
 
-The object being created here is a new **eList**, with a modified **Daily** data frame.  It looks just like the original **Daily** but with some columns added.  What are the extra columns?
+The object being created here is a new **eList**, with a modified **Daily** data frame.  It looks just like the original **Daily** but with two extra columns added.  What are the extra columns?
 
-**stdResid** (dimensionless) this is the standardized residual from the WRTDS model estimate, for the days when concentration is measured.  It is (ln(trueConc) - yHat) / SE.
 
-**yHat** is the WRTDS estimate of the natural log of concentration and SE is the standard error of the WRTDS model for the specific time, discharge, and season.
-
-**Conc** is the WRTDS estimate of concentration for each day (mg/L)
-**Flux** is the WRTDS estimate of flux for each day (in kg/day)
 **GenFlux** is the WRTDSKalman estimate of the flux for each day (in kg/day)
+
 **GenConc** is the WRTDSKalman estimate of the concentration for each day (in mg/L)
 
 # Summarizing results at an annual time step
@@ -71,16 +80,13 @@ Now we can take the results from **eList_K** and compute annual flux values.  We
 
 ```{r eval = TRUE, echo = TRUE}
 AnnualResults <- setupYears(eList_K$Daily)
-
 plotWRTDSKalman(eList_K)
 ```
 
-```{r antable, echo=FALSE}
+```{r antable, echo=TRUE}
 prettyAnnual <- AnnualResults[,c("DecYear", "Q", 
                  "Conc", "GenConc", "Flux", "GenFlux")]
-
-kable(prettyAnnual, digits = 4)
-
+kable(prettyAnnual, digits = c(0, 0, 3, 3, 0, 0), caption = "Units are cubic meters per second, milligrams per Liter, and metric tons per year")
 ```
 
 
@@ -94,11 +100,11 @@ The content of **AnnualResults** is fairly obvious.
 
 **GenConc** is the mean value of concentration for the year from the WRTDSKalman model, in mg/L.
 
-**Flux** is the sum of the daily flux values from the regular WRTDS model, in units of metric tons (same as 10^3 kg).
+**Flux** is the mean of the daily flux values from the regular WRTDS model, in units of metric tons per year (same as 10^3 kg / yr).
 
-**GenFlux** is the sum of the daily flux values from the WRTDSKalman model, in units of metric tons (same as 10^3 kg).
+**GenFlux** is the mean of the daily flux values from the WRTDSKalman model, in units of metric tons per year (same as 10^3 kg / yr).
 
-The first graph compares the time series of the two flux records: WRTDS in red and WRTDSKalman in green.  This graph is fairly typical of what we have seen in a number of studies so far.  There are a number of years in which the two estimates are practically identical (e.g. 2011, 2012, 2014) but there are a few cases where they diverge significantly.  In this example, in those cases the WRTDSKalman estimate is substantially lower than the WRTDS estimate.  What that means is that the tendency for WRTDS to predict values that are too high has been reduced.  It happens that the flux bias statistic for this data set is 0.35, suggesting that the model has a tendency to estimate fluxes that are too high.
+The first graph compares the time series of the two flux records: WRTDS in red and WRTDSKalman in green.  This graph is fairly typical of what we have seen in a number of studies so far.  There are a number of years in which the two estimates are practically identical (e.g. 2014, 2015, 2016, 2017) but there are a few cases where they diverge significantly (e.g. 1996, 1998, 2006, and 2018).  In this example, in those cases the WRTDSKalman estimate is substantially lower than the WRTDS estimate.  
 
 The second graph is just another way to look at these same results, but as a scatter plot of results from the two methods.  What we see is a tendency for a fair number of years to plot close to the 1:1 line but four of them are substantially below the line (meaning their WRTDSKalman estimates are lower than their WRTDS estimates).
 
@@ -108,71 +114,80 @@ Seeing this, we'd like to dig in a bit and see what's going on.
 
 We have a function that produces graphics that show, as a time series, the daily true values (for the days that have samples), the WRTDS estimates for every day, and the WRTDSKalman estimates for every day.  We could plot the whole record, but the ups and downs of the curves would be so tight that we really couldn't see what's going on.  So, we let the user pick a time slice to look at.  It produces two plots, the first is for concentration (it is typically easier to see what is happening in the estimation with the concentration graphs) and the second is for flux (discharge plays such a big role here that the propagation of error from the concentrations gets somewhat obscured, but flux is, after all, what we are interested in here).
 
-We will look at two examples here, in each case looking at about a half a year.  The first one (2018) is a year in which there was very good agreement between the estimates, and the second one (2015) is a year with a large difference between the methods.  Let's see what those results look like.
+We will look at two examples here, in each case looking at about a half a year.  The first case (the first half of 2016) is a period in which there was very good agreement between the estimates, and the second one (the second half of 1996) is a year with a large difference between the methods.  Let's see what those results look like.
 
 ```{r eval = TRUE, echo = TRUE}
-plotTimeSlice(eList_K, start = 2018.2, end = 2018.7, conc = TRUE)
-plotTimeSlice(eList_K, start = 2018.2, end = 2018.7, conc = FALSE)
-plotTimeSlice(eList_K, start = 2015.2, end = 2015.7, conc = TRUE)
-plotTimeSlice(eList_K, start = 2015.2, end = 2015.7, conc = FALSE)
+plotTimeSlice(eList_K, start = 2016, end = 2016.5, conc = TRUE)
+plotTimeSlice(eList_K, start = 2016, end = 2016.5, conc = FALSE)
+plotTimeSlice(eList_K, start = 1996.5, end = 1997, conc = TRUE)
+plotTimeSlice(eList_K, start = 1996.5, end = 1997, conc = FALSE)
 ```
 
-What can we learn from these figures?  The first, which is a half year in 2018.  Note before we start that all of these graphs show either concentration or flux on a log scale.  We will start with the concentration graph.  We see that there are 7 observed values.  When we compare the observed values (red dots) with the WRTDS estimates (black line) for each of those days we see two negative residuals followed by a positive residual a negative a positive and the final two have residuals that are close to zero.  Once we get past the second observation (around 2018.25) we see the WRTDSKalman curve (in green) going back a forth from being a little above the WRTDS curve to a little below.  This alternation indicates that the errors of the model are not ones that persist for very many days and thus the corrections based on these errors don't persist for very many days.  One other thing to note is that the model suggests a big spike in concentration around 2018.4 but there are no samples very close in time to this event (there is a gap of about a month) and the big discharge event took place about half way between these two sample dates.  Given this lack of information close to the date of the large flow event, the WRTDSKalman will not result in much of a change during this event as compared to what we estimate from WRTDS.  The upshot of all of this is that the residuals information doesn't make much difference during this half year in WRTDSKalman results and we really don't change our estimate by much.
+What can we learn from these figures?  The first, which is the first half of 2016, we will start with the concentration graph.  We see that there are 14 observed values (the red dots).  The first observation in 2016 had a fairly small negative residual, meaning that the true value was slightly below the WRTDS estimate (the black line).  The second observation shown (slightly less than one month later) was almost exactly correct.  As a result of this, the WRTDSKalman estimates for a period of about 14 days after the first observation are all slightly less than the WRTDS estimate, but as we approach the second observation the two types of estimates become virtually identical.  In the case with the largest error (the positive residual at about the middle of the period shown in the graph) we see that the residuals on either side of it were both negative.  In this case the WRTDSKalman curve tends to approach the WRTDS curve midway through the periods between observations.  The errors throughout this period are small and they don't show a tendency to persist as a long string of positive values or negative values.  The ratio of the mean value of the WRTDSKalman estimates to the WRTDS estimates during this time period is 0.99.  In other words, they are very similar on average.  When we look at the next graph, showing the two flux estimates we wee very much the same pattern but the differences look more limited simply because of the large variations in flux that are a result of variation in discharge.  The ratio of the two estimates is somewhat farther from 1.0 (it is 0.96) but still the differences are minor.  The upshot of all of this is that the residuals information doesn't make much difference during this half year in WRTDSKalman results and we really don't change our estimate by much.
 
-Now, contrast this with the 2015 results.  Here we see the first residual being very near zero, but after that every one of them is substantially negative (below the black line).  What this is telling us is that something was going on in this part of 2015 such that concentrations were always lower than the WRTDS model (based on the years around 2015, both before and after).  We don't happen to know why this departure exists (perhaps it relates to what tributaries were most active or to something about antecedent conditions).  What it does tell us is that generally, throughout the period 2015.35 through 2015.65 it is a good guess that concentrations are likely to have been lower than what the WRTDS model estimates they should be.  The math of the WRTDSKalman model ends up giving us a green curve that is always below the black curve throughout this period.  That means, when the WRTDSKalman estimate is summarized for the whole 2015 water year it will be a good deal lower than what WRTDS would give us.  Looking at the last of the four graphs (for flux), even though the black and green curves track pretty close to each other the ratio of the two mean fluxes is 0.45.  So, the persistant negative residuals causes us to make a major downward adjustment to our estimated flux for the period.
+Now, contrast this with the result from the second half of 1996.  The high values shown here around 1996.7 come from a flood, about a 20-year recurrence interval event.  The WRTDS model and the three observations near the peak of the event agree quite well.  But, as we move forward over the next few months the observations tend to be much lower than the WRTDS model would predict.  The consequence of this is that the WRTDSKalman estimates are dramatically lower than the WRTDS estimates (as much as an order of magnitude).  These results are not surprizing.  The relatively accurate result at the time of very high discharge is related to the fact that there are few observations overall in the dataset at such high discharges, so these observations do a good job of guiding the WRTDS to a highly accurate model.  But, the high flow event likely had a consequence of depleting the watershed of highly available phosphorus, so at more typical discharges the concentrations were a good deal lower than the model expects them to be (because in the more moderate discharge range there are observations from many other years besides this flood year).  As such the WRTDSKalman estimates for this period are much lower than the regualr WRTDS estimates (a ratio of 0.64).  The graph for flux looks generally similar but the ratio is somewhat better (0.71) because the two methods are relatively close on the high flow (and hence high flux) days.  
 
-As a generalization we can say that WRTDSKalman will result in large adjustments when two things happen: 1) there is a strong persistence of the residuals (long runs of positives or long runs of negatives), and 2) when there are samples collected on or close to the days of maximum flux and they show large absolute residuals. 
+As a generalization we can say that WRTDSKalman will result in large adjustments in flux when at least one of two things happen: 1) there is a strong persistence of the residuals (long runs of positives or long runs of negatives), or 2) when there are samples collected on or close to the days of maximum flux and they show large absolute residuals. 
 
-One final note.  These graphs also have an additional bit of information.  They say, in their title "Ratio of means is xx".  This ratio is specific to the time slice shown in the plot (not the whole record being estimated) and the ratio stated is WRTDSKalman estimate divided by the regular WRTDS estimate.  
+One final note about the graphs.  In the title it says: "Ratio of means is xx".  This ratio of WRTDSKalman estimates to WRTDS estimates is specific to the time slice shown in the plot (not the whole record being estimated).  
 
 # Two options available (setting rho and setting niter)
 
-One of the things that the user must select is the rho value.  We don't have a strong theoretical basis for selecting the right value of rho, although our research has shown that the results are not highly sensitive to it.  In the paper published in Zhang and Hirsch (2019) (see the second URL near the start of this document) we do make some generalizations about the selection of rho.  We found that for nitrate a slightly higher rho value (such as 0.95) may be better than for other constitutents such as TP, OrthoP, Suspended Sediment, or Chloride for which values like 0.85 or 0.9 may be better.  The somewhat different behavior for nitrate is explained by the fact that at many sites there are some other factors probably related to denitrification the discharge and term does not have a great amount of explanatory power in the WRTDS model. As such, placing more reliance on the results of samples that are close in time is appropriate.  One can experiment with different values of rho because it is an argument in the **WRTDSKalman** function.
+One of the things that the user must select is the rho value.  We don't have a strong theoretical basis for selecting the right value of rho, although our research has shown that the results are not highly sensitive to it.  In the paper published in Zhang and Hirsch (2019) (see the second URL near the start of this document) we do make some generalizations about the selection of rho.  We found that for nitrate a slightly higher rho value (such as 0.95) may be better than for other constitutents such as TP, OrthoP, Suspended Sediment, or Chloride for which values like 0.85 or 0.9 may be better.  The somewhat different behavior for nitrate is explained by the fact that at many sites there are some other factors probably related to denitrification and the discharge and seasonal terms do not have a great amount of explanatory power in the WRTDS model. As such, placing more reliance on the results of samples that are close in time is appropriate.  One can experiment with different values of rho because it is an argument in the **WRTDSKalman** function.
 
-We can re-run the analysis with rho of 0.85 and see how much difference it makes.  The table shown here lists the ratio the difference in annual values divided by the original annual value (so multiplying these numbers by 100 would result in differences in percent).
+We can re-run the analysis with rho of 0.85 and see how much difference it makes.  The table shown here lists the percent difference in annual values that results.
 
 ```{r eval = TRUE, echo = TRUE}
-eList_2 <- WRTDSKalman(eList, rho = 0.85)
+eList_2 <- WRTDSKalman(eList, rho = 0.85, niter = 200)
 print(attr(eList_2$Daily,"rho"))
 print(attr(eList_2$Daily,"niter"))
 AnnualResults2 <- setupYears(eList_2$Daily)
-
 AnnualResults2 <- AnnualResults2[,c("GenConc", "GenFlux")]
-
 Ratios <- (AnnualResults2 - AnnualResults[, c("GenConc", "GenFlux")]) / AnnualResults[, c("GenConc", "GenFlux")]
-
-row.names(Ratios) <- round(AnnualResults$DecYear, 2)
-kable(Ratios, digits = 4)
+row.names(Ratios) <- round(AnnualResults$DecYear, 0)
+kable(Ratios*100, digits = 1, caption = "Percent difference with a change in rho from 0.90 to 0.85")
 ```
 
-What we see here is that the change in rho from 0.9 to 0.85 makes less than a 10% difference in any of the years.
+What we see here is that the change in rho from 0.9 to 0.85 makes less than a 10% difference in almost all of the years and under 5% in most years.
 
 Setting the number of iterations to 200 (the default) seems to be sufficient.  We can set a different random number seed and see how much difference it makes in the results. 
 
 
 ```{r eval = TRUE, echo = TRUE}
-eList3 <- WRTDSKalman(eList, seed = 1)
+eList3 <- WRTDSKalman(eList, niter = 200, seed = 1)
 AnnualResults3 <- setupYears(eList3$Daily)
 AnnualResults3 <- AnnualResults3[,c( "GenConc", "GenFlux")]
-
 Ratios <- (AnnualResults3 - AnnualResults[, c("GenConc", "GenFlux")]) / AnnualResults[, c("GenConc", "GenFlux")]
-
-row.names(Ratios) <- round(AnnualResults$DecYear, 2)
-kable(Ratios)
+row.names(Ratios) <- round(AnnualResults$DecYear, 0)
+kable(Ratios*100, digits = 1, caption = "Percent difference with using a different random number seed")
 ```
 
-This table shows us that, at worst the individual annual fluxes differ by about 16% and many of them differ by less than 2% in successive runs with different seeds.  The annual concentrations never differ by more than about 2%.  This suggests that 200 is a sufficient number of iterations to run to obtain a stable result.  For final calculations for publication one might want to specify niter = 500 or niter = 1000 in the call to **WRTDSKalman**, but the idea here is not perfection, but rather to make a reasonable adjustment of the flux record to account for the serial correlation of the residuals.
+This table shows us that, at worst the individual annual fluxes differ by about 2% and most of them differ by less than 1% in successive runs with different seeds.  The annual concentrations never differ by more than about 2%.  This suggests that 200 is a sufficient number of iterations to run to obtain a stable result.  For final calculations for publication one might want to specify niter = 500 or niter = 1000 in the call to **WRTDSKalman**, but the idea here is not perfection, but rather to make a reasonable adjustment of the flux record to account for the serial correlation of the residuals.
 
 # What about putting these results into the **plotConcHist** or **plotFluxHist** graphs
 
-Typically when we do some type of trend study we may want to create graphic outputs showing the Flow Normalized values (connected by a line) and the estimated annual values (as dots).  If you want to put the WRTDSKalman values on these graphs you can use the functions (still in development), setting the argument `plotGenConc` or `plotGenFlux` to `TRUE`.  
-
+Typically when we do some type of trend study we may want to create graphic outputs showing the Flow Normalized values (connected by a line) and the estimated annual values (as dots).  You may want to put the WRTDSKalman values on these graphs and this can now be done with the **plotConcHist** and **plotFluxHist** functions.  
 
 Here they are being used.
 
 ```{r EVAL = TRUE, echo = TRUE}
-plotConcHist(eList_K, plotGenConc = TRUE)
-plotFluxHist(eList_K, plotGenFlux = TRUE, fluxUnit = 8)
+plotConcHist(eList_K, plotAnnual = FALSE, plotGenConc = TRUE)
+plotFluxHist(eList_K, plotAnnual = FALSE, plotGenFlux = TRUE, fluxUnit = 8)
+```
+
+# Computing monthly results
+
+If monthly results, rather than annual results are desired they can be computed with the function **calculateMonthlyResults**.  It doesn't have any arguments for selecting units on flux, they will always be expressed as a monthly rate in units of kg/day.  Here is an example of doing that and then preparing a simpler file to pass results to some other application or produce a graph.
+
+```{r EVAL = TRUE, echo = TRUE}
+monthlyResults <- calculateMonthlyResults(eList_K)
+plot(monthlyResults$DecYear, monthlyResults$GenFlux/1000, type = "l", xaxs = "i", xlim = c(1980,2020), yaxs = "i", ylim = c(0,90), las = 1, tck = 0.02, xlab = "", ylab = "Flux, in metric tons per day", main = "Potomac River at Chain Bridge, Washington, DC\nTotal Phosphorus Flux, by Month")
+Month <- monthlyResults$Month
+Year <- monthlyResults$Year
+DecYear <- monthlyResults$DecYear
+GenFlux <- monthlyResults$GenFlux/1000
+monthFluxOut <- data.frame(Month, Year, DecYear, GenFlux)
+head(monthFluxOut)
 ```
 
 # Operationalizing this in a batch job
@@ -186,7 +201,7 @@ The process after installing the development version of EGRET.
 * plot the results **plotWRTDSKalman(eList)** 
 * the tables and graphs you will probably want can all be made from the content of Annual Results, and the meta data are all in the **INFO** object in the **eList**
 * if the interest is in only one season of the year then modify the call to **setupYears** by adding the **paStart** and **paLong** arguments for the season you are interested in.
-* note that **setupYears** has two attributes that tell the **paStart** and **paLong**, so you can always tell what you used as your period of analysis
+* note that the data frame **AnnualResults** has two attributes that tell the **paStart** and **paLong**, so you can always tell what you used as your period of analysis
 
 # How the code handles two kinds of special situations
 
@@ -198,29 +213,20 @@ In order to fill in estimates for all the days with no samples, we must have a k
 
 So now the data generation scheme is done in two phases for each iteration: First we fill in values for each of the censored days and these, combined with the uncensored values constitute the sample data set we will work from.  Then we use the AR(1) process to fill in the missing days between all the sampled days.  Then when we move on to the next iteration we start all over with estimating all the censored days again and then fill the gaps, etc.
 
-When we plot these data sets using **plotTimeSlice**, when there are censored values they plot in the blue color and they are located on the vertical scale at the reporting limit (meaning that the true value lies somewhere at or below the blue dot).  
+When we plot these data sets using **plotTimeSlice**, when there are censored values they plot in the blue color and they are located randomly at a value less than or equal to the reporting limit (the **rObserved** value computed in **makeAugmentedSample**).  The green line will not go through these points the way they do with the red points, because the WRTDSKalman estimates are based on multiple realizations of these **rObserved** values.  
 
 ## Multiple observations on a day
 
-When a day has more than one observation (i.e. more than one sample value) the approach we use here is much the same as what we used in the censored value situation.  What we need in order to generate the full WRTDSKalman record is a set of unique values for the sampled days.  So, for any day with two or more samples we will randomly pick one of them and use it as an end point for the adjacent gap periods.  Then once we pick it we generate the values between the sampled days regardless of whether the sample value used is a unique value for that day or if it is randomly selected from the multiple values observed on that day.  Then on the next iteration we randomly select the values for these multiply sampled days and proceed with the AR(1) process to fill in between the sampled days.  In the plot produced by `plotTimeSlice` all of the observations are shown as red dots.  Thus if there are multiple sample values on a given day they will plot along a vertical line situated on that day.
+When a day has more than one observation (i.e. more than one sample value) the approach we use here is much the same as what we used in the censored value situation.  What we need in order to generate the full WRTDSKalman record is a set of unique values for the sampled days.  So, for any day with two or more samples we will randomly pick one of them and use it as an end point for the adjacent gap periods.  Then once we pick it we generate the values between the sampled days regardless of whether the sample value used is a unique value for that day or if it is randomly selected from the multiple values observed on that day.  Then on the next iteration we randomly select the values for these multiply sampled days and proceed with the AR(1) process to fill in between the sampled days.  In the plot produced by **plotTimeSlice** all of the observations are shown as red dots.  Thus if there are multiple sample values on a given day they will plot along a vertical line situated on that day.  The green line will run through the average of these multiple sample values for that day.
 
-## An example with both special issues
 
-```{r EVAL = TRUE, echo = TRUE}
+# What's happening next
 
-load("test.RData") # the name of your EGRET workspace
-eList <- WRTDSKalman(eList)
-plotTimeSlice(eList, start = 2010.2, end = 2010.4, 
-              conc = TRUE)
-plotTimeSlice(eList, start = 2010.2, end = 2010.4, 
-              conc = FALSE)
-```
+We aim to release this new version of EGRET by the end of the summer of 2020.  Work is now (July 2020) underway on estimates of the uncertainty of these WRTDSKalman estimates of concentrations and loads.  A method has been developed but still needs to undergo testing.  Once that method has been verified we will disseminate it via the EGRETci package.
 
-If we look at the concentration graph we see two things of interest here.  Right after 2010.30 there appear to be three days with censored values with a reporting limit at 0.004 mg/L.  What is interesting here is that generally the green line (WRTDSKalman estimates) go right through the samples (the red dots), here they don't.  That is because in the Monte Carlo simulation to "true" samples generated are always less than the reporting limit (the blue dots) so the green line lies below these points.  Also, there is a case at around 2010.38 where there are two data points (red points) that lie one directly above the other.  These are two sample values from the same day.  The WRTDSKalman estimate (green line) goes right between these two sample values because in the Monte Carlo simulation sometimes the sample value is the lower one and sometimes it is the upper one and the result is that the estimate lies between the two.
-
-# Final thoughts
-In a few months we expect to better integrate these WRTDSKalman computations into EGRET for a new release of EGRET, but for now (December 2019) this is the way it should be implemented.  Feedback is welcome before we more fully integrate it.  The citations for the two papers that introduce and experiment with WRTDSKalman are as follows.
+# References
 
 Lee, C.J., Hirsch, R.M., and Crawford, C.G., 2019, An evaluation of methods for computing annual water-quality loads: U.S. Geological Survey Scientific Investigations Report 2019–5084, 59 p., https://doi.org/10.3133/sir20195084.
 
 Zhang, Q. and Hirsch, R.M., 2019. River water‐quality concentration and flux estimation can be improved by accounting for serial correlation through an autoregressive model. Water Resources Research.  https://agupubs.onlinelibrary.wiley.com/doi/epdf/10.1029/2019WR025338
+
