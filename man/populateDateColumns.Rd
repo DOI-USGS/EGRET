@@ -2,12 +2,9 @@
 % Please edit documentation in R/populateDateColumns.r
 \name{populateDateColumns}
 \alias{populateDateColumns}
-\alias{decimalDate}
 \title{Populate Date Columns}
 \usage{
 populateDateColumns(rawData)
-
-decimalDate(rawData)
 }
 \arguments{
 \item{rawData}{vector with dateTime}
@@ -33,9 +30,4 @@ dateTime <- c('1984-02-28',
               '1986-10-15')
 expandedDateDF <- populateDateColumns(dateTime)
 expandedDateDF
-dateTime <- c('1984-02-28 13:56',
-              '1984-03-01 00:00',
-              '1986-03-01 00:00',
-              '1986-10-15 00:00')
-decimalDate(dateTime)
 }
