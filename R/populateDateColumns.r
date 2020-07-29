@@ -7,10 +7,20 @@
 #' @export
 #' @rdname dateFuncs
 #' @examples
-#' dateTime <- c('1984-02-28 13:56', '1984-03-01 00:00', '1986-03-01 00:00',"1986-10-15 00:00")
+#' dateTime <- c('1984-02-28 13:56',
+#'               '1984-03-01 00:00',
+#'               '1986-03-01 00:00',
+#'               '1986-10-15 00:00')
+#'               
 #' expandedDateDF <- populateDateColumns(dateTime)
-#' dateTime <- c('1984-02-28', '1984-03-01', '1986-03-01',"1986-10-15")
+#' expandedDateDF
+#' 
+#' dateTime <- c('1984-02-28', 
+#'               '1984-03-01',
+#'               '1986-03-01',
+#'               '1986-10-15')
 #' expandedDateDF <- populateDateColumns(dateTime)
+#' expandedDateDF
 populateDateColumns <- function(rawData){  # rawData is a vector of dates
   DateFrame <- as.data.frame(matrix(ncol=1,nrow=length(rawData)))
   colnames(DateFrame) <- c('Date')  
@@ -44,7 +54,10 @@ populateDateColumns <- function(rawData){  # rawData is a vector of dates
 #' @rdname dateFuncs
 #' 
 #' @examples 
-#' dateTime <- c('1984-02-28 13:56', '1984-03-01 00:00', '1986-03-01 00:00',"1986-10-15 00:00")
+#' dateTime <- c('1984-02-28 13:56',
+#'               '1984-03-01 00:00',
+#'               '1986-03-01 00:00',
+#'               '1986-10-15 00:00')
 #' decimalDate(dateTime)
 decimalDate <- function(rawData){
   
