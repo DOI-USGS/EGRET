@@ -10,8 +10,6 @@ randomSubset(df, colName)
 \item{df}{data frame. Must include a column named by the argument colName.}
 
 \item{colName}{column name to check for duplicates}
-
-\item{seed}{number to set seed for reproducibility}
 }
 \description{
 Calculates a random subset of the data based on repeated values from

@@ -128,7 +128,6 @@ cleanUp <- function(eList){
 #' @export
 #' @param df data frame. Must include a column named by the argument colName.
 #' @param colName column name to check for duplicates
-#' @param seed number to set seed for reproducibility
 #' @examples 
 #' df <- data.frame(Julian = c(1,2,2,3,4,4,4,6),
 #'                  y = 1:8)
