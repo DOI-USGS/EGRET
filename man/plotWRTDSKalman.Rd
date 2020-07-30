@@ -22,7 +22,7 @@ either on top of each other, or side by side using the \code{sideBySide} argumen
 \examples{
 
 eList <- Choptank_eList
-eList <- WRTDSKalman(eList)
+eList <- WRTDSKalman(eList, niter = 10)
 plotWRTDSKalman(eList)
 
 plotWRTDSKalman(eList, sideBySide = TRUE)

@@ -4,7 +4,7 @@
 \alias{WRTDSKalman}
 \title{WRTDS-Kalman}
 \usage{
-WRTDSKalman(eList, rho = 0.9, niter = 200, seed = 376168)
+WRTDSKalman(eList, rho = 0.9, niter = 200, seed = NA, verbose = TRUE)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -13,7 +13,10 @@ WRTDSKalman(eList, rho = 0.9, niter = 200, seed = 376168)
 
 \item{niter}{number of iterations. Default is 200.}
 
-\item{seed}{setSeed value. Defaults to 376168 This is used to make repeatable output.}
+\item{seed}{setSeed value. Defaults to NA, which will not change the current seed.
+This is used to make repeatable output.}
+
+\item{verbose}{logical specifying whether or not to display progress message}
 }
 \description{
 This function takes an existing eList 
@@ -22,7 +25,7 @@ And produces the daily WRTDSKalman estimates of concentration and flux
 }
 \examples{
 eList <- Choptank_eList
-eList <- WRTDSKalman(eList)
+eList <- WRTDSKalman(eList, niter = 10)
 summary(eList$Daily)
 
 AnnualResults <- setupYears(eList$Daily)

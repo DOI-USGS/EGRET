@@ -9,15 +9,18 @@
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param rho numeric the lag one autocorrelation. Default is 0.9.
 #' @param niter number of iterations. Default is 200.
-#' @param seed setSeed value. Defaults to 376168 This is used to make repeatable output.
+#' @param verbose logical specifying whether or not to display progress message
+#' @param seed setSeed value. Defaults to NA, which will not change the current seed.
+#' This is used to make repeatable output.
 #' @examples 
 #' eList <- Choptank_eList
-#' eList <- WRTDSKalman(eList)
+#' eList <- WRTDSKalman(eList, niter = 10)
 #' summary(eList$Daily)
 #' 
 #' AnnualResults <- setupYears(eList$Daily)
 #' head(AnnualResults)
-WRTDSKalman <- function(eList, rho = 0.90, niter = 200, seed = 376168){
+WRTDSKalman <- function(eList, rho = 0.90, niter = 200, 
+                        seed = NA, verbose = TRUE){
   
   message("This function is currently in development")
   
@@ -25,7 +28,10 @@ WRTDSKalman <- function(eList, rho = 0.90, niter = 200, seed = 376168){
     stop("Please check eList argument")
   }
   
-  set.seed(seed)
+  if(!is.na(seed)){
+    set.seed(seed)
+  }
+  
   # this part is to set up the array of runs of missing values
   localEList <- cleanUp(eList)
   localDaily <- populateDailySamp(localEList)
@@ -53,7 +59,18 @@ WRTDSKalman <- function(eList, rho = 0.90, niter = 200, seed = 376168){
   # numGap is the number of groups of missing values to be filled in
   numGap <- length(doGap)
   # now we are ready to do the iterations to generate the series
+  if (verbose) cat("% complete:\n")
+  
+  printUpdate <- unique(floor(seq(1,niter,niter/100)))  
+  
+  endOfLine <- seq(10,100,10)
+  
   for(iter in 1:niter){
+    
+    if (iter %in% printUpdate & verbose) {
+      cat(floor(iter*100/niter),"\t")
+      if (floor(iter*100/niter) %in% endOfLine) cat("\n")
+    }
     localEList <- cleanUp(eList)
     # this next step adds a trueConc column to Daily, and it is NA if there is no sample value
     # it also adds the stdResid column to Daily
@@ -78,11 +95,8 @@ WRTDSKalman <- function(eList, rho = 0.90, niter = 200, seed = 376168){
   # now we take means over all the iterations
   GenMean <- rep(NA, numDays)
   Daily <- eList$Daily
-  
-  for(i in 1 : numDays) {
-    GenMean[i] <- mean(DailyGen[i,])
-  }
-  Daily$GenFlux <- GenMean
+
+  Daily$GenFlux <- rowMeans(DailyGen, na.rm = TRUE)
   Daily$GenConc <- Daily$GenFlux / (Daily$Q * 86.4)
   attr(Daily, "niter") <- niter
   attr(Daily, "rho") <- rho
@@ -225,7 +239,7 @@ specialCase <- function(eList) {
 #' @examples 
 #' 
 #' eList <- Choptank_eList
-#' eList <- WRTDSKalman(eList)
+#' eList <- WRTDSKalman(eList, niter = 10)
 #' plotWRTDSKalman(eList)
 #' 
 #' plotWRTDSKalman(eList, sideBySide = TRUE)
@@ -313,7 +327,7 @@ plotWRTDSKalman <- function(eList, sideBySide = FALSE) {
 #' @param fluxUnit number representing entry in pre-defined fluxUnit class array. \code{\link{printFluxUnitCheatSheet}}
 #' @examples 
 #' eList <- Choptank_eList
-#' eList <- WRTDSKalman(eList)
+#' eList <- WRTDSKalman(eList, niter = 10)
 #' 
 #' plotTimeSlice(eList, start = 1990, end = 1991, conc = TRUE)
 #' 
