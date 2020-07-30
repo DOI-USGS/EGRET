@@ -174,8 +174,8 @@ For raw data, use readWQPdata.  This function will retrieve the raw data, and co
 chapter 7 of the EGRET user guide for more details, then converts it to the Sample dataframe structure.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>readWQPSample</span>(<span class='kw'>siteNumber</span>, <span class='kw'>characteristicName</span>, <span class='kw'>startDate</span>, <span class='kw'>endDate</span>,
-  verbose = <span class='fl'>TRUE</span>, interactive = <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>readWQPSample</span>(<span class='no'>siteNumber</span>, <span class='no'>characteristicName</span>, <span class='no'>startDate</span>, <span class='no'>endDate</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -233,7 +233,7 @@ chapter 7 of the EGRET user guide for more details, then converts it to the Samp
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># These examples require an internet connection to run</span>
 <span class='co'># \donttest{</span>
-<span class='kw'>Sample_All</span> <span class='op'>&lt;-</span> <span class='fu'>readWQPSample</span>(<span class='st'>'WIDNR_WQX-10032762'</span>,<span class='st'>'Specific conductance'</span>, <span class='st'>''</span>, <span class='st'>''</span>)
+<span class='no'>Sample_All</span> <span class='kw'>&lt;-</span> <span class='fu'>readWQPSample</span>(<span class='st'>'WIDNR_WQX-10032762'</span>,<span class='st'>'Specific conductance'</span>, <span class='st'>''</span>, <span class='st'>''</span>)
 <span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -250,7 +250,7 @@ chapter 7 of the EGRET user guide for more details, then converts it to the Samp
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

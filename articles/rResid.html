@@ -144,16 +144,12 @@
 <p><img src="rResid_files/figure-html/unnamed-chunk-5-1.png" width="700"><img src="rResid_files/figure-html/unnamed-chunk-5-2.png" width="700"></p>
 <p>What is most important to understand is that these randomly generated values are never used in any of the WRTDS computations that result in estimates of daily concentrations or fluxes, or annual average concentrations or fluxes, or any trends. These randomly generated values are created strictly to provide a more-easily interpreted set of diagonstic graphics. Here is an example of a plot of concentration versus time using this approach.</p>
 <p>The solid circles are the uncensored observations and the open circles are these <strong>rObserved</strong> values. One thing to note is that if these values were to be generated a second time the graph would look slightly different. There is no unique set of values that will be plotted. The random numbers used will be different if we go back to the same data set and generate them again. Below we show such a figure and then redo the graphic with a second set of random numbers. The code is shown with the graphics.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeAugmentedSample.html">makeAugmentedSample</a></span>(<span class="kw">eList</span>)
-<span class="fu"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(<span class="kw">eList</span>, qUnit = <span class="fl">4</span>, randomCensored = <span class="fl">TRUE</span>)
-</pre></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">eList</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/makeAugmentedSample.html">makeAugmentedSample</a></span>(<span class="no">eList</span>)
+<span class="fu"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(<span class="no">eList</span>, <span class="kw">qUnit</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">randomCensored</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p><img src="rResid_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="co"># now do it all over again</span>
-<span class="kw">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeAugmentedSample.html">makeAugmentedSample</a></span>(<span class="kw">eList</span>)
-<span class="fu"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(<span class="kw">eList</span>, qUnit = <span class="fl">4</span>, randomCensored = <span class="fl">TRUE</span>)
-</pre></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="co"># now do it all over again</span>
+<span class="no">eList</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/makeAugmentedSample.html">makeAugmentedSample</a></span>(<span class="no">eList</span>)
+<span class="fu"><a href="../reference/plotConcQ.html">plotConcQ</a></span>(<span class="no">eList</span>, <span class="kw">qUnit</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">randomCensored</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p><img src="rResid_files/figure-html/unnamed-chunk-6-2.png" width="700"></p>
 <p>Careful examination of these two figures reveals that the black dots are exactly the same in both, but the open circles are different between the two. In looking at these kinds of plots we are not necessarily looking to see what actually happened on a particular day, but rather to understand the pattern of the relationship between the two variables being plotted.</p>
 </div>
@@ -163,13 +159,9 @@
 <p>Many of the diagnostics we use in EGRET are plots of residuals (on the y-axis) versus predicted value, or time, or discharge (on the x-axis). Once we have this <strong>rObserved</strong> value, we can compute a randomized residual which is called <strong>rResid</strong> (again the “r” denotes that they are randomly generated residuals) and is stored as <strong>Sample$rResid</strong> in EGRET. The computation is this:</p>
 <p>rResid = rObserved - predicted value. All three variables in this equation are in log concentration units.</p>
 <p>We can look at our residuals plots in the following manner (using the second set of rObserved values computed above).</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="../reference/plotResidTime.html">plotResidTime</a></span>(<span class="kw">eList</span>, randomCensored = <span class="fl">TRUE</span>)
-</pre></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/plotResidTime.html">plotResidTime</a></span>(<span class="no">eList</span>, <span class="kw">randomCensored</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p><img src="rResid_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="../reference/plotResidQ.html">plotResidQ</a></span>(<span class="kw">eList</span>, qUnit = <span class="fl">4</span>, randomCensored = <span class="fl">TRUE</span>)
-</pre></div>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/plotResidQ.html">plotResidQ</a></span>(<span class="no">eList</span>, <span class="kw">qUnit</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">randomCensored</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p><img src="rResid_files/figure-html/unnamed-chunk-7-2.png" width="700"></p>
 </div>
 <div id="details-for-how-to-include-random-residuals-in-your-computations" class="section level1">
@@ -183,21 +175,15 @@
 </li>
 <li>Then augment the <strong>Sample data</strong> frame that is inside of the eList with the command:</li>
 </ol>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="kw">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeAugmentedSample.html">makeAugmentedSample</a></span>(<span class="kw">eList</span>)
-</pre></div>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">eList</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/makeAugmentedSample.html">makeAugmentedSample</a></span>(<span class="no">eList</span>)</pre></body></html></div>
 <ol start="4" style="list-style-type: decimal">
 <li>To produce any one of the following graphics, using the <strong>rObserved</strong> or <strong>rResid</strong> values simply add the argument <strong>randomCensored = TRUE</strong> to the call to the graphical function. Note that it doesn’t matter if what is being plotted is an observed value or a residual, the argument is always <strong>randomCensored = TRUE</strong>. The original option of showing the vertical lines for censored values remains available as the default for any of these functions. The call can either say <strong>randomCensored = FALSE</strong> or just not include <strong>randomCensored</strong> in the argument list and the graphs will appear without these random values and without the open circle/closed circle symbology. The censored values or censored residuals will be shown as the vertical lines. The functions where this approach applies are these: <strong>plotConcPred, plotConcQ, plotConcTime, plotConcTimeDaily, plotFluxPred, plotFluxQ, plotFluxTImeDaily, plotResidPred, plotResidQ, plotResidTime</strong>. It is also available in the two multiple plot functions: <strong>multiPlotOverview, and fluxBiasMulti</strong>
 </li>
 </ol>
 <p>For example:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu"><a href="../reference/multiPlotDataOverview.html">multiPlotDataOverview</a></span>(<span class="kw">eList</span>, qUnit = <span class="fl">4</span>, randomCensored = <span class="fl">TRUE</span>)
-</pre></div>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/multiPlotDataOverview.html">multiPlotDataOverview</a></span>(<span class="no">eList</span>, <span class="kw">qUnit</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">randomCensored</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p><img src="rResid_files/figure-html/unnamed-chunk-8-1.png" width="768"></p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="fu"><a href="../reference/fluxBiasMulti.html">fluxBiasMulti</a></span>(<span class="kw">eList</span>, qUnit = <span class="fl">4</span>, fluxUnit = <span class="fl">9</span>, randomCensored = <span class="fl">TRUE</span>)
-</pre></div>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="../reference/fluxBiasMulti.html">fluxBiasMulti</a></span>(<span class="no">eList</span>, <span class="kw">qUnit</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">fluxUnit</span> <span class="kw">=</span> <span class="fl">9</span>, <span class="kw">randomCensored</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 <p><img src="rResid_files/figure-html/unnamed-chunk-8-2.png" width="768"></p>
 </div>
 <div id="two-final-thoughts" class="section level1">
@@ -223,7 +209,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

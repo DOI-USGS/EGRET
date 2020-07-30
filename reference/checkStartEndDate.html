@@ -168,7 +168,7 @@
     <p>Checks that the start date is before the end date.  If not, it will give the user the opportunity to correct, otherwise will create a warning.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>checkStartEndDate</span>(<span class='kw'>startDate</span>, <span class='kw'>endDate</span>, interactive = <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>checkStartEndDate</span>(<span class='no'>startDate</span>, <span class='no'>endDate</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -192,10 +192,10 @@
     <p>vector where first value is startDate, second is endDate</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>	
-<span class='kw'>startDate</span> <span class='op'>&lt;-</span> <span class='st'>'1985-01-01'</span>		
-<span class='kw'>endDate</span> <span class='op'>&lt;-</span> <span class='st'>'1990-01-01'</span>		
-<span class='fu'>checkStartEndDate</span>(<span class='kw'>startDate</span>, <span class='kw'>endDate</span>)</div><div class='output co'>#&gt; [1] "1985-01-01" "1990-01-01"</div></pre>
+    <pre class="examples"><div class='input'>
+<span class='no'>startDate</span> <span class='kw'>&lt;-</span> <span class='st'>'1985-01-01'</span>
+<span class='no'>endDate</span> <span class='kw'>&lt;-</span> <span class='st'>'1990-01-01'</span>
+<span class='fu'>checkStartEndDate</span>(<span class='no'>startDate</span>, <span class='no'>endDate</span>)</div><div class='output co'>#&gt; [1] "1985-01-01" "1990-01-01"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -211,7 +211,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

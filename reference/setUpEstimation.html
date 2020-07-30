@@ -168,9 +168,9 @@
     <p>Set up the INFO data frame for a modelEstimation</p>
     </div>
 
-    <pre class="usage"><span class='fu'>setUpEstimation</span>(<span class='kw'>eList</span>, windowY = <span class='fl'>7</span>, windowQ = <span class='fl'>2</span>, windowS = <span class='fl'>0.5</span>,
-  minNumObs = <span class='fl'>100</span>, minNumUncen = <span class='fl'>50</span>, edgeAdjust = <span class='fl'>TRUE</span>, verbose = <span class='fl'>TRUE</span>,
-  interactive = <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>setUpEstimation</span>(<span class='no'>eList</span>, <span class='kw'>windowY</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>windowQ</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>windowS</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>minNumObs</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>minNumUncen</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>edgeAdjust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -219,9 +219,8 @@ The modified method tends to reduce curvature near the start and end of record. 
     <p>eList named list with Daily, Sample, and INFO dataframes.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='kw'>Choptank_eList</span>
-<span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='fu'>setUpEstimation</span>(<span class='kw'>eList</span>)
-</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
+<span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='fu'>setUpEstimation</span>(<span class='no'>eList</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -237,7 +236,7 @@ The modified method tends to reduce curvature near the start and end of record. 
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

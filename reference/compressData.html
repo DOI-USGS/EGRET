@@ -174,7 +174,7 @@ ConcHigh = Upper bound for an observed concentration
 Uncen    = 1 if uncensored, 0 if censored</p>
     </div>
 
-    <pre class="usage"><span class='fu'>compressData</span>(<span class='kw'>data</span>, verbose = <span class='fl'>TRUE</span>, interactive = <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>compressData</span>(<span class='no'>data</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -198,17 +198,17 @@ Uncen    = 1 if uncensored, 0 if censored</p>
     <p>data frame returnDataFrame data frame containing dateTime, ConcHigh, ConcLow, Uncen</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>dateTime</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'1985-01-01'</span>, <span class='st'>'1985-01-02'</span>, <span class='st'>'1985-01-03'</span>)
-<span class='kw'>comment1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>,<span class='st'>""</span>,<span class='st'>""</span>)
-<span class='kw'>value1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>)
-<span class='kw'>comment2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>,<span class='st'>"&lt;"</span>,<span class='st'>""</span>)
-<span class='kw'>value2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>4</span>)
-<span class='kw'>comment3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>,<span class='st'>""</span>,<span class='st'>"&lt;"</span>)
-<span class='kw'>value3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span>)
-<span class='kw'>dataInput</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>dateTime</span>, <span class='kw'>comment1</span>, <span class='kw'>value1</span>, 
-      <span class='kw'>comment2</span>, <span class='kw'>value2</span>, 
-      <span class='kw'>comment3</span>, <span class='kw'>value3</span>, stringsAsFactors=<span class='fl'>FALSE</span>)
-<span class='fu'>compressData</span>(<span class='kw'>dataInput</span>)</div><div class='output co'>#&gt;     dateTime ConcLow ConcHigh Uncen
+    <pre class="examples"><div class='input'><span class='no'>dateTime</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'1985-01-01'</span>, <span class='st'>'1985-01-02'</span>, <span class='st'>'1985-01-03'</span>)
+<span class='no'>comment1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>,<span class='st'>""</span>,<span class='st'>""</span>)
+<span class='no'>value1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>)
+<span class='no'>comment2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>,<span class='st'>"&lt;"</span>,<span class='st'>""</span>)
+<span class='no'>value2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>4</span>)
+<span class='no'>comment3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>""</span>,<span class='st'>""</span>,<span class='st'>"&lt;"</span>)
+<span class='no'>value3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>5</span>)
+<span class='no'>dataInput</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>dateTime</span>, <span class='no'>comment1</span>, <span class='no'>value1</span>,
+      <span class='no'>comment2</span>, <span class='no'>value2</span>,
+      <span class='no'>comment3</span>, <span class='no'>value3</span>, <span class='kw'>stringsAsFactors</span><span class='kw'>=</span><span class='fl'>FALSE</span>)
+<span class='fu'>compressData</span>(<span class='no'>dataInput</span>)</div><div class='output co'>#&gt;     dateTime ConcLow ConcHigh Uncen
 #&gt; 1 1985-01-01       6        6     1
 #&gt; 2 1985-01-02       6        9     0
 #&gt; 3 1985-01-03       7       12     0</div></pre>
@@ -227,7 +227,7 @@ Uncen    = 1 if uncensored, 0 if censored</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

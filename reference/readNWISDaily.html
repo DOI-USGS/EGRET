@@ -168,8 +168,8 @@
     <p>Imports daily data from NWIS web service. This function gets the data from here: <a href='https://waterservices.usgs.gov/'>https://waterservices.usgs.gov/</a></p>
     </div>
 
-    <pre class="usage"><span class='fu'>readNWISDaily</span>(<span class='kw'>siteNumber</span>, parameterCd = <span class='st'>"00060"</span>, startDate = <span class='st'>""</span>,
-  endDate = <span class='st'>""</span>, verbose = <span class='fl'>TRUE</span>, interactive = <span class='kw'>NULL</span>, convert = <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>readNWISDaily</span>(<span class='no'>siteNumber</span>, <span class='kw'>parameterCd</span> <span class='kw'>=</span> <span class='st'>"00060"</span>, <span class='kw'>startDate</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>endDate</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -232,7 +232,8 @@ there is no conversion applied.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 
-<span class='kw'>Daily</span> <span class='op'>&lt;-</span> <span class='fu'>readNWISDaily</span>(<span class='st'>'01594440'</span>,<span class='st'>'00060'</span>, <span class='st'>'1985-01-01'</span>, <span class='st'>'1985-03-31'</span>)</div><div class='output co'>#&gt; There are 90 data points, and 90 days.</div><div class='input'><span class='kw'>DailySuspSediment</span> <span class='op'>&lt;-</span> <span class='fu'>readNWISDaily</span>(<span class='st'>'01594440'</span>,<span class='st'>'80154'</span>, <span class='st'>'1985-01-01'</span>, <span class='st'>'1985-03-31'</span>,convert=<span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; There are 90 data points, and 90 days.</div><div class='input'><span class='co'># }</span></div></pre>
+<span class='no'>Daily</span> <span class='kw'>&lt;-</span> <span class='fu'>readNWISDaily</span>(<span class='st'>'01594440'</span>,<span class='st'>'00060'</span>, <span class='st'>'1985-01-01'</span>, <span class='st'>'1985-03-31'</span>)</div><div class='output co'>#&gt; There are 90 data points, and 90 days.</div><div class='input'><span class='no'>DailySuspSediment</span> <span class='kw'>&lt;-</span> <span class='fu'>readNWISDaily</span>(<span class='st'>'01594440'</span>,<span class='st'>'80154'</span>, <span class='st'>'1985-01-01'</span>, <span class='st'>'1985-03-31'</span>,<span class='kw'>convert</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; There are 90 data points, and 90 days.</div><div class='input'># }
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -248,7 +249,7 @@ there is no conversion applied.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
