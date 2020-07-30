@@ -168,7 +168,7 @@
     <p>Gives a summary of data to be used for WRTDS analysis</p>
     </div>
 
-    <pre class="usage"><span class='fu'>dataOverview</span>(<span class='no'>Daily</span>, <span class='no'>Sample</span>)</pre>
+    <pre class="usage"><span class='fu'>dataOverview</span>(<span class='kw'>Daily</span>, <span class='kw'>Sample</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -188,10 +188,10 @@
     <div class='dont-index'><p><code><a href='mergeReport.html'>mergeReport</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
-<span class='no'>exDaily</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='getDaily.html'>getDaily</a></span>(<span class='no'>eList</span>)
-<span class='no'>exSample</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='getSample.html'>getSample</a></span>(<span class='no'>eList</span>)
-<span class='fu'>dataOverview</span>(<span class='kw'>Daily</span> <span class='kw'>=</span> <span class='no'>exDaily</span>, <span class='kw'>Sample</span> <span class='kw'>=</span> <span class='no'>exSample</span>)</div><div class='output co'>#&gt; 
+    <pre class="examples"><div class='input'><span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='kw'>Choptank_eList</span>
+<span class='kw'>exDaily</span> <span class='op'>&lt;-</span> <span class='fu'><a href='getDaily.html'>getDaily</a></span>(<span class='kw'>eList</span>)
+<span class='kw'>exSample</span> <span class='op'>&lt;-</span> <span class='fu'><a href='getSample.html'>getSample</a></span>(<span class='kw'>eList</span>)
+<span class='fu'>dataOverview</span>(Daily = <span class='kw'>exDaily</span>, Sample = <span class='kw'>exSample</span>)</div><div class='output co'>#&gt; 
 #&gt;  Discharge Record is 11688 days long, which is 32 years
 #&gt;  First day of the discharge record is 1979-10-01 and last day is 2011-09-30
 #&gt;  The water quality record has 606 samples
@@ -214,7 +214,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

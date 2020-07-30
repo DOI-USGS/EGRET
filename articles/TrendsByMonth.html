@@ -300,17 +300,10 @@
       <span class="kw">surfaceYear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="kw">localINFO</span><span class="op">$</span><span class="kw">bottomYear</span>, by = <span class="kw">localINFO</span><span class="op">$</span><span class="kw">stepYear</span>, 
                          length.out = <span class="kw">localINFO</span><span class="op">$</span><span class="kw">nVectorYear</span>)
     }
-<<<<<<< HEAD
     <span class="kw">startDec1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/decimalDate.html">decimalDate</a></span>(<span class="kw">startEndSurface1</span>[[<span class="st">"startDate"</span>]])
     <span class="kw">endDec1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/decimalDate.html">decimalDate</a></span>(<span class="kw">startEndSurface1</span>[[<span class="st">"endDate"</span>]])
     <span class="kw">startDec2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/decimalDate.html">decimalDate</a></span>(<span class="kw">startEndSurface2</span>[[<span class="st">"startDate"</span>]])
     <span class="kw">endDec2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/decimalDate.html">decimalDate</a></span>(<span class="kw">startEndSurface2</span>[[<span class="st">"endDate"</span>]])
-=======
-    <span class="kw">startDec1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/populateDateColumns.html">decimalDate</a></span>(<span class="kw">startEndSurface1</span>[[<span class="st">"startDate"</span>]])
-    <span class="kw">endDec1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/populateDateColumns.html">decimalDate</a></span>(<span class="kw">startEndSurface1</span>[[<span class="st">"endDate"</span>]])
-    <span class="kw">startDec2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/populateDateColumns.html">decimalDate</a></span>(<span class="kw">startEndSurface2</span>[[<span class="st">"startDate"</span>]])
-    <span class="kw">endDec2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/populateDateColumns.html">decimalDate</a></span>(<span class="kw">startEndSurface2</span>[[<span class="st">"endDate"</span>]])
->>>>>>> 22d47864bc98fe3e9423cd6f4dd20c1d8c0503c1
     <span class="kw">surfIndex1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="kw">surfaceYear</span> <span class="op">&gt;=</span> <span class="kw">startDec1</span> <span class="op">&amp;</span> <span class="kw">surfaceYear</span> <span class="op">&lt;=</span> 
                           <span class="kw">endDec1</span>)
     <span class="kw">surfIndex1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">surfIndex1</span>[<span class="fl">1</span>] <span class="op">-</span> <span class="fl">1</span>, <span class="kw">surfIndex1</span>, <span class="kw">surfIndex1</span>[<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="kw">surfIndex1</span>)] <span class="op">+</span> 

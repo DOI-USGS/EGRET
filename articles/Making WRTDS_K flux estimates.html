@@ -139,7 +139,8 @@
 <li><p>There are four R packages required: <strong>EGRET, lubridate, dplyr, and MASS</strong>. Make sure all of them are loaded on your computer from CRAN.</p></li>
 </ul>
 <p>Now here is the code.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="co">################ you can call this functionsForK.R</span>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="co">################ you can call this functionsForK.R</span>
 <span class="co"># functionsForK is a set of add-ons to EGRET</span>
 <span class="co"># for doing the WRTDS_K estimation</span>
 <span class="co"># All fuctions (except for one) written by</span>
@@ -152,71 +153,71 @@
 <span class="co">#  And produces the daily WRTDS_K estimates of concentration and flux</span>
 <span class="co"># it requires MASS, EGRET, lubridate, and dplyr</span>
 <span class="co">###############################</span>
-<span class="no">makeDailyK</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">eList</span>, <span class="no">rho</span> <span class="kw">=</span> <span class="fl">0.90</span>, <span class="no">niter</span> <span class="kw">=</span> <span class="fl">200</span>, <span class="no">seed</span> <span class="kw">=</span> <span class="fl">376168</span>){
-  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="no">seed</span>)
+<span class="kw">makeDailyK</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">eList</span>, <span class="kw">rho</span> = <span class="fl">0.90</span>, <span class="kw">niter</span> = <span class="fl">200</span>, <span class="kw">seed</span> = <span class="fl">376168</span>){
+  <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="kw">seed</span>)
   <span class="co"># this part is to set up the array of runs of missing values</span>
-  <span class="no">localEList</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/cleanUp.html">cleanUp</a></span>(<span class="no">eList</span>)
-  <span class="no">localDaily</span> <span class="kw">&lt;-</span> <span class="fu">populateDailySamp</span>(<span class="no">localEList</span>$<span class="no">Daily</span>, <span class="no">localEList</span>$<span class="no">Sample</span>)
-  <span class="no">numDays</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">localDaily</span>$<span class="no">Date</span>)
-  <span class="no">numDaysP</span> <span class="kw">&lt;-</span> <span class="no">numDays</span> + <span class="fl">1</span>
+  <span class="kw">localEList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cleanUp.html">cleanUp</a></span>(<span class="kw">eList</span>)
+  <span class="kw">localDaily</span> <span class="op">&lt;-</span> <span class="fu">populateDailySamp</span>(<span class="kw">localEList</span><span class="op">$</span><span class="kw">Daily</span>, <span class="kw">localEList</span><span class="op">$</span><span class="kw">Sample</span>)
+  <span class="kw">numDays</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="kw">localDaily</span><span class="op">$</span><span class="kw">Date</span>)
+  <span class="kw">numDaysP</span> <span class="op">&lt;-</span> <span class="kw">numDays</span> <span class="op">+</span> <span class="fl">1</span>
   <span class="co"># set up DailyGen which will hold the daily generated flux values for all days and all iterations</span>
-  <span class="no">DailyGen</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0</span>, <span class="no">numDays</span> * <span class="no">niter</span>)
-  <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="no">DailyGen</span>) <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">numDays</span>, <span class="no">niter</span>)
+  <span class="kw">DailyGen</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0</span>, <span class="kw">numDays</span> <span class="op">*</span> <span class="kw">niter</span>)
+  <span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(<span class="kw">DailyGen</span>) <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">numDays</span>, <span class="kw">niter</span>)
   <span class="co">#   x is a vector of the standardized residuals for each day</span>
   <span class="co">#   most of the elements of x will be NA but those from sampled days will have values</span>
-  <span class="no">x</span> <span class="kw">&lt;-</span> <span class="no">localDaily</span>$<span class="no">stdResid</span>
+  <span class="kw">x</span> <span class="op">&lt;-</span> <span class="kw">localDaily</span><span class="op">$</span><span class="kw">stdResid</span>
   <span class="co">#    xP is x that has been padded with a 0 at the start and a 0 at the end</span>
   <span class="co">#    thus it is a vector that always starts and ends with non-missing values</span>
-  <span class="no">xP</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>,<span class="no">x</span>,<span class="fl">0</span>)
-  <span class="no">zz</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rle.html">rle</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="no">xP</span>))
+  <span class="kw">xP</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>,<span class="kw">x</span>,<span class="fl">0</span>)
+  <span class="kw">zz</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rle.html">rle</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="kw">xP</span>))
   <span class="co">#    zz$lengths is a vector of run lengths</span>
   <span class="co">#    zz$values is a vector of the values: TRUE means it is a run of missings, </span>
   <span class="co">#       FALSE means it is a run of non-missing values</span>
-  <span class="no">nRuns</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">zz</span>$<span class="no">lengths</span>)
-  <span class="no">zends</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span>(<span class="no">zz</span>$<span class="no">lengths</span>)
-  <span class="no">nRunsM</span> <span class="kw">&lt;-</span> <span class="no">nRuns</span> - <span class="fl">1</span>
-  <span class="no">zstarts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>,<span class="no">zends</span>[<span class="fl">1</span>:<span class="no">nRunsM</span>])
+  <span class="kw">nRuns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="kw">zz</span><span class="op">$</span><span class="kw">lengths</span>)
+  <span class="kw">zends</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span>(<span class="kw">zz</span><span class="op">$</span><span class="kw">lengths</span>)
+  <span class="kw">nRunsM</span> <span class="op">&lt;-</span> <span class="kw">nRuns</span> <span class="op">-</span> <span class="fl">1</span>
+  <span class="kw">zstarts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>,<span class="kw">zends</span>[<span class="fl">1</span><span class="op">:</span><span class="kw">nRunsM</span>])
   <span class="co"># doGap is the indexs of the runs that are missing values (it is just the even integers)</span>
-  <span class="no">doGap</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">2</span>,<span class="no">nRunsM</span>,<span class="fl">2</span>)
+  <span class="kw">doGap</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">2</span>,<span class="kw">nRunsM</span>,<span class="fl">2</span>)
   <span class="co"># numGap is the number of groups of missing values to be filled in</span>
-  <span class="no">numGap</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">doGap</span>)
+  <span class="kw">numGap</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="kw">doGap</span>)
   <span class="co"># now we are ready to do the iterations to generate the series</span>
-  <span class="kw">for</span>(<span class="no">iter</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">niter</span>){
-    <span class="no">localEList</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/cleanUp.html">cleanUp</a></span>(<span class="no">eList</span>)
+  <span class="co">for</span>(<span class="kw">iter</span> <span class="co">in</span> <span class="fl">1</span><span class="op">:</span><span class="kw">niter</span>){
+    <span class="kw">localEList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cleanUp.html">cleanUp</a></span>(<span class="kw">eList</span>)
     <span class="co"># this next step adds a trueConc column to Daily, and it is NA if there is no sample value</span>
     <span class="co"># it also adds the stdResid column to Daily</span>
-    <span class="no">localDaily</span> <span class="kw">&lt;-</span> <span class="fu">populateDailySamp</span>(<span class="no">localEList</span>$<span class="no">Daily</span>, <span class="no">localEList</span>$<span class="no">Sample</span>)
-    <span class="no">x</span> <span class="kw">&lt;-</span> <span class="no">localDaily</span>$<span class="no">stdResid</span>
+    <span class="kw">localDaily</span> <span class="op">&lt;-</span> <span class="fu">populateDailySamp</span>(<span class="kw">localEList</span><span class="op">$</span><span class="kw">Daily</span>, <span class="kw">localEList</span><span class="op">$</span><span class="kw">Sample</span>)
+    <span class="kw">x</span> <span class="op">&lt;-</span> <span class="kw">localDaily</span><span class="op">$</span><span class="kw">stdResid</span>
     <span class="co">#    xxP is x that has been padded with a 0 at the start and a 0 at the end</span>
     <span class="co">#    thus it is a vector that always starts and ends with non-missing values</span>
-    <span class="no">xxP</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>,<span class="no">x</span>,<span class="fl">0</span>)
+    <span class="kw">xxP</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>,<span class="kw">x</span>,<span class="fl">0</span>)
     <span class="co"># now we are going to loop through all the gaps that need to be filled in</span>
-    <span class="kw">for</span>(<span class="no">i</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">numGap</span>) {
-      <span class="no">iGap</span><span class="kw">&lt;-</span><span class="no">doGap</span>[<span class="no">i</span>]
-      <span class="no">startFill</span><span class="kw">&lt;-</span><span class="no">zstarts</span>[<span class="no">iGap</span>]
-      <span class="no">endFill</span><span class="kw">&lt;-</span><span class="no">zends</span>[<span class="no">iGap</span>]+<span class="fl">1</span>
-      <span class="no">nFill</span><span class="kw">&lt;-</span><span class="no">zz</span>$<span class="no">length</span>[<span class="no">iGap</span>]+<span class="fl">2</span>
-      <span class="no">xfill</span><span class="kw">&lt;-</span><span class="fu">genmissing</span>(<span class="no">xxP</span>[<span class="no">startFill</span>],<span class="no">xxP</span>[<span class="no">endFill</span>],<span class="no">rho</span>,<span class="no">nFill</span>)
-      <span class="no">xxP</span>[<span class="no">startFill</span>:<span class="no">endFill</span>]<span class="kw">&lt;-</span><span class="no">xfill</span>}
+    <span class="co">for</span>(<span class="kw">i</span> <span class="co">in</span> <span class="fl">1</span><span class="op">:</span><span class="kw">numGap</span>) {
+      <span class="kw">iGap</span><span class="op">&lt;-</span><span class="kw">doGap</span>[<span class="kw">i</span>]
+      <span class="kw">startFill</span><span class="op">&lt;-</span><span class="kw">zstarts</span>[<span class="kw">iGap</span>]
+      <span class="kw">endFill</span><span class="op">&lt;-</span><span class="kw">zends</span>[<span class="kw">iGap</span>]<span class="op">+</span><span class="fl">1</span>
+      <span class="kw">nFill</span><span class="op">&lt;-</span><span class="kw">zz</span><span class="op">$</span><span class="kw">length</span>[<span class="kw">iGap</span>]<span class="op">+</span><span class="fl">2</span>
+      <span class="kw">xfill</span><span class="op">&lt;-</span><span class="fu">genmissing</span>(<span class="kw">xxP</span>[<span class="kw">startFill</span>],<span class="kw">xxP</span>[<span class="kw">endFill</span>],<span class="kw">rho</span>,<span class="kw">nFill</span>)
+      <span class="kw">xxP</span>[<span class="kw">startFill</span><span class="op">:</span><span class="kw">endFill</span>]<span class="op">&lt;-</span><span class="kw">xfill</span>}
     <span class="co"># now we need to strip out the padded days</span>
-    <span class="no">xResid</span> <span class="kw">&lt;-</span> <span class="no">xxP</span>[<span class="fl">2</span>:<span class="no">numDaysP</span>]
-    <span class="no">xConc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span>((<span class="no">xResid</span>*<span class="no">localDaily</span>$<span class="no">SE</span>)+<span class="no">localDaily</span>$<span class="no">yHat</span>)
-    <span class="no">DailyGen</span>[,<span class="no">iter</span>] <span class="kw">&lt;-</span> <span class="no">xConc</span> * <span class="no">localDaily</span>$<span class="no">Q</span> * <span class="fl">86.4</span>
+    <span class="kw">xResid</span> <span class="op">&lt;-</span> <span class="kw">xxP</span>[<span class="fl">2</span><span class="op">:</span><span class="kw">numDaysP</span>]
+    <span class="kw">xConc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span>((<span class="kw">xResid</span><span class="op">*</span><span class="kw">localDaily</span><span class="op">$</span><span class="kw">SE</span>)<span class="op">+</span><span class="kw">localDaily</span><span class="op">$</span><span class="kw">yHat</span>)
+    <span class="kw">DailyGen</span>[,<span class="kw">iter</span>] <span class="op">&lt;-</span> <span class="kw">xConc</span> <span class="op">*</span> <span class="kw">localDaily</span><span class="op">$</span><span class="kw">Q</span> <span class="op">*</span> <span class="fl">86.4</span>
   }
   <span class="co"># now we take means over all the iterations</span>
-  <span class="no">GenMean</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA</span>, <span class="no">numDays</span>)
-  <span class="no">Daily</span> <span class="kw">&lt;-</span> <span class="no">eList</span>$<span class="no">Daily</span>
-  <span class="kw">for</span>(<span class="no">i</span> <span class="kw">in</span> <span class="fl">1</span> : <span class="no">numDays</span>) {<span class="no">GenMean</span>[<span class="no">i</span>] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">DailyGen</span>[<span class="no">i</span>,])}
-  <span class="no">Daily</span>$<span class="no">GenFlux</span> <span class="kw">&lt;-</span> <span class="no">GenMean</span>
-  <span class="no">Daily</span>$<span class="no">GenConc</span> <span class="kw">&lt;-</span> <span class="no">Daily</span>$<span class="no">GenFlux</span> / (<span class="no">Daily</span>$<span class="no">Q</span> * <span class="fl">86.4</span>)
-  <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="no">Daily</span>, <span class="st">"niter"</span>) <span class="kw">&lt;-</span> <span class="no">niter</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="no">Daily</span>, <span class="st">"rho"</span>) <span class="kw">&lt;-</span> <span class="no">rho</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="no">Daily</span>)
+  <span class="kw">GenMean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA</span>, <span class="kw">numDays</span>)
+  <span class="kw">Daily</span> <span class="op">&lt;-</span> <span class="kw">eList</span><span class="op">$</span><span class="kw">Daily</span>
+  <span class="co">for</span>(<span class="kw">i</span> <span class="co">in</span> <span class="fl">1</span> <span class="op">:</span> <span class="kw">numDays</span>) {<span class="kw">GenMean</span>[<span class="kw">i</span>] <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="kw">DailyGen</span>[<span class="kw">i</span>,])}
+  <span class="kw">Daily</span><span class="op">$</span><span class="kw">GenFlux</span> <span class="op">&lt;-</span> <span class="kw">GenMean</span>
+  <span class="kw">Daily</span><span class="op">$</span><span class="kw">GenConc</span> <span class="op">&lt;-</span> <span class="kw">Daily</span><span class="op">$</span><span class="kw">GenFlux</span> <span class="op">/</span> (<span class="kw">Daily</span><span class="op">$</span><span class="kw">Q</span> <span class="op">*</span> <span class="fl">86.4</span>)
+  <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="kw">Daily</span>, <span class="st">"niter"</span>) <span class="op">&lt;-</span> <span class="kw">niter</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="kw">Daily</span>, <span class="st">"rho"</span>) <span class="op">&lt;-</span> <span class="kw">rho</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="kw">Daily</span>)
 }
 <span class="co">#</span>
 <span class="co">#</span>
 
-<span class="no">genmissing</span><span class="kw">&lt;-</span><span class="kw">function</span>(<span class="no">X1</span>,<span class="no">XN</span>,<span class="no">rho</span>,<span class="no">N</span>){
+<span class="kw">genmissing</span><span class="op">&lt;-</span><span class="fu">function</span>(<span class="kw">X1</span>,<span class="kw">XN</span>,<span class="kw">rho</span>,<span class="kw">N</span>){
   <span class="co"># this code was done by Tim Cohn</span>
   <span class="co">#  X1 is the value before the gap</span>
   <span class="co">#  XN is the value after the gap</span>
@@ -224,8 +225,8 @@
   <span class="co">#  N is the length of the sequence including X1 and XN </span>
   <span class="co">#     it is two more than the gap length</span>
   <span class="co">#   it requires the MASS package</span>
-  <span class="no">C</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/chol.html">chol</a></span>(<span class="no">rho</span>^<span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/outer.html">outer</a></span>(<span class="fl">1</span>:<span class="no">N</span>,<span class="fl">1</span>:<span class="no">N</span>, <span class="st">"-"</span>))[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="no">N</span>,<span class="fl">2</span>:(<span class="no">N</span>-<span class="fl">1</span>)),<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="no">N</span>,<span class="fl">2</span>:(<span class="no">N</span>-<span class="fl">1</span>))]))
-  (<span class="no">C</span><span class="kw">%*%</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu">ginv</span>(<span class="no">C</span>[<span class="fl">1</span>:<span class="fl">2</span>,<span class="fl">1</span>:<span class="fl">2</span>])<span class="kw">%*%</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">X1</span>,<span class="no">XN</span>),<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="no">N</span>-<span class="fl">2</span>)))[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">3</span>:<span class="no">N</span>,<span class="fl">2</span>)]
+  <span class="kw">C</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/chol.html">chol</a></span>(<span class="kw">rho</span><span class="op">^</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/outer.html">outer</a></span>(<span class="fl">1</span><span class="op">:</span><span class="kw">N</span>,<span class="fl">1</span><span class="op">:</span><span class="kw">N</span>, <span class="st">"-"</span>))[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="kw">N</span>,<span class="fl">2</span><span class="op">:</span>(<span class="kw">N</span><span class="op">-</span><span class="fl">1</span>)),<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="kw">N</span>,<span class="fl">2</span><span class="op">:</span>(<span class="kw">N</span><span class="op">-</span><span class="fl">1</span>))]))
+  (<span class="kw">C</span><span class="op">%*%</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu">ginv</span>(<span class="kw">C</span>[<span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">2</span>])<span class="op">%*%</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">X1</span>,<span class="kw">XN</span>),<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="kw">N</span><span class="op">-</span><span class="fl">2</span>)))[<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">3</span><span class="op">:</span><span class="kw">N</span>,<span class="fl">2</span>)]
 }
 <span class="co">#</span>
 <span class="co">#</span>
@@ -238,17 +239,17 @@
 <span class="co">#  Note, it must have an eList with a valid surfaces matrix </span>
 <span class="co"># and the Sample data frame in the eList needs to have yHat and SE already calculated</span>
 <span class="co">####################################</span>
-<span class="no">cleanUp</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">eList</span>){
-  <span class="no">Sample</span> <span class="kw">&lt;-</span> <span class="fu">random_subset</span>(<span class="no">eList</span>$<span class="no">Sample</span>, <span class="no">Julian</span>)
-  <span class="no">eListClean</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/as.egret.html">as.egret</a></span>(<span class="no">eList</span>$<span class="no">INFO</span>, <span class="no">eList</span>$<span class="no">Daily</span>, <span class="no">Sample</span>, <span class="no">eList</span>$<span class="no">surfaces</span>)
-  <span class="no">eListClean</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/makeAugmentedSample.html">makeAugmentedSample</a></span>(<span class="no">eListClean</span>)
-  <span class="no">Sample</span> <span class="kw">&lt;-</span> <span class="no">eListClean</span>$<span class="no">Sample</span>
-  <span class="no">Sample</span>$<span class="no">Uncen</span> <span class="kw">&lt;-</span> <span class="fl">1</span>
-  <span class="no">Sample</span>$<span class="no">ConcLow</span> <span class="kw">&lt;-</span> <span class="no">Sample</span>$<span class="no">rObserved</span>
-  <span class="no">Sample</span>$<span class="no">ConcHigh</span> <span class="kw">&lt;-</span> <span class="no">Sample</span>$<span class="no">rObserved</span>
-  <span class="no">Sample</span>$<span class="no">ConcAve</span> <span class="kw">&lt;-</span> <span class="no">Sample</span>$<span class="no">rObserved</span>
-  <span class="no">eListClean</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/as.egret.html">as.egret</a></span>(<span class="no">eList</span>$<span class="no">INFO</span>, <span class="no">eList</span>$<span class="no">Daily</span>, <span class="no">Sample</span>, <span class="no">eList</span>$<span class="no">surfaces</span>)
-  <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="no">eListClean</span>)
+<span class="kw">cleanUp</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">eList</span>){
+  <span class="kw">Sample</span> <span class="op">&lt;-</span> <span class="fu">random_subset</span>(<span class="kw">eList</span><span class="op">$</span><span class="kw">Sample</span>, <span class="kw">Julian</span>)
+  <span class="kw">eListClean</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as.egret.html">as.egret</a></span>(<span class="kw">eList</span><span class="op">$</span><span class="kw">INFO</span>, <span class="kw">eList</span><span class="op">$</span><span class="kw">Daily</span>, <span class="kw">Sample</span>, <span class="kw">eList</span><span class="op">$</span><span class="kw">surfaces</span>)
+  <span class="kw">eListClean</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/makeAugmentedSample.html">makeAugmentedSample</a></span>(<span class="kw">eListClean</span>)
+  <span class="kw">Sample</span> <span class="op">&lt;-</span> <span class="kw">eListClean</span><span class="op">$</span><span class="kw">Sample</span>
+  <span class="kw">Sample</span><span class="op">$</span><span class="kw">Uncen</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+  <span class="kw">Sample</span><span class="op">$</span><span class="kw">ConcLow</span> <span class="op">&lt;-</span> <span class="kw">Sample</span><span class="op">$</span><span class="kw">rObserved</span>
+  <span class="kw">Sample</span><span class="op">$</span><span class="kw">ConcHigh</span> <span class="op">&lt;-</span> <span class="kw">Sample</span><span class="op">$</span><span class="kw">rObserved</span>
+  <span class="kw">Sample</span><span class="op">$</span><span class="kw">ConcAve</span> <span class="op">&lt;-</span> <span class="kw">Sample</span><span class="op">$</span><span class="kw">rObserved</span>
+  <span class="kw">eListClean</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/as.egret.html">as.egret</a></span>(<span class="kw">eList</span><span class="op">$</span><span class="kw">INFO</span>, <span class="kw">eList</span><span class="op">$</span><span class="kw">Daily</span>, <span class="kw">Sample</span>, <span class="kw">eList</span><span class="op">$</span><span class="kw">surfaces</span>)
+  <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="kw">eListClean</span>)
 }
 <span class="co">#</span>
 <span class="co">#</span>
@@ -259,102 +260,102 @@
 <span class="co"># picks one of them and drops the others</span>
 <span class="co"># useage newSample &lt;- random_subset(Sample, Julian)</span>
 <span class="co">###################################</span>
-<span class="no">random_subset</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">df</span>, <span class="no">col_name</span>){
-
-  <span class="no">dup_index</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span>(<span class="no">df</span><span class="kw">[[</span><span class="no">col_name</span>]],
-                                         <span class="kw">fromLast</span> <span class="kw">=</span> <span class="fl">FALSE</span>)),
-                          <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span>(<span class="no">df</span><span class="kw">[[</span><span class="no">col_name</span>]],
-                                           <span class="kw">fromLast</span> <span class="kw">=</span> <span class="fl">TRUE</span>))))
-
-  <span class="kw">if</span>(<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">dup_index</span>) <span class="kw">==</span> <span class="fl">0</span>){
-    <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="no">df</span>)
+<span class="kw">random_subset</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">df</span>, <span class="kw">col_name</span>){
+  
+  <span class="kw">dup_index</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span>(<span class="kw">df</span>[[<span class="kw">col_name</span>]], 
+                                         fromLast = <span class="fl">FALSE</span>)),
+                          <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span>(<span class="kw">df</span>[[<span class="kw">col_name</span>]], 
+                                           fromLast = <span class="fl">TRUE</span>))))
+  
+  <span class="co">if</span>(<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="kw">dup_index</span>) <span class="op">==</span> <span class="fl">0</span>){
+    <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="kw">df</span>)
   }
+  
+  <span class="kw">dup_index</span> <span class="op">&lt;-</span> <span class="kw">dup_index</span>[<span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="kw">dup_index</span>)]
 
-  <span class="no">dup_index</span> <span class="kw">&lt;-</span> <span class="no">dup_index</span>[<span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="no">dup_index</span>)]
-
-  <span class="no">unique_groups</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="no">df</span><span class="kw">[[</span><span class="no">col_name</span>]][<span class="no">dup_index</span>])
-
-  <span class="no">slice_index</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(<span class="no">unique_groups</span>, <span class="kw">function</span>(<span class="no">x</span>){
-    <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="no">df</span><span class="kw">[[</span><span class="no">col_name</span>]] <span class="kw">==</span> <span class="no">x</span>), <span class="kw">size</span> <span class="kw">=</span> <span class="fl">1</span>)
+  <span class="kw">unique_groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="kw">df</span>[[<span class="kw">col_name</span>]][<span class="kw">dup_index</span>])
+  
+  <span class="kw">slice_index</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(<span class="kw">unique_groups</span>, <span class="fu">function</span>(<span class="kw">x</span>){
+    <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="kw">df</span>[[<span class="kw">col_name</span>]] <span class="op">==</span> <span class="kw">x</span>), size = <span class="fl">1</span>)
   })
+  
+  <span class="kw">df_dups</span> <span class="op">&lt;-</span> <span class="kw">df</span>[<span class="kw">slice_index</span>, ] 
+  <span class="kw">df_no_dups</span> <span class="op">&lt;-</span> <span class="kw">df</span>[<span class="op">-</span><span class="kw">dup_index</span>,]
+  
+  <span class="kw">subDF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="kw">df_no_dups</span>, <span class="kw">df_dups</span>)
+  <span class="kw">subDF</span> <span class="op">&lt;-</span> <span class="kw">subDF</span>[<span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="kw">subDF</span>[[<span class="kw">col_name</span>]]),]
 
-  <span class="no">df_dups</span> <span class="kw">&lt;-</span> <span class="no">df</span>[<span class="no">slice_index</span>, ]
-  <span class="no">df_no_dups</span> <span class="kw">&lt;-</span> <span class="no">df</span>[-<span class="no">dup_index</span>,]
-
-  <span class="no">subDF</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="no">df_no_dups</span>, <span class="no">df_dups</span>)
-  <span class="no">subDF</span> <span class="kw">&lt;-</span> <span class="no">subDF</span>[<span class="fu"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="no">subDF</span><span class="kw">[[</span><span class="no">col_name</span>]]),]
-
-  <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="no">subDF</span>)
+  <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="kw">subDF</span>)
 }
 <span class="co">#</span>
 <span class="co">#</span>
 <span class="co">###########################</span>
-<span class="no">populateDailySamp</span><span class="kw">&lt;-</span><span class="kw">function</span>(<span class="no">localDaily</span><span class="kw">=</span><span class="no">Daily</span>,<span class="no">localSample</span><span class="kw">=</span><span class="no">Sample</span>) {
-  <span class="no">numDays</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">localDaily</span>$<span class="no">Julian</span>)
-  <span class="no">numSamp</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">localSample</span>$<span class="no">Julian</span>)
-  <span class="no">trueConc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA</span>,<span class="no">numDays</span>)
-  <span class="no">trueFlux</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA</span>, <span class="no">numDays</span>)
-  <span class="no">stdResid</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA</span>,<span class="no">numDays</span>)
-  <span class="no">DailyOffset</span><span class="kw">&lt;-</span><span class="no">localDaily</span>$<span class="no">Julian</span>[<span class="fl">1</span>]-<span class="fl">1</span>
-  <span class="kw">for</span>(<span class="no">samp</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">numSamp</span>){<span class="no">iday</span><span class="kw">&lt;-</span><span class="no">localSample</span>$<span class="no">Julian</span>[<span class="no">samp</span>]-<span class="no">DailyOffset</span>
-  <span class="no">trueConc</span>[<span class="no">iday</span>]<span class="kw">&lt;-</span><span class="no">localSample</span>$<span class="no">ConcAve</span>[<span class="no">samp</span>]
-  <span class="no">trueFlux</span>[<span class="no">iday</span>] <span class="kw">&lt;-</span> <span class="no">trueConc</span>[<span class="no">iday</span>] * <span class="no">localDaily</span>$<span class="no">Q</span>[<span class="no">iday</span>] * <span class="fl">86.4</span>
-  <span class="no">stdResid</span>[<span class="no">iday</span>]<span class="kw">&lt;-</span>(<span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(<span class="no">trueConc</span>[<span class="no">iday</span>])-<span class="no">localDaily</span>$<span class="no">yHat</span>[<span class="no">iday</span>])/<span class="no">localDaily</span>$<span class="no">SE</span>[<span class="no">iday</span>]
+<span class="kw">populateDailySamp</span><span class="op">&lt;-</span><span class="fu">function</span>(<span class="kw">localDaily</span>=<span class="kw">Daily</span>,<span class="kw">localSample</span>=<span class="kw">Sample</span>) {
+  <span class="kw">numDays</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="kw">localDaily</span><span class="op">$</span><span class="kw">Julian</span>)
+  <span class="kw">numSamp</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="kw">localSample</span><span class="op">$</span><span class="kw">Julian</span>)
+  <span class="kw">trueConc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA</span>,<span class="kw">numDays</span>)
+  <span class="kw">trueFlux</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA</span>, <span class="kw">numDays</span>)
+  <span class="kw">stdResid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA</span>,<span class="kw">numDays</span>)
+  <span class="kw">DailyOffset</span><span class="op">&lt;-</span><span class="kw">localDaily</span><span class="op">$</span><span class="kw">Julian</span>[<span class="fl">1</span>]<span class="op">-</span><span class="fl">1</span>
+  <span class="co">for</span>(<span class="kw">samp</span> <span class="co">in</span> <span class="fl">1</span><span class="op">:</span><span class="kw">numSamp</span>){<span class="kw">iday</span><span class="op">&lt;-</span><span class="kw">localSample</span><span class="op">$</span><span class="kw">Julian</span>[<span class="kw">samp</span>]<span class="op">-</span><span class="kw">DailyOffset</span>
+  <span class="kw">trueConc</span>[<span class="kw">iday</span>]<span class="op">&lt;-</span><span class="kw">localSample</span><span class="op">$</span><span class="kw">ConcAve</span>[<span class="kw">samp</span>]
+  <span class="kw">trueFlux</span>[<span class="kw">iday</span>] <span class="op">&lt;-</span> <span class="kw">trueConc</span>[<span class="kw">iday</span>] <span class="op">*</span> <span class="kw">localDaily</span><span class="op">$</span><span class="kw">Q</span>[<span class="kw">iday</span>] <span class="op">*</span> <span class="fl">86.4</span>
+  <span class="kw">stdResid</span>[<span class="kw">iday</span>]<span class="op">&lt;-</span>(<span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(<span class="kw">trueConc</span>[<span class="kw">iday</span>])<span class="op">-</span><span class="kw">localDaily</span><span class="op">$</span><span class="kw">yHat</span>[<span class="kw">iday</span>])<span class="op">/</span><span class="kw">localDaily</span><span class="op">$</span><span class="kw">SE</span>[<span class="kw">iday</span>]
   }
-  <span class="no">retDaily</span><span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">localDaily</span>,<span class="no">trueConc</span>,<span class="no">trueFlux</span>, <span class="no">stdResid</span>)
-  <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="no">retDaily</span>)
+  <span class="kw">retDaily</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">localDaily</span>,<span class="kw">trueConc</span>,<span class="kw">trueFlux</span>, <span class="kw">stdResid</span>)
+  <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="kw">retDaily</span>)
 }
 <span class="co">#</span>
-<span class="no">setupYearsKalmanFlux</span> <span class="kw">&lt;-</span> <span class="kw">function</span> (<span class="no">localDaily</span>, <span class="no">paLong</span> <span class="kw">=</span> <span class="fl">12</span>, <span class="no">paStart</span> <span class="kw">=</span> <span class="fl">10</span>)
+<span class="kw">setupYearsKalmanFlux</span> <span class="op">&lt;-</span> <span class="fu">function</span> (<span class="kw">localDaily</span>, <span class="kw">paLong</span> = <span class="fl">12</span>, <span class="kw">paStart</span> = <span class="fl">10</span>) 
 {
 <span class="co"># note that fluxes returned are the sum of the daily fluxes</span>
 <span class="co"># the units on the fluxes are all metric tons </span>
-  <span class="no">numDays</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">localDaily</span>$<span class="no">MonthSeq</span>)
-  <span class="no">firstMonthSeq</span> <span class="kw">&lt;-</span> <span class="no">localDaily</span>$<span class="no">MonthSeq</span>[<span class="fl">1</span>]
-  <span class="no">lastMonthSeq</span> <span class="kw">&lt;-</span> <span class="no">localDaily</span>$<span class="no">MonthSeq</span>[<span class="no">numDays</span>]
-  <span class="no">Starts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="no">paStart</span>, <span class="no">lastMonthSeq</span>, <span class="fl">12</span>)
-  <span class="no">Ends</span> <span class="kw">&lt;-</span> <span class="no">Starts</span> + <span class="no">paLong</span> - <span class="fl">1</span>
-  <span class="no">StartEndSeq</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">Starts</span>, <span class="no">Ends</span>)
-  <span class="no">StartEndSeq</span> <span class="kw">&lt;-</span> <span class="no">StartEndSeq</span>[(<span class="no">StartEndSeq</span>$<span class="no">Starts</span> <span class="kw">&gt;=</span> <span class="no">firstMonthSeq</span>) <span class="kw">&amp;</span>
-                               (<span class="no">StartEndSeq</span>$<span class="no">Ends</span> <span class="kw">&lt;=</span> <span class="no">lastMonthSeq</span>), ]
-  <span class="no">firstMonth</span> <span class="kw">&lt;-</span> <span class="no">StartEndSeq</span>[<span class="fl">1</span>, <span class="fl">1</span>]
-  <span class="no">numYears</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">StartEndSeq</span>$<span class="no">Starts</span>)
-  <span class="no">DecYear</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA</span>, <span class="no">numYears</span>)
-  <span class="no">Q</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA</span>, <span class="no">numYears</span>)
-  <span class="no">ConcDay</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA</span>, <span class="no">numYears</span>)
-  <span class="no">GenConc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA</span>, <span class="no">numYears</span>)
-  <span class="no">FluxDay</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA</span>, <span class="no">numYears</span>)
-  <span class="no">GenFlux</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA</span>, <span class="no">numYears</span>)
-  <span class="kw">for</span> (<span class="no">i</span> <span class="kw">in</span> <span class="fl">1</span>:<span class="no">numYears</span>) {
-    <span class="no">startMonth</span> <span class="kw">&lt;-</span> (<span class="no">i</span> - <span class="fl">1</span>) * <span class="fl">12</span> + <span class="no">firstMonth</span>
-    <span class="no">stopMonth</span> <span class="kw">&lt;-</span> <span class="no">startMonth</span> + <span class="no">paLong</span> - <span class="fl">1</span>
-    <span class="no">DailyYear</span> <span class="kw">&lt;-</span> <span class="no">localDaily</span>[<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="no">localDaily</span>$<span class="no">MonthSeq</span> <span class="kw">%in%</span>
-                                    <span class="no">startMonth</span>:<span class="no">stopMonth</span>), ]
-    <span class="no">counter</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="no">DailyYear</span>$<span class="no">FluxDay</span>), <span class="fl">0</span>, <span class="fl">1</span>)
-    <span class="kw">if</span> (<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">counter</span>) <span class="kw">&gt;</span> <span class="fl">0</span>) {
-      <span class="no">good</span> <span class="kw">&lt;-</span> (<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">counter</span>) <span class="kw">==</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">counter</span>))
+  <span class="kw">numDays</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="kw">localDaily</span><span class="op">$</span><span class="kw">MonthSeq</span>)
+  <span class="kw">firstMonthSeq</span> <span class="op">&lt;-</span> <span class="kw">localDaily</span><span class="op">$</span><span class="kw">MonthSeq</span>[<span class="fl">1</span>]
+  <span class="kw">lastMonthSeq</span> <span class="op">&lt;-</span> <span class="kw">localDaily</span><span class="op">$</span><span class="kw">MonthSeq</span>[<span class="kw">numDays</span>]
+  <span class="kw">Starts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="kw">paStart</span>, <span class="kw">lastMonthSeq</span>, <span class="fl">12</span>)
+  <span class="kw">Ends</span> <span class="op">&lt;-</span> <span class="kw">Starts</span> <span class="op">+</span> <span class="kw">paLong</span> <span class="op">-</span> <span class="fl">1</span>
+  <span class="kw">StartEndSeq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">Starts</span>, <span class="kw">Ends</span>)
+  <span class="kw">StartEndSeq</span> <span class="op">&lt;-</span> <span class="kw">StartEndSeq</span>[(<span class="kw">StartEndSeq</span><span class="op">$</span><span class="kw">Starts</span> <span class="op">&gt;=</span> <span class="kw">firstMonthSeq</span>) <span class="op">&amp;</span> 
+                               (<span class="kw">StartEndSeq</span><span class="op">$</span><span class="kw">Ends</span> <span class="op">&lt;=</span> <span class="kw">lastMonthSeq</span>), ]
+  <span class="kw">firstMonth</span> <span class="op">&lt;-</span> <span class="kw">StartEndSeq</span>[<span class="fl">1</span>, <span class="fl">1</span>]
+  <span class="kw">numYears</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="kw">StartEndSeq</span><span class="op">$</span><span class="kw">Starts</span>)
+  <span class="kw">DecYear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA</span>, <span class="kw">numYears</span>)
+  <span class="kw">Q</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA</span>, <span class="kw">numYears</span>)
+  <span class="kw">ConcDay</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA</span>, <span class="kw">numYears</span>)
+  <span class="kw">GenConc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA</span>, <span class="kw">numYears</span>)
+  <span class="kw">FluxDay</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA</span>, <span class="kw">numYears</span>)
+  <span class="kw">GenFlux</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA</span>, <span class="kw">numYears</span>)
+  <span class="co">for</span> (<span class="kw">i</span> <span class="co">in</span> <span class="fl">1</span><span class="op">:</span><span class="kw">numYears</span>) {
+    <span class="kw">startMonth</span> <span class="op">&lt;-</span> (<span class="kw">i</span> <span class="op">-</span> <span class="fl">1</span>) <span class="op">*</span> <span class="fl">12</span> <span class="op">+</span> <span class="kw">firstMonth</span>
+    <span class="kw">stopMonth</span> <span class="op">&lt;-</span> <span class="kw">startMonth</span> <span class="op">+</span> <span class="kw">paLong</span> <span class="op">-</span> <span class="fl">1</span>
+    <span class="kw">DailyYear</span> <span class="op">&lt;-</span> <span class="kw">localDaily</span>[<span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="kw">localDaily</span><span class="op">$</span><span class="kw">MonthSeq</span> <span class="op">%in%</span> 
+                                    <span class="kw">startMonth</span><span class="op">:</span><span class="kw">stopMonth</span>), ]
+    <span class="kw">counter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="kw">DailyYear</span><span class="op">$</span><span class="kw">FluxDay</span>), <span class="fl">0</span>, <span class="fl">1</span>)
+    <span class="co">if</span> (<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="kw">counter</span>) <span class="op">&gt;</span> <span class="fl">0</span>) {
+      <span class="kw">good</span> <span class="op">&lt;-</span> (<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="kw">counter</span>) <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="kw">counter</span>))
     }
-    <span class="kw">else</span> {
-      <span class="no">good</span> <span class="kw">&lt;-</span> <span class="fl">FALSE</span>
+    <span class="co">else</span> {
+      <span class="kw">good</span> <span class="op">&lt;-</span> <span class="fl">FALSE</span>
     }
-    <span class="no">DecYear</span>[<span class="no">i</span>] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">DailyYear</span>$<span class="no">DecYear</span>)
-    <span class="no">Q</span>[<span class="no">i</span>] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">DailyYear</span>$<span class="no">Q</span>)
-    <span class="kw">if</span> (<span class="no">good</span>) {
-      <span class="no">ConcDay</span>[<span class="no">i</span>] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">DailyYear</span>$<span class="no">ConcDay</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-      <span class="no">GenConc</span>[<span class="no">i</span>] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">DailyYear</span>$<span class="no">GenConc</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-      <span class="no">FluxDay</span>[<span class="no">i</span>] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">DailyYear</span>$<span class="no">FluxDay</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>) / <span class="fl">1000</span>
-      <span class="no">GenFlux</span>[<span class="no">i</span>] <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">DailyYear</span>$<span class="no">GenFlux</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>) / <span class="fl">1000</span>
+    <span class="kw">DecYear</span>[<span class="kw">i</span>] <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="kw">DailyYear</span><span class="op">$</span><span class="kw">DecYear</span>)
+    <span class="kw">Q</span>[<span class="kw">i</span>] <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="kw">DailyYear</span><span class="op">$</span><span class="kw">Q</span>)
+    <span class="co">if</span> (<span class="kw">good</span>) {
+      <span class="kw">ConcDay</span>[<span class="kw">i</span>] <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="kw">DailyYear</span><span class="op">$</span><span class="kw">ConcDay</span>, na.rm = <span class="fl">TRUE</span>)
+      <span class="kw">GenConc</span>[<span class="kw">i</span>] <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="kw">DailyYear</span><span class="op">$</span><span class="kw">GenConc</span>, na.rm = <span class="fl">TRUE</span>)
+      <span class="kw">FluxDay</span>[<span class="kw">i</span>] <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="kw">DailyYear</span><span class="op">$</span><span class="kw">FluxDay</span>, na.rm = <span class="fl">TRUE</span>) <span class="op">/</span> <span class="fl">1000</span>
+      <span class="kw">GenFlux</span>[<span class="kw">i</span>] <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="kw">DailyYear</span><span class="op">$</span><span class="kw">GenFlux</span>, na.rm = <span class="fl">TRUE</span>) <span class="op">/</span> <span class="fl">1000</span>
     }
   }
-  <span class="no">AnnualResults</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">DecYear</span>, <span class="no">Q</span>, <span class="no">ConcDay</span>, <span class="no">GenConc</span>, <span class="no">FluxDay</span>, <span class="no">GenFlux</span>)
-  <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="no">AnnualResults</span>,<span class="st">"paStart"</span>) <span class="kw">&lt;-</span> <span class="no">paStart</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="no">AnnualResults</span>,<span class="st">"paLong"</span>) <span class="kw">&lt;-</span> <span class="no">paLong</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="no">AnnualResults</span>)
+  <span class="kw">AnnualResults</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">DecYear</span>, <span class="kw">Q</span>, <span class="kw">ConcDay</span>, <span class="kw">GenConc</span>, <span class="kw">FluxDay</span>, <span class="kw">GenFlux</span>)
+  <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="kw">AnnualResults</span>,<span class="st">"paStart"</span>) <span class="op">&lt;-</span> <span class="kw">paStart</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="kw">AnnualResults</span>,<span class="st">"paLong"</span>) <span class="op">&lt;-</span> <span class="kw">paLong</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="kw">AnnualResults</span>)
 }
 <span class="co">#</span>
 <span class="co">#</span>
 <span class="co">#</span>
-<span class="no">computeAnnual</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">eList</span>, <span class="no">Daily</span>, <span class="no">paStart</span> <span class="kw">=</span> <span class="fl">10</span>, <span class="no">paLong</span> <span class="kw">=</span> <span class="fl">12</span>) {
+<span class="kw">computeAnnual</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">eList</span>, <span class="kw">Daily</span>, <span class="kw">paStart</span> = <span class="fl">10</span>, <span class="kw">paLong</span> = <span class="fl">12</span>) {
   <span class="co"># it provides a printed list of the annual values and a set of plots</span>
   <span class="co"># if you don't want that output </span>
   <span class="co"># you can get the same thing with AnnualResults &lt;- setupYearsKalmanFlux()</span>
@@ -365,87 +366,87 @@
   <span class="co"># GenFlux is the Kalman Filter estimate</span>
   <span class="co"># ConcDay is the traditional regression estimate of Concentration </span>
   <span class="co"># GenConc is the Kalman Filter estimate</span>
-  <span class="no">AnnualResults</span> <span class="kw">&lt;-</span> <span class="fu">setupYearsKalmanFlux</span>(<span class="no">Daily</span>, <span class="kw">paStart</span> <span class="kw">=</span> <span class="no">paStart</span>, <span class="kw">paLong</span> <span class="kw">=</span> <span class="no">paLong</span>)
+  <span class="kw">AnnualResults</span> <span class="op">&lt;-</span> <span class="fu">setupYearsKalmanFlux</span>(<span class="kw">Daily</span>, paStart = <span class="kw">paStart</span>, paLong = <span class="kw">paLong</span>)
   <span class="co"># in the print out Q is the annual mean value in m^3/s</span>
   <span class="co"># the two flux values are in metric tons kilograms (1000 kg)</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">eList</span>$<span class="no">INFO</span>$<span class="no">shortName</span>)
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">eList</span>$<span class="no">INFO</span>$<span class="no">paramShortName</span>)
-  <span class="no">period</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"paStart is"</span>,<span class="no">paStart</span>,<span class="st">" paLong is"</span>,<span class="no">paLong</span>, <span class="kw">sep</span> <span class="kw">=</span> <span class="st">" "</span>)
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">period</span>)
-  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">AnnualResults</span>)
-  <span class="no">yMax</span> <span class="kw">&lt;-</span> <span class="fl">1.1</span> * <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="no">AnnualResults</span>$<span class="no">FluxDay</span>, <span class="no">AnnualResults</span>$<span class="no">GenFlux</span>)
-  <span class="no">nYears</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">AnnualResults</span>[,<span class="fl">1</span>])
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">eList</span><span class="op">$</span><span class="kw">INFO</span><span class="op">$</span><span class="kw">shortName</span>)
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">eList</span><span class="op">$</span><span class="kw">INFO</span><span class="op">$</span><span class="kw">paramShortName</span>)
+  <span class="kw">period</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"paStart is"</span>,<span class="kw">paStart</span>,<span class="st">" paLong is"</span>,<span class="kw">paLong</span>, sep = <span class="st">" "</span>)
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">period</span>)
+  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">AnnualResults</span>)
+  <span class="kw">yMax</span> <span class="op">&lt;-</span> <span class="fl">1.1</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="kw">AnnualResults</span><span class="op">$</span><span class="kw">FluxDay</span>, <span class="kw">AnnualResults</span><span class="op">$</span><span class="kw">GenFlux</span>)
+  <span class="kw">nYears</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="kw">AnnualResults</span>[,<span class="fl">1</span>])
   <span class="co"># first a plot of just the WRTDS estimate</span>
-  <span class="no">xMin</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span>(<span class="no">AnnualResults</span>[<span class="fl">1</span>,<span class="fl">1</span>])
-  <span class="no">xMax</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">ceiling</a></span>(<span class="no">AnnualResults</span>[<span class="no">nYears</span>,<span class="fl">1</span>])
-  <span class="no">xlim</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">xMin</span>,<span class="no">xMax</span>)
-  <span class="no">title1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="no">eList</span>$<span class="no">INFO</span>$<span class="no">shortName</span>,<span class="no">eList</span>$<span class="no">INFO</span>$<span class="no">paramShortName</span>,
-                  <span class="st">"\nAnnual Flux Estimates: WRTDS in red, WRTDS-K in green\n"</span>,<span class="no">period</span>,<span class="kw">sep</span><span class="kw">=</span><span class="st">"  "</span>)
-  <span class="no">title2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="no">eList</span>$<span class="no">INFO</span>$<span class="no">shortName</span>,<span class="no">eList</span>$<span class="no">INFO</span>$<span class="no">paramShortName</span>,
-                  <span class="st">"\nComparison of the two flux estimates\n"</span>,<span class="no">period</span>,<span class="kw">sep</span><span class="kw">=</span><span class="st">"  "</span>)
+  <span class="kw">xMin</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span>(<span class="kw">AnnualResults</span>[<span class="fl">1</span>,<span class="fl">1</span>])
+  <span class="kw">xMax</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">ceiling</a></span>(<span class="kw">AnnualResults</span>[<span class="kw">nYears</span>,<span class="fl">1</span>])
+  <span class="kw">xlim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">xMin</span>,<span class="kw">xMax</span>)
+  <span class="kw">title1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="kw">eList</span><span class="op">$</span><span class="kw">INFO</span><span class="op">$</span><span class="kw">shortName</span>,<span class="kw">eList</span><span class="op">$</span><span class="kw">INFO</span><span class="op">$</span><span class="kw">paramShortName</span>,
+                  <span class="st">"\nAnnual Flux Estimates: WRTDS in red, WRTDS-K in green\n"</span>,<span class="kw">period</span>,sep=<span class="st">"  "</span>)
+  <span class="kw">title2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="kw">eList</span><span class="op">$</span><span class="kw">INFO</span><span class="op">$</span><span class="kw">shortName</span>,<span class="kw">eList</span><span class="op">$</span><span class="kw">INFO</span><span class="op">$</span><span class="kw">paramShortName</span>,
+                  <span class="st">"\nComparison of the two flux estimates\n"</span>,<span class="kw">period</span>,sep=<span class="st">"  "</span>)
   <span class="co">#</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">AnnualResults</span>$<span class="no">DecYear</span>, <span class="no">AnnualResults</span>$<span class="no">FluxDay</span>, <span class="kw">pch</span> <span class="kw">=</span> <span class="fl">20</span>, <span class="kw">cex</span> <span class="kw">=</span> <span class="fl">1.3</span>, <span class="kw">xlim</span> <span class="kw">=</span> <span class="no">xlim</span>, <span class="kw">xaxs</span> <span class="kw">=</span> <span class="st">"i"</span>,
-       <span class="kw">ylim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="no">yMax</span>), <span class="kw">yaxs</span> <span class="kw">=</span> <span class="st">"i"</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">""</span>, <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">"Annual flux, metric tons"</span>,
-       <span class="kw">main</span> <span class="kw">=</span> <span class="no">title1</span>, <span class="kw">las</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">"red"</span>,
-       <span class="kw">tck</span> <span class="kw">=</span> <span class="fl">0.02</span>, <span class="kw">cex.main</span> <span class="kw">=</span> <span class="fl">1.1</span>, <span class="kw">cex.lab</span> <span class="kw">=</span> <span class="fl">0.95</span>)
-  <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">new</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-  <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">AnnualResults</span>$<span class="no">DecYear</span>, <span class="no">AnnualResults</span>$<span class="no">GenFlux</span>, <span class="kw">pch</span> <span class="kw">=</span> <span class="fl">20</span>, <span class="kw">cex</span> <span class="kw">=</span> <span class="fl">1.4</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">"green"</span>, <span class="kw">xlim</span> <span class="kw">=</span> <span class="no">xlim</span>, <span class="kw">xaxs</span> <span class="kw">=</span> <span class="st">"i"</span>,
-       <span class="kw">ylim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="no">yMax</span>), <span class="kw">yaxs</span> <span class="kw">=</span> <span class="st">"i"</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">""</span>, <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">""</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="st">""</span>, <span class="kw">las</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">tck</span> <span class="kw">=</span> <span class="fl">0.02</span>, <span class="kw">axes</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">AnnualResults</span><span class="op">$</span><span class="kw">DecYear</span>, <span class="kw">AnnualResults</span><span class="op">$</span><span class="kw">FluxDay</span>, pch = <span class="fl">20</span>, cex = <span class="fl">1.3</span>, xlim = <span class="kw">xlim</span>, xaxs = <span class="st">"i"</span>,
+       ylim = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="kw">yMax</span>), yaxs = <span class="st">"i"</span>, xlab = <span class="st">""</span>, ylab = <span class="st">"Annual flux, metric tons"</span>, 
+       main = <span class="kw">title1</span>, las = <span class="fl">1</span>, col = <span class="st">"red"</span>,
+       tck = <span class="fl">0.02</span>, cex.main = <span class="fl">1.1</span>, cex.lab = <span class="fl">0.95</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(new = <span class="fl">TRUE</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">AnnualResults</span><span class="op">$</span><span class="kw">DecYear</span>, <span class="kw">AnnualResults</span><span class="op">$</span><span class="kw">GenFlux</span>, pch = <span class="fl">20</span>, cex = <span class="fl">1.4</span>, col = <span class="st">"green"</span>, xlim = <span class="kw">xlim</span>, xaxs = <span class="st">"i"</span>,
+       ylim = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="kw">yMax</span>), yaxs = <span class="st">"i"</span>, xlab = <span class="st">""</span>, ylab = <span class="st">""</span>, main = <span class="st">""</span>, las = <span class="fl">1</span>, tck = <span class="fl">0.02</span>, axes = <span class="fl">FALSE</span>)
   <span class="co"># scatter plot</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">AnnualResults</span>$<span class="no">FluxDay</span>, <span class="no">AnnualResults</span>$<span class="no">GenFlux</span>, <span class="kw">pch</span> <span class="kw">=</span> <span class="fl">20</span>, <span class="kw">cex</span> <span class="kw">=</span> <span class="fl">1.3</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">"red"</span>, <span class="kw">xlim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="no">yMax</span>), <span class="kw">xaxs</span> <span class="kw">=</span> <span class="st">"i"</span>,
-       <span class="kw">ylim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="no">yMax</span>), <span class="kw">las</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">yaxs</span> <span class="kw">=</span> <span class="st">"i"</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">"WRTDS estimate of annual flux, in metric tons"</span>, <span class="kw">ylab</span> <span class="kw">=</span>
-         <span class="st">"WRTDS_K estimate of annual flux, in metric tons"</span>, <span class="kw">cex.main</span> <span class="kw">=</span> <span class="fl">1.1</span>, <span class="kw">cex.lab</span> <span class="kw">=</span> <span class="fl">0.95</span>, <span class="kw">cex.axis</span> <span class="kw">=</span> <span class="fl">1.2</span>,
-       <span class="kw">main</span> <span class="kw">=</span> <span class="no">title2</span>)
-  <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span>(<span class="kw">a</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">b</span> <span class="kw">=</span> <span class="fl">1</span>)
-  <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="no">AnnualResults</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">AnnualResults</span><span class="op">$</span><span class="kw">FluxDay</span>, <span class="kw">AnnualResults</span><span class="op">$</span><span class="kw">GenFlux</span>, pch = <span class="fl">20</span>, cex = <span class="fl">1.3</span>, col = <span class="st">"red"</span>, xlim = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="kw">yMax</span>), xaxs = <span class="st">"i"</span>,
+       ylim = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="kw">yMax</span>), las = <span class="fl">1</span>, yaxs = <span class="st">"i"</span>, xlab = <span class="st">"WRTDS estimate of annual flux, in metric tons"</span>, ylab = 
+         <span class="st">"WRTDS_K estimate of annual flux, in metric tons"</span>, cex.main = <span class="fl">1.1</span>, cex.lab = <span class="fl">0.95</span>, cex.axis = <span class="fl">1.2</span>, 
+       main = <span class="kw">title2</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span>(a = <span class="fl">0</span>, b = <span class="fl">1</span>)
+  <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="kw">AnnualResults</span>)
 }
 <span class="co">#</span>
 <span class="co">#</span>
 <span class="co">#</span>
-<span class="no">plotTimeSlice</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">eList</span>, <span class="no">Daily</span>, <span class="no">start</span>, <span class="no">end</span>){
-  <span class="no">Daily</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span>(<span class="no">Daily</span>,<span class="no">DecYear</span> <span class="kw">&gt;=</span> <span class="no">start</span> <span class="kw">&amp;</span> <span class="no">DecYear</span> <span class="kw">&lt;=</span> <span class="no">end</span>)
-  <span class="no">concHigh</span> <span class="kw">&lt;-</span> <span class="fl">1.1</span> * <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="no">Daily</span>$<span class="no">trueConc</span>,<span class="no">Daily</span>$<span class="no">GenConc</span>,<span class="no">Daily</span>$<span class="no">ConcDay</span>,<span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-  <span class="no">concLow</span> <span class="kw">&lt;-</span> <span class="fl">0.9</span> * <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(<span class="no">Daily</span>$<span class="no">trueConc</span>,<span class="no">Daily</span>$<span class="no">GenConc</span>,<span class="no">Daily</span>$<span class="no">ConcDay</span>,<span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-  <span class="no">fluxHigh</span> <span class="kw">&lt;-</span> <span class="fl">1.1</span> * <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="no">Daily</span>$<span class="no">trueFlux</span>,<span class="no">Daily</span>$<span class="no">GenFlux</span>,<span class="no">Daily</span>$<span class="no">FluxDay</span>,<span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-  <span class="no">fluxLow</span> <span class="kw">&lt;-</span> <span class="fl">0.9</span> * <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(<span class="no">Daily</span>$<span class="no">trueFlux</span>,<span class="no">Daily</span>$<span class="no">GenFlux</span>,<span class="no">Daily</span>$<span class="no">FluxDay</span>,<span class="kw">na.rm</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+<span class="kw">plotTimeSlice</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">eList</span>, <span class="kw">Daily</span>, <span class="kw">start</span>, <span class="kw">end</span>){
+  <span class="kw">Daily</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span>(<span class="kw">Daily</span>,<span class="kw">DecYear</span> <span class="op">&gt;=</span> <span class="kw">start</span> <span class="op">&amp;</span> <span class="kw">DecYear</span> <span class="op">&lt;=</span> <span class="kw">end</span>)
+  <span class="kw">concHigh</span> <span class="op">&lt;-</span> <span class="fl">1.1</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="kw">Daily</span><span class="op">$</span><span class="kw">trueConc</span>,<span class="kw">Daily</span><span class="op">$</span><span class="kw">GenConc</span>,<span class="kw">Daily</span><span class="op">$</span><span class="kw">ConcDay</span>,na.rm = <span class="fl">TRUE</span>)
+  <span class="kw">concLow</span> <span class="op">&lt;-</span> <span class="fl">0.9</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(<span class="kw">Daily</span><span class="op">$</span><span class="kw">trueConc</span>,<span class="kw">Daily</span><span class="op">$</span><span class="kw">GenConc</span>,<span class="kw">Daily</span><span class="op">$</span><span class="kw">ConcDay</span>,na.rm = <span class="fl">TRUE</span>)
+  <span class="kw">fluxHigh</span> <span class="op">&lt;-</span> <span class="fl">1.1</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(<span class="kw">Daily</span><span class="op">$</span><span class="kw">trueFlux</span>,<span class="kw">Daily</span><span class="op">$</span><span class="kw">GenFlux</span>,<span class="kw">Daily</span><span class="op">$</span><span class="kw">FluxDay</span>,na.rm = <span class="fl">TRUE</span>)
+  <span class="kw">fluxLow</span> <span class="op">&lt;-</span> <span class="fl">0.9</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span>(<span class="kw">Daily</span><span class="op">$</span><span class="kw">trueFlux</span>,<span class="kw">Daily</span><span class="op">$</span><span class="kw">GenFlux</span>,<span class="kw">Daily</span><span class="op">$</span><span class="kw">FluxDay</span>,na.rm = <span class="fl">TRUE</span>)
   <span class="co"># figure out which data symbol to use, red for uncensored, brown for censored</span>
-  <span class="no">eList</span>$<span class="no">Sample</span>$<span class="no">color</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="no">eList</span>$<span class="no">Sample</span>$<span class="no">Uncen</span> <span class="kw">==</span> <span class="fl">1</span>, <span class="st">"red"</span>, <span class="st">"cyan4"</span>)
-  <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">tck</span> <span class="kw">=</span> <span class="fl">0.02</span>, <span class="kw">las</span> <span class="kw">=</span> <span class="fl">1</span>)
+  <span class="kw">eList</span><span class="op">$</span><span class="kw">Sample</span><span class="op">$</span><span class="kw">color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="kw">eList</span><span class="op">$</span><span class="kw">Sample</span><span class="op">$</span><span class="kw">Uncen</span> <span class="op">==</span> <span class="fl">1</span>, <span class="st">"red"</span>, <span class="st">"cyan4"</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(tck = <span class="fl">0.02</span>, las = <span class="fl">1</span>)
   <span class="co"># first concentration, then flux</span>
-  <span class="no">name</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="no">eList</span>$<span class="no">INFO</span>$<span class="no">shortName</span>, <span class="no">eList</span>$<span class="no">INFO</span>$<span class="no">paramShortName</span>, <span class="kw">sep</span> <span class="kw">=</span> <span class="st">" "</span>)
-  <span class="no">ratio</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">Daily</span>$<span class="no">GenConc</span>) / <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">Daily</span>$<span class="no">ConcDay</span>)
-  <span class="no">fratio</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span>(<span class="no">ratio</span>, <span class="kw">digits</span> <span class="kw">=</span> <span class="fl">2</span>)
-  <span class="no">concTitle</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="no">name</span>,<span class="st">"\nConcentrations, Black is WRTDS, Green is WRTDS_K\nData in red, (rl in blue if &lt;), Ratio of means is"</span>, <span class="no">fratio</span>, <span class="kw">sep</span> <span class="kw">=</span> <span class="st">" "</span>)
-
-  <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">Daily</span>$<span class="no">DecYear</span>, <span class="no">Daily</span>$<span class="no">ConcDay</span>, <span class="kw">log</span> <span class="kw">=</span> <span class="st">"y"</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"l"</span>, <span class="kw">las</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">xlim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">start</span>, <span class="no">end</span>),
-       <span class="kw">xaxs</span> <span class="kw">=</span> <span class="st">"i"</span>, <span class="kw">ylim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">concLow</span>,<span class="no">concHigh</span>), <span class="kw">yaxs</span> <span class="kw">=</span> <span class="st">"i"</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">""</span>, <span class="kw">cex.main</span> <span class="kw">=</span> <span class="fl">0.9</span>,
-       <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">"Concentration, in milligrams per Liter"</span>,
-       <span class="kw">main</span> <span class="kw">=</span> <span class="no">concTitle</span>)
-  <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">new</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-  <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">eList</span>$<span class="no">Sample</span>$<span class="no">DecYear</span>, <span class="no">eList</span>$<span class="no">Sample</span>$<span class="no">ConcHigh</span>, <span class="kw">log</span> <span class="kw">=</span> <span class="st">"y"</span>, <span class="kw">pch</span> <span class="kw">=</span> <span class="fl">20</span>, <span class="kw">cex</span> <span class="kw">=</span> <span class="fl">1.1</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="no">eList</span>$<span class="no">Sample</span>$<span class="no">color</span>,
-       <span class="kw">xlim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">start</span>, <span class="no">end</span>), <span class="kw">xaxs</span> <span class="kw">=</span> <span class="st">"i"</span>, <span class="kw">ylim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">concLow</span>,<span class="no">concHigh</span>), <span class="kw">yaxs</span> <span class="kw">=</span> <span class="st">"i"</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">""</span>,
-       <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">""</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="st">""</span>, <span class="kw">axes</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-  <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">new</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-  <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">Daily</span>$<span class="no">DecYear</span>, <span class="no">Daily</span>$<span class="no">GenConc</span>, <span class="kw">log</span> <span class="kw">=</span> <span class="st">"y"</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"l"</span>, <span class="kw">xlim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">start</span>, <span class="no">end</span>),
-       <span class="kw">xaxs</span> <span class="kw">=</span> <span class="st">"i"</span>, <span class="kw">ylim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">concLow</span>,<span class="no">concHigh</span>), <span class="kw">yaxs</span> <span class="kw">=</span> <span class="st">"i"</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">""</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">"green"</span>,
-       <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">""</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="st">""</span>, <span class="kw">axes</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+  <span class="kw">name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="kw">eList</span><span class="op">$</span><span class="kw">INFO</span><span class="op">$</span><span class="kw">shortName</span>, <span class="kw">eList</span><span class="op">$</span><span class="kw">INFO</span><span class="op">$</span><span class="kw">paramShortName</span>, sep = <span class="st">" "</span>)
+  <span class="kw">ratio</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="kw">Daily</span><span class="op">$</span><span class="kw">GenConc</span>) <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="kw">Daily</span><span class="op">$</span><span class="kw">ConcDay</span>)
+  <span class="kw">fratio</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span>(<span class="kw">ratio</span>, digits = <span class="fl">2</span>)
+  <span class="kw">concTitle</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="kw">name</span>,<span class="st">"\nConcentrations, Black is WRTDS, Green is WRTDS_K\nData in red, (rl in blue if &lt;), Ratio of means is"</span>, <span class="kw">fratio</span>, sep = <span class="st">" "</span>)
+  
+  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">Daily</span><span class="op">$</span><span class="kw">DecYear</span>, <span class="kw">Daily</span><span class="op">$</span><span class="kw">ConcDay</span>, log = <span class="st">"y"</span>, type = <span class="st">"l"</span>, las = <span class="fl">1</span>, xlim = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">start</span>, <span class="kw">end</span>), 
+       xaxs = <span class="st">"i"</span>, ylim = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">concLow</span>,<span class="kw">concHigh</span>), yaxs = <span class="st">"i"</span>, xlab = <span class="st">""</span>, cex.main = <span class="fl">0.9</span>, 
+       ylab = <span class="st">"Concentration, in milligrams per Liter"</span>,
+       main = <span class="kw">concTitle</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(new = <span class="fl">TRUE</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">eList</span><span class="op">$</span><span class="kw">Sample</span><span class="op">$</span><span class="kw">DecYear</span>, <span class="kw">eList</span><span class="op">$</span><span class="kw">Sample</span><span class="op">$</span><span class="kw">ConcHigh</span>, log = <span class="st">"y"</span>, pch = <span class="fl">20</span>, cex = <span class="fl">1.1</span>, col = <span class="kw">eList</span><span class="op">$</span><span class="kw">Sample</span><span class="op">$</span><span class="kw">color</span>, 
+       xlim = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">start</span>, <span class="kw">end</span>), xaxs = <span class="st">"i"</span>, ylim = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">concLow</span>,<span class="kw">concHigh</span>), yaxs = <span class="st">"i"</span>, xlab = <span class="st">""</span>,
+       ylab = <span class="st">""</span>, main = <span class="st">""</span>, axes = <span class="fl">FALSE</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(new = <span class="fl">TRUE</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">Daily</span><span class="op">$</span><span class="kw">DecYear</span>, <span class="kw">Daily</span><span class="op">$</span><span class="kw">GenConc</span>, log = <span class="st">"y"</span>, type = <span class="st">"l"</span>, xlim = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">start</span>, <span class="kw">end</span>), 
+       xaxs = <span class="st">"i"</span>, ylim = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">concLow</span>,<span class="kw">concHigh</span>), yaxs = <span class="st">"i"</span>, xlab = <span class="st">""</span>, col = <span class="st">"green"</span>, 
+       ylab = <span class="st">""</span>, main = <span class="st">""</span>, axes = <span class="fl">FALSE</span>)
   <span class="co"># flux graph</span>
-  <span class="no">ratio</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">Daily</span>$<span class="no">GenFlux</span>) / <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">Daily</span>$<span class="no">FluxDay</span>)
-  <span class="no">fratio</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span>(<span class="no">ratio</span>, <span class="kw">digits</span> <span class="kw">=</span> <span class="fl">2</span>)
-  <span class="no">fluxTitle</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="no">name</span>,<span class="st">"\nFlux, Black is WRTDS, Green is WRTDS_K\nData in red, (rl in blue if &lt;), Ratio of means is"</span>, <span class="no">fratio</span>, <span class="kw">sep</span> <span class="kw">=</span> <span class="st">" "</span>)
-  <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">Daily</span>$<span class="no">DecYear</span>, <span class="no">Daily</span>$<span class="no">FluxDay</span>, <span class="kw">log</span> <span class="kw">=</span> <span class="st">"y"</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"l"</span>, <span class="kw">xlim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">start</span>, <span class="no">end</span>),
-       <span class="kw">xaxs</span> <span class="kw">=</span> <span class="st">"i"</span>, <span class="kw">ylim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">fluxLow</span>,<span class="no">fluxHigh</span>), <span class="kw">yaxs</span> <span class="kw">=</span> <span class="st">"i"</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">""</span>, <span class="kw">las</span> <span class="kw">=</span> <span class="fl">1</span>,
-       <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">"Flux, in kg per day"</span>, <span class="kw">cex.main</span> <span class="kw">=</span> <span class="fl">0.95</span>,
-       <span class="kw">main</span> <span class="kw">=</span> <span class="no">fluxTitle</span>)
-  <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">new</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-  <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">eList</span>$<span class="no">Sample</span>$<span class="no">DecYear</span>, <span class="no">eList</span>$<span class="no">Sample</span>$<span class="no">ConcHigh</span> * <span class="no">eList</span>$<span class="no">Sample</span>$<span class="no">Q</span> * <span class="fl">86.4</span>, <span class="kw">log</span> <span class="kw">=</span> <span class="st">"y"</span>, <span class="kw">pch</span> <span class="kw">=</span> <span class="fl">20</span>,
-       <span class="kw">cex</span> <span class="kw">=</span> <span class="fl">1.1</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="no">eList</span>$<span class="no">Sample</span>$<span class="no">color</span>,
-       <span class="kw">xlim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">start</span>, <span class="no">end</span>), <span class="kw">xaxs</span> <span class="kw">=</span> <span class="st">"i"</span>, <span class="kw">ylim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">fluxLow</span>,<span class="no">fluxHigh</span>), <span class="kw">yaxs</span> <span class="kw">=</span> <span class="st">"i"</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">""</span>,
-       <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">""</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="st">""</span>, <span class="kw">axes</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-  <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">new</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-  <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">Daily</span>$<span class="no">DecYear</span>, <span class="no">Daily</span>$<span class="no">GenFlux</span>, <span class="kw">log</span> <span class="kw">=</span> <span class="st">"y"</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"l"</span>, <span class="kw">xlim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">start</span>, <span class="no">end</span>),
-       <span class="kw">xaxs</span> <span class="kw">=</span> <span class="st">"i"</span>, <span class="kw">ylim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">fluxLow</span>,<span class="no">fluxHigh</span>), <span class="kw">yaxs</span> <span class="kw">=</span> <span class="st">"i"</span>, <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">""</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="st">"green"</span>,
-       <span class="kw">ylab</span> <span class="kw">=</span> <span class="st">""</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="st">""</span>, <span class="kw">axes</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+  <span class="kw">ratio</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="kw">Daily</span><span class="op">$</span><span class="kw">GenFlux</span>) <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="kw">Daily</span><span class="op">$</span><span class="kw">FluxDay</span>)
+  <span class="kw">fratio</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span>(<span class="kw">ratio</span>, digits = <span class="fl">2</span>)
+  <span class="kw">fluxTitle</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="kw">name</span>,<span class="st">"\nFlux, Black is WRTDS, Green is WRTDS_K\nData in red, (rl in blue if &lt;), Ratio of means is"</span>, <span class="kw">fratio</span>, sep = <span class="st">" "</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">Daily</span><span class="op">$</span><span class="kw">DecYear</span>, <span class="kw">Daily</span><span class="op">$</span><span class="kw">FluxDay</span>, log = <span class="st">"y"</span>, type = <span class="st">"l"</span>, xlim = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">start</span>, <span class="kw">end</span>), 
+       xaxs = <span class="st">"i"</span>, ylim = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">fluxLow</span>,<span class="kw">fluxHigh</span>), yaxs = <span class="st">"i"</span>, xlab = <span class="st">""</span>, las = <span class="fl">1</span>,  
+       ylab = <span class="st">"Flux, in kg per day"</span>, cex.main = <span class="fl">0.95</span>,
+       main = <span class="kw">fluxTitle</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(new = <span class="fl">TRUE</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">eList</span><span class="op">$</span><span class="kw">Sample</span><span class="op">$</span><span class="kw">DecYear</span>, <span class="kw">eList</span><span class="op">$</span><span class="kw">Sample</span><span class="op">$</span><span class="kw">ConcHigh</span> <span class="op">*</span> <span class="kw">eList</span><span class="op">$</span><span class="kw">Sample</span><span class="op">$</span><span class="kw">Q</span> <span class="op">*</span> <span class="fl">86.4</span>, log = <span class="st">"y"</span>, pch = <span class="fl">20</span>, 
+       cex = <span class="fl">1.1</span>, col = <span class="kw">eList</span><span class="op">$</span><span class="kw">Sample</span><span class="op">$</span><span class="kw">color</span>, 
+       xlim = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">start</span>, <span class="kw">end</span>), xaxs = <span class="st">"i"</span>, ylim = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">fluxLow</span>,<span class="kw">fluxHigh</span>), yaxs = <span class="st">"i"</span>, xlab = <span class="st">""</span>,
+       ylab = <span class="st">""</span>, main = <span class="st">""</span>, axes = <span class="fl">FALSE</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(new = <span class="fl">TRUE</span>)
+  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span>(<span class="kw">Daily</span><span class="op">$</span><span class="kw">DecYear</span>, <span class="kw">Daily</span><span class="op">$</span><span class="kw">GenFlux</span>, log = <span class="st">"y"</span>, type = <span class="st">"l"</span>, xlim = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">start</span>, <span class="kw">end</span>), 
+       xaxs = <span class="st">"i"</span>, ylim = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">fluxLow</span>,<span class="kw">fluxHigh</span>), yaxs = <span class="st">"i"</span>, xlab = <span class="st">""</span>, col = <span class="st">"green"</span>, 
+       ylab = <span class="st">""</span>, main = <span class="st">""</span>, axes = <span class="fl">FALSE</span>)
 }
 <span class="co">#</span>
 <span class="co">#</span>
@@ -453,33 +454,38 @@
 <span class="co"># script for identifying if a Sample data frame has</span>
 <span class="co"># any days with multiple samples</span>
 <span class="co"># or any samples that are uncensored</span>
-<span class="no">specialCase</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">eList</span>) {
-  <span class="no">Sample</span> <span class="kw">&lt;-</span> <span class="no">eList</span>$<span class="no">Sample</span>
-  <span class="no">n</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">Sample</span>$<span class="no">Date</span>)
-  <span class="no">days</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="no">Sample</span>$<span class="no">Julian</span>)
-  <span class="no">nDays</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">days</span>)
-  <span class="no">mult</span> <span class="kw">&lt;-</span> <span class="kw">if</span>(<span class="no">n</span> <span class="kw">&gt;</span> <span class="no">nDays</span>) <span class="fl">TRUE</span> <span class="kw">else</span> <span class="fl">FALSE</span>
-  <span class="no">nUncen</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">Sample</span>$<span class="no">Uncen</span>)
-  <span class="no">cen</span> <span class="kw">&lt;-</span> <span class="kw">if</span>(<span class="no">nUncen</span> <span class="kw">&lt;</span> <span class="no">n</span>) <span class="fl">TRUE</span> <span class="kw">else</span> <span class="fl">FALSE</span>
+<span class="kw">specialCase</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">eList</span>) {
+  <span class="kw">Sample</span> <span class="op">&lt;-</span> <span class="kw">eList</span><span class="op">$</span><span class="kw">Sample</span>
+  <span class="kw">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="kw">Sample</span><span class="op">$</span><span class="kw">Date</span>)
+  <span class="kw">days</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="kw">Sample</span><span class="op">$</span><span class="kw">Julian</span>)
+  <span class="kw">nDays</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="kw">days</span>)
+  <span class="kw">mult</span> <span class="op">&lt;-</span> <span class="co">if</span>(<span class="kw">n</span> <span class="op">&gt;</span> <span class="kw">nDays</span>) <span class="fl">TRUE</span> <span class="co">else</span> <span class="fl">FALSE</span>
+  <span class="kw">nUncen</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="kw">Sample</span><span class="op">$</span><span class="kw">Uncen</span>)
+  <span class="kw">cen</span> <span class="op">&lt;-</span> <span class="co">if</span>(<span class="kw">nUncen</span> <span class="op">&lt;</span> <span class="kw">n</span>) <span class="fl">TRUE</span> <span class="co">else</span> <span class="fl">FALSE</span>
   <span class="co"># when mult is TRUE, needs to go through the subsampling process each time</span>
   <span class="co"># when cen is TRUE it needs to go through the random augmentation </span>
-  <span class="no">special</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">mult</span>, <span class="no">cen</span>)
-  <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="no">special</span>)
-}</pre></body></html></div>
+  <span class="kw">special</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">mult</span>, <span class="kw">cen</span>)
+  <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="kw">special</span>)
+}
+</pre></div>
 </div>
 <div id="running-the-software" class="section level2">
 <h2 class="hasAnchor">
 <a href="#running-the-software" class="anchor"></a>Running the software</h2>
 <p>Make sure that the <strong>.RData</strong> file and the code are in the workspace you want to work in and that you have properly set the working directory with the <strong>setwd()</strong> command. Be sure that the eList contains the <strong>surfaces</strong> matrix, which is the estimated WRTDS model, based on the data set in the <strong>Sample</strong> data frame. Here is an example of a run, with some comments along the way. The actual commands are shown in the shaded part.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">EGRET</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">MASS</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">lubridate</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://pubs.usgs.gov/tm/04/a10">EGRET</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://www.stats.ox.ac.uk/pub/MASS4">MASS</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://lubridate.tidyverse.org">lubridate</a></span>)
+</pre></div>
 <pre><code>## 
 ## Attaching package: 'lubridate'</code></pre>
 <pre><code>## The following objects are masked from 'package:base':
 ## 
 ##     date, intersect, setdiff, union</code></pre>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)
+</pre></div>
 <pre><code>## 
 ## Attaching package: 'dplyr'</code></pre>
 <pre><code>## The following object is masked from 'package:MASS':
@@ -491,11 +497,13 @@
 <pre><code>## The following objects are masked from 'package:base':
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span>(<span class="st">"rockCr.tp.RData"</span>) <span class="co"># the name of your EGRET workspace</span>
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span>(<span class="st">"rockCr.tp.RData"</span>) <span class="co"># the name of your EGRET workspace</span>
 <span class="fu"><a href="https://rdrr.io/r/base/source.html">source</a></span>(<span class="st">"functionsForK.R"</span>)
 <span class="co"># now we will run the WRTDS_K estimation (I'm using the defaults for now)</span>
-<span class="no">DailyK</span> <span class="kw">&lt;-</span> <span class="fu">makeDailyK</span>(<span class="no">eList</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="no">DailyK</span>))</pre></body></html></div>
+<span class="kw">DailyK</span> <span class="op">&lt;-</span> <span class="fu">makeDailyK</span>(<span class="kw">eList</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(<span class="kw">DailyK</span>))
+</pre></div>
 <pre><code>##       Date                  Q                 Julian          Month       
 ##  Min.   :2006-01-01   Min.   : 0.001699   Min.   :56978   Min.   : 1.000  
 ##  1st Qu.:2009-03-09   1st Qu.: 0.024352   1st Qu.:58142   1st Qu.: 3.000  
@@ -544,9 +552,13 @@
 ##  3rd Qu.:0.2417  
 ##  Max.   :6.9288  
 ## </code></pre>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="no">DailyK</span>,<span class="st">"niter"</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb12"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="kw">DailyK</span>,<span class="st">"niter"</span>))
+</pre></div>
 <pre><code>## [1] 200</code></pre>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="no">DailyK</span>,<span class="st">"rho"</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb14"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="kw">DailyK</span>,<span class="st">"rho"</span>))
+</pre></div>
 <pre><code>## [1] 0.9</code></pre>
 <p>The object being created here is a data frame called <strong>DailyK</strong>. It looks just like <strong>Daily</strong> but with some columns added. What are the extra columns?</p>
 <p><strong>trueConc</strong> is the measured concentration on the days when there is a value, many will be NA</p>
@@ -559,7 +571,9 @@
 <h1 class="hasAnchor">
 <a href="#summarizing-results-at-an-annual-time-step" class="anchor"></a>Summarizing results at an annual time step</h1>
 <p>Now we can take the results from the <strong>DailyK</strong> data frame and compute annual flux values. We will do that for the regular WRTDS and for WRTDS_K (using the data in two columns of <strong>DailyK</strong> the <strong>FluxDay</strong> column and the <strong>GenFlux</strong> column). We can also do these computations for some period of analysis other than the water year, but for now, we will just show the water year computations. The function used is called <strong>computeAnnual</strong> and it produces a data frame called <strong>AnnualResults</strong> and also produces some graphics that show the two types of results. Notice that <strong>AnnualResults</strong> has some attributes that go with it that will tell you what the period of analysis was. They are printed here. Note that the function <strong>computeAnnual</strong> actually does more than the computations, it prints out the content of AnnualResults and it also makes two graphs that tell you some things about how the two types of estimates compare to each other.</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">AnnualResults</span> <span class="kw">&lt;-</span> <span class="fu">computeAnnual</span>(<span class="no">eList</span>, <span class="kw">Daily</span> <span class="kw">=</span> <span class="no">DailyK</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb16"><pre class="downlit">
+<span class="kw">AnnualResults</span> <span class="op">&lt;-</span> <span class="fu">computeAnnual</span>(<span class="kw">eList</span>, Daily = <span class="kw">DailyK</span>)
+</pre></div>
 <pre><code>## [1] "Rock Creek at Kentucky Road in Independence, MO"
 ## [1] "Phosphorus"
 ## [1] "paStart is 10  paLong is 12"
@@ -577,9 +591,13 @@
 ## 11 2017.247 0.19541107 0.2342773 0.2421715 12.077357 10.410761
 ## 12 2018.247 0.09552708 0.1734324 0.1714012  3.436251  3.403874</code></pre>
 <p><img src="Making%20WRTDS_K%20flux%20estimates_files/figure-html/unnamed-chunk-3-1.png" width="700"><img src="Making%20WRTDS_K%20flux%20estimates_files/figure-html/unnamed-chunk-3-2.png" width="700"></p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="no">AnnualResults</span>, <span class="st">"paStart"</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb18"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="kw">AnnualResults</span>, <span class="st">"paStart"</span>))
+</pre></div>
 <pre><code>## [1] 10</code></pre>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="no">AnnualResults</span>, <span class="st">"paLong"</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb20"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="kw">AnnualResults</span>, <span class="st">"paLong"</span>))
+</pre></div>
 <pre><code>## [1] 12</code></pre>
 <p>The content of <strong>AnnualResults</strong> is fairly obvious.</p>
 <p><strong>DecYear</strong> is the mean day of the year for the period of analysis, for example, water year 2007 would have a mean day of 2007.247 (end of March of 2007).</p>
@@ -597,9 +615,13 @@
 <a href="#looking-at-parts-of-the-record-to-see-how-wrtds-and-wrtds_k-are-working" class="anchor"></a>Looking at parts of the record to see how WRTDS and WRTDS_K are working</h1>
 <p>We have a function that produces graphics that show, as a time series, the daily true values (for the days that have samples), the WRTDS estimates for every day, and the WRTDS_K estimates for every day. We could plot the whole record, but the ups and downs of the curves would be so tight that we really couldn’t see what’s going on. So, we let the user pick a time slice to look at. It produces two plots, the first is for concentration (it is typically easier to see what is happening in the estimation with the concentration graphs) and the second is for flux (discharge plays such a big role here that the propagation of error from the concentrations gets somewhat obscured, but flux is, after all, what we are interested in here).</p>
 <p>We will look at two examples here, in each case looking at about a half a year. The first one (2018) is a year in which there was very good agreement between the estimates, and the second one (2015) is a year with a large difference between the methods. Let’s see what those results look like.</p>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="fu"><a href="../reference/plotTimeSlice.html">plotTimeSlice</a></span>(<span class="no">eList</span>, <span class="kw">Daily</span> <span class="kw">=</span> <span class="no">DailyK</span>, <span class="kw">start</span> <span class="kw">=</span> <span class="fl">2018.2</span>, <span class="kw">end</span> <span class="kw">=</span> <span class="fl">2018.7</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb22"><pre class="downlit">
+<span class="fu"><a href="../reference/plotTimeSlice.html">plotTimeSlice</a></span>(<span class="kw">eList</span>, Daily = <span class="kw">DailyK</span>, start = <span class="fl">2018.2</span>, end = <span class="fl">2018.7</span>)
+</pre></div>
 <p><img src="Making%20WRTDS_K%20flux%20estimates_files/figure-html/unnamed-chunk-4-1.png" width="700"><img src="Making%20WRTDS_K%20flux%20estimates_files/figure-html/unnamed-chunk-4-2.png" width="700"></p>
-<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="fu"><a href="../reference/plotTimeSlice.html">plotTimeSlice</a></span>(<span class="no">eList</span>, <span class="kw">Daily</span> <span class="kw">=</span> <span class="no">DailyK</span>, <span class="kw">start</span> <span class="kw">=</span> <span class="fl">2015.2</span>, <span class="kw">end</span> <span class="kw">=</span> <span class="fl">2015.7</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb23"><pre class="downlit">
+<span class="fu"><a href="../reference/plotTimeSlice.html">plotTimeSlice</a></span>(<span class="kw">eList</span>, Daily = <span class="kw">DailyK</span>, start = <span class="fl">2015.2</span>, end = <span class="fl">2015.7</span>)
+</pre></div>
 <p><img src="Making%20WRTDS_K%20flux%20estimates_files/figure-html/unnamed-chunk-4-3.png" width="700"><img src="Making%20WRTDS_K%20flux%20estimates_files/figure-html/unnamed-chunk-4-4.png" width="700"></p>
 <p>What can we learn from these figures? The first, which is a half year in 2018. Note before we start that all of these graphs show either concentration or flux on a log scale. We will start with the concentration graph. We see that there are 7 observed values. When we compare the observed values (red dots) with the WRTDS estimates (black line) for each of those days we see two negative residuals followed by a positive residual a negative a positive and the final two have residuals that are close to zero. Once we get past the second observation (around 2018.25) we see the WRTDS_K curve (in green) going back a forth from being a little above the WRTDS curve to a little below. This alternation indicates that the errors of the model are not ones that persist for very many days and thus the corrections based on these errors don’t persist for very many days. One other thing to note is that the model suggests a big spike in concentration around 2018.4 but there are no samples very close in time to this event (there is a gap of about a month) and the big discharge event took place about half way between these two sample dates. Given this lack of information close to the date of the large flow event, the WRTDS_K will not result in much of a change during this event as compared to what we estimate from WRTDS. The upshot of all of this is that the residuals information doesn’t make much difference during this half year in WRTDS_K results and we really don’t change our estimate by much.</p>
 <p>Now, contrast this with the 2015 results. Here we see the first residual being very near zero, but after that every one of them is substantially negative (below the black line). What this is telling us is that something was going on in this part of 2015 such that concentrations were always lower than the WRTDS model (based on the years around 2015, both before and after). We don’t happen to know why this departure exists (perhaps it relates to what tributaries were most active or to something about antecedent conditions). What it does tell us is that generally, throughout the period 2015.35 through 2015.65 it is a good guess that concentrations are likely to have been lower than what the WRTDS model estimates they should be. The math of the WRTDS_K model ends up giving us a green curve that is always below the black curve throughout this period. That means, when the WRTDS_K estimate is summarized for the whole 2015 water year it will be a good deal lower than what WRTDS would give us. Looking at the last of the four graphs (for flux), even though the black and green curves track pretty close to each other the ratio of the two mean fluxes is 0.45. So, the persistant negative residuals causes us to make a major downward adjustment to our estimated flux for the period.</p>
@@ -611,12 +633,18 @@
 <a href="#two-options-available-setting-rho-and-setting-niter" class="anchor"></a>Two options available (setting rho and setting niter)</h1>
 <p>One of the things that the user must select is the rho value. We don’t have a strong theoretical basis for selecting the right value of rho, although our research has shown that the results are not highly sensitive to it. In the paper published in Zhang and Hirsch (2019) (see the second URL near the start of this document) we do make some generalizations about the selection of rho. We found that for nitrate a slightly higher rho value (such as 0.95) may be better than for other constitutents such as TP, OrthoP, Suspended Sediment, or Chloride for which values like 0.85 or 0.9 may be better. The somewhat different behavior for nitrate is explained by the fact that at many sites there are some other factors probably related to denitrification the discharge and term does not have a great amount of explanatory power in the WRTDS model. As such, placing more reliance on the results of samples that are close in time is appropriate. One can experiment with different values of rho because it is an argument in the <strong>makeDailyK</strong> function.</p>
 <p>We can re-run the analysis with rho of 0.85 and see how much difference it makes. The table shown here lists the ratio the difference in annual values divided by the original annual value (so multiplying these numbers by 100 would result in differences in percent).</p>
-<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="no">DailyK2</span> <span class="kw">&lt;-</span> <span class="fu">makeDailyK</span>(<span class="no">eList</span>, <span class="kw">rho</span> <span class="kw">=</span> <span class="fl">0.85</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="no">DailyK2</span>,<span class="st">"rho"</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb24"><pre class="downlit">
+<span class="kw">DailyK2</span> <span class="op">&lt;-</span> <span class="fu">makeDailyK</span>(<span class="kw">eList</span>, rho = <span class="fl">0.85</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="kw">DailyK2</span>,<span class="st">"rho"</span>))
+</pre></div>
 <pre><code>## [1] 0.85</code></pre>
-<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="no">DailyK2</span>,<span class="st">"niter"</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb26"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="kw">DailyK2</span>,<span class="st">"niter"</span>))
+</pre></div>
 <pre><code>## [1] 200</code></pre>
-<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="no">AnnualResults2</span> <span class="kw">&lt;-</span> <span class="fu">computeAnnual</span>(<span class="no">eList</span>, <span class="kw">Daily</span> <span class="kw">=</span> <span class="no">DailyK2</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb28"><pre class="downlit">
+<span class="kw">AnnualResults2</span> <span class="op">&lt;-</span> <span class="fu">computeAnnual</span>(<span class="kw">eList</span>, Daily = <span class="kw">DailyK2</span>)
+</pre></div>
 <pre><code>## [1] "Rock Creek at Kentucky Road in Independence, MO"
 ## [1] "Phosphorus"
 ## [1] "paStart is 10  paLong is 12"
@@ -634,8 +662,10 @@
 ## 11 2017.247 0.19541107 0.2342773 0.2421669 12.077357 10.879251
 ## 12 2018.247 0.09552708 0.1734324 0.1716476  3.436251  3.333916</code></pre>
 <p><img src="Making%20WRTDS_K%20flux%20estimates_files/figure-html/unnamed-chunk-5-1.png" width="700"><img src="Making%20WRTDS_K%20flux%20estimates_files/figure-html/unnamed-chunk-5-2.png" width="700"></p>
-<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="no">Ratios</span> <span class="kw">&lt;-</span> (<span class="no">AnnualResults2</span> - <span class="no">AnnualResults</span>) / <span class="no">AnnualResults</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">Ratios</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb30"><pre class="downlit">
+<span class="kw">Ratios</span> <span class="op">&lt;-</span> (<span class="kw">AnnualResults2</span> <span class="op">-</span> <span class="kw">AnnualResults</span>) <span class="op">/</span> <span class="kw">AnnualResults</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">Ratios</span>)
+</pre></div>
 <pre><code>##    DecYear Q ConcDay       GenConc FluxDay      GenFlux
 ## 1        0 0       0  0.0039807650       0  0.006313677
 ## 2        0 0       0  0.0422655465       0  0.059837223
@@ -651,8 +681,10 @@
 ## 12       0 0       0  0.0014377375       0 -0.020552659</code></pre>
 <p>What we see here is that the change in rho from 0.9 to 0.85 makes less than a 10% difference in any of the years.</p>
 <p>Setting the number of iterations to 200 (the default) seems to be sufficient. We can set a different random number seed and see how much difference it makes in the results.</p>
-<div class="sourceCode" id="cb32"><html><body><pre class="r"><span class="no">DailyK2</span> <span class="kw">&lt;-</span> <span class="fu">makeDailyK</span>(<span class="no">eList</span>, <span class="kw">seed</span> <span class="kw">=</span> <span class="fl">38109695</span>)
-<span class="no">AnnualResults2</span> <span class="kw">&lt;-</span> <span class="fu">computeAnnual</span>(<span class="no">eList</span>, <span class="kw">Daily</span> <span class="kw">=</span> <span class="no">DailyK2</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb32"><pre class="downlit">
+<span class="kw">DailyK2</span> <span class="op">&lt;-</span> <span class="fu">makeDailyK</span>(<span class="kw">eList</span>, seed = <span class="fl">38109695</span>)
+<span class="kw">AnnualResults2</span> <span class="op">&lt;-</span> <span class="fu">computeAnnual</span>(<span class="kw">eList</span>, Daily = <span class="kw">DailyK2</span>)
+</pre></div>
 <pre><code>## [1] "Rock Creek at Kentucky Road in Independence, MO"
 ## [1] "Phosphorus"
 ## [1] "paStart is 10  paLong is 12"
@@ -670,8 +702,10 @@
 ## 11 2017.247 0.19541107 0.2342773 0.2452966 12.077357 11.080569
 ## 12 2018.247 0.09552708 0.1734324 0.1748340  3.436251  3.781166</code></pre>
 <p><img src="Making%20WRTDS_K%20flux%20estimates_files/figure-html/unnamed-chunk-6-1.png" width="700"><img src="Making%20WRTDS_K%20flux%20estimates_files/figure-html/unnamed-chunk-6-2.png" width="700"></p>
-<div class="sourceCode" id="cb34"><html><body><pre class="r"><span class="no">Ratios</span> <span class="kw">&lt;-</span> (<span class="no">AnnualResults2</span> - <span class="no">AnnualResults</span>) / <span class="no">AnnualResults</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">Ratios</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb34"><pre class="downlit">
+<span class="kw">Ratios</span> <span class="op">&lt;-</span> (<span class="kw">AnnualResults2</span> <span class="op">-</span> <span class="kw">AnnualResults</span>) <span class="op">/</span> <span class="kw">AnnualResults</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="kw">Ratios</span>)
+</pre></div>
 <pre><code>##    DecYear Q ConcDay      GenConc FluxDay       GenFlux
 ## 1        0 0       0 -0.018044719       0  0.0007550509
 ## 2        0 0       0 -0.014116740       0 -0.0513555957
@@ -694,9 +728,13 @@
 <p><strong>plotConcHistK</strong> works exactly like <strong>plotConcHist</strong> but there is a new second argument, it is <strong>DailyK</strong>. So in it’s simplest form the call would be <strong>plotConcHistK(eList, DailyK)</strong>. The markings in the title have a <em>(K)</em> after the word <em>Estimates</em>.</p>
 <p><strong>plotFluxHistK</strong> works exactly like <strong>plotFluxHist</strong> but there is a new second argument, it is <strong>DailyK</strong>. So in it’s simplest form the call would be <strong>plotFluxHistK(eList, DailyK)</strong>. The markings in the title have a <em>(K)</em> after the word <em>Estimates</em>.</p>
 <p>Here they are being used.</p>
-<div class="sourceCode" id="cb36"><html><body><pre class="r"><span class="fu">plotConcHistK</span>(<span class="no">eList</span>, <span class="no">DailyK</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb36"><pre class="downlit">
+<span class="fu">plotConcHistK</span>(<span class="kw">eList</span>, <span class="kw">DailyK</span>)
+</pre></div>
 <p><img src="Making%20WRTDS_K%20flux%20estimates_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<div class="sourceCode" id="cb37"><html><body><pre class="r"><span class="fu">plotFluxHistK</span>(<span class="no">eList</span>, <span class="no">DailyK</span>, <span class="kw">fluxUnit</span> <span class="kw">=</span> <span class="fl">8</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb37"><pre class="downlit">
+<span class="fu">plotFluxHistK</span>(<span class="kw">eList</span>, <span class="kw">DailyK</span>, fluxUnit = <span class="fl">8</span>)
+</pre></div>
 <p><img src="Making%20WRTDS_K%20flux%20estimates_files/figure-html/unnamed-chunk-7-2.png" width="700"></p>
 </div>
 <div id="operationalizing-this-in-a-batch-job" class="section level1">
@@ -738,10 +776,12 @@
 <div id="an-example-with-both-special-issues" class="section level2">
 <h2 class="hasAnchor">
 <a href="#an-example-with-both-special-issues" class="anchor"></a>An example with both special issues</h2>
-<div class="sourceCode" id="cb38"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span>(<span class="no">eList</span>, <span class="no">DailyK</span>)
+<div class="sourceCode" id="cb38"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span>(<span class="kw">eList</span>, <span class="kw">DailyK</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span>(<span class="st">"test.RData"</span>) <span class="co"># the name of your EGRET workspace</span>
-<span class="no">DailyK</span> <span class="kw">&lt;-</span> <span class="fu">makeDailyK</span>(<span class="no">eList</span>)
-<span class="fu"><a href="../reference/plotTimeSlice.html">plotTimeSlice</a></span>(<span class="no">eList</span>, <span class="no">DailyK</span>, <span class="kw">start</span> <span class="kw">=</span> <span class="fl">2010.2</span>, <span class="kw">end</span> <span class="kw">=</span> <span class="fl">2010.4</span>)</pre></body></html></div>
+<span class="kw">DailyK</span> <span class="op">&lt;-</span> <span class="fu">makeDailyK</span>(<span class="kw">eList</span>)
+<span class="fu"><a href="../reference/plotTimeSlice.html">plotTimeSlice</a></span>(<span class="kw">eList</span>, <span class="kw">DailyK</span>, start = <span class="fl">2010.2</span>, end = <span class="fl">2010.4</span>)
+</pre></div>
 <p><img src="Making%20WRTDS_K%20flux%20estimates_files/figure-html/unnamed-chunk-8-1.png" width="700"><img src="Making%20WRTDS_K%20flux%20estimates_files/figure-html/unnamed-chunk-8-2.png" width="700"></p>
 <p>If we look at the concentration graph we see two things of interest here. Right after 2010.30 there appear to be three days with censored values with a reporting limit at 0.004 mg/L. What is interesting here is that generally the green line (WRTDS_K estimates) go right through the samples (the red dots), here they don’t. That is because in the Monte Carlo simulation to “true” samples generated are always less than the reporting limit (the blue dots) so the green line lies below these points. Also, there is a case at around 2010.38 where there are two data points (red points) that lie one directly above the other. These are two sample values from the same day. The WRTDS_K estimate (green line) goes right between these two sample values because in the Monte Carlo simulation sometimes the sample value is the lower one and sometimes it is the upper one and the result is that the estimate lies between the two.</p>
 </div>
@@ -770,7 +810,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

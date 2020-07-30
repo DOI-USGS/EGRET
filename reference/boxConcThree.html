@@ -182,9 +182,9 @@ and an INFO dataframe with metadata.</p>
 <p>Although there are a lot of optional arguments to this function, most are set to a logical default.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>boxConcThree</span>(<span class='no'>eList</span>, <span class='kw'>tinyPlot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>printTitle</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>moreTitle</span> <span class='kw'>=</span> <span class='st'>"WRTDS"</span>, <span class='kw'>customPar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>font.main</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>0.8</span>,
-  <span class='kw'>cex.main</span> <span class='kw'>=</span> <span class='fl'>1.1</span>, <span class='kw'>cex.axis</span> <span class='kw'>=</span> <span class='fl'>1.1</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>boxConcThree</span>(<span class='kw'>eList</span>, tinyPlot = <span class='fl'>FALSE</span>, printTitle = <span class='fl'>TRUE</span>,
+  moreTitle = <span class='st'>"WRTDS"</span>, customPar = <span class='fl'>FALSE</span>, font.main = <span class='fl'>2</span>, cex = <span class='fl'>0.8</span>,
+  cex.main = <span class='fl'>1.1</span>, cex.axis = <span class='fl'>1.1</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -236,11 +236,11 @@ and an INFO dataframe with metadata.</p>
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/graphics/boxplot.html'>boxplot</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
+    <pre class="examples"><div class='input'><span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='kw'>Choptank_eList</span>
 <span class='co'># Water year:</span>
-<span class='fu'>boxConcThree</span>(<span class='no'>eList</span>)</div><div class='img'><img src='boxConcThree-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Graphs consisting of Jun-Aug</span>
-<span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span>(<span class='no'>eList</span>, <span class='kw'>paStart</span><span class='kw'>=</span><span class='fl'>6</span>,<span class='kw'>paLong</span><span class='kw'>=</span><span class='fl'>3</span>)
-<span class='fu'>boxConcThree</span>(<span class='no'>eList</span>)</div><div class='img'><img src='boxConcThree-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>boxConcThree</span>(<span class='kw'>eList</span>)</div><div class='img'><img src='boxConcThree-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Graphs consisting of Jun-Aug</span>
+<span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span>(<span class='kw'>eList</span>, paStart=<span class='fl'>6</span>,paLong=<span class='fl'>3</span>)
+<span class='fu'>boxConcThree</span>(<span class='kw'>eList</span>)</div><div class='img'><img src='boxConcThree-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -256,7 +256,7 @@ and an INFO dataframe with metadata.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

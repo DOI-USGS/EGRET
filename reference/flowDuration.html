@@ -172,7 +172,7 @@ streamflow for a particular part of the year or for the whole year.
 This is particularly useful in setting up discharge scales for various other plots in this package.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>flowDuration</span>(<span class='no'>eList</span>, <span class='kw'>centerDate</span> <span class='kw'>=</span> <span class='st'>"09-30"</span>, <span class='kw'>qUnit</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>span</span> <span class='kw'>=</span> <span class='fl'>365</span>)</pre>
+    <pre class="usage"><span class='fu'>flowDuration</span>(<span class='kw'>eList</span>, centerDate = <span class='st'>"09-30"</span>, qUnit = <span class='fl'>2</span>, span = <span class='fl'>365</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -206,9 +206,9 @@ be about 30. Default is 365.</p></td>
     <p>qDuration A named vector with flow duration information.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
+    <pre class="examples"><div class='input'><span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='kw'>Choptank_eList</span>
 <span class='co'># for a window of 30 days either side of June 25 expressed in units of cfs:</span>
-<span class='fu'>flowDuration</span>(<span class='no'>eList</span>,<span class='st'>"06-25"</span>, <span class='kw'>qUnit</span><span class='kw'>=</span><span class='fl'>1</span>,<span class='kw'>span</span><span class='kw'>=</span><span class='fl'>30</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>flowDuration</span>(<span class='kw'>eList</span>,<span class='st'>"06-25"</span>, qUnit=<span class='fl'>1</span>,span=<span class='fl'>30</span>) </div><div class='output co'>#&gt; 
 #&gt; Flow Duration for Choptank River 
 #&gt; 
 #&gt; Flow duration period is centered on June 25 
@@ -216,7 +216,7 @@ be about 30. Default is 365.</p></td>
 #&gt; 
 #&gt; Discharge units are Cubic Feet per Second </div><div class='output co'>#&gt;    min     5%    10%    25%    50%    75%    90%    95%    max 
 #&gt;    3.6   13.0   16.0   30.0   52.0  100.0  213.0  335.0 3830.0 </div><div class='input'><span class='co'># for a flow-duration curve covering the whole year, expressed in units of csf: </span>
-<span class='fu'>flowDuration</span>(<span class='no'>eList</span>, <span class='st'>"01-01"</span>, <span class='kw'>qUnit</span><span class='kw'>=</span><span class='fl'>2</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>flowDuration</span>(<span class='kw'>eList</span>, <span class='st'>"01-01"</span>, qUnit=<span class='fl'>2</span>) </div><div class='output co'>#&gt; 
 #&gt; Flow Duration for Choptank River 
 #&gt; 
 #&gt; Flow duration is based on full year
@@ -240,7 +240,7 @@ be about 30. Default is 365.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

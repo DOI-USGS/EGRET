@@ -180,11 +180,11 @@ The index of the flow statistics is istat.  These statistics are:
 and an INFO dataframe with metadata.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plotFlowSingle</span>(<span class='no'>eList</span>, <span class='no'>istat</span>, <span class='kw'>yearStart</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>yearEnd</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>qMax</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>printTitle</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>tinyPlot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>customPar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>runoff</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>qUnit</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>printStaName</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>printPA</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>usgsStyle</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>printIstat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>0.8</span>, <span class='kw'>cex.axis</span> <span class='kw'>=</span> <span class='fl'>1.1</span>,
-  <span class='kw'>cex.main</span> <span class='kw'>=</span> <span class='fl'>1.1</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>plotFlowSingle</span>(<span class='kw'>eList</span>, <span class='kw'>istat</span>, yearStart = <span class='fl'>NA</span>, yearEnd = <span class='fl'>NA</span>, qMax = <span class='fl'>NA</span>,
+  printTitle = <span class='fl'>TRUE</span>, tinyPlot = <span class='fl'>FALSE</span>, customPar = <span class='fl'>FALSE</span>,
+  runoff = <span class='fl'>FALSE</span>, qUnit = <span class='fl'>1</span>, printStaName = <span class='fl'>TRUE</span>, printPA = <span class='fl'>TRUE</span>,
+  usgsStyle = <span class='fl'>FALSE</span>, printIstat = <span class='fl'>TRUE</span>, cex = <span class='fl'>0.8</span>, cex.axis = <span class='fl'>1.1</span>,
+  cex.main = <span class='fl'>1.1</span>, lwd = <span class='fl'>2</span>, col = <span class='st'>"black"</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -279,11 +279,11 @@ generated labels.</p></td>
     <div class='dont-index'><p><code><a href='makeAnnualSeries.html'>makeAnnualSeries</a></code>, <code><a href='genericEGRETDotPlot.html'>genericEGRETDotPlot</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
+    <pre class="examples"><div class='input'><span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='kw'>Choptank_eList</span>
 <span class='co'># Water year:</span>
-<span class='fu'>plotFlowSingle</span>(<span class='no'>eList</span>, <span class='fl'>1</span>)</div><div class='img'><img src='plotFlowSingle-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Graphs consisting of Jun-Aug</span>
-<span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span>(<span class='no'>eList</span>, <span class='kw'>paStart</span><span class='kw'>=</span><span class='fl'>6</span>,<span class='kw'>paLong</span><span class='kw'>=</span><span class='fl'>3</span>)
-<span class='fu'>plotFlowSingle</span>(<span class='no'>eList</span>, <span class='fl'>1</span>)</div><div class='img'><img src='plotFlowSingle-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>plotFlowSingle</span>(<span class='kw'>eList</span>, <span class='fl'>1</span>)</div><div class='img'><img src='plotFlowSingle-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Graphs consisting of Jun-Aug</span>
+<span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span>(<span class='kw'>eList</span>, paStart=<span class='fl'>6</span>,paLong=<span class='fl'>3</span>)
+<span class='fu'>plotFlowSingle</span>(<span class='kw'>eList</span>, <span class='fl'>1</span>)</div><div class='img'><img src='plotFlowSingle-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -299,7 +299,7 @@ generated labels.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>
