@@ -6,7 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<<<<<<< HEAD
 <title>WRTDS-Kalman — WRTDSKalman • EGRET</title>
+=======
+<title>WRTDS-K — WRTDS_K • EGRET</title>
+>>>>>>> 22d47864bc98fe3e9423cd6f4dd20c1d8c0503c1
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,10 +50,17 @@
 
 
 
+<<<<<<< HEAD
 <meta property="og:title" content="WRTDS-Kalman — WRTDSKalman" />
 <meta property="og:description" content="This function takes an existing eList 
 Including the estimated model (the surfaces object in the eList)
 And produces the daily WRTDSKalman estimates of concentration and flux" />
+=======
+<meta property="og:title" content="WRTDS-K — WRTDS_K" />
+<meta property="og:description" content="This function takes an existing eList 
+Including the estimated model (the surfaces object in the eList)
+And produces the daily WRTDS_K estimates of concentration and flux" />
+>>>>>>> 22d47864bc98fe3e9423cd6f4dd20c1d8c0503c1
 <meta property="og:image" content="/logo.png" />
 
 
@@ -161,7 +172,11 @@ And produces the daily WRTDSKalman estimates of concentration and flux" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
+<<<<<<< HEAD
     <h1>WRTDS-Kalman</h1>
+=======
+    <h1>WRTDS-K</h1>
+>>>>>>> 22d47864bc98fe3e9423cd6f4dd20c1d8c0503c1
     <small class="dont-index">Source: <a href='https://github.com/USGS-R/EGRET/blob/master/R/kalman_functions.R'><code>R/kalman_functions.R</code></a></small>
     <div class="hidden name"><code>wrtdsK.Rd</code></div>
     </div>
@@ -169,10 +184,23 @@ And produces the daily WRTDSKalman estimates of concentration and flux" />
     <div class="ref-description">
     <p>This function takes an existing eList 
 Including the estimated model (the surfaces object in the eList)
+<<<<<<< HEAD
 And produces the daily WRTDSKalman estimates of concentration and flux</p>
     </div>
 
     <pre class="usage"><span class='fu'>WRTDSKalman</span>(<span class='kw'>eList</span>, rho = <span class='fl'>0.9</span>, niter = <span class='fl'>200</span>, seed = <span class='fl'>376168</span>)</pre>
+=======
+And produces the daily WRTDS_K estimates of concentration and flux</p>
+    </div>
+
+    <pre class="usage"><span class='fu'>WRTDS_K</span>(<span class='kw'>eList</span>, rho = <span class='fl'>0.9</span>, niter = <span class='fl'>200</span>, seed = <span class='fl'>376168</span>)
+
+<span class='fu'>random_subset</span>(<span class='kw'>df</span>, <span class='kw'>col_name</span>)
+
+<span class='fu'>plotWRTDS_K</span>(<span class='kw'>eList</span>)
+
+<span class='fu'>plotTimeSlice</span>(<span class='kw'>eList</span>, <span class='kw'>start</span>, <span class='kw'>end</span>, conc = <span class='fl'>TRUE</span>, fluxUnit = <span class='fl'>3</span>, usgsStyle = <span class='fl'>FALSE</span>)</pre>
+>>>>>>> 22d47864bc98fe3e9423cd6f4dd20c1d8c0503c1
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -183,6 +211,7 @@ And produces the daily WRTDSKalman estimates of concentration and flux</p>
     </tr>
     <tr>
       <th>rho</th>
+<<<<<<< HEAD
       <td><p>numeric the lag one autocorrelation. Default is 0.9.</p></td>
     </tr>
     <tr>
@@ -192,17 +221,66 @@ And produces the daily WRTDSKalman estimates of concentration and flux</p>
     <tr>
       <th>seed</th>
       <td><p>setSeed value. Defaults to 376168 This is used to make repeatable output.</p></td>
+=======
+      <td><p>numeric</p></td>
+    </tr>
+    <tr>
+      <th>niter</th>
+      <td><p>numeric</p></td>
+    </tr>
+    <tr>
+      <th>seed</th>
+      <td><p>number to set seed for reproducibility</p></td>
+    </tr>
+    <tr>
+      <th>df</th>
+      <td><p>data frame</p></td>
+    </tr>
+    <tr>
+      <th>col_name</th>
+      <td><p>column name</p></td>
+    </tr>
+    <tr>
+      <th>start</th>
+      <td><p>numeric start of DecYear for plot</p></td>
+    </tr>
+    <tr>
+      <th>end</th>
+      <td><p>numeric end of DecYear for plot</p></td>
+    </tr>
+    <tr>
+      <th>conc</th>
+      <td><p>logical. If <code>TRUE</code>, plot concentration, otherwise plot flux.</p></td>
+    </tr>
+    <tr>
+      <th>fluxUnit</th>
+      <td><p>number representing entry in pre-defined fluxUnit class array. <code><a href='printFluxUnitCheatSheet.html'>printFluxUnitCheatSheet</a></code></p></td>
+    </tr>
+    <tr>
+      <th>usgsStyle</th>
+      <td><p>logical option to use USGS style guidelines. Setting this option
+to TRUE does NOT guarantee USGS compliance. It will only change automatically
+generated labels</p></td>
+>>>>>>> 22d47864bc98fe3e9423cd6f4dd20c1d8c0503c1
     </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='kw'>Choptank_eList</span>
+<<<<<<< HEAD
 <span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='fu'>WRTDSKalman</span>(<span class='kw'>eList</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='kw'>eList</span><span class='op'>$</span><span class='kw'>Daily</span>)</div><div class='output co'>#&gt;       Date                  Q                 Julian          Month       
 #&gt;  Min.   :1979-10-01   Min.   :  0.00991   Min.   :47389   Min.   : 1.000  
 #&gt;  1st Qu.:1987-09-30   1st Qu.:  0.93446   1st Qu.:50311   1st Qu.: 4.000  
 #&gt;  Median :1995-09-30   Median :  2.40693   Median :53233   Median : 7.000  
 #&gt;  Mean   :1995-09-30   Mean   :  4.08658   Mean   :53233   Mean   : 6.523  
+=======
+<span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='fu'>WRTDS_K</span>(<span class='kw'>eList</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='kw'>eList</span><span class='op'>$</span><span class='kw'>Daily</span>)</div><div class='output co'>#&gt;       Date                  Q                 Julian          Month       
+#&gt;  Min.   :1979-10-01   Min.   :  0.00991   Min.   :47389   Min.   : 1.000  
+#&gt;  1st Qu.:1987-09-30   1st Qu.:  0.93446   1st Qu.:50311   1st Qu.: 4.000  
+#&gt;  Median :1995-09-30   Median :  2.40693   Median :53232   Median : 7.000  
+#&gt;  Mean   :1995-09-30   Mean   :  4.08658   Mean   :53232   Mean   : 6.523  
+>>>>>>> 22d47864bc98fe3e9423cd6f4dd20c1d8c0503c1
 #&gt;  3rd Qu.:2003-09-30   3rd Qu.:  4.61565   3rd Qu.:56154   3rd Qu.:10.000  
 #&gt;  Max.   :2011-09-30   Max.   :246.35656   Max.   :59076   Max.   :12.000  
 #&gt;                                                                           
@@ -239,6 +317,7 @@ And produces the daily WRTDSKalman estimates of concentration and flux</p>
 #&gt;  Max.   :1.6882   Max.   :943.75   Max.   :11927.056   Max.   :2.43000  
 #&gt;                                                                         </div><div class='input'>
 <span class='kw'>AnnualResults</span> <span class='op'>&lt;-</span> <span class='fu'><a href='setupYears.html'>setupYears</a></span>(<span class='kw'>eList</span><span class='op'>$</span><span class='kw'>Daily</span>)
+<<<<<<< HEAD
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='kw'>AnnualResults</span>)</div><div class='output co'>#&gt;    DecYear        Q      Conc     Flux    FNConc   FNFlux   GenConc  GenFlux
 #&gt; 1 1980.249 4.251937 0.9485403 316.0491 1.0027237 291.2176 0.9669032 319.4993
 #&gt; 2 1981.249 2.217248 1.0351962 184.6712 0.9988918 296.7260 0.9890625 171.3904
@@ -253,6 +332,104 @@ And produces the daily WRTDSKalman estimates of concentration and flux</p>
 #&gt; 4         12          10
 #&gt; 5         12          10
 #&gt; 6         12          10</div></pre>
+=======
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='kw'>AnnualResults</span>)</div><div class='output co'>#&gt;    DecYear        Q      Conc     Flux   ConcDay   FluxDay    FNConc   FNFlux
+#&gt; 1 1980.249 4.251937 0.9485403 316.0491 0.9485403 115.67395 1.0027237 291.2176
+#&gt; 2 1981.249 2.217248 1.0351962 184.6712 1.0351962  67.40498 0.9988918 296.7260
+#&gt; 3 1982.249 3.046039 1.0361327 269.6309 1.0361327  98.41529 0.9931881 300.7424
+#&gt; 4 1983.249 4.986713 1.0072716 363.8563 1.0072716 132.80756 0.9931768 305.5898
+#&gt; 5 1984.249 5.718146 0.9901927 437.3007 0.9901927 160.05207 1.0017255 312.2260
+#&gt; 6 1985.249 1.517457 1.0571854 133.9210 1.0571854  48.88118 1.0165324 318.5007
+#&gt;     GenConc   GenFlux PeriodLong PeriodStart
+#&gt; 1 0.9669032 116.93673         12          10
+#&gt; 2 0.9890625  62.55748         12          10
+#&gt; 3 1.0855914 104.60459         12          10
+#&gt; 4 1.0323968 134.41909         12          10
+#&gt; 5 1.0194338 162.12679         12          10
+#&gt; 6 1.0270915  46.70886         12          10</div><div class='input'><span class='kw'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(Julian = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>4</span>,<span class='fl'>6</span>),
+                 y = <span class='fl'>1</span><span class='op'>:</span><span class='fl'>8</span>)
+<span class='kw'>df</span></div><div class='output co'>#&gt;   Julian y
+#&gt; 1      1 1
+#&gt; 2      2 2
+#&gt; 3      2 3
+#&gt; 4      3 4
+#&gt; 5      4 5
+#&gt; 6      4 6
+#&gt; 7      4 7
+#&gt; 8      6 8</div><div class='input'><span class='kw'>df_random</span> <span class='op'>&lt;-</span> <span class='fu'>random_subset</span>(<span class='kw'>df</span>, <span class='st'>"Julian"</span>)
+<span class='kw'>df_random</span></div><div class='output co'>#&gt;   Julian y
+#&gt; 1      1 1
+#&gt; 2      2 2
+#&gt; 4      3 4
+#&gt; 6      4 6
+#&gt; 8      6 8</div><div class='input'><span class='fu'>plotWRTDS_K</span>(<span class='kw'>eList</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='img'><img src='wrtdsK-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='wrtdsK-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt;     DecYear        Q      Conc     Flux   ConcDay   FluxDay    FNConc   FNFlux
+#&gt; 1  1980.249 4.251937 0.9485403 316.0491 0.9485403 115.67395 1.0027237 291.2176
+#&gt; 2  1981.249 2.217248 1.0351962 184.6712 1.0351962  67.40498 0.9988918 296.7260
+#&gt; 3  1982.249 3.046039 1.0361327 269.6309 1.0361327  98.41529 0.9931881 300.7424
+#&gt; 4  1983.249 4.986713 1.0072716 363.8563 1.0072716 132.80756 0.9931768 305.5898
+#&gt; 5  1984.249 5.718146 0.9901927 437.3007 0.9901927 160.05207 1.0017255 312.2260
+#&gt; 6  1985.249 1.517457 1.0571854 133.9210 1.0571854  48.88118 1.0165324 318.5007
+#&gt; 7  1986.249 2.626601 1.0618753 247.3029 1.0618753  90.26557 1.0381520 326.6119
+#&gt; 8  1987.249 3.371675 1.0793320 312.7798 1.0793320 114.16462 1.0622419 334.9969
+#&gt; 9  1988.249 1.867960 1.1201692 180.8344 1.1201692  66.18540 1.0853851 342.9997
+#&gt; 10 1989.249 5.613020 1.0552017 448.4619 1.0552017 163.68861 1.1051520 348.5660
+#&gt; 11 1990.249 4.005942 1.1150432 369.3938 1.1150432 134.82874 1.1247402 353.4819
+#&gt; 12 1991.249 2.747975 1.1723741 268.3491 1.1723741  97.94742 1.1426819 357.1832
+#&gt; 13 1992.249 2.186277 1.2026596 221.8452 1.2026596  81.19535 1.1587716 360.2979
+#&gt; 14 1993.249 3.732176 1.2146392 357.4811 1.2146392 130.48062 1.1725594 361.6661
+#&gt; 15 1994.249 5.484135 1.1441066 447.2778 1.1441066 163.25641 1.1865009 363.4163
+#&gt; 16 1995.249 2.414046 1.2661492 253.9779 1.2661492  92.70195 1.2007452 365.6367
+#&gt; 17 1996.249 6.242936 1.1335190 541.9850 1.1335190 198.36649 1.2131736 368.8015
+#&gt; 18 1997.249 5.834054 1.1804448 515.8482 1.1804448 188.28459 1.2213506 371.0346
+#&gt; 19 1998.249 4.884982 1.2364499 436.2184 1.2364499 159.21971 1.2285259 373.7402
+#&gt; 20 1999.249 2.897675 1.2768116 251.7127 1.2768116  91.87514 1.2384909 376.8276
+#&gt; 21 2000.249 4.723111 1.2130552 445.3451 1.2130552 162.99632 1.2527574 381.0172
+#&gt; 22 2001.249 4.875308 1.2507032 453.2246 1.2507032 165.42699 1.2681713 383.8348
+#&gt; 23 2002.249 1.239903 1.3213448 132.1084 1.3213448  48.21957 1.2846985 386.9420
+#&gt; 24 2003.249 8.642767 1.1402590 729.4338 1.1402590 266.24335 1.3025226 390.3644
+#&gt; 25 2004.249 5.277301 1.2744342 501.6372 1.2744342 183.59922 1.3210543 394.7552
+#&gt; 26 2005.249 3.812146 1.3600447 395.2695 1.3600447 144.27338 1.3407300 398.7982
+#&gt; 27 2006.249 3.589955 1.3820549 385.7147 1.3820549 140.78586 1.3617441 403.3396
+#&gt; 28 2007.249 4.282298 1.4075197 436.0791 1.4075197 159.16887 1.3821373 406.8389
+#&gt; 29 2008.249 2.563471 1.4771626 275.8868 1.4771626 100.97456 1.4010320 408.9399
+#&gt; 30 2009.249 3.680756 1.4091435 363.4889 1.4091435 132.67344 1.4193067 408.2393
+#&gt; 31 2010.249 7.192968 1.3232321 612.1575 1.3232321 223.43749 1.4383092 407.4478
+#&gt; 32 2011.249 5.243093 1.4375572 425.4832 1.4375572 155.30137 1.4566813 405.9667
+#&gt;      GenConc   GenFlux PeriodLong PeriodStart
+#&gt; 1  0.9669032 116.93673         12          10
+#&gt; 2  0.9890625  62.55748         12          10
+#&gt; 3  1.0855914 104.60459         12          10
+#&gt; 4  1.0323968 134.41909         12          10
+#&gt; 5  1.0194338 162.12679         12          10
+#&gt; 6  1.0270915  46.70886         12          10
+#&gt; 7  1.0587293  92.87972         12          10
+#&gt; 8  1.0350270 119.53840         12          10
+#&gt; 9  1.0696771  61.62119         12          10
+#&gt; 10 1.1128811 172.96007         12          10
+#&gt; 11 1.3021602 156.05727         12          10
+#&gt; 12 1.2662168 100.22339         12          10
+#&gt; 13 1.2316277  82.44044         12          10
+#&gt; 14 1.3029937 140.25614         12          10
+#&gt; 15 1.1273074 175.52058         12          10
+#&gt; 16 1.1518241  83.84329         12          10
+#&gt; 17 1.2048295 207.40581         12          10
+#&gt; 18 1.2327192 201.41283         12          10
+#&gt; 19 1.2446014 143.97286         12          10
+#&gt; 20 1.1323331  79.41315         12          10
+#&gt; 21 1.1772731 159.93525         12          10
+#&gt; 22 1.3398170 177.64203         12          10
+#&gt; 23 1.2815287  43.94148         12          10
+#&gt; 24 1.2567351 297.44578         12          10
+#&gt; 25 1.3178847 194.65365         12          10
+#&gt; 26 1.3055621 142.27108         12          10
+#&gt; 27 1.4139654 153.88904         12          10
+#&gt; 28 1.5030676 166.44515         12          10
+#&gt; 29 1.4801310 103.41478         12          10
+#&gt; 30 1.3632245 126.79269         12          10
+#&gt; 31 1.4070154 237.64665         12          10
+#&gt; 32 1.4297565 150.17670         12          10</div><div class='input'><span class='fu'>plotTimeSlice</span>(<span class='kw'>eList</span>, start = <span class='fl'>1990</span>, end = <span class='fl'>1991</span>, conc = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='img'><img src='wrtdsK-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotTimeSlice</span>(<span class='kw'>eList</span>, start = <span class='fl'>1990</span>, end = <span class='fl'>1991</span>, conc = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='img'><img src='wrtdsK-4.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
+>>>>>>> 22d47864bc98fe3e9423cd6f4dd20c1d8c0503c1
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -448,7 +448,11 @@
 <div class="sourceCode" id="cb7"><pre class="downlit">
 <span class="kw">fileName</span> <span class="op">&lt;-</span> <span class="st">"ChoptankRiverFlow.txt"</span>
 <span class="kw">filePath</span> <span class="op">&lt;-</span>  <span class="st">"C:/RData/"</span>
+<<<<<<< HEAD
 <span class="kw">Daily</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readUserDaily.html">readUserDaily</a></span>(<span class="kw">filePath</span>,<span class="kw">fileName</span>,
+=======
+<span class="kw">Daily</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readDataFromFile.html">readDataFromFile</a></span>(<span class="kw">filePath</span>,<span class="kw">fileName</span>,
+>>>>>>> 22d47864bc98fe3e9423cd6f4dd20c1d8c0503c1
                     separator=<span class="st">"\t"</span>)
 </pre></div>
 <p>Microsoft™ Excel files can be a bit tricky to import into R directly. The simplest way to get Excel data into R is to open the Excel file in Excel, then save it as a .csv file (comma-separated values).</p>
@@ -725,6 +729,7 @@
   <span class="kw">Sample</span>
 </pre></div>
 <pre><code>##         Date ConcLow ConcHigh Uncen ConcAve Julian Month Day  DecYear MonthSeq
+<<<<<<< HEAD
 ## 1 2003-02-15    0.52    0.520     1  0.5200  55927     2  46 2003.124     1838
 ## 2 2003-06-30    0.30    0.310     0  0.3050  56062     6 182 2003.494     1842
 ## 3 2004-09-15      NA    0.205     0  0.1025  56505     9 259 2004.706     1857
@@ -738,6 +743,21 @@
 ## 4      2005  0.48250774  0.8758917
 ## 5      2005  0.54162782 -0.8406184
 ## 6      2006 -0.88204802  0.4711595</code></pre>
+=======
+## 1 2003-02-15    0.52    0.520     1  0.5200  55927     2  46 2003.125     1838
+## 2 2003-06-30    0.30    0.310     0  0.3050  56062     6 182 2003.495     1842
+## 3 2004-09-15      NA    0.205     0  0.1025  56505     9 259 2004.706     1857
+## 4 2005-01-30    0.43    0.430     1  0.4300  56642     1  30 2005.081     1861
+## 5 2005-05-30      NA    0.050     0  0.0250  56762     5 151 2005.410     1865
+## 6 2005-10-30      NA    0.020     0  0.0100  56915    10 304 2005.829     1870
+##   waterYear       SinDY      CosDY
+## 1      2003  0.70558361  0.7086267
+## 2      2003  0.03442161 -0.9994074
+## 3      2004 -0.96251346 -0.2712339
+## 4      2005  0.48627271  0.8738071
+## 5      2005  0.53800517 -0.8429415
+## 6      2006 -0.88001220  0.4749511</code></pre>
+>>>>>>> 22d47864bc98fe3e9423cd6f4dd20c1d8c0503c1
 </div>
 </div>
 <div id="data_frame_INFO" class="section level2">
