@@ -28,7 +28,7 @@ Plot of either concentration or flux over time showing both the WRTDS and WRTDSK
 }
 \examples{
 eList <- Choptank_eList
-eList <- WRTDSKalman(eList)
+eList <- WRTDSKalman(eList, niter = 10)
 
 plotTimeSlice(eList, start = 1990, end = 1991, conc = TRUE)
 
