@@ -95,11 +95,8 @@ WRTDSKalman <- function(eList, rho = 0.90, niter = 200,
   # now we take means over all the iterations
   GenMean <- rep(NA, numDays)
   Daily <- eList$Daily
-  
-  for(i in 1 : numDays) {
-    GenMean[i] <- mean(DailyGen[i,])
-  }
-  Daily$GenFlux <- GenMean
+
+  Daily$GenFlux <- rowMeans(DailyGen, na.rm = TRUE)
   Daily$GenConc <- Daily$GenFlux / (Daily$Q * 86.4)
   attr(Daily, "niter") <- niter
   attr(Daily, "rho") <- rho
