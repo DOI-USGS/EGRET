@@ -274,6 +274,8 @@ plotWRTDSKalman <- function(eList, sideBySide = FALSE) {
     mainTitle <- paste(eList$INFO$shortName,eList$INFO$paramShortName,"\n",
                        setSeasonLabelByUser(paStartInput = paStart, paLongInput = paLong))
     par(mfrow=c(1,2), oma=c(0,0,2,0))
+    xlab <- "WRTDS annual flux, in metric tons"
+    ylab <- "WRTDSKalman annual flux, in metric tons"
   } else {
     title1 <- paste(eList$INFO$shortName,eList$INFO$paramShortName,
                     "\nAnnual Flux Estimates: WRTDS in red, WRTDS-K in green\n",
@@ -281,10 +283,12 @@ plotWRTDSKalman <- function(eList, sideBySide = FALSE) {
     title2 <- paste(eList$INFO$shortName,eList$INFO$paramShortName,
                     "\nComparison of the two flux estimates\n",
                     setSeasonLabelByUser(paStartInput = paStart, paLongInput = paLong),sep="  ")
+    xlab <- "WRTDS estimate of annual flux, in metric tons"
+    ylab <- "WRTDSKalman estimate of annual flux, in metric tons"
   }
 
   genericEGRETDotPlot(AnnualResults$DecYear, AnnualResults$Flux,
-                      plotTitle =  title1, 
+                      plotTitle =  title1, tinyPlot = sideBySide,
                       xlim = xlim, xaxs = "i",
                       ylim = c(0, yMax),  cex.main = 0.9,
                       xlab = "", ylab = "Annual flux, metric tons",
@@ -296,9 +300,9 @@ plotWRTDSKalman <- function(eList, sideBySide = FALSE) {
   genericEGRETDotPlot(AnnualResults$Flux, AnnualResults$GenFlux, 
                       cex = 1.3, col = "red", 
                       xlim = c(0, yMax), 
-                      ylim = c(0, yMax), 
-                      xlab = "WRTDS estimate of annual flux, in metric tons", 
-                      ylab = "WRTDSKalman estimate of annual flux, in metric tons", 
+                      ylim = c(0, yMax), tinyPlot = sideBySide,
+                      xlab = xlab,
+                      ylab = ylab, 
                       cex.main = 0.9, 
                       plotTitle = title2)
   abline(a = 0, b = 1)

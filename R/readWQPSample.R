@@ -29,7 +29,7 @@
 #' SinDY \tab numeric \tab Sine of the DecYear \cr
 #' CosDY \tab numeric \tab Cosine of the DecYear
 #' }
-#' @seealso \code{\link[dataRetrieval]{readWQPdata}}, \code{\link[dataRetrieval]{whatWQPsites}}, 
+#' @seealso \code{\link[dataRetrieval]{readWQPdata}}, \code{dataRetrieval::whatWQPsites}, 
 #' \code{\link[dataRetrieval]{readWQPqw}}, \code{\link{compressData}}, \code{\link{populateSampleColumns}}
 #' @examples
 #' # These examples require an internet connection to run
