@@ -13,7 +13,7 @@
 #' library(dataRetrieval)
 #' INFO <- readNWISsite('01594440')
 #' siteNumber <- "01594440"
-#' siteINFO <- populateSiteINFO(INFO, siteNumber)
+#' siteINFO <- populateSiteINFO(INFO, siteNumber, interactive = FALSE)
 #' }
 populateSiteINFO <- function(INFO, siteNumber,interactive=TRUE){
   if (nzchar(siteNumber)){

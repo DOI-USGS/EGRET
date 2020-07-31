@@ -61,19 +61,19 @@ Water Quality Portal (\code{readWQPInfo}), or user-supplied files (\code{readUse
 # These examples require an internet connection to run
 # Automatically gets information about site 05114000 and temperature
 \donttest{
-INFO <- readNWISInfo('05114000','00010')
+INFO <- readNWISInfo('05114000','00010',interactive = FALSE)
 }
 # These examples require an internet connection to run
 # Automatically gets information about site 01594440 and temperature, no interaction with user
 nameToUse <- 'Specific conductance'
 pcodeToUse <- '00095'
 \donttest{
-INFO <- readWQPInfo('USGS-04024315',pcodeToUse)
+# INFO <- readWQPInfo('USGS-04024315',pcodeToUse, interactive = FALSE)
 
-INFO2 <- readWQPInfo('WIDNR_WQX-10032762',nameToUse)
+# INFO2 <- readWQPInfo('WIDNR_WQX-10032762',nameToUse, interactive = FALSE)
 # To adjust the label names:
-INFO$shortName <- "Little"
-INFO$paramShortName <- "SC"
+# INFO$shortName <- "Little"
+# INFO$paramShortName <- "SC"
 }
 filePath <- system.file("extdata", package="EGRET")
 fileName <- 'infoTest.csv'

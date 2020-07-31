@@ -38,7 +38,7 @@
 #' # These examples require an internet connection to run
 #' # Automatically gets information about site 05114000 and temperature
 #' \donttest{
-#' INFO <- readNWISInfo('05114000','00010')
+#' INFO <- readNWISInfo('05114000','00010',interactive = FALSE)
 #' }
 readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
   if (nzchar(siteNumber)){
@@ -82,12 +82,12 @@ readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
 #' nameToUse <- 'Specific conductance'
 #' pcodeToUse <- '00095'
 #' \donttest{
-#' INFO <- readWQPInfo('USGS-04024315',pcodeToUse)
+#' # INFO <- readWQPInfo('USGS-04024315',pcodeToUse, interactive = FALSE)
 #' 
-#' INFO2 <- readWQPInfo('WIDNR_WQX-10032762',nameToUse)
+#' # INFO2 <- readWQPInfo('WIDNR_WQX-10032762',nameToUse, interactive = FALSE)
 #' # To adjust the label names:
-#' INFO$shortName <- "Little"
-#' INFO$paramShortName <- "SC"
+#' # INFO$shortName <- "Little"
+#' # INFO$paramShortName <- "SC"
 #' }
 readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
   

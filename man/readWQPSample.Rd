@@ -47,11 +47,11 @@ chapter 7 of the EGRET user guide for more details, then converts it to the Samp
 \examples{
 # These examples require an internet connection to run
 \donttest{
-Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
+# Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
 }
 }
 \seealso{
-\code{\link[dataRetrieval]{readWQPdata}}, \code{\link[dataRetrieval]{whatWQPsites}}, 
+\code{\link[dataRetrieval]{readWQPdata}}, \code{dataRetrieval::whatWQPsites}, 
 \code{\link[dataRetrieval]{readWQPqw}}, \code{\link{compressData}}, \code{\link{populateSampleColumns}}
 }
 \keyword{USGS}
