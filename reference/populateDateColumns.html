@@ -168,7 +168,7 @@
     <p>Creates various date columns for WRTDS study.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>populateDateColumns</span>(<span class='kw'>rawData</span>)</pre>
+    <pre class="usage"><span class='fu'>populateDateColumns</span>(<span class='no'>rawData</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -184,27 +184,27 @@
     <p>DateFrame dataframe</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>dateTime</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'1984-02-28 13:56'</span>,
+    <pre class="examples"><div class='input'><span class='no'>dateTime</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'1984-02-28 13:56'</span>,
               <span class='st'>'1984-03-01 00:00'</span>,
               <span class='st'>'1986-03-01 00:00'</span>,
               <span class='st'>'1986-10-15 00:00'</span>)
-              
-<span class='kw'>expandedDateDF</span> <span class='op'>&lt;-</span> <span class='fu'>populateDateColumns</span>(<span class='kw'>dateTime</span>)
-<span class='kw'>expandedDateDF</span></div><div class='output co'>#&gt;               Date   Julian Month Day  DecYear MonthSeq waterYear
-#&gt; 1 1984-02-28 13:56 49000.58     2  59 1984.160     1610      1984
-#&gt; 2 1984-03-01 00:00 49002.00     3  61 1984.164     1611      1984
-#&gt; 3 1986-03-01 00:00 49732.00     3  61 1986.162     1635      1986
-#&gt; 4 1986-10-15 00:00 49960.00    10 289 1986.786     1642      1987</div><div class='input'>
-<span class='kw'>dateTime</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'1984-02-28'</span>, 
+
+<span class='no'>expandedDateDF</span> <span class='kw'>&lt;-</span> <span class='fu'>populateDateColumns</span>(<span class='no'>dateTime</span>)
+<span class='no'>expandedDateDF</span></div><div class='output co'>#&gt;               Date   Julian Month Day  DecYear MonthSeq waterYear
+#&gt; 1 1984-02-28 13:56 49000.83     2  59 1984.160     1610      1984
+#&gt; 2 1984-03-01 00:00 49002.25     3  61 1984.164     1611      1984
+#&gt; 3 1986-03-01 00:00 49732.25     3  61 1986.162     1635      1986
+#&gt; 4 1986-10-15 00:00 49960.21    10 289 1986.786     1642      1987</div><div class='input'>
+<span class='no'>dateTime</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'1984-02-28'</span>,
               <span class='st'>'1984-03-01'</span>,
               <span class='st'>'1986-03-01'</span>,
               <span class='st'>'1986-10-15'</span>)
-<span class='kw'>expandedDateDF</span> <span class='op'>&lt;-</span> <span class='fu'>populateDateColumns</span>(<span class='kw'>dateTime</span>)
-<span class='kw'>expandedDateDF</span></div><div class='output co'>#&gt;         Date Julian Month Day  DecYear MonthSeq waterYear
-#&gt; 1 1984-02-28  49000     2  59 1984.160     1610      1984
-#&gt; 2 1984-03-01  49002     3  61 1984.165     1611      1984
-#&gt; 3 1986-03-01  49732     3  61 1986.163     1635      1986
-#&gt; 4 1986-10-15  49960    10 289 1986.788     1642      1987</div></pre>
+<span class='no'>expandedDateDF</span> <span class='kw'>&lt;-</span> <span class='fu'>populateDateColumns</span>(<span class='no'>dateTime</span>)
+<span class='no'>expandedDateDF</span></div><div class='output co'>#&gt;         Date   Julian Month Day  DecYear MonthSeq waterYear
+#&gt; 1 1984-02-28 49000.25     2  59 1984.160     1610      1984
+#&gt; 2 1984-03-01 49002.25     3  61 1984.165     1611      1984
+#&gt; 3 1986-03-01 49732.25     3  61 1986.163     1635      1986
+#&gt; 4 1986-10-15 49960.21    10 289 1986.788     1642      1987</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -220,7 +220,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

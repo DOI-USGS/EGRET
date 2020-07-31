@@ -176,7 +176,7 @@ constrained to be on the first day of the period of analysis and the end is cons
 be on the last day of the the period of analysis</p>
     </div>
 
-    <pre class="usage"><span class='fu'>surfaceStartEnd</span>(<span class='kw'>paStart</span>, <span class='kw'>paLong</span>, <span class='kw'>Date1</span>, <span class='kw'>Date2</span>)</pre>
+    <pre class="usage"><span class='fu'>surfaceStartEnd</span>(<span class='no'>paStart</span>, <span class='no'>paLong</span>, <span class='no'>Date1</span>, <span class='no'>Date2</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -201,10 +201,10 @@ be on the last day of the the period of analysis</p>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='kw'>Choptank_eList</span>
-<span class='kw'>Date1</span> <span class='op'>&lt;-</span> <span class='kw'>eList</span><span class='op'>$</span><span class='kw'>Sample</span><span class='op'>$</span><span class='kw'>Date</span>[<span class='fl'>1</span>]
-<span class='kw'>Date2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span>(<span class='kw'>eList</span><span class='op'>$</span><span class='kw'>Sample</span><span class='op'>$</span><span class='kw'>Date</span>)[<span class='fl'>2</span>]
-<span class='fu'>surfaceStartEnd</span>(<span class='fl'>10</span>, <span class='fl'>12</span>, <span class='kw'>Date1</span>, <span class='kw'>Date2</span>)</div><div class='output co'>#&gt; $surfaceStart
+    <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
+<span class='no'>Date1</span> <span class='kw'>&lt;-</span> <span class='no'>eList</span>$<span class='no'>Sample</span>$<span class='no'>Date</span>[<span class='fl'>1</span>]
+<span class='no'>Date2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span>(<span class='no'>eList</span>$<span class='no'>Sample</span>$<span class='no'>Date</span>)[<span class='fl'>2</span>]
+<span class='fu'>surfaceStartEnd</span>(<span class='fl'>10</span>, <span class='fl'>12</span>, <span class='no'>Date1</span>, <span class='no'>Date2</span>)</div><div class='output co'>#&gt; $surfaceStart
 #&gt; [1] "1979-10-01"
 #&gt; 
 #&gt; $surfaceEnd
@@ -225,7 +225,7 @@ be on the last day of the the period of analysis</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

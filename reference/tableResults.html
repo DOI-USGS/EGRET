@@ -172,7 +172,7 @@ mean flux, and flow-normalized flux. Note that the flux and flow-normalized flux
 could be larger than the value for a full year.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tableResults</span>(<span class='kw'>eList</span>, qUnit = <span class='fl'>2</span>, fluxUnit = <span class='fl'>9</span>, localDaily = <span class='fl'>NA</span>)</pre>
+    <pre class="usage"><span class='fu'>tableResults</span>(<span class='no'>eList</span>, <span class='kw'>qUnit</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>fluxUnit</span> <span class='kw'>=</span> <span class='fl'>9</span>, <span class='kw'>localDaily</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -201,10 +201,10 @@ could be larger than the value for a full year.</p>
 <p>dataframe with year, discharge, concentration, flow-normalized concentration, flux, and flow-normalized concentration columns.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='kw'>Choptank_eList</span>
+    <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
 <span class='co'># Water Year:</span>
 <span class='co'># \donttest{</span>
-<span class='fu'>tableResults</span>(<span class='kw'>eList</span>, fluxUnit = <span class='fl'>1</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>tableResults</span>(<span class='no'>eList</span>, <span class='kw'>fluxUnit</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; 
 #&gt;    Choptank River 
 #&gt;    Inorganic nitrogen (nitrate and nitrite)
 #&gt;    Water Year 
@@ -243,7 +243,7 @@ could be larger than the value for a full year.</p>
 #&gt;    2008      2.56     1.477     1.401       608       902
 #&gt;    2009      3.68     1.409     1.419       801       900
 #&gt;    2010      7.19     1.323     1.438      1350       898
-#&gt;    2011      5.24     1.438     1.457       938       895</div><div class='input'><span class='fu'>tableResults</span>(<span class='kw'>eList</span>, fluxUnit = <span class='fl'>1</span>)</div><div class='output co'>#&gt; 
+#&gt;    2011      5.24     1.438     1.457       938       895</div><div class='input'><span class='fu'>tableResults</span>(<span class='no'>eList</span>, <span class='kw'>fluxUnit</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; 
 #&gt;    Choptank River 
 #&gt;    Inorganic nitrogen (nitrate and nitrite)
 #&gt;    Water Year 
@@ -282,7 +282,7 @@ could be larger than the value for a full year.</p>
 #&gt;    2008      2.56     1.477     1.401       608       902
 #&gt;    2009      3.68     1.409     1.419       801       900
 #&gt;    2010      7.19     1.323     1.438      1350       898
-#&gt;    2011      5.24     1.438     1.457       938       895</div><div class='input'><span class='fu'>tableResults</span>(<span class='kw'>eList</span>, fluxUnit = <span class='st'>'kgDay'</span>, qUnit = <span class='st'>'cms'</span>)</div><div class='output co'>#&gt; 
+#&gt;    2011      5.24     1.438     1.457       938       895</div><div class='input'><span class='fu'>tableResults</span>(<span class='no'>eList</span>, <span class='kw'>fluxUnit</span> <span class='kw'>=</span> <span class='st'>'kgDay'</span>, <span class='kw'>qUnit</span> <span class='kw'>=</span> <span class='st'>'cms'</span>)</div><div class='output co'>#&gt; 
 #&gt;    Choptank River 
 #&gt;    Inorganic nitrogen (nitrate and nitrite)
 #&gt;    Water Year 
@@ -321,7 +321,7 @@ could be larger than the value for a full year.</p>
 #&gt;    2008      2.56     1.477     1.401       276       409
 #&gt;    2009      3.68     1.409     1.419       363       408
 #&gt;    2010      7.19     1.323     1.438       612       407
-#&gt;    2011      5.24     1.438     1.457       425       406</div><div class='input'><span class='kw'>returnedTable</span> <span class='op'>&lt;-</span> <span class='fu'>tableResults</span>(<span class='kw'>eList</span>, fluxUnit = <span class='fl'>1</span>)</div><div class='output co'>#&gt; 
+#&gt;    2011      5.24     1.438     1.457       425       406</div><div class='input'><span class='no'>returnedTable</span> <span class='kw'>&lt;-</span> <span class='fu'>tableResults</span>(<span class='no'>eList</span>, <span class='kw'>fluxUnit</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; 
 #&gt;    Choptank River 
 #&gt;    Inorganic nitrogen (nitrate and nitrite)
 #&gt;    Water Year 
@@ -361,8 +361,8 @@ could be larger than the value for a full year.</p>
 #&gt;    2009      3.68     1.409     1.419       801       900
 #&gt;    2010      7.19     1.323     1.438      1350       898
 #&gt;    2011      5.24     1.438     1.457       938       895</div><div class='input'><span class='co'># Winter:</span>
-<span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span>(<span class='kw'>eList</span>, paLong=<span class='fl'>3</span>,paStart=<span class='fl'>12</span>)
-<span class='fu'>tableResults</span>(<span class='kw'>eList</span>, fluxUnit = <span class='fl'>1</span>)</div><div class='output co'>#&gt; 
+<span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span>(<span class='no'>eList</span>, <span class='kw'>paLong</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>paStart</span><span class='kw'>=</span><span class='fl'>12</span>)
+<span class='fu'>tableResults</span>(<span class='no'>eList</span>, <span class='kw'>fluxUnit</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; 
 #&gt;    Choptank River 
 #&gt;    Inorganic nitrogen (nitrate and nitrite)
 #&gt;    Season Consisting of Dec Jan Feb 
@@ -401,7 +401,8 @@ could be larger than the value for a full year.</p>
 #&gt;    2008     2.436      1.62      1.55       735      1310
 #&gt;    2009     2.711      1.66      1.56       843      1305
 #&gt;    2010    13.779      1.26      1.57      2511      1299
-#&gt;    2011     3.369      1.66      1.57      1007      1295</div><div class='input'><span class='co'># }</span></div></pre>
+#&gt;    2011     3.369      1.66      1.57      1007      1295</div><div class='input'># }
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -417,7 +418,7 @@ could be larger than the value for a full year.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

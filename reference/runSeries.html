@@ -174,12 +174,12 @@ normalization".  These two concepts are described in detail in the vignette
 [need a simple name for it here].</p>
     </div>
 
-    <pre class="usage"><span class='fu'>runSeries</span>(<span class='kw'>eList</span>, <span class='kw'>windowSide</span>, surfaceStart = <span class='fl'>NA</span>, surfaceEnd = <span class='fl'>NA</span>,
-  flowBreak = <span class='fl'>FALSE</span>, Q1EndDate = <span class='fl'>NA</span>, QStartDate = <span class='fl'>NA</span>, QEndDate = <span class='fl'>NA</span>,
-  wall = <span class='fl'>FALSE</span>, oldSurface = <span class='fl'>FALSE</span>, sample1EndDate = <span class='fl'>NA</span>,
-  sampleStartDate = <span class='fl'>NA</span>, sampleEndDate = <span class='fl'>NA</span>, paStart = <span class='fl'>NA</span>, paLong = <span class='fl'>NA</span>,
-  fractMin = <span class='fl'>0.75</span>, minNumObs = <span class='fl'>100</span>, minNumUncen = <span class='fl'>50</span>, windowY = <span class='fl'>7</span>,
-  windowQ = <span class='fl'>2</span>, windowS = <span class='fl'>0.5</span>, edgeAdjust = <span class='fl'>TRUE</span>, verbose = <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>runSeries</span>(<span class='no'>eList</span>, <span class='no'>windowSide</span>, <span class='kw'>surfaceStart</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>surfaceEnd</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>flowBreak</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>Q1EndDate</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>QStartDate</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>QEndDate</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>wall</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>oldSurface</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>sample1EndDate</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>sampleStartDate</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>sampleEndDate</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>paStart</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>paLong</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>fractMin</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>minNumObs</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>minNumUncen</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>windowY</span> <span class='kw'>=</span> <span class='fl'>7</span>,
+  <span class='kw'>windowQ</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>windowS</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>edgeAdjust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -288,14 +288,14 @@ minimum number will be the maximum of minNumObs and fractMin multiplied by total
     <p>eList named list with INFO, Daily, and Sample dataframes, along with the surfaces matrix.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='kw'>Choptank_eList</span>
+    <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
 
 <span class='co'># \donttest{</span>
 <span class='co'># Automatic calculations based on windowSide=7</span>
 <span class='co'># four possible ways to do generalized flow normalization</span>
 
 <span class='co'>#Option 1:  Use all years for flow normalization.</span>
-<span class='kw'>seriesOut_1</span> <span class='op'>&lt;-</span> <span class='fu'>runSeries</span>(<span class='kw'>eList</span>,  windowSide = <span class='fl'>0</span>)</div><div class='output co'>#&gt; Survival regression (% complete):
+<span class='no'>seriesOut_1</span> <span class='kw'>&lt;-</span> <span class='fu'>runSeries</span>(<span class='no'>eList</span>,  <span class='kw'>windowSide</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='output co'>#&gt; Survival regression (% complete):
 #&gt; 0 	1 	2 	3 	4 	5 	6 	7 	8 	9 	10 	
 #&gt; 11 	12 	13 	14 	15 	16 	17 	18 	19 	20 	
 #&gt; 21 	22 	23 	24 	25 	26 	27 	28 	29 	30 	
@@ -306,10 +306,10 @@ minimum number will be the maximum of minNumObs and fractMin multiplied by total
 #&gt; 71 	72 	73 	74 	75 	76 	77 	78 	79 	80 	
 #&gt; 81 	82 	83 	84 	85 	86 	87 	88 	89 	90 	
 #&gt; 91 	92 	93 	94 	95 	96 	97 	98 	99 	
-#&gt; Survival regression: Done</div><div class='input'><span class='fu'><a href='plotConcHist.html'>plotConcHist</a></span>(<span class='kw'>seriesOut_1</span>)</div><div class='img'><img src='runSeries-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='plotFluxHist.html'>plotFluxHist</a></span>(<span class='kw'>seriesOut_1</span>)</div><div class='img'><img src='runSeries-2.png' alt='' width='700' height='433' /></div><div class='input'>
+#&gt; Survival regression: Done</div><div class='input'><span class='fu'><a href='plotConcHist.html'>plotConcHist</a></span>(<span class='no'>seriesOut_1</span>)</div><div class='img'><img src='runSeries-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='plotFluxHist.html'>plotFluxHist</a></span>(<span class='no'>seriesOut_1</span>)</div><div class='img'><img src='runSeries-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Option 2: Use sliding window throughout the whole flow normalization process.</span>
 <span class='co'>#                In each case it is a 15 year window (15 = 1 + 2*7)</span>
-<span class='kw'>seriesOut_2</span> <span class='op'>&lt;-</span> <span class='fu'>runSeries</span>(<span class='kw'>eList</span>, windowSide = <span class='fl'>7</span>)</div><div class='output co'>#&gt; Survival regression (% complete):
+<span class='no'>seriesOut_2</span> <span class='kw'>&lt;-</span> <span class='fu'>runSeries</span>(<span class='no'>eList</span>, <span class='kw'>windowSide</span> <span class='kw'>=</span> <span class='fl'>7</span>)</div><div class='output co'>#&gt; Survival regression (% complete):
 #&gt; 0 	1 	2 	3 	4 	5 	6 	7 	8 	9 	10 	
 #&gt; 11 	12 	13 	14 	15 	16 	17 	18 	19 	20 	
 #&gt; 21 	22 	23 	24 	25 	26 	27 	28 	29 	30 	
@@ -321,14 +321,14 @@ minimum number will be the maximum of minNumObs and fractMin multiplied by total
 #&gt; 81 	82 	83 	84 	85 	86 	87 	88 	89 	90 	
 #&gt; 91 	92 	93 	94 	95 	96 	97 	98 	99 	
 #&gt; Survival regression: Done</div><div class='input'>
-<span class='fu'><a href='plotConcHist.html'>plotConcHist</a></span>(<span class='kw'>seriesOut_2</span>)</div><div class='img'><img src='runSeries-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='plotFluxHist.html'>plotFluxHist</a></span>(<span class='kw'>seriesOut_2</span>)</div><div class='img'><img src='runSeries-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='plotConcHist.html'>plotConcHist</a></span>(<span class='no'>seriesOut_2</span>)</div><div class='img'><img src='runSeries-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='plotFluxHist.html'>plotFluxHist</a></span>(<span class='no'>seriesOut_2</span>)</div><div class='img'><img src='runSeries-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Option 3: Flow normalization is based on splitting the flow record at 1990-09-30</span>
 <span class='co'>#                But in years before the break it uses all flow data from before the break, </span>
 <span class='co'>#                and years after the break uses all flow data after the break</span>
-<span class='kw'>seriesOut_3</span> <span class='op'>&lt;-</span> <span class='fu'>runSeries</span>(<span class='kw'>eList</span>,
-                       windowSide = <span class='fl'>0</span>, 
-                       flowBreak = <span class='fl'>TRUE</span>,
-                       Q1EndDate = <span class='st'>"1990-09-30"</span>)</div><div class='output co'>#&gt; Survival regression (% complete):
+<span class='no'>seriesOut_3</span> <span class='kw'>&lt;-</span> <span class='fu'>runSeries</span>(<span class='no'>eList</span>,
+                       <span class='kw'>windowSide</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+                       <span class='kw'>flowBreak</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+                       <span class='kw'>Q1EndDate</span> <span class='kw'>=</span> <span class='st'>"1990-09-30"</span>)</div><div class='output co'>#&gt; Survival regression (% complete):
 #&gt; 0 	1 	2 	3 	4 	5 	6 	7 	8 	9 	10 	
 #&gt; 11 	12 	13 	14 	15 	16 	17 	18 	19 	20 	
 #&gt; 21 	22 	23 	24 	25 	26 	27 	28 	29 	30 	
@@ -339,14 +339,14 @@ minimum number will be the maximum of minNumObs and fractMin multiplied by total
 #&gt; 71 	72 	73 	74 	75 	76 	77 	78 	79 	80 	
 #&gt; 81 	82 	83 	84 	85 	86 	87 	88 	89 	90 	
 #&gt; 91 	92 	93 	94 	95 	96 	97 	98 	99 	
-#&gt; Survival regression: Done</div><div class='input'>                       
-<span class='fu'><a href='plotConcHist.html'>plotConcHist</a></span>(<span class='kw'>seriesOut_3</span>)</div><div class='img'><img src='runSeries-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='plotFluxHist.html'>plotFluxHist</a></span>(<span class='kw'>seriesOut_3</span>)</div><div class='img'><img src='runSeries-6.png' alt='' width='700' height='433' /></div><div class='input'>
+#&gt; Survival regression: Done</div><div class='input'>
+<span class='fu'><a href='plotConcHist.html'>plotConcHist</a></span>(<span class='no'>seriesOut_3</span>)</div><div class='img'><img src='runSeries-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='plotFluxHist.html'>plotFluxHist</a></span>(<span class='no'>seriesOut_3</span>)</div><div class='img'><img src='runSeries-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Option 4: Flow normalization is based on splitting the flow record at 1990-09-30</span>
 <span class='co'>#                but before the break uses a 15 year window of years before the break</span>
 <span class='co'>#                after the break uses a 15 year window of years after the break</span>
-<span class='kw'>seriesOut_4</span> <span class='op'>&lt;-</span> <span class='fu'>runSeries</span>(<span class='kw'>eList</span>, 
-                      windowSide = <span class='fl'>7</span>, flowBreak = <span class='fl'>TRUE</span>,
-                      Q1EndDate = <span class='st'>"1990-09-30"</span>)</div><div class='output co'>#&gt; Survival regression (% complete):
+<span class='no'>seriesOut_4</span> <span class='kw'>&lt;-</span> <span class='fu'>runSeries</span>(<span class='no'>eList</span>,
+                      <span class='kw'>windowSide</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>flowBreak</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+                      <span class='kw'>Q1EndDate</span> <span class='kw'>=</span> <span class='st'>"1990-09-30"</span>)</div><div class='output co'>#&gt; Survival regression (% complete):
 #&gt; 0 	1 	2 	3 	4 	5 	6 	7 	8 	9 	10 	
 #&gt; 11 	12 	13 	14 	15 	16 	17 	18 	19 	20 	
 #&gt; 21 	22 	23 	24 	25 	26 	27 	28 	29 	30 	
@@ -357,9 +357,10 @@ minimum number will be the maximum of minNumObs and fractMin multiplied by total
 #&gt; 71 	72 	73 	74 	75 	76 	77 	78 	79 	80 	
 #&gt; 81 	82 	83 	84 	85 	86 	87 	88 	89 	90 	
 #&gt; 91 	92 	93 	94 	95 	96 	97 	98 	99 	
-#&gt; Survival regression: Done</div><div class='input'>                      
-<span class='fu'><a href='plotConcHist.html'>plotConcHist</a></span>(<span class='kw'>seriesOut_4</span>)</div><div class='img'><img src='runSeries-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='plotFluxHist.html'>plotFluxHist</a></span>(<span class='kw'>seriesOut_4</span>)</div><div class='img'><img src='runSeries-8.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># }</span></div></pre>
+#&gt; Survival regression: Done</div><div class='input'>
+<span class='fu'><a href='plotConcHist.html'>plotConcHist</a></span>(<span class='no'>seriesOut_4</span>)</div><div class='img'><img src='runSeries-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='plotFluxHist.html'>plotFluxHist</a></span>(<span class='no'>seriesOut_4</span>)</div><div class='img'><img src='runSeries-8.png' alt='' width='700' height='433' /></div><div class='input'>
+# }
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -375,7 +376,7 @@ minimum number will be the maximum of minNumObs and fractMin multiplied by total
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

@@ -172,7 +172,7 @@ based on a half-window width of h,
 and returns a vector of weights that range from zero to 1.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>triCube</span>(<span class='kw'>d</span>, <span class='kw'>h</span>)</pre>
+    <pre class="usage"><span class='fu'>triCube</span>(<span class='no'>d</span>, <span class='no'>h</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -195,9 +195,9 @@ and returns a vector of weights that range from zero to 1.</p>
     <p>See Cleveland, W. S. (1979). Robust locally weighted regression and smoothing scatterplots, JASA,  74, 829-836</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'> <span class='kw'>h</span><span class='op'>&lt;-</span><span class='fl'>10</span>
- <span class='kw'>d</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='op'>-</span><span class='fl'>11</span>,<span class='op'>-</span><span class='fl'>10</span>,<span class='op'>-</span><span class='fl'>5</span>,<span class='op'>-</span><span class='fl'>1</span>,<span class='op'>-</span><span class='fl'>0.01</span>,<span class='fl'>0</span>,<span class='fl'>5</span>,<span class='fl'>9.9</span>,<span class='fl'>10</span>,<span class='fl'>20</span>)
- <span class='fu'>triCube</span>(<span class='kw'>d</span>,<span class='kw'>h</span>)</div><div class='output co'>#&gt;  [1] 0.000000e+00 0.000000e+00 6.699219e-01 9.970030e-01 1.000000e+00
+    <pre class="examples"><div class='input'> <span class='no'>h</span><span class='kw'>&lt;-</span><span class='fl'>10</span>
+ <span class='no'>d</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>11</span>,-<span class='fl'>10</span>,-<span class='fl'>5</span>,-<span class='fl'>1</span>,-<span class='fl'>0.01</span>,<span class='fl'>0</span>,<span class='fl'>5</span>,<span class='fl'>9.9</span>,<span class='fl'>10</span>,<span class='fl'>20</span>)
+ <span class='fu'>triCube</span>(<span class='no'>d</span>,<span class='no'>h</span>)</div><div class='output co'>#&gt;  [1] 0.000000e+00 0.000000e+00 6.699219e-01 9.970030e-01 1.000000e+00
 #&gt;  [6] 1.000000e+00 6.699219e-01 2.620072e-05 0.000000e+00 0.000000e+00</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -214,7 +214,7 @@ and returns a vector of weights that range from zero to 1.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

@@ -168,7 +168,7 @@
     <p>Populates INFO data frame with additional user-supplied information concerning the measured parameter.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>populateParameterINFO</span>(<span class='kw'>parameterCd</span>, <span class='kw'>INFO</span>, interactive = <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>populateParameterINFO</span>(<span class='no'>parameterCd</span>, <span class='no'>INFO</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,27 +194,17 @@ and data checks. Default is TRUE. If running in batch, should be set to FALSE.</
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://pubs.usgs.gov/tm/04/a10'>dataRetrieval</a></span>)
-<span class='kw'>INFO</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/dataRetrieval/man/readNWISsite.html'>readNWISsite</a></span>(<span class='st'>'01594440'</span>)
-<span class='kw'>parameterCd</span> <span class='op'>&lt;-</span> <span class='st'>"01075"</span>
-<span class='kw'>parameterData</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/dataRetrieval/man/readNWISpCode.html'>readNWISpCode</a></span>(<span class='kw'>parameterCd</span>)
-<span class='kw'>INFO</span><span class='op'>$</span><span class='kw'>param.nm</span> <span class='op'>&lt;-</span> <span class='kw'>parameterData</span><span class='op'>$</span><span class='kw'>parameter_nm</span>
-<span class='kw'>INFO</span><span class='op'>$</span><span class='kw'>param.units</span> <span class='op'>&lt;-</span> <span class='kw'>parameterData</span><span class='op'>$</span><span class='kw'>parameter_units</span>
-<span class='kw'>INFO</span><span class='op'>$</span><span class='kw'>paramShortName</span> <span class='op'>&lt;-</span> <span class='kw'>parameterData</span><span class='op'>$</span><span class='kw'>srsname</span>
-<span class='kw'>INFO</span><span class='op'>$</span><span class='kw'>paramNumber</span> <span class='op'>&lt;-</span> <span class='kw'>parameterData</span><span class='op'>$</span><span class='kw'>parameter_cd</span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dataRetrieval</span>)
+<span class='no'>INFO</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/dataRetrieval/man/readNWISsite.html'>readNWISsite</a></span>(<span class='st'>'01594440'</span>)
+<span class='no'>parameterCd</span> <span class='kw'>&lt;-</span> <span class='st'>"01075"</span>
+<span class='no'>parameterData</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/dataRetrieval/man/readNWISpCode.html'>readNWISpCode</a></span>(<span class='no'>parameterCd</span>)
+<span class='no'>INFO</span>$<span class='no'>param.nm</span> <span class='kw'>&lt;-</span> <span class='no'>parameterData</span>$<span class='no'>parameter_nm</span>
+<span class='no'>INFO</span>$<span class='no'>param.units</span> <span class='kw'>&lt;-</span> <span class='no'>parameterData</span>$<span class='no'>parameter_units</span>
+<span class='no'>INFO</span>$<span class='no'>paramShortName</span> <span class='kw'>&lt;-</span> <span class='no'>parameterData</span>$<span class='no'>srsname</span>
+<span class='no'>INFO</span>$<span class='no'>paramNumber</span> <span class='kw'>&lt;-</span> <span class='no'>parameterData</span>$<span class='no'>parameter_cd</span>
 
-<span class='kw'>INFO</span> <span class='op'>&lt;-</span> <span class='fu'>populateParameterINFO</span>(<span class='kw'>parameterCd</span>, <span class='kw'>INFO</span>)</div><div class='output co'>#&gt; Your water quality data are for parameter number:
-#&gt; 01075 
-#&gt; which has the name:' Silver, water, filtered, micrograms per liter '.
-#&gt; Typically you will want a shorter name to be used in graphs and tables.
-#&gt; The suggested short name is:' Silver '.
-#&gt; If you would like to change the short name, enter it here, 
-#&gt; otherwise just hit enter (no quotes):
-#&gt; The units for the water quality data are:  ug/l .
-#&gt; It is helpful to set up a constiuent abbreviation, enter a unique id 
-#&gt; three or four characters should work something like tn or tp or NO3).
-#&gt; Even if you don't feel you need an abbreviation you need to enter something (no quotes):
-#&gt; </div><div class='input'><span class='co'># }</span></div></pre>
+<span class='no'>INFO</span> <span class='kw'>&lt;-</span> <span class='fu'>populateParameterINFO</span>(<span class='no'>parameterCd</span>, <span class='no'>INFO</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -230,7 +220,7 @@ and data checks. Default is TRUE. If running in batch, should be set to FALSE.</
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

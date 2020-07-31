@@ -168,8 +168,8 @@
     <p>Plot of either concentration or flux over time showing both the WRTDS and WRTDSKalman estimates.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plotTimeSlice</span>(<span class='kw'>eList</span>, start = <span class='fl'>NA</span>, end = <span class='fl'>NA</span>, conc = <span class='fl'>TRUE</span>, fluxUnit = <span class='fl'>3</span>,
-  usgsStyle = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>plotTimeSlice</span>(<span class='no'>eList</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>conc</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>fluxUnit</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>usgsStyle</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -205,8 +205,8 @@ generated labels</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='kw'>Choptank_eList</span>
-<span class='kw'>eList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='WRTDSKalman.html'>WRTDSKalman</a></span>(<span class='kw'>eList</span>, niter = <span class='fl'>10</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='output co'>#&gt; % complete:
+    <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
+<span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='wrtdsK.html'>WRTDSKalman</a></span>(<span class='no'>eList</span>, <span class='kw'>niter</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='output co'>#&gt; % complete:
 #&gt; 10 	
 #&gt; 20 	
 #&gt; 30 	
@@ -217,9 +217,10 @@ generated labels</p></td>
 #&gt; 80 	
 #&gt; 90 	
 #&gt; 100 	</div><div class='input'>
-<span class='fu'>plotTimeSlice</span>(<span class='kw'>eList</span>, start = <span class='fl'>1990</span>, end = <span class='fl'>1991</span>, conc = <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='img'><img src='plotTimeSlice-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>plotTimeSlice</span>(<span class='kw'>eList</span>, start = <span class='fl'>1990</span>, end = <span class='fl'>1991</span>, conc = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='img'><img src='plotTimeSlice-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>plotTimeSlice</span>(<span class='kw'>eList</span>, start = <span class='fl'>NA</span>, end = <span class='fl'>1991</span>, conc = <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='img'><img src='plotTimeSlice-3.png' alt='' width='700' height='433' /></div><div class='input'></div></pre>
+<span class='fu'>plotTimeSlice</span>(<span class='no'>eList</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>1990</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1991</span>, <span class='kw'>conc</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='img'><img src='plotTimeSlice-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotTimeSlice</span>(<span class='no'>eList</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>1990</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1991</span>, <span class='kw'>conc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='img'><img src='plotTimeSlice-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotTimeSlice</span>(<span class='no'>eList</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1991</span>, <span class='kw'>conc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='img'><img src='plotTimeSlice-3.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -235,7 +236,7 @@ generated labels</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

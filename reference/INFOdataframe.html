@@ -170,12 +170,12 @@ Water Quality Portal (readWQPInfo), or user-supplied files (readUserInfo)." />
 Water Quality Portal (<code>readWQPInfo</code>), or user-supplied files (<code>readUserInfo</code>).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>readNWISInfo</span>(<span class='kw'>siteNumber</span>, <span class='kw'>parameterCd</span>, interactive = <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>readNWISInfo</span>(<span class='no'>siteNumber</span>, <span class='no'>parameterCd</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>readWQPInfo</span>(<span class='kw'>siteNumber</span>, <span class='kw'>parameterCd</span>, interactive = <span class='fl'>TRUE</span>)
+<span class='fu'>readWQPInfo</span>(<span class='no'>siteNumber</span>, <span class='no'>parameterCd</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>readUserInfo</span>(<span class='kw'>filePath</span>, <span class='kw'>fileName</span>, hasHeader = <span class='fl'>TRUE</span>, separator = <span class='st'>","</span>,
-  interactive = <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>readUserInfo</span>(<span class='no'>filePath</span>, <span class='no'>fileName</span>, <span class='kw'>hasHeader</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>separator</span> <span class='kw'>=</span> <span class='st'>","</span>,
+  <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -242,88 +242,23 @@ is because the conversion from mg/l to the user-specified flux unit (e.g., kg/da
     <pre class="examples"><div class='input'><span class='co'># These examples require an internet connection to run</span>
 <span class='co'># Automatically gets information about site 05114000 and temperature</span>
 <span class='co'># \donttest{</span>
-<span class='kw'>INFO</span> <span class='op'>&lt;-</span> <span class='fu'>readNWISInfo</span>(<span class='st'>'05114000'</span>,<span class='st'>'00010'</span>)</div><div class='output co'>#&gt; Your site for streamflow data is:
-#&gt;  05114000 .
-#&gt; Your site name is SOURIS RIVER NR SHERWOOD, ND 
-#&gt; but you can modify this to a short name in a style you prefer. 
-#&gt; This name will be used to label graphs and tables. 
-#&gt; If you want the program to use the name given above, just do a carriage return,
-#&gt; otherwise enter the preferred short name(no quotes):
-#&gt; 
-#&gt; The latitude and longitude of the site are:  48.99002 ,  -101.9582 (degrees north and west).
-#&gt; 
-#&gt; The drainage area at this site is  8940 square miles
-#&gt;  which is being stored as 23154.49 square kilometers.
-#&gt; 
-#&gt; It is helpful to set up a station abbreviation when doing multi-site studies,
-#&gt; enter a unique id (three or four characters should work). It is case sensitive.  
-#&gt; Even if you don't feel you need an abbreviation for your site you need to enter something(no quotes):
-#&gt; 
-#&gt; Your water quality data are for parameter number:
-#&gt; 00010 
-#&gt; which has the name:' Temperature, water, degrees Celsius '.
-#&gt; Typically you will want a shorter name to be used in graphs and tables.
-#&gt; The suggested short name is:' Temperature, water '.
-#&gt; If you would like to change the short name, enter it here, 
-#&gt; otherwise just hit enter (no quotes):
-#&gt; The units for the water quality data are:  deg C .
-#&gt; It is helpful to set up a constiuent abbreviation, enter a unique id 
-#&gt; three or four characters should work something like tn or tp or NO3).
-#&gt; Even if you don't feel you need an abbreviation you need to enter something (no quotes):
-#&gt; 
-#&gt; Required concentration units are mg/l. 
-#&gt; The INFO dataframe indicates: deg C 
-#&gt; Flux calculations will be wrong if units are not consistent.</div><div class='input'><span class='co'># }</span>
+<span class='no'>INFO</span> <span class='kw'>&lt;-</span> <span class='fu'>readNWISInfo</span>(<span class='st'>'05114000'</span>,<span class='st'>'00010'</span>,<span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='co'># }</span>
 <span class='co'># These examples require an internet connection to run</span>
 <span class='co'># Automatically gets information about site 01594440 and temperature, no interaction with user</span>
-<span class='kw'>nameToUse</span> <span class='op'>&lt;-</span> <span class='st'>'Specific conductance'</span>
-<span class='kw'>pcodeToUse</span> <span class='op'>&lt;-</span> <span class='st'>'00095'</span>
+<span class='no'>nameToUse</span> <span class='kw'>&lt;-</span> <span class='st'>'Specific conductance'</span>
+<span class='no'>pcodeToUse</span> <span class='kw'>&lt;-</span> <span class='st'>'00095'</span>
 <span class='co'># \donttest{</span>
-<span class='kw'>INFO</span> <span class='op'>&lt;-</span> <span class='fu'>readWQPInfo</span>(<span class='st'>'USGS-04024315'</span>,<span class='kw'>pcodeToUse</span>)</div><div class='output co'>#&gt; Your site for data is  .</div><div class='output co'>#&gt; <span class='error'>Error in if (!nzchar(siteInfo$station.nm)) {    cat("No station name was listed for site: ", siteInfo$site.no,         ".\n")    cat("Please enter a station name here(no quotes): \n")    siteInfo$station.nm &lt;- readline()}: argument is of length zero</span></div><div class='input'>
-<span class='kw'>INFO2</span> <span class='op'>&lt;-</span> <span class='fu'>readWQPInfo</span>(<span class='st'>'WIDNR_WQX-10032762'</span>,<span class='kw'>nameToUse</span>)</div><div class='output co'>#&gt; Your site for data is WIDNR_WQX-10032762 .
-#&gt; Your site name is North Branch Pheasant Branch downstream of pond at Deming Way ,
-#&gt; but you can modify this to a short name in a style you prefer. 
-#&gt; This name will be used to label graphs and tables. 
-#&gt; If you want the program to use the name given above, just do a carriage return, 
-#&gt; otherwise enter the preferred short name(no quotes):
-#&gt; 
-#&gt; Your water quality data are for parameter number  
-#&gt; which has the name:' Specific conductance '.
-#&gt; Typically you will want a shorter name to be used in graphs and tables. 
-#&gt; The suggested short name is:' Specific conductance '.
-#&gt; If you would like to change the short name, enter it here, otherwise just hit enter (no quotes):
-#&gt; Water Quality Portal does not offer a simple method to obtain unit information.
-#&gt; EGRET requires concentration units in mg/l for all functions to work correctly. 
-#&gt; Enter the concentration units of Sample data:
-#&gt; 
-#&gt; It is helpful to set up a constiuent abbreviation when doing multi-constituent studies,
-#&gt; enter a unique id (three or four characters should work something like tn or tp or NO3).
-#&gt; Even if you don't feel you need an abbreviation you need to enter something (no quotes):
-#&gt; 
-#&gt; It is helpful to set up a station abbreviation when doing multi-site studies, 
-#&gt; enter a unique id (three or four characters should work).
-#&gt; Even if you don't feel you need an abbreviation for your site you need to enter something(no quotes):
-#&gt; 
-#&gt; No drainage area (and/or units) was listed in the WQP site file for this site.
-#&gt; Drainage area is used to calculate runoff parameters in flow history calculations.
-#&gt; Please enter the drainage area, you can enter it in the units of your choice.
-#&gt; Enter the area, then enter drainage area code, 
-#&gt; 1 is square miles, 
-#&gt; 2 is square kilometers, 
-#&gt; 3 is acres, 
-#&gt; 4 is hectares.
-#&gt; Area(no quotes):
-#&gt; 
-#&gt; Unit Code (1-4, no quotes):
-#&gt; Required concentration units are mg/l. 
-#&gt; The INFO dataframe indicates:  
-#&gt; Flux calculations will be wrong if units are not consistent</div><div class='input'><span class='co'># To adjust the label names:</span>
-<span class='kw'>INFO</span><span class='op'>$</span><span class='kw'>shortName</span> <span class='op'>&lt;-</span> <span class='st'>"Little"</span>
-<span class='kw'>INFO</span><span class='op'>$</span><span class='kw'>paramShortName</span> <span class='op'>&lt;-</span> <span class='st'>"SC"</span>
+<span class='co'># INFO &lt;- readWQPInfo('USGS-04024315',pcodeToUse, interactive = FALSE)</span>
+
+<span class='co'># INFO2 &lt;- readWQPInfo('WIDNR_WQX-10032762',nameToUse, interactive = FALSE)</span>
+<span class='co'># To adjust the label names:</span>
+<span class='co'># INFO$shortName &lt;- "Little"</span>
+<span class='co'># INFO$paramShortName &lt;- "SC"</span>
 <span class='co'># }</span>
-<span class='kw'>filePath</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, package=<span class='st'>"EGRET"</span>)
-<span class='kw'>fileName</span> <span class='op'>&lt;-</span> <span class='st'>'infoTest.csv'</span>
-<span class='kw'>INFO</span> <span class='op'>&lt;-</span> <span class='fu'>readUserInfo</span>(<span class='kw'>filePath</span>,<span class='kw'>fileName</span>, separator=<span class='st'>","</span>,interactive=<span class='fl'>FALSE</span>)</div></pre>
+<span class='no'>filePath</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"EGRET"</span>)
+<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='st'>'infoTest.csv'</span>
+<span class='no'>INFO</span> <span class='kw'>&lt;-</span> <span class='fu'>readUserInfo</span>(<span class='no'>filePath</span>,<span class='no'>fileName</span>, <span class='kw'>separator</span><span class='kw'>=</span><span class='st'>","</span>,<span class='kw'>interactive</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -339,7 +274,7 @@ is because the conversion from mg/l to the user-specified flux unit (e.g., kg/da
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
