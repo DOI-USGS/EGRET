@@ -34,7 +34,7 @@
 #' @examples
 #' # These examples require an internet connection to run
 #' \donttest{
-#' Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
+#' # Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
 #' }
 readWQPSample <- function(siteNumber,characteristicName,startDate,endDate,verbose = TRUE, interactive=NULL){
   

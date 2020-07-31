@@ -22,10 +22,10 @@ conditions to determine if a value is left censored or not. Censored values are 
 }
 \examples{
 \donttest{
-library(dataRetrieval)
+#library(dataRetrieval)
  
-rawWQP <- readWQPqw('21FLEECO_WQX-IMPRGR80','Phosphorus', '', '')
-Sample2 <- processQWData(rawWQP, pCode=FALSE)
+#rawWQP <- readWQPqw('21FLEECO_WQX-IMPRGR80','Phosphorus', '', '')
+#Sample2 <- processQWData(rawWQP, pCode=FALSE)
 }
 }
 \seealso{

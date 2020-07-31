@@ -13,10 +13,10 @@
 #' @seealso \code{\link[dataRetrieval]{readWQPqw}}
 #' @examples
 #' \donttest{
-#' library(dataRetrieval)
+#' #library(dataRetrieval)
 #'  
-#' rawWQP <- readWQPqw('21FLEECO_WQX-IMPRGR80','Phosphorus', '', '')
-#' Sample2 <- processQWData(rawWQP, pCode=FALSE)
+#' #rawWQP <- readWQPqw('21FLEECO_WQX-IMPRGR80','Phosphorus', '', '')
+#' #Sample2 <- processQWData(rawWQP, pCode=FALSE)
 #' }
 processQWData <- function(data,pCode=TRUE){
 
