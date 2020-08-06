@@ -35,7 +35,7 @@ as.egret <- function(INFO, Daily, Sample=NA, surfaces=NA) {
       message("\nDaily data frame expecting columns: ",expectedCols[!expectedCols %in% names(Daily)])
     }
     if(any(duplicated(Daily$Date))){
-      message("\nThere are ",sum(duplicated(eList$Daily$Date))," duplicated Daily dates.")
+      message("\nThere are ",sum(duplicated(Daily$Date))," duplicated Daily dates.")
     }
     
     if(is.unsorted(Daily$Date)){
