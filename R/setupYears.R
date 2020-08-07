@@ -67,6 +67,9 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
     stopMonth <- startMonth+paLong-1
     DailyYear <- localDaily[which(localDaily$MonthSeq %in% startMonth:stopMonth),]
 
+    if(nrow(DailyYear) == 0){
+      next
+    }
     # need to see if the data frame for the year has enough good data
     counter <- ifelse(is.na(DailyYear$ConcDay),0,1)
 
@@ -114,6 +117,7 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
                                 PeriodLong,PeriodStart)    
   }
 
+  AnnualResults <- AnnualResults[!is.na(AnnualResults$DecYear),]
 
   return(AnnualResults)		
 }
