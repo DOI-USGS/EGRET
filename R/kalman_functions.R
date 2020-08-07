@@ -193,6 +193,18 @@ populateDailySamp <- function(eList) {
 }
 
  
+#' genmissing
+#' 
+#' Written by Tim Cohn
+#' 
+#' @param X1 value before the gap
+#' @param XN value after the gap
+#' @param rho the lag one autocorrelation
+#' @param N the length of the sequence including X1 and XN. It
+#' is two more than the gap length
+#' @keywords internal
+#' 
+#' 
 genmissing <- function(X1, XN, rho, N){
   # this code was done by Tim Cohn
   # @param X1 the value before the gap
