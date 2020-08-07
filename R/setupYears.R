@@ -39,7 +39,9 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
   Ends<-Starts+paLong-1
   StartEndSeq<-data.frame(Starts,Ends)
   #   need to trim off the front and back, those years that aren't in the Daily data set
-  StartEndSeq <- StartEndSeq[(StartEndSeq$Starts >=firstMonthSeq) & (StartEndSeq$Ends<=lastMonthSeq),]
+  withinIndex <- which((StartEndSeq$Starts >=firstMonthSeq) & (StartEndSeq$Ends<=lastMonthSeq))
+  justOutside <- c(withinIndex[1]-1, withinIndex, max(withinIndex)+1 )
+  StartEndSeq <- StartEndSeq[justOutside,]
   
   firstMonth <- StartEndSeq[1,1]
   
