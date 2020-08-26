@@ -94,5 +94,4 @@ reference:
      - WRTDSKalman
      - plotWRTDSKalman
      - plotTimeSlice
-     - cleanUp
 

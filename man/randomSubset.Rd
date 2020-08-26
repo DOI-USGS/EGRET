@@ -20,7 +20,7 @@ for each day when there is more than one sample on a given day.
 df <- data.frame(Julian = c(1,2,2,3,4,4,4,6),
                  y = 1:8)
 df
-df_random <- randomSubset(df, "Julian")
+df_random <- EGRET:::randomSubset(df, "Julian")
 df_random
 }
 \keyword{internal}

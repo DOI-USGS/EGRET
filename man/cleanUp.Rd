@@ -20,7 +20,7 @@ Sample data frame it will substitute a randomObserved value using makeAugmentedS
 \examples{
 eList <- Choptank_eList
 
-eList <- cleanUp(eList)
+eList <- EGRET:::cleanUp(eList)
 
 }
 \keyword{internal}

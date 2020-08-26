@@ -119,7 +119,7 @@ WRTDSKalman <- function(eList, rho = 0.90, niter = 200,
 #' @examples 
 #' eList <- Choptank_eList
 #' 
-#' eList <- cleanUp(eList)
+#' eList <- EGRET:::cleanUp(eList)
 #' 
 cleanUp <- function(eList){
   
@@ -149,7 +149,7 @@ cleanUp <- function(eList){
 #' df <- data.frame(Julian = c(1,2,2,3,4,4,4,6),
 #'                  y = 1:8)
 #' df
-#' df_random <- randomSubset(df, "Julian")
+#' df_random <- EGRET:::randomSubset(df, "Julian")
 #' df_random
 randomSubset <- function(df, colName){
   
@@ -218,12 +218,7 @@ populateDailySamp <- function(eList) {
 #' 
 #' 
 genmissing <- function(X1, XN, rho, N){
-  # this code was done by Tim Cohn
-  # @param X1 the value before the gap
-  # @param XN  value after the gap
-  # @param rho the lag one autocorrelation
-  # @param N  the length of the sequence including X1 and XN 
-  # it is two more than the gap length
+
   C <- t(chol(rho^abs(outer(1:N,1:N, "-"))[c(1,N,2:(N-1)),c(1,N,2:(N-1))]))
   
   (C %*% c(MASS::ginv(C[1:2,1:2]) %*% 
