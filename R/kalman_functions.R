@@ -454,3 +454,5 @@ plotTimeSlice <- function(eList, start = NA, end = NA, conc = TRUE,
          pch = 20, cex = 1.1, col = Sample$color)
   
 }
+
+
