@@ -17,6 +17,10 @@ genmissing(X1, XN, rho, N)
 is two more than the gap length}
 }
 \description{
+Generates a single realization of an autoregression lag-one time series through a data gap
+Conditioned on a fixed value just prior to the gap (X1) and a fixed value just after the gap (XN)
+}
+\details{
 Written by Tim Cohn
 }
 \keyword{internal}
