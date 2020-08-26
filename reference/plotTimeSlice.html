@@ -47,7 +47,9 @@
 
 
 <meta property="og:title" content="plotTimeSlice — plotTimeSlice" />
-<meta property="og:description" content="Plot of either concentration or flux over time showing both the WRTDS and WRTDSKalman estimates." />
+<meta property="og:description" content="Plot of either concentration or flux over time showing both
+the WRTDS and WRTDSKalman estimates as well as the observed values.
+Best used to look at periods of only one or two years rather than the whole record." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -165,7 +167,9 @@
     </div>
 
     <div class="ref-description">
-    <p>Plot of either concentration or flux over time showing both the WRTDS and WRTDSKalman estimates.</p>
+    <p>Plot of either concentration or flux over time showing both
+the WRTDS and WRTDSKalman estimates as well as the observed values.
+Best used to look at periods of only one or two years rather than the whole record.</p>
     </div>
 
     <pre class="usage"><span class='fu'>plotTimeSlice</span>(<span class='no'>eList</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>conc</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>fluxUnit</span> <span class='kw'>=</span> <span class='fl'>3</span>,
@@ -176,7 +180,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>eList</th>
-      <td><p>named list with at least the Daily, Sample, and INFO dataframes. This
+      <td><p>named list with at least the Daily, Sample, and INFO dataframes and surfaces matrix. This
 eList must be run through <code>WRTDSKalman</code>.</p></td>
     </tr>
     <tr>

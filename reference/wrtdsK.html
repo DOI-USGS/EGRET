@@ -49,7 +49,8 @@
 <meta property="og:title" content="WRTDS-Kalman — WRTDSKalman" />
 <meta property="og:description" content="This function takes an existing eList 
 Including the estimated model (the surfaces object in the eList)
-And produces the daily WRTDSKalman estimates of concentration and flux" />
+And produces the daily WRTDSKalman estimates of concentration and flux
+The function returns an eList in which the estimates are appended to the existing Daily dataframe" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -169,7 +170,8 @@ And produces the daily WRTDSKalman estimates of concentration and flux" />
     <div class="ref-description">
     <p>This function takes an existing eList 
 Including the estimated model (the surfaces object in the eList)
-And produces the daily WRTDSKalman estimates of concentration and flux</p>
+And produces the daily WRTDSKalman estimates of concentration and flux
+The function returns an eList in which the estimates are appended to the existing Daily dataframe</p>
     </div>
 
     <pre class="usage"><span class='fu'>WRTDSKalman</span>(<span class='no'>eList</span>, <span class='kw'>rho</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>niter</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
@@ -179,11 +181,11 @@ And produces the daily WRTDSKalman estimates of concentration and flux</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>eList</th>
-      <td><p>named list with at least the Daily, Sample, and INFO dataframes</p></td>
+      <td><p>named list with at least the Daily, Sample, and INFO dataframes and surfaces matrix</p></td>
     </tr>
     <tr>
       <th>rho</th>
-      <td><p>numeric the lag one autocorrelation. Default is 0.9.</p></td>
+      <td><p>numeric the lag one-day autocorrelation. Default is 0.9.</p></td>
     </tr>
     <tr>
       <th>niter</th>
@@ -255,19 +257,19 @@ This is used to make repeatable output.</p></td>
 #&gt;                                                                       </div><div class='input'>
 <span class='no'>AnnualResults</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='setupYears.html'>setupYears</a></span>(<span class='no'>eList</span>$<span class='no'>Daily</span>)
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>AnnualResults</span>)</div><div class='output co'>#&gt;    DecYear        Q      Conc     Flux    FNConc   FNFlux   GenConc  GenFlux
-#&gt; 1 1980.249 4.251937 0.9485403 316.0491 1.0027237 291.2176 0.9820268 324.0710
-#&gt; 2 1981.249 2.217248 1.0351962 184.6712 0.9988918 296.7260 0.9904381 170.2038
-#&gt; 3 1982.249 3.046039 1.0361327 269.6309 0.9931881 300.7424 1.0937085 283.9836
-#&gt; 4 1983.249 4.986713 1.0072716 363.8563 0.9931768 305.5898 1.0472068 377.2780
-#&gt; 5 1984.249 5.718146 0.9901927 437.3007 1.0017255 312.2260 1.0054489 442.8785
-#&gt; 6 1985.249 1.517457 1.0571854 133.9210 1.0165324 318.5007 1.0261695 126.4228
+#&gt; 2 1980.249 4.251937 0.9485403 316.0491 1.0027237 291.2176 0.9820268 324.0710
+#&gt; 3 1981.249 2.217248 1.0351962 184.6712 0.9988918 296.7260 0.9904381 170.2038
+#&gt; 4 1982.249 3.046039 1.0361327 269.6309 0.9931881 300.7424 1.0937085 283.9836
+#&gt; 5 1983.249 4.986713 1.0072716 363.8563 0.9931768 305.5898 1.0472068 377.2780
+#&gt; 6 1984.249 5.718146 0.9901927 437.3007 1.0017255 312.2260 1.0054489 442.8785
+#&gt; 7 1985.249 1.517457 1.0571854 133.9210 1.0165324 318.5007 1.0261695 126.4228
 #&gt;   PeriodLong PeriodStart
-#&gt; 1         12          10
 #&gt; 2         12          10
 #&gt; 3         12          10
 #&gt; 4         12          10
 #&gt; 5         12          10
-#&gt; 6         12          10</div></pre>
+#&gt; 6         12          10
+#&gt; 7         12          10</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

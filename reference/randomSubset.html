@@ -48,7 +48,8 @@
 
 <meta property="og:title" content="randomSubset — randomSubset" />
 <meta property="og:description" content="Calculates a random subset of the data based on repeated values from
-a specified column." />
+a specified column. Used in conjunction with cleanUp to randomly select a single sample value
+for each day when there is more than one sample on a given day." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -167,7 +168,8 @@ a specified column." />
 
     <div class="ref-description">
     <p>Calculates a random subset of the data based on repeated values from
-a specified column.</p>
+a specified column. Used in conjunction with cleanUp to randomly select a single sample value
+for each day when there is more than one sample on a given day.</p>
     </div>
 
     <pre class="usage"><span class='fu'>randomSubset</span>(<span class='no'>df</span>, <span class='no'>colName</span>)</pre>
@@ -197,7 +199,7 @@ a specified column.</p>
 #&gt; 5      4 5
 #&gt; 6      4 6
 #&gt; 7      4 7
-#&gt; 8      6 8</div><div class='input'><span class='no'>df_random</span> <span class='kw'>&lt;-</span> <span class='fu'>randomSubset</span>(<span class='no'>df</span>, <span class='st'>"Julian"</span>)
+#&gt; 8      6 8</div><div class='input'><span class='no'>df_random</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>EGRET</span><span class='kw ns'>:::</span><span class='fu'>randomSubset</span>(<span class='no'>df</span>, <span class='st'>"Julian"</span>)
 <span class='no'>df_random</span></div><div class='output co'>#&gt;   Julian y
 #&gt; 1      1 1
 #&gt; 3      2 3
