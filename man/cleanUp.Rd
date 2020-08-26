@@ -7,14 +7,15 @@
 cleanUp(eList)
 }
 \arguments{
-\item{eList}{named list with at least the Daily, Sample, and INFO dataframes.}
+\item{eList}{named list with at least the Daily, Sample, and INFO dataframes and surfaces matrix.}
 }
 \value{
-eList with duplicated dates in the Sample data frame randomly sampled.
+eList with duplicated dates in the Sample data frame randomly sampled and randomObserved values are appended.
 }
 \description{
 Takes an eList as the input. If there are duplicated dates in the Sample data frame, 
-will randomly select one value for that date.
+will randomly select one value for that date.  And if there are censored values in the
+Sample data frame it will substitute a randomObserved value using makeAugmentedSamples
 }
 \examples{
 eList <- Choptank_eList
@@ -22,3 +23,4 @@ eList <- Choptank_eList
 eList <- cleanUp(eList)
 
 }
+\keyword{internal}

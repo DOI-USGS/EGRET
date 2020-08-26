@@ -7,9 +7,9 @@
 WRTDSKalman(eList, rho = 0.9, niter = 200, seed = NA, verbose = TRUE)
 }
 \arguments{
-\item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
+\item{eList}{named list with at least the Daily, Sample, and INFO dataframes and surfaces matrix}
 
-\item{rho}{numeric the lag one autocorrelation. Default is 0.9.}
+\item{rho}{numeric the lag one-day autocorrelation. Default is 0.9.}
 
 \item{niter}{number of iterations. Default is 200.}
 
@@ -22,6 +22,7 @@ This is used to make repeatable output.}
 This function takes an existing eList 
 Including the estimated model (the surfaces object in the eList)
 And produces the daily WRTDSKalman estimates of concentration and flux
+The function returns an eList in which the estimates are appended to the existing Daily dataframe
 }
 \examples{
 eList <- Choptank_eList

@@ -7,11 +7,11 @@
 plotWRTDSKalman(eList, sideBySide = FALSE)
 }
 \arguments{
-\item{eList}{named list with at least the Daily, Sample, and INFO dataframes. This
+\item{eList}{named list with at least the Daily, Sample, and INFO dataframes and the surfaces matrix. This
 eList must be run through \code{WRTDSKalman}.}
 
 \item{sideBySide}{logical. If \code{TRUE}, the two plots will be plotted
-side by side, otherwise, one by one vertically.}
+side by side in a single plot, otherwise, one plot per page.}
 }
 \description{
 Two plots to check the flux estimates using the WRTDS_K vs classic WRTDS.

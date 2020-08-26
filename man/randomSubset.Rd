@@ -13,7 +13,8 @@ randomSubset(df, colName)
 }
 \description{
 Calculates a random subset of the data based on repeated values from
-a specified column.
+a specified column. Used in conjunction with cleanUp to randomly select a single sample value
+for each day when there is more than one sample on a given day.
 }
 \examples{
 df <- data.frame(Julian = c(1,2,2,3,4,4,4,6),
@@ -22,3 +23,4 @@ df
 df_random <- randomSubset(df, "Julian")
 df_random
 }
+\keyword{internal}
