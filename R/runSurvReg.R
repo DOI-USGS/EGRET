@@ -171,20 +171,29 @@ run_WRTDS <- function(estY, estLQ,
   Sam <- data.frame(Sam)
   
   x <- tryCatch({
-    survModel<- survival::survreg(survival::Surv(log(ConcLow),log(ConcHigh),type="interval2") ~ 
+    survModel <- survival::survreg(survival::Surv(log(ConcLow),log(ConcHigh),type="interval2") ~ 
                          DecYear+LogQ+SinDY+CosDY,data=Sam,weights=weight,dist="gaus")
   }, warning=function(w) {
-    return(NA)
+    
+    if(w$message == "Ran out of iterations and did not converge"){
+
+      Sam2 <- jitterSam(Sam)
+      survModel <- survival::survreg(survival::Surv(log(ConcLow),log(ConcHigh),type="interval2") ~ 
+                                      DecYear+LogQ+SinDY+CosDY,data=Sam2,weights=weight,dist="gaus")
+    } else {
+      survModel <- NA
+    }
+    return(survModel)
   }, error=function(e) {
     message(e, "Error")
     return(NULL)
   })
   
-  if(exists("survModel")) {
+  if(class(x) == "survreg") {
     newdf<-data.frame(DecYear=estY,LogQ=estLQ,SinDY=sin(2*pi*estY),CosDY=cos(2*pi*estY))
     #   extract results at estimation point
-    yHat<-predict(survModel,newdf)
-    SE<-survModel$scale
+    yHat<-predict(x,newdf)
+    SE<-x$scale
     bias<-exp((SE^2)/2)
     survReg[1]<-yHat
     survReg[2]<-SE
@@ -195,4 +204,32 @@ run_WRTDS <- function(estY, estLQ,
     warningFlag <- 1
   }
   return(list(survReg=survReg, warningFlag=warningFlag))
+}
+
+
+jitterSam <- function(Sam) {
+
+  SamR <- Sam
+  
+  # Duplicated dates:
+  i_dates <- c(which(duplicated(Sam$DecYear, fromLast = FALSE)),
+               which(duplicated(Sam$DecYear, fromLast = TRUE)))
+  
+  # Duplicated flow:
+  i_flow <- c(which(duplicated(Sam$Q, fromLast = FALSE)),
+              which(duplicated(Sam$Q, fromLast = TRUE)))
+  
+  all_dups <- unique(c(i_dates, i_flow))
+  all_dups <- all_dups[order(all_dups)]
+  
+  n <- length(all_dups)
+  SamR$DecYear[all_dups] <- Sam$DecYear[all_dups] + rnorm(n,0,0.05)
+  SamR$SinDY[all_dups] <- sin(SamR$DecYear[all_dups] * 2 * pi)
+  SamR$CosDY[all_dups] <- cos(SamR$DecYea[all_dups] * 2 * pi)
+  
+  sdLQ <- sd(Sam$LogQ)
+  s <- sdLQ / 5
+  SamR$LogQ[all_dups] <- Sam$LogQ[all_dups] + rnorm(n,0,s)
+
+  return(SamR)
 }
