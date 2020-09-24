@@ -29,6 +29,10 @@ WRTDSKalman <- function(eList, rho = 0.90, niter = 200,
     stop("Please check eList argument")
   }
   
+  if(!"surfaces" %in% names(eList)){
+    eList$surfaces <-  estSurfaces(eList)
+  }
+  
   if(!is.na(seed)){
     set.seed(seed)
   }
