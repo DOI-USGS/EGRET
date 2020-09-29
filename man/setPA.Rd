@@ -16,18 +16,15 @@ setPA(eList, paStart = 10, paLong = 12, window = 20)
 \item{window}{A numeric value for the half-width of a smoothing window for annual streamflow values, default is 20}
 }
 \value{
-eList named list with at least the INFO dataframe, along any other part of the list that was input. 
-Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
+eList named list with at least the INFO dataframe. 
+Any of these values can be NA, but not all EGRET functions will work with missing parts of the named list eList.
 }
 \description{
-Period of analysis is defined by the starting month (paStart) and length in months (paLong). 
-paStart and paLong are constrained to be integers from 1 to 12. 
-for example, a water year would be paStart = 10 and paLong = 12. 
-for example, the winter season, defined by Dec,Jan,Feb would be paStart = 12 and paLong =3.
+Period of analysis is defined by the starting month (paStart) and length in months (paLong).  paStart and paLong are constrained to be integers from 1 to 12. For example, a water year would be paStart = 10 and paLong = 12. For example, the winter season, defined by Dec,Jan,Feb would be paStart = 12 and paLong = 3.
 }
 \examples{
 eList <- Choptank_eList
-eList <- setPA(eList, paStart=12, paLong=3)
+eList <- setPA(eList, paStart = 12, paLong = 3)
 }
 \keyword{statistics}
 \keyword{streamflow}
