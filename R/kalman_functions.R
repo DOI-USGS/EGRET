@@ -28,6 +28,11 @@ WRTDSKalman <- function(eList, rho = 0.90, niter = 200,
   if(!is.egret(eList)){
     stop("Please check eList argument")
   }
+  # Need these columns to be integers:
+  int_cols <- c("Julian", "Month", "Day", "MonthSeq", "waterYear")
+  int_indexs <- which(names(eList$Daily) %in% int_cols)
+  
+  eList$Daily[,int_indexs] <- sapply(eList$Daily[,int_indexs], as.integer)
   
   if(!"surfaces" %in% names(eList)){
     eList$surfaces <-  estSurfaces(eList)
