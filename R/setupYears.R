@@ -2,6 +2,7 @@
 #'
 #'   This function aggregates the results stored on a daily basis in the Daily data frame
 #'   and stores the average values of these in the new data frame called AnnualResults.
+#'      Note that the flux values are rates (kg/day) and not a mass (kg).
 #'      The "annual values" can be a full 12 months, or they can be shorter. 
 #'      See manual to understand paLong and paStart arguments. 
 #'      The simplest case, a Water Year (October through September), would have
@@ -13,7 +14,18 @@
 #' @param paStart numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12, default is 10 
 #' @param localDaily data frame containing the daily values, default is Daily
 #' @keywords water-quality statistics
-#' @return AnnualResults data frame with one row per year
+#' @return A data frame 'AnnualResults' of numeric values with the following columns
+#' \tabular{lll}{
+#' Name \tab Description \cr
+#' DecYear \tab Middle of the period in decimal years\cr
+#' Q \tab Mean discharge, in m^3/s\cr
+#' Conc \tab Estimated mean concentration, in mg/L\cr
+#' Flux \tab Estimated mean flux, in kg/day\cr
+#' FNConc \tab Flow-normalized concentration, in mg/L\cr
+#' FNFlux \tab Flow-normalized flux, in kg/day\cr
+#' PeriodLong \tab Length of period of analysis (paLong), in months\cr
+#' PeriodStart \tab Starting month of period of analysis (paStart), in months (1 = January)\cr
+#' }
 #' @export
 #' @examples 
 #' eList <- Choptank_eList
