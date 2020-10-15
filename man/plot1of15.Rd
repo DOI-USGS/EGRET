@@ -22,7 +22,7 @@ plot1of15(eList, yearStart, yearEnd, qf, istat, isBottom = FALSE)
 \description{
 Part of the flowHistory system.  It is designed to create each of the component graphs for the function \code{\link{plot15}}. The 15 graphs include annual and four seasonal graphs
 for each of 3 flow statistics: 1-day maximum, mean, and 7-day minimum.
-The computations involved are the same as the ones used in \code{\link{plotflowSingle}} or in \code{\link{makeAnnualSeries}}
+The computations involved are the same as the ones used in \code{\link{plotFlowSingle}} or in \code{\link{makeAnnualSeries}}
 }
 \examples{
 eList <- Choptank_eList

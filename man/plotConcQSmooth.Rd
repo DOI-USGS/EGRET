@@ -106,8 +106,10 @@ qLow <- 0.5
 qHigh <- 50
 eList <- Choptank_eList
 \donttest{
-plotConcQSmooth(eList, date1, date2, date3, qLow, qHigh, legendLeft = 0.6, legendTop = 0.7)
-plotConcQSmooth(eList, date1, date2, date3, qLow, qHigh, logScale=TRUE, legendLeft = 0.6, legendTop = 0.7)
+plotConcQSmooth(eList, date1, date2, date3, qLow, qHigh,
+                 legendLeft = 0.6, legendTop = 0.7)
+plotConcQSmooth(eList, date1, date2, date3, qLow, qHigh,
+                logScale=TRUE, legendLeft = 0.6, legendTop = 0.7)
 }
 }
 \seealso{

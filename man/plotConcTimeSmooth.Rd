@@ -105,8 +105,12 @@ centerDate <- "07-01"
 yearStart <- 1990
 yearEnd <- 2010
 eList <- Choptank_eList
-plotConcTimeSmooth(eList, q1, q2,q3, centerDate, yearStart, yearEnd, legendLeft = 1997, legendTop = 0.44, cex.legend = 0.9)
-plotConcTimeSmooth(eList, q1, q2,q3, centerDate, yearStart, yearEnd, logScale = TRUE, legendLeft = 1994, legendTop = 0.4, cex.legend = 0.9)
+plotConcTimeSmooth(eList, q1, q2,q3, centerDate, 
+                   yearStart, yearEnd, legendLeft = 1997, 
+                   legendTop = 0.44, cex.legend = 0.9)
+plotConcTimeSmooth(eList, q1, q2,q3, centerDate, yearStart, 
+                   yearEnd, logScale = TRUE, legendLeft = 1994, 
+                   legendTop = 0.4, cex.legend = 0.9)
 }
 \seealso{
 \code{\link{genericEGRETDotPlot}}, \code{\link{runSurvReg}}

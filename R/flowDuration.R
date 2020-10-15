@@ -19,9 +19,11 @@
 #' @export
 #' @examples
 #' eList <- Choptank_eList
-#' # for a window of 30 days either side of June 25 expressed in units of cfs:
+#' # for a window of 30 days either side of June 25 expressed in units
+#' # of cfs:
 #' flowDuration(eList, "06-25", qUnit = 1, span = 30) 
-#' # for a flow-duration curve covering the whole year, expressed in units of cms, and returning a data frame of results: 
+#' # for a flow-duration curve covering the whole year, 
+#' # expressed in units of cms, and returning a data frame of results: 
 #' qDuration <- flowDuration(eList, qUnit = 2) 
 flowDuration <- function(eList,
                          centerDate = "09-30",

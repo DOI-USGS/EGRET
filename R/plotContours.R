@@ -52,10 +52,14 @@
 #' qTop<- 20
 #' clevel <- seq(0,2,0.25)
 #' eList <- Choptank_eList
-#' plotContours(eList, yearStart, yearEnd, qBottom, qTop, contourLevels = clevel)  
-#' plotContours(eList, yearStart, yearEnd, qBottom, qTop = 50, contourLevels = clevel, flowDuration = FALSE) 
+#' plotContours(eList, yearStart, yearEnd, qBottom, qTop, 
+#'              contourLevels = clevel)  
+#' plotContours(eList, yearStart, yearEnd, qBottom, qTop = 50, 
+#'              contourLevels = clevel, flowDuration = FALSE) 
 #' colors <- colorRampPalette(c("white","black"))
-#' plotContours(eList, yearStart, yearEnd, qBottom, qTop = 50, contourLevels = clevel, color.palette = colors, flowDuration = FALSE)
+#' plotContours(eList, yearStart, yearEnd, qBottom, qTop = 50, 
+#'              contourLevels = clevel, color.palette = colors, 
+#'              flowDuration = FALSE)
 plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurface = 3, 
                        qUnit = 2, contourLevels = NA, span = 60, pval = 0.05,
                        printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA, tcl=0.03,

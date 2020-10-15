@@ -2,7 +2,7 @@
 #'
 #' Part of the flowHistory system.  It is designed to create each of the component graphs for the function \code{\link{plot15}}. The 15 graphs include annual and four seasonal graphs
 #' for each of 3 flow statistics: 1-day maximum, mean, and 7-day minimum.
-#' The computations involved are the same as the ones used in \code{\link{plotflowSingle}} or in \code{\link{makeAnnualSeries}}
+#' The computations involved are the same as the ones used in \code{\link{plotFlowSingle}} or in \code{\link{makeAnnualSeries}}
 #' @param yearStart A numeric value for the year in which the graph should start
 #' @param yearEnd A numeric value for the year in which the graph should end
 #' @param qf a scale factor to convert discharge in cubic feet per second to mm/day, it is 86 / (drainage area in square kilometers)

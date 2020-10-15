@@ -88,10 +88,14 @@ qBottom <- 0.5
 qTop<- 20
 clevel <- seq(0,2,0.25)
 eList <- Choptank_eList
-plotContours(eList, yearStart, yearEnd, qBottom, qTop, contourLevels = clevel)  
-plotContours(eList, yearStart, yearEnd, qBottom, qTop = 50, contourLevels = clevel, flowDuration = FALSE) 
+plotContours(eList, yearStart, yearEnd, qBottom, qTop, 
+             contourLevels = clevel)  
+plotContours(eList, yearStart, yearEnd, qBottom, qTop = 50, 
+             contourLevels = clevel, flowDuration = FALSE) 
 colors <- colorRampPalette(c("white","black"))
-plotContours(eList, yearStart, yearEnd, qBottom, qTop = 50, contourLevels = clevel, color.palette = colors, flowDuration = FALSE)
+plotContours(eList, yearStart, yearEnd, qBottom, qTop = 50, 
+             contourLevels = clevel, color.palette = colors, 
+             flowDuration = FALSE)
 }
 \keyword{graphics}
 \keyword{statistics}

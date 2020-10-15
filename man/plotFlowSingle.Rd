@@ -37,7 +37,7 @@ plotFlowSingle(eList, istat, yearStart = NA, yearEnd = NA, qMax = NA,
 \item{printPA}{logical variable, if TRUE Period of Analysis information is printed in title, if FALSE not printed, default is TRUE}
 
 \item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
-to TRUE does NOT guarantee USGS complience. It will only change automatically
+to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels.}
 
 \item{printIstat}{logical variable, if TRUE print the statistic name is printed in title, if FALSE not printed, default is TRUE}
