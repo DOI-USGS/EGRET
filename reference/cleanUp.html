@@ -48,8 +48,9 @@
 
 <meta property="og:title" content="cleanUp eList — cleanUp" />
 <meta property="og:description" content="Takes an eList as the input. If there are duplicated dates in the Sample data frame, 
-will randomly select one value for that date.  And if there are censored values in the
-Sample data frame it will substitute a randomObserved value using makeAugmentedSamples" />
+will randomly select one value for that date.  If there are censored values
+in the data set they will be replaced by random censored values.  If there are no
+days with duplicate samples and no censored valued then the eList returned by the function will be identical to the eList that is passed to it." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -115,10 +116,7 @@ Sample data frame it will substitute a randomObserved value using makeAugmentedS
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/WRTDSK.html">WRTDS-K In Development</a>
-    </li>
-    <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K Blog Article</a>
+      <a href="../articles/WRTDSK.html">WRTDS Kalman</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -168,29 +166,36 @@ Sample data frame it will substitute a randomObserved value using makeAugmentedS
 
     <div class="ref-description">
     <p>Takes an eList as the input. If there are duplicated dates in the Sample data frame, 
-will randomly select one value for that date.  And if there are censored values in the
-Sample data frame it will substitute a randomObserved value using makeAugmentedSamples</p>
+will randomly select one value for that date.  If there are censored values
+in the data set they will be replaced by random censored values.  If there are no
+days with duplicate samples and no censored valued then the eList returned by the function will be identical to the eList that is passed to it.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cleanUp</span>(<span class='no'>eList</span>)</pre>
+    <pre class="usage"><span class='fu'>cleanUp</span><span class='op'>(</span><span class='va'>eList</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>eList</th>
-      <td><p>named list with at least the Daily, Sample, and INFO dataframes and surfaces matrix.</p></td>
+      <td><p>named list with the INFO, Daily, and Sample dataframes and surfaces matrix.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>eList with duplicated dates in the Sample data frame randomly sampled and randomObserved values are appended.</p>
+    <p>eList with duplicated dates in the Sample data frame randomly sampled and censored values are replaced by random values.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This function is run before each iteration of generating a random sequence in the 
+<code><a href='WRTDSKalman.html'>WRTDSKalman</a></code> function</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
+    <pre class="examples"><div class='input'><span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='va'>Choptank_eList</span>
 
-<span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>EGRET</span><span class='kw ns'>:::</span><span class='fu'>cleanUp</span>(<span class='no'>eList</span>)</div></pre>
+<span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='fu'>cleanUp</span><span class='op'>(</span><span class='va'>eList</span><span class='op'>)</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -206,7 +211,7 @@ Sample data frame it will substitute a randomObserved value using makeAugmentedS
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

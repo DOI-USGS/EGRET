@@ -120,10 +120,7 @@ and an INFO dataframe with metadata." />
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/WRTDSK.html">WRTDS-K In Development</a>
-    </li>
-    <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K Blog Article</a>
+      <a href="../articles/WRTDSK.html">WRTDS Kalman</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -182,10 +179,10 @@ a Daily dataframe with the daily flow data,
 and an INFO dataframe with metadata.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plotConcTimeDaily</span>(<span class='no'>eList</span>, <span class='kw'>yearStart</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>yearEnd</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>tinyPlot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>concMax</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>printTitle</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>0.8</span>, <span class='kw'>cex.axis</span> <span class='kw'>=</span> <span class='fl'>1.1</span>,
-  <span class='kw'>randomCensored</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>cex.main</span> <span class='kw'>=</span> <span class='fl'>1.1</span>, <span class='kw'>customPar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>prettyDate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>usgsStyle</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>plotConcTimeDaily</span><span class='op'>(</span><span class='va'>eList</span>, yearStart <span class='op'>=</span> <span class='cn'>NA</span>, yearEnd <span class='op'>=</span> <span class='cn'>NA</span>, tinyPlot <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  concMax <span class='op'>=</span> <span class='cn'>NA</span>, printTitle <span class='op'>=</span> <span class='cn'>TRUE</span>, cex <span class='op'>=</span> <span class='fl'>0.8</span>, cex.axis <span class='op'>=</span> <span class='fl'>1.1</span>,
+  randomCensored <span class='op'>=</span> <span class='cn'>FALSE</span>, cex.main <span class='op'>=</span> <span class='fl'>1.1</span>, customPar <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  col <span class='op'>=</span> <span class='st'>"black"</span>, lwd <span class='op'>=</span> <span class='fl'>1</span>, prettyDate <span class='op'>=</span> <span class='cn'>TRUE</span>, usgsStyle <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -264,11 +261,14 @@ generated labels</p></td>
     <div class='dont-index'><p><code><a href='selectDays.html'>selectDays</a></code>, <code><a href='genericEGRETDotPlot.html'>genericEGRETDotPlot</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
+    <pre class="examples"><div class='input'><span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='va'>Choptank_eList</span>
 <span class='co'># Water year:</span>
-<span class='fu'>plotConcTimeDaily</span>(<span class='no'>eList</span>)</div><div class='img'><img src='plotConcTimeDaily-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotConcTimeDaily</span>(<span class='no'>eList</span>, <span class='kw'>yearStart</span><span class='kw'>=</span><span class='fl'>1998</span>,<span class='kw'>yearEnd</span><span class='kw'>=</span><span class='fl'>2001</span>)</div><div class='img'><img src='plotConcTimeDaily-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Graphs consisting of Jun-Aug</span>
-<span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span>(<span class='no'>eList</span>, <span class='kw'>paStart</span><span class='kw'>=</span><span class='fl'>6</span>,<span class='kw'>paLong</span><span class='kw'>=</span><span class='fl'>3</span>)
-<span class='fu'>plotConcTimeDaily</span>(<span class='no'>eList</span>)</div><div class='img'><img src='plotConcTimeDaily-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>plotConcTimeDaily</span><span class='op'>(</span><span class='va'>eList</span><span class='op'>)</span>
+</div><div class='img'><img src='plotConcTimeDaily-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotConcTimeDaily</span><span class='op'>(</span><span class='va'>eList</span>, yearStart<span class='op'>=</span><span class='fl'>1998</span>,yearEnd<span class='op'>=</span><span class='fl'>2001</span><span class='op'>)</span>
+</div><div class='img'><img src='plotConcTimeDaily-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Graphs consisting of Jun-Aug</span>
+<span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span><span class='op'>(</span><span class='va'>eList</span>, paStart<span class='op'>=</span><span class='fl'>6</span>,paLong<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
+<span class='fu'>plotConcTimeDaily</span><span class='op'>(</span><span class='va'>eList</span><span class='op'>)</span>
+</div><div class='img'><img src='plotConcTimeDaily-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -284,7 +284,7 @@ generated labels</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

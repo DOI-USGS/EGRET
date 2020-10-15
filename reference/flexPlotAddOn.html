@@ -113,10 +113,7 @@
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/WRTDSK.html">WRTDS-K In Development</a>
-    </li>
-    <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K Blog Article</a>
+      <a href="../articles/WRTDSK.html">WRTDS Kalman</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -168,7 +165,7 @@
     <p>Flexible Flow Normalization Plot Add On</p>
     </div>
 
-    <pre class="usage"><span class='fu'>flexPlotAddOn</span>(<span class='no'>eList</span>, <span class='kw'>showArrows</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>showRect</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>customPalette</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>flexPlotAddOn</span><span class='op'>(</span><span class='va'>eList</span>, showArrows <span class='op'>=</span> <span class='cn'>TRUE</span>, showRect <span class='op'>=</span> <span class='cn'>TRUE</span>, customPalette <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,21 +191,25 @@ Defaults to NULL, which indicates the use of a default palette (up to 21 segment
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
-<span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='setUpEstimation.html'>setUpEstimation</a></span>(<span class='no'>eList</span>)
-<span class='no'>flowNormStart</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1979-10-01"</span>,<span class='st'>"1990-01-01"</span>,<span class='st'>"1992-10-10"</span>)
-<span class='no'>flowNormEnd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1995-06-06"</span>,<span class='st'>"2004-03-03"</span>,<span class='st'>"2011-09-29"</span>)
-<span class='no'>flowStart</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1979-10-01"</span>,<span class='st'>"1995-06-07"</span>,<span class='st'>"2004-03-04"</span>)
-<span class='no'>flowEnd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1995-06-06"</span>,<span class='st'>"2004-03-03"</span>,<span class='st'>"2011-09-29"</span>)
-<span class='no'>dateInfo</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='no'>flowNormStart</span>,
-                       <span class='no'>flowNormEnd</span>,
-                       <span class='no'>flowStart</span>,
-                       <span class='no'>flowEnd</span>,
-                       <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="examples"><div class='input'><span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='va'>Choptank_eList</span>
+<span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='setUpEstimation.html'>setUpEstimation</a></span><span class='op'>(</span><span class='va'>eList</span><span class='op'>)</span>
+<span class='va'>flowNormStart</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1979-10-01"</span>,<span class='st'>"1990-01-01"</span>,<span class='st'>"1992-10-10"</span><span class='op'>)</span>
+<span class='va'>flowNormEnd</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1995-06-06"</span>,<span class='st'>"2004-03-03"</span>,<span class='st'>"2011-09-29"</span><span class='op'>)</span>
+<span class='va'>flowStart</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1979-10-01"</span>,<span class='st'>"1995-06-07"</span>,<span class='st'>"2004-03-04"</span><span class='op'>)</span>
+<span class='va'>flowEnd</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1995-06-06"</span>,<span class='st'>"2004-03-03"</span>,<span class='st'>"2011-09-29"</span><span class='op'>)</span> 
+<span class='va'>dateInfo</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>flowNormStart</span>,
+                       <span class='va'>flowNormEnd</span>,
+                       <span class='va'>flowStart</span>, 
+                       <span class='va'>flowEnd</span>, 
+                       stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \donttest{</span>
-<span class='no'>newEList</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='flexFN.html'>flexFN</a></span>(<span class='no'>eList</span>, <span class='no'>dateInfo</span>)
-<span class='fu'><a href='plotFluxHist.html'>plotFluxHist</a></span>(<span class='no'>newEList</span>)</div><div class='input'><span class='fu'>flexPlotAddOn</span>(<span class='no'>newEList</span>)</div><div class='img'><img src='flexPlotAddOn-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='plotFluxHist.html'>plotFluxHist</a></span>(<span class='no'>newEList</span>)</div><div class='input'><span class='fu'>flexPlotAddOn</span>(<span class='no'>newEList</span>, <span class='kw'>customPalette</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#d5ce48"</span>, <span class='st'>"#fd300f"</span>, <span class='st'>"#3e0289"</span>))</div><div class='img'><img src='flexPlotAddOn-2.png' alt='' width='700' height='433' /></div><div class='input'># }
+<span class='va'>newEList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='flexFN.html'>flexFN</a></span><span class='op'>(</span><span class='va'>eList</span>, <span class='va'>dateInfo</span><span class='op'>)</span>
+<span class='fu'><a href='plotFluxHist.html'>plotFluxHist</a></span><span class='op'>(</span><span class='va'>newEList</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'>flexPlotAddOn</span><span class='op'>(</span><span class='va'>newEList</span><span class='op'>)</span>
+</div><div class='img'><img src='flexPlotAddOn-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='plotFluxHist.html'>plotFluxHist</a></span><span class='op'>(</span><span class='va'>newEList</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'>flexPlotAddOn</span><span class='op'>(</span><span class='va'>newEList</span>, customPalette<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#d5ce48"</span>, <span class='st'>"#fd300f"</span>, <span class='st'>"#3e0289"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='flexPlotAddOn-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -225,7 +226,7 @@ Defaults to NULL, which indicates the use of a default palette (up to 21 segment
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

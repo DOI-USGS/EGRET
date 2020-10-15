@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Creates a plot of a time series of a particular flow statistic and a lowess smooth of that flow statistic — plotFlowSingle • EGRET</title>
+<title>Creates a plot of a time series of a particular flow statistic and a loess smooth of that flow statistic — plotFlowSingle • EGRET</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Creates a plot of a time series of a particular flow statistic and a lowess smooth of that flow statistic — plotFlowSingle" />
+<meta property="og:title" content="Creates a plot of a time series of a particular flow statistic and a loess smooth of that flow statistic — plotFlowSingle" />
 <meta property="og:description" content="A part of the flowHistory system.
 The index of the flow statistics is istat.  These statistics are: 
 (1) 1-day minimum, (2) 7-day minimum, (3) 30-day minimum, (4) median
@@ -119,10 +119,7 @@ and an INFO dataframe with metadata." />
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/WRTDSK.html">WRTDS-K In Development</a>
-    </li>
-    <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K Blog Article</a>
+      <a href="../articles/WRTDSK.html">WRTDS Kalman</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -165,7 +162,7 @@ and an INFO dataframe with metadata." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Creates a plot of a time series of a particular flow statistic and a lowess smooth of that flow statistic</h1>
+    <h1>Creates a plot of a time series of a particular flow statistic and a loess smooth of that flow statistic</h1>
     <small class="dont-index">Source: <a href='https://github.com/USGS-R/EGRET/blob/master/R/plotFlowSingle.R'><code>R/plotFlowSingle.R</code></a></small>
     <div class="hidden name"><code>plotFlowSingle.Rd</code></div>
     </div>
@@ -180,11 +177,11 @@ The index of the flow statistics is istat.  These statistics are:
 and an INFO dataframe with metadata.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plotFlowSingle</span>(<span class='no'>eList</span>, <span class='no'>istat</span>, <span class='kw'>yearStart</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>yearEnd</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>qMax</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>printTitle</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>tinyPlot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>customPar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>runoff</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>qUnit</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>printStaName</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>printPA</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>usgsStyle</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>printIstat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>0.8</span>, <span class='kw'>cex.axis</span> <span class='kw'>=</span> <span class='fl'>1.1</span>,
-  <span class='kw'>cex.main</span> <span class='kw'>=</span> <span class='fl'>1.1</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>plotFlowSingle</span><span class='op'>(</span><span class='va'>eList</span>, <span class='va'>istat</span>, yearStart <span class='op'>=</span> <span class='cn'>NA</span>, yearEnd <span class='op'>=</span> <span class='cn'>NA</span>, qMax <span class='op'>=</span> <span class='cn'>NA</span>,
+  printTitle <span class='op'>=</span> <span class='cn'>TRUE</span>, tinyPlot <span class='op'>=</span> <span class='cn'>FALSE</span>, customPar <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  runoff <span class='op'>=</span> <span class='cn'>FALSE</span>, qUnit <span class='op'>=</span> <span class='fl'>1</span>, printStaName <span class='op'>=</span> <span class='cn'>TRUE</span>, printPA <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  usgsStyle <span class='op'>=</span> <span class='cn'>FALSE</span>, printIstat <span class='op'>=</span> <span class='cn'>TRUE</span>, cex <span class='op'>=</span> <span class='fl'>0.8</span>, cex.axis <span class='op'>=</span> <span class='fl'>1.1</span>,
+  cex.main <span class='op'>=</span> <span class='fl'>1.1</span>, lwd <span class='op'>=</span> <span class='fl'>2</span>, col <span class='op'>=</span> <span class='st'>"black"</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -241,7 +238,7 @@ and an INFO dataframe with metadata.</p>
     <tr>
       <th>usgsStyle</th>
       <td><p>logical option to use USGS style guidelines. Setting this option
-to TRUE does NOT guarantee USGS complience. It will only change automatically
+to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels.</p></td>
     </tr>
     <tr>
@@ -274,16 +271,24 @@ generated labels.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The curve plotted on the graph is a loess smooth of the data.  
+This smooth is computed on the logs of the data and then transformed back to plot.
+The width of the smoothing window is 20 years on either side of the year being plotted
+However, the window width can be adjusted using setPA function.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='makeAnnualSeries.html'>makeAnnualSeries</a></code>, <code><a href='genericEGRETDotPlot.html'>genericEGRETDotPlot</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
+    <pre class="examples"><div class='input'><span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='va'>Choptank_eList</span>
 <span class='co'># Water year:</span>
-<span class='fu'>plotFlowSingle</span>(<span class='no'>eList</span>, <span class='fl'>1</span>)</div><div class='img'><img src='plotFlowSingle-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Graphs consisting of Jun-Aug</span>
-<span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span>(<span class='no'>eList</span>, <span class='kw'>paStart</span><span class='kw'>=</span><span class='fl'>6</span>,<span class='kw'>paLong</span><span class='kw'>=</span><span class='fl'>3</span>)
-<span class='fu'>plotFlowSingle</span>(<span class='no'>eList</span>, <span class='fl'>1</span>)</div><div class='img'><img src='plotFlowSingle-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>plotFlowSingle</span><span class='op'>(</span><span class='va'>eList</span>, <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='img'><img src='plotFlowSingle-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Graphs consisting of Jun-Aug</span>
+<span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span><span class='op'>(</span><span class='va'>eList</span>, paStart<span class='op'>=</span><span class='fl'>6</span>,paLong<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
+<span class='fu'>plotFlowSingle</span><span class='op'>(</span><span class='va'>eList</span>, <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='img'><img src='plotFlowSingle-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -299,7 +304,7 @@ generated labels.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

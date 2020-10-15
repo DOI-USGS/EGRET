@@ -47,9 +47,14 @@
 
 
 <meta property="og:title" content="Estimates all daily values of Concentration, Flux, Flow-Normalized Concentration, and Flow Normalized Flux — estDailyFromSurfaces" />
-<meta property="og:description" content="Uses the surfaces estimated in estSurfaces to estimate these four time series
-   in addition to the time series for standard error and yHat (estimated log concentration). 
-   The results are stored in an augmented version of the Daily data frame, which is returned as part of an EGRET object.
+<meta property="og:description" content="Uses the surfaces matrix estimated in estSurfaces to estimate 6 daily time series
+  and appends them to the Daily data frame.  The time series are (in order):
+  yHat, the estimated natural log of concentration, dimensionless
+  SE, the standard error of the natural log of concentration
+  ConcDay, the estimated concentration in mg/L
+  FluxDay, the estimated flux in kg/day
+  FNConc, the flow-normalized concentration in mg/L
+  FNFlux, the flow-normalized flux in kg/day
 Bin the LogQ values by day-of-year." />
 <meta property="og:image" content="/logo.png" />
 
@@ -116,10 +121,7 @@ Bin the LogQ values by day-of-year." />
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/WRTDSK.html">WRTDS-K In Development</a>
-    </li>
-    <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K Blog Article</a>
+      <a href="../articles/WRTDSK.html">WRTDS Kalman</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -168,20 +170,25 @@ Bin the LogQ values by day-of-year." />
     </div>
 
     <div class="ref-description">
-    <p>Uses the surfaces estimated in estSurfaces to estimate these four time series
-   in addition to the time series for standard error and yHat (estimated log concentration). 
-   The results are stored in an augmented version of the Daily data frame, which is returned as part of an EGRET object.</p>
+    <p>Uses the surfaces matrix estimated in estSurfaces to estimate 6 daily time series
+  and appends them to the Daily data frame.  The time series are (in order):
+  yHat, the estimated natural log of concentration, dimensionless
+  SE, the standard error of the natural log of concentration
+  ConcDay, the estimated concentration in mg/L
+  FluxDay, the estimated flux in kg/day
+  FNConc, the flow-normalized concentration in mg/L
+  FNFlux, the flow-normalized flux in kg/day</p>
 <p>Bin the LogQ values by day-of-year.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>estDailyFromSurfaces</span>(<span class='no'>eList</span>, <span class='kw'>localsurfaces</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>localDaily</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
+    <pre class="usage"><span class='fu'>estDailyFromSurfaces</span><span class='op'>(</span><span class='va'>eList</span>, localsurfaces <span class='op'>=</span> <span class='cn'>NA</span>, localDaily <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>
 
-<span class='fu'>getConcFluxFromSurface</span>(<span class='no'>eList</span>, <span class='no'>allLogQsByDayOfYear</span>, <span class='no'>localDaily</span>,
-  <span class='kw'>localsurfaces</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
+<span class='fu'>getConcFluxFromSurface</span><span class='op'>(</span><span class='va'>eList</span>, <span class='va'>allLogQsByDayOfYear</span>, <span class='va'>localDaily</span>,
+  localsurfaces <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>
 
-<span class='fu'>getSurfaceEstimates</span>(<span class='no'>eList</span>, <span class='kw'>localsurfaces</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>localDaily</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
+<span class='fu'>getSurfaceEstimates</span><span class='op'>(</span><span class='va'>eList</span>, localsurfaces <span class='op'>=</span> <span class='cn'>NA</span>, localDaily <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>
 
-<span class='fu'>bin_Qs</span>(<span class='no'>localDaily</span>)</pre>
+<span class='fu'>bin_Qs</span><span class='op'>(</span><span class='va'>localDaily</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -208,25 +215,29 @@ Bin the LogQ values by day-of-year." />
 
     <p>egret object with altered Daily dataframe</p>
 <p>Daily dataframe with yHat, SE, ConcDay and FluxDay calulated</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The results are stored in an augmented version of the Daily data frame, which is returned as part of an EGRET object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
+    <pre class="examples"><div class='input'><span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='va'>Choptank_eList</span>
 <span class='co'>#################################################</span>
 <span class='co'># This is usually done in modelEstimation:</span>
-<span class='no'>Daily</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='getDaily.html'>getDaily</a></span>(<span class='no'>eList</span>)
-<span class='no'>surfaceIndexParameters</span><span class='kw'>&lt;-</span><span class='fu'><a href='surfaceIndex.html'>surfaceIndex</a></span>(<span class='no'>Daily</span>)
-<span class='no'>INFO</span> <span class='kw'>&lt;-</span> <span class='no'>eList</span>$<span class='no'>INFO</span>
-<span class='no'>INFO</span>$<span class='no'>bottomLogQ</span><span class='kw'>&lt;-</span><span class='no'>surfaceIndexParameters</span><span class='kw'>[[</span><span class='st'>'bottomLogQ'</span>]]
-<span class='no'>INFO</span>$<span class='no'>stepLogQ</span><span class='kw'>&lt;-</span><span class='no'>surfaceIndexParameters</span><span class='kw'>[[</span><span class='st'>'stepLogQ'</span>]]
-<span class='no'>INFO</span>$<span class='no'>nVectorLogQ</span><span class='kw'>&lt;-</span><span class='no'>surfaceIndexParameters</span><span class='kw'>[[</span><span class='st'>'nVectorLogQ'</span>]]
-<span class='no'>INFO</span>$<span class='no'>bottomYear</span><span class='kw'>&lt;-</span><span class='no'>surfaceIndexParameters</span><span class='kw'>[[</span><span class='st'>'bottomYear'</span>]]
-<span class='no'>INFO</span>$<span class='no'>stepYear</span><span class='kw'>&lt;-</span><span class='no'>surfaceIndexParameters</span><span class='kw'>[[</span><span class='st'>'stepYear'</span>]]
-<span class='no'>INFO</span>$<span class='no'>nVectorYear</span><span class='kw'>&lt;-</span><span class='no'>surfaceIndexParameters</span><span class='kw'>[[</span><span class='st'>'nVectorYear'</span>]]
-<span class='no'>eList</span>$<span class='no'>INFO</span> <span class='kw'>&lt;-</span> <span class='no'>INFO</span>
+<span class='va'>Daily</span> <span class='op'>&lt;-</span> <span class='fu'><a href='getDaily.html'>getDaily</a></span><span class='op'>(</span><span class='va'>eList</span><span class='op'>)</span>
+<span class='va'>surfaceIndexParameters</span><span class='op'>&lt;-</span><span class='fu'><a href='surfaceIndex.html'>surfaceIndex</a></span><span class='op'>(</span><span class='va'>Daily</span><span class='op'>)</span>
+<span class='va'>INFO</span> <span class='op'>&lt;-</span> <span class='va'>eList</span><span class='op'>$</span><span class='va'>INFO</span>
+<span class='va'>INFO</span><span class='op'>$</span><span class='va'>bottomLogQ</span><span class='op'>&lt;-</span><span class='va'>surfaceIndexParameters</span><span class='op'>[[</span><span class='st'>'bottomLogQ'</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>INFO</span><span class='op'>$</span><span class='va'>stepLogQ</span><span class='op'>&lt;-</span><span class='va'>surfaceIndexParameters</span><span class='op'>[[</span><span class='st'>'stepLogQ'</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>INFO</span><span class='op'>$</span><span class='va'>nVectorLogQ</span><span class='op'>&lt;-</span><span class='va'>surfaceIndexParameters</span><span class='op'>[[</span><span class='st'>'nVectorLogQ'</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>INFO</span><span class='op'>$</span><span class='va'>bottomYear</span><span class='op'>&lt;-</span><span class='va'>surfaceIndexParameters</span><span class='op'>[[</span><span class='st'>'bottomYear'</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>INFO</span><span class='op'>$</span><span class='va'>stepYear</span><span class='op'>&lt;-</span><span class='va'>surfaceIndexParameters</span><span class='op'>[[</span><span class='st'>'stepYear'</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>INFO</span><span class='op'>$</span><span class='va'>nVectorYear</span><span class='op'>&lt;-</span><span class='va'>surfaceIndexParameters</span><span class='op'>[[</span><span class='st'>'nVectorYear'</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>eList</span><span class='op'>$</span><span class='va'>INFO</span> <span class='op'>&lt;-</span> <span class='va'>INFO</span>
 <span class='co'>#################################################</span>
 <span class='co'># \donttest{</span>
-<span class='no'>Daily</span> <span class='kw'>&lt;-</span> <span class='fu'>estDailyFromSurfaces</span>(<span class='no'>eList</span>)
-<span class='co'># }</span></div></pre>
+<span class='va'>Daily</span> <span class='op'>&lt;-</span> <span class='fu'>estDailyFromSurfaces</span><span class='op'>(</span><span class='va'>eList</span><span class='op'>)</span>
+<span class='co'># }</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -242,7 +253,7 @@ Bin the LogQ values by day-of-year." />
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

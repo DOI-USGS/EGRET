@@ -50,7 +50,8 @@
 <meta property="og:description" content="This function is used to add two columns to the Sample data frame: rResid and rObserved.
  rResid is the randomized residual value computed in log concentration units, and rObserved
  is the randomized 'observed' value of concentration in concentration units.
- Both of these are computed for all censored samples (&quot;less than values&quot;)." />
+ Both of these are computed for all censored samples (&quot;less than values&quot;).
+ They are created for purposes of plotting and are not used in any computations in EGRET." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -116,10 +117,7 @@
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/WRTDSK.html">WRTDS-K In Development</a>
-    </li>
-    <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K Blog Article</a>
+      <a href="../articles/WRTDSK.html">WRTDS Kalman</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -171,10 +169,11 @@
     <p>This function is used to add two columns to the Sample data frame: rResid and rObserved.
  rResid is the randomized residual value computed in log concentration units, and rObserved
  is the randomized 'observed' value of concentration in concentration units.
- Both of these are computed for all censored samples ("less than values").</p>
+ Both of these are computed for all censored samples ("less than values").
+ They are created for purposes of plotting and are not used in any computations in EGRET.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>makeAugmentedSample</span>(<span class='no'>eList</span>)</pre>
+    <pre class="usage"><span class='fu'>makeAugmentedSample</span><span class='op'>(</span><span class='va'>eList</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -188,9 +187,14 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>eList named list with modified Sample data frame.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The WRTDS model must be estimated before this function can be run.  The random value that is generated lies between the reporting limit and zero and is distributed as a truncated log-normal distribution, with parameters derived from the fitted WRTDS model.
+These random values are never used in any computations in EGRET but are used for purposes of plotting the data set or residuals.  When plotted in other functions they are shown as open circles.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>choptankAugmented</span> <span class='kw'>&lt;-</span> <span class='fu'>makeAugmentedSample</span>(<span class='no'>Choptank_eList</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='va'>choptankAugmented</span> <span class='op'>&lt;-</span> <span class='fu'>makeAugmentedSample</span><span class='op'>(</span><span class='va'>Choptank_eList</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -206,7 +210,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

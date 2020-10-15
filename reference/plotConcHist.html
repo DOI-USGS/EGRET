@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Graph of annual concentration and flow normalized concentration versus year — plotConcHist • EGRET</title>
+<title>Graph of annual mean concentration and flow normalized concentration versus year — plotConcHist • EGRET</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,13 +46,18 @@
 
 
 
-<meta property="og:title" content="Graph of annual concentration and flow normalized concentration versus year — plotConcHist" />
+<meta property="og:title" content="Graph of annual mean concentration and flow normalized concentration versus year — plotConcHist" />
 <meta property="og:description" content="Data come from named list, which contains a Daily dataframe with the daily flow data,
 and an INFO dataframe with metadata.
-The annual concentrations are &quot;time-weighted&quot; mean concentrations (as opposed to &quot;flow-weighted&quot;). 
+The annual mean concentrations are &quot;time-weighted&quot; mean concentrations (as opposed to &quot;flow-weighted&quot;). 
 The annual results reported are for a specified &quot;period of analysis&quot; which can be 
 an entire water year, a calendar, a season or even an individual month.  
 User specifies this period of analysis in the call to setupYears.
+Three versions of annual mean concentration can be plotted
+ &quot;Annual&quot; version is the mean concentration computed directly from the WRTDS model
+ &quot;GenConc&quot; version uses the WRTDS_K calculation, that uses an auto-regressive formulation to improve the accuracy of the mean concentration.  It has been shown to be more accurate than the &quot;Annual&quot; version.
+ &quot;FlowNormalized&quot; version eliminates the interannual variability by integrating the WRTDS model results over the full probability distribution of discharge
+ See introduction to the EGRET vignette for more details on these three options.
 Although there are a lot of optional arguments to this function, most are set to a logical default." />
 <meta property="og:image" content="/logo.png" />
 
@@ -119,10 +124,7 @@ Although there are a lot of optional arguments to this function, most are set to
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/WRTDSK.html">WRTDS-K In Development</a>
-    </li>
-    <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K Blog Article</a>
+      <a href="../articles/WRTDSK.html">WRTDS Kalman</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -165,7 +167,7 @@ Although there are a lot of optional arguments to this function, most are set to
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Graph of annual concentration and flow normalized concentration versus year</h1>
+    <h1>Graph of annual mean concentration and flow normalized concentration versus year</h1>
     <small class="dont-index">Source: <a href='https://github.com/USGS-R/EGRET/blob/master/R/plotConcHist.R'><code>R/plotConcHist.R</code></a></small>
     <div class="hidden name"><code>plotConcHist.Rd</code></div>
     </div>
@@ -173,18 +175,23 @@ Although there are a lot of optional arguments to this function, most are set to
     <div class="ref-description">
     <p>Data come from named list, which contains a Daily dataframe with the daily flow data,
 and an INFO dataframe with metadata.</p>
-<p>The annual concentrations are "time-weighted" mean concentrations (as opposed to "flow-weighted"). 
+<p>The annual mean concentrations are "time-weighted" mean concentrations (as opposed to "flow-weighted"). 
 The annual results reported are for a specified "period of analysis" which can be 
 an entire water year, a calendar, a season or even an individual month.  
 User specifies this period of analysis in the call to <code>setupYears</code>.</p>
+<p>Three versions of annual mean concentration can be plotted
+ "Annual" version is the mean concentration computed directly from the WRTDS model
+ "GenConc" version uses the WRTDS_K calculation, that uses an auto-regressive formulation to improve the accuracy of the mean concentration.  It has been shown to be more accurate than the "Annual" version.
+ "FlowNormalized" version eliminates the interannual variability by integrating the WRTDS model results over the full probability distribution of discharge
+ See introduction to the EGRET vignette for more details on these three options.</p>
 <p>Although there are a lot of optional arguments to this function, most are set to a logical default.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plotConcHist</span>(<span class='no'>eList</span>, <span class='kw'>yearStart</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>yearEnd</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>concMax</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>printTitle</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>tinyPlot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>usgsStyle</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>plotFlowNorm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plotAnnual</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>plotGenConc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>0.8</span>, <span class='kw'>cex.axis</span> <span class='kw'>=</span> <span class='fl'>1.1</span>, <span class='kw'>cex.main</span> <span class='kw'>=</span> <span class='fl'>1.1</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='kw'>col.pred</span> <span class='kw'>=</span> <span class='st'>"green"</span>, <span class='kw'>col.gen</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>customPar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>plotConcHist</span><span class='op'>(</span><span class='va'>eList</span>, yearStart <span class='op'>=</span> <span class='cn'>NA</span>, yearEnd <span class='op'>=</span> <span class='cn'>NA</span>, concMax <span class='op'>=</span> <span class='cn'>NA</span>,
+  printTitle <span class='op'>=</span> <span class='cn'>TRUE</span>, tinyPlot <span class='op'>=</span> <span class='cn'>FALSE</span>, usgsStyle <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  plotFlowNorm <span class='op'>=</span> <span class='cn'>TRUE</span>, plotAnnual <span class='op'>=</span> <span class='cn'>TRUE</span>, plotGenConc <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  cex <span class='op'>=</span> <span class='fl'>0.8</span>, cex.axis <span class='op'>=</span> <span class='fl'>1.1</span>, cex.main <span class='op'>=</span> <span class='fl'>1.1</span>, lwd <span class='op'>=</span> <span class='fl'>2</span>, col <span class='op'>=</span> <span class='st'>"black"</span>,
+  col.pred <span class='op'>=</span> <span class='st'>"green"</span>, col.gen <span class='op'>=</span> <span class='st'>"red"</span>, customPar <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -245,19 +252,19 @@ generated labels</p></td>
     </tr>
     <tr>
       <th>lwd</th>
-      <td><p>number magnification of line width.</p></td>
+      <td><p>number magnification of line width, default = 2.</p></td>
     </tr>
     <tr>
       <th>col</th>
-      <td><p>color of points on plot, see ?par 'Color Specification'</p></td>
+      <td><p>color of points on plot, see ?par 'Color Specification', default = "black"</p></td>
     </tr>
     <tr>
       <th>col.pred</th>
-      <td><p>color of flow normalized line on plot, see ?par 'Color Specification'</p></td>
+      <td><p>color of flow normalized line on plot, see ?par 'Color Specification', default = "green"</p></td>
     </tr>
     <tr>
       <th>col.gen</th>
-      <td><p>color of points for WRTDS_K output on plot, see ?par 'Color Specification'</p></td>
+      <td><p>color of points for WRTDS_K output on plot, see ?par 'Color Specification', default = "red"</p></td>
     </tr>
     <tr>
       <th>customPar</th>
@@ -270,19 +277,25 @@ generated labels</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>running modelEstimation is required before running this function.
+ if genConc is plotted then running WRTDSKalman is also required.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='setupYears.html'>setupYears</a></code>, <code><a href='genericEGRETDotPlot.html'>genericEGRETDotPlot</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>yearStart</span> <span class='kw'>&lt;-</span> <span class='fl'>2001</span>
-<span class='no'>yearEnd</span> <span class='kw'>&lt;-</span> <span class='fl'>2010</span>
-<span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
+    <pre class="examples"><div class='input'><span class='va'>yearStart</span> <span class='op'>&lt;-</span> <span class='fl'>2001</span>
+<span class='va'>yearEnd</span> <span class='op'>&lt;-</span> <span class='fl'>2010</span>
+<span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='va'>Choptank_eList</span>
 
 <span class='co'># Water year:</span>
-<span class='fu'>plotConcHist</span>(<span class='no'>eList</span>, <span class='no'>yearStart</span>, <span class='no'>yearEnd</span>, <span class='kw'>tinyPlot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plotConcHist-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Graphs consisting of Jun-Aug</span>
-<span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span>(<span class='no'>eList</span>, <span class='kw'>paStart</span><span class='kw'>=</span><span class='fl'>6</span>,<span class='kw'>paLong</span><span class='kw'>=</span><span class='fl'>3</span>)
-<span class='fu'>plotConcHist</span>(<span class='no'>eList</span>, <span class='kw'>tinyPlot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='plotConcHist-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plotConcHist</span><span class='op'>(</span><span class='va'>eList</span>, <span class='va'>yearStart</span>, <span class='va'>yearEnd</span>, tinyPlot <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='plotConcHist-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Graphs consisting of Jun-Aug</span>
+<span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span><span class='op'>(</span><span class='va'>eList</span>, paStart<span class='op'>=</span><span class='fl'>6</span>,paLong<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
+<span class='fu'>plotConcHist</span><span class='op'>(</span><span class='va'>eList</span>, tinyPlot <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='img'><img src='plotConcHist-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -299,7 +312,7 @@ generated labels</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

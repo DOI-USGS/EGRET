@@ -114,10 +114,7 @@ Data is a named list of the Daily, Sample, INFO dataframes, and the surface matr
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/WRTDSK.html">WRTDS-K In Development</a>
-    </li>
-    <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K Blog Article</a>
+      <a href="../articles/WRTDSK.html">WRTDS Kalman</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -174,7 +171,8 @@ Data is a named list of the Daily, Sample, INFO dataframes, and the surface matr
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>Choptank_eList</span>$<span class='no'>Daily</span>)</div><div class='output co'>#&gt;         Date        Q Julian Month Day  DecYear MonthSeq Qualifier i      LogQ
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>Choptank_eList</span><span class='op'>$</span><span class='va'>Daily</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;         Date        Q Julian Month Day  DecYear MonthSeq Qualifier i      LogQ
 #&gt; 1 1979-10-01 1.897229  47389    10 275 1979.750     1558         A 1 0.6403942
 #&gt; 2 1979-10-02 2.010496  47390    10 276 1979.753     1558         A 2 0.6983815
 #&gt; 3 1979-10-03 2.746734  47391    10 277 1979.755     1558         A 3 1.0104126
@@ -187,7 +185,8 @@ Data is a named list of the Daily, Sample, INFO dataframes, and the surface matr
 #&gt; 3 NA  NA -0.3044300 0.2170166 0.7641524 181.3470 0.9889741 109.7710
 #&gt; 4 NA  NA -0.4642075 0.2118471 0.6544177 217.7472 0.9940480 109.4190
 #&gt; 5 NA  NA -0.4872318 0.2110424 0.6383146 224.8826 1.0034610 108.3759
-#&gt; 6 NA  NA -0.3675283 0.2149243 0.7209948 199.3284 1.0084551 106.1974</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>Arkansas_eList</span>$<span class='no'>Daily</span>)</div><div class='output co'>#&gt;            Date     Q Julian Month Day  DecYear MonthSeq    i     LogQ       Q7
+#&gt; 6 NA  NA -0.3675283 0.2149243 0.7209948 199.3284 1.0084551 106.1974</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>Arkansas_eList</span><span class='op'>$</span><span class='va'>Daily</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;            Date     Q Julian Month Day  DecYear MonthSeq    i     LogQ       Q7
 #&gt; 9132 1989-10-01 37600  51042    10 275 1989.749     1678 9132 10.53476 38071.43
 #&gt; 9133 1989-10-02 34400  51043    10 276 1989.752     1678 9133 10.44581 37071.43
 #&gt; 9134 1989-10-03 37200  51044    10 277 1989.755     1678 9134 10.52406 36400.00
@@ -216,7 +215,7 @@ Data is a named list of the Daily, Sample, INFO dataframes, and the surface matr
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

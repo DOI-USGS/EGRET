@@ -47,10 +47,7 @@
 
 
 <meta property="og:title" content="Sets up the period of analysis (the portion of the year being evaluated). — setPA" />
-<meta property="og:description" content="Period of analysis is defined by the starting month (paStart) and length in months (paLong). 
-paStart and paLong are constrained to be integers from 1 to 12. 
-for example, a water year would be paStart = 10 and paLong = 12. 
-for example, the winter season, defined by Dec,Jan,Feb would be paStart = 12 and paLong =3." />
+<meta property="og:description" content="Period of analysis is defined by the starting month (paStart) and length in months (paLong).  paStart and paLong are constrained to be integers from 1 to 12. For example, a water year would be paStart = 10 and paLong = 12. For example, the winter season, defined by Dec,Jan,Feb would be paStart = 12 and paLong = 3." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -116,10 +113,7 @@ for example, the winter season, defined by Dec,Jan,Feb would be paStart = 12 and
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/WRTDSK.html">WRTDS-K In Development</a>
-    </li>
-    <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K Blog Article</a>
+      <a href="../articles/WRTDSK.html">WRTDS Kalman</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -168,13 +162,10 @@ for example, the winter season, defined by Dec,Jan,Feb would be paStart = 12 and
     </div>
 
     <div class="ref-description">
-    <p>Period of analysis is defined by the starting month (paStart) and length in months (paLong). 
-paStart and paLong are constrained to be integers from 1 to 12. 
-for example, a water year would be paStart = 10 and paLong = 12. 
-for example, the winter season, defined by Dec,Jan,Feb would be paStart = 12 and paLong =3.</p>
+    <p>Period of analysis is defined by the starting month (paStart) and length in months (paLong).  paStart and paLong are constrained to be integers from 1 to 12. For example, a water year would be paStart = 10 and paLong = 12. For example, the winter season, defined by Dec,Jan,Feb would be paStart = 12 and paLong = 3.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>setPA</span>(<span class='no'>eList</span>, <span class='kw'>paStart</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>paLong</span> <span class='kw'>=</span> <span class='fl'>12</span>, <span class='kw'>window</span> <span class='kw'>=</span> <span class='fl'>20</span>)</pre>
+    <pre class="usage"><span class='fu'>setPA</span><span class='op'>(</span><span class='va'>eList</span>, paStart <span class='op'>=</span> <span class='fl'>10</span>, paLong <span class='op'>=</span> <span class='fl'>12</span>, window <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -199,12 +190,13 @@ for example, the winter season, defined by Dec,Jan,Feb would be paStart = 12 and
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>eList named list with at least the INFO dataframe, along any other part of the list that was input. 
-Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.</p>
+    <p>eList named list with at least the INFO dataframe. 
+Any of these values can be NA, but not all EGRET functions will work with missing parts of the named list eList.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
-<span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='fu'>setPA</span>(<span class='no'>eList</span>, <span class='kw'>paStart</span><span class='kw'>=</span><span class='fl'>12</span>, <span class='kw'>paLong</span><span class='kw'>=</span><span class='fl'>3</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='va'>Choptank_eList</span>
+<span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='fu'>setPA</span><span class='op'>(</span><span class='va'>eList</span>, paStart <span class='op'>=</span> <span class='fl'>12</span>, paLong <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -220,7 +212,7 @@ Any of these values can be NA, not all EGRET functions will work with missing pa
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

@@ -47,8 +47,7 @@
 
 
 <meta property="og:title" content="genmissing — genmissing" />
-<meta property="og:description" content="Generates a single realization of an autoregression lag-one time series through a data gap
-Conditioned on a fixed value just prior to the gap (X1) and a fixed value just after the gap (XN)" />
+<meta property="og:description" content="Written by Tim Cohn" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -114,10 +113,7 @@ Conditioned on a fixed value just prior to the gap (X1) and a fixed value just a
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/WRTDSK.html">WRTDS-K In Development</a>
-    </li>
-    <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K Blog Article</a>
+      <a href="../articles/WRTDSK.html">WRTDS Kalman</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -166,11 +162,10 @@ Conditioned on a fixed value just prior to the gap (X1) and a fixed value just a
     </div>
 
     <div class="ref-description">
-    <p>Generates a single realization of an autoregression lag-one time series through a data gap
-Conditioned on a fixed value just prior to the gap (X1) and a fixed value just after the gap (XN)</p>
+    <p>Written by Tim Cohn</p>
     </div>
 
-    <pre class="usage"><span class='fu'>genmissing</span>(<span class='no'>X1</span>, <span class='no'>XN</span>, <span class='no'>rho</span>, <span class='no'>N</span>)</pre>
+    <pre class="usage"><span class='fu'>genmissing</span><span class='op'>(</span><span class='va'>X1</span>, <span class='va'>XN</span>, <span class='va'>rho</span>, <span class='va'>N</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,9 +189,11 @@ is two more than the gap length</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Written by Tim Cohn</p>
+    <p>genmissing numeric vector of length N, conditioned on the
+first value (X1) and last value (XN) with the specified lag one autocorrelation
+in the limit (where N is large) the values are normal with mean 0 and variance 1</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -213,7 +210,7 @@ is two more than the gap length</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

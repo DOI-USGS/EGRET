@@ -123,10 +123,7 @@ The second index is time, layed out as 16 increments of the calendar year, start
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/WRTDSK.html">WRTDS-K In Development</a>
-    </li>
-    <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K Blog Article</a>
+      <a href="../articles/WRTDSK.html">WRTDS Kalman</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -188,10 +185,10 @@ The second index is time, layed out as 16 increments of the calendar year, start
  This array will be used to estimate these 3 quantities for any given day in the daily values record.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>estSurfaces</span>(<span class='no'>eList</span>, <span class='kw'>surfaceStart</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>surfaceEnd</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>localSample</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>windowY</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>windowQ</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>windowS</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>minNumObs</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>minNumUncen</span> <span class='kw'>=</span> <span class='fl'>50</span>, <span class='kw'>edgeAdjust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>run.parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>estSurfaces</span><span class='op'>(</span><span class='va'>eList</span>, surfaceStart <span class='op'>=</span> <span class='cn'>NA</span>, surfaceEnd <span class='op'>=</span> <span class='cn'>NA</span>, localSample <span class='op'>=</span> <span class='cn'>NA</span>,
+  windowY <span class='op'>=</span> <span class='fl'>7</span>, windowQ <span class='op'>=</span> <span class='fl'>2</span>, windowS <span class='op'>=</span> <span class='fl'>0.5</span>, minNumObs <span class='op'>=</span> <span class='fl'>100</span>,
+  minNumUncen <span class='op'>=</span> <span class='fl'>50</span>, edgeAdjust <span class='op'>=</span> <span class='cn'>TRUE</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  interactive <span class='op'>=</span> <span class='cn'>NULL</span>, run.parallel <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -255,9 +252,10 @@ The second index is time, layed out as 16 increments of the calendar year, start
     <p>surfaces array containing the three surfaces estimated, array is 3 dimensional</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
+    <pre class="examples"><div class='input'><span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='va'>Choptank_eList</span>
 <span class='co'># \donttest{</span>
-<span class='no'>surfaces</span> <span class='kw'>&lt;-</span> <span class='fu'>estSurfaces</span>(<span class='no'>eList</span>)</div><div class='output co'>#&gt; Survival regression (% complete):
+<span class='va'>surfaces</span> <span class='op'>&lt;-</span> <span class='fu'>estSurfaces</span><span class='op'>(</span><span class='va'>eList</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Survival regression (% complete):
 #&gt; 0 	1 	2 	3 	4 	5 	6 	7 	8 	9 	10 	
 #&gt; 11 	12 	13 	14 	15 	16 	17 	18 	19 	20 	
 #&gt; 21 	22 	23 	24 	25 	26 	27 	28 	29 	30 	
@@ -269,8 +267,10 @@ The second index is time, layed out as 16 increments of the calendar year, start
 #&gt; 81 	82 	83 	84 	85 	86 	87 	88 	89 	90 	
 #&gt; 91 	92 	93 	94 	95 	96 	97 	98 	99 	
 #&gt; Survival regression: Done</div><div class='input'>
-<span class='no'>surfaceStart</span> <span class='kw'>&lt;-</span> <span class='st'>"1984-10-01"</span></div><div class='img'><img src='estSurfaces-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>surfaceEnd</span> <span class='kw'>&lt;-</span> <span class='st'>"1986-09-30"</span>
-<span class='no'>surfaces_1</span> <span class='kw'>&lt;-</span> <span class='fu'>estSurfaces</span>(<span class='no'>eList</span>, <span class='no'>surfaceStart</span>, <span class='no'>surfaceEnd</span>)</div><div class='output co'>#&gt; Survival regression (% complete):
+<span class='va'>surfaceStart</span> <span class='op'>&lt;-</span> <span class='st'>"1984-10-01"</span>
+<span class='va'>surfaceEnd</span> <span class='op'>&lt;-</span> <span class='st'>"1986-09-30"</span>
+<span class='va'>surfaces_1</span> <span class='op'>&lt;-</span> <span class='fu'>estSurfaces</span><span class='op'>(</span><span class='va'>eList</span>, <span class='va'>surfaceStart</span>, <span class='va'>surfaceEnd</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Survival regression (% complete):
 #&gt; 0 	1 	2 	3 	4 	5 	6 	7 	8 	9 	10 	
 #&gt; 11 	12 	13 	14 	15 	16 	17 	18 	19 	20 	
 #&gt; 21 	22 	23 	24 	25 	26 	27 	28 	29 	30 	
@@ -282,9 +282,10 @@ The second index is time, layed out as 16 increments of the calendar year, start
 #&gt; 81 	82 	83 	84 	85 	86 	87 	88 	89 	90 	
 #&gt; 91 	92 	93 	94 	95 	96 	97 	98 	99 	
 #&gt; Survival regression: Done</div><div class='input'>
-<span class='no'>wall_sample</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>eList</span>$<span class='no'>Sample</span>, <span class='kw'>n</span><span class='kw'>=</span><span class='fl'>500</span>)
+<span class='va'>wall_sample</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>eList</span><span class='op'>$</span><span class='va'>Sample</span>, n<span class='op'>=</span><span class='fl'>500</span><span class='op'>)</span>
 
-<span class='no'>surface_wall</span> <span class='kw'>&lt;-</span> <span class='fu'>estSurfaces</span>(<span class='no'>eList</span>, <span class='kw'>localSample</span> <span class='kw'>=</span> <span class='no'>wall_sample</span>)</div><div class='output co'>#&gt; Survival regression (% complete):
+<span class='va'>surface_wall</span> <span class='op'>&lt;-</span> <span class='fu'>estSurfaces</span><span class='op'>(</span><span class='va'>eList</span>, localSample <span class='op'>=</span> <span class='va'>wall_sample</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Survival regression (% complete):
 #&gt; 0 	1 	2 	3 	4 	5 	6 	7 	8 	9 	10 	
 #&gt; 11 	12 	13 	14 	15 	16 	17 	18 	19 	20 	
 #&gt; 21 	22 	23 	24 	25 	26 	27 	28 	29 	30 	
@@ -296,7 +297,7 @@ The second index is time, layed out as 16 increments of the calendar year, start
 #&gt; 81 	82 	83 	84 	85 	86 	87 	88 	89 	90 	
 #&gt; 91 	92 	93 	94 	95 	96 	97 	98 	99 	
 #&gt; Survival regression: Done</div><div class='input'>
-# }
+<span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -313,7 +314,7 @@ The second index is time, layed out as 16 increments of the calendar year, start
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

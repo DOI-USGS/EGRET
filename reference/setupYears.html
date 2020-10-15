@@ -49,6 +49,7 @@
 <meta property="og:title" content="Creates the AnnualResults data frame from the Daily data frame — setupYears" />
 <meta property="og:description" content="This function aggregates the results stored on a daily basis in the Daily data frame
   and stores the average values of these in the new data frame called AnnualResults.
+     Note that the flux values are rates (kg/day) and not a mass (kg).
      The &quot;annual values&quot; can be a full 12 months, or they can be shorter. 
      See manual to understand paLong and paStart arguments. 
      The simplest case, a Water Year (October through September), would have
@@ -120,10 +121,7 @@
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/WRTDSK.html">WRTDS-K In Development</a>
-    </li>
-    <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K Blog Article</a>
+      <a href="../articles/WRTDSK.html">WRTDS Kalman</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -174,6 +172,7 @@
     <div class="ref-description">
     <p>This function aggregates the results stored on a daily basis in the Daily data frame
   and stores the average values of these in the new data frame called AnnualResults.
+     Note that the flux values are rates (kg/day) and not a mass (kg).
      The "annual values" can be a full 12 months, or they can be shorter. 
      See manual to understand paLong and paStart arguments. 
      The simplest case, a Water Year (October through September), would have
@@ -182,7 +181,7 @@
      A winter season of Dec, Jan, Feb would be paLong=3 and paStart=12</p>
     </div>
 
-    <pre class="usage"><span class='fu'>setupYears</span>(<span class='no'>localDaily</span>, <span class='kw'>paLong</span> <span class='kw'>=</span> <span class='fl'>12</span>, <span class='kw'>paStart</span> <span class='kw'>=</span> <span class='fl'>10</span>)</pre>
+    <pre class="usage"><span class='fu'>setupYears</span><span class='op'>(</span><span class='va'>localDaily</span>, paLong <span class='op'>=</span> <span class='fl'>12</span>, paStart <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -203,12 +202,24 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>AnnualResults data frame with one row per year</p>
+    <p>A data frame 'AnnualResults' of numeric values with the following columns</p><table class='table'>
+<tr><td>Name</td><td>Description</td><td>DecYear</td></tr>
+<tr><td>Middle of the period in decimal years</td><td>Q</td><td>Mean discharge, in m^3/s</td></tr>
+<tr><td>Conc</td><td>Estimated mean concentration, in mg/L</td><td>Flux</td></tr>
+<tr><td>Estimated mean flux, in kg/day</td><td>FNConc</td><td>Flow-normalized concentration, in mg/L</td></tr>
+<tr><td>FNFlux</td><td>Flow-normalized flux, in kg/day</td><td>PeriodLong</td></tr>
+<tr><td>Length of period of analysis (paLong), in months</td><td>PeriodStart</td><td>Starting month of period of analysis (paStart), in months (1 = January)</td></tr>
+</table>
+
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
-<span class='no'>Daily</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='getDaily.html'>getDaily</a></span>(<span class='no'>eList</span>)
-<span class='no'>AnnualResults</span> <span class='kw'>&lt;-</span> <span class='fu'>setupYears</span>(<span class='no'>Daily</span>, <span class='fl'>4</span>, <span class='fl'>10</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='va'>Choptank_eList</span>
+<span class='va'>Daily</span> <span class='op'>&lt;-</span> <span class='fu'><a href='getDaily.html'>getDaily</a></span><span class='op'>(</span><span class='va'>eList</span><span class='op'>)</span>
+<span class='va'>AnnualResults</span> <span class='op'>&lt;-</span> <span class='fu'>setupYears</span><span class='op'>(</span><span class='va'>Daily</span>, <span class='fl'>4</span>, <span class='fl'>10</span><span class='op'>)</span>
+
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -224,7 +235,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

@@ -118,10 +118,7 @@ the standard error of log(concentration) and ConcHat is the expected value of co
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/WRTDSK.html">WRTDS-K In Development</a>
-    </li>
-    <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K Blog Article</a>
+      <a href="../articles/WRTDSK.html">WRTDS Kalman</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -178,13 +175,13 @@ The array returned contains yHat, SE and ConcHat (in that order). yHat is the ex
 the standard error of log(concentration) and ConcHat is the expected value of concentration.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>runSurvReg</span>(<span class='no'>estPtYear</span>, <span class='no'>estPtLQ</span>, <span class='no'>DecLow</span>, <span class='no'>DecHigh</span>, <span class='no'>Sample</span>, <span class='kw'>windowY</span> <span class='kw'>=</span> <span class='fl'>7</span>,
-  <span class='kw'>windowQ</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>windowS</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>minNumObs</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>minNumUncen</span> <span class='kw'>=</span> <span class='fl'>50</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>edgeAdjust</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>run.parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>runSurvReg</span><span class='op'>(</span><span class='va'>estPtYear</span>, <span class='va'>estPtLQ</span>, <span class='va'>DecLow</span>, <span class='va'>DecHigh</span>, <span class='va'>Sample</span>, windowY <span class='op'>=</span> <span class='fl'>7</span>,
+  windowQ <span class='op'>=</span> <span class='fl'>2</span>, windowS <span class='op'>=</span> <span class='fl'>0.5</span>, minNumObs <span class='op'>=</span> <span class='fl'>100</span>, minNumUncen <span class='op'>=</span> <span class='fl'>50</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>, interactive <span class='op'>=</span> <span class='cn'>NULL</span>, edgeAdjust <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  run.parallel <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>run_WRTDS</span>(<span class='no'>estY</span>, <span class='no'>estLQ</span>, <span class='no'>localSample</span>, <span class='no'>DecLow</span>, <span class='no'>DecHigh</span>, <span class='no'>minNumObs</span>, <span class='no'>minNumUncen</span>,
-  <span class='no'>windowY</span>, <span class='no'>windowQ</span>, <span class='no'>windowS</span>, <span class='no'>edgeAdjust</span>)</pre>
+<span class='fu'>run_WRTDS</span><span class='op'>(</span><span class='va'>estY</span>, <span class='va'>estLQ</span>, <span class='va'>localSample</span>, <span class='va'>DecLow</span>, <span class='va'>DecHigh</span>, <span class='va'>minNumObs</span>, <span class='va'>minNumUncen</span>,
+  <span class='va'>windowY</span>, <span class='va'>windowQ</span>, <span class='va'>windowS</span>, <span class='va'>edgeAdjust</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -264,15 +261,16 @@ the standard error of log(concentration) and ConcHat is the expected value of co
     <p>resultSurvReg numeric array containing the yHat, SE, and ConcHat values array dimensions are (numEstPts,3)</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
-<span class='no'>estPtYear</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2001.0</span>,<span class='fl'>2005.0</span>,<span class='fl'>2009.0</span>)
-<span class='no'>estPtLQ</span><span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span>)
-<span class='no'>Sample</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='getSample.html'>getSample</a></span>(<span class='no'>eList</span>)
-<span class='no'>DecLow</span> <span class='kw'>&lt;-</span> <span class='no'>Sample</span>$<span class='no'>DecYear</span>[<span class='fl'>1</span>]
-<span class='no'>DecHigh</span> <span class='kw'>&lt;-</span> <span class='no'>Sample</span>$<span class='no'>DecYear</span>[<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>Sample</span>)]
-<span class='no'>resultSurvReg</span> <span class='kw'>&lt;-</span> <span class='fu'>runSurvReg</span>(<span class='no'>estPtYear</span>,<span class='no'>estPtLQ</span>,
-                            <span class='no'>DecLow</span>,<span class='no'>DecHigh</span>,<span class='no'>Sample</span>,
-                            <span class='kw'>run.parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; Survival regression (% complete):
+    <pre class="examples"><div class='input'><span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='va'>Choptank_eList</span>
+<span class='va'>estPtYear</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2001.0</span>,<span class='fl'>2005.0</span>,<span class='fl'>2009.0</span><span class='op'>)</span>
+<span class='va'>estPtLQ</span><span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>Sample</span> <span class='op'>&lt;-</span> <span class='fu'><a href='getSample.html'>getSample</a></span><span class='op'>(</span><span class='va'>eList</span><span class='op'>)</span>
+<span class='va'>DecLow</span> <span class='op'>&lt;-</span> <span class='va'>Sample</span><span class='op'>$</span><span class='va'>DecYear</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>
+<span class='va'>DecHigh</span> <span class='op'>&lt;-</span> <span class='va'>Sample</span><span class='op'>$</span><span class='va'>DecYear</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>Sample</span><span class='op'>)</span><span class='op'>]</span>
+<span class='va'>resultSurvReg</span> <span class='op'>&lt;-</span> <span class='fu'>runSurvReg</span><span class='op'>(</span><span class='va'>estPtYear</span>,<span class='va'>estPtLQ</span>,
+                            <span class='va'>DecLow</span>,<span class='va'>DecHigh</span>,<span class='va'>Sample</span>,
+                            run.parallel <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Survival regression (% complete):
 #&gt; 33 	66 	
 #&gt; Survival regression: Done</div></pre>
   </div>
@@ -290,7 +288,7 @@ the standard error of log(concentration) and ConcHat is the expected value of co
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>
