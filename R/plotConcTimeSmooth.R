@@ -2,6 +2,8 @@
 #'
 #' @description
 #' These plots show how the concentration-time relationship is changing over flow.
+#'
+#' This plot can also help identify situations where the windowY may be too small.  If there are substantial oscillations of some of the curves, then the windowY should be increased. Alternatively, windowY may be too large.  This can be seen when the windowY is reduced (say to 4.0).  A good choice of windowY would be a value just great enough to damp out oscillations in the curves.
 #' 
 #' Although there are a lot of optional arguments to this function, most are set to a logical default.
 #' 
@@ -18,7 +20,7 @@
 #' @param qUnit object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param legendLeft numeric which represents the left edge of the legend in the units of the plot.
 #' @param legendTop numeric which represents the top edge of the legend in the units of the plot.
-#' @param printLegend logicalif TRUE, legend is included
+#' @param printLegend logical if TRUE, legend is included
 #' @param concMax numeric value for upper limit on concentration shown on the graph, default = NA (which causes the upper limit to be set automatically, based on the data)
 #' @param concMin numeric value for lower limit on concentration shown on the vertical log graph, default is NA 
 #' (which causes the lower limit to be set automatically, based on the data). This value is ignored for linear scales, using 0 as the minimum value for the concentration axis.
@@ -37,7 +39,7 @@
 #' @param logScale logical whether or not to use a log scale in the y axis.
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
-#' @param lwd line width, a positive number, defaulting to 1
+#' @param lwd line width, a positive number, defaulting to 2
 #' @param cex.legend number magnification  of legend
 #' @param colors color vector of lines on plot, see ?par 'Color Specification'. Defaults to c("black","red","green")
 #' @param lineVal vector of line types. Defaults to c(1,1,1) which is a solid line for each line. Options: 0=blank, 1=solid (default), 2=dashed, 3=dotted, 4=dotdash, 5=longdash, 6=twodash
@@ -50,15 +52,15 @@
 #' @export
 #' @seealso \code{\link{genericEGRETDotPlot}}, \code{\link{runSurvReg}}
 #' @examples 
-#' q1 <- 10
-#' q2 <- 25
-#' q3 <- 75
+#' q1 <- 1
+#' q2 <- 10
+#' q3 <- 100
 #' centerDate <- "07-01"
-#' yearStart <- 2000
+#' yearStart <- 1990
 #' yearEnd <- 2010
 #' eList <- Choptank_eList
-#' plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd)
-#' plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd,logScale=TRUE)
+#' plotConcTimeSmooth(eList, q1, q2,q3, centerDate, yearStart, yearEnd, legendLeft = 1997, legendTop = 0.44, cex.legend = 0.9)
+#' plotConcTimeSmooth(eList, q1, q2,q3, centerDate, yearStart, yearEnd, logScale = TRUE, legendLeft = 1994, legendTop = 0.4, cex.legend = 0.9)
 plotConcTimeSmooth<-function (eList, q1, q2, q3, centerDate, yearStart, yearEnd, qUnit = 2, legendLeft = 0, 
                               legendTop = 0, concMax = NA, concMin=NA,bw = FALSE, printTitle = TRUE, colors=c("black","red","green"), 
                               printValues = FALSE, tinyPlot=FALSE, minNumObs = 100, minNumUncen =  50, 

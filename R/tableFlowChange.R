@@ -1,9 +1,16 @@
 #' Prints table of change metrics for a given streamflow statistic
 #'
 #' Part of the flowHistory system.
+#' Provides a measure of change (in real units and as percent per year)
+#' based on the smoothed values for various streamflow statistics.
+#' Smoothing algorithm is the same as is used in \code{\link{plotFlowSingle}}.
+#'
 #' The index of the flow statistics is istat.  These statistics are: 
 #' (1) 1-day minimum, (2) 7-day minimum, (3) 30-day minimum, (4) median
-#' (5) mean, (6) 30-day maximum, (7) 7-day maximum, and (8) 1-day maximum. 
+#' (5) mean, (6) 30-day maximum, (7) 7-day maximum, and (8) 1-day maximum.
+#'
+#' Can also run the statistics on any Period of Analysis (individual months or sequence of months) using \code{\link{setPA}}.
+#' 
 #' A dataframe is returned, as well as a printout in the R console.
 #'
 #' @param istat A numeric value for the flow statistic to be graphed (possible values are 1 through 8)
@@ -15,8 +22,12 @@
 #' @export
 #' @examples
 #' eList <- Choptank_eList
-#' tableFlowChange(eList, istat=5,yearPoints=c(2001,2005,2009))
-#' df <- tableFlowChange(eList, istat=5,yearPoints=c(2001,2005,2009))
+#' tableFlowChange(eList, istat = 5, yearPoints = c(1981, 1995, 2010))
+#' eList <- setPA(eList, paStart = 4, paLong = 12)
+#' tableFlowChange(eList, istat = 2, qUnit = 2, yearPoints = c(1981, 1995, 2010))
+#' eList <- setPA(eList, paStart = 9, paLong = 1)
+#' df <- tableFlowChange(eList, istat = 5, qUnit = 2, yearPoints = c(1981, 1995, 2010))
+#' df 
 tableFlowChange<-function(eList, istat, qUnit = 1, runoff = FALSE, 
                           yearPoints = NA) {
   

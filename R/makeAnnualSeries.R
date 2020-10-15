@@ -23,6 +23,13 @@
 #' @keywords statistics streamflow trends
 #' @export
 #' @return annualSeries matrix that contains the annual series of streamflow statistics
+#' annualSeries is a matrix 3 * 8 * numYears, where numYears is the number of years in the data set
+#' in the first dimension 1 is the year, 2 is the actual value, 3 is the smoothed value
+#' in the second dimension, the index is the istat value (identifying the flow statistic)
+#' the third dimension is year
+#' @details
+#' The smooth is a loess smooth computed on the log flow values and then transformed back to real space
+#' Smoothing window is a fixed number of years, the window width has a default value of 20 years but can be modified by changing its value in INFO data frame (using setPA function)
 #' @examples 
 #' eList <- Choptank_eList
 #' annualSeries <- makeAnnualSeries(eList)

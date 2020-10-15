@@ -1,14 +1,27 @@
 #' Graph of annual flux and flow normalized flux versus year
 #'
 #' @description
+#' Data come from named list, which contains a Daily dataframe with the daily flow data,
+#' and an INFO dataframe with metadata.
+#'
 #' The annual results reported are for a specified "period of analysis" which can be 
 #' an entire water year, a calendar, a season or even an individual month. 
 #' The user specifies this period of analysis in the call to setupYears.
+#' Note that when a period of analysis less than a full year is used
+#' the reported results can be confusing.  The flux values are average flux rates
+#' for the specified part of the year.  They are not a mass.  Rather, they are a mass per unit time.  Thus, it
+#' is common for the flux for a specific period of analysis within a given year to be greater than the
+#' flux for that entire year.
+#'
+#' Three versions of annual flux can be plotted
+#'  "Annual" version is the mean flux computed directly from the WRTDS model
+#'  "GenConc" version uses the WRTDS_K calculation, that uses an auto-regressive formulation to improve the accuracy of the mean flux.  It has been shown to be more accurate than the "Annual" version.
+#'  "FlowNormalized" version eliminates the interannual variability by integrating the WRTDS model results over the full probability distribution of discharge
+#'  See introduction to the EGRET vignette for more details on these three options.
 #' 
 #' Although there are a lot of optional arguments to this function, most are set to a logical default.
 #'
-#' Data come from named list, which contains a Daily dataframe with the daily flow data,
-#' and an INFO dataframe with metadata. 
+ 
 #'
 #' @param eList named list with at least the Daily and INFO dataframes
 #' @param yearStart numeric is the calendar year containing the first estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)
@@ -17,23 +30,26 @@
 #' @param fluxMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
 #' @param plotFlowNorm logical variable if TRUE the flow normalized line is plotted, if FALSE not plotted 
-#' @param plotAnnual logical variable if TRUE annual flux points are plotted, if FALSE not plotted 
+#' @param plotAnnual logical variable if TRUE annual flux points from WRTDS output are plotted, if FALSE not plotted 
 #' @param plotGenFlux logical variable. If \code{TRUE}, annual flux points from WRTDS_K output are plotted, if \code{FALSE} not plotted 
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
-#' @param col color of points on plot, see ?par 'Color Specification'
-#' @param lwd number line width
+#' @param col color of points on plot, see ?par 'Color Specification', default = "black"
+#' @param lwd number line width, default = 2.
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
-#' @param col.pred color of flow normalized line on plot, see ?par 'Color Specification'
-#' @param col.gen color of points for WRTDS_K output on plot, see ?par 'Color Specification'
+#' @param col.pred color of flow normalized line on plot, see ?par 'Color Specification', default = "green"
+#' @param col.gen color of points for WRTDS_K output on plot, see ?par 'Color Specification', default = "red"
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
 #' to TRUE does NOT guarantee USGS compliance. It will only change automatically
 #' generated labels. 
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
+#' @details
+#'  running modelEstimation is required before running this function.
+#'  if genFlux is plotted then running WRTDSKalman is also required.
 #' @export
 #' @seealso \code{\link{setupYears}}
 #' @examples

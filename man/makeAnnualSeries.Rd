@@ -16,6 +16,10 @@ Default is TRUE, but a logical in INFO$edgeAdjust will override the default.}
 }
 \value{
 annualSeries matrix that contains the annual series of streamflow statistics
+annualSeries is a matrix 3 * 8 * numYears, where numYears is the number of years in the data set
+in the first dimension 1 is the year, 2 is the actual value, 3 is the smoothed value
+in the second dimension, the index is the istat value (identifying the flow statistic)
+the third dimension is year
 }
 \description{
 Part of the flowHistory system.  The data come from Daily and INFO data frames. 
@@ -33,6 +37,10 @@ istat  \tab Name  \cr
 7 \tab maximum 7-day mean of the daily mean discharges \cr 
 8 \tab  maximum 1-day daily mean discharge \cr  
 }
+
+
+The smooth is a loess smooth computed on the log flow values and then transformed back to real space
+Smoothing window is a fixed number of years, the window width has a default value of 20 years but can be modified by changing its value in INFO data frame (using setPA function)
 }
 \examples{
 eList <- Choptank_eList

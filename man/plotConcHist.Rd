@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotConcHist.R
 \name{plotConcHist}
 \alias{plotConcHist}
-\title{Graph of annual concentration and flow normalized concentration versus year}
+\title{Graph of annual mean concentration and flow normalized concentration versus year}
 \usage{
 plotConcHist(eList, yearStart = NA, yearEnd = NA, concMax = NA,
   printTitle = TRUE, tinyPlot = FALSE, usgsStyle = FALSE,
@@ -39,13 +39,13 @@ generated labels}
 
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
 
-\item{lwd}{number magnification of line width.}
+\item{lwd}{number magnification of line width, default = 2.}
 
-\item{col}{color of points on plot, see ?par 'Color Specification'}
+\item{col}{color of points on plot, see ?par 'Color Specification', default = "black"}
 
-\item{col.pred}{color of flow normalized line on plot, see ?par 'Color Specification'}
+\item{col.pred}{color of flow normalized line on plot, see ?par 'Color Specification', default = "green"}
 
-\item{col.gen}{color of points for WRTDS_K output on plot, see ?par 'Color Specification'}
+\item{col.gen}{color of points for WRTDS_K output on plot, see ?par 'Color Specification', default = "red"}
 
 \item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
@@ -56,12 +56,22 @@ generated labels}
 Data come from named list, which contains a Daily dataframe with the daily flow data,
 and an INFO dataframe with metadata. 
 
-The annual concentrations are "time-weighted" mean concentrations (as opposed to "flow-weighted"). 
+The annual mean concentrations are "time-weighted" mean concentrations (as opposed to "flow-weighted"). 
 The annual results reported are for a specified "period of analysis" which can be 
 an entire water year, a calendar, a season or even an individual month.  
 User specifies this period of analysis in the call to \code{setupYears}.
 
+Three versions of annual mean concentration can be plotted
+ "Annual" version is the mean concentration computed directly from the WRTDS model
+ "GenConc" version uses the WRTDS_K calculation, that uses an auto-regressive formulation to improve the accuracy of the mean concentration.  It has been shown to be more accurate than the "Annual" version.
+ "FlowNormalized" version eliminates the interannual variability by integrating the WRTDS model results over the full probability distribution of discharge
+ See introduction to the EGRET vignette for more details on these three options.
+
 Although there are a lot of optional arguments to this function, most are set to a logical default.
+}
+\details{
+running modelEstimation is required before running this function.
+ if genConc is plotted then running WRTDSKalman is also required.
 }
 \examples{
 yearStart <- 2001

@@ -8,6 +8,8 @@
 #' ideal situation would show the two boxes roughly similar to each other or 
 #' the sample boxplot having median, upper quartile, and higher values being 
 #' slightly greater than in the boxplot of all days.
+#'
+#' Box widths are proportional to the square root of the number of observations (left box based on number of sampled days, right box based on total number of days in the record).
 #' 
 #' Data come from named list, which contains a Sample dataframe with the sample data, 
 #' a Daily dataframe with the daily flow data,

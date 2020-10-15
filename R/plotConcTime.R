@@ -36,6 +36,16 @@
 #' to TRUE does NOT guarantee USGS complience. It will only change automatically
 #' generated labels
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters.
+#' @details
+#' The function has two possible ways to plot censored values (e.g. "less-than values").
+#'  
+#' The default is to plot them as a vertical line that goes from the reporting limit down to the bottom of the graph.
+#'
+#' The alternative is to set randomCensored = TRUE.  In this case a random value is used for plotting the individual sample value.  This random value lies between the reporting limit and zero and it is distributed as a truncated log normal based on the fitted WRTDS model.
+#'
+#' The function makeAugmentedSample must be run first if randomCensored = TRUE.  Running makeAugmentedSample requires that modelEstimation has already been run.
+#'
+#' These random censored values are used to create more readable plots and are not used in any computations about the data set.  The random censored values are shown as open circles and the non-censored data are shown as filled dots.
 #' @keywords graphics water-quality statistics
 #' @export
 #' @seealso \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}

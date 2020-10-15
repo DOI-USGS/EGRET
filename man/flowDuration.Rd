@@ -18,7 +18,7 @@ or character representing the descriptive name. Default is qUnit = 2, which corr
 
 \item{span}{number this is the half-width of the window over which the discharge values are to 
 be used in constructing the flow-duration curve. If the full year is desired any value greater 
-than 182 will provide serve. Note that for a window of about 2-months width, a span value should 
+than 182 will. Note that for a window of about 2-months width, a span value should 
 be about 30. Default is 365.}
 }
 \value{
@@ -32,9 +32,9 @@ This is particularly useful in setting up discharge scales for various other plo
 \examples{
 eList <- Choptank_eList
 # for a window of 30 days either side of June 25 expressed in units of cfs:
-flowDuration(eList,"06-25", qUnit=1,span=30) 
-# for a flow-duration curve covering the whole year, expressed in units of csf: 
-flowDuration(eList, "01-01", qUnit=2) 
+flowDuration(eList, "06-25", qUnit = 1, span = 30) 
+# for a flow-duration curve covering the whole year, expressed in units of cms, and returning a data frame of results: 
+qDuration <- flowDuration(eList, qUnit = 2) 
 }
 \keyword{statistics}
 \keyword{streamflow}

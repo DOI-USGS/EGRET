@@ -2,9 +2,9 @@
 #'
 #' Imports data from the Water Quality Portal, so it could be STORET, USGS, or USDA data. 
 #' This function gets the data from: \url{https://www.waterqualitydata.us}
-#' For raw data, use readWQPdata.  This function will retrieve the raw data, and compress it (summing constituents). See
-#' chapter 7 of the EGRET user guide for more details, then converts it to the Sample dataframe structure.
-#'
+#' For raw data, use readWQPdata.  This function will retrieve the raw data, 
+#' compress it (summing constituents), then converts it to the Sample dataframe structure.
+#' See chapter 7 of the EGRET user guide for more details.
 #' @param siteNumber character site number.  If USGS, it should be in the form :'USGS-XXXXXXXXX...'
 #' @param characteristicName character
 #' @param startDate character starting date for data retrieval in the form YYYY-MM-DD.

@@ -17,6 +17,11 @@ This function is used to add two columns to the Sample data frame: rResid and rO
  rResid is the randomized residual value computed in log concentration units, and rObserved
  is the randomized 'observed' value of concentration in concentration units.
  Both of these are computed for all censored samples ("less than values").
+ They are created for purposes of plotting and are not used in any computations in EGRET.
+}
+\details{
+The WRTDS model must be estimated before this function can be run.  The random value that is generated lies between the reporting limit and zero and is distributed as a truncated log-normal distribution, with parameters derived from the fitted WRTDS model.
+These random values are never used in any computations in EGRET but are used for purposes of plotting the data set or residuals.  When plotted in other functions they are shown as open circles.
 }
 \examples{
 choptankAugmented <- makeAugmentedSample(Choptank_eList)

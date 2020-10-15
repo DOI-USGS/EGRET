@@ -5,6 +5,9 @@
 #' 2) It merges the INFO, Daily and Sample data frames to form an eList object, 
 #' 3) and it prints out a "report" of basic information about the Daily and 
 #' Sample data frames.
+#'
+#' There must be an INFO and a Daily data frame for this function to work. That would be the case for a study of flow only, with no consideration of water quality.  
+#' If water quality is being considered then INFO, Daily, and Sample all need to be provided in the call to this function.
 #' 
 #' Note that the Sample dataframe in the global environment does 
 #' not update with the flow information. 
@@ -18,8 +21,7 @@
 #' @param interactive logical deprecated. Use 'verbose' instead
 #' @keywords data import USGS WRTDS
 #' @export
-#' @return eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.
-#' Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
+#' @return eList named list with at least INFO, and Daily data frames.  It can also include a Sample data frame.
 #' @seealso \code{\link{readNWISDaily}}, \code{\link{readNWISSample}}
 #' @examples
 #' 

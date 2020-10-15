@@ -2,7 +2,9 @@
 #'
 #' @description
 #' Data come from named list, which contains a Sample dataframe with the sample data, 
-#' and an INFO dataframe with metadata. 
+#' and an INFO dataframe with metadata.
+#'
+#' Box widths are proportional to the square root of the number of samples in the month. 
 #'  
 #'  Although there are a lot of optional arguments to this function, most are set to a logical default. 
 #'

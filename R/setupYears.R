@@ -25,7 +25,7 @@
 #' FNFlux \tab Flow-normalized flux, in kg/day\cr
 #' PeriodLong \tab Length of period of analysis (paLong), in months\cr
 #' PeriodStart \tab Starting month of period of analysis (paStart), in months (1 = January)\cr
-#' }
+#' } 
 #' @export
 #' @examples 
 #' eList <- Choptank_eList
