@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotFlowSingle.R
 \name{plotFlowSingle}
 \alias{plotFlowSingle}
-\title{Creates a plot of a time series of a particular flow statistic and a lowess smooth of that flow statistic}
+\title{Creates a plot of a time series of a particular flow statistic and a loess smooth of that flow statistic}
 \usage{
 plotFlowSingle(eList, istat, yearStart = NA, yearEnd = NA, qMax = NA,
   printTitle = TRUE, tinyPlot = FALSE, customPar = FALSE,
@@ -37,7 +37,7 @@ plotFlowSingle(eList, istat, yearStart = NA, yearEnd = NA, qMax = NA,
 \item{printPA}{logical variable, if TRUE Period of Analysis information is printed in title, if FALSE not printed, default is TRUE}
 
 \item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
-to TRUE does NOT guarantee USGS complience. It will only change automatically
+to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels.}
 
 \item{printIstat}{logical variable, if TRUE print the statistic name is printed in title, if FALSE not printed, default is TRUE}
@@ -64,6 +64,12 @@ Although there are a lot of optional arguments to this function, most are set to
 
 Data come from named list, which contains a Daily dataframe with the daily flow data,
 and an INFO dataframe with metadata.
+}
+\details{
+The curve plotted on the graph is a loess smooth of the data.  
+This smooth is computed on the logs of the data and then transformed back to plot.
+The width of the smoothing window is 20 years on either side of the year being plotted
+However, the window width can be adjusted using setPA function.
 }
 \examples{
 eList <- Choptank_eList

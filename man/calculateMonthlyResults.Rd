@@ -2,7 +2,7 @@
 % Please edit documentation in R/calculateMonthlyResults.R
 \name{calculateMonthlyResults}
 \alias{calculateMonthlyResults}
-\title{Calculates monthly mean values of Q, Conc, Flux, FNConc, and FNFlux for the entire record.}
+\title{Calculates monthly mean values of Q, Conc, FNConc, Flux, and FNFlux for the entire record.  If WRTDSKalman has been run it also includes the monthly mean values of GenConc and GenFlux.}
 \usage{
 calculateMonthlyResults(eList)
 }
@@ -13,9 +13,10 @@ calculateMonthlyResults(eList)
 MonthlyResults data frame of numeric values describing the monthly average values
 }
 \description{
-Computes the monthly mean values of discharge, concentration, flux, flow-normalized concentration and flow-normalized flux (Q, Conc, Flux, FNConc, and FNFlux) in SI units 
-Note that the Flux and FNFlux values are average flux values (not totals). For discharge they are in m3/s, concentration is mg/L, and flux is kg/day.
-It returns a data frame containing month, year, decimal year, and mean values of DecYear, Q, Conc, Flux, FNConc, and FNFlux.
+Computes the monthly mean values of discharge, concentration, flux, flow-normalized concentration and flow-normalized flux (Q, Conc, FNConc, Flux, and FNFlux) in SI units
+If WRTDSKalman has been run the outputs are averages for Q, Conc, GenConc, FNConc, Flux, GenFlux, and FNFlux. 
+Note that the Flux, GenFlux, and FNFlux values are average flux values (not totals). For discharge the units are in m3/s, concentration is mg/L, and flux is kg/day.
+It returns a data frame containing month, year, decimal year, and mean values of DecYear, Q, Conc, GenConc, FNConc, Flux, GenFlux, and FNFlux.
 }
 \examples{
 eList <- Choptank_eList

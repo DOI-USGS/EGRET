@@ -2,7 +2,9 @@
 #'
 #' Produce an ASCII table showing: year, mean discharge, mean concentration, flow-normalized concentration, 
 #' mean flux, and flow-normalized flux. Note that the flux and flow-normalized flux are rates and not a mass.  As such a value for some period shorter than a full year 
-#' could be larger than the value for a full year. 
+#' could be larger than the value for a full year.
+#'
+#' Can also procude a table for any Period of Analysis (individual months or sequence of months) using \code{\link{setPA}}. 
 #'
 #' @param eList named list with at least Daily and INFO dataframes
 #' @param qUnit object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name. 
@@ -16,13 +18,12 @@
 #' eList <- Choptank_eList
 #' # Water Year:
 #' \donttest{
-#' tableResults(eList, fluxUnit = 1)
-#' tableResults(eList, fluxUnit = 1)
-#' tableResults(eList, fluxUnit = 'kgDay', qUnit = 'cms')
-#' returnedTable <- tableResults(eList, fluxUnit = 1)
-#' # Winter:
-#' eList <- setPA(eList, paLong=3,paStart=12)
-#' tableResults(eList, fluxUnit = 1)
+#' tableResults(eList, fluxUnit = 8)
+#' df <- tableResults(eList, fluxUnit = 1)
+#' df
+#' # Spring:
+#' eList <- setPA(eList, paStart = 3, paLong = 3)
+#' tableResults(eList, fluxUnit = 1, qUnit = "cfs")
 #' }
 tableResults<-function(eList, qUnit = 2, fluxUnit = 9, localDaily = NA) {
   

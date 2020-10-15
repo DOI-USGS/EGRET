@@ -1,4 +1,4 @@
-#' Creates a plot of a time series of a particular flow statistic and a lowess smooth of that flow statistic
+#' Creates a plot of a time series of a particular flow statistic and a loess smooth of that flow statistic
 #'
 #' @description
 #' A part of the flowHistory system.
@@ -31,11 +31,16 @@
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
-#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' to TRUE does NOT guarantee USGS compliance. It will only change automatically
 #' generated labels. 
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow statistics
 #' @export
+#' @details
+#' The curve plotted on the graph is a loess smooth of the data.  
+#' This smooth is computed on the logs of the data and then transformed back to plot.
+#' The width of the smoothing window is 20 years on either side of the year being plotted
+#' However, the window width can be adjusted using setPA function.
 #' @seealso \code{\link{makeAnnualSeries}}, \code{\link{genericEGRETDotPlot}}
 #' @examples
 #' eList <- Choptank_eList

@@ -68,41 +68,34 @@ using the function \code{colorRampPalette(c("white","gray","blue","red"))}. A fe
 \item{\dots}{arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters}
 }
 \description{
-These plots are normally used for plotting the estimated concentration surface (whatSurface=3) but can be used to explore the 
+These plots are normally used for plotting the estimated concentration surface (whatSurface = 3) but can be used to explore the 
 estimated surfaces for the log of concentration or for the standard error (in log space) which is what determines the bias correction. 
-The plots are often more interpretable when the time limits are only about 4 years apart.
-To explore changes over a long time period it is best to do this multiple times, for various time slices of 4 years (for example) or to use the function \code{plotDiffContours}.
+The plots are often more interpretable when the time limits for the plot are less than a decade.
+To explore changes over a long time period it is best to do this multiple times, for various time slices of 2 years (for example) or to use the function \code{plotDiffContours}.
 
 Although there are a lot of optional arguments to this function, most are set to a logical default.
+ 
+Obtaining a plot that provides good insight it is useful to experiment with several of the arguments such as yearStart, yearEnd, qBottom, qTop, and contourLevels. 
 
 Data come from named list, which contains a Sample dataframe with the sample data, 
 a Daily dataframe with the daily flow data,
 and an INFO dataframe with metadata.
 }
 \examples{
-yearStart <- 2001
+yearStart <- 2002
 yearEnd <- 2010
 qBottom <- 0.5
-qTop<- 22
-clevel <- seq(0,3.5,0.5)
+qTop<- 20
+clevel <- seq(0,2,0.25)
 eList <- Choptank_eList
-plotContours(eList, yearStart,yearEnd,qBottom,qTop, contourLevels = clevel)  
-plotContours(eList, yearStart,yearEnd,qBottom=0.1,qTop=NA, contourLevels = clevel) 
-yTicksModified <- c(.1,1,10,25)
-plotContours(eList, yearStart,yearEnd,qBottom,qTop, 
-      contourLevels = clevel,yTicks=yTicksModified,flowDuration=FALSE)  
-colors <- colorRampPalette(c("white","red"))
-plotContours(eList, yearStart,yearEnd,qBottom,qTop, 
-       contourLevels = clevel,yTicks=yTicksModified,
-       color.palette=colors,flowDuration=FALSE)
-colors2 <- heat.colors # Some other options: topo.colors, terrain.colors, cm.colors
-plotContours(eList, yearStart,yearEnd,qBottom,qTop,
-       contourLevels = clevel,color.palette=colors2,lwd=2,flowDuration=FALSE)
-plotContours(eList, yearStart,yearEnd,qBottom,qTop, 
-       contourLevels = clevel,cex.axis=2,flowDuration=FALSE)
-par(mar=c(5,8,5,8))
-plotContours(eList, yearStart,yearEnd,qBottom,qTop, 
-       contourLevels = clevel,customPar=TRUE,printTitle=FALSE,flowDuration=FALSE)
+plotContours(eList, yearStart, yearEnd, qBottom, qTop, 
+             contourLevels = clevel)  
+plotContours(eList, yearStart, yearEnd, qBottom, qTop = 50, 
+             contourLevels = clevel, flowDuration = FALSE) 
+colors <- colorRampPalette(c("white","black"))
+plotContours(eList, yearStart, yearEnd, qBottom, qTop = 50, 
+             contourLevels = clevel, color.palette = colors, 
+             flowDuration = FALSE)
 }
 \keyword{graphics}
 \keyword{statistics}

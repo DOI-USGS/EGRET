@@ -16,11 +16,12 @@ genmissing(X1, XN, rho, N)
 \item{N}{the length of the sequence including X1 and XN. It
 is two more than the gap length}
 }
-\description{
-Generates a single realization of an autoregression lag-one time series through a data gap
-Conditioned on a fixed value just prior to the gap (X1) and a fixed value just after the gap (XN)
+\value{
+genmissing numeric vector of length N, conditioned on the
+first value (X1) and last value (XN) with the specified lag one autocorrelation
+in the limit (where N is large) the values are normal with mean 0 and variance 1
 }
-\details{
+\description{
 Written by Tim Cohn
 }
 \keyword{internal}

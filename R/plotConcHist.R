@@ -1,13 +1,19 @@
-#' Graph of annual concentration and flow normalized concentration versus year
+#' Graph of annual mean concentration and flow normalized concentration versus year
 #'
 #' @description
 #' Data come from named list, which contains a Daily dataframe with the daily flow data,
 #' and an INFO dataframe with metadata. 
 #' 
-#' The annual concentrations are "time-weighted" mean concentrations (as opposed to "flow-weighted"). 
+#' The annual mean concentrations are "time-weighted" mean concentrations (as opposed to "flow-weighted"). 
 #' The annual results reported are for a specified "period of analysis" which can be 
 #' an entire water year, a calendar, a season or even an individual month.  
 #' User specifies this period of analysis in the call to \code{setupYears}.
+#'
+#' Three versions of annual mean concentration can be plotted
+#'  "Annual" version is the mean concentration computed directly from the WRTDS model
+#'  "GenConc" version uses the WRTDS_K calculation, that uses an auto-regressive formulation to improve the accuracy of the mean concentration.  It has been shown to be more accurate than the "Annual" version.
+#'  "FlowNormalized" version eliminates the interannual variability by integrating the WRTDS model results over the full probability distribution of discharge
+#'  See introduction to the EGRET vignette for more details on these three options.
 #' 
 #' Although there are a lot of optional arguments to this function, most are set to a logical default.
 #'
@@ -23,17 +29,20 @@
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
-#' @param lwd number magnification of line width.
+#' @param lwd number magnification of line width, default = 2.
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
-#' @param col color of points on plot, see ?par 'Color Specification'
-#' @param col.pred color of flow normalized line on plot, see ?par 'Color Specification'
-#' @param col.gen color of points for WRTDS_K output on plot, see ?par 'Color Specification'
+#' @param col color of points on plot, see ?par 'Color Specification', default = "black"
+#' @param col.pred color of flow normalized line on plot, see ?par 'Color Specification', default = "green"
+#' @param col.gen color of points for WRTDS_K output on plot, see ?par 'Color Specification', default = "red"
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
 #' to TRUE does NOT guarantee USGS compliance. It will only change automatically
 #' generated labels
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
+#' @details
+#'  running modelEstimation is required before running this function.
+#'  if genConc is plotted then running WRTDSKalman is also required.
 #' @export
 #' @seealso \code{\link{setupYears}}, \code{\link{genericEGRETDotPlot}}
 #' @examples
@@ -64,7 +73,7 @@ plotConcHist<-function(eList, yearStart = NA, yearEnd = NA,
   
   if(plotGenConc){
     if(!all((c("GenFlux","GenConc") %in% names(eList$Daily)))){
-      stop("This option requires running WRTDS_K on eList")
+      stop("This option requires running WRTDSKalman on eList")
     }
 
   } 

@@ -12,6 +12,9 @@
 #' Default is 1, which is cubic feet per second.
 #' @param runoff logical variable, if TRUE the streamflow data are converted to runoff values in mm/day
 #' @keywords streamflow statistics
+#' @details 
+#' The smoothing algorithm is as defined in \code{\link{makeAnnualSeries}}.  
+#' smoothing window is defined by the eList$INFO$window value (default = 20)
 #' @return data frame with:
 #' \tabular{lll}{
 #' years \tab integer \tab year  \cr

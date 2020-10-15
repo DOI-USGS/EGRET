@@ -1,10 +1,11 @@
 #' plots 1 of the 15 graphs of streamflow statistics on a single page
 #'
-#' Part of the flowHistory system.  The 15 graphs include annual and four seasonal graphs
-#' for each of 3 flow statistics: 1-day maximum, mean, and 7-day minimum
+#' Part of the flowHistory system.  It is designed to create each of the component graphs for the function \code{\link{plot15}}. The 15 graphs include annual and four seasonal graphs
+#' for each of 3 flow statistics: 1-day maximum, mean, and 7-day minimum.
+#' The computations involved are the same as the ones used in \code{\link{plotFlowSingle}} or in \code{\link{makeAnnualSeries}}
 #' @param yearStart A numeric value for the year in which the graph should start
 #' @param yearEnd A numeric value for the year in which the graph should end
-#' @param qf a scale factor to convert discharge in cubic feet per second to mm/day
+#' @param qf a scale factor to convert discharge in cubic feet per second to mm/day, it is 86 / (drainage area in square kilometers)
 #' @param istat A numeric value selecting the flow statistic to be plotted, must be an integer from 1 to 8
 #' @param eList named list with at least the Daily and INFO dataframes
 #' @param isBottom logical, if TRUE the graph is from the bottom row and thus needs x axis labels, if FALSE it does not need labels
@@ -12,8 +13,8 @@
 #' @export
 #' @examples
 #' eList <- Choptank_eList
-#' plot1of15(eList, 1990, 2000, 0.2938476,5)
-plot1of15<-function(eList, yearStart,yearEnd,qf,istat,
+#' plot1of15(eList, 1980, 2010, 0.2938476, 5)
+plot1of15<-function(eList, yearStart, yearEnd, qf, istat,
                     isBottom=FALSE) {
   
   localINFO <- getInfo(eList)

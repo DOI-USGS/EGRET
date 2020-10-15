@@ -8,7 +8,7 @@ plotTimeSlice(eList, start = NA, end = NA, conc = TRUE, fluxUnit = 3,
   usgsStyle = FALSE)
 }
 \arguments{
-\item{eList}{named list with at least the Daily, Sample, and INFO dataframes and surfaces matrix. This
+\item{eList}{named list with at least the Daily, Sample, and INFO dataframes. This
 eList must be run through \code{WRTDSKalman}.}
 
 \item{start}{numeric start of DecYear for plot. If \code{NA}, plot will start at the earliest date in the record.}
@@ -24,9 +24,11 @@ to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels}
 }
 \description{
-Plot of either concentration or flux over time showing both
-the WRTDS and WRTDSKalman estimates as well as the observed values.
-Best used to look at periods of only one or two years rather than the whole record.
+Plot of either concentration or flux over time showing both the WRTDS and WRTDSKalman estimates.
+}
+\details{
+In the plot title, Ratio of means is mean of WRTDSKalman estimates to the WRTDS Classic estimates.  Ratio only calculated on the data shown in the figure, not the whole series.
+In the plot, red dots are measured values, blue dots are plotted at the reporting limit for those values that are censored.
 }
 \examples{
 eList <- Choptank_eList

@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot15.R
 \name{plot15}
 \alias{plot15}
-\title{Makes 15 graphs of streamflow statistics on a single page}
+\title{Makes 15 graphs of streamflow statistics on a single page.  These encompass the 7-day minimum, mean, and 1-day maximum for each of the following 5 Periods of Analysis: Annual, Fall, Winter, Spring and Summer.}
 \usage{
 plot15(eList, yearStart, yearEnd)
 }
@@ -14,12 +14,18 @@ plot15(eList, yearStart, yearEnd)
 \item{yearEnd}{A numeric value for year in which the graph should end, default is NA, which indicates that the graph should end with last annual value}
 }
 \description{
-Part of flowHistory system.
+Part of flowHistory system.  All results are expressed as runoff (mm/day). The individual plots are constructed by the same method as used in \code{\link{plotFlowSingle}}.  The annual results are based on the Water Year.  The seasons are defined as the following groups of months: SON, DJF, MAM, JJA.
+}
+\details{
+For formatting purposes it is best to use the following commands before calling the plot15 function (savePath is the pathname for directory to store the output)
+#   plotName <- paste(savePath, "plot15.", eList$INFO$shortName, ".ps", sep = "")
+#   postscript(file = plotName, width = 8, height = 10, horizontal = FALSE, family = "Helvetica")
+Then after running plot15, the user needs to give the command dev.off()
 }
 \examples{
 eList <- Choptank_eList
 \donttest{
-plot15(eList, yearStart=1990,yearEnd=2000)
+plot15(eList, yearStart = 1980, yearEnd = 2010)
 }
 }
 \seealso{

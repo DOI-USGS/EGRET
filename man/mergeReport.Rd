@@ -22,8 +22,7 @@ the Daily and Sample dataframes.}
 \item{interactive}{logical deprecated. Use 'verbose' instead}
 }
 \value{
-eList named list with Daily, Sample, and INFO dataframes, along with the surfaces matrix.
-Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
+eList named list with at least INFO, and Daily data frames.  It can also include a Sample data frame.
 }
 \description{
 This function does three things.  1) It transfers the daily discharge value 
@@ -33,6 +32,9 @@ from the Daily data frame to to Sample data frame for those days with samples.
 Sample data frames.
 }
 \details{
+There must be an INFO and a Daily data frame for this function to work. That would be the case for a study of flow only, with no consideration of water quality.  
+If water quality is being considered then INFO, Daily, and Sample all need to be provided in the call to this function.
+
 Note that the Sample dataframe in the global environment does 
 not update with the flow information.
 }

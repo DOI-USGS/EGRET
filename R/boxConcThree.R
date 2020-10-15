@@ -4,7 +4,8 @@
 #' This function is used to compare the distribution of concentration in the 
 #' sample and predicted data set. It shows three boxplots.  One for the sample, 
 #' one for the predictions on days with sample values, and one for all days 
-#' (whether or not they had sample values).
+#' (whether or not they had sample values).  Box widths are proportional to the
+#' square root of the number of observations represented by the box.  
 #' 
 #' Data come from named list, which contains a Sample dataframe with the sample data, 
 #' a Daily dataframe with the daily flow data,

@@ -7,20 +7,24 @@
 cleanUp(eList)
 }
 \arguments{
-\item{eList}{named list with at least the Daily, Sample, and INFO dataframes and surfaces matrix.}
+\item{eList}{named list with the INFO, Daily, and Sample dataframes and surfaces matrix.}
 }
 \value{
-eList with duplicated dates in the Sample data frame randomly sampled and randomObserved values are appended.
+eList with duplicated dates in the Sample data frame randomly sampled and censored values are replaced by random values.
 }
 \description{
 Takes an eList as the input. If there are duplicated dates in the Sample data frame, 
-will randomly select one value for that date.  And if there are censored values in the
-Sample data frame it will substitute a randomObserved value using makeAugmentedSamples
+will randomly select one value for that date.  If there are censored values
+in the data set they will be replaced by random censored values.  If there are no
+days with duplicate samples and no censored valued then the eList returned by the function will be identical to the eList that is passed to it.
+}
+\details{
+This function is run before each iteration of generating a random sequence in the 
+\code{\link{WRTDSKalman}} function
 }
 \examples{
 eList <- Choptank_eList
 
-eList <- EGRET:::cleanUp(eList)
+eList <- cleanUp(eList)
 
 }
-\keyword{internal}

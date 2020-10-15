@@ -62,9 +62,9 @@ plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd,
 
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
 
-\item{lwd}{line width, a positive number, defaulting to 1}
+\item{lwd}{line width, a positive number, defaulting to 2}
 
-\item{printLegend}{logicalif TRUE, legend is included}
+\item{printLegend}{logical if TRUE, legend is included}
 
 \item{cex.legend}{number magnification  of legend}
 
@@ -90,21 +90,27 @@ generated labels}
 \description{
 These plots show how the concentration-time relationship is changing over flow.
 
+This plot can also help identify situations where the windowY may be too small.  If there are substantial oscillations of some of the curves, then the windowY should be increased. Alternatively, windowY may be too large.  This can be seen when the windowY is reduced (say to 4.0).  A good choice of windowY would be a value just great enough to damp out oscillations in the curves.
+
 Although there are a lot of optional arguments to this function, most are set to a logical default.
 
 Data come from named list, which contains a Sample dataframe with the sample data
 and an INFO dataframe with metadata.
 }
 \examples{
-q1 <- 10
-q2 <- 25
-q3 <- 75
+q1 <- 1
+q2 <- 10
+q3 <- 100
 centerDate <- "07-01"
-yearStart <- 2000
+yearStart <- 1990
 yearEnd <- 2010
 eList <- Choptank_eList
-plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd)
-plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd,logScale=TRUE)
+plotConcTimeSmooth(eList, q1, q2,q3, centerDate, 
+                   yearStart, yearEnd, legendLeft = 1997, 
+                   legendTop = 0.44, cex.legend = 0.9)
+plotConcTimeSmooth(eList, q1, q2,q3, centerDate, yearStart, 
+                   yearEnd, logScale = TRUE, legendLeft = 1994, 
+                   legendTop = 0.4, cex.legend = 0.9)
 }
 \seealso{
 \code{\link{genericEGRETDotPlot}}, \code{\link{runSurvReg}}

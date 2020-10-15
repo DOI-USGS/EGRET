@@ -2,19 +2,19 @@
 % Please edit documentation in R/kalman_functions.R
 \name{WRTDSKalman}
 \alias{WRTDSKalman}
-\title{WRTDS-Kalman}
+\title{WRTDS-Kalman -- uses an autoregressive model to produce more accurate estimates of concentration and flux}
 \usage{
 WRTDSKalman(eList, rho = 0.9, niter = 200, seed = NA, verbose = TRUE)
 }
 \arguments{
-\item{eList}{named list with at least the Daily, Sample, and INFO dataframes and surfaces matrix}
+\item{eList}{named list with the INFO, Daily, and Sample dataframes and surfaces matrix}
 
-\item{rho}{numeric the lag one-day autocorrelation. Default is 0.9.}
+\item{rho}{numeric the lag one autocorrelation. Default is 0.9.}
 
 \item{niter}{number of iterations. Default is 200.}
 
-\item{seed}{setSeed value. Defaults to NA, which will not change the current seed.
-This is used to make repeatable output.}
+\item{seed}{integer value. Defaults to NA, which will not change the current seed.
+Setting the seed to any given value can be used to create repeatable output.}
 
 \item{verbose}{logical specifying whether or not to display progress message}
 }
@@ -22,13 +22,14 @@ This is used to make repeatable output.}
 This function takes an existing eList 
 Including the estimated model (the surfaces object in the eList)
 And produces the daily WRTDSKalman estimates of concentration and flux
-The function returns an eList in which the estimates are appended to the existing Daily dataframe
+These generated estimates are called genConc and genFlux
 }
 \examples{
 eList <- Choptank_eList
 eList <- WRTDSKalman(eList, niter = 10)
 summary(eList$Daily)
 
+#All flux values in AnnualResults are expressed as a rate in kg/day
 AnnualResults <- setupYears(eList$Daily)
 head(AnnualResults)
 }

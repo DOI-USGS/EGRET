@@ -26,29 +26,29 @@ These tables describe trends in flow-normalized concentration and in flow-normal
 They are described as changes in real units or in percent and as slopes in real units per year or in percent per year.
 They are computed over pairs of time points.  These time points can be user-defined or
 they can be set by the program to be the final year of the record and a set of years that are multiples of 5 years prior to that.
+tableChangeSingle is a version of the same code that will produce output only for flow-normalized concentration or flow-normalized flux, but not both
 }
 \examples{
 eList <- Choptank_eList
 # Water Year:
 \donttest{
-tableChange(eList, fluxUnit=6, yearPoints=c(2001,2005,2008,2009))
-tableChange(eList, fluxUnit=9) 
-tableChange(eList, fluxUnit=9, yearPoints=c(2001:2006, 2008:2009)) 
+tableChange(eList, fluxUnit = 8, yearPoints = c(1980, 1995, 2011))
+tableChange(eList, fluxUnit = 5) 
 # Winter:
-eList <- setPA(eList, paStart=12,paLong=3)
-tableChange(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009))
+eList <- setPA(eList, paStart = 12, paLong = 3)
+tableChange(eList, fluxUnit = 8, yearPoints = c(1980, 1995, 2011))
 
 # Water Year:
+eList <- setPA(eList, paStart = 10, paLong = 12)
 #This returns concentration ASCII table in the console:
-tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)
+tableChangeSingle(eList, fluxUnit = 8, yearPoints = c(1980, 1995, 2011), flux = FALSE)
 #Returns a data frame:
-change <- tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), 
-                  flux=FALSE)
-#This returns flux values ASCII table in the console
-df <- tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=TRUE)  
-# Winter:
-eList <- setPA(eList, paStart=12,paLong=3)
-tableChangeSingle(eList, fluxUnit=6,yearPoints=c(2001,2005,2008,2009), flux=FALSE)
+change <- tableChangeSingle(eList, fluxUnit = 8, yearPoints=c(1980, 1995, 2011), flux = FALSE) 
+#This returns flux values as a data frame:
+df <- tableChangeSingle(eList, fluxUnit = 8, yearPoints=c(1980, 1995, 2011), flux = TRUE)  
+# Winter Concentration only:
+eList <- setPA(eList, paStart = 12, paLong = 3)
+df.winter <- tableChangeSingle(eList, fluxUnit = 8, yearPoints=c(1980, 1995, 2011), flux = FALSE)
 
 }
 }

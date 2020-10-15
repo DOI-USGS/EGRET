@@ -1,11 +1,11 @@
 #' Estimation process for the WRTDS (Weighted Regressions on Time, Discharge, and Season)
 #'
 #' This one function does three things. 
-#' 1) a jack-knife cross-validation of a WRTDS model in which it augments the Sample data frame in the eList
-#' 2) fits the WRTDS model creating the, fits the surfaces matrix and places it in the eList
-#' (the surfaces matrix expresses the estimated concentration as a function of discharge and time), 
+#' 1) a jack-knife cross-validation of a WRTDS model in which it augments the Sample data frame in the eList,
+#' 2) fits the WRTDS model creating the surfaces matrix and places it in the eList
+#' (the surfaces matrix expresses the estimated concentration as a function of discharge and time), and 
 #' 3) estimates the daily values of concentration and flux, and flow normalized concentration and 
-#' flux and places these in the Daily data frame in the eList values. 
+#' flux and places these in the Daily data frame in the eList. 
 #' It returns a named list with the following dataframes: Daily, INFO, Sample, and the matrix: surfaces.
 #' 
 #' @param eList named list with at least the INFO, Daily, and Sample dataframes
@@ -21,7 +21,6 @@
 #' @keywords water-quality statistics
 #' @export
 #' @return eList named list with INFO, Daily, and Sample dataframes, along with the surfaces matrix.
-#' Any of these values can be NA, not all EGRET functions will work with missing parts of the named list eList.
 #' @examples
 #' eList <- Choptank_eList
 #' \donttest{

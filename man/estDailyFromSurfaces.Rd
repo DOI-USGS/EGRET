@@ -31,11 +31,19 @@ egret object with altered Daily dataframe
 Daily dataframe with yHat, SE, ConcDay and FluxDay calulated
 }
 \description{
-Uses the surfaces estimated in estSurfaces to estimate these four time series
-   in addition to the time series for standard error and yHat (estimated log concentration). 
-   The results are stored in an augmented version of the Daily data frame, which is returned as part of an EGRET object.
+Uses the surfaces matrix estimated in estSurfaces to estimate 6 daily time series
+  and appends them to the Daily data frame.  The time series are (in order):
+  yHat, the estimated natural log of concentration, dimensionless
+  SE, the standard error of the natural log of concentration
+  ConcDay, the estimated concentration in mg/L
+  FluxDay, the estimated flux in kg/day
+  FNConc, the flow-normalized concentration in mg/L
+  FNFlux, the flow-normalized flux in kg/day
 
 Bin the LogQ values by day-of-year.
+}
+\details{
+The results are stored in an augmented version of the Daily data frame, which is returned as part of an EGRET object.
 }
 \examples{
 eList <- Choptank_eList

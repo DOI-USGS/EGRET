@@ -23,10 +23,9 @@ plotDiffContours(eList, year0, year1, qBottom = NA, qTop = NA,
 
 \item{qTop}{numeric value for the top edge of the graph, expressed in the units of discharge that are being used (as specified in qUnit). NA will choose a "pretty" upper limit nearest to the 95\% of discharge. If yTicks are specified, then the last value of yTicks becomes the highest discharge shown on the figure.}
 
-\item{maxDiff}{numeric value which is the absolute value of the largest change in concentration that will be shown on the figure. Alternatively, 
-a vector with the minimum and maximum values in the change in concentration scale. If NA, the scale will be set from 5\% to 95\% of the concentration difference.}
+\item{maxDiff}{numeric value which is the absolute value of the largest change in concentration that will be shown on the figure. If NA, the scale will be set from 5\% to 95\% of the concentration difference. If plotPercent = TRUE then maxDiff will be the maximum percentage difference.}
 
-\item{whatSurface}{numeric value, can only accept 1, 2, or 3;  whatSurface=1 is yHat (log concentration), whatSurface=2 is SE (standard error of log concentration), and whatSurface=3 is ConcHat (unbiased estimate of concentration), default = 3}
+\item{whatSurface}{numeric value, can only accept 1, 2, or 3;  whatSurface = 1 is yHat (log concentration), whatSurface = 2 is SE (standard error of log concentration), and whatSurface = 3 is ConcHat (unbiased estimate of concentration), default = 3}
 
 \item{tcl}{numeric, length of tick marks in inches, default is 0.1}
 
@@ -38,7 +37,7 @@ a vector with the minimum and maximum values in the change in concentration scal
 
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE not printed}
 
-\item{plotPercent}{logical. If TRUE, plots percent difference, if FALSE, plots absolute differences. Defaults to FALSE.}
+\item{plotPercent}{logical. If TRUE, plots percent difference, if FALSE, plots arithmetic differences. Defaults to FALSE.}
 
 \item{vert1}{numeric, the location in time for a black vertical line on the figure, yearStart < vert1 < yearEnd, default is NA (vertical line is not drawn)}
 
@@ -74,6 +73,8 @@ using the function \code{colorRampPalette(c("blue","white","red"))}. A few prese
 These plots are normally used for plotting changes in the estimated concentration surface (whatSurface=3) but can be used to explore the 
 changes in estimated surfaces for the log of concentration or for the standard error (in log space) which is what determines the bias correction.
 
+The difference can be shown either as an arithmetic difference or as a percentage difference.
+
 Although there are a lot of optional arguments to this function, most are set to a logical default.
 
 Data come from named list, which contains a Sample dataframe with the sample data, 
@@ -81,29 +82,14 @@ a Daily dataframe with the daily flow data,
 and an INFO dataframe with metadata.
 }
 \examples{
-year0<-2001
-year1<-2009
-qBottom<-0.33
-qTop<-22
+year0 <- 1990
+year1 <- 2009
+qBottom <- 0.5
+qTop <- 20
 maxDiff<-0.5
 eList <- Choptank_eList
-plotDiffContours(eList, year0,year1)
-plotDiffContours(eList, year0,year1,maxDiff=maxDiff)
-plotDiffContours(eList, year0,year1,qBottom,qTop,maxDiff)
-
-yTicksModified <- c(.1,1,10,25)
-plotDiffContours(eList, year0, year1,qBottom,qTop,maxDiff,
-       yTicks=yTicksModified,flowDuration=FALSE)
-colors <-colorRampPalette(c("blue","white","red"))
-plotDiffContours(eList, year0,year1,qBottom,qTop,maxDiff,
-       color.palette=colors,flowDuration=FALSE)
-colors2 <- heat.colors # Some other options: topo.colors, terrain.colors, cm.colors
-plotDiffContours(eList, year0,year1,qBottom,qTop,maxDiff,
-       lwd=2,color.palette=colors2,flowDuration=FALSE)
-plotDiffContours(eList, year0,year1,qBottom,qTop,maxDiff,cex.lab=2,flowDuration=FALSE)
-par(mar=c(5,8,5,8))
-plotDiffContours(eList, year0,year1,qBottom,qTop,maxDiff,
-       customPar=TRUE,flowDuration=FALSE)
+plotDiffContours(eList, year0, year1, qBottom, qTop, maxDiff = 0.5)
+plotDiffContours(eList, year0, year1, qBottom, qTop, maxDiff = 50, plotPercent = TRUE)
 }
 \keyword{graphics}
 \keyword{statistics}

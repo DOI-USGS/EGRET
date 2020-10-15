@@ -6,6 +6,8 @@
 #' Typically the time points selected would be in three years at the same time of year spaced out over the period of record.  But that is not necessary.  
 #' Another possibility is to use this to explore seasonal differences.  In this case the three
 #' dates would be in the same year but different times during the year.
+#'
+#' This plot can also help identify situations where the windowQ may be too small.  If there are substantial oscillations of some of the curves, then the windowQ should be increased.  Alternatively, windowQ may be too large.  This can be seen when the windowQ is reduced (say to 1.0).  A good choice of windowQ would be a value just great enough to damp out oscillations in the curves.
 #' 
 #' Although there are a lot of optional arguments to this function, most are set to a logical default. 
 #' 
@@ -21,7 +23,7 @@
 #' @param qUnit object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name. 
 #' @param legendLeft numeric which represents the left edge of the legend in the units of the plot.
 #' @param legendTop numeric which represents the top edge of the legend in the units of the plot.
-#' @param printLegend logicalif TRUE, legend is included
+#' @param printLegend logical if TRUE, legend is included
 #' @param concMax numeric value for upper limit on concentration shown on the graph, default = NA (which causes the upper limit to be set automatically, based on the data)
 #' @param concMin numeric value for lower limit on concentration shown on the vertical log graph, default is NA 
 #' (which causes the lower limit to be set automatically, based on the data). This value is ignored for linear scales, using 0 as the minimum value for the concentration axis.
@@ -36,10 +38,10 @@
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
-#' @param lwd number line width
+#' @param lwd number line width, default is 2
 #' @param cex.legend magnification to be used for legend annotation relative to the current setting of cex
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.
-#' @param logScale logical whether or not to use a log scale in the y axis.
+#' @param logScale logical whether or not to use a log scale in the y axis. Default is FALSE
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param colors color vector of lines on plot, see ?par 'Color Specification'. Defaults to c("black","red","green")
@@ -53,15 +55,17 @@
 #' @export
 #' @seealso \code{\link{genericEGRETDotPlot}}, \code{\link{runSurvReg}}
 #' @examples 
-#' date1<-"2001-06-01"
-#' date2<-"2005-06-01"
-#' date3<-"2010-06-01"
-#' qLow<-1
-#' qHigh<-100
+#' date1 <- "1982-06-01"
+#' date2 <- "1994-06-01"
+#' date3 <- "2010-06-01"
+#' qLow <- 0.5
+#' qHigh <- 50
 #' eList <- Choptank_eList
 #' \donttest{
-#' plotConcQSmooth(eList, date1,date2,date3,qLow,qHigh)
-#' plotConcQSmooth(eList, date1,date2,date3,qLow,qHigh,logScale=TRUE)
+#' plotConcQSmooth(eList, date1, date2, date3, qLow, qHigh,
+#'                  legendLeft = 0.6, legendTop = 0.7)
+#' plotConcQSmooth(eList, date1, date2, date3, qLow, qHigh,
+#'                 logScale=TRUE, legendLeft = 0.6, legendTop = 0.7)
 #' }
 plotConcQSmooth<-function(eList, date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0,legendTop = 0, 
                           concMax = NA, concMin=NA, bw = FALSE, printTitle = TRUE, printValues = FALSE, 

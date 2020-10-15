@@ -13,7 +13,7 @@
 #' @examples
 #' eList <- Choptank_eList
 #' eList <- setPA(eList, paStart = 12, paLong = 3)
-setPA<-function(eList, paStart=10, paLong=12, window = 20) {
+setPA<-function(eList, paStart = 10, paLong = 12, window = 20) {
   # The purpose of setPA is just to get the paStart, paLong, and window into the INFO data frame, 
   # so they can be used to run the function makeAnnualSeries
 #   if(exists("annualSeries"))
