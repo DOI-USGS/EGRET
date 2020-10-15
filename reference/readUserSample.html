@@ -50,8 +50,8 @@
 <meta property="og:description" content="Imports data from a user-supplied file, and converts it to a Sample data frame 
 (including summing multiple constituents), appropriate for EGRET analysis. 
 First column is date, second is remark code, and third is value. If multiple constituents 
-are to be combined with interval censoring, additional columns can be inserted, each starting with
-remark code (specifically looking for &amp;lt;), and values." />
+are to be combined with interval censoring, additional pairs of columns can be inserted, each pair starting with
+remark code (specifically looking for &amp;lt;), followed by the values." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -117,10 +117,7 @@ remark code (specifically looking for &amp;lt;), and values." />
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/WRTDSK.html">WRTDS-K In Development</a>
-    </li>
-    <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K Blog Article</a>
+      <a href="../articles/WRTDSK.html">WRTDS Kalman</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -172,12 +169,12 @@ remark code (specifically looking for &amp;lt;), and values." />
     <p>Imports data from a user-supplied file, and converts it to a Sample data frame 
 (including summing multiple constituents), appropriate for EGRET analysis. 
 First column is date, second is remark code, and third is value. If multiple constituents 
-are to be combined with interval censoring, additional columns can be inserted, each starting with
-remark code (specifically looking for &lt;), and values.</p>
+are to be combined with interval censoring, additional pairs of columns can be inserted, each pair starting with
+remark code (specifically looking for &lt;), followed by the values.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>readUserSample</span>(<span class='no'>filePath</span>, <span class='no'>fileName</span>, <span class='kw'>hasHeader</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>separator</span> <span class='kw'>=</span> <span class='st'>","</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>readUserSample</span><span class='op'>(</span><span class='va'>filePath</span>, <span class='va'>fileName</span>, hasHeader <span class='op'>=</span> <span class='cn'>TRUE</span>, separator <span class='op'>=</span> <span class='st'>","</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>, interactive <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -233,9 +230,10 @@ which is separator used in a .csv file.</p></td>
     <div class='dont-index'><p><code><a href='compressData.html'>compressData</a></code>, <code><a href='populateSampleColumns.html'>populateSampleColumns</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>filePath</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"EGRET"</span>)
-<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='st'>'ChoptankRiverNitrate.csv'</span>
-<span class='no'>Sample</span> <span class='kw'>&lt;-</span> <span class='fu'>readUserSample</span>(<span class='no'>filePath</span>,<span class='no'>fileName</span>, <span class='kw'>separator</span><span class='kw'>=</span><span class='st'>";"</span>,<span class='kw'>verbose</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='va'>filePath</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, package<span class='op'>=</span><span class='st'>"EGRET"</span><span class='op'>)</span>
+<span class='va'>fileName</span> <span class='op'>&lt;-</span> <span class='st'>'ChoptankRiverNitrate.csv'</span>
+<span class='va'>Sample</span> <span class='op'>&lt;-</span> <span class='fu'>readUserSample</span><span class='op'>(</span><span class='va'>filePath</span>,<span class='va'>fileName</span>, separator<span class='op'>=</span><span class='st'>";"</span>,verbose<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -251,7 +249,7 @@ which is separator used in a .csv file.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

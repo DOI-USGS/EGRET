@@ -113,10 +113,7 @@
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/WRTDSK.html">WRTDS-K In Development</a>
-    </li>
-    <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K Blog Article</a>
+      <a href="../articles/WRTDSK.html">WRTDS Kalman</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -168,8 +165,8 @@
     <p>Imports daily data from NWIS web service. This function gets the data from here: <a href='https://waterservices.usgs.gov/'>https://waterservices.usgs.gov/</a></p>
     </div>
 
-    <pre class="usage"><span class='fu'>readNWISDaily</span>(<span class='no'>siteNumber</span>, <span class='kw'>parameterCd</span> <span class='kw'>=</span> <span class='st'>"00060"</span>, <span class='kw'>startDate</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>endDate</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>convert</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>readNWISDaily</span><span class='op'>(</span><span class='va'>siteNumber</span>, parameterCd <span class='op'>=</span> <span class='st'>"00060"</span>, startDate <span class='op'>=</span> <span class='st'>""</span>,
+  endDate <span class='op'>=</span> <span class='st'>""</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span>, interactive <span class='op'>=</span> <span class='cn'>NULL</span>, convert <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -232,7 +229,9 @@ there is no conversion applied.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 
-<span class='no'>Daily</span> <span class='kw'>&lt;-</span> <span class='fu'>readNWISDaily</span>(<span class='st'>'01594440'</span>,<span class='st'>'00060'</span>, <span class='st'>'1985-01-01'</span>, <span class='st'>'1985-03-31'</span>)</div><div class='output co'>#&gt; There are 90 data points, and 90 days.</div><div class='input'><span class='no'>DailySuspSediment</span> <span class='kw'>&lt;-</span> <span class='fu'>readNWISDaily</span>(<span class='st'>'01594440'</span>,<span class='st'>'80154'</span>, <span class='st'>'1985-01-01'</span>, <span class='st'>'1985-03-31'</span>,<span class='kw'>convert</span><span class='kw'>=</span><span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; There are 90 data points, and 90 days.</div><div class='input'># }
+<span class='va'>Daily</span> <span class='op'>&lt;-</span> <span class='fu'>readNWISDaily</span><span class='op'>(</span><span class='st'>'01594440'</span>,<span class='st'>'00060'</span>, <span class='st'>'1985-01-01'</span>, <span class='st'>'1985-03-31'</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; There are 90 data points, and 90 days.</div><div class='input'><span class='va'>DailySuspSediment</span> <span class='op'>&lt;-</span> <span class='fu'>readNWISDaily</span><span class='op'>(</span><span class='st'>'01594440'</span>,<span class='st'>'80154'</span>, <span class='st'>'1985-01-01'</span>, <span class='st'>'1985-03-31'</span>,convert<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; There are 90 data points, and 90 days.</div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -249,7 +248,7 @@ there is no conversion applied.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

@@ -113,10 +113,7 @@
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/WRTDSK.html">WRTDS-K In Development</a>
-    </li>
-    <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K Blog Article</a>
+      <a href="../articles/WRTDSK.html">WRTDS Kalman</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -168,8 +165,8 @@
     <p>Imports data from a user-supplied file, and converts it to a Daily data frame, appropriate for WRTDS calculations.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>readUserDaily</span>(<span class='no'>filePath</span>, <span class='no'>fileName</span>, <span class='kw'>hasHeader</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>separator</span> <span class='kw'>=</span> <span class='st'>","</span>,
-  <span class='kw'>qUnit</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>readUserDaily</span><span class='op'>(</span><span class='va'>filePath</span>, <span class='va'>fileName</span>, hasHeader <span class='op'>=</span> <span class='cn'>TRUE</span>, separator <span class='op'>=</span> <span class='st'>","</span>,
+  qUnit <span class='op'>=</span> <span class='fl'>1</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span>, interactive <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -225,9 +222,10 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>filePath</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"EGRET"</span>)
-<span class='no'>fileName</span> <span class='kw'>&lt;-</span> <span class='st'>"ChoptankRiverFlow.txt"</span>
-<span class='no'>Daily</span> <span class='kw'>&lt;-</span> <span class='fu'>readUserDaily</span>(<span class='no'>filePath</span>,<span class='no'>fileName</span>,<span class='kw'>separator</span><span class='kw'>=</span><span class='st'>"\t"</span>)</div><div class='output co'>#&gt; <span class='message'>The input discharge are assumed to be in cubic feet per second, if they are in cubic meters per second, then the call to readUserDaily should specify qUnit=2</span></div><div class='output co'>#&gt; There are 4383 data points, and 4383 days.</div></pre>
+    <pre class="examples"><div class='input'><span class='va'>filePath</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, package<span class='op'>=</span><span class='st'>"EGRET"</span><span class='op'>)</span>
+<span class='va'>fileName</span> <span class='op'>&lt;-</span> <span class='st'>"ChoptankRiverFlow.txt"</span>
+<span class='va'>Daily</span> <span class='op'>&lt;-</span> <span class='fu'>readUserDaily</span><span class='op'>(</span><span class='va'>filePath</span>,<span class='va'>fileName</span>,separator<span class='op'>=</span><span class='st'>"\t"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>The input discharge are assumed to be in cubic feet per second, if they are in cubic meters per second, then the call to readUserDaily should specify qUnit=2</span></div><div class='output co'>#&gt; There are 4383 data points, and 4383 days.</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -243,7 +241,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

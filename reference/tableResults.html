@@ -115,10 +115,7 @@ could be larger than the value for a full year." />
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/WRTDSK.html">WRTDS-K In Development</a>
-    </li>
-    <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K Blog Article</a>
+      <a href="../articles/WRTDSK.html">WRTDS Kalman</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -172,7 +169,7 @@ mean flux, and flow-normalized flux. Note that the flux and flow-normalized flux
 could be larger than the value for a full year.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>tableResults</span>(<span class='no'>eList</span>, <span class='kw'>qUnit</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>fluxUnit</span> <span class='kw'>=</span> <span class='fl'>9</span>, <span class='kw'>localDaily</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
+    <pre class="usage"><span class='fu'>tableResults</span><span class='op'>(</span><span class='va'>eList</span>, qUnit <span class='op'>=</span> <span class='fl'>2</span>, fluxUnit <span class='op'>=</span> <span class='fl'>9</span>, localDaily <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -199,12 +196,56 @@ could be larger than the value for a full year.</p>
 
     <p>results dataframe, if returnDataFrame=TRUE</p>
 <p>dataframe with year, discharge, concentration, flow-normalized concentration, flux, and flow-normalized concentration columns.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Can also procude a table for any Period of Analysis (individual months or sequence of months) using <code><a href='setPA.html'>setPA</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
+    <pre class="examples"><div class='input'><span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='va'>Choptank_eList</span>
 <span class='co'># Water Year:</span>
 <span class='co'># \donttest{</span>
-<span class='fu'>tableResults</span>(<span class='no'>eList</span>, <span class='kw'>fluxUnit</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; 
+<span class='fu'>tableResults</span><span class='op'>(</span><span class='va'>eList</span>, fluxUnit <span class='op'>=</span> <span class='fl'>8</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
+#&gt;    Choptank River 
+#&gt;    Inorganic nitrogen (nitrate and nitrite)
+#&gt;    Water Year 
+#&gt; 
+#&gt;    Year   Discharge    Conc    FN_Conc     Flux    FN_Flux
+#&gt;              cms            mg/L             10^3 kg/yr 
+#&gt; 
+#&gt;    1980      4.25     0.949     1.003     115.4       106
+#&gt;    1981      2.22     1.035     0.999      67.5       108
+#&gt;    1982      3.05     1.036     0.993      98.5       110
+#&gt;    1983      4.99     1.007     0.993     132.9       112
+#&gt;    1984      5.72     0.990     1.002     159.7       114
+#&gt;    1985      1.52     1.057     1.017      48.9       116
+#&gt;    1986      2.63     1.062     1.038      90.3       119
+#&gt;    1987      3.37     1.079     1.062     114.2       122
+#&gt;    1988      1.87     1.120     1.085      66.0       125
+#&gt;    1989      5.61     1.055     1.105     163.8       127
+#&gt;    1990      4.01     1.115     1.125     134.9       129
+#&gt;    1991      2.75     1.172     1.143      98.0       130
+#&gt;    1992      2.19     1.203     1.159      81.0       132
+#&gt;    1993      3.73     1.215     1.173     130.6       132
+#&gt;    1994      5.48     1.144     1.187     163.4       133
+#&gt;    1995      2.41     1.266     1.201      92.8       134
+#&gt;    1996      6.24     1.134     1.213     198.0       135
+#&gt;    1997      5.83     1.180     1.221     188.4       136
+#&gt;    1998      4.88     1.236     1.229     159.3       137
+#&gt;    1999      2.90     1.277     1.238      91.9       138
+#&gt;    2000      4.72     1.213     1.253     162.7       139
+#&gt;    2001      4.88     1.251     1.268     165.5       140
+#&gt;    2002      1.24     1.321     1.285      48.3       141
+#&gt;    2003      8.64     1.140     1.303     266.4       143
+#&gt;    2004      5.28     1.274     1.321     183.2       144
+#&gt;    2005      3.81     1.360     1.341     144.4       146
+#&gt;    2006      3.59     1.382     1.362     140.9       147
+#&gt;    2007      4.28     1.408     1.382     159.3       149
+#&gt;    2008      2.56     1.477     1.401     100.8       149
+#&gt;    2009      3.68     1.409     1.419     132.8       149
+#&gt;    2010      7.19     1.323     1.438     223.6       149
+#&gt;    2011      5.24     1.438     1.457     155.4       148</div><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'>tableResults</span><span class='op'>(</span><span class='va'>eList</span>, fluxUnit <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt;    Choptank River 
 #&gt;    Inorganic nitrogen (nitrate and nitrite)
 #&gt;    Water Year 
@@ -243,165 +284,115 @@ could be larger than the value for a full year.</p>
 #&gt;    2008      2.56     1.477     1.401       608       902
 #&gt;    2009      3.68     1.409     1.419       801       900
 #&gt;    2010      7.19     1.323     1.438      1350       898
-#&gt;    2011      5.24     1.438     1.457       938       895</div><div class='input'><span class='fu'>tableResults</span>(<span class='no'>eList</span>, <span class='kw'>fluxUnit</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; 
+#&gt;    2011      5.24     1.438     1.457       938       895</div><div class='input'><span class='va'>df</span>
+</div><div class='output co'>#&gt;    Year Discharge [cms] Conc [mg/L] FN Conc [mg/L] Flux [lbs/day]
+#&gt; 1  1980            4.25       0.949          1.003            697
+#&gt; 2  1981            2.22       1.035          0.999            407
+#&gt; 3  1982            3.05       1.036          0.993            594
+#&gt; 4  1983            4.99       1.007          0.993            802
+#&gt; 5  1984            5.72       0.990          1.002            964
+#&gt; 6  1985            1.52       1.057          1.017            295
+#&gt; 7  1986            2.63       1.062          1.038            545
+#&gt; 8  1987            3.37       1.079          1.062            690
+#&gt; 9  1988            1.87       1.120          1.085            399
+#&gt; 10 1989            5.61       1.055          1.105            989
+#&gt; 11 1990            4.01       1.115          1.125            814
+#&gt; 12 1991            2.75       1.172          1.143            592
+#&gt; 13 1992            2.19       1.203          1.159            489
+#&gt; 14 1993            3.73       1.215          1.173            788
+#&gt; 15 1994            5.48       1.144          1.187            986
+#&gt; 16 1995            2.41       1.266          1.201            560
+#&gt; 17 1996            6.24       1.134          1.213           1195
+#&gt; 18 1997            5.83       1.180          1.221           1137
+#&gt; 19 1998            4.88       1.236          1.229            962
+#&gt; 20 1999            2.90       1.277          1.238            555
+#&gt; 21 2000            4.72       1.213          1.253            982
+#&gt; 22 2001            4.88       1.251          1.268            999
+#&gt; 23 2002            1.24       1.321          1.285            291
+#&gt; 24 2003            8.64       1.140          1.303           1608
+#&gt; 25 2004            5.28       1.274          1.321           1106
+#&gt; 26 2005            3.81       1.360          1.341            871
+#&gt; 27 2006            3.59       1.382          1.362            850
+#&gt; 28 2007            4.28       1.408          1.382            961
+#&gt; 29 2008            2.56       1.477          1.401            608
+#&gt; 30 2009            3.68       1.409          1.419            801
+#&gt; 31 2010            7.19       1.323          1.438           1350
+#&gt; 32 2011            5.24       1.438          1.457            938
+#&gt;    FN Flux [lbs/day]
+#&gt; 1                642
+#&gt; 2                654
+#&gt; 3                663
+#&gt; 4                674
+#&gt; 5                688
+#&gt; 6                702
+#&gt; 7                720
+#&gt; 8                739
+#&gt; 9                756
+#&gt; 10               768
+#&gt; 11               779
+#&gt; 12               787
+#&gt; 13               794
+#&gt; 14               797
+#&gt; 15               801
+#&gt; 16               806
+#&gt; 17               813
+#&gt; 18               818
+#&gt; 19               824
+#&gt; 20               831
+#&gt; 21               840
+#&gt; 22               846
+#&gt; 23               853
+#&gt; 24               861
+#&gt; 25               870
+#&gt; 26               879
+#&gt; 27               889
+#&gt; 28               897
+#&gt; 29               902
+#&gt; 30               900
+#&gt; 31               898
+#&gt; 32               895</div><div class='input'><span class='co'># Spring:</span>
+<span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span><span class='op'>(</span><span class='va'>eList</span>, paStart <span class='op'>=</span> <span class='fl'>3</span>, paLong <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+<span class='fu'>tableResults</span><span class='op'>(</span><span class='va'>eList</span>, fluxUnit <span class='op'>=</span> <span class='fl'>1</span>, qUnit <span class='op'>=</span> <span class='st'>"cfs"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 
 #&gt;    Choptank River 
 #&gt;    Inorganic nitrogen (nitrate and nitrite)
-#&gt;    Water Year 
+#&gt;    Season Consisting of Mar Apr May 
 #&gt; 
 #&gt;    Year   Discharge    Conc    FN_Conc     Flux    FN_Flux
-#&gt;              cms            mg/L             lbs/day   
+#&gt;              cfs            mg/L             lbs/day   
 #&gt; 
-#&gt;    1980      4.25     0.949     1.003       697       642
-#&gt;    1981      2.22     1.035     0.999       407       654
-#&gt;    1982      3.05     1.036     0.993       594       663
-#&gt;    1983      4.99     1.007     0.993       802       674
-#&gt;    1984      5.72     0.990     1.002       964       688
-#&gt;    1985      1.52     1.057     1.017       295       702
-#&gt;    1986      2.63     1.062     1.038       545       720
-#&gt;    1987      3.37     1.079     1.062       690       739
-#&gt;    1988      1.87     1.120     1.085       399       756
-#&gt;    1989      5.61     1.055     1.105       989       768
-#&gt;    1990      4.01     1.115     1.125       814       779
-#&gt;    1991      2.75     1.172     1.143       592       787
-#&gt;    1992      2.19     1.203     1.159       489       794
-#&gt;    1993      3.73     1.215     1.173       788       797
-#&gt;    1994      5.48     1.144     1.187       986       801
-#&gt;    1995      2.41     1.266     1.201       560       806
-#&gt;    1996      6.24     1.134     1.213      1195       813
-#&gt;    1997      5.83     1.180     1.221      1137       818
-#&gt;    1998      4.88     1.236     1.229       962       824
-#&gt;    1999      2.90     1.277     1.238       555       831
-#&gt;    2000      4.72     1.213     1.253       982       840
-#&gt;    2001      4.88     1.251     1.268       999       846
-#&gt;    2002      1.24     1.321     1.285       291       853
-#&gt;    2003      8.64     1.140     1.303      1608       861
-#&gt;    2004      5.28     1.274     1.321      1106       870
-#&gt;    2005      3.81     1.360     1.341       871       879
-#&gt;    2006      3.59     1.382     1.362       850       889
-#&gt;    2007      4.28     1.408     1.382       961       897
-#&gt;    2008      2.56     1.477     1.401       608       902
-#&gt;    2009      3.68     1.409     1.419       801       900
-#&gt;    2010      7.19     1.323     1.438      1350       898
-#&gt;    2011      5.24     1.438     1.457       938       895</div><div class='input'><span class='fu'>tableResults</span>(<span class='no'>eList</span>, <span class='kw'>fluxUnit</span> <span class='kw'>=</span> <span class='st'>'kgDay'</span>, <span class='kw'>qUnit</span> <span class='kw'>=</span> <span class='st'>'cms'</span>)</div><div class='output co'>#&gt; 
-#&gt;    Choptank River 
-#&gt;    Inorganic nitrogen (nitrate and nitrite)
-#&gt;    Water Year 
-#&gt; 
-#&gt;    Year   Discharge    Conc    FN_Conc     Flux    FN_Flux
-#&gt;              cms            mg/L              kg/day   
-#&gt; 
-#&gt;    1980      4.25     0.949     1.003       316       291
-#&gt;    1981      2.22     1.035     0.999       185       297
-#&gt;    1982      3.05     1.036     0.993       270       301
-#&gt;    1983      4.99     1.007     0.993       364       306
-#&gt;    1984      5.72     0.990     1.002       437       312
-#&gt;    1985      1.52     1.057     1.017       134       319
-#&gt;    1986      2.63     1.062     1.038       247       327
-#&gt;    1987      3.37     1.079     1.062       313       335
-#&gt;    1988      1.87     1.120     1.085       181       343
-#&gt;    1989      5.61     1.055     1.105       448       349
-#&gt;    1990      4.01     1.115     1.125       369       353
-#&gt;    1991      2.75     1.172     1.143       268       357
-#&gt;    1992      2.19     1.203     1.159       222       360
-#&gt;    1993      3.73     1.215     1.173       357       362
-#&gt;    1994      5.48     1.144     1.187       447       363
-#&gt;    1995      2.41     1.266     1.201       254       366
-#&gt;    1996      6.24     1.134     1.213       542       369
-#&gt;    1997      5.83     1.180     1.221       516       371
-#&gt;    1998      4.88     1.236     1.229       436       374
-#&gt;    1999      2.90     1.277     1.238       252       377
-#&gt;    2000      4.72     1.213     1.253       445       381
-#&gt;    2001      4.88     1.251     1.268       453       384
-#&gt;    2002      1.24     1.321     1.285       132       387
-#&gt;    2003      8.64     1.140     1.303       729       390
-#&gt;    2004      5.28     1.274     1.321       502       395
-#&gt;    2005      3.81     1.360     1.341       395       399
-#&gt;    2006      3.59     1.382     1.362       386       403
-#&gt;    2007      4.28     1.408     1.382       436       407
-#&gt;    2008      2.56     1.477     1.401       276       409
-#&gt;    2009      3.68     1.409     1.419       363       408
-#&gt;    2010      7.19     1.323     1.438       612       407
-#&gt;    2011      5.24     1.438     1.457       425       406</div><div class='input'><span class='no'>returnedTable</span> <span class='kw'>&lt;-</span> <span class='fu'>tableResults</span>(<span class='no'>eList</span>, <span class='kw'>fluxUnit</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; 
-#&gt;    Choptank River 
-#&gt;    Inorganic nitrogen (nitrate and nitrite)
-#&gt;    Water Year 
-#&gt; 
-#&gt;    Year   Discharge    Conc    FN_Conc     Flux    FN_Flux
-#&gt;              cms            mg/L             lbs/day   
-#&gt; 
-#&gt;    1980      4.25     0.949     1.003       697       642
-#&gt;    1981      2.22     1.035     0.999       407       654
-#&gt;    1982      3.05     1.036     0.993       594       663
-#&gt;    1983      4.99     1.007     0.993       802       674
-#&gt;    1984      5.72     0.990     1.002       964       688
-#&gt;    1985      1.52     1.057     1.017       295       702
-#&gt;    1986      2.63     1.062     1.038       545       720
-#&gt;    1987      3.37     1.079     1.062       690       739
-#&gt;    1988      1.87     1.120     1.085       399       756
-#&gt;    1989      5.61     1.055     1.105       989       768
-#&gt;    1990      4.01     1.115     1.125       814       779
-#&gt;    1991      2.75     1.172     1.143       592       787
-#&gt;    1992      2.19     1.203     1.159       489       794
-#&gt;    1993      3.73     1.215     1.173       788       797
-#&gt;    1994      5.48     1.144     1.187       986       801
-#&gt;    1995      2.41     1.266     1.201       560       806
-#&gt;    1996      6.24     1.134     1.213      1195       813
-#&gt;    1997      5.83     1.180     1.221      1137       818
-#&gt;    1998      4.88     1.236     1.229       962       824
-#&gt;    1999      2.90     1.277     1.238       555       831
-#&gt;    2000      4.72     1.213     1.253       982       840
-#&gt;    2001      4.88     1.251     1.268       999       846
-#&gt;    2002      1.24     1.321     1.285       291       853
-#&gt;    2003      8.64     1.140     1.303      1608       861
-#&gt;    2004      5.28     1.274     1.321      1106       870
-#&gt;    2005      3.81     1.360     1.341       871       879
-#&gt;    2006      3.59     1.382     1.362       850       889
-#&gt;    2007      4.28     1.408     1.382       961       897
-#&gt;    2008      2.56     1.477     1.401       608       902
-#&gt;    2009      3.68     1.409     1.419       801       900
-#&gt;    2010      7.19     1.323     1.438      1350       898
-#&gt;    2011      5.24     1.438     1.457       938       895</div><div class='input'><span class='co'># Winter:</span>
-<span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span>(<span class='no'>eList</span>, <span class='kw'>paLong</span><span class='kw'>=</span><span class='fl'>3</span>,<span class='kw'>paStart</span><span class='kw'>=</span><span class='fl'>12</span>)
-<span class='fu'>tableResults</span>(<span class='no'>eList</span>, <span class='kw'>fluxUnit</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='output co'>#&gt; 
-#&gt;    Choptank River 
-#&gt;    Inorganic nitrogen (nitrate and nitrite)
-#&gt;    Season Consisting of Dec Jan Feb 
-#&gt; 
-#&gt;    Year   Discharge    Conc    FN_Conc     Flux    FN_Flux
-#&gt;              cms            mg/L             lbs/day   
-#&gt; 
-#&gt;    1980     4.220      1.10      1.11       847       939
-#&gt;    1981     1.960      1.20      1.13       444       972
-#&gt;    1982     5.057      1.16      1.15      1065       997
-#&gt;    1983     3.504      1.21      1.16       791      1019
-#&gt;    1984     8.437      1.12      1.18      1584      1044
-#&gt;    1985     2.249      1.24      1.21       533      1069
-#&gt;    1986     5.087      1.25      1.24      1148      1098
-#&gt;    1987     7.730      1.23      1.27      1634      1127
-#&gt;    1988     2.590      1.29      1.29       627      1151
-#&gt;    1989     3.327      1.36      1.31       845      1168
-#&gt;    1990     4.609      1.35      1.33      1164      1179
-#&gt;    1991     3.883      1.36      1.33       941      1182
-#&gt;    1992     2.303      1.40      1.33       613      1180
-#&gt;    1993     4.421      1.36      1.32      1133      1172
-#&gt;    1994     5.849      1.31      1.31      1250      1165
-#&gt;    1995     3.693      1.37      1.31       931      1161
-#&gt;    1996     7.151      1.29      1.31      1580      1162
-#&gt;    1997    11.786      1.18      1.32      2244      1165
-#&gt;    1998     9.308      1.27      1.32      1798      1172
-#&gt;    1999     2.526      1.32      1.33       659      1183
-#&gt;    2000     4.785      1.39      1.35      1204      1196
-#&gt;    2001     5.392      1.39      1.37      1324      1208
-#&gt;    2002     0.824      1.29      1.39       203      1220
-#&gt;    2003     9.213      1.33      1.41      1923      1234
-#&gt;    2004     8.653      1.35      1.44      1887      1252
-#&gt;    2005     4.196      1.54      1.47      1194      1271
-#&gt;    2006     5.843      1.51      1.51      1614      1291
-#&gt;    2007     5.417      1.55      1.53      1460      1305
-#&gt;    2008     2.436      1.62      1.55       735      1310
-#&gt;    2009     2.711      1.66      1.56       843      1305
-#&gt;    2010    13.779      1.26      1.57      2511      1299
-#&gt;    2011     3.369      1.66      1.57      1007      1295</div><div class='input'># }
+#&gt;    1980     236.6     0.921     0.922      1104      1006
+#&gt;    1981     132.1     0.957     0.936       660      1028
+#&gt;    1982     165.2     0.972     0.941       873      1038
+#&gt;    1983     430.5     0.879     0.947      1804      1051
+#&gt;    1984     365.4     0.917     0.958      1604      1068
+#&gt;    1985      64.8     1.007     0.973       357      1086
+#&gt;    1986     115.7     1.030     0.993       662      1111
+#&gt;    1987     167.8     1.036     1.016       927      1138
+#&gt;    1988     129.1     1.065     1.038       724      1163
+#&gt;    1989     384.7     0.992     1.057      1886      1183
+#&gt;    1990     216.6     1.074     1.073      1142      1197
+#&gt;    1991     154.1     1.119     1.086       926      1204
+#&gt;    1992     141.2     1.134     1.096       856      1208
+#&gt;    1993     310.8     1.052     1.105      1634      1210
+#&gt;    1994     427.2     1.032     1.113      1962      1214
+#&gt;    1995     138.2     1.168     1.121       834      1221
+#&gt;    1996     303.3     1.078     1.130      1641      1230
+#&gt;    1997     241.2     1.124     1.137      1364      1239
+#&gt;    1998     272.6     1.113     1.145      1476      1247
+#&gt;    1999     151.9     1.203     1.154       955      1253
+#&gt;    2000     275.0     1.139     1.164      1465      1259
+#&gt;    2001     240.4     1.166     1.172      1356      1264
+#&gt;    2002      94.4     1.239     1.181       610      1269
+#&gt;    2003     356.6     1.082     1.192      1903      1276
+#&gt;    2004     207.7     1.229     1.205      1186      1286
+#&gt;    2005     283.1     1.181     1.219      1561      1298
+#&gt;    2006      80.4     1.362     1.234       586      1308
+#&gt;    2007     265.5     1.252     1.246      1415      1315
+#&gt;    2008     213.7     1.268     1.255      1267      1314
+#&gt;    2009     159.5     1.302     1.259      1027      1306
+#&gt;    2010     289.7     1.202     1.255      1534      1291
+#&gt;    2011     193.9     1.243     1.241      1218      1267</div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -418,7 +409,7 @@ could be larger than the value for a full year.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

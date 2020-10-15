@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>WRTDS-Kalman — WRTDSKalman • EGRET</title>
+<title>WRTDS-Kalman -- uses an autoregressive model to produce more accurate estimates of concentration and flux — WRTDSKalman • EGRET</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,11 +46,11 @@
 
 
 
-<meta property="og:title" content="WRTDS-Kalman — WRTDSKalman" />
+<meta property="og:title" content="WRTDS-Kalman -- uses an autoregressive model to produce more accurate estimates of concentration and flux — WRTDSKalman" />
 <meta property="og:description" content="This function takes an existing eList 
 Including the estimated model (the surfaces object in the eList)
 And produces the daily WRTDSKalman estimates of concentration and flux
-The function returns an eList in which the estimates are appended to the existing Daily dataframe" />
+These generated estimates are called genConc and genFlux" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -116,10 +116,7 @@ The function returns an eList in which the estimates are appended to the existin
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/WRTDSK.html">WRTDS-K In Development</a>
-    </li>
-    <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K Blog Article</a>
+      <a href="../articles/WRTDSK.html">WRTDS Kalman</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -162,7 +159,7 @@ The function returns an eList in which the estimates are appended to the existin
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>WRTDS-Kalman</h1>
+    <h1>WRTDS-Kalman -- uses an autoregressive model to produce more accurate estimates of concentration and flux</h1>
     <small class="dont-index">Source: <a href='https://github.com/USGS-R/EGRET/blob/master/R/kalman_functions.R'><code>R/kalman_functions.R</code></a></small>
     <div class="hidden name"><code>wrtdsK.Rd</code></div>
     </div>
@@ -171,21 +168,21 @@ The function returns an eList in which the estimates are appended to the existin
     <p>This function takes an existing eList 
 Including the estimated model (the surfaces object in the eList)
 And produces the daily WRTDSKalman estimates of concentration and flux
-The function returns an eList in which the estimates are appended to the existing Daily dataframe</p>
+These generated estimates are called genConc and genFlux</p>
     </div>
 
-    <pre class="usage"><span class='fu'>WRTDSKalman</span>(<span class='no'>eList</span>, <span class='kw'>rho</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>niter</span> <span class='kw'>=</span> <span class='fl'>200</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>WRTDSKalman</span><span class='op'>(</span><span class='va'>eList</span>, rho <span class='op'>=</span> <span class='fl'>0.9</span>, niter <span class='op'>=</span> <span class='fl'>200</span>, seed <span class='op'>=</span> <span class='cn'>NA</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>eList</th>
-      <td><p>named list with at least the Daily, Sample, and INFO dataframes and surfaces matrix</p></td>
+      <td><p>named list with the INFO, Daily, and Sample dataframes and surfaces matrix</p></td>
     </tr>
     <tr>
       <th>rho</th>
-      <td><p>numeric the lag one-day autocorrelation. Default is 0.9.</p></td>
+      <td><p>numeric the lag one autocorrelation. Default is 0.9.</p></td>
     </tr>
     <tr>
       <th>niter</th>
@@ -193,8 +190,8 @@ The function returns an eList in which the estimates are appended to the existin
     </tr>
     <tr>
       <th>seed</th>
-      <td><p>setSeed value. Defaults to NA, which will not change the current seed.
-This is used to make repeatable output.</p></td>
+      <td><p>integer value. Defaults to NA, which will not change the current seed.
+Setting the seed to any given value can be used to create repeatable output.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
@@ -204,8 +201,9 @@ This is used to make repeatable output.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
-<span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='fu'>WRTDSKalman</span>(<span class='no'>eList</span>, <span class='kw'>niter</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; <span class='message'>This function is currently in development</span></div><div class='output co'>#&gt; % complete:
+    <pre class="examples"><div class='input'><span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='va'>Choptank_eList</span>
+<span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='fu'>WRTDSKalman</span><span class='op'>(</span><span class='va'>eList</span>, niter <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; % complete:
 #&gt; 10 	
 #&gt; 20 	
 #&gt; 30 	
@@ -215,7 +213,8 @@ This is used to make repeatable output.</p></td>
 #&gt; 70 	
 #&gt; 80 	
 #&gt; 90 	
-#&gt; 100 	</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>eList</span>$<span class='no'>Daily</span>)</div><div class='output co'>#&gt;       Date                  Q                 Julian          Month       
+#&gt; 100 	</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>eList</span><span class='op'>$</span><span class='va'>Daily</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;       Date                  Q                 Julian          Month       
 #&gt;  Min.   :1979-10-01   Min.   :  0.00991   Min.   :47389   Min.   : 1.000  
 #&gt;  1st Qu.:1987-09-30   1st Qu.:  0.93446   1st Qu.:50311   1st Qu.: 4.000  
 #&gt;  Median :1995-09-30   Median :  2.40693   Median :53233   Median : 7.000  
@@ -255,8 +254,10 @@ This is used to make repeatable output.</p></td>
 #&gt;  3rd Qu.:1.3314   3rd Qu.:538.44   3rd Qu.:  498.63   3rd Qu.:1.4129  
 #&gt;  Max.   :1.6882   Max.   :943.75   Max.   :11927.06   Max.   :2.4300  
 #&gt;                                                                       </div><div class='input'>
-<span class='no'>AnnualResults</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='setupYears.html'>setupYears</a></span>(<span class='no'>eList</span>$<span class='no'>Daily</span>)
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>AnnualResults</span>)</div><div class='output co'>#&gt;    DecYear        Q      Conc     Flux    FNConc   FNFlux   GenConc  GenFlux
+<span class='co'>#All flux values in AnnualResults are expressed as a rate in kg/day</span>
+<span class='va'>AnnualResults</span> <span class='op'>&lt;-</span> <span class='fu'><a href='setupYears.html'>setupYears</a></span><span class='op'>(</span><span class='va'>eList</span><span class='op'>$</span><span class='va'>Daily</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>AnnualResults</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    DecYear        Q      Conc     Flux    FNConc   FNFlux   GenConc  GenFlux
 #&gt; 2 1980.249 4.251937 0.9485403 316.0491 1.0027237 291.2176 0.9820268 324.0710
 #&gt; 3 1981.249 2.217248 1.0351962 184.6712 0.9988918 296.7260 0.9904381 170.2038
 #&gt; 4 1982.249 3.046039 1.0361327 269.6309 0.9931881 300.7424 1.0937085 283.9836
@@ -285,7 +286,7 @@ This is used to make repeatable output.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

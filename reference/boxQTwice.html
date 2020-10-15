@@ -54,6 +54,7 @@ using the log values but the scale is presented in the original units. An
 ideal situation would show the two boxes roughly similar to each other or 
 the sample boxplot having median, upper quartile, and higher values being 
 slightly greater than in the boxplot of all days.
+Box widths are proportional to the square root of the number of observations (left box based on number of sampled days, right box based on total number of days in the record).
 Data come from named list, which contains a Sample dataframe with the sample data, 
 a Daily dataframe with the daily flow data,
 and an INFO dataframe with metadata.
@@ -123,10 +124,7 @@ Although there are a lot of optional arguments to this function, most are set to
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/WRTDSK.html">WRTDS-K In Development</a>
-    </li>
-    <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K Blog Article</a>
+      <a href="../articles/WRTDSK.html">WRTDS Kalman</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -182,15 +180,16 @@ using the log values but the scale is presented in the original units. An
 ideal situation would show the two boxes roughly similar to each other or 
 the sample boxplot having median, upper quartile, and higher values being 
 slightly greater than in the boxplot of all days.</p>
+<p>Box widths are proportional to the square root of the number of observations (left box based on number of sampled days, right box based on total number of days in the record).</p>
 <p>Data come from named list, which contains a Sample dataframe with the sample data, 
 a Daily dataframe with the daily flow data,
 and an INFO dataframe with metadata.</p>
 <p>Although there are a lot of optional arguments to this function, most are set to a logical default.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>boxQTwice</span>(<span class='no'>eList</span>, <span class='kw'>printTitle</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>qUnit</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>0.8</span>,
-  <span class='kw'>cex.main</span> <span class='kw'>=</span> <span class='fl'>1.1</span>, <span class='kw'>logScale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>cex.axis</span> <span class='kw'>=</span> <span class='fl'>1.1</span>, <span class='kw'>tcl</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
-  <span class='kw'>las</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>tinyPlot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>usgsStyle</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>customPar</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>boxQTwice</span><span class='op'>(</span><span class='va'>eList</span>, printTitle <span class='op'>=</span> <span class='cn'>TRUE</span>, qUnit <span class='op'>=</span> <span class='fl'>2</span>, cex <span class='op'>=</span> <span class='fl'>0.8</span>,
+  cex.main <span class='op'>=</span> <span class='fl'>1.1</span>, logScale <span class='op'>=</span> <span class='cn'>TRUE</span>, cex.axis <span class='op'>=</span> <span class='fl'>1.1</span>, tcl <span class='op'>=</span> <span class='fl'>0.5</span>,
+  las <span class='op'>=</span> <span class='fl'>1</span>, tinyPlot <span class='op'>=</span> <span class='cn'>FALSE</span>, usgsStyle <span class='op'>=</span> <span class='cn'>FALSE</span>, customPar <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -256,11 +255,15 @@ generated labels.</p></td>
     <div class='dont-index'><p><code><a href='https://rdrr.io/r/graphics/boxplot.html'>boxplot</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='no'>Choptank_eList</span>
+    <pre class="examples"><div class='input'><span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='va'>Choptank_eList</span>
 <span class='co'># Water year:</span>
-<span class='fu'>boxQTwice</span>(<span class='no'>eList</span>)</div><div class='img'><img src='boxQTwice-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>boxQTwice</span>(<span class='no'>eList</span>, <span class='kw'>qUnit</span><span class='kw'>=</span><span class='fl'>1</span>)</div><div class='input'><span class='fu'>boxQTwice</span>(<span class='no'>eList</span>, <span class='kw'>qUnit</span><span class='kw'>=</span><span class='st'>'cfs'</span>)</div><div class='img'><img src='boxQTwice-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Graphs consisting of Jun-Aug</span>
-<span class='no'>eList</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span>(<span class='no'>eList</span>, <span class='kw'>paStart</span><span class='kw'>=</span><span class='fl'>6</span>,<span class='kw'>paLong</span><span class='kw'>=</span><span class='fl'>3</span>)
-<span class='fu'>boxQTwice</span>(<span class='no'>eList</span>)</div><div class='img'><img src='boxQTwice-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>boxQTwice</span><span class='op'>(</span><span class='va'>eList</span><span class='op'>)</span>
+</div><div class='img'><img src='boxQTwice-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>boxQTwice</span><span class='op'>(</span><span class='va'>eList</span>, qUnit<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'>boxQTwice</span><span class='op'>(</span><span class='va'>eList</span>, qUnit<span class='op'>=</span><span class='st'>'cfs'</span><span class='op'>)</span>
+</div><div class='img'><img src='boxQTwice-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Graphs consisting of Jun-Aug</span>
+<span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span><span class='op'>(</span><span class='va'>eList</span>, paStart<span class='op'>=</span><span class='fl'>6</span>,paLong<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
+<span class='fu'>boxQTwice</span><span class='op'>(</span><span class='va'>eList</span><span class='op'>)</span>
+</div><div class='img'><img src='boxQTwice-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -276,7 +279,7 @@ generated labels.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>

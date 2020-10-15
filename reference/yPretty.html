@@ -113,10 +113,7 @@
       <a href="../articles/Enhancements.html">Enhancements</a>
     </li>
     <li>
-      <a href="../articles/WRTDSK.html">WRTDS-K In Development</a>
-    </li>
-    <li>
-      <a href="../articles/Making WRTDS_K flux estimates.html">WRTDS-K Blog Article</a>
+      <a href="../articles/WRTDSK.html">WRTDS Kalman</a>
     </li>
     <li>
       <a href="../articles/parallel.html">Running in Parallel</a>
@@ -168,7 +165,7 @@
     <p>Axis tick marks that run from zero to some specified maximum, creates about 4 to 8 ticks marks.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>yPretty</span>(<span class='no'>yMax</span>)</pre>
+    <pre class="usage"><span class='fu'>yPretty</span><span class='op'>(</span><span class='va'>yMax</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -184,8 +181,9 @@
     <p>yTicks A numeric vector representing the values for each of the tick marks</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>yTicks</span> <span class='kw'>&lt;-</span> <span class='fu'>yPretty</span>(<span class='fl'>7.8</span>)
-<span class='no'>yTicks</span> <span class='kw'>&lt;-</span> <span class='fu'>yPretty</span>(<span class='fl'>125</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='va'>yTicks</span> <span class='op'>&lt;-</span> <span class='fu'>yPretty</span><span class='op'>(</span><span class='fl'>7.8</span><span class='op'>)</span>
+<span class='va'>yTicks</span> <span class='op'>&lt;-</span> <span class='fu'>yPretty</span><span class='op'>(</span><span class='fl'>125</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -201,7 +199,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>
