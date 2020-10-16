@@ -16,11 +16,21 @@
 #'  and produce graphs and tables of data and results from these analyses.
 #'
 #' @name EGRET-package
-#' @import utils
-#' @import graphics
-#' @import stats
-#' @import grDevices
 #' @docType package
+#' @importFrom utils write.table
+#' @importFrom utils read.delim
+#' @importFrom utils URLencode
+#' @importFrom utils tail
+#' @importFrom stats aggregate
+#' @importFrom stats lm
+#' @importFrom stats median
+#' @importFrom stats sd
+#' @importFrom stats reshape
+#' @importFrom stats filter
+#' @importFrom stats rnorm
+#' @importFrom stats na.omit
+#' 
+#' @import grDevices
 #' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}, Laura De Cicco \email{ldecicco@@usgs.gov}
 #' @references Hirsch, R.M., and De Cicco, L.A., 2014, User guide to Exploration and Graphics for RivEr Trends 
 #' (EGRET) and dataRetrieval: R packages for hydrologic data: U.S. Geological Survey Techniques and Methods book 4, 
