@@ -1,9 +1,9 @@
-#' Annual series of flow-normalized concentration and flow-normalzed flux 
+#' Annual series of flow-normalized concentration and flow-normalized flux 
 #'
-#' \code{runSeries} provides annual series of flow-normalized concentration and flow-normalzed flux for the water quality record.  
+#' \code{runSeries} provides annual series of flow-normalized concentration and flow-normalized flux for the water quality record.  
 #' Computations could involve the use of the "wall" and/or use of "generalized flow 
 #' normalization".  These two concepts are described in detail in the vignette 
-#' [need a simple name for it here].  
+#' \code{vignette("Enhancements", package = "EGRET")}.  
 #' 
 #' @export
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes

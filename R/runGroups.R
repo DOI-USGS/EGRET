@@ -48,7 +48,7 @@
 #' The edgeAdjust method tends to reduce curvature near the start and end of record.  Default is TRUE.
 #' @param oldSurface logical specifying whether to use the original surface, or create a new one. Default is FALSE.
 #' @return data frame with the following columns:
-#' \tabular{lll}{
+#' \tabular{ll}{
 #' Name \tab Description \cr
 #' Total Change \tab   The difference between the results for year2 - year1\cr
 #' CQTC \tab this number is the difference between between the two years, but only the part that is due to the change 
@@ -61,7 +61,7 @@
 #' distribution (QD) for the entire period of record (starting with QStartDate and 
 #' ending with QEndDate, or if they aren't specified, it is all the discharge data 
 #' in the Daily data frame).\cr
-#' x11 \tab The results using the CQR for year 1, but using the QD specified by the user for year 1.\tab \cr
+#' x11 \tab The results using the CQR for year 1, but using the QD specified by the user for year 1. \cr
 #' x20 \tab The results using the CQR for year 2, but using the QD for the entire period. \cr
 #' x22 \tab The results for the CQR for year 2, but using the QD specified by the user for year 2. \cr
 #' }
