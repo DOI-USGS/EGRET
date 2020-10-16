@@ -310,19 +310,21 @@ The edgeAdjust method tends to reduce curvature near the start and end of record
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>data frame with the following columns:</p><table class='table'>
-<tr><td>Name</td><td>Description</td><td>Total Change</td></tr>
-<tr><td>The difference between the results for year2 - year1</td><td>CQTC</td><td>this number is the difference between between the two years, but only the part that is due to the change 
+<tr><td>Name</td><td>Description</td></tr>
+<tr><td>Total Change</td><td>The difference between the results for year2 - year1</td></tr>
+<tr><td>CQTC</td><td>this number is the difference between between the two years, but only the part that is due to the change 
 in the CQR. It is x20 - x10. In the results reported above as, "Concentration v. Q Trend 
 Component" it is computed as 100 * (x20 - x10) / x11</td></tr>
 <tr><td>QTC</td><td>The difference between the two years, but only the part that is due to the change in the QD. 
 It is the Total Change - CQTC. Or it can be stated as x22 - x11 - x20 + x10. In the results reported above as, "Q Trend Component" 
-it is computed as 100 * (x22 - x11 - x20 + x10) / x11.</td><td>x10</td></tr>
-<tr><td>The results using the concentration versus discharge relationship (CQR) for year 1, but using the discharge 
+it is computed as 100 * (x22 - x11 - x20 + x10) / x11.</td></tr>
+<tr><td>x10</td><td>The results using the concentration versus discharge relationship (CQR) for year 1, but using the discharge 
 distribution (QD) for the entire period of record (starting with QStartDate and 
 ending with QEndDate, or if they aren't specified, it is all the discharge data 
-in the Daily data frame).</td><td>x11</td><td>The results using the CQR for year 1, but using the QD specified by the user for year 1.</td></tr>
-<tr><td></td><td>x20</td><td>The results using the CQR for year 2, but using the QD for the entire period.</td></tr>
-<tr><td>x22</td><td>The results for the CQR for year 2, but using the QD specified by the user for year 2.</td><td></td></tr>
+in the Daily data frame).</td></tr>
+<tr><td>x11</td><td>The results using the CQR for year 1, but using the QD specified by the user for year 1.</td></tr>
+<tr><td>x20</td><td>The results using the CQR for year 2, but using the QD for the entire period.</td></tr>
+<tr><td>x22</td><td>The results for the CQR for year 2, but using the QD specified by the user for year 2.</td></tr>
 </table>
 
 
