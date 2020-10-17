@@ -2,7 +2,7 @@
 % Please edit documentation in R/runSeries.R
 \name{runSeries}
 \alias{runSeries}
-\title{Annual series of flow-normalized concentration and flow-normalzed flux}
+\title{Annual series of flow-normalized concentration and flow-normalized flux}
 \usage{
 runSeries(eList, windowSide, surfaceStart = NA, surfaceEnd = NA,
   flowBreak = FALSE, Q1EndDate = NA, QStartDate = NA, QEndDate = NA,
@@ -67,10 +67,10 @@ minimum number will be the maximum of minNumObs and fractMin multiplied by total
 eList named list with INFO, Daily, and Sample dataframes, along with the surfaces matrix.
 }
 \description{
-\code{runSeries} provides annual series of flow-normalized concentration and flow-normalzed flux for the water quality record.  
+\code{runSeries} provides annual series of flow-normalized concentration and flow-normalized flux for the water quality record.  
 Computations could involve the use of the "wall" and/or use of "generalized flow 
 normalization".  These two concepts are described in detail in the vignette 
-[need a simple name for it here].
+\code{vignette("Enhancements", package = "EGRET")}.
 }
 \examples{
 eList <- Choptank_eList
