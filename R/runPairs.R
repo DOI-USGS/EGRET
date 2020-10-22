@@ -11,7 +11,7 @@
 #' @param year1 integer the ending year of the first year in the pair
 #' @param year2 integer the ending year of the second year in the pair
 #' @param windowSide integer. The width of the flow normalization window on each side of the year being estimated.
-#' A common value is 7, but no default is specified.  If stationary flow normalization is to be used, then windowSide = 0 (this means that 
+#' A common value is 11, but no default is specified.  If stationary flow normalization is to be used, then windowSide = 0 (this means that 
 #' flow-normalization period for all years is the same).
 #' @param flowBreak logical. Is there an abrupt break in the discharge record, default is FALSE.
 #' @param Q1EndDate The Date (as character in YYYY-MM-DD) which is the last day, just before the flowBreak.
@@ -19,7 +19,8 @@
 #' NA, which makes the QStartDate become the first Date in eList$Daily. 
 #' @param QEndDate The last Date (as character in YYYY-MM-DD) used in the flow normalization method.  Default is NA, 
 #' which makes the QEndDate become the last Date in eList$Daily.
-#' @param wall logical. Whether there is an abrupt break in the concentration versus discharge relationship.  Default is FALSE
+#' @param wall logical. Whether there is an abrupt break in the concentration versus discharge relationship due to some major change in 
+#' pollution control or water management.  Default is FALSE.
 #' @param sample1EndDate The Date (as character in YYYY-MM-DD) of the last date just before the wall. Default = NA. 
 #' A date must be specified if wall = TRUE.
 #' @param sampleStartDate The Date (as character in YYYY-MM-DD) of the first sample to be used. Default is NA which sets it 
@@ -43,20 +44,16 @@
 #' @return data frame with the following columns:
 #' \tabular{ll}{
 #' Name \tab Description \cr
-#' Total Change \tab   The difference between the results for year2 - year1\cr
-#' CQTC \tab this number is the difference between between the two years, but only the part that is due to the change 
-#' in the CQR. It is x20 - x10. In the results reported above as, "Concentration v. Q Trend 
-#' Component" it is computed as 100 * (x20 - x10) / x11 \cr
-#' QTC \tab  The difference between the two years, but only the part that is due to the change in the QD. 
-#' It is the Total Change - CQTC. Or it can be stated as x22 - x11 - x20 + x10. In the results reported above as, "Q Trend Component" 
-#' it is computed as 100 * (x22 - x11 - x20 + x10) / x11. \cr
-#' x10 \tab The results using the concentration versus discharge relationship (CQR) for year 1, but using the discharge 
-#' distribution (QD) for the entire period of record (starting with QStartDate and 
-#' ending with QEndDate, or if they aren't specified, it is all the discharge data 
-#' in the Daily data frame).\cr
-#' x11 \tab The results using the CQR for year 1, but using the QD specified by the user for year 1.\cr
-#' x20 \tab The results using the CQR for year 2, but using the QD for the entire period. \cr
-#' x22 \tab The results for the CQR for year 2, but using the QD specified by the user for year 2. \cr
+#' Total Change \tab   The difference between the results for year2 - year1 (x22 - x11)\cr
+#' CQTC \tab CQTC is the "Concentration v. Q Trend Component." It is the component of total 
+#' change due to the change in the CQR (Concentration Discharge Relationship). (x20 - x10). \cr
+#' QTC \tab  QTC is the "Q Trend Component." It is the component of total change due to the
+#' trend in the QD (Discharge Distribution). (x22 - x11 - x20 + x10).  \cr
+#' x10 \tab The estimated value based on the CQR computed for year1, integrated over the QD for the entire 
+#' timespan of the Daily data frame (or the period QStartDate and to QEndDate if these are specified).\cr
+#' x11 \tab The estimated value based on the CQR for year1, integrated over the QD specified by the user for year1.\cr
+#' x20 \tab The estimated value based on the CQR computed for year2, integrated over the QD for the entire period of record. \cr
+#' x22 \tab The estimated value based on the CQR for year2, integrated over the QD specified by the user for year2. \cr
 #' }
 #' Additionally, there is an attribute on the data frame "Other", containing
 #' a list that includes minNumObs=minNumObs, minNumUncen, windowY, windowQ, 

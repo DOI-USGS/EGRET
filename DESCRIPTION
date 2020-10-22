@@ -26,9 +26,9 @@ Imports:
     fields,
     methods,
     utils,
+    grDevices,
     graphics,
     stats,
-    grDevices,
     truncnorm,
     foreach,
     MASS
