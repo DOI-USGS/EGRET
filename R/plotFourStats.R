@@ -6,7 +6,7 @@
 #'  
 #' Data come from named list, which contains a Sample dataframe with the sample data, 
 #' a Daily dataframe with the daily flow data,
-#' and an INFO dataframe with metadata. 
+#' and an INFO dataframe with metadata. Each graph shows a loess smooth of the data that are plotted.
 #'
 #' @param eList named list with at least Daily and INFO dataframes
 #' @param yearStart A numeric value for year in which the graph should start, default is NA, which indicates that the graph should start with first annual value
@@ -18,7 +18,7 @@
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param col color of points on plot, see ?par 'Color Specification'
-#' @param lwd number line width
+#' @param lwd number line width. Default is 1.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow statistics
 #' @export

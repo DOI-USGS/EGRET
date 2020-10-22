@@ -35,7 +35,7 @@ plotConcQ(eList, qUnit = 2, tinyPlot = FALSE, logScale = FALSE,
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
 
 \item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
-to TRUE does NOT guarantee USGS complience. It will only change automatically
+to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels.}
 
 \item{rmSciX}{logical defaults to FALSE, changes x label from scientific to fixed}
@@ -53,10 +53,20 @@ generated labels.}
 }
 \description{
 Data come from named list, which contains a Sample dataframe with the sample data, 
-and an INFO dataframe with metadata. 
-Discharge is plotted on a log scale.
+and an INFO dataframe with metadata. Discharge is plotted on a log scale.
 
 Although there are a lot of optional arguments to this function, most are set to a logical default.
+}
+\details{
+The function has two possible ways to plot censored values (e.g. "less-than values").
+ 
+The default is to plot them as a vertical line that goes from the reporting limit down to the bottom of the graph.
+
+The alternative is to set randomCensored = TRUE.  In this case a random value is used for plotting the individual sample value.  This random value lies between the reporting limit and zero and it is distributed as a truncated log normal based on the fitted WRTDS model.
+
+The function makeAugmentedSample must be run first if randomCensored = TRUE.  Running makeAugmentedSample requires that modelEstimation has already been run.
+
+These random censored values are used to create more readable plots and are not used in any computations about the data set.  The random censored values are shown as open circles and the non-censored data are shown as filled dots.
 }
 \examples{
 eList <- Choptank_eList
@@ -65,7 +75,7 @@ plotConcQ(eList)
 plotConcQ(eList, logScale=TRUE)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
-plotConcQ(eList, usgsStyle = TRUE)
+plotConcQ(eList)
 }
 \seealso{
 \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}

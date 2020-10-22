@@ -61,7 +61,7 @@ plotDiffContours(eList, year0, year1, qBottom = NA, qTop = NA,
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins.}
 
 \item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
-to TRUE does NOT guarantee USGS complience. It will only change automatically
+to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels.}
 
 \item{color.palette}{a function that creates a color palette for the contour plot. Default goes from blue to white to red 

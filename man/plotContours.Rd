@@ -53,7 +53,7 @@ plotContours(eList, yearStart, yearEnd, qBottom = NA, qTop = NA,
 \item{tick.lwd}{line width for axis ticks, default is 1}
 
 \item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
-to TRUE does NOT guarantee USGS complience. It will only change automatically
+to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels.}
 
 \item{lwd}{numeric, line width of flowDuration curve, default is 2}

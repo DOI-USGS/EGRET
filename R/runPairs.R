@@ -1,10 +1,24 @@
 #' Runs a comparison of any two years in the record.
 #' 
 #' \code{runPairs} provides comparisons of results, in terms of 
-#' flow-normalized concentration and flow-normalzed flux for any pair 
+#' flow-normalized concentration and flow-normalized flux for any pair 
 #' of years in the water quality record.  Comparison could involve the 
 #' use of the "wall" and/or use of "generalized flow normalization".  
-#' These two concepts are described in detail in the vignette.
+#' These two concepts are described in detail in the vignette:
+#' \code{vignette("Enhancements", package = "EGRET")}.
+#' 
+#' @details
+#' When using generalized flow-normalization, it is best to have the Daily data frame
+#' extend well beyond the years that are in the Sample data frame.  Ideally, 
+#' the Daily data frame would start windowSide years before the
+#' start of the Sample data set, if the data exist to provide for that. Generally
+#' that isn't possible for the end of the record because the Sample data
+#' may end very close to the present. To the extent that is possible therefore, it is better to
+#' include more discharge data after the end of the Sample record. 
+#' Also note that in the case run in the examples don't do that, 
+#' because the data set needs to be appropriate for stationary flow 
+#' normalization as well (and package size considerations make it difficult to
+#' include specialized examples).
 #' 
 #' @export
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
@@ -41,9 +55,11 @@
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
 #' The edgeAdjust method tends to reduce curvature near the start and end of record.  Default is TRUE.
 #' @param oldSurface logical specifying whether to use the original surface, or create a new one. Default is FALSE.
-#' @return data frame with the following columns:
+#' @return Data frame with 7 columns and 2 rows.  The first row is about trends in concentration (mg/L), 
+#' the second column is about trends in flux (million kg/year).  
+#' The data frame has a number of attributes.
 #' \tabular{ll}{
-#' Name \tab Description \cr
+#' Column Name \tab Description \cr
 #' Total Change \tab   The difference between the results for year2 - year1 (x22 - x11)\cr
 #' CQTC \tab CQTC is the "Concentration v. Q Trend Component." It is the component of total 
 #' change due to the change in the CQR (Concentration Discharge Relationship). (x20 - x10). \cr
@@ -70,7 +86,7 @@
 #' year2 <- 2010
 #' 
 #' \donttest{
-#' # Automatic calculations based on windowSide=7
+#' # Automatic calculations based on windowSide = 11
 #' # four possible ways to do generalized flow normalization:
 #' 
 #' #Option 1: Use all years for flow normalization.
@@ -78,9 +94,9 @@
 #' pairOut_1 <- runPairs(eList, year1, year2, windowSide = 0)
 #' 
 #' # Option 2:  Use different windows for flow normalization for year1 versus year2
-#' #            In each case it is a 15 year window (15 = 1 + 2*7)
+#' #            In each case it is a 23 year window (23 = 1 + 2*11)
 #' 
-#' pairOut_2 <- runPairs(eList, year1, year2, windowSide = 7)
+#' pairOut_2 <- runPairs(eList, year1, year2, windowSide = 11)
 #' 
 #' # Option 3: Flow normalization is based on splitting the flow record at 1990-09-30
 #' #          But year1 uses all flow data from before the break, 
@@ -91,11 +107,11 @@
 #'                       Q1EndDate = "1990-09-30")
 #' 
 #' # Option 4: Flow normalization is based on splitting the flow record at 1990-09-30
-#' #           but year1 uses a 15 year window before the break
-#' #           year2 uses a 15 year window after the break
+#' #           but year1 uses a 23 year window before the break
+#' #           year2 uses a 23 year window after the break
 #' 
 #' pairOut_4 <- runPairs(eList, year1, year2, 
-#'                       windowSide = 7, flowBreak = TRUE,
+#'                       windowSide = 11, flowBreak = TRUE,
 #'                       Q1EndDate = "1990-09-30")
 #'                       
 #' 

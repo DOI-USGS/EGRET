@@ -34,7 +34,7 @@ plotSDLogQ(eList, yearStart = NA, yearEnd = NA, window = 15,
 
 \item{cex.axis}{magnification to be used for axis annotation relative to the current setting of cex}
 
-\item{lwd}{line width, a positive number, defaulting to 1}
+\item{lwd}{line width, a positive number, defaulting to 2}
 
 \item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
@@ -54,10 +54,7 @@ eList <- Choptank_eList
 \donttest{
 # Water year:
 plotSDLogQ(eList) 
-plotSDLogQ(eList, 1998,2000) 
-# Graphs consisting of Jun-Aug
-eList <- setPA(eList, paStart=6,paLong=3)
-plotSDLogQ(eList) 
+plotSDLogQ(eList, 1998, 2000) 
 }
 }
 \seealso{

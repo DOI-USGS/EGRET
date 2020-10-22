@@ -11,7 +11,7 @@
 #' @param concentration logical if concentration=TRUE, labels returned as concentration units, otherwise flux units.
 #' @param units character concentration units. Typically found in INFO$param.units.
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
-#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' to TRUE does NOT guarantee USGS compliance. It will only change automatically
 #' generated labels
 #' @param prettyDate logical use 'pretty' limits for date axis if TRUE, or force the yearStart/yearEnd as limits if FALSE
 #' @keywords graphics water-quality statistics

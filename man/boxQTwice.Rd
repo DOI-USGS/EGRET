@@ -30,7 +30,7 @@ boxQTwice(eList, printTitle = TRUE, qUnit = 2, cex = 0.8,
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be plotted small as part of a multi-plot figure, default is FALSE.}
 
 \item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
-to TRUE does NOT guarantee USGS complience. It will only change automatically
+to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels.}
 
 \item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function}

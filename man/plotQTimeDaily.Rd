@@ -27,10 +27,10 @@ plotQTimeDaily(eList, yearStart = NA, yearEnd = NA, qLower = NA,
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)}
 
 \item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
-to TRUE does NOT guarantee USGS complience. It will only change automatically
+to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels.}
 
-\item{lwd}{line width, a positive number, defaulting to 1}
+\item{lwd}{line width, a positive number, defaulting to 3}
 
 \item{col}{specification for the default plotting color}
 
@@ -60,9 +60,6 @@ eList <- Choptank_eList
 plotQTimeDaily(eList)
 plotQTimeDaily(eList, yearStart=1990, yearEnd=2000,qLower=1500)
 plotQTimeDaily(eList, prettyDate=FALSE)
-# Graphs consisting of Jun-Aug
-eList <- setPA(eList, paStart=6,paLong=3)
-plotQTimeDaily(eList)
 }
 \seealso{
 \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}

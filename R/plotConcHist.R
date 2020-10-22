@@ -51,10 +51,10 @@
 #' eList <- Choptank_eList
 #' 
 #' # Water year:
-#' plotConcHist(eList, yearStart, yearEnd, tinyPlot = TRUE)
+#' plotConcHist(eList, yearStart, yearEnd)
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
-#' plotConcHist(eList, tinyPlot = TRUE)
+#' plotConcHist(eList)
 #' 
 plotConcHist<-function(eList, yearStart = NA, yearEnd = NA, 
                        concMax = NA, 

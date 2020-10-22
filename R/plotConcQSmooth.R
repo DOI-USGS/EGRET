@@ -48,7 +48,7 @@
 #' @param lineVal vector of line types. Defaults to c(1,1,1) which is a solid line for each line. Options: 0=blank, 1=solid (default), 2=dashed, 3=dotted, 4=dotdash, 5=longdash, 6=twodash
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
-#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' to TRUE does NOT guarantee USGS compliance. It will only change automatically
 #' generated labels
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords water-quality statistics graphics

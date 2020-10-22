@@ -238,19 +238,6 @@ genmissing <- function(X1, XN, rho, N){
 }
 
 
-specialCase <- function(eList) {
-  Sample <- eList$Sample
-  n <- length(Sample$Date)
-  days <- unique(Sample$Julian)
-  nDays <- length(days)
-  mult <- n > nDays
-  nUncen <- sum(Sample$Uncen)
-  cen <- nUncen < n
-  # when mult is TRUE, needs to go through the subsampling process each time
-  # when cen is TRUE it needs to go through the random augmentation 
-  special <- data.frame(mult, cen)
-  return(special)
-}
 
 #' plotWRTDSKalman
 #' 
@@ -275,8 +262,6 @@ specialCase <- function(eList) {
 #' plotWRTDSKalman(eList, sideBySide = TRUE)
 #' 
 plotWRTDSKalman <- function(eList, sideBySide = FALSE) {
-
-  message("This function is currently in development")
 
   if(!all((c("GenFlux","GenConc") %in% names(eList$Daily)))){
     stop("This function requires running WRTDSKalman on eList")

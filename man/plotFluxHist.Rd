@@ -91,7 +91,7 @@ plotFluxHist(eList, yearStart, yearEnd, fluxUnit = 1)
 plotFluxHist(eList, yearStart, yearEnd, fluxUnit = 'kgDay')
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
-plotFluxHist(eList) #' 
+plotFluxHist(eList)  
 }
 }
 \seealso{
