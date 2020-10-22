@@ -86,7 +86,7 @@ Dataframe with 7 columns and 2 rows.  The first row is about trends in concentra
 The data frame has a number of attributes.
 \tabular{ll}{
 Column Name \tab Description \cr
-Total Change \tab   The difference between the results for group2 - group1 (x22 – x11). \cr
+Total Change \tab   The difference between the results for group2 - group1 (x22 - x11). \cr
 CQTC \tab CQTC is the "Concentration v. Q Trend Component." It is the component of total change due to the change in the CQR (Concentration Discharge Relationship). (x20 - x10). \cr
 QTC \tab QTC is the "Q Trend Component." It is the component of total change due to the trend in the QD (Discharge Distribution). (x22 - x11 - x20 + x10). \cr
 x10 \tab The estimated value based on the CQR computed for the years in group1, integrated over the QD for the entire timespan of the Daily data frame (or the 
@@ -100,7 +100,7 @@ x22 \tab The estimated value based on the CQR for the years in group2, integrate
 \code{runGroups} provides comparisons of results, in terms of 
 flow-normalized concentration and flow-normalized flux for any groups of years
 of years in the water quality record.  Comparison could involve the 
-use of the "wall" and/or use of "generalized flow normalization".  
+use of the "wall" and/or use of "generalized flow-normalization".  
 These two concepts are described in detail in the vignette:
 \code{vignette("Enhancements", package = "EGRET")}.
 }
