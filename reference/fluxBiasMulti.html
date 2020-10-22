@@ -220,7 +220,7 @@ a Daily dataframe with the daily flow data, and an INFO dataframe with metadata.
     </tr>
     <tr>
       <th>randomCensored</th>
-      <td><p>logical. Show censored residuals as randomized.</p></td>
+      <td><p>logical, if TRUE plot a random value for censored data.  Default is FALSE.</p></td>
     </tr>
     <tr>
       <th>col</th>
@@ -241,10 +241,11 @@ a Daily dataframe with the daily flow data, and an INFO dataframe with metadata.
     <pre class="examples"><div class='input'><span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='va'>Choptank_eList</span>
 <span class='co'># Water year:</span>
 <span class='fu'>fluxBiasMulti</span><span class='op'>(</span><span class='va'>eList</span><span class='op'>)</span>
-</div><div class='img'><img src='fluxBiasMulti-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Graphs consisting of Jun-Aug</span>
+</div><div class='img'><img src='fluxBiasMulti-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>fluxBiasMulti</span><span class='op'>(</span><span class='va'>eList</span>, fluxUnit <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='img'><img src='fluxBiasMulti-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Graphs consisting of Jun-Aug</span>
 <span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span><span class='op'>(</span><span class='va'>eList</span>,paStart<span class='op'>=</span><span class='fl'>6</span>,paLong<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
 <span class='fu'>fluxBiasMulti</span><span class='op'>(</span><span class='va'>eList</span><span class='op'>)</span>
-</div><div class='img'><img src='fluxBiasMulti-2.png' alt='' width='700' height='433' /></div></pre>
+</div><div class='img'><img src='fluxBiasMulti-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

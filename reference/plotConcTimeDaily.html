@@ -221,7 +221,7 @@ and an INFO dataframe with metadata.</p>
     </tr>
     <tr>
       <th>randomCensored</th>
-      <td><p>logical. Show censored values as randomized.</p></td>
+      <td><p>if TRUE plot a random value for censored data.  Default is FALSE.</p></td>
     </tr>
     <tr>
       <th>cex.main</th>
@@ -247,7 +247,7 @@ and an INFO dataframe with metadata.</p>
     <tr>
       <th>usgsStyle</th>
       <td><p>logical option to use USGS style guidelines. Setting this option
-to TRUE does NOT guarantee USGS complience. It will only change automatically
+to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels</p></td>
     </tr>
     <tr>
@@ -265,10 +265,7 @@ generated labels</p></td>
 <span class='co'># Water year:</span>
 <span class='fu'>plotConcTimeDaily</span><span class='op'>(</span><span class='va'>eList</span><span class='op'>)</span>
 </div><div class='img'><img src='plotConcTimeDaily-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotConcTimeDaily</span><span class='op'>(</span><span class='va'>eList</span>, yearStart<span class='op'>=</span><span class='fl'>1998</span>,yearEnd<span class='op'>=</span><span class='fl'>2001</span><span class='op'>)</span>
-</div><div class='img'><img src='plotConcTimeDaily-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Graphs consisting of Jun-Aug</span>
-<span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span><span class='op'>(</span><span class='va'>eList</span>, paStart<span class='op'>=</span><span class='fl'>6</span>,paLong<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
-<span class='fu'>plotConcTimeDaily</span><span class='op'>(</span><span class='va'>eList</span><span class='op'>)</span>
-</div><div class='img'><img src='plotConcTimeDaily-3.png' alt='' width='700' height='433' /></div></pre>
+</div><div class='img'><img src='plotConcTimeDaily-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

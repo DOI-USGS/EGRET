@@ -48,10 +48,11 @@
 
 <meta property="og:title" content="Runs a comparison of any two years in the record. — runPairs" />
 <meta property="og:description" content="runPairs provides comparisons of results, in terms of 
-flow-normalized concentration and flow-normalzed flux for any pair 
+flow-normalized concentration and flow-normalized flux for any pair 
 of years in the water quality record.  Comparison could involve the 
 use of the &quot;wall&quot; and/or use of &quot;generalized flow normalization&quot;.  
-These two concepts are described in detail in the vignette." />
+These two concepts are described in detail in the vignette:
+vignette(&quot;Enhancements&quot;, package = &quot;EGRET&quot;)." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -167,10 +168,11 @@ These two concepts are described in detail in the vignette." />
 
     <div class="ref-description">
     <p><code>runPairs</code> provides comparisons of results, in terms of 
-flow-normalized concentration and flow-normalzed flux for any pair 
+flow-normalized concentration and flow-normalized flux for any pair 
 of years in the water quality record.  Comparison could involve the 
 use of the "wall" and/or use of "generalized flow normalization".  
-These two concepts are described in detail in the vignette.</p>
+These two concepts are described in detail in the vignette:
+<code><a href='../articles/Enhancements.html'>vignette("Enhancements", package = "EGRET")</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>runPairs</span><span class='op'>(</span><span class='va'>eList</span>, <span class='va'>year1</span>, <span class='va'>year2</span>, <span class='va'>windowSide</span>, flowBreak <span class='op'>=</span> <span class='cn'>FALSE</span>,
@@ -198,7 +200,7 @@ These two concepts are described in detail in the vignette.</p>
     <tr>
       <th>windowSide</th>
       <td><p>integer. The width of the flow normalization window on each side of the year being estimated.
-A common value is 7, but no default is specified.  If stationary flow normalization is to be used, then windowSide = 0 (this means that 
+A common value is 11, but no default is specified.  If stationary flow normalization is to be used, then windowSide = 0 (this means that 
 flow-normalization period for all years is the same).</p></td>
     </tr>
     <tr>
@@ -221,7 +223,8 @@ which makes the QEndDate become the last Date in eList$Daily.</p></td>
     </tr>
     <tr>
       <th>wall</th>
-      <td><p>logical. Whether there is an abrupt break in the concentration versus discharge relationship.  Default is FALSE</p></td>
+      <td><p>logical. Whether there is an abrupt break in the concentration versus discharge relationship due to some major change in 
+pollution control or water management.  Default is FALSE.</p></td>
     </tr>
     <tr>
       <th>oldSurface</th>
@@ -286,22 +289,20 @@ The edgeAdjust method tends to reduce curvature near the start and end of record
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>data frame with the following columns:</p><table class='table'>
-<tr><td>Name</td><td>Description</td></tr>
-<tr><td>Total Change</td><td>The difference between the results for year2 - year1</td></tr>
-<tr><td>CQTC</td><td>this number is the difference between between the two years, but only the part that is due to the change 
-in the CQR. It is x20 - x10. In the results reported above as, "Concentration v. Q Trend 
-Component" it is computed as 100 * (x20 - x10) / x11</td></tr>
-<tr><td>QTC</td><td>The difference between the two years, but only the part that is due to the change in the QD. 
-It is the Total Change - CQTC. Or it can be stated as x22 - x11 - x20 + x10. In the results reported above as, "Q Trend Component" 
-it is computed as 100 * (x22 - x11 - x20 + x10) / x11.</td></tr>
-<tr><td>x10</td><td>The results using the concentration versus discharge relationship (CQR) for year 1, but using the discharge 
-distribution (QD) for the entire period of record (starting with QStartDate and 
-ending with QEndDate, or if they aren't specified, it is all the discharge data 
-in the Daily data frame).</td></tr>
-<tr><td>x11</td><td>The results using the CQR for year 1, but using the QD specified by the user for year 1.</td></tr>
-<tr><td>x20</td><td>The results using the CQR for year 2, but using the QD for the entire period.</td></tr>
-<tr><td>x22</td><td>The results for the CQR for year 2, but using the QD specified by the user for year 2.</td></tr>
+    <p>Data frame with 7 columns and 2 rows.  The first row is about trends in concentration (mg/L), 
+the second column is about trends in flux (million kg/year).  
+The data frame has a number of attributes.</p><table class='table'>
+<tr><td>Column Name</td><td>Description</td></tr>
+<tr><td>Total Change</td><td>The difference between the results for year2 - year1 (x22 - x11)</td></tr>
+<tr><td>CQTC</td><td>CQTC is the "Concentration v. Q Trend Component." It is the component of total 
+change due to the change in the CQR (Concentration Discharge Relationship). (x20 - x10).</td></tr>
+<tr><td>QTC</td><td>QTC is the "Q Trend Component." It is the component of total change due to the
+trend in the QD (Discharge Distribution). (x22 - x11 - x20 + x10).</td></tr>
+<tr><td>x10</td><td>The estimated value based on the CQR computed for year1, integrated over the QD for the entire 
+timespan of the Daily data frame (or the period QStartDate and to QEndDate if these are specified).</td></tr>
+<tr><td>x11</td><td>The estimated value based on the CQR for year1, integrated over the QD specified by the user for year1.</td></tr>
+<tr><td>x20</td><td>The estimated value based on the CQR computed for year2, integrated over the QD for the entire period of record.</td></tr>
+<tr><td>x22</td><td>The estimated value based on the CQR for year2, integrated over the QD specified by the user for year2.</td></tr>
 </table>
 <p>Additionally, there is an attribute on the data frame "Other", containing
 a list that includes minNumObs=minNumObs, minNumUncen, windowY, windowQ, 
@@ -310,6 +311,19 @@ windowS, wall, edgeAdjust, QStartDate, QEndDate, PercentChangeConc, and PercentC
 Total Percent Change  is the Total Change divided by x11
 CQTC Percent is the CQTC divided by x11
 QTC Percent  is the QTC divided by x11</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>When using generalized flow-normalization, it is best to have the Daily data frame
+extend well beyond the years that are in the Sample data frame.  Ideally, 
+the Daily data frame would start windowSide years before the
+start of the Sample data set, if the data exist to provide for that. Generally
+that isn't possible for the end of the record because the Sample data
+may end very close to the present. To the extent that is possible therefore, it is better to
+include more discharge data after the end of the Sample record. 
+Also note that in the case run in the examples don't do that, 
+because the data set needs to be appropriate for stationary flow 
+normalization as well (and package size considerations make it difficult to
+include specialized examples).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='va'>Choptank_eList</span>
@@ -317,7 +331,7 @@ QTC Percent  is the QTC divided by x11</p>
 <span class='va'>year2</span> <span class='op'>&lt;-</span> <span class='fl'>2010</span>
 
 <span class='co'># \donttest{</span>
-<span class='co'># Automatic calculations based on windowSide=7</span>
+<span class='co'># Automatic calculations based on windowSide = 11</span>
 <span class='co'># four possible ways to do generalized flow normalization:</span>
 
 <span class='co'>#Option 1: Use all years for flow normalization.</span>
@@ -347,9 +361,9 @@ QTC Percent  is the QTC divided by x11</p>
 #&gt; Conc       0.429 0.429   0 1.01 1.01 1.44 1.44
 #&gt; Flux       0.034 0.034   0 0.12 0.12 0.15 0.15</div><div class='input'>
 <span class='co'># Option 2:  Use different windows for flow normalization for year1 versus year2</span>
-<span class='co'>#            In each case it is a 15 year window (15 = 1 + 2*7)</span>
+<span class='co'>#            In each case it is a 23 year window (23 = 1 + 2*11)</span>
 
-<span class='va'>pairOut_2</span> <span class='op'>&lt;-</span> <span class='fu'>runPairs</span><span class='op'>(</span><span class='va'>eList</span>, <span class='va'>year1</span>, <span class='va'>year2</span>, windowSide <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span>
+<span class='va'>pairOut_2</span> <span class='op'>&lt;-</span> <span class='fu'>runPairs</span><span class='op'>(</span><span class='va'>eList</span>, <span class='va'>year1</span>, <span class='va'>year2</span>, windowSide <span class='op'>=</span> <span class='fl'>11</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; 
 #&gt;    Choptank River 
 #&gt;    Inorganic nitrogen (nitrate and nitrite)
@@ -357,22 +371,22 @@ QTC Percent  is the QTC divided by x11</p>
 #&gt; 
 #&gt;  Change estimates  2010  minus  1985 
 #&gt; 
-#&gt;  For concentration: total change is  0.397 mg/L
-#&gt;  expressed as Percent Change is  39 %
+#&gt;  For concentration: total change is  0.407 mg/L
+#&gt;  expressed as Percent Change is  40 %
 #&gt; 
 #&gt;  Concentration v. Q Trend Component  42 %
-#&gt;        Q Trend Component             -3.1 % 
+#&gt;        Q Trend Component             -2.2 % 
 #&gt; 
 #&gt; 
-#&gt;  For flux: total change is  0.0543 million kg/year
-#&gt;  expressed as Percent Change is  51 %
+#&gt;  For flux: total change is  0.0476 million kg/year
+#&gt;  expressed as Percent Change is  43 %
 #&gt; 
-#&gt;  Concentration v. Q Trend Component  32 %
-#&gt;        Q Trend Component             19 % 
+#&gt;  Concentration v. Q Trend Component  31 %
+#&gt;        Q Trend Component             12 % 
 #&gt; 
 #&gt;      TotalChange  CQTC    QTC  x10  x11  x20  x22
-#&gt; Conc       0.397 0.429 -0.032 1.01 1.03 1.44 1.43
-#&gt; Flux       0.054 0.034  0.020 0.12 0.11 0.15 0.16</div><div class='input'>
+#&gt; Conc       0.407 0.429 -0.022 1.01 1.02 1.44 1.43
+#&gt; Flux       0.048 0.034  0.013 0.12 0.11 0.15 0.16</div><div class='input'>
 <span class='co'># Option 3: Flow normalization is based on splitting the flow record at 1990-09-30</span>
 <span class='co'>#          But year1 uses all flow data from before the break, </span>
 <span class='co'>#          year2 uses all flow data after the break</span>
@@ -404,11 +418,11 @@ QTC Percent  is the QTC divided by x11</p>
 #&gt; Conc       0.408 0.429 -0.021 1.01 1.03 1.44 1.43
 #&gt; Flux       0.049 0.034  0.015 0.12 0.11 0.15 0.16</div><div class='input'>
 <span class='co'># Option 4: Flow normalization is based on splitting the flow record at 1990-09-30</span>
-<span class='co'>#           but year1 uses a 15 year window before the break</span>
-<span class='co'>#           year2 uses a 15 year window after the break</span>
+<span class='co'>#           but year1 uses a 23 year window before the break</span>
+<span class='co'>#           year2 uses a 23 year window after the break</span>
 
 <span class='va'>pairOut_4</span> <span class='op'>&lt;-</span> <span class='fu'>runPairs</span><span class='op'>(</span><span class='va'>eList</span>, <span class='va'>year1</span>, <span class='va'>year2</span>, 
-                      windowSide <span class='op'>=</span> <span class='fl'>7</span>, flowBreak <span class='op'>=</span> <span class='cn'>TRUE</span>,
+                      windowSide <span class='op'>=</span> <span class='fl'>11</span>, flowBreak <span class='op'>=</span> <span class='cn'>TRUE</span>,
                       Q1EndDate <span class='op'>=</span> <span class='st'>"1990-09-30"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; <span class='message'>Sample1 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>Sample2 has 606 Samples and 605 are uncensored</span></div><div class='output co'>#&gt; <span class='message'>minNumObs has been set to 100 minNumUncen has been set to 50</span></div><div class='output co'>#&gt; 
 #&gt;    Choptank River 
@@ -417,22 +431,22 @@ QTC Percent  is the QTC divided by x11</p>
 #&gt; 
 #&gt;  Change estimates  2010  minus  1985 
 #&gt; 
-#&gt;  For concentration: total change is  0.399 mg/L
-#&gt;  expressed as Percent Change is  39 %
+#&gt;  For concentration: total change is  0.408 mg/L
+#&gt;  expressed as Percent Change is  40 %
 #&gt; 
 #&gt;  Concentration v. Q Trend Component  42 %
-#&gt;        Q Trend Component             -2.9 % 
+#&gt;        Q Trend Component             -2 % 
 #&gt; 
 #&gt; 
-#&gt;  For flux: total change is  0.0541 million kg/year
-#&gt;  expressed as Percent Change is  50 %
+#&gt;  For flux: total change is  0.0491 million kg/year
+#&gt;  expressed as Percent Change is  46 %
 #&gt; 
 #&gt;  Concentration v. Q Trend Component  32 %
-#&gt;        Q Trend Component             19 % 
+#&gt;        Q Trend Component             14 % 
 #&gt; 
-#&gt;      TotalChange  CQTC   QTC  x10  x11  x20  x22
-#&gt; Conc       0.399 0.429 -0.03 1.01 1.03 1.44 1.43
-#&gt; Flux       0.054 0.034  0.02 0.12 0.11 0.15 0.16</div><div class='input'>                      
+#&gt;      TotalChange  CQTC    QTC  x10  x11  x20  x22
+#&gt; Conc       0.408 0.429 -0.021 1.01 1.03 1.44 1.43
+#&gt; Flux       0.049 0.034  0.015 0.12 0.11 0.15 0.16</div><div class='input'>                      
 
 <span class='co'># }</span>
 </div></pre>

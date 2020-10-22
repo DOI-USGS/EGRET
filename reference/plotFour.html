@@ -50,7 +50,7 @@
 <meta property="og:description" content="Part of the flowHistory system.  The four statistics are 1-day maximum, annual mean, annual 7-day minimum, and the running standard deviation of the log daily discharge values. 
 Although there are a lot of optional arguments to this function, most are set to a logical default. 
 Data come from named list, which contains a Daily dataframe with the daily flow data,
-and an INFO dataframe with metadata." />
+and an INFO dataframe with metadata. Each graph shows a loess smooth of the data that are plotted." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -168,7 +168,7 @@ and an INFO dataframe with metadata." />
     <p>Part of the flowHistory system.  The four statistics are 1-day maximum, annual mean, annual 7-day minimum, and the running standard deviation of the log daily discharge values.</p> 
 <p>Although there are a lot of optional arguments to this function, most are set to a logical default.</p> 
 <p>Data come from named list, which contains a Daily dataframe with the daily flow data,
-and an INFO dataframe with metadata.</p>
+and an INFO dataframe with metadata. Each graph shows a loess smooth of the data that are plotted.</p>
     </div>
 
     <pre class="usage"><span class='fu'>plotFour</span><span class='op'>(</span><span class='va'>eList</span>, yearStart <span class='op'>=</span> <span class='cn'>NA</span>, yearEnd <span class='op'>=</span> <span class='cn'>NA</span>, printTitle <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -224,7 +224,7 @@ and an INFO dataframe with metadata.</p>
     </tr>
     <tr>
       <th>lwd</th>
-      <td><p>number line width</p></td>
+      <td><p>number line width. Default is 1.</p></td>
     </tr>
     <tr>
       <th>...</th>

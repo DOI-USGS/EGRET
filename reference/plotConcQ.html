@@ -48,8 +48,7 @@
 
 <meta property="og:title" content="Plot of Observed Concentration versus Discharge — plotConcQ" />
 <meta property="og:description" content="Data come from named list, which contains a Sample dataframe with the sample data, 
-and an INFO dataframe with metadata. 
-Discharge is plotted on a log scale.
+and an INFO dataframe with metadata. Discharge is plotted on a log scale.
 Although there are a lot of optional arguments to this function, most are set to a logical default." />
 <meta property="og:image" content="/logo.png" />
 
@@ -166,8 +165,7 @@ Although there are a lot of optional arguments to this function, most are set to
 
     <div class="ref-description">
     <p>Data come from named list, which contains a Sample dataframe with the sample data, 
-and an INFO dataframe with metadata. 
-Discharge is plotted on a log scale.</p>
+and an INFO dataframe with metadata. Discharge is plotted on a log scale.</p>
 <p>Although there are a lot of optional arguments to this function, most are set to a logical default.</p>
     </div>
 
@@ -228,7 +226,7 @@ Discharge is plotted on a log scale.</p>
     <tr>
       <th>usgsStyle</th>
       <td><p>logical option to use USGS style guidelines. Setting this option
-to TRUE does NOT guarantee USGS complience. It will only change automatically
+to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels.</p></td>
     </tr>
     <tr>
@@ -258,6 +256,13 @@ generated labels.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The function has two possible ways to plot censored values (e.g. "less-than values").</p> 
+<p>The default is to plot them as a vertical line that goes from the reporting limit down to the bottom of the graph.</p>
+<p>The alternative is to set randomCensored = TRUE.  In this case a random value is used for plotting the individual sample value.  This random value lies between the reporting limit and zero and it is distributed as a truncated log normal based on the fitted WRTDS model.</p>
+<p>The function makeAugmentedSample must be run first if randomCensored = TRUE.  Running makeAugmentedSample requires that modelEstimation has already been run.</p>
+<p>These random censored values are used to create more readable plots and are not used in any computations about the data set.  The random censored values are shown as open circles and the non-censored data are shown as filled dots.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='selectDays.html'>selectDays</a></code>, <code><a href='genericEGRETDotPlot.html'>genericEGRETDotPlot</a></code></p></div>
@@ -269,7 +274,7 @@ generated labels.</p></td>
 </div><div class='img'><img src='plotConcQ-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>plotConcQ</span><span class='op'>(</span><span class='va'>eList</span>, logScale<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='img'><img src='plotConcQ-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Graphs consisting of Jun-Aug</span>
 <span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span><span class='op'>(</span><span class='va'>eList</span>, paStart<span class='op'>=</span><span class='fl'>6</span>,paLong<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
-<span class='fu'>plotConcQ</span><span class='op'>(</span><span class='va'>eList</span>, usgsStyle <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'>plotConcQ</span><span class='op'>(</span><span class='va'>eList</span><span class='op'>)</span>
 </div><div class='img'><img src='plotConcQ-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -229,7 +229,7 @@ and an INFO dataframe with metadata.</p>
     <tr>
       <th>usgsStyle</th>
       <td><p>logical option to use USGS style guidelines. Setting this option
-to TRUE does NOT guarantee USGS complience. It will only change automatically
+to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels</p></td>
     </tr>
     <tr>
@@ -245,13 +245,12 @@ generated labels</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='va'>Choptank_eList</span>
 <span class='co'># Water year:</span>
-<span class='fu'>plotConcPred</span><span class='op'>(</span><span class='va'>eList</span>, tinyPlot <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='img'><img src='plotConcPred-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>graphics.off</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='fu'>plotConcPred</span><span class='op'>(</span><span class='va'>eList</span>, logScale<span class='op'>=</span><span class='cn'>TRUE</span>, tinyPlot <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'>plotConcPred</span><span class='op'>(</span><span class='va'>eList</span><span class='op'>)</span>
+</div><div class='img'><img src='plotConcPred-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Graphs consisting of Jun-Aug</span>
 <span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='fu'><a href='setPA.html'>setPA</a></span><span class='op'>(</span><span class='va'>eList</span>, paStart<span class='op'>=</span><span class='fl'>6</span>,paLong<span class='op'>=</span><span class='fl'>3</span><span class='op'>)</span>
-<span class='fu'>plotConcPred</span><span class='op'>(</span><span class='va'>eList</span>, usgsStyle<span class='op'>=</span><span class='cn'>TRUE</span>, tinyPlot <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div></pre>
+<span class='fu'>plotConcPred</span><span class='op'>(</span><span class='va'>eList</span><span class='op'>)</span>
+</div><div class='img'><img src='plotConcPred-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
