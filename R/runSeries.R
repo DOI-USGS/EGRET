@@ -2,12 +2,27 @@
 #'
 #' \code{runSeries} provides annual series of flow-normalized concentration and flow-normalized flux for the water quality record.  
 #' Computations could involve the use of the "wall" and/or use of "generalized flow 
-#' normalization".  These two concepts are described in detail in the vignette 
+#' normalization".  These two concepts are described in detail in the vignette:  
 #' \code{vignette("Enhancements", package = "EGRET")}.  
+#' 
+#' @details
+#' When using generalized flow-normalization, it is best to have the Daily data frame
+#' extend well beyond the years that are in the Sample data frame.  Ideally, 
+#' the Daily data frame would start windowSide years before the
+#' start of the Sample data set, if the data exist to provide for that. Generally
+#' that isn't possible for the end of the record because the Sample data
+#' may end very close to the present. To the extent that is possible therefore, it is better to
+#' include more discharge data after the end of the Sample record. 
+#' Also note that in the case run in the examples don't do that, 
+#' because the data set needs to be appropriate for stationary flow 
+#' normalization as well (and package size considerations make it difficult to
+#' include specialized examples).
 #' 
 #' @export
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
-#' @param windowSide integer The width of the flow normalization window on each side of the year being estimated.  A common value is 7, but no default is specified.  If stationary flow normalization is to be used, then windowSide = 0 (this means that flow-normalization period for all years is the same).
+#' @param windowSide integer. The width of the flow normalization window on each side of the year being estimated.
+#' A common value is 11, but no default is specified.  If stationary flow normalization is to be used, then windowSide = 0 (this means that 
+#' flow-normalization period for all years is the same).
 #' @param surfaceStart The Date (or character in YYYY-MM-DD) that is the start of the WRTDS model to be estimated and the first of the 
 #' daily outputs to be generated.  Default is NA, which means that the surfaceStart is based on the date of the first sample. 
 #' @param surfaceEnd The Date (or character in YYYY-MM-DD) that is the end of the WRTDS model to be estimated and the last of the daily outputs 
@@ -16,7 +31,8 @@
 #' @param Q1EndDate The Date (as character in YYYY-MM-DD format) which is the last day, just before the flowBreak. Required if flowBreak = TRUE.
 #' @param QStartDate The first Date (as character in YYYY-MM-DD format) used in the flow normalization.  Default is NA, which makes the QStartDate become the first Date in eList$Daily. 
 #' @param QEndDate The last Date (as character in YYYY-MM-DD format) used in the flow normalization.  Default is NA, which makes the QEndDate become the last Date in eList$Daily. 
-#' @param wall logical, there is an abrupt break in concentration versus discharge relationship.  Default is FALSE.
+#' @param wall logical. Whether there is an abrupt break in the concentration versus discharge relationship due to some major change in 
+#' pollution control or water management.  Default is FALSE.
 #' @param sample1EndDate The Date (as character in YYYY-MM-DD format) of the last day just before the wall.  Default = NA.  A date must be specified if wall = TRUE.
 #' @param sampleStartDate The Date (as character in YYYY-MM-DD format) of the first sample to be used.  Default is NA which sets it to the first Date in eList$Sample.
 #' @param sampleEndDate The Date (as character in YYYY-MM-DD format) of the last sample to be used. Default is NA which sets it to the last Date in eList$Sample. 
@@ -39,7 +55,7 @@
 #' eList <- Choptank_eList
 #' 
 #' \donttest{
-#' # Automatic calculations based on windowSide=7
+#' # Automatic calculations based on windowSide = 11
 #' # four possible ways to do generalized flow normalization
 #' 
 #' #Option 1:  Use all years for flow normalization.
@@ -48,8 +64,8 @@
 #' plotFluxHist(seriesOut_1)
 #' 
 #' # Option 2: Use sliding window throughout the whole flow normalization process.
-#' #                In each case it is a 15 year window (15 = 1 + 2*7)
-#' seriesOut_2 <- runSeries(eList, windowSide = 7)
+#' #                In each case it is a 15 year window (23 = 1 + 2*11)
+#' seriesOut_2 <- runSeries(eList, windowSide = 11)
 #' 
 #' plotConcHist(seriesOut_2)
 #' plotFluxHist(seriesOut_2)
@@ -66,10 +82,10 @@
 #' plotFluxHist(seriesOut_3)
 #' 
 #' # Option 4: Flow normalization is based on splitting the flow record at 1990-09-30
-#' #                but before the break uses a 15 year window of years before the break
-#' #                after the break uses a 15 year window of years after the break
+#' #                but before the break uses a 23 year window of years before the break
+#' #                after the break uses a 23 year window of years after the break
 #' seriesOut_4 <- runSeries(eList, 
-#'                       windowSide = 7, flowBreak = TRUE,
+#'                       windowSide = 11, flowBreak = TRUE,
 #'                       Q1EndDate = "1990-09-30")
 #'                       
 #' plotConcHist(seriesOut_4)

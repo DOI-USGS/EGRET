@@ -20,7 +20,7 @@
 #' @param lwd number line width
 #' @param randomCensored logical. Show censored values as randomized.
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
-#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' to TRUE does NOT guarantee USGS compliance. It will only change automatically
 #' generated labels
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
@@ -29,12 +29,11 @@
 #' @examples
 #' eList <- Choptank_eList
 #' # Water year:
-#' plotConcPred(eList, tinyPlot = TRUE)
-#' graphics.off()
-#' plotConcPred(eList, logScale=TRUE, tinyPlot = TRUE)
+#' plotConcPred(eList)
+#' 
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
-#' plotConcPred(eList, usgsStyle=TRUE, tinyPlot = TRUE)
+#' plotConcPred(eList)
 plotConcPred<-function(eList, concMax = NA, logScale=FALSE,
                        printTitle = TRUE,tinyPlot=FALSE,cex=0.8, cex.axis=1.1,
                        cex.main=1.1, customPar=FALSE,col="black",lwd=1, 

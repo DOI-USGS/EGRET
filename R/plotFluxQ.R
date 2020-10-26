@@ -24,7 +24,7 @@
 #' @param logScale logical, default TRUE, TRUE creates a log-log scale, FALSE creates an arithmatic scale.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
-#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' to TRUE does NOT guarantee USGS compliance. It will only change automatically
 #' generated labels. 
 #' @param lwd number line width
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)

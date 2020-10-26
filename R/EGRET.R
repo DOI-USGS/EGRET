@@ -30,7 +30,24 @@
 #' @importFrom stats rnorm
 #' @importFrom stats na.omit
 #' 
-#' @import grDevices
+#' @importFrom graphics abline
+#' @importFrom graphics axis
+#' @importFrom graphics box
+#' @importFrom graphics boxplot
+#' @importFrom graphics contour
+#' @importFrom graphics filled.contour
+#' @importFrom graphics grconvertX
+#' @importFrom graphics grconvertY
+#' @importFrom graphics legend
+#' @importFrom graphics lines
+#' @importFrom graphics mtext
+#' @importFrom graphics par
+#' @importFrom graphics points
+#' @importFrom graphics segments
+#' @importFrom graphics title
+#' @importFrom stats predict
+#' @importFrom stats quantile
+#' @importFrom grDevices colorRampPalette
 #' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}, Laura De Cicco \email{ldecicco@@usgs.gov}
 #' @references Hirsch, R.M., and De Cicco, L.A., 2014, User guide to Exploration and Graphics for RivEr Trends 
 #' (EGRET) and dataRetrieval: R packages for hydrologic data: U.S. Geological Survey Techniques and Methods book 4, 

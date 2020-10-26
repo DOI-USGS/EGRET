@@ -16,7 +16,7 @@
 #' @param qUnit object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.  Default is qUnit=1 (cubic feet per second)
 #' @param tinyPlot logical variable, if TRUE plot is designed to be short and wide, default is FALSE.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
-#' @param lwd line width, a positive number, defaulting to 1
+#' @param lwd line width, a positive number, defaulting to 3
 #' @param col specification for the default plotting color
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.lab magnification to be used for x and y labels relative to the current setting of cex
@@ -25,7 +25,7 @@
 #' @param logScale logical whether or not to use a log scale in the y axis. Default is FALSE.
 #' @param prettyDate logical use 'pretty' limits for date axis if TRUE, or force the yearStart/yearEnd as limits if FALSE
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
-#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' to TRUE does NOT guarantee USGS compliance. It will only change automatically
 #' generated labels. 
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow
@@ -37,9 +37,6 @@
 #' plotQTimeDaily(eList)
 #' plotQTimeDaily(eList, yearStart=1990, yearEnd=2000,qLower=1500)
 #' plotQTimeDaily(eList, prettyDate=FALSE)
-#' # Graphs consisting of Jun-Aug
-#' eList <- setPA(eList, paStart=6,paLong=3)
-#' plotQTimeDaily(eList)
 plotQTimeDaily<-function (eList, yearStart=NA, yearEnd=NA, qLower = NA, qUnit = 1, logScale=FALSE,
                           tinyPlot = FALSE, printTitle = TRUE, usgsStyle = FALSE, lwd = 3, col="red", 
                           cex.main = 1.2, cex.lab = 1.2, customPar=FALSE,prettyDate=TRUE,...){

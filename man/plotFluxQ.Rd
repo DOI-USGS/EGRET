@@ -31,7 +31,7 @@ plotFluxQ(eList, qUnit = 2, logScale = TRUE, fluxUnit = 3,
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)}
 
 \item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
-to TRUE does NOT guarantee USGS complience. It will only change automatically
+to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels.}
 
 \item{cex}{numerical value giving the amount by which plotting symbols should be magnified}

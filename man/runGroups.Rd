@@ -16,7 +16,7 @@ runGroups(eList, windowSide, group1firstYear, group1lastYear, group2firstYear,
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
 
 \item{windowSide}{integer. The width of the flow normalization window on each side of the year being estimated.
-A common value is 7, but no default is specified.  If stationary flow normalization is to be used, then windowSide = 0 (this means that 
+A common value is 11, but no default is specified.  If stationary flow normalization is to be used, then windowSide = 0 (this means that 
 flow-normalization period for all years is the same).}
 
 \item{group1firstYear}{decimal year. Starting year of first group.}
@@ -43,7 +43,8 @@ NA, which makes the QStartDate become the first Date in eList$Daily.}
 \item{QEndDate}{The last Date (as character in YYYY-MM-DD) used in the flow normalization method.  Default is NA, 
 which makes the QEndDate become the last Date in eList$Daily.}
 
-\item{wall}{logical. Whether there is an abrupt break in the concentration versus discharge relationship.  Default is FALSE}
+\item{wall}{logical. Whether there is an abrupt break in the concentration versus discharge relationship due to some major change in 
+pollution control or water management.  Default is FALSE.}
 
 \item{oldSurface}{logical specifying whether to use the original surface, or create a new one. Default is FALSE.}
 
@@ -81,31 +82,40 @@ The edgeAdjust method tends to reduce curvature near the start and end of record
 \item{verbose}{logical specifying whether or not to display progress message}
 }
 \value{
-data frame with the following columns:
+Dataframe with 7 columns and 2 rows.  The first row is about trends in concentration (mg/L), the second column is about trends in flux (million kg/year).
+The data frame has a number of attributes.
 \tabular{ll}{
-Name \tab Description \cr
-Total Change \tab   The difference between the results for year2 - year1\cr
-CQTC \tab this number is the difference between between the two years, but only the part that is due to the change 
-in the CQR. It is x20 - x10. In the results reported above as, "Concentration v. Q Trend 
-Component" it is computed as 100 * (x20 - x10) / x11 \cr
-QTC \tab  The difference between the two years, but only the part that is due to the change in the QD. 
-It is the Total Change - CQTC. Or it can be stated as x22 - x11 - x20 + x10. In the results reported above as, "Q Trend Component" 
-it is computed as 100 * (x22 - x11 - x20 + x10) / x11. \cr
-x10 \tab The results using the concentration versus discharge relationship (CQR) for year 1, but using the discharge 
-distribution (QD) for the entire period of record (starting with QStartDate and 
-ending with QEndDate, or if they aren't specified, it is all the discharge data 
-in the Daily data frame).\cr
-x11 \tab The results using the CQR for year 1, but using the QD specified by the user for year 1. \cr
-x20 \tab The results using the CQR for year 2, but using the QD for the entire period. \cr
-x22 \tab The results for the CQR for year 2, but using the QD specified by the user for year 2. \cr
+Column Name \tab Description \cr
+Total Change \tab   The difference between the results for group2 - group1 (x22 - x11). \cr
+CQTC \tab CQTC is the "Concentration v. Q Trend Component." It is the component of total change due to the change in the CQR (Concentration Discharge Relationship). (x20 - x10). \cr
+QTC \tab QTC is the "Q Trend Component." It is the component of total change due to the trend in the QD (Discharge Distribution). (x22 - x11 - x20 + x10). \cr
+x10 \tab The estimated value based on the CQR computed for the years in group1, integrated over the QD for the entire timespan of the Daily data frame (or the 
+period QStartDate and to QEndDate if these are specified).\cr
+x11 \tab The estimated value based on the CQR for the years in group1, integrated over the QD specified by the user for group1. \cr
+x20 \tab The estimated value based on the CQR computed for the years in group2, integrated over the QD for the entire period of record. \cr
+x22 \tab The estimated value based on the CQR for the years in group2, integrated over the QD specified by the user for group2. \cr
 }
 }
 \description{
 \code{runGroups} provides comparisons of results, in terms of 
 flow-normalized concentration and flow-normalized flux for any groups of years
 of years in the water quality record.  Comparison could involve the 
-use of the "wall" and/or use of "generalized flow normalization".  
-These two concepts are described in detail in the vignette.
+use of the "wall" and/or use of "generalized flow-normalization".  
+These two concepts are described in detail in the vignette:
+\code{vignette("Enhancements", package = "EGRET")}.
+}
+\details{
+When using generalized flow-normalization, it is best to have the Daily data frame
+extend well beyond the years that are in the Sample data frame.  Ideally, 
+the Daily data frame would start windowSide years before the
+start of the Sample data set, if the data exist to provide for that. Generally
+that isn't possible for the end of the record because the Sample data
+may end very close to the present. To the extent that is possible therefore, it is better to
+include more discharge data after the end of the Sample record. 
+Also note that in the case run in the examples don't do that, 
+because the data set needs to be appropriate for stationary flow 
+normalization as well (and package size considerations make it difficult to
+include specialized examples).
 }
 \examples{
 eList <- Choptank_eList
@@ -117,9 +127,9 @@ groupOut_1 <- runGroups(eList,  windowSide = 0,
                        group2firstYear = 1995, group2lastYear = 2005)
 
 # Option 2: Use sliding window.
-#                In each case it is a 15 year window (15 = 1 + 2*7)
+#                In each case it is a 23 year window (23 = 1 + 2 * 11)
 
-groupOut_2 <- runGroups(eList,  windowSide = 7,
+groupOut_2 <- runGroups(eList,  windowSide = 11,
                        group1firstYear = 1980, group1lastYear = 1990,
                        group2firstYear = 1995, group2lastYear = 2005)
 
@@ -134,9 +144,9 @@ groupOut_3 <- runGroups(eList,  windowSide = 0,
                        Q1EndDate = "1990-09-30")
 
 # Option 4: Flow normalization is based on splitting the flow record at 1990-09-30
-#                but before the break uses a 15 year window of years before the break
-#                after the break uses a 15 year window of years after the break
-groupOut_4 <- runGroups(eList,  windowSide = 7,
+#                but before the break uses a 23 year window of years before the break
+#                after the break uses a 23 year window of years after the break
+groupOut_4 <- runGroups(eList,  windowSide = 11,
                        group1firstYear = 1980, group1lastYear = 1990,
                        group2firstYear = 1995, group2lastYear = 2005,
                        flowBreak = TRUE, 

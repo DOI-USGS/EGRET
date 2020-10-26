@@ -24,9 +24,9 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
-#' @param randomCensored logical. Show censored values as randomized.
+#' @param randomCensored logical, if TRUE plot a random value for censored data.  Default is FALSE.
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
-#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' to TRUE does NOT guarantee USGS compliance. It will only change automatically
 #' generated labels. 
 #' @param prettyDate logical use 'pretty' limits for date axis if TRUE, or force the yearStart/yearEnd as limits if FALSE
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
@@ -38,9 +38,6 @@
 #' # Water year:
 #' plotFluxTimeDaily(eList)
 #' plotFluxTimeDaily(eList, 2001,2009)
-#' # Graphs consisting of Jun-Aug
-#' eList <- setPA(eList, paStart=6,paLong=3)
-#' plotFluxTimeDaily(eList)
 plotFluxTimeDaily<-function (eList, yearStart=NA, yearEnd=NA, 
                              tinyPlot = FALSE, fluxUnit = 3, fluxMax = NA, randomCensored=FALSE,
                              printTitle = TRUE, usgsStyle = FALSE, cex=0.8, cex.axis=1.1,cex.main=1.1, 

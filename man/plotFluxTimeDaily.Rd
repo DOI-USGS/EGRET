@@ -23,12 +23,12 @@ plotFluxTimeDaily(eList, yearStart = NA, yearEnd = NA, tinyPlot = FALSE,
 
 \item{fluxMax}{number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)}
 
-\item{randomCensored}{logical. Show censored values as randomized.}
+\item{randomCensored}{logical, if TRUE plot a random value for censored data.  Default is FALSE.}
 
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)}
 
 \item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
-to TRUE does NOT guarantee USGS complience. It will only change automatically
+to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels.}
 
 \item{cex}{numerical value giving the amount by which plotting symbols should be magnified}
@@ -63,9 +63,6 @@ eList <- Choptank_eList
 # Water year:
 plotFluxTimeDaily(eList)
 plotFluxTimeDaily(eList, 2001,2009)
-# Graphs consisting of Jun-Aug
-eList <- setPA(eList, paStart=6,paLong=3)
-plotFluxTimeDaily(eList)
 }
 \seealso{
 \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}

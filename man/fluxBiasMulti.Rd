@@ -23,7 +23,7 @@ fluxBiasMulti(eList, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS",
 
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
 
-\item{randomCensored}{logical. Show censored residuals as randomized.}
+\item{randomCensored}{logical, if TRUE plot a random value for censored data.  Default is FALSE.}
 
 \item{col}{color of points on plot, see ?par 'Color Specification'}
 
@@ -49,6 +49,7 @@ a Daily dataframe with the daily flow data, and an INFO dataframe with metadata.
 eList <- Choptank_eList
 # Water year:
 fluxBiasMulti(eList)
+fluxBiasMulti(eList, fluxUnit = 2)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList,paStart=6,paLong=3)
 fluxBiasMulti(eList)

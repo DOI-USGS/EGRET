@@ -23,7 +23,7 @@
 #' @param concMin numeric value for lower limit on concentration shown on the vertical log graph, default is NA 
 #' (which causes the lower limit to be set automatically, based on the data). This value is ignored for linear scales, using 0 as the minimum value for the concentration axis.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure).
-#' @param logScale logical, default FALSE, FALSE creates a linear scale y-axis, TRUE creates a y-axis is in log scale.
+#' @param logScale logical. If TRUE concentration is plotted on a log axis, default FALSE.
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified.
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex.
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex.
@@ -33,7 +33,7 @@
 #' @param lwd number line width.
 #' @param randomCensored logical. Show censored values as randomized.
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
-#' to TRUE does NOT guarantee USGS complience. It will only change automatically
+#' to TRUE does NOT guarantee USGS compliance. It will only change automatically
 #' generated labels
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters.
 #' @details

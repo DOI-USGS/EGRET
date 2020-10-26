@@ -23,7 +23,7 @@
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
-#' @param randomCensored logical. Show censored residuals as randomized.
+#' @param randomCensored logical, if TRUE plot a random value for censored data.  Default is FALSE.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -31,6 +31,7 @@
 #' eList <- Choptank_eList
 #' # Water year:
 #' fluxBiasMulti(eList)
+#' fluxBiasMulti(eList, fluxUnit = 2)
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList,paStart=6,paLong=3)
 #' fluxBiasMulti(eList)

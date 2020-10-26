@@ -36,7 +36,7 @@ plotConcPred(eList, concMax = NA, logScale = FALSE, printTitle = TRUE,
 \item{randomCensored}{logical. Show censored values as randomized.}
 
 \item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
-to TRUE does NOT guarantee USGS complience. It will only change automatically
+to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
@@ -50,12 +50,11 @@ Although there are a lot of optional arguments to this function, most are set to
 \examples{
 eList <- Choptank_eList
 # Water year:
-plotConcPred(eList, tinyPlot = TRUE)
-graphics.off()
-plotConcPred(eList, logScale=TRUE, tinyPlot = TRUE)
+plotConcPred(eList)
+
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
-plotConcPred(eList, usgsStyle=TRUE, tinyPlot = TRUE)
+plotConcPred(eList)
 }
 \seealso{
 \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}

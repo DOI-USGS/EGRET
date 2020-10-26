@@ -174,7 +174,7 @@ run_WRTDS <- function(estY, estLQ,
     survModel <- survival::survreg(survival::Surv(log(ConcLow),log(ConcHigh),type="interval2") ~ 
                          DecYear+LogQ+SinDY+CosDY,data=Sam,weights=weight,dist="gaus")
   }, warning=function(w) {
-    
+
     if(w$message == "Ran out of iterations and did not converge"){
 
       Sam2 <- jitterSam(Sam)
@@ -206,30 +206,40 @@ run_WRTDS <- function(estY, estLQ,
   return(list(survReg=survReg, warningFlag=warningFlag))
 }
 
-
 jitterSam <- function(Sam) {
-
   SamR <- Sam
-  
-  # Duplicated dates:
-  i_dates <- c(which(duplicated(Sam$DecYear, fromLast = FALSE)),
-               which(duplicated(Sam$DecYear, fromLast = TRUE)))
-  
-  # Duplicated flow:
-  i_flow <- c(which(duplicated(Sam$Q, fromLast = FALSE)),
-              which(duplicated(Sam$Q, fromLast = TRUE)))
-  
-  all_dups <- unique(c(i_dates, i_flow))
-  all_dups <- all_dups[order(all_dups)]
-  
-  n <- length(all_dups)
-  SamR$DecYear[all_dups] <- Sam$DecYear[all_dups] + rnorm(n,0,0.05)
-  SamR$SinDY[all_dups] <- sin(SamR$DecYear[all_dups] * 2 * pi)
-  SamR$CosDY[all_dups] <- cos(SamR$DecYea[all_dups] * 2 * pi)
-  
+  n <- length(Sam$DecYear)
+  SamR$DecYear <- Sam$DecYear + rnorm(n,0,0.05)
+  SamR$SinDY <- sin(SamR$DecYear * 2 * pi)
+  SamR$CosDY <- cos(SamR$DecYear * 2 * pi)
   sdLQ <- sd(Sam$LogQ)
   s <- sdLQ / 5
-  SamR$LogQ[all_dups] <- Sam$LogQ[all_dups] + rnorm(n,0,s)
-
+  SamR$LogQ <- Sam$LogQ + rnorm(n,0,s)
   return(SamR)
 }
+# jitterSam <- function(Sam) {
+# 
+#   SamR <- Sam
+#   
+#   # Duplicated dates:
+#   i_dates <- c(which(duplicated(Sam$DecYear, fromLast = FALSE)),
+#                which(duplicated(Sam$DecYear, fromLast = TRUE)))
+#   
+#   # Duplicated flow:
+#   i_flow <- c(which(duplicated(Sam$Q, fromLast = FALSE)),
+#               which(duplicated(Sam$Q, fromLast = TRUE)))
+#   
+#   all_dups <- unique(c(i_dates, i_flow))
+#   all_dups <- all_dups[order(all_dups)]
+#   
+#   n <- length(all_dups)
+#   SamR$DecYear[all_dups] <- Sam$DecYear[all_dups] + rnorm(n,0,0.05)
+#   SamR$SinDY[all_dups] <- sin(SamR$DecYear[all_dups] * 2 * pi)
+#   SamR$CosDY[all_dups] <- cos(SamR$DecYea[all_dups] * 2 * pi)
+#   
+#   sdLQ <- sd(Sam$LogQ)
+#   s <- sdLQ / 5
+#   SamR$LogQ[all_dups] <- Sam$LogQ[all_dups] + rnorm(n,0,s)
+# 
+#   return(SamR)
+# }

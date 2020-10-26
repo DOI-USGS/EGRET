@@ -34,7 +34,7 @@ plotConcTime(eList, qUnit = 2, yearStart = NA, yearEnd = NA,
 
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure).}
 
-\item{logScale}{logical, default FALSE, FALSE creates a linear scale y-axis, TRUE creates a y-axis is in log scale.}
+\item{logScale}{logical. If TRUE concentration is plotted on a log axis, default FALSE.}
 
 \item{cex}{numerical value giving the amount by which plotting symbols should be magnified.}
 
@@ -50,7 +50,7 @@ plotConcTime(eList, qUnit = 2, yearStart = NA, yearEnd = NA,
 \item{lwd}{number line width.}
 
 \item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
-to TRUE does NOT guarantee USGS complience. It will only change automatically
+to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels}
 
 \item{\dots}{arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters.}

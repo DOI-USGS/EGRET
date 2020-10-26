@@ -1,12 +1,12 @@
 #' Makes four graphs of streamflow statistics on a single page
 #'
 #' @description
-#'  Part of the flowHistory system.  The four statistics are 1-day maximum, annual mean, annual 7-day minimum, and the running standard deviation of the log daily discharge values.
+#' Part of the flowHistory system.  The four statistics are 1-day maximum, annual mean, annual 7-day minimum, and the running standard deviation of the log daily discharge values.
 #'  
-#'  Although there are a lot of optional arguments to this function, most are set to a logical default.
+#' Although there are a lot of optional arguments to this function, most are set to a logical default.
 #'  
 #' Data come from named list, which contains a Daily dataframe with the daily flow data,
-#' and an INFO dataframe with metadata. 
+#' and an INFO dataframe with metadata. Each graph shows a loess smooth of the data that are plotted.
 #'
 #' @param eList named list with at least Daily and INFO dataframes
 #' @param yearStart A numeric value for year in which the graph should start, default is NA, which indicates that the graph should start with first annual value
@@ -19,7 +19,7 @@
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param col color of points on plot, see ?par 'Color Specification'
-#' @param lwd number line width
+#' @param lwd number line width. Default is 1.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics streamflow statistics
 #' @export

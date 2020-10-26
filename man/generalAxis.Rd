@@ -26,7 +26,7 @@ generalAxis(x, maxVal, minVal, units = NA, logScale = FALSE,
 \item{concentration}{logical if concentration=TRUE, labels returned as concentration units, otherwise flux units.}
 
 \item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
-to TRUE does NOT guarantee USGS complience. It will only change automatically
+to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels}
 
 \item{prettyDate}{logical use 'pretty' limits for date axis if TRUE, or force the yearStart/yearEnd as limits if FALSE}
