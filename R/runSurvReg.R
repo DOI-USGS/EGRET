@@ -170,16 +170,20 @@ run_WRTDS <- function(estY, estLQ,
   weight<-weight/aveWeight
   Sam <- data.frame(Sam)
   
-  if(any(duplicated(Sam$LogQ))){
-    Sam <- jitterSam(Sam)
-  }
-  
   x <- tryCatch({
     survModel <- survival::survreg(survival::Surv(log(ConcLow),log(ConcHigh),type="interval2") ~ 
-                         DecYear+LogQ+SinDY+CosDY,data=Sam,weights=weight,dist="gaus")
+                                     DecYear+LogQ+SinDY+CosDY,data=Sam,weights=weight,dist="gaus")
   }, warning=function(w) {
-
-    return(NA)
+    
+    if(w$message == "Ran out of iterations and did not converge"){
+      
+      Sam2 <- jitterSam(Sam)
+      survModel <- survival::survreg(survival::Surv(log(ConcLow),log(ConcHigh),type="interval2") ~ 
+                                       DecYear+LogQ+SinDY+CosDY,data=Sam2,weights=weight,dist="gaus")
+    } else {
+      survModel <- NA
+    }
+    return(survModel)
   }, error=function(e) {
     message(e, "Error")
     return(NULL)
@@ -202,40 +206,21 @@ run_WRTDS <- function(estY, estLQ,
   return(list(survReg=survReg, warningFlag=warningFlag))
 }
 
-jitterSam <- function(Sam) {
+#' jitter Sample
+#' 
+#' @export
+#' @param Sam data frame with at least columns DecYear and LogQ
+#' @param V a multiplier for the sd of the LogQ jitter. for example V = 0.02,
+#'  means that the sd of the LnQ jitter is 0.02*sdLQ
+#' 
+jitterSam <- function(Sam, V = 0.2) {
   SamR <- Sam
   n <- length(Sam$DecYear)
   SamR$DecYear <- Sam$DecYear + rnorm(n,0,0.05)
   SamR$SinDY <- sin(SamR$DecYear * 2 * pi)
   SamR$CosDY <- cos(SamR$DecYear * 2 * pi)
   sdLQ <- sd(Sam$LogQ)
-  s <- sdLQ / 5
+  s <- sdLQ * V
   SamR$LogQ <- Sam$LogQ + rnorm(n,0,s)
   return(SamR)
 }
-# jitterSam <- function(Sam) {
-# 
-#   SamR <- Sam
-#   
-#   # Duplicated dates:
-#   i_dates <- c(which(duplicated(Sam$DecYear, fromLast = FALSE)),
-#                which(duplicated(Sam$DecYear, fromLast = TRUE)))
-#   
-#   # Duplicated flow:
-#   i_flow <- c(which(duplicated(Sam$Q, fromLast = FALSE)),
-#               which(duplicated(Sam$Q, fromLast = TRUE)))
-#   
-#   all_dups <- unique(c(i_dates, i_flow))
-#   all_dups <- all_dups[order(all_dups)]
-#   
-#   n <- length(all_dups)
-#   SamR$DecYear[all_dups] <- Sam$DecYear[all_dups] + rnorm(n,0,0.05)
-#   SamR$SinDY[all_dups] <- sin(SamR$DecYear[all_dups] * 2 * pi)
-#   SamR$CosDY[all_dups] <- cos(SamR$DecYea[all_dups] * 2 * pi)
-#   
-#   sdLQ <- sd(Sam$LogQ)
-#   s <- sdLQ / 5
-#   SamR$LogQ[all_dups] <- Sam$LogQ[all_dups] + rnorm(n,0,s)
-# 
-#   return(SamR)
-# }
