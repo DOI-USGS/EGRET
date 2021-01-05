@@ -71,15 +71,27 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
   GenConc <- rep(NA, numYears) # WRTDS_K
   GenFlux <- rep(NA, numYears) # WRTDS_K
   
+  daysInMonths <- c(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
+  wrtdsK <- all(c("GenConc", "GenFlux") %in% names(localDaily))
+  
   for(i in 1:numYears) {
     
     startMonth <- StartEndSeq$Starts[i]
     stopMonth <- StartEndSeq$End[i]
     
     firstDay_i <- localDaily$Date[localDaily$MonthSeq == startMonth][1]
-    lastDay_i <- tail(localDaily$Date[localDaily$MonthSeq == stopMonth], n = 1)
+    lastMonth <- localDaily$Month[localDaily$MonthSeq == stopMonth][1]
+    lastDay <- daysInMonths[lastMonth]
+    lastYear <- floor(localDaily$DecYear[localDaily$MonthSeq == stopMonth][1])
     
-    numDaysInYear <- as.numeric(lastDay_i - firstDay_i)
+    if(lastMonth == 2 &
+       (lastYear %% 4 == 0) & ((lastYear %% 100 != 0) | (lastYear%%400 == 0))){ #leap
+      lastDay <- 29
+    }
+    
+    lastDate <- as.Date(paste(lastYear, lastMonth, lastDay, sep = "-"))
+    
+    numDaysInYear <- as.numeric(lastDate - firstDay_i)
     
     DailyYear <- localDaily[which(localDaily$MonthSeq %in% startMonth:stopMonth),]
 
@@ -97,15 +109,17 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
     }    
     
     DecYear[i] <- mean(DailyYear$DecYear)
-    Q[i] <- mean(DailyYear$Q)
+    
     if(good) {
+      
+      Q[i] <- sum(DailyYear$Q)/numDaysInYear
+      
       Conc[i] <- mean(DailyYear$ConcDay,na.rm=TRUE)
       Flux[i] <- mean(DailyYear$FluxDay,na.rm=TRUE)
       
       FNConc[i] <- mean(DailyYear$FNConc,na.rm=TRUE)
       FNFlux[i] <- mean(DailyYear$FNFlux,na.rm=TRUE)
       
-      wrtdsK <- all(c("GenConc", "GenFlux") %in% names(DailyYear))
       if(wrtdsK){
         GenConc[i] <- mean(DailyYear$GenConc, na.rm = TRUE)
         GenFlux[i] <- mean(DailyYear$GenFlux, na.rm = TRUE)
