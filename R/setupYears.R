@@ -57,9 +57,7 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
   firstMonth <- StartEndSeq[1,1]
   
   numYears <- nrow(StartEndSeq)
-  
-  firstYear <- floor(localDaily$DecYear[which(localDaily$MonthSeq == StartEndSeq$Starts[1])][1])
-  
+
   DecYear<-rep(NA,numYears)
   Q <- rep(NA,numYears)
   Conc <- rep(NA,numYears)
