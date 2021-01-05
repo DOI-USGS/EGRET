@@ -52,12 +52,14 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
   StartEndSeq<-data.frame(Starts,Ends)
   #   need to trim off the front and back, those years that aren't in the Daily data set
   withinIndex <- which((StartEndSeq$Starts >=firstMonthSeq) & (StartEndSeq$Ends<=lastMonthSeq))
-  justOutside <- c(withinIndex[1]-1, withinIndex, max(withinIndex)+1 )
-  StartEndSeq <- StartEndSeq[justOutside,]
+  StartEndSeq <- StartEndSeq[withinIndex, ]
   
   firstMonth <- StartEndSeq[1,1]
   
-  numYears<-length(StartEndSeq$Starts)
+  numYears <- nrow(StartEndSeq)
+  
+  firstYear <- floor(localDaily$DecYear[which(localDaily$MonthSeq == StartEndSeq$Starts[1])][1])
+  
   DecYear<-rep(NA,numYears)
   Q <- rep(NA,numYears)
   Conc <- rep(NA,numYears)
@@ -65,8 +67,7 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
   
   FNConc <- rep(NA,numYears)
   FNFlux <- rep(NA,numYears)
-  
-  # hasFlex <- all(c("flexConc","flexFlux") %in% names(localDaily))
+
   flexConc <- rep(NA, numYears)
   flexFlux <- rep(NA, numYears)
   GenConc <- rep(NA, numYears) # WRTDS_K
@@ -74,9 +75,14 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
   
   for(i in 1:numYears) {
     
-    # This should be even better:
-    startMonth <- (i-1)*12+firstMonth
-    stopMonth <- startMonth+paLong-1
+    startMonth <- StartEndSeq$Starts[i]
+    stopMonth <- StartEndSeq$End[i]
+    
+    firstDay_i <- localDaily$Date[localDaily$MonthSeq == startMonth][1]
+    lastDay_i <- tail(localDaily$Date[localDaily$MonthSeq == stopMonth], n = 1)
+    
+    numDaysInYear <- as.numeric(lastDay_i - firstDay_i)
+    
     DailyYear <- localDaily[which(localDaily$MonthSeq %in% startMonth:stopMonth),]
 
     if(nrow(DailyYear) == 0){
@@ -87,7 +93,7 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
 
     # if we have NA values on more than 10% of the days, then don't use the year
     if (length(counter) > 0){
-      good <- sum(counter) / length(counter) > 0.1
+      good <- sum(counter) / numDaysInYear > 0.1
     } else {
       good <- FALSE
     }    
@@ -103,8 +109,6 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
       
       wrtdsK <- all(c("GenConc", "GenFlux") %in% names(DailyYear))
       if(wrtdsK){
-        # ConcDay[i] <- mean(DailyYear$ConcDay, na.rm = TRUE)
-        # FluxDay[i] <- sum(DailyYear$FluxDay, na.rm = TRUE) / 1000
         GenConc[i] <- mean(DailyYear$GenConc, na.rm = TRUE)
         GenFlux[i] <- mean(DailyYear$GenFlux, na.rm = TRUE)
       }
