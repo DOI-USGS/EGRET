@@ -109,10 +109,9 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
     }    
     
     DecYear[i] <- mean(DailyYear$DecYear)
+    Q[i] <- mean(DailyYear$Q)
     
     if(good) {
-      
-      Q[i] <- sum(DailyYear$Q)/numDaysInYear
       
       Conc[i] <- mean(DailyYear$ConcDay,na.rm=TRUE)
       Flux[i] <- mean(DailyYear$FluxDay,na.rm=TRUE)
