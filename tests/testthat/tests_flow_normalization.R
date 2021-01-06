@@ -14,7 +14,7 @@ test_that("setupYears", {
   expect_equal(signif(AnnualResults$FNFlux[1], digits = 7), 264.495)
   expect_equal(signif(AnnualResults$Conc[1], digits = 7), 0.9007685)
   expect_equal(signif(AnnualResults$Flux[1], digits = 7), 359.9743)
-  expect_equal(signif(AnnualResults$Q[1], digits = 7), 5.02106)
+  expect_equal(signif(AnnualResults$Q[1], digits = 7), 5.062217)
 
   AnnualResults_waterYear <- setupYears(Daily)
   expect_equal(nrow(AnnualResults_waterYear), 32)
@@ -24,7 +24,7 @@ test_that("setupYears", {
   expect_equal(signif(AnnualResults_waterYear$FNFlux[1], digits = 7), 291.2176)
   expect_equal(signif(AnnualResults_waterYear$Conc[1], digits = 7), 0.9485403)
   expect_equal(signif(AnnualResults_waterYear$Flux[1], digits = 7), 316.0491)
-  expect_equal(signif(AnnualResults_waterYear$Q[1], digits = 7), 4.251937)
+  expect_equal(signif(AnnualResults_waterYear$Q[1], digits = 7), 4.263586)
 
   AnnualResults_calendarYear <- setupYears(Daily, paLong = 12, paStart = 1)
   expect_equal(nrow(AnnualResults_calendarYear), 31)
@@ -34,7 +34,7 @@ test_that("setupYears", {
   expect_equal(signif(AnnualResults_calendarYear$FNFlux[1], digits = 7), 292.0164)
   expect_equal(signif(AnnualResults_calendarYear$Conc[1], digits = 7), 0.9979275)
   expect_equal(signif(AnnualResults_calendarYear$Flux[1], digits = 7), 284.0979)
-  expect_equal(signif(AnnualResults_calendarYear$Q[1], digits = 7), 3.621384)
+  expect_equal(signif(AnnualResults_calendarYear$Q[1], digits = 7), 3.631306)
 
   eList <- Choptank_eList
   expect_equal(as.numeric(signif(eList$Daily$FNConc[1], digits = 6)), 0.972757)
@@ -68,7 +68,7 @@ test_that("setupYears", {
                                    "Flux [10^6kg/yr]","FN Flux [10^6kg/yr]")))
 
   expect_equal(tR$Year[1], 1980)
-  expect_equal(tR$`Discharge [cms]`[1], 4.25)
+  expect_equal(tR$`Discharge [cms]`[1], 4.26)
   expect_equal(tR$`Conc [mg/L]`[1], 0.949)
   expect_equal(tR$`FN Conc [mg/L]`[1], 1.003)
   expect_equal(tR$`Flux [10^6kg/yr]`[1], 0.1154)
