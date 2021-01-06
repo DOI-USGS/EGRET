@@ -68,7 +68,7 @@ test_that("setupYears", {
                                    "Flux [10^6kg/yr]","FN Flux [10^6kg/yr]")))
 
   expect_equal(tR$Year[1], 1980)
-  expect_equal(tR$`Discharge [cms]`[1], 4.26)
+  expect_equal(tR$`Discharge [cms]`[1], 4.25)
   expect_equal(tR$`Conc [mg/L]`[1], 0.949)
   expect_equal(tR$`FN Conc [mg/L]`[1], 1.003)
   expect_equal(tR$`Flux [10^6kg/yr]`[1], 0.1154)
