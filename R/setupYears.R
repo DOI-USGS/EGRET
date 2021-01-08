@@ -93,7 +93,14 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
     
     numDaysInYear <- as.numeric(lastDate - firstDay_i)
     
-    DailyYear <- localDaily[which(localDaily$MonthSeq %in% startMonth:stopMonth),]
+    if(startMonth < stopMonth){
+      monthsIndex <- startMonth:stopMonth
+    } else {
+      monthsIndex <- c(stopMonth:12, 1:startMonth)
+      monthsIndex <- monthsIndex[!duplicated(monthsIndex)]
+    }
+    
+    DailyYear <- localDaily[which(localDaily$MonthSeq %in% monthsIndex),]
 
     if(nrow(DailyYear) == 0){
       next
@@ -103,7 +110,7 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
 
     # if we have NA values on more than 10% of the days, then don't use the year
     if (length(counter) > 0){
-      good <- sum(counter) / numDaysInYear > 0.1
+      good <- sum(counter) / numDaysInYear > 0.99
     } else {
       good <- FALSE
     }    
@@ -146,5 +153,7 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
 
   AnnualResults <- AnnualResults[!is.na(AnnualResults$DecYear),]
 
+  AnnualResults <- na.omit(AnnualResults)
+  
   return(AnnualResults)		
 }
