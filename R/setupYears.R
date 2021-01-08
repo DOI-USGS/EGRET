@@ -92,15 +92,8 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
     lastDate <- as.Date(paste(lastYear, lastMonth, lastDay, sep = "-"))
     
     numDaysInYear <- as.numeric(lastDate - firstDay_i)
-    
-    if(startMonth < stopMonth){
-      monthsIndex <- startMonth:stopMonth
-    } else {
-      monthsIndex <- c(stopMonth:12, 1:startMonth)
-      monthsIndex <- monthsIndex[!duplicated(monthsIndex)]
-    }
-    
-    DailyYear <- localDaily[which(localDaily$MonthSeq %in% monthsIndex),]
+
+    DailyYear <- localDaily[which(localDaily$MonthSeq %in% startMonth:stopMonth),]
 
     if(nrow(DailyYear) == 0){
       next
