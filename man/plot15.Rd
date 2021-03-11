@@ -26,6 +26,7 @@ Then after running plot15, the user needs to give the command dev.off()
 eList <- Choptank_eList
 \donttest{
 plot15(eList, yearStart = 1980, yearEnd = 2010)
+dev.off()
 }
 }
 \seealso{
