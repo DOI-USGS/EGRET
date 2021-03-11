@@ -1,10 +1,7 @@
-EGRET <img src="man/figures/egret-02.png" alt="EGRET" height="150px" align="right" />
-=====================================================================================
+# EGRET <img src="man/figures/egret-02.png" alt="EGRET" height="150px" align="right" />
 
 [![R build
 status](https://github.com/USGS-R/EGRET/workflows/R-CMD-check/badge.svg)](https://github.com/USGS-R/EGRET/actions)
-[![Coverage
-Status](https://coveralls.io/repos/github/USGS-R/EGRET/badge.svg?branch=master)](https://coveralls.io/github/USGS-R/EGRET?branch=master)
 [![codecov](https://codecov.io/gh/USGS-R/EGRET/branch/master/graph/badge.svg)](https://codecov.io/gh/USGS-R/EGRET)
 [![status](https://img.shields.io/badge/USGS-Research-blue.svg)](https://owi.usgs.gov/R/packages.html#research)
 [![CRAN
@@ -21,8 +18,7 @@ The link for the official USGS publication user guide is here:
 
 <https://pubs.usgs.gov/tm/04/a10/>
 
-Package Installation
---------------------
+## Package Installation
 
 To install the EGRET package, you must be using R 3.0 or greater and run
 the following command:
@@ -39,8 +35,7 @@ library(remotes)
 install_github("USGS-R/EGRET")
 ```
 
-Background:
------------
+## Background:
 
 Evaluating long-term changes in river conditions (water quality and
 discharge) is an important use of hydrologic data. To carry out such
@@ -90,10 +85,9 @@ implemented in the EGRET enhancements, see the paper: “Tracking changes
 in nutrient delivery to western Lake Erie: Approaches to compensate for
 variability and trends in streamflow”:
 
-(<a href="https://www.sciencedirect.com/science/article/pii/S0380133018302235" class="uri">https://www.sciencedirect.com/science/article/pii/S0380133018302235</a>).
+(<https://www.sciencedirect.com/science/article/pii/S0380133018302235>).
 
-Sample Workflow
----------------
+## Sample Workflow
 
 WRTDS on the Choptank River at Greensboro MD, for Nitrate:
 
@@ -320,7 +314,7 @@ siteID <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "" # Get earliest date
 endDate <- "" # Get latest date
 Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
-#> There are 26507 data points, and 26507 days.
+#> There are 26733 data points, and 26733 days.
 # Gather site and parameter information:
 # Here user must input some values for
 # the default (interactive=TRUE)
@@ -390,8 +384,7 @@ plotFourStats(eList, qUnit=3)
 
 ![](man/figures/README-plotFours-2.png)
 
-Model Archive
--------------
+## Model Archive
 
 When using the `WRTDS` model, it is important to be able to reproduce
 the results in the future. The following version of R and package
@@ -403,67 +396,80 @@ environments.
 
 ``` r
 sessioninfo::session_info()
-#> ─ Session info ───────────────────────────────────────────────────────────────
+#> - Session info ---------------------------------------------------------------
 #>  setting  value                       
-#>  version  R version 4.0.2 (2020-06-22)
-#>  os       macOS Catalina 10.15.6      
-#>  system   x86_64, darwin17.0          
-#>  ui       X11                         
+#>  version  R version 4.0.4 (2021-02-15)
+#>  os       Windows 10 x64              
+#>  system   x86_64, mingw32             
+#>  ui       RTerm                       
 #>  language (EN)                        
-#>  collate  en_US.UTF-8                 
-#>  ctype    en_US.UTF-8                 
-#>  tz       UTC                         
-#>  date     2020-07-28                  
+#>  collate  English_United States.1252  
+#>  ctype    English_United States.1252  
+#>  tz       America/Chicago             
+#>  date     2021-03-11                  
 #> 
-#> ─ Packages ───────────────────────────────────────────────────────────────────
+#> - Packages -------------------------------------------------------------------
 #>  package       * version    date       lib source        
-#>  assertthat      0.2.1      2019-03-21 [1] CRAN (R 4.0.2)
-#>  cli             2.0.2      2020-02-28 [1] CRAN (R 4.0.2)
-#>  crayon          1.3.4      2017-09-16 [1] CRAN (R 4.0.2)
-#>  curl            4.3        2019-12-02 [1] CRAN (R 4.0.1)
-#>  dataRetrieval   2.7.6      2020-03-11 [1] CRAN (R 4.0.2)
-#>  digest          0.6.25     2020-02-23 [1] CRAN (R 4.0.2)
-#>  dotCall64       1.0-0      2018-07-30 [1] CRAN (R 4.0.2)
-#>  EGRET         * 3.0.4.9000 2020-07-28 [1] local         
-#>  ellipsis        0.3.1      2020-05-15 [1] CRAN (R 4.0.2)
-#>  evaluate        0.14       2019-05-28 [1] CRAN (R 4.0.1)
-#>  fansi           0.4.1      2020-01-08 [1] CRAN (R 4.0.2)
-#>  fields          10.3       2020-02-04 [1] CRAN (R 4.0.2)
-#>  glue            1.4.1      2020-05-13 [1] CRAN (R 4.0.2)
-#>  hms             0.5.3      2020-01-08 [1] CRAN (R 4.0.2)
-#>  htmltools       0.5.0      2020-06-16 [1] CRAN (R 4.0.2)
-#>  httr            1.4.2      2020-07-20 [1] CRAN (R 4.0.2)
-#>  knitr           1.29       2020-06-23 [1] CRAN (R 4.0.2)
-#>  lattice         0.20-41    2020-04-02 [2] CRAN (R 4.0.2)
-#>  lifecycle       0.2.0      2020-03-06 [1] CRAN (R 4.0.2)
-#>  magrittr        1.5        2014-11-22 [1] CRAN (R 4.0.2)
-#>  maps            3.3.0      2018-04-03 [1] CRAN (R 4.0.2)
-#>  Matrix          1.2-18     2019-11-27 [2] CRAN (R 4.0.2)
-#>  pillar          1.4.6      2020-07-10 [1] CRAN (R 4.0.2)
-#>  pkgconfig       2.0.3      2019-09-22 [1] CRAN (R 4.0.2)
-#>  R6              2.4.1      2019-11-12 [1] CRAN (R 4.0.2)
-#>  Rcpp            1.0.5      2020-07-06 [1] CRAN (R 4.0.2)
-#>  readr           1.3.1      2018-12-21 [1] CRAN (R 4.0.2)
-#>  rlang           0.4.7      2020-07-09 [1] CRAN (R 4.0.2)
-#>  rmarkdown       2.3        2020-06-18 [1] CRAN (R 4.0.2)
-#>  sessioninfo     1.1.1      2018-11-05 [1] CRAN (R 4.0.2)
-#>  spam            2.5-1      2019-12-12 [1] CRAN (R 4.0.2)
-#>  stringi         1.4.6      2020-02-17 [1] CRAN (R 4.0.2)
-#>  stringr         1.4.0      2019-02-10 [1] CRAN (R 4.0.2)
-#>  survival        3.1-12     2020-04-10 [2] CRAN (R 4.0.2)
-#>  tibble          3.0.3      2020-07-10 [1] CRAN (R 4.0.2)
-#>  vctrs           0.3.2      2020-07-15 [1] CRAN (R 4.0.2)
-#>  withr           2.2.0      2020-04-20 [1] CRAN (R 4.0.2)
-#>  xfun            0.16       2020-07-24 [1] CRAN (R 4.0.2)
-#>  xml2            1.3.2      2020-04-23 [1] CRAN (R 4.0.2)
-#>  yaml            2.2.1      2020-02-01 [1] CRAN (R 4.0.2)
+#>  assertthat      0.2.1      2019-03-21 [1] CRAN (R 4.0.3)
+#>  class           7.3-18     2021-01-24 [2] CRAN (R 4.0.4)
+#>  classInt        0.4-3      2020-04-07 [1] CRAN (R 4.0.3)
+#>  cli             2.3.1      2021-02-23 [1] CRAN (R 4.0.3)
+#>  crayon          1.4.1      2021-02-08 [1] CRAN (R 4.0.3)
+#>  curl            4.3        2019-12-02 [1] CRAN (R 4.0.3)
+#>  dataRetrieval   2.7.7      2021-03-09 [1] local         
+#>  DBI             1.1.1      2021-01-15 [1] CRAN (R 4.0.3)
+#>  digest          0.6.27     2020-10-24 [1] CRAN (R 4.0.3)
+#>  dotCall64       1.0-1      2021-02-11 [1] CRAN (R 4.0.3)
+#>  dplyr           1.0.4      2021-02-02 [1] CRAN (R 4.0.3)
+#>  e1071           1.7-4      2020-10-14 [1] CRAN (R 4.0.3)
+#>  EGRET         * 3.0.4.9001 2021-03-11 [1] local         
+#>  ellipsis        0.3.1      2020-05-15 [1] CRAN (R 4.0.3)
+#>  evaluate        0.14       2019-05-28 [1] CRAN (R 4.0.3)
+#>  fansi           0.4.2      2021-01-15 [1] CRAN (R 4.0.3)
+#>  fields          11.6       2020-10-09 [1] CRAN (R 4.0.3)
+#>  generics        0.1.0      2020-10-31 [1] CRAN (R 4.0.3)
+#>  glue            1.4.2      2020-08-27 [1] CRAN (R 4.0.3)
+#>  highr           0.8        2019-03-20 [1] CRAN (R 4.0.3)
+#>  hms             1.0.0      2021-01-13 [1] CRAN (R 4.0.3)
+#>  htmltools       0.5.1.1    2021-01-22 [1] CRAN (R 4.0.3)
+#>  httr            1.4.2      2020-07-20 [1] CRAN (R 4.0.3)
+#>  jsonlite        1.7.2      2020-12-09 [1] CRAN (R 4.0.3)
+#>  KernSmooth      2.23-18    2020-10-29 [2] CRAN (R 4.0.4)
+#>  knitr           1.31       2021-01-27 [1] CRAN (R 4.0.3)
+#>  lattice         0.20-41    2020-04-02 [2] CRAN (R 4.0.4)
+#>  lifecycle       1.0.0      2021-02-15 [1] CRAN (R 4.0.4)
+#>  magrittr        2.0.1      2020-11-17 [1] CRAN (R 4.0.3)
+#>  maps            3.3.0      2018-04-03 [1] CRAN (R 4.0.3)
+#>  Matrix          1.3-2      2021-01-06 [2] CRAN (R 4.0.4)
+#>  pillar          1.5.0      2021-02-22 [1] CRAN (R 4.0.3)
+#>  pkgconfig       2.0.3      2019-09-22 [1] CRAN (R 4.0.3)
+#>  purrr           0.3.4      2020-04-17 [1] CRAN (R 4.0.3)
+#>  R6              2.5.0      2020-10-28 [1] CRAN (R 4.0.3)
+#>  Rcpp            1.0.6      2021-01-15 [1] CRAN (R 4.0.3)
+#>  readr           1.4.0      2020-10-05 [1] CRAN (R 4.0.3)
+#>  rlang           0.4.10     2020-12-30 [1] CRAN (R 4.0.3)
+#>  rmarkdown       2.7        2021-02-19 [1] CRAN (R 4.0.3)
+#>  sessioninfo     1.1.1      2018-11-05 [1] CRAN (R 4.0.3)
+#>  sf              0.9-7      2021-01-06 [1] CRAN (R 4.0.3)
+#>  spam            2.6-0      2020-12-14 [1] CRAN (R 4.0.3)
+#>  stringi         1.5.3      2020-09-09 [1] CRAN (R 4.0.3)
+#>  stringr         1.4.0      2019-02-10 [1] CRAN (R 4.0.3)
+#>  survival        3.2-7      2020-09-28 [2] CRAN (R 4.0.4)
+#>  tibble          3.0.6      2021-01-29 [1] CRAN (R 4.0.4)
+#>  tidyselect      1.1.0      2020-05-11 [1] CRAN (R 4.0.3)
+#>  units           0.7-0      2021-02-25 [1] CRAN (R 4.0.4)
+#>  utf8            1.1.4      2018-05-24 [1] CRAN (R 4.0.3)
+#>  vctrs           0.3.6      2020-12-17 [1] CRAN (R 4.0.3)
+#>  withr           2.4.1      2021-01-26 [1] CRAN (R 4.0.3)
+#>  xfun            0.21       2021-02-10 [1] CRAN (R 4.0.3)
+#>  xml2            1.3.2      2020-04-23 [1] CRAN (R 4.0.3)
+#>  yaml            2.2.1      2020-02-01 [1] CRAN (R 4.0.3)
 #> 
-#> [1] /Users/runner/work/_temp/Library
-#> [2] /Library/Frameworks/R.framework/Versions/4.0/Resources/library
+#> [1] C:/Users/ldecicco/Documents/R/win-library/4.0
+#> [2] C:/Program Files/R/R-4.0.4/library
 ```
 
-Reporting bugs
---------------
+## Reporting bugs
 
 Please consider reporting bugs and asking questions on the Issues page:
 <https://github.com/USGS-R/EGRET/issues>
@@ -473,40 +479,22 @@ Follow `@USGS_R` on Twitter for updates on USGS R packages:
 [![Twitter
 Follow](https://img.shields.io/twitter/follow/USGS_R.svg?style=social&label=Follow%20USGS_R)](https://twitter.com/USGS_R)
 
-Download Presentations
-----------------------
-
-Recent presentations:
-
--   [NWQMC
-    1a](https://github.com/USGS-R/EGRET/raw/master/docs/presentations/Hirsch%20Workshop1B(input).pptx)
--   [NWQMC
-    1b](https://github.com/USGS-R/EGRET/raw/master/docs/presentations/Hirsch%20Workshop1B(input).pptx)
--   [NWQMC
-    2a](https://github.com/USGS-R/EGRET/raw/master/docs/presentations/Hirsch%20Workshop2A(ci).pptx)
--   [NWQMC
-    2a](https://github.com/USGS-R/EGRET/raw/master/docs/presentations/Hirsch%20Workshop2B(GFN).pptx)
-
-Subscribe
----------
+## Subscribe
 
 Please email questions, comments, and feedback to:
-<a href="mailto:egret_comments@usgs.gov" class="email">egret_comments@usgs.gov</a>
+<egret_comments@usgs.gov>
 
 Additionally, to subscribe to an email list concerning updates to these
-R packages, please send a request to
-<a href="mailto:egret_comments@usgs.gov" class="email">egret_comments@usgs.gov</a>.
+R packages, please send a request to <egret_comments@usgs.gov>.
 
-Code of Conduct
----------------
+## Code of Conduct
 
 We want to encourage a warm, welcoming, and safe environment for
 contributing to this project. See the [code of
 conduct](https://github.com/USGS-R/EGRET/blob/master/CONDUCT.md) for
 more information.
 
-Package Support
----------------
+## Package Support
 
 The Water Mission Area of the USGS has supported the development and
 maintenance of the `EGRET` R-package. Further maintenance is expected to
@@ -517,15 +505,13 @@ team.
 
 [![USGS](http://usgs-r.github.io/images/usgs.png)](https://www.usgs.gov/)
 
-Sunset date
------------
+## Sunset date
 
 Funding for `EGRET` currently expires summer 2019. Expectations are that
 maintenance and customer service will continue to be supported past that
 date.
 
-How to cite EGRET:
-------------------
+## How to cite EGRET:
 
 ``` r
 citation(package = "EGRET")
@@ -552,8 +538,13 @@ citation(package = "EGRET")
 #>   }
 ```
 
-Disclaimer
-----------
+## References
+
+See this list for WRTDS applications in print:
+
+<http://usgs-r.github.io/EGRET/articles/References_WRTDS.html>
+
+## Disclaimer
 
 This software has been approved for release by the U.S. Geological
 Survey (USGS). Although the software has been subjected to rigorous

@@ -176,13 +176,14 @@ run_WRTDS <- function(estY, estLQ,
   }, warning=function(w) {
     
     if(w$message == "Ran out of iterations and did not converge"){
-      
       Sam2 <- jitterSam(Sam)
-      survModel <- survival::survreg(survival::Surv(log(ConcLow),log(ConcHigh),type="interval2") ~ 
-                                       DecYear+LogQ+SinDY+CosDY,data=Sam2,weights=weight,dist="gaus")
     } else {
-      survModel <- NA
+      Sam2 <- Sam
     }
+    
+    survModel <- survival::survreg(survival::Surv(log(ConcLow),log(ConcHigh),type="interval2") ~ 
+                                     DecYear+LogQ+SinDY+CosDY,data=Sam2,weights=weight,dist="gaus")
+    
     return(survModel)
   }, error=function(e) {
     message(e, "Error")

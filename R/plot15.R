@@ -17,6 +17,7 @@
 #' eList <- Choptank_eList
 #' \donttest{
 #' plot15(eList, yearStart = 1980, yearEnd = 2010)
+#' dev.off()
 #' }
 plot15<-function(eList, yearStart,yearEnd){
 
