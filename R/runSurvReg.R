@@ -180,9 +180,8 @@ run_WRTDS <- function(estY, estLQ,
       Sam2 <- jitterSam(Sam)
       survModel <- survival::survreg(survival::Surv(log(ConcLow),log(ConcHigh),type="interval2") ~ 
                                        DecYear+LogQ+SinDY+CosDY,data=Sam2,weights=weight,dist="gaus")
-    } else {
-      survModel <- NA
-    }
+    } 
+    
     return(survModel)
   }, error=function(e) {
     message(e, "Error")
