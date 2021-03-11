@@ -84,7 +84,7 @@ plotQTimeDaily<-function (eList, yearStart=NA, yearEnd=NA, qLower = NA, qUnit = 
   xDaily <- subDaily$DecYear
   
   yDaily <- qFactor * subDaily$Q
-#   yMin <- if(is.na(qLower)) 0 else qLower
+  yMin <- if(is.na(qLower)) 0 else qLower
 
   line2 <- if(is.na(qLower)) "Daily Discharge" else paste("Daily discharge above a threshold of\n",qLower," ",qUnit@qUnitName,sep="")
   line1 <- localINFO$shortName
@@ -103,7 +103,7 @@ plotQTimeDaily<-function (eList, yearStart=NA, yearEnd=NA, qLower = NA, qUnit = 
   
   xInfo <- generalAxis(x=xDaily, minVal=yearStart, maxVal=yearEnd, 
                        tinyPlot=tinyPlot, units=localINFO$param.units, prettyDate=prettyDate)
-  yInfo <- generalAxis(x=yDaily, minVal=qLower, maxVal=1.05*max(yDaily), 
+  yInfo <- generalAxis(x=yDaily, minVal=yMin, maxVal=1.05*max(yDaily), 
                        tinyPlot=tinyPlot,padPercent=0,logScale=logScale, units=localINFO$param.units)
 
   yInfo$bottom <- max(yInfo$bottom,qLower, na.rm=TRUE)
