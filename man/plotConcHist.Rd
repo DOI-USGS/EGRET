@@ -73,7 +73,7 @@ yearStart <- 2001
 yearEnd <- 2010
 eList <- Choptank_eList
 
-plotConcHist(eList, yearStart, yearEnd)
+#plotConcHist(eList, yearStart, yearEnd)
 }
 \seealso{
 \code{\link{setupYears}}, \code{\link{genericEGRETDotPlot}}

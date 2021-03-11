@@ -46,7 +46,7 @@
 #' yearEnd <- 2010
 #' eList <- Choptank_eList
 #' 
-#' plotConcHist(eList, yearStart, yearEnd)
+#' #plotConcHist(eList, yearStart, yearEnd)
 plotConcHist <- function(eList, yearStart = NA, yearEnd = NA, 
                        concMax = NA, 
                        printTitle = TRUE, 

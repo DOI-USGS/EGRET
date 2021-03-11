@@ -20,7 +20,6 @@ knitr::opts_chunk$set(
 # EGRET <img src="man/figures/egret-02.png" alt="EGRET" height="150px" align="right" />
 
 [![R build status](https://github.com/USGS-R/EGRET/workflows/R-CMD-check/badge.svg)](https://github.com/USGS-R/EGRET/actions)
-[![Coverage Status](https://coveralls.io/repos/github/USGS-R/EGRET/badge.svg?branch=master)](https://coveralls.io/github/USGS-R/EGRET?branch=master)
 [![codecov](https://codecov.io/gh/USGS-R/EGRET/branch/master/graph/badge.svg)](https://codecov.io/gh/USGS-R/EGRET)
 [![status](https://img.shields.io/badge/USGS-Research-blue.svg)](https://owi.usgs.gov/R/packages.html#research)
 [![CRAN version](http://www.r-pkg.org/badges/version/EGRET)](https://cran.r-project.org/package=EGRET)
@@ -223,15 +222,6 @@ Follow `@USGS_R` on Twitter for updates on USGS R packages:
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/USGS_R.svg?style=social&label=Follow%20USGS_R)](https://twitter.com/USGS_R)
 
-## Download Presentations
-
-Recent presentations:
-
-* [NWQMC 1a](https://github.com/USGS-R/EGRET/raw/master/docs/presentations/Hirsch%20Workshop1B(input).pptx)
-* [NWQMC 1b](https://github.com/USGS-R/EGRET/raw/master/docs/presentations/Hirsch%20Workshop1B(input).pptx)
-* [NWQMC 2a](https://github.com/USGS-R/EGRET/raw/master/docs/presentations/Hirsch%20Workshop2A(ci).pptx)
-* [NWQMC 2a](https://github.com/USGS-R/EGRET/raw/master/docs/presentations/Hirsch%20Workshop2B(GFN).pptx)
-
 
 
 ## Subscribe
@@ -261,7 +251,11 @@ Funding for `EGRET` currently expires summer 2019. Expectations are that mainten
 citation(package = "EGRET")
 ```
 
+## References
 
+See this list for WRTDS applications in print:
+
+[http://usgs-r.github.io/EGRET/articles/References_WRTDS.html](http://usgs-r.github.io/EGRET/articles/References_WRTDS.html)
 
 ## Disclaimer
 
