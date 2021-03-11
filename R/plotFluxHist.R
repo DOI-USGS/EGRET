@@ -77,6 +77,8 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA,
     paStart <- 10
   }
   
+  waterYear <- paLong == 12 & paStart == 10
+  
   if(!(c("FNFlux") %in% names(eList$Daily))){
     stop("This function requires running modelEstimation on eList")
   }
@@ -96,6 +98,10 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA,
   localAnnualResults <- setupYears(paStart = paStart,
                                    paLong = paLong,
                                    localDaily = localDaily)
+  
+  if(waterYear){
+    localAnnualResults$DecYear <- floor(localAnnualResults$DecYear)
+  }
   
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
@@ -179,19 +185,20 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA,
   
   if(plotAnnual){
     with(subAnnualResults, 
-         points(subAnnualResults$DecYear[DecYear>xInfo$bottom & DecYear<xInfo$top], 
-                annFlux[DecYear>xInfo$bottom & DecYear<xInfo$top], 
+         points(subAnnualResults$DecYear[DecYear >= xInfo$bottom & DecYear <= xInfo$top], 
+                annFlux[DecYear >= xInfo$bottom & DecYear <= xInfo$top], 
                 col = col, cex = cex, pch = 20))
   }
   
   if(plotGenFlux){
-    points(subAnnualResults$DecYear[subAnnualResults$DecYear > xInfo$bottom & subAnnualResults$DecYear < xInfo$top], 
-           unitFactorReturn*subAnnualResults$GenFlux[subAnnualResults$DecYear > xInfo$bottom & subAnnualResults$DecYear < xInfo$top], 
+    points(subAnnualResults$DecYear[subAnnualResults$DecYear >= xInfo$bottom & subAnnualResults$DecYear <= xInfo$top], 
+           unitFactorReturn*subAnnualResults$GenFlux[subAnnualResults$DecYear >= xInfo$bottom & subAnnualResults$DecYear <= xInfo$top], 
            col = col.gen, cex = cex, pch = 20)
   }
   
   if(plotFlowNorm) {
-    lines(subAnnualResults$DecYear, fnFlux, col=col.pred, lwd=lwd)
+    lines(subAnnualResults$DecYear[subAnnualResults$DecYear >= xInfo$bottom & subAnnualResults$DecYear <= xInfo$top], 
+          fnFlux[subAnnualResults$DecYear >= xInfo$bottom & subAnnualResults$DecYear <= xInfo$top], col=col.pred, lwd=lwd)
   }
   
 }
