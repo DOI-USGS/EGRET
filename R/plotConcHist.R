@@ -46,7 +46,7 @@
 #' yearEnd <- 2010
 #' eList <- Choptank_eList
 #' 
-#' #plotConcHist(eList, yearStart, yearEnd)
+#' plotConcHist(eList, yearStart, yearEnd)
 plotConcHist <- function(eList, yearStart = NA, yearEnd = NA, 
                        concMax = NA, 
                        printTitle = TRUE, 
@@ -77,9 +77,15 @@ plotConcHist <- function(eList, yearStart = NA, yearEnd = NA,
     paStart <- 10
   }
   
+  waterYear <- paLong == 12 & paStart == 10
+  
   localAnnualResults <- setupYears(paStart = paStart,
                                    paLong = paLong,
                                    localDaily = localDaily)
+  
+  if(waterYear){
+    localAnnualResults$DecYear <- floor(localAnnualResults$DecYear)
+  }
   
   hasFlex <- c("segmentInfo") %in% names(attributes(eList$INFO))
   
@@ -120,7 +126,7 @@ plotConcHist <- function(eList, yearStart = NA, yearEnd = NA,
     yearEnd <- max(localAnnualResults$DecYear[!is.na(localAnnualResults$FNConc)], na.rm = TRUE)
   }
   
-  xInfo <- generalAxis(x=localAnnualResults$DecYear, minVal=yearStart, maxVal=yearEnd, padPercent=0, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x=localAnnualResults$DecYear, minVal=yearStart, maxVal=yearEnd, padPercent=0.05, tinyPlot=tinyPlot)
   
   combinedY <- c(localAnnualResults$FNConc[localAnnualResults$DecYear > xInfo$bottom &
                                              localAnnualResults$DecYear < xInfo$top])
@@ -149,23 +155,23 @@ plotConcHist <- function(eList, yearStart = NA, yearEnd = NA,
   
   if(plotAnnual){
     with(localAnnualResults, 
-         points(DecYear[DecYear > xInfo$bottom & DecYear < xInfo$top], 
-                Conc[DecYear > xInfo$bottom & DecYear < xInfo$top], 
+         points(DecYear[DecYear >= xInfo$bottom & DecYear <= xInfo$top], 
+                Conc[DecYear >= xInfo$bottom & DecYear <= xInfo$top], 
                 col = col, cex = cex, pch = 20))
   }
   
   if(plotGenConc){
     with(localAnnualResults, 
-         points(DecYear[DecYear > xInfo$bottom & DecYear < xInfo$top], 
-                GenConc[DecYear > xInfo$bottom & DecYear < xInfo$top], 
+         points(DecYear[DecYear >= xInfo$bottom & DecYear <= xInfo$top], 
+                GenConc[DecYear >= xInfo$bottom & DecYear <= xInfo$top], 
                 col = col.gen, cex = cex, pch = 20))
   }
   
   if(plotFlowNorm){
     
     with(localAnnualResults, 
-         lines(DecYear[DecYear > xInfo$bottom & DecYear < xInfo$top], 
-               FNConc[DecYear > xInfo$bottom & DecYear < xInfo$top], 
+         lines(DecYear[DecYear >= xInfo$bottom & DecYear <= xInfo$top], 
+               FNConc[DecYear >= xInfo$bottom & DecYear <= xInfo$top], 
                col = col.pred, lwd = lwd))
     
   }
