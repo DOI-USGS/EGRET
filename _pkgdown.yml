@@ -24,6 +24,8 @@ navbar:
       href: articles/streamflow_trend.html
     - text: Trends by month
       href: articles/TrendsByMonth.html
+    - text: Alternative Q Method
+      href: articles/AlternativeQMethod.html
   - text: Bibliograpy
     href: articles/References_WRTDS.html
   right:
@@ -50,6 +52,7 @@ reference:
       - run_WRTDS
       - setupYears
       - setPA
+      - errorStats
   - title: Plotting
     desc: Functions for plotting eList objects
     contents:

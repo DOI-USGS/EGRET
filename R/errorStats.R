@@ -7,6 +7,7 @@
 #' computed from makeAugmentedSample()
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @export
+#' @importFrom stats var
 #' @examples 
 #' eList <- Choptank_eList
 #' errorStats(eList)
