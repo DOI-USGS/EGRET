@@ -49,7 +49,7 @@
 <meta property="og:title" content="Annual series of flow-normalized concentration and flow-normalized flux — runSeries" />
 <meta property="og:description" content="runSeries provides annual series of flow-normalized concentration and flow-normalized flux for the water quality record.  
 Computations could involve the use of the &quot;wall&quot; and/or use of &quot;generalized flow 
-normalization&quot;.  These two concepts are described in detail in the vignette 
+normalization&quot;.  These two concepts are described in detail in the vignette:  
 vignette(&quot;Enhancements&quot;, package = &quot;EGRET&quot;)." />
 <meta property="og:image" content="/logo.png" />
 
@@ -93,7 +93,7 @@ vignette(&quot;Enhancements&quot;, package = &quot;EGRET&quot;)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EGRET</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.4.9001</span>
       </span>
     </div>
 
@@ -133,6 +133,9 @@ vignette(&quot;Enhancements&quot;, package = &quot;EGRET&quot;)." />
     <li>
       <a href="../articles/TrendsByMonth.html">Trends by month</a>
     </li>
+    <li>
+      <a href="../articles/AlternativeQMethod.html">Alternative Q Method</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -142,7 +145,7 @@ vignette(&quot;Enhancements&quot;, package = &quot;EGRET&quot;)." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/USGS-R/EGRET">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -167,7 +170,7 @@ vignette(&quot;Enhancements&quot;, package = &quot;EGRET&quot;)." />
     <div class="ref-description">
     <p><code>runSeries</code> provides annual series of flow-normalized concentration and flow-normalized flux for the water quality record.  
 Computations could involve the use of the "wall" and/or use of "generalized flow 
-normalization".  These two concepts are described in detail in the vignette 
+normalization".  These two concepts are described in detail in the vignette:  
 <code><a href='../articles/Enhancements.html'>vignette("Enhancements", package = "EGRET")</a></code>.</p>
     </div>
 
@@ -187,7 +190,9 @@ normalization".  These two concepts are described in detail in the vignette
     </tr>
     <tr>
       <th>windowSide</th>
-      <td><p>integer The width of the flow normalization window on each side of the year being estimated.  A common value is 7, but no default is specified.  If stationary flow normalization is to be used, then windowSide = 0 (this means that flow-normalization period for all years is the same).</p></td>
+      <td><p>integer. The width of the flow normalization window on each side of the year being estimated.
+A common value is 11, but no default is specified.  If stationary flow normalization is to be used, then windowSide = 0 (this means that 
+flow-normalization period for all years is the same).</p></td>
     </tr>
     <tr>
       <th>surfaceStart</th>
@@ -217,7 +222,8 @@ to be generated.  Default is NA, which means that the surfaceEnd is based on the
     </tr>
     <tr>
       <th>wall</th>
-      <td><p>logical, there is an abrupt break in concentration versus discharge relationship.  Default is FALSE.</p></td>
+      <td><p>logical. Whether there is an abrupt break in the concentration versus discharge relationship due to some major change in 
+pollution control or water management.  Default is FALSE.</p></td>
     </tr>
     <tr>
       <th>oldSurface</th>
@@ -283,12 +289,25 @@ minimum number will be the maximum of minNumObs and fractMin multiplied by total
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>eList named list with INFO, Daily, and Sample dataframes, along with the surfaces matrix.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>When using generalized flow-normalization, it is best to have the Daily data frame
+extend well beyond the years that are in the Sample data frame.  Ideally, 
+the Daily data frame would start windowSide years before the
+start of the Sample data set, if the data exist to provide for that. Generally
+that isn't possible for the end of the record because the Sample data
+may end very close to the present. To the extent that is possible therefore, it is better to
+include more discharge data after the end of the Sample record. 
+Also note that in the case run in the examples don't do that, 
+because the data set needs to be appropriate for stationary flow 
+normalization as well (and package size considerations make it difficult to
+include specialized examples).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='va'>Choptank_eList</span>
 
 <span class='co'># \donttest{</span>
-<span class='co'># Automatic calculations based on windowSide=7</span>
+<span class='co'># Automatic calculations based on windowSide = 11</span>
 <span class='co'># four possible ways to do generalized flow normalization</span>
 
 <span class='co'>#Option 1:  Use all years for flow normalization.</span>
@@ -308,8 +327,8 @@ minimum number will be the maximum of minNumObs and fractMin multiplied by total
 </div><div class='img'><img src='runSeries-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='plotFluxHist.html'>plotFluxHist</a></span><span class='op'>(</span><span class='va'>seriesOut_1</span><span class='op'>)</span>
 </div><div class='img'><img src='runSeries-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Option 2: Use sliding window throughout the whole flow normalization process.</span>
-<span class='co'>#                In each case it is a 15 year window (15 = 1 + 2*7)</span>
-<span class='va'>seriesOut_2</span> <span class='op'>&lt;-</span> <span class='fu'>runSeries</span><span class='op'>(</span><span class='va'>eList</span>, windowSide <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span>
+<span class='co'>#                In each case it is a 15 year window (23 = 1 + 2*11)</span>
+<span class='va'>seriesOut_2</span> <span class='op'>&lt;-</span> <span class='fu'>runSeries</span><span class='op'>(</span><span class='va'>eList</span>, windowSide <span class='op'>=</span> <span class='fl'>11</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Survival regression (% complete):
 #&gt; 0 	1 	2 	3 	4 	5 	6 	7 	8 	9 	10 	
 #&gt; 11 	12 	13 	14 	15 	16 	17 	18 	19 	20 	
@@ -348,10 +367,10 @@ minimum number will be the maximum of minNumObs and fractMin multiplied by total
 </div><div class='img'><img src='runSeries-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='plotFluxHist.html'>plotFluxHist</a></span><span class='op'>(</span><span class='va'>seriesOut_3</span><span class='op'>)</span>
 </div><div class='img'><img src='runSeries-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Option 4: Flow normalization is based on splitting the flow record at 1990-09-30</span>
-<span class='co'>#                but before the break uses a 15 year window of years before the break</span>
-<span class='co'>#                after the break uses a 15 year window of years after the break</span>
+<span class='co'>#                but before the break uses a 23 year window of years before the break</span>
+<span class='co'>#                after the break uses a 23 year window of years after the break</span>
 <span class='va'>seriesOut_4</span> <span class='op'>&lt;-</span> <span class='fu'>runSeries</span><span class='op'>(</span><span class='va'>eList</span>, 
-                      windowSide <span class='op'>=</span> <span class='fl'>7</span>, flowBreak <span class='op'>=</span> <span class='cn'>TRUE</span>,
+                      windowSide <span class='op'>=</span> <span class='fl'>11</span>, flowBreak <span class='op'>=</span> <span class='cn'>TRUE</span>,
                       Q1EndDate <span class='op'>=</span> <span class='st'>"1990-09-30"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Survival regression (% complete):
 #&gt; 0 	1 	2 	3 	4 	5 	6 	7 	8 	9 	10 	
@@ -385,7 +404,7 @@ minimum number will be the maximum of minNumObs and fractMin multiplied by total
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

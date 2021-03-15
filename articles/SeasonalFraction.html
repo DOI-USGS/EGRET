@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EGRET</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.4.9001</span>
       </span>
     </div>
 
@@ -84,6 +84,9 @@
     <li>
       <a href="../articles/TrendsByMonth.html">Trends by month</a>
     </li>
+    <li>
+      <a href="../articles/AlternativeQMethod.html">Alternative Q Method</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -93,7 +96,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/USGS-R/EGRET">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -107,7 +110,7 @@
 
       
 
-      </header><script src="SeasonalFraction_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="SeasonalFraction_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Seasonal Analysis in EGRET</h1>
@@ -131,14 +134,14 @@
 <h1 class="hasAnchor">
 <a href="#getting-started" class="anchor"></a>Getting started</h1>
 <p>First, you need to have installed and loaded the <code>EGRET</code> package. Then, you’ll need need to create an <code>eList</code> object. See the <code>EGRET</code> vignette or user guide <a href="http://pubs.usgs.gov/tm/04/a10/">here</a> for more information on how to use your own water quality data in <code>EGRET</code>. Once the <code>eList</code> object has been created, run the <code>modelEstimation</code> function to create a WRTDS model.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://pubs.usgs.gov/tm/04/a10/">EGRET</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://pubs.usgs.gov/tm/04/a10/">EGRET</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-<span class="va">eList</span> <span class="op">&lt;-</span> <span class="va">Choptank_eList</span></pre></div>
+<span class="va">eList</span> <span class="op">&lt;-</span> <span class="va">Choptank_eList</span></code></pre></div>
 <p>For this post, we will use the Choptank River, measuring Inorganic nitrogen (nitrate and nitrite) as an example.</p>
 <p>To start with lets look at the results calculated for complete water years.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">water_year</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tableResults.html">tableResults</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">water_year</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tableResults.html">tableResults</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ##    Choptank River 
 ##    Inorganic nitrogen (nitrate and nitrite)
@@ -179,8 +182,8 @@
 ##    2009      3.68     1.409     1.419    0.1328     0.149
 ##    2010      7.19     1.323     1.438    0.2236     0.149
 ##    2011      5.24     1.438     1.457    0.1554     0.148</code></pre>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="va">water_year_2010_flux</span> <span class="op">&lt;-</span> <span class="va">water_year</span><span class="op">$</span><span class="va">`FN Flux [10^6kg/yr]`</span><span class="op">[</span><span class="va">water_year</span><span class="op">$</span><span class="va">Year</span> <span class="op">==</span> <span class="fl">2010</span><span class="op">]</span></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">water_year_2010_flux</span> <span class="op">&lt;-</span> <span class="va">water_year</span><span class="op">$</span><span class="va">`FN Flux [10^6kg/yr]`</span><span class="op">[</span><span class="va">water_year</span><span class="op">$</span><span class="va">Year</span> <span class="op">==</span> <span class="fl">2010</span><span class="op">]</span></code></pre></div>
 <p>Looking at the last column of these results we see that, for example, the flow normalized flux in water year 2010 is estimated to be 0.149 10<sup>6</sup> kg/year. Now, let’s say we had a particular interest in the winter season which we define here as the months of December, January, and February.</p>
 <p>The next step is to establish what season you are interested in looking at. All functions in <code>EGRET</code> can be done on the “water year” (Oct-Sept), the calendar year (Jan-Dec), or any set of sequential months. To define what period of analysis (PA) to use, there is a function <code>setPA</code>. The <code>setPA</code> function has two arguments:</p>
 <ul>
@@ -191,11 +194,11 @@
 <code>paLong</code> is the length of the season in months (it can be any number from 1 to 12).</li>
 </ul>
 <p>For example let’s say we want to consider the winter, defined here as December through February, the starting month (<code>paStart</code>) would be 12, and the length (<code>paLong</code>) would be 3:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setPA.html">setPA</a></span><span class="op">(</span><span class="va">eList</span>, paStart <span class="op">=</span> <span class="fl">12</span>, paLong <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setPA.html">setPA</a></span><span class="op">(</span><span class="va">eList</span>, paStart <span class="op">=</span> <span class="fl">12</span>, paLong <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
 <p>Now lets view our results when we are focusing on the winter season.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="va">winter</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tableResults.html">tableResults</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">winter</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tableResults.html">tableResults</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ##    Choptank River 
 ##    Inorganic nitrogen (nitrate and nitrite)
@@ -236,8 +239,8 @@
 ##    2009     2.711      1.66      1.56    0.1396     0.216
 ##    2010    13.779      1.26      1.57    0.4161     0.215
 ##    2011     3.369      1.66      1.57    0.1669     0.215</code></pre>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="va">winter_2010_flux</span> <span class="op">&lt;-</span> <span class="va">winter</span><span class="op">$</span><span class="va">`FN Flux [10^6kg/yr]`</span><span class="op">[</span><span class="va">winter</span><span class="op">$</span><span class="va">Year</span> <span class="op">==</span> <span class="fl">2010</span><span class="op">]</span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">winter_2010_flux</span> <span class="op">&lt;-</span> <span class="va">winter</span><span class="op">$</span><span class="va">`FN Flux [10^6kg/yr]`</span><span class="op">[</span><span class="va">winter</span><span class="op">$</span><span class="va">Year</span> <span class="op">==</span> <span class="fl">2010</span><span class="op">]</span>
 
 <span class="va">filter_setPA</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">Daily</span>, <span class="va">paStart</span>, <span class="va">paLong</span><span class="op">)</span><span class="op">{</span>
   
@@ -271,10 +274,9 @@
   <span class="fu">filter_setPA</span><span class="op">(</span>paStart <span class="op">=</span> <span class="va">eList</span><span class="op">$</span><span class="va">INFO</span><span class="op">$</span><span class="va">paStart</span>,
                paLong <span class="op">=</span> <span class="va">eList</span><span class="op">$</span><span class="va">INFO</span><span class="op">$</span><span class="va">paLong</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Year</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n_days <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">Q</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></pre></div>
-<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="va">number_of_days_2010</span> <span class="op">&lt;-</span> <span class="va">number_of_days</span><span class="op">$</span><span class="va">n_days</span><span class="op">[</span><span class="va">number_of_days</span><span class="op">$</span><span class="va">Year</span> <span class="op">==</span> <span class="fl">2010</span><span class="op">]</span></pre></div>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n_days <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">Q</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+
+<span class="va">number_of_days_2010</span> <span class="op">&lt;-</span> <span class="va">number_of_days</span><span class="op">$</span><span class="va">n_days</span><span class="op">[</span><span class="va">number_of_days</span><span class="op">$</span><span class="va">Year</span> <span class="op">==</span> <span class="fl">2010</span><span class="op">]</span></code></pre></div>
 <p>Note that now the estimated flow normalized flux is 0.215 10<sup>6</sup> kg/year. Let’s take a moment to think about that in relation to the previous result. What it is saying is that the flux (mass per unit time) is greater during this three month period that the average flux for the entire water year. That makes sense, some seasons will have higher than average fluxes and other seasons will have lower than average fluxes.</p>
 <p>Now, it might be that we want to think about these results, not in terms of a flux but in terms of mass alone. In the first result (water year) the mass for the year is 0.149 10<sup>6</sup> kg. But for the winter season we would compute the mass as 0.215 * 90 / 365 to give us a result of 0.053 10<sup>6</sup> kg. To get this result we took the annual rate (0.215) and divided by the number of days in the year (365) to get a rate in mass per day and then multiplied by the number of days in the season (90) which is the sum of the length of those three months to simply get a total mass.</p>
 <p>We have taken pains here to run through this calculation because users have sometimes been confused, wondering how the flux for a part of the year can be greater than the flux for the whole year. Depending on the ultimate objective of the analysis one might want to present the seasonal results in either of these ways (mass or mass per unit time).</p>
@@ -284,10 +286,10 @@
 <h1 class="hasAnchor">
 <a href="#seasonal-changes" class="anchor"></a>Seasonal Changes</h1>
 <p>Let’s use the tableChange function to explore the change from 1990 to 2010. We will do it first for the full water year and then for the winter season.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="va">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setPA.html">setPA</a></span><span class="op">(</span><span class="va">eList</span>, paStart <span class="op">=</span> <span class="fl">12</span>, paLong <span class="op">=</span> <span class="fl">12</span><span class="op">)</span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setPA.html">setPA</a></span><span class="op">(</span><span class="va">eList</span>, paStart <span class="op">=</span> <span class="fl">12</span>, paLong <span class="op">=</span> <span class="fl">12</span><span class="op">)</span>
 <span class="va">change_annual_flux</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tableChange.html">tableChangeSingle</a></span><span class="op">(</span><span class="va">eList</span>, flux <span class="op">=</span> <span class="cn">TRUE</span>,
-                                   yearPoints <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1990</span>,<span class="fl">2010</span><span class="op">)</span><span class="op">)</span></pre></div>
+                                   yearPoints <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1990</span>,<span class="fl">2010</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ##    Choptank River 
 ##    Inorganic nitrogen (nitrate and nitrite)
@@ -300,9 +302,9 @@
 ##                  10^6 kg/yr   10^6 kg/yr/yr      %         %/yr
 ## 
 ##  1990  to  2010         0.02      0.00099           15         0.77</code></pre>
-<div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="va">change_annual_conc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tableChange.html">tableChangeSingle</a></span><span class="op">(</span><span class="va">eList</span>, flux <span class="op">=</span> <span class="cn">FALSE</span>,
-                                   yearPoints <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1990</span>,<span class="fl">2010</span><span class="op">)</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">change_annual_conc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tableChange.html">tableChangeSingle</a></span><span class="op">(</span><span class="va">eList</span>, flux <span class="op">=</span> <span class="cn">FALSE</span>,
+                                   yearPoints <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1990</span>,<span class="fl">2010</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ##    Choptank River 
 ##    Inorganic nitrogen (nitrate and nitrite)
@@ -313,10 +315,10 @@
 ##                      mg/L   mg/L/yr        %       %/yr
 ## 
 ##  1990  to  2010      0.32     0.016        28       1.4</code></pre>
-<div class="sourceCode" id="cb15"><pre class="downlit">
-<span class="va">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setPA.html">setPA</a></span><span class="op">(</span><span class="va">eList</span>, paStart <span class="op">=</span> <span class="fl">12</span>, paLong <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setPA.html">setPA</a></span><span class="op">(</span><span class="va">eList</span>, paStart <span class="op">=</span> <span class="fl">12</span>, paLong <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
 <span class="va">change_season_flux</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tableChange.html">tableChangeSingle</a></span><span class="op">(</span><span class="va">eList</span>, flux <span class="op">=</span> <span class="cn">TRUE</span>,
-                                   yearPoints <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1990</span>,<span class="fl">2010</span><span class="op">)</span><span class="op">)</span></pre></div>
+                                   yearPoints <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1990</span>,<span class="fl">2010</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ##    Choptank River 
 ##    Inorganic nitrogen (nitrate and nitrite)
@@ -329,9 +331,9 @@
 ##                  10^6 kg/yr   10^6 kg/yr/yr      %         %/yr
 ## 
 ##  1990  to  2010         0.02        0.001           10         0.51</code></pre>
-<div class="sourceCode" id="cb17"><pre class="downlit">
-<span class="va">change_season_conc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tableChange.html">tableChangeSingle</a></span><span class="op">(</span><span class="va">eList</span>, flux <span class="op">=</span> <span class="cn">FALSE</span>,
-                                   yearPoints <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1990</span>,<span class="fl">2010</span><span class="op">)</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">change_season_conc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/tableChange.html">tableChangeSingle</a></span><span class="op">(</span><span class="va">eList</span>, flux <span class="op">=</span> <span class="cn">FALSE</span>,
+                                   yearPoints <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1990</span>,<span class="fl">2010</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ##    Choptank River 
 ##    Inorganic nitrogen (nitrate and nitrite)
@@ -350,8 +352,8 @@
 <a href="#seasonal-load-fraction" class="anchor"></a>Seasonal Load Fraction</h1>
 <p>Next, we can think about the seasonal load fraction.</p>
 <p>You will need to read in two new functions called <code>setupSeasons</code> and <code>setupYearsPlus</code> designed for this purpose. You can copy them from here and paste them into your workspace (all as a single copy and paste) or you can create an .R file from them that you will source each time you want to use them. The functions use the package <a href="https://CRAN.R-project.org/package=dplyr"><code>dplyr</code></a>, a package that is useful for general data exploration and manipulation.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit">
-<span class="va">setupSeasons</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">eList</span><span class="op">)</span><span class="op">{</span>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">setupSeasons</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">eList</span><span class="op">)</span><span class="op">{</span>
   
   <span class="va">Daily</span> <span class="op">&lt;-</span> <span class="va">eList</span><span class="op">$</span><span class="va">Daily</span>
   
@@ -399,13 +401,11 @@
            SeasonFNFlux <span class="op">=</span> <span class="va">FNFlux</span><span class="op">)</span>
   
   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">seasonPctResults</span><span class="op">)</span>
-<span class="op">}</span></pre></div>
+<span class="op">}</span></code></pre></div>
 <p>Simply use the loaded <code>eList</code> to calculate these seasonal load fractions. Let’s go back to the winter season (Dec-Feb):</p>
-<div class="sourceCode" id="cb20"><pre class="downlit">
-<span class="va">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setPA.html">setPA</a></span><span class="op">(</span><span class="va">eList</span>, paStart <span class="op">=</span> <span class="fl">12</span>, paLong <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
-<span class="va">seasonPctResults</span> <span class="op">&lt;-</span> <span class="fu">setupSeasons</span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></pre></div>
-<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)
-## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setPA.html">setPA</a></span><span class="op">(</span><span class="va">eList</span>, paStart <span class="op">=</span> <span class="fl">12</span>, paLong <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+<span class="va">seasonPctResults</span> <span class="op">&lt;-</span> <span class="fu">setupSeasons</span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="looking-at-your-results" class="section level1">
 <h1 class="hasAnchor">
@@ -460,8 +460,8 @@
 <h1 class="hasAnchor">
 <a href="#plotting-the-time-series" class="anchor"></a>Plotting the time series</h1>
 <p>We can make a graph showing the percentage flux (estimated annual and flow normalized). Note, this workflow uses base R plotting functions. You could also use the <code>EGRET</code> function <code>genericEGRETDotPlot</code> to automatically to pick some plotting styles that are consistent with other <code>EGRET</code> plots.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit">
-<span class="va">plotTitle</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Seasonal Flux as a Percent of Annual Flux\n"</span>,
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plotTitle</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Seasonal Flux as a Percent of Annual Flux\n"</span>,
                   <span class="va">eList</span><span class="op">$</span><span class="va">INFO</span><span class="op">$</span><span class="va">shortName</span>, <span class="va">eList</span><span class="op">$</span><span class="va">INFO</span><span class="op">$</span><span class="va">paramShortName</span>,
                   <span class="st">"\nSolid line is percentage of flow normalized flux"</span><span class="op">)</span> 
 <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>,<span class="fl">6</span>,<span class="fl">4</span>,<span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.1</span>,mgp<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>
@@ -471,7 +471,7 @@
      main<span class="op">=</span><span class="va">plotTitle</span>,cex<span class="op">=</span><span class="fl">1.5</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">seasonPctResults</span><span class="op">$</span><span class="va">DecYear</span>,<span class="va">seasonPctResults</span><span class="op">$</span><span class="va">pctFNFlux</span>,col<span class="op">=</span><span class="st">"green"</span>,lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span><span class="op">(</span><span class="fl">3</span>, labels <span class="op">=</span> <span class="cn">FALSE</span>,tck<span class="op">=</span><span class="fl">.01</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span><span class="op">(</span><span class="fl">4</span>, labels <span class="op">=</span> <span class="cn">FALSE</span>,tck<span class="op">=</span><span class="fl">.01</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span><span class="op">(</span><span class="fl">4</span>, labels <span class="op">=</span> <span class="cn">FALSE</span>,tck<span class="op">=</span><span class="fl">.01</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="SeasonalFraction_files/figure-html/unnamed-chunk-7-1.png" alt="Seasonal flux as a percentage of annual flux." width="700"><p class="caption">
 Seasonal flux as a percentage of annual flux.
@@ -488,25 +488,25 @@ Seasonal flux as a percentage of annual flux.
 <li><p>Filter the data frame <code>seasonPctResults</code> for the years 2000 - 2010.</p></li>
 <li><p>Now we can compute the sum of the annual fluxes for those years and the sum of the seasonal fluxes for those years, and then get our answer by taking the ratio and multiplying by 100.</p></li>
 </ul>
-<div class="sourceCode" id="cb23"><pre class="downlit">
-<span class="va">years00_10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">seasonPctResults</span>, <span class="va">Year</span> <span class="op">&gt;=</span> <span class="fl">2000</span>, <span class="va">Year</span> <span class="op">&lt;=</span> <span class="fl">2010</span><span class="op">)</span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">years00_10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">seasonPctResults</span>, <span class="va">Year</span> <span class="op">&gt;=</span> <span class="fl">2000</span>, <span class="va">Year</span> <span class="op">&lt;=</span> <span class="fl">2010</span><span class="op">)</span>
 
 <span class="va">sumYears</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">years00_10</span><span class="op">$</span><span class="va">AnnualFlux</span><span class="op">)</span>
  
 <span class="va">sumSeasons</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">years00_10</span><span class="op">$</span><span class="va">SeasonFlux</span> <span class="op">*</span> <span class="va">years00_10</span><span class="op">$</span><span class="va">Counts</span> <span class="op">/</span>
                     <span class="va">years00_10</span><span class="op">$</span><span class="va">AnnualCounts</span><span class="op">)</span>
 
-<span class="va">avePct</span> <span class="op">&lt;-</span> <span class="fl">100</span> <span class="op">*</span> <span class="va">sumSeasons</span> <span class="op">/</span> <span class="va">sumYears</span></pre></div>
+<span class="va">avePct</span> <span class="op">&lt;-</span> <span class="fl">100</span> <span class="op">*</span> <span class="va">sumSeasons</span> <span class="op">/</span> <span class="va">sumYears</span></code></pre></div>
 <p>The total flux for all years in the period of interest in millions of kg is <code>sumYears</code> = 1.73.</p>
 <p>The total seasonal flux for all years of the period of interest in millions of kg is <code>sumSeasons</code> = 0.61.</p>
 <p>The percentage of the total flux for the years 2000 through 2010 that was transported in the winter months is <code>avePct</code> = 35.3.</p>
 <p>This can be determined for any set of years simply by changing <code>Year</code> values in the <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter</a></code> function. So, for the years 1990-1999:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit">
-<span class="va">years90_99</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">seasonPctResults</span>, <span class="va">Year</span> <span class="op">&gt;=</span> <span class="fl">1990</span>, <span class="va">Year</span> <span class="op">&lt;=</span> <span class="fl">1999</span><span class="op">)</span>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">years90_99</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">seasonPctResults</span>, <span class="va">Year</span> <span class="op">&gt;=</span> <span class="fl">1990</span>, <span class="va">Year</span> <span class="op">&lt;=</span> <span class="fl">1999</span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sumYears"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">years90_99</span><span class="op">$</span><span class="va">AnnualFlux</span><span class="op">)</span>,
 <span class="st">"sumSeasons"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">years90_99</span><span class="op">$</span><span class="va">SeasonFlux</span> <span class="op">*</span> <span class="va">years90_99</span><span class="op">$</span><span class="va">Counts</span> <span class="op">/</span> <span class="va">years90_99</span><span class="op">$</span><span class="va">AnnualCounts</span><span class="op">)</span>,
-<span class="st">"avePct"</span> <span class="op">=</span> <span class="fl">100</span> <span class="op">*</span> <span class="va">sumSeasons</span> <span class="op">/</span> <span class="va">sumYears</span><span class="op">)</span></pre></div>
+<span class="st">"avePct"</span> <span class="op">=</span> <span class="fl">100</span> <span class="op">*</span> <span class="va">sumSeasons</span> <span class="op">/</span> <span class="va">sumYears</span><span class="op">)</span></code></pre></div>
 <pre><code>##   sumYears sumSeasons     avePct 
 ##  1.3327152  0.5037539 35.2611821</code></pre>
 </div>
@@ -527,7 +527,7 @@ Seasonal flux as a percentage of annual flux.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

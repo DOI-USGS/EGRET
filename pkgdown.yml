@@ -1,10 +1,10 @@
-pandoc: 2.7.3
-pkgdown: 1.6.1.9000
-pkgdown_sha: e1e46f2e13c7efdb17bc4eae40bc3779c2b0b517
+pandoc: 2.11.2
+pkgdown: 1.6.1
+pkgdown_sha: ~
 articles:
+  AlternativeQMethod: AlternativeQMethod.html
   EGRET: EGRET.html
   Enhancements: Enhancements.html
-  Making WRTDS_K flux estimates: Making WRTDS_K flux estimates.html
   parallel: parallel.html
   References_WRTDS: References_WRTDS.html
   rResid: rResid.html
@@ -12,5 +12,5 @@ articles:
   streamflow_trend: streamflow_trend.html
   TrendsByMonth: TrendsByMonth.html
   WRTDSK: WRTDSK.html
-last_built: 2020-10-15T22:49Z
+last_built: 2021-03-15T22:55Z
 

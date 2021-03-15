@@ -93,7 +93,7 @@ These generated estimates are called genConc and genFlux" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EGRET</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.4.9001</span>
       </span>
     </div>
 
@@ -133,6 +133,9 @@ These generated estimates are called genConc and genFlux" />
     <li>
       <a href="../articles/TrendsByMonth.html">Trends by month</a>
     </li>
+    <li>
+      <a href="../articles/AlternativeQMethod.html">Alternative Q Method</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -142,7 +145,7 @@ These generated estimates are called genConc and genFlux" />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/USGS-R/EGRET">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -246,31 +249,31 @@ Setting the seed to any given value can be used to create repeatable output.</p>
 #&gt;  3rd Qu.: 0.258944   3rd Qu.:0.3029   3rd Qu.:1.3551   3rd Qu.: 484.360  
 #&gt;  Max.   : 0.661543   Max.   :0.6146   Max.   :1.9666   Max.   :5519.450  
 #&gt;                                                                          
-#&gt;      FNConc           FNFlux          GenFlux            GenConc       
-#&gt;  Min.   :0.8352   Min.   : 77.55   Min.   :    1.50   Min.   :0.04929  
-#&gt;  1st Qu.:1.0540   1st Qu.:169.71   1st Qu.:   97.76   1st Qu.:1.00598  
-#&gt;  Median :1.2067   Median :318.61   Median :  244.75   Median :1.20080  
-#&gt;  Mean   :1.2004   Mean   :362.71   Mean   :  376.18   Mean   :1.21293  
-#&gt;  3rd Qu.:1.3314   3rd Qu.:538.44   3rd Qu.:  497.69   3rd Qu.:1.40602  
-#&gt;  Max.   :1.6882   Max.   :943.75   Max.   :11927.06   Max.   :2.43000  
-#&gt;                                                                        </div><div class='input'>
+#&gt;      FNConc           FNFlux          GenFlux            GenConc      
+#&gt;  Min.   :0.8352   Min.   : 77.55   Min.   :    1.66   Min.   :0.0492  
+#&gt;  1st Qu.:1.0540   1st Qu.:169.71   1st Qu.:   97.47   1st Qu.:1.0080  
+#&gt;  Median :1.2067   Median :318.61   Median :  245.86   Median :1.2000  
+#&gt;  Mean   :1.2004   Mean   :362.71   Mean   :  376.69   Mean   :1.2148  
+#&gt;  3rd Qu.:1.3314   3rd Qu.:538.44   3rd Qu.:  498.63   3rd Qu.:1.4129  
+#&gt;  Max.   :1.6882   Max.   :943.75   Max.   :11927.06   Max.   :2.4300  
+#&gt;                                                                       </div><div class='input'>
 <span class='co'>#All flux values in AnnualResults are expressed as a rate in kg/day</span>
 <span class='va'>AnnualResults</span> <span class='op'>&lt;-</span> <span class='fu'><a href='setupYears.html'>setupYears</a></span><span class='op'>(</span><span class='va'>eList</span><span class='op'>$</span><span class='va'>Daily</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>AnnualResults</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;    DecYear        Q      Conc     Flux    FNConc   FNFlux   GenConc  GenFlux
-#&gt; 2 1980.249 4.251937 0.9485403 316.0491 1.0027237 291.2176 0.9566562 315.9109
-#&gt; 3 1981.249 2.217248 1.0351962 184.6712 0.9988918 296.7260 0.9799668 168.3099
-#&gt; 4 1982.249 3.046039 1.0361327 269.6309 0.9931881 300.7424 1.1265120 293.6881
-#&gt; 5 1983.249 4.986713 1.0072716 363.8563 0.9931768 305.5898 1.0824276 391.7368
-#&gt; 6 1984.249 5.718146 0.9901927 437.3007 1.0017255 312.2260 1.0082440 435.7701
-#&gt; 7 1985.249 1.517457 1.0571854 133.9210 1.0165324 318.5007 1.0303876 129.1059
+#&gt; 1 1980.249 4.251937 0.9485403 316.0491 1.0027237 291.2176 0.9820268 324.0710
+#&gt; 2 1981.249 2.217248 1.0351962 184.6712 0.9988918 296.7260 0.9904381 170.2038
+#&gt; 3 1982.249 3.046039 1.0361327 269.6309 0.9931881 300.7424 1.0937085 283.9836
+#&gt; 4 1983.249 4.986713 1.0072716 363.8563 0.9931768 305.5898 1.0472068 377.2780
+#&gt; 5 1984.249 5.718146 0.9901927 437.3007 1.0017255 312.2260 1.0054489 442.8785
+#&gt; 6 1985.249 1.517457 1.0571854 133.9210 1.0165324 318.5007 1.0261695 126.4228
 #&gt;   PeriodLong PeriodStart
+#&gt; 1         12          10
 #&gt; 2         12          10
 #&gt; 3         12          10
 #&gt; 4         12          10
 #&gt; 5         12          10
-#&gt; 6         12          10
-#&gt; 7         12          10</div></pre>
+#&gt; 6         12          10</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -286,7 +289,7 @@ Setting the seed to any given value can be used to create repeatable output.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

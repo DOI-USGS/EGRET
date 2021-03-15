@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EGRET</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.4.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.4.9001</span>
       </span>
     </div>
 
@@ -84,6 +84,9 @@
     <li>
       <a href="../articles/TrendsByMonth.html">Trends by month</a>
     </li>
+    <li>
+      <a href="../articles/AlternativeQMethod.html">Alternative Q Method</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -93,7 +96,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/USGS-R/EGRET">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -107,7 +110,7 @@
 
       
 
-      </header><script src="WRTDSK_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="WRTDSK_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>WRTDS Kalman</h1>
@@ -121,8 +124,8 @@
     
     
 <p>In order to run these functions, you will need to install the development version of <code>EGRET</code>. This can be done using the <code>remotes</code> package:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"USGS-R/EGRET"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"USGS-R/EGRET"</span><span class="op">)</span></code></pre></div>
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
@@ -150,12 +153,12 @@
 <li>Install the development version of <code>EGRET</code> via the <code>remotes</code> package (see above).</li>
 <li>A data set which must already be in the form of an EGRET workspace containing an eList that has all four components of an <strong>eList (INFO, Daily, Sample, surfaces)</strong>. That is, it must be the data and a WRTDS model based on that data that is already estimated. The data set must be in the form of an “.RData” file that contains an <strong>eList</strong>, Nothing else needs to be in that file but if there is other stuff, that’s ok. The data set can contain multiple concentration values on a given day and it can also contain censored data (“less than values”). The two papers referenced above do not consider either of these special situations, but the software in this package is able to properly handle data sets that have either or both of these properties. The way these issues are handled is described in a section at the end of this document.</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://pubs.usgs.gov/tm/04/a10/">EGRET</a></span><span class="op">)</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://pubs.usgs.gov/tm/04/a10/">EGRET</a></span><span class="op">)</span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"ChainBridge.TP.RData"</span><span class="op">)</span> 
 <span class="co"># now we will run the WRTDSKalman estimation (using the defaults for now)</span>
-<span class="va">eList_K</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/WRTDSKalman.html">WRTDSKalman</a></span><span class="op">(</span><span class="va">eList</span>, niter <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></pre></div>
+<span class="va">eList_K</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/WRTDSKalman.html">WRTDSKalman</a></span><span class="op">(</span><span class="va">eList</span>, niter <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></code></pre></div>
 <pre><code>## % complete:
 ## 0    1   2   3   4   5   6   7   8   9   10  
 ## 11   12  13  14  15  16  17  18  19  20  
@@ -167,8 +170,8 @@
 ## 71   72  73  74  75  76  77  78  79  80  
 ## 81   82  83  84  85  86  87  88  89  90  
 ## 91   92  93  94  95  96  97  98  99  </code></pre>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">eList_K</span><span class="op">$</span><span class="va">Daily</span><span class="op">)</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">eList_K</span><span class="op">$</span><span class="va">Daily</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>##       Date                  Q                Julian          Month       
 ##  Min.   :1984-10-01   Min.   :   4.927   Min.   :49216   Min.   : 1.000  
 ##  1st Qu.:1993-04-01   1st Qu.:  84.951   1st Qu.:52321   1st Qu.: 4.000  
@@ -202,11 +205,11 @@
 ##  Max.   :0.7217   Max.   :1.882430   Max.   :1349413.9   Max.   :0.19000  
 ##                                                                           
 ##      FNFlux           GenFlux             GenConc        
-##  Min.   :  255.9   Min.   :     11.0   Min.   :0.006033  
-##  1st Qu.: 2018.7   1st Qu.:    301.7   1st Qu.:0.033723  
-##  Median : 3743.6   Median :    799.3   Median :0.054000  
-##  Mean   : 4979.2   Mean   :   4123.3   Mean   :0.071727  
-##  3rd Qu.: 6372.4   3rd Qu.:   2306.8   3rd Qu.:0.086400  
+##  Min.   :  255.9   Min.   :     10.9   Min.   :0.005982  
+##  1st Qu.: 2018.7   1st Qu.:    303.0   1st Qu.:0.033753  
+##  Median : 3743.6   Median :    797.8   Median :0.053977  
+##  Mean   : 4979.2   Mean   :   4121.7   Mean   :0.071659  
+##  3rd Qu.: 6372.4   3rd Qu.:   2293.5   3rd Qu.:0.086578  
 ##  Max.   :43441.1   Max.   :1577062.6   Max.   :2.200000  
 ## </code></pre>
 <p>The object being created here is a new <strong>eList</strong>, with a modified <strong>Daily</strong> data frame. It looks just like the original <strong>Daily</strong> but with two extra columns added. What are the extra columns?</p>
@@ -217,18 +220,17 @@
 <h1 class="hasAnchor">
 <a href="#summarizing-results-at-an-annual-time-step" class="anchor"></a>Summarizing results at an annual time step</h1>
 <p>Now we can take the results from <strong>eList_K</strong> and compute annual flux values. We will do that for the regular WRTDS and for WRTDSKalman. We can also do these computations for some period of analysis other than the water year, but for now, we will just show the water year computations. The function used is called <strong>setupYears</strong> and it produces a data frame called <strong>AnnualResults</strong>.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="va">AnnualResults</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setupYears.html">setupYears</a></span><span class="op">(</span><span class="va">eList_K</span><span class="op">$</span><span class="va">Daily</span><span class="op">)</span>
-<span class="fu"><a href="../reference/plotWRTDSKalman.html">plotWRTDSKalman</a></span><span class="op">(</span><span class="va">eList_K</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">AnnualResults</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setupYears.html">setupYears</a></span><span class="op">(</span><span class="va">eList_K</span><span class="op">$</span><span class="va">Daily</span><span class="op">)</span>
+<span class="fu"><a href="../reference/plotWRTDSKalman.html">plotWRTDSKalman</a></span><span class="op">(</span><span class="va">eList_K</span><span class="op">)</span></code></pre></div>
 <p><img src="WRTDSK_files/figure-html/unnamed-chunk-2-1.png" width="700"><img src="WRTDSK_files/figure-html/unnamed-chunk-2-2.png" width="700"></p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="va">prettyAnnual</span> <span class="op">&lt;-</span> <span class="va">AnnualResults</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"DecYear"</span>, <span class="st">"Q"</span>, 
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">prettyAnnual</span> <span class="op">&lt;-</span> <span class="va">AnnualResults</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"DecYear"</span>, <span class="st">"Q"</span>, 
                  <span class="st">"Conc"</span>, <span class="st">"GenConc"</span>, <span class="st">"Flux"</span>, <span class="st">"GenFlux"</span><span class="op">)</span><span class="op">]</span>
-<span class="fu">kable</span><span class="op">(</span><span class="va">prettyAnnual</span>, digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, caption <span class="op">=</span> <span class="st">"Units are cubic meters per second, milligrams per Liter, and metric tons per year"</span><span class="op">)</span></pre></div>
+<span class="fu">kable</span><span class="op">(</span><span class="va">prettyAnnual</span>, digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, caption <span class="op">=</span> <span class="st">"Units are cubic meters per second, milligrams per Liter, and metric tons per year"</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <caption>Units are cubic meters per second, milligrams per Liter, and metric tons per year</caption>
 <thead><tr class="header">
-<th align="left"></th>
 <th align="right">DecYear</th>
 <th align="right">Q</th>
 <th align="right">Conc</th>
@@ -238,319 +240,276 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">2</td>
 <td align="right">1985</td>
 <td align="right">229</td>
 <td align="right">0.095</td>
-<td align="right">0.102</td>
+<td align="right">0.101</td>
 <td align="right">2292</td>
-<td align="right">2428</td>
+<td align="right">2399</td>
 </tr>
 <tr class="even">
-<td align="left">3</td>
 <td align="right">1986</td>
 <td align="right">336</td>
 <td align="right">0.103</td>
 <td align="right">0.086</td>
 <td align="right">9837</td>
-<td align="right">8913</td>
+<td align="right">8924</td>
 </tr>
 <tr class="odd">
-<td align="left">4</td>
 <td align="right">1987</td>
 <td align="right">318</td>
 <td align="right">0.088</td>
-<td align="right">0.088</td>
+<td align="right">0.089</td>
 <td align="right">3862</td>
-<td align="right">3833</td>
+<td align="right">3890</td>
 </tr>
 <tr class="even">
-<td align="left">5</td>
 <td align="right">1988</td>
 <td align="right">274</td>
 <td align="right">0.079</td>
 <td align="right">0.079</td>
 <td align="right">3545</td>
-<td align="right">4007</td>
+<td align="right">4123</td>
 </tr>
 <tr class="odd">
-<td align="left">6</td>
 <td align="right">1989</td>
 <td align="right">308</td>
 <td align="right">0.083</td>
-<td align="right">0.066</td>
+<td align="right">0.065</td>
 <td align="right">3530</td>
-<td align="right">2867</td>
+<td align="right">2865</td>
 </tr>
 <tr class="even">
-<td align="left">7</td>
 <td align="right">1990</td>
 <td align="right">250</td>
 <td align="right">0.073</td>
 <td align="right">0.067</td>
 <td align="right">1917</td>
-<td align="right">1862</td>
+<td align="right">1840</td>
 </tr>
 <tr class="odd">
-<td align="left">8</td>
 <td align="right">1991</td>
 <td align="right">341</td>
 <td align="right">0.078</td>
 <td align="right">0.071</td>
 <td align="right">3893</td>
-<td align="right">2934</td>
+<td align="right">2920</td>
 </tr>
 <tr class="even">
-<td align="left">9</td>
 <td align="right">1992</td>
 <td align="right">219</td>
 <td align="right">0.056</td>
 <td align="right">0.046</td>
 <td align="right">1515</td>
-<td align="right">1228</td>
+<td align="right">1225</td>
 </tr>
 <tr class="odd">
-<td align="left">10</td>
 <td align="right">1993</td>
 <td align="right">478</td>
 <td align="right">0.079</td>
-<td align="right">0.068</td>
+<td align="right">0.069</td>
 <td align="right">6066</td>
-<td align="right">4915</td>
+<td align="right">4965</td>
 </tr>
 <tr class="even">
-<td align="left">11</td>
 <td align="right">1994</td>
 <td align="right">516</td>
 <td align="right">0.087</td>
 <td align="right">0.066</td>
 <td align="right">6771</td>
-<td align="right">4885</td>
+<td align="right">4862</td>
 </tr>
 <tr class="odd">
-<td align="left">12</td>
 <td align="right">1995</td>
 <td align="right">229</td>
 <td align="right">0.064</td>
 <td align="right">0.056</td>
 <td align="right">1846</td>
-<td align="right">1572</td>
+<td align="right">1605</td>
 </tr>
 <tr class="even">
-<td align="left">13</td>
 <td align="right">1996</td>
 <td align="right">673</td>
 <td align="right">0.134</td>
-<td align="right">0.105</td>
+<td align="right">0.106</td>
 <td align="right">17016</td>
-<td align="right">14393</td>
+<td align="right">14438</td>
 </tr>
 <tr class="odd">
-<td align="left">14</td>
 <td align="right">1997</td>
 <td align="right">409</td>
 <td align="right">0.100</td>
-<td align="right">0.083</td>
+<td align="right">0.082</td>
 <td align="right">5226</td>
-<td align="right">4408</td>
+<td align="right">4396</td>
 </tr>
 <tr class="even">
-<td align="left">15</td>
 <td align="right">1998</td>
 <td align="right">567</td>
 <td align="right">0.121</td>
 <td align="right">0.086</td>
 <td align="right">10616</td>
-<td align="right">6999</td>
+<td align="right">6964</td>
 </tr>
 <tr class="odd">
-<td align="left">16</td>
 <td align="right">1999</td>
 <td align="right">144</td>
 <td align="right">0.071</td>
-<td align="right">0.087</td>
+<td align="right">0.088</td>
 <td align="right">1102</td>
-<td align="right">1360</td>
+<td align="right">1377</td>
 </tr>
 <tr class="even">
-<td align="left">17</td>
 <td align="right">2000</td>
 <td align="right">236</td>
 <td align="right">0.089</td>
 <td align="right">0.100</td>
 <td align="right">2222</td>
-<td align="right">2779</td>
+<td align="right">2777</td>
 </tr>
 <tr class="odd">
-<td align="left">18</td>
 <td align="right">2001</td>
 <td align="right">218</td>
 <td align="right">0.079</td>
-<td align="right">0.092</td>
+<td align="right">0.091</td>
 <td align="right">1943</td>
-<td align="right">2922</td>
+<td align="right">2907</td>
 </tr>
 <tr class="even">
-<td align="left">19</td>
 <td align="right">2002</td>
 <td align="right">114</td>
 <td align="right">0.056</td>
 <td align="right">0.063</td>
 <td align="right">841</td>
-<td align="right">1307</td>
+<td align="right">1294</td>
 </tr>
 <tr class="odd">
-<td align="left">20</td>
 <td align="right">2003</td>
 <td align="right">647</td>
 <td align="right">0.154</td>
-<td align="right">0.114</td>
+<td align="right">0.113</td>
 <td align="right">14522</td>
-<td align="right">10666</td>
+<td align="right">10516</td>
 </tr>
 <tr class="even">
-<td align="left">21</td>
 <td align="right">2004</td>
 <td align="right">503</td>
 <td align="right">0.123</td>
 <td align="right">0.078</td>
 <td align="right">8835</td>
-<td align="right">5292</td>
+<td align="right">5272</td>
 </tr>
 <tr class="odd">
-<td align="left">22</td>
 <td align="right">2005</td>
 <td align="right">344</td>
 <td align="right">0.083</td>
-<td align="right">0.063</td>
+<td align="right">0.062</td>
 <td align="right">4611</td>
-<td align="right">3351</td>
+<td align="right">3344</td>
 </tr>
 <tr class="even">
-<td align="left">23</td>
 <td align="right">2006</td>
 <td align="right">248</td>
 <td align="right">0.063</td>
 <td align="right">0.065</td>
 <td align="right">2291</td>
-<td align="right">2499</td>
+<td align="right">2512</td>
 </tr>
 <tr class="odd">
-<td align="left">24</td>
 <td align="right">2007</td>
 <td align="right">297</td>
 <td align="right">0.062</td>
 <td align="right">0.059</td>
 <td align="right">3004</td>
-<td align="right">3156</td>
+<td align="right">3153</td>
 </tr>
 <tr class="even">
-<td align="left">25</td>
 <td align="right">2008</td>
 <td align="right">296</td>
 <td align="right">0.059</td>
 <td align="right">0.058</td>
 <td align="right">3221</td>
-<td align="right">2718</td>
+<td align="right">2694</td>
 </tr>
 <tr class="odd">
-<td align="left">26</td>
 <td align="right">2009</td>
 <td align="right">252</td>
 <td align="right">0.054</td>
 <td align="right">0.058</td>
 <td align="right">2449</td>
-<td align="right">2844</td>
+<td align="right">2830</td>
 </tr>
 <tr class="even">
-<td align="left">27</td>
 <td align="right">2010</td>
 <td align="right">370</td>
 <td align="right">0.066</td>
-<td align="right">0.065</td>
+<td align="right">0.064</td>
 <td align="right">5680</td>
-<td align="right">5338</td>
+<td align="right">5356</td>
 </tr>
 <tr class="odd">
-<td align="left">28</td>
 <td align="right">2011</td>
 <td align="right">390</td>
 <td align="right">0.075</td>
 <td align="right">0.064</td>
 <td align="right">7139</td>
-<td align="right">5349</td>
+<td align="right">5367</td>
 </tr>
 <tr class="even">
-<td align="left">29</td>
 <td align="right">2012</td>
 <td align="right">304</td>
 <td align="right">0.063</td>
 <td align="right">0.051</td>
 <td align="right">2703</td>
-<td align="right">1967</td>
+<td align="right">1961</td>
 </tr>
 <tr class="odd">
-<td align="left">30</td>
 <td align="right">2013</td>
 <td align="right">331</td>
 <td align="right">0.063</td>
 <td align="right">0.053</td>
 <td align="right">3841</td>
-<td align="right">3247</td>
+<td align="right">3255</td>
 </tr>
 <tr class="even">
-<td align="left">31</td>
 <td align="right">2014</td>
 <td align="right">385</td>
 <td align="right">0.070</td>
 <td align="right">0.064</td>
 <td align="right">4747</td>
-<td align="right">4635</td>
+<td align="right">4638</td>
 </tr>
 <tr class="odd">
-<td align="left">32</td>
 <td align="right">2015</td>
 <td align="right">243</td>
 <td align="right">0.047</td>
 <td align="right">0.046</td>
 <td align="right">1777</td>
-<td align="right">1852</td>
+<td align="right">1857</td>
 </tr>
 <tr class="even">
-<td align="left">33</td>
 <td align="right">2016</td>
 <td align="right">316</td>
 <td align="right">0.059</td>
 <td align="right">0.058</td>
 <td align="right">3229</td>
-<td align="right">3093</td>
+<td align="right">3079</td>
 </tr>
 <tr class="odd">
-<td align="left">34</td>
 <td align="right">2017</td>
 <td align="right">249</td>
 <td align="right">0.047</td>
 <td align="right">0.042</td>
 <td align="right">1957</td>
-<td align="right">1863</td>
+<td align="right">1860</td>
 </tr>
 <tr class="even">
-<td align="left">35</td>
 <td align="right">2018</td>
 <td align="right">529</td>
 <td align="right">0.100</td>
-<td align="right">0.092</td>
+<td align="right">0.091</td>
 <td align="right">10096</td>
-<td align="right">8602</td>
-</tr>
-<tr class="odd">
-<td align="left">36</td>
-<td align="right">2019</td>
-<td align="right">1744</td>
-<td align="right">0.318</td>
-<td align="right">0.272</td>
-<td align="right">47954</td>
-<td align="right">40995</td>
+<td align="right">8561</td>
 </tr>
 </tbody>
 </table>
@@ -570,17 +529,17 @@
 <a href="#looking-at-parts-of-the-record-to-see-how-wrtds-and-wrtdskalman-are-working" class="anchor"></a>Looking at parts of the record to see how WRTDS and WRTDSKalman are working</h1>
 <p>We have a function that produces graphics that show, as a time series, the daily true values (for the days that have samples), the WRTDS estimates for every day, and the WRTDSKalman estimates for every day. We could plot the whole record, but the ups and downs of the curves would be so tight that we really couldn’t see what’s going on. So, we let the user pick a time slice to look at. It produces two plots, the first is for concentration (it is typically easier to see what is happening in the estimation with the concentration graphs) and the second is for flux (discharge plays such a big role here that the propagation of error from the concentrations gets somewhat obscured, but flux is, after all, what we are interested in here).</p>
 <p>We will look at two examples here, in each case looking at about a half a year. The first case (the first half of 2016) is a period in which there was very good agreement between the estimates, and the second one (the second half of 1996) is a year with a large difference between the methods. Let’s see what those results look like.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="fu"><a href="../reference/plotTimeSlice.html">plotTimeSlice</a></span><span class="op">(</span><span class="va">eList_K</span>, start <span class="op">=</span> <span class="fl">2016</span>, end <span class="op">=</span> <span class="fl">2016.5</span>, conc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plotTimeSlice.html">plotTimeSlice</a></span><span class="op">(</span><span class="va">eList_K</span>, start <span class="op">=</span> <span class="fl">2016</span>, end <span class="op">=</span> <span class="fl">2016.5</span>, conc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="WRTDSK_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="fu"><a href="../reference/plotTimeSlice.html">plotTimeSlice</a></span><span class="op">(</span><span class="va">eList_K</span>, start <span class="op">=</span> <span class="fl">2016</span>, end <span class="op">=</span> <span class="fl">2016.5</span>, conc <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plotTimeSlice.html">plotTimeSlice</a></span><span class="op">(</span><span class="va">eList_K</span>, start <span class="op">=</span> <span class="fl">2016</span>, end <span class="op">=</span> <span class="fl">2016.5</span>, conc <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="WRTDSK_files/figure-html/unnamed-chunk-3-2.png" width="700"></p>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="fu"><a href="../reference/plotTimeSlice.html">plotTimeSlice</a></span><span class="op">(</span><span class="va">eList_K</span>, start <span class="op">=</span> <span class="fl">1996.5</span>, end <span class="op">=</span> <span class="fl">1997</span>, conc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plotTimeSlice.html">plotTimeSlice</a></span><span class="op">(</span><span class="va">eList_K</span>, start <span class="op">=</span> <span class="fl">1996.5</span>, end <span class="op">=</span> <span class="fl">1997</span>, conc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="WRTDSK_files/figure-html/unnamed-chunk-3-3.png" width="700"></p>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="fu"><a href="../reference/plotTimeSlice.html">plotTimeSlice</a></span><span class="op">(</span><span class="va">eList_K</span>, start <span class="op">=</span> <span class="fl">1996.5</span>, end <span class="op">=</span> <span class="fl">1997</span>, conc <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plotTimeSlice.html">plotTimeSlice</a></span><span class="op">(</span><span class="va">eList_K</span>, start <span class="op">=</span> <span class="fl">1996.5</span>, end <span class="op">=</span> <span class="fl">1997</span>, conc <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="WRTDSK_files/figure-html/unnamed-chunk-3-4.png" width="700"></p>
 <p>What can we learn from these figures? The first, which is the first half of 2016, we will start with the concentration graph. We see that there are 14 observed values (the red dots). The first observation in 2016 had a fairly small negative residual, meaning that the true value was slightly below the WRTDS estimate (the black line). The second observation shown (slightly less than one month later) was almost exactly correct. As a result of this, the WRTDSKalman estimates for a period of about 14 days after the first observation are all slightly less than the WRTDS estimate, but as we approach the second observation the two types of estimates become virtually identical. In the case with the largest error (the positive residual at about the middle of the period shown in the graph) we see that the residuals on either side of it were both negative. In this case the WRTDSKalman curve tends to approach the WRTDS curve midway through the periods between observations. The errors throughout this period are small and they don’t show a tendency to persist as a long string of positive values or negative values. The ratio of the mean value of the WRTDSKalman estimates to the WRTDS estimates during this time period is 0.99. In other words, they are very similar on average. When we look at the next graph, showing the two flux estimates we wee very much the same pattern but the differences look more limited simply because of the large variations in flux that are a result of variation in discharge. The ratio of the two estimates is somewhat farther from 1.0 (it is 0.96) but still the differences are minor. The upshot of all of this is that the residuals information doesn’t make much difference during this half year in WRTDSKalman results and we really don’t change our estimate by much.</p>
 <p>Now, contrast this with the result from the second half of 1996. The high values shown here around 1996.7 come from a flood, about a 20-year recurrence interval event. The WRTDS model and the three observations near the peak of the event agree quite well. But, as we move forward over the next few months the observations tend to be much lower than the WRTDS model would predict. The consequence of this is that the WRTDSKalman estimates are dramatically lower than the WRTDS estimates (as much as an order of magnitude). These results are not surprizing. The relatively accurate result at the time of very high discharge is related to the fact that there are few observations overall in the dataset at such high discharges, so these observations do a good job of guiding the WRTDS to a highly accurate model. But, the high flow event likely had a consequence of depleting the watershed of highly available phosphorus, so at more typical discharges the concentrations were a good deal lower than the model expects them to be (because in the more moderate discharge range there are observations from many other years besides this flood year). As such the WRTDSKalman estimates for this period are much lower than the regualr WRTDS estimates (a ratio of 0.64). The graph for flux looks generally similar but the ratio is somewhat better (0.71) because the two methods are relatively close on the high flow (and hence high flux) days.</p>
@@ -592,8 +551,8 @@
 <a href="#two-options-available-setting-rho-and-setting-niter" class="anchor"></a>Two options available (setting rho and setting niter)</h1>
 <p>One of the things that the user must select is the rho value. We don’t have a strong theoretical basis for selecting the right value of rho, although our research has shown that the results are not highly sensitive to it. In the paper published in Zhang and Hirsch (2019) (see the second URL near the start of this document) we do make some generalizations about the selection of rho. We found that for nitrate a slightly higher rho value (such as 0.95) may be better than for other constitutents such as TP, OrthoP, Suspended Sediment, or Chloride for which values like 0.85 or 0.9 may be better. The somewhat different behavior for nitrate is explained by the fact that at many sites there are some other factors probably related to denitrification and the discharge and seasonal terms do not have a great amount of explanatory power in the WRTDS model. As such, placing more reliance on the results of samples that are close in time is appropriate. One can experiment with different values of rho because it is an argument in the <strong>WRTDSKalman</strong> function.</p>
 <p>We can re-run the analysis with rho of 0.85 and see how much difference it makes. The table shown here lists the percent difference in annual values that results.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="va">eList_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/WRTDSKalman.html">WRTDSKalman</a></span><span class="op">(</span><span class="va">eList</span>, rho <span class="op">=</span> <span class="fl">0.85</span>, niter <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">eList_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/WRTDSKalman.html">WRTDSKalman</a></span><span class="op">(</span><span class="va">eList</span>, rho <span class="op">=</span> <span class="fl">0.85</span>, niter <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></code></pre></div>
 <pre><code>## % complete:
 ## 0    1   2   3   4   5   6   7   8   9   10  
 ## 11   12  13  14  15  16  17  18  19  20  
@@ -605,18 +564,18 @@
 ## 71   72  73  74  75  76  77  78  79  80  
 ## 81   82  83  84  85  86  87  88  89  90  
 ## 91   92  93  94  95  96  97  98  99  </code></pre>
-<div class="sourceCode" id="cb14"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">eList_2</span><span class="op">$</span><span class="va">Daily</span>,<span class="st">"rho"</span><span class="op">)</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">eList_2</span><span class="op">$</span><span class="va">Daily</span>,<span class="st">"rho"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 0.85</code></pre>
-<div class="sourceCode" id="cb16"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">eList_2</span><span class="op">$</span><span class="va">Daily</span>,<span class="st">"niter"</span><span class="op">)</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">eList_2</span><span class="op">$</span><span class="va">Daily</span>,<span class="st">"niter"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 200</code></pre>
-<div class="sourceCode" id="cb18"><pre class="downlit">
-<span class="va">AnnualResults2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setupYears.html">setupYears</a></span><span class="op">(</span><span class="va">eList_2</span><span class="op">$</span><span class="va">Daily</span><span class="op">)</span>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">AnnualResults2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setupYears.html">setupYears</a></span><span class="op">(</span><span class="va">eList_2</span><span class="op">$</span><span class="va">Daily</span><span class="op">)</span>
 <span class="va">AnnualResults2</span> <span class="op">&lt;-</span> <span class="va">AnnualResults2</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"GenConc"</span>, <span class="st">"GenFlux"</span><span class="op">)</span><span class="op">]</span>
 <span class="va">Ratios</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">AnnualResults2</span> <span class="op">-</span> <span class="va">AnnualResults</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"GenConc"</span>, <span class="st">"GenFlux"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="va">AnnualResults</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"GenConc"</span>, <span class="st">"GenFlux"</span><span class="op">)</span><span class="op">]</span>
 <span class="fu"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span><span class="op">(</span><span class="va">Ratios</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">AnnualResults</span><span class="op">$</span><span class="va">DecYear</span>, <span class="fl">0</span><span class="op">)</span>
-<span class="fu">kable</span><span class="op">(</span><span class="va">Ratios</span><span class="op">*</span><span class="fl">100</span>, digits <span class="op">=</span> <span class="fl">1</span>, caption <span class="op">=</span> <span class="st">"Percent difference with a change in rho from 0.90 to 0.85"</span><span class="op">)</span></pre></div>
+<span class="fu">kable</span><span class="op">(</span><span class="va">Ratios</span><span class="op">*</span><span class="fl">100</span>, digits <span class="op">=</span> <span class="fl">1</span>, caption <span class="op">=</span> <span class="st">"Percent difference with a change in rho from 0.90 to 0.85"</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <caption>Percent difference with a change in rho from 0.90 to 0.85</caption>
 <thead><tr class="header">
@@ -627,185 +586,180 @@
 <tbody>
 <tr class="odd">
 <td align="left">1985</td>
-<td align="right">-1.0</td>
-<td align="right">-1.4</td>
+<td align="right">-0.4</td>
+<td align="right">0.3</td>
 </tr>
 <tr class="even">
 <td align="left">1986</td>
-<td align="right">3.8</td>
-<td align="right">3.1</td>
+<td align="right">3.6</td>
+<td align="right">2.7</td>
 </tr>
 <tr class="odd">
 <td align="left">1987</td>
-<td align="right">0.9</td>
-<td align="right">2.2</td>
+<td align="right">-0.2</td>
+<td align="right">0.1</td>
 </tr>
 <tr class="even">
 <td align="left">1988</td>
-<td align="right">-0.1</td>
-<td align="right">0.8</td>
+<td align="right">0.3</td>
+<td align="right">-1.1</td>
 </tr>
 <tr class="odd">
 <td align="left">1989</td>
 <td align="right">2.1</td>
-<td align="right">5.0</td>
+<td align="right">3.8</td>
 </tr>
 <tr class="even">
 <td align="left">1990</td>
-<td align="right">2.5</td>
-<td align="right">1.0</td>
+<td align="right">2.6</td>
+<td align="right">2.4</td>
 </tr>
 <tr class="odd">
 <td align="left">1991</td>
-<td align="right">2.7</td>
-<td align="right">5.8</td>
+<td align="right">2.3</td>
+<td align="right">3.9</td>
 </tr>
 <tr class="even">
 <td align="left">1992</td>
-<td align="right">1.6</td>
-<td align="right">3.4</td>
+<td align="right">2.0</td>
+<td align="right">2.3</td>
 </tr>
 <tr class="odd">
 <td align="left">1993</td>
-<td align="right">0.8</td>
-<td align="right">1.6</td>
+<td align="right">0.3</td>
+<td align="right">1.1</td>
 </tr>
 <tr class="even">
 <td align="left">1994</td>
-<td align="right">3.2</td>
-<td align="right">3.2</td>
+<td align="right">3.7</td>
+<td align="right">5.6</td>
 </tr>
 <tr class="odd">
 <td align="left">1995</td>
-<td align="right">3.3</td>
-<td align="right">4.3</td>
+<td align="right">2.2</td>
+<td align="right">2.2</td>
 </tr>
 <tr class="even">
 <td align="left">1996</td>
-<td align="right">3.4</td>
-<td align="right">1.5</td>
+<td align="right">2.3</td>
+<td align="right">1.2</td>
 </tr>
 <tr class="odd">
 <td align="left">1997</td>
-<td align="right">2.5</td>
-<td align="right">2.3</td>
-</tr>
-<tr class="even">
-<td align="left">1998</td>
-<td align="right">2.9</td>
-<td align="right">3.0</td>
-</tr>
-<tr class="odd">
-<td align="left">1999</td>
-<td align="right">-1.1</td>
-<td align="right">-1.9</td>
-</tr>
-<tr class="even">
-<td align="left">2000</td>
-<td align="right">0.7</td>
-<td align="right">0.3</td>
-</tr>
-<tr class="odd">
-<td align="left">2001</td>
-<td align="right">-0.7</td>
-<td align="right">-0.8</td>
-</tr>
-<tr class="even">
-<td align="left">2002</td>
-<td align="right">-2.1</td>
-<td align="right">-5.0</td>
-</tr>
-<tr class="odd">
-<td align="left">2003</td>
-<td align="right">4.2</td>
-<td align="right">4.2</td>
-</tr>
-<tr class="even">
-<td align="left">2004</td>
-<td align="right">11.4</td>
-<td align="right">14.3</td>
-</tr>
-<tr class="odd">
-<td align="left">2005</td>
-<td align="right">5.6</td>
-<td align="right">5.3</td>
-</tr>
-<tr class="even">
-<td align="left">2006</td>
-<td align="right">0.4</td>
-<td align="right">1.1</td>
-</tr>
-<tr class="odd">
-<td align="left">2007</td>
-<td align="right">2.3</td>
-<td align="right">1.7</td>
-</tr>
-<tr class="even">
-<td align="left">2008</td>
-<td align="right">-0.5</td>
-<td align="right">0.5</td>
-</tr>
-<tr class="odd">
-<td align="left">2009</td>
-<td align="right">-1.2</td>
-<td align="right">-1.4</td>
-</tr>
-<tr class="even">
-<td align="left">2010</td>
-<td align="right">-0.2</td>
-<td align="right">3.7</td>
-</tr>
-<tr class="odd">
-<td align="left">2011</td>
-<td align="right">1.8</td>
+<td align="right">2.4</td>
 <td align="right">2.7</td>
 </tr>
 <tr class="even">
+<td align="left">1998</td>
+<td align="right">3.1</td>
+<td align="right">3.7</td>
+</tr>
+<tr class="odd">
+<td align="left">1999</td>
+<td align="right">-1.9</td>
+<td align="right">-4.1</td>
+</tr>
+<tr class="even">
+<td align="left">2000</td>
+<td align="right">-0.2</td>
+<td align="right">-0.1</td>
+</tr>
+<tr class="odd">
+<td align="left">2001</td>
+<td align="right">1.2</td>
+<td align="right">0.1</td>
+</tr>
+<tr class="even">
+<td align="left">2002</td>
+<td align="right">-1.5</td>
+<td align="right">-3.1</td>
+</tr>
+<tr class="odd">
+<td align="left">2003</td>
+<td align="right">5.1</td>
+<td align="right">5.2</td>
+</tr>
+<tr class="even">
+<td align="left">2004</td>
+<td align="right">13.0</td>
+<td align="right">13.7</td>
+</tr>
+<tr class="odd">
+<td align="left">2005</td>
+<td align="right">7.4</td>
+<td align="right">6.4</td>
+</tr>
+<tr class="even">
+<td align="left">2006</td>
+<td align="right">0.0</td>
+<td align="right">0.6</td>
+</tr>
+<tr class="odd">
+<td align="left">2007</td>
+<td align="right">1.7</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="even">
+<td align="left">2008</td>
+<td align="right">-0.4</td>
+<td align="right">1.1</td>
+</tr>
+<tr class="odd">
+<td align="left">2009</td>
+<td align="right">0.1</td>
+<td align="right">-0.6</td>
+</tr>
+<tr class="even">
+<td align="left">2010</td>
+<td align="right">1.4</td>
+<td align="right">3.9</td>
+</tr>
+<tr class="odd">
+<td align="left">2011</td>
+<td align="right">1.0</td>
+<td align="right">1.7</td>
+</tr>
+<tr class="even">
 <td align="left">2012</td>
-<td align="right">4.6</td>
-<td align="right">5.5</td>
+<td align="right">5.1</td>
+<td align="right">6.2</td>
 </tr>
 <tr class="odd">
 <td align="left">2013</td>
-<td align="right">3.5</td>
-<td align="right">2.3</td>
+<td align="right">2.5</td>
+<td align="right">1.3</td>
 </tr>
 <tr class="even">
 <td align="left">2014</td>
+<td align="right">-0.1</td>
 <td align="right">-0.5</td>
-<td align="right">-0.7</td>
 </tr>
 <tr class="odd">
 <td align="left">2015</td>
-<td align="right">0.8</td>
-<td align="right">1.5</td>
+<td align="right">1.2</td>
+<td align="right">1.3</td>
 </tr>
 <tr class="even">
 <td align="left">2016</td>
-<td align="right">1.3</td>
-<td align="right">1.3</td>
+<td align="right">1.0</td>
+<td align="right">0.7</td>
 </tr>
 <tr class="odd">
 <td align="left">2017</td>
-<td align="right">2.5</td>
-<td align="right">1.9</td>
+<td align="right">1.7</td>
+<td align="right">0.5</td>
 </tr>
 <tr class="even">
 <td align="left">2018</td>
 <td align="right">1.4</td>
-<td align="right">1.6</td>
-</tr>
-<tr class="odd">
-<td align="left">2019</td>
-<td align="right">-0.2</td>
-<td align="right">-0.2</td>
+<td align="right">1.9</td>
 </tr>
 </tbody>
 </table>
 <p>What we see here is that the change in rho from 0.9 to 0.85 makes less than a 10% difference in almost all of the years and under 5% in most years.</p>
 <p>Setting the number of iterations to 200 (the default) seems to be sufficient. We can set a different random number seed and see how much difference it makes in the results.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit">
-<span class="va">eList3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/WRTDSKalman.html">WRTDSKalman</a></span><span class="op">(</span><span class="va">eList</span>, niter <span class="op">=</span> <span class="fl">200</span>, seed <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">eList3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/WRTDSKalman.html">WRTDSKalman</a></span><span class="op">(</span><span class="va">eList</span>, niter <span class="op">=</span> <span class="fl">200</span>, seed <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <pre><code>## % complete:
 ## 0    1   2   3   4   5   6   7   8   9   10  
 ## 11   12  13  14  15  16  17  18  19  20  
@@ -817,12 +771,12 @@
 ## 71   72  73  74  75  76  77  78  79  80  
 ## 81   82  83  84  85  86  87  88  89  90  
 ## 91   92  93  94  95  96  97  98  99  </code></pre>
-<div class="sourceCode" id="cb21"><pre class="downlit">
-<span class="va">AnnualResults3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setupYears.html">setupYears</a></span><span class="op">(</span><span class="va">eList3</span><span class="op">$</span><span class="va">Daily</span><span class="op">)</span>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">AnnualResults3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setupYears.html">setupYears</a></span><span class="op">(</span><span class="va">eList3</span><span class="op">$</span><span class="va">Daily</span><span class="op">)</span>
 <span class="va">AnnualResults3</span> <span class="op">&lt;-</span> <span class="va">AnnualResults3</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span> <span class="st">"GenConc"</span>, <span class="st">"GenFlux"</span><span class="op">)</span><span class="op">]</span>
 <span class="va">Ratios</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">AnnualResults3</span> <span class="op">-</span> <span class="va">AnnualResults</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"GenConc"</span>, <span class="st">"GenFlux"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="va">AnnualResults</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"GenConc"</span>, <span class="st">"GenFlux"</span><span class="op">)</span><span class="op">]</span>
 <span class="fu"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span><span class="op">(</span><span class="va">Ratios</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">AnnualResults</span><span class="op">$</span><span class="va">DecYear</span>, <span class="fl">0</span><span class="op">)</span>
-<span class="fu">kable</span><span class="op">(</span><span class="va">Ratios</span><span class="op">*</span><span class="fl">100</span>, digits <span class="op">=</span> <span class="fl">1</span>, caption <span class="op">=</span> <span class="st">"Percent difference with using a different random number seed"</span><span class="op">)</span></pre></div>
+<span class="fu">kable</span><span class="op">(</span><span class="va">Ratios</span><span class="op">*</span><span class="fl">100</span>, digits <span class="op">=</span> <span class="fl">1</span>, caption <span class="op">=</span> <span class="st">"Percent difference with using a different random number seed"</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <caption>Percent difference with using a different random number seed</caption>
 <thead><tr class="header">
@@ -833,178 +787,173 @@
 <tbody>
 <tr class="odd">
 <td align="left">1985</td>
-<td align="right">-0.2</td>
-<td align="right">0.6</td>
+<td align="right">0.8</td>
+<td align="right">1.8</td>
 </tr>
 <tr class="even">
 <td align="left">1986</td>
-<td align="right">0.5</td>
-<td align="right">0.5</td>
+<td align="right">0.1</td>
+<td align="right">0.4</td>
 </tr>
 <tr class="odd">
 <td align="left">1987</td>
-<td align="right">-0.2</td>
-<td align="right">-0.2</td>
+<td align="right">-0.7</td>
+<td align="right">-1.7</td>
 </tr>
 <tr class="even">
 <td align="left">1988</td>
-<td align="right">0.7</td>
-<td align="right">5.0</td>
+<td align="right">0.6</td>
+<td align="right">2.1</td>
 </tr>
 <tr class="odd">
 <td align="left">1989</td>
-<td align="right">-0.2</td>
+<td align="right">0.3</td>
 <td align="right">0.2</td>
 </tr>
 <tr class="even">
 <td align="left">1990</td>
+<td align="right">-0.6</td>
 <td align="right">-0.7</td>
-<td align="right">-1.9</td>
 </tr>
 <tr class="odd">
 <td align="left">1991</td>
-<td align="right">-0.2</td>
-<td align="right">-0.2</td>
+<td align="right">0.1</td>
+<td align="right">0.2</td>
 </tr>
 <tr class="even">
 <td align="left">1992</td>
-<td align="right">-0.1</td>
-<td align="right">-0.2</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
 </tr>
 <tr class="odd">
 <td align="left">1993</td>
-<td align="right">0.6</td>
-<td align="right">0.5</td>
+<td align="right">-0.4</td>
+<td align="right">-0.5</td>
 </tr>
 <tr class="even">
 <td align="left">1994</td>
+<td align="right">-0.1</td>
 <td align="right">-0.2</td>
-<td align="right">-0.7</td>
 </tr>
 <tr class="odd">
 <td align="left">1995</td>
-<td align="right">-0.2</td>
-<td align="right">1.3</td>
+<td align="right">-0.6</td>
+<td align="right">-0.8</td>
 </tr>
 <tr class="even">
 <td align="left">1996</td>
-<td align="right">0.2</td>
-<td align="right">-0.1</td>
+<td align="right">-0.7</td>
+<td align="right">-0.4</td>
 </tr>
 <tr class="odd">
 <td align="left">1997</td>
-<td align="right">0.6</td>
-<td align="right">0.9</td>
+<td align="right">0.7</td>
+<td align="right">1.1</td>
 </tr>
 <tr class="even">
 <td align="left">1998</td>
-<td align="right">-0.2</td>
-<td align="right">-1.5</td>
+<td align="right">-0.1</td>
+<td align="right">-1.0</td>
 </tr>
 <tr class="odd">
 <td align="left">1999</td>
-<td align="right">-0.4</td>
-<td align="right">-0.4</td>
+<td align="right">-1.0</td>
+<td align="right">-1.7</td>
 </tr>
 <tr class="even">
 <td align="left">2000</td>
-<td align="right">-0.2</td>
-<td align="right">0.0</td>
+<td align="right">-0.1</td>
+<td align="right">0.1</td>
 </tr>
 <tr class="odd">
 <td align="left">2001</td>
-<td align="right">-0.5</td>
-<td align="right">-0.4</td>
+<td align="right">0.5</td>
+<td align="right">0.1</td>
 </tr>
 <tr class="even">
 <td align="left">2002</td>
-<td align="right">-0.4</td>
-<td align="right">-1.5</td>
+<td align="right">0.1</td>
+<td align="right">-0.5</td>
 </tr>
 <tr class="odd">
 <td align="left">2003</td>
-<td align="right">0.3</td>
-<td align="right">-0.6</td>
+<td align="right">1.0</td>
+<td align="right">0.8</td>
 </tr>
 <tr class="even">
 <td align="left">2004</td>
-<td align="right">0.1</td>
-<td align="right">0.6</td>
+<td align="right">0.8</td>
+<td align="right">1.0</td>
 </tr>
 <tr class="odd">
 <td align="left">2005</td>
-<td align="right">-0.6</td>
-<td align="right">-0.5</td>
+<td align="right">-0.2</td>
+<td align="right">-0.3</td>
 </tr>
 <tr class="even">
 <td align="left">2006</td>
-<td align="right">0.2</td>
-<td align="right">0.8</td>
-</tr>
-<tr class="odd">
-<td align="left">2007</td>
-<td align="right">-1.2</td>
-<td align="right">-1.8</td>
-</tr>
-<tr class="even">
-<td align="left">2008</td>
-<td align="right">-0.5</td>
-<td align="right">-0.6</td>
-</tr>
-<tr class="odd">
-<td align="left">2009</td>
-<td align="right">0.0</td>
-<td align="right">0.2</td>
-</tr>
-<tr class="even">
-<td align="left">2010</td>
-<td align="right">-0.4</td>
+<td align="right">-0.1</td>
 <td align="right">0.3</td>
 </tr>
 <tr class="odd">
+<td align="left">2007</td>
+<td align="right">-0.8</td>
+<td align="right">-1.7</td>
+</tr>
+<tr class="even">
+<td align="left">2008</td>
+<td align="right">0.2</td>
+<td align="right">0.3</td>
+</tr>
+<tr class="odd">
+<td align="left">2009</td>
+<td align="right">0.3</td>
+<td align="right">0.6</td>
+</tr>
+<tr class="even">
+<td align="left">2010</td>
+<td align="right">0.0</td>
+<td align="right">0.0</td>
+</tr>
+<tr class="odd">
 <td align="left">2011</td>
-<td align="right">0.5</td>
-<td align="right">0.4</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
 </tr>
 <tr class="even">
 <td align="left">2012</td>
-<td align="right">-0.9</td>
-<td align="right">-1.7</td>
+<td align="right">-1.2</td>
+<td align="right">-1.5</td>
 </tr>
 <tr class="odd">
 <td align="left">2013</td>
-<td align="right">0.7</td>
 <td align="right">0.6</td>
+<td align="right">0.3</td>
 </tr>
 <tr class="even">
 <td align="left">2014</td>
 <td align="right">-0.2</td>
-<td align="right">0.1</td>
+<td align="right">0.0</td>
 </tr>
 <tr class="odd">
 <td align="left">2015</td>
-<td align="right">-0.6</td>
-<td align="right">-0.1</td>
+<td align="right">-0.5</td>
+<td align="right">-0.4</td>
 </tr>
 <tr class="even">
 <td align="left">2016</td>
-<td align="right">0.2</td>
-<td align="right">-0.3</td>
-</tr>
-<tr class="odd">
-<td align="left">2017</td>
 <td align="right">0.3</td>
 <td align="right">0.2</td>
 </tr>
+<tr class="odd">
+<td align="left">2017</td>
+<td align="right">0.8</td>
+<td align="right">0.4</td>
+</tr>
 <tr class="even">
 <td align="left">2018</td>
-<td align="right">-0.6</td>
-<td align="right">-0.6</td>
-</tr>
-<tr class="odd">
-<td align="left">2019</td>
-<td align="right">1.5</td>
-<td align="right">1.5</td>
+<td align="right">-0.2</td>
+<td align="right">-0.1</td>
 </tr>
 </tbody>
 </table>
@@ -1015,35 +964,35 @@
 <a href="#what-about-putting-these-results-into-the-plotconchist-or-plotfluxhist-graphs" class="anchor"></a>What about putting these results into the <strong>plotConcHist</strong> or <strong>plotFluxHist</strong> graphs</h1>
 <p>Typically when we do some type of trend study we may want to create graphic outputs showing the Flow Normalized values (connected by a line) and the estimated annual values (as dots). You may want to put the WRTDSKalman values on these graphs and this can now be done with the <strong>plotConcHist</strong> and <strong>plotFluxHist</strong> functions.</p>
 <p>Here they are being used.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit">
-<span class="fu"><a href="../reference/plotConcHist.html">plotConcHist</a></span><span class="op">(</span><span class="va">eList_K</span>, plotAnnual <span class="op">=</span> <span class="cn">FALSE</span>, plotGenConc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plotConcHist.html">plotConcHist</a></span><span class="op">(</span><span class="va">eList_K</span>, plotAnnual <span class="op">=</span> <span class="cn">FALSE</span>, plotGenConc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="WRTDSK_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
-<div class="sourceCode" id="cb23"><pre class="downlit">
-<span class="fu"><a href="../reference/plotFluxHist.html">plotFluxHist</a></span><span class="op">(</span><span class="va">eList_K</span>, plotAnnual <span class="op">=</span> <span class="cn">FALSE</span>, plotGenFlux <span class="op">=</span> <span class="cn">TRUE</span>, fluxUnit <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plotFluxHist.html">plotFluxHist</a></span><span class="op">(</span><span class="va">eList_K</span>, plotAnnual <span class="op">=</span> <span class="cn">FALSE</span>, plotGenFlux <span class="op">=</span> <span class="cn">TRUE</span>, fluxUnit <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></code></pre></div>
 <p><img src="WRTDSK_files/figure-html/unnamed-chunk-6-2.png" width="700"></p>
 </div>
 <div id="computing-monthly-results" class="section level1">
 <h1 class="hasAnchor">
 <a href="#computing-monthly-results" class="anchor"></a>Computing monthly results</h1>
 <p>If monthly results, rather than annual results are desired they can be computed with the function <strong>calculateMonthlyResults</strong>. It doesn’t have any arguments for selecting units on flux, they will always be expressed as a monthly rate in units of kg/day. Here is an example of doing that and then preparing a simpler file to pass results to some other application or produce a graph.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit">
-<span class="va">monthlyResults</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calculateMonthlyResults.html">calculateMonthlyResults</a></span><span class="op">(</span><span class="va">eList_K</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">monthlyResults</span><span class="op">$</span><span class="va">DecYear</span>, <span class="va">monthlyResults</span><span class="op">$</span><span class="va">GenFlux</span><span class="op">/</span><span class="fl">1000</span>, type <span class="op">=</span> <span class="st">"l"</span>, xaxs <span class="op">=</span> <span class="st">"i"</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1980</span>,<span class="fl">2020</span><span class="op">)</span>, yaxs <span class="op">=</span> <span class="st">"i"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">90</span><span class="op">)</span>, las <span class="op">=</span> <span class="fl">1</span>, tck <span class="op">=</span> <span class="fl">0.02</span>, xlab <span class="op">=</span> <span class="st">""</span>, ylab <span class="op">=</span> <span class="st">"Flux, in metric tons per day"</span>, main <span class="op">=</span> <span class="st">"Potomac River at Chain Bridge, Washington, DC\nTotal Phosphorus Flux, by Month"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">monthlyResults</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calculateMonthlyResults.html">calculateMonthlyResults</a></span><span class="op">(</span><span class="va">eList_K</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">monthlyResults</span><span class="op">$</span><span class="va">DecYear</span>, <span class="va">monthlyResults</span><span class="op">$</span><span class="va">GenFlux</span><span class="op">/</span><span class="fl">1000</span>, type <span class="op">=</span> <span class="st">"l"</span>, xaxs <span class="op">=</span> <span class="st">"i"</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1980</span>,<span class="fl">2020</span><span class="op">)</span>, yaxs <span class="op">=</span> <span class="st">"i"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">90</span><span class="op">)</span>, las <span class="op">=</span> <span class="fl">1</span>, tck <span class="op">=</span> <span class="fl">0.02</span>, xlab <span class="op">=</span> <span class="st">""</span>, ylab <span class="op">=</span> <span class="st">"Flux, in metric tons per day"</span>, main <span class="op">=</span> <span class="st">"Potomac River at Chain Bridge, Washington, DC\nTotal Phosphorus Flux, by Month"</span><span class="op">)</span></code></pre></div>
 <p><img src="WRTDSK_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<div class="sourceCode" id="cb25"><pre class="downlit">
-<span class="va">Month</span> <span class="op">&lt;-</span> <span class="va">monthlyResults</span><span class="op">$</span><span class="va">Month</span>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">Month</span> <span class="op">&lt;-</span> <span class="va">monthlyResults</span><span class="op">$</span><span class="va">Month</span>
 <span class="va">Year</span> <span class="op">&lt;-</span> <span class="va">monthlyResults</span><span class="op">$</span><span class="va">Year</span>
 <span class="va">DecYear</span> <span class="op">&lt;-</span> <span class="va">monthlyResults</span><span class="op">$</span><span class="va">DecYear</span>
 <span class="va">GenFlux</span> <span class="op">&lt;-</span> <span class="va">monthlyResults</span><span class="op">$</span><span class="va">GenFlux</span><span class="op">/</span><span class="fl">1000</span>
 <span class="va">monthFluxOut</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">Month</span>, <span class="va">Year</span>, <span class="va">DecYear</span>, <span class="va">GenFlux</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">monthFluxOut</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">monthFluxOut</span><span class="op">)</span></code></pre></div>
 <pre><code>##   Month Year  DecYear   GenFlux
-## 1    10 1984 1984.790 0.7988834
-## 2    11 1984 1984.874 1.6448599
-## 3    12 1984 1984.957 3.8739379
-## 4     1 1985 1985.042 1.5003286
-## 5     2 1985 1985.123 7.5466289
-## 6     3 1985 1985.204 2.7010290</code></pre>
+## 1    10 1984 1984.790 0.8010467
+## 2    11 1984 1984.874 1.6303630
+## 3    12 1984 1984.957 3.7672798
+## 4     1 1985 1985.042 1.4489155
+## 5     2 1985 1985.123 7.5795823
+## 6     3 1985 1985.204 2.6159541</code></pre>
 </div>
 <div id="operationalizing-this-in-a-batch-job" class="section level1">
 <h1 class="hasAnchor">
@@ -1110,7 +1059,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
