@@ -31,7 +31,7 @@ vignettes/Conwingo.PO4.RData
 vignettes/plotOne.R
 vignettes/runPairsMonths.R
 vignettes/TrendByMonth.Rmd
-vignettes/Making WRTDS_K flux estimates.Rmd
+vignettes/AlternativeQMethod.Rmd
 vignettes/functionsForK.R
 _pkgdown.yml
 pkgdown/favicon/*
