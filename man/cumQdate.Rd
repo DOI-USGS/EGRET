@@ -15,16 +15,27 @@ cumQdate(eList, paStart = 10, paLong = 12, fract = 0.5)
 
 \item{fract}{numeric fraction of the flow}
 }
+\value{
+annualSeries an integer matrix of two columns.
+ The first column is the calendar year for the end of the period 
+ The second column is day of the year when the flow has exceeded the specified fraction 
+ of the entire period being considered
+}
 \description{
 This function computes the first day of the calendar year
 at which a specific fraction of the cumulative flow for that year
 has been exceeded.  Typically one looks for the point where
-half the cumulative flow has happened (fract = 0.5)
-the portion of the year being considered are set by paStart and paLong
-the matrix returned has 2 columns: 
+half the cumulative flow has happened (fract = 0.5).
+The portion of the year being considered is set by paStart and paLong.
+The matrix returned has 2 columns: 
 the first is the year (integer when the period of analysis ends),
 the second is the day of the year when the fraction has been exceeded.
 None of the rows will have any NA values.
+}
+\details{
+It is common to use this type of analysis on the snowmelt period of the year.
+If (for example) we assume that snowmelt starts with the month of March and ends in July
+then we would set paStart = 3 and paLong = 5
 }
 \examples{
 eList <- Choptank_eList

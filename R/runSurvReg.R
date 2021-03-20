@@ -209,11 +209,21 @@ run_WRTDS <- function(estY, estLQ,
 
 #' jitter Sample
 #' 
+#' This function is used in cases where there are numerical problems with 
+#' the estimation of the WRTDS model.  This mostly happens during bootstrap 
+#' estimation or when the data sets are very large.  In order to reduce the 
+#' collinearity in the explanatory variables, some random noise is added to 
+#' the time and log discharge variables in the Sample data frame. 
+#' 
 #' @export
+#' @return SamR a data frame structured like the Sam data frame but with
+#'  the time and discharge variables modified by adding random jitter
 #' @param Sam data frame with at least columns DecYear and LogQ
 #' @param V a multiplier for the sd of the LogQ jitter. for example V = 0.02,
 #'  means that the sd of the LnQ jitter is 0.02*sdLQ
-#' 
+#' @examples 
+#' eList <- Choptank_eList
+#' Sample_jitter <- jitterSam(eList$Sample)
 jitterSam <- function(Sam, V = 0.2) {
   SamR <- Sam
   n <- length(Sam$DecYear)

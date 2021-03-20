@@ -4,6 +4,8 @@ template:
 navbar:
   type: default
   left:
+  - text: Overview
+    href: articles/Overview.html
   - text: Introduction
     href: articles/EGRET.html
   - text: Function Help Pages
@@ -26,6 +28,8 @@ navbar:
       href: articles/TrendsByMonth.html
     - text: Alternative Q Method
       href: articles/AlternativeQMethod.html
+    - text: Annual_Hydrograph_Timing
+      href: articles/Annual_Hydrograph_Timing.html
   - text: Bibliograpy
     href: articles/References_WRTDS.html
   right:
@@ -46,13 +50,11 @@ reference:
     desc: Functions working running and analyzing the WRTDS model
     contents:
       - modelEstimation
+      - WRTDSKalman
       - runPairs
       - runGroups
       - runSeries
       - run_WRTDS
-      - setupYears
-      - setPA
-      - errorStats
   - title: Plotting
     desc: Functions for plotting eList objects
     contents:
@@ -83,6 +85,8 @@ reference:
       - fluxBiasMulti
       - plotContours
       - plotDiffContours
+      - plotWRTDSKalman
+      - plotTimeSlice
   - title: Table
     desc: Functions for creating tables from eList objects
     contents:
@@ -91,10 +95,14 @@ reference:
       - tableChange
       - tableFlowChange
       - tableResults
-  - title: WRTDS-K
-    desc: Functions for WRTDS with Kalman filtering
+  - title: Utilities
+    desc: Additional utility functions
     contents:
-     - WRTDSKalman
-     - plotWRTDSKalman
-     - plotTimeSlice
+      - setupYears
+      - setPA
+      - errorStats
+      - makeAugmentedSample
+      - mergeReport
+      - cumQdate
+      - jitterSam
 
