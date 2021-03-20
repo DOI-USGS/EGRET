@@ -100,6 +100,9 @@ These generated estimates are called genConc and genFlux" />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../articles/Overview.html">Overview</a>
+</li>
+<li>
   <a href="../articles/EGRET.html">Introduction</a>
 </li>
 <li>
@@ -135,6 +138,9 @@ These generated estimates are called genConc and genFlux" />
     </li>
     <li>
       <a href="../articles/AlternativeQMethod.html">Alternative Q Method</a>
+    </li>
+    <li>
+      <a href="../articles/Annual_Hydrograph_Timing.html">Annual_Hydrograph_Timing</a>
     </li>
   </ul>
 </li>
@@ -249,24 +255,24 @@ Setting the seed to any given value can be used to create repeatable output.</p>
 #&gt;  3rd Qu.: 0.258944   3rd Qu.:0.3029   3rd Qu.:1.3551   3rd Qu.: 484.360  
 #&gt;  Max.   : 0.661543   Max.   :0.6146   Max.   :1.9666   Max.   :5519.450  
 #&gt;                                                                          
-#&gt;      FNConc           FNFlux          GenFlux            GenConc      
-#&gt;  Min.   :0.8352   Min.   : 77.55   Min.   :    1.66   Min.   :0.0492  
-#&gt;  1st Qu.:1.0540   1st Qu.:169.71   1st Qu.:   97.47   1st Qu.:1.0080  
-#&gt;  Median :1.2067   Median :318.61   Median :  245.86   Median :1.2000  
-#&gt;  Mean   :1.2004   Mean   :362.71   Mean   :  376.69   Mean   :1.2148  
-#&gt;  3rd Qu.:1.3314   3rd Qu.:538.44   3rd Qu.:  498.63   3rd Qu.:1.4129  
-#&gt;  Max.   :1.6882   Max.   :943.75   Max.   :11927.06   Max.   :2.4300  
+#&gt;      FNConc           FNFlux          GenFlux             GenConc     
+#&gt;  Min.   :0.8352   Min.   : 77.55   Min.   :    1.636   Min.   :0.049  
+#&gt;  1st Qu.:1.0540   1st Qu.:169.71   1st Qu.:   95.432   1st Qu.:1.003  
+#&gt;  Median :1.2067   Median :318.61   Median :  248.006   Median :1.201  
+#&gt;  Mean   :1.2004   Mean   :362.71   Mean   :  377.880   Mean   :1.216  
+#&gt;  3rd Qu.:1.3314   3rd Qu.:538.44   3rd Qu.:  500.892   3rd Qu.:1.416  
+#&gt;  Max.   :1.6882   Max.   :943.75   Max.   :11927.056   Max.   :2.430  
 #&gt;                                                                       </div><div class='input'>
 <span class='co'>#All flux values in AnnualResults are expressed as a rate in kg/day</span>
 <span class='va'>AnnualResults</span> <span class='op'>&lt;-</span> <span class='fu'><a href='setupYears.html'>setupYears</a></span><span class='op'>(</span><span class='va'>eList</span><span class='op'>$</span><span class='va'>Daily</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>AnnualResults</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;    DecYear        Q      Conc     Flux    FNConc   FNFlux   GenConc  GenFlux
-#&gt; 1 1980.249 4.251937 0.9485403 316.0491 1.0027237 291.2176 0.9820268 324.0710
-#&gt; 2 1981.249 2.217248 1.0351962 184.6712 0.9988918 296.7260 0.9904381 170.2038
-#&gt; 3 1982.249 3.046039 1.0361327 269.6309 0.9931881 300.7424 1.0937085 283.9836
-#&gt; 4 1983.249 4.986713 1.0072716 363.8563 0.9931768 305.5898 1.0472068 377.2780
-#&gt; 5 1984.249 5.718146 0.9901927 437.3007 1.0017255 312.2260 1.0054489 442.8785
-#&gt; 6 1985.249 1.517457 1.0571854 133.9210 1.0165324 318.5007 1.0261695 126.4228
+#&gt; 1 1980.249 4.251937 0.9485403 316.0491 1.0027237 291.2176 0.9630666 320.5489
+#&gt; 2 1981.249 2.217248 1.0351962 184.6712 0.9988918 296.7260 0.9890243 170.7100
+#&gt; 3 1982.249 3.046039 1.0361327 269.6309 0.9931881 300.7424 1.0908030 289.0504
+#&gt; 4 1983.249 4.986713 1.0072716 363.8563 0.9931768 305.5898 1.0318667 369.7267
+#&gt; 5 1984.249 5.718146 0.9901927 437.3007 1.0017255 312.2260 1.0295013 449.6796
+#&gt; 6 1985.249 1.517457 1.0571854 133.9210 1.0165324 318.5007 1.0415097 130.4003
 #&gt;   PeriodLong PeriodStart
 #&gt; 1         12          10
 #&gt; 2         12          10

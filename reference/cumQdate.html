@@ -50,9 +50,9 @@
 <meta property="og:description" content="This function computes the first day of the calendar year
 at which a specific fraction of the cumulative flow for that year
 has been exceeded.  Typically one looks for the point where
-half the cumulative flow has happened (fract = 0.5)
-the portion of the year being considered are set by paStart and paLong
-the matrix returned has 2 columns: 
+half the cumulative flow has happened (fract = 0.5).
+The portion of the year being considered is set by paStart and paLong.
+The matrix returned has 2 columns: 
 the first is the year (integer when the period of analysis ends),
 the second is the day of the year when the fraction has been exceeded.
 None of the rows will have any NA values." />
@@ -105,6 +105,9 @@ None of the rows will have any NA values." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../articles/Overview.html">Overview</a>
+</li>
+<li>
   <a href="../articles/EGRET.html">Introduction</a>
 </li>
 <li>
@@ -141,6 +144,9 @@ None of the rows will have any NA values." />
     <li>
       <a href="../articles/AlternativeQMethod.html">Alternative Q Method</a>
     </li>
+    <li>
+      <a href="../articles/Annual_Hydrograph_Timing.html">Annual_Hydrograph_Timing</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -176,9 +182,9 @@ None of the rows will have any NA values." />
     <p>This function computes the first day of the calendar year
 at which a specific fraction of the cumulative flow for that year
 has been exceeded.  Typically one looks for the point where
-half the cumulative flow has happened (fract = 0.5)
-the portion of the year being considered are set by paStart and paLong
-the matrix returned has 2 columns: 
+half the cumulative flow has happened (fract = 0.5).
+The portion of the year being considered is set by paStart and paLong.
+The matrix returned has 2 columns: 
 the first is the year (integer when the period of analysis ends),
 the second is the day of the year when the fraction has been exceeded.
 None of the rows will have any NA values.</p>
@@ -207,6 +213,17 @@ None of the rows will have any NA values.</p>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>annualSeries an integer matrix of two columns.
+ The first column is the calendar year for the end of the period 
+ The second column is day of the year when the flow has exceeded the specified fraction 
+ of the entire period being considered</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>It is common to use this type of analysis on the snowmelt period of the year.
+If (for example) we assume that snowmelt starts with the month of March and ends in July
+then we would set paStart = 3 and paLong = 5</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='va'>Choptank_eList</span>

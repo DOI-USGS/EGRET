@@ -51,7 +51,8 @@
 the residuals used here are cross-validation residuals, 
 which will be slightly larger than regular regression residuals
 in the case of censored data, the residuals are computed from random residuals
-computed from makeAugmentedSample()" />
+computed from makeAugmentedSample(), the function returns a list of error statistics
+and also prints them to the console" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -101,6 +102,9 @@ computed from makeAugmentedSample()" />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../articles/Overview.html">Overview</a>
+</li>
+<li>
   <a href="../articles/EGRET.html">Introduction</a>
 </li>
 <li>
@@ -136,6 +140,9 @@ computed from makeAugmentedSample()" />
     </li>
     <li>
       <a href="../articles/AlternativeQMethod.html">Alternative Q Method</a>
+    </li>
+    <li>
+      <a href="../articles/Annual_Hydrograph_Timing.html">Annual_Hydrograph_Timing</a>
     </li>
   </ul>
 </li>
@@ -173,7 +180,8 @@ computed from makeAugmentedSample()" />
 the residuals used here are cross-validation residuals, 
 which will be slightly larger than regular regression residuals
 in the case of censored data, the residuals are computed from random residuals
-computed from makeAugmentedSample()</p>
+computed from makeAugmentedSample(), the function returns a list of error statistics
+and also prints them to the console</p>
     </div>
 
     <pre class="usage"><span class='fu'>errorStats</span><span class='op'>(</span><span class='va'>eList</span><span class='op'>)</span></pre>
@@ -187,6 +195,14 @@ computed from makeAugmentedSample()</p>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>erStats a numeric vector consisting of the following statistics
+RsqLC the R squared value for predictions of ln(Concentration)
+RsqLF the R squared value for predictions of ln(Flux)
+rmse the root mean squared error for ln(Concentration), same value would apply for Flux
+sepPercent the standard error of prediction for Concentration, expressed in percent
+    same value would apply for Flux</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='va'>Choptank_eList</span>

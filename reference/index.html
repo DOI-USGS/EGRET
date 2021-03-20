@@ -96,6 +96,9 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../articles/Overview.html">Overview</a>
+</li>
+<li>
   <a href="../articles/EGRET.html">Introduction</a>
 </li>
 <li>
@@ -131,6 +134,9 @@
     </li>
     <li>
       <a href="../articles/AlternativeQMethod.html">Alternative Q Method</a>
+    </li>
+    <li>
+      <a href="../articles/Annual_Hydrograph_Timing.html">Annual_Hydrograph_Timing</a>
     </li>
   </ul>
 </li>
@@ -239,6 +245,12 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="wrtdsK.html">WRTDSKalman()</a></code> </p>
+        </td>
+        <td><p>WRTDS-Kalman -- uses an autoregressive model to produce more accurate estimates of concentration and flux</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="runPairs.html">runPairs()</a></code> </p>
         </td>
         <td><p>Runs a comparison of any two years in the record.</p></td>
@@ -260,24 +272,6 @@
           <p><code><a href="runSurvReg.html">runSurvReg()</a></code> <code><a href="runSurvReg.html">run_WRTDS()</a></code> </p>
         </td>
         <td><p>Run the weighted survival regression for a set of estimation points (defined by DecYear and Log(Q))</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="setupYears.html">setupYears()</a></code> </p>
-        </td>
-        <td><p>Creates the AnnualResults data frame from the Daily data frame</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="setPA.html">setPA()</a></code> </p>
-        </td>
-        <td><p>Sets up the period of analysis (the portion of the year being evaluated).</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="errorStats.html">errorStats()</a></code> </p>
-        </td>
-        <td><p>Error statistics</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -453,6 +447,18 @@
           <p><code><a href="plotDiffContours.html">plotDiffContours()</a></code> </p>
         </td>
         <td><p>Plots the difference between two years from a contour plot created by plotContours</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plotWRTDSKalman.html">plotWRTDSKalman()</a></code> </p>
+        </td>
+        <td><p>plotWRTDSKalman</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plotTimeSlice.html">plotTimeSlice()</a></code> </p>
+        </td>
+        <td><p>plotTimeSlice</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -500,8 +506,8 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-wrtds-k" class="hasAnchor"><a href="#section-wrtds-k" class="anchor"></a>WRTDS-K</h2>
-          <p class="section-desc"><p>Functions for WRTDS with Kalman filtering</p></p>
+          <h2 id="section-utilities" class="hasAnchor"><a href="#section-utilities" class="anchor"></a>Utilities</h2>
+          <p class="section-desc"><p>Additional utility functions</p></p>
         </th>
       </tr>
       
@@ -512,21 +518,45 @@
       <tr>
         
         <td>
-          <p><code><a href="wrtdsK.html">WRTDSKalman()</a></code> </p>
+          <p><code><a href="setupYears.html">setupYears()</a></code> </p>
         </td>
-        <td><p>WRTDS-Kalman -- uses an autoregressive model to produce more accurate estimates of concentration and flux</p></td>
+        <td><p>Creates the AnnualResults data frame from the Daily data frame</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="plotWRTDSKalman.html">plotWRTDSKalman()</a></code> </p>
+          <p><code><a href="setPA.html">setPA()</a></code> </p>
         </td>
-        <td><p>plotWRTDSKalman</p></td>
+        <td><p>Sets up the period of analysis (the portion of the year being evaluated).</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="plotTimeSlice.html">plotTimeSlice()</a></code> </p>
+          <p><code><a href="errorStats.html">errorStats()</a></code> </p>
         </td>
-        <td><p>plotTimeSlice</p></td>
+        <td><p>Error statistics</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="makeAugmentedSample.html">makeAugmentedSample()</a></code> </p>
+        </td>
+        <td><p>Create randomized residuals and observations for data sets that have some censored data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="mergeReport.html">mergeReport()</a></code> </p>
+        </td>
+        <td><p>mergeReport</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="cumQdate.html">cumQdate()</a></code> </p>
+        </td>
+        <td><p>Cumulative flow calculation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="jitterSam.html">jitterSam()</a></code> </p>
+        </td>
+        <td><p>jitter Sample</p></td>
       </tr>
     </tbody>
     </table>
