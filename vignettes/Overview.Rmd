@@ -1,0 +1,58 @@
+---
+title: "EGRET Overview and Update"
+author: "Robert M. Hirsch"
+date: "3/16/2021"
+output: 
+  rmarkdown::html_vignette:
+    fig_height: 5
+    fig_width: 7
+vignette: >
+  %\VignetteIndexEntry{EGRET Overview and Update}
+  \usepackage[utf8]{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+---
+
+# Introduction
+
+Evaluating long-term changes in river conditions (water quality and discharge) is an important use of hydrologic data. To carry out such evaluations, the hydrologist needs tools to facilitate several key steps in the process: acquiring the data records from a variety of sources, structuring it in ways that facilitate the analysis, processing the data with routines that extract information about changes that may be happening, and displaying findings with graphical techniques. An R package called EGRET (Exploration and Graphics for RivEr Trends) has been developed for carrying out each of these steps in an integrated manner.  The analysis of the water quality data depends on a statistical method called Weighted Regressions on Time, Discharge, and Season (WRTDS).  This EGRET Update Overview is intended as a guide for users, pointing to the particular capabilities that they may want to use to meet their data analysis goals.  The most detailed description of the EGRET package and WRTDS method are contained in the [EGRET User Guide](https://pubs.usgs.gov/tm/04/a10/pdf/tm4A10.pdf).
+
+However, several major enhancements and extensions of the method have been made since the User Guide was published in 2015.  This EGRET Update Overview is designed to help a user decide which of EGRET's capabilities they want to apply, and then point them to the relevant documents that describe those in detail.  These include various journal articles that explain motivations for these enhancements, provide the mathematical formulations for them, and show examples of their application.  It also includes references to various supporting vignettes that explain how to apply these enhancements to the EGRET package.  There are also several special applications for which R scripts have been written that depend on the EGRET package, this EGRET Overview and Update will describe them and point to those scripts.
+
+There is an additional R package that users of EGRET should be aware of, called EGRETci (which stands for confidence intervals).  The EGRETci package is designed to provide a variety of approaches to uncertainty analysis related to the water quality trend results computed in EGRET.  EGRETci is tightly linked to EGRET, such that output dataframes or other objects produced by EGRET serve as inputs to functions in EGRETci.  Throughout this EGRET Update and Overview we will make mention of the relevant functions of EGRETci.  There is a home page for [EGRETci](https://http://usgs-r.github.io/EGRETci/index.html).
+
+
+# General Introduction to the EGRET package
+
+EGRET includes statistics and graphics for streamflow history, water quality trends, and the statistical modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS). It is entirely focused on two data types.  
+
+* A record of daily mean discharge at a single streamgage.  This record must be a complete record, no missing values are allowed.  It also is designed to deal with streams that are perennial, although there is an adjustment that is made for days with zero or negative discharge, but this is only intended to be used in situations where the number of zero or negative discharge is very small (e.g. less than 0.1\_% of days).
+
+* A record of water quality observations at (or near) the streamgage for which the discharge data are available.  These water quality observations are only for a single analyte.  There are no requirements of maximum or minimum frequency for these data, nor is there a requirement that the frequency be consistent over time.  There can be multiple samples on any given day and there can be many days with no samples.  There is no time of day information stored for the sample data.  This means that the EGRET software is not appropriate for working with data that are believed to experience substantial diurnal variations, unless the samples are always collected at the same time each day.  The data can be censored or uncensored.  A censored value is one for which the reported value is either: less than some reporting limit, or greater than some reporting limit. 
+
+There are analyses in EGRET that work only with discharge data (we call them Flow History) analyses and others that work with water quality data, but all of the water quality analyses depend on their being discharge data covering the entire time period being analyzed.
+
+# Sources of information about 11 topics
+
+## 1. EGRET overview and data entry
+
+These topics are covered extensively both in the [Introduction to the EGRET package](http://usgs-r.github.io/EGRET/articles/EGRET.html) and in more detail in the [EGRET User Guide](https://pubs.usgs.gov/tm/04/a10/pdf/tm4A10.pdf).
+
+## 2.  Exploration of trends in discharge
+
+EGRET has many tabular and graphical approaches to exploring trends in discharge.  These are described in the Flow History component (pages 15 - 28) of the [EGRET User Guide](https://pubs.usgs.gov/tm/04/a10/pdf/tm4A10.pdf)(pages 15 - 28) and section 5 of [Introduction to the EGRET package](http://usgs-r.github.io/EGRET/articles/EGRET.html).  
+
+In addition, a script is available with some new capabilities.  It is called [Daily Streamflow Trend Analysis](http://usgs-r.github.io/EGRET/articles/streamflow_trend.html).  This script includes the graphical technique for exploring trends across the entire frequency distribution: "The Quantile Kendall Plot".  This technique is described in [Choquette et al., 2019](https://doi.org/10.1016/j.jglr.2018.11.012).  One new function, called [cumQdate](http://usgs-r.github.io/EGRET/reference/cumQdate.html) has been added to the EGRET package, it is designed to describe trends in the timing of annual runoff.  You can read about it at *URL to article here*. 
+
+## 3.	Describing water quality without using the WRTDS model. 
+
+In some situations, the analyst may want to simply display a set of water quality data without any use of models or modeling assumptions.  This can be a useful addition to showing results derived from the WRTDS statistical model.  These are described in section 6 of [Introduction to the EGRET package](http://usgs-r.github.io/EGRET/articles/EGRET.html) as well as on pages 29 -37 of the [EGRET User Guide](https://pubs.usgs.gov/tm/04/a10/pdf/tm4A10.pdf).
+
+### Improved graphical treatment of censored data.
+
+An enhancement of the EGRET packages provides an additional way to graph the data when there are censored values in the data set (typically values reported as “less than” the laboratory reporting limit).  The standard way that EGRET depicts less-than values is by showing a vertical line that extends from the reporting limit value all the way to the bottom of the graph.  This is not the most visually effective way of showing the data even though it is a more honest approach than simply representing them by plotting them at their reporting limit.  The vertical lines tend to draw a great amount of attention to the less-than values.  
+
+The enhancement now in the EGRET package is called [Random Residuals](http://usgs-r.github.io/EGRET/articles/rResid.html).  What is done here is to take each censored value in the data set and randomly select a value that lies between the reporting limit and zero and show it on various plots as an open circle (as opposed to actual measured values, which are shown as a closed circle).
+
+The function that accomplishes this is called [makeAugmentedSample](http://usgs-r.github.io/EGRET/reference/makeAugmentedSample.html).  These random values are not used in computing any of the WRTDS results (trends, mean concentrations or fluxes) but are only used for graphical representations.  They are very valuable for visual presentation but have the drawbacks that: 1) there is no unique "correct" representation of the data.  Multiple implementations will result in different random values. 2) the graphs of the data are no longer free from the influence of any statistical model, the computation of these random values depends on an assumption about the distribution of the true value below the reporting limit, and that is based on the assumptions of the fitted WRTDS model.
+
+Having said that, we should recognize that the purpose of many of these graphs of the data is to present a general idea of how the data behave (as a function of time or of discharge) and this approach will provide an appropriate impression of the data. Many of the graphical functions in EGRET have an argument called **randomCensored** and it should be set to **TRUE** for this feature to be implemented.
