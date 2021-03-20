@@ -8,6 +8,7 @@
 #' and also prints them to the console
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @export
+#' @importFrom stats var
 #' @return erStats a numeric vector consisting of the following statistics
 #' RsqLC the R squared value for predictions of ln(Concentration)
 #' RsqLF the R squared value for predictions of ln(Flux)

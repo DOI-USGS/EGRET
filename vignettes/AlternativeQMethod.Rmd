@@ -13,6 +13,7 @@ vignette: >
 ---
 
 
+
 # Introduction  
 
 Sometimes the usual formulation of WRTDS is not ideal, because we believe that the daily discharge on the sampling day is not a very good explanatory variable, and we have an idea of a better variable we might use.  Dams and reservoirs create situations where this may be an issue.  A common example of this might be where the discharge at the sampling location is really just determined by the decision of a dam operator and not a real measure of the hydrologic conditions in the watershed and reservoir.  
