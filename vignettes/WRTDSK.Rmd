@@ -5,7 +5,7 @@ output:
     fig_height: 5
     fig_width: 7
 vignette: >
-  %\VignetteIndexEntry{WRTDS-K}
+  %\VignetteIndexEntry{WRTDS Kalman}
   \usepackage[utf8]{inputenc}
   %\VignetteEngine{knitr::rmarkdown}
 ---

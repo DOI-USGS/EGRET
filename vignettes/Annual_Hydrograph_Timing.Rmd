@@ -1,0 +1,50 @@
+---
+title: "Annual Hydrograph Timing"
+author: "Robert M. Hirsch"
+date: "3/16/2021"
+output: 
+  rmarkdown::html_vignette:
+    fig_height: 5
+    fig_width: 7
+vignette: >
+  %\VignetteIndexEntry{Annual Hydrograph Timing}
+  \usepackage[utf8]{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+---
+
+A common question in the analysis of the impacts of climate change on hydrology is about shifts in the timing of the annual hydrograph.  This is particularly of interest in areas dominated by snowmelt.  The new function in EGRET designed to do the necessary data analysis for this is cumQDate.  This function identifies the date, in each year, when a specified fraction of the runoff from the watershed has flowed past the streamgage.  The analysis can be set up to consider a portion of the year, or the whole year starting in January.  A typical version of this analysis would be to consider a snowmelt period that is defined (by the user) as the months of March through June.  The function can be set up to determine the first day on which more than half of the total March through June runoff has passed the streamgage.  Here is an example for the Merced River near Happy Isles Bridge, Yosemite National Park, California.
+
+```{r echo = TRUE}
+library(EGRET)
+sta <- "11264500"
+INFO <- readNWISInfo(sta, "00060", interactive = FALSE)
+Daily <- readNWISDaily(sta, "00060", "1916-01-01", "2020-12-31")
+eList <- as.egret(INFO, Daily)
+summary(Daily)
+```
+
+To call cumQDate we need to specify a fraction of the year for this analysis.  In this first case we will use the entire calendar year and the fraction of the runoff we are interested in is half of the annual total.
+
+```{r echo = TRUE}
+annualSeriesCal <- cumQdate(eList, paStart = 1, paLong = 12, fract = 0.5)
+# let's look at the first 5 rows of the results:
+head(annualSeriesCal)
+# and let's plot it
+plot(annualSeriesCal[,1], annualSeriesCal[,2], xlab = "Year", ylab = "Day of the Year", main = "Day of the year for half the annual runoff\nMerced River at Happy Isles")
+```
+
+We can do it again with a different designation of the time span.  This time we will only look at the part of the year from April 1 through July 31.  In addition, we will fit a loess model to the results and plot that.
+
+```{r echo = TRUE}
+annualSeriesMelt <- cumQdate(eList, paStart = 4, paLong = 4, fract = 0.5)
+annualSeriesMelt <- data.frame(annualSeriesMelt)
+colnames(annualSeriesMelt) <- c("Year", "Day")
+loessMod <- loess(Day ~ Year, data = annualSeriesMelt, span = 0.9, control = loess.control(surface = "direct"))
+predDay <- predict(loessMod, data.frame(Year = annualSeriesMelt[,1]), se = TRUE)
+plot(annualSeriesMelt[,1], annualSeriesMelt[,2], xlab = "Year", ylab = "Day of the Year", main = "Day of the year for half the annual runoff for April through July\nMerced River at Happy Isles")
+points(annualSeriesMelt[,1], predDay$fit, type = "l", col = "red", lwd = 2)
+# what follows is just a list of the values along the loess curve
+predDay$fit
+```
+
+What this graph tells us is that from 1916 to the early 1960's the day when half of the April - July runoff happened around day 150 (which is May 31).  Since the early 1960's it has been declining such that in 2020 the middle of the runoff is around day 141, which is May 22.  So the timing of the half-runoff period has moved up about 9 days from the early 1960's to the present.  

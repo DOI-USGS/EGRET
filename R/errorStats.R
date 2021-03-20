@@ -4,9 +4,17 @@
 #' the residuals used here are cross-validation residuals, 
 #' which will be slightly larger than regular regression residuals
 #' in the case of censored data, the residuals are computed from random residuals
-#' computed from makeAugmentedSample()
+#' computed from makeAugmentedSample(), the function returns a list of error statistics
+#' and also prints them to the console
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @export
+#' @importFrom stats var
+#' @return erStats a numeric vector consisting of the following statistics
+#' RsqLC the R squared value for predictions of ln(Concentration)
+#' RsqLF the R squared value for predictions of ln(Flux)
+#' rmse the root mean squared error for ln(Concentration), same value would apply for Flux
+#' sepPercent the standard error of prediction for Concentration, expressed in percent
+#'     same value would apply for Flux
 #' @examples 
 #' eList <- Choptank_eList
 #' errorStats(eList)
