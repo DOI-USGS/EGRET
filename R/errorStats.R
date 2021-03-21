@@ -43,6 +43,6 @@ errorStats <- function(eList) {
   cat("\n Root Mean Squared Error in natural log units = ", rmse)
   cat("\n Rsquared for natural log of concentration    = ", RsqLC)
   cat("\n Rsquared for natural log of flux             = ", RsqLF)
-  cat("\n Standard error of estimate =",  SepC, "%")
+  cat("\n Standard error of estimate =",  SepC, "%\n")
   return(erStats)
 }
