@@ -17,7 +17,7 @@ modelEstimation(eList, windowY = 7, windowQ = 2, windowS = 0.5,
 
 \item{windowS}{numeric specifying the half-window with in the seasonal dimension, in units of years, default is 0.5}
 
-\item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
+\item{minNumObs}{numeric specifying the minimum number of observations required to run the weighted regression, default is 100}
 
 \item{minNumUncen}{numeric specifying the minimum number of uncensored observations to run the weighted regression, default is 50}
 
