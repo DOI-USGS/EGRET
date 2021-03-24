@@ -245,6 +245,12 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="setUpEstimation.html">setUpEstimation()</a></code> </p>
+        </td>
+        <td><p>setUpEstimation</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="wrtdsK.html">WRTDSKalman()</a></code> </p>
         </td>
         <td><p>WRTDS-Kalman -- uses an autoregressive model to produce more accurate estimates of concentration and flux</p></td>
@@ -272,11 +278,35 @@
           <p><code><a href="runSurvReg.html">runSurvReg()</a></code> <code><a href="runSurvReg.html">run_WRTDS()</a></code> </p>
         </td>
         <td><p>Run the weighted survival regression for a set of estimation points (defined by DecYear and Log(Q))</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="estCrossVal.html">estCrossVal()</a></code> </p>
+        </td>
+        <td><p>Jack-Knife cross validation of the WRTDS (Weighted Regressions on Time, Discharge, and Season)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="estDailyFromSurfaces.html">estDailyFromSurfaces()</a></code> <code><a href="estDailyFromSurfaces.html">getConcFluxFromSurface()</a></code> <code><a href="estDailyFromSurfaces.html">getSurfaceEstimates()</a></code> <code><a href="estDailyFromSurfaces.html">bin_Qs()</a></code> </p>
+        </td>
+        <td><p>Estimates all daily values of Concentration, Flux, Flow-Normalized Concentration, and Flow Normalized Flux</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="estSurfaces.html">estSurfaces()</a></code> </p>
+        </td>
+        <td><p>Estimate the three surfaces (for yHat, SE and ConcHat) as a function of DecYear and logQ and store in the three-dimensional object called surfaces</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="flexFN.html">flexFN()</a></code> </p>
+        </td>
+        <td><p>Flexible Flow Normalization</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-plotting" class="hasAnchor"><a href="#section-plotting" class="anchor"></a>Plotting</h2>
+          <h2 id="section-plot-data" class="hasAnchor"><a href="#section-plot-data" class="anchor"></a>Plot Data</h2>
           <p class="section-desc"><p>Functions for plotting eList objects</p></p>
         </th>
       </tr>
@@ -291,6 +321,12 @@
           <p><code><a href="multiPlotDataOverview.html">multiPlotDataOverview()</a></code> </p>
         </td>
         <td><p>Produces a 4 panel plot that gives an overview of the data set prior to any processing</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plotFluxTimeDaily.html">plotFluxTimeDaily()</a></code> </p>
+        </td>
+        <td><p>Plot of the time series of daily flux estimates and the sample values for the days that were sampled</p></td>
       </tr><tr>
         
         <td>
@@ -360,10 +396,35 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="plotFluxTimeDaily.html">plotFluxTimeDaily()</a></code> </p>
+          <p><code><a href="boxConcThree.html">boxConcThree()</a></code> </p>
         </td>
-        <td><p>Plot of the time series of daily flux estimates and the sample values for the days that were sampled</p></td>
+        <td><p>Three box plots side-by-side</p></td>
       </tr><tr>
+        
+        <td>
+          <p><code><a href="plot15.html">plot15()</a></code> </p>
+        </td>
+        <td><p>Makes 15 graphs of streamflow statistics on a single page.  These encompass the 7-day minimum, mean, and 1-day maximum for each of the following 5 Periods of Analysis: Annual, Fall, Winter, Spring and Summer.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot1of15.html">plot1of15()</a></code> </p>
+        </td>
+        <td><p>plots 1 of the 15 graphs of streamflow statistics on a single page</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-plot-model-data" class="hasAnchor"><a href="#section-plot-model-data" class="anchor"></a>Plot Model Data</h2>
+          <p class="section-desc"><p>Functions for plotting modeled eList objects</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
         
         <td>
           <p><code><a href="plotConcPred.html">plotConcPred()</a></code> </p>
@@ -399,12 +460,6 @@
           <p><code><a href="boxResidMonth.html">boxResidMonth()</a></code> </p>
         </td>
         <td><p>A box plot of WRTDS residuals by month</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="boxConcThree.html">boxConcThree()</a></code> </p>
-        </td>
-        <td><p>Three box plots side-by-side</p></td>
       </tr><tr>
         
         <td>
@@ -459,6 +514,12 @@
           <p><code><a href="plotTimeSlice.html">plotTimeSlice()</a></code> </p>
         </td>
         <td><p>plotTimeSlice</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="flexPlotAddOn.html">flexPlotAddOn()</a></code> </p>
+        </td>
+        <td><p>Flexible Flow Normalization Plot Add On</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -502,6 +563,18 @@
           <p><code><a href="tableResults.html">tableResults()</a></code> </p>
         </td>
         <td><p>Table of annual results for discharge, concentration and flux</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="setupYears.html">setupYears()</a></code> </p>
+        </td>
+        <td><p>Creates the AnnualResults data frame from the Daily data frame</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calculateMonthlyResults.html">calculateMonthlyResults()</a></code> </p>
+        </td>
+        <td><p>Calculates monthly mean values of Q, Conc, FNConc, Flux, and FNFlux for the entire record.  If WRTDSKalman has been run it also includes the monthly mean values of GenConc and GenFlux.</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -518,21 +591,93 @@
       <tr>
         
         <td>
-          <p><code><a href="setupYears.html">setupYears()</a></code> </p>
+          <p><code><a href="blankTime.html">blankTime()</a></code> </p>
         </td>
-        <td><p>Creates the AnnualResults data frame from the Daily data frame</p></td>
+        <td><p>Deletes the computed values during periods of time when there are no sample data</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="setPA.html">setPA()</a></code> </p>
+          <p><code><a href="cleanUp.html">cleanUp()</a></code> </p>
         </td>
-        <td><p>Sets up the period of analysis (the portion of the year being evaluated).</p></td>
+        <td><p>cleanUp eList</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="compressData.html">compressData()</a></code> </p>
+        </td>
+        <td><p>Compress sample data frame</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="cumQdate.html">cumQdate()</a></code> </p>
+        </td>
+        <td><p>Cumulative flow calculation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="dataOverview.html">dataOverview()</a></code> </p>
+        </td>
+        <td><p>Data Overview for WRTDS</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="decimalDate.html">decimalDate()</a></code> </p>
+        </td>
+        <td><p>decimalDate</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="errorStats.html">errorStats()</a></code> </p>
         </td>
         <td><p>Error statistics</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="fixSampleFrame.html">fixSampleFrame()</a></code> </p>
+        </td>
+        <td><p>Update Sample dataframe</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="flowDuration.html">flowDuration()</a></code> </p>
+        </td>
+        <td><p>Computes several values of the flow duration curve for streamflow centered on a specific date of the year</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="fluxBiasStat.html">fluxBiasStat()</a></code> </p>
+        </td>
+        <td><p>Compute the flux bias statistic: (mean of estimated flux - mean of observed flux)  / mean of estimated flux</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="getDaily.html">getDaily()</a></code> </p>
+        </td>
+        <td><p>Get Daily dataframe from EGRET object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="getInfo.html">getInfo()</a></code> </p>
+        </td>
+        <td><p>Get INFO dataframe from EGRET object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="getSample.html">getSample()</a></code> <code><a href="getSample.html">getSample()</a></code> <code><a href="getSample.html">getSample.default()</a></code> </p>
+        </td>
+        <td><p>Get Sample dataframe from EGRET object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="getSurfaces.html">getSurfaces()</a></code> </p>
+        </td>
+        <td><p>Get surfaces matrix from EGRET object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="jitterSam.html">jitterSam()</a></code> </p>
+        </td>
+        <td><p>jitter Sample</p></td>
       </tr><tr>
         
         <td>
@@ -548,15 +693,66 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="cumQdate.html">cumQdate()</a></code> </p>
+          <p><code><a href="helperEGRET.html">print(<i>&lt;egret&gt;</i>)</a></code> <code><a href="helperEGRET.html">plot(<i>&lt;egret&gt;</i>)</a></code> <code><a href="helperEGRET.html">nDischarge()</a></code> <code><a href="helperEGRET.html">nObservations()</a></code> <code><a href="helperEGRET.html">nCensoredVals()</a></code> </p>
         </td>
-        <td><p>Cumulative flow calculation</p></td>
+        <td><p>EGRET helper functions</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="jitterSam.html">jitterSam()</a></code> </p>
+          <p><code><a href="printFluxUnitCheatSheet.html">printFluxUnitCheatSheet()</a></code> </p>
         </td>
-        <td><p>jitter Sample</p></td>
+        <td><p>Reminder to user of flux unit properties  (such as kg/day, tons/year, etc).</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="printqUnitCheatSheet.html">printqUnitCheatSheet()</a></code> </p>
+        </td>
+        <td><p>Reminder to user of flow Unit properties such as cubic meters per second or thousands of cubic feet per second.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="processQWData.html">processQWData()</a></code> </p>
+        </td>
+        <td><p>Processing of Water Quality Data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="randomSubset.html">randomSubset()</a></code> </p>
+        </td>
+        <td><p>randomSubset</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="removeDuplicates.html">removeDuplicates()</a></code> </p>
+        </td>
+        <td><p>Remove duplicates values from Sample data frame.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="saveResults.html">saveResults()</a></code> </p>
+        </td>
+        <td><p>A utility program for saving the contents of the workspace
+  
+ This function saves the workspace. 
+ It assigns the file a name using the abbreviations for station and constituent.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="setPA.html">setPA()</a></code> </p>
+        </td>
+        <td><p>Sets up the period of analysis (the portion of the year being evaluated).</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="stitch.html">stitch()</a></code> </p>
+        </td>
+        <td><p>stitch surfaces</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="triCube.html">triCube()</a></code> </p>
+        </td>
+        <td><p>Tricube weight function</p></td>
       </tr>
     </tbody>
     </table>
