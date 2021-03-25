@@ -1,3 +1,10 @@
+.onAttach <- function(libname, pkgname) {
+  if (!interactive()) return()
+  EGRET_version = packageVersion("EGRET")
+  packageStartupMessage("EGRET ", EGRET_version,"
+Extended Documentation: usgs-r.github.io/EGRET")
+}
+
 #' EGRET package includes WRTDS and flowHistory
 #'
 #' \tabular{ll}{
