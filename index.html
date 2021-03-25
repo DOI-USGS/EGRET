@@ -130,6 +130,7 @@
 <p>Exploration and Graphics for RivEr Trends (<code>EGRET</code>): An R-package for the analysis of long-term changes in water quality and streamflow, including the water-quality method Weighted Regressions on Time, Discharge, and Season (WRTDS).</p>
 <p>The link for the official USGS publication user guide is here:</p>
 <p><a href="https://pubs.usgs.gov/tm/04/a10/" class="uri">https://pubs.usgs.gov/tm/04/a10/</a></p>
+<p>A companion package <a href="https://usgs-r.github.io/EGRETci/"><code>EGRETci</code></a> implements a set of approaches to the analysis of uncertainty associated with WRTDS trend analysis.</p>
 <div id="package-installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#package-installation" class="anchor"></a>Package Installation</h2>
@@ -316,7 +317,7 @@
 <span class="va">startDate</span> <span class="op">&lt;-</span> <span class="st">""</span> <span class="co"># Get earliest date</span>
 <span class="va">endDate</span> <span class="op">&lt;-</span> <span class="st">""</span> <span class="co"># Get latest date</span>
 <span class="va">Daily</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/readNWISDaily.html">readNWISDaily</a></span><span class="op">(</span><span class="va">siteID</span>,<span class="st">"00060"</span>,<span class="va">startDate</span>,<span class="va">endDate</span><span class="op">)</span>
-<span class="co">#&gt; There are 26733 data points, and 26733 days.</span>
+<span class="co">#&gt; There are 26747 data points, and 26747 days.</span>
 <span class="co"># Gather site and parameter information:</span>
 <span class="co"># Here user must input some values for</span>
 <span class="co"># the default (interactive=TRUE)</span>
@@ -389,7 +390,7 @@
 <span class="co">#&gt;  collate  English_United States.1252  </span>
 <span class="co">#&gt;  ctype    English_United States.1252  </span>
 <span class="co">#&gt;  tz       America/Chicago             </span>
-<span class="co">#&gt;  date     2021-03-11                  </span>
+<span class="co">#&gt;  date     2021-03-25                  </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; - Packages -------------------------------------------------------------------</span>
 <span class="co">#&gt;  package       * version    date       lib source        </span>
@@ -399,13 +400,13 @@
 <span class="co">#&gt;  cli             2.3.1      2021-02-23 [1] CRAN (R 4.0.3)</span>
 <span class="co">#&gt;  crayon          1.4.1      2021-02-08 [1] CRAN (R 4.0.3)</span>
 <span class="co">#&gt;  curl            4.3        2019-12-02 [1] CRAN (R 4.0.3)</span>
-<span class="co">#&gt;  dataRetrieval   2.7.7      2021-03-09 [1] local         </span>
+<span class="co">#&gt;  dataRetrieval   2.7.7      2021-03-06 [1] CRAN (R 4.0.4)</span>
 <span class="co">#&gt;  DBI             1.1.1      2021-01-15 [1] CRAN (R 4.0.3)</span>
 <span class="co">#&gt;  digest          0.6.27     2020-10-24 [1] CRAN (R 4.0.3)</span>
 <span class="co">#&gt;  dotCall64       1.0-1      2021-02-11 [1] CRAN (R 4.0.3)</span>
-<span class="co">#&gt;  dplyr           1.0.4      2021-02-02 [1] CRAN (R 4.0.3)</span>
-<span class="co">#&gt;  e1071           1.7-4      2020-10-14 [1] CRAN (R 4.0.3)</span>
-<span class="co">#&gt;  EGRET         * 3.0.4.9001 2021-03-11 [1] local         </span>
+<span class="co">#&gt;  dplyr           1.0.5      2021-03-05 [1] CRAN (R 4.0.4)</span>
+<span class="co">#&gt;  e1071           1.7-6      2021-03-18 [1] CRAN (R 4.0.4)</span>
+<span class="co">#&gt;  EGRET         * 3.0.4.9001 2021-03-25 [1] local         </span>
 <span class="co">#&gt;  ellipsis        0.3.1      2020-05-15 [1] CRAN (R 4.0.3)</span>
 <span class="co">#&gt;  evaluate        0.14       2019-05-28 [1] CRAN (R 4.0.3)</span>
 <span class="co">#&gt;  fansi           0.4.2      2021-01-15 [1] CRAN (R 4.0.3)</span>
@@ -424,8 +425,9 @@
 <span class="co">#&gt;  magrittr        2.0.1      2020-11-17 [1] CRAN (R 4.0.3)</span>
 <span class="co">#&gt;  maps            3.3.0      2018-04-03 [1] CRAN (R 4.0.3)</span>
 <span class="co">#&gt;  Matrix          1.3-2      2021-01-06 [2] CRAN (R 4.0.4)</span>
-<span class="co">#&gt;  pillar          1.5.0      2021-02-22 [1] CRAN (R 4.0.3)</span>
+<span class="co">#&gt;  pillar          1.5.1      2021-03-05 [1] CRAN (R 4.0.4)</span>
 <span class="co">#&gt;  pkgconfig       2.0.3      2019-09-22 [1] CRAN (R 4.0.3)</span>
+<span class="co">#&gt;  proxy           0.4-25     2021-03-05 [1] CRAN (R 4.0.4)</span>
 <span class="co">#&gt;  purrr           0.3.4      2020-04-17 [1] CRAN (R 4.0.3)</span>
 <span class="co">#&gt;  R6              2.5.0      2020-10-28 [1] CRAN (R 4.0.3)</span>
 <span class="co">#&gt;  Rcpp            1.0.6      2021-01-15 [1] CRAN (R 4.0.3)</span>
@@ -433,18 +435,18 @@
 <span class="co">#&gt;  rlang           0.4.10     2020-12-30 [1] CRAN (R 4.0.3)</span>
 <span class="co">#&gt;  rmarkdown       2.7        2021-02-19 [1] CRAN (R 4.0.3)</span>
 <span class="co">#&gt;  sessioninfo     1.1.1      2018-11-05 [1] CRAN (R 4.0.3)</span>
-<span class="co">#&gt;  sf              0.9-7      2021-01-06 [1] CRAN (R 4.0.3)</span>
+<span class="co">#&gt;  sf              0.9-8      2021-03-17 [1] CRAN (R 4.0.4)</span>
 <span class="co">#&gt;  spam            2.6-0      2020-12-14 [1] CRAN (R 4.0.3)</span>
 <span class="co">#&gt;  stringi         1.5.3      2020-09-09 [1] CRAN (R 4.0.3)</span>
 <span class="co">#&gt;  stringr         1.4.0      2019-02-10 [1] CRAN (R 4.0.3)</span>
 <span class="co">#&gt;  survival        3.2-7      2020-09-28 [2] CRAN (R 4.0.4)</span>
-<span class="co">#&gt;  tibble          3.0.6      2021-01-29 [1] CRAN (R 4.0.4)</span>
+<span class="co">#&gt;  tibble          3.1.0      2021-02-25 [1] CRAN (R 4.0.4)</span>
 <span class="co">#&gt;  tidyselect      1.1.0      2020-05-11 [1] CRAN (R 4.0.3)</span>
-<span class="co">#&gt;  units           0.7-0      2021-02-25 [1] CRAN (R 4.0.4)</span>
-<span class="co">#&gt;  utf8            1.1.4      2018-05-24 [1] CRAN (R 4.0.3)</span>
+<span class="co">#&gt;  units           0.7-1      2021-03-16 [1] CRAN (R 4.0.4)</span>
+<span class="co">#&gt;  utf8            1.2.1      2021-03-12 [1] CRAN (R 4.0.4)</span>
 <span class="co">#&gt;  vctrs           0.3.6      2020-12-17 [1] CRAN (R 4.0.3)</span>
 <span class="co">#&gt;  withr           2.4.1      2021-01-26 [1] CRAN (R 4.0.3)</span>
-<span class="co">#&gt;  xfun            0.21       2021-02-10 [1] CRAN (R 4.0.3)</span>
+<span class="co">#&gt;  xfun            0.22       2021-03-11 [1] CRAN (R 4.0.4)</span>
 <span class="co">#&gt;  xml2            1.3.2      2020-04-23 [1] CRAN (R 4.0.3)</span>
 <span class="co">#&gt;  yaml            2.2.1      2020-02-01 [1] CRAN (R 4.0.3)</span>
 <span class="co">#&gt; </span>
@@ -455,8 +457,8 @@
 <h2 class="hasAnchor">
 <a href="#reporting-bugs" class="anchor"></a>Reporting bugs</h2>
 <p>Please consider reporting bugs and asking questions on the Issues page: <a href="https://github.com/USGS-R/EGRET/issues" class="uri">https://github.com/USGS-R/EGRET/issues</a></p>
-<p>Follow <code>@USGS_R</code> on Twitter for updates on USGS R packages:</p>
-<p><a href="https://twitter.com/USGS_R"><img src="https://img.shields.io/twitter/follow/USGS_R.svg?style=social&amp;label=Follow%20USGS_R" alt="Twitter Follow"></a></p>
+<p>Follow <code>@USGS_DataSci</code> on Twitter for updates on USGS R packages:</p>
+<p><a href="https://twitter.com/USGS_DataSci"><img src="https://img.shields.io/twitter/follow/USGS_DataSci.svg?style=social&amp;label=Follow%20USGS_DataSci" alt="Twitter Follow"></a></p>
 </div>
 <div id="subscribe" class="section level2">
 <h2 class="hasAnchor">
@@ -472,13 +474,13 @@
 <div id="package-support" class="section level2">
 <h2 class="hasAnchor">
 <a href="#package-support" class="anchor"></a>Package Support</h2>
-<p>The Water Mission Area of the USGS has supported the development and maintenance of the <code>EGRET</code> R-package. Further maintenance is expected to be stable through September 2019. Resources are available primarily for maintenance and responding to user questions. Priorities on the development of new features are determined by the <code>EGRET</code> development team.</p>
+<p>The Water Mission Area of the USGS has supported the development and maintenance of the <code>EGRET</code> R-package. Further maintenance is expected to be stable through October 2022. Resources are available primarily for maintenance and responding to user questions. Priorities on the development of new features are determined by the <code>EGRET</code> development team.</p>
 <p><a href="https://www.usgs.gov/"><img src="http://usgs-r.github.io/images/usgs.png" alt="USGS"></a></p>
 </div>
 <div id="sunset-date" class="section level2">
 <h2 class="hasAnchor">
 <a href="#sunset-date" class="anchor"></a>Sunset date</h2>
-<p>Funding for <code>EGRET</code> currently expires summer 2019. Expectations are that maintenance and customer service will continue to be supported past that date.</p>
+<p>Funding for <code>EGRET</code> currently expires fall 2022. Expectations are that maintenance and customer service will continue to be supported past that date.</p>
 </div>
 <div id="how-to-cite-egret" class="section level2">
 <h2 class="hasAnchor">
