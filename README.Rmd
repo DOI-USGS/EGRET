@@ -34,6 +34,7 @@ The link for the official USGS publication user guide is here:
 
 [https://pubs.usgs.gov/tm/04/a10/](https://pubs.usgs.gov/tm/04/a10/)
 
+A companion package [`EGRETci`](https://usgs-r.github.io/EGRETci/) implements a set of approaches to the analysis of uncertainty associated with WRTDS trend analysis.
 
 ## Package Installation
 To install the EGRET package, you must be using R 3.0 or greater and run the following command:
@@ -218,9 +219,9 @@ sessioninfo::session_info()
 Please consider reporting bugs and asking questions on the Issues page:
 [https://github.com/USGS-R/EGRET/issues](https://github.com/USGS-R/EGRET/issues)
 
-Follow `@USGS_R` on Twitter for updates on USGS R packages:
+Follow `@USGS_DataSci` on Twitter for updates on USGS R packages:
 
-[![Twitter Follow](https://img.shields.io/twitter/follow/USGS_R.svg?style=social&label=Follow%20USGS_R)](https://twitter.com/USGS_R)
+[![Twitter Follow](https://img.shields.io/twitter/follow/USGS_DataSci.svg?style=social&label=Follow%20USGS_DataSci)](https://twitter.com/USGS_DataSci)
 
 
 
@@ -237,13 +238,13 @@ We want to encourage a warm, welcoming, and safe environment for contributing to
 
 ## Package Support
 
-The Water Mission Area of the USGS has supported the development and maintenance of the `EGRET` R-package. Further maintenance is expected to be stable through September 2019. Resources are available primarily for maintenance and responding to user questions. Priorities on the development of new features are determined by the `EGRET` development team.
+The Water Mission Area of the USGS has supported the development and maintenance of the `EGRET` R-package. Further maintenance is expected to be stable through October 2022. Resources are available primarily for maintenance and responding to user questions. Priorities on the development of new features are determined by the `EGRET` development team.
 
 [![USGS](http://usgs-r.github.io/images/usgs.png)](https://www.usgs.gov/)
 
 ## Sunset date 
 
-Funding for `EGRET` currently expires summer 2019. Expectations are that maintenance and customer service will continue to be supported past that date.
+Funding for `EGRET` currently expires fall 2022. Expectations are that maintenance and customer service will continue to be supported past that date.
 
 ## How to cite EGRET:
 

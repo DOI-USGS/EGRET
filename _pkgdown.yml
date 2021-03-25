@@ -50,15 +50,23 @@ reference:
     desc: Functions working running and analyzing the WRTDS model
     contents:
       - modelEstimation
+      - setUpEstimation
       - WRTDSKalman
       - runPairs
       - runGroups
       - runSeries
       - run_WRTDS
-  - title: Plotting
+      - estCrossVal
+      - estDailyFromSurfaces
+      - estSurfaces
+      - flexFN
+      - getConcFluxFromSurface
+      - getSurfaceEstimates
+  - title: Plot Data
     desc: Functions for plotting eList objects
     contents:
       - multiPlotDataOverview
+      - plotFluxTimeDaily
       - plotFlowSingle
       - plotFluxQ
       - plotFour
@@ -71,13 +79,18 @@ reference:
       - plotConcQ
       - plotConcTimeDaily
       - plotFluxTimeDaily
+      - boxConcThree
+      - plot15
+      - plot1of15
+  - title: Plot Model Data
+    desc: Functions for plotting modeled eList objects
+    contents:
       - plotConcPred
       - plotFluxPred
       - plotResidPred
       - plotResidQ
       - plotResidTime
       - boxResidMonth
-      - boxConcThree
       - plotConcHist
       - plotFluxHist
       - plotConcQSmooth
@@ -87,6 +100,7 @@ reference:
       - plotDiffContours
       - plotWRTDSKalman
       - plotTimeSlice
+      - flexPlotAddOn
   - title: Table
     desc: Functions for creating tables from eList objects
     contents:
@@ -95,14 +109,37 @@ reference:
       - tableChange
       - tableFlowChange
       - tableResults
+      - setupYears
+      - calculateMonthlyResults
   - title: Utilities
     desc: Additional utility functions
     contents:
-      - setupYears
-      - setPA
+      - blankTime
+      - cleanUp
+      - compressData
+      - cumQdate
+      - dataOverview
+      - decimalDate
       - errorStats
+      - fixSampleFrame
+      - flowDuration
+      - fluxBiasStat
+      - getDaily
+      - getInfo
+      - getSample
+      - getSurfaces
+      - jitterSam
       - makeAugmentedSample
       - mergeReport
-      - cumQdate
-      - jitterSam
-
+      - nCensoredVals
+      - nDischarge
+      - nObservations
+      - printFluxUnitCheatSheet
+      - printqUnitCheatSheet
+      - processQWData
+      - randomSubset
+      - removeDuplicates
+      - saveResults
+      - setPA
+      - stitch
+      - triCube

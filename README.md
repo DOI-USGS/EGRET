@@ -18,6 +18,10 @@ The link for the official USGS publication user guide is here:
 
 <https://pubs.usgs.gov/tm/04/a10/>
 
+A companion package [`EGRETci`](https://usgs-r.github.io/EGRETci/)
+implements a set of approaches to the analysis of uncertainty associated
+with WRTDS trend analysis.
+
 ## Package Installation
 
 To install the EGRET package, you must be using R 3.0 or greater and run
@@ -314,7 +318,7 @@ siteID <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "" # Get earliest date
 endDate <- "" # Get latest date
 Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
-#> There are 26733 data points, and 26733 days.
+#> There are 26747 data points, and 26747 days.
 # Gather site and parameter information:
 # Here user must input some values for
 # the default (interactive=TRUE)
@@ -406,7 +410,7 @@ sessioninfo::session_info()
 #>  collate  English_United States.1252  
 #>  ctype    English_United States.1252  
 #>  tz       America/Chicago             
-#>  date     2021-03-11                  
+#>  date     2021-03-25                  
 #> 
 #> - Packages -------------------------------------------------------------------
 #>  package       * version    date       lib source        
@@ -416,13 +420,13 @@ sessioninfo::session_info()
 #>  cli             2.3.1      2021-02-23 [1] CRAN (R 4.0.3)
 #>  crayon          1.4.1      2021-02-08 [1] CRAN (R 4.0.3)
 #>  curl            4.3        2019-12-02 [1] CRAN (R 4.0.3)
-#>  dataRetrieval   2.7.7      2021-03-09 [1] local         
+#>  dataRetrieval   2.7.7      2021-03-06 [1] CRAN (R 4.0.4)
 #>  DBI             1.1.1      2021-01-15 [1] CRAN (R 4.0.3)
 #>  digest          0.6.27     2020-10-24 [1] CRAN (R 4.0.3)
 #>  dotCall64       1.0-1      2021-02-11 [1] CRAN (R 4.0.3)
-#>  dplyr           1.0.4      2021-02-02 [1] CRAN (R 4.0.3)
-#>  e1071           1.7-4      2020-10-14 [1] CRAN (R 4.0.3)
-#>  EGRET         * 3.0.4.9001 2021-03-11 [1] local         
+#>  dplyr           1.0.5      2021-03-05 [1] CRAN (R 4.0.4)
+#>  e1071           1.7-6      2021-03-18 [1] CRAN (R 4.0.4)
+#>  EGRET         * 3.0.4.9001 2021-03-25 [1] local         
 #>  ellipsis        0.3.1      2020-05-15 [1] CRAN (R 4.0.3)
 #>  evaluate        0.14       2019-05-28 [1] CRAN (R 4.0.3)
 #>  fansi           0.4.2      2021-01-15 [1] CRAN (R 4.0.3)
@@ -441,8 +445,9 @@ sessioninfo::session_info()
 #>  magrittr        2.0.1      2020-11-17 [1] CRAN (R 4.0.3)
 #>  maps            3.3.0      2018-04-03 [1] CRAN (R 4.0.3)
 #>  Matrix          1.3-2      2021-01-06 [2] CRAN (R 4.0.4)
-#>  pillar          1.5.0      2021-02-22 [1] CRAN (R 4.0.3)
+#>  pillar          1.5.1      2021-03-05 [1] CRAN (R 4.0.4)
 #>  pkgconfig       2.0.3      2019-09-22 [1] CRAN (R 4.0.3)
+#>  proxy           0.4-25     2021-03-05 [1] CRAN (R 4.0.4)
 #>  purrr           0.3.4      2020-04-17 [1] CRAN (R 4.0.3)
 #>  R6              2.5.0      2020-10-28 [1] CRAN (R 4.0.3)
 #>  Rcpp            1.0.6      2021-01-15 [1] CRAN (R 4.0.3)
@@ -450,18 +455,18 @@ sessioninfo::session_info()
 #>  rlang           0.4.10     2020-12-30 [1] CRAN (R 4.0.3)
 #>  rmarkdown       2.7        2021-02-19 [1] CRAN (R 4.0.3)
 #>  sessioninfo     1.1.1      2018-11-05 [1] CRAN (R 4.0.3)
-#>  sf              0.9-7      2021-01-06 [1] CRAN (R 4.0.3)
+#>  sf              0.9-8      2021-03-17 [1] CRAN (R 4.0.4)
 #>  spam            2.6-0      2020-12-14 [1] CRAN (R 4.0.3)
 #>  stringi         1.5.3      2020-09-09 [1] CRAN (R 4.0.3)
 #>  stringr         1.4.0      2019-02-10 [1] CRAN (R 4.0.3)
 #>  survival        3.2-7      2020-09-28 [2] CRAN (R 4.0.4)
-#>  tibble          3.0.6      2021-01-29 [1] CRAN (R 4.0.4)
+#>  tibble          3.1.0      2021-02-25 [1] CRAN (R 4.0.4)
 #>  tidyselect      1.1.0      2020-05-11 [1] CRAN (R 4.0.3)
-#>  units           0.7-0      2021-02-25 [1] CRAN (R 4.0.4)
-#>  utf8            1.1.4      2018-05-24 [1] CRAN (R 4.0.3)
+#>  units           0.7-1      2021-03-16 [1] CRAN (R 4.0.4)
+#>  utf8            1.2.1      2021-03-12 [1] CRAN (R 4.0.4)
 #>  vctrs           0.3.6      2020-12-17 [1] CRAN (R 4.0.3)
 #>  withr           2.4.1      2021-01-26 [1] CRAN (R 4.0.3)
-#>  xfun            0.21       2021-02-10 [1] CRAN (R 4.0.3)
+#>  xfun            0.22       2021-03-11 [1] CRAN (R 4.0.4)
 #>  xml2            1.3.2      2020-04-23 [1] CRAN (R 4.0.3)
 #>  yaml            2.2.1      2020-02-01 [1] CRAN (R 4.0.3)
 #> 
@@ -474,10 +479,10 @@ sessioninfo::session_info()
 Please consider reporting bugs and asking questions on the Issues page:
 <https://github.com/USGS-R/EGRET/issues>
 
-Follow `@USGS_R` on Twitter for updates on USGS R packages:
+Follow `@USGS_DataSci` on Twitter for updates on USGS R packages:
 
 [![Twitter
-Follow](https://img.shields.io/twitter/follow/USGS_R.svg?style=social&label=Follow%20USGS_R)](https://twitter.com/USGS_R)
+Follow](https://img.shields.io/twitter/follow/USGS_DataSci.svg?style=social&label=Follow%20USGS_DataSci)](https://twitter.com/USGS_DataSci)
 
 ## Subscribe
 
@@ -498,7 +503,7 @@ more information.
 
 The Water Mission Area of the USGS has supported the development and
 maintenance of the `EGRET` R-package. Further maintenance is expected to
-be stable through September 2019. Resources are available primarily for
+be stable through October 2022. Resources are available primarily for
 maintenance and responding to user questions. Priorities on the
 development of new features are determined by the `EGRET` development
 team.
@@ -507,7 +512,7 @@ team.
 
 ## Sunset date
 
-Funding for `EGRET` currently expires summer 2019. Expectations are that
+Funding for `EGRET` currently expires fall 2022. Expectations are that
 maintenance and customer service will continue to be supported past that
 date.
 
