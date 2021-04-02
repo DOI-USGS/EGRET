@@ -99,7 +99,7 @@ could be larger than the value for a full year." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/Overview.html">Overview</a>
+  <a href="../articles/Overview.html">Overview and Updates</a>
 </li>
 <li>
   <a href="../articles/EGRET.html">Introduction</a>
@@ -204,7 +204,10 @@ could be larger than the value for a full year.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>results dataframe, if returnDataFrame=TRUE</p>
-<p>dataframe with year, discharge, concentration, flow-normalized concentration, flux, and flow-normalized concentration columns.</p>
+<p>dataframe with year, discharge, concentration,
+flow-normalized concentration, flux, and flow-normalized concentration columns. 
+If the eList was run through WRTDSKalman, an additional column generalized flux
+is included.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Can also procude a table for any Period of Analysis (individual months or sequence of months) using <code><a href='setPA.html'>setPA</a></code>.</p>

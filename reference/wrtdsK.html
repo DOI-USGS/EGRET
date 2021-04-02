@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>WRTDS-Kalman -- uses an autoregressive model to produce more accurate estimates of concentration and flux — WRTDSKalman • EGRET</title>
+<title>WRTDS-Kalman — WRTDSKalman • EGRET</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,11 +46,9 @@
 
 
 
-<meta property="og:title" content="WRTDS-Kalman -- uses an autoregressive model to produce more accurate estimates of concentration and flux — WRTDSKalman" />
-<meta property="og:description" content="This function takes an existing eList 
-Including the estimated model (the surfaces object in the eList)
-And produces the daily WRTDSKalman estimates of concentration and flux
-These generated estimates are called genConc and genFlux" />
+<meta property="og:title" content="WRTDS-Kalman — WRTDSKalman" />
+<meta property="og:description" content="Thi function uses an autoregressive model to produce more accurate 
+estimates of concentration and flux" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -100,7 +98,7 @@ These generated estimates are called genConc and genFlux" />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/Overview.html">Overview</a>
+  <a href="../articles/Overview.html">Overview and Updates</a>
 </li>
 <li>
   <a href="../articles/EGRET.html">Introduction</a>
@@ -168,16 +166,14 @@ These generated estimates are called genConc and genFlux" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>WRTDS-Kalman -- uses an autoregressive model to produce more accurate estimates of concentration and flux</h1>
+    <h1>WRTDS-Kalman</h1>
     <small class="dont-index">Source: <a href='https://github.com/USGS-R/EGRET/blob/master/R/kalman_functions.R'><code>R/kalman_functions.R</code></a></small>
     <div class="hidden name"><code>wrtdsK.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function takes an existing eList 
-Including the estimated model (the surfaces object in the eList)
-And produces the daily WRTDSKalman estimates of concentration and flux
-These generated estimates are called genConc and genFlux</p>
+    <p>Thi function uses an autoregressive model to produce more accurate 
+estimates of concentration and flux</p>
     </div>
 
     <pre class="usage"><span class='fu'>WRTDSKalman</span><span class='op'>(</span><span class='va'>eList</span>, rho <span class='op'>=</span> <span class='fl'>0.9</span>, niter <span class='op'>=</span> <span class='fl'>200</span>, seed <span class='op'>=</span> <span class='cn'>NA</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
@@ -208,6 +204,12 @@ Setting the seed to any given value can be used to create repeatable output.</p>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This function takes an existing eList 
+Including the estimated model (the surfaces object in the eList)
+And produces the daily WRTDSKalman estimates of concentration and flux
+These generated estimates are called genConc and genFlux</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='va'>Choptank_eList</span>

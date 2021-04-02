@@ -105,7 +105,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/Overview.html">Overview</a>
+  <a href="../articles/Overview.html">Overview and Updates</a>
 </li>
 <li>
   <a href="../articles/EGRET.html">Introduction</a>
@@ -216,8 +216,11 @@
 <tr><td>Middle of the period in decimal years</td><td>Q</td><td>Mean discharge, in m^3/s</td></tr>
 <tr><td>Conc</td><td>Estimated mean concentration, in mg/L</td><td>Flux</td></tr>
 <tr><td>Estimated mean flux, in kg/day</td><td>FNConc</td><td>Flow-normalized concentration, in mg/L</td></tr>
-<tr><td>FNFlux</td><td>Flow-normalized flux, in kg/day</td><td>PeriodLong</td></tr>
-<tr><td>Length of period of analysis (paLong), in months</td><td>PeriodStart</td><td>Starting month of period of analysis (paStart), in months (1 = January)</td></tr>
+<tr><td>FNFlux</td><td>Flow-normalized flux, in kg/day</td><td>GenConc</td></tr>
+<tr><td>Generalized mean concentration, in mg/L. This column is only returned if the WRTDSKalman function was run, which gives the 
+eList$Daily data frame a column "GenConc".</td><td>GenFlux</td><td>Generalized mean flux, in kg/day. This column is only returned if the WRTDSKalman function was run, which gives the 
+eList$Daily data frame a column "GenFlux".</td></tr>
+<tr><td>PeriodLong</td><td>Length of period of analysis (paLong), in months</td><td>PeriodStart</td></tr>
 </table>
 
 

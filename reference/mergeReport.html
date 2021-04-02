@@ -101,7 +101,7 @@ Sample data frames." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../articles/Overview.html">Overview</a>
+  <a href="../articles/Overview.html">Overview and Updates</a>
 </li>
 <li>
   <a href="../articles/EGRET.html">Introduction</a>
@@ -234,7 +234,7 @@ not update with the flow information.</p>
 <span class='va'>pCode</span> <span class='op'>&lt;-</span> <span class='st'>'00631'</span>
 <span class='co'># \donttest{</span>
 <span class='va'>Daily</span> <span class='op'>&lt;-</span> <span class='fu'><a href='readNWISDaily.html'>readNWISDaily</a></span><span class='op'>(</span><span class='va'>siteNumber</span>,<span class='st'>'00060'</span>, <span class='st'>'1984-10-01'</span>, <span class='st'>''</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; There are 13323 data points, and 13323 days.</div><div class='input'><span class='va'>Sample</span> <span class='op'>&lt;-</span> <span class='fu'><a href='readNWISSample.html'>readNWISSample</a></span><span class='op'>(</span><span class='va'>siteNumber</span>,<span class='va'>pCode</span>, <span class='st'>'1984-10-01'</span>, <span class='st'>''</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; There are 13332 data points, and 13332 days.</div><div class='input'><span class='va'>Sample</span> <span class='op'>&lt;-</span> <span class='fu'><a href='readNWISSample.html'>readNWISSample</a></span><span class='op'>(</span><span class='va'>siteNumber</span>,<span class='va'>pCode</span>, <span class='st'>'1984-10-01'</span>, <span class='st'>''</span><span class='op'>)</span>
 <span class='va'>INFO</span> <span class='op'>&lt;-</span> <span class='fu'><a href='INFOdataframe.html'>readNWISInfo</a></span><span class='op'>(</span><span class='va'>siteNumber</span>,<span class='va'>pCode</span>,interactive<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='fu'>mergeReport</span><span class='op'>(</span><span class='va'>INFO</span>, <span class='va'>Daily</span>, <span class='va'>Sample</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'></span>
