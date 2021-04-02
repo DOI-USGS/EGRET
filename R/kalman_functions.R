@@ -1,4 +1,7 @@
-#' WRTDS-Kalman -- uses an autoregressive model to produce more accurate estimates of concentration and flux
+#' WRTDS-Kalman
+#' 
+#' Thi function uses an autoregressive model to produce more accurate 
+#' estimates of concentration and flux
 #' 
 #' This function takes an existing eList 
 #' Including the estimated model (the surfaces object in the eList)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/kalman_functions.R
 \name{WRTDSKalman}
 \alias{WRTDSKalman}
-\title{WRTDS-Kalman -- uses an autoregressive model to produce more accurate estimates of concentration and flux}
+\title{WRTDS-Kalman}
 \usage{
 WRTDSKalman(eList, rho = 0.9, niter = 200, seed = NA, verbose = TRUE)
 }
@@ -19,6 +19,10 @@ Setting the seed to any given value can be used to create repeatable output.}
 \item{verbose}{logical specifying whether or not to display progress message}
 }
 \description{
+Thi function uses an autoregressive model to produce more accurate 
+estimates of concentration and flux
+}
+\details{
 This function takes an existing eList 
 Including the estimated model (the surfaces object in the eList)
 And produces the daily WRTDSKalman estimates of concentration and flux
