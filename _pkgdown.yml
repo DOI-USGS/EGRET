@@ -82,7 +82,7 @@ reference:
       - boxConcThree
       - plot15
       - plot1of15
-  - title: Plot Model Data
+  - title: Plot Model Outputs
     desc: Functions for plotting modeled eList objects
     contents:
       - plotConcPred
