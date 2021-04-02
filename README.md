@@ -22,6 +22,11 @@ A companion package [`EGRETci`](https://usgs-r.github.io/EGRETci/)
 implements a set of approaches to the analysis of uncertainty associated
 with WRTDS trend analysis.
 
+If you are familiar with the traditional `EGRET` workflow, check out the
+[Overview and
+Updates](https://usgs-r.github.io/EGRET/articles/Overview.html) to see
+how all the latest updates relate.
+
 ## Package Installation
 
 To install the EGRET package, you must be using R 3.0 or greater and run
@@ -29,14 +34,6 @@ the following command:
 
 ``` r
 install.packages("EGRET")
-```
-
-To get cutting-edge changes, install from GitHub using the `remotes`
-packages:
-
-``` r
-library(remotes)
-install_github("USGS-R/EGRET")
 ```
 
 ## Background:
@@ -318,7 +315,7 @@ siteID <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "" # Get earliest date
 endDate <- "" # Get latest date
 Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
-#> There are 26747 data points, and 26747 days.
+#> There are 26755 data points, and 26755 days.
 # Gather site and parameter information:
 # Here user must input some values for
 # the default (interactive=TRUE)
@@ -362,19 +359,19 @@ eList <- as.egret(INFO, Daily, NA, NA)
 plotFlowSingle(eList, istat=7,qUnit="thousandCfs")
 ```
 
-![](man/figures/README-unnamed-chunk-5-1.png)
+![](man/figures/README-unnamed-chunk-4-1.png)
 
 ``` r
 plotSDLogQ(eList)
 ```
 
-![](man/figures/README-unnamed-chunk-5-2.png)
+![](man/figures/README-unnamed-chunk-4-2.png)
 
 ``` r
 plotQTimeDaily(eList, qLower=1,qUnit=3)
 ```
 
-![](man/figures/README-unnamed-chunk-5-3.png)
+![](man/figures/README-unnamed-chunk-4-3.png)
 
 ``` r
 plotFour(eList, qUnit=3)
@@ -410,7 +407,7 @@ sessioninfo::session_info()
 #>  collate  English_United States.1252  
 #>  ctype    English_United States.1252  
 #>  tz       America/Chicago             
-#>  date     2021-03-25                  
+#>  date     2021-04-02                  
 #> 
 #> - Packages -------------------------------------------------------------------
 #>  package       * version    date       lib source        
@@ -426,7 +423,7 @@ sessioninfo::session_info()
 #>  dotCall64       1.0-1      2021-02-11 [1] CRAN (R 4.0.3)
 #>  dplyr           1.0.5      2021-03-05 [1] CRAN (R 4.0.4)
 #>  e1071           1.7-6      2021-03-18 [1] CRAN (R 4.0.4)
-#>  EGRET         * 3.0.4.9001 2021-03-25 [1] local         
+#>  EGRET         * 3.0.4.9001 2021-04-02 [1] local         
 #>  ellipsis        0.3.1      2020-05-15 [1] CRAN (R 4.0.3)
 #>  evaluate        0.14       2019-05-28 [1] CRAN (R 4.0.3)
 #>  fansi           0.4.2      2021-01-15 [1] CRAN (R 4.0.3)
@@ -464,7 +461,7 @@ sessioninfo::session_info()
 #>  tidyselect      1.1.0      2020-05-11 [1] CRAN (R 4.0.3)
 #>  units           0.7-1      2021-03-16 [1] CRAN (R 4.0.4)
 #>  utf8            1.2.1      2021-03-12 [1] CRAN (R 4.0.4)
-#>  vctrs           0.3.6      2020-12-17 [1] CRAN (R 4.0.3)
+#>  vctrs           0.3.7      2021-03-29 [1] CRAN (R 4.0.4)
 #>  withr           2.4.1      2021-01-26 [1] CRAN (R 4.0.3)
 #>  xfun            0.22       2021-03-11 [1] CRAN (R 4.0.4)
 #>  xml2            1.3.2      2020-04-23 [1] CRAN (R 4.0.3)

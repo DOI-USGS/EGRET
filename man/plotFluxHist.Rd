@@ -76,9 +76,6 @@ eList <- Choptank_eList
 plotFluxHist(eList)
 plotFluxHist(eList, yearStart, yearEnd, fluxUnit = 1)
 plotFluxHist(eList, yearStart, yearEnd, fluxUnit = 'kgDay')
-# Graphs consisting of Jun-Aug and only showing WRTDSKalman and flow normalized values
-eList <- setPA(eList, paStart = 6, paLong = 3)
-plotFluxHist(eList, plotAnnual = FALSE) 
 }
 }
 \seealso{

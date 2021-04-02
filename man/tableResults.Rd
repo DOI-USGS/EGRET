@@ -18,7 +18,10 @@ tableResults(eList, qUnit = 2, fluxUnit = 9, localDaily = NA)
 \value{
 results dataframe, if returnDataFrame=TRUE
 
-dataframe with year, discharge, concentration, flow-normalized concentration, flux, and flow-normalized concentration columns.
+dataframe with year, discharge, concentration,
+flow-normalized concentration, flux, and flow-normalized concentration columns. 
+If the eList was run through WRTDSKalman, an additional column generalized flux
+is included.
 }
 \description{
 Produce an ASCII table showing: year, mean discharge, mean concentration, flow-normalized concentration, 

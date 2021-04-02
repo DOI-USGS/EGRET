@@ -21,11 +21,7 @@ opts_chunk$set(
 )
 ```
 
-In order to run these functions, you will need to install the development version of `EGRET`. This can be done using the `remotes` package:
 
-```{r install, eval=FALSE, echo=TRUE}
-remotes::install_github("USGS-R/EGRET")
-```
 ## Introduction
  
 This document provides a basic set of instructions for calculating WRTDSKalman estimates of both concentration and flux (or "load").  There are now two published papers that lay out the motivation for using this approach (called "WRTDS_K"" in those papers), describe the mathematics, and show the results compared to other methods.  Those two publications can be found at:  https://pubs.er.usgs.gov/publication/sir20195084 and https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2019WR025338 .

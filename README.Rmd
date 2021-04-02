@@ -36,18 +36,13 @@ The link for the official USGS publication user guide is here:
 
 A companion package [`EGRETci`](https://usgs-r.github.io/EGRETci/) implements a set of approaches to the analysis of uncertainty associated with WRTDS trend analysis.
 
+If you are familiar with the traditional `EGRET` workflow, check out the [Overview and Updates](https://usgs-r.github.io/EGRET/articles/Overview.html) to see how all the latest updates relate.
+
 ## Package Installation
 To install the EGRET package, you must be using R 3.0 or greater and run the following command:
 
 ```{r eval=FALSE}
 install.packages("EGRET")
-```
-
-To get cutting-edge changes, install from GitHub using the `remotes` packages:
-
-```{r eval=FALSE}
-library(remotes)
-install_github("USGS-R/EGRET")
 ```
 
 ## Background:

@@ -47,9 +47,6 @@
 #' plotFluxHist(eList)
 #' plotFluxHist(eList, yearStart, yearEnd, fluxUnit = 1)
 #' plotFluxHist(eList, yearStart, yearEnd, fluxUnit = 'kgDay')
-#' # Graphs consisting of Jun-Aug and only showing WRTDSKalman and flow normalized values
-#' eList <- setPA(eList, paStart = 6, paLong = 3)
-#' plotFluxHist(eList, plotAnnual = FALSE) 
 #' }
 plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA, 
                        fluxUnit = 9, fluxMax = NA, 
@@ -99,10 +96,6 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA,
                                    paLong = paLong,
                                    localDaily = localDaily)
   
-  if(waterYear){
-    localAnnualResults$DecYear <- floor(localAnnualResults$DecYear)
-  }
-  
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(fluxUnit)){
@@ -122,9 +115,17 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA,
   
   numYears <- length(localAnnualResults$DecYear)
   
-  yearStart <- if(is.na(yearStart)) trunc(min(localAnnualResults$DecYear[!is.na(localAnnualResults$FNFlux)],na.rm = TRUE)) else yearStart
-  yearEnd <- if(is.na(yearEnd)) trunc(max(localAnnualResults$DecYear[!is.na(localAnnualResults$FNFlux)],na.rm = TRUE))+1 else yearEnd
+  if(is.na(yearStart)){
+    yearStart <- floor(min(localAnnualResults$DecYear[!is.na(localAnnualResults$FNFlux)],na.rm = TRUE))
+  }  else {
+    yearStart <- floor(yearStart)
+  }
   
+  if(is.na(yearEnd)){
+    yearEnd <- ceiling(max(localAnnualResults$DecYear[!is.na(localAnnualResults$FNFlux)],na.rm = TRUE))
+  }  else {
+    yearEnd <- floor(yearEnd) + 0.99
+  }
   subAnnualResults <- localAnnualResults[localAnnualResults$DecYear>=yearStart & localAnnualResults$DecYear <= yearEnd,]
   
   hasFlex <- c("segmentInfo") %in% names(attributes(eList$INFO))
@@ -135,18 +136,18 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA,
     periodName <- paste(periodName,"*")
   }
   
-  if(plotGenFlux){
-    flux_words <- "Flux Estimates (K)"
-  } else {
-    flux_words <- "Flux Estimates"
-  }
-  
-  if((plotAnnual | plotGenFlux) & plotFlowNorm){
-    title3 <- paste0("\n", flux_words," (dots) & Flow Normalized Flux (line)")
-  } else if((plotAnnual | plotGenFlux) & !plotFlowNorm){
-    title3 <- paste("\nAnnual", flux_words)
-  } else if(!(plotAnnual | plotGenFlux) & plotFlowNorm){
-    title3 <- "\nFlow Normalized Flux"
+  if(plotAnnual & plotGenFlux & plotFlowNorm){  #all 3
+    title3 <- "\nMean (red = Kalman, black = WRTDS) & Flow-Normalized (line) Flux Estimates" 
+  } else if (plotAnnual & plotGenFlux & !plotFlowNorm){ # no flow-normalized
+    title3 <- "\nMean (red = Kalman, black = WRTDS) Flux Estimates"
+  } else if (!plotAnnual & !plotGenFlux & plotFlowNorm){ # only flow-normalized
+    title3 <- "\nFlow Normalized Flux Estimates"
+  } else if (plotFlowNorm & (plotGenFlux | plotAnnual)){ # flow normalized with 1
+    title3 <- "\nMean (dots) & Flow-Normalized (line) Flux Estimates"
+  } else if (plotAnnual & !plotGenFlux) {
+    title3 <- "\nMean Flux Estimates"
+  } else if (!plotAnnual & plotGenFlux) {
+    title3 <- "\nMean Kalman Flux Estimates"
   } else {
     title3 <- "\n"
   }

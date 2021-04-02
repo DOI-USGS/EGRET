@@ -23,6 +23,10 @@
 #' Flux \tab Estimated mean flux, in kg/day\cr
 #' FNConc \tab Flow-normalized concentration, in mg/L\cr
 #' FNFlux \tab Flow-normalized flux, in kg/day\cr
+#' GenConc \tab Generalized mean concentration, in mg/L. This column is only returned if the WRTDSKalman function was run, which gives the 
+#' eList$Daily data frame a column "GenConc".\cr
+#' GenFlux \tab Generalized mean flux, in kg/day. This column is only returned if the WRTDSKalman function was run, which gives the 
+#' eList$Daily data frame a column "GenFlux".\cr
 #' PeriodLong \tab Length of period of analysis (paLong), in months\cr
 #' PeriodStart \tab Starting month of period of analysis (paStart), in months (1 = January)\cr
 #' } 
