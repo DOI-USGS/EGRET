@@ -90,27 +90,30 @@ plotConcHist <- function(eList, yearStart = NA, yearEnd = NA,
   if(hasFlex){
     periodName <- paste(periodName,"*")
   }
-  
-  if(plotGenConc){
-    conc_words <- "Mean Concentration (K)"
-  } else {
-    conc_words <- "Mean Concentration"
-  }
-  
-  if((plotAnnual | plotGenConc) & plotFlowNorm){
-    # Need to think what we want to say if there are both
-    title3 <- paste("\n", conc_words, "(dots) & Flow Normalized Concentration (line)" )
-  } else if((plotAnnual | plotGenConc) & !plotFlowNorm){
-    title3 <- paste("\nAnnual", conc_words)
-  } else if(!(plotAnnual | plotGenConc) & plotFlowNorm){
+
+  if(plotAnnual & plotGenConc & plotFlowNorm){  #all 3
+    title3 <- "\nMean (red = Kalman, black = WRTDS) & Flow-Normalized (line) Concentration" 
+  } else if (plotAnnual & plotGenConc & !plotFlowNorm){ # no flow-normalized
+    title3 <- "\nMean (red = Kalman, black = WRTDS) Concentration"
+  } else if (!plotAnnual & !plotGenConc & plotFlowNorm){ # only flow-normalized
     title3 <- "\nFlow Normalized Concentration"
+  } else if (plotFlowNorm & (plotGenConc | plotAnnual)){ # flow normalized with 1
+    title3 <- "\nMean (dots) & Flow-Normalized (line) Concentration"
+  } else if (plotAnnual & !plotGenConc) {
+    title3 <- "\nMean Concentration"
+  } else if (!plotAnnual & plotGenConc) {
+    title3 <- "\nMean Kalman Concentration"
   } else {
     title3 <- "\n"
   }
   
-  title <- if(printTitle) paste(localINFO$shortName," ",localINFO$paramShortName,"\n",
+  if(printTitle) {
+    title <-  paste(localINFO$shortName," ",localINFO$paramShortName,"\n",
                                 periodName,
-                                title3) else ""
+                                title3)
+  } else {
+    title <- ""
+  }
   
   ##################
   
