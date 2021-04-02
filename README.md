@@ -22,6 +22,10 @@ A companion package [`EGRETci`](https://usgs-r.github.io/EGRETci/)
 implements a set of approaches to the analysis of uncertainty associated
 with WRTDS trend analysis.
 
+If you are familiar with the traditional `EGRET` workflow, check out the
+[Overview and Updates](https://usgs-r.github.io/EGRET/Overview.html) to
+see how all the latest updates relate.
+
 ## Package Installation
 
 To install the EGRET package, you must be using R 3.0 or greater and run
@@ -318,7 +322,7 @@ siteID <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "" # Get earliest date
 endDate <- "" # Get latest date
 Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
-#> There are 26747 data points, and 26747 days.
+#> There are 26755 data points, and 26755 days.
 # Gather site and parameter information:
 # Here user must input some values for
 # the default (interactive=TRUE)
@@ -410,7 +414,7 @@ sessioninfo::session_info()
 #>  collate  English_United States.1252  
 #>  ctype    English_United States.1252  
 #>  tz       America/Chicago             
-#>  date     2021-03-25                  
+#>  date     2021-04-02                  
 #> 
 #> - Packages -------------------------------------------------------------------
 #>  package       * version    date       lib source        
@@ -464,7 +468,7 @@ sessioninfo::session_info()
 #>  tidyselect      1.1.0      2020-05-11 [1] CRAN (R 4.0.3)
 #>  units           0.7-1      2021-03-16 [1] CRAN (R 4.0.4)
 #>  utf8            1.2.1      2021-03-12 [1] CRAN (R 4.0.4)
-#>  vctrs           0.3.6      2020-12-17 [1] CRAN (R 4.0.3)
+#>  vctrs           0.3.7      2021-03-29 [1] CRAN (R 4.0.4)
 #>  withr           2.4.1      2021-01-26 [1] CRAN (R 4.0.3)
 #>  xfun            0.22       2021-03-11 [1] CRAN (R 4.0.4)
 #>  xml2            1.3.2      2020-04-23 [1] CRAN (R 4.0.3)

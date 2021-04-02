@@ -83,10 +83,6 @@ plotConcHist <- function(eList, yearStart = NA, yearEnd = NA,
                                    paLong = paLong,
                                    localDaily = localDaily)
   
-  if(waterYear){
-    localAnnualResults$DecYear <- floor(localAnnualResults$DecYear)
-  }
-  
   hasFlex <- c("segmentInfo") %in% names(attributes(eList$INFO))
   
   periodName <- setSeasonLabel(localAnnualResults=localAnnualResults)
@@ -119,11 +115,15 @@ plotConcHist <- function(eList, yearStart = NA, yearEnd = NA,
   ##################
   
   if(is.na(yearStart)){
-    yearStart <- min(localAnnualResults$DecYear[!is.na(localAnnualResults$FNConc)], na.rm = TRUE)
+    yearStart <- floor(min(localAnnualResults$DecYear[!is.na(localAnnualResults$FNConc)], na.rm = TRUE))
+  } else {
+    yearStart <- floor(yearStart)
   }
   
   if(is.na(yearEnd)){
-    yearEnd <- max(localAnnualResults$DecYear[!is.na(localAnnualResults$FNConc)], na.rm = TRUE)
+    yearEnd <- ceiling(max(localAnnualResults$DecYear[!is.na(localAnnualResults$FNConc)], na.rm = TRUE))
+  } else {
+    yearEnd <- floor(yearEnd) + 0.99
   }
   
   xInfo <- generalAxis(x=localAnnualResults$DecYear, minVal=yearStart, maxVal=yearEnd, padPercent=0.05, tinyPlot=tinyPlot)

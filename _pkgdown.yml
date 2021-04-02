@@ -4,7 +4,7 @@ template:
 navbar:
   type: default
   left:
-  - text: Overview
+  - text: Overview and Updates
     href: articles/Overview.html
   - text: Introduction
     href: articles/EGRET.html

@@ -99,10 +99,6 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA,
                                    paLong = paLong,
                                    localDaily = localDaily)
   
-  if(waterYear){
-    localAnnualResults$DecYear <- floor(localAnnualResults$DecYear)
-  }
-  
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(fluxUnit)){
@@ -122,9 +118,17 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA,
   
   numYears <- length(localAnnualResults$DecYear)
   
-  yearStart <- if(is.na(yearStart)) trunc(min(localAnnualResults$DecYear[!is.na(localAnnualResults$FNFlux)],na.rm = TRUE)) else yearStart
-  yearEnd <- if(is.na(yearEnd)) trunc(max(localAnnualResults$DecYear[!is.na(localAnnualResults$FNFlux)],na.rm = TRUE))+1 else yearEnd
+  if(is.na(yearStart)){
+    yearStart <- floor(min(localAnnualResults$DecYear[!is.na(localAnnualResults$FNFlux)],na.rm = TRUE))
+  }  else {
+    yearStart <- floor(yearStart)
+  }
   
+  if(is.na(yearEnd)){
+    yearEnd <- ceiling(max(localAnnualResults$DecYear[!is.na(localAnnualResults$FNFlux)],na.rm = TRUE))
+  }  else {
+    yearEnd <- floor(yearEnd) + 0.99
+  }
   subAnnualResults <- localAnnualResults[localAnnualResults$DecYear>=yearStart & localAnnualResults$DecYear <= yearEnd,]
   
   hasFlex <- c("segmentInfo") %in% names(attributes(eList$INFO))
