@@ -36,14 +36,6 @@ the following command:
 install.packages("EGRET")
 ```
 
-To get cutting-edge changes, install from GitHub using the `remotes`
-packages:
-
-``` r
-library(remotes)
-install_github("USGS-R/EGRET")
-```
-
 ## Background:
 
 Evaluating long-term changes in river conditions (water quality and
@@ -367,19 +359,19 @@ eList <- as.egret(INFO, Daily, NA, NA)
 plotFlowSingle(eList, istat=7,qUnit="thousandCfs")
 ```
 
-![](man/figures/README-unnamed-chunk-5-1.png)
+![](man/figures/README-unnamed-chunk-4-1.png)
 
 ``` r
 plotSDLogQ(eList)
 ```
 
-![](man/figures/README-unnamed-chunk-5-2.png)
+![](man/figures/README-unnamed-chunk-4-2.png)
 
 ``` r
 plotQTimeDaily(eList, qLower=1,qUnit=3)
 ```
 
-![](man/figures/README-unnamed-chunk-5-3.png)
+![](man/figures/README-unnamed-chunk-4-3.png)
 
 ``` r
 plotFour(eList, qUnit=3)
