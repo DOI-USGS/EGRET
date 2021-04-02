@@ -1,3 +1,10 @@
+EGRET 3.0.5
+===========
+* WRTDSKalman function added to improve flux estimations.
+* Documentation updates.
+* Added a "jitter" option to help with models that do not converge.
+* Updated setupYear function to handle edge years better.
+
 EGRET 3.0.0
 ===========
 * Added enhancements for generalized flow normalization
