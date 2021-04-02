@@ -23,8 +23,9 @@ implements a set of approaches to the analysis of uncertainty associated
 with WRTDS trend analysis.
 
 If you are familiar with the traditional `EGRET` workflow, check out the
-[Overview and Updates](https://usgs-r.github.io/EGRET/Overview.html) to
-see how all the latest updates relate.
+[Overview and
+Updates](https://usgs-r.github.io/EGRET/articles/Overview.html) to see
+how all the latest updates relate.
 
 ## Package Installation
 
@@ -430,7 +431,7 @@ sessioninfo::session_info()
 #>  dotCall64       1.0-1      2021-02-11 [1] CRAN (R 4.0.3)
 #>  dplyr           1.0.5      2021-03-05 [1] CRAN (R 4.0.4)
 #>  e1071           1.7-6      2021-03-18 [1] CRAN (R 4.0.4)
-#>  EGRET         * 3.0.4.9001 2021-03-25 [1] local         
+#>  EGRET         * 3.0.4.9001 2021-04-02 [1] local         
 #>  ellipsis        0.3.1      2020-05-15 [1] CRAN (R 4.0.3)
 #>  evaluate        0.14       2019-05-28 [1] CRAN (R 4.0.3)
 #>  fansi           0.4.2      2021-01-15 [1] CRAN (R 4.0.3)
