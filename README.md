@@ -79,7 +79,7 @@ rivers draining to Chesapeake Bay. The URL is:
 The second is an application to nitrate data for 8 monitoring sites on
 the Mississippi River or its major tributaries. The URL is:
 
-<http://pubs.acs.org/doi/abs/10.1021/es201221s>
+<https://pubs.acs.org/doi/abs/10.1021/es201221s>
 
 For a thorough discussion of the generalized flow normalization method
 implemented in the EGRET enhancements, see the paper: “Tracking changes
