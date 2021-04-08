@@ -30,7 +30,9 @@ vignettes/data_prep.Rmd
 vignettes/Conwingo.PO4.RData
 vignettes/plotOne.R
 vignettes/runPairsMonths.R
-vignettes/TrendByMonth.Rmd
+vignettes/TrendsByMonth.Rmd
+vignettes/Conowingo.PO4.RData
+vignettes/Annual_Hydrograph_Timing.Rmd
 vignettes/AlternativeQMethod.Rmd
 vignettes/functionsForK.R
 _pkgdown.yml
