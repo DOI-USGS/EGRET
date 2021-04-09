@@ -19,6 +19,8 @@ code.json
 hexSticker.R
 ^docs$
 EGRET.Rcheck
+vignettes/*.html
+vignettes/*.R
 vignettes/References_WRTDS.Rmd
 vignettes/References_Extend.Rmd
 vignettes/References_Region.Rmd
@@ -34,6 +36,12 @@ vignettes/TrendsByMonth.Rmd
 vignettes/Conowingo.PO4.RData
 vignettes/Annual_Hydrograph_Timing.Rmd
 vignettes/AlternativeQMethod.Rmd
+vignettes/Enhancements.Rmd
+vignettes/eListOut.rds
+vignettes/pairResults.rds
+vignettes/pairResults2.rds
+vignettes/WRTDSK.Rmd
+vignettes/ChainBridge.TP.RData
 vignettes/functionsForK.R
 _pkgdown.yml
 pkgdown/favicon/*
