@@ -24,7 +24,7 @@ Collection of functions to do WRTDS and flowHistory analysis,
 \references{
 Hirsch, R.M., and De Cicco, L.A., 2014, User guide to Exploration and Graphics for RivEr Trends 
 (EGRET) and dataRetrieval: R packages for hydrologic data: U.S. Geological Survey Techniques and Methods book 4, 
-chap. A10, 94 p., \url{https://doi.org/10.3133/tm4A10}
+chap. A10, 94 p., \doi{10.3133/tm4A10}
 }
 \author{
 Robert M. Hirsch \email{rhirsch@usgs.gov}, Laura De Cicco \email{ldecicco@usgs.gov}

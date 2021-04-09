@@ -1,13 +1,4 @@
-# EGRET <img src="man/figures/egret-02.png" alt="EGRET" height="150px" align="right" />
-
-[![R build
-status](https://github.com/USGS-R/EGRET/workflows/R-CMD-check/badge.svg)](https://github.com/USGS-R/EGRET/actions)
-[![codecov](https://codecov.io/gh/USGS-R/EGRET/branch/master/graph/badge.svg)](https://codecov.io/gh/USGS-R/EGRET)
-[![status](https://img.shields.io/badge/USGS-Research-blue.svg)](https://owi.usgs.gov/R/packages.html#research)
-[![CRAN
-version](http://www.r-pkg.org/badges/version/EGRET)](https://cran.r-project.org/package=EGRET)
-[![](http://cranlogs.r-pkg.org/badges/EGRET)](https://cran.r-project.org/package=EGRET)
-[![](http://cranlogs.r-pkg.org/badges/grand-total/EGRET)](https://cran.r-project.org/package=EGRET)
+# EGRET 
 
 Exploration and Graphics for RivEr Trends (`EGRET`): An R-package for
 the analysis of long-term changes in water quality and streamflow,
@@ -16,7 +7,7 @@ Discharge, and Season (WRTDS).
 
 The link for the official USGS publication user guide is here:
 
-<https://pubs.usgs.gov/tm/04/a10/>
+[https://pubs.usgs.gov/tm/04/a10/](https://pubs.usgs.gov/tm/04/a10/)
 
 A companion package [`EGRETci`](https://usgs-r.github.io/EGRETci/)
 implements a set of approaches to the analysis of uncertainty associated
