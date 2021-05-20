@@ -94,7 +94,7 @@ Sample data frames." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">EGRET</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.4.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.5.0001</span>
       </span>
     </div>
 
@@ -234,7 +234,7 @@ not update with the flow information.</p>
 <span class='va'>pCode</span> <span class='op'>&lt;-</span> <span class='st'>'00631'</span>
 <span class='co'># \donttest{</span>
 <span class='va'>Daily</span> <span class='op'>&lt;-</span> <span class='fu'><a href='readNWISDaily.html'>readNWISDaily</a></span><span class='op'>(</span><span class='va'>siteNumber</span>,<span class='st'>'00060'</span>, <span class='st'>'1984-10-01'</span>, <span class='st'>''</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; There are 13332 data points, and 13332 days.</div><div class='input'><span class='va'>Sample</span> <span class='op'>&lt;-</span> <span class='fu'><a href='readNWISSample.html'>readNWISSample</a></span><span class='op'>(</span><span class='va'>siteNumber</span>,<span class='va'>pCode</span>, <span class='st'>'1984-10-01'</span>, <span class='st'>''</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; There are 13380 data points, and 13380 days.</div><div class='input'><span class='va'>Sample</span> <span class='op'>&lt;-</span> <span class='fu'><a href='readNWISSample.html'>readNWISSample</a></span><span class='op'>(</span><span class='va'>siteNumber</span>,<span class='va'>pCode</span>, <span class='st'>'1984-10-01'</span>, <span class='st'>''</span><span class='op'>)</span>
 <span class='va'>INFO</span> <span class='op'>&lt;-</span> <span class='fu'><a href='INFOdataframe.html'>readNWISInfo</a></span><span class='op'>(</span><span class='va'>siteNumber</span>,<span class='va'>pCode</span>,interactive<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='va'>eList</span> <span class='op'>&lt;-</span> <span class='fu'>mergeReport</span><span class='op'>(</span><span class='va'>INFO</span>, <span class='va'>Daily</span>, <span class='va'>Sample</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'></span>
