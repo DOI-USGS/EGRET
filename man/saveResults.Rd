@@ -4,7 +4,8 @@
 \alias{saveResults}
 \title{A utility program for saving the contents of the workspace
   
- This function saves the workspace. 
+ This function saves the workspace. Future versions of EGRET will not include this function,
+ use saveRDS to save individual eList objects.
  It assigns the file a name using the abbreviations for station and constituent.}
 \usage{
 saveResults(savePath, eList)
@@ -17,18 +18,9 @@ saveResults(savePath, eList)
 \description{
 A utility program for saving the contents of the workspace
   
- This function saves the workspace. 
+ This function saves the workspace. Future versions of EGRET will not include this function,
+ use saveRDS to save individual eList objects.
  It assigns the file a name using the abbreviations for station and constituent.
-}
-\examples{
-eList <- Choptank_eList
-savePath <- "~/"
-\donttest{
-saveResults(savePath, eList)
-
-#To load that file:
-#load(paste(savePath,"Chop.nitrogen.RData",sep=""))
-}
 }
 \keyword{statistics}
 \keyword{water-quality}

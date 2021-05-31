@@ -1,3 +1,7 @@
+EGRET 3.0.6
+===========
+* Fixed broken example in saveResults. Function will be deprecated in future versions.
+
 EGRET 3.0.5
 ===========
 * WRTDSKalman function added to improve flux estimations.

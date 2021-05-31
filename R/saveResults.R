@@ -1,24 +1,17 @@
 #'  A utility program for saving the contents of the workspace
 #'   
-#'  This function saves the workspace. 
+#'  This function saves the workspace. Future versions of EGRET will not include this function,
+#'  use saveRDS to save individual eList objects.
 #'  It assigns the file a name using the abbreviations for station and constituent.
 #'
 #' @param savePath character specifying the full pathname of the folder where the file is to be saved ending with the final slash
 #' @param eList named list with at least the INFO dataframe
 #' @keywords water-quality statistics
 #' @export
-#' @examples
-#' eList <- Choptank_eList
-#' savePath <- "~/"
-#' \donttest{
-#' saveResults(savePath, eList)
-#' 
-#' #To load that file:
-#' #load(paste(savePath,"Chop.nitrogen.RData",sep=""))
-#' }
 saveResults<-function(savePath, eList){
+  .Deprecated("base R's saveRDS")
   INFO <- getInfo(eList)
-  saveName <- paste(savePath, INFO$staAbbrev, ".", INFO$constitAbbrev, 
-                    ".RData", sep = "")
+  saveName <- paste0(savePath, INFO$shortName, ".", INFO$constitAbbrev, 
+                    ".RData")
   save.image(file=saveName)
 }
