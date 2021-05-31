@@ -38,6 +38,13 @@ A companion package [`EGRETci`](https://usgs-r.github.io/EGRETci/) implements a 
 
 If you are familiar with the traditional `EGRET` workflow, check out the [Overview and Updates](https://usgs-r.github.io/EGRET/articles/Overview.html) to see how all the latest updates relate.
 
+Recent introduction to WRTDS and the `EGRET` package at the 12th National Monitoring Conference
+April 19, 2021:
+
+[Introduction](https://www.youtube.com/watch?v=d58h3nIc1cc)
+
+[New capabilities](https://www.youtube.com/watch?v=ThxdHxrw5qk)
+
 ## Package Installation
 To install the EGRET package, you must be using R 3.0 or greater and run the following command:
 

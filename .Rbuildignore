@@ -28,9 +28,7 @@ vignettes/Regional_studies.bib
 vignettes/Extend_Method.bib
 vignettes/SeasonalFraction.Rmd
 vignettes/streamflow_trend.Rmd
-vignettes/data_prep.Rmd
 vignettes/Conwingo.PO4.RData
-vignettes/plotOne.R
 vignettes/runPairsMonths.R
 vignettes/TrendsByMonth.Rmd
 vignettes/Conowingo.PO4.RData
@@ -42,7 +40,6 @@ vignettes/pairResults.rds
 vignettes/pairResults2.rds
 vignettes/WRTDSK.Rmd
 vignettes/ChainBridge.TP.RData
-vignettes/functionsForK.R
 _pkgdown.yml
 pkgdown/favicon/*
 vignettes/css/*

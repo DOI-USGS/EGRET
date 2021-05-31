@@ -27,6 +27,13 @@ If you are familiar with the traditional `EGRET` workflow, check out the
 Updates](https://usgs-r.github.io/EGRET/articles/Overview.html) to see
 how all the latest updates relate.
 
+Recent introduction to WRTDS and the `EGRET` package at the 12th
+National Monitoring Conference April 19, 2021:
+
+[Introduction](https://www.youtube.com/watch?v=d58h3nIc1cc)
+
+[New capabilities](https://www.youtube.com/watch?v=ThxdHxrw5qk)
+
 ## Package Installation
 
 To install the EGRET package, you must be using R 3.0 or greater and run
@@ -315,7 +322,7 @@ siteID <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "" # Get earliest date
 endDate <- "" # Get latest date
 Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
-#> There are 26762 data points, and 26762 days.
+#> There are 26803 data points, and 26803 days.
 # Gather site and parameter information:
 # Here user must input some values for
 # the default (interactive=TRUE)
@@ -399,7 +406,7 @@ environments.
 sessioninfo::session_info()
 #> - Session info ---------------------------------------------------------------
 #>  setting  value                       
-#>  version  R version 4.0.4 (2021-02-15)
+#>  version  R version 4.0.5 (2021-03-31)
 #>  os       Windows 10 x64              
 #>  system   x86_64, mingw32             
 #>  ui       RTerm                       
@@ -407,68 +414,72 @@ sessioninfo::session_info()
 #>  collate  English_United States.1252  
 #>  ctype    English_United States.1252  
 #>  tz       America/Chicago             
-#>  date     2021-04-09                  
+#>  date     2021-05-20                  
 #> 
 #> - Packages -------------------------------------------------------------------
-#>  package       * version date       lib source        
-#>  assertthat      0.2.1   2019-03-21 [1] CRAN (R 4.0.3)
-#>  class           7.3-18  2021-01-24 [2] CRAN (R 4.0.4)
-#>  classInt        0.4-3   2020-04-07 [1] CRAN (R 4.0.3)
-#>  cli             2.4.0   2021-04-05 [1] CRAN (R 4.0.4)
-#>  crayon          1.4.1   2021-02-08 [1] CRAN (R 4.0.3)
-#>  curl            4.3     2019-12-02 [1] CRAN (R 4.0.3)
-#>  dataRetrieval   2.7.7   2021-04-08 [1] local         
-#>  DBI             1.1.1   2021-01-15 [1] CRAN (R 4.0.3)
-#>  digest          0.6.27  2020-10-24 [1] CRAN (R 4.0.3)
-#>  dotCall64       1.0-1   2021-02-11 [1] CRAN (R 4.0.3)
-#>  dplyr           1.0.5   2021-03-05 [1] CRAN (R 4.0.4)
-#>  e1071           1.7-6   2021-03-18 [1] CRAN (R 4.0.4)
-#>  EGRET         * 3.0.5   2021-04-08 [1] local         
-#>  ellipsis        0.3.1   2020-05-15 [1] CRAN (R 4.0.3)
-#>  evaluate        0.14    2019-05-28 [1] CRAN (R 4.0.3)
-#>  fansi           0.4.2   2021-01-15 [1] CRAN (R 4.0.3)
-#>  fields          11.6    2020-10-09 [1] CRAN (R 4.0.3)
-#>  generics        0.1.0   2020-10-31 [1] CRAN (R 4.0.3)
-#>  glue            1.4.2   2020-08-27 [1] CRAN (R 4.0.3)
-#>  highr           0.8     2019-03-20 [1] CRAN (R 4.0.3)
-#>  hms             1.0.0   2021-01-13 [1] CRAN (R 4.0.3)
-#>  htmltools       0.5.1.1 2021-01-22 [1] CRAN (R 4.0.3)
-#>  httr            1.4.2   2020-07-20 [1] CRAN (R 4.0.3)
-#>  jsonlite        1.7.2   2020-12-09 [1] CRAN (R 4.0.3)
-#>  KernSmooth      2.23-18 2020-10-29 [2] CRAN (R 4.0.4)
-#>  knitr           1.31    2021-01-27 [1] CRAN (R 4.0.3)
-#>  lattice         0.20-41 2020-04-02 [2] CRAN (R 4.0.4)
-#>  lifecycle       1.0.0   2021-02-15 [1] CRAN (R 4.0.4)
-#>  magrittr        2.0.1   2020-11-17 [1] CRAN (R 4.0.3)
-#>  maps            3.3.0   2018-04-03 [1] CRAN (R 4.0.3)
-#>  Matrix          1.3-2   2021-01-06 [2] CRAN (R 4.0.4)
-#>  pillar          1.5.1   2021-03-05 [1] CRAN (R 4.0.4)
-#>  pkgconfig       2.0.3   2019-09-22 [1] CRAN (R 4.0.3)
-#>  proxy           0.4-25  2021-03-05 [1] CRAN (R 4.0.4)
-#>  purrr           0.3.4   2020-04-17 [1] CRAN (R 4.0.3)
-#>  R6              2.5.0   2020-10-28 [1] CRAN (R 4.0.3)
-#>  Rcpp            1.0.6   2021-01-15 [1] CRAN (R 4.0.3)
-#>  readr           1.4.0   2020-10-05 [1] CRAN (R 4.0.3)
-#>  rlang           0.4.10  2020-12-30 [1] CRAN (R 4.0.3)
-#>  rmarkdown       2.7     2021-02-19 [1] CRAN (R 4.0.3)
-#>  sessioninfo     1.1.1   2018-11-05 [1] CRAN (R 4.0.3)
-#>  sf              0.9-8   2021-03-17 [1] CRAN (R 4.0.4)
-#>  spam            2.6-0   2020-12-14 [1] CRAN (R 4.0.3)
-#>  stringi         1.5.3   2020-09-09 [1] CRAN (R 4.0.3)
-#>  stringr         1.4.0   2019-02-10 [1] CRAN (R 4.0.3)
-#>  survival        3.2-7   2020-09-28 [2] CRAN (R 4.0.4)
-#>  tibble          3.1.0   2021-02-25 [1] CRAN (R 4.0.4)
-#>  tidyselect      1.1.0   2020-05-11 [1] CRAN (R 4.0.3)
-#>  units           0.7-1   2021-03-16 [1] CRAN (R 4.0.4)
-#>  utf8            1.2.1   2021-03-12 [1] CRAN (R 4.0.4)
-#>  vctrs           0.3.7   2021-03-29 [1] CRAN (R 4.0.4)
-#>  withr           2.4.1   2021-01-26 [1] CRAN (R 4.0.3)
-#>  xfun            0.22    2021-03-11 [1] CRAN (R 4.0.4)
-#>  xml2            1.3.2   2020-04-23 [1] CRAN (R 4.0.3)
-#>  yaml            2.2.1   2020-02-01 [1] CRAN (R 4.0.3)
+#>  package       * version    date       lib source                          
+#>  assertthat      0.2.1      2019-03-21 [1] CRAN (R 4.0.3)                  
+#>  bit             4.0.4      2020-08-04 [1] CRAN (R 4.0.3)                  
+#>  bit64           4.0.5      2020-08-30 [1] CRAN (R 4.0.3)                  
+#>  class           7.3-18     2021-01-24 [2] CRAN (R 4.0.5)                  
+#>  classInt        0.4-3      2020-04-07 [1] CRAN (R 4.0.3)                  
+#>  cli             2.5.0      2021-04-26 [1] CRAN (R 4.0.5)                  
+#>  crayon          1.4.1      2021-02-08 [1] CRAN (R 4.0.3)                  
+#>  curl            4.3.1      2021-04-30 [1] CRAN (R 4.0.5)                  
+#>  dataRetrieval   2.7.7.0001 2021-05-13 [1] local                           
+#>  DBI             1.1.1      2021-01-15 [1] CRAN (R 4.0.3)                  
+#>  digest          0.6.27     2020-10-24 [1] CRAN (R 4.0.3)                  
+#>  dotCall64       1.0-1      2021-02-11 [1] CRAN (R 4.0.3)                  
+#>  dplyr           1.0.6      2021-05-05 [1] CRAN (R 4.0.5)                  
+#>  e1071           1.7-6      2021-03-18 [1] CRAN (R 4.0.4)                  
+#>  EGRET         * 3.0.5      2021-04-09 [1] CRAN (R 4.0.5)                  
+#>  ellipsis        0.3.2      2021-04-29 [1] CRAN (R 4.0.5)                  
+#>  evaluate        0.14       2019-05-28 [1] CRAN (R 4.0.3)                  
+#>  fansi           0.4.2      2021-01-15 [1] CRAN (R 4.0.3)                  
+#>  fields          11.6       2020-10-09 [1] CRAN (R 4.0.3)                  
+#>  generics        0.1.0      2020-10-31 [1] CRAN (R 4.0.3)                  
+#>  glue            1.4.2      2020-08-27 [1] CRAN (R 4.0.3)                  
+#>  highr           0.9        2021-04-16 [1] CRAN (R 4.0.4)                  
+#>  hms             1.1.0      2021-05-17 [1] CRAN (R 4.0.5)                  
+#>  htmltools       0.5.1.1    2021-01-22 [1] CRAN (R 4.0.3)                  
+#>  httr            1.4.2      2020-07-20 [1] CRAN (R 4.0.3)                  
+#>  jsonlite        1.7.2      2020-12-09 [1] CRAN (R 4.0.3)                  
+#>  KernSmooth      2.23-18    2020-10-29 [2] CRAN (R 4.0.5)                  
+#>  knitr           1.33       2021-04-24 [1] CRAN (R 4.0.5)                  
+#>  lattice         0.20-41    2020-04-02 [2] CRAN (R 4.0.5)                  
+#>  lifecycle       1.0.0      2021-02-15 [1] CRAN (R 4.0.4)                  
+#>  magrittr        2.0.1      2020-11-17 [1] CRAN (R 4.0.3)                  
+#>  maps            3.3.0      2018-04-03 [1] CRAN (R 4.0.3)                  
+#>  Matrix          1.3-2      2021-01-06 [2] CRAN (R 4.0.5)                  
+#>  pillar          1.6.1      2021-05-16 [1] CRAN (R 4.0.5)                  
+#>  pkgconfig       2.0.3      2019-09-22 [1] CRAN (R 4.0.3)                  
+#>  proxy           0.4-25     2021-03-05 [1] CRAN (R 4.0.4)                  
+#>  purrr           0.3.4      2020-04-17 [1] CRAN (R 4.0.3)                  
+#>  R6              2.5.0      2020-10-28 [1] CRAN (R 4.0.3)                  
+#>  Rcpp            1.0.6      2021-01-15 [1] CRAN (R 4.0.3)                  
+#>  readr           1.9.9.9000 2021-05-13 [1] Github (tidyverse/readr@7c759a0)
+#>  rlang           0.4.11     2021-04-30 [1] CRAN (R 4.0.5)                  
+#>  rmarkdown       2.8        2021-05-07 [1] CRAN (R 4.0.5)                  
+#>  sessioninfo     1.1.1      2018-11-05 [1] CRAN (R 4.0.3)                  
+#>  sf              0.9-8      2021-03-17 [1] CRAN (R 4.0.4)                  
+#>  spam            2.6-0      2020-12-14 [1] CRAN (R 4.0.3)                  
+#>  stringi         1.5.3      2020-09-09 [1] CRAN (R 4.0.3)                  
+#>  stringr         1.4.0      2019-02-10 [1] CRAN (R 4.0.3)                  
+#>  survival        3.2-10     2021-03-16 [2] CRAN (R 4.0.5)                  
+#>  tibble          3.1.1      2021-04-18 [1] CRAN (R 4.0.5)                  
+#>  tidyselect      1.1.1      2021-04-30 [1] CRAN (R 4.0.5)                  
+#>  tzdb            0.1.1      2021-04-22 [1] CRAN (R 4.0.5)                  
+#>  units           0.7-1      2021-03-16 [1] CRAN (R 4.0.4)                  
+#>  utf8            1.2.1      2021-03-12 [1] CRAN (R 4.0.4)                  
+#>  vctrs           0.3.8      2021-04-29 [1] CRAN (R 4.0.5)                  
+#>  vroom           1.4.0.9000 2021-05-13 [1] Github (r-lib/vroom@1afcc78)    
+#>  withr           2.4.2      2021-04-18 [1] CRAN (R 4.0.4)                  
+#>  xfun            0.22       2021-03-11 [1] CRAN (R 4.0.4)                  
+#>  xml2            1.3.2      2020-04-23 [1] CRAN (R 4.0.3)                  
+#>  yaml            2.2.1      2020-02-01 [1] CRAN (R 4.0.3)                  
 #> 
 #> [1] C:/Users/ldecicco/Documents/R/win-library/4.0
-#> [2] C:/Program Files/R/R-4.0.4/library
+#> [2] C:/Program Files/R/R-4.0.5/library
 ```
 
 ## Reporting bugs
