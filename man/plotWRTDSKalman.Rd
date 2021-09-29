@@ -4,7 +4,7 @@
 \alias{plotWRTDSKalman}
 \title{plotWRTDSKalman}
 \usage{
-plotWRTDSKalman(eList, sideBySide = FALSE)
+plotWRTDSKalman(eList, sideBySide = FALSE, fluxUnit = 9)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes. This
@@ -12,6 +12,8 @@ eList must be run through \code{WRTDSKalman}.}
 
 \item{sideBySide}{logical. If \code{TRUE}, the two plots will be plotted
 side by side, otherwise, one by one vertically.}
+
+\item{fluxUnit}{number representing entry in pre-defined fluxUnit class array. \code{\link{printFluxUnitCheatSheet}}}
 }
 \description{
 Two plots to check the flux estimates using the WRTDS_K vs classic WRTDS.
