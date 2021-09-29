@@ -9,9 +9,9 @@
 #' @keywords water-quality statistics
 #' @export
 saveResults<-function(savePath, eList){
-  .Deprecated("base R's saveRDS")
+
   INFO <- getInfo(eList)
-  saveName <- paste0(savePath, INFO$shortName, ".", INFO$constitAbbrev, 
+  saveName <- paste0(savePath, INFO$staAbbrev, ".", INFO$constitAbbrev, 
                     ".RData")
   save.image(file=saveName)
 }
