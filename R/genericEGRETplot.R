@@ -42,6 +42,7 @@
 #' @param removeLastY logical defaults to FALSE. If TRUE, removes the last y axis label. This can be handy for plotting mutliple plots.
 #' @param \dots additional graphical parameters can be adjusted
 #' @keywords graphics water-quality statistics
+#' @importFrom graphics plot
 #' @export
 #' @examples
 #' eList <- Choptank_eList
