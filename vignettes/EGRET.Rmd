@@ -914,7 +914,7 @@ plotConcQSmooth(eList, date1, date2, date3,
                 qBottom, qTop, legendTop = 0.5,logScale=TRUE)
 ```
 
-```{r plotConcTimeSmooth, echo=TRUE, fig.cap="plotConcTimeSmooth(eList))"}
+```{r plotConcTimeSmooth, echo=TRUE, fig.cap="plotConcTimeSmooth(eList)"}
 q1 <- 2
 q2 <- 10
 q3 <- 20
