@@ -668,12 +668,12 @@ plotFlowSingle(eListMerced,istat=5,qMax=200)
 
 What these figures show us is that on an annual basis there is very little indication of a long-term trend in mean discharge, but for the winter months there is a pretty strong indication of an upward trend.  This could well be related to the climate warming in the Sierra Nevada, resulting in a general increase in the ratio of rain to snow in the winter and more thawing events.
 
-```{r plotFour, echo=TRUE, fig.cap="`plotFour(eListMerced, qUnit=3)`", out.width="100%"}
+```{r plotFour, echo=TRUE, fig.cap="plotFour(eListMerced, qUnit=3)", out.width="100%"}
 plotFour(eList, qUnit=3)
 ```
 
 
-```{r plotFourStats,echo=TRUE,out.width="100%", fig.cap="`plotFourStats(eListMerced, qUnit=3)`"}
+```{r plotFourStats,echo=TRUE,out.width="100%", fig.cap="plotFourStats(eListMerced, qUnit=3)"}
 plotFourStats(eList, qUnit=3)
 ```
 
@@ -780,29 +780,29 @@ This section shows examples of the available plots appropriate for analyzing dat
 
 Note that for any of the plotting functions that show the sample data, if a value in the data set is a non-detect (censored), it is displayed on the graph as a vertical line.  The top of the line is the reporting limit and the bottom is either zero, or if the graph is plotting log concentration values the minimum value on the y-axis.  This line is an "honest" representation of what we know about about that observation and doesn't attempt to use a statistical model to make an estimate below the reporting limit. 
   
-  ```{r plotBoxes, echo=TRUE, fig.cap="Concentration box plots"}
+```{r plotBoxes, echo=TRUE, fig.cap="Concentration box plots"}
   boxConcMonth(eList)
   boxQTwice(eList,qUnit=1)
-  ```
+```
   
-  Note that the statistics to create the boxplot in `boxQTwice` are performed after the data are log-transformed.
+Note that the statistics to create the boxplot in `boxQTwice` are performed after the data are log-transformed.
   
-  ```{r plotConcTime,echo=TRUE, fig.cap="The relation of concentration vs time or discharge"}
+```{r plotConcTime,echo=TRUE, fig.cap="The relation of concentration vs time or discharge"}
   plotConcTime(eList)
   plotConcQ(eList, qUnit=1)
-  ```
+```
   
-  It is interesting to note the change in the convention for rounding of data values that occurred around 1995.
+It is interesting to note the change in the convention for rounding of data values that occurred around 1995.
   
-  ```{r plotFluxQ,echo=TRUE, fig.cap="The relation of flux vs discharge"}
+```{r plotFluxQ,echo=TRUE, fig.cap="The relation of flux vs discharge"}
   plotFluxQ(eList, fluxUnit=4)
-  ```
+```
   
-  ```{r multiPlotDataOverview, echo=TRUE,out.width="100%", fig.cap="`multiPlotDataOverview(eList, qUnit=1)`"}
+```{r multiPlotDataOverview, echo=TRUE,out.width="100%", fig.cap="multiPlotDataOverview(eList, qUnit=1)"}
 multiPlotDataOverview(eList, qUnit=1)
 ```
 
-The `multiPlotDataOverview` function uses a log scale as default. To change the concentration axes to an arithmetic scale, use logScaleConc=FALSE in the `multiPlotDataOverview` function call.
+The `multiPlotDataOverview` function uses a log scale as default. To change the concentration axes to an arithmetic scale, use `logScaleConc=FALSE` in the `multiPlotDataOverview` function call.
 
 ## Table Options {#tableOptionsWQ}
 
@@ -889,7 +889,7 @@ plotResidTime(eList)
 boxResidMonth(eList)
 ```
 
-```{r boxConcThree, echo=TRUE, fig.cap="Default `boxConcThree(eList)`"}
+```{r boxConcThree, echo=TRUE, fig.cap="Default boxConcThree(eList)"}
 boxConcThree(eList)
 ```
 
@@ -914,7 +914,7 @@ plotConcQSmooth(eList, date1, date2, date3,
                 qBottom, qTop, legendTop = 0.5,logScale=TRUE)
 ```
 
-```{r plotConcTimeSmooth, echo=TRUE, fig.cap="`plotConcTimeSmooth(eList))`"}
+```{r plotConcTimeSmooth, echo=TRUE, fig.cap="plotConcTimeSmooth(eList)"}
 q1 <- 2
 q2 <- 10
 q3 <- 20
@@ -929,13 +929,13 @@ plotConcTimeSmooth(eList, q1, q2, q3, centerDate,
                    legendTop = 0.4,logScale=TRUE)
 ```
 
-```{r fluxBiasMulti, echo=TRUE, fig.cap="`fluxBiasMulti(eList, qUnit=1)`",fig.show='asis',fig.width=8, fig.height=10,fig.pos="h", out.width="100%"}
+```{r fluxBiasMulti, echo=TRUE, fig.cap="fluxBiasMulti(eList, qUnit=1)",fig.show='asis',fig.width=8, fig.height=10,fig.pos="h", out.width="100%"}
 fluxBiasMulti(eList, qUnit=1)
 ```
 
-The contour plot functions also do not recognize the PA from the INFO data frame. They represent the overall results of the WRTDS analysis. To specify contourLevels in the contour plots use the `seq` function (type `?seq` for details).  In general, use of the `seq` function would look like this: `contourLevels = seq(from,to,by)`.  In the example shown above we are requesting contour levels that run from 0 to 2 in steps of 0.2.
+The contour plot functions also do not recognize the PA from the INFO data frame. They represent the overall results of the WRTDS analysis. To specify `contourLevels` in the contour plots use the `seq` function (type `?seq` for details).  In general, use of the `seq` function would look like this: `contourLevels = seq(from,to,by)`.  In the example shown above we are requesting contour levels that run from 0 to 2 in steps of 0.2.
 
-```{r plotContours,out.width="100%",fig.height=5, echo=TRUE,fig.cap="`plotContours(eList)`"}
+```{r plotContours,out.width="100%",fig.height=5, echo=TRUE,fig.cap="plotContours(eList)"}
 clevel<-seq(0,2,0.2)
 plotContours(eList, yearStart=1980,yearEnd=2010,qBottom=0.5,qTop=20, 
              contourLevels = clevel)
@@ -943,7 +943,7 @@ plotContours(eList, yearStart=1980,yearEnd=2010,qBottom=0.5,qTop=20,
 
 The function `plotDiffContours` plots the difference between two selected years (year0 and year1). It can help clarify what combinations of seasons and flow conditions have been showing increases and decreases over the period covered.
 
-```{r plotDiffContours, echo=TRUE,out.width="100%",fig.height=5, fig.cap="`plotDiffContours(eList)`"}
+```{r plotDiffContours, echo=TRUE,out.width="100%",fig.height=5, fig.cap="plotDiffContours(eList)"}
 plotDiffContours(eList, year0=1990,year1=2010,
                  qBottom=0.5,qTop=20,maxDiff=0.6)
 ```
