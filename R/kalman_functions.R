@@ -459,11 +459,7 @@ plotTimeSlice <- function(eList, start = NA, end = NA, conc = TRUE,
     y2 <- Daily$GenFlux * fluxFactor
     y3 <- Sample$rObserved * Sample$Q * fluxFactor *86.40
 
-    if(usgsStyle){
-      yLab <- fluxUnit@unitUSGS[[1]]
-    } else {
-      yLab <- fluxUnit@unitExpress[[1]]
-    }
+    yLab <- ifelse(usgsStyle,fluxUnit@unitUSGS,fluxUnit@unitExpress)
     
     plotTitle <- paste(name,"\nFlux, Black is WRTDS, Green is WRTDSKalman\nData in red, (rl in blue if <), Ratio of means is", fratio)
   }
