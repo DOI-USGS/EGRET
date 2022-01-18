@@ -40,7 +40,7 @@ tableChange<-function(eList, fluxUnit = 9, yearPoints = NA) {
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
   
-  if(!c("FNFlux", "FNConc") %in% names(localDaily)){
+  if(!all(c("FNFlux", "FNConc") %in% names(localDaily))){
     stop("Must run modelEstimation on eList first.")
   }
   
