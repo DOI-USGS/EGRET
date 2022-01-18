@@ -49,6 +49,11 @@ WRTDSKalman <- function(eList, rho = 0.90, niter = 200,
   # this part is to set up the array of runs of missing values
   localEList <- cleanUp(eList)
   localDaily <- populateDailySamp(localEList)
+  
+  if(sum(is.na(localDaily$trueConc)) == 0){
+    stop("There are known concentration values for every day in the Daily data frame.")
+  }
+  
   numDays <- length(localDaily$Date)
   numDaysP <- numDays + 1
   # set up DailyGen which will hold the daily generated flux values for all days and all iterations
