@@ -193,6 +193,20 @@ randomSubset <- function(df, colName){
   return(subDF)
 }
 
+#' Merge concentration to Daily
+#' 
+#' Used for the WRTDS Kalman set of functions, this function
+#' merges the ConcAve into the Daily data frame, renaming
+#' it "trueConc", then calculates the "trueFlux", and "stdResid".
+#' 
+#' @param eList named list with the INFO, Daily, and Sample dataframes
+#' and surfaces matrix
+#' 
+#' @export
+#' @examples 
+#' eList <- Choptank_eList
+#' Daily2 <- populateDailySamp(eList)
+#' 
 populateDailySamp <- function(eList) {
 
   localSample <- eList$Sample
