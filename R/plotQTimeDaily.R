@@ -84,7 +84,15 @@ plotQTimeDaily<-function (eList, yearStart=NA, yearEnd=NA, qLower = NA, qUnit = 
   xDaily <- subDaily$DecYear
   
   yDaily <- qFactor * subDaily$Q
-  yMin <- if(is.na(qLower)) 0 else qLower
+  if(is.na(qLower)){
+    if(logScale){
+      yMin <- min(yDaily, na.rm = TRUE)
+    } else {
+      yMin <- 0
+    }
+  } else {
+    yMin <- qLower
+  }
 
   line2 <- if(is.na(qLower)) "Daily Discharge" else paste("Daily discharge above a threshold of\n",qLower," ",qUnit@qUnitName,sep="")
   line1 <- localINFO$shortName

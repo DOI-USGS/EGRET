@@ -196,6 +196,7 @@ test_that("other plot functions don't error", {
   graphics.off()
   dev_start <- dev.cur()
   expect_silent(plotFluxTimeDaily(eList))
+  expect_silent(plotFluxTimeDaily(eList, fluxUnit = 4))
   expect_true(dev_start + 1 == dev.cur())
   
   graphics.off()
@@ -206,6 +207,8 @@ test_that("other plot functions don't error", {
   graphics.off()
   dev_start <- dev.cur()
   expect_silent(plotFluxPred(eList))
+  expect_silent(plotFluxPred(eList, fluxUnit = 4))
+  expect_silent(plotFluxPred(eList, fluxUnit = "poundsDay"))
   expect_true(dev_start + 1 == dev.cur())
   
   graphics.off()
@@ -216,6 +219,13 @@ test_that("other plot functions don't error", {
   graphics.off()
   dev_start <- dev.cur()
   expect_silent(plotFluxQ(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(plotFluxQ(eList, 
+                          fluxUnit = 4, 
+                          qUnit = 1))
   expect_true(dev_start + 1 == dev.cur())
   
   graphics.off()
@@ -281,6 +291,7 @@ test_that("other plot functions don't error", {
   graphics.off()
   dev_start <- dev.cur()
   expect_silent(plotFluxHist(eList))
+  expect_silent(plotFluxHist(eList, fluxUnit = 4))
   expect_true(dev_start + 1 == dev.cur())
   
   graphics.off()
@@ -309,6 +320,12 @@ test_that("other plot functions don't error", {
   graphics.off()
   dev_start <- dev.cur()
   expect_silent(fluxBiasMulti(eList))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(fluxBiasMulti(eList, 
+                              qUnit = 1, fluxUnit = 4))
   expect_true(dev_start + 1 == dev.cur())
   
   graphics.off()

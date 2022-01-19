@@ -1,3 +1,8 @@
+EGRET 3.0.7
+===========
+* Fixed a flux unit label issue for plotTimeSlice
+* Added nDays in calculateMonthlyResults
+
 EGRET 3.0.6
 ===========
 * Fixed broken example in saveResults. Function will be deprecated in future versions.

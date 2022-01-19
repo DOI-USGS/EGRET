@@ -49,6 +49,11 @@ WRTDSKalman <- function(eList, rho = 0.90, niter = 200,
   # this part is to set up the array of runs of missing values
   localEList <- cleanUp(eList)
   localDaily <- populateDailySamp(localEList)
+  
+  if(sum(is.na(localDaily$trueConc)) == 0){
+    stop("There are known concentration values for every day in the Daily data frame.")
+  }
+  
   numDays <- length(localDaily$Date)
   numDaysP <- numDays + 1
   # set up DailyGen which will hold the daily generated flux values for all days and all iterations
@@ -193,6 +198,20 @@ randomSubset <- function(df, colName){
   return(subDF)
 }
 
+#' Merge concentration to Daily
+#' 
+#' Used for the WRTDS Kalman set of functions, this function
+#' merges the ConcAve into the Daily data frame, renaming
+#' it "trueConc", then calculates the "trueFlux", and "stdResid".
+#' 
+#' @param eList named list with the INFO, Daily, and Sample dataframes
+#' and surfaces matrix
+#' 
+#' @export
+#' @examples 
+#' eList <- Choptank_eList
+#' Daily2 <- populateDailySamp(eList)
+#' 
 populateDailySamp <- function(eList) {
 
   localSample <- eList$Sample
@@ -459,11 +478,7 @@ plotTimeSlice <- function(eList, start = NA, end = NA, conc = TRUE,
     y2 <- Daily$GenFlux * fluxFactor
     y3 <- Sample$rObserved * Sample$Q * fluxFactor *86.40
 
-    if(usgsStyle){
-      yLab <- fluxUnit@unitUSGS[[1]]
-    } else {
-      yLab <- fluxUnit@unitExpress[[1]]
-    }
+    yLab <- ifelse(usgsStyle,fluxUnit@unitUSGS,fluxUnit@unitExpress)
     
     plotTitle <- paste(name,"\nFlux, Black is WRTDS, Green is WRTDSKalman\nData in red, (rl in blue if <), Ratio of means is", fratio)
   }

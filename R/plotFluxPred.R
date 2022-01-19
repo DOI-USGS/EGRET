@@ -99,8 +99,10 @@ plotFluxPred<-function(eList, fluxUnit = 3, fluxMax = NA,
       xLab <- paste("Estimated", tolower(fluxUnit@unitUSGS))
       yLab <- paste("Observed", tolower(fluxUnit@unitUSGS))
     } else {
-      xLab <- fluxUnit@unitEstimate
-      yLab <- substitute(a ~ b, list(a="Observed",b= tolower(fluxUnit@unitExpress[[1]])))
+      xLab <- substitute(a ~ b, list(a = "Estimated" ,
+                                     b = fluxUnit@unitEstimate[[1]]))
+      yLab <- substitute(a ~ b, list(a ="Observed",
+                                     b = fluxUnit@unitEstimate[[1]]))
     }
   }
   

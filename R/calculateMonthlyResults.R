@@ -12,11 +12,11 @@
 #' @examples
 #' eList <- Choptank_eList
 #' monthlyResults <- calculateMonthlyResults(eList)
-calculateMonthlyResults<-function(eList){
+calculateMonthlyResults <- function(eList){
   
   localDaily <- getDaily(eList)
 
-  UseIt <- aggregate(localDaily$ConcDay, by=list(localDaily$MonthSeq), function(x) sum(!is.na(x)))$x
+  nDays <- aggregate(localDaily$ConcDay, by=list(localDaily$MonthSeq), function(x) sum(!is.na(x)))$x
 
   Q <- aggregate(localDaily$Q, by=list(localDaily$MonthSeq), mean)$x
   DecYear <- aggregate(localDaily$DecYear, by=list(localDaily$MonthSeq), mean)$x
@@ -33,19 +33,19 @@ calculateMonthlyResults<-function(eList){
     GenConc <- aggregate(localDaily$GenConc, by=list(localDaily$MonthSeq), mean)$x
     GenFlux <- aggregate(localDaily$GenFlux, by=list(localDaily$MonthSeq), mean)$x
 
-    MonthlyResults <- data.frame(Month, Year, 
+    MonthlyResults <- data.frame(Month, Year, nDays,
                                  DecYear, Q,
                                  Conc, GenConc, FNConc,  
                                  Flux, GenFlux, FNFlux)
                                      
   } else {
-    MonthlyResults <- data.frame(Month, Year, 
+    MonthlyResults <- data.frame(Month, Year, nDays,
                                  DecYear, Q,
                                  Conc, FNConc, 
                                  Flux, FNFlux)  
   }
   
-  MonthlyResults <- MonthlyResults[(UseIt > 15),]
+  MonthlyResults <- MonthlyResults[(nDays > 15),]
   
   return(MonthlyResults)
 }

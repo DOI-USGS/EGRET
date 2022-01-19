@@ -48,3 +48,4 @@ vignettes/img/*
 ^codecov\.yml$
 ^\.github$
 Newstuff/*
+EGRET_full_options.R
