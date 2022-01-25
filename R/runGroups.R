@@ -163,13 +163,21 @@ runGroups <- function (eList, windowSide,
   }
   
   if(is.na(paStart)){
-    paStart <- eList$INFO$paStart
+    if(all(c("paStart") %in% names(eList$INFO))){
+      paStart <- eList$INFO$paStart 
+    } else {
+      paStart <- 10
+    }
   } else {
     eList$INFO$paStart <- paStart
   }
   
   if(is.na(paLong)){
-    paLong <- eList$INFO$paLong
+    if(all(c("paLong") %in% names(eList$INFO))){
+      paLong <- eList$INFO$paLong
+    } else {
+      paLong <- 12
+    }
   } else {
     eList$INFO$paLong <- paLong
   }
