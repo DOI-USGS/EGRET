@@ -508,7 +508,7 @@ R packages, please send a request to <egret_comments@usgs.gov>.
 
 We want to encourage a warm, welcoming, and safe environment for
 contributing to this project. See the [code of
-conduct](https://github.com/USGS-R/EGRET/blob/master/CONDUCT.md) for
+conduct](https://github.com/USGS-R/EGRET/blob/main/CONDUCT.md) for
 more information.
 
 ## Package Support
