@@ -376,6 +376,8 @@ checkSurfaceSpan <- function(eList){
     }
   }
   
+  Year <- Year[!is.na(Year)]
+  
   preSurface <- localSample$DecYear[1] - Year[1]
   postSurface <- Year[length(Year)] - localSample$DecYear[length(localSample$DecYear)]
   
