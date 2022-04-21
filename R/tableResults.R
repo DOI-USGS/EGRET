@@ -90,7 +90,7 @@ tableResults<-function(eList, qUnit = 2, fluxUnit = 9, localDaily = NA) {
   if(all(c("GenFlux", "GenConc") %in% names(localAnnualResults))){
     c8 <- format(localAnnualResults$GenFlux*fluxFactor,digits=3,width=9)
     c7 <- format(localAnnualResults$GenConc, digits=3, width=9)
-    cat("\n   Year   Discharge    Conc    FN_Conc   GenConc     Flux    FN_Flu   GenFlux")
+    cat("\n   Year   Discharge    Conc    FN_Conc   GenConc     Flux    FN_Flux   GenFlux")
     cat("\n            ", qName, "         mg/L             ", fName, "\n\n")
     results<-data.frame(c1, c2, c3, c4, c5, c6, c7, c8)
     colnames(results) <- c("Year", paste0("Discharge [", qNameNoSpace, "]"),
