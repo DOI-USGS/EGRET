@@ -9,7 +9,8 @@ runPairs(eList, year1, year2, windowSide, flowBreak = FALSE,
   oldSurface = FALSE, sample1EndDate = NA, sampleStartDate = NA,
   sampleEndDate = NA, paStart = NA, paLong = NA, minNumObs = 100,
   minNumUncen = 50, fractMin = 0.75, windowY = 7, windowQ = 2,
-  windowS = 0.5, edgeAdjust = TRUE)
+  windowS = 0.5, edgeAdjust = TRUE, saveOutput = FALSE,
+  fileName = "temp.txt")
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -67,6 +68,11 @@ minimum number will be the maximum of minNumObs and fractMin multiplied by total
 
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.
 The edgeAdjust method tends to reduce curvature near the start and end of record.  Default is TRUE.}
+
+\item{saveOutput}{logical. If \code{TRUE}, a text file will be saved in the working directory of the printout of
+what is in the console output. Default is \code{FALSE}.}
+
+\item{fileName}{character. Name to save the output file if \code{saveOutput=TRUE}.}
 }
 \value{
 Data frame with 7 columns and 2 rows.  The first row is about trends in concentration (mg/L), 
