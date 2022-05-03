@@ -19,7 +19,7 @@ Setting the seed to any given value can be used to create repeatable output.}
 \item{verbose}{logical specifying whether or not to display progress message}
 }
 \description{
-Thi function uses an autoregressive model to produce more accurate 
+This function uses an autoregressive model to produce more accurate 
 estimates of concentration and flux
 }
 \details{
