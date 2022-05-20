@@ -10,7 +10,7 @@ runPairs(eList, year1, year2, windowSide, flowBreak = FALSE,
   sampleEndDate = NA, paStart = NA, paLong = NA, minNumObs = 100,
   minNumUncen = 50, fractMin = 0.75, windowY = 7, windowQ = 2,
   windowS = 0.5, edgeAdjust = TRUE, saveOutput = FALSE,
-  fileName = "temp.txt")
+  fileName = "temp.txt", verbose = TRUE)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -73,6 +73,8 @@ The edgeAdjust method tends to reduce curvature near the start and end of record
 what is in the console output. Default is \code{FALSE}.}
 
 \item{fileName}{character. Name to save the output file if \code{saveOutput=TRUE}.}
+
+\item{verbose}{logical specifying whether or not to display progress message}
 }
 \value{
 Data frame with 7 columns and 2 rows.  The first row is about trends in concentration (mg/L), 

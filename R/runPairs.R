@@ -55,6 +55,7 @@
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
 #' The edgeAdjust method tends to reduce curvature near the start and end of record.  Default is TRUE.
 #' @param oldSurface logical specifying whether to use the original surface, or create a new one. Default is FALSE.
+#' @param verbose logical specifying whether or not to display progress message
 #' @param saveOutput logical. If \code{TRUE}, a text file will be saved in the working directory of the printout of
 #' what is in the console output. Default is \code{FALSE}.
 #' @param fileName character. Name to save the output file if \code{saveOutput=TRUE}.
@@ -129,7 +130,8 @@ runPairs <- function(eList, year1, year2, windowSide,
                      windowY = 7, windowQ = 2, windowS = 0.5, 
                      edgeAdjust = TRUE,
                      saveOutput = FALSE, 
-                     fileName = "temp.txt"){
+                     fileName = "temp.txt", 
+                     verbose = TRUE){
   
   if(wall & oldSurface){
     message("Setting both arguments wall and oldSurfaces to TRUE are not allowed.")
@@ -451,6 +453,31 @@ runPairs <- function(eList, year1, year2, windowSide,
   if(saveOutput){
     sink()
   }
+  
+  z <- matrix(ncol = 14, nrow = 4)
+  colnames(z) <- c("Year", "Type", "Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
+  z$Year <- c(year1, year1, year2, year2)
+  z$Type <- c("Flux", "Conc", "Flux", "Conc")
+  
+  k <- c(31, 28.25, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31) / eList$INFO$drainSqKm
+  eList1 <- as.egret(eList$INFO, DailyRS1FD1, eList$Sample)
+  monthlyResults1 <- calculateMonthlyResults(eList1)
+  monthlyResults1 <- na.omit(monthlyResults1)
+  eList2 <- as.egret(eList$INFO, DailyRS2FD2, eList$Sample)
+  monthlyResults2 <- calculateMonthlyResults(eList2)
+  monthlyResults2 <- na.omit(monthlyResults2)
+  for(i in 2:14){
+    m1 <- monthlyResults1[monthlyResults1[,1]==i,]
+    z[1,i] <- m1$FNFlux[1] * k[i]
+    z[2,i] <- m1$FNConc[1] * k[i]
+    m2 <- monthlyResults2[monthlyResults2[,1]==i,]
+    z[3,i] <- m2$FNFlux[1] * k[i]  
+    z[4,i] <- m2$FNConc[1] * k[i]
+  }
+  
+  attr(pairResults, "byMonth") <- z
+  
+  
   return(pairResults)
   
 }
