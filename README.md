@@ -1,4 +1,4 @@
-# EGRET <img src="man/figures/egret-02.png" alt="EGRET" height="150px" align="right" />
+# EGRET <img src="man/figures/egret-02.png" class="logo"  alt="EGRET" style="width:90px;height:auto;" align="right" />
 
 Exploration and Graphics for RivEr Trends (`EGRET`): An R-package for
 the analysis of long-term changes in water quality and streamflow,

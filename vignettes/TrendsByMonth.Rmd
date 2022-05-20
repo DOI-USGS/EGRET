@@ -317,9 +317,9 @@ paLong <- 12
   monthlyResults2 <- na.omit(monthlyResults2)
   for(i in 1:12){
     m1 <- monthlyResults1[monthlyResults1[,1]==i,]
-    z[1,i] <- m1[1,8] * k[i]
+    z[1,i] <- m1$FNFlux[1] * k[i]
     m2 <- monthlyResults2[monthlyResults2[,1]==i,]
-    z[2,i] <- m2[1,8] * k[i]  
+    z[2,i] <- m2$FNFlux[1] * k[i]
   }
 }
 return(z)
