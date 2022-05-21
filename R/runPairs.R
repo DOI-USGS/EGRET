@@ -469,7 +469,7 @@ runPairs <- function(eList, year1, year2, windowSide,
     sink()
   }
   
-  z <- matrix(ncol = 14, nrow = 4)
+  z <- data.frame(matrix(ncol = 14, nrow = 4))
   colnames(z) <- c("Year", "Type", "Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
   z$Year <- c(year1, year1, year2, year2)
   z$Type <- c("Flux", "Conc", "Flux", "Conc")
