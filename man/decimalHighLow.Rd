@@ -7,13 +7,14 @@
 decimalHighLow(df)
 }
 \arguments{
-\item{df}{data.frame with Date, DecYear, and Month columns}
+\item{df}{data.frame with Month, DecYear, and Month columns}
 }
 \value{
 list with DecHigh and DecLow (water year high/low decimal values)
 }
 \description{
-decimalHighLow
+decimalHighLow figures out the highest and lowest decimal year based on
+water year. The input is a data frame with columns Month and DecYear.
 }
 \examples{
 eList <- Choptank_eList

@@ -363,12 +363,13 @@ runGroups <- function (eList, windowSide,
 #' @examples 
 #' eList <- Choptank_eList
 #' 
-#'groupOut_1 <- runGroups(eList,  windowSide = 0,
-#'                        group1firstYear = 1980, group1lastYear = 1990,
-#'                        group2firstYear = 1995, group2lastYear = 2005)
+#' \donttest{
+#' groupOut_1 <- runGroups(eList,  windowSide = 0,
+#'                         group1firstYear = 1980, group1lastYear = 1990,
+#'                         group2firstYear = 1995, group2lastYear = 2005)
 #'                        
 #' printGroups(eList, groupOut_1)
-#'
+#'}
 #'
 printGroups <- function(eList, groupResults){
   

@@ -21,11 +21,12 @@ This could be used to save the output to a text file.
 \examples{
 eList <- Choptank_eList
 
+\donttest{
 groupOut_1 <- runGroups(eList,  windowSide = 0,
-                       group1firstYear = 1980, group1lastYear = 1990,
-                       group2firstYear = 1995, group2lastYear = 2005)
+                        group1firstYear = 1980, group1lastYear = 1990,
+                        group2firstYear = 1995, group2lastYear = 2005)
                        
 printGroups(eList, groupOut_1)
-
+}
 
 }

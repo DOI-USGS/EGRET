@@ -475,7 +475,7 @@ runPairs <- function(eList, year1, year2, windowSide,
   z$Type <- c("Flux", "Conc", "Flux", "Conc")
   
   if(includeMonth){
-    k <- c(31, 28.25, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31) / eList$INFO$drainSqKm
+    k <- c(31, 28.25, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31) 
     eList1 <- as.egret(eList$INFO, DailyRS1FD1, eList$Sample)
     monthlyResults1 <- calculateMonthlyResults(eList1)
     monthlyResults1 <- na.omit(monthlyResults1)
@@ -484,10 +484,10 @@ runPairs <- function(eList, year1, year2, windowSide,
     monthlyResults2 <- na.omit(monthlyResults2)
     for(i in 1:12){
       m1 <- monthlyResults1[monthlyResults1[,1]==i,]
-      z[1,i+2] <- m1$FNFlux[1] * k[i]
+      z[1,i+2] <- m1$FNFlux[1] * k[i] / eList$INFO$drainSqKm
       z[2,i+2] <- m1$FNConc[1] * k[i]
       m2 <- monthlyResults2[monthlyResults2[,1]==i,]
-      z[3,i+2] <- m2$FNFlux[1] * k[i]  
+      z[3,i+2] <- m2$FNFlux[1] * k[i] / eList$INFO$drainSqKm
       z[4,i+2] <- m2$FNConc[1] * k[i]
     }
     
@@ -512,12 +512,13 @@ runPairs <- function(eList, year1, year2, windowSide,
 #' year1 <- 1985
 #' year2 <- 2010
 #' 
+#' \donttest{
 #' pairOut_1 <- runPairs(eList, 
 #'                       year1, year2,
 #'                       windowSide = 0)
 #'                        
 #' printPairs(eList, pairOut_1)
-#'
+#'}
 #'
 printPairs <- function(eList, pairResults){
   
