@@ -19,15 +19,16 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This vignette is about producing a single type of figure.  It is designed to examine the trends between a pair of years (using **runPairs** in EGRET terminology) to see what the size of the trend is for each of the twelve months of the year.  It was used to make Figure 8 in Choquette et al., 2019.  It is very helpful in trying to see if the trend is very specific to a certain part of the year (or even opposite in different parts of the year) versus being fairly similar across all the months.
 
+As of `EGRET` version 3.0.7.2 (or CRAN version 3.0.8), the output of `runPairs` includes information about the trends per individual month. This output is attached via an attribute called "byMonth".
+
 ## How to do it
 
-You need two functions.  One is called **runPairsMonths.R** to do the computations and the other is called **plotOne.R** which makes the plots.  These two functions are included below.  You should set up a working directory and then you can copy these functions into your working directory.  You be you need an EGRET eList in the directory as well.  It should be an eList for which modelEstimation has already been run.
+You need one custom plotting function functions, **plotOne.R**.  You should set up a working directory and then you can copy the function into your working directory.  You'll need an EGRET eList in the directory as well.  It should be an eList for which `modelEstimation` has already been run.
 
 Here is the code
 
 ```{r include=TRUE, eval = TRUE}
 
-# this is written for kg/month/km^2
 # the arguments yMax, arrowFactor, and name can all be
 # adjusted to make some changes in the figure
 plotOne <- function(pairResults, yMax = NA,
