@@ -12,7 +12,9 @@ editor_options:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE,
+                      fig.width = 7,
+                      fig.height = 7)
 ```
 
 ## Introduction
@@ -83,7 +85,7 @@ plotOne <- function(pairResults, yMax = NA,
 
 Now let's run it
 
-```{r eval = TRUE, echo = TRUE}
+```{r eval = TRUE, echo = TRUE, message=FALSE}
 
 library(EGRET)
 load("Conowingo.PO4.RData")
@@ -109,7 +111,7 @@ plotOne(pairResults, yMax = 1.2,
 We could also look at concentration:
 
 ```{r eval = TRUE, echo = TRUE}
-plotOne(pairResults, arrowFactor = 100000,
+plotOne(pairResults, arrowFactor = 1,
         flux = FALSE,
         name = "Change in concentration between 2006 and 2017\nPO4 at Conowingo")
 ```
