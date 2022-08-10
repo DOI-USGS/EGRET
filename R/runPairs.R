@@ -484,11 +484,11 @@ runPairs <- function(eList, year1, year2, windowSide,
     monthlyResults2 <- na.omit(monthlyResults2)
     for(i in 1:12){
       m1 <- monthlyResults1[monthlyResults1[,1]==i,]
-      z[1,i+2] <- m1$FNFlux[1] * k[i] / eList$INFO$drainSqKm
-      z[2,i+2] <- m1$FNConc[1] * k[i]
+      z[1,i+2] <- m1$Flux[1] * k[i] / eList$INFO$drainSqKm
+      z[2,i+2] <- m1$Conc[1] * k[i]
       m2 <- monthlyResults2[monthlyResults2[,1]==i,]
-      z[3,i+2] <- m2$FNFlux[1] * k[i] / eList$INFO$drainSqKm
-      z[4,i+2] <- m2$FNConc[1] * k[i]
+      z[3,i+2] <- m2$Flux[1] * k[i] / eList$INFO$drainSqKm
+      z[4,i+2] <- m2$Conc[1] * k[i]
     }
     
     attr(pairResults, "byMonth") <- z

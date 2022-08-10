@@ -85,13 +85,14 @@ plotOne <- function(pairResults, yMax = NA,
 
 Now let's run it
 
-```{r eval = TRUE, echo = TRUE, message=FALSE}
+```{r eval = TRUE, echo = TRUE, message=FALSE, fig.height=4}
 
 library(EGRET)
 load("Conowingo.PO4.RData")
 # source("runPairsMonths.R")
 # source("plotOne.R")
 pairResults <- runPairs(eList, windowSide = 0,
+                        paStart = 1, paLong = 12,
                         year1 = 2006, year2 = 2017, 
                         includeMonth = TRUE)
 
@@ -102,7 +103,7 @@ plotOne(pairResults)
 
 We might want to make a few changes in the look of the figure, for example:
 
-```{r eval = TRUE, echo = TRUE}
+```{r eval = TRUE, echo = TRUE, fig.height=4}
 plotOne(pairResults, yMax = 1.2, 
         arrowFactor = 0.6, 
         name = "Change in yield between 2006 and 2017\nPO4 at Conowingo")
@@ -110,7 +111,7 @@ plotOne(pairResults, yMax = 1.2,
 
 We could also look at concentration:
 
-```{r eval = TRUE, echo = TRUE}
+```{r eval = TRUE, echo = TRUE, fig.height=4}
 plotOne(pairResults, arrowFactor = 1,
         flux = FALSE,
         name = "Change in concentration between 2006 and 2017\nPO4 at Conowingo")
