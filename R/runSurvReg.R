@@ -190,7 +190,7 @@ run_WRTDS <- function(estY, estLQ,
     return(NULL)
   })
   
-  if(class(x) == "survreg") {
+  if(inherits(x, "survreg")) {
     newdf<-data.frame(DecYear=estY,LogQ=estLQ,SinDY=sin(2*pi*estY),CosDY=cos(2*pi*estY))
     #   extract results at estimation point
     yHat<-predict(x,newdf)
