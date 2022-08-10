@@ -62,6 +62,9 @@
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
 #' The edgeAdjust method tends to reduce curvature near the start and end of record.  Default is TRUE.
 #' @param oldSurface logical specifying whether to use the original surface, or create a new one. Default is FALSE.
+#' @param saveOutput logical. If \code{TRUE}, a text file will be saved in the working directory of the printout of
+#' what is in the console output. Default is \code{FALSE}.
+#' @param fileName character. Name to save the output file if \code{saveOutput=TRUE}.
 #' @return Dataframe with 7 columns and 2 rows.  The first row is about trends in concentration (mg/L), the second column is about trends in flux (million kg/year).
 #' The data frame has a number of attributes.
 #' \tabular{ll}{
@@ -123,7 +126,9 @@ runGroups <- function (eList, windowSide,
                        paStart = NA, paLong = NA, 
                        minNumObs = 100, minNumUncen = 50, 
                        windowY = 7, windowQ = 2, windowS = 0.5, 
-                       edgeAdjust = TRUE, verbose = TRUE) {
+                       edgeAdjust = TRUE, verbose = TRUE,
+                       saveOutput = FALSE, 
+                       fileName = "temp.txt") {
   
   if(!is.egret(eList)){
     stop("Please check eList argument")
@@ -332,15 +337,67 @@ runGroups <- function (eList, windowSide,
                 wall = wall, edgeAdjust = edgeAdjust, QStartDate = as.Date(QStartDate), 
                 QEndDate = as.Date(QEndDate))
   attr(groupResults, "Other") <- Other
+  
+  if(saveOutput){
+    sink(fileName)
+  }
+  
+  if(verbose) printGroups(eList, groupResults)
+  
+  if(saveOutput){
+    sink()
+  }
+  
+  return(groupResults)
+}
+
+#' Print information about group analysis
+#' 
+#' Prints the information from the \code{runGroups} function.
+#' This could be used to save the output to a text file.
+#' 
+#' @param eList named list with at least the Daily, Sample, and INFO dataframes
+#' @param groupResults output of \code{runGroups}.
+#' @export
+#' @return text to console
+#' @examples 
+#' eList <- Choptank_eList
+#' 
+#' \donttest{
+#' groupOut_1 <- runGroups(eList,  windowSide = 0,
+#'                         group1firstYear = 1980, group1lastYear = 1990,
+#'                         group2firstYear = 1995, group2lastYear = 2005)
+#'                        
+#' printGroups(eList, groupOut_1)
+#'}
+#'
+printGroups <- function(eList, groupResults){
+  
+  SampleBlocks <- attr(groupResults, "SampleBlocks")
+  Other <- attr(groupResults, "Other") 
+  sample1EndDate <- SampleBlocks["SampleBlocks"]
+  
+  groupInfo <- attr(groupResults, "groupInfo")
+  dateInfo <- attr(groupResults, "dateInfo")
+  
   cat("\n  ", eList$INFO$shortName, "\n  ", eList$INFO$paramShortName)
-  periodName <- setSeasonLabelByUser(paStart, paLong)
+  periodName <- setSeasonLabelByUser(eList$INFO$paStart, eList$INFO$paLong)
   cat("\n  ", periodName, "\n")
-  if (wall) 
+  if (Other$wall) 
     cat("\n Sample data set was partitioned with a wall right after ", 
         as.character(sample1EndDate), "\n")
-  cat("\n Change estimates for\n average of", group2firstYear," through",group2lastYear,
-      " minus average of", group1firstYear," through", group1lastYear, "\n")
+  cat("\n Change estimates for\n average of", groupInfo["group2firstYear"]," through",groupInfo["group2lastYear"],
+      " minus average of", groupInfo["group1firstYear"]," through", groupInfo["group1lastYear"], "\n")
   totChange <- format(groupResults[1, 1], digits = 3)
+  
+  c22 <- groupResults[1, "x22"]
+  c11 <- groupResults[1, "x11"]
+  cRSpart <- groupResults[1, "CQTC"]
+  cFDpart <- groupResults[1, "QTC"]
+  f22 <- groupResults[2, "x22"]
+  f11 <- groupResults[2, "x11"]
+  fRSpart <- groupResults[2, "CQTC"]
+  fFDpart <- groupResults[2, "QTC"]
   totChangePct <- format(100 * ((c22 - c11)/c11), digits = 2)
   cat("\n For concentration: total change is ", totChange, 
       "mg/L")
@@ -358,5 +415,5 @@ runGroups <- function (eList, windowSide,
   cat("\n\n Concentration v. Q Trend Component ", pctRS, "%\n       Q Trend Component            ", 
       pctFD, "% \n\n")
   print(groupResults, digits = 2)
-  return(groupResults)
+  
 }

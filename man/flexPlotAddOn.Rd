@@ -4,7 +4,8 @@
 \alias{flexPlotAddOn}
 \title{Flexible Flow Normalization Plot Add On}
 \usage{
-flexPlotAddOn(eList, showArrows = TRUE, showRect = TRUE, customPalette = NULL)
+flexPlotAddOn(eList, showArrows = TRUE, showRect = TRUE,
+  customPalette = NULL)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}

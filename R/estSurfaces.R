@@ -70,7 +70,7 @@ estSurfaces<-function(eList, surfaceStart=NA, surfaceEnd=NA, localSample=NA,
     localSample <- eList$Sample
   }
 
-  highLow <- decimalHighLow(localSample)
+  highLow <- EGRET::decimalHighLow(localSample)
   
   DecHigh <- highLow[["DecHigh"]]
   DecLow <- highLow[["DecLow"]]
@@ -99,11 +99,12 @@ estSurfaces<-function(eList, surfaceStart=NA, surfaceEnd=NA, localSample=NA,
 
   }
   
-  estPtLogQ<-rep(vectorLogQ,nVectorYear)
+  estPtLogQ <- rep(vectorLogQ,nVectorYear)
 
-  resultSurvReg<-runSurvReg(estPtYear,estPtLogQ,DecLow,DecHigh,localSample,
-                            windowY,windowQ,windowS,minNumObs,minNumUncen,
-                            edgeAdjust=edgeAdjust,verbose = verbose,run.parallel=run.parallel)
+  resultSurvReg <- runSurvReg(estPtYear, estPtLogQ, DecLow, DecHigh, localSample,
+                              windowY ,windowQ, windowS, minNumObs, minNumUncen,
+                              edgeAdjust = edgeAdjust, verbose = verbose,
+                              run.parallel=run.parallel)
   
   surfaces<-array(0,dim=c(14,nVectorYear,3))
 

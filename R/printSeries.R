@@ -39,25 +39,30 @@ printSeries<-function(eList, istat, qUnit = 1, runoff = FALSE) {
   }
   ###############################################################################
   cat("\n",localINFO$shortName)
-  seasonText<-setSeasonLabelByUser(paStartInput=localINFO$paStart,paLongInput=localINFO$paLong)
+  seasonText <- setSeasonLabelByUser(paStartInput=localINFO$paStart,paLongInput=localINFO$paLong)
   cat("\n",seasonText)
-  nameIstat<-c("minimum day","7-day minimum","30-day minimum","median daily","mean daily","30-day maximum","7-day maximum",'maximum day')
+  nameIstat <- c("minimum day","7-day minimum","30-day minimum","median daily","mean daily","30-day maximum","7-day maximum",'maximum day')
   cat("\n   ",nameIstat[istat])
-  unitsText<-if(runoff) "runoff in mm/day" else qUnit@qUnitName
+  unitsText <- if(runoff) "runoff in mm/day" else qUnit@qUnitName
   cat("\n   ",unitsText)
   cat("\n   year   annual   smoothed\n           value    value\n\n")
-  qActual<-localAnnualSeries[2,istat,]
-  qSmooth<-localAnnualSeries[3,istat,]
-  years<-localAnnualSeries[1,istat,]
-  qFactor<-qUnit@qUnitFactor
-  qActual<-if(runoff) qActual*86.4/localINFO$drainSqKm else qActual*qFactor
-  qSmooth<-if(runoff) qSmooth*86.4/localINFO$drainSqKm else qSmooth*qFactor
-  toPrint<-data.frame(years,qActual,qSmooth)
-  toPrint<-subset(toPrint,!is.na(years))
-  toPrint$years<-format(floor(0.5+toPrint$years),digits=4,width=7)
-  toPrint$qActual<-format(toPrint$qActual,digits=3,width=8)
-  toPrint$qSmooth<-format(toPrint$qSmooth,digits=3,width=8)
-  write.table(toPrint,file="",col.names=FALSE,row.names=FALSE,quote=FALSE)
+  qActual <- localAnnualSeries[2,istat,]
+  qSmooth <- localAnnualSeries[3,istat,]
+  years <- localAnnualSeries[1,istat,]
+  qFactor <- qUnit@qUnitFactor
+  qActual <- if(runoff) qActual*86.4/localINFO$drainSqKm else qActual*qFactor
+  qSmooth <- if(runoff) qSmooth*86.4/localINFO$drainSqKm else qSmooth*qFactor
+  toPrint <- data.frame(years,qActual,qSmooth)
+  toPrint <- subset(toPrint,!is.na(years))
+  half_period <- eList$INFO$paLong/24
+  toPrint$years <- format(floor(half_period + toPrint$years),
+                          digits = 4, width = 7)
+  toPrint$qActual <- format(toPrint$qActual, digits = 3, width = 8)
+  toPrint$qSmooth <- format(toPrint$qSmooth, digits=3, width = 8)
+  write.table(toPrint, file="",
+              col.names=FALSE,
+              row.names=FALSE,
+              quote=FALSE)
   toPrint$years <- as.integer(toPrint$years)
   toPrint$qActual <- as.numeric(toPrint$qActual)
   toPrint$qSmooth <- as.numeric(toPrint$qSmooth)

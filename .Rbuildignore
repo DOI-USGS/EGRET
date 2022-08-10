@@ -2,7 +2,6 @@
 ^doc$
 .git
 EGRET.Rproj
-appveyor.yml
 .Rhistory
 .gitignore
 .travis.yml
@@ -49,3 +48,5 @@ vignettes/img/*
 ^\.github$
 Newstuff/*
 EGRET_full_options.R
+.gitlab-ci.yml
+^ci$

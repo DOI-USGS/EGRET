@@ -4,7 +4,8 @@
 \alias{plotWRTDSKalman}
 \title{plotWRTDSKalman}
 \usage{
-plotWRTDSKalman(eList, sideBySide = FALSE, fluxUnit = 9, usgsStyle = FALSE)
+plotWRTDSKalman(eList, sideBySide = FALSE, fluxUnit = 9,
+  usgsStyle = FALSE)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes. This

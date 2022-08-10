@@ -54,7 +54,14 @@
 #' minimum number will be the maximum of minNumObs and fractMin multiplied by total number of observations.
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
 #' The edgeAdjust method tends to reduce curvature near the start and end of record.  Default is TRUE.
+#' @param includeMonth logical specifying whether to calculate monthly trends. Default is FALSE.
+#' Specifying TRUE will require a calendar year analysis. The monthly results are stored
+#' in an attribute named "byMonth".
 #' @param oldSurface logical specifying whether to use the original surface, or create a new one. Default is FALSE.
+#' @param verbose logical specifying whether or not to display progress message
+#' @param saveOutput logical. If \code{TRUE}, a text file will be saved in the working directory of the printout of
+#' what is in the console output. Default is \code{FALSE}.
+#' @param fileName character. Name to save the output file if \code{saveOutput=TRUE}.
 #' @return Data frame with 7 columns and 2 rows.  The first row is about trends in concentration (mg/L), 
 #' the second column is about trends in flux (million kg/year).  
 #' The data frame has a number of attributes.
@@ -124,7 +131,11 @@ runPairs <- function(eList, year1, year2, windowSide,
                      paStart = NA, paLong = NA,
                      minNumObs = 100, minNumUncen = 50, fractMin = 0.75,
                      windowY = 7, windowQ = 2, windowS = 0.5, 
-                     edgeAdjust = TRUE){
+                     edgeAdjust = TRUE,
+                     includeMonth = FALSE,
+                     saveOutput = FALSE, 
+                     fileName = "temp.txt", 
+                     verbose = TRUE){
   
   if(wall & oldSurface){
     message("Setting both arguments wall and oldSurfaces to TRUE are not allowed.")
@@ -134,6 +145,17 @@ runPairs <- function(eList, year1, year2, windowSide,
   
   if(!is.egret(eList)){
     stop("Please check eList argument")
+  }
+  
+  if(includeMonth){
+    
+    if(!is.na(paStart) & paStart != 1 |
+       !is.na(paLong) & paLong != 12){
+      message("Monthly analysis based on calendar year.")
+    }
+    
+    paStart <- 1
+    paLong <- 12 
   }
   
   localSample <- getSample(eList)
@@ -437,31 +459,98 @@ runPairs <- function(eList, year1, year2, windowSide,
 
   attr(pairResults, "Other") <- Other
   
+  if(saveOutput){
+    sink(fileName)
+  }
+  
+  if(verbose) printPairs(eList, pairResults)
+  
+  if(saveOutput){
+    sink()
+  }
+  
+  z <- data.frame(matrix(ncol = 14, nrow = 4))
+  colnames(z) <- c("Year", "Type", "Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
+  z$Year <- c(year1, year1, year2, year2)
+  z$Type <- c("Flux", "Conc", "Flux", "Conc")
+  
+  if(includeMonth){
+    k <- c(31, 28.25, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31) 
+    eList1 <- as.egret(eList$INFO, DailyRS1FD1, eList$Sample)
+    monthlyResults1 <- calculateMonthlyResults(eList1)
+    monthlyResults1 <- na.omit(monthlyResults1)
+    eList2 <- as.egret(eList$INFO, DailyRS2FD2, eList$Sample)
+    monthlyResults2 <- calculateMonthlyResults(eList2)
+    monthlyResults2 <- na.omit(monthlyResults2)
+    for(i in 1:12){
+      m1 <- monthlyResults1[monthlyResults1[,1]==i,]
+      z[1,i+2] <- m1$Flux[1] * k[i] / eList$INFO$drainSqKm
+      z[2,i+2] <- m1$Conc[1] * k[i]
+      m2 <- monthlyResults2[monthlyResults2[,1]==i,]
+      z[3,i+2] <- m2$Flux[1] * k[i] / eList$INFO$drainSqKm
+      z[4,i+2] <- m2$Conc[1] * k[i]
+    }
+    
+    attr(pairResults, "byMonth") <- z
+  }
+  
+  return(pairResults)
+  
+}
+
+#' Print information about pairs analysis
+#' 
+#' Prints the information from the \code{runPairs} function.
+#' This could be used to save the output to a text file.
+#' 
+#' @param eList named list with at least the Daily, Sample, and INFO dataframes
+#' @param pairResults output of \code{runGroups}.
+#' @export
+#' @return text to console
+#' @examples 
+#' eList <- Choptank_eList
+#' year1 <- 1985
+#' year2 <- 2010
+#' 
+#' \donttest{
+#' pairOut_1 <- runPairs(eList, 
+#'                       year1, year2,
+#'                       windowSide = 0)
+#'                        
+#' printPairs(eList, pairOut_1)
+#'}
+#'
+printPairs <- function(eList, pairResults){
+  
+  Other <- attr(pairResults, "Other")
+  SampleBlocks <- attr(pairResults, "SampleBlocks") 
+  yearPairInfo <- attr(pairResults, "yearPair")
+  
+  sample1EndDate <- SampleBlocks["SampleBlocks"]
+  
   cat("\n  ", eList$INFO$shortName, "\n  ", eList$INFO$paramShortName)
-  periodName <- setSeasonLabelByUser(paStart, paLong)
+  periodName <- setSeasonLabelByUser(eList$INFO$paStart, eList$INFO$paLong)
   cat("\n  ", periodName, "\n")
-  if (wall) 
+  if (Other$wall) 
     cat("\n Sample data set was partitioned with a wall right after ", 
         as.character(sample1EndDate), "\n")
-  cat("\n Change estimates ", year2, " minus ", year1, "\n")
+  cat("\n Change estimates ", yearPairInfo[["year2"]], " minus ", yearPairInfo[["year1"]], "\n")
   totChange <- format(pairResults[1, 1], digits = 3)
-  totChangePct_conc_f <- format(totChangePct_conc, digits = 2)
+  totChangePct_conc_f <- format(Other$PercentChangeConc[["Total Percent Change"]], digits = 2)
   cat("\n For concentration: total change is ", totChange, 
       "mg/L")
   cat("\n expressed as Percent Change is ", totChangePct_conc_f, "%")
-  pctRS <- format(CQTC_percent_conc, digits = 2)
-  pctFD <- format(QTC_percent_conc, digits = 2)
+  pctRS <- format(Other$PercentChangeConc[["CQTC Percent"]], digits = 2)
+  pctFD <- format(Other$PercentChangeConc[["QTC Percent"]], digits = 2)
   cat("\n\n Concentration v. Q Trend Component ", pctRS, "%\n       Q Trend Component            ", 
       pctFD, "% \n\n")
   totChange <- format(pairResults[2, 1], digits = 3)
-  totChangePct_flux_f <- format((totChangePct_flux), digits = 2)
+  totChangePct_flux_f <- format((Other$PercentChangeFlux[["Total Percent Change"]]), digits = 2)
   cat("\n For flux: total change is ", totChange, "million kg/year")
   cat("\n expressed as Percent Change is ", totChangePct_flux_f, "%")
-  pctRS <- format(CQTC_percent_flux, digits = 2)
-  pctFD <- format(QTC_percent_flux, digits = 2)
+  pctRS <- format(Other$PercentChangeFlux[["CQTC Percent"]], digits = 2)
+  pctFD <- format(Other$PercentChangeFlux[["QTC Percent"]], digits = 2)
   cat("\n\n Concentration v. Q Trend Component ", pctRS, "%\n       Q Trend Component            ", 
       pctFD, "% \n\n")
   print(pairResults[,1:7], digits = 2)
-  return(pairResults)
-  
 }

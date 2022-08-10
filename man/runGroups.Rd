@@ -10,7 +10,8 @@ runGroups(eList, windowSide, group1firstYear, group1lastYear, group2firstYear,
   oldSurface = FALSE, fractMin = 0.75, sample1EndDate = NA,
   sampleStartDate = NA, sampleEndDate = NA, paStart = NA, paLong = NA,
   minNumObs = 100, minNumUncen = 50, windowY = 7, windowQ = 2,
-  windowS = 0.5, edgeAdjust = TRUE, verbose = TRUE)
+  windowS = 0.5, edgeAdjust = TRUE, verbose = TRUE, saveOutput = FALSE,
+  fileName = "temp.txt")
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -80,6 +81,11 @@ Default is NA, which will use the paLong in the eList$INFO data frame. See also 
 The edgeAdjust method tends to reduce curvature near the start and end of record.  Default is TRUE.}
 
 \item{verbose}{logical specifying whether or not to display progress message}
+
+\item{saveOutput}{logical. If \code{TRUE}, a text file will be saved in the working directory of the printout of
+what is in the console output. Default is \code{FALSE}.}
+
+\item{fileName}{character. Name to save the output file if \code{saveOutput=TRUE}.}
 }
 \value{
 Dataframe with 7 columns and 2 rows.  The first row is about trends in concentration (mg/L), the second column is about trends in flux (million kg/year).
