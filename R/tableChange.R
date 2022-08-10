@@ -35,7 +35,7 @@
 #' df.winter <- tableChangeSingle(eList, fluxUnit = 8, yearPoints=c(1980, 1995, 2011), flux = FALSE)
 #' 
 #' }
-tableChange<-function(eList, fluxUnit = 9, yearPoints = NA) {
+tableChange <- function(eList, fluxUnit = 9, yearPoints = NA) {
   
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
@@ -52,6 +52,8 @@ tableChange<-function(eList, fluxUnit = 9, yearPoints = NA) {
     paStart <- 10
   }
   
+  half_period <- paLong/24
+  
   possibleGoodUnits <- c("mg/l","mg/l as N", "mg/l as NO2", 
                          "mg/l as NO3","mg/l as P","mg/l as PO3","mg/l as PO4","mg/l as CaCO3",
                          "mg/l as Na","mg/l as H","mg/l as S","mg/l NH4" )
@@ -64,7 +66,9 @@ tableChange<-function(eList, fluxUnit = 9, yearPoints = NA) {
             "\nFlux calculations will be wrong if units are not consistent")
   }
   
-  localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
+  localAnnualResults <- setupYears(paStart = paStart,
+                                   paLong = paLong,
+                                   localDaily = localDaily)
   localAnnualResults <- localAnnualResults[rowSums(is.na(localAnnualResults[,c("Conc","Flux","FNConc","FNFlux")])) != 4,]
   
   ################################################################################
@@ -75,67 +79,68 @@ tableChange<-function(eList, fluxUnit = 9, yearPoints = NA) {
     fluxUnit <- fluxConst[fluxUnit][[1]]
   }
   ################################################################################ 
-  firstYear<-trunc(localAnnualResults$DecYear[1])
-  numYears<-length(localAnnualResults$DecYear)
-  lastYear<-trunc(localAnnualResults$DecYear[numYears])
-  defaultYearPoints<-seq(lastYear,firstYear,-5)
-  numPoints<-length(defaultYearPoints)
-  defaultYearPoints[1:numPoints]<-defaultYearPoints[numPoints:1]
-  yearPoints<-if(is.na(yearPoints[1])) defaultYearPoints else yearPoints
-  numPoints<-length(yearPoints)
+  firstYear <- trunc(localAnnualResults$DecYear[1])
+  numYears <- length(localAnnualResults$DecYear)
+  lastYear <- trunc(localAnnualResults$DecYear[numYears])
+  defaultYearPoints <- seq(lastYear,firstYear,-5)
+  numPoints <- length(defaultYearPoints)
+  defaultYearPoints[1:numPoints] <- defaultYearPoints[numPoints:1]
+  yearPoints <- if(is.na(yearPoints[1])) defaultYearPoints else yearPoints
+  numPoints <- length(yearPoints)
   # these last three lines check to make sure that the yearPoints are in the range of the data	
-  yearPoints<-if(yearPoints[numPoints]>lastYear) defaultYearPoints else yearPoints
-  yearPoints<-if(yearPoints[1]<firstYear) defaultYearPoints else yearPoints
-  numPoints<-length(yearPoints)
-  fluxFactor<-fluxUnit@unitFactor
-  fName<-fluxUnit@shortName
-  cat("\n  ",localINFO$shortName,"\n  ",localINFO$paramShortName)
-  periodName<-setSeasonLabel(localAnnualResults = localAnnualResults)
+  yearPoints <- if(yearPoints[numPoints] > lastYear) defaultYearPoints else yearPoints
+  yearPoints <- if(yearPoints[1] < firstYear) defaultYearPoints else yearPoints
+  numPoints <- length(yearPoints)
+  fluxFactor <- fluxUnit@unitFactor
+  fName <- fluxUnit@shortName
+  cat("\n  ", localINFO$shortName, "\n  ", localINFO$paramShortName)
+  periodName <- setSeasonLabel(localAnnualResults = localAnnualResults)
   hasFlex <- c("segmentInfo") %in% names(attributes(eList$INFO))
+  
   if(hasFlex){
     periodName <- paste(periodName,"*")
   }
   
   cat("\n  ",periodName,"\n")
-  header1<-"\n           Concentration trends\n   time span       change     slope    change     slope\n                     mg/L   mg/L/yr        %       %/yr"
-  header2<-"\n\n\n                 Flux Trends\n   time span          change        slope       change        slope"
-  blankHolder<-"      ---"
-  results<-rep(NA,4)
-  indexPoints<-yearPoints-firstYear+1
-  numPointsMinusOne<-numPoints-1
+  header1 <- "\n           Concentration trends\n   time span       change     slope    change     slope\n                     mg/L   mg/L/yr        %       %/yr"
+  header2 <- "\n\n\n                 Flux Trends\n   time span          change        slope       change        slope"
+  blankHolder <- "      ---"
+  results <- rep(NA,4)
+  indexPoints <- yearPoints-firstYear+1
+  numPointsMinusOne <- numPoints-1
   write(header1,file="")
   
   for(iFirst in 1:numPointsMinusOne) {
-    xFirst<-indexPoints[iFirst]
-    yFirst<-localAnnualResults$FNConc[indexPoints[iFirst]]
-    iFirstPlusOne<-iFirst+1
+    xFirst <- indexPoints[iFirst]
+    yFirst <- localAnnualResults$FNConc[indexPoints[iFirst]]
+    iFirstPlusOne <- iFirst+1
     for(iLast in iFirstPlusOne:numPoints) {
-      xLast<-indexPoints[iLast]
-      yLast<-localAnnualResults$FNConc[indexPoints[iLast]]
-      xDif<-xLast - xFirst
-      yDif<-yLast - yFirst
-      results[1]<-if(is.na(yDif)) blankHolder else format(yDif,digits=2,width=9)
-      results[2]<-if(is.na(yDif)) blankHolder else format(yDif/xDif,digits=2,width=9)
-      results[3]<-if(is.na(yDif)) blankHolder else format(100*yDif/yFirst,digits=2,width=9)
-      results[4]<-if(is.na(yDif)) blankHolder else format(100*yDif/yFirst/xDif,digits=2,width=9)
+      xLast <- indexPoints[iLast]
+      yLast <- localAnnualResults$FNConc[indexPoints[iLast]]
+      xDif <- xLast - xFirst
+      yDif <- yLast - yFirst
+      results[1] <- if(is.na(yDif)) blankHolder else format(yDif,digits=2,width=9)
+      results[2] <- if(is.na(yDif)) blankHolder else format(yDif/xDif,digits=2,width=9)
+      results[3] <- if(is.na(yDif)) blankHolder else format(100*yDif/yFirst,digits=2,width=9)
+      results[4] <- if(is.na(yDif)) blankHolder else format(100*yDif/yFirst/xDif,digits=2,width=9)
       cat("\n",yearPoints[iFirst]," to ",yearPoints[iLast],results)
     }}
   write(header2,file="")
   cat("              ",fName,fName,"/yr      %         %/yr")
   for(iFirst in 1:numPointsMinusOne) {
-    xFirst<-indexPoints[iFirst]
-    yFirst<-localAnnualResults$FNFlux[indexPoints[iFirst]]*fluxFactor
-    iFirstPlusOne<-iFirst+1
+    xFirst <- indexPoints[iFirst]
+    yFirst <- localAnnualResults$FNFlux[indexPoints[iFirst]]*fluxFactor
+    iFirstPlusOne <- iFirst+1
     for(iLast in iFirstPlusOne:numPoints) {
-      xLast<-indexPoints[iLast]
-      yLast<-localAnnualResults$FNFlux[indexPoints[iLast]]*fluxFactor
-      xDif<-xLast - xFirst
-      yDif<-yLast - yFirst
-      results[1]<-if(is.na(yDif)) blankHolder else format(yDif,digits=2,width=12)
-      results[2]<-if(is.na(yDif)) blankHolder else format(yDif/xDif,digits=2,width=12)
-      results[3]<-if(is.na(yDif)) blankHolder else format(100*yDif/yFirst,digits=2,width=12)
-      results[4]<-if(is.na(yDif)) blankHolder else format(100*yDif/yFirst/xDif,digits=2,width=12)
-      cat("\n",yearPoints[iFirst]," to ",yearPoints[iLast],results)
+      xLast <- indexPoints[iLast]
+      yLast <- localAnnualResults$FNFlux[indexPoints[iLast]]*fluxFactor
+      xDif <- xLast - xFirst
+      yDif <- yLast - yFirst
+      results[1] <- if(is.na(yDif)) blankHolder else format(yDif,digits=2,width=12)
+      results[2] <- if(is.na(yDif)) blankHolder else format(yDif/xDif,digits=2,width=12)
+      results[3] <- if(is.na(yDif)) blankHolder else format(100*yDif/yFirst,digits=2,width=12)
+      results[4] <- if(is.na(yDif)) blankHolder else format(100*yDif/yFirst/xDif,digits=2,width=12)
+      cat("\n", yearPoints[iFirst], " to ", yearPoints[iLast],results)
     }
   }
 }
