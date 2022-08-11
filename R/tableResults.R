@@ -80,12 +80,14 @@ tableResults<-function(eList, qUnit = 2, fluxUnit = 9, localDaily = NA) {
   cat("\n  ",localINFO$shortName,"\n  ",localINFO$paramShortName)
   cat("\n  ",periodName,"\n")
   
-  c1<-format(trunc(localAnnualResults$DecYear),width=7)
-  c2<-format(localAnnualResults$Q*qFactor,digits=3,width=9)
-  c3<-format(localAnnualResults$Conc,digits=3,width=9)
-  c4<-format(localAnnualResults$FNConc,digits=3,width=9)
-  c5<-format(localAnnualResults$Flux*fluxFactor,digits=3,width=9)
-  c6<-format(localAnnualResults$FNFlux*fluxFactor,digits=3,width=9)
+  period <- eList$INFO$paLong/12
+  
+  c1 <- format(trunc(localAnnualResults$DecYear + period), width=7)
+  c2 <- format(localAnnualResults$Q*qFactor,digits=3, width=9)
+  c3 <- format(localAnnualResults$Conc,digits=3, width=9)
+  c4 <- format(localAnnualResults$FNConc,digits=3, width=9)
+  c5 <- format(localAnnualResults$Flux*fluxFactor, digits=3, width=9)
+  c6 <- format(localAnnualResults$FNFlux*fluxFactor, digits=3, width=9)
   
   if(all(c("GenFlux", "GenConc") %in% names(localAnnualResults))){
     c8 <- format(localAnnualResults$GenFlux*fluxFactor,digits=3,width=9)

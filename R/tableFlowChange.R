@@ -28,7 +28,7 @@
 #' eList <- setPA(eList, paStart = 9, paLong = 1)
 #' df <- tableFlowChange(eList, istat = 5, qUnit = 2, yearPoints = c(1981, 1995, 2010))
 #' df 
-tableFlowChange<-function(eList, istat, qUnit = 1, runoff = FALSE, 
+tableFlowChange <- function(eList, istat, qUnit = 1, runoff = FALSE, 
                           yearPoints = NA) {
   
   localAnnualSeries <- makeAnnualSeries(eList)
@@ -42,10 +42,10 @@ tableFlowChange<-function(eList, istat, qUnit = 1, runoff = FALSE,
     qUnit <- qConst[qUnit][[1]]
   }
   ################################################################################ 
-  
-  firstYear<-min(localAnnualSeries[1,istat,],na.rm=TRUE)
+  period <- eList$INFO$paLong/12
+  firstYear<-min(localAnnualSeries[1,istat,] + period, na.rm=TRUE)
   firstYear<-trunc(firstYear)
-  lastYear<-max(localAnnualSeries[1,istat,],na.rm=TRUE)
+  lastYear<-max(localAnnualSeries[1,istat,] + period, na.rm=TRUE)
   lastYear<-trunc(lastYear)
   numYears<-lastYear - firstYear + 1
   defaultYearPoints<-seq(lastYear,firstYear,-5)

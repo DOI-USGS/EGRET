@@ -44,9 +44,11 @@ tableChangeSingle<-function(eList, fluxUnit = 9, yearPoints = NA, flux = FALSE) 
     fluxUnit <- fluxConst[fluxUnit][[1]]
   }
   ################################################################################ 
-  firstYear<-trunc(localAnnualResults$DecYear[1])
+  period <- paLong/12
+  
+  firstYear<-trunc(localAnnualResults$DecYear[1] + period)
   numYears<-length(localAnnualResults$DecYear)
-  lastYear<-trunc(localAnnualResults$DecYear[numYears])
+  lastYear<-trunc(localAnnualResults$DecYear[numYears] + period)
   defaultYearPoints<-seq(lastYear,firstYear,-5)
   numPoints<-length(defaultYearPoints)
   defaultYearPoints[1:numPoints]<-defaultYearPoints[numPoints:1]
