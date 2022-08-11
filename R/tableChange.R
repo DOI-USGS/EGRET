@@ -52,8 +52,6 @@ tableChange <- function(eList, fluxUnit = 9, yearPoints = NA) {
     paStart <- 10
   }
   
-  half_period <- paLong/24
-  
   possibleGoodUnits <- c("mg/l","mg/l as N", "mg/l as NO2", 
                          "mg/l as NO3","mg/l as P","mg/l as PO3","mg/l as PO4","mg/l as CaCO3",
                          "mg/l as Na","mg/l as H","mg/l as S","mg/l NH4" )
@@ -79,9 +77,12 @@ tableChange <- function(eList, fluxUnit = 9, yearPoints = NA) {
     fluxUnit <- fluxConst[fluxUnit][[1]]
   }
   ################################################################################ 
-  firstYear <- trunc(localAnnualResults$DecYear[1])
+  period <- paLong/12
+  
+  firstYear <- trunc(localAnnualResults$DecYear[1] + period)
   numYears <- length(localAnnualResults$DecYear)
-  lastYear <- trunc(localAnnualResults$DecYear[numYears])
+
+  lastYear <- trunc(localAnnualResults$DecYear[numYears] + period)
   defaultYearPoints <- seq(lastYear,firstYear,-5)
   numPoints <- length(defaultYearPoints)
   defaultYearPoints[1:numPoints] <- defaultYearPoints[numPoints:1]
