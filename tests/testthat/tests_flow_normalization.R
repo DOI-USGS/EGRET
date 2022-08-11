@@ -83,9 +83,9 @@ test_that("setupYears", {
   tFC <- tableFlowChange(eList, istat=5, yearPoints=c(1985,1990,1995,2001,2005,2009))
   expect_true(all(names(tFC) %in% c("year1","year2","change[cfs]","slope[cfs/yr]",
                                     "change[%]","slope[%/yr]")))
-  expect_equal(tFC$`change[cfs]`[1], 7.5)
+  expect_equal(tFC$`change[cfs]`[1], 7.4)
   expect_equal(tFC$`slope[cfs/yr]`[1], 1.5)
-  expect_equal(tFC$`change[%]`[1], 6.5)
+  expect_equal(tFC$`change[%]`[1], 6.6)
   expect_equal(tFC$`slope[%/yr]`[1], 1.3)
 
   printReturn <- printSeries(eList, 5)
