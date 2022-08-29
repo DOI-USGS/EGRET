@@ -82,8 +82,6 @@ tableResults<-function(eList, qUnit = 2, fluxUnit = 9, localDaily = NA) {
   
   period <- eList$INFO$paLong/12
   
-  as.numeric(format(min(eList$Daily$Date[eList$Daily$Month == paStart], na.rm = TRUE), "%Y")) + period
-  
   c1 <- format(trunc(localAnnualResults$DecYear + period/2), width=7)
   c2 <- format(localAnnualResults$Q*qFactor,digits=3, width=9)
   c3 <- format(localAnnualResults$Conc,digits=3, width=9)
