@@ -51,15 +51,15 @@ test_that("setupYears", {
 
   tCS <- tableChangeSingle(eList)
   expect_equal(ncol(tCS), 6)
-  expect_equal(tCS$Year1, c(rep(1982, 6), rep(1987, 5), rep(1992, 4), 
-                            rep(1997, 3), rep(2002, 2), 2007))
+  expect_equal(tCS$Year1, c(rep(1981, 6), rep(1986, 5), rep(1991, 4), 
+                            rep(1996, 3), rep(2001, 2), 2006))
 
-  expect_equal(tCS$Year2, c(seq(from = 1987, to = 2012, by = 5),
-                            seq(from = 1992, to = 2012, by = 5),
-                            seq(from = 1997, to = 2012, by = 5),
-                            seq(from = 2002, to = 2012, by = 5),
-                            seq(from = 2007, to = 2012, by = 5),
-                            2012))
+  expect_equal(tCS$Year2, c(seq(from = 1986, to = 2011, by = 5),
+                            seq(from = 1991, to = 2011, by = 5),
+                            seq(from = 1996, to = 2011, by = 5),
+                            seq(from = 2001, to = 2011, by = 5),
+                            seq(from = 2006, to = 2011, by = 5),
+                            2011))
 
   expect_equal(tCS$`change[mg/L]`[1], 0.039)
   expect_equal(tCS$`slope[mg/L/yr]`[1], 0.0079)
@@ -71,7 +71,7 @@ test_that("setupYears", {
                                    "Conc [mg/L]","FN Conc [mg/L]",
                                    "Flux [10^6kg/yr]","FN Flux [10^6kg/yr]")))
 
-  expect_equal(tR$Year[1], 1981)
+  expect_equal(tR$Year[1], 1980)
   expect_equal(tR$`Discharge [cms]`[1], 4.25)
   expect_equal(tR$`Conc [mg/L]`[1], 0.949)
   expect_equal(tR$`FN Conc [mg/L]`[1], 1.003)
