@@ -79,10 +79,10 @@ tableChange <- function(eList, fluxUnit = 9, yearPoints = NA) {
   ################################################################################ 
   period <- paLong/12
   
-  firstYear <- trunc(localAnnualResults$DecYear[1] + period)
+  firstYear <- trunc(localAnnualResults$DecYear[1] + period/2)
   numYears <- length(localAnnualResults$DecYear)
 
-  lastYear <- trunc(localAnnualResults$DecYear[numYears] + period)
+  lastYear <- trunc(localAnnualResults$DecYear[numYears] + period/2)
   defaultYearPoints <- seq(lastYear,firstYear,-5)
   numPoints <- length(defaultYearPoints)
   defaultYearPoints[1:numPoints] <- defaultYearPoints[numPoints:1]

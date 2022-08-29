@@ -46,7 +46,7 @@ tableResults<-function(eList, qUnit = 2, fluxUnit = 9, localDaily = NA) {
   
   localAnnualResults <- setupYears(paStart=paStart,paLong=paLong, localDaily = localDaily)
   localAnnualResults <- localAnnualResults[rowSums(is.na(localAnnualResults[,c("Conc","Flux","FNConc","FNFlux")])) != 4,]
-  
+
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
   if (is.numeric(qUnit)){
@@ -82,7 +82,9 @@ tableResults<-function(eList, qUnit = 2, fluxUnit = 9, localDaily = NA) {
   
   period <- eList$INFO$paLong/12
   
-  c1 <- format(trunc(localAnnualResults$DecYear + period), width=7)
+  as.numeric(format(min(eList$Daily$Date[eList$Daily$Month == paStart], na.rm = TRUE), "%Y")) + period
+  
+  c1 <- format(trunc(localAnnualResults$DecYear + period/2), width=7)
   c2 <- format(localAnnualResults$Q*qFactor,digits=3, width=9)
   c3 <- format(localAnnualResults$Conc,digits=3, width=9)
   c4 <- format(localAnnualResults$FNConc,digits=3, width=9)
