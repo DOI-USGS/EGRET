@@ -5,7 +5,7 @@ output:
     toc: true
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{WRTDS bibliography}
+  %\VignetteIndexEntry{WRTDS Bibliography}
   \usepackage[utf8]{inputenc}
 ---
 

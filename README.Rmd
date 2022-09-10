@@ -1,7 +1,5 @@
 ---
 title: "README"
-author: "R"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   md_document:
     variant: markdown_github
@@ -17,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# EGRET <img src="man/figures/egret-02.png" alt="EGRET" height="150px" align="right" />
+# EGRET <img src="man/figures/egret-02.png" alt="EGRET" style="width:90px;height:auto;" align="right" class="logo" />
 
 [![R build status](https://github.com/USGS-R/EGRET/workflows/R-CMD-check/badge.svg)](https://github.com/USGS-R/EGRET/actions)
 [![codecov](https://codecov.io/gh/USGS-R/EGRET/branch/main/graph/badge.svg)](https://codecov.io/gh/USGS-R/EGRET)
