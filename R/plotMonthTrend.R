@@ -116,7 +116,7 @@ plotMonthTrend <- function(pairResults, yMax = NA,
     angle <- 30
     lwd <- 2
     
-    arrows(x0, y0, x1, y1,
+    graphics::arrows(x0, y0, x1, y1,
            length = length,
            angle = angle,
            col = col, lwd = lwd)

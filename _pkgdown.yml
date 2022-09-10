@@ -115,6 +115,7 @@ reference:
       - plotDiffContours
       - plotWRTDSKalman
       - plotTimeSlice
+      - plotMonthTrend
       - flexPlotAddOn
       - genericEGRETDotPlot 
       - generalAxis
