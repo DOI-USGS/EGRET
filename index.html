@@ -4,7 +4,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Statistics and graphics for streamflow history,
+    water quality trends, and the statistical modeling algorithm: Weighted
+    Regressions on Time, Discharge, and Season (WRTDS). The modeling
+    method is introduced and discussed in Hirsch et al. (2010) &lt;doi:10.1111/j.1752-1688.2010.00482.x&gt;,
+    and expanded in Hirsch and De Cicco (2015) &lt;doi:10.3133/tm4A10&gt;.">
 <title>Exploration and Graphics for RivEr Trends • EGRET</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -12,12 +17,12 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
-<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Exploration and Graphics for RivEr Trends">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
+<meta property="og:title" content="Exploration and Graphics for RivEr Trends">
 <meta property="og:description" content="Statistics and graphics for streamflow history,
     water quality trends, and the statistical modeling algorithm: Weighted
     Regressions on Time, Discharge, and Season (WRTDS). The modeling
@@ -35,560 +40,610 @@
   gtag('config', 'UA-53797708-7');
 </script>
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-home">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">EGRET</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.0.5.0001</span>
-      </span>
-    </div>
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+    
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="articles/Overview.html">Overview and Updates</a>
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <a href="https://www.usgs.gov/" class="external-link"><img src="logo.png" id="logo" alt="Home" style="padding: 0px 50px 0px 0px;"></a>
+    <a class="navbar-brand me-2" href="index.html">EGRET</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.7.2</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="articles/Overview.html">Overview and Updates</a>
 </li>
-<li>
-  <a href="articles/EGRET.html">Introduction</a>
+<li class="nav-item">
+  <a class="nav-link" href="articles/EGRET.html">Introduction</a>
 </li>
-<li>
-  <a href="reference/index.html">Function Help Pages</a>
+<li class="nav-item">
+  <a class="nav-link" href="reference/index.html">Function Help Pages</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="articles/Enhancements.html">Enhancements</a>
-    </li>
-    <li>
-      <a href="articles/WRTDSK.html">WRTDS Kalman</a>
-    </li>
-    <li>
-      <a href="articles/parallel.html">Running in Parallel</a>
-    </li>
-    <li>
-      <a href="articles/rResid.html">Random Residuals</a>
-    </li>
-    <li>
-      <a href="articles/SeasonalFraction.html">Seasonal Analysis</a>
-    </li>
-    <li>
-      <a href="articles/streamflow_trend.html">Daily Streamflow Trends</a>
-    </li>
-    <li>
-      <a href="articles/TrendsByMonth.html">Trends by month</a>
-    </li>
-    <li>
-      <a href="articles/AlternativeQMethod.html">Alternative Q Method</a>
-    </li>
-    <li>
-      <a href="articles/Annual_Hydrograph_Timing.html">Annual_Hydrograph_Timing</a>
-    </li>
-  </ul>
-</li>
-<li>
-  <a href="articles/References_WRTDS.html">Bibliograpy</a>
-</li>
-      </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/USGS-R/EGRET">
-    <span class="fas fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
-</div>
-<!--/.nav-collapse -->
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="articles/Enhancements.html">Enhancements</a>
+    <a class="dropdown-item" href="articles/WRTDSK.html">WRTDS Kalman</a>
+    <a class="dropdown-item" href="articles/parallel.html">Running in Parallel</a>
+    <a class="dropdown-item" href="articles/rResid.html">Random Residuals</a>
+    <a class="dropdown-item" href="articles/SeasonalFraction.html">Seasonal Analysis</a>
+    <a class="dropdown-item" href="articles/streamflow_trend.html">Daily Streamflow Trends</a>
+    <a class="dropdown-item" href="articles/TrendsByMonth.html">Trends by month</a>
+    <a class="dropdown-item" href="articles/AlternativeQMethod.html">Alternative Q Method</a>
+    <a class="dropdown-item" href="articles/Annual_Hydrograph_Timing.html">Annual_Hydrograph_Timing</a>
   </div>
-<!--/.container -->
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="articles/References_WRTDS.html">Bibliograpy</a>
+</li>
+      </ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/USGS-R/EGRET">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
-<!--/.navbar -->
 
-      
-
-      </header><div class="row">
-  <div class="contents col-md-9">
-<div id="egret-" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#egret-" class="anchor"></a>EGRET <img src="reference/figures/egret-02.png" alt="EGRET" height="150px" align="right">
-</h1></div>
+    
+  </div>
+</nav><div class="container template-home">
+<div class="row">
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header">
+<img src="logo.png" class="logo" alt=""><h1 id="egret-">EGRET <img src="reference/figures/egret-02.png" alt="EGRET" style="width:90px;height:auto;" align="right" class="logo"><a class="anchor" aria-label="anchor" href="#egret-"></a>
+</h1>
+</div>
 
 <p>Exploration and Graphics for RivEr Trends (<code>EGRET</code>): An R-package for the analysis of long-term changes in water quality and streamflow, including the water-quality method Weighted Regressions on Time, Discharge, and Season (WRTDS).</p>
+<p>Look for new and improved documentation her: <a href="https://rconnect.usgs.gov/EGRET/" class="external-link uri">https://rconnect.usgs.gov/EGRET/</a></p>
 <p>The link for the official USGS publication user guide is here:</p>
-<p><a href="https://pubs.usgs.gov/tm/04/a10/" class="uri">https://pubs.usgs.gov/tm/04/a10/</a></p>
-<p>A companion package <a href="https://usgs-r.github.io/EGRETci/"><code>EGRETci</code></a> implements a set of approaches to the analysis of uncertainty associated with WRTDS trend analysis.</p>
-<p>If you are familiar with the traditional <code>EGRET</code> workflow, check out the <a href="https://usgs-r.github.io/EGRET/articles/Overview.html">Overview and Updates</a> to see how all the latest updates relate.</p>
+<p><a href="https://pubs.usgs.gov/tm/04/a10/" class="external-link uri">https://pubs.usgs.gov/tm/04/a10/</a></p>
+<p>A companion package <a href="https://usgs-r.github.io/EGRETci/" class="external-link"><code>EGRETci</code></a> implements a set of approaches to the analysis of uncertainty associated with WRTDS trend analysis.</p>
+<p>If you are familiar with the traditional <code>EGRET</code> workflow, check out the <a href="https://usgs-r.github.io/EGRET/articles/Overview.html" class="external-link">Overview and Updates</a> to see how all the latest updates relate.</p>
 <p>Recent introduction to WRTDS and the <code>EGRET</code> package at the 12th National Monitoring Conference April 19, 2021:</p>
-<p><a href="https://www.youtube.com/watch?v=d58h3nIc1cc">Introduction</a></p>
-<p><a href="https://www.youtube.com/watch?v=ThxdHxrw5qk">New capabilities</a></p>
-<div id="package-installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#package-installation" class="anchor"></a>Package Installation</h2>
+<p><a href="https://www.youtube.com/watch?v=d58h3nIc1cc" class="external-link">Introduction</a></p>
+<p><a href="https://www.youtube.com/watch?v=ThxdHxrw5qk" class="external-link">New capabilities</a></p>
+<div class="section level2">
+<h2 id="package-installation">Package Installation<a class="anchor" aria-label="anchor" href="#package-installation"></a>
+</h2>
 <p>To install the EGRET package, you must be using R 3.0 or greater and run the following command:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"EGRET"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"EGRET"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="background" class="section level2">
-<h2 class="hasAnchor">
-<a href="#background" class="anchor"></a>Background:</h2>
+<div class="section level2">
+<h2 id="background">Background:<a class="anchor" aria-label="anchor" href="#background"></a>
+</h2>
 <p>Evaluating long-term changes in river conditions (water quality and discharge) is an important use of hydrologic data. To carry out such evaluations, the hydrologist needs tools to facilitate several key steps in the process: acquiring the data records from a variety of sources, structuring it in ways that facilitate the analysis, routines that will process the data to extract information about changes that may be happening, and graphical techniques that can display findings about change. The R package <code>EGRET</code> (Exploration and Graphics for RivEr Trends) was developed for carrying out each of these steps in an integrated manner. It is designed to accept easily data from three sources: U.S. Geological Survey hydrologic data, Water Quality Portal Data (currently including U.S. Environmental Protection Agency (EPA) STORET data, and USDA STEWARDS data), and user-supplied flat files. The <code>EGRET</code> package has components oriented towards the description of long-term changes in streamflow statistics (high flow, average flow, and low flow) as well as changes in water quality. For the water-quality analysis, it uses Weighted Regressions on Time, Discharge and Season (WRTDS) to describe long-term trends in both concentration and flux. <code>EGRET</code> also creates a wide range of graphical presentations of the water-quality data and of the WRTDS results. The following report serves as a user guide, providing detailed guidance on installation and use of the software, documentation of the analysis methods used, as well as guidance on some of the kinds of questions and approaches that the software can facilitate.</p>
 <p><code>EGRET</code> includes statistics and graphics for streamflow history, water quality trends, and the statistical modeling algorithm Weighted Regressions on Time, Discharge, and Season (WRTDS). Please see the official EGRET User Guide for more information on the <code>EGRET</code> package:</p>
-<p><a href="https://doi.org/10.3133/tm4A10" class="uri">https://doi.org/10.3133/tm4A10</a> The best ways to learn about the WRTDS approach is to read the User Guide and two journal articles. These articles are available, for free, from the journals in which they were published. The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay. The URL is:</p>
-<p><a href="https://onlinelibrary.wiley.com/doi/full/10.1111/j.1752-1688.2010.00482.x" class="uri">https://onlinelibrary.wiley.com/doi/full/10.1111/j.1752-1688.2010.00482.x</a>.</p>
+<p><a href="https://doi.org/10.3133/tm4A10" class="external-link uri">https://doi.org/10.3133/tm4A10</a> The best ways to learn about the WRTDS approach is to read the User Guide and two journal articles. These articles are available, for free, from the journals in which they were published. The first relates to nitrate and total phosphorus data for 9 rivers draining to Chesapeake Bay. The URL is:</p>
+<p><a href="https://onlinelibrary.wiley.com/doi/full/10.1111/j.1752-1688.2010.00482.x" class="external-link uri">https://onlinelibrary.wiley.com/doi/full/10.1111/j.1752-1688.2010.00482.x</a>.</p>
 <p>The second is an application to nitrate data for 8 monitoring sites on the Mississippi River or its major tributaries. The URL is:</p>
-<p><a href="https://pubs.acs.org/doi/abs/10.1021/es201221s" class="uri">https://pubs.acs.org/doi/abs/10.1021/es201221s</a></p>
+<p><a href="https://pubs.acs.org/doi/abs/10.1021/es201221s" class="external-link uri">https://pubs.acs.org/doi/abs/10.1021/es201221s</a></p>
 <p>For a thorough discussion of the generalized flow normalization method implemented in the EGRET enhancements, see the paper: “Tracking changes in nutrient delivery to western Lake Erie: Approaches to compensate for variability and trends in streamflow”:</p>
-<p>(<a href="https://www.sciencedirect.com/science/article/pii/S0380133018302235" class="uri">https://www.sciencedirect.com/science/article/pii/S0380133018302235</a>).</p>
+<p>(<a href="https://www.sciencedirect.com/science/article/pii/S0380133018302235" class="external-link uri">https://www.sciencedirect.com/science/article/pii/S0380133018302235</a>).</p>
 </div>
-<div id="sample-workflow" class="section level2">
-<h2 class="hasAnchor">
-<a href="#sample-workflow" class="anchor"></a>Sample Workflow</h2>
+<div class="section level2">
+<h2 id="sample-workflow">Sample Workflow<a class="anchor" aria-label="anchor" href="#sample-workflow"></a>
+</h2>
 <p>WRTDS on the Choptank River at Greensboro MD, for Nitrate:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://pubs.usgs.gov/tm/04/a10/">EGRET</a></span><span class="op">)</span>
-
-<span class="co">############################</span>
-<span class="co"># Gather discharge data:</span>
-<span class="va">siteID</span> <span class="op">&lt;-</span> <span class="st">"01491000"</span> <span class="co">#Choptank River at Greensboro, MD</span>
-<span class="va">startDate</span> <span class="op">&lt;-</span> <span class="st">""</span> <span class="co">#Gets earliest date</span>
-<span class="va">endDate</span> <span class="op">&lt;-</span> <span class="st">"2011-09-30"</span>
-<span class="co"># Gather sample data:</span>
-<span class="va">parameter_cd</span><span class="op">&lt;-</span><span class="st">"00631"</span> <span class="co">#5 digit USGS code</span>
-<span class="va">Sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/readNWISSample.html">readNWISSample</a></span><span class="op">(</span><span class="va">siteID</span>,<span class="va">parameter_cd</span>,<span class="va">startDate</span>,<span class="va">endDate</span><span class="op">)</span>
-<span class="co">#Gets earliest date from Sample record:</span>
-<span class="co">#This is just one of many ways to assure the Daily record</span>
-<span class="co">#spans the Sample record</span>
-<span class="va">startDate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">Sample</span><span class="op">$</span><span class="va">Date</span><span class="op">)</span><span class="op">)</span> 
-<span class="co"># Gather discharge data:</span>
-<span class="va">Daily</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/readNWISDaily.html">readNWISDaily</a></span><span class="op">(</span><span class="va">siteID</span>,<span class="st">"00060"</span>,<span class="va">startDate</span>,<span class="va">endDate</span><span class="op">)</span>
-<span class="co"># Gather site and parameter information:</span>
-
-<span class="co"># Here user must input some values for</span>
-<span class="co"># the default (interactive=TRUE)</span>
-<span class="va">INFO</span><span class="op">&lt;-</span> <span class="fu"><a href="reference/INFOdataframe.html">readNWISInfo</a></span><span class="op">(</span><span class="va">siteID</span>,<span class="va">parameter_cd</span><span class="op">)</span>
-<span class="va">INFO</span><span class="op">$</span><span class="va">shortName</span> <span class="op">&lt;-</span> <span class="st">"Choptank River at Greensboro, MD"</span>
-
-<span class="co"># Merge discharge with sample data:</span>
-<span class="va">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/mergeReport.html">mergeReport</a></span><span class="op">(</span><span class="va">INFO</span>, <span class="va">Daily</span>, <span class="va">Sample</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pubs.usgs.gov/tm/04/a10/" class="external-link">EGRET</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">############################</span></span>
+<span><span class="co"># Gather discharge data:</span></span>
+<span><span class="va">siteID</span> <span class="op">&lt;-</span> <span class="st">"01491000"</span> <span class="co">#Choptank River at Greensboro, MD</span></span>
+<span><span class="va">startDate</span> <span class="op">&lt;-</span> <span class="st">""</span> <span class="co">#Gets earliest date</span></span>
+<span><span class="va">endDate</span> <span class="op">&lt;-</span> <span class="st">"2011-09-30"</span></span>
+<span><span class="co"># Gather sample data:</span></span>
+<span><span class="va">parameter_cd</span><span class="op">&lt;-</span><span class="st">"00631"</span> <span class="co">#5 digit USGS code</span></span>
+<span><span class="va">Sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/readNWISSample.html">readNWISSample</a></span><span class="op">(</span><span class="va">siteID</span>,<span class="va">parameter_cd</span>,<span class="va">startDate</span>,<span class="va">endDate</span><span class="op">)</span></span>
+<span><span class="co">#Gets earliest date from Sample record:</span></span>
+<span><span class="co">#This is just one of many ways to assure the Daily record</span></span>
+<span><span class="co">#spans the Sample record</span></span>
+<span><span class="va">startDate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">Sample</span><span class="op">$</span><span class="va">Date</span><span class="op">)</span><span class="op">)</span> </span>
+<span><span class="co"># Gather discharge data:</span></span>
+<span><span class="va">Daily</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/readNWISDaily.html">readNWISDaily</a></span><span class="op">(</span><span class="va">siteID</span>,<span class="st">"00060"</span>,<span class="va">startDate</span>,<span class="va">endDate</span><span class="op">)</span></span>
+<span><span class="co"># Gather site and parameter information:</span></span>
+<span></span>
+<span><span class="co"># Here user must input some values for</span></span>
+<span><span class="co"># the default (interactive=TRUE)</span></span>
+<span><span class="va">INFO</span><span class="op">&lt;-</span> <span class="fu"><a href="reference/INFOdataframe.html">readNWISInfo</a></span><span class="op">(</span><span class="va">siteID</span>,<span class="va">parameter_cd</span><span class="op">)</span></span>
+<span><span class="va">INFO</span><span class="op">$</span><span class="va">shortName</span> <span class="op">&lt;-</span> <span class="st">"Choptank River at Greensboro, MD"</span></span>
+<span></span>
+<span><span class="co"># Merge discharge with sample data:</span></span>
+<span><span class="va">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/mergeReport.html">mergeReport</a></span><span class="op">(</span><span class="va">INFO</span>, <span class="va">Daily</span>, <span class="va">Sample</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://pubs.usgs.gov/tm/04/a10/">EGRET</a></span><span class="op">)</span>
-<span class="co"># Sample data included in package:</span>
-<span class="va">eList</span> <span class="op">&lt;-</span> <span class="va">Choptank_eList</span>
-
-<span class="fu"><a href="reference/boxConcMonth.html">boxConcMonth</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pubs.usgs.gov/tm/04/a10/" class="external-link">EGRET</a></span><span class="op">)</span></span>
+<span><span class="co"># Sample data included in package:</span></span>
+<span><span class="va">eList</span> <span class="op">&lt;-</span> <span class="va">Choptank_eList</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/boxConcMonth.html">boxConcMonth</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-startPlots-1.png"></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/boxQTwice.html">boxQTwice</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/boxQTwice.html">boxQTwice</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-startPlots-2.png"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plotConcTime.html">plotConcTime</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/plotConcTime.html">plotConcTime</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-startPlots-3.png"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plotConcQ.html">plotConcQ</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/plotConcQ.html">plotConcQ</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-startPlots-4.png"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/multiPlotDataOverview.html">multiPlotDataOverview</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/multiPlotDataOverview.html">multiPlotDataOverview</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-multiPlot-1.png"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Run WRTDS model:</span>
-<span class="va">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/modelEstimation.html">modelEstimation</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;  first step running estCrossVal may take about 1 minute</span>
-<span class="co">#&gt;  estCrossVal % complete:</span>
-<span class="co">#&gt; 0    1   2   3   4   5   6   7   8   9   10  </span>
-<span class="co">#&gt; 11   12  13  14  15  16  17  18  19  20  </span>
-<span class="co">#&gt; 21   22  23  24  25  26  27  28  29  30  </span>
-<span class="co">#&gt; 31   32  33  34  35  36  37  38  39  40  </span>
-<span class="co">#&gt; 41   42  43  44  45  46  47  48  49  50  </span>
-<span class="co">#&gt; 51   52  53  54  55  56  57  58  59  60  </span>
-<span class="co">#&gt; 61   62  63  64  65  66  67  68  69  70  </span>
-<span class="co">#&gt; 71   72  73  74  75  76  77  78  79  80  </span>
-<span class="co">#&gt; 81   82  83  84  85  86  87  88  89  90  </span>
-<span class="co">#&gt; 91   92  93  94  95  96  97  98  99  </span>
-<span class="co">#&gt; Next step running  estSurfaces with survival regression:</span>
-<span class="co">#&gt; Survival regression (% complete):</span>
-<span class="co">#&gt; 0    1   2   3   4   5   6   7   8   9   10  </span>
-<span class="co">#&gt; 11   12  13  14  15  16  17  18  19  20  </span>
-<span class="co">#&gt; 21   22  23  24  25  26  27  28  29  30  </span>
-<span class="co">#&gt; 31   32  33  34  35  36  37  38  39  40  </span>
-<span class="co">#&gt; 41   42  43  44  45  46  47  48  49  50  </span>
-<span class="co">#&gt; 51   52  53  54  55  56  57  58  59  60  </span>
-<span class="co">#&gt; 61   62  63  64  65  66  67  68  69  70  </span>
-<span class="co">#&gt; 71   72  73  74  75  76  77  78  79  80  </span>
-<span class="co">#&gt; 81   82  83  84  85  86  87  88  89  90  </span>
-<span class="co">#&gt; 91   92  93  94  95  96  97  98  99  </span>
-<span class="co">#&gt; Survival regression: Done</span>
-
-<span class="co">#eList:</span>
-<span class="fu"><a href="reference/plotConcTimeDaily.html">plotConcTimeDaily</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Run WRTDS model:</span></span>
+<span><span class="va">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/modelEstimation.html">modelEstimation</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  first step running estCrossVal may take about 1 minute</span></span>
+<span><span class="co">#&gt;  estCrossVal % complete:</span></span>
+<span><span class="co">#&gt; 0    1   2   3   4   5   6   7   8   9   10  </span></span>
+<span><span class="co">#&gt; 11   12  13  14  15  16  17  18  19  20  </span></span>
+<span><span class="co">#&gt; 21   22  23  24  25  26  27  28  29  30  </span></span>
+<span><span class="co">#&gt; 31   32  33  34  35  36  37  38  39  40  </span></span>
+<span><span class="co">#&gt; 41   42  43  44  45  46  47  48  49  50  </span></span>
+<span><span class="co">#&gt; 51   52  53  54  55  56  57  58  59  60  </span></span>
+<span><span class="co">#&gt; 61   62  63  64  65  66  67  68  69  70  </span></span>
+<span><span class="co">#&gt; 71   72  73  74  75  76  77  78  79  80  </span></span>
+<span><span class="co">#&gt; 81   82  83  84  85  86  87  88  89  90  </span></span>
+<span><span class="co">#&gt; 91   92  93  94  95  96  97  98  99  </span></span>
+<span><span class="co">#&gt; Next step running  estSurfaces with survival regression:</span></span>
+<span><span class="co">#&gt; Survival regression (% complete):</span></span>
+<span><span class="co">#&gt; 0    1   2   3   4   5   6   7   8   9   10  </span></span>
+<span><span class="co">#&gt; 11   12  13  14  15  16  17  18  19  20  </span></span>
+<span><span class="co">#&gt; 21   22  23  24  25  26  27  28  29  30  </span></span>
+<span><span class="co">#&gt; 31   32  33  34  35  36  37  38  39  40  </span></span>
+<span><span class="co">#&gt; 41   42  43  44  45  46  47  48  49  50  </span></span>
+<span><span class="co">#&gt; 51   52  53  54  55  56  57  58  59  60  </span></span>
+<span><span class="co">#&gt; 61   62  63  64  65  66  67  68  69  70  </span></span>
+<span><span class="co">#&gt; 71   72  73  74  75  76  77  78  79  80  </span></span>
+<span><span class="co">#&gt; 81   82  83  84  85  86  87  88  89  90  </span></span>
+<span><span class="co">#&gt; 91   92  93  94  95  96  97  98  99  </span></span>
+<span><span class="co">#&gt; Survival regression: Done</span></span>
+<span></span>
+<span><span class="co">#eList:</span></span>
+<span><span class="fu"><a href="reference/plotConcTimeDaily.html">plotConcTimeDaily</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-runModel-1.png"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plotFluxTimeDaily.html">plotFluxTimeDaily</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/plotFluxTimeDaily.html">plotFluxTimeDaily</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-runModel-2.png"></p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plotConcPred.html">plotConcPred</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/plotConcPred.html">plotConcPred</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-runModel-3.png"></p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plotFluxPred.html">plotFluxPred</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/plotFluxPred.html">plotFluxPred</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-runModel-4.png"></p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plotResidPred.html">plotResidPred</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/plotResidPred.html">plotResidPred</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-runModel-5.png"></p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plotResidQ.html">plotResidQ</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/plotResidQ.html">plotResidQ</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-runModel-6.png"></p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plotResidTime.html">plotResidTime</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/plotResidTime.html">plotResidTime</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-runModel-7.png"></p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/boxResidMonth.html">boxResidMonth</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/boxResidMonth.html">boxResidMonth</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-runModel-8.png"></p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/boxConcThree.html">boxConcThree</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/boxConcThree.html">boxConcThree</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-runModel-9.png"></p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plotConcHist.html">plotConcHist</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/plotConcHist.html">plotConcHist</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-runModel-10.png"></p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plotFluxHist.html">plotFluxHist</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/plotFluxHist.html">plotFluxHist</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-runModel-11.png"></p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Multi-line plots:</span>
-<span class="va">date1</span> <span class="op">&lt;-</span> <span class="st">"1985-09-01"</span>
-<span class="va">date2</span> <span class="op">&lt;-</span> <span class="st">"1997-09-01"</span>
-<span class="va">date3</span> <span class="op">&lt;-</span> <span class="st">"2010-09-01"</span>
-<span class="va">qBottom</span><span class="op">&lt;-</span><span class="fl">0.2</span>
-<span class="va">qTop</span><span class="op">&lt;-</span><span class="fl">10</span>
-<span class="fu"><a href="reference/plotConcQSmooth.html">plotConcQSmooth</a></span><span class="op">(</span><span class="va">eList</span>, <span class="va">date1</span>, <span class="va">date2</span>, <span class="va">date3</span>, <span class="va">qBottom</span>, <span class="va">qTop</span>, 
-                   concMax<span class="op">=</span><span class="fl">2</span>,legendTop <span class="op">=</span> <span class="fl">0.85</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Multi-line plots:</span></span>
+<span><span class="va">date1</span> <span class="op">&lt;-</span> <span class="st">"1985-09-01"</span></span>
+<span><span class="va">date2</span> <span class="op">&lt;-</span> <span class="st">"1997-09-01"</span></span>
+<span><span class="va">date3</span> <span class="op">&lt;-</span> <span class="st">"2010-09-01"</span></span>
+<span><span class="va">qBottom</span><span class="op">&lt;-</span><span class="fl">0.2</span></span>
+<span><span class="va">qTop</span><span class="op">&lt;-</span><span class="fl">10</span></span>
+<span><span class="fu"><a href="reference/plotConcQSmooth.html">plotConcQSmooth</a></span><span class="op">(</span><span class="va">eList</span>, <span class="va">date1</span>, <span class="va">date2</span>, <span class="va">date3</span>, <span class="va">qBottom</span>, <span class="va">qTop</span>, </span>
+<span>                   concMax<span class="op">=</span><span class="fl">2</span>,legendTop <span class="op">=</span> <span class="fl">0.85</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-multiPlots-1.png"></p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">q1</span> <span class="op">&lt;-</span> <span class="fl">2</span>
-<span class="va">q2</span> <span class="op">&lt;-</span> <span class="fl">10</span>
-<span class="va">q3</span> <span class="op">&lt;-</span> <span class="fl">20</span>
-<span class="va">centerDate</span> <span class="op">&lt;-</span> <span class="st">"07-01"</span>
-<span class="va">yearEnd</span> <span class="op">&lt;-</span> <span class="fl">1980</span>
-<span class="va">yearStart</span> <span class="op">&lt;-</span> <span class="fl">2010</span>
-<span class="fu"><a href="reference/plotConcTimeSmooth.html">plotConcTimeSmooth</a></span><span class="op">(</span><span class="va">eList</span>, <span class="va">q1</span>, <span class="va">q2</span>, <span class="va">q3</span>, <span class="va">centerDate</span>, <span class="va">yearStart</span>, <span class="va">yearEnd</span>, legendTop <span class="op">=</span> <span class="fl">0.55</span>, legendLeft <span class="op">=</span> <span class="fl">1990</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">q1</span> <span class="op">&lt;-</span> <span class="fl">2</span></span>
+<span><span class="va">q2</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
+<span><span class="va">q3</span> <span class="op">&lt;-</span> <span class="fl">20</span></span>
+<span><span class="va">centerDate</span> <span class="op">&lt;-</span> <span class="st">"07-01"</span></span>
+<span><span class="va">yearEnd</span> <span class="op">&lt;-</span> <span class="fl">1980</span></span>
+<span><span class="va">yearStart</span> <span class="op">&lt;-</span> <span class="fl">2010</span></span>
+<span><span class="fu"><a href="reference/plotConcTimeSmooth.html">plotConcTimeSmooth</a></span><span class="op">(</span><span class="va">eList</span>, <span class="va">q1</span>, <span class="va">q2</span>, <span class="va">q3</span>, <span class="va">centerDate</span>, <span class="va">yearStart</span>, <span class="va">yearEnd</span>, legendTop <span class="op">=</span> <span class="fl">0.55</span>, legendLeft <span class="op">=</span> <span class="fl">1990</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-multiPlots-2.png"></p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Multi-plots:</span>
-<span class="fu"><a href="reference/fluxBiasMulti.html">fluxBiasMulti</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Multi-plots:</span></span>
+<span><span class="fu"><a href="reference/fluxBiasMulti.html">fluxBiasMulti</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-fluxPlots-1.png"></p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#Contour plots:</span>
-<span class="va">clevel</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">0.5</span><span class="op">)</span>
-<span class="va">yearStart</span> <span class="op">&lt;-</span> <span class="fl">1980</span>
-<span class="va">yearEnd</span> <span class="op">&lt;-</span> <span class="fl">2010</span>
-
-<span class="fu"><a href="reference/plotContours.html">plotContours</a></span><span class="op">(</span><span class="va">eList</span>, <span class="va">yearStart</span>,<span class="va">yearEnd</span>,qBottom<span class="op">=</span><span class="fl">0.5</span>,
-             qTop<span class="op">=</span><span class="fl">20</span>, contourLevels <span class="op">=</span> <span class="va">clevel</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#Contour plots:</span></span>
+<span><span class="va">clevel</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">2</span>,<span class="fl">0.5</span><span class="op">)</span></span>
+<span><span class="va">yearStart</span> <span class="op">&lt;-</span> <span class="fl">1980</span></span>
+<span><span class="va">yearEnd</span> <span class="op">&lt;-</span> <span class="fl">2010</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/plotContours.html">plotContours</a></span><span class="op">(</span><span class="va">eList</span>, <span class="va">yearStart</span>,<span class="va">yearEnd</span>,qBottom<span class="op">=</span><span class="fl">0.5</span>,</span>
+<span>             qTop<span class="op">=</span><span class="fl">20</span>, contourLevels <span class="op">=</span> <span class="va">clevel</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-contourPlots-1.png"></p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plotDiffContours.html">plotDiffContours</a></span><span class="op">(</span><span class="va">eList</span>, year0 <span class="op">=</span> <span class="fl">1990</span>,
-                 year1 <span class="op">=</span> <span class="fl">2010</span>,
-                 qBottom<span class="op">=</span><span class="fl">0.5</span>,
-                 qTop<span class="op">=</span><span class="fl">20</span>,
-                 maxDiff<span class="op">=</span><span class="fl">0.6</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/plotDiffContours.html">plotDiffContours</a></span><span class="op">(</span><span class="va">eList</span>, year0 <span class="op">=</span> <span class="fl">1990</span>,</span>
+<span>                 year1 <span class="op">=</span> <span class="fl">2010</span>,</span>
+<span>                 qBottom<span class="op">=</span><span class="fl">0.5</span>,</span>
+<span>                 qTop<span class="op">=</span><span class="fl">20</span>,</span>
+<span>                 maxDiff<span class="op">=</span><span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-contourPlots-2.png"></p>
-<div id="sample-workflow-for-a-flowhistory-application-for-the-entire-record" class="section level3">
-<h3 class="hasAnchor">
-<a href="#sample-workflow-for-a-flowhistory-application-for-the-entire-record" class="anchor"></a>Sample workflow for a flowHistory application for the entire record</h3>
+<div class="section level3">
+<h3 id="sample-workflow-for-a-flowhistory-application-for-the-entire-record">Sample workflow for a flowHistory application for the entire record<a class="anchor" aria-label="anchor" href="#sample-workflow-for-a-flowhistory-application-for-the-entire-record"></a>
+</h3>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://pubs.usgs.gov/tm/04/a10/">EGRET</a></span><span class="op">)</span>
-
-<span class="co"># Flow history analysis</span>
-<span class="co"># Gather discharge data:</span>
-<span class="va">siteID</span> <span class="op">&lt;-</span> <span class="st">"01491000"</span> <span class="co">#Choptank River at Greensboro, MD</span>
-<span class="va">startDate</span> <span class="op">&lt;-</span> <span class="st">""</span> <span class="co"># Get earliest date</span>
-<span class="va">endDate</span> <span class="op">&lt;-</span> <span class="st">""</span> <span class="co"># Get latest date</span>
-<span class="va">Daily</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/readNWISDaily.html">readNWISDaily</a></span><span class="op">(</span><span class="va">siteID</span>,<span class="st">"00060"</span>,<span class="va">startDate</span>,<span class="va">endDate</span><span class="op">)</span>
-<span class="co">#&gt; There are 26803 data points, and 26803 days.</span>
-<span class="co"># Gather site and parameter information:</span>
-<span class="co"># Here user must input some values for</span>
-<span class="co"># the default (interactive=TRUE)</span>
-<span class="va">INFO</span><span class="op">&lt;-</span> <span class="fu"><a href="reference/INFOdataframe.html">readNWISInfo</a></span><span class="op">(</span><span class="va">siteID</span>,<span class="st">"00060"</span><span class="op">)</span>
-<span class="co">#&gt; Your site for streamflow data is:</span>
-<span class="co">#&gt;  01491000 .</span>
-<span class="co">#&gt; Your site name is CHOPTANK RIVER NEAR GREENSBORO, MD </span>
-<span class="co">#&gt; but you can modify this to a short name in a style you prefer. </span>
-<span class="co">#&gt; This name will be used to label graphs and tables. </span>
-<span class="co">#&gt; If you want the program to use the name given above, just do a carriage return,</span>
-<span class="co">#&gt; otherwise enter the preferred short name(no quotes):</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; The latitude and longitude of the site are:  38.99719 ,  -75.78581 (degrees north and west).</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; The drainage area at this site is  113 square miles</span>
-<span class="co">#&gt;  which is being stored as 292.6687 square kilometers.</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; It is helpful to set up a station abbreviation when doing multi-site studies,</span>
-<span class="co">#&gt; enter a unique id (three or four characters should work). It is case sensitive.  </span>
-<span class="co">#&gt; Even if you don't feel you need an abbreviation for your site you need to enter something(no quotes):</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Your water quality data are for parameter number:</span>
-<span class="co">#&gt; 00060 </span>
-<span class="co">#&gt; which has the name:' Discharge, cubic feet per second '.</span>
-<span class="co">#&gt; Typically you will want a shorter name to be used in graphs and tables.</span>
-<span class="co">#&gt; The suggested short name is:' Stream flow, mean. daily '.</span>
-<span class="co">#&gt; If you would like to change the short name, enter it here, </span>
-<span class="co">#&gt; otherwise just hit enter (no quotes):</span>
-<span class="co">#&gt; The units for the water quality data are:  ft3/s .</span>
-<span class="co">#&gt; It is helpful to set up a constiuent abbreviation, enter a unique id </span>
-<span class="co">#&gt; three or four characters should work something like tn or tp or NO3).</span>
-<span class="co">#&gt; Even if you don't feel you need an abbreviation you need to enter something (no quotes):</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Required concentration units are mg/l. </span>
-<span class="co">#&gt; The INFO dataframe indicates: ft3/s </span>
-<span class="co">#&gt; Flux calculations will be wrong if units are not consistent.</span>
-<span class="va">INFO</span><span class="op">$</span><span class="va">shortName</span> <span class="op">&lt;-</span> <span class="st">"Choptank River at Greensboro, MD"</span>
-<span class="va">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/as.egret.html">as.egret</a></span><span class="op">(</span><span class="va">INFO</span>, <span class="va">Daily</span>, <span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span>
-
-<span class="co"># Check flow history data:</span>
-<span class="fu"><a href="reference/plotFlowSingle.html">plotFlowSingle</a></span><span class="op">(</span><span class="va">eList</span>, istat<span class="op">=</span><span class="fl">7</span>,qUnit<span class="op">=</span><span class="st">"thousandCfs"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pubs.usgs.gov/tm/04/a10/" class="external-link">EGRET</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Flow history analysis</span></span>
+<span><span class="co"># Gather discharge data:</span></span>
+<span><span class="va">siteID</span> <span class="op">&lt;-</span> <span class="st">"01491000"</span> <span class="co">#Choptank River at Greensboro, MD</span></span>
+<span><span class="va">startDate</span> <span class="op">&lt;-</span> <span class="st">""</span> <span class="co"># Get earliest date</span></span>
+<span><span class="va">endDate</span> <span class="op">&lt;-</span> <span class="st">""</span> <span class="co"># Get latest date</span></span>
+<span><span class="va">Daily</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/readNWISDaily.html">readNWISDaily</a></span><span class="op">(</span><span class="va">siteID</span>,<span class="st">"00060"</span>,<span class="va">startDate</span>,<span class="va">endDate</span><span class="op">)</span></span>
+<span><span class="co">#&gt; There are 27281 data points, and 27281 days.</span></span>
+<span><span class="co"># Gather site and parameter information:</span></span>
+<span><span class="co"># Here user must input some values for</span></span>
+<span><span class="co"># the default (interactive=TRUE)</span></span>
+<span><span class="va">INFO</span><span class="op">&lt;-</span> <span class="fu"><a href="reference/INFOdataframe.html">readNWISInfo</a></span><span class="op">(</span><span class="va">siteID</span>,<span class="st">"00060"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Your site for streamflow data is:</span></span>
+<span><span class="co">#&gt;  01491000 .</span></span>
+<span><span class="co">#&gt; Your site name is CHOPTANK RIVER NEAR GREENSBORO, MD </span></span>
+<span><span class="co">#&gt; but you can modify this to a short name in a style you prefer. </span></span>
+<span><span class="co">#&gt; This name will be used to label graphs and tables. </span></span>
+<span><span class="co">#&gt; If you want the program to use the name given above, just do a carriage return,</span></span>
+<span><span class="co">#&gt; otherwise enter the preferred short name(no quotes):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; The latitude and longitude of the site are:  38.99719 ,  -75.78581 (degrees north and west).</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; The drainage area at this site is  113 square miles</span></span>
+<span><span class="co">#&gt;  which is being stored as 292.6687 square kilometers.</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; It is helpful to set up a station abbreviation when doing multi-site studies,</span></span>
+<span><span class="co">#&gt; enter a unique id (three or four characters should work). It is case sensitive.  </span></span>
+<span><span class="co">#&gt; Even if you don't feel you need an abbreviation for your site you need to enter something(no quotes):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Your water quality data are for parameter number:</span></span>
+<span><span class="co">#&gt; 00060 </span></span>
+<span><span class="co">#&gt; which has the name:' Discharge, cubic feet per second '.</span></span>
+<span><span class="co">#&gt; Typically you will want a shorter name to be used in graphs and tables.</span></span>
+<span><span class="co">#&gt; The suggested short name is:' Stream flow, mean. daily '.</span></span>
+<span><span class="co">#&gt; If you would like to change the short name, enter it here, </span></span>
+<span><span class="co">#&gt; otherwise just hit enter (no quotes):</span></span>
+<span><span class="co">#&gt; The units for the water quality data are:  ft3/s .</span></span>
+<span><span class="co">#&gt; It is helpful to set up a constiuent abbreviation, enter a unique id </span></span>
+<span><span class="co">#&gt; three or four characters should work something like tn or tp or NO3).</span></span>
+<span><span class="co">#&gt; Even if you don't feel you need an abbreviation you need to enter something (no quotes):</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Required concentration units are mg/l. </span></span>
+<span><span class="co">#&gt; The INFO dataframe indicates: ft3/s </span></span>
+<span><span class="co">#&gt; Flux calculations will be wrong if units are not consistent.</span></span>
+<span><span class="va">INFO</span><span class="op">$</span><span class="va">shortName</span> <span class="op">&lt;-</span> <span class="st">"Choptank River at Greensboro, MD"</span></span>
+<span><span class="va">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/as.egret.html">as.egret</a></span><span class="op">(</span><span class="va">INFO</span>, <span class="va">Daily</span>, <span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Check flow history data:</span></span>
+<span><span class="fu"><a href="reference/plotFlowSingle.html">plotFlowSingle</a></span><span class="op">(</span><span class="va">eList</span>, istat<span class="op">=</span><span class="fl">7</span>,qUnit<span class="op">=</span><span class="st">"thousandCfs"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-4-1.png"></p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plotSDLogQ.html">plotSDLogQ</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/plotSDLogQ.html">plotSDLogQ</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-4-2.png"></p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plotQTimeDaily.html">plotQTimeDaily</a></span><span class="op">(</span><span class="va">eList</span>, qLower<span class="op">=</span><span class="fl">1</span>,qUnit<span class="op">=</span><span class="fl">3</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/plotQTimeDaily.html">plotQTimeDaily</a></span><span class="op">(</span><span class="va">eList</span>, qLower<span class="op">=</span><span class="fl">1</span>,qUnit<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-4-3.png"></p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plotFour.html">plotFour</a></span><span class="op">(</span><span class="va">eList</span>, qUnit<span class="op">=</span><span class="fl">3</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/plotFour.html">plotFour</a></span><span class="op">(</span><span class="va">eList</span>, qUnit<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-plotFours-1.png"></p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plotFourStats.html">plotFourStats</a></span><span class="op">(</span><span class="va">eList</span>, qUnit<span class="op">=</span><span class="fl">3</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/plotFourStats.html">plotFourStats</a></span><span class="op">(</span><span class="va">eList</span>, qUnit<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-plotFours-2.png"></p>
 </div>
 </div>
-<div id="model-archive" class="section level2">
-<h2 class="hasAnchor">
-<a href="#model-archive" class="anchor"></a>Model Archive</h2>
+<div class="section level2">
+<h2 id="model-archive">Model Archive<a class="anchor" aria-label="anchor" href="#model-archive"></a>
+</h2>
 <p>When using the <code>WRTDS</code> model, it is important to be able to reproduce the results in the future. The following version of R and package dependencies were used most recently to pass the embedded tests within this package. There is no guarantee of reproducible results using future versions of R or updated versions of package dependencies; however, we will make diligent efforts to test and update future modeling environments.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">sessioninfo</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/sessioninfo/man/session_info.html">session_info</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; - Session info ---------------------------------------------------------------</span>
-<span class="co">#&gt;  setting  value                       </span>
-<span class="co">#&gt;  version  R version 4.0.5 (2021-03-31)</span>
-<span class="co">#&gt;  os       Windows 10 x64              </span>
-<span class="co">#&gt;  system   x86_64, mingw32             </span>
-<span class="co">#&gt;  ui       RTerm                       </span>
-<span class="co">#&gt;  language (EN)                        </span>
-<span class="co">#&gt;  collate  English_United States.1252  </span>
-<span class="co">#&gt;  ctype    English_United States.1252  </span>
-<span class="co">#&gt;  tz       America/Chicago             </span>
-<span class="co">#&gt;  date     2021-05-20                  </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; - Packages -------------------------------------------------------------------</span>
-<span class="co">#&gt;  package       * version    date       lib source                          </span>
-<span class="co">#&gt;  assertthat      0.2.1      2019-03-21 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  bit             4.0.4      2020-08-04 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  bit64           4.0.5      2020-08-30 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  class           7.3-18     2021-01-24 [2] CRAN (R 4.0.5)                  </span>
-<span class="co">#&gt;  classInt        0.4-3      2020-04-07 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  cli             2.5.0      2021-04-26 [1] CRAN (R 4.0.5)                  </span>
-<span class="co">#&gt;  crayon          1.4.1      2021-02-08 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  curl            4.3.1      2021-04-30 [1] CRAN (R 4.0.5)                  </span>
-<span class="co">#&gt;  dataRetrieval   2.7.7.0001 2021-05-13 [1] local                           </span>
-<span class="co">#&gt;  DBI             1.1.1      2021-01-15 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  digest          0.6.27     2020-10-24 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  dotCall64       1.0-1      2021-02-11 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  dplyr           1.0.6      2021-05-05 [1] CRAN (R 4.0.5)                  </span>
-<span class="co">#&gt;  e1071           1.7-6      2021-03-18 [1] CRAN (R 4.0.4)                  </span>
-<span class="co">#&gt;  EGRET         * 3.0.5      2021-04-09 [1] CRAN (R 4.0.5)                  </span>
-<span class="co">#&gt;  ellipsis        0.3.2      2021-04-29 [1] CRAN (R 4.0.5)                  </span>
-<span class="co">#&gt;  evaluate        0.14       2019-05-28 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  fansi           0.4.2      2021-01-15 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  fields          11.6       2020-10-09 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  generics        0.1.0      2020-10-31 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  glue            1.4.2      2020-08-27 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  highr           0.9        2021-04-16 [1] CRAN (R 4.0.4)                  </span>
-<span class="co">#&gt;  hms             1.1.0      2021-05-17 [1] CRAN (R 4.0.5)                  </span>
-<span class="co">#&gt;  htmltools       0.5.1.1    2021-01-22 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  httr            1.4.2      2020-07-20 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  jsonlite        1.7.2      2020-12-09 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  KernSmooth      2.23-18    2020-10-29 [2] CRAN (R 4.0.5)                  </span>
-<span class="co">#&gt;  knitr           1.33       2021-04-24 [1] CRAN (R 4.0.5)                  </span>
-<span class="co">#&gt;  lattice         0.20-41    2020-04-02 [2] CRAN (R 4.0.5)                  </span>
-<span class="co">#&gt;  lifecycle       1.0.0      2021-02-15 [1] CRAN (R 4.0.4)                  </span>
-<span class="co">#&gt;  magrittr        2.0.1      2020-11-17 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  maps            3.3.0      2018-04-03 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  Matrix          1.3-2      2021-01-06 [2] CRAN (R 4.0.5)                  </span>
-<span class="co">#&gt;  pillar          1.6.1      2021-05-16 [1] CRAN (R 4.0.5)                  </span>
-<span class="co">#&gt;  pkgconfig       2.0.3      2019-09-22 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  proxy           0.4-25     2021-03-05 [1] CRAN (R 4.0.4)                  </span>
-<span class="co">#&gt;  purrr           0.3.4      2020-04-17 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  R6              2.5.0      2020-10-28 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  Rcpp            1.0.6      2021-01-15 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  readr           1.9.9.9000 2021-05-13 [1] Github (tidyverse/readr@7c759a0)</span>
-<span class="co">#&gt;  rlang           0.4.11     2021-04-30 [1] CRAN (R 4.0.5)                  </span>
-<span class="co">#&gt;  rmarkdown       2.8        2021-05-07 [1] CRAN (R 4.0.5)                  </span>
-<span class="co">#&gt;  sessioninfo     1.1.1      2018-11-05 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  sf              0.9-8      2021-03-17 [1] CRAN (R 4.0.4)                  </span>
-<span class="co">#&gt;  spam            2.6-0      2020-12-14 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  stringi         1.5.3      2020-09-09 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  stringr         1.4.0      2019-02-10 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  survival        3.2-10     2021-03-16 [2] CRAN (R 4.0.5)                  </span>
-<span class="co">#&gt;  tibble          3.1.1      2021-04-18 [1] CRAN (R 4.0.5)                  </span>
-<span class="co">#&gt;  tidyselect      1.1.1      2021-04-30 [1] CRAN (R 4.0.5)                  </span>
-<span class="co">#&gt;  tzdb            0.1.1      2021-04-22 [1] CRAN (R 4.0.5)                  </span>
-<span class="co">#&gt;  units           0.7-1      2021-03-16 [1] CRAN (R 4.0.4)                  </span>
-<span class="co">#&gt;  utf8            1.2.1      2021-03-12 [1] CRAN (R 4.0.4)                  </span>
-<span class="co">#&gt;  vctrs           0.3.8      2021-04-29 [1] CRAN (R 4.0.5)                  </span>
-<span class="co">#&gt;  vroom           1.4.0.9000 2021-05-13 [1] Github (r-lib/vroom@1afcc78)    </span>
-<span class="co">#&gt;  withr           2.4.2      2021-04-18 [1] CRAN (R 4.0.4)                  </span>
-<span class="co">#&gt;  xfun            0.22       2021-03-11 [1] CRAN (R 4.0.4)                  </span>
-<span class="co">#&gt;  xml2            1.3.2      2020-04-23 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt;  yaml            2.2.1      2020-02-01 [1] CRAN (R 4.0.3)                  </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [1] C:/Users/ldecicco/Documents/R/win-library/4.0</span>
-<span class="co">#&gt; [2] C:/Program Files/R/R-4.0.5/library</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">sessioninfo</span><span class="fu">::</span><span class="fu"><a href="https://r-lib.github.io/sessioninfo/reference/session_info.html" class="external-link">session_info</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ─ Session info ───────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt;  setting  value</span></span>
+<span><span class="co">#&gt;  version  R version 4.2.1 (2022-06-23 ucrt)</span></span>
+<span><span class="co">#&gt;  os       Windows 10 x64 (build 19044)</span></span>
+<span><span class="co">#&gt;  system   x86_64, mingw32</span></span>
+<span><span class="co">#&gt;  ui       RTerm</span></span>
+<span><span class="co">#&gt;  language (EN)</span></span>
+<span><span class="co">#&gt;  collate  English_United States.utf8</span></span>
+<span><span class="co">#&gt;  ctype    English_United States.utf8</span></span>
+<span><span class="co">#&gt;  tz       America/Chicago</span></span>
+<span><span class="co">#&gt;  date     2022-09-10</span></span>
+<span><span class="co">#&gt;  pandoc   2.18 @ C:/Program Files/RStudio/bin/quarto/bin/tools/ (via rmarkdown)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ─ Packages ───────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt;  package       * version  date (UTC) lib source</span></span>
+<span><span class="co">#&gt;  assertthat      0.2.1    2019-03-21 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  bit             4.0.4    2020-08-04 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  bit64           4.0.5    2020-08-30 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  class           7.3-20   2022-01-16 [2] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  classInt        0.4-7    2022-06-10 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  cli             3.3.0    2022-04-25 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  colorspace      2.0-3    2022-02-21 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  crayon          1.5.1    2022-03-26 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  curl            4.3.2    2021-06-23 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  dataRetrieval   2.7.11.1 2022-08-31 [1] local</span></span>
+<span><span class="co">#&gt;  DBI             1.1.3    2022-06-18 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  digest          0.6.29   2021-12-01 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  dotCall64       1.0-1    2021-02-11 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  dplyr           1.0.9    2022-04-28 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  e1071           1.7-11   2022-06-07 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  EGRET         * 3.0.7.2  2022-09-10 [1] local</span></span>
+<span><span class="co">#&gt;  ellipsis        0.3.2    2021-04-29 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  evaluate        0.16     2022-08-09 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  fansi           1.0.3    2022-03-24 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  fastmap         1.1.0    2021-01-25 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  fields          14.1     2022-08-12 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  generics        0.1.3    2022-07-05 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  ggplot2         3.3.6    2022-05-03 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  glue            1.6.2    2022-02-24 [1] CRAN (R 4.1.3)</span></span>
+<span><span class="co">#&gt;  gridExtra       2.3      2017-09-09 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  gtable          0.3.1    2022-09-01 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  highr           0.9      2021-04-16 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  hms             1.1.2    2022-08-19 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  htmltools       0.5.3    2022-07-18 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  httr            1.4.4    2022-08-17 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  jsonlite        1.8.0    2022-02-22 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  KernSmooth      2.23-20  2021-05-03 [2] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  knitr           1.40     2022-08-24 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  lattice         0.20-45  2021-09-22 [2] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  lifecycle       1.0.1    2021-09-24 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  magrittr        2.0.3    2022-03-30 [1] CRAN (R 4.1.3)</span></span>
+<span><span class="co">#&gt;  maps            3.4.0    2021-09-25 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  Matrix          1.4-1    2022-03-23 [2] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  munsell         0.5.0    2018-06-12 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  pillar          1.8.1    2022-08-19 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  pkgconfig       2.0.3    2019-09-22 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  proxy           0.4-27   2022-06-09 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  purrr           0.3.4    2020-04-17 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  R6              2.5.1    2021-08-19 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  Rcpp            1.0.9    2022-07-08 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  readr           2.1.2    2022-01-30 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  rlang           1.0.4    2022-07-12 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  rmarkdown       2.16     2022-08-24 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  rstudioapi      0.14     2022-08-22 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  scales          1.2.1    2022-08-20 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  sessioninfo     1.2.2    2021-12-06 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  sf              1.0-8    2022-07-14 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  spam            2.9-1    2022-08-07 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  stringi         1.7.8    2022-07-11 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  stringr         1.4.1    2022-08-20 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  survival        3.4-0    2022-08-09 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  tibble          3.1.8    2022-07-22 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  tidyselect      1.1.2    2022-02-21 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  tzdb            0.3.0    2022-03-28 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  units           0.8-0    2022-02-05 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  utf8            1.2.2    2021-07-24 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  vctrs           0.4.1    2022-04-13 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  viridis         0.6.2    2021-10-13 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  viridisLite     0.4.1    2022-08-22 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  vroom           1.5.7    2021-11-30 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  xfun            0.31     2022-05-10 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  xml2            1.3.3    2021-11-30 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  yaml            2.3.5    2022-02-21 [1] CRAN (R 4.2.0)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  [1] C:/Users/ldecicco/Documents/R/win-library/4.2</span></span>
+<span><span class="co">#&gt;  [2] C:/Program Files/R/R-4.2.1/library</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ──────────────────────────────────────────────────────────────────────────────</span></span></code></pre></div>
 </div>
-<div id="reporting-bugs" class="section level2">
-<h2 class="hasAnchor">
-<a href="#reporting-bugs" class="anchor"></a>Reporting bugs</h2>
-<p>Please consider reporting bugs and asking questions on the Issues page: <a href="https://github.com/USGS-R/EGRET/issues" class="uri">https://github.com/USGS-R/EGRET/issues</a></p>
+<div class="section level2">
+<h2 id="reporting-bugs">Reporting bugs<a class="anchor" aria-label="anchor" href="#reporting-bugs"></a>
+</h2>
+<p>Please consider reporting bugs and asking questions on the Issues page: <a href="https://github.com/USGS-R/EGRET/issues" class="external-link uri">https://github.com/USGS-R/EGRET/issues</a></p>
 <p>Follow <code>@USGS_DataSci</code> on Twitter for updates on USGS R packages:</p>
-<p><a href="https://twitter.com/USGS_DataSci"><img src="https://img.shields.io/twitter/follow/USGS_DataSci.svg?style=social&amp;label=Follow%20USGS_DataSci" alt="Twitter Follow"></a></p>
+<p><a href="https://twitter.com/USGS_DataSci" class="external-link"><img src="https://img.shields.io/twitter/follow/USGS_DataSci.svg?style=social&amp;label=Follow%20USGS_DataSci" alt="Twitter Follow"></a></p>
 </div>
-<div id="subscribe" class="section level2">
-<h2 class="hasAnchor">
-<a href="#subscribe" class="anchor"></a>Subscribe</h2>
+<div class="section level2">
+<h2 id="subscribe">Subscribe<a class="anchor" aria-label="anchor" href="#subscribe"></a>
+</h2>
 <p>Please email questions, comments, and feedback to: <a href="mailto:egret_comments@usgs.gov" class="email">egret_comments@usgs.gov</a></p>
 <p>Additionally, to subscribe to an email list concerning updates to these R packages, please send a request to <a href="mailto:egret_comments@usgs.gov" class="email">egret_comments@usgs.gov</a>.</p>
 </div>
-<div id="code-of-conduct" class="section level2">
-<h2 class="hasAnchor">
-<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h2>
-<p>We want to encourage a warm, welcoming, and safe environment for contributing to this project. See the <a href="https://github.com/USGS-R/EGRET/blob/master/CONDUCT.md">code of conduct</a> for more information.</p>
+<div class="section level2">
+<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+</h2>
+<p>We want to encourage a warm, welcoming, and safe environment for contributing to this project. See the <a href="https://github.com/USGS-R/EGRET/blob/master/CONDUCT.md" class="external-link">code of conduct</a> for more information.</p>
 </div>
-<div id="package-support" class="section level2">
-<h2 class="hasAnchor">
-<a href="#package-support" class="anchor"></a>Package Support</h2>
+<div class="section level2">
+<h2 id="package-support">Package Support<a class="anchor" aria-label="anchor" href="#package-support"></a>
+</h2>
 <p>The Water Mission Area of the USGS has supported the development and maintenance of the <code>EGRET</code> R-package. Further maintenance is expected to be stable through October 2022. Resources are available primarily for maintenance and responding to user questions. Priorities on the development of new features are determined by the <code>EGRET</code> development team.</p>
-<p><a href="https://www.usgs.gov/"><img src="http://usgs-r.github.io/images/usgs.png" alt="USGS"></a></p>
+<p><a href="https://www.usgs.gov/" class="external-link"><img src="http://usgs-r.github.io/images/usgs.png" alt="USGS"></a></p>
 </div>
-<div id="sunset-date" class="section level2">
-<h2 class="hasAnchor">
-<a href="#sunset-date" class="anchor"></a>Sunset date</h2>
+<div class="section level2">
+<h2 id="sunset-date">Sunset date<a class="anchor" aria-label="anchor" href="#sunset-date"></a>
+</h2>
 <p>Funding for <code>EGRET</code> currently expires fall 2022. Expectations are that maintenance and customer service will continue to be supported past that date.</p>
 </div>
-<div id="how-to-cite-egret" class="section level2">
-<h2 class="hasAnchor">
-<a href="#how-to-cite-egret" class="anchor"></a>How to cite EGRET:</h2>
+<div class="section level2">
+<h2 id="how-to-cite-egret">How to cite EGRET:<a class="anchor" aria-label="anchor" href="#how-to-cite-egret"></a>
+</h2>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"EGRET"</span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; To cite EGRET in publications, please use:</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   Hirsch, R.M., and De Cicco, L.A., 2015, User guide to Exploration and</span>
-<span class="co">#&gt;   Graphics for RivEr Trends (EGRET) and dataRetrieval: R packages for</span>
-<span class="co">#&gt;   hydrologic data (version 2.0, February 2015): U.S. Geological Survey</span>
-<span class="co">#&gt;   Techniques and Methods book 4, chap. A10, 93 p., doi:10.3133/tm4A10</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   @InBook{,</span>
-<span class="co">#&gt;     author = {Robert M. Hirsch and Laura A. {De Cicco}},</span>
-<span class="co">#&gt;     title = {User guide to Exploration and Graphics for RivEr Trends (EGRET) and dataRetrieval: R packages for hydrologic data},</span>
-<span class="co">#&gt;     publisher = {U.S. Geological Survey},</span>
-<span class="co">#&gt;     address = {Reston, VA},</span>
-<span class="co">#&gt;     booktitle = {Techniques and Methods},</span>
-<span class="co">#&gt;     institution = {U.S. Geological Survey},</span>
-<span class="co">#&gt;     year = {2015},</span>
-<span class="co">#&gt;     chapter = {A10},</span>
-<span class="co">#&gt;     url = {https://pubs.usgs.gov/tm/04/a10/},</span>
-<span class="co">#&gt;   }</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"EGRET"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; To cite EGRET in publications, please use:</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   Hirsch, R.M., and De Cicco, L.A., 2015, User guide to Exploration and</span></span>
+<span><span class="co">#&gt;   Graphics for RivEr Trends (EGRET) and dataRetrieval: R packages for</span></span>
+<span><span class="co">#&gt;   hydrologic data (version 2.0, February 2015): U.S. Geological Survey</span></span>
+<span><span class="co">#&gt;   Techniques and Methods book 4, chap. A10, 93 p., doi:10.3133/tm4A10</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;   @InBook{,</span></span>
+<span><span class="co">#&gt;     author = {Robert M. Hirsch and Laura A. {De Cicco}},</span></span>
+<span><span class="co">#&gt;     title = {User guide to Exploration and Graphics for RivEr Trends (EGRET) and dataRetrieval: R packages for hydrologic data},</span></span>
+<span><span class="co">#&gt;     publisher = {U.S. Geological Survey},</span></span>
+<span><span class="co">#&gt;     address = {Reston, VA},</span></span>
+<span><span class="co">#&gt;     booktitle = {Techniques and Methods},</span></span>
+<span><span class="co">#&gt;     institution = {U.S. Geological Survey},</span></span>
+<span><span class="co">#&gt;     year = {2015},</span></span>
+<span><span class="co">#&gt;     chapter = {A10},</span></span>
+<span><span class="co">#&gt;     url = {https://pubs.usgs.gov/tm/04/a10/},</span></span>
+<span><span class="co">#&gt;   }</span></span></code></pre></div>
 </div>
-<div id="references" class="section level2">
-<h2 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h2>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <p>See this list for WRTDS applications in print:</p>
-<p><a href="http://usgs-r.github.io/EGRET/articles/References_WRTDS.html" class="uri">http://usgs-r.github.io/EGRET/articles/References_WRTDS.html</a></p>
+<p><a href="http://usgs-r.github.io/EGRET/articles/References_WRTDS.html" class="external-link uri">http://usgs-r.github.io/EGRET/articles/References_WRTDS.html</a></p>
 </div>
-<div id="disclaimer" class="section level2">
-<h2 class="hasAnchor">
-<a href="#disclaimer" class="anchor"></a>Disclaimer</h2>
+<div class="section level2">
+<h2 id="disclaimer">Disclaimer<a class="anchor" aria-label="anchor" href="#disclaimer"></a>
+</h2>
 <p>This software has been approved for release by the U.S. Geological Survey (USGS). Although the software has been subjected to rigorous review, the USGS reserves the right to update the software as needed pursuant to further analysis and review. No warranty, expressed or implied, is made by the USGS or the U.S. Government as to the functionality of the software and related material nor shall the fact of release constitute any such warranty. Furthermore, the software is released on condition that neither the USGS nor the U.S. Government shall be held liable for any damages resulting from its authorized or unauthorized use.</p>
 </div>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <div class="links">
-<h2>Links</h2>
+  </main><aside class="col-md-3"><div class="links">
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=EGRET">https://​cloud.r-project.org/​package=EGRET</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/USGS-R/EGRET/">https://​github.com/​USGS-R/​EGRET/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/USGS-R/EGRET/issues">https://​github.com/​USGS-R/​EGRET/​issues</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=EGRET" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/USGS-R/EGRET/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/USGS-R/EGRET/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
 <li><small>CC0</small></li>
 </ul>
 </div>
+
+
 <div class="citation">
-<h2>Citation</h2>
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html">Citing EGRET</a></li>
+<li><a href="authors.html#citation">Citing EGRET</a></li>
 </ul>
 </div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Robert Hirsch <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-4534-075X" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li>Laura DeCicco <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-3915-9487" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li><a href="authors.html">All authors...</a></li>
+<li>Robert Hirsch <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-4534-075X" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Laura DeCicco <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-3915-9487" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/USGS-R/EGRET/actions"><img src="https://github.com/USGS-R/EGRET/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://codecov.io/gh/USGS-R/EGRET"><img src="https://codecov.io/gh/USGS-R/EGRET/branch/master/graph/badge.svg" alt="codecov"></a></li>
-<li><a href="https://owi.usgs.gov/R/packages.html#research"><img src="https://img.shields.io/badge/USGS-Research-blue.svg" alt="status"></a></li>
-<li><a href="https://cran.r-project.org/package=EGRET"><img src="http://www.r-pkg.org/badges/version/EGRET" alt="CRAN version"></a></li>
-<li><a href="https://cran.r-project.org/package=EGRET"><img src="http://cranlogs.r-pkg.org/badges/EGRET"></a></li>
-<li><a href="https://cran.r-project.org/package=EGRET"><img src="http://cranlogs.r-pkg.org/badges/grand-total/EGRET"></a></li>
+<li><a href="https://github.com/USGS-R/EGRET/actions" class="external-link"><img src="https://github.com/USGS-R/EGRET/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://codecov.io/gh/USGS-R/EGRET" class="external-link"><img src="https://codecov.io/gh/USGS-R/EGRET/branch/main/graph/badge.svg" alt="codecov"></a></li>
+<li><a href="https://owi.usgs.gov/R/packages.html#research" class="external-link"><img src="https://img.shields.io/badge/USGS-Research-blue.svg" alt="status"></a></li>
+<li><a href="https://cran.r-project.org/package=EGRET" class="external-link"><img src="http://www.r-pkg.org/badges/version/EGRET" alt="CRAN version"></a></li>
+<li><a href="https://cran.r-project.org/package=EGRET" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/EGRET"></a></li>
+<li><a href="https://cran.r-project.org/package=EGRET" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/grand-total/EGRET"></a></li>
 </ul>
 </div>
-</div>
-</div>
 
-
-      <footer><div class="copyright">
-  <p>Developed by Robert Hirsch, Laura DeCicco.</p>
+  </aside>
 </div>
 
-<div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
-</div>
 
-      </footer>
-</div>
+    <footer></footer>
+</div> <!-- / div for your main content-->
 
+<!-- BEGIN USGS Footer Template -->
+
+<footer class="footer"><div class="tmp-container">
+		<!-- .footer-wrap -->
+			<!-- .footer-doi -->
+			<div class="footer-doi">
+				<!-- footer nav links -->
+				<ul class="menu nav">
+<li class="first leaf menu-links menu-level-1"><a href="https://www.doi.gov/privacy" class="external-link">DOI Privacy Policy</a></li>
+					<li class="leaf menu-links menu-level-1"><a href="https://www.usgs.gov/policies-and-notices" class="external-link">Legal</a></li>
+					<li class="leaf menu-links menu-level-1"><a href="https://www.usgs.gov/accessibility-and-us-geological-survey" class="external-link">Accessibility</a></li>
+					<li class="leaf menu-links menu-level-1"><a href="https://www.usgs.gov/sitemap" class="external-link">Site Map</a></li>
+					<li class="last leaf menu-links menu-level-1"><a href="https://answers.usgs.gov/" class="external-link">Contact USGS</a></li>
+				</ul>
+<!--/ footer nav links -->
+</div>
+			<!-- /.footer-doi -->
+
+			<hr>
+<!-- .footer-utl-links --><div class="footer-doi">
+			<ul class="menu nav">
+<li class="first leaf menu-links menu-level-1"><a href="https://www.doi.gov/" class="external-link">U.S. Department of the Interior</a></li>
+				<li class="leaf menu-links menu-level-1"><a href="https://www.doioig.gov/" class="external-link">DOI Inspector General</a></li>
+				<li class="leaf menu-links menu-level-1"><a href="https://www.whitehouse.gov/" class="external-link">White House</a></li>
+				<li class="leaf menu-links menu-level-1"><a href="https://www.whitehouse.gov/omb/management/egov/" class="external-link">E-gov</a></li>
+				<li class="leaf menu-links menu-level-1"><a href="https://www.doi.gov/pmb/eeo/no-fear-act" class="external-link">No Fear Act</a></li>
+				<li class="last leaf menu-links menu-level-1"><a href="https://www.usgs.gov/about/organization/science-support/foia" class="external-link">FOIA</a></li>
+			</ul>
+</div>			
+		<!-- /.footer-utl-links -->
+		<!-- .footer-social-links -->
+		<div class="footer-social-links">
+			<ul class="social">
+<li class="follow">Follow</li>
+				<li class="twitter">
+					<a href="https://twitter.com/usgs" target="_blank" class="external-link">
+						<i class="fa fa-twitter-square"><span class="only">Twitter</span></i>
+					</a>
+				</li>
+				<li class="facebook">
+					<a href="https://facebook.com/usgeologicalsurvey" target="_blank" class="external-link">
+						<i class="fa fa-facebook-square"><span class="only">Facebook</span></i>
+					</a>
+				</li>
+				<li class="github">
+					<a href="https://github.com/usgs" target="_blank" class="external-link">
+						<i class="fa fa-github"><span class="only">GitHub</span></i>
+					</a>
+				</li>
+				<li class="flickr">
+					<a href="https://flickr.com/usgeologicalsurvey" target="_blank" class="external-link">
+						<i class="fa fa-flickr"><span class="only">Flickr</span></i>
+					</a>
+				</li>
+				<li class="youtube">
+					<a href="http://youtube.com/usgs" target="_blank" class="external-link">
+						<i class="fa fa-youtube-play"><span class="only">YouTube</span></i>
+					</a>
+				</li>
+				<li class="instagram">
+					<a href="https://instagram.com/usgs" target="_blank" class="external-link">
+						<i class="fa fa-instagram"><span class="only">Instagram</span></i>
+					</a>
+				</li>
+			</ul>
+</div>
+		<!-- /.footer-social-links -->
+	</div>
+		<!-- /.footer-wrap -->	
+</footer><!-- END USGS Footer Template- --><!-- Google Tag Manager (noscript) --><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TKQR8KP" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
   
-
-
   </body>
+<!-- closing div for body -->
 </html>
