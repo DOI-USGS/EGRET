@@ -94,13 +94,16 @@ x20 \tab The estimated value based on the CQR computed for year2, integrated ove
 x22 \tab The estimated value based on the CQR for year2, integrated over the QD specified by the user for year2. \cr
 }
 Additionally, there is an attribute on the data frame "Other", containing
-a list that includes minNumObs=minNumObs, minNumUncen, windowY, windowQ, 
+a list that includes minNumObs=minNumObs, minNumUncen, windowY, windowQ, siteName,
 windowS, wall, edgeAdjust, QStartDate, QEndDate, PercentChangeConc, and PercentChangeFlux.
 
-PercentChangeConc, and PercentChangeFlux are vectors with:
-Total Percent Change  is the Total Change divided by x11
+PercentChangeConc, and PercentChangeFlux are vectors where:
+Total Percent Change is the Total Change divided by x11
 CQTC Percent is the CQTC divided by x11
 QTC Percent  is the QTC divided by x11
+
+Another attribute is "byMonth". This is a data frame with the flux
+and concentration changes by month.
 }
 \description{
 \code{runPairs} provides comparisons of results, in terms of 
@@ -158,12 +161,13 @@ pairOut_4 <- runPairs(eList, year1, year2,
                       Q1EndDate = "1990-09-30")
                       
 monthly_trends <- attr(pairOut_4, "byMonth")  
-
+plotMonthTrend(pairOut_4)
 
 eList <- setPA(eList, paLong = 3, paStart = 12)
 pairOut_5 <- runPairs(eList, year1, year2,
                       windowSide = 11)
-monthly_trends <- attr(pairOut_5, "byMonth")                       
+monthly_trends <- attr(pairOut_5, "byMonth") 
+plotMonthTrend(pairOut_5)                      
 
 }
 }

@@ -19,9 +19,18 @@ factor helps adjust how big/small they are.}
 
 \item{flux}{logical. \code{TRUE} is flux, \code{FALSE} is concentration.
 Default is \code{TRUE}.}
+
+\item{printTitle}{logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)}
+}
+\value{
+Base R plot of monthly trends
 }
 \description{
-Plot monthly trend result from runPairs
+Plot monthly trend result from runPairs. The change in concentration
+or flux is calculated from the \code{runPairs} function. This plotting
+function shows an arrow for each month. If the trend from year1 to year2 
+was increasing, the arrow is red and pointing up. If the trend was decreasing,
+the arrow is black and pointing down.
 }
 \examples{
 
