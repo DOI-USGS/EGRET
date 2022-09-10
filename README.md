@@ -1,9 +1,21 @@
-# EGRET <img src="man/figures/egret-02.png" class="logo"  alt="EGRET" style="width:90px;height:auto;" align="right" />
+# EGRET <img src="man/figures/egret-02.png" alt="EGRET" height="150px" align="right" />
+
+[![R build
+status](https://github.com/USGS-R/EGRET/workflows/R-CMD-check/badge.svg)](https://github.com/USGS-R/EGRET/actions)
+[![codecov](https://codecov.io/gh/USGS-R/EGRET/branch/main/graph/badge.svg)](https://codecov.io/gh/USGS-R/EGRET)
+[![status](https://img.shields.io/badge/USGS-Research-blue.svg)](https://owi.usgs.gov/R/packages.html#research)
+[![CRAN
+version](http://www.r-pkg.org/badges/version/EGRET)](https://cran.r-project.org/package=EGRET)
+[![](http://cranlogs.r-pkg.org/badges/EGRET)](https://cran.r-project.org/package=EGRET)
+[![](http://cranlogs.r-pkg.org/badges/grand-total/EGRET)](https://cran.r-project.org/package=EGRET)
 
 Exploration and Graphics for RivEr Trends (`EGRET`): An R-package for
 the analysis of long-term changes in water quality and streamflow,
 including the water-quality method Weighted Regressions on Time,
 Discharge, and Season (WRTDS).
+
+Look for new and improved documentation her:
+<https://rconnect.usgs.gov/EGRET/>
 
 The link for the official USGS publication user guide is here:
 
@@ -313,7 +325,7 @@ siteID <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "" # Get earliest date
 endDate <- "" # Get latest date
 Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
-#> There are 27046 data points, and 27046 days.
+#> There are 27281 data points, and 27281 days.
 # Gather site and parameter information:
 # Here user must input some values for
 # the default (interactive=TRUE)
@@ -395,95 +407,95 @@ environments.
 
 ``` r
 sessioninfo::session_info()
-#> - Session info ---------------------------------------------------------------
+#> ─ Session info ───────────────────────────────────────────────────────────────
 #>  setting  value
-#>  version  R version 4.1.1 (2021-08-10)
-#>  os       Windows 10 x64 (build 19042)
+#>  version  R version 4.2.1 (2022-06-23 ucrt)
+#>  os       Windows 10 x64 (build 19044)
 #>  system   x86_64, mingw32
 #>  ui       RTerm
 #>  language (EN)
-#>  collate  English_United States.1252
-#>  ctype    English_United States.1252
+#>  collate  English_United States.utf8
+#>  ctype    English_United States.utf8
 #>  tz       America/Chicago
-#>  date     2022-01-18
-#>  pandoc   2.16.2 @ C:/Program Files/RStudio/bin/quarto/bin/ (via rmarkdown)
+#>  date     2022-09-10
+#>  pandoc   2.18 @ C:/Program Files/RStudio/bin/quarto/bin/tools/ (via rmarkdown)
 #> 
-#> - Packages -------------------------------------------------------------------
+#> ─ Packages ───────────────────────────────────────────────────────────────────
 #>  package       * version  date (UTC) lib source
-#>  assertthat      0.2.1    2019-03-21 [2] CRAN (R 4.1.0)
-#>  bit             4.0.4    2020-08-04 [2] CRAN (R 4.1.0)
-#>  bit64           4.0.5    2020-08-30 [2] CRAN (R 4.1.0)
-#>  class           7.3-19   2021-05-03 [3] CRAN (R 4.1.1)
-#>  classInt        0.4-3    2020-04-07 [2] CRAN (R 4.1.0)
-#>  cli             3.1.0    2021-10-27 [2] CRAN (R 4.1.1)
-#>  colorspace      2.0-2    2021-06-24 [2] CRAN (R 4.1.0)
-#>  crayon          1.4.2    2021-10-29 [2] CRAN (R 4.1.1)
-#>  curl            4.3.2    2021-06-23 [2] CRAN (R 4.1.0)
-#>  dataRetrieval   2.7.10.1 2021-12-22 [2] local
-#>  DBI             1.1.2    2021-12-20 [2] CRAN (R 4.1.1)
-#>  digest          0.6.29   2021-12-01 [2] CRAN (R 4.1.1)
-#>  dotCall64       1.0-1    2021-02-11 [2] CRAN (R 4.1.0)
-#>  dplyr           1.0.7    2021-06-18 [2] CRAN (R 4.1.0)
-#>  e1071           1.7-9    2021-09-16 [2] CRAN (R 4.1.1)
-#>  EGRET         * 3.0.7    2022-01-19 [2] local
-#>  ellipsis        0.3.2    2021-04-29 [2] CRAN (R 4.1.0)
-#>  evaluate        0.14     2019-05-28 [2] CRAN (R 4.1.0)
-#>  fansi           1.0.0    2022-01-10 [2] CRAN (R 4.1.1)
-#>  fastmap         1.1.0    2021-01-25 [2] CRAN (R 4.1.0)
-#>  fields          13.3     2021-10-30 [2] CRAN (R 4.1.1)
-#>  generics        0.1.1    2021-10-25 [2] CRAN (R 4.1.1)
-#>  ggplot2         3.3.5    2021-06-25 [2] CRAN (R 4.1.0)
-#>  glue            1.6.0    2021-12-17 [2] CRAN (R 4.1.2)
-#>  gridExtra       2.3      2017-09-09 [2] CRAN (R 4.1.0)
-#>  gtable          0.3.0    2019-03-25 [2] CRAN (R 4.1.0)
-#>  highr           0.9      2021-04-16 [2] CRAN (R 4.1.0)
-#>  hms             1.1.1    2021-09-26 [2] CRAN (R 4.1.1)
-#>  htmltools       0.5.2    2021-08-25 [2] CRAN (R 4.1.1)
-#>  httr            1.4.2    2020-07-20 [2] CRAN (R 4.1.0)
-#>  jsonlite        1.7.2    2020-12-09 [2] CRAN (R 4.1.0)
-#>  KernSmooth      2.23-20  2021-05-03 [3] CRAN (R 4.1.1)
-#>  knitr           1.37     2021-12-16 [2] CRAN (R 4.1.2)
-#>  lattice         0.20-44  2021-05-02 [3] CRAN (R 4.1.1)
-#>  lifecycle       1.0.1    2021-09-24 [2] CRAN (R 4.1.1)
-#>  magrittr        2.0.1    2020-11-17 [2] CRAN (R 4.1.0)
-#>  maps            3.4.0    2021-09-25 [2] CRAN (R 4.1.1)
-#>  Matrix          1.3-4    2021-06-01 [3] CRAN (R 4.1.1)
-#>  munsell         0.5.0    2018-06-12 [2] CRAN (R 4.1.0)
-#>  pillar          1.6.4    2021-10-18 [2] CRAN (R 4.1.1)
-#>  pkgconfig       2.0.3    2019-09-22 [2] CRAN (R 4.1.0)
-#>  proxy           0.4-26   2021-06-07 [2] CRAN (R 4.1.0)
-#>  purrr           0.3.4    2020-04-17 [2] CRAN (R 4.1.0)
-#>  R6              2.5.1    2021-08-19 [2] CRAN (R 4.1.1)
-#>  Rcpp            1.0.8    2022-01-13 [2] CRAN (R 4.1.1)
-#>  readr           2.1.1    2021-11-30 [2] CRAN (R 4.1.1)
-#>  rlang           0.4.12   2021-10-18 [2] CRAN (R 4.1.1)
-#>  rmarkdown       2.11     2021-09-14 [2] CRAN (R 4.1.1)
-#>  rstudioapi      0.13     2020-11-12 [2] CRAN (R 4.1.0)
-#>  scales          1.1.1    2020-05-11 [2] CRAN (R 4.1.0)
-#>  sessioninfo     1.2.2    2021-12-06 [2] CRAN (R 4.1.1)
-#>  sf              1.0-5    2021-12-17 [2] CRAN (R 4.1.2)
-#>  spam            2.8-0    2022-01-06 [2] CRAN (R 4.1.1)
-#>  stringi         1.7.6    2021-11-29 [2] CRAN (R 4.1.1)
-#>  stringr         1.4.0    2019-02-10 [2] CRAN (R 4.1.0)
-#>  survival        3.2-11   2021-04-26 [3] CRAN (R 4.1.1)
-#>  tibble          3.1.6    2021-11-07 [2] CRAN (R 4.1.1)
-#>  tidyselect      1.1.1    2021-04-30 [2] CRAN (R 4.1.0)
-#>  tzdb            0.2.0    2021-10-27 [2] CRAN (R 4.1.1)
-#>  units           0.7-2    2021-06-08 [2] CRAN (R 4.1.0)
-#>  utf8            1.2.2    2021-07-24 [2] CRAN (R 4.1.0)
-#>  vctrs           0.3.8    2021-04-29 [2] CRAN (R 4.1.0)
-#>  viridis         0.6.2    2021-10-13 [2] CRAN (R 4.1.1)
-#>  viridisLite     0.4.0    2021-04-13 [2] CRAN (R 4.1.0)
-#>  vroom           1.5.7    2021-11-30 [2] CRAN (R 4.1.1)
-#>  xfun            0.29     2021-12-14 [2] CRAN (R 4.1.2)
-#>  xml2            1.3.3    2021-11-30 [2] CRAN (R 4.1.1)
-#>  yaml            2.2.1    2020-02-01 [2] CRAN (R 4.1.0)
+#>  assertthat      0.2.1    2019-03-21 [2] CRAN (R 4.2.1)
+#>  bit             4.0.4    2020-08-04 [2] CRAN (R 4.2.1)
+#>  bit64           4.0.5    2020-08-30 [2] CRAN (R 4.2.1)
+#>  class           7.3-20   2022-01-16 [3] CRAN (R 4.2.1)
+#>  classInt        0.4-7    2022-06-10 [2] CRAN (R 4.2.1)
+#>  cli             3.3.0    2022-04-25 [2] CRAN (R 4.2.1)
+#>  colorspace      2.0-3    2022-02-21 [2] CRAN (R 4.2.1)
+#>  crayon          1.5.1    2022-03-26 [2] CRAN (R 4.2.1)
+#>  curl            4.3.2    2021-06-23 [2] CRAN (R 4.2.1)
+#>  dataRetrieval   2.7.11.1 2022-08-31 [2] local
+#>  DBI             1.1.3    2022-06-18 [2] CRAN (R 4.2.1)
+#>  digest          0.6.29   2021-12-01 [2] CRAN (R 4.2.1)
+#>  dotCall64       1.0-1    2021-02-11 [2] CRAN (R 4.2.1)
+#>  dplyr           1.0.9    2022-04-28 [2] CRAN (R 4.2.1)
+#>  e1071           1.7-11   2022-06-07 [2] CRAN (R 4.2.1)
+#>  EGRET         * 3.0.7.2  2022-09-10 [1] local
+#>  ellipsis        0.3.2    2021-04-29 [2] CRAN (R 4.2.1)
+#>  evaluate        0.16     2022-08-09 [2] CRAN (R 4.2.1)
+#>  fansi           1.0.3    2022-03-24 [2] CRAN (R 4.2.1)
+#>  fastmap         1.1.0    2021-01-25 [2] CRAN (R 4.2.1)
+#>  fields          14.1     2022-08-12 [2] CRAN (R 4.2.1)
+#>  generics        0.1.3    2022-07-05 [2] CRAN (R 4.2.1)
+#>  ggplot2         3.3.6    2022-05-03 [2] CRAN (R 4.2.1)
+#>  glue            1.6.2    2022-02-24 [2] CRAN (R 4.1.3)
+#>  gridExtra       2.3      2017-09-09 [2] CRAN (R 4.2.1)
+#>  gtable          0.3.1    2022-09-01 [2] CRAN (R 4.2.1)
+#>  highr           0.9      2021-04-16 [2] CRAN (R 4.2.1)
+#>  hms             1.1.2    2022-08-19 [2] CRAN (R 4.2.1)
+#>  htmltools       0.5.3    2022-07-18 [2] CRAN (R 4.2.1)
+#>  httr            1.4.4    2022-08-17 [2] CRAN (R 4.2.1)
+#>  jsonlite        1.8.0    2022-02-22 [2] CRAN (R 4.2.1)
+#>  KernSmooth      2.23-20  2021-05-03 [3] CRAN (R 4.2.1)
+#>  knitr           1.40     2022-08-24 [2] CRAN (R 4.2.1)
+#>  lattice         0.20-45  2021-09-22 [3] CRAN (R 4.2.1)
+#>  lifecycle       1.0.1    2021-09-24 [2] CRAN (R 4.2.1)
+#>  magrittr        2.0.3    2022-03-30 [2] CRAN (R 4.1.3)
+#>  maps            3.4.0    2021-09-25 [2] CRAN (R 4.2.1)
+#>  Matrix          1.4-1    2022-03-23 [3] CRAN (R 4.2.1)
+#>  munsell         0.5.0    2018-06-12 [2] CRAN (R 4.2.1)
+#>  pillar          1.8.1    2022-08-19 [2] CRAN (R 4.2.1)
+#>  pkgconfig       2.0.3    2019-09-22 [2] CRAN (R 4.2.1)
+#>  proxy           0.4-27   2022-06-09 [2] CRAN (R 4.2.1)
+#>  purrr           0.3.4    2020-04-17 [2] CRAN (R 4.2.1)
+#>  R6              2.5.1    2021-08-19 [2] CRAN (R 4.2.1)
+#>  Rcpp            1.0.9    2022-07-08 [2] CRAN (R 4.2.1)
+#>  readr           2.1.2    2022-01-30 [2] CRAN (R 4.2.1)
+#>  rlang           1.0.4    2022-07-12 [2] CRAN (R 4.2.1)
+#>  rmarkdown       2.16     2022-08-24 [2] CRAN (R 4.2.1)
+#>  rstudioapi      0.14     2022-08-22 [2] CRAN (R 4.2.1)
+#>  scales          1.2.1    2022-08-20 [2] CRAN (R 4.2.1)
+#>  sessioninfo     1.2.2    2021-12-06 [2] CRAN (R 4.2.1)
+#>  sf              1.0-8    2022-07-14 [2] CRAN (R 4.2.1)
+#>  spam            2.9-1    2022-08-07 [2] CRAN (R 4.2.1)
+#>  stringi         1.7.8    2022-07-11 [2] CRAN (R 4.2.1)
+#>  stringr         1.4.1    2022-08-20 [2] CRAN (R 4.2.1)
+#>  survival        3.4-0    2022-08-09 [2] CRAN (R 4.2.1)
+#>  tibble          3.1.8    2022-07-22 [2] CRAN (R 4.2.1)
+#>  tidyselect      1.1.2    2022-02-21 [2] CRAN (R 4.2.1)
+#>  tzdb            0.3.0    2022-03-28 [2] CRAN (R 4.2.1)
+#>  units           0.8-0    2022-02-05 [2] CRAN (R 4.2.1)
+#>  utf8            1.2.2    2021-07-24 [2] CRAN (R 4.2.1)
+#>  vctrs           0.4.1    2022-04-13 [2] CRAN (R 4.2.1)
+#>  viridis         0.6.2    2021-10-13 [2] CRAN (R 4.2.1)
+#>  viridisLite     0.4.1    2022-08-22 [2] CRAN (R 4.2.1)
+#>  vroom           1.5.7    2021-11-30 [2] CRAN (R 4.2.1)
+#>  xfun            0.31     2022-05-10 [2] CRAN (R 4.2.1)
+#>  xml2            1.3.3    2021-11-30 [2] CRAN (R 4.2.1)
+#>  yaml            2.3.5    2022-02-21 [2] CRAN (R 4.2.0)
 #> 
-#>  [1] C:/Users/ldecicco/AppData/Local/Temp/7/RtmpG636p2/temp_libpath69e8d597e00
-#>  [2] C:/Users/ldecicco/Documents/R/win-library/4.1
-#>  [3] C:/Program Files/R/R-4.1.1/library
+#>  [1] C:/Users/ldecicco/AppData/Local/Temp/4/RtmpyshfNE/temp_libpath371820f65696
+#>  [2] C:/Users/ldecicco/Documents/R/win-library/4.2
+#>  [3] C:/Program Files/R/R-4.2.1/library
 #> 
-#> ------------------------------------------------------------------------------
+#> ──────────────────────────────────────────────────────────────────────────────
 ```
 
 ## Reporting bugs
@@ -508,7 +520,7 @@ R packages, please send a request to <egret_comments@usgs.gov>.
 
 We want to encourage a warm, welcoming, and safe environment for
 contributing to this project. See the [code of
-conduct](https://github.com/USGS-R/EGRET/blob/main/CONDUCT.md) for
+conduct](https://github.com/USGS-R/EGRET/blob/master/CONDUCT.md) for
 more information.
 
 ## Package Support
