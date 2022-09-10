@@ -9,5 +9,5 @@ rsconnect::writeManifest(appDir = "./docs")
 bundle <- bundle_dir("./docs")
 
 content <- client %>% 
-  deploy(bundle, name = "HASP_docs") %>% 
+  deploy(bundle, name = "EGRET") %>% 
   poll_task()
