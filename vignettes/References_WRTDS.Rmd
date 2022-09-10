@@ -1,5 +1,5 @@
 ---
-title: "Bibliography"
+title: "WRTDS Bibliography"
 output: 
   rmarkdown::html_vignette:
     toc: true

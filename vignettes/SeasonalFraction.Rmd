@@ -253,7 +253,7 @@ sumSeasons <- sum(years00_10$SeasonFlux * years00_10$Counts /
 
 avePct <- 100 * sumSeasons / sumYears
 
-`````
+```
 
 The total flux for all years in the period of interest in millions of kg is `sumYears` = `r signif(sumYears, digits = 3)`.
 
@@ -270,7 +270,7 @@ years90_99 <- filter(seasonPctResults, Year >= 1990, Year <= 1999)
 c("sumYears" = sum(years90_99$AnnualFlux),
 "sumSeasons" = sum(years90_99$SeasonFlux * years90_99$Counts / years90_99$AnnualCounts),
 "avePct" = 100 * sumSeasons / sumYears)
-`````
+```
 
 
 

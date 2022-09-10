@@ -7,7 +7,7 @@ output:
     fig_height: 5
     fig_width: 7
 vignette: >
-  %\VignetteIndexEntry{WRTDS without discharge}
+  %\VignetteIndexEntry{Using a WRTDS model where the discharge variable is not daily discharge}
   \usepackage[utf8]{inputenc}
   %\VignetteEngine{knitr::rmarkdown}
 ---
