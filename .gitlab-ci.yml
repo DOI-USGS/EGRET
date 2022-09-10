@@ -37,7 +37,7 @@ getready:
     - mkdir -p $R_LIBS_USER
     - mkdir -p $APT_CACHE
     - echo "options(Ncpus=$(nproc --all), repos=c(CRAN='$CRAN'))" >> $R_PROFILE
-    - Rscript -e "install.packages(c('devtools', 'pkgdown', 'covr', 'connectapi', 'zoo'))"
+    - Rscript -e "install.packages(c('devtools', 'pkgdown', 'covr', 'connectapi', 'zoo', 'rsconnect'))"
     - Rscript -e 'remotes::install_deps(dependencies=TRUE)'
   cache:
     paths:
