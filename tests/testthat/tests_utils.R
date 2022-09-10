@@ -353,6 +353,12 @@ test_that("other plot functions don't error", {
   expect_silent(plotFourStats(eList))
   expect_true(dev_start + 1 == dev.cur())
   
+  pair1 <- runPairs(eList, year1 = 1985, year2 = 2010, windowSide = 0)
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(plotMonthTrend(pair1))
+  expect_true(dev_start + 1 == dev.cur())
+  
 })
 
 test_that("plot.egret passes correct arguments", {

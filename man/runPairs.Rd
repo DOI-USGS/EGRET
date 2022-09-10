@@ -9,8 +9,8 @@ runPairs(eList, year1, year2, windowSide, flowBreak = FALSE,
   oldSurface = FALSE, sample1EndDate = NA, sampleStartDate = NA,
   sampleEndDate = NA, paStart = NA, paLong = NA, minNumObs = 100,
   minNumUncen = 50, fractMin = 0.75, windowY = 7, windowQ = 2,
-  windowS = 0.5, edgeAdjust = TRUE, includeMonth = FALSE,
-  saveOutput = FALSE, fileName = "temp.txt", verbose = TRUE)
+  windowS = 0.5, edgeAdjust = TRUE, saveOutput = FALSE,
+  fileName = "temp.txt", verbose = TRUE)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -68,10 +68,6 @@ minimum number will be the maximum of minNumObs and fractMin multiplied by total
 
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.
 The edgeAdjust method tends to reduce curvature near the start and end of record.  Default is TRUE.}
-
-\item{includeMonth}{logical specifying whether to calculate monthly trends. Default is FALSE.
-Specifying TRUE will require a calendar year analysis. The monthly results are stored
-in an attribute named "byMonth".}
 
 \item{saveOutput}{logical. If \code{TRUE}, a text file will be saved in the working directory of the printout of
 what is in the console output. Default is \code{FALSE}.}
@@ -161,6 +157,13 @@ pairOut_4 <- runPairs(eList, year1, year2,
                       windowSide = 11, flowBreak = TRUE,
                       Q1EndDate = "1990-09-30")
                       
+monthly_trends <- attr(pairOut_4, "byMonth")  
+
+
+eList <- setPA(eList, paLong = 3, paStart = 12)
+pairOut_5 <- runPairs(eList, year1, year2,
+                      windowSide = 11)
+monthly_trends <- attr(pairOut_5, "byMonth")                       
 
 }
 }

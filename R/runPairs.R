@@ -54,9 +54,6 @@
 #' minimum number will be the maximum of minNumObs and fractMin multiplied by total number of observations.
 #' @param edgeAdjust logical specifying whether to use the modified method for calculating the windows at the edge of the record.  
 #' The edgeAdjust method tends to reduce curvature near the start and end of record.  Default is TRUE.
-#' @param includeMonth logical specifying whether to calculate monthly trends. Default is FALSE.
-#' Specifying TRUE will require a calendar year analysis. The monthly results are stored
-#' in an attribute named "byMonth".
 #' @param oldSurface logical specifying whether to use the original surface, or create a new one. Default is FALSE.
 #' @param verbose logical specifying whether or not to display progress message
 #' @param saveOutput logical. If \code{TRUE}, a text file will be saved in the working directory of the printout of
@@ -121,6 +118,13 @@
 #'                       windowSide = 11, flowBreak = TRUE,
 #'                       Q1EndDate = "1990-09-30")
 #'                       
+#' monthly_trends <- attr(pairOut_4, "byMonth")  
+#' 
+#' 
+#' eList <- setPA(eList, paLong = 3, paStart = 12)
+#' pairOut_5 <- runPairs(eList, year1, year2,
+#'                       windowSide = 11)
+#' monthly_trends <- attr(pairOut_5, "byMonth")                       
 #' 
 #' }
 runPairs <- function(eList, year1, year2, windowSide, 
@@ -132,7 +136,6 @@ runPairs <- function(eList, year1, year2, windowSide,
                      minNumObs = 100, minNumUncen = 50, fractMin = 0.75,
                      windowY = 7, windowQ = 2, windowS = 0.5, 
                      edgeAdjust = TRUE,
-                     includeMonth = FALSE,
                      saveOutput = FALSE, 
                      fileName = "temp.txt", 
                      verbose = TRUE){
@@ -146,18 +149,7 @@ runPairs <- function(eList, year1, year2, windowSide,
   if(!is.egret(eList)){
     stop("Please check eList argument")
   }
-  
-  if(includeMonth){
-    
-    if(!is.na(paStart) & paStart != 1 |
-       !is.na(paLong) & paLong != 12){
-      message("Monthly analysis based on calendar year.")
-    }
-    
-    paStart <- 1
-    paLong <- 12 
-  }
-  
+
   localSample <- getSample(eList)
   localDaily <- getDaily(eList)
   
@@ -441,15 +433,16 @@ runPairs <- function(eList, year1, year2, windowSide,
   names(SampleBlocks) <- c("sample1StartDate", "sample1EndDate", "sample2StartDate", "sample2EndDate")
   attr(pairResults, "SampleBlocks") <- SampleBlocks
   
-  Other <- list(minNumObs=minNumObs, 
-                minNumUncen=minNumUncen, 
-                windowY=windowY, 
+  Other <- list(minNumObs = minNumObs, 
+                minNumUncen = minNumUncen, 
+                windowY = windowY, 
                 windowQ = windowQ, 
-                windowS=windowS, 
-                wall=wall,
-                edgeAdjust=edgeAdjust,
+                windowS = windowS, 
+                wall = wall,
+                edgeAdjust = edgeAdjust,
                 QStartDate = as.Date(QStartDate), 
                 QEndDate = as.Date(QEndDate),
+                siteName = eList$INFO$shortName,
                 PercentChangeConc = c("Total Percent Change" = totChangePct_conc, 
                                       "CQTC Percent" = CQTC_percent_conc, 
                                       "QTC Percent" = QTC_percent_conc),
@@ -474,25 +467,39 @@ runPairs <- function(eList, year1, year2, windowSide,
   z$Year <- c(year1, year1, year2, year2)
   z$Type <- c("Flux", "Conc", "Flux", "Conc")
   
-  if(includeMonth){
-    k <- c(31, 28.25, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31) 
-    eList1 <- as.egret(eList$INFO, DailyRS1FD1, eList$Sample)
-    monthlyResults1 <- calculateMonthlyResults(eList1)
-    monthlyResults1 <- na.omit(monthlyResults1)
-    eList2 <- as.egret(eList$INFO, DailyRS2FD2, eList$Sample)
-    monthlyResults2 <- calculateMonthlyResults(eList2)
-    monthlyResults2 <- na.omit(monthlyResults2)
-    for(i in 1:12){
-      m1 <- monthlyResults1[monthlyResults1[,1]==i,]
-      z[1,i+2] <- m1$Flux[1] * k[i] / eList$INFO$drainSqKm
-      z[2,i+2] <- m1$Conc[1] * k[i]
-      m2 <- monthlyResults2[monthlyResults2[,1]==i,]
-      z[3,i+2] <- m2$Flux[1] * k[i] / eList$INFO$drainSqKm
-      z[4,i+2] <- m2$Conc[1] * k[i]
-    }
-    
-    attr(pairResults, "byMonth") <- z
+  k <- c(31, 28.25, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31) 
+  eList1 <- as.egret(eList$INFO, DailyRS1FD1, eList$Sample)
+  monthlyResults1 <- calculateMonthlyResults(eList1)
+  monthlyResults1 <- na.omit(monthlyResults1)
+  eList2 <- as.egret(eList$INFO, DailyRS2FD2, eList$Sample)
+  monthlyResults2 <- calculateMonthlyResults(eList2)
+  monthlyResults2 <- na.omit(monthlyResults2)
+  monthlyResults1$monthFlux <- monthlyResults1$nDays * monthlyResults1$FNFlux / eList$INFO$drainSqKm
+  monthlyResults1$monthConc <- monthlyResults1$nDays * monthlyResults1$FNConc
+  
+  monthlyResults2$monthFlux <- monthlyResults2$nDays * monthlyResults2$FNFlux / eList$INFO$drainSqKm
+  monthlyResults2$monthConc <- monthlyResults2$nDays * monthlyResults2$FNConc
+  months <- paStart:(paStart + paLong - 1)
+  months[months > 12] <- months[months > 12] - 12
+  for(i in months){
+
+    flux1 <- monthlyResults1$monthFlux[which(monthlyResults1$Month == i)]
+    flux1 <- ifelse(length(flux1) == 0, NA, flux1)
+    conc1 <- monthlyResults1$monthConc[which(monthlyResults1$Month == i)]
+    conc1 <- ifelse(length(conc1) == 0, NA, conc1)
+    z[1,i+2] <- flux1
+    z[2,i+2] <- conc1
+
+    flux2 <- monthlyResults2$monthFlux[which(monthlyResults2$Month == i)]
+    flux2 <- ifelse(length(flux2) == 0, NA, flux2)
+    conc2 <- monthlyResults2$monthConc[which(monthlyResults2$Month == i)]
+    conc2 <- ifelse(length(conc2) == 0, NA, conc2)
+    z[3,i+2] <- flux2
+    z[4,i+2] <- conc2
   }
+  
+  attr(pairResults, "byMonth") <- z
+  
   
   return(pairResults)
   
