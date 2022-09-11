@@ -15,6 +15,8 @@
 #' generated labels
 #' @param prettyDate logical use 'pretty' limits for date axis if TRUE, or force the yearStart/yearEnd as limits if FALSE
 #' @keywords graphics water-quality statistics
+#' @param concLab object of concUnit class, or numeric represented the short code, 
+#' or character representing the descriptive name.
 #' @export
 #' @examples
 #' eList <- Choptank_eList
@@ -27,6 +29,7 @@
 #' generalAxis(x, max, min, units)
 #' min <- min(x)
 #' generalAxis(x, max, min, units, log=TRUE)
+#' generalAxis(Daily$ConcDay, 100, 0, concLab = "concentration")
 generalAxis <- function(x,
                         maxVal,
                         minVal,
@@ -35,6 +38,7 @@ generalAxis <- function(x,
                         tinyPlot = FALSE,
                         padPercent = 5,
                         concentration = TRUE,
+                        concLab = 1,
                         usgsStyle = FALSE,
                         prettyDate = TRUE) {
   
@@ -57,8 +61,17 @@ generalAxis <- function(x,
   }
    
   if(concentration){
+    
+    if (is.numeric(concLab)){
+      concPrefix <- concConst[shortCode=concLab][[1]]    
+    } else if (is.character(concLab)){
+      concPrefix <- concConst[concLab][[1]]
+    } else {
+      concPrefix <- concLab
+    }
+    
     if (tinyPlot){
-      label <- paste("Conc. (",units,")",sep="")
+      label <- paste0(concPrefix@shortPrefix, ". (",units,")")
     } else {
       if(usgsStyle){
         localUnits <- toupper(units) 
@@ -71,11 +84,11 @@ generalAxis <- function(x,
         if(localUnits %in% allCaps){
           label <- "Concentration, in milligrams per liter"
         } else {
-          label <- paste("Concentration, in",units)
+          label <- paste0(concPrefix@longPrefix, ", in ",units)
         }
         
       } else {
-        label <- paste("Concentration in", units)
+        label <- paste0(concPrefix@longPrefix, " in ", units)
       }
     }
   } else {

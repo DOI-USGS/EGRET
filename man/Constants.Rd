@@ -6,6 +6,7 @@
 \alias{fluxConst}
 \alias{qConst}
 \alias{monthInfo}
+\alias{concConst}
 \title{Constants included with EGRET}
 \description{
 \itemize{
@@ -21,5 +22,7 @@ fluxConst[['kgDay']]@unitName
 qConst
 qConst[['cfs']]
 qConst[['cfs']]@qUnitName
+concConst[['concentration']]
+concConst[['concentration']]@shortPrefix
 }
 \keyword{datasets}

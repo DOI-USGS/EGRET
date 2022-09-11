@@ -8,7 +8,7 @@ plotConcQ(eList, qUnit = 2, tinyPlot = FALSE, logScale = FALSE,
   randomCensored = FALSE, concMax = NA, concMin = NA,
   printTitle = TRUE, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
   usgsStyle = FALSE, rmSciX = FALSE, rmSciY = FALSE, customPar = FALSE,
-  col = "black", lwd = 1, ...)
+  col = "black", lwd = 1, concLab = 1, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}
@@ -48,6 +48,9 @@ generated labels.}
 \item{col}{color of points on plot, see ?par 'Color Specification'}
 
 \item{lwd}{number line width}
+
+\item{concLab}{object of concUnit class, or numeric represented the short code, 
+or character representing the descriptive name.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }

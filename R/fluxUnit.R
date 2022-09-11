@@ -38,6 +38,29 @@ setClass("fluxUnit",
 	)	
 )
 
+#' concUnit class
+#'
+#' Some details about the concUnit class
+#'
+#' \describe{
+#'    \item{longPrefix}{A character specifying the long name
+#'     for concentration labels.}
+#'
+#'    \item{shortPrefix}{A character specifying the short name
+#'     for concentration labels.}
+#' 
+#'  }
+#' @name concUnit-class
+#' @rdname concUnit-class
+#' @exportClass concUnit
+setClass("concUnit",
+         representation(
+           longPrefix    = "character",
+           shortPrefix   = "character"
+         )	
+)
+
+
 #' qUnit class
 #'
 #' Some details about the qUnit class

@@ -89,16 +89,18 @@ NULL
 #'  \item{monthInfo}{Month object}
 #'}
 #'
-#'@aliases fluxConst qConst monthInfo
+#'@aliases fluxConst qConst monthInfo concConst
 #'@name Constants
 #'@docType data
-#'@export fluxConst qConst monthInfo
+#'@export fluxConst qConst monthInfo concConst
 #'@keywords datasets
 #'@examples
 #'fluxConst
 #'fluxConst[['kgDay']]
-#'fluxConst[['kgDay']]@@unitName
+#'fluxConst[['kgDay']]@unitName
 #'qConst
 #'qConst[['cfs']]
-#'qConst[['cfs']]@@qUnitName
+#'qConst[['cfs']]@qUnitName
+#'concConst[['concentration']]
+#'concConst[['concentration']]@shortPrefix
 NULL

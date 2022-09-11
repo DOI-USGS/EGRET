@@ -47,13 +47,20 @@
 #' eList <- Choptank_eList
 #' 
 #' plotConcHist(eList, yearStart, yearEnd)
-plotConcHist <- function(eList, yearStart = NA, yearEnd = NA, 
-                       concMax = NA, 
-                       printTitle = TRUE, 
-                       tinyPlot = FALSE, usgsStyle = FALSE,
-                       plotFlowNorm = TRUE, plotAnnual = TRUE, plotGenConc = FALSE,
-                       cex = 0.8, cex.axis = 1.1, cex.main = 1.1, lwd = 2, 
-                       col = "black", col.pred = "green", col.gen = "red", customPar = FALSE, ...){
+plotConcHist <- function(eList,
+                         yearStart = NA, 
+                         yearEnd = NA, 
+                         concMax = NA, 
+                         printTitle = TRUE, 
+                         tinyPlot = FALSE,
+                         usgsStyle = FALSE,
+                         plotFlowNorm = TRUE,
+                         plotAnnual = TRUE,
+                         plotGenConc = FALSE,
+                         cex = 0.8, cex.axis = 1.1, 
+                         cex.main = 1.1, lwd = 2, 
+                         col = "black", col.pred = "green",
+                         col.gen = "red", customPar = FALSE, ...){
   
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)

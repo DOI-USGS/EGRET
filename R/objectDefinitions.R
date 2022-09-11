@@ -134,6 +134,11 @@ fluxConst <- list(poundsDay = new("fluxUnit",
 
 )
 
+
+concConst <- list(concentration = new("concUnit", 
+                                      longPrefix = "Concentration",
+                                      shortPrefix = "Conc"))
+
 qConst <- list(cfs = new("qUnit",
                           qShortName = "   cfs  ",
                           qUnitFactor = 35.314667,
@@ -188,64 +193,7 @@ qConst <- list(cfs = new("qUnit",
 #                           )
 )
 
-monthInfo = c(new("monthLabel",
-                    monthAbbrev = "Jan",
-                    monthFull = "January",
-                    monthSingle = "J"
-                    ),
-              new("monthLabel",
-                    monthAbbrev = "Feb",
-                    monthFull = "February",
-                    monthSingle = "F"
-                    ),
-              new("monthLabel",
-                    monthAbbrev = "Mar",
-                    monthFull = "March",
-                    monthSingle = "M"
-                    ),
-              new("monthLabel",
-                    monthAbbrev = "Apr",
-                    monthFull = "April",
-                    monthSingle = "A"
-                    ),
-              new("monthLabel",
-                    monthAbbrev = "May",
-                    monthFull = "May",
-                    monthSingle = "M"
-                    ),
-              new("monthLabel",
-                    monthAbbrev = "Jun",
-                    monthFull = "June",
-                    monthSingle = "J"
-                    ),
-              new("monthLabel",
-                    monthAbbrev = "Jul",
-                    monthFull = "July",
-                    monthSingle = "J"
-                    ),
-              new("monthLabel",
-                    monthAbbrev = "Aug",
-                    monthFull = "August",
-                    monthSingle = "A"
-                    ),
-              new("monthLabel",
-                    monthAbbrev = "Sep",
-                    monthFull = "September",
-                    monthSingle = "S"
-                    ),
-              new("monthLabel",
-                    monthAbbrev = "Oct",
-                    monthFull = "October",
-                    monthSingle = "O"
-                    ),
-              new("monthLabel",
-                    monthAbbrev = "Nov",
-                    monthFull = "November",
-                    monthSingle = "N"
-                    ),
-              new("monthLabel",
-                    monthAbbrev = "Dec",
-                    monthFull = "December",
-                    monthSingle = "D"
-                    )
-)
+monthInfo <- c(English = new("monthLabel",
+                             monthAbbrev = month.abb,
+                             monthFull = month.name,
+                             monthSingle = c("J","F","M","A","M","J","J","A","S","O","N","D")))
