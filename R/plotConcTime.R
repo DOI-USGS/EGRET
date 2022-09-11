@@ -35,6 +35,8 @@
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
 #' to TRUE does NOT guarantee USGS compliance. It will only change automatically
 #' generated labels
+#' @param concLab object of concUnit class, or numeric represented the short code, 
+#' or character representing the descriptive name.
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters.
 #' @details
 #' The function has two possible ways to plot censored values (e.g. "less-than values").
