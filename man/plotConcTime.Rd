@@ -49,6 +49,9 @@ plotConcTime(eList, qUnit = 2, yearStart = NA, yearEnd = NA,
 
 \item{lwd}{number line width.}
 
+\item{concLab}{object of concUnit class, or numeric represented the short code, 
+or character representing the descriptive name.}
+
 \item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
 to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels}

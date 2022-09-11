@@ -9,8 +9,8 @@ plotContours(eList, yearStart, yearEnd, qBottom = NA, qTop = NA,
   pval = 0.05, printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA,
   tcl = 0.03, flowDuration = TRUE, customPar = FALSE, yTicks = NA,
   tick.lwd = 1, usgsStyle = FALSE, lwd = 2, cex.main = 1,
-  cex.axis = 1, color.palette = colorRampPalette(c("white", "gray", "blue",
-  "red")), ...)
+  cex.axis = 1, concLab = 1, color.palette = colorRampPalette(c("white",
+  "gray", "blue", "red")), ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes, and surfaces matrix}
@@ -61,6 +61,9 @@ generated labels.}
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
 
 \item{cex.axis}{magnification to be used for axis annotation relative to the current setting of cex}
+
+\item{concLab}{object of concUnit class, or numeric represented the short code, 
+or character representing the descriptive name.}
 
 \item{color.palette}{a function that creates a color palette for the contour plot. Default goes from white to gray to blue to red 
 using the function \code{colorRampPalette(c("white","gray","blue","red"))}. A few preset options are heat.colors, topo.colors, and terrain.colors.}

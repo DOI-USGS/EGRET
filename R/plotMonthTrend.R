@@ -16,6 +16,10 @@
 #' Default is \code{TRUE}.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
 #' @return Base R plot of monthly trends
+#' @param concLab object of concUnit class, or numeric represented the short code, 
+#' or character representing the descriptive name.
+#' @param monthLab object of monthLabel class, or numeric represented the short code, 
+#' or character representing the descriptive name.
 #' @export
 #' @examples 
 #'
@@ -44,7 +48,8 @@
 #'  
 plotMonthTrend <- function(pairResults, yMax = NA,
                     arrowFactor = 1, flux = TRUE, 
-                    printTitle = TRUE){
+                    printTitle = TRUE,
+                    concLab = 1, monthLab = 1){
   
   z <- attr(pairResults, "byMonth")
   yearPairs <- attr(pairResults, "yearPair")
@@ -57,23 +62,41 @@ plotMonthTrend <- function(pairResults, yMax = NA,
     z2 <- as.numeric(z[which(z$Type == "Conc" & z$Year == max(z$Year)), -1:-2])
   }
   
+  if (is.numeric(concLab)){
+    concPrefix <- concConst[shortCode=concLab][[1]]    
+  } else if (is.character(concLab)){
+    concPrefix <- concConst[concLab][[1]]
+  } else {
+    concPrefix <- concLab
+  }
+  
+  if (is.numeric(monthLab)){
+    monthInfo <- monthInfo[shortCode=monthLab][[1]]    
+  } else if (is.character(monthLab)){
+    monthInfo <- monthInfo[monthLab][[1]]
+  } else {
+    monthInfo <- monthLab
+  }
+  
   months <- which(!is.na(z1))
   
-  monthAbb <- month.abb
+  monthAbb <- monthInfo@monthAbbrev
 
   zMax <- max(c(z1, z2), na.rm = TRUE)
   yMax <- if(is.na(yMax)) zMax * 1.05 else yMax
   
   if(flux){
     ylab <- expression("Change in yield, kg / month / km" ^2)
-    name = "Change in yield, by month"
+    name <- "Change in yield, by month"
   } else {
-    ylab <- "Change in concentration, mg / L"
-    name = "Change in concentration, by month"
+    ylab <- paste("Change in", tolower(concPrefix@longPrefix),
+                   "in , mg / L")
+    name <- paste("Change in", tolower(concPrefix@longPrefix),", by month")
   }
 
   season <- setSeasonLabelByUser(paStartInput = yearPairs[["paStart"]],
-                                 paLongInput = yearPairs[["paLong"]])
+                                 paLongInput = yearPairs[["paLong"]], 
+                                 monthLab = monthLab)
   
   title <- paste0(name, "\n",
                   attr(pairResults, "Other")[["siteName"]], "\n",
@@ -101,8 +124,6 @@ plotMonthTrend <- function(pairResults, yMax = NA,
   plot(1:12, z2, xlim = c(0.5,12.5), ylim = c(0, yMax),
        xlab = "", ylab = "",
        main = "", col = "red", axes = FALSE)
-  
-
   
   for(m in months){
     x0 <- m

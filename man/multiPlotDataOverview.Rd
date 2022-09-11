@@ -43,7 +43,7 @@ multiPlotDataOverview(eList, qUnit=1)
 eList <- setPA(eList, paStart=6,paLong=3)
 multiPlotDataOverview(eList, qUnit=1) 
 
-Custom axes:
+# Custom axes:
 eList$INFO$param.units <- "ng"
 qConst_precip <- new("qUnit",
                      qShortName = "   mm  ",
