@@ -108,7 +108,6 @@ boxConcMonth <- function(eList, printTitle = TRUE,
     if (!customPar) par(mar = c(4,5,1,0.1),cex.lab = cex.axis, tcl = 0.5)
     names <- monthInfo@monthSingle
   } else {
-    # yLabel <- paste("Concentration in", localINFO$param.units)
     if (!customPar) par(mar=c(5,6,4,2)+0.1,cex.lab=cex.axis,tcl=0.5)
     names <- monthInfo@monthAbbrev
   }

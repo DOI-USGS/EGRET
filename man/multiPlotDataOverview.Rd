@@ -43,7 +43,7 @@ multiPlotDataOverview(eList, qUnit=1)
 eList <- setPA(eList, paStart=6,paLong=3)
 multiPlotDataOverview(eList, qUnit=1) 
 
-Custom axis:
+Custom axes:
 eList$INFO$param.units <- "ng"
 qConst_precip <- new("qUnit",
                      qShortName = "   mm  ",
@@ -52,7 +52,8 @@ qConst_precip <- new("qUnit",
                      qUnitExpress = expression(paste("Precipitation in ",mm)),
                      qUnitTiny = expression(paste("Precipitation ", "(", mm, ")")),
                      shortCode = 1,
-                     unitUSGS = "Precipitation, in mm")
+                     unitUSGS = "Precipitation, in mm",
+                     prefix = "Precipitation")
 
 deposition <- new("concUnit",
                   longPrefix = "Deposition",

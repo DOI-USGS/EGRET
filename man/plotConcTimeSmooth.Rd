@@ -7,12 +7,12 @@
 plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd,
   qUnit = 2, legendLeft = 0, legendTop = 0, concMax = NA,
   concMin = NA, bw = FALSE, printTitle = TRUE, colors = c("black",
-  "red", "green"), printValues = FALSE, tinyPlot = FALSE,
-  minNumObs = 100, minNumUncen = 50, windowY = 10, windowQ = 2,
-  windowS = 0.5, cex.main = 1.1, lwd = 2, printLegend = TRUE,
-  cex.legend = 1.2, cex = 0.8, cex.axis = 1.1, customPar = FALSE,
-  lineVal = c(1, 1, 1), logScale = FALSE, edgeAdjust = TRUE,
-  usgsStyle = FALSE, ...)
+  "red", "green"), printValues = FALSE, tinyPlot = FALSE, concLab = 1,
+  monthLab = 1, minNumObs = 100, minNumUncen = 50, windowY = 10,
+  windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2,
+  printLegend = TRUE, cex.legend = 1.2, cex = 0.8, cex.axis = 1.1,
+  customPar = FALSE, lineVal = c(1, 1, 1), logScale = FALSE,
+  edgeAdjust = TRUE, usgsStyle = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}
@@ -49,6 +49,12 @@ plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd,
 \item{printValues}{logical variable if TRUE the results shown on the graph are printed to the console and returned in a dataframe (this can be useful for quantifying the changes seen visually in the graph), default is FALSE (not printed)}
 
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE}
+
+\item{concLab}{object of concUnit class, or numeric represented the short code, 
+or character representing the descriptive name.}
+
+\item{monthLab}{object of monthLabel class, or numeric represented the short code, 
+or character representing the descriptive name.}
 
 \item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
 

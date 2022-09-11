@@ -23,7 +23,8 @@
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' @param las numeric in {0,1,2,3}; the style of axis labels
 #' @param randomCensored logical. Show censored residuals as randomized. Default = FALSE.
-
+#' @param monthLab object of monthLabel class, or numeric represented the short code, 
+#' or character representing the descriptive name.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @seealso \code{\link[graphics]{boxplot}}
@@ -33,11 +34,20 @@
 #' # Water year:
 #' boxResidMonth(eList)
 #' # Graphs consisting of Jun-Aug
-#' eList <- setPA(eList, paStart=6,paLong=3)
+#' eList <- setPA(eList, paStart = 6, paLong = 3)
 #' boxResidMonth(eList)
-boxResidMonth<-function(eList, stdResid = FALSE, las=1,
-                        printTitle = TRUE, cex=0.8, cex.axis=1.1, cex.main=1.1,
-                        font.main=2, tinyPlot=FALSE, customPar=FALSE,randomCensored=FALSE,...) {
+boxResidMonth <- function(eList, 
+                          stdResid = FALSE,
+                          las = 1,
+                          printTitle = TRUE,
+                          cex = 0.8,
+                          cex.axis = 1.1, 
+                          cex.main = 1.1,
+                          font.main = 2,
+                          tinyPlot = FALSE,
+                          customPar = FALSE,
+                          monthLab = 1,
+                          randomCensored = FALSE,...) {
   
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
@@ -50,18 +60,26 @@ boxResidMonth<-function(eList, stdResid = FALSE, las=1,
     paStart <- 10
   } 
   
+  if (is.numeric(monthLab)){
+    monthInfo <- monthInfo[shortCode=monthLab][[1]]    
+  } else if (is.character(monthLab)){
+    monthInfo <- monthInfo[monthLab][[1]]
+  } else {
+    monthInfo <- monthLab
+  }
+  
   localSample <- if(paLong == 12) localSample else selectDays(localSample, paLong,paStart)
   
-  title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
+  title2 <- if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   
   if (tinyPlot){
-    if (!customPar) par(mar=c(4,5,1,0.1),cex.lab=cex.axis,mgp=c(2.5,0.5,0),tcl=0.5)
-    yLab<-if(stdResid) "Standardized Residuals" else "Residuals"
-    names <- c("J","F","M","A","M","J","J","A","S","O","N","D")
+    if (!customPar) par(mar = c(4,5,1,0.1), cex.lab = cex.axis, mgp = c(2.5,0.5,0),tcl=0.5)
+    yLab <- if(stdResid) "Standardized Residuals" else "Residuals"
+    names <- monthInfo@monthSingle
   } else {
     if (!customPar) par(mar=c(5,6,4,2) + 0.1,cex.lab=cex.axis,mgp=c(3,1,0),tcl=0.5)
-    yLab<-if(stdResid) "Standardized Residuals in natural log units" else "Residuals in natural log units"    
-    names <- sapply(c(1:12),function(x){monthInfo[[x]]@monthAbbrev})
+    yLab <- if(stdResid) "Standardized Residuals in natural log units" else "Residuals in natural log units"    
+    names <- monthInfo@monthAbbrev
   }
   
   plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\nBoxplots of residuals by month") else ""
@@ -80,23 +98,23 @@ boxResidMonth<-function(eList, stdResid = FALSE, las=1,
     resid<- resid/localSample$SE
   }
   
-  singleMonthList <- sapply(c(1:12),function(x){monthInfo[[x]]@monthAbbrev})
+  singleMonthList <- monthInfo@monthAbbrev
   
-  namesListFactor <- factor(singleMonthList, levels=singleMonthList)
-  monthList <- as.character(apply(localSample, 1, function(x)  monthInfo[[as.numeric(x[["Month"]])]]@monthAbbrev))
+  namesListFactor <- factor(singleMonthList, levels = singleMonthList)
+  monthList <- singleMonthList[localSample$Month]
   monthList <- factor(monthList, namesListFactor)
 
   boxplot(resid ~ monthList,
-          varwidth=TRUE,
-          xlab="Month",ylab=yLab,
-          main=plotTitle,
-          names=names,
-          cex=cex,
-          cex.main=cex.main,
-          cex.axis=cex.axis,
-          las=las,
+          varwidth = TRUE,
+          xlab = "Month", ylab = yLab,
+          main = plotTitle,
+          names = names,
+          cex = cex,
+          cex.main = cex.main,
+          cex.axis = cex.axis,
+          las = las,
           ...)
-  abline(h=0)  
-  if (!tinyPlot) mtext(title2,side=3,line=-1.5)
+  abline(h = 0)  
+  if (!tinyPlot) mtext(title2, side = 3, line = -1.5)
   invisible(eList)
 }

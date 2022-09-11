@@ -6,7 +6,8 @@
 \usage{
 boxResidMonth(eList, stdResid = FALSE, las = 1, printTitle = TRUE,
   cex = 0.8, cex.axis = 1.1, cex.main = 1.1, font.main = 2,
-  tinyPlot = FALSE, customPar = FALSE, randomCensored = FALSE, ...)
+  tinyPlot = FALSE, customPar = FALSE, monthLab = 1,
+  randomCensored = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}
@@ -29,6 +30,9 @@ boxResidMonth(eList, stdResid = FALSE, las = 1, printTitle = TRUE,
 
 \item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function}
 
+\item{monthLab}{object of monthLabel class, or numeric represented the short code, 
+or character representing the descriptive name.}
+
 \item{randomCensored}{logical. Show censored residuals as randomized. Default = FALSE.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
@@ -50,7 +54,7 @@ eList <- Choptank_eList
 # Water year:
 boxResidMonth(eList)
 # Graphs consisting of Jun-Aug
-eList <- setPA(eList, paStart=6,paLong=3)
+eList <- setPA(eList, paStart = 6, paLong = 3)
 boxResidMonth(eList)
 }
 \seealso{

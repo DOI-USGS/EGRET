@@ -47,6 +47,10 @@
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
 #' to TRUE does NOT guarantee USGS compliance. It will only change automatically
 #' generated labels
+#' @param concLab object of concUnit class, or numeric represented the short code, 
+#' or character representing the descriptive name.
+#' @param monthLab object of monthLabel class, or numeric represented the short code, 
+#' or character representing the descriptive name.
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords water-quality statistics graphics
 #' @export
@@ -65,12 +69,19 @@
 #' plotConcTimeSmooth(eList, q1, q2,q3, centerDate, yearStart, 
 #'                    yearEnd, logScale = TRUE, legendLeft = 1994, 
 #'                    legendTop = 0.4, cex.legend = 0.9)
-plotConcTimeSmooth<-function (eList, q1, q2, q3, centerDate, yearStart, yearEnd, qUnit = 2, legendLeft = 0, 
-                              legendTop = 0, concMax = NA, concMin=NA,bw = FALSE, printTitle = TRUE, colors=c("black","red","green"), 
-                              printValues = FALSE, tinyPlot=FALSE, minNumObs = 100, minNumUncen =  50, 
-                              windowY = 10, windowQ = 2, windowS = 0.5, cex.main = 1.1, lwd = 2, printLegend = TRUE,
-                              cex.legend = 1.2, cex=0.8, cex.axis=1.1, customPar=FALSE,lineVal=c(1,1,1),logScale=FALSE,
-                              edgeAdjust=TRUE, usgsStyle = FALSE,...){
+plotConcTimeSmooth<-function (eList, q1, q2, q3, 
+                              centerDate, yearStart, yearEnd, 
+                              qUnit = 2, legendLeft = 0, 
+                              legendTop = 0, concMax = NA, concMin = NA,
+                              bw = FALSE, printTitle = TRUE, colors = c("black","red","green"), 
+                              printValues = FALSE, tinyPlot=FALSE,
+                              concLab = 1, monthLab = 1,
+                              minNumObs = 100, minNumUncen =  50, 
+                              windowY = 10, windowQ = 2, windowS = 0.5,
+                              cex.main = 1.1, lwd = 2, printLegend = TRUE,
+                              cex.legend = 1.2, cex = 0.8, cex.axis = 1.1, 
+                              customPar = FALSE,lineVal = c(1,1,1), logScale = FALSE,
+                              edgeAdjust = TRUE, usgsStyle = FALSE,...){
   
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
@@ -89,6 +100,22 @@ plotConcTimeSmooth<-function (eList, q1, q2, q3, centerDate, yearStart, yearEnd,
     qUnit <- qConst[shortCode = qUnit][[1]]
   } else if (is.character(qUnit)) {
     qUnit <- qConst[qUnit][[1]]
+  }
+  
+  if (is.numeric(monthLab)){
+    monthInfo <- monthInfo[shortCode=monthLab][[1]]    
+  } else if (is.character(monthLab)){
+    monthInfo <- monthInfo[monthLab][[1]]
+  } else {
+    monthInfo <- monthLab
+  }
+  
+  if (is.numeric(concLab)){
+    concPrefix <- concConst[shortCode=concLab][[1]]    
+  } else if (is.character(concLab)){
+    concPrefix <- concConst[concLab][[1]]
+  } else {
+    concPrefix <- concLab
   }
   
   numQ <- sum(!is.na(c(q1, q2, q3)))
@@ -127,9 +154,11 @@ plotConcTimeSmooth<-function (eList, q1, q2, q3, centerDate, yearStart, yearEnd,
   dayCenter<-as.POSIXlt(centerDate)$mday
   
   title <- if (printTitle) {
-    paste(localINFO$shortName, "  ", localINFO$paramShortName, 
-          "\nEstimated Concentration Versus Year\nCentered on",monthInfo[[monthCenter]]@monthFull,dayCenter,"of each year, at", 
-          numQ, "specific discharges")
+    paste(localINFO$shortName, localINFO$paramShortName, 
+          "\nEstimated", qUnit@prefix, "Versus Year\nCentered on",
+          monthInfo@monthFull[monthCenter],
+          dayCenter,"of each year, at", 
+          numQ, "specific", tolower(qUnit@prefix))
   } else{
     ""
   }
@@ -141,7 +170,6 @@ plotConcTimeSmooth<-function (eList, q1, q2, q3, centerDate, yearStart, yearEnd,
   if (is.na(concMax)) {
     yTop <- yMax
   } 
-
   
   if(logScale){
     logText <- "y"
@@ -162,14 +190,20 @@ plotConcTimeSmooth<-function (eList, q1, q2, q3, centerDate, yearStart, yearEnd,
   
   #####################
   
-  xInfo <- generalAxis(x=x, minVal=yearStart, maxVal=yearEnd, tinyPlot=tinyPlot)  
+  xInfo <- generalAxis(x = x, minVal = yearStart, 
+                       maxVal = yearEnd, 
+                       tinyPlot = tinyPlot)  
   combinedY <- c(y[1,], y[2,],y[3,])
-  yInfo <- generalAxis(x=combinedY, minVal=concMin, maxVal=yTop, 
-                       tinyPlot=tinyPlot,logScale=logScale, units=localINFO$param.units,
-                       usgsStyle = usgsStyle)
+  yInfo <- generalAxis(x = combinedY,
+                       minVal = concMin, maxVal = yTop, 
+                       tinyPlot = tinyPlot,
+                       logScale = logScale,
+                       units = localINFO$param.units,
+                       usgsStyle = usgsStyle, 
+                       concLab = concLab)
   
-  genericEGRETDotPlot(x=x, y=y[1, ],
-                      xTicks=xInfo$ticks, yTicks=yInfo$ticks,
+  genericEGRETDotPlot(x = x, y = y[1, ],
+                      xTicks = xInfo$ticks, yTicks = yInfo$ticks,
                       xlim = c(xInfo$bottom,xInfo$top),ylim = c(yInfo$bottom,yInfo$top),
                       ylab = yInfo$label, plotTitle=title, customPar=customPar,log=logText,
                       type = "l", lwd = lwd, col = colorVal[1], lty = lineVal[1],xDate=TRUE,

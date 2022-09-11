@@ -79,6 +79,8 @@ setClass("concUnit",
 #'    \item{qUnitTiny}{An expression specifying the abbreviated name.}
 #'
 #'    \item{shortCode}{A number for quick lookup}
+#'    
+#'    \item{prefix}{A character specifying the general type of measurement.}
 #'  }
 #' @name qUnit-class
 #' @rdname qUnit-class
@@ -91,7 +93,8 @@ setClass("qUnit",
     qUnitExpress = "expression",
     qUnitTiny = "expression",
     shortCode    = "numeric",
-		unitUSGS = "character"
+		unitUSGS = "character",
+		prefix = "character"
 	)	
 )
 

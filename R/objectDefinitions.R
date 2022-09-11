@@ -146,7 +146,8 @@ qConst <- list(cfs = new("qUnit",
                           qUnitExpress = expression(paste("Discharge in ",ft^3/s)),
                           qUnitTiny = expression(paste("Discharge ", "(", ft^3/s, ")")),
                           shortCode = 1,
-                          unitUSGS = "Discharge, in cubic feet per second"
+                          unitUSGS = "Discharge, in cubic feet per second",
+                          prefix = "Discharge"
                           ),
                 cms = new("qUnit",
                           qShortName = "   cms  ",
@@ -155,7 +156,8 @@ qConst <- list(cfs = new("qUnit",
                           qUnitExpress = expression(paste("Discharge in ",m^3/s)),
                           qUnitTiny = expression(paste("Discharge ", "(", m^3/s, ")")),
                           shortCode = 2,
-                          unitUSGS = "Discharge, in cubic meters per second"
+                          unitUSGS = "Discharge, in cubic meters per second",
+                          prefix = "Discharge"
                           ),
                 thousandCfs = new("qUnit",
                           qShortName = "10^3 cfs",
@@ -164,7 +166,8 @@ qConst <- list(cfs = new("qUnit",
                           qUnitExpress = expression(paste("Discharge in ",10^3*ft^3/s)),
                           qUnitTiny = expression(paste("Discharge ", "(", 10^3*ft^3/s, ")")),
                           shortCode = 3,
-                          unitUSGS = "Discharge, in thousands of cubic feet per second"
+                          unitUSGS = "Discharge, in thousands of cubic feet per second",
+                          prefix = "Discharge"
                           ),
                 thousandCms = new("qUnit",
                           qShortName = "10^3 cms",
@@ -173,7 +176,8 @@ qConst <- list(cfs = new("qUnit",
                           qUnitExpress = expression(paste("Discharge in ",10^3*m^3/s)),
                           qUnitTiny = expression(paste("Discharge ", "(", 10^3*m^3/s, ")")),
                           shortCode = 4,
-                          unitUSGS = "Discharge, in thousands of cubic meters per second"
+                          unitUSGS = "Discharge, in thousands of cubic meters per second",
+                          prefix = "Discharge"
                           ),
                 mmDay = new("qUnit",
                             qShortName = "mm/day",
@@ -182,7 +186,8 @@ qConst <- list(cfs = new("qUnit",
                             qUnitExpress = expression(paste("Discharge in ",mm^3/day)),
                             qUnitTiny = expression(paste("Discharge ", "(", mm^3/day, ")")),
                             shortCode = 5,
-                            unitUSGS = "Discharge, in cubic millimeters per day"
+                            unitUSGS = "Discharge, in cubic millimeters per day",
+                            prefix = "Discharge"
                           )
 #                 ,mmYear = new("qUnit",
 #                           qUnitName = "Cubic Millimeters per Year",
