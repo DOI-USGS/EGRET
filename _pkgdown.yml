@@ -45,6 +45,8 @@ navbar:
       href: articles/AlternativeQMethod.html
     - text: Annual_Hydrograph_Timing
       href: articles/Annual_Hydrograph_Timing.html
+    - text: Custom Units
+      href: articles/units.html
   - text: Bibliograpy
     href: articles/References_WRTDS.html
   right:
