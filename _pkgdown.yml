@@ -180,6 +180,7 @@ reference:
       - populateSampleColumns
       - populateSiteINFO
       - qUnit-class
+      - concUnit-class
       - readDataFromFile
       - Choptank_eList
       - selectDays
