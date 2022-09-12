@@ -22,6 +22,8 @@
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
+#' @param concLab object of concUnit class, or numeric represented the short code, 
+#' or character representing the descriptive name.
 #' @param randomCensored logical. Show censored residuals as randomized.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords water-quality statistics graphics
@@ -34,9 +36,14 @@
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' plotResidPred(eList)
-plotResidPred<-function(eList, stdResid = FALSE, 
-                        tinyPlot = FALSE, printTitle = TRUE, col="black",lwd=1,
-                        cex=0.8, cex.axis=1.1,cex.main=1.1, customPar=FALSE,randomCensored=FALSE,...){
+plotResidPred <- function(eList, stdResid = FALSE, 
+                          tinyPlot = FALSE, 
+                          printTitle = TRUE,
+                          col = "black", lwd = 1,
+                          cex = 0.8, cex.axis = 1.1,
+                          cex.main = 1.1, customPar = FALSE,
+                          randomCensored = FALSE,
+                          concLab = 1, ...){
   # this function shows residual versus estimated in log space
   # estimated log concentration on the x-axis (these are prior to bias correction), 
   # observed log concentration on y-axis 
@@ -59,24 +66,44 @@ plotResidPred<-function(eList, stdResid = FALSE,
     paStart <- 10
   }  
   
+  if (is.numeric(concLab)){
+    concPrefix <- concConst[shortCode=concLab][[1]]    
+  } else if (is.character(concLab)){
+    concPrefix <- concConst[concLab][[1]]
+  } else {
+    concPrefix <- concLab
+  }
+  
   localSample <- if(paLong == 12) localSample else selectDays(localSample,paLong,paStart)
   
-  title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
+  if(paLong==12){
+    title2 <- ""
+  }  else {
+    title2 <- setSeasonLabelByUser(paStartInput = paStart,
+                                   paLongInput = paLong)
+  }
   
-  x<-exp(localSample$yHat)
+  x <- exp(localSample$yHat)
   xInfo <- generalAxis(x=log(x), minVal=NA, maxVal=NA, tinyPlot=tinyPlot)
   
   Uncen<-localSample$Uncen
   
   if (tinyPlot){
-    xLab <- "Est. conc. in natural log units"
+    xLab <- paste("Est.", concPrefix@shortPrefix, "in natural log units")
     yLab <- if(stdResid) "Std. residual" else "Residual"
   }  else {
-    xLab<-"Estimated concentration in natural log units"
-    yLab<-if(stdResid) "Standardized residual in natural log units" else "Residual in natural log units"
+    xLab <- paste("Estimated", tolower(concPrefix@longPrefix),
+                  "in natural log units")
+    yLab <- if(stdResid) "Standardized residual in natural log units" else "Residual in natural log units"
   }
-  plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Residual versus Estimated Concentration") else ""
   
+  if(printTitle) {
+    plotTitle <- paste(localINFO$shortName,"\n",
+                       localINFO$paramShortName,"\n",
+                       "Residual versus Estimated", concPrefix@longPrefix)
+  } else {
+    plotTitle <- ""
+  }
   ####################
   
   if(!randomCensored){

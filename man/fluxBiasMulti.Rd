@@ -6,7 +6,7 @@
 \usage{
 fluxBiasMulti(eList, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS",
   cex = 0.7, cex.axis = 1.1, cex.main = 1.1, randomCensored = FALSE,
-  col = "black", lwd = 1, ...)
+  col = "black", lwd = 1, concLab = 1, monthLab = 1, ...)
 }
 \arguments{
 \item{eList}{named list with at least Sample, Daily, and INFO dataframes}
@@ -28,6 +28,12 @@ fluxBiasMulti(eList, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS",
 \item{col}{color of points on plot, see ?par 'Color Specification'}
 
 \item{lwd}{number line width}
+
+\item{concLab}{object of concUnit class, or numeric represented the short code, 
+or character representing the descriptive name.}
+
+\item{monthLab}{object of monthLabel class, or numeric represented the short code, 
+or character representing the descriptive name.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }

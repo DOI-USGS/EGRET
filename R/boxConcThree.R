@@ -22,6 +22,8 @@
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multi-plot figure, default is FALSE.
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+#' @param concLab object of concUnit class, or numeric represented the short code, 
+#' or character representing the descriptive name.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @seealso \code{\link[graphics]{boxplot}}
@@ -34,8 +36,11 @@
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' boxConcThree(eList)
 boxConcThree<-function (eList, tinyPlot=FALSE,
-                        printTitle = TRUE, moreTitle = "WRTDS",customPar=FALSE,
-                        font.main=2,cex=0.8,cex.main = 1.1, cex.axis = 1.1,...){
+                        printTitle = TRUE, moreTitle = "WRTDS",
+                        customPar = FALSE,
+                        font.main = 2, cex = 0.8,
+                        cex.main = 1.1, cex.axis = 1.1,
+                        concLab = 1, ...){
   
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
@@ -48,6 +53,14 @@ boxConcThree<-function (eList, tinyPlot=FALSE,
     paLong <- 12
     paStart <- 10
   } 
+  
+  if (is.numeric(concLab)){
+    concPrefix <- concConst[shortCode=concLab][[1]]    
+  } else if (is.character(concLab)){
+    concPrefix <- concConst[concLab][[1]]
+  } else {
+    concPrefix <- concLab
+  }
   
   localSample <- if(paLong == 12) localSample else selectDays(localSample,paLong,paStart)
   localDaily <- if(paLong == 12) localDaily else selectDays(localDaily, paLong,paStart)
@@ -62,18 +75,21 @@ boxConcThree<-function (eList, tinyPlot=FALSE,
   index <- c(index1, index2,index3)
   
   plotTitle <- if (printTitle) {
-    paste(localINFO$shortName, ",", localINFO$paramShortName, 
-          "\nComparison of distribution of sampled concentrations\nwith estimates on sampled days and on all days using ",moreTitle)
+    paste0(localINFO$shortName, ", ", localINFO$paramShortName, 
+          "\nComparison of distribution of sampled ", 
+          tolower(concPrefix@longPrefix), 
+          "s\nwith estimates on sampled days and on all days using ",moreTitle)
   } else {
     ""
   }
   
   if (tinyPlot) {
-    yLab <- paste("Conc. (",localINFO$param.units,")",sep="")
+    yLab <- paste0(concPrefix@shortPrefix, 
+                  ". (",localINFO$param.units,")")
     if (!customPar) par(mar=c(4,5,1,0.1),tcl=0.5,cex.lab=cex.axis)  
 
   } else {
-    yLab <- paste("Concentration in",localINFO$param.units)
+    yLab <- paste(concPrefix@longPrefix, "in",localINFO$param.units)
     if (!customPar) par(mar=c(5,6,4,2)+0.1,tcl=0.5,cex.lab=cex.axis)
 
   }
@@ -81,28 +97,19 @@ boxConcThree<-function (eList, tinyPlot=FALSE,
   name2 <- "Sampled\nestimates"
   name3 <- "All\nestimates"
   groupNames <- c(name1,name2,name3)
+
+  concV <- c(localSample$ConcAve,localSample$ConcHat,localDaily$ConcDay)
   
-  # if(!rResid){
-    concV <- c(localSample$ConcAve,localSample$ConcHat,localDaily$ConcDay)
-  
-  # } else {
-  #   if(!("rObserved" %in% names(localSample))){
-  #     eList <- makeAugmentedSample(eList)
-  #     localSample <- eList$Sample
-  #   }
-  #   concV <- c(localSample$rObserved,localSample$ConcHat,localDaily$ConcDay)
-  # }
-  
-  yMax<-max(concV,na.rm=TRUE)
-  yTicks<-yPretty(yMax)
-  yTop<-yTicks[length(yTicks)]
+  yMax <- max(concV,na.rm=TRUE)
+  yTicks <- yPretty(yMax)
+  yTop <- yTicks[length(yTicks)]
   
   boxplot(concV ~ index,varwidth=TRUE,
-          names=groupNames,xlab="",ylab=yLab,
-          ylim=c(0,yTop),axes=FALSE,
-          main=plotTitle,font.main=font.main,cex=cex,
-          cex.main=cex.main,
-          las=1,yaxs="i",
+          names = groupNames,xlab = "", ylab = yLab,
+          ylim = c(0,yTop), axes = FALSE,
+          main = plotTitle, font.main = font.main, cex = cex,
+          cex.main = cex.main,
+          las=1,yaxs = "i",
           ...)  
   
   axis(1,tcl=0.5,at=c(1,2,3),labels=groupNames,cex.axis=cex.axis*0.5454)

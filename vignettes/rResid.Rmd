@@ -1,5 +1,5 @@
 ---
-title: "Using Random Residuals for Censored Data in EGRET"
+title: "Randomized Censored Data"
 author: "Robert M. Hirsch and Laura A. De Cicco"
 date: "2016-07-15"
 output: 

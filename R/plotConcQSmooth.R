@@ -50,6 +50,8 @@
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
 #' to TRUE does NOT guarantee USGS compliance. It will only change automatically
 #' generated labels
+#' @param concLab object of concUnit class, or numeric represented the short code, 
+#' or character representing the descriptive name.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords water-quality statistics graphics
 #' @export
@@ -67,13 +69,22 @@
 #' plotConcQSmooth(eList, date1, date2, date3, qLow, qHigh,
 #'                 logScale=TRUE, legendLeft = 0.6, legendTop = 0.7)
 #' }
-plotConcQSmooth<-function(eList, date1,date2,date3,qLow,qHigh,qUnit = 2, legendLeft = 0,legendTop = 0, 
-                          concMax = NA, concMin=NA, bw = FALSE, printTitle = TRUE, printValues = FALSE, 
+plotConcQSmooth<-function(eList, 
+                          date1, date2, date3,
+                          qLow, qHigh, 
+                          qUnit = 2, legendLeft = 0,legendTop = 0, 
+                          concMax = NA, concMin = NA,
+                          bw = FALSE, printTitle = TRUE, printValues = FALSE, 
                           minNumObs = 100, minNumUncen =  50,
-                          colors=c("black","red","green"),printLegend=TRUE,
-                          windowY = 7, windowQ = 2, windowS = 0.5,tinyPlot=FALSE, customPar=FALSE,
-                          lwd=2,cex=0.8, cex.axis=1.1,cex.main=1.1, cex.legend=1.2,lineVal=c(1,1,1),logScale=FALSE,
-                          edgeAdjust=TRUE, usgsStyle = FALSE,...) {
+                          colors = c("black","red","green"),
+                          printLegend = TRUE,
+                          windowY = 7, windowQ = 2, windowS = 0.5,
+                          tinyPlot = FALSE, customPar = FALSE,
+                          lwd = 2, cex = 0.8, cex.axis = 1.1, 
+                          cex.main = 1.1, cex.legend = 1.2,
+                          lineVal = c(1,1,1), logScale = FALSE,
+                          edgeAdjust = TRUE, concLab = 1,
+                          usgsStyle = FALSE,...) {
   
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
@@ -94,44 +105,61 @@ plotConcQSmooth<-function(eList, date1,date2,date3,qLow,qHigh,qUnit = 2, legendL
   } else if (is.character(qUnit)){
     qUnit <- qConst[qUnit][[1]]
   }
+  
+  if (is.numeric(concLab)){
+    concPrefix <- concConst[shortCode=concLab][[1]]    
+  } else if (is.character(concLab)){
+    concPrefix <- concConst[concLab][[1]]
+  } else {
+    concPrefix <- concLab
+  }
+  
   #############################################################
 
   numDates <- sum(!is.na(c(date1, date2, date3)))
   
-  dates<-rep(as.POSIXlt(date1),3)
-  dates[1]<-as.POSIXlt(date1)
-  dates[2]<-as.POSIXlt(date2)
-  dates[3]<-as.POSIXlt(date3)
+  dates <- rep(as.POSIXlt(date1),3)
+  dates[1] <- as.POSIXlt(date1)
+  dates[2] <- as.POSIXlt(date2)
+  dates[3] <- as.POSIXlt(date3)
   
-  LogQLow<-log(qLow)
-  LogQHigh<-log(qHigh)
-  step<-(LogQHigh-LogQLow)/47
-  x<-exp(seq(LogQLow,LogQHigh,step))
-  qFactor<-qUnit@qUnitFactor
-  LQ<-log(x/qFactor)
+  LogQLow <- log(qLow)
+  LogQHigh <- log(qHigh)
+  step <- (LogQHigh-LogQLow)/47
+  x <- exp(seq(LogQLow,LogQHigh,step))
+  qFactor <- qUnit@qUnitFactor
+  LQ <- log(x/qFactor)
   # note the vector x is the set of 48 discharge values used to construct the curve, expressed in the selected units (such as cfs or 1000 cfs)
   # and the vector LQ is the same set of 48 discharge values but expressed in units of natural log of cubic meters per second
-  y<-rep(NA,3*48)
-  dim(y)<-c(3,48)
+  y <- rep(NA,3*48)
+  dim(y) <- c(3,48)
   
-  day<-dates$yday + 1
-  year<-dates$year + 1900
-  decYear<-year+((day-0.5)/366)
+  day <- dates$yday + 1
+  year <- dates$year + 1900
+  decYear <- year+((day-0.5)/366)
   
   index <- which(!is.na(c(date1, date2, date3)))[1:numDates]
   
   for(iCurve in 1:numDates) {
-    yrs<-rep(decYear[index[iCurve]],48)
-    result<-runSurvReg(yrs,LQ,DecLow,DecHigh,localSample,
-                       windowY = windowY, windowQ = windowQ, 
-                       windowS = windowS, minNumObs=minNumObs, 
-                       minNumUncen = minNumUncen,verbose=FALSE,
-                       edgeAdjust=edgeAdjust,run.parallel = FALSE)
+    yrs <- rep(decYear[index[iCurve]],48)
+    result <- runSurvReg(yrs, LQ, 
+                         DecLow, DecHigh, localSample,
+                         windowY = windowY, windowQ = windowQ, 
+                         windowS = windowS, minNumObs = minNumObs, 
+                         minNumUncen = minNumUncen, verbose = FALSE,
+                         edgeAdjust = edgeAdjust, run.parallel = FALSE)
     y[index[iCurve],]<-result[,3]
   }
   
-  title<-if(printTitle) paste (localINFO$shortName,"  ",localINFO$paramShortName,"\nEstimated Concentration Versus Discharge Relationship\nat",numDates,"specific dates") else ""
-  
+  if(printTitle) {
+    title <- paste(localINFO$shortName,
+                   localINFO$paramShortName,
+                   "\nEstimated", concPrefix@longPrefix, "Versus", qUnit@prefix, "Relationship\nat",
+                   numDates,"specific dates")
+  } else {
+    title <- ""
+  }
+
   colorVal<-if(bw) c("black","black","black") else colors
   lineVal<-if(bw) c(1,2,3) else lineVal
 
@@ -150,10 +178,21 @@ plotConcQSmooth<-function(eList, date1,date2,date3,qLow,qHigh,qUnit = 2, legendL
     concMin <- 0
   }
   
-  xInfo <- generalAxis(x, maxVal=qHigh, minVal=qLow, logScale=TRUE, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x, 
+                       maxVal = qHigh, 
+                       minVal = qLow, 
+                       logScale = TRUE,
+                       tinyPlot = tinyPlot, 
+                       concentration = FALSE)
   combinedY <- c(y[1,], y[2,],y[3,])
-  yInfo <- generalAxis(combinedY, maxVal=concMax, minVal=concMin, logScale=logScale, 
-                       tinyPlot=tinyPlot, units=localINFO$param.units, usgsStyle = usgsStyle)
+  yInfo <- generalAxis(combinedY,
+                       maxVal = concMax,
+                       minVal = concMin,
+                       logScale = logScale, 
+                       tinyPlot = tinyPlot,
+                       units=localINFO$param.units,
+                       usgsStyle = usgsStyle,
+                       concLab = concLab)
   
   genericEGRETDotPlot(x=x, y=y[1,],
                       xTicks=xInfo$ticks, yTicks=yInfo$ticks,

@@ -1,11 +1,11 @@
 ---
-title: "Bibliography"
+title: "WRTDS Bibliography"
 output: 
   rmarkdown::html_vignette:
     toc: true
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{WRTDS bibliography}
+  %\VignetteIndexEntry{WRTDS Bibliography}
   \usepackage[utf8]{inputenc}
 ---
 

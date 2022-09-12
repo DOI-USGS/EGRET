@@ -4,7 +4,8 @@
 \alias{flowDuration}
 \title{Computes several values of the flow duration curve for streamflow centered on a specific date of the year}
 \usage{
-flowDuration(eList, centerDate = "09-30", qUnit = 2, span = 365)
+flowDuration(eList, centerDate = "09-30", qUnit = 2, span = 365,
+  monthLab = 1)
 }
 \arguments{
 \item{eList}{named list with at least Daily and INFO dataframes}
@@ -20,6 +21,9 @@ or character representing the descriptive name. Default is qUnit = 2, which corr
 be used in constructing the flow-duration curve. If the full year is desired any value greater 
 than 182 will. Note that for a window of about 2-months width, a span value should 
 be about 30. Default is 365.}
+
+\item{monthLab}{object of monthLabel class, or numeric represented the short code, 
+or character representing the descriptive name.}
 }
 \value{
 qDuration A named vector with flow duration information.

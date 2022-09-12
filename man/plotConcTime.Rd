@@ -8,7 +8,7 @@ plotConcTime(eList, qUnit = 2, yearStart = NA, yearEnd = NA,
   qLower = NA, qUpper = NA, randomCensored = FALSE, tinyPlot = FALSE,
   concMax = NA, concMin = NA, printTitle = TRUE, logScale = FALSE,
   cex = 0.8, cex.axis = 1.1, cex.main = 1.1, customPar = FALSE,
-  col = "black", lwd = 1, usgsStyle = FALSE, ...)
+  col = "black", lwd = 1, concLab = 1, usgsStyle = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}
@@ -49,6 +49,9 @@ plotConcTime(eList, qUnit = 2, yearStart = NA, yearEnd = NA,
 
 \item{lwd}{number line width.}
 
+\item{concLab}{object of concUnit class, or numeric represented the short code, 
+or character representing the descriptive name.}
+
 \item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
 to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels}
@@ -84,9 +87,15 @@ eList <- Choptank_eList
 plotConcTime(eList)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
-plotConcTime(eList, qUnit = 1, qLower = 100, qUpper = 10000)
+plotConcTime(eList, 
+             qUnit = 1,
+             qLower = 100,
+             qUpper = 10000)
 plotConcTime(eList, logScale=TRUE)
-plotConcTime(eList, qUnit = 1, qLower = 100, qUpper = 10000, randomCensored = TRUE)
+plotConcTime(eList, 
+             qUnit = 1, 
+             qLower = 100, qUpper = 10000,
+              randomCensored = TRUE)
 }
 \seealso{
 \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}

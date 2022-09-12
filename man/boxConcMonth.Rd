@@ -6,8 +6,9 @@
 \usage{
 boxConcMonth(eList, printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
   cex.main = 1.1, las = 1, logScale = FALSE, tcl = 0.5,
-  tinyPlot = FALSE, customPar = FALSE, showYLabels = TRUE,
-  showXLabels = TRUE, showXAxis = TRUE, showYAxis = TRUE, ...)
+  tinyPlot = FALSE, customPar = FALSE, showYLabels = TRUE, concLab = 1,
+  showXLabels = TRUE, showXAxis = TRUE, showYAxis = TRUE, monthLab = 1,
+  ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}
@@ -32,11 +33,17 @@ boxConcMonth(eList, printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
 
 \item{showYLabels}{logical defaults to TRUE. If FALSE, the y axis label is not plotted}
 
+\item{concLab}{object of concUnit class, or numeric represented the short code, 
+or character representing the descriptive name.}
+
 \item{showXLabels}{logical defaults to TRUE. If FALSE, the x axis label is not plotted}
 
 \item{showXAxis}{logical defaults to TRUE. If FALSE, the x axis is not plotted}
 
 \item{showYAxis}{logical defaults to TRUE. If FALSE, the y axis is not plotted}
+
+\item{monthLab}{object of monthLabel class, or numeric represented the short code, 
+or character representing the descriptive name.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
@@ -55,6 +62,17 @@ boxConcMonth(eList)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
 boxConcMonth(eList)
+spanish_month <- new("monthLabel",
+                  monthAbbrev = c("enero",	"feb", 	"marzo", "abr",
+                                  "mayo",	"jun",	"jul", "agosto", "set",
+                                  "oct",	"nov", "dic"),
+                  monthFull = c("enero",	"febrero", 	"marzo", "abril",
+                                  "mayo",	"junio",	"julio", "agosto", "septiembre",
+                                  "octubre",	"noviembre", "diciembre"),
+                  monthSingle = c("E", "F", "M", "A", "M", "J", "J",
+                                  "A", "S", "O", "N", "D"))
+boxConcMonth(eList, monthLab = spanish_month, 
+             showXLabels = FALSE, printTitle = FALSE)
 }
 \seealso{
 \code{\link[graphics]{boxplot}}

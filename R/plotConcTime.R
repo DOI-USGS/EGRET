@@ -35,6 +35,8 @@
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
 #' to TRUE does NOT guarantee USGS compliance. It will only change automatically
 #' generated labels
+#' @param concLab object of concUnit class, or numeric represented the short code, 
+#' or character representing the descriptive name.
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters.
 #' @details
 #' The function has two possible ways to plot censored values (e.g. "less-than values").
@@ -55,14 +57,35 @@
 #' plotConcTime(eList)
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
-#' plotConcTime(eList, qUnit = 1, qLower = 100, qUpper = 10000)
+#' plotConcTime(eList, 
+#'              qUnit = 1,
+#'              qLower = 100,
+#'              qUpper = 10000)
 #' plotConcTime(eList, logScale=TRUE)
-#' plotConcTime(eList, qUnit = 1, qLower = 100, qUpper = 10000, randomCensored = TRUE)
-plotConcTime<-function(eList, qUnit = 2, yearStart = NA, yearEnd = NA,
-                       qLower = NA, qUpper = NA, randomCensored = FALSE,
-                       tinyPlot = FALSE, concMax = NA, concMin = NA, printTitle = TRUE,logScale = FALSE, 
-                       cex = 0.8, cex.axis = 1.1,cex.main = 1.1, customPar = FALSE,
-                       col = "black", lwd=1, usgsStyle = FALSE, ...){
+#' plotConcTime(eList, 
+#'              qUnit = 1, 
+#'              qLower = 100, qUpper = 10000,
+#'               randomCensored = TRUE)
+plotConcTime<-function(eList, 
+                       qUnit = 2, 
+                       yearStart = NA,
+                       yearEnd = NA,
+                       qLower = NA,
+                       qUpper = NA,
+                       randomCensored = FALSE,
+                       tinyPlot = FALSE,
+                       concMax = NA, 
+                       concMin = NA,
+                       printTitle = TRUE,
+                       logScale = FALSE, 
+                       cex = 0.8, 
+                       cex.axis = 1.1,
+                       cex.main = 1.1,
+                       customPar = FALSE,
+                       col = "black",
+                       lwd = 1,
+                       concLab = 1,
+                       usgsStyle = FALSE, ...){
 
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
@@ -84,32 +107,41 @@ plotConcTime<-function(eList, qUnit = 2, yearStart = NA, yearEnd = NA,
   }
   ################################################################################  
   
-  qFactor<-qUnit@qUnitFactor
-  subSample<-localSample
-  subSample$Q<-subSample$Q*qFactor
-  qMin<-min(subSample$Q, na.rm = TRUE)
-  qMax<-max(subSample$Q, na.rm = TRUE)
-  if (logScale=="y"){
+  qFactor <- qUnit@qUnitFactor
+  subSample <- localSample
+  subSample$Q <- subSample$Q*qFactor
+  qMin <- min(subSample$Q, na.rm = TRUE)
+  qMax <- max(subSample$Q, na.rm = TRUE)
+  if (logScale == "y"){
     qScale <- 0.9
   } else {
     qScale <- 0.95
   }
   
-  qLowerBound<-if(is.na(qLower)) qScale*qMin else qLower
-  qUpperBound<-if(is.na(qUpper)) 1.05*qMax else qUpper
+  if (is.numeric(concLab)){
+    concPrefix <- concConst[shortCode=concLab][[1]]    
+  } else if (is.character(concLab)){
+    concPrefix <- concConst[concLab][[1]]
+  } else {
+    concPrefix <- concLab
+  }
+  
+  qLowerBound <- if(is.na(qLower)) qScale*qMin else qLower
+  qUpperBound <- if(is.na(qUpper)) 1.05*qMax else qUpper
   # the next section of code just sets up the approach to creating the plot title
-  codeLower<-if(is.na(qLower)) 0 else 1
-  codeUpper<-if(is.na(qUpper)) 0 else 2
-  codeSum<-codeLower+codeUpper+1
-  qText<-rep("",4)
-  qText[1]<-"Concentration versus Time"
-  qText[2]<-paste("For Discharge >",qLower,qUnit@qUnitName)
-  qText[3]<-paste("For Discharge <",qUpper,qUnit@qUnitName)
-  qText[4]<-paste("For Discharge between",qLower,"and",qUpper,qUnit@qUnitName)
-  title3<-qText[codeSum]
+  codeLower <- if(is.na(qLower)) 0 else 1
+  codeUpper <- if(is.na(qUpper)) 0 else 2
+  codeSum <- codeLower+codeUpper+1
+  qText <- rep("",4)
+  qText[1] <- paste0(concPrefix@longPrefix, " versus Time")
+  qText[2] <- paste("For Discharge >", qLower, qUnit@qUnitName)
+  qText[3] <- paste("For Discharge <", qUpper, qUnit@qUnitName)
+  qText[4] <- paste("For Discharge between", qLower, "and",
+                    qUpper, qUnit@qUnitName)
+  title3 <- qText[codeSum]
 
   # the next section of code sets up the seasonal part of the plot title
-  title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
+  title2 <- if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   
   #########################################################
   if (logScale){
@@ -121,7 +153,7 @@ plotConcTime<-function(eList, qUnit = 2, yearStart = NA, yearEnd = NA,
   }  
   #########################################################
   
-  plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n",title3,sep="") else ""
+  plotTitle <- if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n",title3,sep="") else ""
   
   if(!randomCensored){
     subSample<-subSample[subSample$Q>qLowerBound & subSample$Q<qUpperBound,]
@@ -130,59 +162,106 @@ plotConcTime<-function(eList, qUnit = 2, yearStart = NA, yearEnd = NA,
     x<-subSample$DecYear
     
     xInfo <- generalAxis(x=x, 
-                         minVal = ifelse(is.na(yearStart),min(x, na.rm = TRUE),yearStart),
-                         maxVal=ifelse(is.na(yearEnd),max(x, na.rm = TRUE),yearEnd), 
-                         tinyPlot=tinyPlot)  
+                         minVal = ifelse(is.na(yearStart),
+                                         min(x, na.rm = TRUE),
+                                         yearStart),
+                         maxVal = ifelse(is.na(yearEnd),
+                                         max(x, na.rm = TRUE),
+                                         yearEnd), 
+                         tinyPlot = tinyPlot, 
+                         concentration = FALSE)  
     
     yLow<-subSample$ConcLow
     yHigh<-subSample$ConcHigh
     
-    yInfo <- generalAxis(x=yHigh, minVal=minYLow, maxVal=concMax, logScale=logScale, 
-                         tinyPlot=tinyPlot,units=localINFO$param.units, usgsStyle = usgsStyle)
+    yInfo <- generalAxis(x = yHigh,
+                         minVal = minYLow,
+                         maxVal = concMax,
+                         logScale = logScale, 
+                         tinyPlot = tinyPlot,
+                         units = localINFO$param.units, 
+                         usgsStyle = usgsStyle, 
+                         concLab = concLab)
     
-    genericEGRETDotPlot(x=x, y=yHigh, 
-                        xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                        xlab="", ylab=yInfo$label,
-                        xTicks=xInfo$ticks, yTicks=yInfo$ticks,cex=cex,
-                        plotTitle=plotTitle, log=logVariable,
-                        cex.axis=cex.axis,cex.main=cex.main,tinyPlot=tinyPlot,col=col,customPar=customPar, ...
-    )
-    censoredSegments(yBottom=yInfo$ticks[1],yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen,col=col,lwd=lwd)
+    genericEGRETDotPlot(x = x, y = yHigh, 
+                        xlim = c(xInfo$bottom,xInfo$top),
+                        ylim = c(yInfo$bottom,yInfo$top),
+                        xlab = "", 
+                        ylab = yInfo$label,
+                        xTicks = xInfo$ticks, 
+                        yTicks = yInfo$ticks,
+                        cex=cex,
+                        plotTitle = plotTitle,
+                        log = logVariable,
+                        cex.axis = cex.axis,
+                        cex.main = cex.main,
+                        tinyPlot = tinyPlot,
+                        col = col,
+                        customPar = customPar, ...)
+    censoredSegments(yBottom = yInfo$ticks[1],
+                     yLow = yLow,
+                     yHigh = yHigh,
+                     x = x,
+                     Uncen = Uncen,
+                     col = col,
+                     lwd = lwd)
   } else {
     if(!("rObserved" %in% names(localSample))){
       eList <- makeAugmentedSample(eList)
       localSample <- eList$Sample
     }
     
-    subSample<-localSample
-    subSample$Q<-subSample$Q*qFactor
+    subSample <- localSample
+    subSample$Q <- subSample$Q*qFactor
     
-    subSample<-subSample[subSample$Q>qLowerBound & subSample$Q<qUpperBound,]
+    subSample <- subSample[subSample$Q>qLowerBound & subSample$Q<qUpperBound,]
     subSample <- if(paLong == 12) subSample else selectDays(subSample, paLong,paStart)
     
-    Uncen<-subSample$Uncen
-    x<-subSample$DecYear
+    Uncen <- subSample$Uncen
+    x <- subSample$DecYear
 
-    xInfo <- generalAxis(x=x, 
-                         minVal = ifelse(is.na(yearStart),min(x),yearStart),
-                         maxVal=ifelse(is.na(yearEnd),max(x),yearEnd), 
-                         tinyPlot=tinyPlot)
+    xInfo <- generalAxis(x = x, 
+                         minVal = ifelse(is.na(yearStart), 
+                                         min(x, na.rm = TRUE), yearStart),
+                         maxVal = ifelse(is.na(yearEnd),
+                                         max(x, na.rm = TRUE), yearEnd), 
+                         tinyPlot = tinyPlot,
+                         concentration = FALSE)
     
     yHigh <- subSample$rObserved
-    yInfo <- generalAxis(x=yHigh, minVal=minYLow, maxVal=concMax, logScale=logScale, 
-                         tinyPlot=tinyPlot,units=attr(eList, "param.units"), usgsStyle = usgsStyle)
+    yInfo <- generalAxis(x=yHigh,
+                         minVal = minYLow,
+                         maxVal = concMax,
+                         logScale = logScale, 
+                         tinyPlot = tinyPlot,
+                         concLab = concLab,
+                         units = localINFO$param.units,
+                         usgsStyle = usgsStyle)
     
-    genericEGRETDotPlot(x=x[Uncen == 1], y=yHigh[Uncen == 1], 
-                        xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                        xlab="", ylab=yInfo$label,
-                        xTicks=xInfo$ticks, yTicks=yInfo$ticks,cex=cex,
-                        plotTitle=plotTitle, log=logVariable,
-                        cex.axis=cex.axis,cex.main=cex.main,tinyPlot=tinyPlot,col=col,customPar=customPar, ...
-    )
-    points(x=x[Uncen == 0], y=yHigh[Uncen == 0], pch=1,cex=cex,col=col)
+    genericEGRETDotPlot(x = x[Uncen == 1], 
+                        y = yHigh[Uncen == 1], 
+                        xlim = c(xInfo$bottom,xInfo$top), 
+                        ylim = c(yInfo$bottom,yInfo$top),
+                        xlab = "",
+                        ylab = yInfo$label,
+                        xTicks = xInfo$ticks,
+                        yTicks = yInfo$ticks, 
+                        cex = cex,
+                        plotTitle = plotTitle,
+                        log = logVariable,
+                        cex.axis = cex.axis,
+                        cex.main = cex.main,
+                        tinyPlot = tinyPlot,
+                        col = col,
+                        customPar = customPar, ...)
+    points(x = x[Uncen == 0],
+           y = yHigh[Uncen == 0],
+           pch = 1,
+           cex = cex,
+           col = col)
     
     
   }
-  if (!tinyPlot) mtext(title2,side=3,line=-1.5)
+  if (!tinyPlot) mtext(title2, side = 3, line = -1.5)
 
 }

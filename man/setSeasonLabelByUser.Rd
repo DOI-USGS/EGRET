@@ -4,12 +4,19 @@
 \alias{setSeasonLabelByUser}
 \title{Creates a character variable that describes the period of analysis, when the period of analysis is being set by the user and not from AnnualResults}
 \usage{
-setSeasonLabelByUser(paStartInput = 10, paLongInput = 12)
+setSeasonLabelByUser(paStartInput = 10, paLongInput = 12, monthLab = 1)
 }
 \arguments{
-\item{paStartInput}{numeric the month which is the start of the period of analysis, default is 10 which would be the case if the period of analysis is the water year}
+\item{paStartInput}{numeric the month which is the start of the period of 
+analysis, default is 10 which would be the case if the period of analysis is
+ the water year}
 
-\item{paLongInput}{numeric the length of the the period of analysis, in months, default is 12 which would be the case if the period of analysis is the water year}
+\item{paLongInput}{numeric the length of the the period of analysis, 
+in months, default is 12 which would be the case if the period of analysis 
+is the water year}
+
+\item{monthLab}{object of monthLabel class, or numeric represented the short code, 
+or character representing the descriptive name.}
 }
 \value{
 periodName character which describes the period of analysis

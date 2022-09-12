@@ -7,7 +7,7 @@
 plotConcPred(eList, concMax = NA, logScale = FALSE, printTitle = TRUE,
   tinyPlot = FALSE, cex = 0.8, cex.axis = 1.1, cex.main = 1.1,
   customPar = FALSE, col = "black", lwd = 1, randomCensored = FALSE,
-  usgsStyle = FALSE, ...)
+  concLab = 1, usgsStyle = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}
@@ -34,6 +34,9 @@ plotConcPred(eList, concMax = NA, logScale = FALSE, printTitle = TRUE,
 \item{lwd}{number line width}
 
 \item{randomCensored}{logical. Show censored values as randomized.}
+
+\item{concLab}{object of concUnit class, or numeric represented the short code, 
+or character representing the descriptive name.}
 
 \item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
 to TRUE does NOT guarantee USGS compliance. It will only change automatically

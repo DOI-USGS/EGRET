@@ -5,7 +5,7 @@
 \title{Axis generation for log discharge}
 \usage{
 generalAxis(x, maxVal, minVal, units = NA, logScale = FALSE,
-  tinyPlot = FALSE, padPercent = 5, concentration = TRUE,
+  tinyPlot = FALSE, padPercent = 5, concentration = TRUE, concLab = 1,
   usgsStyle = FALSE, prettyDate = TRUE)
 }
 \arguments{
@@ -24,6 +24,9 @@ generalAxis(x, maxVal, minVal, units = NA, logScale = FALSE,
 \item{padPercent}{number used to pad the max and min if not specified}
 
 \item{concentration}{logical if concentration=TRUE, labels returned as concentration units, otherwise flux units.}
+
+\item{concLab}{object of concUnit class, or numeric represented the short code, 
+or character representing the descriptive name.}
 
 \item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
 to TRUE does NOT guarantee USGS compliance. It will only change automatically
@@ -45,6 +48,7 @@ units <- INFO$param.units
 generalAxis(x, max, min, units)
 min <- min(x)
 generalAxis(x, max, min, units, log=TRUE)
+generalAxis(Daily$ConcDay, 100, 0, concLab = "concentration")
 }
 \keyword{graphics}
 \keyword{statistics}

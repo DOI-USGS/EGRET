@@ -1,6 +1,9 @@
 EGRET 3.0.8
 ===========
 * Added GenConc to tableResult function
+* Added monthly trend to runPairs
+* Added plotMonthTrend function
+* Improved support for custom axes
 
 EGRET 3.0.7
 ===========

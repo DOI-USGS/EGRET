@@ -8,7 +8,8 @@ plotConcHist(eList, yearStart = NA, yearEnd = NA, concMax = NA,
   printTitle = TRUE, tinyPlot = FALSE, usgsStyle = FALSE,
   plotFlowNorm = TRUE, plotAnnual = TRUE, plotGenConc = FALSE,
   cex = 0.8, cex.axis = 1.1, cex.main = 1.1, lwd = 2, col = "black",
-  col.pred = "green", col.gen = "red", customPar = FALSE, ...)
+  col.pred = "green", concLab = 1, col.gen = "red", customPar = FALSE,
+  ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes}
@@ -44,6 +45,9 @@ generated labels}
 \item{col}{color of points on plot, see ?par 'Color Specification'}
 
 \item{col.pred}{color of flow normalized line on plot, see ?par 'Color Specification'}
+
+\item{concLab}{object of concUnit class, or numeric represented the short code, 
+or character representing the descriptive name.}
 
 \item{col.gen}{color of points for WRTDS_K output on plot, see ?par 'Color Specification'}
 

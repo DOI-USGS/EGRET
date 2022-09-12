@@ -14,6 +14,8 @@
 #' be used in constructing the flow-duration curve. If the full year is desired any value greater 
 #' than 182 will. Note that for a window of about 2-months width, a span value should 
 #' be about 30. Default is 365.
+#' @param monthLab object of monthLabel class, or numeric represented the short code, 
+#' or character representing the descriptive name.
 #' @return qDuration A named vector with flow duration information.
 #' @keywords streamflow statistics
 #' @export
@@ -28,7 +30,8 @@
 flowDuration <- function(eList,
                          centerDate = "09-30",
                          qUnit = 2,
-                         span = 365) {
+                         span = 365,
+                         monthLab = 1) {
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
   
@@ -37,6 +40,15 @@ flowDuration <- function(eList,
   } else if (is.character(qUnit)) {
     qUnit <- qConst[qUnit][[1]]
   }
+  
+  if (is.numeric(monthLab)){
+    monthInfo <- monthInfo[shortCode=monthLab][[1]]    
+  } else if (is.character(monthLab)){
+    monthInfo <- monthInfo[monthLab][[1]]
+  } else {
+    monthInfo <- monthLab
+  }
+  
   ################################################################################
   spanFull <- span
   span <- if (spanFull > 182) {
@@ -60,7 +72,7 @@ flowDuration <- function(eList,
   isGood <- rep(FALSE, numDays)
   for (i in 1:numDays) {
     count <- ifelse(localDaily$Day[i] == goodDays, 1, 0)
-    isGood[i] <- if (sum(count) > 0) TRUE else FALSE
+    isGood[i] <- sum(count) > 0
   }
   spanDaily <- data.frame(localDaily, isGood)
   spanDaily <- subset(spanDaily, isGood)
@@ -95,13 +107,13 @@ flowDuration <- function(eList,
   } else {
     cat(
       "\nFlow duration period is centered on",
-      monthInfo[[monthCenter]]@monthFull,
+      monthInfo@monthFull[monthCenter],
       dayCenter,
       "\nAnd spans the period from",
-      monthInfo[[monthStart]]@monthFull,
+      monthInfo@monthFull[monthStart],
       dayStart,
       " To",
-      monthInfo[[monthEnd]]@monthFull,
+      monthInfo@monthFull[monthEnd],
       dayEnd
     )
   }

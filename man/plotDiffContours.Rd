@@ -10,7 +10,8 @@ plotDiffContours(eList, year0, year1, qBottom = NA, qTop = NA,
   vert2 = NA, horiz = NA, flowDuration = TRUE, yTicks = NA,
   tick.lwd = 1, lwd = 2, cex.main = 0.95, cex.axis = 1,
   customPar = FALSE, usgsStyle = FALSE,
-  color.palette = colorRampPalette(c("blue", "white", "red")), ...)
+  color.palette = colorRampPalette(c("blue", "white", "red")), concLab = 1,
+  monthLab = 1, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes, and surfaces matrix}
@@ -66,6 +67,12 @@ generated labels.}
 
 \item{color.palette}{a function that creates a color palette for the contour plot. Default goes from blue to white to red 
 using the function \code{colorRampPalette(c("blue","white","red"))}. A few preset options are heat.colors, topo.colors, and terrain.colors.}
+
+\item{concLab}{object of concUnit class, or numeric represented the short code, 
+or character representing the descriptive name.}
+
+\item{monthLab}{object of monthLabel class, or numeric represented the short code, 
+or character representing the descriptive name.}
 
 \item{\dots}{arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters}
 }

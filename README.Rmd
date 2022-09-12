@@ -1,7 +1,5 @@
 ---
 title: "README"
-author: "R"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   md_document:
     variant: markdown_github
@@ -17,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# EGRET <img src="man/figures/egret-02.png" alt="EGRET" height="150px" align="right" />
+# EGRET <img src="man/figures/egret-02.png" alt="EGRET" style="width:90px;height:auto;" align="right" class="logo" />
 
 [![R build status](https://github.com/USGS-R/EGRET/workflows/R-CMD-check/badge.svg)](https://github.com/USGS-R/EGRET/actions)
 [![codecov](https://codecov.io/gh/USGS-R/EGRET/branch/main/graph/badge.svg)](https://codecov.io/gh/USGS-R/EGRET)
@@ -29,6 +27,9 @@ knitr::opts_chunk$set(
 
 Exploration and Graphics for RivEr Trends (`EGRET`): 
 An R-package for the analysis of long-term changes in water quality and streamflow, including the water-quality method Weighted Regressions on Time, Discharge, and Season (WRTDS).
+
+Look for new and improved documentation her:
+[https://rconnect.usgs.gov/EGRET/](https://rconnect.usgs.gov/EGRET/)
 
 The link for the official USGS publication user guide is here:
 

@@ -24,72 +24,6 @@ This vignette is about producing a single type of figure.  It is designed to exa
 As of `EGRET` version 3.0.7.2 (or CRAN version 3.0.8), the output of `runPairs` includes information about the trends per individual month. This output is attached via an attribute called "byMonth".
 
 
-## How to do it
-
-You need one custom plotting function functions, **plotOne.R**.  You should set up a working directory and then you can copy the function into your working directory.  You'll need an EGRET eList in the directory as well.  It should be an eList for which `modelEstimation` has already been run.
-
-Here is the code
-
-```{r include=TRUE, eval = TRUE}
-
-# the arguments yMax, arrowFactor, and name can all be
-# adjusted to make some changes in the figure
-plotOne <- function(pairResults, yMax = NA,
-                    arrowFactor = 0.4, flux = TRUE, 
-                    name = "Change in yield, by month"){
-  
-  z <- attr(pairResults, "byMonth")
-
-  monthAbb <- c("J","F","M","A","M","J","J","A","S","O","N","D")
-  if(flux){
-    z1 <- as.numeric(z[which(z$Type == "Flux" & z$Year == min(z$Year)),3:14])
-    z2 <- as.numeric(z[which(z$Type == "Flux" & z$Year == max(z$Year)),3:14])
-  } else {
-    z1 <- as.numeric(z[which(z$Type == "Conc" & z$Year == min(z$Year)),3:14])
-    z2 <- as.numeric(z[which(z$Type == "Conc" & z$Year == max(z$Year)),3:14])
-  }
-  
-  zMax <- max(c(z1, z2))
-  yMax <- if(is.na(yMax)) zMax * 1.05 else yMax
-  
-  if(flux){
-    ylab <- expression("Change in yield, kg / month / km" ^2)
-  } else {
-    ylab <- "Change in concentration, mg / L"
-  }
-
-  par(las = 1, tck = 0.02, xaxs = "i", yaxs = "i")
-  plot(seq(1,12),z1,xlim = c(0.5,12.5), ylim = c(0, yMax),
-        xlab = "", ylab = ylab,
-       main = name, col = "black", axes = FALSE, cex.lab = 0.95)
-  axis(1, at = seq(1, 12), labels = monthAbb, tick = TRUE)
-  axis(2, at = NULL, labels = TRUE, tick = TRUE)
-  axis(3, at = seq(1, 12), labels = FALSE, tick = TRUE)
-  axis(4, at = NULL, labels = FALSE, tick = TRUE)
-  abline(h=0, col = "blue", lwd = 1)
-  box()
-  par(new = TRUE)
-  plot(seq(1,12),z2, xlim = c(0.5,12.5), ylim = c(0, yMax),
-       xlab = "", ylab = "",
-       main = "", col = "red", axes = FALSE)
-
-  for(m in 1: 12){
-    x0 <- m
-    x1 <- m
-
-    y0 <- z1[m]
-    y1 <- z2[m]
-
-    col <- if(y1 > y0) "red" else "black"
-    length <- arrowFactor * abs(y1 - y0) 
-    angle <- 30
-    lwd <- 2
-    arrows(x0, y0, x1, y1, length = length, angle = angle, col = col, lwd = lwd)
-  }
-}
-```
-
-Now let's run it:
 
 ```{r eval = TRUE, echo = TRUE, message=FALSE, fig.height=4}
 
@@ -99,8 +33,7 @@ load("Conowingo.PO4.RData")
 # source("plotOne.R")
 pairResults <- runPairs(eList, windowSide = 0,
                         paStart = 1, paLong = 12,
-                        year1 = 2006, year2 = 2017, 
-                        includeMonth = TRUE)
+                        year1 = 2006, year2 = 2017)
 ```
 
 
@@ -110,31 +43,31 @@ To see the tabular output of the results, use the "byMonthly" attribute from the
 ```{r}
 monthly <-  attr(pairResults, "byMonth")
 
-knitr::kable(monthly[ , 1:7])
+knitr::kable(monthly, digits = 3)
 
 ```
 
 Next, let's plot the results using the custom function from above:
 
 ```{r}
-plotOne(pairResults)
+plotMonthTrend(pairResults)
 
 ```
 
 We might want to make a few changes in the look of the figure, for example:
 
 ```{r eval = TRUE, echo = TRUE, fig.height=4}
-plotOne(pairResults, yMax = 1.2, 
-        arrowFactor = 0.6, 
-        name = "Change in yield between 2006 and 2017\nPO4 at Conowingo")
+plotMonthTrend(pairResults,
+               yMax = 1.2, 
+               arrowFactor = 0.6)
 ```
 
 We could also look at concentration:
 
 ```{r eval = TRUE, echo = TRUE, fig.height=4}
-plotOne(pairResults, arrowFactor = 1,
-        flux = FALSE,
-        name = "Change in concentration between 2006 and 2017\nPO4 at Conowingo")
+plotMonthTrend(pairResults, 
+               arrowFactor = 1.5,
+               flux = FALSE)
 ```
 
 # Reference cited

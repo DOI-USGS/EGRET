@@ -22,5 +22,7 @@ Some details about the qUnit class
    \item{qUnitTiny}{An expression specifying the abbreviated name.}
 
    \item{shortCode}{A number for quick lookup}
+   
+   \item{prefix}{A character specifying the general type of measurement.}
  }
 }

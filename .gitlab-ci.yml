@@ -6,8 +6,10 @@ default:
     - dind
 
 stages:
+  - getready
   - check
   - test
+  - end
 
 variables:
   _R_CHECK_CRAN_INCOMING_: "false"
@@ -21,6 +23,8 @@ variables:
   R_LIBS: "$CI_PROJECT_DIR/ci/lib"
   BUILD_LOGS_DIR: "$CI_PROJECT_DIR/ci/logs"
   NOT_CRAN: "true"
+  CONNECT_API_KEY: $CONNECT_API_KEY
+  CONNECT_SERVER: $CONNECT_SERVER
 
 cache:
   paths:
@@ -28,13 +32,12 @@ cache:
 
 
 getready:
-  stage: .pre
+  stage: getready
   script:
     - mkdir -p $R_LIBS_USER
     - mkdir -p $APT_CACHE
     - echo "options(Ncpus=$(nproc --all), repos=c(CRAN='$CRAN'))" >> $R_PROFILE
-    - Rscript -e 'install.packages(c("dataRetrieval", "survival", "fields", "rkt", "zyp", "lubridate"))'
-    - Rscript -e 'install.packages(c("truncnorm", "foreach", "EGRETci", "extrafont", "covr"))'
+    - Rscript -e "install.packages(c('devtools', 'pkgdown', 'covr', 'connectapi', 'zoo', 'rsconnect'))"
     - Rscript -e 'remotes::install_deps(dependencies=TRUE)'
   cache:
     paths:
@@ -72,3 +75,14 @@ covertests:
     - R -e 'covr::package_coverage()'
   coverage: '/Coverage: \d+.\d+\%/'
 
+deploy:
+  stage: end
+  only: 
+    - main
+  script:
+    - Rscript -e 'pkgdown::build_site()'
+    - Rscript -e 'source("deploy_simple.R")'
+  artifacts:
+    paths:
+      - $PKG_PATH
+    expire_in: 1 week

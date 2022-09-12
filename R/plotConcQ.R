@@ -27,6 +27,8 @@
 #' to TRUE does NOT guarantee USGS compliance. It will only change automatically
 #' generated labels. 
 #' @param randomCensored logical. Show censored values as randomized.
+#' @param concLab object of concUnit class, or numeric represented the short code, 
+#' or character representing the descriptive name.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -51,10 +53,15 @@
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' plotConcQ(eList)
-plotConcQ<-function(eList, qUnit = 2, tinyPlot = FALSE, logScale=FALSE,randomCensored=FALSE,
-                    concMax = NA, concMin =NA, printTitle = TRUE, cex=0.8, cex.axis=1.1,cex.main=1.1,
-                    usgsStyle=FALSE,
-                    rmSciX=FALSE,rmSciY=FALSE, customPar=FALSE,col="black",lwd=1,...){
+plotConcQ <- function(eList, qUnit = 2, tinyPlot = FALSE,
+                      logScale = FALSE, randomCensored=FALSE,
+                      concMax = NA, concMin = NA, 
+                      printTitle = TRUE, cex = 0.8,
+                      cex.axis = 1.1, cex.main = 1.1,
+                      usgsStyle = FALSE,
+                      rmSciX = FALSE, rmSciY = FALSE,
+                      customPar = FALSE, col = "black",
+                      lwd = 1, concLab = 1, ...){
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
   
@@ -67,7 +74,7 @@ plotConcQ<-function(eList, qUnit = 2, tinyPlot = FALSE, logScale=FALSE,randomCen
   }
   
   localSample <- if(paLong == 12) localSample else selectDays(localSample, paLong,paStart)
-  title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
+  title2 <-if(paLong == 12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   
   ################################################################################
   # I plan to make this a method, so we don't have to repeat it in every funciton:
@@ -98,15 +105,25 @@ plotConcQ<-function(eList, qUnit = 2, tinyPlot = FALSE, logScale=FALSE,randomCen
     yMin <- 0
   }
   
-  xInfo <- generalAxis(x=x, maxVal=NA, minVal=NA, logScale=TRUE, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x = x,
+                       maxVal = NA,
+                       minVal = NA,
+                       logScale = TRUE,
+                       tinyPlot = tinyPlot,
+                       concentration = FALSE)
   
   if(!randomCensored){
     yLow<-localSample$ConcLow
     yHigh<-localSample$ConcHigh
     
-    yInfo <- generalAxis(x=yHigh, maxVal=concMax, minVal=yMin, 
-                         tinyPlot=tinyPlot,logScale=logScale,
-                         units=localINFO$param.units, usgsStyle = usgsStyle)
+    yInfo <- generalAxis(x = yHigh,
+                         maxVal = concMax,
+                         minVal = yMin, 
+                         tinyPlot = tinyPlot, 
+                         logScale = logScale,
+                         concLab = concLab,
+                         units = localINFO$param.units,
+                         usgsStyle = usgsStyle)
     
     genericEGRETDotPlot(x=x, y=yHigh, 
                         xlim=c(xInfo$bottom, xInfo$top), ylim=c(yInfo$bottom,yInfo$top),

@@ -7,7 +7,7 @@ output:
     fig_height: 5
     fig_width: 7
 vignette: >
-  %\VignetteIndexEntry{WRTDS without discharge}
+  %\VignetteIndexEntry{Using a WRTDS model where the discharge variable is not daily discharge}
   \usepackage[utf8]{inputenc}
   %\VignetteEngine{knitr::rmarkdown}
 ---
@@ -24,7 +24,7 @@ Our thinking is that the TDS values below the dam might be much better explained
 
 So we will start by pulling in the data sets for the Greendale streamgage and running a standard WRTDS model for TDS, and also pull in the discharge data from the Green River streamgage that we will use later.  In setting up the example we will also input two functions that are not in EGRET at this point.  They are called "errorStats.R" and "estDailyFromSurfacesNEW.R". 
 
-```{r echo = TRUE, cache=TRUE}
+```{r echo = TRUE}
 library(EGRET)
 library(zoo) # zoo is a time series package, needed for rolling means
 
@@ -62,7 +62,7 @@ Notice that the Rsquared on log(Flux) is very high, nearly 98%.  But, this is re
 
 Now, let's bring in the data for the upstream site.  We are only bringing in the discharge data, but we will start this record 5 years prior to the start of the Daily record we are using at the Greendale site.  We do this because we want to do running averages and we might want to consider averages that run back a few years (since the reservoir stores multiple years worth of water).
 
-```{r echo = TRUE, cache=TRUE}
+```{r echo = TRUE}
 staUp <- "09217000"
 startUp <- "1961-10-01"
 DailyUp <- readNWISDaily(staUp, "00060", startUp, endDate) 

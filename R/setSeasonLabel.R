@@ -10,6 +10,8 @@
 #' That function is called setSeasonLabelByUser. 
 #'
 #' @param localAnnualResults data frame that contains the annual results, default is AnnualResults
+#' @param monthLab object of monthLabel class, or numeric represented the short code, 
+#' or character representing the descriptive name.
 #' @keywords water quality graphics
 #' @export
 #' @return periodName character which describes the period of analysis
@@ -18,21 +20,34 @@
 #' Daily <- getDaily(eList)
 #' AnnualResults <- setupYears(Daily)
 #' setSeasonLabel(AnnualResults)
-setSeasonLabel<-function(localAnnualResults){
+#' 
+#' AnnualResultsWinter <- setupYears(Daily, 
+#'                                   paLong = 3,
+#'                                   paStart = 12)
+#' setSeasonLabel(AnnualResultsWinter)
+setSeasonLabel <- function(localAnnualResults,
+                           monthLab = 1){
   # this function sets up text variable used to label graphs and
   # tables, defining what the period of analysis is
   paStart <- localAnnualResults$PeriodStart[1]
   paLong <- localAnnualResults$PeriodLong[1]
+  
+  if (is.numeric(monthLab)){
+    monthInfo <- monthInfo[shortCode=monthLab][[1]]    
+  } else if (is.character(monthLab)){
+    monthInfo <- monthInfo[monthLab][[1]]
+  } else {
+    monthInfo <- monthLab
+  }
+  
   index <- seq(paStart, paStart + paLong - 1)
   index <- ifelse(index > 12, index - 12, index)
-  #   monthList<-c(monthAbbrev[index[1:paLong]])
-  monthList <-
-    sapply(index[1:paLong], function(x) {
-      monthInfo[[x]]@monthAbbrev
-    })
+
+  monthList <- monthInfo@monthAbbrev[index]
+  
   monthList <- paste(monthList, collapse = " ")
-  #   temp1<- c("Year Starting With",monthFull[paStart])
-  temp1 <- c("Year Starting With", monthInfo[[paStart]]@monthFull)
+  
+  temp1 <- c("Year Starting With", monthInfo@monthFull[paStart])
   temp1 <- paste(temp1, collapse = " ")
   temp2 <- "Water Year"
   temp3 <- "Calendar Year"

@@ -38,6 +38,29 @@ setClass("fluxUnit",
 	)	
 )
 
+#' concUnit class
+#'
+#' Some details about the concUnit class
+#'
+#' \describe{
+#'    \item{longPrefix}{A character specifying the long name
+#'     for concentration labels.}
+#'
+#'    \item{shortPrefix}{A character specifying the short name
+#'     for concentration labels.}
+#' 
+#'  }
+#' @name concUnit-class
+#' @rdname concUnit-class
+#' @exportClass concUnit
+setClass("concUnit",
+         representation(
+           longPrefix    = "character",
+           shortPrefix   = "character"
+         )	
+)
+
+
 #' qUnit class
 #'
 #' Some details about the qUnit class
@@ -56,6 +79,8 @@ setClass("fluxUnit",
 #'    \item{qUnitTiny}{An expression specifying the abbreviated name.}
 #'
 #'    \item{shortCode}{A number for quick lookup}
+#'    
+#'    \item{prefix}{A character specifying the general type of measurement.}
 #'  }
 #' @name qUnit-class
 #' @rdname qUnit-class
@@ -68,7 +93,8 @@ setClass("qUnit",
     qUnitExpress = "expression",
     qUnitTiny = "expression",
     shortCode    = "numeric",
-		unitUSGS = "character"
+		unitUSGS = "character",
+		prefix = "character"
 	)	
 )
 

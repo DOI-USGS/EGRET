@@ -134,6 +134,11 @@ fluxConst <- list(poundsDay = new("fluxUnit",
 
 )
 
+
+concConst <- list(concentration = new("concUnit", 
+                                      longPrefix = "Concentration",
+                                      shortPrefix = "Conc"))
+
 qConst <- list(cfs = new("qUnit",
                           qShortName = "   cfs  ",
                           qUnitFactor = 35.314667,
@@ -141,7 +146,8 @@ qConst <- list(cfs = new("qUnit",
                           qUnitExpress = expression(paste("Discharge in ",ft^3/s)),
                           qUnitTiny = expression(paste("Discharge ", "(", ft^3/s, ")")),
                           shortCode = 1,
-                          unitUSGS = "Discharge, in cubic feet per second"
+                          unitUSGS = "Discharge, in cubic feet per second",
+                          prefix = "Discharge"
                           ),
                 cms = new("qUnit",
                           qShortName = "   cms  ",
@@ -150,7 +156,8 @@ qConst <- list(cfs = new("qUnit",
                           qUnitExpress = expression(paste("Discharge in ",m^3/s)),
                           qUnitTiny = expression(paste("Discharge ", "(", m^3/s, ")")),
                           shortCode = 2,
-                          unitUSGS = "Discharge, in cubic meters per second"
+                          unitUSGS = "Discharge, in cubic meters per second",
+                          prefix = "Discharge"
                           ),
                 thousandCfs = new("qUnit",
                           qShortName = "10^3 cfs",
@@ -159,7 +166,8 @@ qConst <- list(cfs = new("qUnit",
                           qUnitExpress = expression(paste("Discharge in ",10^3*ft^3/s)),
                           qUnitTiny = expression(paste("Discharge ", "(", 10^3*ft^3/s, ")")),
                           shortCode = 3,
-                          unitUSGS = "Discharge, in thousands of cubic feet per second"
+                          unitUSGS = "Discharge, in thousands of cubic feet per second",
+                          prefix = "Discharge"
                           ),
                 thousandCms = new("qUnit",
                           qShortName = "10^3 cms",
@@ -168,7 +176,8 @@ qConst <- list(cfs = new("qUnit",
                           qUnitExpress = expression(paste("Discharge in ",10^3*m^3/s)),
                           qUnitTiny = expression(paste("Discharge ", "(", 10^3*m^3/s, ")")),
                           shortCode = 4,
-                          unitUSGS = "Discharge, in thousands of cubic meters per second"
+                          unitUSGS = "Discharge, in thousands of cubic meters per second",
+                          prefix = "Discharge"
                           ),
                 mmDay = new("qUnit",
                             qShortName = "mm/day",
@@ -177,7 +186,8 @@ qConst <- list(cfs = new("qUnit",
                             qUnitExpress = expression(paste("Discharge in ",mm^3/day)),
                             qUnitTiny = expression(paste("Discharge ", "(", mm^3/day, ")")),
                             shortCode = 5,
-                            unitUSGS = "Discharge, in cubic millimeters per day"
+                            unitUSGS = "Discharge, in cubic millimeters per day",
+                            prefix = "Discharge"
                           )
 #                 ,mmYear = new("qUnit",
 #                           qUnitName = "Cubic Millimeters per Year",
@@ -188,64 +198,7 @@ qConst <- list(cfs = new("qUnit",
 #                           )
 )
 
-monthInfo = c(new("monthLabel",
-                    monthAbbrev = "Jan",
-                    monthFull = "January",
-                    monthSingle = "J"
-                    ),
-              new("monthLabel",
-                    monthAbbrev = "Feb",
-                    monthFull = "February",
-                    monthSingle = "F"
-                    ),
-              new("monthLabel",
-                    monthAbbrev = "Mar",
-                    monthFull = "March",
-                    monthSingle = "M"
-                    ),
-              new("monthLabel",
-                    monthAbbrev = "Apr",
-                    monthFull = "April",
-                    monthSingle = "A"
-                    ),
-              new("monthLabel",
-                    monthAbbrev = "May",
-                    monthFull = "May",
-                    monthSingle = "M"
-                    ),
-              new("monthLabel",
-                    monthAbbrev = "Jun",
-                    monthFull = "June",
-                    monthSingle = "J"
-                    ),
-              new("monthLabel",
-                    monthAbbrev = "Jul",
-                    monthFull = "July",
-                    monthSingle = "J"
-                    ),
-              new("monthLabel",
-                    monthAbbrev = "Aug",
-                    monthFull = "August",
-                    monthSingle = "A"
-                    ),
-              new("monthLabel",
-                    monthAbbrev = "Sep",
-                    monthFull = "September",
-                    monthSingle = "S"
-                    ),
-              new("monthLabel",
-                    monthAbbrev = "Oct",
-                    monthFull = "October",
-                    monthSingle = "O"
-                    ),
-              new("monthLabel",
-                    monthAbbrev = "Nov",
-                    monthFull = "November",
-                    monthSingle = "N"
-                    ),
-              new("monthLabel",
-                    monthAbbrev = "Dec",
-                    monthFull = "December",
-                    monthSingle = "D"
-                    )
-)
+monthInfo <- c(English = new("monthLabel",
+                             monthAbbrev = month.abb,
+                             monthFull = month.name,
+                             monthSingle = c("J","F","M","A","M","J","J","A","S","O","N","D")))

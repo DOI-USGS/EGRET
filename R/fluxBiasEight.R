@@ -23,6 +23,10 @@
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
+#' @param concLab object of concUnit class, or numeric represented the short code, 
+#' or character representing the descriptive name.
+#' @param monthLab object of monthLabel class, or numeric represented the short code, 
+#' or character representing the descriptive name.
 #' @param randomCensored logical, if TRUE plot a random value for censored data.  Default is FALSE.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
@@ -35,9 +39,13 @@
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList,paStart=6,paLong=3)
 #' fluxBiasMulti(eList)
-fluxBiasMulti<-function (eList, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS", 
-                         cex = 0.7, cex.axis = 1.1,cex.main=1.1,randomCensored=FALSE,
-                         col="black", lwd=1,...){
+fluxBiasMulti <- function (eList, qUnit = 2, 
+                           fluxUnit = 3, moreTitle = "WRTDS", 
+                           cex = 0.7, cex.axis = 1.1,
+                           cex.main = 1.1, randomCensored = FALSE,
+                           col = "black", lwd = 1,
+                           concLab = 1,
+                           monthLab = 1, ...){
   
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
@@ -68,21 +76,26 @@ fluxBiasMulti<-function (eList, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS",
   par(oma = c(0, 10, 4, 10),mfrow=c(4,2))
   plotResidPred(eList, 
                 stdResid = FALSE, tinyPlot=TRUE, printTitle = FALSE,cex=cex, 
-                cex.axis = cex.axis, col=col,lwd=lwd,randomCensored=randomCensored,...)
+                cex.axis = cex.axis, 
+                col = col,lwd = lwd, concLab = concLab,
+                randomCensored = randomCensored,...)
   plotResidQ(eList, 
              qUnit, tinyPlot = TRUE, printTitle = FALSE,cex=cex, 
              cex.axis = cex.axis, col=col,lwd=lwd,randomCensored=randomCensored,...)
   plotResidTime(eList, 
                 printTitle = FALSE, tinyPlot=TRUE,cex=cex, 
                 cex.axis = cex.axis, col=col,randomCensored=randomCensored,lwd=lwd,...)
-  boxResidMonth(eList, 
-                printTitle = FALSE, tinyPlot=TRUE,cex=cex, 
-                cex.axis = cex.axis,lwd=lwd,randomCensored=randomCensored,...)
+  boxResidMonth(eList, monthLab = monthLab,
+                printTitle = FALSE, tinyPlot = TRUE, cex = cex, 
+                cex.axis = cex.axis, lwd = lwd,
+                randomCensored = randomCensored,...)
   boxConcThree(eList, 
-               localINFO = localINFO, printTitle=FALSE, tinyPlot=TRUE,cex=cex, 
+               localINFO = localINFO, 
+               printTitle = FALSE, tinyPlot = TRUE,
+               cex = cex, concLab = concLab,
                cex.axis = cex.axis, lwd=lwd,...)
   plotConcPred(eList, printTitle=FALSE, 
-               tinyPlot=TRUE,cex=cex, 
+               tinyPlot=TRUE,cex=cex, concLab = concLab,
                cex.axis = cex.axis, col=col,lwd=lwd,randomCensored = randomCensored,...)
   boxQTwice(eList, printTitle = FALSE, qUnit = qUnit,tinyPlot=TRUE,cex=cex, 
             cex.axis = cex.axis, lwd=lwd,...)
