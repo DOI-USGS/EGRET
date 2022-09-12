@@ -37,6 +37,8 @@
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
 #' to TRUE does NOT guarantee USGS compliance. It will only change automatically
 #' generated labels
+#' @param concLab object of concUnit class, or numeric represented the short code, 
+#' or character representing the descriptive name.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @export
@@ -47,13 +49,21 @@
 #' eList <- Choptank_eList
 #' 
 #' plotConcHist(eList, yearStart, yearEnd)
-plotConcHist <- function(eList, yearStart = NA, yearEnd = NA, 
-                       concMax = NA, 
-                       printTitle = TRUE, 
-                       tinyPlot = FALSE, usgsStyle = FALSE,
-                       plotFlowNorm = TRUE, plotAnnual = TRUE, plotGenConc = FALSE,
-                       cex = 0.8, cex.axis = 1.1, cex.main = 1.1, lwd = 2, 
-                       col = "black", col.pred = "green", col.gen = "red", customPar = FALSE, ...){
+plotConcHist <- function(eList,
+                         yearStart = NA, 
+                         yearEnd = NA, 
+                         concMax = NA, 
+                         printTitle = TRUE, 
+                         tinyPlot = FALSE,
+                         usgsStyle = FALSE,
+                         plotFlowNorm = TRUE,
+                         plotAnnual = TRUE,
+                         plotGenConc = FALSE,
+                         cex = 0.8, cex.axis = 1.1, 
+                         cex.main = 1.1, lwd = 2, 
+                         col = "black", col.pred = "green",
+                         concLab = 1,
+                         col.gen = "red", customPar = FALSE, ...){
   
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
@@ -91,20 +101,32 @@ plotConcHist <- function(eList, yearStart = NA, yearEnd = NA,
     periodName <- paste(periodName,"*")
   }
 
+  if (is.numeric(concLab)){
+    concPrefix <- concConst[shortCode=concLab][[1]]    
+  } else if (is.character(concLab)){
+    concPrefix <- concConst[concLab][[1]]
+  } else {
+    concPrefix <- concLab
+  }
+  
   if(plotAnnual & plotGenConc & plotFlowNorm){  #all 3
-    title3 <- "\nMean (red = Kalman, black = WRTDS) & Flow-Normalized (line) Concentration" 
+    title3 <- "\nMean (red = Kalman, black = WRTDS) & Flow-Normalized (line)" 
   } else if (plotAnnual & plotGenConc & !plotFlowNorm){ # no flow-normalized
-    title3 <- "\nMean (red = Kalman, black = WRTDS) Concentration"
+    title3 <- "\nMean (red = Kalman, black = WRTDS)"
   } else if (!plotAnnual & !plotGenConc & plotFlowNorm){ # only flow-normalized
     title3 <- "\nFlow Normalized Concentration"
   } else if (plotFlowNorm & (plotGenConc | plotAnnual)){ # flow normalized with 1
-    title3 <- "\nMean (dots) & Flow-Normalized (line) Concentration"
+    title3 <- "\nMean (dots) & Flow-Normalized (line)"
   } else if (plotAnnual & !plotGenConc) {
-    title3 <- "\nMean Concentration"
+    title3 <- "\nMean"
   } else if (!plotAnnual & plotGenConc) {
-    title3 <- "\nMean Kalman Concentration"
+    title3 <- "\nMean Kalman"
   } else {
     title3 <- "\n"
+  }
+  
+  if(title3 != "\n"){
+    title3 <- paste(title3, concPrefix@longPrefix)
   }
   
   if(printTitle) {
@@ -129,7 +151,12 @@ plotConcHist <- function(eList, yearStart = NA, yearEnd = NA,
     yearEnd <- floor(yearEnd) + 0.99
   }
   
-  xInfo <- generalAxis(x=localAnnualResults$DecYear, minVal=yearStart, maxVal=yearEnd, padPercent=0.05, tinyPlot=tinyPlot)
+  xInfo <- generalAxis(x = localAnnualResults$DecYear,
+                       minVal = yearStart,
+                       maxVal = yearEnd, 
+                       padPercent = 0.05,
+                       tinyPlot = tinyPlot, 
+                       concentration = FALSE)
   
   combinedY <- c(localAnnualResults$FNConc[localAnnualResults$DecYear > xInfo$bottom &
                                              localAnnualResults$DecYear < xInfo$top])
@@ -143,10 +170,12 @@ plotConcHist <- function(eList, yearStart = NA, yearEnd = NA,
   }
   
   yInfo <- generalAxis(x = combinedY, 
-                       minVal = 0, maxVal = concMax, 
-                       tinyPlot=tinyPlot,
-                       units=localINFO$param.units,
-                       usgsStyle = usgsStyle)
+                       minVal = 0, 
+                       maxVal = concMax, 
+                       tinyPlot = tinyPlot,
+                       units = localINFO$param.units,
+                       usgsStyle = usgsStyle, 
+                       concLab = concLab)
   
   genericEGRETDotPlot(x = NA, y = NA,
                       xTicks = xInfo$ticks, yTicks = yInfo$ticks, xDate = TRUE,

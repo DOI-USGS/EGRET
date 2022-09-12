@@ -22,6 +22,10 @@
 #' @param showYLabels logical defaults to TRUE. If FALSE, the y axis label is not plotted
 #' @param showXAxis logical defaults to TRUE. If FALSE, the x axis is not plotted
 #' @param showYAxis logical defaults to TRUE. If FALSE, the y axis is not plotted
+#' @param concLab object of concUnit class, or numeric represented the short code, 
+#' or character representing the descriptive name.
+#' @param monthLab object of monthLabel class, or numeric represented the short code, 
+#' or character representing the descriptive name.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @seealso \code{\link[graphics]{boxplot}}
@@ -34,10 +38,26 @@
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' boxConcMonth(eList)
-boxConcMonth<-function(eList, printTitle = TRUE,
-                       cex=0.8, cex.axis=1.1, cex.main=1.1, las=1,logScale=FALSE,tcl=0.5,
-                       tinyPlot = FALSE, customPar=FALSE,showYLabels=TRUE,
-                       showXLabels=TRUE,showXAxis=TRUE,showYAxis=TRUE,...) {
+#' spanish_month <- new("monthLabel",
+#'                   monthAbbrev = c("enero",	"feb", 	"marzo", "abr",
+#'                                   "mayo",	"jun",	"jul", "agosto", "set",
+#'                                   "oct",	"nov", "dic"),
+#'                   monthFull = c("enero",	"febrero", 	"marzo", "abril",
+#'                                   "mayo",	"junio",	"julio", "agosto", "septiembre",
+#'                                   "octubre",	"noviembre", "diciembre"),
+#'                   monthSingle = c("E", "F", "M", "A", "M", "J", "J",
+#'                                   "A", "S", "O", "N", "D"))
+#' boxConcMonth(eList, monthLab = spanish_month, 
+#'              showXLabels = FALSE, printTitle = FALSE)
+boxConcMonth <- function(eList, printTitle = TRUE,
+                         cex = 0.8, cex.axis = 1.1,
+                         cex.main = 1.1, las = 1,
+                         logScale = FALSE, tcl = 0.5,
+                         tinyPlot = FALSE, customPar = FALSE,
+                         showYLabels = TRUE, concLab = 1,
+                         showXLabels = TRUE, showXAxis = TRUE,
+                         showYAxis = TRUE, 
+                         monthLab = 1, ...) {
   
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
@@ -52,23 +72,32 @@ boxConcMonth<-function(eList, printTitle = TRUE,
   
   localSample <- if(paLong == 12) localSample else selectDays(localSample,paLong,paStart)
   
-  title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
+  title2 <- if(paLong == 12) "" else setSeasonLabelByUser(paStartInput = paStart,paLongInput=paLong)
   #This function makes a boxplot of log concentration by month
   #Box width is proportional to the square root of the sample size
-  plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\nBoxplots of sample values by month") else ""
+  plotTitle <- if(printTitle) paste(localINFO$shortName, "\n", localINFO$paramShortName,"\nBoxplots of sample values by month") else ""
   #   nameList <- sapply(c(1:12),function(x){monthINFO[[x]]@monthSingle})
-  nameList <- sapply(c(1:12),function(x){monthInfo[[x]]@monthAbbrev})
   
-  namesListFactor <- factor(nameList, levels=nameList)
-  monthList <- as.character(apply(localSample, 1, function(x)  monthInfo[[as.numeric(x[["Month"]])]]@monthAbbrev))
-  monthList <- factor(monthList, namesListFactor)
-  tempDF <- data.frame(month=monthList, conc=localSample$ConcAve)
+  if (is.numeric(monthLab)){
+    monthInfo <- monthInfo[shortCode=monthLab][[1]]    
+  } else if (is.character(monthLab)){
+    monthInfo <- monthInfo[monthLab][[1]]
+  } else {
+    monthInfo <- monthLab
+  }
   
-  maxY<-1.02*max(localSample$ConcHigh, na.rm=TRUE)
-  ySpan<-c(0,maxY)
-#   yTicks<-pretty(ySpan, n = 7)
-#   yMax<-yTicks[length(yTicks)]
+  nameList <- monthInfo@monthAbbrev
   
+  namesListFactor <- factor(nameList, levels = nameList)
+  monthList <- nameList[localSample$Month]
+  monthList <- factor(monthList, levels = nameList)
+  
+  tempDF <- data.frame(month = monthList, 
+                       conc = localSample$ConcAve)
+  
+  maxY <- 1.02*max(localSample$ConcHigh, na.rm = TRUE)
+  ySpan <- c(0,maxY)
+
   if(logScale){
     logScaleText <- "y"
   } else {
@@ -76,29 +105,34 @@ boxConcMonth<-function(eList, printTitle = TRUE,
   }
   
   if (tinyPlot) {
-    yLabel <- paste("Conc. (",localINFO$param.units,")",sep="")
-    if (!customPar) par(mar=c(4,5,1,0.1),cex.lab=cex.axis,tcl=0.5)
-    names <- c("J","F","M","A","M","J","J","A","S","O","N","D")
+    if (!customPar) par(mar = c(4,5,1,0.1),cex.lab = cex.axis, tcl = 0.5)
+    names <- monthInfo@monthSingle
   } else {
-    yLabel <- paste("Concentration in", localINFO$param.units)
     if (!customPar) par(mar=c(5,6,4,2)+0.1,cex.lab=cex.axis,tcl=0.5)
-    names <- sapply(c(1:12),function(x){monthInfo[[x]]@monthAbbrev})
+    names <- monthInfo@monthAbbrev
   }
     
-  yInfo <- generalAxis(x=tempDF$conc, maxVal=maxY, minVal=min(localSample$ConcHigh, na.rm=TRUE), 
-                       tinyPlot=tinyPlot,logScale=logScale,units=localINFO$param.units)
+  yInfo <- generalAxis(x = tempDF$conc, 
+                       maxVal = maxY,
+                       minVal = min(localSample$ConcHigh, na.rm=TRUE), 
+                       tinyPlot = tinyPlot,
+                       logScale = logScale,
+                       concLab = concLab,
+                       units = localINFO$param.units)
   yTicksLab <- prettyNum(yInfo$ticks)
   
   boxplot(tempDF$conc ~ tempDF$month,
-          ylim=c(yInfo$bottom,yInfo$top),yaxs="i", yTicks=yInfo$ticks,
-          varwidth=TRUE,yaxt="n", 
-          names=names,
-          xlab=if(showXLabels) "Month" else "",
-          ylab=if(showYLabels) yInfo$label else "",
-          main=plotTitle,
-          cex=cex,cex.axis=cex.axis,cex.main=cex.main,
-          las=las,tcl=tcl,
-          log=logScaleText,
+          ylim = c(yInfo$bottom,yInfo$top),
+          yaxs = "i",
+          yTicks = yInfo$ticks,
+          varwidth = TRUE, yaxt = "n", 
+          names = names,
+          xlab = if(showXLabels) "Month" else "",
+          ylab = if(showYLabels) yInfo$label else "",
+          main = plotTitle,
+          cex = cex, cex.axis = cex.axis, cex.main = cex.main,
+          las = las, tcl = tcl,
+          log = logScaleText,
           ...)  
 
   if(showYAxis){
@@ -107,13 +141,6 @@ boxConcMonth<-function(eList, printTitle = TRUE,
     axis(2,tcl=tcl,las=las,at=yInfo$ticks,cex.axis=cex.axis,labels=FALSE)    
   }
 
-#   if(showXAxis){
-#     axis(1,tcl=tcl,at=xTicks,cex.axis=cex.axis,labels=xTicksLab)  
-#   } else {
-#     axis(1,tcl=tcl,at=xTicks,labels=FALSE)
-#   }
-  
-  
   if (!tinyPlot) mtext(title2,side=3,line=-1.5)
 
 }

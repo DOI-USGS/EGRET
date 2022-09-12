@@ -5,7 +5,7 @@
 \title{Plot monthly trend result from runPairs}
 \usage{
 plotMonthTrend(pairResults, yMax = NA, arrowFactor = 1, flux = TRUE,
-  printTitle = TRUE)
+  printTitle = TRUE, concLab = 1, monthLab = 1)
 }
 \arguments{
 \item{pairResults}{results from \code{runPairs}.}
@@ -21,6 +21,12 @@ factor helps adjust how big/small they are.}
 Default is \code{TRUE}.}
 
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)}
+
+\item{concLab}{object of concUnit class, or numeric represented the short code, 
+or character representing the descriptive name.}
+
+\item{monthLab}{object of monthLabel class, or numeric represented the short code, 
+or character representing the descriptive name.}
 }
 \value{
 Base R plot of monthly trends

@@ -4,10 +4,13 @@
 \alias{setSeasonLabel}
 \title{Create a character variable that describes the period of analysis, when period of analysis has already been set in AnnualResults}
 \usage{
-setSeasonLabel(localAnnualResults)
+setSeasonLabel(localAnnualResults, monthLab = 1)
 }
 \arguments{
 \item{localAnnualResults}{data frame that contains the annual results, default is AnnualResults}
+
+\item{monthLab}{object of monthLabel class, or numeric represented the short code, 
+or character representing the descriptive name.}
 }
 \value{
 periodName character which describes the period of analysis
@@ -27,6 +30,11 @@ eList <- Choptank_eList
 Daily <- getDaily(eList)
 AnnualResults <- setupYears(Daily)
 setSeasonLabel(AnnualResults)
+
+AnnualResultsWinter <- setupYears(Daily, 
+                                  paLong = 3,
+                                  paStart = 12)
+setSeasonLabel(AnnualResultsWinter)
 }
 \keyword{graphics}
 \keyword{quality}

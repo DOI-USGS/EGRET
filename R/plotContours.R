@@ -43,6 +43,8 @@
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
 #' to TRUE does NOT guarantee USGS compliance. It will only change automatically
 #' generated labels. 
+#' @param concLab object of concUnit class, or numeric represented the short code, 
+#' or character representing the descriptive name.
 #' @keywords water-quality statistics graphics
 #' @export
 #' @examples 
@@ -60,11 +62,17 @@
 #' plotContours(eList, yearStart, yearEnd, qBottom, qTop = 50, 
 #'              contourLevels = clevel, color.palette = colors, 
 #'              flowDuration = FALSE)
-plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurface = 3, 
-                       qUnit = 2, contourLevels = NA, span = 60, pval = 0.05,
-                       printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA, tcl=0.03,
-                       flowDuration = TRUE, customPar=FALSE, yTicks=NA,tick.lwd=1,usgsStyle = FALSE,
-                       lwd=2,cex.main=1,cex.axis=1,color.palette=colorRampPalette(c("white","gray","blue","red")),...) {
+plotContours <- function(eList, yearStart, yearEnd,
+                         qBottom = NA, qTop = NA, whatSurface = 3, 
+                         qUnit = 2, contourLevels = NA, span = 60,
+                         pval = 0.05,
+                         printTitle = TRUE, vert1 = NA, vert2 = NA, 
+                         horiz = NA, tcl = 0.03,
+                         flowDuration = TRUE, customPar = FALSE, 
+                         yTicks = NA, tick.lwd = 1, usgsStyle = FALSE,
+                         lwd = 2, cex.main = 1, cex.axis = 1,
+                         concLab = 1,
+                         color.palette = colorRampPalette(c("white","gray","blue","red")), ...) {
   
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
@@ -80,19 +88,29 @@ plotContours<-function(eList, yearStart, yearEnd, qBottom=NA, qTop=NA, whatSurfa
   } else if (is.character(qUnit)){
     qUnit <- qConst[qUnit][[1]]
   }
+  
+  if (is.numeric(concLab)){
+    concPrefix <- concConst[shortCode=concLab][[1]]    
+  } else if (is.character(concLab)){
+    concPrefix <- concConst[concLab][[1]]
+  } else {
+    concPrefix <- concLab
+  }
 
   if(!customPar){
     par(mgp=c(2.5,0.5,0))
   }
-  surfaceName<-c("log of Concentration","Standard Error of log(C)","Concentration")
-  j<-3
-  j<-if(whatSurface==1) 1 else j
-  j<-if(whatSurface==2) 2 else j
-  surf<-localsurfaces
-  surfaceMin<-min(surf[,,j])
-  surfaceMax<-max(surf[,,j])
-  surfaceSpan<-c(surfaceMin,surfaceMax)
-  contourLevels<-if(is.na(contourLevels[1])) pretty(surfaceSpan,n=5) else contourLevels
+  surfaceName<-c("log of Concentration",
+                 "Standard Error of log(C)",
+                 concPrefix@longPrefix)
+  j <- 3
+  j <- if(whatSurface==1) 1 else j
+  j <- if(whatSurface==2) 2 else j
+  surf <- localsurfaces
+  surfaceMin <- min(surf[,,j])
+  surfaceMax <- max(surf[,,j])
+  surfaceSpan <- c(surfaceMin,surfaceMax)
+  contourLevels <- if(is.na(contourLevels[1])) pretty(surfaceSpan,n=5) else contourLevels
   # computing the indexing of the surface, the whole thing, not just the part being plotted
   if(all(c("Year","LogQ") %in% names(attributes(localsurfaces)))){
     x <- attr(localsurfaces, "Year")

@@ -11,7 +11,8 @@ plotConcQSmooth(eList, date1, date2, date3, qLow, qHigh, qUnit = 2,
   printLegend = TRUE, windowY = 7, windowQ = 2, windowS = 0.5,
   tinyPlot = FALSE, customPar = FALSE, lwd = 2, cex = 0.8,
   cex.axis = 1.1, cex.main = 1.1, cex.legend = 1.2, lineVal = c(1, 1,
-  1), logScale = FALSE, edgeAdjust = TRUE, usgsStyle = FALSE, ...)
+  1), logScale = FALSE, edgeAdjust = TRUE, concLab = 1,
+  usgsStyle = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Sample and INFO dataframes}
@@ -77,6 +78,9 @@ plotConcQSmooth(eList, date1, date2, date3, qLow, qHigh, qUnit = 2,
 \item{logScale}{logical whether or not to use a log scale in the y axis. Default is FALSE}
 
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
+
+\item{concLab}{object of concUnit class, or numeric represented the short code, 
+or character representing the descriptive name.}
 
 \item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
 to TRUE does NOT guarantee USGS compliance. It will only change automatically

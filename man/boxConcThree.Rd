@@ -6,7 +6,7 @@
 \usage{
 boxConcThree(eList, tinyPlot = FALSE, printTitle = TRUE,
   moreTitle = "WRTDS", customPar = FALSE, font.main = 2, cex = 0.8,
-  cex.main = 1.1, cex.axis = 1.1, ...)
+  cex.main = 1.1, cex.axis = 1.1, concLab = 1, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
@@ -26,6 +26,9 @@ boxConcThree(eList, tinyPlot = FALSE, printTitle = TRUE,
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
 
 \item{cex.axis}{magnification to be used for axis annotation relative to the current setting of cex}
+
+\item{concLab}{object of concUnit class, or numeric represented the short code, 
+or character representing the descriptive name.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }

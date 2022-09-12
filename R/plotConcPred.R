@@ -22,6 +22,8 @@
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
 #' to TRUE does NOT guarantee USGS compliance. It will only change automatically
 #' generated labels
+#' @param concLab object of concUnit class, or numeric represented the short code, 
+#' or character representing the descriptive name.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
 #' @seealso \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}
@@ -34,10 +36,17 @@
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' plotConcPred(eList)
-plotConcPred<-function(eList, concMax = NA, logScale=FALSE,
-                       printTitle = TRUE,tinyPlot=FALSE,cex=0.8, cex.axis=1.1,
-                       cex.main=1.1, customPar=FALSE,col="black",lwd=1, 
-                       randomCensored = FALSE, usgsStyle = FALSE,...){
+plotConcPred <- function(eList, 
+                         concMax = NA,
+                         logScale = FALSE,
+                         printTitle = TRUE,
+                         tinyPlot = FALSE,
+                         cex = 0.8, cex.axis = 1.1,
+                         cex.main = 1.1, customPar = FALSE,
+                         col = "black", lwd = 1, 
+                         randomCensored = FALSE,
+                         concLab = 1,
+                         usgsStyle = FALSE,...){
 
   localINFO <- getInfo(eList)
   localSample <- getSample(eList) 
@@ -56,31 +65,39 @@ plotConcPred<-function(eList, concMax = NA, logScale=FALSE,
   
   localSample <- if(paLong == 12) localSample else selectDays(localSample, paLong,paStart)
   
-  title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
+  title2 <- if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
   
-  x<-localSample$ConcHat
+  x <- localSample$ConcHat
 
-  Uncen<-localSample$Uncen
+  Uncen <- localSample$Uncen
 
+  if (is.numeric(concLab)){
+    concPrefix <- concConst[shortCode=concLab][[1]]    
+  } else if (is.character(concLab)){
+    concPrefix <- concConst[concLab][[1]]
+  } else {
+    concPrefix <- concLab
+  }
+  
   if(tinyPlot){
-    xLab<-"Est. Conc."
-    yLab<-"Obs. Conc."
+    xLab <- paste("Est.", concPrefix@shortPrefix)
+    yLab <- paste("Obs.", concPrefix@shortPrefix)
   } else {
     if(usgsStyle){
       localUnits <- toupper(localINFO$param.units) 
       localUnits <- gsub(" ","", localUnits)
       
       if(length(grep("MG/L",localUnits)) > 0){
-        xLab <- "Estimated concentration, in milligrams per liter"
-        yLab <- "Observed concentration, in milligrams per liter" 
+        xLab <- paste("Estimated", tolower(concPrefix@longPrefix),"in milligrams per liter")
+        yLab <- paste("Observed", tolower(concPrefix@longPrefix), "in milligrams per liter")
       } else {
-        xLab <- paste("Estimated concentration, in",units)
-        yLab <- paste("Observed concentration, in" ,units)
+        xLab <- paste("Estimated", tolower(concPrefix@longPrefix), ", in", units)
+        yLab <- paste("Observed", tolower(concPrefix@longPrefix), ", in" , units)
       }
       
     } else {
-      xLab<-paste("Estimated Concentration in",localINFO$param.units)
-      yLab<-paste("Observed Concentration in",localINFO$param.units)      
+      xLab <- paste("Estimated", concPrefix@longPrefix, "in", localINFO$param.units)
+      yLab <- paste("Observed", concPrefix@longPrefix, "in", localINFO$param.units)      
     }
 
   }
@@ -95,9 +112,17 @@ plotConcPred<-function(eList, concMax = NA, logScale=FALSE,
     logVariable <- ""
   } 
   
-  plotTitle<-if(printTitle) paste(localINFO$shortName,"\n",localINFO$paramShortName,"\n","Observed versus Estimated Concentration") else ""
+  plotTitle <- if(printTitle) paste(localINFO$shortName, "\n",
+                                    localINFO$paramShortName, "\n",
+                                    "Observed versus Estimated",
+                                    concPrefix@longPrefix) else ""
 
-  xInfo <- generalAxis(x=x, minVal=minXLow, maxVal=concMax, tinyPlot=tinyPlot,logScale=logScale)  
+  xInfo <- generalAxis(x = x,
+                       minVal = minXLow,
+                       maxVal = concMax,
+                       tinyPlot = tinyPlot,
+                       logScale = logScale, 
+                       concLab = concLab)  
 
   if(randomCensored){
     if(!("rObserved" %in% names(localSample))){
@@ -105,34 +130,63 @@ plotConcPred<-function(eList, concMax = NA, logScale=FALSE,
       localSample <- eList$Sample
     }
     yHigh <- localSample$rObserved
-    yInfo <- generalAxis(x=yHigh, minVal=minYLow, maxVal=concMax, tinyPlot=tinyPlot,logScale=logScale)
+    yInfo <- generalAxis(x = yHigh,
+                         minVal = minYLow,
+                         maxVal = concMax,
+                         tinyPlot = tinyPlot,
+                         logScale = logScale,
+                         concLab = concLab)
     
-    genericEGRETDotPlot(x=x[Uncen == 1], y=yHigh[Uncen == 1],
-                        xTicks=xInfo$ticks, yTicks=yInfo$ticks,
-                        xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                        xlab=xLab, ylab=yLab,log=logVariable,
-                        plotTitle=plotTitle, oneToOneLine=TRUE,
-                        cex.axis=cex.axis,cex.main=cex.main,cex=cex,
-                        tinyPlot=tinyPlot,customPar=customPar,col=col,lwd=lwd,...
-    )
-    points(x=x[Uncen == 0], y=yHigh[Uncen == 0], pch=1,cex=cex,col=col)
+    genericEGRETDotPlot(x = x[Uncen == 1], y = yHigh[Uncen == 1],
+                        xTicks = xInfo$ticks, yTicks = yInfo$ticks,
+                        xlim = c(xInfo$bottom,xInfo$top),
+                        ylim = c(yInfo$bottom,yInfo$top),
+                        xlab = xLab,
+                        ylab = yLab,
+                        log = logVariable,
+                        plotTitle = plotTitle, 
+                        oneToOneLine = TRUE,
+                        cex.axis = cex.axis,
+                        cex.main = cex.main,
+                        cex = cex,
+                        tinyPlot = tinyPlot,
+                        customPar = customPar,
+                        col = col,
+                        lwd = lwd, ...)
+    points(x = x[Uncen == 0],
+           y = yHigh[Uncen == 0],
+           pch = 1, cex = cex, col = col)
     
   } else {
-    yLow<-localSample$ConcLow
-    yHigh<-localSample$ConcHigh
+    yLow <- localSample$ConcLow
+    yHigh <- localSample$ConcHigh
     
-    yInfo <- generalAxis(x=yHigh, minVal=minYLow, maxVal=concMax, tinyPlot=tinyPlot,logScale=logScale)
+    yInfo <- generalAxis(x = yHigh,
+                         minVal = minYLow,
+                         maxVal = concMax,
+                         tinyPlot = tinyPlot,
+                         logScale = logScale, 
+                         concLab = concLab)
   
-    genericEGRETDotPlot(x=x, y=yHigh,
-                        xTicks=xInfo$ticks, yTicks=yInfo$ticks,
-                        xlim=c(xInfo$bottom,xInfo$top), ylim=c(yInfo$bottom,yInfo$top),
-                        xlab=xLab, ylab=yLab,log=logVariable,
-                        plotTitle=plotTitle, oneToOneLine=TRUE,
-                        cex.axis=cex.axis,cex.main=cex.main,cex=cex,
-                        tinyPlot=tinyPlot,customPar=customPar,col=col,lwd=lwd,...
+    genericEGRETDotPlot(x = x, y = yHigh,
+                        xTicks = xInfo$ticks, yTicks = yInfo$ticks,
+                        xlim = c(xInfo$bottom,xInfo$top),
+                        ylim = c(yInfo$bottom,yInfo$top),
+                        xlab = xLab,
+                        ylab = yLab,
+                        log = logVariable,
+                        plotTitle = plotTitle, oneToOneLine = TRUE,
+                        cex.axis = cex.axis, cex.main = cex.main,cex = cex,
+                        tinyPlot = tinyPlot, customPar = customPar,
+                        col = col, lwd = lwd,...
       )
   
-    censoredSegments(yBottom=yInfo$bottom, yLow=yLow, yHigh=yHigh, x=x, Uncen=Uncen,col=col,lwd=lwd)
+    censoredSegments(yBottom = yInfo$bottom,
+                     yLow = yLow, 
+                     yHigh = yHigh,
+                     x = x,
+                     Uncen = Uncen,
+                     col = col, lwd = lwd)
   }
 
   if (!tinyPlot) mtext(title2,side=3,line=-1.5)

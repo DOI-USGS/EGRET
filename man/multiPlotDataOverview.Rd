@@ -5,12 +5,14 @@
 \title{Produces a 4 panel plot that gives an overview of the data set prior to any processing}
 \usage{
 multiPlotDataOverview(eList, qUnit = 2, cex.main = 1.2,
-  randomCensored = FALSE, logScaleConc = TRUE, logScaleQ = TRUE)
+  randomCensored = FALSE, logScaleConc = TRUE, logScaleQ = TRUE,
+  concLab = 1)
 }
 \arguments{
 \item{eList}{named list with at least Daily, Sample, and INFO dataframes}
 
-\item{qUnit}{object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.}
+\item{qUnit}{object of qUnit class \code{\link{printqUnitCheatSheet}}, or 
+numeric represented the short code, or character representing the descriptive name.}
 
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
 
@@ -20,6 +22,9 @@ If TRUE, makeAugmentedSample must be run first.}
 \item{logScaleConc}{logical if TRUE y in concentration graphs plotted in log axis. Default is TRUE.}
 
 \item{logScaleQ}{logical if TRUE y in streamflow graphs plotted in log axis. Default is TRUE.}
+
+\item{concLab}{object of concUnit class, or numeric represented the short code, 
+or character representing the descriptive name.}
 }
 \description{
 This function produces the 4 plots based only on the data stored in the eList.  
@@ -37,9 +42,32 @@ multiPlotDataOverview(eList, qUnit=1)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
 multiPlotDataOverview(eList, qUnit=1) 
+
+# Custom axes:
+eList$INFO$param.units <- "ng"
+qConst_precip <- new("qUnit",
+                     qShortName = "   mm  ",
+                     qUnitFactor = 1,
+                     qUnitName = "Millimeter",
+                     qUnitExpress = expression(paste("Precipitation in ",mm)),
+                     qUnitTiny = expression(paste("Precipitation ", "(", mm, ")")),
+                     shortCode = 1,
+                     unitUSGS = "Precipitation, in mm",
+                     prefix = "Precipitation")
+
+deposition <- new("concUnit",
+                  longPrefix = "Deposition",
+                  shortPrefix = "Dep")
+
+multiPlotDataOverview(eList, 
+                      qUnit = qConst_precip, 
+                      concLab = deposition)
+
+
 }
 \seealso{
-\code{\link{plotConcQ}}, \code{\link{boxConcMonth}}, \code{\link{plotConcTime}}, \code{\link{boxQTwice}}
+\code{\link{plotConcQ}}, \code{\link{boxConcMonth}}, 
+\code{\link{plotConcTime}}, \code{\link{boxQTwice}}
 }
 \keyword{graphics}
 \keyword{statistics}

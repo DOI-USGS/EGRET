@@ -41,6 +41,10 @@
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
 #' to TRUE does NOT guarantee USGS compliance. It will only change automatically
 #' generated labels. 
+#' @param concLab object of concUnit class, or numeric represented the short code, 
+#' or character representing the descriptive name.
+#' @param monthLab object of monthLabel class, or numeric represented the short code, 
+#' or character representing the descriptive name.
 #' @param \dots arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters
 #' @keywords water-quality statistics graphics
 #' @export
@@ -54,12 +58,14 @@
 #' plotDiffContours(eList, year0, year1, qBottom, qTop, maxDiff = 0.5)
 #' plotDiffContours(eList, year0, year1, qBottom, qTop, maxDiff = 50, plotPercent = TRUE)
 plotDiffContours<-function (eList, year0, year1, 
-                            qBottom=NA, qTop=NA, maxDiff=NA, 
+                            qBottom = NA, qTop = NA, maxDiff = NA, 
                             whatSurface = 3, tcl=0.03,
                             qUnit = 2, span = 60, pval = 0.05, printTitle = TRUE, plotPercent = FALSE,
                             vert1 = NA, vert2 = NA, horiz = NA, flowDuration = TRUE, yTicks=NA,tick.lwd=1,
-                            lwd=2,cex.main=0.95,cex.axis=1,customPar=FALSE,usgsStyle = FALSE,
-                            color.palette=colorRampPalette(c("blue","white","red")),...) {
+                            lwd=2,cex.main = 0.95, cex.axis = 1,
+                            customPar = FALSE, usgsStyle = FALSE,
+                            color.palette = colorRampPalette(c("blue","white","red")),
+                            concLab = 1, monthLab = 1, ...) {
 
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
@@ -71,12 +77,28 @@ plotDiffContours<-function (eList, year0, year1,
     qUnit <- qConst[qUnit][[1]]
   }
   
+  if (is.numeric(concLab)){
+    concPrefix <- concConst[shortCode=concLab][[1]]    
+  } else if (is.character(concLab)){
+    concPrefix <- concConst[concLab][[1]]
+  } else {
+    concPrefix <- concLab
+  }
+  
+  if (is.numeric(monthLab)){
+    monthInfo <- monthInfo[shortCode=monthLab][[1]]    
+  } else if (is.character(monthLab)){
+    monthInfo <- monthInfo[monthLab][[1]]
+  } else {
+    monthInfo <- monthLab
+  }
+  
   if(!customPar){
     par(mgp=c(2.5,0.5,0))
   }
 
   surfaceName <- c("log of Concentration", "Standard Error of log(C)", 
-                   "Concentration")
+                   concPrefix@longPrefix)
   j <- 3
   j <- if (whatSurface == 1) 1 else j
   j <- if (whatSurface == 2) 2 else j
@@ -133,7 +155,8 @@ plotDiffContours<-function (eList, year0, year1,
   }
 
   xTicks <- c(0,0.0848,0.1642,0.249,0.331,0.416,0.498,0.583,0.668,0.750,0.835,0.917,1)
-  xLabels <- c("Jan1","Feb1","Mar1","Apr1","May1","Jun1","Jul1","Aug1","Sep1","Oct1","Nov1","Dec1","Jan1")
+  xLabels <- c(monthInfo@monthAbbrev, monthInfo@monthAbbrev[1])
+  xLabels <- paste0(xLabels, "1")
   nxTicks<-length(xTicks)
   
   nYTicks <- length(yTicks)
