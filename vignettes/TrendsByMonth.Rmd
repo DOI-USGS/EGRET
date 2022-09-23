@@ -13,7 +13,7 @@ editor_options:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
-                      fig.width = 7,
+                      fig.width = 6,
                       fig.height = 7)
 ```
 
@@ -43,7 +43,7 @@ To see the tabular output of the results, use the "byMonthly" attribute from the
 ```{r}
 monthly <-  attr(pairResults, "byMonth")
 
-knitr::kable(monthly, digits = 3)
+knitr::kable(monthly, digits = 2)
 
 ```
 
@@ -66,7 +66,7 @@ We could also look at concentration:
 
 ```{r eval = TRUE, echo = TRUE, fig.height=4}
 plotMonthTrend(pairResults, 
-               arrowFactor = 1.5,
+               arrowFactor = 1.2,
                flux = FALSE)
 ```
 

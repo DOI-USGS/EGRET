@@ -64,7 +64,13 @@ unittests:
     - getready
     - buildcheck
   script:
-    - R -e 'if (any(as.data.frame(devtools::test())[["failed"]] > 0)) stop("Some tests failed.")'
+    - R -e 'library(testthat); options(testthat.output_file = file.path(Sys.getenv("CI_PROJECT_DIR"), "test-out.xml")); devtools::test(reporter = "junit")'
+  artifacts:
+    when: always
+    paths: 
+      - test-out.xml
+    reports:
+      junit: test-out.xml
 
 covertests:
   stage: test
@@ -72,7 +78,12 @@ covertests:
     - getready
     - buildcheck
   script:
-    - R -e 'covr::package_coverage()'
+    - R -e 'x <- covr::package_coverage(); covr::to_cobertura(x); x; '
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: cobertura.xml
   coverage: '/Coverage: \d+.\d+\%/'
 
 deploy:
