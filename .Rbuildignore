@@ -51,4 +51,5 @@ EGRET_full_options.R
 .gitlab-ci.yml
 ^ci$
 deploy_simple.R
-
+cobertura.xml
+test-out.xml
