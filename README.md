@@ -1,9 +1,5 @@
 # EGRET <img src="man/figures/egret-02.png" alt="EGRET" style="width:90px;height:auto;" align="right" class="logo" />
 
-[![R build
-status](https://github.com/USGS-R/EGRET/workflows/R-CMD-check/badge.svg)](https://github.com/USGS-R/EGRET/actions)
-[![codecov](https://codecov.io/gh/USGS-R/EGRET/branch/main/graph/badge.svg)](https://codecov.io/gh/USGS-R/EGRET)
-[![status](https://img.shields.io/badge/USGS-Research-blue.svg)](https://owi.usgs.gov/R/packages.html#research)
 [![CRAN
 version](http://www.r-pkg.org/badges/version/EGRET)](https://cran.r-project.org/package=EGRET)
 [![](http://cranlogs.r-pkg.org/badges/EGRET)](https://cran.r-project.org/package=EGRET)
@@ -21,19 +17,19 @@ The link for the official USGS publication user guide is here:
 
 <https://pubs.usgs.gov/tm/04/a10/>
 
-A companion package [`EGRETci`](https://usgs-r.github.io/EGRETci/)
+A companion package [`EGRETci`](https://rconnect.usgs.gov/EGRETci/)
 implements a set of approaches to the analysis of uncertainty associated
 with WRTDS trend analysis.
 
 If you are familiar with the traditional `EGRET` workflow, check out the
 [Overview and
-Updates](https://usgs-r.github.io/EGRET/articles/Overview.html) to see
+Updates](https://rconnect.usgs.gov/EGRET/articles/Overview.html) to see
 how all the latest updates relate.
 
 Recent introduction to WRTDS and the `EGRET` package at the 12th
 National Monitoring Conference April 19, 2021:
 
-<iframe width="560" height="315" src="https://www.youtube.com/watch?v=d58h3nIc1cc" frameborder="0" allowfullscreen>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/d58h3nIc1cc" frameborder="0" allowfullscreen>
 </iframe>
 
 [New capabilities](https://www.youtube.com/watch?v=ThxdHxrw5qk)
@@ -520,7 +516,7 @@ R packages, please send a request to <egret_comments@usgs.gov>.
 
 We want to encourage a warm, welcoming, and safe environment for
 contributing to this project. See the [code of
-conduct](https://github.com/USGS-R/EGRET/blob/master/CONDUCT.md) for
+conduct](https://code.usgs.gov/water/EGRET/-/blob/main/CONDUCT.md) for
 more information.
 
 ## Package Support
@@ -532,11 +528,9 @@ maintenance and responding to user questions. Priorities on the
 development of new features are determined by the `EGRET` development
 team.
 
-[![USGS](http://usgs-r.github.io/images/usgs.png)](https://www.usgs.gov/)
-
 ## Sunset date
 
-Funding for `EGRET` currently expires fall 2022. Expectations are that
+Funding for `EGRET` currently expires fall 2024. Expectations are that
 maintenance and customer service will continue to be supported past that
 date.
 
@@ -571,7 +565,7 @@ citation(package = "EGRET")
 
 See this list for WRTDS applications in print:
 
-<http://usgs-r.github.io/EGRET/articles/References_WRTDS.html>
+<https://rconnect.usgs.gov/EGRET/articles/References_WRTDS.html>
 
 ## Disclaimer
 
