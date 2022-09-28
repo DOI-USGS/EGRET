@@ -37,7 +37,12 @@
 #' 
 #' Sample_01075 <- readNWISSample('01594440','01075', '1985-01-01', '1985-03-31')
 #' }
-readNWISSample <- function(siteNumber,parameterCd,startDate="",endDate="",verbose = TRUE,interactive=NULL){
+readNWISSample <- function(siteNumber,
+                           parameterCd,
+                           startDate = "",
+                           endDate = "",
+                           verbose = TRUE,
+                           interactive = NULL){
   
   if(!is.null(interactive)) {
     warning("The argument 'interactive' is deprecated. Please use 'verbose' instead")

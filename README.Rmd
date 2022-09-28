@@ -42,7 +42,7 @@ If you are familiar with the traditional `EGRET` workflow, check out the [Overvi
 Recent introduction to WRTDS and the `EGRET` package at the 12th National Monitoring Conference
 April 19, 2021:
 
-[Introduction](https://www.youtube.com/watch?v=d58h3nIc1cc)
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=d58h3nIc1cc" frameborder="0" allowfullscreen></iframe>
 
 [New capabilities](https://www.youtube.com/watch?v=ThxdHxrw5qk)
 

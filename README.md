@@ -33,7 +33,8 @@ how all the latest updates relate.
 Recent introduction to WRTDS and the `EGRET` package at the 12th
 National Monitoring Conference April 19, 2021:
 
-[Introduction](https://www.youtube.com/watch?v=d58h3nIc1cc)
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=d58h3nIc1cc" frameborder="0" allowfullscreen>
+</iframe>
 
 [New capabilities](https://www.youtube.com/watch?v=ThxdHxrw5qk)
 
@@ -325,7 +326,7 @@ siteID <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "" # Get earliest date
 endDate <- "" # Get latest date
 Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
-#> There are 27282 data points, and 27282 days.
+#> There are 27299 data points, and 27299 days.
 # Gather site and parameter information:
 # Here user must input some values for
 # the default (interactive=TRUE)
@@ -417,7 +418,7 @@ sessioninfo::session_info()
 #>  collate  English_United States.utf8
 #>  ctype    English_United States.utf8
 #>  tz       America/Chicago
-#>  date     2022-09-11
+#>  date     2022-09-28
 #>  pandoc   2.18 @ C:/Program Files/RStudio/bin/quarto/bin/tools/ (via rmarkdown)
 #> 
 #> ─ Packages ───────────────────────────────────────────────────────────────────
@@ -431,13 +432,13 @@ sessioninfo::session_info()
 #>  colorspace      2.0-3    2022-02-21 [1] CRAN (R 4.2.1)
 #>  crayon          1.5.1    2022-03-26 [1] CRAN (R 4.2.1)
 #>  curl            4.3.2    2021-06-23 [1] CRAN (R 4.2.1)
-#>  dataRetrieval   2.7.11.1 2022-08-31 [1] local
+#>  dataRetrieval   2.7.11.1 2022-09-20 [1] Github (USGS-R/dataRetrieval@241714f)
 #>  DBI             1.1.3    2022-06-18 [1] CRAN (R 4.2.1)
 #>  digest          0.6.29   2021-12-01 [1] CRAN (R 4.2.1)
 #>  dotCall64       1.0-1    2021-02-11 [1] CRAN (R 4.2.1)
-#>  dplyr           1.0.9    2022-04-28 [1] CRAN (R 4.2.1)
+#>  dplyr           1.0.10   2022-09-01 [1] CRAN (R 4.2.1)
 #>  e1071           1.7-11   2022-06-07 [1] CRAN (R 4.2.1)
-#>  EGRET         * 3.0.7.3  2022-09-11 [1] local
+#>  EGRET         * 3.0.7.3  2022-09-23 [1] local
 #>  ellipsis        0.3.2    2021-04-29 [1] CRAN (R 4.2.1)
 #>  evaluate        0.16     2022-08-09 [1] CRAN (R 4.2.1)
 #>  fansi           1.0.3    2022-03-24 [1] CRAN (R 4.2.1)
@@ -456,10 +457,10 @@ sessioninfo::session_info()
 #>  KernSmooth      2.23-20  2021-05-03 [2] CRAN (R 4.2.1)
 #>  knitr           1.40     2022-08-24 [1] CRAN (R 4.2.1)
 #>  lattice         0.20-45  2021-09-22 [2] CRAN (R 4.2.1)
-#>  lifecycle       1.0.1    2021-09-24 [1] CRAN (R 4.2.1)
+#>  lifecycle       1.0.2    2022-09-09 [1] CRAN (R 4.2.1)
 #>  magrittr        2.0.3    2022-03-30 [1] CRAN (R 4.1.3)
 #>  maps            3.4.0    2021-09-25 [1] CRAN (R 4.2.1)
-#>  Matrix          1.4-1    2022-03-23 [2] CRAN (R 4.2.1)
+#>  Matrix          1.5-1    2022-09-13 [1] CRAN (R 4.2.1)
 #>  munsell         0.5.0    2018-06-12 [1] CRAN (R 4.2.1)
 #>  pillar          1.8.1    2022-08-19 [1] CRAN (R 4.2.1)
 #>  pkgconfig       2.0.3    2019-09-22 [1] CRAN (R 4.2.1)
@@ -468,7 +469,7 @@ sessioninfo::session_info()
 #>  R6              2.5.1    2021-08-19 [1] CRAN (R 4.2.1)
 #>  Rcpp            1.0.9    2022-07-08 [1] CRAN (R 4.2.1)
 #>  readr           2.1.2    2022-01-30 [1] CRAN (R 4.2.1)
-#>  rlang           1.0.4    2022-07-12 [1] CRAN (R 4.2.1)
+#>  rlang           1.0.5    2022-08-31 [1] CRAN (R 4.2.1)
 #>  rmarkdown       2.16     2022-08-24 [1] CRAN (R 4.2.1)
 #>  rstudioapi      0.14     2022-08-22 [1] CRAN (R 4.2.1)
 #>  scales          1.2.1    2022-08-20 [1] CRAN (R 4.2.1)
@@ -487,7 +488,7 @@ sessioninfo::session_info()
 #>  viridis         0.6.2    2021-10-13 [1] CRAN (R 4.2.1)
 #>  viridisLite     0.4.1    2022-08-22 [1] CRAN (R 4.2.1)
 #>  vroom           1.5.7    2021-11-30 [1] CRAN (R 4.2.1)
-#>  xfun            0.31     2022-05-10 [1] CRAN (R 4.2.1)
+#>  xfun            0.33     2022-09-12 [1] CRAN (R 4.2.1)
 #>  xml2            1.3.3    2021-11-30 [1] CRAN (R 4.2.1)
 #>  yaml            2.3.5    2022-02-21 [1] CRAN (R 4.2.0)
 #> 
