@@ -166,12 +166,13 @@ yearStart <- 1980
 yearEnd <- 2010
 
 plotContours(eList, yearStart,yearEnd,qBottom=0.5,
-             qTop=20, contourLevels = clevel)
+             qTop = 20, contourLevels = clevel)
+
 plotDiffContours(eList, year0 = 1990,
                  year1 = 2010,
-                 qBottom=0.5,
-                 qTop=20,
-                 maxDiff=0.6)
+                 qBottom = 0.5,
+                 qTop = 20,
+                 maxDiff = 0.6)
 ```
 
 
@@ -185,18 +186,18 @@ library(EGRET)
 siteID <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "" # Get earliest date
 endDate <- "" # Get latest date
-Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
+Daily <- readNWISDaily(siteID, "00060", startDate, endDate)
 # Gather site and parameter information:
 # Here user must input some values for
 # the default (interactive=TRUE)
-INFO<- readNWISInfo(siteID,"00060")
+INFO <- readNWISInfo(siteID, "00060")
 INFO$shortName <- "Choptank River at Greensboro, MD"
 eList <- as.egret(INFO, Daily, NA, NA)
 
 # Check flow history data:
-plotFlowSingle(eList, istat=7,qUnit="thousandCfs")
+plotFlowSingle(eList, istat = 7,qUnit = "thousandCfs")
 plotSDLogQ(eList)
-plotQTimeDaily(eList, qLower=1,qUnit=3)
+plotQTimeDaily(eList, qLower = 1, qUnit = 3)
 ```
 
 ```{r plotFours, fig.height=7}
@@ -219,11 +220,6 @@ sessioninfo::session_info()
 Please consider reporting bugs and asking questions on the Issues page:
 [https://github.com/USGS-R/EGRET/issues](https://github.com/USGS-R/EGRET/issues)
 
-Follow `@USGS_DataSci` on Twitter for updates on USGS R packages:
-
-[![Twitter Follow](https://img.shields.io/twitter/follow/USGS_DataSci.svg?style=social&label=Follow%20USGS_DataSci)](https://twitter.com/USGS_DataSci)
-
-
 
 ## Subscribe
 
@@ -238,7 +234,7 @@ We want to encourage a warm, welcoming, and safe environment for contributing to
 
 ## Package Support
 
-The Water Mission Area of the USGS has supported the development and maintenance of the `EGRET` R-package. Further maintenance is expected to be stable through October 2022. Resources are available primarily for maintenance and responding to user questions. Priorities on the development of new features are determined by the `EGRET` development team.
+The Water Mission Area of the USGS has supported the development and maintenance of the `EGRET` R-package. Further maintenance is expected to be stable through October 2024. Resources are available primarily for maintenance and responding to user questions. Priorities on the development of new features are determined by the `EGRET` development team.
 
 
 ## Sunset date 
@@ -257,6 +253,6 @@ See this list for WRTDS applications in print:
 
 [https://rconnect.usgs.gov/EGRET/articles/References_WRTDS.html](https://rconnect.usgs.gov/EGRET/articles/References_WRTDS.html)
 
-## Disclaimer
 
-This software has been approved for release by the U.S. Geological Survey (USGS). Although the software has been subjected to rigorous review, the USGS reserves the right to update the software as needed pursuant to further analysis and review. No warranty, expressed or implied, is made by the USGS or the U.S. Government as to the functionality of the software and related material nor shall the fact of release constitute any such warranty. Furthermore, the software is released on condition that neither the USGS nor the U.S. Government shall be held liable for any damages resulting from its authorized or unauthorized use.
+```{r disclaimer, child="DISCLAIMER.md", eval=TRUE}
+```

@@ -37,7 +37,7 @@
 #' AnnualResults <- setupYears(Daily, 4, 10)
 #' 
 #' 
-setupYears<-function(localDaily, paLong = 12, paStart = 10){
+setupYears <- function(localDaily, paLong = 12, paStart = 10) {
   # this function aggregates the results in the data frame Daily into annual values
   # but it gives the user flexibility as to the period of analysis
   # The "annual values" can be a full 12 months, or they can be shorter
@@ -46,16 +46,24 @@ setupYears<-function(localDaily, paLong = 12, paStart = 10){
   #   paLong=12, and paStart=10
   # it is designed to handle NA values
   
-  numDays<-length(localDaily$MonthSeq)
-  firstMonthSeq<-localDaily$MonthSeq[1]
-  lastMonthSeq<-localDaily$MonthSeq[numDays]
+  numDays <- length(localDaily$MonthSeq)
+  
+  complete <- numDays - 1 == as.numeric(max(localDaily$Date, na.rm = TRUE) -
+                                          min(localDaily$Date, na.rm = TRUE))
+  
+  if(!complete){
+    stop("Daily dataframe cannot have gaps in the data.")
+  }
+  
+  firstMonthSeq <- localDaily$MonthSeq[1]
+  lastMonthSeq <- localDaily$MonthSeq[numDays]
   
   #   creating a data frame of starting and ending months for each year
-  Starts<-seq(paStart,lastMonthSeq,12)
-  Ends<-Starts+paLong-1
-  StartEndSeq<-data.frame(Starts,Ends)
+  Starts <- seq(paStart, lastMonthSeq, 12)
+  Ends <- Starts + paLong-1
+  StartEndSeq <- data.frame(Starts,Ends)
   #   need to trim off the front and back, those years that aren't in the Daily data set
-  withinIndex <- which((StartEndSeq$Starts >=firstMonthSeq) & (StartEndSeq$Ends<=lastMonthSeq))
+  withinIndex <- which((StartEndSeq$Starts >= firstMonthSeq) & (StartEndSeq$Ends <= lastMonthSeq))
   StartEndSeq <- StartEndSeq[withinIndex, ]
   
   firstMonth <- StartEndSeq[1,1]
