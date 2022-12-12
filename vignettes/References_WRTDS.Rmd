@@ -15,7 +15,7 @@ This is a bibliography of published works that develop or use Weighted Regressio
 
 This bibliography is organized in three sections:
 
-[The WRTDS Method](#the-wrtds-method): These are papers that define and explain aspects of the WRTDS methods written by members of the team that has developed the method and the related EGRET R-package (Exploration and Graphics for RivEr Trends).  They cover a 10-year period (2010-2019) of development and enhancements of the method.  The methods described are all included either in the EGRET or EGRETci packages or in additional R scripts that can be found under the "Articles" menu of the EGRET home page (https://usgs-r.github.io/EGRET/).
+[The WRTDS Method](#the-wrtds-method): These are papers that define and explain aspects of the WRTDS methods written by members of the team that has developed the method and the related EGRET R-package (Exploration and Graphics for RivEr Trends).  They cover a 10-year period (2010-2019) of development and enhancements of the method.  The methods described are all included either in the EGRET or EGRETci packages or in additional R scripts that can be found under the "Articles" menu of the EGRET home page (https://rconnect.usgs.gov/EGRET/).
 
 [Extending and Evaluating WRTDS](#extending-and-evaluating-wrtds):  These are papers in which extensions have been made of the basic WRTDS methods to bring in other types of information or to provide other types of outputs.  The list also includes papers that make comparisons between WRTDS and other statistical methods commonly used with river water quality data.
 

@@ -86,12 +86,12 @@ plotMonthTrend <- function(pairResults, yMax = NA,
   yMax <- if(is.na(yMax)) zMax * 1.05 else yMax
   
   if(flux){
-    ylab <- expression("Change in yield, kg / month / km" ^2)
-    name <- "Change in yield, by month"
+    ylab <- expression("Yield, kg / month / km" ^2)
+    name <- "Yield, by month"
   } else {
-    ylab <- paste("Change in", tolower(concPrefix@longPrefix),
+    ylab <- paste(concPrefix@longPrefix,
                    "in , mg / L")
-    name <- paste("Change in", tolower(concPrefix@longPrefix),", by month")
+    name <- paste(concPrefix@longPrefix,", by month")
   }
 
   season <- setSeasonLabelByUser(paStartInput = yearPairs[["paStart"]],
@@ -112,8 +112,9 @@ plotMonthTrend <- function(pairResults, yMax = NA,
   
   par(las = 1, tck = 0.02, xaxs = "i", yaxs = "i")
   plot(1:12, z1, xlim = c(0.5,12.5), ylim = c(0, yMax),
-       xlab = "", ylab = ylab,
+       xlab = "", ylab = "",
        main = title, col = "black", axes = FALSE, cex.lab = 0.95)
+  title(ylab = ylab, line=2, cex.lab=1.2)
   axis(1, at = seq(1, 12), labels = monthAbb, tick = TRUE)
   axis(2, at = NULL, labels = TRUE, tick = TRUE)
   axis(3, at = seq(1, 12), labels = FALSE, tick = TRUE)

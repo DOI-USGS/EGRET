@@ -75,5 +75,6 @@ readWQPSample <- function(siteNumber,characteristicName,startDate,endDate,verbos
                          CosDY=numeric(),
                          stringsAsFactors=FALSE)
   }
+  Sample <- Sample[order(Sample$Date), ]
   return(Sample)
 }

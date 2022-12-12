@@ -17,9 +17,6 @@ knitr::opts_chunk$set(
 
 # EGRET <img src="man/figures/egret-02.png" alt="EGRET" style="width:90px;height:auto;" align="right" class="logo" />
 
-[![R build status](https://github.com/USGS-R/EGRET/workflows/R-CMD-check/badge.svg)](https://github.com/USGS-R/EGRET/actions)
-[![codecov](https://codecov.io/gh/USGS-R/EGRET/branch/main/graph/badge.svg)](https://codecov.io/gh/USGS-R/EGRET)
-[![status](https://img.shields.io/badge/USGS-Research-blue.svg)](https://owi.usgs.gov/R/packages.html#research)
 [![CRAN version](http://www.r-pkg.org/badges/version/EGRET)](https://cran.r-project.org/package=EGRET)
 [![](http://cranlogs.r-pkg.org/badges/EGRET)](https://cran.r-project.org/package=EGRET)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/EGRET)](https://cran.r-project.org/package=EGRET)
@@ -35,14 +32,14 @@ The link for the official USGS publication user guide is here:
 
 [https://pubs.usgs.gov/tm/04/a10/](https://pubs.usgs.gov/tm/04/a10/)
 
-A companion package [`EGRETci`](https://usgs-r.github.io/EGRETci/) implements a set of approaches to the analysis of uncertainty associated with WRTDS trend analysis.
+A companion package [`EGRETci`](https://rconnect.usgs.gov/EGRETci/) implements a set of approaches to the analysis of uncertainty associated with WRTDS trend analysis.
 
-If you are familiar with the traditional `EGRET` workflow, check out the [Overview and Updates](https://usgs-r.github.io/EGRET/articles/Overview.html) to see how all the latest updates relate.
+If you are familiar with the traditional `EGRET` workflow, check out the [Overview and Updates](https://rconnect.usgs.gov/EGRET/articles/Overview.html) to see how all the latest updates relate.
 
 Recent introduction to WRTDS and the `EGRET` package at the 12th National Monitoring Conference
 April 19, 2021:
 
-[Introduction](https://www.youtube.com/watch?v=d58h3nIc1cc)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/d58h3nIc1cc" frameborder="0" allowfullscreen></iframe>
 
 [New capabilities](https://www.youtube.com/watch?v=ThxdHxrw5qk)
 
@@ -169,12 +166,13 @@ yearStart <- 1980
 yearEnd <- 2010
 
 plotContours(eList, yearStart,yearEnd,qBottom=0.5,
-             qTop=20, contourLevels = clevel)
+             qTop = 20, contourLevels = clevel)
+
 plotDiffContours(eList, year0 = 1990,
                  year1 = 2010,
-                 qBottom=0.5,
-                 qTop=20,
-                 maxDiff=0.6)
+                 qBottom = 0.5,
+                 qTop = 20,
+                 maxDiff = 0.6)
 ```
 
 
@@ -188,18 +186,18 @@ library(EGRET)
 siteID <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "" # Get earliest date
 endDate <- "" # Get latest date
-Daily <- readNWISDaily(siteID,"00060",startDate,endDate)
+Daily <- readNWISDaily(siteID, "00060", startDate, endDate)
 # Gather site and parameter information:
 # Here user must input some values for
 # the default (interactive=TRUE)
-INFO<- readNWISInfo(siteID,"00060")
+INFO <- readNWISInfo(siteID, "00060")
 INFO$shortName <- "Choptank River at Greensboro, MD"
 eList <- as.egret(INFO, Daily, NA, NA)
 
 # Check flow history data:
-plotFlowSingle(eList, istat=7,qUnit="thousandCfs")
+plotFlowSingle(eList, istat = 7,qUnit = "thousandCfs")
 plotSDLogQ(eList)
-plotQTimeDaily(eList, qLower=1,qUnit=3)
+plotQTimeDaily(eList, qLower = 1, qUnit = 3)
 ```
 
 ```{r plotFours, fig.height=7}
@@ -222,11 +220,6 @@ sessioninfo::session_info()
 Please consider reporting bugs and asking questions on the Issues page:
 [https://github.com/USGS-R/EGRET/issues](https://github.com/USGS-R/EGRET/issues)
 
-Follow `@USGS_DataSci` on Twitter for updates on USGS R packages:
-
-[![Twitter Follow](https://img.shields.io/twitter/follow/USGS_DataSci.svg?style=social&label=Follow%20USGS_DataSci)](https://twitter.com/USGS_DataSci)
-
-
 
 ## Subscribe
 
@@ -237,17 +230,16 @@ Additionally, to subscribe to an email list concerning updates to these R packag
 
 ## Code of Conduct
 
-We want to encourage a warm, welcoming, and safe environment for contributing to this project. See the [code of conduct](https://github.com/USGS-R/EGRET/blob/master/CONDUCT.md) for more information.
+We want to encourage a warm, welcoming, and safe environment for contributing to this project. See the [code of conduct](https://code.usgs.gov/water/EGRET/-/blob/main/CONDUCT.md) for more information.
 
 ## Package Support
 
-The Water Mission Area of the USGS has supported the development and maintenance of the `EGRET` R-package. Further maintenance is expected to be stable through October 2022. Resources are available primarily for maintenance and responding to user questions. Priorities on the development of new features are determined by the `EGRET` development team.
+The Water Mission Area of the USGS has supported the development and maintenance of the `EGRET` R-package. Further maintenance is expected to be stable through October 2024. Resources are available primarily for maintenance and responding to user questions. Priorities on the development of new features are determined by the `EGRET` development team.
 
-[![USGS](http://usgs-r.github.io/images/usgs.png)](https://www.usgs.gov/)
 
 ## Sunset date 
 
-Funding for `EGRET` currently expires fall 2022. Expectations are that maintenance and customer service will continue to be supported past that date.
+Funding for `EGRET` currently expires fall 2024. Expectations are that maintenance and customer service will continue to be supported past that date.
 
 ## How to cite EGRET:
 
@@ -259,8 +251,8 @@ citation(package = "EGRET")
 
 See this list for WRTDS applications in print:
 
-[http://usgs-r.github.io/EGRET/articles/References_WRTDS.html](http://usgs-r.github.io/EGRET/articles/References_WRTDS.html)
+[https://rconnect.usgs.gov/EGRET/articles/References_WRTDS.html](https://rconnect.usgs.gov/EGRET/articles/References_WRTDS.html)
 
-## Disclaimer
 
-This software has been approved for release by the U.S. Geological Survey (USGS). Although the software has been subjected to rigorous review, the USGS reserves the right to update the software as needed pursuant to further analysis and review. No warranty, expressed or implied, is made by the USGS or the U.S. Government as to the functionality of the software and related material nor shall the fact of release constitute any such warranty. Furthermore, the software is released on condition that neither the USGS nor the U.S. Government shall be held liable for any damages resulting from its authorized or unauthorized use.
+```{r disclaimer, child="DISCLAIMER.md", eval=TRUE}
+```

@@ -71,7 +71,9 @@ mergeReport <- function(INFO, Daily, Sample = NA, surfaces=NA, verbose = TRUE, i
     if(!all((c("ConcLow","ConcHigh","Uncen","ConcAve") %in% names(Sample)))){
       message("Please double check that the Sample dataframe is correctly defined.")
     }
-
+    
+    Sample <- Sample[order(Sample$Date), ]
+    
     if(!all(is.na(Daily))){
       if(all(c("Q","LogQ") %in% names(Sample))){
         if(all(c("yHat","SE","ConcHat") %in% names(Sample))){
