@@ -55,3 +55,4 @@ EGRET_full_options.R
 deploy_simple.R
 cobertura.xml
 test-out.xml
+^_pkgdown\.yml$

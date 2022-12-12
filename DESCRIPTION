@@ -52,7 +52,7 @@ LazyData: yes
 BugReports: https://github.com/USGS-R/EGRET/issues
 VignetteBuilder: knitr
 BuildVignettes: true
-URL: https://pubs.usgs.gov/tm/04/a10/, https://github.com/USGS-R/EGRET/wiki
+URL: https://pubs.usgs.gov/tm/04/a10/
 Copyright: This software is in the public domain because it contains materials
     that originally came from the United States Geological Survey, an agency of
     the United States Department of Interior. For more information, see the
