@@ -40,7 +40,7 @@
     <a href="https://www.usgs.gov/" class="external-link"><img src="logo.png" id="logo" alt="Home" style="padding: 0px 50px 0px 0px;"></a>
     <a class="navbar-brand me-2" href="../index.html">EGRET</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.7.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.7.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,6 +70,7 @@
     <a class="dropdown-item" href="../articles/TrendsByMonth.html">Trends by month</a>
     <a class="dropdown-item" href="../articles/AlternativeQMethod.html">Alternative Q Method</a>
     <a class="dropdown-item" href="../articles/Annual_Hydrograph_Timing.html">Annual_Hydrograph_Timing</a>
+    <a class="dropdown-item" href="../articles/units.html">Custom Units</a>
   </div>
 </li>
 <li class="nav-item">
@@ -82,8 +83,8 @@
 
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/USGS-R/EGRET">
-    <span class="fa fa-github fa-lg"></span>
+  <a class="external-link nav-link" href="https://code.usgs.gov/water/EGRET">
+    <span class="fa fa-gitlab fa-lg"></span>
      
   </a>
 </li>
@@ -285,7 +286,7 @@ provides the core functionality to import hydrologic data from USGS and
 EPA web services. See the dataRetrieval vignette for more
 information.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pubs.usgs.gov/tm/04/a10/" class="external-link">dataRetrieval</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://code.usgs.gov/water/dataRetrieval" class="external-link">dataRetrieval</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"dataRetrieval"</span><span class="op">)</span></span></code></pre></div>
 <p>EGRET uses entirely SI units to store the data, but for purposes of
 output, it can report results in a wide variety of units, which will be
@@ -866,19 +867,19 @@ example data would be:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">Sample</span></span></code></pre></div>
 <pre><code><span><span class="co">##         Date ConcLow ConcHigh Uncen ConcAve Julian Month Day  DecYear MonthSeq</span></span>
-<span><span class="co">## 1 2003-02-15    0.52    0.520     1  0.5200  55927     2  46 2003.124     1838</span></span>
-<span><span class="co">## 2 2003-06-30    0.30    0.310     0  0.3050  56062     6 182 2003.494     1842</span></span>
+<span><span class="co">## 1 2003-02-15    0.52    0.520     1  0.5200  55927     2  46 2003.125     1838</span></span>
+<span><span class="co">## 2 2003-06-30    0.30    0.310     0  0.3050  56062     6 182 2003.495     1842</span></span>
 <span><span class="co">## 3 2004-09-15      NA    0.205     0  0.1025  56505     9 259 2004.706     1857</span></span>
-<span><span class="co">## 4 2005-01-30    0.43    0.430     1  0.4300  56642     1  30 2005.080     1861</span></span>
-<span><span class="co">## 5 2005-05-30      NA    0.050     0  0.0250  56762     5 151 2005.409     1865</span></span>
-<span><span class="co">## 6 2005-10-30      NA    0.020     0  0.0100  56915    10 304 2005.828     1870</span></span>
+<span><span class="co">## 4 2005-01-30    0.43    0.430     1  0.4300  56642     1  30 2005.081     1861</span></span>
+<span><span class="co">## 5 2005-05-30      NA    0.050     0  0.0250  56762     5 151 2005.410     1865</span></span>
+<span><span class="co">## 6 2005-10-30      NA    0.020     0  0.0100  56915    10 304 2005.829     1870</span></span>
 <span><span class="co">##   waterYear       SinDY      CosDY</span></span>
-<span><span class="co">## 1      2003  0.70252747  0.7116566</span></span>
-<span><span class="co">## 2      2003  0.03872228 -0.9992500</span></span>
-<span><span class="co">## 3      2004 -0.96134052 -0.2753623</span></span>
-<span><span class="co">## 4      2005  0.48250774  0.8758917</span></span>
-<span><span class="co">## 5      2005  0.54162782 -0.8406184</span></span>
-<span><span class="co">## 6      2006 -0.88204802  0.4711595</span></span></code></pre>
+<span><span class="co">## 1      2003  0.70558361  0.7086267</span></span>
+<span><span class="co">## 2      2003  0.03442161 -0.9994074</span></span>
+<span><span class="co">## 3      2004 -0.96251346 -0.2712339</span></span>
+<span><span class="co">## 4      2005  0.48627271  0.8738071</span></span>
+<span><span class="co">## 5      2005  0.53800517 -0.8429415</span></span>
+<span><span class="co">## 6      2006 -0.88001220  0.4749511</span></span></code></pre>
 </div>
 </div>
 <div class="section level3">

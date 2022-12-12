@@ -4,6 +4,15 @@
     <loc>/404.html</loc>
   </url>
   <url>
+    <loc>/CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>/DISCLAIMER.html</loc>
+  </url>
+  <url>
+    <loc>/LICENSE.html</loc>
+  </url>
+  <url>
     <loc>/articles/AlternativeQMethod.html</loc>
   </url>
   <url>
@@ -16,25 +25,13 @@
     <loc>/articles/Enhancements.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
     <loc>/articles/Overview.html</loc>
-  </url>
-  <url>
-    <loc>/articles/parallel.html</loc>
   </url>
   <url>
     <loc>/articles/References_WRTDS.html</loc>
   </url>
   <url>
-    <loc>/articles/rResid.html</loc>
-  </url>
-  <url>
     <loc>/articles/SeasonalFraction.html</loc>
-  </url>
-  <url>
-    <loc>/articles/streamflow_trend.html</loc>
   </url>
   <url>
     <loc>/articles/TrendsByMonth.html</loc>
@@ -43,19 +40,34 @@
     <loc>/articles/WRTDSK.html</loc>
   </url>
   <url>
+    <loc>/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>/articles/parallel.html</loc>
+  </url>
+  <url>
+    <loc>/articles/rResid.html</loc>
+  </url>
+  <url>
+    <loc>/articles/streamflow_trend.html</loc>
+  </url>
+  <url>
+    <loc>/articles/units.html</loc>
+  </url>
+  <url>
     <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>/DISCLAIMER.html</loc>
   </url>
   <url>
     <loc>/index.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>/reference/Constants.html</loc>
+  </url>
+  <url>
+    <loc>/reference/EGRET-package.html</loc>
+  </url>
+  <url>
+    <loc>/reference/INFOdataframe.html</loc>
   </url>
   <url>
     <loc>/reference/as.egret.html</loc>
@@ -94,7 +106,7 @@
     <loc>/reference/compressData.html</loc>
   </url>
   <url>
-    <loc>/reference/Constants.html</loc>
+    <loc>/reference/concUnit-class.html</loc>
   </url>
   <url>
     <loc>/reference/cumQdate.html</loc>
@@ -110,9 +122,6 @@
   </url>
   <url>
     <loc>/reference/decimalHighLow.html</loc>
-  </url>
-  <url>
-    <loc>/reference/EGRET-package.html</loc>
   </url>
   <url>
     <loc>/reference/errorStats.html</loc>
@@ -173,9 +182,6 @@
   </url>
   <url>
     <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/INFOdataframe.html</loc>
   </url>
   <url>
     <loc>/reference/is.egret.html</loc>
@@ -319,10 +325,10 @@
     <loc>/reference/printPairs.html</loc>
   </url>
   <url>
-    <loc>/reference/printqUnitCheatSheet.html</loc>
+    <loc>/reference/printSeries.html</loc>
   </url>
   <url>
-    <loc>/reference/printSeries.html</loc>
+    <loc>/reference/printqUnitCheatSheet.html</loc>
   </url>
   <url>
     <loc>/reference/processQWData.html</loc>

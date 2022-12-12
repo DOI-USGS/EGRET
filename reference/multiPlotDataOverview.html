@@ -26,7 +26,7 @@ Although there are a lot of optional arguments to this function, most are set to
     <a href="https://www.usgs.gov/" class="external-link"><img src="logo.png" id="logo" alt="Home" style="padding: 0px 50px 0px 0px;"></a>
     <a class="navbar-brand me-2" href="../index.html">EGRET</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.7.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.7.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,6 +55,7 @@ Although there are a lot of optional arguments to this function, most are set to
     <a class="dropdown-item" href="../articles/TrendsByMonth.html">Trends by month</a>
     <a class="dropdown-item" href="../articles/AlternativeQMethod.html">Alternative Q Method</a>
     <a class="dropdown-item" href="../articles/Annual_Hydrograph_Timing.html">Annual_Hydrograph_Timing</a>
+    <a class="dropdown-item" href="../articles/units.html">Custom Units</a>
   </div>
 </li>
 <li class="nav-item">
@@ -64,8 +65,8 @@ Although there are a lot of optional arguments to this function, most are set to
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
       <ul class="navbar-nav"><li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/USGS-R/EGRET">
-    <span class="fa fa-github fa-lg"></span>
+  <a class="external-link nav-link" href="https://code.usgs.gov/water/EGRET">
+    <span class="fa fa-gitlab fa-lg"></span>
      
   </a>
 </li>
@@ -93,7 +94,8 @@ To save space, the graphic is labeled only at the top of the 4 graph display.</p
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">multiPlotDataOverview</span><span class="op">(</span><span class="va">eList</span>, qUnit <span class="op">=</span> <span class="fl">2</span>, cex.main <span class="op">=</span> <span class="fl">1.2</span>,</span>
-<span>  randomCensored <span class="op">=</span> <span class="cn">FALSE</span>, logScaleConc <span class="op">=</span> <span class="cn">TRUE</span>, logScaleQ <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span>  randomCensored <span class="op">=</span> <span class="cn">FALSE</span>, logScaleConc <span class="op">=</span> <span class="cn">TRUE</span>, logScaleQ <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  concLab <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -103,7 +105,8 @@ To save space, the graphic is labeled only at the top of the 4 graph display.</p
 
 
 <dt>qUnit</dt>
-<dd><p>object of qUnit class <code><a href="printqUnitCheatSheet.html">printqUnitCheatSheet</a></code>, or numeric represented the short code, or character representing the descriptive name.</p></dd>
+<dd><p>object of qUnit class <code><a href="printqUnitCheatSheet.html">printqUnitCheatSheet</a></code>, or 
+numeric represented the short code, or character representing the descriptive name.</p></dd>
 
 
 <dt>cex.main</dt>
@@ -122,10 +125,16 @@ If TRUE, makeAugmentedSample must be run first.</p></dd>
 <dt>logScaleQ</dt>
 <dd><p>logical if TRUE y in streamflow graphs plotted in log axis. Default is TRUE.</p></dd>
 
+
+<dt>concLab</dt>
+<dd><p>object of concUnit class, or numeric represented the short code, 
+or character representing the descriptive name.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="plotConcQ.html">plotConcQ</a></code>, <code><a href="boxConcMonth.html">boxConcMonth</a></code>, <code><a href="plotConcTime.html">plotConcTime</a></code>, <code><a href="boxQTwice.html">boxQTwice</a></code></p></div>
+    <div class="dont-index"><p><code><a href="plotConcQ.html">plotConcQ</a></code>, <code><a href="boxConcMonth.html">boxConcMonth</a></code>, 
+<code><a href="plotConcTime.html">plotConcTime</a></code>, <code><a href="boxQTwice.html">boxQTwice</a></code></p></div>
     </div>
 
     <div class="section level2">
@@ -138,6 +147,29 @@ If TRUE, makeAugmentedSample must be run first.</p></dd>
 <span class="r-in"><span><span class="va">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="setPA.html">setPA</a></span><span class="op">(</span><span class="va">eList</span>, paStart<span class="op">=</span><span class="fl">6</span>,paLong<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">multiPlotDataOverview</span><span class="op">(</span><span class="va">eList</span>, qUnit<span class="op">=</span><span class="fl">1</span><span class="op">)</span> </span></span>
 <span class="r-plt img"><img src="multiPlotDataOverview-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Custom axes:</span></span></span>
+<span class="r-in"><span><span class="va">eList</span><span class="op">$</span><span class="va">INFO</span><span class="op">$</span><span class="va">param.units</span> <span class="op">&lt;-</span> <span class="st">"ng"</span></span></span>
+<span class="r-in"><span><span class="va">qConst_precip</span> <span class="op">&lt;-</span> <span class="fu">new</span><span class="op">(</span><span class="st">"qUnit"</span>,</span></span>
+<span class="r-in"><span>                     qShortName <span class="op">=</span> <span class="st">"   mm  "</span>,</span></span>
+<span class="r-in"><span>                     qUnitFactor <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>                     qUnitName <span class="op">=</span> <span class="st">"Millimeter"</span>,</span></span>
+<span class="r-in"><span>                     qUnitExpress <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Precipitation in "</span>,<span class="va">mm</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                     qUnitTiny <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"Precipitation "</span>, <span class="st">"("</span>, <span class="va">mm</span>, <span class="st">")"</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                     shortCode <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>                     unitUSGS <span class="op">=</span> <span class="st">"Precipitation, in mm"</span>,</span></span>
+<span class="r-in"><span>                     prefix <span class="op">=</span> <span class="st">"Precipitation"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">deposition</span> <span class="op">&lt;-</span> <span class="fu">new</span><span class="op">(</span><span class="st">"concUnit"</span>,</span></span>
+<span class="r-in"><span>                  longPrefix <span class="op">=</span> <span class="st">"Deposition"</span>,</span></span>
+<span class="r-in"><span>                  shortPrefix <span class="op">=</span> <span class="st">"Dep"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">multiPlotDataOverview</span><span class="op">(</span><span class="va">eList</span>, </span></span>
+<span class="r-in"><span>                      qUnit <span class="op">=</span> <span class="va">qConst_precip</span>, </span></span>
+<span class="r-in"><span>                      concLab <span class="op">=</span> <span class="va">deposition</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="multiPlotDataOverview-3.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

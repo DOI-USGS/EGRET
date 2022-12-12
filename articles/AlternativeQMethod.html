@@ -40,7 +40,7 @@
     <a href="https://www.usgs.gov/" class="external-link"><img src="logo.png" id="logo" alt="Home" style="padding: 0px 50px 0px 0px;"></a>
     <a class="navbar-brand me-2" href="../index.html">EGRET</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.7.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.7.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,6 +70,7 @@
     <a class="dropdown-item" href="../articles/TrendsByMonth.html">Trends by month</a>
     <a class="dropdown-item" href="../articles/AlternativeQMethod.html">Alternative Q Method</a>
     <a class="dropdown-item" href="../articles/Annual_Hydrograph_Timing.html">Annual_Hydrograph_Timing</a>
+    <a class="dropdown-item" href="../articles/units.html">Custom Units</a>
   </div>
 </li>
 <li class="nav-item">
@@ -82,8 +83,8 @@
 
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/USGS-R/EGRET">
-    <span class="fa fa-github fa-lg"></span>
+  <a class="external-link nav-link" href="https://code.usgs.gov/water/EGRET">
+    <span class="fa fa-gitlab fa-lg"></span>
      
   </a>
 </li>
@@ -171,8 +172,8 @@ are not in EGRET at this point. They are called “errorStats.R” and
 <pre><code><span><span class="co">## There are 12419 data points, and 12419 days.</span></span></code></pre>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">Sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/readNWISSample.html">readNWISSample</a></span><span class="op">(</span><span class="va">sta</span>, <span class="va">param</span>, <span class="va">startDate</span>, <span class="va">endDate</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: NWIS qw web services are being retired. </span></span>
-<span><span class="co">## Please see vignette('qwdata_changes', package = 'dataRetrieval') </span></span>
+<pre><code><span><span class="co">## Warning: NWIS qw web services are being retired.</span></span>
+<span><span class="co">## Please see vignette('qwdata_changes', package = 'dataRetrieval')</span></span>
 <span><span class="co">## for more information.</span></span>
 <span><span class="co">## https://cran.r-project.org/web/packages/dataRetrieval/vignettes/qwdata_changes.html</span></span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">

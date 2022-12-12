@@ -18,7 +18,7 @@ estimates of concentration and flux"><meta property="og:image" content="/logo.pn
     <a href="https://www.usgs.gov/" class="external-link"><img src="logo.png" id="logo" alt="Home" style="padding: 0px 50px 0px 0px;"></a>
     <a class="navbar-brand me-2" href="../index.html">EGRET</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.7.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.7.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,6 +47,7 @@ estimates of concentration and flux"><meta property="og:image" content="/logo.pn
     <a class="dropdown-item" href="../articles/TrendsByMonth.html">Trends by month</a>
     <a class="dropdown-item" href="../articles/AlternativeQMethod.html">Alternative Q Method</a>
     <a class="dropdown-item" href="../articles/Annual_Hydrograph_Timing.html">Annual_Hydrograph_Timing</a>
+    <a class="dropdown-item" href="../articles/units.html">Custom Units</a>
   </div>
 </li>
 <li class="nav-item">
@@ -56,8 +57,8 @@ estimates of concentration and flux"><meta property="og:image" content="/logo.pn
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
       <ul class="navbar-nav"><li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/USGS-R/EGRET">
-    <span class="fa fa-github fa-lg"></span>
+  <a class="external-link nav-link" href="https://code.usgs.gov/water/EGRET">
+    <span class="fa fa-gitlab fa-lg"></span>
      
   </a>
 </li>
@@ -133,8 +134,8 @@ These generated estimates are called genConc and genFlux</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       Date                  Q                 Julian          Month       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :1979-10-01   Min.   :  0.00991   Min.   :47389   Min.   : 1.000  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.:1987-09-30   1st Qu.:  0.93446   1st Qu.:50311   1st Qu.: 4.000  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Median :1995-09-30   Median :  2.40693   Median :53233   Median : 7.000  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   :1995-09-30   Mean   :  4.08658   Mean   :53233   Mean   : 6.523  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Median :1995-09-30   Median :  2.40693   Median :53232   Median : 7.000  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   :1995-09-30   Mean   :  4.08658   Mean   :53232   Mean   : 6.523  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.:2003-09-30   3rd Qu.:  4.61565   3rd Qu.:56154   3rd Qu.:10.000  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   :2011-09-30   Max.   :246.35656   Max.   :59076   Max.   :12.000  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                           </span>
@@ -163,24 +164,24 @@ These generated estimates are called genConc and genFlux</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   : 0.661543   Max.   :0.6146   Max.   :1.9666   Max.   :5519.450  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      FNConc           FNFlux          GenFlux             GenConc       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :0.8352   Min.   : 77.55   Min.   :    1.763   Min.   :0.04931  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.:1.0540   1st Qu.:169.71   1st Qu.:   96.253   1st Qu.:1.00369  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Median :1.2067   Median :318.61   Median :  246.666   Median :1.19554  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   :1.2004   Mean   :362.71   Mean   :  376.544   Mean   :1.21330  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.:1.3314   3rd Qu.:538.44   3rd Qu.:  498.527   3rd Qu.:1.41862  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   :1.6882   Max.   :943.75   Max.   :11927.056   Max.   :2.43000  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Min.   :0.8352   Min.   : 77.55   Min.   :    1.706   Min.   :0.04929  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1st Qu.:1.0540   1st Qu.:169.71   1st Qu.:   98.027   1st Qu.:1.00000  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Median :1.2067   Median :318.61   Median :  247.235   Median :1.20403  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Mean   :1.2004   Mean   :362.71   Mean   :  376.600   Mean   :1.21798  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3rd Qu.:1.3314   3rd Qu.:538.44   3rd Qu.:  499.024   3rd Qu.:1.42762  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Max.   :1.6882   Max.   :943.75   Max.   :11927.056   Max.   :2.49179  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                         </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#All flux values in AnnualResults are expressed as a rate in kg/day</span></span></span>
 <span class="r-in"><span><span class="va">AnnualResults</span> <span class="op">&lt;-</span> <span class="fu"><a href="setupYears.html">setupYears</a></span><span class="op">(</span><span class="va">eList</span><span class="op">$</span><span class="va">Daily</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">AnnualResults</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    DecYear        Q      Conc     Flux    FNConc   FNFlux   GenConc  GenFlux</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1980.249 4.251937 0.9485403 316.0491 1.0027237 291.2176 0.9639126 315.3214</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 1981.249 2.217248 1.0351962 184.6712 0.9988918 296.7260 0.9757190 168.1428</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 1982.249 3.046039 1.0361327 269.6309 0.9931881 300.7424 1.0728328 287.3941</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 1983.249 4.986713 1.0072716 363.8563 0.9931768 305.5898 1.0158402 360.6247</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 1984.249 5.718146 0.9901927 437.3007 1.0017255 312.2260 1.0300436 455.7228</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 1985.249 1.517457 1.0571854 133.9210 1.0165324 318.5007 1.0080738 124.8893</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1980.249 4.251937 0.9485403 316.0491 1.0027237 291.2176 0.9530652 313.1739</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 1981.249 2.217248 1.0351962 184.6712 0.9988918 296.7260 1.0114198 173.4756</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 1982.249 3.046039 1.0361327 269.6309 0.9931881 300.7424 1.0783729 281.9194</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 1983.249 4.986713 1.0072716 363.8563 0.9931768 305.5898 1.0168358 366.2154</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 1984.249 5.718146 0.9901927 437.3007 1.0017255 312.2260 1.0027022 432.4395</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 1985.249 1.517457 1.0571854 133.9210 1.0165324 318.5007 1.0203548 127.7973</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   PeriodLong PeriodStart</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1         12          10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2         12          10</span>

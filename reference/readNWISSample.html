@@ -22,7 +22,7 @@ section 3.2.4 of the vignette for more details."><meta property="og:image" conte
     <a href="https://www.usgs.gov/" class="external-link"><img src="logo.png" id="logo" alt="Home" style="padding: 0px 50px 0px 0px;"></a>
     <a class="navbar-brand me-2" href="../index.html">EGRET</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.7.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.7.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,6 +51,7 @@ section 3.2.4 of the vignette for more details."><meta property="og:image" conte
     <a class="dropdown-item" href="../articles/TrendsByMonth.html">Trends by month</a>
     <a class="dropdown-item" href="../articles/AlternativeQMethod.html">Alternative Q Method</a>
     <a class="dropdown-item" href="../articles/Annual_Hydrograph_Timing.html">Annual_Hydrograph_Timing</a>
+    <a class="dropdown-item" href="../articles/units.html">Custom Units</a>
   </div>
 </li>
 <li class="nav-item">
@@ -60,8 +61,8 @@ section 3.2.4 of the vignette for more details."><meta property="og:image" conte
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
       <ul class="navbar-nav"><li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/USGS-R/EGRET">
-    <span class="fa fa-github fa-lg"></span>
+  <a class="external-link nav-link" href="https://code.usgs.gov/water/EGRET">
+    <span class="fa fa-gitlab fa-lg"></span>
      
   </a>
 </li>
@@ -133,8 +134,8 @@ section 3.2.4 of the vignette for more details.</p>
 <span class="r-in"><span><span class="co"># These examples require an internet connection to run</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">Sample_01075</span> <span class="op">&lt;-</span> <span class="fu">readNWISSample</span><span class="op">(</span><span class="st">'01594440'</span>,<span class="st">'01075'</span>, <span class="st">'1985-01-01'</span>, <span class="st">'1985-03-31'</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>NWIS qw web services are being retired. </span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> Please see vignette('qwdata_changes', package = 'dataRetrieval') </span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>NWIS qw web services are being retired.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> Please see vignette('qwdata_changes', package = 'dataRetrieval')</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> for more information.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> https://cran.r-project.org/web/packages/dataRetrieval/vignettes/qwdata_changes.html</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>

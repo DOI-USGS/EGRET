@@ -24,7 +24,7 @@ and an INFO dataframe with metadata."><meta property="og:image" content="/logo.p
     <a href="https://www.usgs.gov/" class="external-link"><img src="logo.png" id="logo" alt="Home" style="padding: 0px 50px 0px 0px;"></a>
     <a class="navbar-brand me-2" href="../index.html">EGRET</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.7.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.7.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +53,7 @@ and an INFO dataframe with metadata."><meta property="og:image" content="/logo.p
     <a class="dropdown-item" href="../articles/TrendsByMonth.html">Trends by month</a>
     <a class="dropdown-item" href="../articles/AlternativeQMethod.html">Alternative Q Method</a>
     <a class="dropdown-item" href="../articles/Annual_Hydrograph_Timing.html">Annual_Hydrograph_Timing</a>
+    <a class="dropdown-item" href="../articles/units.html">Custom Units</a>
   </div>
 </li>
 <li class="nav-item">
@@ -62,8 +63,8 @@ and an INFO dataframe with metadata."><meta property="og:image" content="/logo.p
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
       <ul class="navbar-nav"><li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/USGS-R/EGRET">
-    <span class="fa fa-github fa-lg"></span>
+  <a class="external-link nav-link" href="https://code.usgs.gov/water/EGRET">
+    <span class="fa fa-gitlab fa-lg"></span>
      
   </a>
 </li>
@@ -92,12 +93,12 @@ and an INFO dataframe with metadata.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plotConcTimeSmooth</span><span class="op">(</span><span class="va">eList</span>, <span class="va">q1</span>, <span class="va">q2</span>, <span class="va">q3</span>, <span class="va">centerDate</span>, <span class="va">yearStart</span>, <span class="va">yearEnd</span>,</span>
 <span>  qUnit <span class="op">=</span> <span class="fl">2</span>, legendLeft <span class="op">=</span> <span class="fl">0</span>, legendTop <span class="op">=</span> <span class="fl">0</span>, concMax <span class="op">=</span> <span class="cn">NA</span>,</span>
 <span>  concMin <span class="op">=</span> <span class="cn">NA</span>, bw <span class="op">=</span> <span class="cn">FALSE</span>, printTitle <span class="op">=</span> <span class="cn">TRUE</span>, colors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"black"</span>,</span>
-<span>  <span class="st">"red"</span>, <span class="st">"green"</span><span class="op">)</span>, printValues <span class="op">=</span> <span class="cn">FALSE</span>, tinyPlot <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  minNumObs <span class="op">=</span> <span class="fl">100</span>, minNumUncen <span class="op">=</span> <span class="fl">50</span>, windowY <span class="op">=</span> <span class="fl">10</span>, windowQ <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>  windowS <span class="op">=</span> <span class="fl">0.5</span>, cex.main <span class="op">=</span> <span class="fl">1.1</span>, lwd <span class="op">=</span> <span class="fl">2</span>, printLegend <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  cex.legend <span class="op">=</span> <span class="fl">1.2</span>, cex <span class="op">=</span> <span class="fl">0.8</span>, cex.axis <span class="op">=</span> <span class="fl">1.1</span>, customPar <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  lineVal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, logScale <span class="op">=</span> <span class="cn">FALSE</span>, edgeAdjust <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  usgsStyle <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="st">"red"</span>, <span class="st">"green"</span><span class="op">)</span>, printValues <span class="op">=</span> <span class="cn">FALSE</span>, tinyPlot <span class="op">=</span> <span class="cn">FALSE</span>, concLab <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  monthLab <span class="op">=</span> <span class="fl">1</span>, minNumObs <span class="op">=</span> <span class="fl">100</span>, minNumUncen <span class="op">=</span> <span class="fl">50</span>, windowY <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  windowQ <span class="op">=</span> <span class="fl">2</span>, windowS <span class="op">=</span> <span class="fl">0.5</span>, cex.main <span class="op">=</span> <span class="fl">1.1</span>, lwd <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  printLegend <span class="op">=</span> <span class="cn">TRUE</span>, cex.legend <span class="op">=</span> <span class="fl">1.2</span>, cex <span class="op">=</span> <span class="fl">0.8</span>, cex.axis <span class="op">=</span> <span class="fl">1.1</span>,</span>
+<span>  customPar <span class="op">=</span> <span class="cn">FALSE</span>, lineVal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, logScale <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  edgeAdjust <span class="op">=</span> <span class="cn">TRUE</span>, usgsStyle <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -169,6 +170,16 @@ and an INFO dataframe with metadata.</p>
 
 <dt>tinyPlot</dt>
 <dd><p>logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE</p></dd>
+
+
+<dt>concLab</dt>
+<dd><p>object of concUnit class, or numeric represented the short code, 
+or character representing the descriptive name.</p></dd>
+
+
+<dt>monthLab</dt>
+<dd><p>object of monthLabel class, or numeric represented the short code, 
+or character representing the descriptive name.</p></dd>
 
 
 <dt>minNumObs</dt>

@@ -48,7 +48,7 @@
     <a href="https://www.usgs.gov/" class="external-link"><img src="logo.png" id="logo" alt="Home" style="padding: 0px 50px 0px 0px;"></a>
     <a class="navbar-brand me-2" href="index.html">EGRET</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.7.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.7.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,6 +78,7 @@
     <a class="dropdown-item" href="articles/TrendsByMonth.html">Trends by month</a>
     <a class="dropdown-item" href="articles/AlternativeQMethod.html">Alternative Q Method</a>
     <a class="dropdown-item" href="articles/Annual_Hydrograph_Timing.html">Annual_Hydrograph_Timing</a>
+    <a class="dropdown-item" href="articles/units.html">Custom Units</a>
   </div>
 </li>
 <li class="nav-item">
@@ -90,8 +91,8 @@
 
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/USGS-R/EGRET">
-    <span class="fa fa-github fa-lg"></span>
+  <a class="external-link nav-link" href="https://code.usgs.gov/water/EGRET">
+    <span class="fa fa-gitlab fa-lg"></span>
      
   </a>
 </li>
@@ -112,10 +113,11 @@
 <p>Look for new and improved documentation her: <a href="https://rconnect.usgs.gov/EGRET/" class="external-link uri">https://rconnect.usgs.gov/EGRET/</a></p>
 <p>The link for the official USGS publication user guide is here:</p>
 <p><a href="https://pubs.usgs.gov/tm/04/a10/" class="external-link uri">https://pubs.usgs.gov/tm/04/a10/</a></p>
-<p>A companion package <a href="https://usgs-r.github.io/EGRETci/" class="external-link"><code>EGRETci</code></a> implements a set of approaches to the analysis of uncertainty associated with WRTDS trend analysis.</p>
-<p>If you are familiar with the traditional <code>EGRET</code> workflow, check out the <a href="https://usgs-r.github.io/EGRET/articles/Overview.html" class="external-link">Overview and Updates</a> to see how all the latest updates relate.</p>
+<p>A companion package <a href="https://rconnect.usgs.gov/EGRETci/" class="external-link"><code>EGRETci</code></a> implements a set of approaches to the analysis of uncertainty associated with WRTDS trend analysis.</p>
+<p>If you are familiar with the traditional <code>EGRET</code> workflow, check out the <a href="https://rconnect.usgs.gov/EGRET/articles/Overview.html" class="external-link">Overview and Updates</a> to see how all the latest updates relate.</p>
 <p>Recent introduction to WRTDS and the <code>EGRET</code> package at the 12th National Monitoring Conference April 19, 2021:</p>
-<p><a href="https://www.youtube.com/watch?v=d58h3nIc1cc" class="external-link">Introduction</a></p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/d58h3nIc1cc" frameborder="0" allowfullscreen>
+</iframe>
 <p><a href="https://www.youtube.com/watch?v=ThxdHxrw5qk" class="external-link">New capabilities</a></p>
 <div class="section level2">
 <h2 id="package-installation">Package Installation<a class="anchor" aria-label="anchor" href="#package-installation"></a>
@@ -278,14 +280,15 @@
 <span><span class="va">yearEnd</span> <span class="op">&lt;-</span> <span class="fl">2010</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/plotContours.html">plotContours</a></span><span class="op">(</span><span class="va">eList</span>, <span class="va">yearStart</span>,<span class="va">yearEnd</span>,qBottom<span class="op">=</span><span class="fl">0.5</span>,</span>
-<span>             qTop<span class="op">=</span><span class="fl">20</span>, contourLevels <span class="op">=</span> <span class="va">clevel</span><span class="op">)</span></span></code></pre></div>
+<span>             qTop <span class="op">=</span> <span class="fl">20</span>, contourLevels <span class="op">=</span> <span class="va">clevel</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-contourPlots-1.png"></p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/plotDiffContours.html">plotDiffContours</a></span><span class="op">(</span><span class="va">eList</span>, year0 <span class="op">=</span> <span class="fl">1990</span>,</span>
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="reference/plotDiffContours.html">plotDiffContours</a></span><span class="op">(</span><span class="va">eList</span>, year0 <span class="op">=</span> <span class="fl">1990</span>,</span>
 <span>                 year1 <span class="op">=</span> <span class="fl">2010</span>,</span>
-<span>                 qBottom<span class="op">=</span><span class="fl">0.5</span>,</span>
-<span>                 qTop<span class="op">=</span><span class="fl">20</span>,</span>
-<span>                 maxDiff<span class="op">=</span><span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
+<span>                 qBottom <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>                 qTop <span class="op">=</span> <span class="fl">20</span>,</span>
+<span>                 maxDiff <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-contourPlots-2.png"></p>
 <div class="section level3">
 <h3 id="sample-workflow-for-a-flowhistory-application-for-the-entire-record">Sample workflow for a flowHistory application for the entire record<a class="anchor" aria-label="anchor" href="#sample-workflow-for-a-flowhistory-application-for-the-entire-record"></a>
@@ -298,12 +301,12 @@
 <span><span class="va">siteID</span> <span class="op">&lt;-</span> <span class="st">"01491000"</span> <span class="co">#Choptank River at Greensboro, MD</span></span>
 <span><span class="va">startDate</span> <span class="op">&lt;-</span> <span class="st">""</span> <span class="co"># Get earliest date</span></span>
 <span><span class="va">endDate</span> <span class="op">&lt;-</span> <span class="st">""</span> <span class="co"># Get latest date</span></span>
-<span><span class="va">Daily</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/readNWISDaily.html">readNWISDaily</a></span><span class="op">(</span><span class="va">siteID</span>,<span class="st">"00060"</span>,<span class="va">startDate</span>,<span class="va">endDate</span><span class="op">)</span></span>
-<span><span class="co">#&gt; There are 27281 data points, and 27281 days.</span></span>
+<span><span class="va">Daily</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/readNWISDaily.html">readNWISDaily</a></span><span class="op">(</span><span class="va">siteID</span>, <span class="st">"00060"</span>, <span class="va">startDate</span>, <span class="va">endDate</span><span class="op">)</span></span>
+<span><span class="co">#&gt; There are 27371 data points, and 27371 days.</span></span>
 <span><span class="co"># Gather site and parameter information:</span></span>
 <span><span class="co"># Here user must input some values for</span></span>
 <span><span class="co"># the default (interactive=TRUE)</span></span>
-<span><span class="va">INFO</span><span class="op">&lt;-</span> <span class="fu"><a href="reference/INFOdataframe.html">readNWISInfo</a></span><span class="op">(</span><span class="va">siteID</span>,<span class="st">"00060"</span><span class="op">)</span></span>
+<span><span class="va">INFO</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/INFOdataframe.html">readNWISInfo</a></span><span class="op">(</span><span class="va">siteID</span>, <span class="st">"00060"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Your site for streamflow data is:</span></span>
 <span><span class="co">#&gt;  01491000 .</span></span>
 <span><span class="co">#&gt; Your site name is CHOPTANK RIVER NEAR GREENSBORO, MD </span></span>
@@ -340,13 +343,13 @@
 <span><span class="va">eList</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/as.egret.html">as.egret</a></span><span class="op">(</span><span class="va">INFO</span>, <span class="va">Daily</span>, <span class="cn">NA</span>, <span class="cn">NA</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Check flow history data:</span></span>
-<span><span class="fu"><a href="reference/plotFlowSingle.html">plotFlowSingle</a></span><span class="op">(</span><span class="va">eList</span>, istat<span class="op">=</span><span class="fl">7</span>,qUnit<span class="op">=</span><span class="st">"thousandCfs"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/plotFlowSingle.html">plotFlowSingle</a></span><span class="op">(</span><span class="va">eList</span>, istat <span class="op">=</span> <span class="fl">7</span>,qUnit <span class="op">=</span> <span class="st">"thousandCfs"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-4-1.png"></p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/plotSDLogQ.html">plotSDLogQ</a></span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-4-2.png"></p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/plotQTimeDaily.html">plotQTimeDaily</a></span><span class="op">(</span><span class="va">eList</span>, qLower<span class="op">=</span><span class="fl">1</span>,qUnit<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/plotQTimeDaily.html">plotQTimeDaily</a></span><span class="op">(</span><span class="va">eList</span>, qLower <span class="op">=</span> <span class="fl">1</span>, qUnit <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-4-3.png"></p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/plotFour.html">plotFour</a></span><span class="op">(</span><span class="va">eList</span>, qUnit<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
@@ -364,7 +367,7 @@
 <code class="sourceCode R"><span><span class="fu">sessioninfo</span><span class="fu">::</span><span class="fu"><a href="https://r-lib.github.io/sessioninfo/reference/session_info.html" class="external-link">session_info</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ─ Session info ───────────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt;  setting  value</span></span>
-<span><span class="co">#&gt;  version  R version 4.2.1 (2022-06-23 ucrt)</span></span>
+<span><span class="co">#&gt;  version  R version 4.2.2 (2022-10-31 ucrt)</span></span>
 <span><span class="co">#&gt;  os       Windows 10 x64 (build 19044)</span></span>
 <span><span class="co">#&gt;  system   x86_64, mingw32</span></span>
 <span><span class="co">#&gt;  ui       RTerm</span></span>
@@ -372,82 +375,79 @@
 <span><span class="co">#&gt;  collate  English_United States.utf8</span></span>
 <span><span class="co">#&gt;  ctype    English_United States.utf8</span></span>
 <span><span class="co">#&gt;  tz       America/Chicago</span></span>
-<span><span class="co">#&gt;  date     2022-09-10</span></span>
-<span><span class="co">#&gt;  pandoc   2.18 @ C:/Program Files/RStudio/bin/quarto/bin/tools/ (via rmarkdown)</span></span>
+<span><span class="co">#&gt;  date     2022-12-09</span></span>
+<span><span class="co">#&gt;  pandoc   2.19.2 @ C:/Program Files/RStudio/bin/quarto/bin/tools/ (via rmarkdown)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ─ Packages ───────────────────────────────────────────────────────────────────</span></span>
-<span><span class="co">#&gt;  package       * version  date (UTC) lib source</span></span>
-<span><span class="co">#&gt;  assertthat      0.2.1    2019-03-21 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  bit             4.0.4    2020-08-04 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  bit64           4.0.5    2020-08-30 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  class           7.3-20   2022-01-16 [2] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  classInt        0.4-7    2022-06-10 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  cli             3.3.0    2022-04-25 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  colorspace      2.0-3    2022-02-21 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  crayon          1.5.1    2022-03-26 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  curl            4.3.2    2021-06-23 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  dataRetrieval   2.7.11.1 2022-08-31 [1] local</span></span>
-<span><span class="co">#&gt;  DBI             1.1.3    2022-06-18 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  digest          0.6.29   2021-12-01 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  dotCall64       1.0-1    2021-02-11 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  dplyr           1.0.9    2022-04-28 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  e1071           1.7-11   2022-06-07 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  EGRET         * 3.0.7.2  2022-09-10 [1] local</span></span>
-<span><span class="co">#&gt;  ellipsis        0.3.2    2021-04-29 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  evaluate        0.16     2022-08-09 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  fansi           1.0.3    2022-03-24 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  fastmap         1.1.0    2021-01-25 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  fields          14.1     2022-08-12 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  generics        0.1.3    2022-07-05 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  ggplot2         3.3.6    2022-05-03 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  glue            1.6.2    2022-02-24 [1] CRAN (R 4.1.3)</span></span>
-<span><span class="co">#&gt;  gridExtra       2.3      2017-09-09 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  gtable          0.3.1    2022-09-01 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  highr           0.9      2021-04-16 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  hms             1.1.2    2022-08-19 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  htmltools       0.5.3    2022-07-18 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  httr            1.4.4    2022-08-17 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  jsonlite        1.8.0    2022-02-22 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  KernSmooth      2.23-20  2021-05-03 [2] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  knitr           1.40     2022-08-24 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  lattice         0.20-45  2021-09-22 [2] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  lifecycle       1.0.1    2021-09-24 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  magrittr        2.0.3    2022-03-30 [1] CRAN (R 4.1.3)</span></span>
-<span><span class="co">#&gt;  maps            3.4.0    2021-09-25 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  Matrix          1.4-1    2022-03-23 [2] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  munsell         0.5.0    2018-06-12 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  pillar          1.8.1    2022-08-19 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  pkgconfig       2.0.3    2019-09-22 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  proxy           0.4-27   2022-06-09 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  purrr           0.3.4    2020-04-17 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  R6              2.5.1    2021-08-19 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  Rcpp            1.0.9    2022-07-08 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  readr           2.1.2    2022-01-30 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  rlang           1.0.4    2022-07-12 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  rmarkdown       2.16     2022-08-24 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  rstudioapi      0.14     2022-08-22 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  scales          1.2.1    2022-08-20 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  sessioninfo     1.2.2    2021-12-06 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  sf              1.0-8    2022-07-14 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  spam            2.9-1    2022-08-07 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  stringi         1.7.8    2022-07-11 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  stringr         1.4.1    2022-08-20 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  survival        3.4-0    2022-08-09 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  tibble          3.1.8    2022-07-22 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  tidyselect      1.1.2    2022-02-21 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  tzdb            0.3.0    2022-03-28 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  units           0.8-0    2022-02-05 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  utf8            1.2.2    2021-07-24 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  vctrs           0.4.1    2022-04-13 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  viridis         0.6.2    2021-10-13 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  viridisLite     0.4.1    2022-08-22 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  vroom           1.5.7    2021-11-30 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  xfun            0.31     2022-05-10 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  xml2            1.3.3    2021-11-30 [1] CRAN (R 4.2.1)</span></span>
-<span><span class="co">#&gt;  yaml            2.3.5    2022-02-21 [1] CRAN (R 4.2.0)</span></span>
+<span><span class="co">#&gt;  package       * version date (UTC) lib source</span></span>
+<span><span class="co">#&gt;  assertthat      0.2.1   2019-03-21 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  bit             4.0.5   2022-11-15 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  bit64           4.0.5   2020-08-30 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  class           7.3-20  2022-01-16 [2] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  classInt        0.4-8   2022-09-29 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  cli             3.4.1   2022-09-23 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  colorspace      2.0-3   2022-02-21 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  crayon          1.5.2   2022-09-29 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  curl            4.3.3   2022-10-06 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  dataRetrieval   2.7.12  2022-12-08 [1] local</span></span>
+<span><span class="co">#&gt;  DBI             1.1.3   2022-06-18 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  digest          0.6.30  2022-10-18 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  dotCall64       1.0-2   2022-10-03 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  dplyr           1.0.10  2022-09-01 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  e1071           1.7-12  2022-10-24 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  EGRET         * 3.0.7.3 2022-09-23 [1] local</span></span>
+<span><span class="co">#&gt;  ellipsis        0.3.2   2021-04-29 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  evaluate        0.18    2022-11-07 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  fansi           1.0.3   2022-03-24 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  fastmap         1.1.0   2021-01-25 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  fields          14.1    2022-08-12 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  generics        0.1.3   2022-07-05 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  ggplot2         3.4.0   2022-11-04 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  glue            1.6.2   2022-02-24 [1] CRAN (R 4.1.3)</span></span>
+<span><span class="co">#&gt;  gridExtra       2.3     2017-09-09 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  gtable          0.3.1   2022-09-01 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  highr           0.9     2021-04-16 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  hms             1.1.2   2022-08-19 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  htmltools       0.5.4   2022-12-07 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  httr            1.4.4   2022-08-17 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  KernSmooth      2.23-20 2021-05-03 [2] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  knitr           1.41    2022-11-18 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  lattice         0.20-45 2021-09-22 [2] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  lifecycle       1.0.3   2022-10-07 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  magrittr        2.0.3   2022-03-30 [1] CRAN (R 4.1.3)</span></span>
+<span><span class="co">#&gt;  maps            3.4.1   2022-10-30 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  Matrix          1.5-3   2022-11-11 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  munsell         0.5.0   2018-06-12 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  pillar          1.8.1   2022-08-19 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  pkgconfig       2.0.3   2019-09-22 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  proxy           0.4-27  2022-06-09 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  R6              2.5.1   2021-08-19 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  Rcpp            1.0.9   2022-07-08 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  readr           2.1.3   2022-10-01 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  rlang           1.0.6   2022-09-24 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  rmarkdown       2.18    2022-11-09 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  rstudioapi      0.14    2022-08-22 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  scales          1.2.1   2022-08-20 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  sessioninfo     1.2.2   2021-12-06 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  sf              1.0-9   2022-11-08 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  spam            2.9-1   2022-08-07 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  stringi         1.7.8   2022-07-11 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  stringr         1.5.0   2022-12-02 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  survival        3.4-0   2022-08-09 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  tibble          3.1.8   2022-07-22 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  tidyselect      1.2.0   2022-10-10 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  tzdb            0.3.0   2022-03-28 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  units           0.8-0   2022-02-05 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  utf8            1.2.2   2021-07-24 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  vctrs           0.5.1   2022-11-16 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  viridis         0.6.2   2021-10-13 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  viridisLite     0.4.1   2022-08-22 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  vroom           1.6.0   2022-09-30 [1] CRAN (R 4.2.1)</span></span>
+<span><span class="co">#&gt;  xfun            0.35    2022-11-16 [1] CRAN (R 4.2.2)</span></span>
+<span><span class="co">#&gt;  yaml            2.3.6   2022-10-18 [1] CRAN (R 4.2.1)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  [1] C:/Users/ldecicco/Documents/R/win-library/4.2</span></span>
-<span><span class="co">#&gt;  [2] C:/Program Files/R/R-4.2.1/library</span></span>
+<span><span class="co">#&gt;  [2] C:/Program Files/R/R-4.2.2/library</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ──────────────────────────────────────────────────────────────────────────────</span></span></code></pre></div>
 </div>
@@ -455,8 +455,6 @@
 <h2 id="reporting-bugs">Reporting bugs<a class="anchor" aria-label="anchor" href="#reporting-bugs"></a>
 </h2>
 <p>Please consider reporting bugs and asking questions on the Issues page: <a href="https://github.com/USGS-R/EGRET/issues" class="external-link uri">https://github.com/USGS-R/EGRET/issues</a></p>
-<p>Follow <code>@USGS_DataSci</code> on Twitter for updates on USGS R packages:</p>
-<p><a href="https://twitter.com/USGS_DataSci" class="external-link"><img src="https://img.shields.io/twitter/follow/USGS_DataSci.svg?style=social&amp;label=Follow%20USGS_DataSci" alt="Twitter Follow"></a></p>
 </div>
 <div class="section level2">
 <h2 id="subscribe">Subscribe<a class="anchor" aria-label="anchor" href="#subscribe"></a>
@@ -467,18 +465,17 @@
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
 </h2>
-<p>We want to encourage a warm, welcoming, and safe environment for contributing to this project. See the <a href="https://github.com/USGS-R/EGRET/blob/master/CONDUCT.md" class="external-link">code of conduct</a> for more information.</p>
+<p>We want to encourage a warm, welcoming, and safe environment for contributing to this project. See the <a href="https://code.usgs.gov/water/EGRET/-/blob/main/CONDUCT.md" class="external-link">code of conduct</a> for more information.</p>
 </div>
 <div class="section level2">
 <h2 id="package-support">Package Support<a class="anchor" aria-label="anchor" href="#package-support"></a>
 </h2>
-<p>The Water Mission Area of the USGS has supported the development and maintenance of the <code>EGRET</code> R-package. Further maintenance is expected to be stable through October 2022. Resources are available primarily for maintenance and responding to user questions. Priorities on the development of new features are determined by the <code>EGRET</code> development team.</p>
-<p><a href="https://www.usgs.gov/" class="external-link"><img src="http://usgs-r.github.io/images/usgs.png" alt="USGS"></a></p>
+<p>The Water Mission Area of the USGS has supported the development and maintenance of the <code>EGRET</code> R-package. Further maintenance is expected to be stable through October 2024. Resources are available primarily for maintenance and responding to user questions. Priorities on the development of new features are determined by the <code>EGRET</code> development team.</p>
 </div>
 <div class="section level2">
 <h2 id="sunset-date">Sunset date<a class="anchor" aria-label="anchor" href="#sunset-date"></a>
 </h2>
-<p>Funding for <code>EGRET</code> currently expires fall 2022. Expectations are that maintenance and customer service will continue to be supported past that date.</p>
+<p>Funding for <code>EGRET</code> currently expires fall 2024. Expectations are that maintenance and customer service will continue to be supported past that date.</p>
 </div>
 <div class="section level2">
 <h2 id="how-to-cite-egret">How to cite EGRET:<a class="anchor" aria-label="anchor" href="#how-to-cite-egret"></a>
@@ -511,14 +508,15 @@
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <p>See this list for WRTDS applications in print:</p>
-<p><a href="http://usgs-r.github.io/EGRET/articles/References_WRTDS.html" class="external-link uri">http://usgs-r.github.io/EGRET/articles/References_WRTDS.html</a></p>
+<p><a href="https://rconnect.usgs.gov/EGRET/articles/References_WRTDS.html" class="external-link uri">https://rconnect.usgs.gov/EGRET/articles/References_WRTDS.html</a></p>
 </div>
-<div class="section level2">
-<h2 id="disclaimer">Disclaimer<a class="anchor" aria-label="anchor" href="#disclaimer"></a>
-</h2>
+</div>
+<div class="section level1">
+<h1 id="disclaimer">Disclaimer<a class="anchor" aria-label="anchor" href="#disclaimer"></a>
+</h1>
 <p>This software has been approved for release by the U.S. Geological Survey (USGS). Although the software has been subjected to rigorous review, the USGS reserves the right to update the software as needed pursuant to further analysis and review. No warranty, expressed or implied, is made by the USGS or the U.S. Government as to the functionality of the software and related material nor shall the fact of release constitute any such warranty. Furthermore, the software is released on condition that neither the USGS nor the U.S. Government shall be held liable for any damages resulting from its authorized or unauthorized use.</p>
 </div>
-</div>
+
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
@@ -556,9 +554,6 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/USGS-R/EGRET/actions" class="external-link"><img src="https://github.com/USGS-R/EGRET/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://codecov.io/gh/USGS-R/EGRET" class="external-link"><img src="https://codecov.io/gh/USGS-R/EGRET/branch/main/graph/badge.svg" alt="codecov"></a></li>
-<li><a href="https://owi.usgs.gov/R/packages.html#research" class="external-link"><img src="https://img.shields.io/badge/USGS-Research-blue.svg" alt="status"></a></li>
 <li><a href="https://cran.r-project.org/package=EGRET" class="external-link"><img src="http://www.r-pkg.org/badges/version/EGRET" alt="CRAN version"></a></li>
 <li><a href="https://cran.r-project.org/package=EGRET" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/EGRET"></a></li>
 <li><a href="https://cran.r-project.org/package=EGRET" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/grand-total/EGRET"></a></li>

@@ -40,7 +40,7 @@
     <a href="https://www.usgs.gov/" class="external-link"><img src="logo.png" id="logo" alt="Home" style="padding: 0px 50px 0px 0px;"></a>
     <a class="navbar-brand me-2" href="../index.html">EGRET</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.7.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.7.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,6 +70,7 @@
     <a class="dropdown-item" href="../articles/TrendsByMonth.html">Trends by month</a>
     <a class="dropdown-item" href="../articles/AlternativeQMethod.html">Alternative Q Method</a>
     <a class="dropdown-item" href="../articles/Annual_Hydrograph_Timing.html">Annual_Hydrograph_Timing</a>
+    <a class="dropdown-item" href="../articles/units.html">Custom Units</a>
   </div>
 </li>
 <li class="nav-item">
@@ -82,8 +83,8 @@
 
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/USGS-R/EGRET">
-    <span class="fa fa-github fa-lg"></span>
+  <a class="external-link nav-link" href="https://code.usgs.gov/water/EGRET">
+    <span class="fa fa-gitlab fa-lg"></span>
      
   </a>
 </li>
@@ -234,7 +235,7 @@ section at the end of this document.</li>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">eList_K</span><span class="op">$</span><span class="va">Daily</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##       Date                  Q                Julian          Month       </span></span>
 <span><span class="co">##  Min.   :1984-10-01   Min.   :   4.927   Min.   :49216   Min.   : 1.000  </span></span>
-<span><span class="co">##  1st Qu.:1993-04-01   1st Qu.:  84.951   1st Qu.:52321   1st Qu.: 4.000  </span></span>
+<span><span class="co">##  1st Qu.:1993-04-01   1st Qu.:  84.951   1st Qu.:52320   1st Qu.: 4.000  </span></span>
 <span><span class="co">##  Median :2001-10-01   Median : 194.820   Median :55425   Median : 7.000  </span></span>
 <span><span class="co">##  Mean   :2001-10-01   Mean   : 340.233   Mean   :55425   Mean   : 6.523  </span></span>
 <span><span class="co">##  3rd Qu.:2010-04-01   3rd Qu.: 395.020   3rd Qu.:58530   3rd Qu.:10.000  </span></span>
@@ -265,11 +266,11 @@ section at the end of this document.</li>
 <span><span class="co">##  Max.   :0.7217   Max.   :1.882430   Max.   :1349413.9   Max.   :0.19000  </span></span>
 <span><span class="co">##                                                                           </span></span>
 <span><span class="co">##      FNFlux           GenFlux             GenConc        </span></span>
-<span><span class="co">##  Min.   :  255.9   Min.   :     11.1   Min.   :0.006066  </span></span>
-<span><span class="co">##  1st Qu.: 2018.7   1st Qu.:    304.2   1st Qu.:0.033871  </span></span>
-<span><span class="co">##  Median : 3743.6   Median :    796.6   Median :0.053900  </span></span>
-<span><span class="co">##  Mean   : 4979.2   Mean   :   4133.9   Mean   :0.071785  </span></span>
-<span><span class="co">##  3rd Qu.: 6372.4   3rd Qu.:   2307.2   3rd Qu.:0.086592  </span></span>
+<span><span class="co">##  Min.   :  255.9   Min.   :     11.1   Min.   :0.005916  </span></span>
+<span><span class="co">##  1st Qu.: 2018.7   1st Qu.:    301.7   1st Qu.:0.033763  </span></span>
+<span><span class="co">##  Median : 3743.6   Median :    795.9   Median :0.054052  </span></span>
+<span><span class="co">##  Mean   : 4979.2   Mean   :   4127.1   Mean   :0.071700  </span></span>
+<span><span class="co">##  3rd Qu.: 6372.4   3rd Qu.:   2301.9   3rd Qu.:0.086602  </span></span>
 <span><span class="co">##  Max.   :43441.1   Max.   :1577062.6   Max.   :2.200000  </span></span>
 <span><span class="co">## </span></span></code></pre>
 <p>The object being created here is a new <strong>eList</strong>, with a
@@ -315,9 +316,9 @@ metric tons per year</caption>
 <td align="right">1985</td>
 <td align="right">229</td>
 <td align="right">0.095</td>
-<td align="right">0.102</td>
+<td align="right">0.101</td>
 <td align="right">2292</td>
-<td align="right">2471</td>
+<td align="right">2411</td>
 </tr>
 <tr class="even">
 <td align="right">1986</td>
@@ -325,31 +326,31 @@ metric tons per year</caption>
 <td align="right">0.103</td>
 <td align="right">0.086</td>
 <td align="right">9837</td>
-<td align="right">8932</td>
+<td align="right">8909</td>
 </tr>
 <tr class="odd">
 <td align="right">1987</td>
 <td align="right">318</td>
 <td align="right">0.088</td>
-<td align="right">0.089</td>
+<td align="right">0.088</td>
 <td align="right">3862</td>
-<td align="right">3964</td>
+<td align="right">3861</td>
 </tr>
 <tr class="even">
 <td align="right">1988</td>
 <td align="right">274</td>
 <td align="right">0.079</td>
-<td align="right">0.079</td>
+<td align="right">0.078</td>
 <td align="right">3545</td>
-<td align="right">4136</td>
+<td align="right">4087</td>
 </tr>
 <tr class="odd">
 <td align="right">1989</td>
 <td align="right">308</td>
 <td align="right">0.083</td>
-<td align="right">0.065</td>
+<td align="right">0.066</td>
 <td align="right">3530</td>
-<td align="right">2826</td>
+<td align="right">2878</td>
 </tr>
 <tr class="even">
 <td align="right">1990</td>
@@ -357,15 +358,15 @@ metric tons per year</caption>
 <td align="right">0.073</td>
 <td align="right">0.067</td>
 <td align="right">1917</td>
-<td align="right">1868</td>
+<td align="right">1847</td>
 </tr>
 <tr class="odd">
 <td align="right">1991</td>
 <td align="right">341</td>
 <td align="right">0.078</td>
-<td align="right">0.071</td>
+<td align="right">0.072</td>
 <td align="right">3893</td>
-<td align="right">2929</td>
+<td align="right">2954</td>
 </tr>
 <tr class="even">
 <td align="right">1992</td>
@@ -373,15 +374,15 @@ metric tons per year</caption>
 <td align="right">0.056</td>
 <td align="right">0.046</td>
 <td align="right">1515</td>
-<td align="right">1242</td>
+<td align="right">1224</td>
 </tr>
 <tr class="odd">
 <td align="right">1993</td>
 <td align="right">478</td>
 <td align="right">0.079</td>
-<td align="right">0.069</td>
+<td align="right">0.068</td>
 <td align="right">6066</td>
-<td align="right">4952</td>
+<td align="right">4942</td>
 </tr>
 <tr class="even">
 <td align="right">1994</td>
@@ -389,23 +390,23 @@ metric tons per year</caption>
 <td align="right">0.087</td>
 <td align="right">0.066</td>
 <td align="right">6771</td>
-<td align="right">4891</td>
+<td align="right">4879</td>
 </tr>
 <tr class="odd">
 <td align="right">1995</td>
 <td align="right">229</td>
 <td align="right">0.064</td>
-<td align="right">0.056</td>
+<td align="right">0.055</td>
 <td align="right">1846</td>
-<td align="right">1627</td>
+<td align="right">1582</td>
 </tr>
 <tr class="even">
 <td align="right">1996</td>
 <td align="right">673</td>
 <td align="right">0.134</td>
-<td align="right">0.106</td>
+<td align="right">0.105</td>
 <td align="right">17016</td>
-<td align="right">14416</td>
+<td align="right">14383</td>
 </tr>
 <tr class="odd">
 <td align="right">1997</td>
@@ -413,15 +414,15 @@ metric tons per year</caption>
 <td align="right">0.100</td>
 <td align="right">0.083</td>
 <td align="right">5226</td>
-<td align="right">4406</td>
+<td align="right">4402</td>
 </tr>
 <tr class="even">
 <td align="right">1998</td>
 <td align="right">567</td>
 <td align="right">0.121</td>
-<td align="right">0.085</td>
+<td align="right">0.086</td>
 <td align="right">10616</td>
-<td align="right">6878</td>
+<td align="right">7027</td>
 </tr>
 <tr class="odd">
 <td align="right">1999</td>
@@ -429,7 +430,7 @@ metric tons per year</caption>
 <td align="right">0.071</td>
 <td align="right">0.087</td>
 <td align="right">1102</td>
-<td align="right">1376</td>
+<td align="right">1356</td>
 </tr>
 <tr class="even">
 <td align="right">2000</td>
@@ -437,7 +438,7 @@ metric tons per year</caption>
 <td align="right">0.089</td>
 <td align="right">0.100</td>
 <td align="right">2222</td>
-<td align="right">2779</td>
+<td align="right">2774</td>
 </tr>
 <tr class="odd">
 <td align="right">2001</td>
@@ -445,23 +446,23 @@ metric tons per year</caption>
 <td align="right">0.079</td>
 <td align="right">0.092</td>
 <td align="right">1943</td>
-<td align="right">2920</td>
+<td align="right">2916</td>
 </tr>
 <tr class="even">
 <td align="right">2002</td>
 <td align="right">114</td>
 <td align="right">0.056</td>
-<td align="right">0.064</td>
+<td align="right">0.063</td>
 <td align="right">841</td>
-<td align="right">1327</td>
+<td align="right">1320</td>
 </tr>
 <tr class="odd">
 <td align="right">2003</td>
 <td align="right">647</td>
 <td align="right">0.154</td>
-<td align="right">0.114</td>
+<td align="right">0.113</td>
 <td align="right">14522</td>
-<td align="right">10625</td>
+<td align="right">10573</td>
 </tr>
 <tr class="even">
 <td align="right">2004</td>
@@ -469,7 +470,7 @@ metric tons per year</caption>
 <td align="right">0.123</td>
 <td align="right">0.078</td>
 <td align="right">8835</td>
-<td align="right">5298</td>
+<td align="right">5322</td>
 </tr>
 <tr class="odd">
 <td align="right">2005</td>
@@ -477,7 +478,7 @@ metric tons per year</caption>
 <td align="right">0.083</td>
 <td align="right">0.063</td>
 <td align="right">4611</td>
-<td align="right">3366</td>
+<td align="right">3377</td>
 </tr>
 <tr class="even">
 <td align="right">2006</td>
@@ -485,7 +486,7 @@ metric tons per year</caption>
 <td align="right">0.063</td>
 <td align="right">0.065</td>
 <td align="right">2291</td>
-<td align="right">2484</td>
+<td align="right">2498</td>
 </tr>
 <tr class="odd">
 <td align="right">2007</td>
@@ -493,7 +494,7 @@ metric tons per year</caption>
 <td align="right">0.062</td>
 <td align="right">0.059</td>
 <td align="right">3004</td>
-<td align="right">3158</td>
+<td align="right">3177</td>
 </tr>
 <tr class="even">
 <td align="right">2008</td>
@@ -501,7 +502,7 @@ metric tons per year</caption>
 <td align="right">0.059</td>
 <td align="right">0.058</td>
 <td align="right">3221</td>
-<td align="right">2710</td>
+<td align="right">2702</td>
 </tr>
 <tr class="odd">
 <td align="right">2009</td>
@@ -509,23 +510,23 @@ metric tons per year</caption>
 <td align="right">0.054</td>
 <td align="right">0.058</td>
 <td align="right">2449</td>
-<td align="right">2867</td>
+<td align="right">2838</td>
 </tr>
 <tr class="even">
 <td align="right">2010</td>
 <td align="right">370</td>
 <td align="right">0.066</td>
-<td align="right">0.064</td>
+<td align="right">0.065</td>
 <td align="right">5680</td>
-<td align="right">5363</td>
+<td align="right">5434</td>
 </tr>
 <tr class="odd">
 <td align="right">2011</td>
 <td align="right">390</td>
 <td align="right">0.075</td>
-<td align="right">0.063</td>
+<td align="right">0.064</td>
 <td align="right">7139</td>
-<td align="right">5338</td>
+<td align="right">5319</td>
 </tr>
 <tr class="even">
 <td align="right">2012</td>
@@ -533,7 +534,7 @@ metric tons per year</caption>
 <td align="right">0.063</td>
 <td align="right">0.051</td>
 <td align="right">2703</td>
-<td align="right">1944</td>
+<td align="right">1966</td>
 </tr>
 <tr class="odd">
 <td align="right">2013</td>
@@ -541,23 +542,23 @@ metric tons per year</caption>
 <td align="right">0.063</td>
 <td align="right">0.053</td>
 <td align="right">3841</td>
-<td align="right">3267</td>
+<td align="right">3268</td>
 </tr>
 <tr class="even">
 <td align="right">2014</td>
 <td align="right">385</td>
 <td align="right">0.070</td>
-<td align="right">0.065</td>
+<td align="right">0.064</td>
 <td align="right">4747</td>
-<td align="right">4652</td>
+<td align="right">4637</td>
 </tr>
 <tr class="odd">
 <td align="right">2015</td>
 <td align="right">243</td>
 <td align="right">0.047</td>
-<td align="right">0.045</td>
+<td align="right">0.046</td>
 <td align="right">1777</td>
-<td align="right">1849</td>
+<td align="right">1862</td>
 </tr>
 <tr class="even">
 <td align="right">2016</td>
@@ -565,7 +566,7 @@ metric tons per year</caption>
 <td align="right">0.059</td>
 <td align="right">0.058</td>
 <td align="right">3229</td>
-<td align="right">3094</td>
+<td align="right">3072</td>
 </tr>
 <tr class="odd">
 <td align="right">2017</td>
@@ -573,15 +574,15 @@ metric tons per year</caption>
 <td align="right">0.047</td>
 <td align="right">0.042</td>
 <td align="right">1957</td>
-<td align="right">1855</td>
+<td align="right">1853</td>
 </tr>
 <tr class="even">
 <td align="right">2018</td>
 <td align="right">529</td>
 <td align="right">0.100</td>
-<td align="right">0.092</td>
+<td align="right">0.091</td>
 <td align="right">10096</td>
-<td align="right">8631</td>
+<td align="right">8560</td>
 </tr>
 </tbody>
 </table>
@@ -763,173 +764,173 @@ in annual values that results.</p>
 <tbody>
 <tr class="odd">
 <td align="left">1985</td>
-<td align="right">-1.1</td>
-<td align="right">-3.0</td>
+<td align="right">-0.6</td>
+<td align="right">-0.1</td>
 </tr>
 <tr class="even">
 <td align="left">1986</td>
-<td align="right">4.3</td>
 <td align="right">3.4</td>
+<td align="right">2.9</td>
 </tr>
 <tr class="odd">
 <td align="left">1987</td>
-<td align="right">0.0</td>
-<td align="right">-1.4</td>
+<td align="right">0.4</td>
+<td align="right">1.1</td>
 </tr>
 <tr class="even">
 <td align="left">1988</td>
-<td align="right">0.7</td>
-<td align="right">1.1</td>
+<td align="right">0.1</td>
+<td align="right">0.1</td>
 </tr>
 <tr class="odd">
 <td align="left">1989</td>
-<td align="right">3.2</td>
-<td align="right">6.1</td>
+<td align="right">2.3</td>
+<td align="right">3.5</td>
 </tr>
 <tr class="even">
 <td align="left">1990</td>
-<td align="right">1.6</td>
-<td align="right">0.6</td>
+<td align="right">3.2</td>
+<td align="right">2.6</td>
 </tr>
 <tr class="odd">
 <td align="left">1991</td>
-<td align="right">3.2</td>
-<td align="right">5.8</td>
+<td align="right">2.6</td>
+<td align="right">5.0</td>
 </tr>
 <tr class="even">
 <td align="left">1992</td>
-<td align="right">1.5</td>
-<td align="right">2.7</td>
+<td align="right">2.1</td>
+<td align="right">3.9</td>
 </tr>
 <tr class="odd">
 <td align="left">1993</td>
-<td align="right">0.6</td>
+<td align="right">0.7</td>
 <td align="right">1.6</td>
 </tr>
 <tr class="even">
 <td align="left">1994</td>
-<td align="right">2.6</td>
-<td align="right">4.2</td>
+<td align="right">3.7</td>
+<td align="right">4.9</td>
 </tr>
 <tr class="odd">
 <td align="left">1995</td>
-<td align="right">2.0</td>
-<td align="right">0.4</td>
+<td align="right">3.2</td>
+<td align="right">3.1</td>
 </tr>
 <tr class="even">
 <td align="left">1996</td>
-<td align="right">2.5</td>
-<td align="right">1.2</td>
+<td align="right">2.8</td>
+<td align="right">1.4</td>
 </tr>
 <tr class="odd">
 <td align="left">1997</td>
-<td align="right">2.5</td>
-<td align="right">2.6</td>
+<td align="right">2.1</td>
+<td align="right">2.1</td>
 </tr>
 <tr class="even">
 <td align="left">1998</td>
-<td align="right">3.6</td>
-<td align="right">5.0</td>
+<td align="right">2.8</td>
+<td align="right">3.2</td>
 </tr>
 <tr class="odd">
 <td align="left">1999</td>
-<td align="right">-2.0</td>
-<td align="right">-4.7</td>
+<td align="right">-1.6</td>
+<td align="right">-3.1</td>
 </tr>
 <tr class="even">
 <td align="left">2000</td>
 <td align="right">0.4</td>
-<td align="right">0.0</td>
+<td align="right">0.2</td>
 </tr>
 <tr class="odd">
 <td align="left">2001</td>
-<td align="right">-0.4</td>
-<td align="right">-0.7</td>
+<td align="right">-0.8</td>
+<td align="right">-1.3</td>
 </tr>
 <tr class="even">
 <td align="left">2002</td>
-<td align="right">-3.1</td>
-<td align="right">-6.2</td>
+<td align="right">-1.6</td>
+<td align="right">-5.1</td>
 </tr>
 <tr class="odd">
 <td align="left">2003</td>
-<td align="right">4.3</td>
-<td align="right">4.6</td>
+<td align="right">4.8</td>
+<td align="right">4.7</td>
 </tr>
 <tr class="even">
 <td align="left">2004</td>
-<td align="right">11.9</td>
-<td align="right">12.1</td>
+<td align="right">11.4</td>
+<td align="right">13.6</td>
 </tr>
 <tr class="odd">
 <td align="left">2005</td>
-<td align="right">6.2</td>
-<td align="right">5.4</td>
+<td align="right">6.1</td>
+<td align="right">4.8</td>
 </tr>
 <tr class="even">
 <td align="left">2006</td>
-<td align="right">0.9</td>
-<td align="right">2.1</td>
+<td align="right">0.2</td>
+<td align="right">1.1</td>
 </tr>
 <tr class="odd">
 <td align="left">2007</td>
-<td align="right">2.6</td>
-<td align="right">1.6</td>
+<td align="right">2.7</td>
+<td align="right">0.8</td>
 </tr>
 <tr class="even">
 <td align="left">2008</td>
-<td align="right">-0.9</td>
-<td align="right">0.1</td>
+<td align="right">-0.7</td>
+<td align="right">0.8</td>
 </tr>
 <tr class="odd">
 <td align="left">2009</td>
-<td align="right">-1.4</td>
-<td align="right">-1.9</td>
+<td align="right">-1.3</td>
+<td align="right">-1.2</td>
 </tr>
 <tr class="even">
 <td align="left">2010</td>
-<td align="right">1.2</td>
-<td align="right">3.7</td>
+<td align="right">0.2</td>
+<td align="right">1.6</td>
 </tr>
 <tr class="odd">
 <td align="left">2011</td>
-<td align="right">1.2</td>
-<td align="right">2.1</td>
+<td align="right">1.6</td>
+<td align="right">2.7</td>
 </tr>
 <tr class="even">
 <td align="left">2012</td>
-<td align="right">5.3</td>
-<td align="right">7.1</td>
+<td align="right">3.7</td>
+<td align="right">4.8</td>
 </tr>
 <tr class="odd">
 <td align="left">2013</td>
-<td align="right">2.1</td>
-<td align="right">1.4</td>
+<td align="right">2.9</td>
+<td align="right">1.6</td>
 </tr>
 <tr class="even">
 <td align="left">2014</td>
-<td align="right">0.1</td>
-<td align="right">-0.2</td>
+<td align="right">0.5</td>
+<td align="right">-0.3</td>
 </tr>
 <tr class="odd">
 <td align="left">2015</td>
-<td align="right">1.9</td>
-<td align="right">2.0</td>
+<td align="right">0.9</td>
+<td align="right">0.8</td>
 </tr>
 <tr class="even">
 <td align="left">2016</td>
-<td align="right">0.3</td>
-<td align="right">0.5</td>
+<td align="right">0.9</td>
+<td align="right">1.2</td>
 </tr>
 <tr class="odd">
 <td align="left">2017</td>
-<td align="right">2.2</td>
-<td align="right">1.4</td>
+<td align="right">2.3</td>
+<td align="right">1.8</td>
 </tr>
 <tr class="even">
 <td align="left">2018</td>
-<td align="right">1.2</td>
-<td align="right">1.5</td>
+<td align="right">1.9</td>
+<td align="right">2.0</td>
 </tr>
 </tbody>
 </table>
@@ -969,173 +970,173 @@ seed</caption>
 <tbody>
 <tr class="odd">
 <td align="left">1985</td>
-<td align="right">-0.4</td>
-<td align="right">-1.2</td>
+<td align="right">0.5</td>
+<td align="right">1.3</td>
 </tr>
 <tr class="even">
 <td align="left">1986</td>
-<td align="right">0.4</td>
-<td align="right">0.3</td>
+<td align="right">0.1</td>
+<td align="right">0.5</td>
 </tr>
 <tr class="odd">
 <td align="left">1987</td>
-<td align="right">-0.7</td>
-<td align="right">-3.5</td>
+<td align="right">-0.5</td>
+<td align="right">-1.0</td>
 </tr>
 <tr class="even">
 <td align="left">1988</td>
-<td align="right">0.4</td>
-<td align="right">1.7</td>
+<td align="right">0.9</td>
+<td align="right">3.0</td>
 </tr>
 <tr class="odd">
 <td align="left">1989</td>
-<td align="right">1.0</td>
-<td align="right">1.6</td>
+<td align="right">-0.1</td>
+<td align="right">-0.2</td>
 </tr>
 <tr class="even">
 <td align="left">1990</td>
-<td align="right">-0.8</td>
-<td align="right">-2.2</td>
+<td align="right">-0.4</td>
+<td align="right">-1.1</td>
 </tr>
 <tr class="odd">
 <td align="left">1991</td>
-<td align="right">0.1</td>
-<td align="right">-0.1</td>
+<td align="right">-0.6</td>
+<td align="right">-0.9</td>
 </tr>
 <tr class="even">
 <td align="left">1992</td>
-<td align="right">-0.8</td>
-<td align="right">-1.3</td>
+<td align="right">0.0</td>
+<td align="right">0.1</td>
 </tr>
 <tr class="odd">
 <td align="left">1993</td>
-<td align="right">-0.4</td>
-<td align="right">-0.3</td>
+<td align="right">0.0</td>
+<td align="right">-0.1</td>
 </tr>
 <tr class="even">
 <td align="left">1994</td>
+<td align="right">0.1</td>
 <td align="right">-0.6</td>
-<td align="right">-0.8</td>
 </tr>
 <tr class="odd">
 <td align="left">1995</td>
-<td align="right">-1.1</td>
-<td align="right">-2.2</td>
+<td align="right">-0.1</td>
+<td align="right">0.6</td>
 </tr>
 <tr class="even">
 <td align="left">1996</td>
-<td align="right">-0.3</td>
-<td align="right">-0.2</td>
+<td align="right">0.1</td>
+<td align="right">0.0</td>
 </tr>
 <tr class="odd">
 <td align="left">1997</td>
 <td align="right">0.5</td>
-<td align="right">0.9</td>
+<td align="right">1.0</td>
 </tr>
 <tr class="even">
 <td align="left">1998</td>
-<td align="right">0.4</td>
-<td align="right">0.2</td>
+<td align="right">-0.5</td>
+<td align="right">-1.9</td>
 </tr>
 <tr class="odd">
 <td align="left">1999</td>
-<td align="right">-0.7</td>
-<td align="right">-1.6</td>
+<td align="right">-0.4</td>
+<td align="right">-0.2</td>
 </tr>
 <tr class="even">
 <td align="left">2000</td>
-<td align="right">0.0</td>
-<td align="right">0.0</td>
+<td align="right">0.2</td>
+<td align="right">0.2</td>
 </tr>
 <tr class="odd">
 <td align="left">2001</td>
+<td align="right">-0.5</td>
 <td align="right">-0.2</td>
-<td align="right">-0.3</td>
 </tr>
 <tr class="even">
 <td align="left">2002</td>
-<td align="right">-0.9</td>
-<td align="right">-2.9</td>
+<td align="right">-0.3</td>
+<td align="right">-2.4</td>
 </tr>
 <tr class="odd">
 <td align="left">2003</td>
+<td align="right">0.9</td>
 <td align="right">0.3</td>
-<td align="right">-0.2</td>
 </tr>
 <tr class="even">
 <td align="left">2004</td>
-<td align="right">0.6</td>
-<td align="right">0.5</td>
+<td align="right">-0.2</td>
+<td align="right">0.0</td>
 </tr>
 <tr class="odd">
 <td align="left">2005</td>
+<td align="right">-1.3</td>
 <td align="right">-1.2</td>
-<td align="right">-0.9</td>
 </tr>
 <tr class="even">
 <td align="left">2006</td>
-<td align="right">0.4</td>
-<td align="right">1.4</td>
+<td align="right">0.7</td>
+<td align="right">0.9</td>
 </tr>
 <tr class="odd">
 <td align="left">2007</td>
-<td align="right">-1.0</td>
-<td align="right">-1.9</td>
+<td align="right">-0.9</td>
+<td align="right">-2.4</td>
 </tr>
 <tr class="even">
 <td align="left">2008</td>
-<td align="right">0.1</td>
-<td align="right">-0.3</td>
+<td align="right">-0.2</td>
+<td align="right">0.0</td>
 </tr>
 <tr class="odd">
 <td align="left">2009</td>
-<td align="right">-0.2</td>
-<td align="right">-0.6</td>
+<td align="right">-0.4</td>
+<td align="right">0.4</td>
 </tr>
 <tr class="even">
 <td align="left">2010</td>
-<td align="right">0.1</td>
-<td align="right">-0.2</td>
+<td align="right">-0.5</td>
+<td align="right">-1.5</td>
 </tr>
 <tr class="odd">
 <td align="left">2011</td>
-<td align="right">0.7</td>
 <td align="right">0.6</td>
+<td align="right">1.0</td>
 </tr>
 <tr class="even">
 <td align="left">2012</td>
-<td align="right">-0.6</td>
-<td align="right">-0.6</td>
+<td align="right">-1.5</td>
+<td align="right">-1.7</td>
 </tr>
 <tr class="odd">
 <td align="left">2013</td>
+<td align="right">0.3</td>
 <td align="right">-0.1</td>
-<td align="right">0.0</td>
 </tr>
 <tr class="even">
 <td align="left">2014</td>
-<td align="right">-0.9</td>
-<td align="right">-0.3</td>
+<td align="right">-0.2</td>
+<td align="right">0.0</td>
 </tr>
 <tr class="odd">
 <td align="left">2015</td>
-<td align="right">0.1</td>
-<td align="right">0.0</td>
+<td align="right">-0.5</td>
+<td align="right">-0.6</td>
 </tr>
 <tr class="even">
 <td align="left">2016</td>
-<td align="right">-0.3</td>
-<td align="right">-0.3</td>
+<td align="right">0.1</td>
+<td align="right">0.4</td>
 </tr>
 <tr class="odd">
 <td align="left">2017</td>
-<td align="right">0.8</td>
-<td align="right">0.6</td>
+<td align="right">0.9</td>
+<td align="right">0.7</td>
 </tr>
 <tr class="even">
 <td align="left">2018</td>
-<td align="right">-0.9</td>
-<td align="right">-0.9</td>
+<td align="right">0.0</td>
+<td align="right">-0.1</td>
 </tr>
 </tbody>
 </table>
@@ -1189,12 +1190,12 @@ to some other application or produce a graph.</p>
 <span><span class="va">monthFluxOut</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">Month</span>, <span class="va">Year</span>, <span class="va">DecYear</span>, <span class="va">GenFlux</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">monthFluxOut</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   Month Year  DecYear   GenFlux</span></span>
-<span><span class="co">## 1    10 1984 1984.790 0.7636992</span></span>
-<span><span class="co">## 2    11 1984 1984.874 1.6557854</span></span>
-<span><span class="co">## 3    12 1984 1984.957 3.8114226</span></span>
-<span><span class="co">## 4     1 1985 1985.042 1.5162328</span></span>
-<span><span class="co">## 5     2 1985 1985.123 8.2616899</span></span>
-<span><span class="co">## 6     3 1985 1985.204 2.7043586</span></span></code></pre>
+<span><span class="co">## 1    10 1984 1984.790 0.7916501</span></span>
+<span><span class="co">## 2    11 1984 1984.874 1.6574112</span></span>
+<span><span class="co">## 3    12 1984 1984.957 3.7723969</span></span>
+<span><span class="co">## 4     1 1985 1985.042 1.4358647</span></span>
+<span><span class="co">## 5     2 1985 1985.123 7.5488542</span></span>
+<span><span class="co">## 6     3 1985 1985.204 2.6642166</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="operationalizing-this-in-a-batch-job">Operationalizing this in a batch job<a class="anchor" aria-label="anchor" href="#operationalizing-this-in-a-batch-job"></a>

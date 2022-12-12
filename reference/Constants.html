@@ -28,7 +28,7 @@ monthInfoMonth object
     <a href="https://www.usgs.gov/" class="external-link"><img src="logo.png" id="logo" alt="Home" style="padding: 0px 50px 0px 0px;"></a>
     <a class="navbar-brand me-2" href="../index.html">EGRET</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.7.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.7.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,6 +57,7 @@ monthInfoMonth object
     <a class="dropdown-item" href="../articles/TrendsByMonth.html">Trends by month</a>
     <a class="dropdown-item" href="../articles/AlternativeQMethod.html">Alternative Q Method</a>
     <a class="dropdown-item" href="../articles/Annual_Hydrograph_Timing.html">Annual_Hydrograph_Timing</a>
+    <a class="dropdown-item" href="../articles/units.html">Custom Units</a>
   </div>
 </li>
 <li class="nav-item">
@@ -66,8 +67,8 @@ monthInfoMonth object
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
       <ul class="navbar-nav"><li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/USGS-R/EGRET">
-    <span class="fa fa-github fa-lg"></span>
+  <a class="external-link nav-link" href="https://code.usgs.gov/water/EGRET">
+    <span class="fa fa-gitlab fa-lg"></span>
      
   </a>
 </li>
@@ -540,6 +541,9 @@ monthInfoMonth object
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "unitUSGS":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Discharge, in cubic feet per second"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Slot "prefix":</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Discharge"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $cms</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class "qUnit"</span>
@@ -563,6 +567,9 @@ monthInfoMonth object
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "unitUSGS":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Discharge, in cubic meters per second"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Slot "prefix":</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Discharge"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $thousandCfs</span>
@@ -588,6 +595,9 @@ monthInfoMonth object
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "unitUSGS":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Discharge, in thousands of cubic feet per second"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Slot "prefix":</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Discharge"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $thousandCms</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class "qUnit"</span>
@@ -611,6 +621,9 @@ monthInfoMonth object
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "unitUSGS":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Discharge, in thousands of cubic meters per second"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Slot "prefix":</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Discharge"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $mmDay</span>
@@ -636,6 +649,9 @@ monthInfoMonth object
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "unitUSGS":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Discharge, in cubic millimeters per day"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Slot "prefix":</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Discharge"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">qConst</span><span class="op">[[</span><span class="st">'cfs'</span><span class="op">]</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class "qUnit"</span>
@@ -660,8 +676,21 @@ monthInfoMonth object
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "unitUSGS":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Discharge, in cubic feet per second"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Slot "prefix":</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Discharge"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">qConst</span><span class="op">[[</span><span class="st">'cfs'</span><span class="op">]</span><span class="op">]</span><span class="op">@</span><span class="va">qUnitName</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Cubic Feet per Second"</span>
+<span class="r-in"><span><span class="va">concConst</span><span class="op">[[</span><span class="st">'concentration'</span><span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> An object of class "concUnit"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Slot "longPrefix":</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Concentration"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Slot "shortPrefix":</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Conc"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="va">concConst</span><span class="op">[[</span><span class="st">'concentration'</span><span class="op">]</span><span class="op">]</span><span class="op">@</span><span class="va">shortPrefix</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Conc"</span>
 </code></pre></div>
     </div>
   </main></div>
