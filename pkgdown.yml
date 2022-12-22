@@ -1,5 +1,5 @@
 pandoc: 2.19.2
-pkgdown: 2.0.6
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   AlternativeQMethod: AlternativeQMethod.html
@@ -15,5 +15,5 @@ articles:
   rResid: rResid.html
   streamflow_trend: streamflow_trend.html
   units: units.html
-last_built: 2022-12-12T21:47Z
+last_built: 2022-12-22T22:23Z
 
