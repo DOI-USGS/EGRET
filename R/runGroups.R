@@ -398,22 +398,22 @@ printGroups <- function(eList, groupResults){
   f11 <- groupResults[2, "x11"]
   fRSpart <- groupResults[2, "CQTC"]
   fFDpart <- groupResults[2, "QTC"]
-  totChangePct <- format(100 * ((c22 - c11)/c11), digits = 2)
+  totChangePct <- add_plus(100 * ((c22 - c11)/c11))
   cat("\n For concentration: total change is ", totChange, 
       "mg/L")
-  cat("\n expressed as Percent Change is ", totChangePct, "%")
-  pctRS <- format(100 * (cRSpart/c11), digits = 2)
-  pctFD <- format(100 * (cFDpart/c11), digits = 2)
-  cat("\n\n Concentration v. Q Trend Component ", pctRS, "%\n       Q Trend Component            ", 
-      pctFD, "% \n\n")
+  cat("\n expressed as Percent Change is ", totChangePct)
+  pctRS <- add_plus(100 * (cRSpart/c11))
+  pctFD <- add_plus(100 * (cFDpart/c11))
+  cat("\n\n Concentration v. Q Trend Component ", pctRS, "\n       Q Trend Component            ", 
+      pctFD, " \n\n")
   totChange <- format(groupResults[2, 1], digits = 3)
-  totChangePct <- format(100 * ((f22 - f11)/f11), digits = 2)
+  totChangePct <- add_plus(100 * ((f22 - f11)/f11))
   cat("\n For flux: total change is ", totChange, "million kg/year")
   cat("\n expressed as Percent Change is ", totChangePct, "%")
-  pctRS <- format(100 * (fRSpart/f11), digits = 2)
+  pctRS <- add_plus(100 * (fRSpart/f11))
   pctFD <- format(100 * (fFDpart/f11), digits = 2)
-  cat("\n\n Concentration v. Q Trend Component ", pctRS, "%\n       Q Trend Component            ", 
-      pctFD, "% \n\n")
+  cat("\n\n Concentration v. Q Trend Component ", pctRS, "\n       Q Trend Component            ", 
+      pctFD, " \n\n")
   print(groupResults, digits = 2)
   
 }
