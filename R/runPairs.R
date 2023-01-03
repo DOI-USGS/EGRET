@@ -547,21 +547,40 @@ printPairs <- function(eList, pairResults){
         as.character(sample1EndDate), "\n")
   cat("\n Change estimates ", yearPairInfo[["year2"]], " minus ", yearPairInfo[["year1"]], "\n")
   totChange <- format(pairResults[1, 1], digits = 3)
-  totChangePct_conc_f <- format(Other$PercentChangeConc[["Total Percent Change"]], digits = 2)
   cat("\n For concentration: total change is ", totChange, 
       "mg/L")
-  cat("\n expressed as Percent Change is ", totChangePct_conc_f, "%")
-  pctRS <- format(Other$PercentChangeConc[["CQTC Percent"]], digits = 2)
-  pctFD <- format(Other$PercentChangeConc[["QTC Percent"]], digits = 2)
-  cat("\n\n Concentration v. Q Trend Component ", pctRS, "%\n       Q Trend Component            ", 
-      pctFD, "% \n\n")
+  totChangePct_conc_f <- add_plus(Other$PercentChangeConc[["Total Percent Change"]])
+
+  cat("\n expressed as Percent Change is ", totChangePct_conc_f)
+
+  pctRS <- add_plus(Other$PercentChangeConc[["CQTC Percent"]])
+  pctFD <- add_plus(Other$PercentChangeConc[["QTC Percent"]])
+  
+  cat("\n\n Concentration v. Q Trend Component ", pctRS, "\n       Q Trend Component            ", 
+      pctFD, " \n\n")
   totChange <- format(pairResults[2, 1], digits = 3)
-  totChangePct_flux_f <- format((Other$PercentChangeFlux[["Total Percent Change"]]), digits = 2)
+
+  totChangePct_flux_f <- add_plus(Other$PercentChangeFlux[["Total Percent Change"]])
+  
   cat("\n For flux: total change is ", totChange, "million kg/year")
-  cat("\n expressed as Percent Change is ", totChangePct_flux_f, "%")
-  pctRS <- format(Other$PercentChangeFlux[["CQTC Percent"]], digits = 2)
-  pctFD <- format(Other$PercentChangeFlux[["QTC Percent"]], digits = 2)
-  cat("\n\n Concentration v. Q Trend Component ", pctRS, "%\n       Q Trend Component            ", 
-      pctFD, "% \n\n")
+  cat("\n expressed as Percent Change is ", totChangePct_flux_f)
+
+  pctRS <- add_plus(Other$PercentChangeFlux[["CQTC Percent"]])
+  pctFD <- add_plus(Other$PercentChangeFlux[["QTC Percent"]])
+  
+  cat("\n\n Concentration v. Q Trend Component ", pctRS, "\n       Q Trend Component            ", 
+      pctFD, " \n\n")
   print(pairResults[,1:7], digits = 2)
+}
+
+
+add_plus <- function(x){
+  
+  x <- sprintf("%+.2f %%", x)
+  
+  if(x == "+0.00 %" | x == "-0.00 %"){
+    x <- " 0 %"
+  }
+  
+  return(x)
 }
