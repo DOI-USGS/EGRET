@@ -4,6 +4,8 @@ EGRET 3.0.8
 * Added monthly trend to runPairs
 * Added plotMonthTrend function
 * Improved support for custom axes
+* In WRTDSKalman, removed genmissing from first and last iteration
+* Improved documentation
 
 EGRET 3.0.7
 ===========

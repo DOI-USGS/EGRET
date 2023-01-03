@@ -3,12 +3,14 @@
 #' Imports data from user-supplied data file. Specifically used to import water flow data for use in the EGRET package.
 #' For EGRET usage, the first column is expected to be dates. If the data is daily data, then next column is 
 #' expected to be the measured values. If the data is sampled data, the next column is remark codes, and the third
-#' column is values.
+#' column is values. If the date format is not automatically
+#' detected, the format that is expected is "%m/%d/%Y". 
 #'
 #' @param filePath character specifying the path to the file
 #' @param fileName character name of file to open
 #' @param hasHeader logical true if the first row of data is the column headers
-#' @param separator character character that separates data cells
+#' @param separator character character that separates data cells. The default
+#' is "," for a csv file. Tab delimited would be "\\t".
 #' @keywords data import file
 #' @return retval dataframe with dateTime, value, and code columns
 #' @export

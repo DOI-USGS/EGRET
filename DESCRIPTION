@@ -1,7 +1,7 @@
 Package: EGRET
 Type: Package
 Title: Exploration and Graphics for RivEr Trends
-Version: 3.0.7.3
+Version: 3.0.8
 Authors@R: c( person("Robert", "Hirsch", role = c("aut"),
     email = "rhirsch@usgs.gov", 
     comment=c(ORCID="0000-0002-4534-075X")),
@@ -49,7 +49,7 @@ Suggests:
     covr
 LazyLoad: yes
 LazyData: yes
-BugReports: https://github.com/USGS-R/EGRET/issues
+BugReports: https://github.com/DOI-USGS/EGRET/issues
 VignetteBuilder: knitr
 BuildVignettes: true
 URL: https://pubs.usgs.gov/tm/04/a10/
