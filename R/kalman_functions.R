@@ -103,7 +103,13 @@ WRTDSKalman <- function(eList, rho = 0.90, niter = 200,
       iGap <- doGap[i]
       startFill <- zstarts[iGap]
       endFill <- zends[iGap]+1
-      nFill<-zz$length[iGap]+2
+      nFill <- zz$length[iGap]+2
+      if(i == 1 | i == numGap) {
+        z <- rnorm(nFill - 2)
+        xfill <- c(xxP[startFill], z, xxP[endFill])
+      } else {
+        xfill <- genmissing(xxP[startFill], xxP[endFill], rho, nFill)
+      }
       xfill <- genmissing(xxP[startFill],xxP[endFill],rho,nFill)
       xxP[startFill:endFill]<-xfill}
     # now we need to strip out the padded days

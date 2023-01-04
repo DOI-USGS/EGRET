@@ -13,7 +13,8 @@ readDataFromFile(filePath, fileName, hasHeader = TRUE, separator = ",")
 
 \item{hasHeader}{logical true if the first row of data is the column headers}
 
-\item{separator}{character character that separates data cells}
+\item{separator}{character character that separates data cells. The default
+is "," for a csv file. Tab delimited would be "\\t".}
 }
 \value{
 retval dataframe with dateTime, value, and code columns
@@ -22,7 +23,8 @@ retval dataframe with dateTime, value, and code columns
 Imports data from user-supplied data file. Specifically used to import water flow data for use in the EGRET package.
 For EGRET usage, the first column is expected to be dates. If the data is daily data, then next column is 
 expected to be the measured values. If the data is sampled data, the next column is remark codes, and the third
-column is values.
+column is values. If the date format is not automatically
+detected, the format that is expected is "%m/%d/%Y".
 }
 \examples{
 filePath <- system.file("extdata", package="EGRET")
