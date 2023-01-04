@@ -87,19 +87,19 @@ plotMonthTrend <- function(pairResults, yMax = NA,
   
   if(flux){
     ylab <- expression("Yield, kg / month / km" ^2)
-    name <- "Yield, by month"
+    name <- attr(pairResults, "Other")[["paramShortName"]]
   } else {
-    ylab <- paste(concPrefix@longPrefix,
-                   "in , mg / L")
-    name <- paste(concPrefix@longPrefix,", by month")
+    ylab <- paste0(concPrefix@longPrefix,
+                   ", mg / L")
+    name <- attr(pairResults, "Other")[["paramShortName"]]
   }
 
   season <- setSeasonLabelByUser(paStartInput = yearPairs[["paStart"]],
                                  paLongInput = yearPairs[["paLong"]], 
                                  monthLab = monthLab)
   
-  title <- paste0(name, "\n",
-                  attr(pairResults, "Other")[["siteName"]], "\n",
+  title <- paste0(attr(pairResults, "Other")[["siteName"]], "\n",
+                  name, "\n",
                   "From ", yearPairs[["year1"]], " to ", yearPairs[["year2"]], ", ",
                   season)
   
