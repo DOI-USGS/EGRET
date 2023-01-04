@@ -63,7 +63,7 @@ qConst_precip <- new("qUnit",
 
 ```
 
-Each "slot" in this `qUnit` object are required, the qShortName, qUnitName, unitUSGS, and prefix must be characters. The qUnitFactor must be a numeric (this would be the conversion factor that the data gets multiplied by). qUnitExpress and qUnitTiny are "expressions" which allows the text to be formatted. To use this custom unit:
+Each "slot" in this `qUnit` object is required, and the qShortName, qUnitName, unitUSGS, and prefix must be characters. The qUnitFactor must be a numeric (this would be the conversion factor that the data gets multiplied by). qUnitExpress and qUnitTiny are "expressions" which allows the text to be formatted. To use this custom unit:
 
 ```{r compareQcustom, fig.cap="Plot with custom axis, using precipitation instead of discharge."}
 plotConcQ(eList, qUnit = qConst_precip)
@@ -71,7 +71,7 @@ plotConcQ(eList, qUnit = qConst_precip)
 
 ## Data input
 
-Other values can be used to input the data, but that data will be converted to m^3/s with the `qUnit` argument when the eList is created. So if you have data that is coming in that is in cubic feet per second, you could use the `readDailyUser` function, and specify `qUnit` = 1. This will take your cfs data, and store it properly as cms.
+Discharge data in units other than m^3/s can be used as input in EGRET, but that data will be converted to m^3/s with the qUnit argument when the eList is created. So if you have data that is coming in that is in cubic feet per second, you could use the `readDailyUser` function, and specify `qUnit` = 1. This will take your cfs data, and store it properly as cms.
 
 # Concentration
 
