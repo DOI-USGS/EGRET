@@ -22,6 +22,11 @@ first value (X1) and last value (XN) with the specified lag one autocorrelation
 in the limit (where N is large) the values are normal with mean 0 and variance 1
 }
 \description{
-Written by Tim Cohn
+Generates a lag one auto-regressive time series, where the first and last
+values are fixed.  Marginal expected value is zero and variance is one.  
+Generated values have a normal conditional distribution.
+}
+\author{
+Tim Cohn
 }
 \keyword{internal}

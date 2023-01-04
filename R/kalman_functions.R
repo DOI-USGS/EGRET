@@ -239,7 +239,11 @@ populateDailySamp <- function(eList) {
  
 #' genmissing
 #' 
-#' Written by Tim Cohn
+#' Generates a lag one auto-regressive time series, where the first and last
+#' values are fixed.  Marginal expected value is zero and variance is one.  
+#' Generated values have a normal conditional distribution. 
+#' 
+#' @author Tim Cohn
 #' 
 #' @param X1 value before the gap
 #' @param XN value after the gap
