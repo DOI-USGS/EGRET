@@ -171,7 +171,7 @@ unit:</p>
 <span>                     shortCode <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>                     unitUSGS <span class="op">=</span> <span class="st">"Precipitation, in mm"</span>,</span>
 <span>                     prefix <span class="op">=</span> <span class="st">"Precipitation"</span><span class="op">)</span></span></code></pre></div>
-<p>Each “slot” in this <code>qUnit</code> object are required, the
+<p>Each “slot” in this <code>qUnit</code> object is required, and the
 qShortName, qUnitName, unitUSGS, and prefix must be characters. The
 qUnitFactor must be a numeric (this would be the conversion factor that
 the data gets multiplied by). qUnitExpress and qUnitTiny are
@@ -188,12 +188,12 @@ Plot with custom axis, using precipitation instead of discharge.
 <div class="section level3">
 <h3 id="data-input">Data input<a class="anchor" aria-label="anchor" href="#data-input"></a>
 </h3>
-<p>Other values can be used to input the data, but that data will be
-converted to m^3/s with the <code>qUnit</code> argument when the eList
-is created. So if you have data that is coming in that is in cubic feet
-per second, you could use the <code>readDailyUser</code> function, and
-specify <code>qUnit</code> = 1. This will take your cfs data, and store
-it properly as cms.</p>
+<p>Discharge data in units other than m^3/s can be used as input in
+EGRET, but that data will be converted to m^3/s with the qUnit argument
+when the eList is created. So if you have data that is coming in that is
+in cubic feet per second, you could use the <code>readDailyUser</code>
+function, and specify <code>qUnit</code> = 1. This will take your cfs
+data, and store it properly as cms.</p>
 </div>
 </div>
 <div class="section level2">
