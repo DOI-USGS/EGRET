@@ -138,18 +138,27 @@ plotConcHist <- function(eList,
   }
   
   ##################
+  dataStart <- min(eList$Sample$DecYear, na.rm = TRUE)
+  dataStartPad <- dataStart - 0.5
   
   if(is.na(yearStart)){
-    yearStart <- floor(min(localAnnualResults$DecYear[!is.na(localAnnualResults$FNConc)], na.rm = TRUE))
+    yearStart <- dataStartPad
   } else {
-    yearStart <- floor(yearStart)
+    yearStart <- max(yearStart, dataStartPad)
+    
   }
   
+  dataEnd <- max(eList$Sample$DecYear, na.rm = TRUE)
+  dataEndPad <- dataEnd + 0.5
+  
   if(is.na(yearEnd)){
-    yearEnd <- ceiling(max(localAnnualResults$DecYear[!is.na(localAnnualResults$FNConc)], na.rm = TRUE))
+    yearEnd <- dataEndPad
   } else {
-    yearEnd <- floor(yearEnd) + 0.99
+    yearEnd <- min(yearEnd, dataEndPad)
   }
+  
+  localAnnualResults <- localAnnualResults[localAnnualResults$DecYear >= yearStart &
+                                             localAnnualResults$DecYear <= yearEnd, ]
   
   xInfo <- generalAxis(x = localAnnualResults$DecYear,
                        minVal = yearStart,
