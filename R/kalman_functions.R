@@ -110,7 +110,7 @@ WRTDSKalman <- function(eList, rho = 0.90, niter = 200,
       } else {
         xfill <- genmissing(xxP[startFill], xxP[endFill], rho, nFill)
       }
-      xfill <- genmissing(xxP[startFill],xxP[endFill],rho,nFill)
+
       xxP[startFill:endFill]<-xfill}
     # now we need to strip out the padded days
     xResid <- xxP[2:numDaysP]

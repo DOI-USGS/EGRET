@@ -38,7 +38,7 @@ pairResults <- runPairs(eList, windowSide = 0,
 
 
 
-To see the tabular output of the results, use the "byMonthly" attribute from the `runPairs` result. Here we show the a few of the months output:
+To see the tabular output of the results, use the "byMonthly" attribute from the `runPairs` result. 
 
 ```{r}
 monthly <-  attr(pairResults, "byMonth")

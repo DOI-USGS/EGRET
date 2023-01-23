@@ -115,17 +115,29 @@ plotFluxHist<-function(eList, yearStart = NA, yearEnd = NA,
   
   numYears <- length(localAnnualResults$DecYear)
   
+  ##################
+  dataStart <- min(eList$Sample$DecYear, na.rm = TRUE)
+  dataStartPad <- dataStart - 0.5
+  
   if(is.na(yearStart)){
-    yearStart <- floor(min(localAnnualResults$DecYear[!is.na(localAnnualResults$FNFlux)],na.rm = TRUE))
-  }  else {
-    yearStart <- floor(yearStart)
+    yearStart <- dataStartPad
+  } else {
+    yearStart <- max(yearStart, dataStartPad)
+    
   }
   
+  dataEnd <- max(eList$Sample$DecYear, na.rm = TRUE)
+  dataEndPad <- dataEnd + 0.5
+  
   if(is.na(yearEnd)){
-    yearEnd <- ceiling(max(localAnnualResults$DecYear[!is.na(localAnnualResults$FNFlux)],na.rm = TRUE))
-  }  else {
-    yearEnd <- floor(yearEnd) + 0.99
+    yearEnd <- dataEndPad
+  } else {
+    yearEnd <- min(yearEnd, dataEndPad)
   }
+  
+  localAnnualResults <- localAnnualResults[localAnnualResults$DecYear >= yearStart &
+                                             localAnnualResults$DecYear <= yearEnd, ]
+  
   subAnnualResults <- localAnnualResults[localAnnualResults$DecYear>=yearStart & localAnnualResults$DecYear <= yearEnd,]
   
   hasFlex <- c("segmentInfo") %in% names(attributes(eList$INFO))
