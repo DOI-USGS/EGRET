@@ -9,6 +9,7 @@ EGRET 3.0.8
 * Fixed printSeries if period of record was less than 6 month
 * Changed BugsReport URL to https://github.com/DOI-USGS/EGRET/issues 
 * Assure Sample is sorted chronologically
+* plotConcHist and plotFluxHist set to default to the Sample date range instead of the Daily date range.
 
 
 EGRET 3.0.7
