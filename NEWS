@@ -6,6 +6,10 @@ EGRET 3.0.8
 * Improved support for custom axes
 * In WRTDSKalman, removed genmissing from first and last iteration
 * Improved documentation
+* Fixed printSeries if period of record was less than 6 month
+* Changed BugsReport URL to https://github.com/DOI-USGS/EGRET/issues 
+* Assure Sample is sorted chronologically
+
 
 EGRET 3.0.7
 ===========

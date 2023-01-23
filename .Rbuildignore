@@ -59,3 +59,4 @@ deploy_simple.R
 cobertura.xml
 test-out.xml
 ^_pkgdown\.yml$
+review/*
