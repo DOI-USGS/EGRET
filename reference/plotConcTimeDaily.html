@@ -100,9 +100,10 @@ and an INFO dataframe with metadata.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plotConcTimeDaily</span><span class="op">(</span><span class="va">eList</span>, yearStart <span class="op">=</span> <span class="cn">NA</span>, yearEnd <span class="op">=</span> <span class="cn">NA</span>, tinyPlot <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  concMax <span class="op">=</span> <span class="cn">NA</span>, printTitle <span class="op">=</span> <span class="cn">TRUE</span>, cex <span class="op">=</span> <span class="fl">0.8</span>, cex.axis <span class="op">=</span> <span class="fl">1.1</span>,</span>
-<span>  randomCensored <span class="op">=</span> <span class="cn">FALSE</span>, cex.main <span class="op">=</span> <span class="fl">1.1</span>, customPar <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  col <span class="op">=</span> <span class="st">"black"</span>, lwd <span class="op">=</span> <span class="fl">1</span>, prettyDate <span class="op">=</span> <span class="cn">TRUE</span>, usgsStyle <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span>  concMax <span class="op">=</span> <span class="cn">NA</span>, printTitle <span class="op">=</span> <span class="cn">TRUE</span>, plotGenConc <span class="op">=</span> <span class="cn">TRUE</span>, cex <span class="op">=</span> <span class="fl">0.8</span>,</span>
+<span>  cex.axis <span class="op">=</span> <span class="fl">1.1</span>, randomCensored <span class="op">=</span> <span class="cn">FALSE</span>, cex.main <span class="op">=</span> <span class="fl">1.1</span>,</span>
+<span>  customPar <span class="op">=</span> <span class="cn">FALSE</span>, col <span class="op">=</span> <span class="st">"black"</span>, lwd <span class="op">=</span> <span class="fl">1</span>, prettyDate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  usgsStyle <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -116,7 +117,7 @@ and an INFO dataframe with metadata.</p>
 
 
 <dt>yearEnd</dt>
-<dd><p>numeric specifiying the ending date for the plot</p></dd>
+<dd><p>numeric specifying the ending date for the plot</p></dd>
 
 
 <dt>tinyPlot</dt>
@@ -124,11 +125,18 @@ and an INFO dataframe with metadata.</p>
 
 
 <dt>concMax</dt>
-<dd><p>number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)</p></dd>
+<dd><p>number specifying the maximum value to be used on the vertical axis,
+default is NA (which allows it to be set automatically by the data)</p></dd>
 
 
 <dt>printTitle</dt>
-<dd><p>logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)</p></dd>
+<dd><p>logical variable if TRUE title is printed, if FALSE title is
+not printed (this is best for a multi-plot figure)</p></dd>
+
+
+<dt>plotGenConc</dt>
+<dd><p>logical variable. If <code>TRUE</code>, annual concentration points
+from <code>WRTDSKalman</code> output are plotted, if <code>FALSE</code> WRTDS concentration is plotted,</p></dd>
 
 
 <dt>cex</dt>
@@ -184,8 +192,13 @@ generated labels</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">eList</span> <span class="op">&lt;-</span> <span class="va">Choptank_eList</span></span></span>
 <span class="r-in"><span><span class="co"># Water year:</span></span></span>
 <span class="r-in"><span><span class="fu">plotConcTimeDaily</span><span class="op">(</span><span class="va">eList</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> plotGenConc = TRUE requires running WRTDSKalman</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>               on eList. Switching to WRTDS concentration.</span>
 <span class="r-plt img"><img src="plotConcTimeDaily-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="fu">plotConcTimeDaily</span><span class="op">(</span><span class="va">eList</span>, yearStart<span class="op">=</span><span class="fl">1998</span>,yearEnd<span class="op">=</span><span class="fl">2001</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plotConcTimeDaily</span><span class="op">(</span><span class="va">eList</span>, </span></span>
+<span class="r-in"><span>                  yearStart <span class="op">=</span> <span class="fl">1998</span>,</span></span>
+<span class="r-in"><span>                  yearEnd <span class="op">=</span> <span class="fl">2001</span>,</span></span>
+<span class="r-in"><span>                  plotGenConc <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plotConcTimeDaily-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
