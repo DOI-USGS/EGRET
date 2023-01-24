@@ -10,6 +10,7 @@ EGRET 3.0.8
 * Changed BugsReport URL to https://github.com/DOI-USGS/EGRET/issues 
 * Assure Sample is sorted chronologically
 * plotConcHist and plotFluxHist set to default to the Sample date range instead of the Daily date range.
+* Add Kalman option for plotConcTimeDaily and plotFluxTimeDaily
 
 
 EGRET 3.0.7

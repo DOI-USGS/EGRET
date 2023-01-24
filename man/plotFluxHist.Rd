@@ -32,7 +32,8 @@ generated labels.}
 
 \item{plotAnnual}{logical variable if TRUE annual flux points are plotted, if FALSE not plotted}
 
-\item{plotGenFlux}{logical variable. If \code{TRUE}, annual flux points from WRTDS_K output are plotted, if \code{FALSE} not plotted}
+\item{plotGenFlux}{logical variable. If \code{TRUE}, annual flux points from 
+\code{WRTDSKalman} output are plotted, if \code{FALSE} the generalized flux is not plotted.}
 
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE}
 

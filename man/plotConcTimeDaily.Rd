@@ -5,22 +5,28 @@
 \title{Plot of the time series of daily concentration estimates and the sample values for the days that were sampled}
 \usage{
 plotConcTimeDaily(eList, yearStart = NA, yearEnd = NA, tinyPlot = FALSE,
-  concMax = NA, printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
-  randomCensored = FALSE, cex.main = 1.1, customPar = FALSE,
-  col = "black", lwd = 1, prettyDate = TRUE, usgsStyle = FALSE, ...)
+  concMax = NA, printTitle = TRUE, plotGenConc = TRUE, cex = 0.8,
+  cex.axis = 1.1, randomCensored = FALSE, cex.main = 1.1,
+  customPar = FALSE, col = "black", lwd = 1, prettyDate = TRUE,
+  usgsStyle = FALSE, ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
 
 \item{yearStart}{numeric specifying the starting date (expressed as decimal years, for example 1989.0) for the plot}
 
-\item{yearEnd}{numeric specifiying the ending date for the plot}
+\item{yearEnd}{numeric specifying the ending date for the plot}
 
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be short and wide, default is FALSE.}
 
-\item{concMax}{number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)}
+\item{concMax}{number specifying the maximum value to be used on the vertical axis,
+default is NA (which allows it to be set automatically by the data)}
 
-\item{printTitle}{logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)}
+\item{printTitle}{logical variable if TRUE title is printed, if FALSE title is
+not printed (this is best for a multi-plot figure)}
+
+\item{plotGenConc}{logical variable. If \code{TRUE}, annual concentration points
+from \code{WRTDSKalman} output are plotted, if \code{FALSE} WRTDS concentration is plotted,}
 
 \item{cex}{numerical value giving the amount by which plotting symbols should be magnified}
 
@@ -61,7 +67,10 @@ and an INFO dataframe with metadata.
 eList <- Choptank_eList
 # Water year:
 plotConcTimeDaily(eList)
-plotConcTimeDaily(eList, yearStart=1998,yearEnd=2001)
+plotConcTimeDaily(eList, 
+                  yearStart = 1998,
+                  yearEnd = 2001,
+                  plotGenConc = FALSE)
 }
 \seealso{
 \code{\link{selectDays}}, \code{\link{genericEGRETDotPlot}}

@@ -12,10 +12,12 @@
 #'
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param yearStart numeric specifying the starting date (expressed as decimal years, for example 1989.0) for the plot
-#' @param yearEnd numeric specifiying the ending date for the plot 
+#' @param yearEnd numeric specifying the ending date for the plot 
 #' @param tinyPlot logical variable, if TRUE plot is designed to be short and wide, default is FALSE.
 #' @param fluxUnit number representing in pre-defined fluxUnit class array. \code{\link{printFluxUnitCheatSheet}}
 #' @param fluxMax number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)
+#' @param plotGenFlux logical variable. If \code{TRUE}, annual flux points from 
+#' \code{WRTDSKalman} output are plotted, if \code{FALSE} WRTDS flux is plotted.
 #' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
@@ -39,8 +41,11 @@
 #' plotFluxTimeDaily(eList)
 #' plotFluxTimeDaily(eList, 2001,2009)
 plotFluxTimeDaily<-function (eList, yearStart=NA, yearEnd=NA, 
-                             tinyPlot = FALSE, fluxUnit = 3, fluxMax = NA, randomCensored=FALSE,
-                             printTitle = TRUE, usgsStyle = FALSE, cex=0.8, cex.axis=1.1,cex.main=1.1, 
+                             tinyPlot = FALSE, fluxUnit = 3, 
+                             fluxMax = NA, randomCensored=FALSE,
+                             printTitle = TRUE, 
+                             plotGenFlux = TRUE,
+                             usgsStyle = FALSE, cex=0.8, cex.axis=1.1,cex.main=1.1, 
                              customPar=FALSE,col="black",lwd=1,prettyDate=TRUE,...) {
   
   localINFO <- getInfo(eList)
@@ -53,6 +58,14 @@ plotFluxTimeDaily<-function (eList, yearStart=NA, yearEnd=NA,
   } else {
     paLong <- 12
     paStart <- 10
+  }
+  
+  if(plotGenFlux){
+    if(!all((c("GenFlux","GenConc") %in% names(eList$Daily)))){
+      message("plotGenConc = TRUE requires running WRTDSKalman
+              on eList. Switching to WRTDS concentration.")
+      plotGenFlux <- FALSE
+    }
   }
   
   possibleGoodUnits <- c("mg/l","mg/l as N", "mg/l as NO2", 
@@ -93,6 +106,12 @@ plotFluxTimeDaily<-function (eList, yearStart=NA, yearEnd=NA,
   xSample <- subSample$DecYear
   xDaily <- subDaily$DecYear
 
+  if(plotGenFlux){
+    flux <- subDaily$GenFlux
+  } else {
+    flux <- subDaily$ConcDay*subDaily$Q*fluxFactor
+  }
+  
   yLow <- subSample$ConcLow*subSample$Q*fluxFactor
   yHigh <- subSample$ConcHigh*subSample$Q*fluxFactor
   Uncen <- subSample$Uncen
@@ -107,51 +126,75 @@ plotFluxTimeDaily<-function (eList, yearStart=NA, yearEnd=NA,
   if (tinyPlot) {
     yLab <- fluxUnit@unitExpressTiny
   } else {
-    yLab <- ifelse(usgsStyle,fluxUnit@unitUSGS,fluxUnit@unitExpress)
+    yLab <- ifelse(usgsStyle, fluxUnit@unitUSGS, fluxUnit@unitExpress)
   }
   ###################################
   
   yBottom <- 0
   
-  xInfo <- generalAxis(x=xSample, minVal=yearStart, maxVal=yearEnd, 
-                       tinyPlot=tinyPlot,padPercent=0,prettyDate=prettyDate)
+  xInfo <- generalAxis(x = xSample, 
+                       minVal = yearStart, maxVal = yearEnd, 
+                       tinyPlot = tinyPlot, padPercent = 0,
+                       prettyDate = prettyDate)
   
-  yCombined <- c(yHigh,subDaily$ConcDay*subDaily$Q*fluxFactor)
+  yCombined <- c(yHigh, flux)
   
   if(!randomCensored){
   
-    yInfo <- generalAxis(x=yCombined, minVal=yBottom, maxVal=fluxMax, tinyPlot=tinyPlot,padPercent=5)
+    yInfo <- generalAxis(x = yCombined,
+                         minVal = yBottom,
+                         maxVal = fluxMax,
+                         tinyPlot = tinyPlot,
+                         padPercent = 5)
   
-    genericEGRETDotPlot(x=xSample, y=yHigh,
-                        xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
-                        xTicks=xInfo$ticks, yTicks=yInfo$ticks,
-                        ylab = yLab, customPar=customPar,cex=cex,
-                        plotTitle=plotTitle, tinyPlot=tinyPlot,cex.axis=cex.axis,
-                        cex.main=cex.main,col=col,lwd=lwd, xDate=TRUE,...
+    genericEGRETDotPlot(x = xSample, y = yHigh,
+                        xlim = c(xInfo$bottom, xInfo$top),
+                        ylim = c(yInfo$bottom, yInfo$top),
+                        xTicks = xInfo$ticks,
+                        yTicks = yInfo$ticks,
+                        ylab = yLab,
+                        customPar = customPar, cex = cex,
+                        plotTitle = plotTitle, 
+                        tinyPlot = tinyPlot,cex.axis=cex.axis,
+                        cex.main = cex.main,
+                        col = col, lwd = lwd, xDate = TRUE,...
       )
-    censoredSegments(yBottom=yInfo$bottom,yLow=yLow,yHigh=yHigh,x=xSample,Uncen=Uncen,col=col,lwd=lwd)
+    censoredSegments(yBottom = yInfo$bottom,
+                     yLow = yLow,
+                     yHigh = yHigh,
+                     x = xSample,
+                     Uncen = Uncen,
+                     col = col,
+                     lwd = lwd)
   } else {
     if(!("rObserved" %in% names(localSample))){
       eList <- makeAugmentedSample(eList)
       localSample <- eList$Sample
-      subSample<-localSample[localSample$DecYear>=yearStart & localSample$DecYear<= yearEnd,]
+      subSample<-localSample[localSample$DecYear >= yearStart &
+                               localSample$DecYear <= yearEnd,]
     }
 
-    yCombined <- c(yHigh,subDaily$rObserved*subDaily$Q*fluxFactor)
+    yCombined <- c(flux, subDaily$rObserved*subDaily$Q*fluxFactor)
     
-    yInfo <- generalAxis(x=yCombined, minVal=yBottom, maxVal=fluxMax, tinyPlot=tinyPlot,padPercent=5)
+    yInfo <- generalAxis(x = yCombined,
+                         minVal = yBottom,
+                         maxVal = fluxMax,
+                         tinyPlot = tinyPlot,
+                         padPercent = 5)
     
-    genericEGRETDotPlot(x=xSample, y=yHigh,
+    genericEGRETDotPlot(x = xSample, y = yHigh,
                         xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
-                        xTicks=xInfo$ticks, yTicks=yInfo$ticks,
-                        ylab = yLab, customPar=customPar,cex=cex,
-                        plotTitle=plotTitle, tinyPlot=tinyPlot,cex.axis=cex.axis,
-                        cex.main=cex.main,col=col,lwd=lwd, xDate=TRUE,...
+                        xTicks = xInfo$ticks, yTicks = yInfo$ticks,
+                        ylab = yLab, customPar = customPar,cex = cex,
+                        plotTitle = plotTitle, tinyPlot = tinyPlot,cex.axis=cex.axis,
+                        cex.main = cex.main, col = col,lwd = lwd, xDate=TRUE,...
     )
-    points(x=xSample[Uncen == 0], y=yHigh[Uncen == 0], pch=1,cex=cex,col=col)
+    points(x = xSample[Uncen == 0], 
+           y = yHigh[Uncen == 0], 
+           pch = 1, cex = cex, col = col)
   }
   
-  lines(xDaily, subDaily$ConcDay*subDaily$Q*fluxFactor,col=col,lwd=lwd)
+  lines(xDaily, flux, col = col, lwd = lwd)
   
   if (!tinyPlot) mtext(title2,side=3,line=-1.5)
 
