@@ -190,13 +190,13 @@ test_that("other plot functions don't error", {
   
   graphics.off()
   dev_start <- dev.cur()
-  expect_silent(plotConcTimeDaily(eList))
+  expect_message(plotConcTimeDaily(eList))
   expect_true(dev_start + 1 == dev.cur())
   
   graphics.off()
   dev_start <- dev.cur()
-  expect_silent(plotFluxTimeDaily(eList))
-  expect_silent(plotFluxTimeDaily(eList, fluxUnit = 4))
+  expect_message(plotFluxTimeDaily(eList))
+  expect_message(plotFluxTimeDaily(eList, fluxUnit = 4))
   expect_true(dev_start + 1 == dev.cur())
   
   graphics.off()
