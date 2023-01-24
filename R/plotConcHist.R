@@ -20,10 +20,13 @@
 #' @param yearEnd numeric is the calendar year just after the last estimated annual value to be plotted, default is NA (which allows it to be set automatically by the data)
 #' @param eList named list with at least the Daily and INFO dataframes
 #' @param concMax numeric. Maximum value of concentration to be plotted.
-#' @param printTitle logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)
+#' @param printTitle logical variable if TRUE title is printed, if FALSE title is
+#' not printed (this is best for a multi-plot figure)
 #' @param plotFlowNorm logical variable if TRUE flow normalized line is plotted, if FALSE not plotted 
-#' @param plotAnnual logical variable if \code{TRUE}, annual concentration points from WRTDS output are plotted, if \code{FALSE} not plotted 
-#' @param plotGenConc logical variable. If \code{TRUE}, annual concentration points from WRTDS_K output are plotted, if \code{FALSE} not plotted 
+#' @param plotAnnual logical variable if \code{TRUE}, annual concentration points
+#' from WRTDS output are plotted, if \code{FALSE} not plotted 
+#' @param plotGenConc logical variable. If \code{TRUE}, annual concentration points
+#' from \code{WRTDSKalman} output are plotted, if \code{FALSE} not plotted 
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex

@@ -20,7 +20,8 @@ plotConcHist(eList, yearStart = NA, yearEnd = NA, concMax = NA,
 
 \item{concMax}{numeric. Maximum value of concentration to be plotted.}
 
-\item{printTitle}{logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)}
+\item{printTitle}{logical variable if TRUE title is printed, if FALSE title is
+not printed (this is best for a multi-plot figure)}
 
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE}
 
@@ -30,9 +31,11 @@ generated labels}
 
 \item{plotFlowNorm}{logical variable if TRUE flow normalized line is plotted, if FALSE not plotted}
 
-\item{plotAnnual}{logical variable if \code{TRUE}, annual concentration points from WRTDS output are plotted, if \code{FALSE} not plotted}
+\item{plotAnnual}{logical variable if \code{TRUE}, annual concentration points
+from WRTDS output are plotted, if \code{FALSE} not plotted}
 
-\item{plotGenConc}{logical variable. If \code{TRUE}, annual concentration points from WRTDS_K output are plotted, if \code{FALSE} not plotted}
+\item{plotGenConc}{logical variable. If \code{TRUE}, annual concentration points
+from \code{WRTDSKalman} output are plotted, if \code{FALSE} not plotted}
 
 \item{cex}{numerical value giving the amount by which plotting symbols should be magnified}
 
