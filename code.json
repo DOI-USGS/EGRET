@@ -58,7 +58,7 @@
         ]
     },
     "homepageURL": "https://code.usgs.gov/water/EGRET/-/tags/v3.0.8",
-    "downloadURL": "https://code.usgs.gov/water/EGRET/-/archive/v3.0.5/EGRET-v3.0.8.zip",
+    "downloadURL": "https://code.usgs.gov/water/EGRET/-/archive/v3.0.8/EGRET-v3.0.8.zip",
     "disclaimerURL": "https://code.usgs.gov/water/EGRET/-/raw/v3.0.8/DISCLAIMER.md",
     "repositoryURL": "https://code.usgs.gov/water/EGRET.git",
     "vcs": "git",
