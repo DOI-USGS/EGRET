@@ -6,8 +6,8 @@ output:
   rmarkdown::html_vignette:
     toc: true
 # nocite: '@*'
-# bibliography: 
-  # - Regional_studies.bib
+# bibliography:
+#   - Regional_studies.bib
   # - Method.bib
   # - Extend_method.bib
 vignette: >
@@ -132,6 +132,11 @@ Parsons. 2022. “Phosphorus Retention and Transformation in a Dammed
 Reservoir of the Thames River, Ontario: Impacts on Phosphorus Load and
 Speciation.” *Journal of Great Lakes Research* 48 (1): 84–96.
 
+Lee, Casey J, Robert M Hirsch, and Charles G Crawford. 2019. “An
+Evaluation of Methods for Computing Annual Water-Quality Loads.”
+Scientific Investigations Report, 2019-5084. U.S. Geological
+Survey.
+
 Lee, Casey J, Robert M Hirsch, Gregory E Schwarz, David J Holtschlag,
 Stephen D Preston, Charles G Crawford, and Aldo V Vecchia. 2016. “An
 Evaluation of Methods for Estimating Decadal Stream Loads.” *Journal of
@@ -251,6 +256,7 @@ Zhang, Qian, James S Webber, Douglas L Moyer, and Jeffrey G Chanat.
 Different Flow Classes.” *Science of The Total Environment* 755: 143562.
 
 ## Regional Studies Using WRTDS {#regional-studies-using-wrtds}
+
 
 Abbott, Benjamin W, Gérard Gruau, Jay P Zarnetske, Florentina Moatar,
 Lou Barbe, Zahra Thomas, Ophélie Fovet, Tamara Kolbe, Sen Gu, and
@@ -475,7 +481,7 @@ https://doi.org/<https://doi.org/10.1111/1752-1688.13054>.
 Medalie, Laura. 2013. *Concentration, Flux, and the Analysis of Trends
 of Total and Dissolved Phosphorus, Total Nitrogen, and Chloride in 18
 Tributaries to Lake Champlain, Vermont and New York, 1990-2011*. Vol.
-2013–5021. U.S. Geological Survey, Scientific Investigations Report. U.S.
+2013–5021. U.S. Geological Survey, Scientific Investigations Report. US
 Geological Survey. <https://pubs.usgs.gov/sir/2013/5021/>.
 
 ———. 2016. “Concentration, Flux, and Trend Estimates with Uncertainty
@@ -511,7 +517,7 @@ Watershed.” *Environmental Pollution* 229: 1006–18.
 Mullaney, John R. 2016. *Nutrient, Organic Carbon, and Chloride
 Concentrations and Loads in Selected Long Island Sound Tributaries—Four
 Decades of Change Following the Passage of the Federal Clean Water Act*.
-U.S. Geological Survey, Scientific Investigations Report 2015-5189. U.S.
+U.S. Geological Survey, Scientific Investigations Report 2015-5189. US
 Geological Survey. <https://pubs.er.usgs.gov/publication/sir20155189>.
 
 Murphy, Jennifer C. 2020. “Changing Suspended Sediment in United States
@@ -521,7 +527,7 @@ Use/Cover, Hydrology and Climate.” *Hydrology and Earth System Sciences*
 
 Murphy, Jennifer, Robert M Hirsch, and Lori A Sprague. 2013. *Nitrate in
 the Mississippi River and Its Tributaries, 1980-2010: An Update*.
-U.S.geological Survey, Scientific Investigations Report 2013-5169. U.S.
+U.s.geological Survey, Scientific Investigations Report 2013-5169. US
 Geological Survey.
 <https://pubs.usgs.gov/sir/2013/5169/pdf/sir20135169.pdf>.
 
@@ -529,10 +535,9 @@ Murphy, Jennifer, and Lori Sprague. 2019. “Water-Quality Trends in US
 Rivers: Exploring Effects from Streamflow Trends and Changes in
 Watershed Management.” *Science of the Total Environment* 656: 645–58.
 
-National Academies of Sciences, Engineering, {and} Medicine. 2020.
+National Academies of Sciences, Engineering, and Medicine. 2020.
 *Review of the New York City Watershed Protection Program*. Washington
-DC: National Academies Press.
-<https://nap.nationalacademies.org/catalog/25851/review-of-the-new-york-city-watershed-protection-program>.
+DC: National Academies Press. <https://doi.org/10.17226/25851>.
 
 2022. *The Future of Water Quality in Coeur d’alene Lake*.
 Washington, DC: National Academies Press.
@@ -734,7 +739,7 @@ Resources Research* 57 (11): e2021WR030318.
 
 Stackpoole, SM, RD Sabo, and JA Falcone. 2021. “Nutrient Balances, River
 Loads, and a Counterfactual Analysis to Determine Drivers of Mississippi
-River Nitrogen and Phosphorus Loads Between 1975 and 2017.” *U.S.
+River Nitrogen and Phosphorus Loads Between 1975 and 2017.” *US
 Geological Survey Data Release. Https://Doi. Org/10.5066/P9ZM964O*.
 
 Stelzer, Robert S, Thomas B Parr, and Mamadou Coulibaly. 2020. “A Ten
@@ -875,6 +880,4 @@ Zikalala, Prudentia, Isaya Kisekka, and Mark Grismer. 2021.
 “Hydrological Processing of Salinity and Nitrate in the Salinas Valley
 Agricultural Watershed.” *Environmental Monitoring and Assessment* 193
 (1): 1–33.
-
-
 
