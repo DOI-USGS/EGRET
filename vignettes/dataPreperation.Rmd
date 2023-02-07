@@ -1,0 +1,155 @@
+---
+title: "Data Preperation"
+output: 
+  rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Data Preperation}
+  \usepackage[utf8]{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+library(EGRET)
+library(knitr)
+
+knitr::opts_chunk$set(echo = TRUE, 
+                      warning = FALSE, 
+                      message = FALSE,
+                      fig.width = 8)
+```
+
+`EGRET` was designed for water-quality and streamflow exploration. One of the nice features of `EGRET` is the convenient functions to import data from web services. This vignette gives some advice for updating the classic workflows for importing water quality `EGRET` data. 
+
+Users of the `readNWISSample` function may have noticed a warning recently:
+
+```
+Warning message:                                                                                                               
+NWIS qw web services are being retired. 
+Please see vignette('qwdata_changes', package = 'dataRetrieval') 
+for more information.
+https://cran.r-project.org/web/packages/dataRetrieval/vignettes/qwdata_changes.html
+```
+
+The exact date when the NWIS water-quality services will be shut down is not known, but it is expected to happen in the second half of the 2023. When the NWIS web service shuts down, we will be removing the `readNWISSample` function from `EGRET`. 
+
+USGS data that was historically retrieved from the NWIS services will still be available from the [Water Quality Portal](https://www.waterqualitydata.us/). 
+
+# dataRetrieval Workflow
+
+This is the recommended workflow for any water quality data that can be accessed through the [Water Quality Portal](https://www.waterqualitydata.us/) (WQP). WQP houses USGS, EPA, and other water quality data. It is _currently_ possible to query the WQP by USGS parameter code for a USGS site, but using parameter code is not guaranteed in the future. Therefore, this workflow will focus on best-practices for the WQP.
+
+First, it's recommended to get the raw data from WQP using functions in the `dataRetrieval` package. Please see the [dataRetrieval site](https://rconnect.usgs.gov/dataRetrieval/) for complete information on `dataRetrieval`.
+
+This will let us analyze and explore the data using all the information available. Let's start with our classic `EGRET` example data from the Choptank River. The USGS station id is "01491000". Using the WQP, we need to add a "USGS-" prefix to the station id. Our example eList in `EGRET` is for "Inorganic nitrogen (nitrate and nitrite)". In the WQP, we use these words as the input to the CharacteristicName.
+
+```{r getData}
+library(dataRetrieval)
+nitrogen <- readWQPdata(siteNumbers = "USGS-01491000", 
+                        CharacteristicName = "Inorganic nitrogen (nitrate and nitrite)")
+```
+
+This returns a data frame with `r nrow(nitrogen)` rows. There are a few columns I recommend checking:
+
+```{r}
+unique(nitrogen$ResultSampleFractionText)
+```
+
+We'll need to decide if it's appropriate to use both Total and Dissolved in a single analysis. Usually it is not. There may be other sample fraction values depending on the parameters.
+
+```{r}
+unique(nitrogen$ActivityTypeCode)
+```
+
+Here we see there are some quality control samples included in the data. Perhaps replicates are acceptable for analysis, but perhaps not. You would definately want to remove samples that are "Blanks" for example.
+
+```{r}
+unique(nitrogen$ActivityMediaName)
+```
+
+For this analysis, we're only interested in water.
+
+Looking at these results, we need to filter the results down to "Water" as the media, "Total" for the sample fraction, and we want to exclude any quality control results. For your individual analysis, there might be other decisions you need to make. It's important to take a look at this raw data early in your workflow to make sure you are looking at the right things.
+
+We'll use the `dplyr` package for some general cleanup:
+
+```{r filterDown}
+library(dplyr)
+total_nitrogen_water <- nitrogen %>%
+  filter(ActivityMediaName == "Water",
+         ResultSampleFractionText == "Total",
+         !ActivityTypeCode %in% c("Quality Control Sample-Reference Sample",
+                                  "Quality Control Sample-Field Replicate"))
+
+```
+
+We've taken our data down to `r nrow(total_nitrogen_water)` rows. Let's look at a few more columns:
+
+```{r checkUnits}
+unique(total_nitrogen_water$ResultMeasure.MeasureUnitCode)
+unique(total_nitrogen_water$ResultDetectionConditionText)
+unique(total_nitrogen_water$HydrologicEvent)
+unique(total_nitrogen_water$HydrologicCondition)
+```
+
+In this example, we have 1 reported measurement unit and no detection condition text. I would guess for most `EGRET` type analysis, this would be fine. However, maybe you decide you don't want the "Hurricane" data or "Dambreak". These are the kinds of things you'll need to consider at the beginning of analysis.
+
+So now we need to convert the WQP output into a `Sample` data frame. There are 3 steps that are used in the `readWQPSample` function. The first is `processQWData`. This function tries to automate the conversion process going from the WQP format to 3 simple columns: dateTime, qualifier, and value. 
+
+```{r convertSample}
+processed_qw <- processQWData(total_nitrogen_water, FALSE)
+```
+
+The "qualifier" column will only come back with left-censored indicators "<". If your data has right or interval censored data, you will need to determine how to flag those. It is a good idea to check the output of `processQWData` to make sure the "qualifier" flag seems to match the raw data. The function checks the column ResultDetectionConditionText for any "non-detect" type text. It also checks if the reported value is less than the reported detection limit. There are no required text fields in the WQP, so it is a good idea to look for any unusual "ResultDetectionConditionText" output that may not be flagged in the `processQWData` function.
+
+The function `compressData` converts the qualifier column to  ConcLow/ConcHigh/Uncen that is require in `EGRET`. Finally, `populateSampleColumns` adds in the necessary date columns:
+
+```{r convert2}
+compressedData <- compressData(processed_qw, verbose = FALSE)
+
+Sample <- populateSampleColumns(compressedData)
+```
+
+
+
+# Classic workflows
+
+The `readNWISSample`, `readUserSample`, and `readWQPSample` functions are the classic ways to get water quality data in an `EGRET` friendly format. 
+
+## readUserSample
+
+This has always been a valid option for getting independent water quality data into `EGRET`. Users will need to generate a delimited file. The separator can be anything, it is defined in the "separator" argument. The file must be organized in a very strict way. The first column must be the date column, the second column is the remark code (which should use "<" for left-censored values), and the third column is the value column.
+
+```{r }
+filePath <- system.file("extdata", package="EGRET")
+fileName <- 'ChoptankRiverNitrate.csv'
+Sample <- readUserSample(filePath,
+                         fileName,
+                         separator = ";",
+                         verbose = FALSE)
+
+```
+
+## readWQPSample
+
+`readWQPSample` is a function that attempts to get water quality data, and automatically format it in an `EGRET`-friendly way. Generally it does a pretty good job. However, the full set of raw data is not retained and some details on the data may be lost.
+
+```{r eval=FALSE}
+Sample_All <- readWQPSample(siteNumber = 'WIDNR_WQX-10032762',
+                            characteristicName = 'Specific conductance',
+                            startDate =  '',
+                            endDate =  '')
+
+
+```
+
+Details described above in the recommended workflow sections should help you understand why starting with the original raw data is preferable. It takes a little more work to understand the data, but you also are more confident that you are analyizing the correct information.
+
+## readNWISSample
+
+The `readNWISSample` function will be removed from `EGRET` when the NWIS web services are shut down. Please consider using the time from now until that happens (late 2023) to update your scripts and compare results. It is not recommended to write any new scripts using this function. 
+
+
+
+
