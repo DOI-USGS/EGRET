@@ -40,8 +40,12 @@ processQWData <- function(data,pCode=TRUE){
     test <- data.frame(data$CharacteristicName)
   }
   
-  test$dateTime <- data$ActivityStartDate
+  if(pCode){
+    
+  }
   
+  test$dateTime <- data$ActivityStartDate
+
   originalLength <- nrow(test)
   test$qualifier <- qualifier
   test$value <- as.numeric(correctedData)
@@ -58,12 +62,24 @@ processQWData <- function(data,pCode=TRUE){
     colnames(test)<- c("USGSPCode","dateTime","qualifier","value")
     newTimeVar <- "USGSPCode"
   } else {
-    colnames(test)<- c("CharacteristicName","dateTime","qualifier","value")
+    
+    test$ActivityMediaName <- data$ActivityMediaSubdivisionName
+    test$ActivityMediaName <- data$ActivityMediaName
+    test$USGSPCode <- data$USGSPCode
+    test$ResultSampleFractionText <- data$ResultSampleFractionText
+    
+    colnames(test)[1:4] <- c("CharacteristicName",
+                             "dateTime",
+                             "qualifier",
+                             "value")
     newTimeVar <- "CharacteristicName"
+    
   }
   
-  data <- suppressWarnings(reshape(test, idvar="dateTime", timevar = newTimeVar, direction="wide"))  
-  data$dateTime <- format(data$dateTime, "%Y-%m-%d")
-  data$dateTime <- as.Date(data$dateTime)
-  return(data)
+  x <- suppressWarnings(reshape(test, idvar="dateTime", timevar = newTimeVar, direction="wide"))
+  
+  test$dateTime <- format(test$dateTime, "%Y-%m-%d")
+  test$dateTime <- as.Date(test$dateTime)
+  
+  return(test)
 }
