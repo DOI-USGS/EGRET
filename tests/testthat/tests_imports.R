@@ -27,21 +27,23 @@ test_that("External NWIS Sample tests", {
   SampleNames <- c("Date","ConcLow","ConcHigh","Uncen","ConcAve","Julian","Month",   
                    "Day","DecYear","MonthSeq","waterYear","SinDY","CosDY")
   
-  Sample_01075 <- readNWISSample('01594440',
+  expect_warning(Sample_01075 <- readNWISSample('01594440',
                                  '01075', 
                                  '1985-01-01', 
-                                 '1985-03-31')
+                                 '1985-03-31'))
+  
   expect_true(all(names(Sample_01075) %in% SampleNames))
   
-  Sample_All2 <- readNWISSample('05114000',
+  expect_warning(Sample_All2 <- readNWISSample('05114000',
                                 c('00915','00931'), 
                                 '1985-01-01', 
-                                '1985-03-31')
+                                '1985-03-31'))
+  
   expect_true(all(names(Sample_All2) %in% SampleNames))
   
-  Sample_Select <- readNWISSample('05114000',
+  Sample_Select <- expect_warning(readNWISSample('05114000',
                                   c('00915','00931'), 
-                                  '', '')
+                                  '', ''))
   
   expect_true(all(names(Sample_Select) %in% SampleNames))
   
@@ -57,9 +59,9 @@ test_that("External WQP Sample tests", {
   SampleNames <- c("Date","ConcLow","ConcHigh","Uncen","ConcAve","Julian","Month",   
                    "Day","DecYear","MonthSeq","waterYear","SinDY","CosDY")
   
-  # Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
-  # 
-  # expect_true(all(names(Sample_All) %in% SampleNames))
+  Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
+
+  expect_true(all(SampleNames %in% names(Sample_All)))
     
 })
 
@@ -110,7 +112,7 @@ test_that("User tests", {
 
 test_that("processQWData", {
   testthat::skip_on_cran()
-  # rawWQP <- dataRetrieval::readWQPqw('WIDNR_WQX-10032762','Specific conductance', '2012-01-01', '2012-12-31')
-  # Sample2 <- processQWData(rawWQP, pCode=FALSE)
-  # expect_true(all(unique(Sample2[[2]]) %in% c("","<")))
+  rawWQP <- dataRetrieval::readWQPqw('WIDNR_WQX-10032762','Specific conductance', '2012-01-01', '2012-12-31')
+  Sample2 <- processQWData(rawWQP, pCode=FALSE)
+  expect_true(all(unique(Sample2$qualifier) %in% c("","<")))
 })
