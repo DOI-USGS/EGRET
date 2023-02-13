@@ -106,7 +106,10 @@ The "qualifier" column will only come back with left-censored indicators "<". If
 The function `compressData` converts the qualifier column to  ConcLow/ConcHigh/Uncen that is require in `EGRET`. Finally, `populateSampleColumns` adds in the necessary date columns:
 
 ```{r convert2}
-compressedData <- compressData(processed_qw, verbose = FALSE)
+compressedData <- compressData(processed_qw[c("dateTime",
+                                              "qualifier",
+                                              "value")], 
+                               verbose = FALSE)
 
 Sample <- populateSampleColumns(compressedData)
 ```
