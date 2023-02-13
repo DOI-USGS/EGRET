@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 Exploration and Graphics for RivEr Trends (`EGRET`): 
 An R-package for the analysis of long-term changes in water quality and streamflow, including the water-quality method Weighted Regressions on Time, Discharge, and Season (WRTDS).
 
-Look for new and improved documentation her:
+Look for new and improved documentation here:
 [https://rconnect.usgs.gov/EGRET/](https://rconnect.usgs.gov/EGRET/)
 
 The link for the official USGS publication user guide is here:

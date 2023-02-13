@@ -38,7 +38,49 @@
       "email": "ldecicco@usgs.gov"
     },
     "date": {
-      "metadataLastUpdated": "2022-12-09"
+      "metadataLastUpdated": "2023-07-23"
+    }
+  },
+  {
+    "name": "EGRET",
+    "organization": "U.S. Geological Survey",
+    "description": "An R-package for the analysis of long-term changes in water quality and streamflow, including the water-quality method Weighted Regressions on Time, Discharge, and Season (WRTDS)",
+    "version": "v3.0.8",
+    "status": "Production",
+    "permissions": {
+      "usageType": "openSource",
+      "licenses": [
+        {
+          "name": "Public Domain, CC0-1.0",
+          "URL": "https://code.usgs.gov/water/EGRET/-/raw/v3.0.8/LICENSE.md"
+        }
+
+        ]
+    },
+    "homepageURL": "https://code.usgs.gov/water/EGRET/-/tags/v3.0.8",
+    "downloadURL": "https://code.usgs.gov/water/EGRET/-/archive/v3.0.8/EGRET-v3.0.8.zip",
+    "disclaimerURL": "https://code.usgs.gov/water/EGRET/-/raw/v3.0.8/DISCLAIMER.md",
+    "repositoryURL": "https://code.usgs.gov/water/EGRET.git",
+    "vcs": "git",
+    "laborHours": 700,
+    
+    "tags": [
+      "R",
+      "rstats",
+      "USGS",
+      "water"
+      ],
+    
+    "languages": [
+      "R"
+      ],
+    
+    "contact": {
+      "name": "Laura De Cicco",
+      "email": "ldecicco@usgs.gov"
+    },
+    "date": {
+      "metadataLastUpdated": "2023-02-07"
     }
   }
 ]

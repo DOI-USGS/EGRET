@@ -58,8 +58,14 @@ readWQPSample <- function(siteNumber,characteristicName,startDate,endDate,verbos
       data <- NULL
     }
     
-    compressedData <- compressData(data, verbose=verbose)
+    compressedData <- compressData(data[, c("dateTime",
+                                            "qualifier",
+                                            "value")],
+                                   verbose=verbose)
     Sample <- populateSampleColumns(compressedData)
+    Sample <- cbind(Sample, data[, names(data)[!names(data) %in% c("dateTime",
+                                                                  "qualifier",
+                                                                  "value")]])
   } else {
     Sample <- data.frame(Date=as.Date(character()),
                          ConcLow=numeric(), 

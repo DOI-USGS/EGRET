@@ -11,7 +11,9 @@ Authors@R: c( person("Robert", "Hirsch", role = c("aut"),
     person("Tim", "Cohn", role = c("ctb")),
     person("David", "Watkins", role = c("ctb")),
     person("Lindsay","Carr", role = c("ctb")),
-    person("Jennifer","Murphy", role = c("ctb")))
+    person("Jennifer","Murphy", role = c("aut"),
+    email = "jmurphy@usgs.gov",
+    comment=c(ORCID="0000-0002-0881-0919")))
 Description: Statistics and graphics for streamflow history,
     water quality trends, and the statistical modeling algorithm: Weighted
     Regressions on Time, Discharge, and Season (WRTDS). The modeling
@@ -57,7 +59,7 @@ Copyright: This software is in the public domain because it contains materials
     that originally came from the United States Geological Survey, an agency of
     the United States Department of Interior. For more information, see the
     official USGS copyright policy at
-    https://www.usgs.gov/visual-id/credit_usgs.html#copyright
+    https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits
 RoxygenNote: 7.2.3
 Roxygen: list(old_usage = TRUE)
 Encoding: UTF-8

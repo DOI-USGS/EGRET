@@ -55,8 +55,7 @@ test_that("date functions work", {
 
 test_that("data functions work", {
   testthat::skip_on_cran()
-  
-  #compressData
+
   dateTime <- c('1985-01-01', '1985-01-02', '1985-01-03')
   comment1 <- c("","","")
   value1 <- c(1,2,3)
@@ -78,7 +77,7 @@ test_that("data functions work", {
   siteNumber <- '01594440'
   pCode <- '01075'
   Daily <- readNWISDaily(siteNumber,'00060', '1985-01-01', '1990-03-31')
-  Sample <- readNWISSample(siteNumber,pCode, '1985-01-01', '1990-03-31')
+  expect_warning(Sample <- readNWISSample(siteNumber,pCode, '1985-01-01', '1990-03-31'))
   INFO <- readNWISInfo(siteNumber,pCode,interactive=FALSE)
   eList <- mergeReport(INFO, Daily, Sample)
   expect_equal(names(eList), c("INFO", "Daily", "Sample", "surfaces"))
@@ -195,8 +194,19 @@ test_that("other plot functions don't error", {
   
   graphics.off()
   dev_start <- dev.cur()
+  expect_silent(plotConcTimeDaily(eList, plotGenConc = FALSE))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  graphics.off()
+  dev_start <- dev.cur()
   expect_message(plotFluxTimeDaily(eList))
   expect_message(plotFluxTimeDaily(eList, fluxUnit = 4))
+  expect_true(dev_start + 1 == dev.cur())
+  
+  
+  graphics.off()
+  dev_start <- dev.cur()
+  expect_silent(plotFluxTimeDaily(eList, plotGenFlux = FALSE))
   expect_true(dev_start + 1 == dev.cur())
   
   graphics.off()

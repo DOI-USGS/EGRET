@@ -83,7 +83,6 @@ reference:
     desc: Functions for plotting eList objects
     contents:
       - multiPlotDataOverview
-      - plotFluxTimeDaily
       - plotFlowSingle
       - plotFluxQ
       - plotFour
@@ -94,8 +93,6 @@ reference:
       - boxQTwice
       - plotConcTime
       - plotConcQ
-      - plotConcTimeDaily
-      - plotFluxTimeDaily
       - boxConcThree
       - plot15
       - plot1of15
@@ -110,6 +107,8 @@ reference:
       - boxResidMonth
       - plotConcHist
       - plotFluxHist
+      - plotFluxTimeDaily
+      - plotConcTimeDaily
       - plotConcQSmooth
       - plotConcTimeSmooth
       - fluxBiasMulti
