@@ -63,7 +63,7 @@ processQWData <- function(data,pCode=TRUE){
     newTimeVar <- "USGSPCode"
   } else {
     
-    test$ActivityMediaName <- data$ActivityMediaSubdivisionName
+    test$ActivityMediaSubdivisionName <- data$ActivityMediaSubdivisionName
     test$ActivityMediaName <- data$ActivityMediaName
     test$USGSPCode <- data$USGSPCode
     test$ResultSampleFractionText <- data$ResultSampleFractionText
