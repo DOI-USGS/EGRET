@@ -5,7 +5,9 @@
 #' ConcHigh = Upper bound for an observed concentration
 #' Uncen    = 1 if uncensored, 0 if censored
 #'
-#' @param data dataframe contains at least dateTime, value, code columns
+#' @param data dataframe contains at least dateTime, code, value, columns in that order. 
+#' If there are more than the initial date, code, value...it combines the
+#' data is combined as using interval censored concepts. 
 #' @param verbose logical specifying whether or not to display progress message
 #' @param interactive logical deprecated. Use 'verbose' instead
 #' @keywords WRTDS flow
