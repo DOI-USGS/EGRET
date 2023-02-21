@@ -41,8 +41,12 @@ WRTDSKalman <- function(eList, rho = 0.90, niter = 200,
     eList$surfaces <-  estSurfaces(eList)	
   }
 
+  if(!is.na(seed)){
+    set.seed(seed)
+  } 
+  
   # this part is to set up the array of runs of missing values
-  localEList <- cleanUp(eList)
+  localEList <- cleanUp(eList, seed = seed)
   localDaily <- populateDailySamp(localEList)
   
   if(sum(is.na(localDaily$trueConc)) == 0){
@@ -79,13 +83,15 @@ WRTDSKalman <- function(eList, rho = 0.90, niter = 200,
   
   endOfLine <- seq(10,100,10)
   
+  seeds <- sample(1:5000, niter)
+  
   for(iter in 1:niter){
     
     if (iter %in% printUpdate & verbose) {
       cat(floor(iter*100/niter),"\t")
       if (floor(iter*100/niter) %in% endOfLine) cat("\n")
     }
-    localEList <- cleanUp(eList)
+    localEList <- cleanUp(eList, seed = seeds[iters])
     # this next step adds a trueConc column to Daily, and it is NA if there is no sample value
     # it also adds the stdResid column to Daily
     localDaily <- populateDailySamp(localEList)
@@ -148,7 +154,7 @@ WRTDSKalman <- function(eList, rho = 0.90, niter = 200,
 #' 
 cleanUp <- function(eList, seed = NA){
 
-  Sample <- randomSubset(eList$Sample, "Julian", seed)
+  Sample <- randomSubset(eList$Sample, "Julian", seed = seed)
   eListClean <- as.egret(eList$INFO, eList$Daily, Sample, eList$surfaces)
   eListClean <- makeAugmentedSample(eListClean)
   Sample <- eListClean$Sample
