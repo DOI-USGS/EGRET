@@ -1,8 +1,10 @@
+
 .onAttach <- function(libname, pkgname) {
   if (!interactive()) return()
   EGRET_version = utils::packageVersion("EGRET")
   packageStartupMessage("EGRET ", EGRET_version,"
 Extended Documentation: https://rconnect.usgs.gov/EGRET")
+
 }
 
 #' EGRET package includes WRTDS and flowHistory

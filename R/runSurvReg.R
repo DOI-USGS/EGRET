@@ -35,7 +35,7 @@
 #' resultSurvReg <- runSurvReg(estPtYear,estPtLQ,
 #'                             DecLow,DecHigh,Sample,
 #'                             run.parallel = FALSE)
-runSurvReg<-function(estPtYear,estPtLQ,DecLow,DecHigh,Sample, 
+runSurvReg <- function(estPtYear, estPtLQ, DecLow, DecHigh, Sample, 
                      windowY=7, windowQ=2, windowS=0.5,
                      minNumObs=100, minNumUncen=50, verbose = TRUE,interactive=NULL,
                      edgeAdjust=TRUE, run.parallel = FALSE) {

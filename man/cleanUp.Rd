@@ -4,10 +4,13 @@
 \alias{cleanUp}
 \title{cleanUp eList}
 \usage{
-cleanUp(eList)
+cleanUp(eList, seed = NA)
 }
 \arguments{
 \item{eList}{named list with the INFO, Daily, and Sample dataframes and surfaces matrix.}
+
+\item{seed}{integer value. Defaults to NA, which will not change the current seed.
+Setting the seed to any given value can be used to create repeatable output.}
 }
 \value{
 eList with duplicated dates in the Sample data frame randomly sampled and censored values are replaced by random values.

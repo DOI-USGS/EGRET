@@ -30,8 +30,8 @@ processQWData <- function(data,pCode=TRUE){
   qualifier[grep("DETECTED NOT QUANTIFIED",detectText)] <- "<"
   qualifier[grep("BELOW QUANTIFICATION LIMIT",detectText)] <- "<"
   
-  qualifier[!is.na(data$DetectionQuantitationLimitMeasure.MeasureValue) & 
-              data$ResultMeasureValue < data$DetectionQuantitationLimitMeasure.MeasureValue] <- "<"
+  # qualifier[!(is.na(data$DetectionQuantitationLimitMeasure.MeasureValue)) & 
+  #             data$ResultMeasureValue < data$DetectionQuantitationLimitMeasure.MeasureValue] <- "<"
     
   correctedData<-ifelse((nchar(qualifier)==0),data$ResultMeasureValue,data$DetectionQuantitationLimitMeasure.MeasureValue)
   if(pCode){
