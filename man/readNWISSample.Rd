@@ -5,20 +5,20 @@
 \title{Import NWIS Sample Data for EGRET analysis}
 \usage{
 readNWISSample(siteNumber, parameterCd, startDate = "", endDate = "",
-  verbose = TRUE, interactive = NULL)
+  verbose = TRUE)
 }
 \arguments{
 \item{siteNumber}{character USGS site number.  This is usually an 8 digit number}
 
 \item{parameterCd}{character USGS parameter code.  This is usually an 5 digit number.}
 
-\item{startDate}{character starting date for data retrieval in the form YYYY-MM-DD.}
+\item{startDate}{character starting date for data retrieval in the form YYYY-MM-DD.
+Default is empty quotes "" which will retrieve the full period of record.}
 
-\item{endDate}{character ending date for data retrieval in the form YYYY-MM-DD.}
+\item{endDate}{character ending date for data retrieval in the form YYYY-MM-DD.
+Default is empty quotes "" which will retrieve the full period of record.}
 
 \item{verbose}{logical specifying whether or not to display progress message}
-
-\item{interactive}{logical deprecated. Use 'verbose' instead}
 }
 \value{
 A data frame 'Sample' with the following columns:
@@ -41,7 +41,9 @@ CosDY \tab numeric \tab Cosine of the DecYear
 \description{
 Imports data from NWIS web service. 
 A list of parameter and statistic codes can be found here: \url{https://help.waterdata.usgs.gov/codes-and-parameters}
-For raw data, use \code{\link[dataRetrieval]{readNWISqw}} from the dataRetrieval package.  This function will retrieve the raw data, and compress it (summing constituents). See
+For raw data, use \code{\link[dataRetrieval]{readNWISqw}} from the dataRetrieval package.
+This function will retrieve the raw data, and compress it (summing constituents) if 
+more than 1 parameter code is supplied. See
 section 3.2.4 of the vignette for more details.
 }
 \examples{

@@ -4,12 +4,10 @@
 \alias{processQWData}
 \title{Processing of Water Quality Data}
 \usage{
-processQWData(data, pCode = TRUE)
+processQWData(data)
 }
 \arguments{
 \item{data}{dataframe from Water Quality Portal}
-
-\item{pCode}{logical if TRUE, assume data came from a pCode search, if FALSE, characteristic name.}
 }
 \value{
 data dataframe with first column dateTime, and at least one qualifier and value columns
@@ -25,7 +23,7 @@ conditions to determine if a value is left censored or not. Censored values are 
 #library(dataRetrieval)
  
 #rawWQP <- readWQPqw('21FLEECO_WQX-IMPRGR80','Phosphorus', '', '')
-#Sample2 <- processQWData(rawWQP, pCode=FALSE)
+#Sample2 <- processQWData(rawWQP)
 }
 }
 \seealso{

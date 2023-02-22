@@ -5,7 +5,6 @@
 #' "<".  The dataframe is also converted from a long to wide format.
 #' 
 #' @param data dataframe from Water Quality Portal
-#' @param pCode logical if TRUE, assume data came from a pCode search, if FALSE, characteristic name.
 #' @keywords data import USGS web service
 #' @return data dataframe with first column dateTime, and at least one qualifier and value columns
 #' (subsequent qualifier/value columns could follow depending on the number of parameter codes)
@@ -16,9 +15,9 @@
 #' #library(dataRetrieval)
 #'  
 #' #rawWQP <- readWQPqw('21FLEECO_WQX-IMPRGR80','Phosphorus', '', '')
-#' #Sample2 <- processQWData(rawWQP, pCode=FALSE)
+#' #Sample2 <- processQWData(rawWQP)
 #' }
-processQWData <- function(data,pCode=TRUE){
+processQWData <- function(data){
 
   detectText <- data$ResultDetectionConditionText
   detectText <- toupper(detectText)
@@ -33,16 +32,9 @@ processQWData <- function(data,pCode=TRUE){
   # qualifier[!(is.na(data$DetectionQuantitationLimitMeasure.MeasureValue)) & 
   #             data$ResultMeasureValue < data$DetectionQuantitationLimitMeasure.MeasureValue] <- "<"
     
-  correctedData<-ifelse((nchar(qualifier)==0),data$ResultMeasureValue,data$DetectionQuantitationLimitMeasure.MeasureValue)
-  if(pCode){
-    test <- data.frame(data$USGSPCode)
-  } else {
-    test <- data.frame(data$CharacteristicName)
-  }
+  correctedData <- ifelse((nchar(qualifier)==0),data$ResultMeasureValue,data$DetectionQuantitationLimitMeasure.MeasureValue)
   
-  if(pCode){
-    
-  }
+  test <- data.frame(data$CharacteristicName)
   
   test$dateTime <- data$ActivityStartDate
 
@@ -58,25 +50,38 @@ processQWData <- function(data,pCode=TRUE){
     warning(warningMessage)
   }
   
-  if (pCode){
-    colnames(test)<- c("USGSPCode","dateTime","qualifier","value")
-    newTimeVar <- "USGSPCode"
-  } else {
-    
-    test$ActivityMediaSubdivisionName <- data$ActivityMediaSubdivisionName
-    test$ActivityMediaName <- data$ActivityMediaName
-    test$USGSPCode <- data$USGSPCode
-    test$ResultSampleFractionText <- data$ResultSampleFractionText
-    
-    colnames(test)[1:4] <- c("CharacteristicName",
-                             "dateTime",
-                             "qualifier",
-                             "value")
-    newTimeVar <- "CharacteristicName"
-    
+  colnames(test)[1:4] <- c("CharacteristicName",
+                           "dateTime",
+                           "qualifier",
+                           "value")
+
+  test$USGSPCode <- data$USGSPCode
+   
+  test$ActivityMediaSubdivisionName <- data$ActivityMediaSubdivisionName
+  test$ActivityMediaName <- data$ActivityMediaName
+  test$ResultSampleFractionText <- data$ResultSampleFractionText
+  test$ResultStatusIdentifier <- data$ResultStatusIdentifier
+  test$ResultValueTypeName <- data$ResultValueTypeName
+  
+  if(length(unique(test$USGSPCode)) > 1){
+    message("More than one USGSPCode returned")
   }
   
-  x <- suppressWarnings(reshape(test, idvar="dateTime", timevar = newTimeVar, direction="wide"))
+  if(length(unique(test$CharacteristicName)) > 1){
+    message("More than one CharacteristicName returned")
+  }
+  
+  if(length(unique(test$ActivityMediaName)) > 1){
+    message("More than one ActivityMediaName returned")
+  }
+  
+  if(length(unique(test$ActivityMediaSubdivisionName)) > 1){
+    message("More than one ActivityMediaSubdivisionName returned")
+  }
+  
+  if(length(unique(test$ResultSampleFractionText)) > 1){
+    message("More than one ResultSampleFractionText returned")
+  }
   
   test$dateTime <- format(test$dateTime, "%Y-%m-%d")
   test$dateTime <- as.Date(test$dateTime)

@@ -4,21 +4,22 @@
 \alias{readWQPSample}
 \title{Import Sample Data from the Water Quality Portal for WRTDS}
 \usage{
-readWQPSample(siteNumber, characteristicName, startDate, endDate,
-  verbose = TRUE, interactive = NULL)
+readWQPSample(siteNumber, characteristicName, startDate = "", endDate = "",
+  verbose = TRUE)
 }
 \arguments{
 \item{siteNumber}{character site number.  If USGS, it should be in the form :'USGS-XXXXXXXXX...'}
 
-\item{characteristicName}{character}
+\item{characteristicName}{character. Either a valid characteristic name, or a 5 digit 
+USGS parameter code.}
 
-\item{startDate}{character starting date for data retrieval in the form YYYY-MM-DD.}
+\item{startDate}{character starting date for data retrieval in the form YYYY-MM-DD.
+Default is empty quotes "" which will retrieve the full period of record.}
 
-\item{endDate}{character ending date for data retrieval in the form YYYY-MM-DD.}
+\item{endDate}{character ending date for data retrieval in the form YYYY-MM-DD.
+Default is empty quotes "" which will retrieve the full period of record.}
 
 \item{verbose}{logical specifying whether or not to display progress message}
-
-\item{interactive}{logical deprecated. Use 'verbose' instead}
 }
 \value{
 A data frame 'Sample' with the following columns:
