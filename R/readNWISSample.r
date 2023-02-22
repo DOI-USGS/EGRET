@@ -70,6 +70,10 @@ readNWISSample <- function(siteNumber,
     extras <- rawSample[, c("medium_cd", "hyd_cond_cd", "samp_type_cd", 
                             "hyd_event_cd", "dqi_cd", "rpt_lev_cd")]
     
+    if(length(unique(rawSample$medium_cd)) > 1){
+      message("More than one medium_cd returned")
+    }
+    
   }
   
 
