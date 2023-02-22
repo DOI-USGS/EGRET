@@ -11,6 +11,8 @@ EGRET 3.0.8
 * Assure Sample is sorted chronologically
 * plotConcHist and plotFluxHist set to default to the Sample date range instead of the Daily date range.
 * Add Kalman option for plotConcTimeDaily and plotFluxTimeDaily
+* Improved reproducibility in WRTDSKalman using seed argument.
+* Included more columns from the raw data in the Sample data frame. These columns are not used in EGRET functions, but might be useful for further analysis.
 
 
 EGRET 3.0.7

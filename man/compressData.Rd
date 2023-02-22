@@ -4,14 +4,14 @@
 \alias{compressData}
 \title{Compress sample data frame}
 \usage{
-compressData(data, verbose = TRUE, interactive = NULL)
+compressData(data, verbose = TRUE)
 }
 \arguments{
-\item{data}{dataframe contains at least dateTime, value, code columns}
+\item{data}{dataframe contains at least dateTime, code, value, columns in that order. 
+If there are more than the initial date, code, value...it combines the
+data is combined as using interval censored concepts.}
 
 \item{verbose}{logical specifying whether or not to display progress message}
-
-\item{interactive}{logical deprecated. Use 'verbose' instead}
 }
 \value{
 data frame returnDataFrame data frame containing dateTime, ConcHigh, ConcLow, Uncen

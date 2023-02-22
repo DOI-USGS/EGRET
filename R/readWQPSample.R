@@ -6,11 +6,13 @@
 #' compress it (summing constituents), then converts it to the Sample dataframe structure.
 #' See chapter 7 of the EGRET user guide for more details.
 #' @param siteNumber character site number.  If USGS, it should be in the form :'USGS-XXXXXXXXX...'
-#' @param characteristicName character
+#' @param characteristicName character. Either a valid characteristic name, or a 5 digit 
+#' USGS parameter code.
 #' @param startDate character starting date for data retrieval in the form YYYY-MM-DD.
+#' Default is empty quotes "" which will retrieve the full period of record.
 #' @param endDate character ending date for data retrieval in the form YYYY-MM-DD.
+#' Default is empty quotes "" which will retrieve the full period of record.
 #' @param verbose logical specifying whether or not to display progress message
-#' @param interactive logical deprecated. Use 'verbose' instead
 #' @keywords data import USGS WRTDS
 #' @export
 #' @return A data frame 'Sample' with the following columns:
@@ -36,24 +38,18 @@
 #' \donttest{
 #' # Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
 #' }
-readWQPSample <- function(siteNumber,characteristicName,startDate,endDate,verbose = TRUE, interactive=NULL){
+readWQPSample <- function(siteNumber,
+                          characteristicName,
+                          startDate = "",
+                          endDate = "",
+                          verbose = TRUE){
   
-  if(!is.null(interactive)) {
-    warning("The argument 'interactive' is deprecated. Please use 'verbose' instead")
-    verbose <- interactive
-  }
   url <- dataRetrieval::constructWQPURL(siteNumber,characteristicName,startDate,endDate)
   retval <- dataRetrieval::importWQP(url)
   if(nrow(retval) > 0){
-    #Check for pcode:
-    if(all(nchar(characteristicName) == 5)){
-      suppressWarnings(pCodeLogic <- all(!is.na(as.numeric(characteristicName))))
-    } else {
-      pCodeLogic <- FALSE
-    }
-    
+
     if(nrow(retval) > 0){
-      data <- processQWData(retval,pCodeLogic)
+      data <- processQWData(retval)
     } else {
       data <- NULL
     }

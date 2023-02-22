@@ -4,12 +4,15 @@
 \alias{randomSubset}
 \title{randomSubset}
 \usage{
-randomSubset(df, colName)
+randomSubset(df, colName, seed = NA)
 }
 \arguments{
 \item{df}{data frame. Must include a column named by the argument colName.}
 
 \item{colName}{column name to check for duplicates}
+
+\item{seed}{integer value. Defaults to NA, which will not change the current seed.
+Setting the seed to any given value can be used to create repeatable output.}
 }
 \description{
 Calculates a random subset of the data based on repeated values from

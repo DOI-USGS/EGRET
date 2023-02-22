@@ -27,7 +27,6 @@
 WRTDSKalman <- function(eList, rho = 0.90, niter = 200, 
                         seed = NA, verbose = TRUE){
   
-  
   if(!is.egret(eList)){
     stop("Please check eList argument")
   }
@@ -41,13 +40,13 @@ WRTDSKalman <- function(eList, rho = 0.90, niter = 200,
   if(!"surfaces" %in% names(eList)){	
     eList$surfaces <-  estSurfaces(eList)	
   }
-  
+
   if(!is.na(seed)){
     set.seed(seed)
-  }
+  } 
   
   # this part is to set up the array of runs of missing values
-  localEList <- cleanUp(eList)
+  localEList <- cleanUp(eList, seed = seed)
   localDaily <- populateDailySamp(localEList)
   
   if(sum(is.na(localDaily$trueConc)) == 0){
@@ -84,13 +83,15 @@ WRTDSKalman <- function(eList, rho = 0.90, niter = 200,
   
   endOfLine <- seq(10,100,10)
   
+  seeds <- sample(1:5000, niter)
+  
   for(iter in 1:niter){
     
     if (iter %in% printUpdate & verbose) {
       cat(floor(iter*100/niter),"\t")
       if (floor(iter*100/niter) %in% endOfLine) cat("\n")
     }
-    localEList <- cleanUp(eList)
+    localEList <- cleanUp(eList, seed = seeds[iters])
     # this next step adds a trueConc column to Daily, and it is NA if there is no sample value
     # it also adds the stdResid column to Daily
     localDaily <- populateDailySamp(localEList)
@@ -142,6 +143,8 @@ WRTDSKalman <- function(eList, rho = 0.90, niter = 200,
 #' \code{\link{WRTDSKalman}} function  
 #' 
 #' @param eList named list with the INFO, Daily, and Sample dataframes and surfaces matrix. 
+#' @param seed integer value. Defaults to NA, which will not change the current seed.
+#' Setting the seed to any given value can be used to create repeatable output.
 #' @export
 #' @return eList with duplicated dates in the Sample data frame randomly sampled and censored values are replaced by random values.
 #' @examples 
@@ -149,9 +152,9 @@ WRTDSKalman <- function(eList, rho = 0.90, niter = 200,
 #' 
 #' eList <- cleanUp(eList)
 #' 
-cleanUp <- function(eList){
+cleanUp <- function(eList, seed = NA){
 
-  Sample <- randomSubset(eList$Sample, "Julian")
+  Sample <- randomSubset(eList$Sample, "Julian", seed = seed)
   eListClean <- as.egret(eList$INFO, eList$Daily, Sample, eList$surfaces)
   eListClean <- makeAugmentedSample(eListClean)
   Sample <- eListClean$Sample
@@ -172,13 +175,15 @@ cleanUp <- function(eList){
 #' @export
 #' @param df data frame. Must include a column named by the argument colName.
 #' @param colName column name to check for duplicates
+#' @param seed integer value. Defaults to NA, which will not change the current seed.
+#' Setting the seed to any given value can be used to create repeatable output.
 #' @examples 
 #' df <- data.frame(Julian = c(1,2,2,3,4,4,4,6),
 #'                  y = 1:8)
 #' df
 #' df_random <- randomSubset(df, "Julian")
 #' df_random
-randomSubset <- function(df, colName){
+randomSubset <- function(df, colName, seed = NA){
 
   dupIndex <- unique(c(which(duplicated(df[[colName]], fromLast = FALSE)), 
                         which(duplicated(df[[colName]], fromLast = TRUE))))
@@ -191,10 +196,15 @@ randomSubset <- function(df, colName){
 
   unique_groups <- unique(df[[colName]][dupIndex])
   
-  sliceIndex <- sapply(unique_groups, function(x){
-    sample(which(df[[colName]] == x), size = 1)
-  })
+  if(!is.na(seed)){
+    set.seed(seed)
+  } 
   
+  sliceIndex <- rep(NA, length(unique_groups))
+  for(i in seq_along(unique_groups)){
+    sliceIndex[i] <- sample(which(df[[colName]] == unique_groups[i]), size = 1)
+  }
+
   dfDuplicates <- df[sliceIndex, ] 
   dfNoDuplicates <- df[-dupIndex,]
   

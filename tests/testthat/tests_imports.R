@@ -8,7 +8,7 @@ test_that("External Daily tests", {
                           '00060', 
                          '1985-01-01', 
                          '1985-03-31')
-  expect_true(all(names(Daily) %in% DailyNames))
+  expect_true(all(DailyNames %in% names(Daily)))
   expect_is(Daily$Date, 'Date')
   expect_is(Daily$Q, 'numeric')
   DailySuspSediment <- readNWISDaily('01594440',
@@ -32,14 +32,14 @@ test_that("External NWIS Sample tests", {
                                  '1985-01-01', 
                                  '1985-03-31'))
   
-  expect_true(all(names(Sample_01075) %in% SampleNames))
+  expect_true(all(SampleNames %in% names(Sample_01075)))
   
   expect_warning(Sample_All2 <- readNWISSample('05114000',
                                 c('00915','00931'), 
                                 '1985-01-01', 
                                 '1985-03-31'))
   
-  expect_true(all(names(Sample_All2) %in% SampleNames))
+  expect_true(all(SampleNames %in% names(Sample_All2)))
   
   Sample_Select <- expect_warning(readNWISSample('05114000',
                                   c('00915','00931'), 
@@ -113,6 +113,6 @@ test_that("User tests", {
 test_that("processQWData", {
   testthat::skip_on_cran()
   rawWQP <- dataRetrieval::readWQPqw('WIDNR_WQX-10032762','Specific conductance', '2012-01-01', '2012-12-31')
-  Sample2 <- processQWData(rawWQP, pCode=FALSE)
+  Sample2 <- processQWData(rawWQP)
   expect_true(all(unique(Sample2$qualifier) %in% c("","<")))
 })

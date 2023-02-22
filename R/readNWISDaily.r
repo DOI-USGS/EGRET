@@ -7,7 +7,6 @@
 #' @param startDate character starting date for data retrieval in the form YYYY-MM-DD.
 #' @param endDate character ending date for data retrieval in the form YYYY-MM-DD.
 #' @param verbose logical specifying whether or not to display progress message
-#' @param interactive logical deprecated. Use 'verbose' instead
 #' @param convert logical Option to include a conversion from cfs to cms (35.314667). The default is TRUE, 
 #' which is appropriate for using NWIS data in the EGRET package.  Set this to FALSE to not include the conversion. If the parameter code is not 00060 (NWIS discharge),
 #' there is no conversion applied.
@@ -33,35 +32,28 @@
 #' @examples
 #' \donttest{
 #' 
-#' Daily <- readNWISDaily('01594440','00060', '1985-01-01', '1985-03-31')
-#' DailySuspSediment <- readNWISDaily('01594440','80154', '1985-01-01', '1985-03-31',convert=FALSE)
+#' Daily <- readNWISDaily('01594440','00060',
+#'                        '1985-01-01', '1985-03-31')
+#' DailySuspSediment <- readNWISDaily('01594440','80154',
+#'                                    '1985-01-01', '1985-03-31',
+#'                                    convert = FALSE)
 #' }
-readNWISDaily <- function (siteNumber,parameterCd="00060",
-                           startDate="",endDate="",verbose = TRUE, interactive=NULL,convert=TRUE){
+readNWISDaily <- function (siteNumber,
+                           parameterCd="00060",
+                           startDate = "",
+                           endDate = "",
+                           verbose = TRUE,
+                           convert = TRUE){
 
-
-  if(!is.null(interactive)) {
-    warning("The argument 'interactive' is deprecated. Please use 'verbose' instead")
-    verbose <- interactive
-  }
+  url <- dataRetrieval::constructNWISURL(siteNumbers = siteNumber,
+                                         parameterCd = parameterCd,
+                                         startDate = startDate,
+                                         endDate = endDate,
+                                         service = "dv",
+                                         statCd = "00003",
+                                         format = "tsv")
   
-  url <- dataRetrieval::constructNWISURL(siteNumber,parameterCd,startDate,endDate,"dv",statCd="00003", format = "tsv")
-  
-  data_rdb <- dataRetrieval::importRDB1(url, asDateTime=FALSE)
-  
-  localDaily <- data.frame(Date=as.Date(character()),
-                           Q=numeric(), 
-                           Julian=numeric(),
-                           Month=numeric(),
-                           Day=numeric(),
-                           DecYear=numeric(),
-                           MonthSeq=numeric(),
-                           Qualifier=character(),
-                           i=integer(),
-                           LogQ=numeric(),
-                           Q7=numeric(),
-                           Q30=numeric(),
-                           stringsAsFactors=FALSE)
+  data_rdb <- dataRetrieval::importRDB1(url, asDateTime = FALSE)
   
   if(nrow(data_rdb) > 0){
     if(length(names(data_rdb)) >= 5){
@@ -72,14 +64,30 @@ readNWISDaily <- function (siteNumber,parameterCd="00060",
       qConvert <- ifelse("00060" == parameterCd, 35.314667, 1)
       qConvert<- ifelse(convert,qConvert,1)
       
-      localDaily <- populateDaily(data_rdb,qConvert,verbose = verbose)      
+      localDaily <- populateDaily(data_rdb,
+                                  qConvert,
+                                  verbose = verbose)      
     } else {
       if("comment" %in% names(attributes(data_rdb))){
         message(attr(data_rdb, "comment"))
       }
     }
 
-  } 
+  } else {
+    localDaily <- data.frame(Date = as.Date(character()),
+                             Q = numeric(), 
+                             Julian = numeric(),
+                             Month = numeric(),
+                             Day = numeric(),
+                             DecYear = numeric(),
+                             MonthSeq = numeric(),
+                             Qualifier = character(),
+                             i = integer(),
+                             LogQ = numeric(),
+                             Q7 = numeric(),
+                             Q30 = numeric(),
+                             stringsAsFactors = FALSE)
+  }
 
   return (localDaily)
 }
