@@ -98,7 +98,7 @@ In this example, we have 1 reported measurement unit and no detection condition 
 So now we need to convert the WQP output into a `Sample` data frame. There are 3 steps that are used in the `readWQPSample` function. The first is `processQWData`. This function tries to automate the conversion process going from the WQP format to 3 simple columns: dateTime, qualifier, and value. 
 
 ```{r convertSample}
-processed_qw <- processQWData(total_nitrogen_water, FALSE)
+processed_qw <- processQWData(total_nitrogen_water)
 ```
 
 The "qualifier" column will only come back with left-censored indicators "<". If your data has right or interval censored data, you will need to determine how to flag those. It is a good idea to check the output of `processQWData` to make sure the "qualifier" flag seems to match the raw data. The function checks the column ResultDetectionConditionText for any "non-detect" type text. It also checks if the reported value is less than the reported detection limit. There are no required text fields in the WQP, so it is a good idea to look for any unusual "ResultDetectionConditionText" output that may not be flagged in the `processQWData` function.
