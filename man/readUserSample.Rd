@@ -45,7 +45,7 @@ Imports data from a user-supplied file, and converts it to a Sample data frame
 First column is date, second is remark code, and third is value. If multiple constituents 
 are to be combined with interval censoring, additional pairs of columns can be inserted, each pair starting with
 remark code (specifically looking for <), followed by the values. If the date format is not automatically
-detected, the format that is expected is "%m/%d/%Y".
+detected, the format that is expected is "MM\/DD\/YYYY".
 }
 \examples{
 filePath <- system.file("extdata", package="EGRET")

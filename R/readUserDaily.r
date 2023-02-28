@@ -6,7 +6,7 @@
 #'  
 #'  The first column is expected to be dates, the second column is expected
 #'  to be discharge values. If the date format is not automatically
-#'  detected, the format that is expected is "%m/%d/%Y". 
+#'  detected, the format that is expected is "MM\/DD\/YYYY". 
 #'
 #' @param filePath character specifying the path to the file
 #' @param fileName character name of file to open
