@@ -49,7 +49,7 @@ Imports data from a user-supplied file, and converts it to a Daily data frame,
  
  The first column is expected to be dates, the second column is expected
  to be discharge values. If the date format is not automatically
- detected, the format that is expected is "MM\/DD\/YYYY".
+ detected, the format that is expected is "MM\\DD\\YYYY".
 }
 \examples{
 filePath <- system.file("extdata", package="EGRET")
