@@ -5,10 +5,11 @@
 \title{Import user-supplied sample data for EGRET analysis}
 \usage{
 readUserSample(filePath, fileName, hasHeader = TRUE, separator = ",",
-  verbose = TRUE, interactive = NULL)
+  verbose = TRUE, format = "\%m/\%d/\%Y")
 }
 \arguments{
-\item{filePath}{character specifying the path to the file}
+\item{filePath}{character specifying the path to the file. If it 
+is in the working directory, use ".".}
 
 \item{fileName}{character name of file to open}
 
@@ -19,7 +20,10 @@ which is separator used in a .csv file.}
 
 \item{verbose}{logical specifying whether or not to display progress message}
 
-\item{interactive}{logical deprecated. Use 'verbose' instead}
+\item{format}{character indicating the format of the date (which should
+be in the first column). Default is "\%m\/\%d/\%Y". See \code{?strptime}
+for options. The code will initially look for R's standard YYYY-MM-DD, and
+check this format as a backup.}
 }
 \value{
 A data frame 'Sample' with the following columns:
@@ -44,7 +48,8 @@ Imports data from a user-supplied file, and converts it to a Sample data frame
 (including summing multiple constituents), appropriate for EGRET analysis. 
 First column is date, second is remark code, and third is value. If multiple constituents 
 are to be combined with interval censoring, additional pairs of columns can be inserted, each pair starting with
-remark code (specifically looking for <), followed by the values.
+remark code (specifically looking for <), followed by the values. If the date format is not automatically
+detected, the format can be specified using the "format" argument.
 }
 \examples{
 filePath <- system.file("extdata", package="EGRET")

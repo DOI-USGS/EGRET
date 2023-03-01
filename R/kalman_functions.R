@@ -91,7 +91,7 @@ WRTDSKalman <- function(eList, rho = 0.90, niter = 200,
       cat(floor(iter*100/niter),"\t")
       if (floor(iter*100/niter) %in% endOfLine) cat("\n")
     }
-    localEList <- cleanUp(eList, seed = seeds[iters])
+    localEList <- cleanUp(eList, seed = seeds[iter])
     # this next step adds a trueConc column to Daily, and it is NA if there is no sample value
     # it also adds the stdResid column to Daily
     localDaily <- populateDailySamp(localEList)

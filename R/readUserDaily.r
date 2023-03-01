@@ -6,9 +6,10 @@
 #'  
 #'  The first column is expected to be dates, the second column is expected
 #'  to be discharge values. If the date format is not automatically
-#'  detected, the format that is expected is "%m/%d/%Y". 
+#'  detected, the format can be specified using the "format" argument.
 #'
-#' @param filePath character specifying the path to the file
+#' @param filePath character specifying the path to the file. If it 
+#' is in the working directory, use ".".
 #' @param fileName character name of file to open
 #' @param hasHeader logical true if the first row of data is the column headers
 #' @param separator character character that separates data cells. The default
@@ -17,6 +18,10 @@
 #' 2 is cubic meters per second, 
 #' 3 is 10^3 cubic feet per second,
 #'  and 4 is 10^3 cubic meters per second. The default is 1.
+#' @param format character indicating the format of the date (which should
+#' be in the first column). Default is "\%m\/\%d/\%Y". See \code{?strptime}
+#' for options. The code will initially look for R's standard YYYY-MM-DD, and
+#' check this format as a backup.
 #' @param verbose logical specifying whether or not to display progress message
 #' @keywords data import USGS WRTDS
 #' @export
@@ -45,12 +50,14 @@ readUserDaily <- function (filePath,
                            hasHeader = TRUE,
                            separator = ",",
                            qUnit = 1,
+                           format = "%m/%d/%Y",
                            verbose = TRUE){
   
   data <- readDataFromFile(filePath,
                            fileName,
                            hasHeader = hasHeader,
-                           separator = separator)
+                           separator = separator,
+                           format = format)
   convertQ <- c(35.314667, 1, 0.035314667, 0.001)
   qConvert<-convertQ[qUnit]
 

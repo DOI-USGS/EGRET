@@ -133,7 +133,7 @@ plotFluxHist(eList, fluxUnit = gDay)
 
 There is also a way to customize the way the months are displayed. This might be useful for non-English speaking users for instance. Although we don't have the capacity to have a conversion for all of the text, this could come in handy:
 
-```{r out.width="100%", fig.cap="Concentration by month.", fig.width=8, fig.height=5}
+```{r spanishmonth, out.width="100%", fig.cap="Concentration by month.", fig.width=8, fig.height=5}
 spanish_month <- new("monthLabel",
          monthAbbrev = c("enero",	"feb", 	"marzo", "abr",
                          "mayo",	"jun",	"jul", "agosto", "set",
