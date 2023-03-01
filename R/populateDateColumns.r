@@ -21,6 +21,11 @@
 #' expandedDateDF <- populateDateColumns(dateTime)
 #' expandedDateDF
 populateDateColumns <- function(rawData){  # rawData is a vector of dates
+  
+  if(any(is.na(rawData))){
+    stop("Some dates are missing, EGRET functions cannot handle missing dates.")
+  }
+  
   DateFrame <- as.data.frame(matrix(ncol=1,nrow=length(rawData)))
   colnames(DateFrame) <- c('Date')  
   DateFrame$Date <- rawData
@@ -32,16 +37,16 @@ populateDateColumns <- function(rawData){  # rawData is a vector of dates
   hour <- dateTime$hour
   minute <- dateTime$min
   
-  if (sum(hour) == 0 & sum(minute) == 0){
+  if (sum(hour, na.rm = TRUE) == 0 & sum(minute, na.rm = TRUE) == 0){
     dateTime$hour <- rep(12,length(dateTime))
   }
   
   leapOffset <- ifelse((year%%4 == 0) & ((year%%100 != 0) | (year%%400 == 0)), 0,1)
   
-  DateFrame$Day[DateFrame$Day > 59] <- DateFrame$Day[DateFrame$Day > 59] + leapOffset[DateFrame$Day > 59]
+  DateFrame$Day[which(DateFrame$Day > 59)] <- DateFrame$Day[which(DateFrame$Day > 59)] + leapOffset[which(DateFrame$Day > 59)]
 
   DateFrame$DecYear <- decimalDate(dateTime)
-  DateFrame$MonthSeq <- ((year-1850)*12)+DateFrame$Month
+  DateFrame$MonthSeq <- ((year-1850)*12) + DateFrame$Month
   DateFrame$waterYear <- as.integer(DateFrame$DecYear)
   DateFrame$waterYear[DateFrame$Month %in% c(10:12)] <- DateFrame$waterYear[DateFrame$Month %in% c(10:12)]+1
   
@@ -72,9 +77,15 @@ decimalDate <- function(rawData){
   dateTime <- as.POSIXlt(rawData)
   year <- dateTime$year + 1900
   
-  startYear <- as.POSIXct(paste0(year,"-01-01 00:00"))
-  endYear <- as.POSIXct(paste0(year+1,"-01-01 00:00"))
+  startYear <- as.POSIXct(paste0(year[!is.na(year)],"-01-01 00:00"))
+  endYear <- as.POSIXct(paste0(year[!is.na(year)]+1,"-01-01 00:00"))
   
-  DecYear <- year + as.numeric(difftime(dateTime, startYear, units = "secs"))/as.numeric(difftime(endYear, startYear, units = "secs"))
+  DecYear <- year
+  DecYear[!is.na(DecYear)]  <- DecYear[!is.na(DecYear)] + 
+    as.numeric(difftime(dateTime[!is.na(dateTime)],
+                        startYear, 
+                        units = "secs"))/as.numeric(difftime(endYear, 
+                                                             startYear,
+                                                             units = "secs"))
   return(DecYear)
 }

@@ -4,17 +4,24 @@
 \alias{readDataFromFile}
 \title{Basic Data Import for Water Flow Data}
 \usage{
-readDataFromFile(filePath, fileName, hasHeader = TRUE, separator = ",")
+readDataFromFile(filePath, fileName, hasHeader = TRUE, separator = ",",
+  format = "\%m/\%d/\%Y")
 }
 \arguments{
-\item{filePath}{character specifying the path to the file}
+\item{filePath}{character specifying the path to the file. If it 
+is in the working directory, use ".".}
 
-\item{fileName}{character name of file to open}
+\item{fileName}{character name of file to open.}
 
 \item{hasHeader}{logical true if the first row of data is the column headers}
 
 \item{separator}{character character that separates data cells. The default
 is "," for a csv file. Tab delimited would be "\\t".}
+
+\item{format}{character indicating the format of the date (which should
+be in the first column). Default is "\%m\/\%d/\%Y". See \code{?strptime}
+for options. The code will initially look for R's standard YYYY-MM-DD, and
+check this format as a backup.}
 }
 \value{
 retval dataframe with dateTime, value, and code columns
@@ -24,7 +31,7 @@ Imports data from user-supplied data file. Specifically used to import water flo
 For EGRET usage, the first column is expected to be dates. If the data is daily data, then next column is 
 expected to be the measured values. If the data is sampled data, the next column is remark codes, and the third
 column is values. If the date format is not automatically
-detected, the format that is expected is "%m/%d/%Y".
+detected, the format can be specified using the "format" argument.
 }
 \examples{
 filePath <- system.file("extdata", package="EGRET")

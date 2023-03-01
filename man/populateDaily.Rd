@@ -4,7 +4,7 @@
 \alias{populateDaily}
 \title{Populate Daily data frame}
 \usage{
-populateDaily(rawData, qConvert, verbose = TRUE, interactive = NULL)
+populateDaily(rawData, qConvert, verbose = TRUE)
 }
 \arguments{
 \item{rawData}{dataframe contains at least dateTime, value, code columns}
@@ -12,8 +12,6 @@ populateDaily(rawData, qConvert, verbose = TRUE, interactive = NULL)
 \item{qConvert}{character conversion to cubic meters per second}
 
 \item{verbose}{logical specifying whether or not to display progress message}
-
-\item{interactive}{logical deprecated. Use 'verbose' instead  If true, there is user interaction for error handling and data checks.}
 }
 \value{
 A data frame 'Daily' with the following columns:

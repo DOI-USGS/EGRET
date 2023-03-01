@@ -5,7 +5,6 @@
 #' @param rawData dataframe contains at least dateTime, value, code columns
 #' @param qConvert character conversion to cubic meters per second
 #' @param verbose logical specifying whether or not to display progress message
-#' @param interactive logical deprecated. Use 'verbose' instead  If true, there is user interaction for error handling and data checks.
 #' @keywords WRTDS flow
 #' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
 #' @return A data frame 'Daily' with the following columns:
@@ -32,13 +31,9 @@
 #' code <- rep("",365)
 #' dataInput <- data.frame(dateTime, value, code, stringsAsFactors=FALSE)
 #' Daily <- populateDaily(dataInput, 2)
-populateDaily <- function(rawData,qConvert,verbose = TRUE,interactive=NULL){  # rawData is a dataframe with at least dateTime, value, code
-
-  if(!is.null(interactive)) {
-    warning("The argument 'interactive' is deprecated. Please use 'verbose' instead")
-    verbose <- interactive
-  }
-  
+populateDaily <- function(rawData, qConvert,
+                          verbose = TRUE){  
+  # rawData is a dataframe with at least dateTime, value, code
   localDaily <- as.data.frame(matrix(ncol=2,nrow=length(rawData$value)))
   colnames(localDaily) <- c('Date','Q')
   localDaily$Date <- rawData$dateTime
