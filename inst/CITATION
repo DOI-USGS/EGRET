@@ -1,10 +1,15 @@
 citHeader("To cite EGRET in publications, please use:")
 
 bibentry(bibtype = "Manual",
- author = personList(
-              as.person("Robert M. Hirsch"),
-              as.person("Laura A. De Cicco"),
-              as.person("Jennifer C. Murphy")),
+ author = c(person("Robert", "Hirsch", role = c("aut"),
+                  email = "rhirsch@usgs.gov", 
+                  comment=c(ORCID="0000-0002-4534-075X")),
+            person("Laura", "DeCicco", role = c("aut","cre"),
+                   email = "ldecicco@usgs.gov",
+                   comment=c(ORCID="0000-0002-3915-9487")), 
+            person("Jennifer","Murphy", role = c("aut"),
+                   email = "jmurphy@usgs.gov",
+                   comment=c(ORCID="0000-0002-0881-0919"))),
   title = "Exploration and Graphics for RivEr Trends (EGRET)",
   publisher = "U.S. Geological Survey",
   year = 2023,
