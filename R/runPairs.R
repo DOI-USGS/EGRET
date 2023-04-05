@@ -84,8 +84,13 @@
 #' CQTC Percent is the CQTC divided by x11
 #' QTC Percent  is the QTC divided by x11
 #' 
-#' Another attribute is "byMonth". This is a data frame with the flux
-#' and concentration changes by month.
+#' Another attribute is "byMonth".  This is a data frame of 4 columns and 14 rows.  
+#' The columns represent the concentrations and fluxes for the starting and ending year.
+#' The flux values for each month are flow normalized monthly watershed yields
+#' expressed as kg/month/km^2.  The concentrations are the mean flow normalized
+#' concentration, expressed in whatever concentration units the raw data are 
+#' expressed as (typically mg/L).  This data frame is used as the input to the
+#' \code{plotMonthTrend} function. 
 #' 
 #' @examples 
 #' eList <- Choptank_eList
@@ -480,10 +485,10 @@ runPairs <- function(eList, year1, year2, windowSide,
   monthlyResults2 <- calculateMonthlyResults(eList2)
   monthlyResults2 <- na.omit(monthlyResults2)
   monthlyResults1$monthFlux <- monthlyResults1$nDays * monthlyResults1$FNFlux / eList$INFO$drainSqKm
-  monthlyResults1$monthConc <- monthlyResults1$nDays * monthlyResults1$FNConc
+  monthlyResults1$monthConc <- monthlyResults1$FNConc
   
   monthlyResults2$monthFlux <- monthlyResults2$nDays * monthlyResults2$FNFlux / eList$INFO$drainSqKm
-  monthlyResults2$monthConc <- monthlyResults2$nDays * monthlyResults2$FNConc
+  monthlyResults2$monthConc <- monthlyResults2$FNConc
   months <- paStart:(paStart + paLong - 1)
   months[months > 12] <- months[months > 12] - 12
   for(i in months){

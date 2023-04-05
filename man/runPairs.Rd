@@ -102,8 +102,13 @@ Total Percent Change is the Total Change divided by x11
 CQTC Percent is the CQTC divided by x11
 QTC Percent  is the QTC divided by x11
 
-Another attribute is "byMonth". This is a data frame with the flux
-and concentration changes by month.
+Another attribute is "byMonth".  This is a data frame of 4 columns and 14 rows.  
+The columns represent the concentrations and fluxes for the starting and ending year.
+The flux values for each month are flow normalized monthly watershed yields
+expressed as kg/month/km^2.  The concentrations are the mean flow normalized
+concentration, expressed in whatever concentration units the raw data are 
+expressed as (typically mg/L).  This data frame is used as the input to the
+\code{plotMonthTrend} function.
 }
 \description{
 \code{runPairs} provides comparisons of results, in terms of 

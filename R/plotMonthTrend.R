@@ -6,6 +6,11 @@
 #' was increasing, the arrow is red and pointing up. If the trend was decreasing,
 #' the arrow is black and pointing down.
 #' 
+#' The flux values for each month are flow normalized monthly watershed yields 
+#' expressed as kg/month/km^2.  The concentrations are the mean flow normalized
+#' concentration, expressed in whatever concentration units the raw data are
+#' expressed as (typically mg/L). 
+#' 
 #' @param pairResults results from \code{runPairs}.
 #' @param yMax numeric. Upper limit for plot. Default is \code{NA},
 #' which will use the maximum of the data.

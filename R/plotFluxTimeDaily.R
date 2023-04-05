@@ -40,13 +40,13 @@
 #' # Water year:
 #' plotFluxTimeDaily(eList)
 #' plotFluxTimeDaily(eList, 2001,2009)
-plotFluxTimeDaily<-function (eList, yearStart=NA, yearEnd=NA, 
+plotFluxTimeDaily <- function (eList, yearStart=NA, yearEnd=NA, 
                              tinyPlot = FALSE, fluxUnit = 3, 
                              fluxMax = NA, randomCensored=FALSE,
                              printTitle = TRUE, 
                              plotGenFlux = TRUE,
-                             usgsStyle = FALSE, cex=0.8, cex.axis=1.1,cex.main=1.1, 
-                             customPar=FALSE,col="black",lwd=1,prettyDate=TRUE,...) {
+                             usgsStyle = FALSE, cex = 0.8, cex.axis = 1.1, cex.main = 1.1, 
+                             customPar = FALSE,col = "black",lwd = 1, prettyDate = TRUE,...) {
   
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
@@ -62,7 +62,7 @@ plotFluxTimeDaily<-function (eList, yearStart=NA, yearEnd=NA,
   
   if(plotGenFlux){
     if(!all((c("GenFlux","GenConc") %in% names(eList$Daily)))){
-      message("plotGenConc = TRUE requires running WRTDSKalman
+      message("plotGenFlux = TRUE requires running WRTDSKalman
               on eList. Switching to WRTDS concentration.")
       plotGenFlux <- FALSE
     }
