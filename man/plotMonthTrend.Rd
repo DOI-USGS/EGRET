@@ -38,6 +38,12 @@ function shows an arrow for each month. If the trend from year1 to year2
 was increasing, the arrow is red and pointing up. If the trend was decreasing,
 the arrow is black and pointing down.
 }
+\details{
+The flux values for each month are flow normalized monthly watershed yields 
+expressed as kg/month/km^2.  The concentrations are the mean flow normalized
+concentration, expressed in whatever concentration units the raw data are
+expressed as (typically mg/L).
+}
 \examples{
 
 eList <- Choptank_eList
