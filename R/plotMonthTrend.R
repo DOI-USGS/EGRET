@@ -52,7 +52,7 @@
 #' }
 #'  
 plotMonthTrend <- function(pairResults, yMax = NA,
-                    arrowFactor = 1, flux = TRUE, 
+                    arrowFactor = 0.75, flux = TRUE, 
                     printTitle = TRUE,
                     concLab = 1, monthLab = 1){
   
@@ -115,10 +115,13 @@ plotMonthTrend <- function(pairResults, yMax = NA,
     monthAbb <- monthAbb[monthOrder]
   }
   
-  par(las = 1, tck = 0.02, xaxs = "i", yaxs = "i")
+  par(las = 1, tck = 0.02, xaxs = "i", yaxs = "i",
+      mar=c(5,6,4,2) + 0.1,mgp=c(3,0.5,0))
   plot(1:12, z1, xlim = c(0.5,12.5), ylim = c(0, yMax),
        xlab = "", ylab = "",
-       main = title, col = "black", axes = FALSE, cex.lab = 0.95)
+       main = title, col = "black", 
+       axes = FALSE, cex.lab = 0.95,
+       lwd = 2)
   title(ylab = ylab, line=2, cex.lab=1.2)
   axis(1, at = seq(1, 12), labels = monthAbb, tick = TRUE)
   axis(2, at = NULL, labels = TRUE, tick = TRUE)
@@ -129,7 +132,8 @@ plotMonthTrend <- function(pairResults, yMax = NA,
   par(new = TRUE)
   plot(1:12, z2, xlim = c(0.5,12.5), ylim = c(0, yMax),
        xlab = "", ylab = "",
-       main = "", col = "red", axes = FALSE)
+       main = "", col = "red", axes = FALSE,
+       lwd = 2)
   
   for(m in months){
     x0 <- m
