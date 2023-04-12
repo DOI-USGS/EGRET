@@ -49,7 +49,7 @@ jobs:
           file.copy(from = "./public/articles/logo.png",to = "./public/reference/logo.png")
         shell: Rscript {0}
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@64bcae551a7b18bcb9a09042ddf1960979799187
         with:
           path: ./public
   # Deployment job
@@ -62,5 +62,5 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@73e62e651178eeba977de2dc9f4c7645b3d01015
 
