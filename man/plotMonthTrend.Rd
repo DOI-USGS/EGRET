@@ -4,7 +4,7 @@
 \alias{plotMonthTrend}
 \title{Plot monthly trend result from runPairs}
 \usage{
-plotMonthTrend(pairResults, yMax = NA, arrowFactor = 1, flux = TRUE,
+plotMonthTrend(pairResults, yMax = NA, arrowFactor = 0.75, flux = TRUE,
   printTitle = TRUE, concLab = 1, monthLab = 1)
 }
 \arguments{
