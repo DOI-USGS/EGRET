@@ -23,7 +23,10 @@
 #' @param showXAxis logical defaults to TRUE. If FALSE, the x axis is not plotted
 #' @param showYAxis logical defaults to TRUE. If FALSE, the y axis is not plotted
 #' @param concLab object of concUnit class, or numeric represented the short code, 
-#' or character representing the descriptive name.
+#' or character representing the descriptive name. By default, this argument sets
+#' concentration labels to use either Concentration or Conc (for tiny plots). Units
+#' are taken from the eList$INFO$param.units. To use any other words than
+#' "Concentration" see \code{vignette(topic = "units", package = "EGRET")}.
 #' @param monthLab object of monthLabel class, or numeric represented the short code, 
 #' or character representing the descriptive name.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)

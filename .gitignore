@@ -16,3 +16,5 @@ vignettes/rResid.R
 vignettes/parallel.R
 vignettes/*_cache
 docs
+/doc/
+/Meta/

@@ -24,7 +24,10 @@ If TRUE, makeAugmentedSample must be run first.}
 \item{logScaleQ}{logical if TRUE y in streamflow graphs plotted in log axis. Default is TRUE.}
 
 \item{concLab}{object of concUnit class, or numeric represented the short code, 
-or character representing the descriptive name.}
+or character representing the descriptive name. By default, this argument sets
+concentration labels to use either Concentration or Conc (for tiny plots). Units
+are taken from the eList$INFO$param.units. To use any other words than
+"Concentration" see \code{vignette(topic = "units", package = "EGRET")}.}
 }
 \description{
 This function produces the 4 plots based only on the data stored in the eList.  

@@ -50,7 +50,10 @@ plotConcTime(eList, qUnit = 2, yearStart = NA, yearEnd = NA,
 \item{lwd}{number line width.}
 
 \item{concLab}{object of concUnit class, or numeric represented the short code, 
-or character representing the descriptive name.}
+or character representing the descriptive name. By default, this argument sets
+concentration labels to use either Concentration or Conc (for tiny plots). Units
+are taken from the eList$INFO$param.units. To use any other words than
+"Concentration" see \code{vignette(topic = "units", package = "EGRET")}.}
 
 \item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
 to TRUE does NOT guarantee USGS compliance. It will only change automatically

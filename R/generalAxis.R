@@ -16,7 +16,10 @@
 #' @param prettyDate logical use 'pretty' limits for date axis if TRUE, or force the yearStart/yearEnd as limits if FALSE
 #' @keywords graphics water-quality statistics
 #' @param concLab object of concUnit class, or numeric represented the short code, 
-#' or character representing the descriptive name.
+#' or character representing the descriptive name. By default, this argument sets
+#' concentration labels to use either Concentration or Conc (for tiny plots). Units
+#' are taken from the eList$INFO$param.units. To use any other words than
+#' "Concentration" see \code{vignette(topic = "units", package = "EGRET")}.
 #' @export
 #' @examples
 #' eList <- Choptank_eList
