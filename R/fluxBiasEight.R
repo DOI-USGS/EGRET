@@ -24,7 +24,10 @@
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
 #' @param concLab object of concUnit class, or numeric represented the short code, 
-#' or character representing the descriptive name.
+#' or character representing the descriptive name. By default, this argument sets
+#' concentration labels to use either Concentration or Conc (for tiny plots). Units
+#' are taken from the eList$INFO$param.units. To use any other words than
+#' "Concentration" see \code{vignette(topic = "units", package = "EGRET")}.
 #' @param monthLab object of monthLabel class, or numeric represented the short code, 
 #' or character representing the descriptive name.
 #' @param randomCensored logical, if TRUE plot a random value for censored data.  Default is FALSE.

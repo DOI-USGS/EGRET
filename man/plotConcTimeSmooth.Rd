@@ -51,7 +51,10 @@ plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd,
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE}
 
 \item{concLab}{object of concUnit class, or numeric represented the short code, 
-or character representing the descriptive name.}
+or character representing the descriptive name. By default, this argument sets
+concentration labels to use either Concentration or Conc (for tiny plots). Units
+are taken from the eList$INFO$param.units. To use any other words than
+"Concentration" see \code{vignette(topic = "units", package = "EGRET")}.}
 
 \item{monthLab}{object of monthLabel class, or numeric represented the short code, 
 or character representing the descriptive name.}

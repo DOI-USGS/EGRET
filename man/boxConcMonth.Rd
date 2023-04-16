@@ -34,7 +34,10 @@ boxConcMonth(eList, printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
 \item{showYLabels}{logical defaults to TRUE. If FALSE, the y axis label is not plotted}
 
 \item{concLab}{object of concUnit class, or numeric represented the short code, 
-or character representing the descriptive name.}
+or character representing the descriptive name. By default, this argument sets
+concentration labels to use either Concentration or Conc (for tiny plots). Units
+are taken from the eList$INFO$param.units. To use any other words than
+"Concentration" see \code{vignette(topic = "units", package = "EGRET")}.}
 
 \item{showXLabels}{logical defaults to TRUE. If FALSE, the x axis label is not plotted}
 
