@@ -10,6 +10,16 @@
 #' @param eList named list with at least the Daily dataframe
 #' @keywords water-quality statistics
 #' @return eList named list with modified Daily data frame.
+#' @details
+#' The startBlank and endBlank arguments should generally coincide with the starting and
+#' ending date of the period of analysis that is being used.  startBlank should be
+#' placed fairly close to the start of the period of no data and endBlank should
+#' be placed fairly close to the end of the period of no data.  They do not eliminate
+#' any water quality data from the set of data being used to estimate the model,
+#' they only eliminate results computed for the specified blank period.  If the data
+#' set has more than one large data gap the \code{blankTime()} function can be used
+#' multiple times to blank out multiple sets of results.
+#' 
 #' @export
 #' @examples
 #' startBlank = "2004-10-01"
