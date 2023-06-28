@@ -30,15 +30,22 @@ blankTime<-function(eList, startBlank, endBlank) {
   
   localDaily <- getDaily(eList)
   
-  startBlank<-as.Date(startBlank)
-  endBlank<-as.Date(endBlank)
-  startJulian<-as.numeric(julian(startBlank,origin=as.Date("1850-01-01")))
-  endJulian<-as.numeric(julian(endBlank,origin=as.Date("1850-01-01")))
-  bad<-ifelse(localDaily$Julian>=startJulian&localDaily$Julian<=endJulian,TRUE,FALSE)
-  localDaily$ConcDay<-ifelse(bad,NA,localDaily$ConcDay)
-  localDaily$FluxDay<-ifelse(bad,NA,localDaily$FluxDay)
-  localDaily$FNConc<-ifelse(bad,NA,localDaily$FNConc)
-  localDaily$FNFlux<-ifelse(bad,NA,localDaily$FNFlux)
+  startBlank <- as.Date(startBlank)
+  endBlank <- as.Date(endBlank)
+  startJulian <- as.numeric(julian(startBlank,origin=as.Date("1850-01-01")))
+  endJulian <- as.numeric(julian(endBlank,origin=as.Date("1850-01-01")))
+  bad <- localDaily$Julian >= startJulian & 
+                localDaily$Julian <= endJulian
+  localDaily$ConcDay <- ifelse(bad,NA,localDaily$ConcDay)
+  localDaily$FluxDay <- ifelse(bad,NA,localDaily$FluxDay)
+  localDaily$FNConc <- ifelse(bad,NA,localDaily$FNConc)
+  localDaily$FNFlux <- ifelse(bad,NA,localDaily$FNFlux)
+  
+  wrtdsK <- all(c("GenConc", "GenFlux") %in% names(localDaily))
+  if(wrtdsK){
+    localDaily$GenConc <- ifelse(bad,NA,localDaily$GenConc)
+    localDaily$GenFlux <- ifelse(bad,NA,localDaily$GenFlux)
+  }
   
   eList$Daily <- localDaily
   

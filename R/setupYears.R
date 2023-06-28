@@ -70,7 +70,7 @@ setupYears <- function(localDaily, paLong = 12, paStart = 10) {
   
   numYears <- nrow(StartEndSeq)
 
-  DecYear<-rep(NA,numYears)
+  DecYear <- rep(NA,numYears)
   Q <- rep(NA,numYears)
   Conc <- rep(NA,numYears)
   Flux <- rep(NA,numYears)
@@ -158,7 +158,7 @@ setupYears <- function(localDaily, paLong = 12, paStart = 10) {
 
   AnnualResults <- AnnualResults[!is.na(AnnualResults$DecYear),]
 
-  AnnualResults <- na.omit(AnnualResults)
+  # AnnualResults <- na.omit(AnnualResults)
   
   return(AnnualResults)		
 }
