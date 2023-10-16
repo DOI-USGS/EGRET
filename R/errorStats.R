@@ -22,7 +22,7 @@ errorStats <- function(eList) {
 
   eListR <- makeAugmentedSample(eList)
   Sample <- eListR$Sample
-  n <- length(Sample$Dates)
+  # n <- length(Sample$Date)
   Sample$Pred <- log(Sample$rObserved) - Sample$rResid
   Sample$trueFlux <- Sample$rObserved * Sample$Q * 86.4
   Sample$trueLogF <- log(Sample$trueFlux)

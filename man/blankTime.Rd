@@ -22,6 +22,16 @@ This function is used when the data analyst believes that a gap in the sample da
  This is only used for periods of several years in duration. 
  For this period, the values of Conc, Flux, FNConc and FNFlux are all converted to NA.
 }
+\details{
+The startBlank and endBlank arguments should generally coincide with the starting and
+ending date of the period of analysis that is being used.  startBlank should be
+placed fairly close to the start of the period of no data and endBlank should
+be placed fairly close to the end of the period of no data.  They do not eliminate
+any water quality data from the set of data being used to estimate the model,
+they only eliminate results computed for the specified blank period.  If the data
+set has more than one large data gap the \code{blankTime()} function can be used
+multiple times to blank out multiple sets of results.
+}
 \examples{
 startBlank = "2004-10-01"
 endBlank = "2006-09-30"

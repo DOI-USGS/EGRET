@@ -67,7 +67,7 @@ readNWISSample <- function(siteNumber,
                                            expanded = TRUE)
     totalColumns <- c("sample_dt",  "remark_cd",  "result_va")
     
-    extras <- rawSample[, c("medium_cd", "hyd_cond_cd", "samp_type_cd", 
+    extras <- rawSample[, c("sample_dt", "medium_cd", "hyd_cond_cd", "samp_type_cd", 
                             "hyd_event_cd", "dqi_cd", "rpt_lev_cd")]
     
     if(length(unique(rawSample$medium_cd)) > 1){
@@ -80,9 +80,13 @@ readNWISSample <- function(siteNumber,
   if(nrow(rawSample) > 0){
     compressedData <- compressData(rawSample[,totalColumns],
                                    verbose = verbose)
+    
     Sample <- populateSampleColumns(compressedData)
     if(!multi_pcodes){
-      Sample <- cbind(Sample, extras)
+      Sample <- merge(x = Sample, y = extras, 
+                      by.x = "Date",
+                      by.y = "sample_dt", 
+                      all.x = TRUE)
     }
     
   } else {
