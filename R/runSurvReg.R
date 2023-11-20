@@ -47,7 +47,7 @@ runSurvReg <- function(estPtYear, estPtLQ, DecLow, DecHigh, Sample,
   
   localSample <- Sample
   if(any(is.na(localSample$LogQ))){
-    message("Removing Sample data that does not have corresponding flow data")
+    if (verbose) message("Removing Sample data that does not have corresponding flow data")
     localSample <- localSample[!is.na(localSample$LogQ),]
   }
   numSamples <- length(localSample$DecYear)
