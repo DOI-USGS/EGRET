@@ -1,0 +1,165 @@
+---
+title: "Joining by the closest date"
+author: "Laura DeCicco"
+date: "12/05/2023"
+output: 
+  rmarkdown::html_vignette:
+    fig_height: 5
+    fig_width: 7
+vignette: >
+  %\VignetteIndexEntry{Joining by the closest date}
+  \usepackage[utf8]{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(dplyr)
+
+knitr::opts_chunk$set(echo = TRUE, 
+                      warning = FALSE, 
+                      message = FALSE,
+                      fig.height=7,
+                      fig.width=7)
+
+
+```
+
+Increasingly there are high frequency sensor data available for water quality data. There's a common need to join the sensor and discrete data by the closest time. This article will discuss how to do that with common tools, then we'll put those techniques together in a function.
+
+## dataRetrieval
+
+Let's look at site "01646500"
+
+```{r getData, cache=TRUE}
+library(dataRetrieval)
+
+site_uv <- "01646500"
+site_qw <- "USGS-01646580"
+
+pcode_uv <- "99133"
+pcode_qw <- "00631"
+
+uv_data <- readNWISuv(site_uv, pcode_uv)
+qw_data <- readWQPqw(site_qw, pcode_qw)
+
+```
+
+First let's trim down the data sets so that they are easy to print in this document. 
+
+The sensor data ("uv" data) has 2 columns of data that are important. The first task is to combine those columns.
+
+```{r trimUVdata}
+library(dplyr)
+
+uv_trim <- uv_data |> 
+  select(uv_date = dateTime, 
+         val1 = X_SUNA...Discontinued._99133_00000,
+         val2 = X_SUNA_99133_00000) |> 
+  mutate(val_uv = if_else(is.na(val1), val2, val1)) |> 
+  select(-val1, -val2)
+
+```
+
+```{r showuvTrim, echo=FALSE}
+knitr::kable(head(uv_trim))
+```
+
+The "qw" data:
+
+```{r trimQWdata}
+qw_trim <- qw_data |> 
+  filter(ActivityTypeCode == "Sample-Routine",
+         !is.na(ActivityStartDateTime)) |> 
+  arrange(ActivityStartDateTime) |> 
+  select(qw_date = ActivityStartDateTime,
+         val_qw = ResultMeasureValue,
+         det_txt = ResultDetectionConditionText)
+```
+
+```{r showqwtrim, echo=FALSE}
+knitr::kable(head(qw_trim))
+```
+
+# dplyr
+
+The `dplyr` package has many join functions. We're going to use the `left_join` to get a dataframe that has all of the "qw_data", and the "uv_data" that matches however we frame the `join_by`. We want to join the values that have the closest date/times. NOTE: there is a way to do this as well with the `data.table` package, I just chose `dplyr` because it is more what I am use to.
+
+There's a "closest" argument within the `join_by`, but it requires the user to choose if the dates are closest on a specified side of the uv_data (so either greater or less than the qw_data). 
+
+This data is joined by dates that are closest but LESS than the qw data. It will substitute NA for the 
+
+```{r lessdate}
+qw_less <- qw_trim |> 
+  left_join(uv_trim,
+            join_by(closest(qw_date <= uv_date))) |> 
+  mutate(delta_time_less = as.numeric(difftime(qw_date,
+                                               uv_date,
+                                               units="hours"))) |> 
+  mutate(uv_val_close_less = if_else(delta_time_less <= -24, NA, val_uv)) |> 
+  select(-val_uv)|> 
+  rename(uv_date_less = uv_date)
+```
+
+```{r showqwLess, echo=FALSE}
+knitr::kable(head(qw_less))
+```
+
+This data is joined by dates that are closest but GREATER than the qw data. It will substitute NA for the 
+
+```{r greaterdate}
+qw_greater <- qw_trim |> 
+  left_join(uv_trim,
+            join_by(closest(qw_date >= uv_date))) |> 
+  mutate(delta_time_greater = as.numeric(difftime(qw_date,
+                                               uv_date,
+                                               units="hours"))) |> 
+  mutate(uv_val_close_greater = if_else(delta_time_greater >= 24, NA, val_uv)) |> 
+  select(-val_uv)|> 
+  rename(uv_date_greater = uv_date)
+```
+
+```{r showqwGreater, echo=FALSE}
+knitr::kable(head(qw_greater))
+```
+
+So now to find the closest data in either direction, we can join those two data frames together and use a little logic:
+
+```{r finalJoin}
+qw_closest <- qw_greater |> 
+  left_join(qw_less) |> 
+  mutate(delta_uv_val = uv_val_close_greater - uv_val_close_less,
+         val_uv = case_when(delta_uv_val == 0 ~ uv_val_close_greater,
+             is.na(uv_val_close_greater) ~ uv_val_close_less,
+             is.na(uv_val_close_less) ~ uv_val_close_greater,
+             delta_time_greater < abs(delta_time_less) ~ uv_val_close_greater,
+             delta_time_greater >= abs(delta_time_less) ~ uv_val_close_less,
+             TRUE ~ uv_val_close_greater),
+         closest_uv = case_when(delta_uv_val == 0 ~ uv_date_greater,
+             is.na(uv_val_close_greater) ~ uv_date_less,
+             is.na(uv_val_close_less) ~ uv_date_greater,
+             delta_time_greater < abs(delta_time_less) ~ uv_date_greater,
+             delta_time_greater >= abs(delta_time_less) ~ uv_date_less,
+             TRUE ~ uv_date_greater)) |> 
+  select(-uv_date_greater, -uv_date_less, 
+         -uv_val_close_greater, -uv_val_close_less,
+         -delta_time_greater, -delta_time_less) |> 
+  mutate(delta_hours = difftime(qw_date, closest_uv, units = "hours"))
+
+```
+
+
+```{r showqwClosest, echo=FALSE}
+knitr::kable(head(qw_closest))
+```
+
+I think following the process above is important to see because it shows where you can add flexibility in your own analysis. However, if you are going to be using the same general workflows, creating a function is a great way to make sure you are doing it correct. 
+
+# Putting it together
+
+Here is a function that can combine `dataRetrieval` WQP data with NWIS uv data:
+
+
+
