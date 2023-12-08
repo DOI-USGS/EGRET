@@ -1,7 +1,6 @@
 ---
 title: "Joining by the closest date"
 author: "Laura DeCicco"
-date: "12/05/2023"
 output: 
   rmarkdown::html_vignette:
     fig_height: 5
@@ -31,19 +30,19 @@ Increasingly there are high frequency sensor data available for water quality da
 
 ## dataRetrieval
 
-Let's look at site "01646500"
+Let's look at site "01646500", and a nearby site with a real-time nitrate plus nitrite sensor.
 
 ```{r getData, cache=TRUE}
 library(dataRetrieval)
 
 site_uv <- "01646500"
 site_qw <- "USGS-01646580"
-
 pcode_uv <- "99133"
 pcode_qw <- "00631"
-
 uv_data <- readNWISuv(site_uv, pcode_uv)
-qw_data <- readWQPqw(site_qw, pcode_qw)
+start_sensor_date <- as.Date(min(uv_data$dateTime))
+qw_data <- readWQPqw(site_qw, pcode_qw,
+                     startDate = start_sensor_date)
 
 ```
 
@@ -83,13 +82,17 @@ qw_trim <- qw_data |>
 knitr::kable(head(qw_trim))
 ```
 
-# dplyr
 
-The `dplyr` package has many join functions. We're going to use the `left_join` to get a dataframe that has all of the "qw_data", and the "uv_data" that matches however we frame the `join_by`. We want to join the values that have the closest date/times. NOTE: there is a way to do this as well with the `data.table` package, I just chose `dplyr` because it is more what I am use to.
+The `dplyr` package has many join functions. We're going to use the `left_join` to get a dataframe that has all of the "qw_data", and the matching "uv_data". We want to join the values that have the closest date/times. 
 
-There's a "closest" argument within the `join_by`, but it requires the user to choose if the dates are closest on a specified side of the uv_data (so either greater or less than the qw_data). 
+NOTE: there is a way to do this as well with the `data.table` package, I just chose `dplyr` because it is more what I am use to.
 
-This data is joined by dates that are closest but LESS than the qw data. It will substitute NA for the 
+There's a "closest" argument within the `join_by`, but it requires the user to choose if the dates are closest on a specified side of the uv date/time (so either greater or less than the qw date/time). So to get the absolute closest time on either side, we'll find the data that matches when the qw date/time is less than the uv date/time. Then we'll find the data that matches when the qw date/time is greater than the uv date/time. Finally, we'll look at the time differences to find the absolute closest.
+
+
+## Join by qw_date <= uv_date
+
+This data is joined by qw date/times that are closest but LESS than the uv date/time. It will substitute NA for values that are outside of 24 hours from the dates.
 
 ```{r lessdate}
 qw_less <- qw_trim |> 
@@ -97,8 +100,8 @@ qw_less <- qw_trim |>
             join_by(closest(qw_date <= uv_date))) |> 
   mutate(delta_time_less = as.numeric(difftime(qw_date,
                                                uv_date,
-                                               units="hours"))) |> 
-  mutate(uv_val_close_less = if_else(delta_time_less <= -24, NA, val_uv)) |> 
+                                               units="hours")),
+         uv_val_close_less = if_else(delta_time_less <= -24, NA, val_uv)) |> 
   select(-val_uv)|> 
   rename(uv_date_less = uv_date)
 ```
@@ -107,7 +110,9 @@ qw_less <- qw_trim |>
 knitr::kable(head(qw_less))
 ```
 
-This data is joined by dates that are closest but GREATER than the qw data. It will substitute NA for the 
+## Join by qw_date >= uv_date
+
+This data is joined by qw date/times that are closest but GREATER than the uv date/time.
 
 ```{r greaterdate}
 qw_greater <- qw_trim |> 
@@ -115,8 +120,8 @@ qw_greater <- qw_trim |>
             join_by(closest(qw_date >= uv_date))) |> 
   mutate(delta_time_greater = as.numeric(difftime(qw_date,
                                                uv_date,
-                                               units="hours"))) |> 
-  mutate(uv_val_close_greater = if_else(delta_time_greater >= 24, NA, val_uv)) |> 
+                                               units="hours")),
+         uv_val_close_greater = if_else(delta_time_greater >= 24, NA, val_uv)) |> 
   select(-val_uv)|> 
   rename(uv_date_greater = uv_date)
 ```
@@ -125,7 +130,9 @@ qw_greater <- qw_trim |>
 knitr::kable(head(qw_greater))
 ```
 
-So now to find the closest data in either direction, we can join those two data frames together and use a little logic:
+## Comparing less and greater joins
+
+So now to find the closest data in either direction, we can use some logic to determine the absolute closest values:
 
 ```{r finalJoin}
 qw_closest <- qw_greater |> 
@@ -137,7 +144,7 @@ qw_closest <- qw_greater |>
              delta_time_greater < abs(delta_time_less) ~ uv_val_close_greater,
              delta_time_greater >= abs(delta_time_less) ~ uv_val_close_less,
              TRUE ~ uv_val_close_greater),
-         closest_uv = case_when(delta_uv_val == 0 ~ uv_date_greater,
+         closest_uv_dt = case_when(delta_uv_val == 0 ~ uv_date_greater,
              is.na(uv_val_close_greater) ~ uv_date_less,
              is.na(uv_val_close_less) ~ uv_date_greater,
              delta_time_greater < abs(delta_time_less) ~ uv_date_greater,
@@ -146,7 +153,7 @@ qw_closest <- qw_greater |>
   select(-uv_date_greater, -uv_date_less, 
          -uv_val_close_greater, -uv_val_close_less,
          -delta_time_greater, -delta_time_less) |> 
-  mutate(delta_hours = difftime(qw_date, closest_uv, units = "hours"))
+  mutate(delta_hours = difftime(qw_date, closest_uv_dt, units = "hours"))
 
 ```
 
@@ -155,26 +162,18 @@ qw_closest <- qw_greater |>
 knitr::kable(head(qw_closest))
 ```
 
-I think following the process above is important to see because it shows where you can add flexibility in your own analysis. However, if you are going to be using the same general workflows, creating a function is a great way to make sure you are doing it correct. 
+Walking through the process above is important because it shows where you can add flexibility in your own analysis. However, if you are going to be using the same general workflows, creating a function is a great way to make sure you are doing it correct. 
 
-# Putting it together
+## Putting it together
 
-
+A more realistic scenario would be
 
 ```{r getMoreData, cache=TRUE}
 library(EGRET)
-library(dplyr)
 
-start <- "2007-10-01"
-# Discrete QW:
-qw_data <- readWQPqw(site_qw, pcode_qw)
-qw_data_sub <- qw_data |> 
-  filter(ActivityStartDate >= start,
-         !is.na(ActivityStartDateTime))
-                    
 # Sensor discharge:
 uv_flow_qw <- readNWISuv(site_uv, c(pcode_uv, "00060"), 
-                      startDate = start)
+                         startDate = start_sensor_date)
 
 #special cleanup needed at this site:
 uv_flow_qw2 <- uv_flow_qw |> 
@@ -189,38 +188,40 @@ uv_flow_qw2 <- uv_flow_qw |>
 ```
 
 
-```{r}
+```{r defFunc}
 
 join_qw_uv <- function(qw_data, uv_flow_qw,
+                       hour_threshold,
                        join_by_qw, join_by_uv,
                        qw_val_uv, qw_rmk_uv,
                        flow_val, flow_rmk){
   
-  
   qw_less <- qw_data |> 
+    filter(!is.na({{ join_by_qw }})) |> 
     left_join(uv_flow_qw,
               join_by(closest({{ join_by_qw }} <= {{ join_by_uv }}))) |> 
     mutate(delta_time_less = as.numeric(difftime({{ join_by_qw }},
                                                  {{ join_by_uv }},
                                                  units="hours"))) |> 
-    mutate(qw_val_close_less = if_else(delta_time_less <= -24, NA, {{ qw_val_uv }}),
-           qw_rmk_close_less = if_else(delta_time_less <= -24, NA, {{ qw_rmk_uv }}),
-           flow_val_close_less = if_else(delta_time_less <= -24, NA, {{ flow_val }}),
-           flow_rmk_close_less = if_else(delta_time_less <= -24, NA, {{ flow_rmk }})) |> 
+    mutate(qw_val_close_less = if_else(delta_time_less <= -hour_threshold, NA, {{ qw_val_uv }}),
+           qw_rmk_close_less = if_else(delta_time_less <= -hour_threshold, NA, {{ qw_rmk_uv }}),
+           flow_val_close_less = if_else(delta_time_less <= -hour_threshold, NA, {{ flow_val }}),
+           flow_rmk_close_less = if_else(delta_time_less <= -hour_threshold, NA, {{ flow_rmk }})) |> 
     select(- {{ qw_val_uv }}, -{{ qw_rmk_uv }},
            - {{ flow_val }}, -{{ flow_rmk }}) |> 
     rename(uv_date_less = {{ join_by_uv }}) 
   
   qw_greater <- qw_data |> 
+    filter(!is.na({{ join_by_qw }})) |> 
     left_join(uv_flow_qw,
               join_by(closest({{ join_by_qw }} >= {{ join_by_uv }}))) |> 
     mutate(delta_time_greater = as.numeric(difftime({{ join_by_qw }},
                                                  {{ join_by_uv }},
                                                  units="hours"))) |> 
-    mutate(qw_val_close_greater = if_else(delta_time_greater >= 24, NA, {{ qw_val_uv }}),
-           qw_rmk_close_greater = if_else(delta_time_greater >= 24, NA, {{ qw_rmk_uv }}),
-           flow_val_close_greater = if_else(delta_time_greater >= 24, NA, {{ flow_val }}),
-           flow_rmk_close_greater = if_else(delta_time_greater >= 24, NA, {{ flow_rmk }})) |> 
+    mutate(qw_val_close_greater = if_else(delta_time_greater >= hour_threshold, NA, {{ qw_val_uv }}),
+           qw_rmk_close_greater = if_else(delta_time_greater >= hour_threshold, NA, {{ qw_rmk_uv }}),
+           flow_val_close_greater = if_else(delta_time_greater >= hour_threshold, NA, {{ flow_val }}),
+           flow_rmk_close_greater = if_else(delta_time_greater >= hour_threshold, NA, {{ flow_rmk }})) |> 
     select(- {{ qw_val_uv }}, -{{ qw_rmk_uv }},
            - {{ flow_val }}, -{{ flow_rmk }})|> 
     rename(uv_date_greater = {{ join_by_uv }}) 
@@ -278,10 +279,10 @@ join_qw_uv <- function(qw_data, uv_flow_qw,
   qw_closest$value <- qw_closest$ResultMeasureValue
   qw_closest$value[qw_closest$qualifier == "<"] <- qw_closest$DetectionQuantitationLimitMeasure.MeasureValue[qw_closest$qualifier == "<"]
 
-  compressedData <- compressData(qw_closest[, c("dateTime",
+  compressedData <- EGRET::compressData(qw_closest[, c("dateTime",
                                                 "qualifier",
                                                 "value")],verbose=FALSE)
-  Sample <- populateSampleColumns(compressedData)
+  Sample <- EGRET::populateSampleColumns(compressedData)
   Sample <- Sample |> 
     bind_cols(qw_closest |> 
                 select(qw_uv_val, qw_uv_rmk, 
@@ -293,16 +294,20 @@ join_qw_uv <- function(qw_data, uv_flow_qw,
   
 }
 
-qw_closest <- join_qw_uv(qw_data_sub, uv_flow_qw2, 
-                       join_by_qw = ActivityStartDateTime,
-                       join_by_uv = dateTime,
-                       qw_val_uv = qw_val_uv,
-                       qw_rmk_uv = qw_rmk_uv,
-                       flow_val = X_00060_00000,
-                       flow_rmk = X_00060_00000_cd)
-
 
 ```
 
+```{r runFunction, message=FALSE}
+
+Sample <- join_qw_uv(qw_data = qw_data,
+                     uv_flow_qw =  uv_flow_qw2, 
+                     hour_threshold = 24,
+                     join_by_qw = ActivityStartDateTime,
+                     join_by_uv = dateTime,
+                     qw_val_uv = qw_val_uv,
+                     qw_rmk_uv = qw_rmk_uv,
+                     flow_val = X_00060_00000,
+                     flow_rmk = X_00060_00000_cd)
+```
 
 
