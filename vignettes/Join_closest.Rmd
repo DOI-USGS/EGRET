@@ -135,21 +135,42 @@ knitr::kable(head(qw_greater))
 So now to find the closest data in either direction, we can use some logic to determine the absolute closest values:
 
 ```{r finalJoin}
+
+closest_nums <- function(delta_uv_val,
+                         delta_time_l, delta_time_g, 
+                         uv_val_l, uv_val_g){
+  
+  case_when(delta_uv_val == 0 ~ uv_val_g,
+            is.na(uv_val_g) ~ uv_val_l,
+            is.na(uv_val_l) ~ uv_val_g,
+            delta_time_g < abs(delta_time_l) ~ uv_val_g,
+            delta_time_g >= abs(delta_time_l) ~ uv_val_l,
+            TRUE ~ uv_val_g)
+}
+
+closest_time <- function(delta_uv_val,
+                         delta_time_l, delta_time_g, 
+                         uv_time_l, uv_time_g,
+                         uv_val_l, uv_val_g){
+  
+  case_when(delta_uv_val == 0 ~ uv_time_g,
+            is.na(uv_val_g) ~ uv_time_l,
+            is.na(uv_val_l) ~ uv_time_g,
+            delta_time_g < abs(delta_time_l) ~ uv_time_g,
+            delta_time_g >= abs(delta_time_l) ~ uv_time_l,
+            TRUE ~ uv_time_g)
+}
+
 qw_closest <- qw_greater |> 
   left_join(qw_less) |> 
   mutate(delta_uv_val = uv_val_close_greater - uv_val_close_less,
-         val_uv = case_when(delta_uv_val == 0 ~ uv_val_close_greater,
-             is.na(uv_val_close_greater) ~ uv_val_close_less,
-             is.na(uv_val_close_less) ~ uv_val_close_greater,
-             delta_time_greater < abs(delta_time_less) ~ uv_val_close_greater,
-             delta_time_greater >= abs(delta_time_less) ~ uv_val_close_less,
-             TRUE ~ uv_val_close_greater),
-         closest_uv_dt = case_when(delta_uv_val == 0 ~ uv_date_greater,
-             is.na(uv_val_close_greater) ~ uv_date_less,
-             is.na(uv_val_close_less) ~ uv_date_greater,
-             delta_time_greater < abs(delta_time_less) ~ uv_date_greater,
-             delta_time_greater >= abs(delta_time_less) ~ uv_date_less,
-             TRUE ~ uv_date_greater)) |> 
+         val_uv = closest_nums(delta_uv_val,
+                               delta_time_less, delta_time_greater, 
+                               uv_val_close_less, uv_val_close_greater),
+         closest_uv_dt = closest_time(delta_uv_val,
+                                      delta_time_less, delta_time_greater,
+                                      uv_date_less, uv_date_greater,
+                                      uv_val_close_less, uv_val_close_greater)) |> 
   select(-uv_date_greater, -uv_date_less, 
          -uv_val_close_greater, -uv_val_close_less,
          -delta_time_greater, -delta_time_less) |> 
@@ -189,7 +210,7 @@ uv_flow_qw2 <- uv_flow_qw |>
 
 ```
 
-Next, we'll create a function that does the same joins we described above, but adds some flexibility. You can see by the number of lines it gets pretty complicated pretty fast. 
+Next, we'll create a function that does the same joins we described above, but adds some flexibility. You can see by the number of lines it gets pretty complicated pretty fast. The function requires `closest_nums` and `closest_time` as described above. 
 
 The inputs are:
 
@@ -280,30 +301,22 @@ join_qw_uv <- function(qw_data, uv_flow_qw,
   if("qw_val_close_greater" %in% names(qw_closest)){
     qw_closest <- qw_closest |> 
       mutate(delta_qw_val = qw_val_close_greater - qw_val_close_less,
-             qw_uv_val = case_when(delta_qw_val == 0 ~ qw_val_close_greater,
-               is.na(qw_val_close_greater) ~ qw_val_close_less,
-               is.na(qw_val_close_less) ~ qw_val_close_greater,
-               delta_time_greater < abs(delta_time_less) ~ qw_val_close_greater,
-               delta_time_greater >= abs(delta_time_less) ~ qw_val_close_less,
-               TRUE ~ qw_val_close_greater),
-             closest_uv = case_when(delta_qw_val == 0 ~ uv_date_greater,
-               is.na(qw_val_close_greater) ~ uv_date_less,
-               is.na(qw_val_close_less) ~ uv_date_greater,
-               delta_time_greater < abs(delta_time_less) ~ uv_date_greater,
-               delta_time_greater >= abs(delta_time_less) ~ uv_date_less,
-               TRUE ~ uv_date_greater)) |> 
+             qw_uv_val = closest_nums(delta_qw_val,
+                               delta_time_less, delta_time_greater, 
+                               qw_val_close_less, qw_val_close_greater),
+             closest_uv = closest_time(delta_qw_val,
+                                      delta_time_less, delta_time_greater,
+                                      uv_date_less, uv_date_greater,
+                                      qw_val_close_less, qw_val_close_greater)) |> 
       select(-qw_val_close_greater, -qw_val_close_less) |> 
       select(qw_uv_val, {{ join_by_qw }}, closest_uv, everything())
   }
   
   if("qw_rmk_close_greater" %in% names(qw_closest)){
     qw_closest <- qw_closest |> # breaks down if there wasn't a val but was a rmk
-      mutate(qw_uv_rmk = case_when(delta_qw_val == 0 ~ qw_rmk_close_greater,
-               is.na(qw_rmk_close_greater) ~ qw_rmk_close_less,
-               is.na(qw_rmk_close_less) ~ qw_rmk_close_greater,
-               delta_time_greater < abs(delta_time_less) ~ qw_rmk_close_greater,
-               delta_time_greater >= abs(delta_time_less) ~ qw_rmk_close_less,
-               TRUE ~ qw_rmk_close_greater)) |> 
+      mutate(qw_uv_rmk = closest_nums(delta_qw_val,
+                               delta_time_less, delta_time_greater, 
+                               qw_rmk_close_less, qw_rmk_close_greater)) |> 
       select(-qw_rmk_close_greater, -qw_rmk_close_less) |> 
       select(qw_uv_val, qw_uv_rmk,
              {{ join_by_qw }}, closest_uv, everything())
@@ -312,36 +325,28 @@ join_qw_uv <- function(qw_data, uv_flow_qw,
   if(!"closest_uv" %in% names(qw_closest)){
     qw_closest <- qw_closest |> 
       mutate(delta_flow_val = flow_val_close_greater - flow_val_close_less,
-             closest_uv = case_when(delta_flow_val == 0 ~ uv_date_greater,
-                 is.na(flow_val_close_greater) ~ uv_date_less,
-                 is.na(flow_val_close_less) ~ uv_date_greater,
-                 delta_time_greater < abs(delta_time_less) ~ uv_date_greater,
-                 delta_time_greater >= abs(delta_time_less) ~ uv_date_less,
-                 TRUE ~ uv_date_greater))
+             closest_uv = closest_time(delta_flow_val,
+                               delta_time_less, delta_time_greater, 
+                               uv_date_less, uv_date_greater,
+                               flow_val_close_less, flow_val_close_greater))
   }
   
   if("flow_val_close_greater" %in% names(qw_closest)){
     
     qw_closest <- qw_closest |> 
       mutate(delta_flow_val = flow_val_close_greater - flow_val_close_less,
-             flow_val = case_when(delta_flow_val == 0 ~ flow_val_close_greater,
-               is.na(flow_val_close_greater) ~ flow_val_close_less,
-               is.na(flow_val_close_less) ~ flow_val_close_greater,
-               delta_time_greater < abs(delta_time_less) ~ flow_val_close_greater,
-               delta_time_greater >= abs(delta_time_less) ~ flow_val_close_less,
-               TRUE ~ flow_val_close_greater)) |> 
+             flow_val = closest_nums(delta_flow_val,
+                                     delta_time_less, delta_time_greater,
+                                     flow_val_close_less, flow_val_close_greater)) |> 
       select(-flow_val_close_greater, -flow_val_close_less) |> 
       select(uv_flow_val = flow_val, {{ join_by_qw }}, closest_uv, everything())
   }
   
   if("flow_rmk_close_greater" %in% names(qw_closest)){
     qw_closest <- qw_closest |> 
-      mutate(flow_rmk = case_when(delta_flow_val == 0 ~ flow_rmk_close_greater,
-               is.na(flow_rmk_close_greater) ~ flow_rmk_close_less,
-               is.na(flow_rmk_close_less) ~ flow_rmk_close_greater,
-               delta_time_greater < abs(delta_time_less) ~ flow_rmk_close_greater,
-               delta_time_greater >= abs(delta_time_less) ~ flow_rmk_close_less,
-               TRUE ~ flow_rmk_close_greater)) |> 
+      mutate(flow_rmk = closest_nums(delta_flow_val,
+                                     delta_time_less, delta_time_greater,
+                                     flow_rmk_close_less, flow_rmk_close_greater)) |> 
       select(-flow_rmk_close_greater, -flow_rmk_close_less) |> 
       select(uv_flow_val, uv_flow_rmk = flow_rmk, 
              {{ join_by_qw }}, closest_uv, everything())
