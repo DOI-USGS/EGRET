@@ -30,7 +30,7 @@ Increasingly there are high frequency sensor data available for water quality da
 
 ## dataRetrieval
 
-Let's look at site "01646500", and a nearby site with a real-time nitrate plus nitrite sensor.
+Let's look at site "01646500", and a nearby site with a real-time nitrate-plus-nitrite sensor.
 
 ```{r getData, cache=TRUE}
 library(dataRetrieval)
@@ -48,7 +48,7 @@ qw_data <- readWQPqw(site_qw, pcode_qw,
 
 First let's trim down the data sets so that they are easy to print in this document. 
 
-The sensor data ("uv" data) has 2 columns of data that are important. The first task is to combine those columns.
+The sensor data ("uv" data) has 2 columns of data that are important. The first task is to combine those columns. This is pretty unique to this particular site and probably won't need to be done generally.
 
 ```{r trimUVdata}
 library(dplyr)
@@ -66,7 +66,7 @@ uv_trim <- uv_data |>
 knitr::kable(head(uv_trim))
 ```
 
-The "qw" data:
+Next we'll clean up the discrete water quality "qw" data, mostly just to make it easy to follow in this tutorial. 
 
 ```{r trimQWdata}
 qw_trim <- qw_data |> 
@@ -203,12 +203,6 @@ join_qw_uv <- function(qw_data, uv_flow_qw,
     mutate(delta_time_less = as.numeric(difftime({{ join_by_qw }},
                                                  {{ join_by_uv }},
                                                  units="hours"))) |> 
-    mutate(qw_val_close_less = if_else(delta_time_less <= -hour_threshold, NA, {{ qw_val_uv }}),
-           qw_rmk_close_less = if_else(delta_time_less <= -hour_threshold, NA, {{ qw_rmk_uv }}),
-           flow_val_close_less = if_else(delta_time_less <= -hour_threshold, NA, {{ flow_val }}),
-           flow_rmk_close_less = if_else(delta_time_less <= -hour_threshold, NA, {{ flow_rmk }})) |> 
-    select(- {{ qw_val_uv }}, -{{ qw_rmk_uv }},
-           - {{ flow_val }}, -{{ flow_rmk }}) |> 
     rename(uv_date_less = {{ join_by_uv }}) 
   
   qw_greater <- qw_data |> 
@@ -217,56 +211,128 @@ join_qw_uv <- function(qw_data, uv_flow_qw,
               join_by(closest({{ join_by_qw }} >= {{ join_by_uv }}))) |> 
     mutate(delta_time_greater = as.numeric(difftime({{ join_by_qw }},
                                                  {{ join_by_uv }},
-                                                 units="hours"))) |> 
-    mutate(qw_val_close_greater = if_else(delta_time_greater >= hour_threshold, NA, {{ qw_val_uv }}),
-           qw_rmk_close_greater = if_else(delta_time_greater >= hour_threshold, NA, {{ qw_rmk_uv }}),
-           flow_val_close_greater = if_else(delta_time_greater >= hour_threshold, NA, {{ flow_val }}),
-           flow_rmk_close_greater = if_else(delta_time_greater >= hour_threshold, NA, {{ flow_rmk }})) |> 
-    select(- {{ qw_val_uv }}, -{{ qw_rmk_uv }},
-           - {{ flow_val }}, -{{ flow_rmk }})|> 
-    rename(uv_date_greater = {{ join_by_uv }}) 
+                                                 units="hours")))|> 
+    rename(uv_date_greater = {{ join_by_uv }})  
+  
+    if(rlang::as_name(enquo(qw_val_uv)) %in% names(qw_less)){
+      qw_less <- qw_less |> 
+        mutate(qw_val_close_less = if_else(delta_time_less <= -hour_threshold, NA, {{ qw_val_uv }})) |> 
+        select(-{{ qw_val_uv }})
+      
+      qw_greater <- qw_greater |> 
+        mutate(qw_val_close_greater = if_else(delta_time_greater >= hour_threshold, NA, {{ qw_val_uv }})) |> 
+        select(-{{ qw_val_uv }})
+    
+  }
+  
+  if(rlang::as_name(enquo(qw_rmk_uv)) %in% names(qw_less)){
+    qw_less <- qw_less |> 
+      mutate(qw_rmk_close_less = if_else(delta_time_less <= -hour_threshold, NA, {{ qw_rmk_uv }})) |> 
+      select(-{{ qw_rmk_uv }})
+    
+    qw_greater <- qw_greater |> 
+      mutate(qw_rmk_close_greater = if_else(delta_time_greater >= hour_threshold, NA, {{ qw_rmk_uv }})) |> 
+      select(-{{ qw_rmk_uv }})
+  }
+  
+  if(rlang::as_name(enquo(flow_val)) %in% names(qw_less)){
+    qw_less <- qw_less |> 
+      mutate(flow_val_close_less = if_else(delta_time_less <= -hour_threshold, NA, {{ flow_val }})) |> 
+      select(-{{ flow_val }})
+    
+    qw_greater <- qw_greater |> 
+      mutate(flow_val_close_greater = if_else(delta_time_greater >= hour_threshold, NA, {{ flow_val }})) |> 
+      select(-{{ flow_val }})
+  }
+  
+  if(rlang::as_name(enquo(flow_rmk)) %in% names(qw_less)){
+    qw_less <- qw_less |> 
+      mutate(flow_rmk_close_less = if_else(delta_time_less <= -hour_threshold, NA, {{ flow_rmk }})) |> 
+      select(-{{ flow_rmk }})
+    
+    qw_greater <- qw_greater |> 
+      mutate(flow_rmk_close_greater = if_else(delta_time_greater >= hour_threshold, NA, {{ flow_rmk }})) |> 
+      select(-{{ flow_rmk }})
+  }
   
   qw_closest <- qw_greater |> 
     left_join(qw_less) |> 
-    mutate(dateTime = as.Date({{ join_by_qw }}),
-           delta_qw_val = qw_val_close_greater - qw_val_close_less,
-           qw_uv_val = case_when(delta_qw_val == 0 ~ qw_val_close_greater,
+    mutate(dateTime = as.Date({{ join_by_qw }})) 
+  
+  if("qw_val_close_greater" %in% names(qw_closest)){
+    qw_closest <- qw_closest |> 
+      mutate(delta_qw_val = qw_val_close_greater - qw_val_close_less,
+             qw_uv_val = case_when(delta_qw_val == 0 ~ qw_val_close_greater,
                is.na(qw_val_close_greater) ~ qw_val_close_less,
                is.na(qw_val_close_less) ~ qw_val_close_greater,
                delta_time_greater < abs(delta_time_less) ~ qw_val_close_greater,
                delta_time_greater >= abs(delta_time_less) ~ qw_val_close_less,
                TRUE ~ qw_val_close_greater),
-           qw_uv_rmk = case_when(delta_qw_val == 0 ~ qw_rmk_close_greater,
-               is.na(qw_rmk_close_greater) ~ qw_rmk_close_less,
-               is.na(qw_rmk_close_less) ~ qw_rmk_close_greater,
-               delta_time_greater < abs(delta_time_less) ~ qw_rmk_close_greater,
-               delta_time_greater >= abs(delta_time_less) ~ qw_rmk_close_less,
-               TRUE ~ qw_rmk_close_greater),
-          flow_val = case_when(delta_qw_val == 0 ~ flow_val_close_greater,
-               is.na(flow_val_close_greater) ~ flow_val_close_less,
-               is.na(flow_val_close_less) ~ flow_val_close_greater,
-               delta_time_greater < abs(delta_time_less) ~ flow_val_close_greater,
-               delta_time_greater >= abs(delta_time_less) ~ flow_val_close_less,
-               TRUE ~ flow_val_close_greater),
-          flow_rmk = case_when(delta_qw_val == 0 ~ flow_rmk_close_greater,
-               is.na(flow_rmk_close_greater) ~ flow_rmk_close_less,
-               is.na(flow_rmk_close_less) ~ flow_rmk_close_greater,
-               delta_time_greater < abs(delta_time_less) ~ flow_rmk_close_greater,
-               delta_time_greater >= abs(delta_time_less) ~ flow_rmk_close_less,
-               TRUE ~ flow_rmk_close_greater),
-           closest_uv = case_when(delta_qw_val == 0 ~ uv_date_greater,
+             closest_uv = case_when(delta_qw_val == 0 ~ uv_date_greater,
                is.na(qw_val_close_greater) ~ uv_date_less,
                is.na(qw_val_close_less) ~ uv_date_greater,
                delta_time_greater < abs(delta_time_less) ~ uv_date_greater,
                delta_time_greater >= abs(delta_time_less) ~ uv_date_less,
                TRUE ~ uv_date_greater)) |> 
+      select(-qw_val_close_greater, -qw_val_close_less) |> 
+      select(qw_uv_val, {{ join_by_qw }}, closest_uv, everything())
+  }
+  
+  if("qw_rmk_close_greater" %in% names(qw_closest)){
+    qw_closest <- qw_closest |> # breaks down if there wasn't a val but was a rmk
+      mutate(qw_uv_rmk = case_when(delta_qw_val == 0 ~ qw_rmk_close_greater,
+               is.na(qw_rmk_close_greater) ~ qw_rmk_close_less,
+               is.na(qw_rmk_close_less) ~ qw_rmk_close_greater,
+               delta_time_greater < abs(delta_time_less) ~ qw_rmk_close_greater,
+               delta_time_greater >= abs(delta_time_less) ~ qw_rmk_close_less,
+               TRUE ~ qw_rmk_close_greater)) |> 
+      select(-qw_rmk_close_greater, -qw_rmk_close_less) |> 
+      select(qw_uv_val, qw_uv_rmk,
+             {{ join_by_qw }}, closest_uv, everything())
+  }
+  
+  if(!"closest_uv" %in% names(qw_closest)){
+    qw_closest <- qw_closest |> 
+      mutate(delta_flow_val = flow_val_close_greater - flow_val_close_less,
+             closest_uv = case_when(delta_flow_val == 0 ~ uv_date_greater,
+                 is.na(flow_val_close_greater) ~ uv_date_less,
+                 is.na(flow_val_close_less) ~ uv_date_greater,
+                 delta_time_greater < abs(delta_time_less) ~ uv_date_greater,
+                 delta_time_greater >= abs(delta_time_less) ~ uv_date_less,
+                 TRUE ~ uv_date_greater))
+  }
+  
+  if("flow_val_close_greater" %in% names(qw_closest)){
+    
+    qw_closest <- qw_closest |> 
+      mutate(delta_flow_val = flow_val_close_greater - flow_val_close_less,
+             flow_val = case_when(delta_flow_val == 0 ~ flow_val_close_greater,
+               is.na(flow_val_close_greater) ~ flow_val_close_less,
+               is.na(flow_val_close_less) ~ flow_val_close_greater,
+               delta_time_greater < abs(delta_time_less) ~ flow_val_close_greater,
+               delta_time_greater >= abs(delta_time_less) ~ flow_val_close_less,
+               TRUE ~ flow_val_close_greater)) |> 
+      select(-flow_val_close_greater, -flow_val_close_less) |> 
+      select(uv_flow_val = flow_val, {{ join_by_qw }}, closest_uv, everything())
+  }
+  
+  if("flow_rmk_close_greater" %in% names(qw_closest)){
+    qw_closest <- qw_closest |> 
+      mutate(flow_rmk = case_when(delta_flow_val == 0 ~ flow_rmk_close_greater,
+               is.na(flow_rmk_close_greater) ~ flow_rmk_close_less,
+               is.na(flow_rmk_close_less) ~ flow_rmk_close_greater,
+               delta_time_greater < abs(delta_time_less) ~ flow_rmk_close_greater,
+               delta_time_greater >= abs(delta_time_less) ~ flow_rmk_close_less,
+               TRUE ~ flow_rmk_close_greater)) |> 
+      select(-flow_rmk_close_greater, -flow_rmk_close_less) |> 
+      select(uv_flow_val, uv_flow_rmk = flow_rmk, 
+             {{ join_by_qw }}, closest_uv, everything())
+  }
+  
+  qw_closest <- qw_closest |> 
+    mutate(delta_hours = difftime({{ join_by_qw }}, closest_uv, units = "hours")) |> 
     select(-uv_date_greater, -uv_date_less, 
-           -qw_val_close_greater, -qw_val_close_less,
-           -qw_rmk_close_greater, -qw_rmk_close_less,
-           -flow_val_close_greater, -flow_val_close_less,
-           -flow_rmk_close_greater, -flow_rmk_close_less,
-           -delta_time_greater, -delta_time_less) |> 
-    mutate(delta_hours = difftime({{ join_by_qw }}, closest_uv, units = "hours"))
+           -delta_time_greater, -delta_time_less) 
   
   detectText <- qw_closest$ResultDetectionConditionText
   detectText <- toupper(detectText)
@@ -285,9 +351,6 @@ join_qw_uv <- function(qw_data, uv_flow_qw,
   Sample <- EGRET::populateSampleColumns(compressedData)
   Sample <- Sample |> 
     bind_cols(qw_closest |> 
-                select(qw_uv_val, qw_uv_rmk, 
-                       uv_flow_val = flow_val, uv_flow_rmk = flow_rmk, 
-                       {{ join_by_qw }}, closest_uv, delta_hours, everything()) |> 
                 select(-dateTime, -qualifier, -value))
   
   return(Sample)
@@ -311,3 +374,34 @@ Sample <- join_qw_uv(qw_data = qw_data,
 ```
 
 
+Using the function without real-time flow data:
+
+```{r noFlow, warning=FALSE}
+
+Sample2 <- join_qw_uv(qw_data = qw_data,
+                     uv_flow_qw =  uv_flow_qw2, 
+                     hour_threshold = 24,
+                     join_by_qw = ActivityStartDateTime,
+                     join_by_uv = dateTime,
+                     qw_val_uv = qw_val_uv,
+                     qw_rmk_uv = qw_rmk_uv,
+                     flow_val = "",
+                     flow_rmk = "")
+
+```
+
+Using the function without real-time qw data:
+
+```{r noQW, warning=FALSE}
+
+Sample3 <- join_qw_uv(qw_data = qw_data,
+                     uv_flow_qw =  uv_flow_qw2, 
+                     hour_threshold = 24,
+                     join_by_qw = ActivityStartDateTime,
+                     join_by_uv = dateTime,
+                     qw_val_uv = "",
+                     qw_rmk_uv = "",
+                     flow_val = X_00060_00000,
+                     flow_rmk = X_00060_00000_cd)
+
+```
