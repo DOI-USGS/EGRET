@@ -166,7 +166,9 @@ Walking through the process above is important because it shows where you can ad
 
 ## Putting it together
 
-A more realistic scenario would be
+A more realistic scenario would be that we want to create an `EGRET` Sample data frame, and get the real-time water quality and flow values joined by the closest date/time.
+
+We'll re-pull the real-time data, and this time include discharge:
 
 ```{r getMoreData, cache=TRUE}
 library(EGRET)
@@ -186,6 +188,22 @@ uv_flow_qw2 <- uv_flow_qw |>
   select(-val1, -val2, -rmk1, -rmk2)
 
 ```
+
+Next, we'll create a function that does the same joins we described above, but adds some flexibility. You can see by the number of lines it gets pretty complicated pretty fast. 
+
+The inputs are:
+
+|Argument  | Description                             |  
+|----------|----------------------------------------:|
+|qw_data |  Data frame with discrete water quality data | 
+|uv_flow_qw| Data frame with real-time (high frequency) water quality and/or flow data   |
+|hour_threshold |Number of hours that the dates need to be within to match up |
+| join_by_qw | Name of the date/time column in the qw_data data frame to join by  |
+| join_by_uv | Name of the date/time column in the uv_flow_qw data frame to join by|
+| qw_val_uv  | Name of the water quality value column in the uv_flow_qw data frame |
+| qw_rmk_uv  | Name of the water quality remark column in the uv_flow_qw data frame|
+| flow_val   | Name of the flow value column in the uv_flow_qw data frame|
+| flow_rmk   |Name of the flow remark column in the uv_flow_qw data frame |
 
 
 ```{r defFunc}
@@ -372,6 +390,20 @@ Sample <- join_qw_uv(qw_data = qw_data,
                      flow_val = X_00060_00000,
                      flow_rmk = X_00060_00000_cd)
 ```
+
+What do we get? The Sample data frame will have all the traditional Sample columns, but will also have:
+
+|Column  | Description                             |  
+|----------|----------------------------------------:|
+|uv_flow_val |  Closest flow value from the uv_flow_qw data frame | 
+|uv_flow_rmk | Closest flow remark code from the uv_flow_qw data frame |
+|closest_uv | Closest date/time from the uv_flow_qw data frame|
+|qw_uv_val | Closest water quality value from the uv_flow_qw data frame|
+|qw_uv_rmk | Closest water quality remark from the uv_flow_qw data frame | 
+|delta_hours | Number of hours difference between uv_flow_qw and qw_data |
+
+Additional all columns are retained from the qw_data.
+
 
 
 Using the function without real-time flow data:
