@@ -237,8 +237,7 @@ join_qw_uv <- function(qw_data, # data frame from readWQP
                        qw_val_uv, # value column name from uv_flow_qw for water quality parameter
                        qw_rmk_uv, # column name of remark column from uv_flow_qw
                        flow_val, # value column name from uv_flow_qw for flow parameter
-                       flow_rmk, # column name of remark column from uv_flow_qw for flow parameter
-                       ){
+                       flow_rmk){ # column name of remark column from uv_flow_qw for flow parameter
   
   req_cols <- c("ResultDetectionConditionText",
                 "ResultMeasureValue",
