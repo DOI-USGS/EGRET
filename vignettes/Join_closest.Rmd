@@ -229,11 +229,27 @@ The inputs are:
 
 ```{r defFunc}
 
-join_qw_uv <- function(qw_data, uv_flow_qw,
-                       hour_threshold,
-                       join_by_qw, join_by_uv,
-                       qw_val_uv, qw_rmk_uv,
-                       flow_val, flow_rmk){
+join_qw_uv <- function(qw_data, # data frame from readWQP
+                       uv_flow_qw, # data frame from readNWISuv
+                       hour_threshold, # hours threshold for joining
+                       join_by_qw, # column to join by from qw_data
+                       join_by_uv, # column to join by from uv_flow_qw
+                       qw_val_uv, # value column name from uv_flow_qw for water quality parameter
+                       qw_rmk_uv, # column name of remark column from uv_flow_qw
+                       flow_val, # value column name from uv_flow_qw for flow parameter
+                       flow_rmk, # column name of remark column from uv_flow_qw for flow parameter
+                       ){
+  
+  req_cols <- c("ResultDetectionConditionText",
+                "ResultMeasureValue",
+                "DetectionQuantitationLimitMeasure.MeasureValue")
+  
+  if(!all(req_cols %in% names(qw_data))){
+    stop('qw_data requires columns:
+"ResultDetectionConditionText",
+"ResultMeasureValue",
+"DetectionQuantitationLimitMeasure.MeasureValue"')
+  }
   
   qw_less <- qw_data |> 
     filter(!is.na({{ join_by_qw }})) |> 
