@@ -1,5 +1,5 @@
 ---
-title: "Comparing discrete sample values with their closest sensor value"
+title: "Compare discrete and sensor values"
 author: "Robert M. Hirsch"
 output: 
   rmarkdown::html_vignette:
@@ -28,6 +28,8 @@ knitr::opts_chunk$set(echo = TRUE,
 
 
 ```
+
+# Comparing discrete sample values with their closest sensor value
 
 One of the important steps in using high frequency sensor data is to check out how it compares to concentrations of the target analyte based on samples collected at the same location.  The example case we will consider here is a site that has a large amount of discrete nitrate plus nitrite values (parameter code 00631) and a continuous nitrate sensor (parameter code 99133).  In this discussion we will refer to the sample values as "qw" data and the sensor values as "uv" data.  Throughout this discussion we will consider the qw values to be the "gold standard", which is to say that they represent the measurements of concentration that we would like to have.  USGS qw values are generally collected by devices that are iso-kinetic and the protocols used are designed to create a sample which is integrated horizontally and vertically over the full cross section, such that the average concentration in the sample collected, when multiplied by discharge, is an unbiased estimate of the flux of the analyte through the river.  
 
