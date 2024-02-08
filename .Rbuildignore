@@ -11,6 +11,7 @@ vignettes/figure
 ^\.Rproj\.user$
 README.Rmd
 README_files/
+^Temp$
 CONDUCT.md
 DISCLAIMER.md
 LICENSE.md
@@ -40,7 +41,9 @@ vignettes/pairResults2.rds
 vignettes/WRTDSK.Rmd
 vignettes/ChainBridge.TP.RData
 vignettes/dataPreperation.Rmd
-vignettes/Join_clpsest.Rmd
+vignettes/Join_closest.Rmd
+vignettes/Compare_QW_and_UV.Rmd
+vignettes/helper_functions.R
 vignettes/Method.bib
 vignettes/Extend_method.bib
 vignettes/Regional_studies.bib

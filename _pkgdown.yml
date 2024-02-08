@@ -45,6 +45,10 @@ navbar:
       href: articles/AlternativeQMethod.html
     - text: Annual_Hydrograph_Timing
       href: articles/Annual_Hydrograph_Timing.html
+    - text: Join discrete and sensor data
+      href: articles/Join_closest.html
+    - text: Compare QW and UV
+      href: articles/Compare_QW_and_UV.html
     - text: Custom Units
       href: articles/units.html
   - text: Bibliograpy
