@@ -35,7 +35,7 @@
 #' @param tcl numeric, length of tick marks in inches, default is 0.1
 #' @param tick.lwd line width for axis ticks, default is 2
 #' @param color.palette a function that creates a color palette for the contour plot. Default goes from blue to white to red 
-#' using the function \code{colorRampPalette(c("blue","white","red"))}. A few preset options are heat.colors, topo.colors, and terrain.colors.
+#' using the function \code{grDevices::colorRampPalette(c("blue","white","red"))}. A few preset options are heat.colors, topo.colors, and terrain.colors.
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins.
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
@@ -67,7 +67,7 @@ plotDiffContours<-function (eList, year0, year1,
                             vert1 = NA, vert2 = NA, horiz = NA, flowDuration = TRUE, yTicks=NA,tick.lwd=1,
                             lwd=2,cex.main = 0.95, cex.axis = 1,
                             customPar = FALSE, usgsStyle = FALSE,
-                            color.palette = colorRampPalette(c("blue","white","red")),
+                            color.palette = grDevices::colorRampPalette(c("blue","white","red")),
                             concLab = 1, monthLab = 1, ...) {
 
   localINFO <- getInfo(eList)
@@ -130,7 +130,7 @@ plotDiffContours<-function (eList, year0, year1,
       surfaceSpan <- range(maxDiff)
     }
   } else {
-    surfaceSpan <- quantile(difft, c(0.05,0.95))
+    surfaceSpan <- stats::quantile(difft, c(0.05,0.95))
   }
   
   contourLevels <- pretty(surfaceSpan, n = 15)
@@ -142,9 +142,9 @@ plotDiffContours<-function (eList, year0, year1,
   numX <- length(x)
   numY <- length(y)
   
-  qBottomT <- ifelse(is.na(qBottom), quantile(localDaily$Q, probs = 0.05)*qFactor, qBottom)
+  qBottomT <- ifelse(is.na(qBottom), stats::quantile(localDaily$Q, probs = 0.05)*qFactor, qBottom)
   
-  qTopT <- ifelse(is.na(qTop), quantile(localDaily$Q, probs = 0.95)*qFactor, qTop)
+  qTopT <- ifelse(is.na(qTop), stats::quantile(localDaily$Q, probs = 0.95)*qFactor, qTop)
   
   if(any(is.na(yTicks))){
     
@@ -227,7 +227,7 @@ plotDiffContours<-function (eList, year0, year1,
   deltaX <- (1)/25
   
   yLab <- ifelse(usgsStyle,qUnit@unitUSGS,qUnit@qUnitExpress)
-  filled.contour(x, log(y, 10), difft, levels = contourLevels, 
+  graphics::filled.contour(x, log(y, 10), difft, levels = contourLevels, 
                  xlim = c(0,1), ylim = c(log(yTicks[1], 
                                              10), log(yTicks[nYTicks], 10)), #main = plotTitle, 
                  xaxs = "i", yaxs = "i",
@@ -237,16 +237,16 @@ plotDiffContours<-function (eList, year0, year1,
                         labels = yTicks, cex.axis=cex.axis)
                    axis(3, tcl = 0, at = xTicks, labels =FALSE)
                    axis(4, tcl = 0, at = log(yTicks, 10), labels=FALSE)
-                   if(flowDuration) contour(x, log(y, 10), durSurf, add = TRUE, drawlabels = FALSE, 
+                   if(flowDuration) graphics::contour(x, log(y, 10), durSurf, add = TRUE, drawlabels = FALSE, 
                                             levels = plevels,lwd=lwd)
                    segments(v1[1], v1[2], v1[3], v1[4])
                    segments(v2[1], v2[2], v2[3], v2[4])
                    segments(h1[1], h1[2], h1[3], h1[4])
                    
-                   segments(xTicks, rep(log(yTicks[1],10),length(xTicks)), xTicks, rep(grconvertY(grconvertY(par("usr")[3],from="user",to="inches")+tcl,from="inches",to="user"),length(xTicks)), lwd = tick.lwd)
-                   segments(xTicks, rep(log(yTicks[nYTicks],10),length(xTicks)), xTicks, rep(grconvertY(grconvertY(par("usr")[4],from="user",to="inches")-tcl,from="inches",to="user"),length(xTicks)), lwd = tick.lwd)
-                   segments(rep(0,length(yTicks)), log(yTicks,10), rep(grconvertX(grconvertX(par("usr")[1],from="user",to="inches")+tcl,from="inches",to="user"),length(yTicks)),log(yTicks,10), lwd = tick.lwd)
-                   segments(rep(grconvertX(grconvertX(par("usr")[2],from="user",to="inches")-tcl,from="inches",to="user"),length(yTicks)), log(yTicks,10), rep(1,length(yTicks)),log(yTicks,10), lwd = tick.lwd)
+                   segments(xTicks, rep(log(yTicks[1],10),length(xTicks)), xTicks, rep(graphics::grconvertY(graphics::grconvertY(par("usr")[3],from="user",to="inches")+tcl,from="inches",to="user"),length(xTicks)), lwd = tick.lwd)
+                   segments(xTicks, rep(log(yTicks[nYTicks],10),length(xTicks)), xTicks, rep(graphics::grconvertY(graphics::grconvertY(par("usr")[4],from="user",to="inches")-tcl,from="inches",to="user"),length(xTicks)), lwd = tick.lwd)
+                   segments(rep(0,length(yTicks)), log(yTicks,10), rep(graphics::grconvertX(graphics::grconvertX(par("usr")[1],from="user",to="inches")+tcl,from="inches",to="user"),length(yTicks)),log(yTicks,10), lwd = tick.lwd)
+                   segments(rep(graphics::grconvertX(graphics::grconvertX(par("usr")[2],from="user",to="inches")-tcl,from="inches",to="user"),length(yTicks)), log(yTicks,10), rep(1,length(yTicks)),log(yTicks,10), lwd = tick.lwd)
                    
                  },
                   plot.title = {

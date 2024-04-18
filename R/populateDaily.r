@@ -93,7 +93,7 @@ populateDaily <- function(rawData, qConvert,
   if (length(rawData$dateTime) < 30){
     warning("This program requires at least 30 data points. Rolling means will not be calculated.")
   } else {
-    ma <- function(x,n=7){filter(x,rep(1/n,n), sides=1)}
+    ma <- function(x,n=7){stats::filter(x,rep(1/n,n), sides=1)}
     localDaily$Q7 <- as.numeric(ma(localDaily$Q))
     localDaily$Q30 <- as.numeric(ma(localDaily$Q,30))
   }

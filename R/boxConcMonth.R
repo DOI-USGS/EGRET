@@ -124,7 +124,7 @@ boxConcMonth <- function(eList, printTitle = TRUE,
                        units = localINFO$param.units)
   yTicksLab <- prettyNum(yInfo$ticks)
   
-  boxplot(tempDF$conc ~ tempDF$month,
+  graphics::boxplot(tempDF$conc ~ tempDF$month,
           ylim = c(yInfo$bottom,yInfo$top),
           yaxs = "i",
           yTicks = yInfo$ticks,

@@ -28,7 +28,7 @@ readDataFromFile <- function (filePath, fileName,
                               format = "%m/%d/%Y"){
   totalPath <- file.path(filePath,fileName)
   if(file.exists(totalPath)){
-    retval <- read.delim(  
+    retval <- utils::read.delim(  
       totalPath, 
       header = hasHeader,
       sep = separator,

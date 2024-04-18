@@ -59,7 +59,7 @@ printSeries<-function(eList, istat, qUnit = 1, runoff = FALSE) {
                           digits = 4, width = 7)
   toPrint$qActual <- format(toPrint$qActual, digits = 3, width = 8)
   toPrint$qSmooth <- format(toPrint$qSmooth, digits=3, width = 8)
-  write.table(toPrint, file="",
+  utils::write.table(toPrint, file="",
               col.names=FALSE,
               row.names=FALSE,
               quote=FALSE)

@@ -61,7 +61,7 @@
 #'              contourLevels = clevel)  
 #' plotContours(eList, yearStart, yearEnd, qBottom, qTop = 50, 
 #'              contourLevels = clevel, flowDuration = FALSE) 
-#' colors <- colorRampPalette(c("white","black"))
+#' colors <- grDevices::colorRampPalette(c("white","black"))
 #' plotContours(eList, yearStart, yearEnd, qBottom, qTop = 50, 
 #'              contourLevels = clevel, color.palette = colors, 
 #'              flowDuration = FALSE)
@@ -75,7 +75,7 @@ plotContours <- function(eList, yearStart, yearEnd,
                          yTicks = NA, tick.lwd = 1, usgsStyle = FALSE,
                          lwd = 2, cex.main = 1, cex.axis = 1,
                          concLab = 1,
-                         color.palette = colorRampPalette(c("white","gray","blue","red")), ...) {
+                         color.palette = grDevices::colorRampPalette(c("white","gray","blue","red")), ...) {
   
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
@@ -129,9 +129,9 @@ plotContours <- function(eList, yearStart, yearEnd,
   numX<-length(x)
   numY<-length(y)
   
-  qBottomT <- ifelse(is.na(qBottom), quantile(localDaily$Q, probs = 0.05)*qFactor, qBottom)
+  qBottomT <- ifelse(is.na(qBottom), stats::quantile(localDaily$Q, probs = 0.05)*qFactor, qBottom)
 
-  qTopT <- ifelse(is.na(qTop), quantile(localDaily$Q, probs = 0.95)*qFactor, qTop)
+  qTopT <- ifelse(is.na(qTop), stats::quantile(localDaily$Q, probs = 0.95)*qFactor, qTop)
   
   if(any(is.na(yTicks))){
     
@@ -212,28 +212,28 @@ plotContours <- function(eList, yearStart, yearEnd,
   yLab<-ifelse(usgsStyle,qUnit@unitUSGS,qUnit@qUnitExpress)
   
   logY <- log(y,10)
-  filled.contour(x,log(y,10),surft,levels=contourLevels,xlim=c(yearStart,yearEnd),
+  graphics::filled.contour(x,log(y,10),surft,levels=contourLevels,xlim=c(yearStart,yearEnd),
                  ylim=c(log(yTicks[1],10),log(yTicks[nYTicks],10)),
                  xaxs="i",yaxs="i",
                  color.palette=color.palette, # ...,
                  plot.axes={
                    
-                   width <- grconvertX(par("usr")[2],from="user",to="inches") - grconvertX(par("usr")[1],from="user",to="inches")
-                   height <- grconvertY(par("usr")[4],from="user",to="inches") - grconvertY(par("usr")[3],from="user",to="inches")
+                   width <- graphics::grconvertX(par("usr")[2],from="user",to="inches") - graphics::grconvertX(par("usr")[1],from="user",to="inches")
+                   height <- graphics::grconvertY(par("usr")[4],from="user",to="inches") - graphics::grconvertY(par("usr")[3],from="user",to="inches")
                    
                    axis(1,tcl=0,at=xTicks,labels=xlabels,cex.axis=cex.axis)
                    axis(2,tcl=0,las=1,at=log(yTicks,10),labels=yTicks,cex.axis=cex.axis)
                    axis(3, tcl = 0, at = xTicks, labels =FALSE,cex.axis=cex.axis)
                    axis(4, tcl = 0, at = log(yTicks, 10), labels=FALSE,cex.axis=cex.axis)
-                   if(flowDuration) contour(x,log(y,10),durSurf,add=TRUE,drawlabels=FALSE,levels=plevels,lwd=lwd)
+                   if(flowDuration) graphics::contour(x,log(y,10),durSurf,add=TRUE,drawlabels=FALSE,levels=plevels,lwd=lwd)
                    segments(v1[1],v1[2],v1[3],v1[4])
                    segments(v2[1],v2[2],v2[3],v2[4])
                    segments(h1[1],h1[2],h1[3],h1[4])
                    
-                   segments(xTicks, rep(log(yTicks[1],10),length(xTicks)), xTicks, rep(grconvertY(grconvertY(par("usr")[3],from="user",to="inches")+tcl,from="inches",to="user"),length(xTicks)), lwd = tick.lwd)
-                   segments(xTicks, rep(log(yTicks[nYTicks],10),length(xTicks)), xTicks, rep(grconvertY(grconvertY(par("usr")[4],from="user",to="inches")-tcl,from="inches",to="user"),length(xTicks)), lwd = tick.lwd)
-                   segments(rep(yearStart,length(yTicks)), log(yTicks,10), rep(grconvertX(grconvertX(par("usr")[1],from="user",to="inches")+tcl,from="inches",to="user"),length(yTicks)),log(yTicks,10), lwd = tick.lwd)
-                   segments(rep(grconvertX(grconvertX(par("usr")[2],from="user",to="inches")-tcl,from="inches",to="user"),length(yTicks)), log(yTicks,10), rep(yearEnd,length(yTicks)),log(yTicks,10), lwd = tick.lwd)
+                   segments(xTicks, rep(log(yTicks[1],10),length(xTicks)), xTicks, rep(graphics::grconvertY(graphics::grconvertY(par("usr")[3],from="user",to="inches")+tcl,from="inches",to="user"),length(xTicks)), lwd = tick.lwd)
+                   segments(xTicks, rep(log(yTicks[nYTicks],10),length(xTicks)), xTicks, rep(graphics::grconvertY(graphics::grconvertY(par("usr")[4],from="user",to="inches")-tcl,from="inches",to="user"),length(xTicks)), lwd = tick.lwd)
+                   segments(rep(yearStart,length(yTicks)), log(yTicks,10), rep(graphics::grconvertX(graphics::grconvertX(par("usr")[1],from="user",to="inches")+tcl,from="inches",to="user"),length(yTicks)),log(yTicks,10), lwd = tick.lwd)
+                   segments(rep(graphics::grconvertX(graphics::grconvertX(par("usr")[2],from="user",to="inches")-tcl,from="inches",to="user"),length(yTicks)), log(yTicks,10), rep(yearEnd,length(yTicks)),log(yTicks,10), lwd = tick.lwd)
                  },
                   plot.title = {
                     if(printTitle) {

@@ -27,7 +27,7 @@
 #' annualFlow <- cumQdate(eList)
 #' head(annualFlow)
 #' plot(annualFlow)
-#' mod1 <- lm(annualFlow[,2] ~ annualFlow[,1])
+#' mod1 <- stats::lm(annualFlow[,2] ~ annualFlow[,1])
 #' summary(mod1)
 cumQdate <- function(eList, 
                      paStart = 10, paLong = 12, 
@@ -65,6 +65,6 @@ cumQdate <- function(eList,
     }  
   }
   
-  annualSeries <- na.omit(annualSeries)
+  annualSeries <- stats::na.omit(annualSeries)
   return(annualSeries)
 }

@@ -111,7 +111,7 @@ boxQTwice<-function(eList,
     logScaleText <- ""
   }
   
-  boxplot(bigQ~index,varwidth=TRUE,
+  graphics::boxplot(bigQ~index,varwidth=TRUE,
           names=groupNames,xlab="",
           ylim=c(yInfo$bottom,yInfo$top),
           main=plotTitle,cex=cex,ylab=yLabel,

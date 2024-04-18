@@ -9,8 +9,9 @@ plotContours(eList, yearStart, yearEnd, qBottom = NA, qTop = NA,
   pval = 0.05, printTitle = TRUE, vert1 = NA, vert2 = NA, horiz = NA,
   tcl = 0.03, flowDuration = TRUE, customPar = FALSE, yTicks = NA,
   tick.lwd = 1, usgsStyle = FALSE, lwd = 2, cex.main = 1,
-  cex.axis = 1, concLab = 1, color.palette = colorRampPalette(c("white",
-  "gray", "blue", "red")), ...)
+  cex.axis = 1, concLab = 1,
+  color.palette = grDevices::colorRampPalette(c("white", "gray", "blue",
+  "red")), ...)
 }
 \arguments{
 \item{eList}{named list with at least the Daily and INFO dataframes, and surfaces matrix}
@@ -98,7 +99,7 @@ plotContours(eList, yearStart, yearEnd, qBottom, qTop,
              contourLevels = clevel)  
 plotContours(eList, yearStart, yearEnd, qBottom, qTop = 50, 
              contourLevels = clevel, flowDuration = FALSE) 
-colors <- colorRampPalette(c("white","black"))
+colors <- grDevices::colorRampPalette(c("white","black"))
 plotContours(eList, yearStart, yearEnd, qBottom, qTop = 50, 
              contourLevels = clevel, color.palette = colors, 
              flowDuration = FALSE)

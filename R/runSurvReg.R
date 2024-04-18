@@ -193,7 +193,7 @@ run_WRTDS <- function(estY, estLQ,
   if(inherits(x, "survreg")) {
     newdf<-data.frame(DecYear=estY,LogQ=estLQ,SinDY=sin(2*pi*estY),CosDY=cos(2*pi*estY))
     #   extract results at estimation point
-    yHat<-predict(x,newdf)
+    yHat<- stats::predict(x,newdf)
     SE<-x$scale
     bias<-exp((SE^2)/2)
     survReg[1]<-yHat
@@ -227,11 +227,11 @@ run_WRTDS <- function(estY, estLQ,
 jitterSam <- function(Sam, V = 0.2) {
   SamR <- Sam
   n <- length(Sam$DecYear)
-  SamR$DecYear <- Sam$DecYear + rnorm(n,0,0.05)
+  SamR$DecYear <- Sam$DecYear + stats::rnorm(n,0,0.05)
   SamR$SinDY <- sin(SamR$DecYear * 2 * pi)
   SamR$CosDY <- cos(SamR$DecYear * 2 * pi)
-  sdLQ <- sd(Sam$LogQ)
+  sdLQ <- stats::sd(Sam$LogQ)
   s <- sdLQ * V
-  SamR$LogQ <- Sam$LogQ + rnorm(n,0,s)
+  SamR$LogQ <- Sam$LogQ + stats::rnorm(n,0,s)
   return(SamR)
 }

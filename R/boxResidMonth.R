@@ -104,7 +104,7 @@ boxResidMonth <- function(eList,
   monthList <- singleMonthList[localSample$Month]
   monthList <- factor(monthList, namesListFactor)
 
-  boxplot(resid ~ monthList,
+  graphics::boxplot(resid ~ monthList,
           varwidth = TRUE,
           xlab = "Month", ylab = yLab,
           main = plotTitle,
@@ -114,7 +114,7 @@ boxResidMonth <- function(eList,
           cex.axis = cex.axis,
           las = las,
           ...)
-  abline(h = 0)  
+  graphics::abline(h = 0)  
   if (!tinyPlot) mtext(title2, side = 3, line = -1.5)
   invisible(eList)
 }

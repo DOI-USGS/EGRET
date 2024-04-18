@@ -97,7 +97,7 @@ makeAnnualSeries<-function(eList, edgeAdjust = TRUE) {
     if (goodDay > 26 * paLong) {
       annualSeries[1, 4:8, i] <- mean(yearDaily$DecYear, 
                                       na.rm = TRUE)
-      annualSeries[2, 4, i] <- median(yearDaily$Q, na.rm = TRUE)
+      annualSeries[2, 4, i] <- stats::median(yearDaily$Q, na.rm = TRUE)
       annualSeries[2, 5, i] <- mean(yearDaily$Q, na.rm = TRUE)
       annualSeries[2, 6, i] <- max(yearDaily$Q30, na.rm = TRUE)
       annualSeries[2, 7, i] <- max(yearDaily$Q7, na.rm = TRUE)
@@ -111,7 +111,7 @@ makeAnnualSeries<-function(eList, edgeAdjust = TRUE) {
     numYears <- length(x)
     xVec <- seq(1,numYears)
     xy <- data.frame(x,y,xVec)
-    xy <- na.omit(xy)
+    xy <- stats::na.omit(xy)
     goodYears <- length(xy$x)
     x <- xy$x
     x1 <- x[1]
@@ -126,9 +126,9 @@ makeAnnualSeries<-function(eList, edgeAdjust = TRUE) {
         window
       }
       w <- triCube(x - xi, thisWindow)
-      mod <- lm(xy$y ~ x, weights = w)
+      mod <- stats::lm(xy$y ~ x, weights = w)
       new <- data.frame(x = x[i])
-      z <- exp(predict(mod, new))
+      z <- exp(stats::predict(mod, new))
       iYear <- xy$xVec[i]
       annualSeries[3, istat, iYear] <- z
     }

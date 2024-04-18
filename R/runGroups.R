@@ -172,6 +172,7 @@ runGroups <- function (eList, windowSide,
       paStart <- eList$INFO$paStart 
     } else {
       paStart <- 10
+      eList$INFO$paStart <- 10
     }
   } else {
     eList$INFO$paStart <- paStart
@@ -182,6 +183,7 @@ runGroups <- function (eList, windowSide,
       paLong <- eList$INFO$paLong
     } else {
       paLong <- 12
+      eList$INFO$paLong <- 12
     }
   } else {
     eList$INFO$paLong <- paLong

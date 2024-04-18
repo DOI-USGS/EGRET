@@ -480,10 +480,10 @@ runPairs <- function(eList, year1, year2, windowSide,
   k <- c(31, 28.25, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31) 
   eList1 <- as.egret(eList$INFO, DailyRS1FD1, eList$Sample)
   monthlyResults1 <- calculateMonthlyResults(eList1)
-  monthlyResults1 <- na.omit(monthlyResults1)
+  monthlyResults1 <- stats::na.omit(monthlyResults1)
   eList2 <- as.egret(eList$INFO, DailyRS2FD2, eList$Sample)
   monthlyResults2 <- calculateMonthlyResults(eList2)
-  monthlyResults2 <- na.omit(monthlyResults2)
+  monthlyResults2 <- stats::na.omit(monthlyResults2)
   monthlyResults1$monthFlux <- monthlyResults1$nDays * monthlyResults1$FNFlux / eList$INFO$drainSqKm
   monthlyResults1$monthConc <- monthlyResults1$FNConc
   

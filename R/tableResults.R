@@ -113,7 +113,7 @@ tableResults<-function(eList, qUnit = 2, fluxUnit = 9, localDaily = NA) {
                            paste0("FN Flux [", fNameNoSpace, "]") )    
   }
   
-  write.table(results,file="",quote=FALSE,col.names=FALSE,row.names=FALSE)
+  utils::write.table(results,file="",quote=FALSE,col.names=FALSE,row.names=FALSE)
   
   origNames <- names(results)
   results <- data.frame(apply(results, 2, function(x) as.numeric(gsub(" ","", as.character(x)))))

@@ -16,22 +16,22 @@ calculateMonthlyResults <- function(eList){
   
   localDaily <- getDaily(eList)
 
-  nDays <- aggregate(localDaily$ConcDay, by=list(localDaily$MonthSeq), function(x) sum(!is.na(x)))$x
+  nDays <- stats::aggregate(localDaily$ConcDay, by=list(localDaily$MonthSeq), function(x) sum(!is.na(x)))$x
 
-  Q <- aggregate(localDaily$Q, by=list(localDaily$MonthSeq), mean)$x
-  DecYear <- aggregate(localDaily$DecYear, by=list(localDaily$MonthSeq), mean)$x
+  Q <- stats::aggregate(localDaily$Q, by=list(localDaily$MonthSeq), mean)$x
+  DecYear <- stats::aggregate(localDaily$DecYear, by=list(localDaily$MonthSeq), mean)$x
   Year <- trunc(DecYear)
-  Month <- aggregate(localDaily$Month, by=list(localDaily$MonthSeq), mean)$x
-  Conc <- aggregate(localDaily$ConcDay, by=list(localDaily$MonthSeq), mean)$x
-  Flux <- aggregate(localDaily$FluxDay, by=list(localDaily$MonthSeq), mean)$x
-  FNConc <- aggregate(localDaily$FNConc, by=list(localDaily$MonthSeq), mean)$x
-  FNFlux <- aggregate(localDaily$FNFlux, by=list(localDaily$MonthSeq), mean)$x
+  Month <- stats::aggregate(localDaily$Month, by=list(localDaily$MonthSeq), mean)$x
+  Conc <- stats::aggregate(localDaily$ConcDay, by=list(localDaily$MonthSeq), mean)$x
+  Flux <- stats::aggregate(localDaily$FluxDay, by=list(localDaily$MonthSeq), mean)$x
+  FNConc <- stats::aggregate(localDaily$FNConc, by=list(localDaily$MonthSeq), mean)$x
+  FNFlux <- stats::aggregate(localDaily$FNFlux, by=list(localDaily$MonthSeq), mean)$x
 
   kalman <- all(c("GenConc","GenFlux") %in% names(localDaily))
   
   if(kalman){
-    GenConc <- aggregate(localDaily$GenConc, by=list(localDaily$MonthSeq), mean)$x
-    GenFlux <- aggregate(localDaily$GenFlux, by=list(localDaily$MonthSeq), mean)$x
+    GenConc <- stats::aggregate(localDaily$GenConc, by=list(localDaily$MonthSeq), mean)$x
+    GenFlux <- stats::aggregate(localDaily$GenFlux, by=list(localDaily$MonthSeq), mean)$x
 
     MonthlyResults <- data.frame(Month, Year, nDays,
                                  DecYear, Q,
