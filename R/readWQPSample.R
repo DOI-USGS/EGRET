@@ -44,15 +44,59 @@ readWQPSample <- function(siteNumber,
                           endDate = "",
                           verbose = TRUE){
   
-  url <- dataRetrieval::constructWQPURL(siteNumber,characteristicName,startDate,endDate)
-  retval <- dataRetrieval::importWQP(url)
-  if(nrow(retval) > 0){
 
-    if(nrow(retval) > 0){
-      data <- processQWData(retval)
-    } else {
-      data <- NULL
+  if(packageVersion("dataRetrieval") >= "2.7.17"){
+    data <- suppressMessages(dataRetrieval::readWQPqw(siteNumbers = siteNumber,
+                                     parameterCd = characteristicName,
+                                     startDate = startDate,
+                                     endDate = endDate,
+                                     ignore_attributes = TRUE,
+                                     legacy = FALSE)  )
+    
+    conversion_names <- data.frame(legacy_names = c("ResultDetectionConditionText",
+                      "ResultMeasureValue",
+                      "DetectionQuantitationLimitMeasure.MeasureValue",
+                      "CharacteristicName",
+                      "ActivityStartDate",
+                      "ActivityStartDateTime",
+                      "USGSPCode",
+                      "ActivityMediaSubdivisionName",
+                      "ActivityMediaName",
+                      "ResultSampleFractionText",
+                      "ResultStatusIdentifier",
+                      "ResultValueTypeName"),
+    new_names = c("Result_ResultDetectionCondition",
+                   "Result_Measure",
+                   "DetectionLimit_TypeA",
+                   "Result_Characteristic",
+                   "Activity_StartDate",
+                   "Activity_StartDateTime",
+                   "USGSpcode",
+                   "Activity_MediaSubdivisionName",
+                   "Activity_Media",
+                   "Result_SampleFraction",
+                   "Result_MeasureStatusIdentifier",
+                   "Result_MeasureType"))
+    
+    for(i in seq_len(nrow(conversion_names))){
+      names(data)[which(names(data) == conversion_names$new_names[i])] <- conversion_names$legacy_names[i]
     }
+
+  } else {
+    data <- dataRetrieval::readWQPqw(siteNumbers = siteNumber,
+                                     parameterCd = characteristicName,
+                                     startDate = startDate,
+                                     endDate = endDate,
+                                     ignore_attributes = TRUE)
+  }
+
+  if(nrow(data) == 0){
+    warning("No data returned")
+  }
+  
+  if(nrow(data) > 0){
+
+    data <- processQWData(data)
     
     compressedData <- compressData(data[, c("dateTime",
                                             "qualifier",

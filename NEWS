@@ -1,3 +1,9 @@
+EGRET 3.0.10
+===========
+* Removed readNWISSample because the underlying data from NWIS is retired.
+* Style updates.
+
+
 EGRET 3.0.9
 ===========
 * Bug fix for the monthly concentration trend results in runPairs.

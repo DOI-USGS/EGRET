@@ -12,9 +12,7 @@
 #' @seealso \code{\link[dataRetrieval]{readWQPqw}}
 #' @examples
 #' \donttest{
-#' #library(dataRetrieval)
-#'  
-#' #rawWQP <- readWQPqw('21FLEECO_WQX-IMPRGR80','Phosphorus', '', '')
+#' #rawWQP <- dataRetrieval::readWQPqw('21FLEECO_WQX-IMPRGR80','Phosphorus', '', '')
 #' #Sample2 <- processQWData(rawWQP)
 #' }
 processQWData <- function(data){
@@ -32,7 +30,8 @@ processQWData <- function(data){
   # qualifier[!(is.na(data$DetectionQuantitationLimitMeasure.MeasureValue)) & 
   #             data$ResultMeasureValue < data$DetectionQuantitationLimitMeasure.MeasureValue] <- "<"
     
-  correctedData <- ifelse((nchar(qualifier)==0),data$ResultMeasureValue,data$DetectionQuantitationLimitMeasure.MeasureValue)
+  correctedData <- ifelse((nchar(qualifier)==0),data$ResultMeasureValue,
+                          data$DetectionQuantitationLimitMeasure.MeasureValue)
   
   test <- data.frame(data$CharacteristicName)
   
@@ -56,7 +55,7 @@ processQWData <- function(data){
                            "value")
 
   test$USGSPCode <- data$USGSPCode
-   
+  test$ActivityStartDateTime <- data$ActivityStartDateTime
   test$ActivityMediaSubdivisionName <- data$ActivityMediaSubdivisionName
   test$ActivityMediaName <- data$ActivityMediaName
   test$ResultSampleFractionText <- data$ResultSampleFractionText
