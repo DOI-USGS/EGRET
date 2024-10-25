@@ -14,8 +14,8 @@
 #' dataInput <- data.frame(dateTime, ConcLow, ConcHigh, Uncen, stringsAsFactors=FALSE)
 #' Sample <- populateSampleColumns(dataInput)
 populateSampleColumns <- function(rawData){  # rawData is a dataframe with dateTime, ConcLow, ConcHigh, Uncen
-  Sample <- as.data.frame(matrix(ncol=3,nrow=length(rawData$dateTime)))
-  colnames(Sample) <- c('Date', 'ConcLow','ConcHigh')
+  Sample <- rawData
+
   Sample$Date <- rawData$dateTime
   Sample$ConcLow <- rawData$ConcLow
   Sample$ConcHigh <- rawData$ConcHigh
@@ -29,6 +29,7 @@ populateSampleColumns <- function(rawData){  # rawData is a dataframe with dateT
   
   Sample$SinDY <- sin(2*pi*Sample$DecYear)
   Sample$CosDY <- cos(2*pi*Sample$DecYear)
-  # Sample2 <- subset(Sample, (!is.na(Sample$ConcHigh)))  # Was just ConcHigh.....
+
+  Sample <- Sample[,names(Sample)[!names(Sample) %in% c("code", "value")]]
   return (Sample)  
 }
