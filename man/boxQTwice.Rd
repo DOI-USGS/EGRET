@@ -25,7 +25,7 @@ boxQTwice(eList, printTitle = TRUE, qUnit = 2, cex = 0.8,
 
 \item{tcl}{number defaults to 0.5, specifies length of tick marks as fraction of height of a line of text}
 
-\item{las}{numeric in {0,1,2,3}; the style of axis labels, see ?par}
+\item{las}{numeric in c(0,1,2,3); the style of axis labels, see ?par}
 
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be plotted small as part of a multi-plot figure, default is FALSE.}
 

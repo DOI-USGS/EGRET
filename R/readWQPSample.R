@@ -52,7 +52,7 @@ readWQPSample <- function(siteNumber,
                   "ResultStatusIdentifier",
                   "ResultValueTypeName")
   
-  if(packageVersion("dataRetrieval") >= "2.7.17"){
+  if(utils::packageVersion("dataRetrieval") >= "2.7.17"){
     data <- suppressMessages(dataRetrieval::readWQPqw(siteNumbers = siteNumber,
                                      parameterCd = characteristicName,
                                      startDate = startDate,

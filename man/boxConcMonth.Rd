@@ -21,7 +21,7 @@ boxConcMonth(eList, printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
 
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
 
-\item{las}{numeric in {0,1,2,3}; the style of axis labels, see ?par}
+\item{las}{numeric in c(0,1,2,3); the style of axis labels, see ?par}
 
 \item{logScale}{logical if TRUE y plotted in log axis}
 

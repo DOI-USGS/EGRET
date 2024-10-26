@@ -14,7 +14,7 @@ boxResidMonth(eList, stdResid = FALSE, las = 1, printTitle = TRUE,
 
 \item{stdResid}{logical variable, if TRUE it uses the standardized residual, if FALSE it uses the actual, default is FALSE}
 
-\item{las}{numeric in {0,1,2,3}; the style of axis labels}
+\item{las}{numeric in c(0,1,2,3); the style of axis labels}
 
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE not printed (this is best for a multi-plot figure)}
 
