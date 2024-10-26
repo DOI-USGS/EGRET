@@ -87,8 +87,7 @@ readWQPSample <- function(siteNumber,
     data <- dataRetrieval::readWQPqw(siteNumbers = siteNumber,
                                      parameterCd = characteristicName,
                                      startDate = startDate,
-                                     endDate = endDate,
-                                     ignore_attributes = TRUE)
+                                     endDate = endDate)
   }
 
   if(nrow(data) == 0){
