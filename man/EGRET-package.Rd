@@ -2,6 +2,7 @@
 % Please edit documentation in R/EGRET.R
 \docType{package}
 \name{EGRET-package}
+\alias{EGRET}
 \alias{EGRET-package}
 \title{EGRET package includes WRTDS and flowHistory}
 \description{
@@ -26,10 +27,15 @@ Hirsch, R.M., and De Cicco, L.A., 2014, User guide to Exploration and Graphics f
 (EGRET) and dataRetrieval: R packages for hydrologic data: U.S. Geological Survey Techniques and Methods book 4, 
 chap. A10, 94 p., \doi{10.3133/tm4A10}
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://pubs.usgs.gov/tm/04/a10/}
+  \item Report bugs at \url{https://github.com/DOI-USGS/EGRET/issues}
+}
+
+}
 \author{
 Robert M. Hirsch \email{rhirsch@usgs.gov}, Laura De Cicco \email{ldecicco@usgs.gov}
 }
-\keyword{graphics}
-\keyword{statistics}
-\keyword{streamflow}
-\keyword{water-quality}
+\keyword{internal}

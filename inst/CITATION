@@ -12,8 +12,8 @@ bibentry(bibtype = "Manual",
                    comment=c(ORCID="0000-0002-0881-0919"))),
   title = "Exploration and Graphics for RivEr Trends (EGRET)",
   publisher = "U.S. Geological Survey",
-  year = 2023,
+  year = 2024,
   url = "https://pubs.usgs.gov/tm/04/a10/",
-  textVersion = "Hirsch, R.M., De Cicco, L.A., Murphy, J., 2023, Exploration and Graphics for RivEr Trends (EGRET), version 3.0.9, doi:10.5066/P9CC9JEX"
+  textVersion = "Hirsch, R.M., De Cicco, L.A., Murphy, J., 2024, Exploration and Graphics for RivEr Trends (EGRET), version 3.0.10, doi:10.5066/P9CC9JEX"
 )
 

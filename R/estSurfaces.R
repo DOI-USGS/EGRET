@@ -92,7 +92,7 @@ estSurfaces<-function(eList, surfaceStart=NA, surfaceEnd=NA, localSample=NA,
 
     sliceIndex <- which(vectorYear >= decimalDate(as.Date(surfaceStart)) & vectorYear <= 
                           decimalDate(as.Date(surfaceEnd)))
-    Year <- vectorYear[c(sliceIndex[1]-1, sliceIndex, tail(sliceIndex, n = 1)+1)]
+    Year <- vectorYear[c(sliceIndex[1]-1, sliceIndex, utils::tail(sliceIndex, n = 1)+1)]
     
     nVectorYear <- length(Year)
     estPtYear <- rep(Year,each=14)

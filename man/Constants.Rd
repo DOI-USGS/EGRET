@@ -9,10 +9,10 @@
 \alias{concConst}
 \title{Constants included with EGRET}
 \description{
-\itemize{
- \item{fluxConst}{Flux conversion object}
- \item{qConst}{Flow conversion object}
- \item{monthInfo}{Month object}
+\tabular{ll}{
+fluxConst \tab Flux conversion object\cr
+qConst \tab Flow conversion object\cr
+monthInfo \tab Month object\cr
 }
 }
 \examples{

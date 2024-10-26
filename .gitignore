@@ -7,7 +7,6 @@ Meta/
 Newstuff/
 *.docx
 vignettes/*.html
-vignettes/*.R
 vignettes/EGRET.R
 vignettes/Enhancements.R
 vignettes/TrendsByMonth.R

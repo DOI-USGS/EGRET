@@ -54,6 +54,12 @@ readUserSample <- function (filePath, fileName,
                            format = format)
   
   compressedData <- compressData(data, verbose = verbose)
+  compressedData <- remove_zeros(compressedData, verbose = verbose)
   Sample <- populateSampleColumns(compressedData)
+  orig_Sample <- c("Date", "ConcLow", "ConcHigh", "Uncen", "ConcAve",
+                   "Julian", "Month", "Day", "DecYear", "waterYear", "MonthSeq",
+                   "SinDY", "CosDY")
+  Sample <- Sample[, c(orig_Sample, names(Sample)[!names(Sample) %in% orig_Sample])]
+  Sample <- Sample[order(Sample$Date), ]
   return(Sample)
 }

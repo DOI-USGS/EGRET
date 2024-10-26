@@ -17,7 +17,7 @@
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multi-plot figure, default is FALSE.
 #' @param logScale logical if TRUE y plotted in log axis
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
-#' @param las numeric in {0,1,2,3}; the style of axis labels, see ?par
+#' @param las numeric in c(0,1,2,3); the style of axis labels, see ?par
 #' @param showXLabels logical defaults to TRUE. If FALSE, the x axis label is not plotted
 #' @param showYLabels logical defaults to TRUE. If FALSE, the y axis label is not plotted
 #' @param showXAxis logical defaults to TRUE. If FALSE, the x axis is not plotted
@@ -124,7 +124,7 @@ boxConcMonth <- function(eList, printTitle = TRUE,
                        units = localINFO$param.units)
   yTicksLab <- prettyNum(yInfo$ticks)
   
-  boxplot(tempDF$conc ~ tempDF$month,
+  graphics::boxplot(tempDF$conc ~ tempDF$month,
           ylim = c(yInfo$bottom,yInfo$top),
           yaxs = "i",
           yTicks = yInfo$ticks,

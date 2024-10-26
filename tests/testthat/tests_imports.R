@@ -27,25 +27,25 @@ test_that("External NWIS Sample tests", {
   SampleNames <- c("Date","ConcLow","ConcHigh","Uncen","ConcAve","Julian","Month",   
                    "Day","DecYear","MonthSeq","waterYear","SinDY","CosDY")
   
-  expect_warning(Sample_01075 <- readNWISSample('01594440',
+  Sample_01075 <- readNWISSample('01594440',
                                  '01075', 
                                  '1985-01-01', 
-                                 '1985-03-31'))
+                                 '1985-03-31')
   
   expect_true(all(SampleNames %in% names(Sample_01075)))
   
-  expect_warning(Sample_All2 <- readNWISSample('05114000',
+  Sample_All2 <- readNWISSample('05114000',
                                 c('00915','00931'), 
                                 '1985-01-01', 
-                                '1985-03-31'))
+                                '1985-03-31')
   
   expect_true(all(SampleNames %in% names(Sample_All2)))
   
-  Sample_Select <- expect_warning(readNWISSample('05114000',
+  Sample_Select <- readNWISSample('05114000',
                                   c('00915','00931'), 
-                                  '', ''))
+                                  '', '')
   
-  expect_true(all(names(Sample_Select) %in% SampleNames))
+  expect_true(all(SampleNames %in% names(Sample_Select)))
   
   expect_is(Sample_Select$Date, 'Date')
   expect_is(Sample_Select$ConcAve, 'numeric')
@@ -73,16 +73,15 @@ test_that("External INFO tests", {
   INFO <- readNWISInfo('05114000','00010',interactive=FALSE)
   expect_true(all(requiredColumns %in% names(INFO)))
   
-  # nameToUse <- 'Specific conductance'
-  # pcodeToUse <- '00095'
-  # 
-  # INFO_WQP <- readWQPInfo('USGS-04024315',pcodeToUse,interactive=FALSE)
-  # expect_true(all(requiredColumns %in% names(INFO_WQP)))
-  # 
-  # INFO2 <- readWQPInfo('WIDNR_WQX-10032762',nameToUse,interactive=FALSE)
-  # expect_true(all(requiredColumns %in% names(INFO2)))
-  # 
-  # 
+  nameToUse <- 'Specific conductance'
+  pcodeToUse <- '00095'
+
+  INFO_WQP <- readWQPInfo('USGS-04024315',pcodeToUse,interactive=FALSE)
+  expect_true(all(requiredColumns %in% names(INFO_WQP)))
+
+  INFO2 <- readWQPInfo('WIDNR_WQX-10032762',nameToUse,interactive=FALSE)
+  expect_true(all(requiredColumns %in% names(INFO2)))
+ 
 })
 
 test_that("User tests", {
@@ -105,7 +104,7 @@ test_that("User tests", {
   SampleNames <- c("Date","ConcLow","ConcHigh","Uncen","ConcAve","Julian","Month",   
                    "Day","DecYear","MonthSeq","waterYear","SinDY","CosDY")
 
-  expect_true(all(names(Sample_user) %in% SampleNames))
+  expect_true(all(SampleNames %in% names(Sample_user)))
   
 })
 

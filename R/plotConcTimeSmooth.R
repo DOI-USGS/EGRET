@@ -222,16 +222,16 @@ plotConcTimeSmooth<-function (eList, q1, q2, q3,
   cols <- colorVal[index]
   
   legendLeft <- if(legendLeft == 0) {
-    grconvertX(0.05, from="npc", to="user")
+    graphics::grconvertX(0.05, from="npc", to="user")
   } else {
     legendLeft
   }
   
   if(legendTop == 0) {
-    legendTop <- grconvertY(0.3, from="npc", to="user") 
+    legendTop <- graphics::grconvertY(0.3, from="npc", to="user") 
   } 
   
-  if (printLegend) legend(legendLeft,legendTop,legend=words,lty=ltys,col=cols,lwd=lwd,cex=cex.legend)
+  if (printLegend) graphics::legend(legendLeft,legendTop,legend=words,lty=ltys,col=cols,lwd=lwd,cex=cex.legend)
   
   printResults <- rep(NA, numX * 4)
   dim(printResults) <- c(numX, 4)

@@ -63,3 +63,4 @@ cobertura.xml
 test-out.xml
 ^_pkgdown\.yml$
 review/*
+docs/*

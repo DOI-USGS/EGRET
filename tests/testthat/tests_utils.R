@@ -69,15 +69,15 @@ test_that("data functions work", {
   compressed <- compressData(dataInput)
   expect_is(compressed, "data.frame")
   expect_gt(nrow(compressed), 1)
-  expect_equal(names(compressed), c("dateTime", "ConcLow", "ConcHigh",
-                                    "Uncen"))
+  expect_true(all(c("dateTime", "ConcLow", "ConcHigh", "Uncen") %in% 
+                 names(compressed)))
   
   #mergeReport
   
   siteNumber <- '01594440'
   pCode <- '01075'
   Daily <- readNWISDaily(siteNumber,'00060', '1985-01-01', '1990-03-31')
-  expect_warning(Sample <- readNWISSample(siteNumber,pCode, '1985-01-01', '1990-03-31'))
+  Sample <- readNWISSample(siteNumber,pCode, '1985-01-01', '1990-03-31')
   INFO <- readNWISInfo(siteNumber,pCode,interactive=FALSE)
   eList <- mergeReport(INFO, Daily, Sample)
   expect_equal(names(eList), c("INFO", "Daily", "Sample", "surfaces"))

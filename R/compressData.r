@@ -51,24 +51,28 @@ compressData <- function(data, verbose = TRUE){
     i <- i + 1
   }
   
-  names(data) <- c('dateTime', 'code', 'value')
-  returnDataFrame <- as.data.frame(matrix(ncol=3,nrow=nrow(data)))
-  names(returnDataFrame) <- c('dateTime', 'ConcLow', 'ConcHigh')
+  names(data)[1:3] <- c('dateTime', 'code', 'value')
   
   data$dateTime <- as.character(data$dateTime)
   if(dateFormatCheck(data$dateTime)){
-    returnDataFrame$dateTime <- as.Date(data$dateTime)  
+    data$dateTime <- as.Date(data$dateTime)  
   } else {
     data$dateTime <- as.Date(data$dateTime,format="%m/%d/%Y")
-    returnDataFrame$dateTime <- as.Date(data$dateTime,format="%m/%d/%Y")
   }
-  returnDataFrame$ConcLow <- as.numeric(lowConcentration)
-  returnDataFrame$ConcHigh <- as.numeric(highConcentration)
-  Uncen1<-ifelse(returnDataFrame$ConcLow==returnDataFrame$ConcHigh,1,0)
-  returnDataFrame$Uncen<-ifelse(is.na(returnDataFrame$ConcLow)|is.na(returnDataFrame$ConcHigh),0,Uncen1)
+
   
-  flaggedData1 <- returnDataFrame[(returnDataFrame$ConcLow == 0 & returnDataFrame$ConcHigh == 0),]
-  returnDataFrame <- returnDataFrame[!(returnDataFrame$ConcLow == 0 & returnDataFrame$ConcHigh == 0),]
+  data$ConcLow <- as.numeric(lowConcentration)
+  data$ConcHigh <- as.numeric(highConcentration)
+  Uncen1<-ifelse(data$ConcLow==data$ConcHigh,1,0)
+  data$Uncen<-ifelse(is.na(data$ConcLow)|is.na(data$ConcHigh),0,Uncen1)
+  
+  return(data)
+}
+
+
+remove_zeros <- function(data, verbose){
+  flaggedData1 <- data[(data$ConcLow == 0 & data$ConcHigh == 0),]
+  data <- data[!(data$ConcLow == 0 & data$ConcHigh == 0),]
   
   if (nrow(flaggedData1) > 0){
     WarningMessage <- paste("Deleted", nrow(flaggedData1), "rows of data because concentration was reported as 0.0, the program is unable to interpret that result and is therefore deleting it.")    
@@ -78,6 +82,5 @@ compressData <- function(data, verbose = TRUE){
       print(flaggedData1)
     }
   }
-
-  return(returnDataFrame)
+  return(data)
 }

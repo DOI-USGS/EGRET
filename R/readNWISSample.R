@@ -45,67 +45,17 @@ readNWISSample <- function(siteNumber,
                            startDate = "",
                            endDate = "",
                            verbose = TRUE){
+
   
-
-  multi_pcodes <- length(parameterCd) > 1
-  if(multi_pcodes){
-    rawSample <- dataRetrieval::readNWISqw(siteNumber,
-                                           parameterCd,
-                                           startDate,endDate, 
-                                           expanded = FALSE)
-    dataColumns <- grep("p\\d{5}",names(rawSample))
-    remarkColumns <- grep("r\\d{5}",names(rawSample))
-    totalColumns <-c(grep("sample_dt",names(rawSample)),
-                     dataColumns, remarkColumns)
-    totalColumns <- totalColumns[order(totalColumns)]
-    extras <- rawSample[, c("medium_cd")]
-
-  } else {
-    rawSample <- dataRetrieval::readNWISqw(siteNumber,
-                                           parameterCd,
-                                           startDate,endDate, 
-                                           expanded = TRUE)
-    totalColumns <- c("sample_dt",  "remark_cd",  "result_va")
-    
-    extras <- rawSample[, c("sample_dt", "medium_cd", "hyd_cond_cd", "samp_type_cd", 
-                            "hyd_event_cd", "dqi_cd", "rpt_lev_cd")]
-    
-    if(length(unique(rawSample$medium_cd)) > 1){
-      message("More than one medium_cd returned")
-    }
-    
-  }
+  siteNumber <- paste0("USGS-", siteNumber)
   
-
-  if(nrow(rawSample) > 0){
-    compressedData <- compressData(rawSample[,totalColumns],
-                                   verbose = verbose)
-    
-    Sample <- populateSampleColumns(compressedData)
-    if(!multi_pcodes){
-      Sample <- merge(x = Sample, y = extras, 
-                      by.x = "Date",
-                      by.y = "sample_dt", 
-                      all.x = TRUE)
-    }
-    
-  } else {
-    Sample <- data.frame(Date = as.Date(character()),
-                         ConcLow = numeric(), 
-                         ConcHigh = numeric(), 
-                         Uncen = numeric(),
-                         ConcAve = numeric(),
-                         Julian = numeric(),
-                         Month = numeric(),
-                         Day = numeric(),
-                         DecYear = numeric(),
-                         MonthSeq = numeric(),
-                         SinDY = numeric(),
-                         CosDY = numeric(),
-                         stringsAsFactors = FALSE)
-  }
-
+  Sample <- readWQPSample(siteNumber = siteNumber,
+                          characteristicName = parameterCd,
+                          startDate = startDate,
+                          endDate = endDate,
+                          verbose = verbose)
+  
   return(Sample)
+  
 }
-
 

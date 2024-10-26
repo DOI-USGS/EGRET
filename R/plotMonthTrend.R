@@ -130,8 +130,8 @@ plotMonthTrend <- function(pairResults, yMax = NA,
   axis(2, at = NULL, labels = TRUE, tick = TRUE)
   axis(3, at = seq(1, 12), labels = FALSE, tick = TRUE)
   axis(4, at = NULL, labels = FALSE, tick = TRUE)
-  abline(h=0, col = "blue", lwd = 1)
-  box()
+  graphics::abline(h=0, col = "blue", lwd = 1)
+  graphics::box()
   par(new = TRUE)
   plot(1:12, z2, xlim = c(0.5,12.5), ylim = c(0, yMax),
        xlab = "", ylab = "",

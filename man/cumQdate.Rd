@@ -42,6 +42,6 @@ eList <- Choptank_eList
 annualFlow <- cumQdate(eList)
 head(annualFlow)
 plot(annualFlow)
-mod1 <- lm(annualFlow[,2] ~ annualFlow[,1])
+mod1 <- stats::lm(annualFlow[,2] ~ annualFlow[,1])
 summary(mod1)
 }

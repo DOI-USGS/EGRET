@@ -217,18 +217,18 @@ plotConcQSmooth<-function(eList,
   cols<-colorVal[index]
   
   legendLeft <- if(legendLeft == 0) {
-    grconvertX(0.05, from="npc", to="user")
+    graphics::grconvertX(0.05, from="npc", to="user")
   } else {
     legendLeft
   }
   
   legendTop <- if(legendTop == 0) {
-    grconvertY(0.3, from="npc", to="user") 
+    graphics::grconvertY(0.3, from="npc", to="user") 
   } else {
     legendTop
   }
   
-  if (printLegend) legend(legendLeft,legendTop ,legend=words,lty=ltys,col=cols,lwd=lwd,cex=cex.legend)
+  if (printLegend) graphics::legend(legendLeft,legendTop ,legend=words,lty=ltys,col=cols,lwd=lwd,cex=cex.legend)
   
   printResults<-rep(NA,48*4)
   dim(printResults)<-c(48,4)

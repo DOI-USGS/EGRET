@@ -107,7 +107,7 @@ boxConcThree<-function (eList, tinyPlot=FALSE,
   yTicks <- yPretty(yMax)
   yTop <- yTicks[length(yTicks)]
   
-  boxplot(concV ~ index,varwidth=TRUE,
+  graphics::boxplot(concV ~ index,varwidth=TRUE,
           names = groupNames,xlab = "", ylab = yLab,
           ylim = c(0,yTop), axes = FALSE,
           main = plotTitle, font.main = font.main, cex = cex,
@@ -119,7 +119,7 @@ boxConcThree<-function (eList, tinyPlot=FALSE,
   axis(2,tcl=0.5,las=1,at=yTicks,cex.axis=cex.axis)
   axis(3,tcl=0.5,at=c(1,2,3),labels=FALSE)
   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
-  box()
+  graphics::box()
   if (!tinyPlot) mtext(title2,side=3,line=-1.5)
   invisible(eList)
 }

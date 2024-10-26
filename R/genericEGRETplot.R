@@ -84,9 +84,9 @@ genericEGRETDotPlot <- function(x,y, xlim, ylim,
        ylim=ylim,yaxs=yaxs,ylab=if(showYLabels) ylab else "", main=plotTitle,col=col,lwd=lwd,
        pch=pch,cex=cex,cex.main=cex.main,font.main=font.main,cex.lab=cex.lab,...)
   
-  box()
-  if (hLine) abline(h = 0)
-  if (oneToOneLine) abline(a=0,b=1)
+  graphics::box()
+  if (hLine) graphics::abline(h = 0)
+  if (oneToOneLine) graphics::abline(a=0,b=1)
   
   if(rmSciX){
     xTicksLab <- prettyNum(xTicks)

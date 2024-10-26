@@ -44,24 +44,73 @@ readWQPSample <- function(siteNumber,
                           endDate = "",
                           verbose = TRUE){
   
-  url <- dataRetrieval::constructWQPURL(siteNumber,characteristicName,startDate,endDate)
-  retval <- dataRetrieval::importWQP(url)
-  if(nrow(retval) > 0){
-
-    if(nrow(retval) > 0){
-      data <- processQWData(retval)
-    } else {
-      data <- NULL
-    }
+  extra_cols <- c("ActivityStartDateTime",
+                  "USGSPCode",
+                  "ActivityMediaSubdivisionName",
+                  "ActivityMediaName",
+                  "ResultSampleFractionText",
+                  "ResultStatusIdentifier",
+                  "ResultValueTypeName")
+  
+  if(utils::packageVersion("dataRetrieval") >= "2.7.17"){
+    data <- suppressMessages(dataRetrieval::readWQPqw(siteNumbers = siteNumber,
+                                     parameterCd = characteristicName,
+                                     startDate = startDate,
+                                     endDate = endDate,
+                                     ignore_attributes = TRUE,
+                                     legacy = FALSE)  )
     
-    compressedData <- compressData(data[, c("dateTime",
-                                            "qualifier",
-                                            "value")],
-                                   verbose=verbose)
-    Sample <- populateSampleColumns(compressedData)
-    Sample <- cbind(Sample, data[, names(data)[!names(data) %in% c("dateTime",
-                                                                  "qualifier",
-                                                                  "value")]])
+    conversion_names <- data.frame(legacy_names = c("ResultDetectionConditionText",
+                                                    "ResultMeasureValue",
+                                                    "DetectionQuantitationLimitMeasure.MeasureValue",
+                                                    "CharacteristicName",
+                                                    "ActivityStartDate",
+                                                    extra_cols),
+                                   new_names = c("Result_ResultDetectionCondition",
+                                                 "Result_Measure",
+                                                 "DetectionLimit_MeasureA",
+                                                 "Result_Characteristic",
+                                                 "Activity_StartDate",
+                                                 "Activity_StartDateTime",
+                                                 "USGSpcode",
+                                                 "Activity_MediaSubdivisionName",
+                                                 "Activity_Media",
+                                                 "Result_SampleFraction",
+                                                 "Result_MeasureStatusIdentifier",
+                                                 "Result_MeasureType"))
+    
+    for(i in seq_len(nrow(conversion_names))){
+      names(data)[which(names(data) == conversion_names$new_names[i])] <- conversion_names$legacy_names[i]
+    }
+
+  } else {
+    data <- dataRetrieval::readWQPqw(siteNumbers = siteNumber,
+                                     parameterCd = characteristicName,
+                                     startDate = startDate,
+                                     endDate = endDate)
+  }
+
+  if(nrow(data) == 0){
+    warning("No data returned")
+  }
+  
+  if(nrow(data) > 0){
+
+    data <- processQWData(data)
+    first_three <- c("dateTime",
+                     "qualifier",
+                     "value")
+    compressedData <- compressData(data[, first_three],
+                                   verbose = verbose)
+    combined_data <- cbind(compressedData, data[, names(data)[!names(data) %in% first_three]])
+    combined_data <- remove_zeros(combined_data, verbose = verbose)
+    
+    Sample <- populateSampleColumns(combined_data)
+    orig_Sample <- c("Date", "ConcLow", "ConcHigh", "Uncen", "ConcAve",
+                     "Julian", "Month", "Day", "DecYear", "waterYear", "MonthSeq",
+                     "SinDY", "CosDY")
+    Sample <- Sample[, c(orig_Sample, names(Sample)[!names(Sample) %in% orig_Sample])]
+    Sample <- Sample[order(Sample$Date), ]
   } else {
     Sample <- data.frame(Date=as.Date(character()),
                          ConcLow=numeric(), 
@@ -77,6 +126,6 @@ readWQPSample <- function(siteNumber,
                          CosDY=numeric(),
                          stringsAsFactors=FALSE)
   }
-  Sample <- Sample[order(Sample$Date), ]
+  
   return(Sample)
 }

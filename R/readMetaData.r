@@ -107,7 +107,7 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
     siteInfo$constitAbbrev <- parameterData$parameter_cd
 
   } else {
-    siteInfo <- dataRetrieval::whatWQPsites(siteid=siteNumber, characteristicName=URLencode(parameterCd))
+    siteInfo <- dataRetrieval::whatWQPsites(siteid=siteNumber, characteristicName=utils::URLencode(parameterCd))
 
     siteInfo$param.nm <- parameterCd
     siteInfo$param.units <- ""
@@ -233,7 +233,7 @@ readUserInfo <- function(filePath,fileName,hasHeader=TRUE,separator=",",interact
   totalPath <- file.path(filePath, fileName)
 
   if(file.exists(totalPath)){
-    siteInfo <- read.delim(  
+    siteInfo <- utils::read.delim(  
       totalPath, 
       header = hasHeader,
       sep=separator,

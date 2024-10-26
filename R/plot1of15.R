@@ -50,5 +50,5 @@ plot1of15<-function(eList, yearStart, yearEnd, qf, istat,
   axis(2,tcl=0.5,at=yTicks,labels=FALSE)
   axis(3,tcl=0.5,at=xTicks,labels=FALSE)
   axis(4,tcl=0.5,at=yTicks,labels=FALSE)
-  box()
+  graphics::box()
 }

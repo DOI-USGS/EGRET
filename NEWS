@@ -1,3 +1,12 @@
+EGRET 3.0.10
+===========
+* Fix bug with 0 concentration values in readWQPSample.
+* Style updates.
+* Port readNWISSample to Water Quality Portal. NWIS services are retired.
+* Move removing the rows of Sample data with 0 concentration to outside compressData
+* Add columns from raw WQP data to be retained in Sample dataframe.
+
+
 EGRET 3.0.9
 ===========
 * Bug fix for the monthly concentration trend results in runPairs.

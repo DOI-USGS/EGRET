@@ -70,7 +70,7 @@ plotSDLogQ<-function(eList, yearStart=NA,yearEnd=NA,window=15,sdMax=NA,
     firstDay<-startDays[i]
     lastDay<-startDays[i]+window
     smallDaily<-localDaily[localDaily$DecYear >= firstDay & localDaily$DecYear <= lastDay,]
-    y[i]<-sd(smallDaily$LogQ,na.rm=TRUE)
+    y[i] <- stats::sd(smallDaily$LogQ,na.rm=TRUE)
   }
 
 

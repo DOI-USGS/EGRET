@@ -27,7 +27,7 @@
 #' @param logScale logical if TRUE y plotted in log axis. Defaults to TRUE.
 #' @param tinyPlot logical variable, if TRUE plot is designed to be plotted small as part of a multi-plot figure, default is FALSE.
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
-#' @param las numeric in {0,1,2,3}; the style of axis labels, see ?par
+#' @param las numeric in c(0,1,2,3); the style of axis labels, see ?par
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
 #' to TRUE does NOT guarantee USGS compliance. It will only change automatically
 #' generated labels. 
@@ -111,7 +111,7 @@ boxQTwice<-function(eList,
     logScaleText <- ""
   }
   
-  boxplot(bigQ~index,varwidth=TRUE,
+  graphics::boxplot(bigQ~index,varwidth=TRUE,
           names=groupNames,xlab="",
           ylim=c(yInfo$bottom,yInfo$top),
           main=plotTitle,cex=cex,ylab=yLabel,

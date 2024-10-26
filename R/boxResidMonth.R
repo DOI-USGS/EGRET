@@ -21,7 +21,7 @@
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param font.main font to be used for plot main titles
 #' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
-#' @param las numeric in {0,1,2,3}; the style of axis labels
+#' @param las numeric in c(0,1,2,3); the style of axis labels
 #' @param randomCensored logical. Show censored residuals as randomized. Default = FALSE.
 #' @param monthLab object of monthLabel class, or numeric represented the short code, 
 #' or character representing the descriptive name.
@@ -104,7 +104,7 @@ boxResidMonth <- function(eList,
   monthList <- singleMonthList[localSample$Month]
   monthList <- factor(monthList, namesListFactor)
 
-  boxplot(resid ~ monthList,
+  graphics::boxplot(resid ~ monthList,
           varwidth = TRUE,
           xlab = "Month", ylab = yLab,
           main = plotTitle,
@@ -114,7 +114,7 @@ boxResidMonth <- function(eList,
           cex.axis = cex.axis,
           las = las,
           ...)
-  abline(h = 0)  
+  graphics::abline(h = 0)  
   if (!tinyPlot) mtext(title2, side = 3, line = -1.5)
   invisible(eList)
 }

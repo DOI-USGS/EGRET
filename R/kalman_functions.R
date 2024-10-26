@@ -106,7 +106,7 @@ WRTDSKalman <- function(eList, rho = 0.90, niter = 200,
       endFill <- zends[iGap]+1
       nFill <- zz$length[iGap]+2
       if(i == 1 | i == numGap) {
-        z <- rnorm(nFill - 2)
+        z <- stats::rnorm(nFill - 2)
         xfill <- c(xxP[startFill], z, xxP[endFill])
       } else {
         xfill <- genmissing(xxP[startFill], xxP[endFill], rho, nFill)
@@ -385,7 +385,7 @@ plotWRTDSKalman <- function(eList, sideBySide = FALSE,
                       ylab = ylab, 
                       cex.main = 0.9, 
                       plotTitle = title2)
-  abline(a = 0, b = 1)
+  graphics::abline(a = 0, b = 1)
 
   if(sideBySide){
     mtext(mainTitle, line = -1, side = 3, outer = TRUE, cex= 1)
