@@ -104,7 +104,7 @@ test_that("User tests", {
   SampleNames <- c("Date","ConcLow","ConcHigh","Uncen","ConcAve","Julian","Month",   
                    "Day","DecYear","MonthSeq","waterYear","SinDY","CosDY")
 
-  expect_true(all(names(Sample_user) %in% SampleNames))
+  expect_true(all(SampleNames %in% names(Sample_user)))
   
 })
 
