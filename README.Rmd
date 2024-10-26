@@ -26,15 +26,15 @@ Exploration and Graphics for RivEr Trends (`EGRET`):
 An R-package for the analysis of long-term changes in water quality and streamflow, including the water-quality method Weighted Regressions on Time, Discharge, and Season (WRTDS).
 
 Look for new and improved documentation here:
-[https://rconnect.usgs.gov/EGRET/](https://rconnect.usgs.gov/EGRET/)
+<https://doi-usgs.github.io/EGRET/\>
 
 The link for the official USGS publication user guide is here:
 
 [https://pubs.usgs.gov/tm/04/a10/](https://pubs.usgs.gov/tm/04/a10/)
 
-A companion package [`EGRETci`](https://rconnect.usgs.gov/EGRETci/) implements a set of approaches to the analysis of uncertainty associated with WRTDS trend analysis.
+A companion package [`EGRETci`](https://doi-usgs.github.io/EGRETci/) implements a set of approaches to the analysis of uncertainty associated with WRTDS trend analysis.
 
-If you are familiar with the traditional `EGRET` workflow, check out the [Overview and Updates](https://rconnect.usgs.gov/EGRET/articles/Overview.html) to see how all the latest updates relate.
+If you are familiar with the traditional `EGRET` workflow, check out the [Overview and Updates](https://doi-usgs.github.io/EGRET/articles/Overview.html to see how all the latest updates relate.
 
 Recent introduction to WRTDS and the `EGRET` package at the 12th National Monitoring Conference
 April 19, 2021:
@@ -67,7 +67,7 @@ The second is an application to nitrate data for 8 monitoring sites on the Missi
 
 For a thorough discussion of the generalized flow normalization method implemented in the EGRET enhancements, see the paper: "Tracking changes in nutrient delivery to western Lake Erie: Approaches to compensate for variability and trends in streamflow":
 
-(https://www.sciencedirect.com/science/article/pii/S0380133018302235).
+<https://www.sciencedirect.com/science/article/pii/S0380133018302235/>.
 
 ## Sample Workflow
 
@@ -251,7 +251,7 @@ citation(package = "EGRET")
 
 See this list for WRTDS applications in print:
 
-[https://rconnect.usgs.gov/EGRET/articles/References_WRTDS.html](https://rconnect.usgs.gov/EGRET/articles/References_WRTDS.html)
+<https://doi-usgs.github.io/EGRET/articles/References_WRTDS.html\>
 
 
 ```{r disclaimer, child="DISCLAIMER.md", eval=TRUE}

@@ -3,7 +3,7 @@
   if (!interactive()) return()
   EGRET_version = utils::packageVersion("EGRET")
   packageStartupMessage("EGRET ", EGRET_version,"
-Extended Documentation: https://rconnect.usgs.gov/EGRET")
+Extended Documentation: https://doi-usgs.github.io/EGRET")
 
 }
 
