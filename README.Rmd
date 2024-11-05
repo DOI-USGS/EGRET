@@ -26,13 +26,13 @@ Exploration and Graphics for RivEr Trends (`EGRET`):
 An R-package for the analysis of long-term changes in water quality and streamflow, including the water-quality method Weighted Regressions on Time, Discharge, and Season (WRTDS).
 
 Look for new and improved documentation here:
-<https://doi-usgs.github.io/EGRET/\>
+<https://doi-usgs.github.io/EGRET>
 
 The link for the official USGS publication user guide is here:
 
 [https://pubs.usgs.gov/tm/04/a10/](https://pubs.usgs.gov/tm/04/a10/)
 
-A companion package [`EGRETci`](https://doi-usgs.github.io/EGRETci/) implements a set of approaches to the analysis of uncertainty associated with WRTDS trend analysis.
+A companion package [`EGRETci`](https://doi-usgs.github.io/EGRETci) implements a set of approaches to the analysis of uncertainty associated with WRTDS trend analysis.
 
 If you are familiar with the traditional `EGRET` workflow, check out the [Overview and Updates](https://doi-usgs.github.io/EGRET/articles/Overview.html to see how all the latest updates relate.
 
@@ -218,7 +218,7 @@ sessioninfo::session_info()
 ## Reporting bugs
 
 Please consider reporting bugs and asking questions on the Issues page:
-[https://github.com/DOI-USGS/EGRET/issues](https://github.com/DOI-USGS/EGRET/issues)
+<https://github.com/DOI-USGS/EGRET/issues>
 
 
 ## Subscribe
@@ -251,7 +251,7 @@ citation(package = "EGRET")
 
 See this list for WRTDS applications in print:
 
-<https://doi-usgs.github.io/EGRET/articles/References_WRTDS.html\>
+<https://doi-usgs.github.io/EGRET/articles/References_WRTDS.html>
 
 
 ```{r disclaimer, child="DISCLAIMER.md", eval=TRUE}
