@@ -415,7 +415,7 @@ knitr::kable(DF,  caption="Example data",
 
 ```
 
-EGRET will "add up" all the values in a given row to form the total for that sample when using the Sample data frame. Thus, you only want to enter data that should be added together. If you want a data frame with multiple constituents that are not summed, do not use `readNWISSample`, `readWQPSample`, or `readUserSample`. The raw data functions: `getWQPdata`, `readNWISqw`, `readWQPqw`, `readWQPdata` from the EGRET package will not sum constituents, but leave them in their individual columns. 
+EGRET will "add up" all the values in a given row to form the total for that sample when using the Sample data frame. Thus, you only want to enter data that should be added together. If you want a data frame with multiple constituents that are not summed, do not use `readNWISSample`, `readWQPSample`, or `readUserSample`. The raw data functions: `getWQPdata`, `readWQPqw`, `readWQPdata` from the EGRET package will not sum constituents, but leave them in their individual columns. 
 
 For example, we might know the value for dp on 5/30/2005, but we don't want to put it in the table because under the rules of this data set, we are not supposed to add it in to the values in 2005.
 

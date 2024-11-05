@@ -1,8 +1,7 @@
 #' Import NWIS Sample Data for EGRET analysis
 #'
 #' Imports data from NWIS web service. 
-#' A list of parameter and statistic codes can be found here: \url{https://help.waterdata.usgs.gov/codes-and-parameters}
-#' For raw data, use \code{\link[dataRetrieval]{readNWISqw}} from the dataRetrieval package.
+#' For raw data, use \code{\link[dataRetrieval]{readWQPqw}} from the dataRetrieval package.
 #' This function will retrieve the raw data, and compress it (summing constituents) if 
 #' more than 1 parameter code is supplied. See
 #' section 3.2.4 of the vignette for more details.
@@ -33,7 +32,7 @@
 #' CosDY \tab numeric \tab Cosine of the DecYear
 #' }
 #' @seealso \code{\link{compressData}}, \code{\link{populateSampleColumns}},
-#' \code{\link[dataRetrieval]{readNWISqw}}
+#' \code{\link[dataRetrieval]{readWQPqw}}
 #' @examples
 #' \donttest{
 #' # These examples require an internet connection to run
