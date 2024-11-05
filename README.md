@@ -11,13 +11,13 @@ including the water-quality method Weighted Regressions on Time,
 Discharge, and Season (WRTDS).
 
 Look for new and improved documentation here:
-<https://doi-usgs.github.io/EGRET>
+<https://doi-usgs.github.io/EGRET/>
 
 The link for the official USGS publication user guide is here:
 
 <https://pubs.usgs.gov/tm/04/a10/>
 
-A companion package [`EGRETci`](https://doi-usgs.github.io/EGRETci)
+A companion package [`EGRETci`](https://doi-usgs.github.io/EGRETci/)
 implements a set of approaches to the analysis of uncertainty associated
 with WRTDS trend analysis.
 
@@ -462,7 +462,7 @@ sessioninfo::session_info()
 #>  digest          0.6.37   2024-08-19 [1] CRAN (R 4.4.1)
 #>  dotCall64       1.2      2024-10-04 [1] CRAN (R 4.4.1)
 #>  e1071           1.7-16   2024-09-16 [1] CRAN (R 4.4.1)
-#>  EGRET         * 3.0.10   2024-11-01 [1] local
+#>  EGRET         * 3.0.10   2024-11-05 [1] local
 #>  evaluate        1.0.1    2024-10-10 [1] CRAN (R 4.4.1)
 #>  fansi           1.0.6    2023-12-08 [1] CRAN (R 4.4.0)
 #>  fastmap         1.2.0    2024-05-15 [1] CRAN (R 4.4.0)
