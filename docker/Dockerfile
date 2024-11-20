@@ -15,7 +15,6 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   r-cran-rkt \
   r-cran-pkgdown \
   r-cran-doparallel \
-  r-cran-parallel \
   r-cran-png \
   r-cran-connectapi \
   && rm -rf /var/lib/apt/lists/*
