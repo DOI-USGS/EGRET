@@ -20,7 +20,9 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   r-cran-connectapi \
   r-cran-zyp \
   r-cran-covr \
+  && apt-get install -y pandoc \
   && rm -rf /var/lib/apt/lists/*
+
 
 
 

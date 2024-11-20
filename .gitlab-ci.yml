@@ -28,11 +28,6 @@ variables:
   CONNECT_SERVER: $CONNECT_SERVER
   PAGES_OUTDIR: "$CI_PROJECT_DIR/public"
 
-cache:
-  paths:
-    - $R_LIBS_USER
-
-
 build-image:
   stage: build
   cache: []
@@ -63,10 +58,7 @@ buildcheck:
   script:
     - mkdir -p $BUILD_LOGS_DIR
     - R CMD build . --no-manual
-    - R -e 'devtools::check(document = FALSE, args = "--no-tests", check_dir = Sys.getenv("BUILD_LOGS_DIR"))'
-  artifacts:
-    paths:
-      - $BUILD_LOGS_DIR
+    - R -e 'devtools::check(document = FALSE, args = "--no-tests", check_dir = Sys.getenv("BUILD_LOGS_DIR"), vignettes = FALSE)'
 
 unittests:
   stage: test
@@ -98,6 +90,7 @@ covertests:
 
 pages:
   stage: end
+  cache: []
   only: 
     - main
   script:
