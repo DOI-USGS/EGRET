@@ -4,6 +4,8 @@ FROM code.chs.usgs.gov:5001/ctek/docker/r-lang/r-base:4.4
 RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   pandoc-citeproc \
   qpdf \
+  r-cran-rmarkdown \
+  r-cran-knitr \
   r-cran-devtools \
   r-cran-tidyverse \
   r-cran-dataretrieval \
@@ -20,6 +22,8 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   r-cran-connectapi \
   r-cran-zyp \
   r-cran-covr \
+  r-cran-zoo \
+  r-cran-data.table \
   && apt-get install -y pandoc \
   && rm -rf /var/lib/apt/lists/*
 
