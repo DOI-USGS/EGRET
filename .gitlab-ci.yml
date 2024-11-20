@@ -62,8 +62,6 @@ buildcheck:
   cache: []
   script:
     - mkdir -p $BUILD_LOGS_DIR
-    - apt-get update
-    - apt-get -o dir::cache::archives=${APT_CACHE} install -y --no-install-recommends qpdf pandoc pandoc-citeproc
     - R CMD build . --no-manual
     - R -e 'devtools::check(document = FALSE, args = "--no-tests", check_dir = Sys.getenv("BUILD_LOGS_DIR"))'
   artifacts:
