@@ -91,9 +91,8 @@ the Mississippi River or its major tributaries. The URL is:
 For a thorough discussion of the generalized flow normalization method
 implemented in the EGRET enhancements, see the paper: “Tracking changes
 in nutrient delivery to western Lake Erie: Approaches to compensate for
-variability and trends in streamflow”:
-
-<https://www.sciencedirect.com/science/article/pii/S0380133018302235/>.
+variability and trends in streamflow”
+(<doi:10.1016/j.jglr.2018.11.012>).
 
 ## Sample Workflow
 
@@ -327,37 +326,13 @@ siteID <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "" # Get earliest date
 endDate <- "" # Get latest date
 Daily <- readNWISDaily(siteID, "00060", startDate, endDate)
-#> <httr2_request>
-#> GET
-#> https://waterservices.usgs.gov/nwis/dv/?site=01491000&format=rdb%2C1.0&ParameterCd=00060&StatCd=00003&startDT=1851-01-01
-#> Headers:
-#> • Accept-Encoding: 'compress'
-#> • Accept-Encoding: 'gzip'
-#> • Accept-Encoding: 'deflate'
-#> Body: empty
-#> Options:
-#> • useragent: 'libcurl/8.3.0 httr2/1.0.5 dataRetrieval/2.7.17.1'
-#> Policies:
-#> • throttle_delay: a function
-#> • retry_max_tries: 3
-#> • retry_on_failure: FALSE
-#> • retry_backoff: a <rlang_lambda_function> object
-#> There are 28068 data points, and 28068 days.
+#> GET: https://waterservices.usgs.gov/nwis/dv/?site=01491000&format=rdb,1.0&ParameterCd=00060&StatCd=00003&startDT=1851-01-01
+#> There are 28082 data points, and 28082 days.
 # Gather site and parameter information:
 # Here user must input some values for
 # the default (interactive=TRUE)
 INFO <- readNWISInfo(siteID, "00060")
-#> <httr2_request>
-#> GET
-#> https://waterservices.usgs.gov/nwis/site/?siteOutput=Expanded&format=rdb&site=01491000
-#> Body: empty
-#> Options:
-#> • useragent: 'libcurl/8.3.0 httr2/1.0.5 dataRetrieval/2.7.17.1'
-#> Policies:
-#> • throttle_delay: a function
-#> • retry_max_tries: 3
-#> • retry_on_failure: FALSE
-#> • retry_backoff: a <rlang_lambda_function> object
+#> GET: https://waterservices.usgs.gov/nwis/site/?siteOutput=Expanded&format=rdb&site=01491000
 #> Your site for streamflow data is:
 #>  01491000 .
 #> Your site name is CHOPTANK RIVER NEAR GREENSBORO, MD 
@@ -423,94 +398,6 @@ plotFourStats(eList, qUnit=3)
 
 ![](man/figures/README-plotFours-2.png)
 
-## Model Archive
-
-When using the `WRTDS` model, it is important to be able to reproduce
-the results in the future. The following version of R and package
-dependencies were used most recently to pass the embedded tests within
-this package. There is no guarantee of reproducible results using future
-versions of R or updated versions of package dependencies; however, we
-will make diligent efforts to test and update future modeling
-environments.
-
-``` r
-sessioninfo::session_info()
-#> ─ Session info ───────────────────────────────────────────────────────────────
-#>  setting  value
-#>  version  R version 4.4.1 (2024-06-14 ucrt)
-#>  os       Windows 11 x64 (build 22631)
-#>  system   x86_64, mingw32
-#>  ui       RTerm
-#>  language (EN)
-#>  collate  English_United States.utf8
-#>  ctype    English_United States.utf8
-#>  tz       America/Chicago
-#>  date     2024-11-05
-#>  pandoc   3.2 @ C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools/ (via rmarkdown)
-#> 
-#> ─ Packages ───────────────────────────────────────────────────────────────────
-#>  package       * version  date (UTC) lib source
-#>  bit             4.5.0    2024-09-20 [1] CRAN (R 4.4.1)
-#>  bit64           4.5.2    2024-09-22 [1] CRAN (R 4.4.1)
-#>  class           7.3-22   2023-05-03 [2] CRAN (R 4.4.1)
-#>  classInt        0.4-10   2023-09-05 [1] CRAN (R 4.4.0)
-#>  cli             3.6.3    2024-06-21 [1] CRAN (R 4.4.1)
-#>  crayon          1.5.3    2024-06-20 [1] CRAN (R 4.4.1)
-#>  curl            5.2.3    2024-09-20 [1] CRAN (R 4.4.1)
-#>  dataRetrieval   2.7.17.1 2024-11-05 [1] local
-#>  DBI             1.2.3    2024-06-02 [1] CRAN (R 4.4.0)
-#>  digest          0.6.37   2024-08-19 [1] CRAN (R 4.4.1)
-#>  dotCall64       1.2      2024-10-04 [1] CRAN (R 4.4.1)
-#>  e1071           1.7-16   2024-09-16 [1] CRAN (R 4.4.1)
-#>  EGRET         * 3.0.10   2024-11-05 [1] local
-#>  evaluate        1.0.1    2024-10-10 [1] CRAN (R 4.4.1)
-#>  fansi           1.0.6    2023-12-08 [1] CRAN (R 4.4.0)
-#>  fastmap         1.2.0    2024-05-15 [1] CRAN (R 4.4.0)
-#>  fields          16.3     2024-09-30 [1] CRAN (R 4.4.1)
-#>  glue            1.8.0    2024-09-30 [1] CRAN (R 4.4.1)
-#>  highr           0.11     2024-05-26 [1] CRAN (R 4.4.0)
-#>  hms             1.1.3    2023-03-21 [1] CRAN (R 4.4.0)
-#>  htmltools       0.5.8.1  2024-04-04 [1] CRAN (R 4.4.0)
-#>  httr2           1.0.5    2024-09-26 [1] CRAN (R 4.4.1)
-#>  KernSmooth      2.23-24  2024-05-17 [2] CRAN (R 4.4.1)
-#>  knitr           1.48     2024-07-07 [1] CRAN (R 4.4.1)
-#>  lattice         0.22-6   2024-03-20 [1] CRAN (R 4.4.0)
-#>  lifecycle       1.0.4    2023-11-07 [1] CRAN (R 4.4.0)
-#>  magrittr        2.0.3    2022-03-30 [1] CRAN (R 4.4.0)
-#>  maps            3.4.2    2023-12-15 [1] CRAN (R 4.4.0)
-#>  Matrix          1.7-0    2024-04-26 [2] CRAN (R 4.4.1)
-#>  pillar          1.9.0    2023-03-22 [1] CRAN (R 4.4.0)
-#>  pkgconfig       2.0.3    2019-09-22 [1] CRAN (R 4.4.0)
-#>  proxy           0.4-27   2022-06-09 [1] CRAN (R 4.4.0)
-#>  R6              2.5.1    2021-08-19 [1] CRAN (R 4.4.0)
-#>  rappdirs        0.3.3    2021-01-31 [1] CRAN (R 4.4.0)
-#>  Rcpp            1.0.13   2024-07-17 [1] CRAN (R 4.4.1)
-#>  readr           2.1.5    2024-01-10 [1] CRAN (R 4.4.0)
-#>  rlang           1.1.4    2024-06-04 [1] CRAN (R 4.4.1)
-#>  rmarkdown       2.28     2024-08-17 [1] CRAN (R 4.4.1)
-#>  rstudioapi      0.17.1   2024-10-22 [1] CRAN (R 4.4.1)
-#>  sessioninfo     1.2.2    2021-12-06 [1] CRAN (R 4.4.0)
-#>  sf              1.0-18   2024-10-11 [1] CRAN (R 4.4.1)
-#>  spam            2.11-0   2024-10-03 [1] CRAN (R 4.4.1)
-#>  survival        3.6-4    2024-04-24 [2] CRAN (R 4.4.1)
-#>  tibble          3.2.1    2023-03-20 [1] CRAN (R 4.4.0)
-#>  tidyselect      1.2.1    2024-03-11 [1] CRAN (R 4.4.0)
-#>  tzdb            0.4.0    2023-05-12 [1] CRAN (R 4.4.0)
-#>  units           0.8-5    2023-11-28 [1] CRAN (R 4.4.0)
-#>  utf8            1.2.4    2023-10-22 [1] CRAN (R 4.4.0)
-#>  vctrs           0.6.5    2023-12-01 [1] CRAN (R 4.4.0)
-#>  viridisLite     0.4.2    2023-05-02 [1] CRAN (R 4.4.0)
-#>  vroom           1.6.5    2023-12-05 [1] CRAN (R 4.4.0)
-#>  withr           3.0.1    2024-07-31 [1] CRAN (R 4.4.1)
-#>  xfun            0.48     2024-10-03 [1] CRAN (R 4.4.1)
-#>  yaml            2.3.10   2024-07-26 [1] CRAN (R 4.4.1)
-#> 
-#>  [1] C:/Users/ldecicco/AppData/Local/R/win-library/4.4
-#>  [2] C:/Program Files/R/R-4.4.1/library
-#> 
-#> ──────────────────────────────────────────────────────────────────────────────
-```
-
 ## Reporting bugs
 
 Please consider reporting bugs and asking questions on the Issues page:
@@ -523,13 +410,6 @@ Please email questions, comments, and feedback to:
 
 Additionally, to subscribe to an email list concerning updates to these
 R packages, please send a request to <egret_comments@usgs.gov>.
-
-## Code of Conduct
-
-We want to encourage a warm, welcoming, and safe environment for
-contributing to this project. See the [code of
-conduct](https://code.usgs.gov/water/EGRET/-/blob/main/CONDUCT.md) for
-more information.
 
 ## Package Support
 
