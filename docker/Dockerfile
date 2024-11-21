@@ -24,6 +24,7 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
   r-cran-covr \
   r-cran-zoo \
   r-cran-data.table \
+  r-cran-rsconnect \
   && apt-get install -y pandoc \
   && rm -rf /var/lib/apt/lists/*
 
