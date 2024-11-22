@@ -50,7 +50,8 @@ readWQPSample <- function(siteNumber,
                   "ActivityMediaName",
                   "ResultSampleFractionText",
                   "ResultStatusIdentifier",
-                  "ResultValueTypeName")
+                  "ResultValueTypeName",
+                  "ActivityTypeCode")
   
   if(utils::packageVersion("dataRetrieval") >= "2.7.17"){
     data <- suppressMessages(dataRetrieval::readWQPqw(siteNumbers = siteNumber,
@@ -77,7 +78,8 @@ readWQPSample <- function(siteNumber,
                                                  "Activity_Media",
                                                  "Result_SampleFraction",
                                                  "Result_MeasureStatusIdentifier",
-                                                 "Result_MeasureType"))
+                                                 "Result_MeasureType",
+                                                 "Activity_TypeCode"))
     
     for(i in seq_len(nrow(conversion_names))){
       names(data)[which(names(data) == conversion_names$new_names[i])] <- conversion_names$legacy_names[i]
