@@ -61,6 +61,7 @@ processQWData <- function(data){
   test$ResultSampleFractionText <- data$ResultSampleFractionText
   test$ResultStatusIdentifier <- data$ResultStatusIdentifier
   test$ResultValueTypeName <- data$ResultValueTypeName
+  test$ActivityTypeCode <- data$ActivityTypeCode
   
   if(length(unique(test$USGSPCode)) > 1){
     message("More than one USGSPCode returned")

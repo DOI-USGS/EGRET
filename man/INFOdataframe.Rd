@@ -58,23 +58,27 @@ Populates INFO data frame from either NWIS (\code{readNWISInfo}),
 Water Quality Portal (\code{readWQPInfo}), or user-supplied files (\code{readUserInfo}).
 }
 \examples{
+\dontshow{if (dataRetrieval::is_dataRetrieval_user()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # These examples require an internet connection to run
 # Automatically gets information about site 05114000 and temperature
 \donttest{
-INFO <- readNWISInfo('05114000','00010',interactive = FALSE)
+# INFO <- readNWISInfo('05114000','00010',interactive = FALSE)
 }
+\dontshow{\}) # examplesIf}
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # These examples require an internet connection to run
 # Automatically gets information about site 01594440 and temperature, no interaction with user
 nameToUse <- 'Specific conductance'
 pcodeToUse <- '00095'
 \donttest{
-# INFO <- readWQPInfo('USGS-04024315',pcodeToUse, interactive = FALSE)
+INFO <- readWQPInfo('USGS-04024315',pcodeToUse, interactive = FALSE)
 
-# INFO2 <- readWQPInfo('WIDNR_WQX-10032762',nameToUse, interactive = FALSE)
+INFO2 <- readWQPInfo('WIDNR_WQX-10032762',nameToUse, interactive = FALSE)
 # To adjust the label names:
-# INFO$shortName <- "Little"
-# INFO$paramShortName <- "SC"
+INFO$shortName <- "Little"
+INFO$paramShortName <- "SC"
 }
+\dontshow{\}) # examplesIf}
 filePath <- system.file("extdata", package="EGRET")
 fileName <- 'infoTest.csv'
 INFO <- readUserInfo(filePath,fileName, separator=",",interactive=FALSE)

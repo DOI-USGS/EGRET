@@ -29,7 +29,7 @@
 #' Q30 \tab numeric \tab 30 day running average of Q \cr
 #' }
 #' @seealso \code{\link[dataRetrieval]{readNWISdv}}, \code{\link{populateDaily}}
-#' @examples
+#' @examplesIf interactive()
 #' \donttest{
 #' 
 #' Daily <- readNWISDaily('01594440','00060',

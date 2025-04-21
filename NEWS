@@ -1,3 +1,9 @@
+EGRET 3.0.11
+===========
+* Changed readNWISSample to use new USGS samples-data service.
+* Updated readWQPInfo function to use legacy services.
+* Added Activity_TypeCode to list of columns that are retained.
+
 EGRET 3.0.10
 ===========
 * Fix bug with 0 concentration values in readWQPSample.

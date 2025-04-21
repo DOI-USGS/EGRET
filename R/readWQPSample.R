@@ -33,10 +33,10 @@
 #' }
 #' @seealso \code{\link[dataRetrieval]{readWQPdata}}, \code{dataRetrieval::whatWQPsites}, 
 #' \code{\link[dataRetrieval]{readWQPqw}}, \code{\link{compressData}}, \code{\link{populateSampleColumns}}
-#' @examples
+#'@examplesIf interactive()
 #' # These examples require an internet connection to run
 #' \donttest{
-#' # Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
+#' Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
 #' }
 readWQPSample <- function(siteNumber,
                           characteristicName,

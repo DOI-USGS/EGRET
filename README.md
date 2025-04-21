@@ -326,8 +326,8 @@ siteID <- "01491000" #Choptank River at Greensboro, MD
 startDate <- "" # Get earliest date
 endDate <- "" # Get latest date
 Daily <- readNWISDaily(siteID, "00060", startDate, endDate)
-#> GET: https://waterservices.usgs.gov/nwis/dv/?site=01491000&format=rdb,1.0&ParameterCd=00060&StatCd=00003&startDT=1851-01-01
-#> There are 28082 data points, and 28082 days.
+#> GET: https://waterservices.usgs.gov/nwis/dv/?site=01491000&format=rdb%2C1.0&ParameterCd=00060&StatCd=00003&startDT=1851-01-01
+#> There are 28235 data points, and 28235 days.
 # Gather site and parameter information:
 # Here user must input some values for
 # the default (interactive=TRUE)
@@ -415,14 +415,14 @@ R packages, please send a request to <egret_comments@usgs.gov>.
 
 The Water Mission Area of the USGS has supported the development and
 maintenance of the `EGRET` R-package. Further maintenance is expected to
-be stable through October 2024. Resources are available primarily for
+be stable through October 2025. Resources are available primarily for
 maintenance and responding to user questions. Priorities on the
 development of new features are determined by the `EGRET` development
 team.
 
 ## Sunset date
 
-Funding for `EGRET` currently expires fall 2024. Expectations are that
+Funding for `EGRET` currently expires fall 2025. Expectations are that
 maintenance and customer service will continue to be supported past that
 date.
 
@@ -432,8 +432,8 @@ date.
 citation(package = "EGRET")
 #> To cite EGRET in publications, please use:
 #> 
-#>   Hirsch, R.M., De Cicco, L.A., Murphy, J., 2024, Exploration and
-#>   Graphics for RivEr Trends (EGRET), version 3.0.10,
+#>   Hirsch, R.M., De Cicco, L.A., Murphy, J., 2025, Exploration and
+#>   Graphics for RivEr Trends (EGRET), version 3.0.11,
 #>   doi:10.5066/P9CC9JEX
 #> 
 #> A BibTeX entry for LaTeX users is
@@ -442,7 +442,7 @@ citation(package = "EGRET")
 #>     author = {Robert Hirsch and Laura DeCicco and Jennifer Murphy},
 #>     title = {Exploration and Graphics for RivEr Trends (EGRET)},
 #>     publisher = {U.S. Geological Survey},
-#>     year = {2024},
+#>     year = {2025},
 #>     url = {https://pubs.usgs.gov/tm/04/a10/},
 #>   }
 ```
