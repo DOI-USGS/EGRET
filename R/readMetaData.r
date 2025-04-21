@@ -34,11 +34,11 @@
 #' 'mg/l' is not found in INFO$param.units, functions that calculate flux will issue a warning. This 
 #' is because the conversion from mg/l to the user-specified flux unit (e.g., kg/day) uses hard-coded conversion factors.
 #'
-#' @examplesIf dataRetrieval::is_dataRetrieval_user()
+#' @examplesIf interactive()
 #' # These examples require an internet connection to run
 #' # Automatically gets information about site 05114000 and temperature
 #' \donttest{
-#' # INFO <- readNWISInfo('05114000','00010',interactive = FALSE)
+#' INFO <- readNWISInfo('05114000','00010',interactive = FALSE)
 #' }
 readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
   if (nzchar(siteNumber)){
