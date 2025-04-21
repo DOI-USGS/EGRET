@@ -33,10 +33,10 @@
 #' }
 #' @seealso \code{\link[dataRetrieval]{readWQPdata}}, \code{dataRetrieval::whatWQPsites}, 
 #' \code{\link[dataRetrieval]{readWQPqw}}, \code{\link{compressData}}, \code{\link{populateSampleColumns}}
-#' @examples
+#'@examplesIf interactive()
 #' # These examples require an internet connection to run
 #' \donttest{
-#' # Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
+#' Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
 #' }
 readWQPSample <- function(siteNumber,
                           characteristicName,
@@ -50,7 +50,8 @@ readWQPSample <- function(siteNumber,
                   "ActivityMediaName",
                   "ResultSampleFractionText",
                   "ResultStatusIdentifier",
-                  "ResultValueTypeName")
+                  "ResultValueTypeName",
+                  "ActivityTypeCode")
   
   if(utils::packageVersion("dataRetrieval") >= "2.7.17"){
     data <- suppressMessages(dataRetrieval::readWQPqw(siteNumbers = siteNumber,
@@ -77,7 +78,8 @@ readWQPSample <- function(siteNumber,
                                                  "Activity_Media",
                                                  "Result_SampleFraction",
                                                  "Result_MeasureStatusIdentifier",
-                                                 "Result_MeasureType"))
+                                                 "Result_MeasureType",
+                                                 "Activity_TypeCode"))
     
     for(i in seq_len(nrow(conversion_names))){
       names(data)[which(names(data) == conversion_names$new_names[i])] <- conversion_names$legacy_names[i]

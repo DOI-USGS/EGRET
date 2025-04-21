@@ -2,7 +2,7 @@
 % Please edit documentation in R/readNWISSample.R
 \name{readNWISSample}
 \alias{readNWISSample}
-\title{Import NWIS Sample Data for EGRET analysis}
+\title{Import USGS Sample Data for EGRET analysis}
 \usage{
 readNWISSample(siteNumber, parameterCd, startDate = "", endDate = "",
   verbose = TRUE)
@@ -39,18 +39,20 @@ CosDY \tab numeric \tab Cosine of the DecYear
 }
 }
 \description{
-Imports data from NWIS web service. 
-For raw data, use \code{\link[dataRetrieval]{readWQPqw}} from the dataRetrieval package.
+Imports data from USGS web service. 
+For raw data, use \code{\link[dataRetrieval]{read_USGS_samples}} from the dataRetrieval package.
 This function will retrieve the raw data, and compress it (summing constituents) if 
 more than 1 parameter code is supplied. See
 section 3.2.4 of the vignette for more details.
 }
 \examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 \donttest{
 # These examples require an internet connection to run
 
 Sample_01075 <- readNWISSample('01594440','01075', '1985-01-01', '1985-03-31')
 }
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link{compressData}}, \code{\link{populateSampleColumns}},

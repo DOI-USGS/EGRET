@@ -220,12 +220,12 @@ Additionally, to subscribe to an email list concerning updates to these R packag
 
 ## Package Support
 
-The Water Mission Area of the USGS has supported the development and maintenance of the `EGRET` R-package. Further maintenance is expected to be stable through October 2024. Resources are available primarily for maintenance and responding to user questions. Priorities on the development of new features are determined by the `EGRET` development team.
+The Water Mission Area of the USGS has supported the development and maintenance of the `EGRET` R-package. Further maintenance is expected to be stable through October 2025. Resources are available primarily for maintenance and responding to user questions. Priorities on the development of new features are determined by the `EGRET` development team.
 
 
 ## Sunset date 
 
-Funding for `EGRET` currently expires fall 2024. Expectations are that maintenance and customer service will continue to be supported past that date.
+Funding for `EGRET` currently expires fall 2025. Expectations are that maintenance and customer service will continue to be supported past that date.
 
 ## How to cite EGRET:
 

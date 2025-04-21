@@ -11,33 +11,23 @@ name: test-coverage
 jobs:
   test-coverage:
     runs-on: macOS-latest
+    
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+      CUSTOM_DR_UA: 'GitHub_CI'
+      
     steps:
       - uses: actions/checkout@c0a81a463886bb75afe234e07a9fd5bb79219196
 
-      - uses: r-lib/actions/setup-r@3e80f8fe880a36a9f35bf3e832f1bef8af687b69
+      - uses: r-lib/actions/setup-r@756399d909bf9c180bbdafe8025f794f51f2da02
 
-      - uses: r-lib/actions/setup-pandoc@4a9a68ffb70ac0fc90d9683fae64a0d779f7d0fe
+      - uses: r-lib/actions/setup-pandoc@756399d909bf9c180bbdafe8025f794f51f2da02
 
-      - name: Query dependencies
-        run: |
-          install.packages('remotes')
-          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
-        shell: Rscript {0}
-
-      - name: Cache R packages
-        uses: actions/cache@bd9b49b6c3b91fb2f92c80901a466ba260a746eb
+      - uses: r-lib/actions/setup-r-dependencies@756399d909bf9c180bbdafe8025f794f51f2da02
         with:
-          path: ${{ env.R_LIBS_USER }}
-          key: macOS-r-4.0-2-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: macOS-r-4.0-2-
-
-      - name: Install dependencies
-        run: |
-          options(pkgType = "binary")
-          install.packages(c("remotes"))
-          remotes::install_deps(dependencies = TRUE)
-          remotes::install_cran("covr")
-        shell: Rscript {0}
+          extra-packages: any::rcmdcheck
+          needs: check
 
       - name: Test coverage
         run: covr::codecov()

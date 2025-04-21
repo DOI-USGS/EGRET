@@ -47,10 +47,12 @@ compress it (summing constituents), then converts it to the Sample dataframe str
 See chapter 7 of the EGRET user guide for more details.
 }
 \examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # These examples require an internet connection to run
 \donttest{
-# Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
+Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
 }
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[dataRetrieval]{readWQPdata}}, \code{dataRetrieval::whatWQPsites}, 

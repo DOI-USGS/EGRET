@@ -34,7 +34,7 @@
 #' 'mg/l' is not found in INFO$param.units, functions that calculate flux will issue a warning. This 
 #' is because the conversion from mg/l to the user-specified flux unit (e.g., kg/day) uses hard-coded conversion factors.
 #'
-#' @examples
+#' @examplesIf interactive()
 #' # These examples require an internet connection to run
 #' # Automatically gets information about site 05114000 and temperature
 #' \donttest{
@@ -76,27 +76,28 @@ readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
 
 #' @rdname INFOdataframe
 #' @export
-#' @examples
+#' @examplesIf interactive()
 #' # These examples require an internet connection to run
 #' # Automatically gets information about site 01594440 and temperature, no interaction with user
 #' nameToUse <- 'Specific conductance'
 #' pcodeToUse <- '00095'
 #' \donttest{
-#' # INFO <- readWQPInfo('USGS-04024315',pcodeToUse, interactive = FALSE)
+#' INFO <- readWQPInfo('USGS-04024315',pcodeToUse, interactive = FALSE)
 #' 
-#' # INFO2 <- readWQPInfo('WIDNR_WQX-10032762',nameToUse, interactive = FALSE)
+#' INFO2 <- readWQPInfo('WIDNR_WQX-10032762',nameToUse, interactive = FALSE)
 #' # To adjust the label names:
-#' # INFO$shortName <- "Little"
-#' # INFO$paramShortName <- "SC"
+#' INFO$shortName <- "Little"
+#' INFO$paramShortName <- "SC"
 #' }
-readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
+readWQPInfo <- function(siteNumber, parameterCd, interactive = TRUE){
   
   #Check for pcode:
   pCodeLogic <- (all(nchar(parameterCd) == 5) & suppressWarnings(all(!is.na(as.numeric(parameterCd)))))
 
   if (pCodeLogic){
     
-    siteInfo <- dataRetrieval::whatWQPsites(siteid=siteNumber, pCode=parameterCd)
+    siteInfo <- dataRetrieval::whatWQPsites(siteid = siteNumber, 
+                                            legacy = TRUE)
 
     parameterData <- dataRetrieval::readNWISpCode(parameterCd = parameterCd)
     
@@ -107,7 +108,8 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive=TRUE){
     siteInfo$constitAbbrev <- parameterData$parameter_cd
 
   } else {
-    siteInfo <- dataRetrieval::whatWQPsites(siteid=siteNumber, characteristicName=utils::URLencode(parameterCd))
+    siteInfo <- dataRetrieval::whatWQPsites(siteid = siteNumber, 
+                                            legacy = TRUE)
 
     siteInfo$param.nm <- parameterCd
     siteInfo$param.units <- ""

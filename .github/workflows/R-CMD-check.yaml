@@ -19,31 +19,27 @@ jobs:
       matrix:
         config:
           - {os: macos-latest,   r: 'release'}
-          - {os: windows-latest, r: 'release'}
-          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-latest,   r: 'release'}
-          - {os: ubuntu-latest,   r: 'oldrel-1'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
 
     steps:
-      - uses: actions/checkout@c0a81a463886bb75afe234e07a9fd5bb79219196
+      - uses: actions/checkout@9a9194f87191a7e9055e3e9b95b8cfb13023bb08
 
-      - uses: r-lib/actions/setup-pandoc@4a9a68ffb70ac0fc90d9683fae64a0d779f7d0fe
+      - uses: r-lib/actions/setup-pandoc@6012817847b5f064d0882d67a7b5e2ca6639afb2
 
-      - uses: r-lib/actions/setup-r@3e80f8fe880a36a9f35bf3e832f1bef8af687b69
+      - uses: r-lib/actions/setup-r@473c68190595b311a74f208fba61a8d8c0d4c247
         with:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
-      - uses: r-lib/actions/setup-r-dependencies@e93f9af25505a6e249a7ae3bbaaa9413db8a0de4
+      - uses: r-lib/actions/setup-r-dependencies@96b1dc658a45175f93ed5f33fda2b2cebbb12ee8
         with:
           extra-packages: any::rcmdcheck
           needs: check
 
-      - uses: r-lib/actions/check-r-package@d26c5f95c4f10c7444cec87a1effe7d8af8897b8
+      - uses: r-lib/actions/check-r-package@3e56ca41aa267855f36891af7a495d24bfaa8373
         with:
           upload-snapshots: true

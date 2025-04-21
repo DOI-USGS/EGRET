@@ -1,7 +1,7 @@
-#' Import NWIS Sample Data for EGRET analysis
+#' Import USGS Sample Data for EGRET analysis
 #'
-#' Imports data from NWIS web service. 
-#' For raw data, use \code{\link[dataRetrieval]{readWQPqw}} from the dataRetrieval package.
+#' Imports data from USGS web service. 
+#' For raw data, use \code{\link[dataRetrieval]{read_USGS_samples}} from the dataRetrieval package.
 #' This function will retrieve the raw data, and compress it (summing constituents) if 
 #' more than 1 parameter code is supplied. See
 #' section 3.2.4 of the vignette for more details.
@@ -33,7 +33,7 @@
 #' }
 #' @seealso \code{\link{compressData}}, \code{\link{populateSampleColumns}},
 #' \code{\link[dataRetrieval]{readWQPqw}}
-#' @examples
+#' @examplesIf interactive()
 #' \donttest{
 #' # These examples require an internet connection to run
 #' 
@@ -48,11 +48,80 @@ readNWISSample <- function(siteNumber,
   
   siteNumber <- paste0("USGS-", siteNumber)
   
-  Sample <- readWQPSample(siteNumber = siteNumber,
-                          characteristicName = parameterCd,
-                          startDate = startDate,
-                          endDate = endDate,
-                          verbose = verbose)
+  data <- suppressMessages( dataRetrieval::read_USGS_samples(monitoringLocationIdentifier = siteNumber,
+                              usgsPCode = parameterCd,
+                              activityStartDateLower = startDate, 
+                              activityStartDateUpper = endDate))
+  
+  extra_cols <- c("ActivityStartDateTime",
+                  "USGSPCode",
+                  "ActivityMediaSubdivisionName",
+                  "ActivityMediaName",
+                  "ResultSampleFractionText",
+                  "ResultStatusIdentifier",
+                  "ResultValueTypeName",
+                  "ActivityTypeCode")
+  
+  conversion_names <- data.frame(legacy_names = c("ResultDetectionConditionText",
+                                                  "ResultMeasureValue",
+                                                  "DetectionQuantitationLimitMeasure.MeasureValue",
+                                                  "CharacteristicName",
+                                                  "ActivityStartDate",
+                                                  extra_cols),
+                                 new_names = c("Result_ResultDetectionCondition",
+                                               "Result_Measure",
+                                               "DetectionLimit_MeasureA",
+                                               "Result_Characteristic",
+                                               "Activity_StartDate",
+                                               "Activity_StartDateTime",
+                                               "USGSpcode",
+                                               "Activity_MediaSubdivisionName",
+                                               "Activity_Media",
+                                               "Result_SampleFraction",
+                                               "Result_MeasureStatusIdentifier",
+                                               "Result_MeasureType",
+                                               "Activity_TypeCode"))
+  
+  for(i in seq_len(nrow(conversion_names))){
+    names(data)[which(names(data) == conversion_names$new_names[i])] <- conversion_names$legacy_names[i]
+  }
+  
+  if(nrow(data) == 0){
+    warning("No data returned")
+  }
+  
+  if(nrow(data) > 0){
+    
+    data <- processQWData(data)
+    first_three <- c("dateTime",
+                     "qualifier",
+                     "value")
+    compressedData <- compressData(data[, first_three],
+                                   verbose = verbose)
+    combined_data <- cbind(compressedData, data[, names(data)[!names(data) %in% first_three]])
+    combined_data <- remove_zeros(combined_data, verbose = verbose)
+    
+    Sample <- populateSampleColumns(combined_data)
+    orig_Sample <- c("Date", "ConcLow", "ConcHigh", "Uncen", "ConcAve",
+                     "Julian", "Month", "Day", "DecYear", "waterYear", "MonthSeq",
+                     "SinDY", "CosDY")
+    Sample <- Sample[, c(orig_Sample, names(Sample)[!names(Sample) %in% orig_Sample])]
+    Sample <- Sample[order(Sample$Date), ]
+  } else {
+    Sample <- data.frame(Date=as.Date(character()),
+                         ConcLow=numeric(), 
+                         ConcHigh=numeric(), 
+                         Uncen=numeric(),
+                         ConcAve=numeric(),
+                         Julian=numeric(),
+                         Month=numeric(),
+                         Day=numeric(),
+                         DecYear=numeric(),
+                         MonthSeq=numeric(),
+                         SinDY=numeric(),
+                         CosDY=numeric(),
+                         stringsAsFactors=FALSE)
+  }
   
   return(Sample)
   
