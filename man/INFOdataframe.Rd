@@ -58,11 +58,11 @@ Populates INFO data frame from either NWIS (\code{readNWISInfo}),
 Water Quality Portal (\code{readWQPInfo}), or user-supplied files (\code{readUserInfo}).
 }
 \examples{
-\dontshow{if (dataRetrieval::is_dataRetrieval_user()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # These examples require an internet connection to run
 # Automatically gets information about site 05114000 and temperature
 \donttest{
-# INFO <- readNWISInfo('05114000','00010',interactive = FALSE)
+INFO <- readNWISInfo('05114000','00010',interactive = FALSE)
 }
 \dontshow{\}) # examplesIf}
 \dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}

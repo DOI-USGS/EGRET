@@ -13,6 +13,9 @@
 #' @param endDate character ending date for data retrieval in the form YYYY-MM-DD.
 #' Default is empty quotes "" which will retrieve the full period of record.
 #' @param verbose logical specifying whether or not to display progress message
+#' @param legacy logical specifying whether to use the "legacy" WQP services, or 
+#' the new ones. Legacy works well for non-USGS sites. For USGS sites it is recommended
+#' to use the \code{readNWISSample} function. Default is \code{TRUE}.
 #' @keywords data import USGS WRTDS
 #' @export
 #' @return A data frame 'Sample' with the following columns:
@@ -42,7 +45,8 @@ readWQPSample <- function(siteNumber,
                           characteristicName,
                           startDate = "",
                           endDate = "",
-                          verbose = TRUE){
+                          verbose = TRUE,
+                          legacy = TRUE){
   
   extra_cols <- c("ActivityStartDateTime",
                   "USGSPCode",
@@ -59,7 +63,7 @@ readWQPSample <- function(siteNumber,
                                      startDate = startDate,
                                      endDate = endDate,
                                      ignore_attributes = TRUE,
-                                     legacy = FALSE)  )
+                                     legacy = legacy)  )
     
     conversion_names <- data.frame(legacy_names = c("ResultDetectionConditionText",
                                                     "ResultMeasureValue",
