@@ -388,11 +388,19 @@ runPairs <- function(eList, year1, year2, windowSide,
   annualFlex <- setupYears(DailyRS1FD1, paLong = paLong, paStart = paStart)
   c11 <- mean(annualFlex$FNConc, na.rm = TRUE)
   f11 <- mean(annualFlex$FNFlux, na.rm = TRUE)
+  if(is.nan(c11)){
+    stop("year1 does not have adaquate Daily data (missing >10%).
+         Adjusting year1.")
+  }
   DailyRS2FD2 <- estDailyFromSurfaces(eList, localsurfaces = surfaces2, 
                                       localDaily = Daily2)
   annualFlex <- setupYears(DailyRS2FD2, paLong = paLong, paStart = paStart)
   c22 <- mean(annualFlex$FNConc, na.rm = TRUE)
   f22 <- mean(annualFlex$FNFlux, na.rm = TRUE)
+  if(is.nan(c22)){
+    stop("year2 does not have adaquate Daily data (missing >10%).
+         Adjusting to year2.")
+  }
   Daily0 <- localDaily[localDaily$Date >= QStartDate & localDaily$Date <= 
                          QEndDate, ]
   DailyRS1FD0 <- estDailyFromSurfaces(eList, localsurfaces = surfaces1, 
