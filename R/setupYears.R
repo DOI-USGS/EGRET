@@ -115,7 +115,7 @@ setupYears <- function(localDaily, paLong = 12, paStart = 10) {
 
     # if we have NA values on more than 10% of the days, then don't use the year
     if (length(counter) > 0){
-      good <- sum(counter) / numDaysInYear > 0.99
+      good <- sum(counter) / numDaysInYear > 0.9
     } else {
       good <- FALSE
     }    
