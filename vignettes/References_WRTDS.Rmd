@@ -18,7 +18,7 @@ vignette: >
 
 # WRTDS References
 
-This is a bibliography of published works that develop or use Weighted Regressions on Time, Discharge, and Season (WRTDS).  It is current as of December 2022.  It includes papers in scientific journals and government agency reports but not theses or dissertations or published drafts of government reports.  The publications included here are those that develop or use WRTDS.  Publications that reference WRTDS-related papers, but don’t use the method are not included. 
+This is a bibliography of published works that develop or use Weighted Regressions on Time, Discharge, and Season (WRTDS).  It is current as of May 2025 and includes a total of 275 references.  It includes papers in scientific journals and government agency reports but not theses or dissertations or published drafts of government reports.  The publications included here are those that develop or use WRTDS.  Publications that reference WRTDS-related papers, but don’t use the method are not included. If you are aware of publications that should be on this list but aren’t there, please send an e-mail to comptools@usgs.gov.
 
 This bibliography is organized in three sections:
 
