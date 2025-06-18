@@ -48,7 +48,7 @@ Imports daily data from NWIS web service. This function gets the data from here:
 \donttest{
 
 Daily <- readNWISDaily('01594440','00060',
-                       '1985-01-01', '1985-03-31')
+                       '2004-01-01', '2024-03-31')
 DailySuspSediment <- readNWISDaily('01594440','80154',
                                    '1985-01-01', '1985-03-31',
                                    convert = FALSE)
@@ -56,7 +56,7 @@ DailySuspSediment <- readNWISDaily('01594440','80154',
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-\code{\link[dataRetrieval]{readNWISdv}}, \code{\link{populateDaily}}
+\code{\link[dataRetrieval]{read_waterdata_daily}}, \code{\link{populateDaily}}
 }
 \keyword{USGS}
 \keyword{WRTDS}

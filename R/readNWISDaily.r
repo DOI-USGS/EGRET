@@ -28,12 +28,12 @@
 #' Q7 \tab numeric \tab 7 day running average of Q \cr
 #' Q30 \tab numeric \tab 30 day running average of Q \cr
 #' }
-#' @seealso \code{\link[dataRetrieval]{readNWISdv}}, \code{\link{populateDaily}}
+#' @seealso \code{\link[dataRetrieval]{read_waterdata_daily}}, \code{\link{populateDaily}}
 #' @examplesIf interactive()
 #' \donttest{
 #' 
 #' Daily <- readNWISDaily('01594440','00060',
-#'                        '1985-01-01', '1985-03-31')
+#'                        '2004-01-01', '2024-03-31')
 #' DailySuspSediment <- readNWISDaily('01594440','80154',
 #'                                    '1985-01-01', '1985-03-31',
 #'                                    convert = FALSE)
@@ -45,48 +45,73 @@ readNWISDaily <- function (siteNumber,
                            verbose = TRUE,
                            convert = TRUE){
 
-  url <- dataRetrieval::constructNWISURL(siteNumbers = siteNumber,
-                                         parameterCd = parameterCd,
-                                         startDate = startDate,
-                                         endDate = endDate,
-                                         service = "dv",
-                                         statCd = "00003",
-                                         format = "tsv")
+  qConvert <- ifelse("00060" == parameterCd, 35.314667, 1)
+  qConvert<- ifelse(convert,qConvert,1)
   
-  data_rdb <- dataRetrieval::importRDB1(url, asDateTime = FALSE)
-  
-  if(nrow(data_rdb) > 0){
-    if(length(names(data_rdb)) >= 5){
-      names(data_rdb) <- c('agency', 'site', 'dateTime', 'value', 'code')
-      data_rdb$dateTime <- as.Date(data_rdb$dateTime)
-      data_rdb$value <- as.numeric(data_rdb$value)
-      #####################################
-      qConvert <- ifelse("00060" == parameterCd, 35.314667, 1)
-      qConvert<- ifelse(convert,qConvert,1)
-      
-      localDaily <- populateDaily(data_rdb,
-                                  qConvert,
-                                  verbose = verbose)      
-    } else {
-      if("comment" %in% names(attributes(data_rdb))){
-        message(attr(data_rdb, "comment"))
-      }
+  if(utils::packageVersion("dataRetrieval") >= "2.7.19"){
+    if(!grepl("USGS-", siteNumber)){
+      siteNumber <- paste0("USGS-", siteNumber)
     }
-
+    
+    localDaily <- dataRetrieval::read_waterdata_daily(monitoring_location_id = siteNumber,
+                                                      parameter_code = parameterCd,
+                                                      time = c(startDate, endDate),
+                                                      statistic_id = "00003",
+                                                      skipGeometry = TRUE)
+    
+    localDaily <- localDaily[, c("monitoring_location_id", 
+                                 "time",
+                                 "value",
+                                 "qualifier")]
+    names(localDaily) <- c('site', 'dateTime', 'value', 'code')
+    localDaily$agency <- "USGS"
+    localDaily <- populateDaily(localDaily,
+                                qConvert,
+                                verbose = verbose)
+    
   } else {
-    localDaily <- data.frame(Date = as.Date(character()),
-                             Q = numeric(), 
-                             Julian = numeric(),
-                             Month = numeric(),
-                             Day = numeric(),
-                             DecYear = numeric(),
-                             MonthSeq = numeric(),
-                             Qualifier = character(),
-                             i = integer(),
-                             LogQ = numeric(),
-                             Q7 = numeric(),
-                             Q30 = numeric(),
-                             stringsAsFactors = FALSE)
+    url <- dataRetrieval::constructNWISURL(siteNumbers = siteNumber,
+                                           parameterCd = parameterCd,
+                                           startDate = startDate,
+                                           endDate = endDate,
+                                           service = "dv",
+                                           statCd = "00003",
+                                           format = "tsv")
+    
+    data_rdb <- dataRetrieval::importRDB1(url, asDateTime = FALSE)
+    
+    if(nrow(data_rdb) > 0){
+      if(length(names(data_rdb)) >= 5){
+        names(data_rdb) <- c('agency', 'site', 'dateTime', 'value', 'code')
+        data_rdb$dateTime <- as.Date(data_rdb$dateTime)
+        data_rdb$value <- as.numeric(data_rdb$value)
+        #####################################
+
+        
+        localDaily <- populateDaily(data_rdb,
+                                    qConvert,
+                                    verbose = verbose)      
+      } else {
+        if("comment" %in% names(attributes(data_rdb))){
+          message(attr(data_rdb, "comment"))
+        }
+      }
+
+    } else {
+      localDaily <- data.frame(Date = as.Date(character()),
+                               Q = numeric(), 
+                               Julian = numeric(),
+                               Month = numeric(),
+                               Day = numeric(),
+                               DecYear = numeric(),
+                               MonthSeq = numeric(),
+                               Qualifier = character(),
+                               i = integer(),
+                               LogQ = numeric(),
+                               Q7 = numeric(),
+                               Q30 = numeric(),
+                               stringsAsFactors = FALSE)
+    }
   }
 
   return (localDaily)

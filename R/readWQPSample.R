@@ -15,7 +15,7 @@
 #' @param verbose logical specifying whether or not to display progress message
 #' @param legacy logical specifying whether to use the "legacy" WQP services, or 
 #' the new ones. Legacy works well for non-USGS sites. For USGS sites it is recommended
-#' to use the \code{readNWISSample} function. Default is \code{TRUE}.
+#' to use the \code{readNWISSample} function. Default is \code{FALSE} to get the newest data.
 #' @keywords data import USGS WRTDS
 #' @export
 #' @return A data frame 'Sample' with the following columns:
@@ -46,7 +46,7 @@ readWQPSample <- function(siteNumber,
                           startDate = "",
                           endDate = "",
                           verbose = TRUE,
-                          legacy = TRUE){
+                          legacy = FALSE){
   
   extra_cols <- c("ActivityStartDateTime",
                   "USGSPCode",
@@ -57,7 +57,7 @@ readWQPSample <- function(siteNumber,
                   "ResultValueTypeName",
                   "ActivityTypeCode")
   
-  if(utils::packageVersion("dataRetrieval") >= "2.7.17"){
+  if(utils::packageVersion("dataRetrieval") >= "2.7.19"){
     data <- suppressMessages(dataRetrieval::readWQPqw(siteNumbers = siteNumber,
                                      parameterCd = characteristicName,
                                      startDate = startDate,

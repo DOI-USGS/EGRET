@@ -21,7 +21,7 @@ License: CC0
 Depends:
     R (>= 3.5)
 Imports:
-    dataRetrieval (>= 2.0.1),
+    dataRetrieval (>= 2.7.17),
     survival,
     fields,
     methods,
