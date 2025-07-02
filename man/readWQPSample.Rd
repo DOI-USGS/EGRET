@@ -5,7 +5,7 @@
 \title{Import Sample Data from the Water Quality Portal for WRTDS}
 \usage{
 readWQPSample(siteNumber, characteristicName, startDate = "", endDate = "",
-  verbose = TRUE, legacy = TRUE)
+  verbose = TRUE, legacy = FALSE)
 }
 \arguments{
 \item{siteNumber}{character site number.  If USGS, it should be in the form :'USGS-XXXXXXXXX...'}
@@ -23,7 +23,7 @@ Default is empty quotes "" which will retrieve the full period of record.}
 
 \item{legacy}{logical specifying whether to use the "legacy" WQP services, or 
 the new ones. Legacy works well for non-USGS sites. For USGS sites it is recommended
-to use the \code{readNWISSample} function. Default is \code{TRUE}.}
+to use the \code{readNWISSample} function. Default is \code{FALSE} to get the newest data.}
 }
 \value{
 A data frame 'Sample' with the following columns:
