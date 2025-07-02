@@ -19,9 +19,10 @@ jobs:
       matrix:
         config:
           - {os: macos-latest,   r: 'release'}
-
+    environment: CI_config
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      API_USGS_PAT: ${{ secrets.API_USGS_PAT }}
       R_KEEP_PKG_SOURCE: yes
 
     steps:
