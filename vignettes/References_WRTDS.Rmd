@@ -256,6 +256,8 @@ Rowland, Freya E, Craig A Stow, Laura T Johnson, and Robert M Hirsch.
 Concentrations and Loads to Reduce Flow Variability.” *Ecological
 Indicators* 125: 107601.
 
+Ruckhaus, Manya H., David W. Clow, Robert M. Hirsch, and Tanner W. Chapin. 2025. "Characterising Water‐Quality Response After the 2020 Cameron Peak Fire Using a Novel Application of the Weighted Regressions on Time, Discharge and Season Method." *Hydrological Processes* 39 (6): e70178.
+
 Saha, Gourab Kumer, Farshid Rahmani, Chaopeng Shen, Li Li, and Raj
 Cibin. 2023. “A Deep Learning-Based Novel Approach to Generate
 Continuous Daily Stream Nitrate Concentration for Nitrate Data-Sparse

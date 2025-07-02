@@ -56,7 +56,7 @@ Sample_01075 <- readNWISSample('01594440','01075', '1985-01-01', '1985-03-31')
 }
 \seealso{
 \code{\link{compressData}}, \code{\link{populateSampleColumns}},
-\code{\link[dataRetrieval]{readWQPqw}}
+\code{\link[dataRetrieval]{read_waterdata_samples}}
 }
 \keyword{USGS}
 \keyword{WRTDS}

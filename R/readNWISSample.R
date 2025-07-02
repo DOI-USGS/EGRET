@@ -32,7 +32,7 @@
 #' CosDY \tab numeric \tab Cosine of the DecYear
 #' }
 #' @seealso \code{\link{compressData}}, \code{\link{populateSampleColumns}},
-#' \code{\link[dataRetrieval]{readWQPqw}}
+#' \code{\link[dataRetrieval]{read_waterdata_samples}}
 #' @examplesIf interactive()
 #' \donttest{
 #' # These examples require an internet connection to run
@@ -48,10 +48,17 @@ readNWISSample <- function(siteNumber,
   
   siteNumber <- paste0("USGS-", siteNumber)
   
-  data <- suppressMessages( dataRetrieval::read_USGS_samples(monitoringLocationIdentifier = siteNumber,
-                              usgsPCode = parameterCd,
-                              activityStartDateLower = startDate, 
-                              activityStartDateUpper = endDate))
+  if(utils::packageVersion("dataRetrieval") >= "2.7.19"){
+    data <- suppressMessages( dataRetrieval::read_waterdata_samples(monitoringLocationIdentifier = siteNumber,
+                                usgsPCode = parameterCd,
+                                activityStartDateLower = startDate, 
+                                activityStartDateUpper = endDate))
+  } else {
+    data <- suppressMessages( dataRetrieval::read_USGS_samples(monitoringLocationIdentifier = siteNumber,
+                                                                    usgsPCode = parameterCd,
+                                                                    activityStartDateLower = startDate, 
+                                                                    activityStartDateUpper = endDate))    
+  }
   
   extra_cols <- c("ActivityStartDateTime",
                   "USGSPCode",
