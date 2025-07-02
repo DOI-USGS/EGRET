@@ -1,7 +1,7 @@
 #' Import USGS Sample Data for EGRET analysis
 #'
 #' Imports data from USGS web service. 
-#' For raw data, use \code{\link[dataRetrieval]{read_USGS_samples}} from the dataRetrieval package.
+#' For raw data, use \code{\link[dataRetrieval]{read_waterdata_samples}} from the dataRetrieval package.
 #' This function will retrieve the raw data, and compress it (summing constituents) if 
 #' more than 1 parameter code is supplied. See
 #' section 3.2.4 of the vignette for more details.
@@ -54,7 +54,7 @@ readNWISSample <- function(siteNumber,
                                 activityStartDateLower = startDate, 
                                 activityStartDateUpper = endDate))
   } else {
-    data <- suppressMessages( dataRetrieval::read_USGS_samples(monitoringLocationIdentifier = siteNumber,
+    data <- suppressMessages( dataRetrieval::read_waterdata_samples(monitoringLocationIdentifier = siteNumber,
                                                                     usgsPCode = parameterCd,
                                                                     activityStartDateLower = startDate, 
                                                                     activityStartDateUpper = endDate))    
