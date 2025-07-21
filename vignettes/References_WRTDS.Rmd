@@ -41,10 +41,7 @@ Hirsch, Robert M, Stacey A Archfield, and Laura A De Cicco. 2015. “A
 Bootstrap Method for Estimating Uncertainty of Water Quality Trends.”
 *Environmental Modelling & Software* 73: 148–66.
 
-Hirsch, Robert M, and Laura A De Cicco. 2015. “User Guide to Exploration
-and Graphics for RivEr Trends (EGRET) and
-<span class="nocase">dataRetrieval</span>: R Packages for Hydrologic
-Data.” 2328-7055. US Geological Survey.
+Hirsch, R.M., and De Cicco, L.A., 2015, User guide to Exploration and Graphics for RivEr Trends (EGRET) and dataRetrieval: R packages for hydrologic data (version 2.0, February 2015): U.S. Geological Survey Techniques and Methods book 4, chap. A10, p. 93 , <https://dx.doi.org/10.3133/tm4A10>.
 
 Hirsch, Robert M., Douglas L. Moyer, and Stacey A. Archfield. 2010.
 “Weighted Regressions on Time, Discharge, and Season (WRTDS), with an
@@ -196,15 +193,17 @@ and Richard A Cooke. 2013. “Sensitivity Analysis of Annual Nitrate Loads
 and the Corresponding Trends in the Lower Illinois River.” *Journal of
 Hydrologic Engineering* 19 (3): 533–43.
 
+Murphy, Jennifer C, and Jeffrey Chanat. 2023. “Leveraging Machine Learning
+to Automate Regression Model Evaluations for Large Multi-Site
+Water-Quality Trend Studies.” *Environmental Modelling & Software* 170:
+105864.
+
+Murphy, Jennifer C, Lindsey Schafer, and Scott Mize. 2025. “Tracking persistent declines in suspended sediment in the Lower Mississippi and Atchafalaya Rivers, 1992-2021: Harnessing WRTDSplus to characterize longitudinally varying trends and explore connections to streamflow.” *Journal of Hydrology* 662 Part A: 133885  <https://doi.org/10.1016/j.jhydrol.2025.133885>.
+
 Murphy, Jennifer C, Robert M Hirsch, and Lori A Sprague. 2014.
 “Antecedent Flow Conditions and Nitrate Concentrations in the
 Mississippi River Basin.” *Hydrology and Earth System Sciences* 18 (3):
 967–79.
-
-Murphy, Jennifer, and Jeffrey Chanat. 2023. “Leveraging Machine Learning
-to Automate Regression Model Evaluations for Large Multi-Site
-Water-Quality Trend Studies.” *Environmental Modelling & Software* 170:
-105864.
 
 Murphy, J, L Schafer, and Scott Mize. 2023. “Differing Field Methods and
 Site Conditions Lead to Varying Bias in Suspended Sediment
