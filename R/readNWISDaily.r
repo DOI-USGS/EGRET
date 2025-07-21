@@ -64,7 +64,13 @@ readNWISDaily <- function (siteNumber,
                                  "value",
                                  "qualifier")]
     names(localDaily) <- c('site', 'dateTime', 'value', 'code')
-    localDaily$agency <- "USGS"
+    if(nrow(localDaily) != 0){
+      localDaily$agency <- "USGS"
+    } else {
+      localDaily$agency <- character(0)
+      
+    }
+    
     localDaily <- populateDaily(localDaily,
                                 qConvert,
                                 verbose = verbose)
