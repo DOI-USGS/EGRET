@@ -71,25 +71,12 @@ processQWData <- function(data) {
   test$ResultValueTypeName <- data$ResultValueTypeName
   test$ActivityTypeCode <- data$ActivityTypeCode
 
-  if (length(unique(test$USGSPCode)) > 1) {
-    message("More than one USGSPCode returned")
-  }
-
-  if (length(unique(test$CharacteristicName)) > 1) {
-    message("More than one CharacteristicName returned")
-  }
-
-  if (length(unique(test$ActivityMediaName)) > 1) {
-    message("More than one ActivityMediaName returned")
-  }
-
-  if (length(unique(test$ActivityMediaSubdivisionName)) > 1) {
-    message("More than one ActivityMediaSubdivisionName returned")
-  }
-
-  if (length(unique(test$ResultSampleFractionText)) > 1) {
-    message("More than one ResultSampleFractionText returned")
-  }
+  message("Unique values in Sample:")
+  message("USGSPCode: ", toString(unique(test$USGSPCode)))
+  message("CharacteristicName: ", toString(unique(test$CharacteristicName)))
+  message("ActivityMediaName: ", toString(unique(test$ActivityMediaName)))
+  message("ActivityMediaSubdivisionName: ", toString(unique(test$ActivityMediaSubdivisionName)))
+  message("ResultSampleFractionText: ", toString(unique(test$ResultSampleFractionText)))
 
   test$dateTime <- format(test$dateTime, "%Y-%m-%d")
   test$dateTime <- as.Date(test$dateTime)

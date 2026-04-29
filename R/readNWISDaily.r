@@ -2,17 +2,19 @@
 #'
 #' Imports daily data from NWIS web service. This function gets the data from here: \url{https://waterservices.usgs.gov/}
 #'
-#' @param siteNumber character USGS site number.  This is usually an 8 digit number
+#' @param siteNumber character USGS site number.  This is usually an 8 digit number.
 #' @param parameterCd character USGS parameter code.  This is usually an 5 digit number.
 #' @param startDate character starting date for data retrieval in the form YYYY-MM-DD.
 #' @param endDate character ending date for data retrieval in the form YYYY-MM-DD.
-#' @param verbose logical specifying whether or not to display progress message
-#' @param convert logical Option to include a conversion from cfs to cms (35.314667). The default is TRUE,
-#' which is appropriate for using NWIS data in the EGRET package.
-#' Set this to FALSE to not include the conversion. If the parameter code is not 00060 (NWIS discharge),
-#' there is no conversion applied.
-#' @param adjust logical specifying whether or not to adjust the zero and negative flow.
-#' Defaults to TRUE.
+#' @param verbose logical specifying whether or not to display messages.
+#' @param convert logical Option to include a conversion from cfs to cms (35.314667).
+#' The default is TRUE which is appropriate for using NWIS data in the EGRET package.
+#' Set this to FALSE to not include the conversion. If the parameter code is not 00060
+#' (NWIS discharge), there is no conversion applied.
+#' @param adjust logical specifying whether or not to add a constant to zero values to 
+#' allow log transformation. Defaults to TRUE.
+#' @param fill logical specifying whether to fill NA values by linear interpolation.
+#' Defaults to FALSE.
 #' @keywords data import USGS WRTDS
 #' @export
 #' @return A data frame 'Daily' with the following columns:
@@ -48,7 +50,8 @@ readNWISDaily <- function(
   endDate = "",
   verbose = TRUE,
   convert = TRUE,
-  adjust = TRUE
+  adjust = TRUE,
+  fill = FALSE
 ) {
   qConvert <- ifelse("00060" == parameterCd, 35.314667, 1)
   qConvert <- ifelse(convert, qConvert, 1)
@@ -66,24 +69,15 @@ readNWISDaily <- function(
   )
 
   if (nrow(localDaily) > 0) {
-    localDaily <- localDaily[, c(
-      "monitoring_location_id",
-      "time",
-      "value",
-      "qualifier"
-    )]
-    names(localDaily) <- c('site', 'dateTime', 'value', 'code')
-    if (nrow(localDaily) != 0) {
-      localDaily$agency <- "USGS"
-    } else {
-      localDaily$agency <- character(0)
-    }
+    localDaily <- localDaily[, c("time", "value", "qualifier")]
+    names(localDaily) <- c("Date", "Q", "Qualifier")
 
     localDaily <- populateDaily(
       localDaily,
       qConvert,
       verbose = verbose,
-      adjust = adjust
+      adjust = adjust,
+      fill = fill
     )
   } else {
     localDaily <- data.frame(
