@@ -7,6 +7,8 @@
 #' @param verbose logical specifying whether or not to display messages.
 #' @param adjust logical specifying whether or not to add a constant to zero values 
 #' to allow log transformation. Defaults to TRUE.
+#' @param fill logical specifying whether to fill NA values by linear interpolation.
+#' Defaults to FALSE.
 #' @keywords WRTDS flow
 #' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
 #' @return A data frame 'Daily' with the following columns:
@@ -67,6 +69,11 @@ populateDaily <- function(localDaily, qConvert, verbose = TRUE, adjust = TRUE, f
         message(paste("There are", as.character(nz), "zero flow days."))
         message(paste("All days had", as.character(round(qshift, 4)),
                       "cms added to the discharge value."))
+      }
+    } else if (nn > 0) {
+      if (verbose) {
+        message(paste("Adjust is TRUE but there are", as.character(nn), "negative flow days."))
+        message("Discharge was not adjusted.")
       }
     }
   }
