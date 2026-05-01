@@ -50,50 +50,13 @@ readNWISSample <- function(
     siteNumber <- paste0("USGS-", siteNumber)
   }
 
-  data <- dataRetrieval::read_waterdata_samples(
+  data <- suppressMessages(dataRetrieval::read_waterdata_samples(
     monitoringLocationIdentifier = siteNumber,
     usgsPCode = parameterCd,
     activityStartDateLower = startDate,
     activityStartDateUpper = endDate,
     dataProfile = "fullphyschem"
-  )
-
-  extra_cols <- c(
-    "ActivityStartDateTime",
-    "USGSPCode",
-    "ActivityMediaSubdivisionName",
-    "ActivityMediaName",
-    "ResultSampleFractionText",
-    "ResultStatusIdentifier",
-    "ResultValueTypeName",
-    "ActivityTypeCode"
-  )
-
-  conversion_names <- data.frame(
-    legacy_names = c(
-      "ResultDetectionConditionText",
-      "ResultMeasureValue",
-      "DetectionQuantitationLimitMeasure.MeasureValue",
-      "CharacteristicName",
-      "ActivityStartDate",
-      extra_cols
-    ),
-    new_names = c(
-      "Result_ResultDetectionCondition",
-      "Result_Measure",
-      "DetectionLimit_MeasureA",
-      "Result_Characteristic",
-      "Activity_StartDate",
-      "Activity_StartDateTime",
-      "USGSpcode",
-      "Activity_MediaSubdivisionName",
-      "Activity_Media",
-      "Result_SampleFraction",
-      "Result_MeasureStatusIdentifier",
-      "Result_MeasureType",
-      "Activity_TypeCode"
-    )
-  )
+  ))
 
   for (i in seq_len(nrow(conversion_names))) {
     names(data)[which(
@@ -154,3 +117,41 @@ readNWISSample <- function(
 
   return(Sample)
 }
+
+# Column name conversions for readNWISSample and readWQPSample
+conversion_names <- data.frame(
+  legacy_names = c(
+    "ResultDetectionConditionText",
+    "ResultMeasureValue",
+    "DetectionQuantitationLimitMeasure.MeasureValue",
+    "CharacteristicName",
+    "ActivityStartDate",
+    "ActivityStartDateTime",
+    "USGSPCode",
+    "ActivityTypeCode",
+    "ActivityMediaName",
+    "Activity_MediaSubdivision",
+    "SampleCollectionMethod.MethodName",
+    "ResultAnalyticalMethod.MethodIdentifier",
+    "ResultSampleFractionText",
+    "ResultStatusIdentifier",
+    "ResultValueTypeName"
+  ),
+  new_names = c(
+    "Result_ResultDetectionCondition",
+    "Result_Measure",
+    "DetectionLimit_MeasureA",
+    "Result_Characteristic",
+    "Activity_StartDate",
+    "Activity_StartDateTime",
+    "USGSpcode",
+    "Activity_TypeCode",
+    "Activity_Media",
+    "Activity_MediaSubdivisionName",
+    "SampleCollectionMethod_Name",
+    "ResultAnalyticalMethod_Identifier",
+    "Result_SampleFraction",
+    "Result_MeasureStatusIdentifier",
+    "Result_MeasureType"
+  )
+)

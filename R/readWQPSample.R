@@ -42,78 +42,34 @@
 #' Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
 #' }
 readWQPSample <- function(
-  siteNumber,
-  characteristicName,
-  startDate = "",
-  endDate = "",
-  verbose = TRUE,
-  legacy = FALSE
+    siteNumber,
+    characteristicName,
+    startDate = "",
+    endDate = "",
+    verbose = TRUE,
+    legacy = FALSE
 ) {
-  extra_cols <- c(
-    "ActivityStartDateTime",
-    "USGSPCode",
-    "ActivityMediaSubdivisionName",
-    "ActivityMediaName",
-    "ResultSampleFractionText",
-    "ResultStatusIdentifier",
-    "ResultValueTypeName",
-    "ActivityTypeCode"
-  )
 
-  if (utils::packageVersion("dataRetrieval") >= "2.7.19") {
-    data <- suppressMessages(dataRetrieval::readWQPqw(
-      siteNumbers = siteNumber,
-      parameterCd = characteristicName,
-      startDate = startDate,
-      endDate = endDate,
-      ignore_attributes = TRUE,
-      legacy = legacy
-    ))
-
-    conversion_names <- data.frame(
-      legacy_names = c(
-        "ResultDetectionConditionText",
-        "ResultMeasureValue",
-        "DetectionQuantitationLimitMeasure.MeasureValue",
-        "CharacteristicName",
-        "ActivityStartDate",
-        extra_cols
-      ),
-      new_names = c(
-        "Result_ResultDetectionCondition",
-        "Result_Measure",
-        "DetectionLimit_MeasureA",
-        "Result_Characteristic",
-        "Activity_StartDate",
-        "Activity_StartDateTime",
-        "USGSpcode",
-        "Activity_MediaSubdivisionName",
-        "Activity_Media",
-        "Result_SampleFraction",
-        "Result_MeasureStatusIdentifier",
-        "Result_MeasureType",
-        "Activity_TypeCode"
-      )
-    )
-
-    for (i in seq_len(nrow(conversion_names))) {
-      names(data)[which(
-        names(data) == conversion_names$new_names[i]
-      )] <- conversion_names$legacy_names[i]
-    }
-  } else {
-    data <- dataRetrieval::readWQPqw(
-      siteNumbers = siteNumber,
-      parameterCd = characteristicName,
-      startDate = startDate,
-      endDate = endDate
-    )
+  data <- suppressMessages(dataRetrieval::readWQPdata(
+    siteid = siteNumber,
+    parameterCd = characteristicName,
+    startDateLo = startDate,
+    startDateHi = endDate,
+    ignore_attributes = TRUE,
+    service = "ResultWQX3",
+    dataProfile = "fullPhysChem"
+  ))
+  
+  for (i in seq_len(nrow(conversion_names))) {
+    names(data)[which(
+      names(data) == conversion_names$new_names[i]
+    )] <- conversion_names$legacy_names[i]
   }
-
+  
   if (nrow(data) == 0) {
     warning("No data returned")
   }
-
+  
   if (nrow(data) > 0) {
     data <- processQWData(data)
     first_three <- c("dateTime", "qualifier", "value")
@@ -123,7 +79,7 @@ readWQPSample <- function(
       data[, names(data)[!names(data) %in% first_three]]
     )
     combined_data <- remove_zeros(combined_data, verbose = verbose)
-
+    
     Sample <- populateSampleColumns(combined_data)
     orig_Sample <- c(
       "Date",
@@ -162,6 +118,6 @@ readWQPSample <- function(
       stringsAsFactors = FALSE
     )
   }
-
+  
   return(Sample)
 }

@@ -60,13 +60,13 @@ readNWISDaily <- function(
     siteNumber <- paste0("USGS-", siteNumber)
   }
 
-  localDaily <- dataRetrieval::read_waterdata_daily(
+  localDaily <- suppressMessages(dataRetrieval::read_waterdata_daily(
     monitoring_location_id = siteNumber,
     parameter_code = parameterCd,
     time = c(startDate, endDate),
     statistic_id = "00003",
     skipGeometry = TRUE
-  )
+  ))
 
   if (nrow(localDaily) > 0) {
     localDaily <- localDaily[, c("time", "value", "qualifier")]

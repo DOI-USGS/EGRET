@@ -66,7 +66,7 @@ populateDaily <- function(localDaily, qConvert, verbose = TRUE, adjust = TRUE, f
     if (nz > 0 & nn == 0) {
       qshift <- 0.001 * mean(localDaily$Q, na.rm = TRUE)
       if (verbose) {
-        message(paste("There are", as.character(nz), "zero flow days."))
+        message(paste("There are", as.character(nz), "zero flow days and no negative flow days."))
         message(paste("All days had", as.character(round(qshift, 4)),
                       "cms added to the discharge value."))
       }
@@ -79,7 +79,9 @@ populateDaily <- function(localDaily, qConvert, verbose = TRUE, adjust = TRUE, f
   }
   
   localDaily$Q <- localDaily$Q + qshift
-  localDaily$LogQ <- log(localDaily$Q)
+  localDaily$LogQ <- suppressWarnings(
+    log(localDaily$Q)
+  )
   
   # Rolling mean discharge
   ma <- function(x, n = 7) {
@@ -123,7 +125,9 @@ populateDaily <- function(localDaily, qConvert, verbose = TRUE, adjust = TRUE, f
   if (fill) {
     localDaily$Qualifier[is.na(localDaily$Q)] <- "INTERPOLATED"
     localDaily$Q = approx(localDaily$i[!(is.na(localDaily$Q))], localDaily$Q[!(is.na(localDaily$Q))], localDaily$i)$y
-    localDaily$LogQ <- log(localDaily$Q)
+    localDaily$LogQ <- suppressWarnings(
+      log(localDaily$Q)
+    )
     if (length(localDaily$Date) >= 30) {
       localDaily$Q7 <- as.numeric(ma(localDaily$Q))
       localDaily$Q30 <- as.numeric(ma(localDaily$Q, 30))
