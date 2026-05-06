@@ -4,11 +4,11 @@
 \alias{populateDaily}
 \title{Populate Daily data frame}
 \usage{
-populateDaily(localDaily, qConvert, verbose = TRUE, adjust = TRUE,
+populateDaily(rawData, qConvert, verbose = TRUE, adjust = TRUE,
   fill = FALSE)
 }
 \arguments{
-\item{localDaily}{dataframe contains at least Date, Q, Qualifier columns.}
+\item{rawData}{dataframe contains at least Date, Q, Qualifier columns.}
 
 \item{qConvert}{numeric conversion to cubic meters per second.}
 

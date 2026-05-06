@@ -24,7 +24,7 @@ The default is TRUE which is appropriate for using NWIS data in the EGRET packag
 Set this to FALSE to not include the conversion. If the parameter code is not 00060
 (NWIS discharge), there is no conversion applied.}
 
-\item{adjust}{logical specifying whether or not to add a constant to zero values to 
+\item{adjust}{logical specifying whether or not to add a constant to zero values to
 allow log transformation. Defaults to TRUE.}
 
 \item{fill}{logical specifying whether to fill NA values by linear interpolation.

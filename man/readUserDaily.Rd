@@ -5,7 +5,7 @@
 \title{Import user daily data for EGRET analysis}
 \usage{
 readUserDaily(filePath, fileName, hasHeader = TRUE, separator = ",",
-  qUnit = 1, format = "\%m/\%d/\%Y", verbose = TRUE)
+  qUnit = 1, format = "\%m/\%d/\%Y", verbose = TRUE, adjust = TRUE)
 }
 \arguments{
 \item{filePath}{character specifying the path to the file. If it
@@ -29,6 +29,9 @@ for options. The code will initially look for R's standard YYYY-MM-DD, and
 check this format as a backup.}
 
 \item{verbose}{logical specifying whether or not to display progress message}
+
+\item{adjust}{logical specifying whether or not to add a constant to zero values
+to allow log transformation. Defaults to TRUE.}
 }
 \value{
 A data frame 'Daily' with the following columns:
