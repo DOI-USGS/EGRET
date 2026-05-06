@@ -53,7 +53,7 @@ readNWISInfo <- function(siteNumber, parameterCd, interactive = TRUE) {
     INFO$dec_long_va <- sf::st_coordinates(INFO)[, 1]
     INFO$dec_lat_va <- sf::st_coordinates(INFO)[, 2]
 
-    INFO <- INFO |> sf::st_drop_geometry(INFO)
+    INFO <- sf::st_drop_geometry(INFO)
 
     names(INFO)[names(INFO) == "monitoring_location_id"] <- "site_no"
     names(INFO)[names(INFO) == "drainage_area"] <- "drain_area_va"
