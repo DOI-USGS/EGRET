@@ -37,7 +37,14 @@
 #' \donttest{
 #' # These examples require an internet connection to run
 #'
-#' Sample_01075 <- readNWISSample('01594440','01075', '1985-01-01', '1985-03-31')
+#' Sample_01075 <- readNWISSample(siteNumber = '01594440',
+#'                                parameterCd = '01075',
+#'                                startDate = '1985-01-01',
+#'                                endDate = '1995-03-31')
+#' Sample_char <- readNWISSample(siteNumber = 'USGS-01594440',
+#'                               parameterCd = 'Silver',
+#'                               startDate = '1985-01-01',
+#'                               endDate = '1995-03-31')
 #' }
 readNWISSample <- function(
   siteNumber,
@@ -50,13 +57,23 @@ readNWISSample <- function(
     siteNumber <- paste0("USGS-", siteNumber)
   }
 
-  data <- suppressMessages(dataRetrieval::read_waterdata_samples(
+  args <- list(
     monitoringLocationIdentifier = siteNumber,
-    usgsPCode = parameterCd,
     activityStartDateLower = startDate,
     activityStartDateUpper = endDate,
     dataProfile = "fullphyschem"
-  ))
+  )
+
+  if (nchar(parameterCd) == 5 & !grepl("\\D", parameterCd)) {
+    args[["usgsPCode"]] <- parameterCd
+  } else {
+    args[["characteristic"]] <- parameterCd
+  }
+
+  data <- suppressMessages(do.call(dataRetrieval::read_waterdata_samples, args))
+
+  new_names_index <- which(names(data) %in% conversion_names$new_names)
+  names(data)[new_names_index]
 
   for (i in seq_len(nrow(conversion_names))) {
     names(data)[which(
@@ -130,7 +147,7 @@ conversion_names <- data.frame(
     "USGSPCode",
     "ActivityTypeCode",
     "ActivityMediaName",
-    "Activity_MediaSubdivision",
+    "ActivityMediaSubdivisionName",
     "SampleCollectionMethod.MethodName",
     "ResultAnalyticalMethod.MethodIdentifier",
     "ResultSampleFractionText",
@@ -147,7 +164,7 @@ conversion_names <- data.frame(
     "USGSpcode",
     "Activity_TypeCode",
     "Activity_Media",
-    "Activity_MediaSubdivisionName",
+    "Activity_MediaSubdivision",
     "SampleCollectionMethod_Name",
     "ResultAnalyticalMethod_Identifier",
     "Result_SampleFraction",

@@ -113,13 +113,7 @@ populateSiteINFO <- function(INFO, siteNumber, interactive = TRUE) {
         "Please enter a site name that will be used to label all graphs and tables(no quotes):\n"
       )
       INFO$shortName <- readline()
-      #       cat("Please enter a latitude and longitude in decimal degrees, positive latitudes are north, negative are south, positive longitudes are east, \nnegative longitudes are west, so for example a site in the northeastern US might look like, 40.1, -83.2\nThese only need to be sufficiently accurate to place them on a map of the study area.\n\n")
-      #       cat("Latitude(no quotes):\n")
-      #       INFO$dec_lat_va <- readline()
-      #       cat("Longitude(no quotes):\n")
-      #       INFO$dec_long_va <- readline()
-      #       INFO$dec_lat_va <- as.numeric(INFO$dec_lat_va)
-      #       INFO$dec_long_va <- as.numeric(INFO$dec_long_va)
+
       cat(
         "Please enter the drainage area, you can enter it in the units of your choice.\n"
       )

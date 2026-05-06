@@ -12,11 +12,13 @@
 #' @seealso \code{\link[dataRetrieval]{readWQPqw}}
 #' @examples
 #' \donttest{
-#' #rawWQP <- dataRetrieval::readWQPqw('21FLEECO_WQX-IMPRGR80','Phosphorus', '', '')
-#' #Sample2 <- processQWData(rawWQP)
+#' rawWQP <- dataRetrieval::readWQPdata(siteid = '21FLEECO_WQX-IMPRGR80',
+#'                                      characteristicName = 'Phosphorus',
+#'                                      service = "Result",
+#'                                      dataProfile = "resultPhysChem")
+#' Sample2 <- processQWData(rawWQP)
 #' }
 processQWData <- function(data) {
-  
   # Create qualifier column with "<" for any of detectText values
   detectText <- data$ResultDetectionConditionText
   detectText <- toupper(detectText)
@@ -28,27 +30,30 @@ processQWData <- function(data) {
   qualifier[grep("BELOW QUANTIFICATION LIMIT", detectText)] <- "<"
 
   # Create processed data frame
-  df <- data.frame(CharacteristicName = data$CharacteristicName,
-                   dateTime = data$ActivityStartDate,
-                   qualifier = qualifier,
-                   value = as.numeric(ifelse(
-                     (nchar(qualifier) == 0),
-                     data$ResultMeasureValue,
-                     data$DetectionQuantitationLimitMeasure.MeasureValue)),
-                   USGSPCode = data$USGSPCode,
-                   ActivityStartDateTime = data$ActivityStartDateTime,
-                   ActivityTypeCode = data$ActivityTypeCode,
-                   ActivityMediaName = data$ActivityMediaName,
-                   ActivityMediaSubdivision = data$Activity_MediaSubdivision,
-                   SampleCollectionMethod = data$SampleCollectionMethod.MethodName,
-                   ResultAnalyticalMethod = data$ResultAnalyticalMethod.MethodIdentifier,
-                   ResultSampleFraction = data$ResultSampleFractionText,
-                   ResultStatusIdentifier = data$ResultStatusIdentifier,
-                   ResultValueTypeName = data$ResultValueTypeName)
-  
+  df <- data.frame(
+    CharacteristicName = data$CharacteristicName,
+    dateTime = data$ActivityStartDate,
+    qualifier = qualifier,
+    value = suppressWarnings(as.numeric(ifelse(
+      (nchar(qualifier) == 0),
+      data$ResultMeasureValue,
+      data$DetectionQuantitationLimitMeasure.MeasureValue
+    ))),
+    USGSPCode = data$USGSPCode,
+    ActivityStartDateTime = data$ActivityStartDateTime,
+    ActivityTypeCode = data$ActivityTypeCode,
+    ActivityMediaName = data$ActivityMediaName,
+    ActivityMediaSubdivision = data$ActivityMediaSubdivisionName,
+    SampleCollectionMethod = data$SampleCollectionMethod.MethodName,
+    ResultAnalyticalMethod = data$ResultAnalyticalMethod.MethodIdentifier,
+    ResultSampleFraction = data$ResultSampleFractionText,
+    ResultStatusIdentifier = data$ResultStatusIdentifier,
+    ResultValueTypeName = data$ResultValueTypeName
+  )
+
   # Filter out samples with no date
   n_orig <- nrow(data)
-  df <- df[!is.na(df$dateTime),]
+  df <- df[!is.na(df$dateTime), ]
   n_date <- length(df$dateTime)
   message(paste(n_orig, "samples retrieved."))
   if (n_orig != n_date) {
@@ -56,16 +61,27 @@ processQWData <- function(data) {
   }
 
   # Check for multiple unique values in specified sample characteristics
-  cols <- c("USGSPCode", "CharacteristicName", "ActivityTypeCode", "ActivityMediaName",
-            "ActivityMediaSubdivision", "SampleCollectionMethod", "ResultAnalyticalMethod",
-            "ResultSampleFraction")
-  
+  cols <- c(
+    "USGSPCode",
+    "CharacteristicName",
+    "ActivityTypeCode",
+    "ActivityMediaName",
+    "ActivityMediaSubdivision",
+    "SampleCollectionMethod",
+    "ResultAnalyticalMethod",
+    "ResultSampleFraction"
+  )
+
   multi <- Filter(function(col) length(unique(df[[col]])) > 1, cols)
-  
+
   if (length(multi) > 0) {
     message("Multiple values for some sample characteristics:")
     for (col in multi) {
-      message(col, ": ", toString(unique(df[[col]])))
+      message(
+        col,
+        ": ",
+        paste0("'", paste0(unique(df[[col]]), collapse = "', '"), "'")
+      )
     }
   }
 

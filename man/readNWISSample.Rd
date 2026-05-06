@@ -50,7 +50,14 @@ section 3.2.4 of the vignette for more details.
 \donttest{
 # These examples require an internet connection to run
 
-Sample_01075 <- readNWISSample('01594440','01075', '1985-01-01', '1985-03-31')
+Sample_01075 <- readNWISSample(siteNumber = '01594440',
+                               parameterCd = '01075',
+                               startDate = '1985-01-01',
+                               endDate = '1995-03-31')
+Sample_char <- readNWISSample(siteNumber = 'USGS-01594440',
+                              parameterCd = 'Silver',
+                              startDate = '1985-01-01',
+                              endDate = '1995-03-31')
 }
 \dontshow{\}) # examplesIf}
 }

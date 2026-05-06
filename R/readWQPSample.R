@@ -42,34 +42,40 @@
 #' Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
 #' }
 readWQPSample <- function(
-    siteNumber,
-    characteristicName,
-    startDate = "",
-    endDate = "",
-    verbose = TRUE,
-    legacy = FALSE
+  siteNumber,
+  characteristicName,
+  startDate = "",
+  endDate = "",
+  verbose = TRUE,
+  legacy = FALSE
 ) {
+  if (grepl("USGS", siteNumber)) {
+    message("Please use readNWISSample for USGS data")
+    out <- readNWISSample(
+      siteNumber = siteNumber,
+      parameterCd = characteristicName,
+      startDate = startDate,
+      endDate = endDate,
+      verbose = verbose
+    )
+    return(out)
+  }
 
+  # Legacy is the only working service
   data <- suppressMessages(dataRetrieval::readWQPdata(
     siteid = siteNumber,
-    parameterCd = characteristicName,
+    characteristicName = characteristicName,
     startDateLo = startDate,
     startDateHi = endDate,
     ignore_attributes = TRUE,
-    service = "ResultWQX3",
-    dataProfile = "fullPhysChem"
+    service = "Result",
+    dataProfile = "resultPhysChem"
   ))
-  
-  for (i in seq_len(nrow(conversion_names))) {
-    names(data)[which(
-      names(data) == conversion_names$new_names[i]
-    )] <- conversion_names$legacy_names[i]
-  }
-  
+
   if (nrow(data) == 0) {
     warning("No data returned")
   }
-  
+
   if (nrow(data) > 0) {
     data <- processQWData(data)
     first_three <- c("dateTime", "qualifier", "value")
@@ -79,7 +85,7 @@ readWQPSample <- function(
       data[, names(data)[!names(data) %in% first_three]]
     )
     combined_data <- remove_zeros(combined_data, verbose = verbose)
-    
+
     Sample <- populateSampleColumns(combined_data)
     orig_Sample <- c(
       "Date",
@@ -118,6 +124,6 @@ readWQPSample <- function(
       stringsAsFactors = FALSE
     )
   }
-  
+
   return(Sample)
 }

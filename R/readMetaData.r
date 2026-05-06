@@ -41,20 +41,41 @@
 #' INFO <- readNWISInfo('05114000','00010',interactive = FALSE)
 #' }
 readNWISInfo <- function(siteNumber, parameterCd, interactive = TRUE) {
+  if (!grepl("USGS-", siteNumber)) {
+    siteNumber <- paste0("USGS-", siteNumber)
+  }
+
   if (nzchar(siteNumber)) {
-    INFO <- dataRetrieval::readNWISsite(siteNumber)
+    INFO <- suppressMessages(dataRetrieval::read_waterdata_monitoring_location(
+      monitoring_location_id = siteNumber
+    ))
+
+    INFO$dec_long_va <- sf::st_coordinates(INFO)[, 1]
+    INFO$dec_lat_va <- sf::st_coordinates(INFO)[, 2]
+
+    INFO <- INFO |> sf::st_drop_geometry(INFO)
+
+    names(INFO)[names(INFO) == "monitoring_location_id"] <- "site_no"
+    names(INFO)[names(INFO) == "drainage_area"] <- "drain_area_va"
+    names(INFO)[names(INFO) == "monitoring_location_name"] <- "station_nm"
+    names(INFO)[
+      names(INFO) == "contributing_drainage_area"
+    ] <- "contrib_drain_area_va"
   } else {
     INFO <- as.data.frame(matrix(ncol = 2, nrow = 1))
     names(INFO) <- c('site_no', 'shortName')
   }
+
   INFO <- populateSiteINFO(INFO, siteNumber, interactive = interactive)
 
   if (nzchar(parameterCd)) {
-    parameterData <- dataRetrieval::readNWISpCode(parameterCd = parameterCd)
-    INFO$param.nm <- parameterData$parameter_nm
-    INFO$param.units <- parameterData$parameter_units
-    INFO$paramShortName <- parameterData$srsname
-    INFO$paramNumber <- parameterData$parameter_cd
+    parameterData <- suppressMessages(dataRetrieval::read_waterdata_parameter_codes(
+      parameter_code = parameterCd
+    ))
+    INFO$param.nm <- parameterData$parameter_name
+    INFO$param.units <- parameterData$unit_of_measure
+    INFO$paramShortName <- parameterData$parameter_name
+    INFO$paramNumber <- parameterData$parameter_code
   }
 
   INFO <- populateParameterINFO(parameterCd, INFO, interactive = interactive)
@@ -100,13 +121,15 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive = TRUE) {
   if (pCodeLogic) {
     siteInfo <- dataRetrieval::whatWQPsites(siteid = siteNumber, legacy = TRUE)
 
-    parameterData <- dataRetrieval::readNWISpCode(parameterCd = parameterCd)
+    parameterData <- suppressMessages(dataRetrieval::read_waterdata_parameter_codes(
+      parameter_code = parameterCd
+    ))
 
-    siteInfo$param.nm <- parameterData$parameter_nm
-    siteInfo$param.units <- parameterData$parameter_units
-    siteInfo$paramShortName <- parameterData$srsname
-    siteInfo$paramNumber <- parameterData$parameter_cd
-    siteInfo$constitAbbrev <- parameterData$parameter_cd
+    siteInfo$param.nm <- parameterData$parameter_name
+    siteInfo$param.units <- parameterData$unit_of_measure
+    siteInfo$paramShortName <- parameterData$parameter_name
+    siteInfo$paramNumber <- parameterData$parameter_code
+    siteInfo$constitAbbrev <- parameterData$parameter_code
   } else {
     siteInfo <- dataRetrieval::whatWQPsites(siteid = siteNumber, legacy = TRUE)
 
