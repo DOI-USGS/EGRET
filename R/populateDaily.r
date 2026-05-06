@@ -62,7 +62,13 @@ populateDaily <- function(
     localDaily$Date <- rawData[[1]]
   }
 
-  localDaily$Q <- rawData$value / qConvert
+  if ("value" %in% names(rawData)) {
+    localDaily$Q <- rawData$value / qConvert
+  } else if ("Q" %in% names(rawData)) {
+    localDaily$Q <- rawData$Q / qConvert
+  } else {
+    localDaily$Q <- rawData[[2]] / qConvert
+  }
 
   # Make complete daily time series
   all_dates <- data.frame(
