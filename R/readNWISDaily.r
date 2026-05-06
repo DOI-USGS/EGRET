@@ -11,7 +11,7 @@
 #' The default is TRUE which is appropriate for using NWIS data in the EGRET package.
 #' Set this to FALSE to not include the conversion. If the parameter code is not 00060
 #' (NWIS discharge), there is no conversion applied.
-#' @param adjust logical specifying whether or not to add a constant to zero values to 
+#' @param adjust logical specifying whether or not to add a constant to zero values to
 #' allow log transformation. Defaults to TRUE.
 #' @param fill logical specifying whether to fill NA values by linear interpolation.
 #' Defaults to FALSE.
@@ -60,7 +60,7 @@ readNWISDaily <- function(
     siteNumber <- paste0("USGS-", siteNumber)
   }
 
-  localDaily <- suppressMessages(dataRetrieval::read_waterdata_daily(
+  daily_data <- suppressMessages(dataRetrieval::read_waterdata_daily(
     monitoring_location_id = siteNumber,
     parameter_code = parameterCd,
     time = c(startDate, endDate),
@@ -68,12 +68,11 @@ readNWISDaily <- function(
     skipGeometry = TRUE
   ))
 
-  if (nrow(localDaily) > 0) {
-    localDaily <- localDaily[, c("time", "value", "qualifier")]
-    names(localDaily) <- c("Date", "Q", "Qualifier")
+  if (nrow(daily_data) > 0) {
+    daily_data <- daily_data[, c("time", "value", "qualifier")]
 
     localDaily <- populateDaily(
-      localDaily,
+      daily_data,
       qConvert,
       verbose = verbose,
       adjust = adjust,

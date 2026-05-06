@@ -2,7 +2,7 @@
 #'
 #' Using a data frame that has at least Date, Q, Qualifier, populates the rest of the basic Daily data frame used in EGRET analysis.
 #'
-#' @param localDaily dataframe contains at least Date, Q, Qualifier columns.
+#' @param rawData dataframe contains at least Date, Q, Qualifier columns.
 #' @param qConvert numeric conversion to cubic meters per second.
 #' @param verbose logical specifying whether or not to display messages.
 #' @param adjust logical specifying whether or not to add a constant to zero values
@@ -37,13 +37,32 @@
 #' Daily <- populateDaily(dataInput, 1)
 #'
 populateDaily <- function(
-  localDaily,
+  rawData,
   qConvert,
   verbose = TRUE,
   adjust = TRUE,
   fill = FALSE
 ) {
-  localDaily$Q <- localDaily$Q / qConvert
+  localDaily <- as.data.frame(matrix(ncol = 3, nrow = nrow(rawData)))
+  colnames(localDaily) <- c('Date', 'Q', 'Qualifier')
+
+  if ("code" %in% names(rawData)) {
+    localDaily$Qualifier <- rawData$code
+  } else if ("qualifier" %in% names(rawData)) {
+    localDaily$Qualifier <- rawData$qualifier
+  } else {
+    localDaily$Qualifier <- ""
+  }
+
+  if ("time" %in% names(rawData)) {
+    localDaily$Date <- rawData$time
+  } else if ("Date" %in% names(rawData)) {
+    localDaily$Date <- rawData$Date
+  } else {
+    localDaily$Date <- rawData[[1]]
+  }
+
+  localDaily$Q <- rawData$value / qConvert
 
   # Make complete daily time series
   all_dates <- data.frame(
@@ -58,6 +77,7 @@ populateDaily <- function(
   # Populate date columns
   dateFrame <- populateDateColumns(localDaily$Date)
   localDaily <- merge(localDaily, dateFrame)
+
   localDaily <- localDaily[, c(
     setdiff(names(localDaily), "Qualifier"),
     "Qualifier"
