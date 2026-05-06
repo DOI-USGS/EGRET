@@ -5,10 +5,11 @@
 \title{Import NWIS Daily Data for EGRET analysis}
 \usage{
 readNWISDaily(siteNumber, parameterCd = "00060", startDate = "",
-  endDate = "", verbose = TRUE, convert = TRUE, adjust = TRUE)
+  endDate = "", verbose = TRUE, convert = TRUE, adjust = TRUE,
+  fill = FALSE)
 }
 \arguments{
-\item{siteNumber}{character USGS site number.  This is usually an 8 digit number}
+\item{siteNumber}{character USGS site number.  This is usually an 8 digit number.}
 
 \item{parameterCd}{character USGS parameter code.  This is usually an 5 digit number.}
 
@@ -16,15 +17,18 @@ readNWISDaily(siteNumber, parameterCd = "00060", startDate = "",
 
 \item{endDate}{character ending date for data retrieval in the form YYYY-MM-DD.}
 
-\item{verbose}{logical specifying whether or not to display progress message}
+\item{verbose}{logical specifying whether or not to display messages.}
 
-\item{convert}{logical Option to include a conversion from cfs to cms (35.314667). The default is TRUE,
-which is appropriate for using NWIS data in the EGRET package.
-Set this to FALSE to not include the conversion. If the parameter code is not 00060 (NWIS discharge),
-there is no conversion applied.}
+\item{convert}{logical Option to include a conversion from cfs to cms (35.314667).
+The default is TRUE which is appropriate for using NWIS data in the EGRET package.
+Set this to FALSE to not include the conversion. If the parameter code is not 00060
+(NWIS discharge), there is no conversion applied.}
 
-\item{adjust}{logical specifying whether or not to adjust the zero and negative flow.
-Defaults to TRUE.}
+\item{adjust}{logical specifying whether or not to add a constant to zero values to 
+allow log transformation. Defaults to TRUE.}
+
+\item{fill}{logical specifying whether to fill NA values by linear interpolation.
+Defaults to FALSE.}
 }
 \value{
 A data frame 'Daily' with the following columns:

@@ -4,17 +4,21 @@
 \alias{populateDaily}
 \title{Populate Daily data frame}
 \usage{
-populateDaily(rawData, qConvert, verbose = TRUE, adjust = TRUE)
+populateDaily(localDaily, qConvert, verbose = TRUE, adjust = TRUE,
+  fill = FALSE)
 }
 \arguments{
-\item{rawData}{dataframe contains at least dateTime, value, code columns}
+\item{localDaily}{dataframe contains at least Date, Q, Qualifier columns.}
 
-\item{qConvert}{character conversion to cubic meters per second}
+\item{qConvert}{numeric conversion to cubic meters per second.}
 
-\item{verbose}{logical specifying whether or not to display progress message}
+\item{verbose}{logical specifying whether or not to display messages.}
 
-\item{adjust}{logical specifying whether or not to adjust the zero and negative flow.
-Defaults to TRUE.}
+\item{adjust}{logical specifying whether or not to add a constant to zero values 
+to allow log transformation. Defaults to TRUE.}
+
+\item{fill}{logical specifying whether to fill NA values by linear interpolation.
+Defaults to FALSE.}
 }
 \value{
 A data frame 'Daily' with the following columns:
@@ -34,15 +38,16 @@ Q30 \tab numeric \tab 30 day running average of Q \cr
 }
 }
 \description{
-Using raw data that has at least dateTime, value, code, populates the rest of the basic Daily data frame used in EGRET analysis.
+Using a data frame that has at least Date, Q, Qualifier, populates the rest of the basic Daily data frame used in EGRET analysis.
 }
 \examples{
-dateTime <- as.character(seq(as.Date("2001/1/1"),
+Date <- as.character(seq(as.Date("2001/1/1"),
          as.Date("2002/1/2"), by = "day"))
-value <- -1:365
-code <- rep("",367)
-dataInput <- data.frame(dateTime, value, code, stringsAsFactors=FALSE)
+Q <- -1:365
+Qualifier <- rep("",367)
+dataInput <- data.frame(Date, Q, Qualifier, stringsAsFactors=FALSE)
 Daily <- populateDaily(dataInput, 1)
+
 }
 \seealso{
 \code{\link{readNWISDaily}}, \code{\link{readUserDaily}}

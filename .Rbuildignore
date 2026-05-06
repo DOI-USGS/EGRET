@@ -67,3 +67,5 @@ docs/*
 docker/*
 ^\.vscode$
 ^[.]?air[.]toml$
+^\.positai$
+^\.claude$
