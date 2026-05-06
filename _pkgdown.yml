@@ -54,6 +54,8 @@ navbar:
       href: articles/Compare_QW_and_UV.html
     - text: Custom Units
       href: articles/units.html
+    - text: dataRetrieval Updates
+      href: articles/data_retrieval_updates.html
   - text: Bibliograpy
     href: articles/References_WRTDS.html
   right:

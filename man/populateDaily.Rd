@@ -14,7 +14,7 @@ populateDaily(localDaily, qConvert, verbose = TRUE, adjust = TRUE,
 
 \item{verbose}{logical specifying whether or not to display messages.}
 
-\item{adjust}{logical specifying whether or not to add a constant to zero values 
+\item{adjust}{logical specifying whether or not to add a constant to zero values
 to allow log transformation. Defaults to TRUE.}
 
 \item{fill}{logical specifying whether to fill NA values by linear interpolation.
