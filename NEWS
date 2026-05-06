@@ -1,8 +1,9 @@
 EGRET 3.0.12
 ===========
-* Changed readNWISDaily to use new USGS Water Data API service.
-* Added option to use the flow adjustment or not
-* Cleaned up plotConcTimeSmooth title
+* Changed readNWISDaily to use new USGS Water Data API services.
+* Changed readNWISInfo to use new USGS Water Data API services.
+* Added option to use the flow adjustment or not.
+* Cleaned up plotConcTimeSmooth title.
 
 EGRET 3.0.11
 ===========
