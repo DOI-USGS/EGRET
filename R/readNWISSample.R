@@ -64,7 +64,8 @@ readNWISSample <- function(
     dataProfile = "fullphyschem"
   )
 
-  if (nchar(parameterCd) == 5 & !grepl("\\D", parameterCd)) {
+  # regular expression \\D matches any character that is not a decimal digit
+  if (all(nchar(parameterCd) == 5) & !all(grepl("\\D", parameterCd))) {
     args[["usgsPCode"]] <- parameterCd
   } else {
     args[["characteristic"]] <- parameterCd

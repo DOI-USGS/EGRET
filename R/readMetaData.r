@@ -119,7 +119,10 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive = TRUE) {
     suppressWarnings(all(!is.na(as.numeric(parameterCd)))))
 
   if (pCodeLogic) {
-    siteInfo <- dataRetrieval::whatWQPsites(siteid = siteNumber, legacy = TRUE)
+    siteInfo <- suppressMessages(dataRetrieval::whatWQPsites(
+      siteid = siteNumber,
+      legacy = TRUE
+    ))
 
     parameterData <- suppressMessages(dataRetrieval::read_waterdata_parameter_codes(
       parameter_code = parameterCd
@@ -131,7 +134,10 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive = TRUE) {
     siteInfo$paramNumber <- parameterData$parameter_code
     siteInfo$constitAbbrev <- parameterData$parameter_code
   } else {
-    siteInfo <- dataRetrieval::whatWQPsites(siteid = siteNumber, legacy = TRUE)
+    siteInfo <- suppressMessages(dataRetrieval::whatWQPsites(
+      siteid = siteNumber,
+      legacy = TRUE
+    ))
 
     siteInfo$param.nm <- parameterCd
     siteInfo$param.units <- ""
