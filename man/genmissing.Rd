@@ -29,4 +29,3 @@ Generated values have a normal conditional distribution.
 \author{
 Tim Cohn
 }
-\keyword{internal}

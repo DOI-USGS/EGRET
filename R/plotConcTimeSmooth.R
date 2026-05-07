@@ -194,9 +194,7 @@ plotConcTimeSmooth <- function(
     paste(
       localINFO$shortName,
       localINFO$paramShortName,
-      "\nEstimated",
-      qUnit@prefix,
-      "Versus Year\nCentered on",
+      "\nEstimated Concentration Versus Year\nCentered on",
       monthInfo@monthFull[monthCenter],
       dayCenter,
       "of each year, at",

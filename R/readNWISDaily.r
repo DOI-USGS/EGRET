@@ -2,14 +2,19 @@
 #'
 #' Imports daily data from NWIS web service. This function gets the data from here: \url{https://waterservices.usgs.gov/}
 #'
-#' @param siteNumber character USGS site number.  This is usually an 8 digit number
+#' @param siteNumber character USGS site number.  This is usually an 8 digit number.
 #' @param parameterCd character USGS parameter code.  This is usually an 5 digit number.
 #' @param startDate character starting date for data retrieval in the form YYYY-MM-DD.
 #' @param endDate character ending date for data retrieval in the form YYYY-MM-DD.
-#' @param verbose logical specifying whether or not to display progress message
-#' @param convert logical Option to include a conversion from cfs to cms (35.314667). The default is TRUE,
-#' which is appropriate for using NWIS data in the EGRET package.  Set this to FALSE to not include the conversion. If the parameter code is not 00060 (NWIS discharge),
-#' there is no conversion applied.
+#' @param verbose logical specifying whether or not to display messages.
+#' @param convert logical Option to include a conversion from cfs to cms (35.314667).
+#' The default is TRUE which is appropriate for using NWIS data in the EGRET package.
+#' Set this to FALSE to not include the conversion. If the parameter code is not 00060
+#' (NWIS discharge), there is no conversion applied.
+#' @param adjust logical specifying whether or not to add a constant to zero values to
+#' allow log transformation. Defaults to TRUE.
+#' @param fill logical specifying whether to fill NA values by linear interpolation.
+#' Defaults to FALSE.
 #' @keywords data import USGS WRTDS
 #' @export
 #' @return A data frame 'Daily' with the following columns:
@@ -44,81 +49,51 @@ readNWISDaily <- function(
   startDate = "",
   endDate = "",
   verbose = TRUE,
-  convert = TRUE
+  convert = TRUE,
+  adjust = TRUE,
+  fill = FALSE
 ) {
   qConvert <- ifelse("00060" == parameterCd, 35.314667, 1)
   qConvert <- ifelse(convert, qConvert, 1)
 
-  if (utils::packageVersion("dataRetrieval") >= "2.7.19") {
-    if (!grepl("USGS-", siteNumber)) {
-      siteNumber <- paste0("USGS-", siteNumber)
-    }
+  if (!grepl("USGS-", siteNumber)) {
+    siteNumber <- paste0("USGS-", siteNumber)
+  }
 
-    localDaily <- dataRetrieval::read_waterdata_daily(
-      monitoring_location_id = siteNumber,
-      parameter_code = parameterCd,
-      time = c(startDate, endDate),
-      statistic_id = "00003",
-      skipGeometry = TRUE
+  daily_data <- suppressMessages(dataRetrieval::read_waterdata_daily(
+    monitoring_location_id = siteNumber,
+    parameter_code = parameterCd,
+    time = c(startDate, endDate),
+    statistic_id = "00003",
+    skipGeometry = TRUE
+  ))
+
+  if (nrow(daily_data) > 0) {
+    daily_data <- daily_data[, c("time", "value", "qualifier")]
+
+    localDaily <- populateDaily(
+      daily_data,
+      qConvert,
+      verbose = verbose,
+      adjust = adjust,
+      fill = fill
     )
-
-    localDaily <- localDaily[, c(
-      "monitoring_location_id",
-      "time",
-      "value",
-      "qualifier"
-    )]
-    names(localDaily) <- c('site', 'dateTime', 'value', 'code')
-    if (nrow(localDaily) != 0) {
-      localDaily$agency <- "USGS"
-    } else {
-      localDaily$agency <- character(0)
-    }
-
-    localDaily <- populateDaily(localDaily, qConvert, verbose = verbose)
   } else {
-    url <- dataRetrieval::constructNWISURL(
-      siteNumbers = siteNumber,
-      parameterCd = parameterCd,
-      startDate = startDate,
-      endDate = endDate,
-      service = "dv",
-      statCd = "00003",
-      format = "tsv"
+    localDaily <- data.frame(
+      Date = as.Date(character()),
+      Q = numeric(),
+      Julian = numeric(),
+      Month = numeric(),
+      Day = numeric(),
+      DecYear = numeric(),
+      MonthSeq = numeric(),
+      Qualifier = character(),
+      i = integer(),
+      LogQ = numeric(),
+      Q7 = numeric(),
+      Q30 = numeric(),
+      stringsAsFactors = FALSE
     )
-
-    data_rdb <- dataRetrieval::importRDB1(url, asDateTime = FALSE)
-
-    if (nrow(data_rdb) > 0) {
-      if (length(names(data_rdb)) >= 5) {
-        names(data_rdb) <- c('agency', 'site', 'dateTime', 'value', 'code')
-        data_rdb$dateTime <- as.Date(data_rdb$dateTime)
-        data_rdb$value <- as.numeric(data_rdb$value)
-        #####################################
-
-        localDaily <- populateDaily(data_rdb, qConvert, verbose = verbose)
-      } else {
-        if ("comment" %in% names(attributes(data_rdb))) {
-          message(attr(data_rdb, "comment"))
-        }
-      }
-    } else {
-      localDaily <- data.frame(
-        Date = as.Date(character()),
-        Q = numeric(),
-        Julian = numeric(),
-        Month = numeric(),
-        Day = numeric(),
-        DecYear = numeric(),
-        MonthSeq = numeric(),
-        Qualifier = character(),
-        i = integer(),
-        LogQ = numeric(),
-        Q7 = numeric(),
-        Q30 = numeric(),
-        stringsAsFactors = FALSE
-      )
-    }
   }
 
   return(localDaily)

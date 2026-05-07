@@ -265,7 +265,7 @@ populateDailySamp <- function(eList) {
 #' @param rho the lag one autocorrelation
 #' @param N the length of the sequence including X1 and XN. It
 #' is two more than the gap length
-#' @keywords internal
+#' @export
 #' @return genmissing numeric vector of length N, conditioned on the
 #' first value (X1) and last value (XN) with the specified lag one autocorrelation
 #' in the limit (where N is large) the values are normal with mean 0 and variance 1

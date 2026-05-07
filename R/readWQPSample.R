@@ -49,66 +49,28 @@ readWQPSample <- function(
   verbose = TRUE,
   legacy = FALSE
 ) {
-  extra_cols <- c(
-    "ActivityStartDateTime",
-    "USGSPCode",
-    "ActivityMediaSubdivisionName",
-    "ActivityMediaName",
-    "ResultSampleFractionText",
-    "ResultStatusIdentifier",
-    "ResultValueTypeName",
-    "ActivityTypeCode"
-  )
-
-  if (utils::packageVersion("dataRetrieval") >= "2.7.19") {
-    data <- suppressMessages(dataRetrieval::readWQPqw(
-      siteNumbers = siteNumber,
+  if (grepl("USGS", siteNumber)) {
+    message("Please use readNWISSample for USGS data")
+    out <- readNWISSample(
+      siteNumber = siteNumber,
       parameterCd = characteristicName,
       startDate = startDate,
       endDate = endDate,
-      ignore_attributes = TRUE,
-      legacy = legacy
-    ))
-
-    conversion_names <- data.frame(
-      legacy_names = c(
-        "ResultDetectionConditionText",
-        "ResultMeasureValue",
-        "DetectionQuantitationLimitMeasure.MeasureValue",
-        "CharacteristicName",
-        "ActivityStartDate",
-        extra_cols
-      ),
-      new_names = c(
-        "Result_ResultDetectionCondition",
-        "Result_Measure",
-        "DetectionLimit_MeasureA",
-        "Result_Characteristic",
-        "Activity_StartDate",
-        "Activity_StartDateTime",
-        "USGSpcode",
-        "Activity_MediaSubdivisionName",
-        "Activity_Media",
-        "Result_SampleFraction",
-        "Result_MeasureStatusIdentifier",
-        "Result_MeasureType",
-        "Activity_TypeCode"
-      )
+      verbose = verbose
     )
-
-    for (i in seq_len(nrow(conversion_names))) {
-      names(data)[which(
-        names(data) == conversion_names$new_names[i]
-      )] <- conversion_names$legacy_names[i]
-    }
-  } else {
-    data <- dataRetrieval::readWQPqw(
-      siteNumbers = siteNumber,
-      parameterCd = characteristicName,
-      startDate = startDate,
-      endDate = endDate
-    )
+    return(out)
   }
+
+  # Legacy is the only working service
+  data <- suppressMessages(dataRetrieval::readWQPdata(
+    siteid = siteNumber,
+    characteristicName = characteristicName,
+    startDateLo = startDate,
+    startDateHi = endDate,
+    ignore_attributes = TRUE,
+    service = "Result",
+    dataProfile = "resultPhysChem"
+  ))
 
   if (nrow(data) == 0) {
     warning("No data returned")

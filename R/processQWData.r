@@ -12,13 +12,16 @@
 #' @seealso \code{\link[dataRetrieval]{readWQPqw}}
 #' @examples
 #' \donttest{
-#' #rawWQP <- dataRetrieval::readWQPqw('21FLEECO_WQX-IMPRGR80','Phosphorus', '', '')
-#' #Sample2 <- processQWData(rawWQP)
+#' rawWQP <- dataRetrieval::readWQPdata(siteid = '21FLEECO_WQX-IMPRGR80',
+#'                                      characteristicName = 'Phosphorus',
+#'                                      service = "Result",
+#'                                      dataProfile = "resultPhysChem")
+#' Sample2 <- processQWData(rawWQP)
 #' }
 processQWData <- function(data) {
+  # Create qualifier column with "<" for any of detectText values
   detectText <- data$ResultDetectionConditionText
   detectText <- toupper(detectText)
-
   qualifier <- rep("", length(detectText))
   qualifier[grep("NON-DETECT", detectText)] <- "<"
   qualifier[grep("NON DETECT", detectText)] <- "<"
@@ -26,73 +29,61 @@ processQWData <- function(data) {
   qualifier[grep("DETECTED NOT QUANTIFIED", detectText)] <- "<"
   qualifier[grep("BELOW QUANTIFICATION LIMIT", detectText)] <- "<"
 
-  # qualifier[!(is.na(data$DetectionQuantitationLimitMeasure.MeasureValue)) &
-  #             data$ResultMeasureValue < data$DetectionQuantitationLimitMeasure.MeasureValue] <- "<"
-
-  correctedData <- ifelse(
-    (nchar(qualifier) == 0),
-    data$ResultMeasureValue,
-    data$DetectionQuantitationLimitMeasure.MeasureValue
+  # Create processed data frame
+  df <- data.frame(
+    CharacteristicName = data$CharacteristicName,
+    dateTime = data$ActivityStartDate,
+    qualifier = qualifier,
+    value = suppressWarnings(as.numeric(ifelse(
+      (nchar(qualifier) == 0),
+      data$ResultMeasureValue,
+      data$DetectionQuantitationLimitMeasure.MeasureValue
+    ))),
+    USGSPCode = data$USGSPCode,
+    ActivityStartDateTime = data$ActivityStartDateTime,
+    ActivityTypeCode = data$ActivityTypeCode,
+    ActivityMediaName = data$ActivityMediaName,
+    ActivityMediaSubdivision = data$ActivityMediaSubdivisionName,
+    SampleCollectionMethod = data$SampleCollectionMethod.MethodName,
+    ResultAnalyticalMethod = data$ResultAnalyticalMethod.MethodIdentifier,
+    ResultSampleFraction = data$ResultSampleFractionText,
+    ResultStatusIdentifier = data$ResultStatusIdentifier,
+    ResultValueTypeName = data$ResultValueTypeName
   )
 
-  test <- data.frame(data$CharacteristicName)
-
-  test$dateTime <- data$ActivityStartDate
-
-  originalLength <- nrow(test)
-  test$qualifier <- qualifier
-  test$value <- as.numeric(correctedData)
-
-  test <- test[!is.na(test$dateTime), ]
-  newLength <- nrow(test)
-  if (originalLength != newLength) {
-    numberRemoved <- originalLength - newLength
-    warningMessage <- paste(
-      numberRemoved,
-      " rows removed because no date was specified",
-      sep = ""
-    )
-    warning(warningMessage)
+  # Filter out samples with no date
+  n_orig <- nrow(data)
+  df <- df[!is.na(df$dateTime), ]
+  n_date <- length(df$dateTime)
+  message(paste(n_orig, "samples retrieved."))
+  if (n_orig != n_date) {
+    warning(paste(n_orig - n_date, "samples removed because date is missing."))
   }
 
-  colnames(test)[1:4] <- c(
+  # Check for multiple unique values in specified sample characteristics
+  cols <- c(
+    "USGSPCode",
     "CharacteristicName",
-    "dateTime",
-    "qualifier",
-    "value"
+    "ActivityTypeCode",
+    "ActivityMediaName",
+    "ActivityMediaSubdivision",
+    "SampleCollectionMethod",
+    "ResultAnalyticalMethod",
+    "ResultSampleFraction"
   )
 
-  test$USGSPCode <- data$USGSPCode
-  test$ActivityStartDateTime <- data$ActivityStartDateTime
-  test$ActivityMediaSubdivisionName <- data$ActivityMediaSubdivisionName
-  test$ActivityMediaName <- data$ActivityMediaName
-  test$ResultSampleFractionText <- data$ResultSampleFractionText
-  test$ResultStatusIdentifier <- data$ResultStatusIdentifier
-  test$ResultValueTypeName <- data$ResultValueTypeName
-  test$ActivityTypeCode <- data$ActivityTypeCode
+  multi <- Filter(function(col) length(unique(df[[col]])) > 1, cols)
 
-  if (length(unique(test$USGSPCode)) > 1) {
-    message("More than one USGSPCode returned")
+  if (length(multi) > 0) {
+    message("Multiple values for some sample characteristics:")
+    for (col in multi) {
+      message(
+        col,
+        ": ",
+        paste0("'", paste0(unique(df[[col]]), collapse = "', '"), "'")
+      )
+    }
   }
 
-  if (length(unique(test$CharacteristicName)) > 1) {
-    message("More than one CharacteristicName returned")
-  }
-
-  if (length(unique(test$ActivityMediaName)) > 1) {
-    message("More than one ActivityMediaName returned")
-  }
-
-  if (length(unique(test$ActivityMediaSubdivisionName)) > 1) {
-    message("More than one ActivityMediaSubdivisionName returned")
-  }
-
-  if (length(unique(test$ResultSampleFractionText)) > 1) {
-    message("More than one ResultSampleFractionText returned")
-  }
-
-  test$dateTime <- format(test$dateTime, "%Y-%m-%d")
-  test$dateTime <- as.Date(test$dateTime)
-
-  return(test)
+  return(df)
 }

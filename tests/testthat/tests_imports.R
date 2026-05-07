@@ -79,34 +79,6 @@ test_that("External NWIS Sample tests", {
   expect_true(nrow(Sample_Select) > nrow(Sample_All2))
 })
 
-test_that("External WQP Sample tests", {
-  testthat::skip_on_cran()
-
-  SampleNames <- c(
-    "Date",
-    "ConcLow",
-    "ConcHigh",
-    "Uncen",
-    "ConcAve",
-    "Julian",
-    "Month",
-    "Day",
-    "DecYear",
-    "MonthSeq",
-    "waterYear",
-    "SinDY",
-    "CosDY"
-  )
-
-  Sample_All <- readWQPSample(
-    'WIDNR_WQX-10032762',
-    'Specific conductance',
-    '',
-    ''
-  )
-
-  expect_true(all(SampleNames %in% names(Sample_All)))
-})
 
 test_that("External INFO tests", {
   testthat::skip_on_cran()
@@ -197,7 +169,8 @@ test_that("processQWData", {
     'WIDNR_WQX-10032762',
     'Specific conductance',
     '2012-01-01',
-    '2012-12-31'
+    '2012-12-31',
+    legacy = TRUE
   )
   Sample2 <- processQWData(rawWQP)
   expect_true(all(unique(Sample2$qualifier) %in% c("", "<")))

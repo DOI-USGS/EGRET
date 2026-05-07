@@ -333,7 +333,7 @@ Sample <-readNWISSample(siteNumber,parameterCd,
 
 Information on USGS parameter codes can be found here:
 
-[https://help.waterdata.usgs.gov/codes-and-parameters/parameters](https://help.waterdata.usgs.gov/codes-and-parameters/parameters)
+<https://waterdata.usgs.gov/code-dictionary/#parameter-codes>
 
 ### readWQPSample {#readWQPSample}
 

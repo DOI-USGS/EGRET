@@ -7,16 +7,17 @@
 #' Can also procude a table for any Period of Analysis (individual months or sequence of months) using \code{\link{setPA}}.
 #'
 #' @param eList named list with at least Daily and INFO dataframes
-#' @param qUnit object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.
-#' @param fluxUnit object of fluxUnit class. \code{\link{printFluxUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.
+#' @param qUnit object of qUnit class. \code{\link{printqUnitCheatSheet}}, or
+#' numeric represented the short code, or character representing the descriptive name.
+#' @param fluxUnit object of fluxUnit class. \code{\link{printFluxUnitCheatSheet}},
+#' or numeric represented the short code, or character representing the descriptive name.
 #' @param localDaily data frame to override eList$Daily
-#' @return results dataframe, if returnDataFrame=TRUE
 #' @keywords water-quality statistics
 #' @export
-#' @return dataframe with year, discharge, concentration,
-#' flow-normalized concentration, flux, and flow-normalized concentration columns.
-#' If the eList was run through WRTDSKalman, an additional column generalized flux
-#' is included.
+#' @return dataframe with columns year, mean discharge, mean concentration, mean
+#' flow-normalized concentration, mean Kalman concentration (if it has been
+#' calculated), mean flux, mean flow-normalized concentration, and mean Kalman
+#' flux (if it has been calculated).
 #' @examples
 #' eList <- Choptank_eList
 #' # Water Year:

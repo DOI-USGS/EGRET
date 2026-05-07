@@ -23,6 +23,8 @@
 #' for options. The code will initially look for R's standard YYYY-MM-DD, and
 #' check this format as a backup.
 #' @param verbose logical specifying whether or not to display progress message
+#' @param adjust logical specifying whether or not to add a constant to zero values
+#' to allow log transformation. Defaults to TRUE.
 #' @keywords data import USGS WRTDS
 #' @export
 #' @return A data frame 'Daily' with the following columns:
@@ -52,7 +54,8 @@ readUserDaily <- function(
   separator = ",",
   qUnit = 1,
   format = "%m/%d/%Y",
-  verbose = TRUE
+  verbose = TRUE,
+  adjust = TRUE
 ) {
   data <- readDataFromFile(
     filePath,
@@ -70,8 +73,13 @@ readUserDaily <- function(
     )
   }
 
-  names(data) <- c("dateTime", "value")
-  localDaily <- populateDaily(data, qConvert, verbose = verbose)
+  names(data) <- c("time", "value")
+  localDaily <- populateDaily(
+    rawData = data,
+    qConvert = qConvert,
+    verbose = verbose,
+    adjust = adjust
+  )
   localDaily <- localDaily[!is.na(localDaily$Q), ]
   return(localDaily)
 }

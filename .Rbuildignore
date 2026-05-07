@@ -47,6 +47,7 @@ vignettes/helper_functions.R
 vignettes/Method.bib
 vignettes/Extend_method.bib
 vignettes/Regional_studies.bib
+vignettes/data_retrieval_updates.Rmd
 _pkgdown.yml
 pkgdown/favicon/*
 vignettes/css/*
@@ -67,3 +68,5 @@ docs/*
 docker/*
 ^\.vscode$
 ^[.]?air[.]toml$
+^\.positai$
+^\.claude$
