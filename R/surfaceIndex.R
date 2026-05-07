@@ -10,35 +10,37 @@
 #' eList <- Choptank_eList
 #' Daily <- getDaily(eList)
 #' surfaceIndex(Daily)
-surfaceIndex<-function(Daily){
+surfaceIndex <- function(Daily) {
   # this function contains the same code that comes at the start of
-  # estSurfaces, it just computes the parameters of the grid 
+  # estSurfaces, it just computes the parameters of the grid
   # used for the surfaces so that they can be stored for future use
   # the first index is discharge, layed out in 14 equally spaced levels of log(Q)
   # the second index is time, layed out as 16 increments of the calendar year, starting January 1.
   #  Note: I don't think this is the smartest way to do this, but I'm not sure what to do here
   #  I don't like trying to have the same code twice
   #
-  
+
   localDaily <- Daily
-  
-  bottomLogQ<- min(localDaily$LogQ, na.rm = TRUE) - 0.05
+
+  bottomLogQ <- min(localDaily$LogQ, na.rm = TRUE) - 0.05
   topLogQ <- max(localDaily$LogQ, na.rm = TRUE) + 0.05
-  stepLogQ <-(topLogQ-bottomLogQ)/13
-  vectorLogQ <- seq(bottomLogQ,topLogQ,stepLogQ)
-  stepYear<-1/16
-  bottomYear<-floor(min(localDaily$DecYear, na.rm = TRUE))
-  topYear<-ceiling(max(localDaily$DecYear, na.rm = TRUE))
-  vectorYear<-seq(bottomYear,topYear,stepYear)
-  nVectorYear<-length(vectorYear)
-  
-  surfaceIndexParameters<-list(bottomLogQ=bottomLogQ,
-                            stepLogQ=stepLogQ,
-                            nVectorLogQ=14,
-                            bottomYear=bottomYear,
-                            stepYear=stepYear,
-                            nVectorYear=nVectorYear,
-                            vectorYear=vectorYear,
-                            vectorLogQ=vectorLogQ)
+  stepLogQ <- (topLogQ - bottomLogQ) / 13
+  vectorLogQ <- seq(bottomLogQ, topLogQ, stepLogQ)
+  stepYear <- 1 / 16
+  bottomYear <- floor(min(localDaily$DecYear, na.rm = TRUE))
+  topYear <- ceiling(max(localDaily$DecYear, na.rm = TRUE))
+  vectorYear <- seq(bottomYear, topYear, stepYear)
+  nVectorYear <- length(vectorYear)
+
+  surfaceIndexParameters <- list(
+    bottomLogQ = bottomLogQ,
+    stepLogQ = stepLogQ,
+    nVectorLogQ = 14,
+    bottomYear = bottomYear,
+    stepYear = stepYear,
+    nVectorYear = nVectorYear,
+    vectorYear = vectorYear,
+    vectorLogQ = vectorLogQ
+  )
   return(surfaceIndexParameters)
 }

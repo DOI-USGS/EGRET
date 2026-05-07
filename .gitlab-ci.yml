@@ -52,6 +52,8 @@ build-image:
     # If this is building a git tag, create the corresponding docker tag
     - if [ -n "${CI_COMMIT_TAG}" ]; then docker tag ${CI_REGISTRY_IMAGE}:BUILD_${CI_COMMIT_SHORT_SHA} ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}; fi
     - docker push --all-tags ${CI_REGISTRY_IMAGE}
+  artifacts:
+    expire_in: 5 minutes
 
 buildcheck:
   stage: check
@@ -60,6 +62,8 @@ buildcheck:
     - mkdir -p $BUILD_LOGS_DIR
     - R CMD build . --no-manual
     - R -e 'devtools::check(document = FALSE, args = "--no-tests", check_dir = Sys.getenv("BUILD_LOGS_DIR"), vignettes = FALSE)'
+  artifacts:
+    expire_in: 1 hour
 
 unittests:
   stage: test
@@ -70,6 +74,7 @@ unittests:
     - R -e 'library(testthat); options(testthat.output_file = file.path(Sys.getenv("CI_PROJECT_DIR"), "test-out.xml")); devtools::test(reporter = "junit")'
   artifacts:
     when: always
+    expire_in: 1 hour
     paths: 
       - test-out.xml
     reports:
@@ -83,6 +88,7 @@ covertests:
   script:
     - R -e 'x <- covr::package_coverage(); covr::to_cobertura(x); x; '
   artifacts:
+    expire_in: 1 hour
     reports:
       coverage_report:
         coverage_format: cobertura
@@ -100,16 +106,18 @@ pages:
   artifacts:
     paths:
       - $PAGES_OUTDIR
-    expire_in: 1 week
+    expire_in: 1 hour
     
 Validate Inventory:
-    stage: end
-    image: ${INTERNAL_REGISTRY}software/software-management:latest
-    script:
-      - software-management review
-        --project "${CI_PROJECT_PATH}"
-        --ref "${CI_COMMIT_BRANCH}"
-        --type "provisional"
-        --token "${GIT_TOKEN_CUSTOM}"
-    tags:
-        - chs-shared
+  stage: end
+  image: ${INTERNAL_REGISTRY}software/software-management:latest
+  script:
+    - software-management review
+      --project "${CI_PROJECT_PATH}"
+      --ref "${CI_COMMIT_BRANCH}"
+      --type "provisional"
+      --token "${GIT_TOKEN_CUSTOM}"
+  tags:
+      - chs-shared
+  artifacts:
+    expire_in: 5 minutes

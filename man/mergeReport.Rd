@@ -16,7 +16,7 @@ mergeReport(INFO, Daily, Sample = NA, surfaces = NA, verbose = TRUE,
 
 \item{surfaces}{matrix returned from \code{\link{modelEstimation}}. Default is NA.}
 
-\item{verbose}{logical specifying whether or not to display summary information on 
+\item{verbose}{logical specifying whether or not to display summary information on
 the Daily and Sample dataframes.}
 
 \item{interactive}{logical deprecated. Use 'verbose' instead}
@@ -25,17 +25,17 @@ the Daily and Sample dataframes.}
 eList named list with at least INFO, and Daily data frames.  It can also include a Sample data frame.
 }
 \description{
-This function does three things.  1) It transfers the daily discharge value 
+This function does three things.  1) It transfers the daily discharge value
 from the Daily data frame to to Sample data frame for those days with samples.
-2) It merges the INFO, Daily and Sample data frames to form an eList object, 
-3) and it prints out a "report" of basic information about the Daily and 
+2) It merges the INFO, Daily and Sample data frames to form an eList object,
+3) and it prints out a "report" of basic information about the Daily and
 Sample data frames.
 }
 \details{
-There must be an INFO and a Daily data frame for this function to work. That would be the case for a study of flow only, with no consideration of water quality.  
+There must be an INFO and a Daily data frame for this function to work. That would be the case for a study of flow only, with no consideration of water quality.
 If water quality is being considered then INFO, Daily, and Sample all need to be provided in the call to this function.
 
-Note that the Sample dataframe in the global environment does 
+Note that the Sample dataframe in the global environment does
 not update with the flow information.
 }
 \examples{

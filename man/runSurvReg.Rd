@@ -52,11 +52,11 @@ run_WRTDS(estY, estLQ, localSample, DecLow, DecHigh, minNumObs, minNumUncen,
 resultSurvReg numeric array containing the yHat, SE, and ConcHat values array dimensions are (numEstPts,3)
 }
 \description{
-This function runs the survival regression which is the concentration estimation method of WRTDS. 
-It uses sample data from the data frame Sample. 
-It does the estimation for a set of data points defined by two vectors: estPtYear and estPtLQ. 
-It returns an array of results for the estimation points.  
-The array returned contains yHat, SE and ConcHat (in that order). yHat is the expected value of log(concentration), SE is 
+This function runs the survival regression which is the concentration estimation method of WRTDS.
+It uses sample data from the data frame Sample.
+It does the estimation for a set of data points defined by two vectors: estPtYear and estPtLQ.
+It returns an array of results for the estimation points.
+The array returned contains yHat, SE and ConcHat (in that order). yHat is the expected value of log(concentration), SE is
 the standard error of log(concentration) and ConcHat is the expected value of concentration.
 }
 \examples{

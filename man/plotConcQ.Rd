@@ -23,7 +23,7 @@ plotConcQ(eList, qUnit = 2, tinyPlot = FALSE, logScale = FALSE,
 
 \item{concMax}{number specifying the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)}
 
-\item{concMin}{numeric value for lower limit on concentration shown on the vertical log graph, default is NA 
+\item{concMin}{numeric value for lower limit on concentration shown on the vertical log graph, default is NA
 (which causes the lower limit to be set automatically, based on the data). This value is ignored for linear scales, using 0 as the minimum value for the concentration axis.}
 
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)}
@@ -42,14 +42,14 @@ generated labels.}
 
 \item{rmSciY}{logical defaults to FALSE, changes y label from scientific to fixed}
 
-\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
 \item{col}{color of points on plot, see ?par 'Color Specification'}
 
 \item{lwd}{number line width}
 
-\item{concLab}{object of concUnit class, or numeric represented the short code, 
+\item{concLab}{object of concUnit class, or numeric represented the short code,
 or character representing the descriptive name. By default, this argument sets
 concentration labels to use either Concentration or Conc (for tiny plots). Units
 are taken from the eList$INFO$param.units. To use any other words than
@@ -58,14 +58,14 @@ are taken from the eList$INFO$param.units. To use any other words than
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
 \description{
-Data come from named list, which contains a Sample dataframe with the sample data, 
+Data come from named list, which contains a Sample dataframe with the sample data,
 and an INFO dataframe with metadata. Discharge is plotted on a log scale.
 
 Although there are a lot of optional arguments to this function, most are set to a logical default.
 }
 \details{
 The function has two possible ways to plot censored values (e.g. "less-than values").
- 
+
 The default is to plot them as a vertical line that goes from the reporting limit down to the bottom of the graph.
 
 The alternative is to set randomCensored = TRUE.  In this case a random value is used for plotting the individual sample value.  This random value lies between the reporting limit and zero and it is distributed as a truncated log normal based on the fitted WRTDS model.

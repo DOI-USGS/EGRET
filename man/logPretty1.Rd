@@ -16,7 +16,7 @@ xTicks A vector representing the values for each of the tick marks
 }
 \description{
 Axis tick marks for a log scale for cases where the data cover many orders of magnitude
-and the graph is small. 
+and the graph is small.
 These tick marks are designed to progress by factors of 10.
 }
 \examples{

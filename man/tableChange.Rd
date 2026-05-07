@@ -22,7 +22,7 @@ tableChangeSingle(eList, fluxUnit = 9, yearPoints = NA, flux = FALSE)
 dataframe with Year1, Year2, change[mg/L], slope[mg/L], change[percent], slope[percent] columns. The data in each row is the change or slope calculated from Year1 to Year2
 }
 \description{
-These tables describe trends in flow-normalized concentration and in flow-normalized flux. 
+These tables describe trends in flow-normalized concentration and in flow-normalized flux.
 They are described as changes in real units or in percent and as slopes in real units per year or in percent per year.
 They are computed over pairs of time points.  These time points can be user-defined or
 they can be set by the program to be the final year of the record and a set of years that are multiples of 5 years prior to that.
@@ -33,7 +33,7 @@ eList <- Choptank_eList
 # Water Year:
 \donttest{
 tableChange(eList, fluxUnit = 8, yearPoints = c(1980, 1995, 2011))
-tableChange(eList, fluxUnit = 5) 
+tableChange(eList, fluxUnit = 5)
 # Winter:
 eList <- setPA(eList, paStart = 12, paLong = 3)
 tableChange(eList, fluxUnit = 8, yearPoints = c(1980, 1995, 2011))
@@ -43,9 +43,9 @@ eList <- setPA(eList, paStart = 10, paLong = 12)
 #This returns concentration ASCII table in the console:
 tableChangeSingle(eList, fluxUnit = 8, yearPoints = c(1980, 1995, 2011), flux = FALSE)
 #Returns a data frame:
-change <- tableChangeSingle(eList, fluxUnit = 8, yearPoints=c(1980, 1995, 2011), flux = FALSE) 
+change <- tableChangeSingle(eList, fluxUnit = 8, yearPoints=c(1980, 1995, 2011), flux = FALSE)
 #This returns flux values as a data frame:
-df <- tableChangeSingle(eList, fluxUnit = 8, yearPoints=c(1980, 1995, 2011), flux = TRUE)  
+df <- tableChangeSingle(eList, fluxUnit = 8, yearPoints=c(1980, 1995, 2011), flux = TRUE)
 # Winter Concentration only:
 eList <- setPA(eList, paStart = 12, paLong = 3)
 df.winter <- tableChangeSingle(eList, fluxUnit = 8, yearPoints=c(1980, 1995, 2011), flux = FALSE)

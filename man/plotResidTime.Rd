@@ -30,7 +30,7 @@ plotResidTime(eList, stdResid = FALSE, printTitle = TRUE, hLine = TRUE,
 
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
 
-\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
 \item{randomCensored}{logical. Show censored residuals as randomized.}
@@ -42,9 +42,9 @@ This function produces a plot of the residuals from WRTDS, expressed in natural 
 versus time.
 It also provides an alternative for viewing the standardized residuals, where the each residual is divided by its estimated standard error.
 
- Although there are a lot of optional arguments to this function, most are set to a logical default. 
- 
-Data come from named list, which contains a Sample dataframe with the sample data, 
+ Although there are a lot of optional arguments to this function, most are set to a logical default.
+
+Data come from named list, which contains a Sample dataframe with the sample data,
 and an INFO dataframe with metadata.
 }
 \examples{

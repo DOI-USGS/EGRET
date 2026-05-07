@@ -11,7 +11,7 @@ multiPlotDataOverview(eList, qUnit = 2, cex.main = 1.2,
 \arguments{
 \item{eList}{named list with at least Daily, Sample, and INFO dataframes}
 
-\item{qUnit}{object of qUnit class \code{\link{printqUnitCheatSheet}}, or 
+\item{qUnit}{object of qUnit class \code{\link{printqUnitCheatSheet}}, or
 numeric represented the short code, or character representing the descriptive name.}
 
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
@@ -23,18 +23,18 @@ If TRUE, makeAugmentedSample must be run first.}
 
 \item{logScaleQ}{logical if TRUE y in streamflow graphs plotted in log axis. Default is TRUE.}
 
-\item{concLab}{object of concUnit class, or numeric represented the short code, 
+\item{concLab}{object of concUnit class, or numeric represented the short code,
 or character representing the descriptive name. By default, this argument sets
 concentration labels to use either Concentration or Conc (for tiny plots). Units
 are taken from the eList$INFO$param.units. To use any other words than
 "Concentration" see \code{vignette(topic = "units", package = "EGRET")}.}
 }
 \description{
-This function produces the 4 plots based only on the data stored in the eList.  
+This function produces the 4 plots based only on the data stored in the eList.
 The four plots are 1) log concentration versus log discharge, 2) log concentration versus time
-3) a boxplot of log concentration by month, and 
-4) a side-by-side boxplot of the sampled discharges and all daily discharges. 
-To save space, the graphic is labeled only at the top of the 4 graph display. 
+3) a boxplot of log concentration by month, and
+4) a side-by-side boxplot of the sampled discharges and all daily discharges.
+To save space, the graphic is labeled only at the top of the 4 graph display.
 
 Although there are a lot of optional arguments to this function, most are set to a logical default.
 }
@@ -44,7 +44,7 @@ eList <- Choptank_eList
 multiPlotDataOverview(eList, qUnit=1)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
-multiPlotDataOverview(eList, qUnit=1) 
+multiPlotDataOverview(eList, qUnit=1)
 
 # Custom axes:
 eList$INFO$param.units <- "ng"
@@ -62,14 +62,14 @@ deposition <- new("concUnit",
                   longPrefix = "Deposition",
                   shortPrefix = "Dep")
 
-multiPlotDataOverview(eList, 
-                      qUnit = qConst_precip, 
+multiPlotDataOverview(eList,
+                      qUnit = qConst_precip,
                       concLab = deposition)
 
 
 }
 \seealso{
-\code{\link{plotConcQ}}, \code{\link{boxConcMonth}}, 
+\code{\link{plotConcQ}}, \code{\link{boxConcMonth}},
 \code{\link{plotConcTime}}, \code{\link{boxQTwice}}
 }
 \keyword{graphics}

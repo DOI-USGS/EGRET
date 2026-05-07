@@ -36,7 +36,7 @@ plotSDLogQ(eList, yearStart = NA, yearEnd = NA, window = 15,
 
 \item{lwd}{line width, a positive number, defaulting to 2}
 
-\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
@@ -45,7 +45,7 @@ plotSDLogQ(eList, yearStart = NA, yearEnd = NA, window = 15,
 Graph of the standard deviation of the log of daily discharge versus year
 
  Although there are a lot of optional arguments to this function, most are set to a logical default.
- 
+
 Data come from named list, which contains a Daily dataframe with the daily flow data,
 and an INFO dataframe with metadata.
 }
@@ -53,8 +53,8 @@ and an INFO dataframe with metadata.
 eList <- Choptank_eList
 \donttest{
 # Water year:
-plotSDLogQ(eList) 
-plotSDLogQ(eList, 1998, 2000) 
+plotSDLogQ(eList)
+plotSDLogQ(eList, 1998, 2000)
 }
 }
 \seealso{

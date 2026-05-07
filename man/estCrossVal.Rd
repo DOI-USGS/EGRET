@@ -33,10 +33,10 @@ estCrossVal(DecLow, DecHigh, Sample, windowY = 7, windowQ = 2,
 SampleCrossV data frame containing the sample data augmented by the results of the cross-validation exercise
 }
 \description{
-This function fits the WRTDS model n times (where n is the number of observations).  
-For each fit, the data value being estimated is eliminated from the record. 
-This gives predictions that do not depend on knowing the actual result for that day. 
-Thus it provides for a more "honest" estimate of model performance than a traditional 
+This function fits the WRTDS model n times (where n is the number of observations).
+For each fit, the data value being estimated is eliminated from the record.
+This gives predictions that do not depend on knowing the actual result for that day.
+Thus it provides for a more "honest" estimate of model performance than a traditional
 error analysis that uses all the data.
 }
 \examples{

@@ -23,9 +23,9 @@ Conc \tab Estimated mean concentration, in mg/L\cr
 Flux \tab Estimated mean flux, in kg/day\cr
 FNConc \tab Flow-normalized concentration, in mg/L\cr
 FNFlux \tab Flow-normalized flux, in kg/day\cr
-GenConc \tab Generalized mean concentration, in mg/L. This column is only returned if the WRTDSKalman function was run, which gives the 
+GenConc \tab Generalized mean concentration, in mg/L. This column is only returned if the WRTDSKalman function was run, which gives the
 eList$Daily data frame a column "GenConc".\cr
-GenFlux \tab Generalized mean flux, in kg/day. This column is only returned if the WRTDSKalman function was run, which gives the 
+GenFlux \tab Generalized mean flux, in kg/day. This column is only returned if the WRTDSKalman function was run, which gives the
 eList$Daily data frame a column "GenFlux".\cr
 PeriodLong \tab Length of period of analysis (paLong), in months\cr
 PeriodStart \tab Starting month of period of analysis (paStart), in months (1 = January)\cr
@@ -35,11 +35,11 @@ PeriodStart \tab Starting month of period of analysis (paStart), in months (1 = 
 This function aggregates the results stored on a daily basis in the Daily data frame
   and stores the average values of these in the new data frame called AnnualResults.
      Note that the flux values are rates (kg/day) and not a mass (kg).
-     The "annual values" can be a full 12 months, or they can be shorter. 
-     See manual to understand paLong and paStart arguments. 
+     The "annual values" can be a full 12 months, or they can be shorter.
+     See manual to understand paLong and paStart arguments.
      The simplest case, a Water Year (October through September), would have
-     paLong=12, and paStart=10. 
-     A calendar year would be paLong=12 and paStart=1. 
+     paLong=12, and paStart=10.
+     A calendar year would be paLong=12 and paStart=1.
      A winter season of Dec, Jan, Feb would be paLong=3 and paStart=12
 }
 \examples{

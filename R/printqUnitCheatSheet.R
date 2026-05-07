@@ -11,19 +11,23 @@
 #' 5      \tab mmDay \tab mm per day \tab   \cr
 #' 6      \tab mmYear \tab mm per year \tab   \cr
 #' }
-#' 
+#'
 #' @keywords graphics water-quality statistics
 #' @export
 #' @examples
 #' printqUnitCheatSheet()
-printqUnitCheatSheet <- function(){
+printqUnitCheatSheet <- function() {
   cat("The following codes apply to the qUnit list:\n")
   numObjects <- 4
   #   numObjects <- length(qConst)
-  qUnitNameList <- sapply(c(1:numObjects), function(x){qConst[[x]]@qUnitName})
-  qShortCodeList <- sapply(c(1:numObjects), function(x){qConst[[x]]@shortCode})
+  qUnitNameList <- sapply(c(1:numObjects), function(x) {
+    qConst[[x]]@qUnitName
+  })
+  qShortCodeList <- sapply(c(1:numObjects), function(x) {
+    qConst[[x]]@shortCode
+  })
   qNamesList <- names(qConst)
-  for (i in 1:numObjects){
-    cat(qShortCodeList[i],"= ", qNamesList[i], " (", qUnitNameList[i], ")\n")
+  for (i in 1:numObjects) {
+    cat(qShortCodeList[i], "= ", qNamesList[i], " (", qUnitNameList[i], ")\n")
   }
 }

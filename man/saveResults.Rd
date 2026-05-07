@@ -2,11 +2,7 @@
 % Please edit documentation in R/saveResults.R
 \name{saveResults}
 \alias{saveResults}
-\title{A utility program for saving the contents of the workspace
-  
- This function saves the workspace. Future versions of EGRET will not include this function,
- use saveRDS to save individual eList objects.
- It assigns the file a name using the abbreviations for station and constituent.}
+\title{A utility program for saving the contents of the workspace}
 \usage{
 saveResults(savePath, eList)
 }
@@ -16,9 +12,7 @@ saveResults(savePath, eList)
 \item{eList}{named list with at least the INFO dataframe}
 }
 \description{
-A utility program for saving the contents of the workspace
-  
- This function saves the workspace. Future versions of EGRET will not include this function,
+This function saves the workspace. Future versions of EGRET will not include this function,
  use saveRDS to save individual eList objects.
  It assigns the file a name using the abbreviations for station and constituent.
 }

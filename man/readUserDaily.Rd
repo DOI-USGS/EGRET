@@ -5,10 +5,10 @@
 \title{Import user daily data for EGRET analysis}
 \usage{
 readUserDaily(filePath, fileName, hasHeader = TRUE, separator = ",",
-  qUnit = 1, format = "\%m/\%d/\%Y", verbose = TRUE)
+  qUnit = 1, format = "\%m/\%d/\%Y", verbose = TRUE, adjust = TRUE)
 }
 \arguments{
-\item{filePath}{character specifying the path to the file. If it 
+\item{filePath}{character specifying the path to the file. If it
 is in the working directory, use ".".}
 
 \item{fileName}{character name of file to open}
@@ -18,8 +18,8 @@ is in the working directory, use ".".}
 \item{separator}{character character that separates data cells. The default
 is "," for a csv file. Tab delimited would be "\\t".}
 
-\item{qUnit}{number 1 is cubic feet per second, 
-2 is cubic meters per second, 
+\item{qUnit}{number 1 is cubic feet per second,
+2 is cubic meters per second,
 3 is 10^3 cubic feet per second,
  and 4 is 10^3 cubic meters per second. The default is 1.}
 
@@ -29,6 +29,9 @@ for options. The code will initially look for R's standard YYYY-MM-DD, and
 check this format as a backup.}
 
 \item{verbose}{logical specifying whether or not to display progress message}
+
+\item{adjust}{logical specifying whether or not to add a constant to zero values
+to allow log transformation. Defaults to TRUE.}
 }
 \value{
 A data frame 'Daily' with the following columns:
@@ -37,7 +40,7 @@ Name \tab Type \tab Description \cr
 Date \tab Date \tab Date \cr
 Q \tab numeric \tab Discharge in m^3/s\cr
 Julian \tab integer \tab Number of days since Jan. 1, 1850\cr
-Month \tab integer \tab Month of the year [1-12] \cr 
+Month \tab integer \tab Month of the year [1-12] \cr
 Day \tab integer \tab Day of the year [1-366] \cr
 DecYear \tab numeric \tab Decimal year \cr
 MonthSeq \tab integer \tab Number of months since January 1, 1850 \cr
@@ -52,8 +55,9 @@ Q30 \tab numeric \tab 30 day running average of Q \cr
 Imports data from a user-supplied file, and converts it to a Daily data frame,
  appropriate for WRTDS calculations. The file can use most any separators
  as a delimiter. The default is comma separated.
- 
- The first column is expected to be dates, the second column is expected
+}
+\details{
+The first column is expected to be dates, the second column is expected
  to be discharge values. If the date format is not automatically
  detected, the format can be specified using the "format" argument.
 }

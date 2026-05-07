@@ -16,7 +16,7 @@ setPA(eList, paStart = 10, paLong = 12, window = 20)
 \item{window}{A numeric value for the half-width of a smoothing window for annual streamflow values, default is 20}
 }
 \value{
-eList named list with at least the INFO dataframe. 
+eList named list with at least the INFO dataframe.
 Any of these values can be NA, but not all EGRET functions will work with missing parts of the named list eList.
 }
 \description{

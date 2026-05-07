@@ -31,7 +31,7 @@
 #' @param rmSciX logical defaults to FALSE, changes x label from scientific to fixed
 #' @param rmSciY logical defaults to FALSE, changes y label from scientific to fixed
 #' @param xDate logical defaults to FALSE, changes x label to "year-month" format if set to TRUE and total years less than 4.
-#' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+#' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
 #' @param showXLabels logical defaults to TRUE. If FALSE, the x axis label is not plotted
 #' @param showYLabels logical defaults to TRUE. If FALSE, the y axis label is not plotted
 #' @param showXAxis logical defaults to TRUE. If FALSE, the x axis is not plotted
@@ -53,99 +53,156 @@
 #' ylim <- c(min(y),1.05*max(y))
 #' xlab <- "Date"
 #' ylab <- "Flow"
-#' genericEGRETDotPlot(x=x, y=y, 
+#' genericEGRETDotPlot(x=x, y=y,
 #'                     xlim=xlim, ylim=ylim,
 #'                     xlab=xlab, ylab=ylab,
 #'                     plotTitle="Test"
 #' )
-genericEGRETDotPlot <- function(x,y, xlim, ylim,
-                                xTicks=pretty(xlim),yTicks=pretty(ylim),
-                                printTitle=TRUE,
-                                xaxs="i",xlab="",yaxs="i",ylab="",plotTitle="",
-                                pch=20,cex=0.7,cex.main=1.3,font.main=2,cex.lab=1.2,
-                                tcl=0.5,cex.axis=1,las=1,xDate=FALSE,
-                                tinyPlot=FALSE,hLine=FALSE,oneToOneLine=FALSE, 
-                                rmSciX=FALSE,rmSciY=FALSE,customPar=FALSE,col="black",lwd=1,
-                                showXLabels=TRUE,showYLabels=TRUE,
-                                showXAxis=TRUE,showYAxis=TRUE,
-                                removeFirstX=FALSE,removeLastX=FALSE,
-                                removeFirstY=FALSE,removeLastY=FALSE,
-                                ...){
-  
-  if(!customPar){
-    if (tinyPlot){
-      par(mar=c(4,5,1,0.1),mgp=c(2.5,0.5,0))
+genericEGRETDotPlot <- function(
+  x,
+  y,
+  xlim,
+  ylim,
+  xTicks = pretty(xlim),
+  yTicks = pretty(ylim),
+  printTitle = TRUE,
+  xaxs = "i",
+  xlab = "",
+  yaxs = "i",
+  ylab = "",
+  plotTitle = "",
+  pch = 20,
+  cex = 0.7,
+  cex.main = 1.3,
+  font.main = 2,
+  cex.lab = 1.2,
+  tcl = 0.5,
+  cex.axis = 1,
+  las = 1,
+  xDate = FALSE,
+  tinyPlot = FALSE,
+  hLine = FALSE,
+  oneToOneLine = FALSE,
+  rmSciX = FALSE,
+  rmSciY = FALSE,
+  customPar = FALSE,
+  col = "black",
+  lwd = 1,
+  showXLabels = TRUE,
+  showYLabels = TRUE,
+  showXAxis = TRUE,
+  showYAxis = TRUE,
+  removeFirstX = FALSE,
+  removeLastX = FALSE,
+  removeFirstY = FALSE,
+  removeLastY = FALSE,
+  ...
+) {
+  if (!customPar) {
+    if (tinyPlot) {
+      par(mar = c(4, 5, 1, 0.1), mgp = c(2.5, 0.5, 0))
     } else {
-      par(mar=c(5,6,4,2) + 0.1,mgp=c(3,0.5,0))
+      par(mar = c(5, 6, 4, 2) + 0.1, mgp = c(3, 0.5, 0))
     }
   }
-  
-  plot(x,y,xlim=xlim,xaxs=xaxs,xlab=if(showXLabels) xlab else "",axes=FALSE,
-       ylim=ylim,yaxs=yaxs,ylab=if(showYLabels) ylab else "", main=plotTitle,col=col,lwd=lwd,
-       pch=pch,cex=cex,cex.main=cex.main,font.main=font.main,cex.lab=cex.lab,...)
-  
+
+  plot(
+    x,
+    y,
+    xlim = xlim,
+    xaxs = xaxs,
+    xlab = if (showXLabels) xlab else "",
+    axes = FALSE,
+    ylim = ylim,
+    yaxs = yaxs,
+    ylab = if (showYLabels) ylab else "",
+    main = plotTitle,
+    col = col,
+    lwd = lwd,
+    pch = pch,
+    cex = cex,
+    cex.main = cex.main,
+    font.main = font.main,
+    cex.lab = cex.lab,
+    ...
+  )
+
   graphics::box()
-  if (hLine) graphics::abline(h = 0)
-  if (oneToOneLine) graphics::abline(a=0,b=1)
-  
-  if(rmSciX){
+  if (hLine) {
+    graphics::abline(h = 0)
+  }
+  if (oneToOneLine) {
+    graphics::abline(a = 0, b = 1)
+  }
+
+  if (rmSciX) {
     xTicksLab <- prettyNum(xTicks)
   } else {
     xTicksLab <- xTicks
   }
-  
-  if(rmSciY){
+
+  if (rmSciY) {
     yTicksLab <- prettyNum(yTicks)
   } else {
     yTicksLab <- yTicks
   }
-  
-  if(xDate){
+
+  if (xDate) {
     yearStart <- floor(min(xlim))
     yearEnd <- ceiling(max(xlim))
-    
-    if(yearEnd-yearStart >= 4){
-      xSpan<-c(yearStart,yearEnd)
-      xTicks<-pretty(xSpan,n=5)
+
+    if (yearEnd - yearStart >= 4) {
+      xSpan <- c(yearStart, yearEnd)
+      xTicks <- pretty(xSpan, n = 5)
       xTicksLab <- xTicks
     } else {
-      xlabels <- c(as.Date(paste(yearStart,"-01-01",sep="")), as.Date(paste(yearEnd,"-01-01",sep="")))
-      xlabels <- pretty(xlabels,n=5)
+      xlabels <- c(
+        as.Date(paste(yearStart, "-01-01", sep = "")),
+        as.Date(paste(yearEnd, "-01-01", sep = ""))
+      )
+      xlabels <- pretty(xlabels, n = 5)
       xTicksDates <- as.POSIXlt(xlabels)
-      years <- xTicksDates$year + 1900 
+      years <- xTicksDates$year + 1900
       day <- xTicksDates$yday
-      xTicks <- years + day/365
+      xTicks <- years + day / 365
       xTicksLab <- format(xlabels, "%Y-%b")
     }
   }
-  
-  if (removeFirstX){
-    xTicks <- c("", xTicks[2:(length(xTicks))])  
+
+  if (removeFirstX) {
+    xTicks <- c("", xTicks[2:(length(xTicks))])
   }
-  
-  if (removeLastX){
-    xTicks <- c(xTicks[1:(length(xTicks)-1)] , "")
+
+  if (removeLastX) {
+    xTicks <- c(xTicks[1:(length(xTicks) - 1)], "")
   }
-  
-  if (removeFirstY){
-    yTicks <- c("", yTicks[2:(length(yTicks))])  
+
+  if (removeFirstY) {
+    yTicks <- c("", yTicks[2:(length(yTicks))])
   }
-  
-  if (removeLastY){
-    yTicks <- c(yTicks[1:(length(yTicks)-1)] , "")
+
+  if (removeLastY) {
+    yTicks <- c(yTicks[1:(length(yTicks) - 1)], "")
   }
-  
-  if(showXAxis){
-    axis(1,tcl=tcl,at=xTicks,cex.axis=cex.axis,labels=xTicksLab)  
+
+  if (showXAxis) {
+    axis(1, tcl = tcl, at = xTicks, cex.axis = cex.axis, labels = xTicksLab)
   } else {
-    axis(1,tcl=tcl,at=xTicks,labels=FALSE)
+    axis(1, tcl = tcl, at = xTicks, labels = FALSE)
   }
-  axis(3,tcl=tcl,at=xTicks,labels=FALSE)
-  
-  if(showYAxis){
-    axis(2,tcl=tcl,las=las,at=yTicks,cex.axis=cex.axis,labels=yTicksLab)
+  axis(3, tcl = tcl, at = xTicks, labels = FALSE)
+
+  if (showYAxis) {
+    axis(
+      2,
+      tcl = tcl,
+      las = las,
+      at = yTicks,
+      cex.axis = cex.axis,
+      labels = yTicksLab
+    )
   } else {
-    axis(2,tcl=tcl,at=yTicks,labels=FALSE)    
+    axis(2, tcl = tcl, at = yTicks, labels = FALSE)
   }
-  axis(4,tcl=tcl,at=yTicks,labels=FALSE)    
+  axis(4, tcl = tcl, at = yTicks, labels = FALSE)
 }

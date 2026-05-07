@@ -21,7 +21,7 @@
 #' ylab <- "Concentration"
 #' xTicks <- pretty(xlim)
 #' yTicks <- pretty(ylim)
-#' genericEGRETDotPlot(x=x, y=y, 
+#' genericEGRETDotPlot(x=x, y=y,
 #'                     xlim=xlim, ylim=ylim,
 #'                     xlab=xlab, ylab=ylab,
 #'                     xTicks=xTicks, yTicks=yTicks,
@@ -33,23 +33,22 @@
 #' Uncen <- c(0,1,1,1,0,0)
 #' censoredSegments(yBottom=yBottom,yLow=yLow,yHigh=yHigh,x=x,Uncen=Uncen)
 censoredSegments <-
-  function(yBottom,
-           yLow,
-           yHigh,
-           x,
-           Uncen,
-           col = "black",
-           lwd = 1) {
-    
+  function(yBottom, yLow, yHigh, x, Uncen, col = "black", lwd = 1) {
     yLowVal <- ifelse(is.na(yLow), yBottom, yLow) #yLow would be NA if "simple" censored....so giving it a value here
 
     yTop <- par()$usr[4]
-    if(par()$ylog){
+    if (par()$ylog) {
       yTop <- 10^yTop
     }
-    
-    yHighVal <- ifelse(is.na(yHigh), yTop, yHigh) 
-    
-    segments(x[Uncen == 0], yLowVal[Uncen == 0], x[Uncen == 0], 
-             yHighVal[Uncen == 0], col = col, lwd = lwd)
+
+    yHighVal <- ifelse(is.na(yHigh), yTop, yHigh)
+
+    segments(
+      x[Uncen == 0],
+      yLowVal[Uncen == 0],
+      x[Uncen == 0],
+      yHighVal[Uncen == 0],
+      col = col,
+      lwd = lwd
+    )
   }

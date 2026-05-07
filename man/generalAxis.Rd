@@ -25,7 +25,7 @@ generalAxis(x, maxVal, minVal, units = NA, logScale = FALSE,
 
 \item{concentration}{logical if concentration=TRUE, labels returned as concentration units, otherwise flux units.}
 
-\item{concLab}{object of concUnit class, or numeric represented the short code, 
+\item{concLab}{object of concUnit class, or numeric represented the short code,
 or character representing the descriptive name. By default, this argument sets
 concentration labels to use either Concentration or Conc (for tiny plots). Units
 are taken from the eList$INFO$param.units. To use any other words than

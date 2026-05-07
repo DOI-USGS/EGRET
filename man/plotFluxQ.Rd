@@ -51,7 +51,7 @@ The metadata come from a data frame named INFO.
 
 Although there are a lot of optional arguments to this function, most are set to a logical default.
 
-Data come from named list, which contains a Sample dataframe with the sample data, 
+Data come from named list, which contains a Sample dataframe with the sample data,
 and an INFO dataframe with metadata.
 }
 \examples{

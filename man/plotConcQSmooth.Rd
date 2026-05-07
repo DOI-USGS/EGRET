@@ -35,7 +35,7 @@ plotConcQSmooth(eList, date1, date2, date3, qLow, qHigh, qUnit = 2,
 
 \item{concMax}{numeric value for upper limit on concentration shown on the graph, default = NA (which causes the upper limit to be set automatically, based on the data)}
 
-\item{concMin}{numeric value for lower limit on concentration shown on the vertical log graph, default is NA 
+\item{concMin}{numeric value for lower limit on concentration shown on the vertical log graph, default is NA
 (which causes the lower limit to be set automatically, based on the data). This value is ignored for linear scales, using 0 as the minimum value for the concentration axis.}
 
 \item{bw}{logical if TRUE graph is produced in black and white, default is FALSE (which means it will use color)}
@@ -60,7 +60,7 @@ plotConcQSmooth(eList, date1, date2, date3, qLow, qHigh, qUnit = 2,
 
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be plotted small as part of a multipart figure, default is FALSE.}
 
-\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
 \item{lwd}{number line width, default is 2}
@@ -79,7 +79,7 @@ plotConcQSmooth(eList, date1, date2, date3, qLow, qHigh, qUnit = 2,
 
 \item{edgeAdjust}{logical specifying whether to use the modified method for calculating the windows at the edge of the record.  The modified method tends to reduce curvature near the start and end of record.  Default is TRUE.}
 
-\item{concLab}{object of concUnit class, or numeric represented the short code, 
+\item{concLab}{object of concUnit class, or numeric represented the short code,
 or character representing the descriptive name. By default, this argument sets
 concentration labels to use either Concentration or Conc (for tiny plots). Units
 are taken from the eList$INFO$param.units. To use any other words than
@@ -92,17 +92,17 @@ generated labels}
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
 \description{
-These plots are like a vertical slice of the estimated concentration surface that is seen in the plotContours function.  
-These plots show how the concentration-discharge relationship is changing over time. 
-Typically the time points selected would be in three years at the same time of year spaced out over the period of record.  But that is not necessary.  
+These plots are like a vertical slice of the estimated concentration surface that is seen in the plotContours function.
+These plots show how the concentration-discharge relationship is changing over time.
+Typically the time points selected would be in three years at the same time of year spaced out over the period of record.  But that is not necessary.
 Another possibility is to use this to explore seasonal differences.  In this case the three
 dates would be in the same year but different times during the year.
 
 This plot can also help identify situations where the windowQ may be too small.  If there are substantial oscillations of some of the curves, then the windowQ should be increased.  Alternatively, windowQ may be too large.  This can be seen when the windowQ is reduced (say to 1.0).  A good choice of windowQ would be a value just great enough to damp out oscillations in the curves.
 
-Although there are a lot of optional arguments to this function, most are set to a logical default. 
+Although there are a lot of optional arguments to this function, most are set to a logical default.
 
-Data come from named list, which contains a Sample dataframe with the sample data, 
+Data come from named list, which contains a Sample dataframe with the sample data,
 and an INFO dataframe with metadata.
 }
 \examples{

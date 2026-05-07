@@ -20,7 +20,7 @@ for \code{readWQPInfo}, it is usually a longer code. For instance, a USGS site n
 would be in the form `USGS-XXXXXXXX`. If the siteNumber is left blank (an empty string), the interactive
 option allows users to enter required information by hand, otherwise those fields are left blank.}
 
-\item{parameterCd}{character USGS parameter code (a 5 digit number) or characteristic name (if using \code{readWQPInfo}). If the 
+\item{parameterCd}{character USGS parameter code (a 5 digit number) or characteristic name (if using \code{readWQPInfo}). If the
 parameterCd is left blank (an empty string), the interactive
 option allows users to enter required information by hand, otherwise those fields are left blank.}
 
@@ -50,7 +50,7 @@ paStart \tab Most EGRET functions \tab Starting month of period of analysis. Def
 paLong \tab Most EGRET functions \tab Length in number of months of period of analysis. Defaults to 12\cr
 }
 *** Additionally, EGRET assumes that all concentrations are saved in mg/l. If some variation of
-'mg/l' is not found in INFO$param.units, functions that calculate flux will issue a warning. This 
+'mg/l' is not found in INFO$param.units, functions that calculate flux will issue a warning. This
 is because the conversion from mg/l to the user-specified flux unit (e.g., kg/day) uses hard-coded conversion factors.
 }
 \description{
@@ -58,14 +58,14 @@ Populates INFO data frame from either NWIS (\code{readNWISInfo}),
 Water Quality Portal (\code{readWQPInfo}), or user-supplied files (\code{readUserInfo}).
 }
 \examples{
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # These examples require an internet connection to run
 # Automatically gets information about site 05114000 and temperature
 \donttest{
 INFO <- readNWISInfo('05114000','00010',interactive = FALSE)
 }
 \dontshow{\}) # examplesIf}
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # These examples require an internet connection to run
 # Automatically gets information about site 01594440 and temperature, no interaction with user
 nameToUse <- 'Specific conductance'

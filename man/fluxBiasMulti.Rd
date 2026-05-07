@@ -29,29 +29,29 @@ fluxBiasMulti(eList, qUnit = 2, fluxUnit = 3, moreTitle = "WRTDS",
 
 \item{lwd}{number line width}
 
-\item{concLab}{object of concUnit class, or numeric represented the short code, 
+\item{concLab}{object of concUnit class, or numeric represented the short code,
 or character representing the descriptive name. By default, this argument sets
 concentration labels to use either Concentration or Conc (for tiny plots). Units
 are taken from the eList$INFO$param.units. To use any other words than
 "Concentration" see \code{vignette(topic = "units", package = "EGRET")}.}
 
-\item{monthLab}{object of monthLabel class, or numeric represented the short code, 
+\item{monthLab}{object of monthLabel class, or numeric represented the short code,
 or character representing the descriptive name.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
 \description{
-These plots use the jack-knife estimates from WRTDS to investigate the potential flux bias problem. 
+These plots use the jack-knife estimates from WRTDS to investigate the potential flux bias problem.
 It can also be used for estimates constructed by other methods (such as LOADEST) if the results are
 stored in a data frame organized like the Sample data frame.  It allows additional label information
-to indicate what method is used. The use of this plot is described in Hirsch, Robert M., 2014. 
+to indicate what method is used. The use of this plot is described in Hirsch, Robert M., 2014.
 Large Biases in Regression-Based Constituent Flux Estimates: Causes and Diagnostic
 Tools. Journal of the American Water Resources Association (JAWRA) 1-24. DOI: 10.1111/jawr.12195
 
 
-Although there are a lot of optional arguments to this function, most are set to a logical default. 
+Although there are a lot of optional arguments to this function, most are set to a logical default.
 
-Data come from named list, which contains a Sample dataframe with the sample data, 
+Data come from named list, which contains a Sample dataframe with the sample data,
 a Daily dataframe with the daily flow data, and an INFO dataframe with metadata.
 }
 \examples{

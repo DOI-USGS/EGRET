@@ -16,13 +16,13 @@ Some details about the fluxUnit class
    \item{unitName}{A character specifying the full name.}
 
    \item{unitExpress}{An expression specifying the full name starting with Observed.}
-   
+
    \item{unitExpressTiny}{An expression specifying the abbreviated name starting with Observed.}
 
    \item{unitEstimate}{An expression specifying the full name starting with Estimated.}
-   
+
    \item{unitEstimateTiny}{An expression specifying the abbreviated name starting with Estimated.}
-   
+
    \item{unitUSGS}{A character specifying flux with full text.}
 
    \item{shortCode}{A number for quick lookup}

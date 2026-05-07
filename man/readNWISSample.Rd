@@ -30,7 +30,7 @@ ConcHigh \tab numeric \tab Upper limit of concentration \cr
 Uncen \tab integer \tab Uncensored data (1=TRUE, 0=FALSE) \cr
 ConcAve \tab numeric \tab Average concentration \cr
 Julian \tab integer \tab Number of days since Jan. 1, 1850\cr
-Month \tab integer \tab Month of the year [1-12] \cr 
+Month \tab integer \tab Month of the year [1-12] \cr
 Day \tab integer \tab Day of the year [1-366] \cr
 DecYear \tab numeric \tab Decimal year \cr
 MonthSeq \tab integer \tab Number of months since January 1, 1850 \cr
@@ -39,18 +39,25 @@ CosDY \tab numeric \tab Cosine of the DecYear
 }
 }
 \description{
-Imports data from USGS web service. 
+Imports data from USGS web service.
 For raw data, use \code{\link[dataRetrieval]{read_waterdata_samples}} from the dataRetrieval package.
-This function will retrieve the raw data, and compress it (summing constituents) if 
+This function will retrieve the raw data, and compress it (summing constituents) if
 more than 1 parameter code is supplied. See
 section 3.2.4 of the vignette for more details.
 }
 \examples{
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 \donttest{
 # These examples require an internet connection to run
 
-Sample_01075 <- readNWISSample('01594440','01075', '1985-01-01', '1985-03-31')
+Sample_01075 <- readNWISSample(siteNumber = '01594440',
+                               parameterCd = '01075',
+                               startDate = '1985-01-01',
+                               endDate = '1995-03-31')
+Sample_char <- readNWISSample(siteNumber = 'USGS-01594440',
+                              parameterCd = 'Silver',
+                              startDate = '1985-01-01',
+                              endDate = '1995-03-31')
 }
 \dontshow{\}) # examplesIf}
 }

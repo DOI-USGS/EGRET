@@ -2,12 +2,12 @@
 #'
 #' Populates INFO data frame from either NWIS (\code{readNWISInfo}),
 #' Water Quality Portal (\code{readWQPInfo}), or user-supplied files (\code{readUserInfo}).
-#'  
+#'
 #' @param siteNumber character site number.  For \code{readNWISInfo}, this is usually an 8 digit number,
 #' for \code{readWQPInfo}, it is usually a longer code. For instance, a USGS site number in the Water Quality Portal
 #' would be in the form `USGS-XXXXXXXX`. If the siteNumber is left blank (an empty string), the interactive
 #' option allows users to enter required information by hand, otherwise those fields are left blank.
-#' @param parameterCd character USGS parameter code (a 5 digit number) or characteristic name (if using \code{readWQPInfo}). If the 
+#' @param parameterCd character USGS parameter code (a 5 digit number) or characteristic name (if using \code{readWQPInfo}). If the
 #' parameterCd is left blank (an empty string), the interactive
 #' option allows users to enter required information by hand, otherwise those fields are left blank.
 #' @param interactive logical Option for interactive mode.  If true, there is user interaction for error handling and data checks.
@@ -17,7 +17,7 @@
 #' @seealso \code{\link[dataRetrieval]{readNWISsite}}, \code{\link[dataRetrieval]{readNWISpCode}}
 #' @seealso \code{\link[dataRetrieval]{whatWQPsites}}
 #' @return INFO data frame. Any metadata can be stored in INFO. However, there are 8 columns that EGRET uses by name in some functions:
-#' 
+#'
 #' \tabular{lll}{
 #' Required column \tab Used in function \tab Description \cr
 #' param.units*** \tab All concentration plotting functions \tab The units as listed in this field are used
@@ -31,7 +31,7 @@
 #' paLong \tab Most EGRET functions \tab Length in number of months of period of analysis. Defaults to 12\cr
 #' }
 #' *** Additionally, EGRET assumes that all concentrations are saved in mg/l. If some variation of
-#' 'mg/l' is not found in INFO$param.units, functions that calculate flux will issue a warning. This 
+#' 'mg/l' is not found in INFO$param.units, functions that calculate flux will issue a warning. This
 #' is because the conversion from mg/l to the user-specified flux unit (e.g., kg/day) uses hard-coded conversion factors.
 #'
 #' @examplesIf interactive()
@@ -40,37 +40,61 @@
 #' \donttest{
 #' INFO <- readNWISInfo('05114000','00010',interactive = FALSE)
 #' }
-readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
-  if (nzchar(siteNumber)){
-    INFO <- dataRetrieval::readNWISsite(siteNumber)
+readNWISInfo <- function(siteNumber, parameterCd, interactive = TRUE) {
+  if (!grepl("USGS-", siteNumber)) {
+    siteNumber <- paste0("USGS-", siteNumber)
+  }
+
+  if (nzchar(siteNumber)) {
+    INFO <- suppressMessages(dataRetrieval::read_waterdata_monitoring_location(
+      monitoring_location_id = siteNumber
+    ))
+
+    INFO$dec_long_va <- sf::st_coordinates(INFO)[, 1]
+    INFO$dec_lat_va <- sf::st_coordinates(INFO)[, 2]
+
+    INFO <- sf::st_drop_geometry(INFO)
+
+    names(INFO)[names(INFO) == "monitoring_location_id"] <- "site_no"
+    names(INFO)[names(INFO) == "drainage_area"] <- "drain_area_va"
+    names(INFO)[names(INFO) == "monitoring_location_name"] <- "station_nm"
+    names(INFO)[
+      names(INFO) == "contributing_drainage_area"
+    ] <- "contrib_drain_area_va"
   } else {
     INFO <- as.data.frame(matrix(ncol = 2, nrow = 1))
-    names(INFO) <- c('site_no', 'shortName')    
+    names(INFO) <- c('site_no', 'shortName')
   }
-  INFO <- populateSiteINFO(INFO, siteNumber,interactive=interactive)
-  
-  if (nzchar(parameterCd)){
-    parameterData <- dataRetrieval::readNWISpCode(parameterCd=parameterCd)
-    INFO$param.nm <- parameterData$parameter_nm
-    INFO$param.units <- parameterData$parameter_units
-    INFO$paramShortName <- parameterData$srsname
-    INFO$paramNumber <- parameterData$parameter_cd
-  } 
-  
-  INFO <- populateParameterINFO(parameterCd, INFO, interactive=interactive)
-  
-  localUnits <- toupper(INFO$param.units)  
-  if((parameterCd != "00060" | parameterCd != "00065") & length(grep("MG/L", localUnits)) == 0){
-    if(interactive){
+
+  INFO <- populateSiteINFO(INFO, siteNumber, interactive = interactive)
+
+  if (nzchar(parameterCd)) {
+    parameterData <- suppressMessages(dataRetrieval::read_waterdata_parameter_codes(
+      parameter_code = parameterCd
+    ))
+    INFO$param.nm <- parameterData$parameter_name
+    INFO$param.units <- parameterData$unit_of_measure
+    INFO$paramShortName <- parameterData$parameter_name
+    INFO$paramNumber <- parameterData$parameter_code
+  }
+
+  INFO <- populateParameterINFO(parameterCd, INFO, interactive = interactive)
+
+  localUnits <- toupper(INFO$param.units)
+  if (
+    (parameterCd != "00060" | parameterCd != "00065") &
+      length(grep("MG/L", localUnits)) == 0
+  ) {
+    if (interactive) {
       cat("Required concentration units are mg/l. \n")
-      cat("The INFO dataframe indicates:",INFO$param.units,"\n")
+      cat("The INFO dataframe indicates:", INFO$param.units, "\n")
       cat("Flux calculations will be wrong if units are not consistent.")
-    } 
+    }
   }
-  
+
   INFO$paStart <- 10
   INFO$paLong <- 12
-  
+
   return(INFO)
 }
 
@@ -83,33 +107,37 @@ readNWISInfo <- function(siteNumber, parameterCd,interactive=TRUE){
 #' pcodeToUse <- '00095'
 #' \donttest{
 #' INFO <- readWQPInfo('USGS-04024315',pcodeToUse, interactive = FALSE)
-#' 
+#'
 #' INFO2 <- readWQPInfo('WIDNR_WQX-10032762',nameToUse, interactive = FALSE)
 #' # To adjust the label names:
 #' INFO$shortName <- "Little"
 #' INFO$paramShortName <- "SC"
 #' }
-readWQPInfo <- function(siteNumber, parameterCd, interactive = TRUE){
-  
+readWQPInfo <- function(siteNumber, parameterCd, interactive = TRUE) {
   #Check for pcode:
-  pCodeLogic <- (all(nchar(parameterCd) == 5) & suppressWarnings(all(!is.na(as.numeric(parameterCd)))))
+  pCodeLogic <- (all(nchar(parameterCd) == 5) &
+    suppressWarnings(all(!is.na(as.numeric(parameterCd)))))
 
-  if (pCodeLogic){
-    
-    siteInfo <- dataRetrieval::whatWQPsites(siteid = siteNumber, 
-                                            legacy = TRUE)
+  if (pCodeLogic) {
+    siteInfo <- suppressMessages(dataRetrieval::whatWQPsites(
+      siteid = siteNumber,
+      legacy = TRUE
+    ))
 
-    parameterData <- dataRetrieval::readNWISpCode(parameterCd = parameterCd)
-    
-    siteInfo$param.nm <- parameterData$parameter_nm
-    siteInfo$param.units <- parameterData$parameter_units
-    siteInfo$paramShortName <- parameterData$srsname
-    siteInfo$paramNumber <- parameterData$parameter_cd
-    siteInfo$constitAbbrev <- parameterData$parameter_cd
+    parameterData <- suppressMessages(dataRetrieval::read_waterdata_parameter_codes(
+      parameter_code = parameterCd
+    ))
 
+    siteInfo$param.nm <- parameterData$parameter_name
+    siteInfo$param.units <- parameterData$unit_of_measure
+    siteInfo$paramShortName <- parameterData$parameter_name
+    siteInfo$paramNumber <- parameterData$parameter_code
+    siteInfo$constitAbbrev <- parameterData$parameter_code
   } else {
-    siteInfo <- dataRetrieval::whatWQPsites(siteid = siteNumber, 
-                                            legacy = TRUE)
+    siteInfo <- suppressMessages(dataRetrieval::whatWQPsites(
+      siteid = siteNumber,
+      legacy = TRUE
+    ))
 
     siteInfo$param.nm <- parameterCd
     siteInfo$param.units <- ""
@@ -117,65 +145,103 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive = TRUE){
     siteInfo$paramNumber <- ""
     siteInfo$constitAbbrev <- parameterCd
   }
-  
+
   siteInfo$station.nm <- siteInfo$MonitoringLocationName
-  siteInfo$shortName <- siteInfo$station.nm 
+  siteInfo$shortName <- siteInfo$station.nm
   siteInfo$site.no <- siteInfo$MonitoringLocationIdentifier
-  
-  if(interactive){
-    cat("Your site for data is", as.character(siteInfo$site.no),".\n")
-    if (!nzchar(siteInfo$station.nm)){
+
+  if (interactive) {
+    cat("Your site for data is", as.character(siteInfo$site.no), ".\n")
+    if (!nzchar(siteInfo$station.nm)) {
       cat("No station name was listed for site: ", siteInfo$site.no, ".\n")
       cat("Please enter a station name here(no quotes): \n")
       siteInfo$station.nm <- readline()
     }
-    cat("Your site name is", siteInfo$station.nm,",\n")
+    cat("Your site name is", siteInfo$station.nm, ",\n")
     cat("but you can modify this to a short name in a style you prefer. \n")
     cat("This name will be used to label graphs and tables. \n")
-    cat("If you want the program to use the name given above, just do a carriage return, \n")
+    cat(
+      "If you want the program to use the name given above, just do a carriage return, \n"
+    )
     cat("otherwise enter the preferred short name(no quotes):\n")
     siteInfo$shortName <- readline()
-    if (!nzchar(siteInfo$shortName)) siteInfo$shortName <- siteInfo$station.nm
-    
-    cat("Your water quality data are for parameter number", siteInfo$paramNumber, "\n")
+    if (!nzchar(siteInfo$shortName)) {
+      siteInfo$shortName <- siteInfo$station.nm
+    }
+
+    cat(
+      "Your water quality data are for parameter number",
+      siteInfo$paramNumber,
+      "\n"
+    )
     cat("which has the name:'", siteInfo$param.nm, "'.\n")
-    cat("Typically you will want a shorter name to be used in graphs and tables. \n")
+    cat(
+      "Typically you will want a shorter name to be used in graphs and tables. \n"
+    )
     cat("The suggested short name is:'", siteInfo$paramShortName, "'.\n")
-    cat("If you would like to change the short name, enter it here, otherwise just hit enter (no quotes):")
+    cat(
+      "If you would like to change the short name, enter it here, otherwise just hit enter (no quotes):"
+    )
     shortNameTemp <- readline()
-    if (nchar(shortNameTemp)>0) siteInfo$paramShortName <- shortNameTemp
-    if(!pCodeLogic){
-      cat("Water Quality Portal does not offer a simple method to obtain unit information.\n",
-          "EGRET requires concentration units in mg/l for all functions to work correctly. \nEnter the concentration units of Sample data:\n",sep="")
+    if (nchar(shortNameTemp) > 0) {
+      siteInfo$paramShortName <- shortNameTemp
+    }
+    if (!pCodeLogic) {
+      cat(
+        "Water Quality Portal does not offer a simple method to obtain unit information.\n",
+        "EGRET requires concentration units in mg/l for all functions to work correctly. \nEnter the concentration units of Sample data:\n",
+        sep = ""
+      )
       siteInfo$param.units <- readline()
     }
-    cat("It is helpful to set up a constiuent abbreviation when doing multi-constituent studies,\n")
-    cat("enter a unique id (three or four characters should work something like tn or tp or NO3).\n")
-    cat("Even if you don't feel you need an abbreviation you need to enter something (no quotes):\n")
+    cat(
+      "It is helpful to set up a constiuent abbreviation when doing multi-constituent studies,\n"
+    )
+    cat(
+      "enter a unique id (three or four characters should work something like tn or tp or NO3).\n"
+    )
+    cat(
+      "Even if you don't feel you need an abbreviation you need to enter something (no quotes):\n"
+    )
     siteInfo$constitAbbrev <- readline()
   }
-  
-  if (interactive){
-    cat("It is helpful to set up a station abbreviation when doing multi-site studies, \n")
+
+  if (interactive) {
+    cat(
+      "It is helpful to set up a station abbreviation when doing multi-site studies, \n"
+    )
     cat("enter a unique id (three or four characters should work).\n")
-    cat("Even if you don't feel you need an abbreviation for your site you need to enter something(no quotes):\n")
+    cat(
+      "Even if you don't feel you need an abbreviation for your site you need to enter something(no quotes):\n"
+    )
     siteInfo$staAbbrev <- readline()
   } else {
     siteInfo$staAbbrev <- NA
   }
 
-  if(!is.na(siteInfo$DrainageAreaMeasure.MeasureUnitCode) & siteInfo$DrainageAreaMeasure.MeasureUnitCode == "sq mi"){
-    siteInfo$drainSqKm <- as.numeric(siteInfo$DrainageAreaMeasure.MeasureValue) * 2.5899881 
+  if (
+    !is.na(siteInfo$DrainageAreaMeasure.MeasureUnitCode) &
+      siteInfo$DrainageAreaMeasure.MeasureUnitCode == "sq mi"
+  ) {
+    siteInfo$drainSqKm <- as.numeric(
+      siteInfo$DrainageAreaMeasure.MeasureValue
+    ) *
+      2.5899881
   } else {
     siteInfo$drainSqKm <- NA #Not sure the greatest solution, too many potential units.
-    
   }
-  
-  if(interactive){
-    if(is.na(siteInfo$drainSqKm)){
-      cat("No drainage area (and/or units) was listed in the WQP site file for this site.\n")
-      cat("Drainage area is used to calculate runoff parameters in flow history calculations.\n")
-      cat("Please enter the drainage area, you can enter it in the units of your choice.\n")
+
+  if (interactive) {
+    if (is.na(siteInfo$drainSqKm)) {
+      cat(
+        "No drainage area (and/or units) was listed in the WQP site file for this site.\n"
+      )
+      cat(
+        "Drainage area is used to calculate runoff parameters in flow history calculations.\n"
+      )
+      cat(
+        "Please enter the drainage area, you can enter it in the units of your choice.\n"
+      )
       cat("Enter the area, then enter drainage area code, \n")
       cat("1 is square miles, \n")
       cat("2 is square kilometers, \n")
@@ -190,28 +256,36 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive = TRUE){
       conversionVector <- c(2.5899881, 1.0, 0.0040468564, 0.01)
       siteInfo$drainSqKm <- siteInfo$drain.area.va * conversionVector[qUnit]
     }
-    requiredColumns <- c("drainSqKm", "staAbbrev", "constitAbbrev", 
-                         "param.units", "paramShortName","shortName")
-    if(!all(requiredColumns %in% names(siteInfo))){
-      cat("The following columns are required for all functions to work in the EGRET package:\n")
+    requiredColumns <- c(
+      "drainSqKm",
+      "staAbbrev",
+      "constitAbbrev",
+      "param.units",
+      "paramShortName",
+      "shortName"
+    )
+    if (!all(requiredColumns %in% names(siteInfo))) {
+      cat(
+        "The following columns are required for all functions to work in the EGRET package:\n"
+      )
       cat(requiredColumns[!(requiredColumns %in% names(siteInfo))])
       cat("Please enter manually")
     }
   }
-  
-  localUnits <- toupper(siteInfo$param.units)  
-  if(length(grep("MG/L", localUnits)) == 0){
-    if(interactive){
+
+  localUnits <- toupper(siteInfo$param.units)
+  if (length(grep("MG/L", localUnits)) == 0) {
+    if (interactive) {
       cat("Required concentration units are mg/l. \n")
-      cat("The INFO dataframe indicates:",siteInfo$param.units,"\n")
+      cat("The INFO dataframe indicates:", siteInfo$param.units, "\n")
       cat("Flux calculations will be wrong if units are not consistent\n")
-    } 
+    }
   }
-  
+
   siteInfo$queryTime <- Sys.time()
   siteInfo$paStart <- 10
   siteInfo$paLong <- 12
-  
+
   return(siteInfo)
 }
 
@@ -225,91 +299,118 @@ readWQPInfo <- function(siteNumber, parameterCd, interactive = TRUE){
 #' filePath <- system.file("extdata", package="EGRET")
 #' fileName <- 'infoTest.csv'
 #' INFO <- readUserInfo(filePath,fileName, separator=",",interactive=FALSE)
-readUserInfo <- function(filePath,fileName,hasHeader=TRUE,separator=",",interactive=TRUE){
-
+readUserInfo <- function(
+  filePath,
+  fileName,
+  hasHeader = TRUE,
+  separator = ",",
+  interactive = TRUE
+) {
   # Keeping things backwards compatible:
-  if("/" == substr(filePath, nchar(filePath), nchar(filePath))){
-    filePath <- substr(filePath, 1, nchar(filePath)-1)
+  if ("/" == substr(filePath, nchar(filePath), nchar(filePath))) {
+    filePath <- substr(filePath, 1, nchar(filePath) - 1)
   }
-    
+
   totalPath <- file.path(filePath, fileName)
 
-  if(file.exists(totalPath)){
-    siteInfo <- utils::read.delim(  
-      totalPath, 
+  if (file.exists(totalPath)) {
+    siteInfo <- utils::read.delim(
+      totalPath,
       header = hasHeader,
-      sep=separator,
-      colClasses=c('character'),
-      fill = TRUE, 
-      comment.char="#")
+      sep = separator,
+      colClasses = c('character'),
+      fill = TRUE,
+      comment.char = "#"
+    )
   } else {
     message("File not found, continuing with interactive section.")
-    siteInfo <- data.frame(station.nm="",
-                           shortName="",
-                           param.nm="",
-                           paramShortName="",
-                           param.units="",
-                           drainSqKm="",
-                           stringsAsFactors=FALSE)
+    siteInfo <- data.frame(
+      station.nm = "",
+      shortName = "",
+      param.nm = "",
+      paramShortName = "",
+      param.units = "",
+      drainSqKm = "",
+      stringsAsFactors = FALSE
+    )
   }
-  
-  if(interactive){
 
-    if (!("station.nm" %in% names(siteInfo))){
-      cat("No station name was listed. Please enter a station name here(no quotes): \n")
+  if (interactive) {
+    if (!("station.nm" %in% names(siteInfo))) {
+      cat(
+        "No station name was listed. Please enter a station name here(no quotes): \n"
+      )
       siteInfo$station.nm <- readline()
     }
-    cat("Your site name is", siteInfo$station.nm,"\n")
-    
-    if(!("shortName" %in% names(siteInfo))){
+    cat("Your site name is", siteInfo$station.nm, "\n")
+
+    if (!("shortName" %in% names(siteInfo))) {
       cat("but you can modify this to a short name in a style you prefer. \n")
       cat("The shortName name will be used to label graphs and tables. \n")
       cat("If you want the program to use the name given above, \n")
-      cat("just do a carriage return, otherwise enter the preferred short name(no quotes):\n")
+      cat(
+        "just do a carriage return, otherwise enter the preferred short name(no quotes):\n"
+      )
       siteInfo$shortName <- readline()
       if (!nzchar(siteInfo$shortName)) siteInfo$shortName <- siteInfo$station.nm
     }
-    
-    if (!("param.nm" %in% names(siteInfo))){
+
+    if (!("param.nm" %in% names(siteInfo))) {
       cat("No water quality parameter name was listed.\n")
       cat("Please enter the name here(no quotes): \n")
       siteInfo$param.nm <- readline()
     }
-    
+
     cat("Your water quality data are for '", siteInfo$param.nm, "'.\n")
 
-    if (!("paramShortName" %in% names(siteInfo))){
-      cat("Typically you will want a shorter name to be used in graphs and tables. \n")
+    if (!("paramShortName" %in% names(siteInfo))) {
+      cat(
+        "Typically you will want a shorter name to be used in graphs and tables. \n"
+      )
       cat("The suggested short name is:'", siteInfo$paramShortName, "'.\n")
-      cat("If you would like to change the short name, enter it here, otherwise just hit enter (no quotes):")
+      cat(
+        "If you would like to change the short name, enter it here, otherwise just hit enter (no quotes):"
+      )
       shortNameTemp <- readline()
-      
-      if (nchar(shortNameTemp)>0) siteInfo$paramShortName <- shortNameTemp
+
+      if (nchar(shortNameTemp) > 0) siteInfo$paramShortName <- shortNameTemp
     }
-    
-    if (!("param.units" %in% names(siteInfo))){
+
+    if (!("param.units" %in% names(siteInfo))) {
       cat("No water quality parameter unit was listed.\n")
       cat("Please enter the units here(no quotes): \n")
       siteInfo$param.units <- readline()
     }
 
-    if (!("constitAbbrev" %in% names(siteInfo))){
+    if (!("constitAbbrev" %in% names(siteInfo))) {
       cat("It is helpful to set up a constiuent abbreviation, \n")
-      cat("enter a unique id (three or four characters should work something like tn or tp or NO3).\n")
-      cat("Even if you don't feel you need an abbreviation you need to enter something (no quotes):\n")
+      cat(
+        "enter a unique id (three or four characters should work something like tn or tp or NO3).\n"
+      )
+      cat(
+        "Even if you don't feel you need an abbreviation you need to enter something (no quotes):\n"
+      )
       siteInfo$constitAbbrev <- readline()
     }
-    
-    if (!("staAbbrev" %in% names(siteInfo))){
-      cat("It is helpful to set up a station, enter a unique id (three or four characters should work).\n")
-      cat("Even if you don't feel you need an abbreviation for your site you need to enter something(no quotes):\n")
+
+    if (!("staAbbrev" %in% names(siteInfo))) {
+      cat(
+        "It is helpful to set up a station, enter a unique id (three or four characters should work).\n"
+      )
+      cat(
+        "Even if you don't feel you need an abbreviation for your site you need to enter something(no quotes):\n"
+      )
       siteInfo$staAbbrev <- readline()
     }
-    
-    if (!("drainSqKm" %in% names(siteInfo))){
+
+    if (!("drainSqKm" %in% names(siteInfo))) {
       cat("No drainage area was listed as a column named 'drainSqKm'.\n")
-      cat("Drainage area is used to calculate runoff parameters in flow history calculations.\n")
-      cat("Please enter the drainage area, you can enter it in the units of your choice.\n")
+      cat(
+        "Drainage area is used to calculate runoff parameters in flow history calculations.\n"
+      )
+      cat(
+        "Please enter the drainage area, you can enter it in the units of your choice.\n"
+      )
       cat("Enter the area, then enter drainage area code, \n")
       cat("1 is square miles, \n")
       cat("2 is square kilometers, \n")
@@ -325,49 +426,80 @@ readUserInfo <- function(filePath,fileName,hasHeader=TRUE,separator=",",interact
       siteInfo$drainSqKm <- siteInfo$drain.area.va * conversionVector[qUnit]
     }
   } else {
-    requiredColumns <- c("drainSqKm", "staAbbrev", "constitAbbrev", 
-                         "param.units", "paramShortName","shortName")
-    if(!all(requiredColumns %in% names(siteInfo))){
+    requiredColumns <- c(
+      "drainSqKm",
+      "staAbbrev",
+      "constitAbbrev",
+      "param.units",
+      "paramShortName",
+      "shortName"
+    )
+    if (!all(requiredColumns %in% names(siteInfo))) {
       message("The following columns are expected in the EGRET package:\n")
       message(requiredColumns[!(requiredColumns %in% names(siteInfo))])
     }
   }
-  
+
   localUnits <- toupper(siteInfo$param.units)
-  possibleGoodUnits <- c("mg/l","mg/l as N", "mg/l as NO2", 
-                         "mg/l as NO3","mg/l as P","mg/l as PO3","mg/l as PO4","mg/l as CaCO3",
-                         "mg/l as Na","mg/l as H","mg/l as S","mg/l NH4" )
-  
+  possibleGoodUnits <- c(
+    "mg/l",
+    "mg/l as N",
+    "mg/l as NO2",
+    "mg/l as NO3",
+    "mg/l as P",
+    "mg/l as PO3",
+    "mg/l as PO4",
+    "mg/l as CaCO3",
+    "mg/l as Na",
+    "mg/l as H",
+    "mg/l as S",
+    "mg/l NH4"
+  )
+
   allCaps <- toupper(possibleGoodUnits)
-  if(!(localUnits %in% allCaps)){
-    if(interactive){
-      message("Required concentration units are mg/l. \nThe INFO dataframe indicates:",siteInfo$param.units,
-              "\nFlux calculations will be wrong if units are not consistent")
-    } 
+  if (!(localUnits %in% allCaps)) {
+    if (interactive) {
+      message(
+        "Required concentration units are mg/l. \nThe INFO dataframe indicates:",
+        siteInfo$param.units,
+        "\nFlux calculations will be wrong if units are not consistent"
+      )
+    }
   }
-  
-  namesToNum <- c("paLong", "paStart", "drainSqKm", "bottomLogQ", "stepLogQ", "stepYear","windowY","windowQ",
-                  "windowS","dec.lat.va","dec.long.va","drain.area.va")
+
+  namesToNum <- c(
+    "paLong",
+    "paStart",
+    "drainSqKm",
+    "bottomLogQ",
+    "stepLogQ",
+    "stepYear",
+    "windowY",
+    "windowQ",
+    "windowS",
+    "dec.lat.va",
+    "dec.long.va",
+    "drain.area.va"
+  )
   namesToNum <- namesToNum[which(namesToNum %in% names(siteInfo))]
-  
-  namesToInt <- c("nVectorYear","minNumObs","minNumUncen")
+
+  namesToInt <- c("nVectorYear", "minNumObs", "minNumUncen")
   namesToInt <- namesToInt[which(namesToInt %in% names(siteInfo))]
-  
-  if(length(namesToNum) > 0){
-    siteInfo[,namesToNum] <- as.numeric(siteInfo[,namesToNum])
+
+  if (length(namesToNum) > 0) {
+    siteInfo[, namesToNum] <- as.numeric(siteInfo[, namesToNum])
   }
-  
-  if(length(namesToInt) > 0){
-    siteInfo[,namesToNum] <- as.numeric(siteInfo[,namesToNum])
+
+  if (length(namesToInt) > 0) {
+    siteInfo[, namesToNum] <- as.numeric(siteInfo[, namesToNum])
   }
-    
+
   siteInfo$queryTime <- Sys.time()
-  if(!("paStart" %in% names(siteInfo))){
+  if (!("paStart" %in% names(siteInfo))) {
     siteInfo$paStart <- 10
   }
-  if(!("paLong" %in% names(siteInfo))){
+  if (!("paLong" %in% names(siteInfo))) {
     siteInfo$paLong <- 12
   }
   return(siteInfo)
 }
-

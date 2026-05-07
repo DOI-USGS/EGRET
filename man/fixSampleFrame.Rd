@@ -13,7 +13,7 @@ fixSampleFrame(eList)
 localSample data frame
 }
 \description{
-Used for updating the Sample dataframe if ConcLow or ConcHigh is manually adjusted. 
+Used for updating the Sample dataframe if ConcLow or ConcHigh is manually adjusted.
 Adjusts ConcAve and Uncen columns.
 }
 \examples{

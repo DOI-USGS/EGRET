@@ -58,36 +58,36 @@ plotDiffContours(eList, year0, year1, qBottom = NA, qTop = NA,
 
 \item{cex.axis}{magnification to be used for axis annotation relative to the current setting of cex}
 
-\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins.}
 
 \item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
 to TRUE does NOT guarantee USGS compliance. It will only change automatically
 generated labels.}
 
-\item{color.palette}{a function that creates a color palette for the contour plot. Default goes from blue to white to red 
+\item{color.palette}{a function that creates a color palette for the contour plot. Default goes from blue to white to red
 using the function \code{grDevices::colorRampPalette(c("blue","white","red"))}. A few preset options are heat.colors, topo.colors, and terrain.colors.}
 
-\item{concLab}{object of concUnit class, or numeric represented the short code, 
+\item{concLab}{object of concUnit class, or numeric represented the short code,
 or character representing the descriptive name. By default, this argument sets
 concentration labels to use either Concentration or Conc (for tiny plots). Units
 are taken from the eList$INFO$param.units. To use any other words than
 "Concentration" see \code{vignette(topic = "units", package = "EGRET")}.}
 
-\item{monthLab}{object of monthLabel class, or numeric represented the short code, 
+\item{monthLab}{object of monthLabel class, or numeric represented the short code,
 or character representing the descriptive name.}
 
 \item{\dots}{arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters}
 }
 \description{
-These plots are normally used for plotting changes in the estimated concentration surface (whatSurface=3) but can be used to explore the 
+These plots are normally used for plotting changes in the estimated concentration surface (whatSurface=3) but can be used to explore the
 changes in estimated surfaces for the log of concentration or for the standard error (in log space) which is what determines the bias correction.
 
 The difference can be shown either as an arithmetic difference or as a percentage difference.
 
 Although there are a lot of optional arguments to this function, most are set to a logical default.
 
-Data come from named list, which contains a Sample dataframe with the sample data, 
+Data come from named list, which contains a Sample dataframe with the sample data,
 a Daily dataframe with the daily flow data,
 and an INFO dataframe with metadata.
 }

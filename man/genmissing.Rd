@@ -23,10 +23,9 @@ in the limit (where N is large) the values are normal with mean 0 and variance 1
 }
 \description{
 Generates a lag one auto-regressive time series, where the first and last
-values are fixed.  Marginal expected value is zero and variance is one.  
+values are fixed.  Marginal expected value is zero and variance is one.
 Generated values have a normal conditional distribution.
 }
 \author{
 Tim Cohn
 }
-\keyword{internal}

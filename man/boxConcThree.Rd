@@ -27,7 +27,7 @@ boxConcThree(eList, tinyPlot = FALSE, printTitle = TRUE,
 
 \item{cex.axis}{magnification to be used for axis annotation relative to the current setting of cex}
 
-\item{concLab}{object of concUnit class, or numeric represented the short code, 
+\item{concLab}{object of concUnit class, or numeric represented the short code,
 or character representing the descriptive name. By default, this argument sets
 concentration labels to use either Concentration or Conc (for tiny plots). Units
 are taken from the eList$INFO$param.units. To use any other words than
@@ -36,15 +36,15 @@ are taken from the eList$INFO$param.units. To use any other words than
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
 \description{
-This function is used to compare the distribution of concentration in the 
-sample and predicted data set. It shows three boxplots.  One for the sample, 
-one for the predictions on days with sample values, and one for all days 
+This function is used to compare the distribution of concentration in the
+sample and predicted data set. It shows three boxplots.  One for the sample,
+one for the predictions on days with sample values, and one for all days
 (whether or not they had sample values).  Box widths are proportional to the
-square root of the number of observations represented by the box.  
+square root of the number of observations represented by the box.
 
-Data come from named list, which contains a Sample dataframe with the sample data, 
+Data come from named list, which contains a Sample dataframe with the sample data,
 a Daily dataframe with the daily flow data,
-and an INFO dataframe with metadata. 
+and an INFO dataframe with metadata.
 
 Although there are a lot of optional arguments to this function, most are set to a logical default.
 }

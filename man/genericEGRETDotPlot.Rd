@@ -105,7 +105,7 @@ xlim <- c(min(x),max(x))
 ylim <- c(min(y),1.05*max(y))
 xlab <- "Date"
 ylab <- "Flow"
-genericEGRETDotPlot(x=x, y=y, 
+genericEGRETDotPlot(x=x, y=y,
                     xlim=xlim, ylim=ylim,
                     xlab=xlab, ylab=ylab,
                     plotTitle="Test"

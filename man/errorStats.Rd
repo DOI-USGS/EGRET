@@ -19,7 +19,7 @@ sepPercent the standard error of prediction for Concentration, expressed in perc
 }
 \description{
 This function takes a fitted WRTDS model and computes error statistics
-the residuals used here are cross-validation residuals, 
+the residuals used here are cross-validation residuals,
 which will be slightly larger than regular regression residuals
 in the case of censored data, the residuals are computed from random residuals
 computed from makeAugmentedSample(), the function returns a list of error statistics

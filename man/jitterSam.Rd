@@ -17,10 +17,10 @@ SamR a data frame structured like the Sam data frame but with
  the time and discharge variables modified by adding random jitter
 }
 \description{
-This function is used in cases where there are numerical problems with 
-the estimation of the WRTDS model.  This mostly happens during bootstrap 
-estimation or when the data sets are very large.  In order to reduce the 
-collinearity in the explanatory variables, some random noise is added to 
+This function is used in cases where there are numerical problems with
+the estimation of the WRTDS model.  This mostly happens during bootstrap
+estimation or when the data sets are very large.  In order to reduce the
+collinearity in the explanatory variables, some random noise is added to
 the time and log discharge variables in the Sample data frame.
 }
 \examples{

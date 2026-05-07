@@ -3,8 +3,8 @@
 #' @description
 #'  Part of the flowHistory system.  The four statistics are 1-day maximum, annual mean, annual median, and annual 7-day minimum.
 #'  Although there are a lot of optional arguments to this function, most are set to a logical default.
-#'  
-#' Data come from named list, which contains a Sample dataframe with the sample data, 
+#'
+#' Data come from named list, which contains a Sample dataframe with the sample data,
 #' a Daily dataframe with the daily flow data,
 #' and an INFO dataframe with metadata. Each graph shows a loess smooth of the data that are plotted.
 #'
@@ -32,39 +32,117 @@
 #' eList <- setPA(eList,paStart=6,paLong=3)
 #' plotFourStats(eList)
 #' }
-plotFourStats<-function(eList, yearStart = NA, yearEnd = NA, 
-                        printTitle = TRUE, runoff = FALSE, cex.main = 1.2,
-                        qUnit =1,cex.axis=1.2,cex=0.8, col="black", lwd=1,...) {
+plotFourStats <- function(
+  eList,
+  yearStart = NA,
+  yearEnd = NA,
+  printTitle = TRUE,
+  runoff = FALSE,
+  cex.main = 1.2,
+  qUnit = 1,
+  cex.axis = 1.2,
+  cex = 0.8,
+  col = "black",
+  lwd = 1,
+  ...
+) {
   # prior to running this user must do these two commands
-  # INFO<-setPA(pastart,paLong,window) 
+  # INFO<-setPA(pastart,paLong,window)
   # annualSeries<-makeAnnualSeries()
   #
-  
+
   localINFO <- getInfo(eList)
   localDaily <- getDaily(eList)
   localAnnualSeries <- makeAnnualSeries(eList)
-  
-  par(mfcol=c(2,2),oma=c(0,1.7,6,1.7))
-  setYearStart<-if(is.na(yearStart)) min(localAnnualSeries[1,,],na.rm=TRUE) else yearStart
-  setYearEnd<-if(is.na(yearEnd)) max(localAnnualSeries[1,,],na.rm=TRUE) else yearEnd
-  plotFlowSingle(eList, istat=8, yearStart=setYearStart, yearEnd=setYearEnd, 
-                 tinyPlot=TRUE, runoff=runoff, 
-                 qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,
-                 cex.axis=cex.axis,cex=cex, col=col,lwd=lwd, cex.main=1,...)
-  plotFlowSingle(eList, istat=4, yearStart=setYearStart, yearEnd=setYearEnd, 
-                 tinyPlot=TRUE, runoff=runoff, 
-                 qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,
-                 cex.axis=cex.axis,cex=cex, col=col,lwd=lwd, cex.main=1, ...)
-  plotFlowSingle(eList, istat=5, yearStart=setYearStart, yearEnd=setYearEnd, 
-                 tinyPlot=TRUE, runoff=runoff, 
-                 qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,
-                 cex.axis=cex.axis,cex=cex, col=col,lwd=lwd, cex.main=1, ...)
-  plotFlowSingle(eList, istat=2, yearStart=setYearStart, yearEnd=setYearEnd, 
-                 tinyPlot=TRUE, runoff=runoff, 
-                 qUnit=qUnit, printPA=FALSE, printIstat=TRUE, printStaName=FALSE,
-                 cex.axis=cex.axis,cex=cex, col=col,lwd=lwd, cex.main=1, ...)
-  textPA<-setSeasonLabelByUser(paStartInput=localINFO$paStart, paLongInput=localINFO$paLong)
-  title<-if(printTitle) paste(localINFO$shortName,"\n",textPA)
-  mtext(title, outer = TRUE, font = 2,cex=cex.main)
-  par(mfcol=c(1,1),oma=c(0,0,0,0))	
+
+  par(mfcol = c(2, 2), oma = c(0, 1.7, 6, 1.7))
+  setYearStart <- if (is.na(yearStart)) {
+    min(localAnnualSeries[1, , ], na.rm = TRUE)
+  } else {
+    yearStart
+  }
+  setYearEnd <- if (is.na(yearEnd)) {
+    max(localAnnualSeries[1, , ], na.rm = TRUE)
+  } else {
+    yearEnd
+  }
+  plotFlowSingle(
+    eList,
+    istat = 8,
+    yearStart = setYearStart,
+    yearEnd = setYearEnd,
+    tinyPlot = TRUE,
+    runoff = runoff,
+    qUnit = qUnit,
+    printPA = FALSE,
+    printIstat = TRUE,
+    printStaName = FALSE,
+    cex.axis = cex.axis,
+    cex = cex,
+    col = col,
+    lwd = lwd,
+    cex.main = 1,
+    ...
+  )
+  plotFlowSingle(
+    eList,
+    istat = 4,
+    yearStart = setYearStart,
+    yearEnd = setYearEnd,
+    tinyPlot = TRUE,
+    runoff = runoff,
+    qUnit = qUnit,
+    printPA = FALSE,
+    printIstat = TRUE,
+    printStaName = FALSE,
+    cex.axis = cex.axis,
+    cex = cex,
+    col = col,
+    lwd = lwd,
+    cex.main = 1,
+    ...
+  )
+  plotFlowSingle(
+    eList,
+    istat = 5,
+    yearStart = setYearStart,
+    yearEnd = setYearEnd,
+    tinyPlot = TRUE,
+    runoff = runoff,
+    qUnit = qUnit,
+    printPA = FALSE,
+    printIstat = TRUE,
+    printStaName = FALSE,
+    cex.axis = cex.axis,
+    cex = cex,
+    col = col,
+    lwd = lwd,
+    cex.main = 1,
+    ...
+  )
+  plotFlowSingle(
+    eList,
+    istat = 2,
+    yearStart = setYearStart,
+    yearEnd = setYearEnd,
+    tinyPlot = TRUE,
+    runoff = runoff,
+    qUnit = qUnit,
+    printPA = FALSE,
+    printIstat = TRUE,
+    printStaName = FALSE,
+    cex.axis = cex.axis,
+    cex = cex,
+    col = col,
+    lwd = lwd,
+    cex.main = 1,
+    ...
+  )
+  textPA <- setSeasonLabelByUser(
+    paStartInput = localINFO$paStart,
+    paLongInput = localINFO$paLong
+  )
+  title <- if (printTitle) paste(localINFO$shortName, "\n", textPA)
+  mtext(title, outer = TRUE, font = 2, cex = cex.main)
+  par(mfcol = c(1, 1), oma = c(0, 0, 0, 0))
 }

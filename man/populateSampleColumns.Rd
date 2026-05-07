@@ -10,7 +10,7 @@ populateSampleColumns(rawData)
 \item{rawData}{dataframe with dateTime, ConcLow, ConcHigh, Uncen}
 }
 \value{
-Sample2 dataframe with columns: Date, ConcLow, ConcHigh, Uncen, ConcAve, Julian, 
+Sample2 dataframe with columns: Date, ConcLow, ConcHigh, Uncen, ConcAve, Julian,
 Month, Day, DecYear, MonthSeq, waterYear, SinDY, and CosDY (DY = decimal year)
 }
 \description{

@@ -34,7 +34,7 @@ xlab <- "Date"
 ylab <- "Concentration"
 xTicks <- pretty(xlim)
 yTicks <- pretty(ylim)
-genericEGRETDotPlot(x=x, y=y, 
+genericEGRETDotPlot(x=x, y=y,
                     xlim=xlim, ylim=ylim,
                     xlab=xlab, ylab=ylab,
                     xTicks=xTicks, yTicks=yTicks,

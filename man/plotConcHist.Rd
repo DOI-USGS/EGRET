@@ -49,7 +49,7 @@ from \code{WRTDSKalman} output are plotted, if \code{FALSE} not plotted}
 
 \item{col.pred}{color of flow normalized line on plot, see ?par 'Color Specification'}
 
-\item{concLab}{object of concUnit class, or numeric represented the short code, 
+\item{concLab}{object of concUnit class, or numeric represented the short code,
 or character representing the descriptive name. By default, this argument sets
 concentration labels to use either Concentration or Conc (for tiny plots). Units
 are taken from the eList$INFO$param.units. To use any other words than
@@ -57,22 +57,22 @@ are taken from the eList$INFO$param.units. To use any other words than
 
 \item{col.gen}{color of points for WRTDS_K output on plot, see ?par 'Color Specification'}
 
-\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
 \description{
 Data come from named list (eList), which contains a Daily dataframe with the daily flow data,
-and an INFO dataframe with metadata. 
+and an INFO dataframe with metadata.
 
-The annual concentrations are "time-weighted" mean concentrations (as opposed to "flow-weighted"). 
-The annual results reported are for a specified "period of analysis" which can be 
-an entire water year, a calendar, a season or even an individual month.  
+The annual concentrations are "time-weighted" mean concentrations (as opposed to "flow-weighted").
+The annual results reported are for a specified "period of analysis" which can be
+an entire water year, a calendar, a season or even an individual month.
 User specifies this period of analysis in the call to \code{setupYears}.
 
 User can specify plotting of three possible series.  All are in units of mg/L.
-  Annual mean concentration 
+  Annual mean concentration
   WRTDS_K version of annual mean concentration (requires that WRTDSKalman has been run)
   Flow normalized mean concentration
 

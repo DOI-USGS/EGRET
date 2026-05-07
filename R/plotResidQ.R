@@ -1,14 +1,14 @@
-#' Plot of the residuals from WRTDS (in log concentration units) versus the discharge 
+#' Plot of the residuals from WRTDS (in log concentration units) versus the discharge
 #'
 #' @description
 #' This function produces a plot of the residuals from WRTDS, expressed in natural log concentration units
-#' versus the discharge shown on a log scale. 
+#' versus the discharge shown on a log scale.
 #' The function also provides an alternative for viewing the standardized residuals, where the each residual is divided by its estimated standard error
-#' 
+#'
 #'  Although there are a lot of optional arguments to this function, most are set to a logical default.
-#'  
-#' Data come from named list, which contains a Sample dataframe with the sample data, 
-#' and an INFO dataframe with metadata. 
+#'
+#' Data come from named list, which contains a Sample dataframe with the sample data,
+#' and an INFO dataframe with metadata.
 #'
 #' @param eList named list with at least the Sample and INFO dataframes
 #' @param qUnit object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.
@@ -19,13 +19,13 @@
 #' @param cex numerical value giving the amount by which plotting symbols should be magnified
 #' @param cex.main magnification to be used for main titles relative to the current setting of cex
 #' @param cex.axis magnification to be used for axis annotation relative to the current setting of cex
-#' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+#' @param customPar logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
 #' (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.
 #' @param col color of points on plot, see ?par 'Color Specification'
 #' @param lwd number line width
 #' @param usgsStyle logical option to use USGS style guidelines. Setting this option
 #' to TRUE does NOT guarantee USGS complience. It will only change automatically
-#' generated labels. 
+#' generated labels.
 #' @param randomCensored logical. Show censored residuals as randomized.
 #' @param \dots arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)
 #' @keywords graphics water-quality statistics
@@ -38,103 +38,181 @@
 #' # Graphs consisting of Jun-Aug
 #' eList <- setPA(eList, paStart=6,paLong=3)
 #' plotResidQ(eList)
-plotResidQ<-function (eList, qUnit = 2, 
-                      tinyPlot = FALSE, stdResid = FALSE, printTitle = TRUE,col="black",lwd=1,
-                      cex=0.8, cex.axis=1.1,cex.main=1.1,rmSciX=FALSE, customPar=FALSE,
-                      randomCensored=FALSE,usgsStyle=FALSE,...){  
-   
+plotResidQ <- function(
+  eList,
+  qUnit = 2,
+  tinyPlot = FALSE,
+  stdResid = FALSE,
+  printTitle = TRUE,
+  col = "black",
+  lwd = 1,
+  cex = 0.8,
+  cex.axis = 1.1,
+  cex.main = 1.1,
+  rmSciX = FALSE,
+  customPar = FALSE,
+  randomCensored = FALSE,
+  usgsStyle = FALSE,
+  ...
+) {
   localINFO <- getInfo(eList)
   localSample <- getSample(eList)
-  
-  if(!all((c("SE","yHat") %in% names(eList$Sample)))){
+
+  if (!all((c("SE", "yHat") %in% names(eList$Sample)))) {
     stop("This function requires running modelEstimation on eList")
   }
-  
-  if(sum(c("paStart","paLong") %in% names(localINFO)) == 2){
+
+  if (sum(c("paStart", "paLong") %in% names(localINFO)) == 2) {
     paLong <- localINFO$paLong
-    paStart <- localINFO$paStart  
+    paStart <- localINFO$paStart
   } else {
     paLong <- 12
     paStart <- 10
-  }  
-  
-  localSample <- if(paLong == 12) localSample else selectDays(localSample,paLong,paStart)
-  
-  title2<-if(paLong==12) "" else setSeasonLabelByUser(paStartInput=paStart,paLongInput=paLong)
-  
-  if (is.numeric(qUnit)) {
-     qUnit <- qConst[shortCode = qUnit][[1]]
-  } else if (is.character(qUnit)) {
-     qUnit <- qConst[qUnit][[1]]
   }
-   
+
+  localSample <- if (paLong == 12) {
+    localSample
+  } else {
+    selectDays(localSample, paLong, paStart)
+  }
+
+  title2 <- if (paLong == 12) {
+    ""
+  } else {
+    setSeasonLabelByUser(paStartInput = paStart, paLongInput = paLong)
+  }
+
+  if (is.numeric(qUnit)) {
+    qUnit <- qConst[shortCode = qUnit][[1]]
+  } else if (is.character(qUnit)) {
+    qUnit <- qConst[qUnit][[1]]
+  }
+
   qFactor <- qUnit@qUnitFactor
   x <- localSample$Q * qFactor
-   
+
   Uncen <- localSample$Uncen
-  
-  if (tinyPlot){
-     xLab <- qUnit@qUnitTiny
-     yLab <- ifelse(stdResid, "Standardized residual", "Residual")
+
+  if (tinyPlot) {
+    xLab <- qUnit@qUnitTiny
+    yLab <- ifelse(stdResid, "Standardized residual", "Residual")
   } else {
-     xLab <- ifelse(usgsStyle, qUnit@unitUSGS, qUnit@qUnitExpress)
-     yLab <- ifelse(stdResid, "Standardized residual in natural log units", "Residual in natural log units")
+    xLab <- ifelse(usgsStyle, qUnit@unitUSGS, qUnit@qUnitExpress)
+    yLab <- ifelse(
+      stdResid,
+      "Standardized residual in natural log units",
+      "Residual in natural log units"
+    )
   }
-  
-  plotTitle <- ifelse (printTitle,  paste(localINFO$shortName, "\n", localINFO$paramShortName, 
-           "\n", "Residual versus Discharge"), "")
-   
-   #######################
-   
-  xInfo <- generalAxis(x=x, minVal=NA, maxVal=NA, logScale=TRUE, tinyPlot=tinyPlot,padPercent=5)
-  
-  if(!randomCensored){
-  
+
+  plotTitle <- ifelse(
+    printTitle,
+    paste(
+      localINFO$shortName,
+      "\n",
+      localINFO$paramShortName,
+      "\n",
+      "Residual versus Discharge"
+    ),
+    ""
+  )
+
+  #######################
+
+  xInfo <- generalAxis(
+    x = x,
+    minVal = NA,
+    maxVal = NA,
+    logScale = TRUE,
+    tinyPlot = tinyPlot,
+    padPercent = 5
+  )
+
+  if (!randomCensored) {
     yLow <- log(localSample$ConcLow) - localSample$yHat
     yHigh <- log(localSample$ConcHigh) - localSample$yHat
-    
-    if(stdResid){
-      yLow <- yLow/localSample$SE
-      yHigh <- yHigh/localSample$SE
-    }
-    
-    yInfo <- generalAxis(x=yHigh, minVal=NA, maxVal=NA, tinyPlot=tinyPlot,padPercent=5)
-     
-    genericEGRETDotPlot(x=x, y=yHigh,
-                         xTicks=xInfo$ticks, yTicks=yInfo$ticks,hLine=TRUE,
-                         xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
-                         xlab = xLab, ylab = yLab, plotTitle=plotTitle,cex=cex,
-                         log = "x", cex.axis=cex.axis,cex.main=cex.main, col=col,
-                         tinyPlot=tinyPlot,rmSciX=rmSciX, customPar=customPar,...
-    )
-    
-    censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen,col=col, lwd=lwd)
-  } else {
 
-    if(!("rResid" %in% names(localSample))){
+    if (stdResid) {
+      yLow <- yLow / localSample$SE
+      yHigh <- yHigh / localSample$SE
+    }
+
+    yInfo <- generalAxis(
+      x = yHigh,
+      minVal = NA,
+      maxVal = NA,
+      tinyPlot = tinyPlot,
+      padPercent = 5
+    )
+
+    genericEGRETDotPlot(
+      x = x,
+      y = yHigh,
+      xTicks = xInfo$ticks,
+      yTicks = yInfo$ticks,
+      hLine = TRUE,
+      xlim = c(xInfo$bottom, xInfo$top),
+      ylim = c(yInfo$bottom, yInfo$top),
+      xlab = xLab,
+      ylab = yLab,
+      plotTitle = plotTitle,
+      cex = cex,
+      log = "x",
+      cex.axis = cex.axis,
+      cex.main = cex.main,
+      col = col,
+      tinyPlot = tinyPlot,
+      rmSciX = rmSciX,
+      customPar = customPar,
+      ...
+    )
+
+    censoredSegments(yInfo$bottom, yLow, yHigh, x, Uncen, col = col, lwd = lwd)
+  } else {
+    if (!("rResid" %in% names(localSample))) {
       eList <- makeAugmentedSample(eList)
       localSample <- eList$Sample
     }
     yHigh <- localSample$rResid
 
-    if(stdResid){
-      yHigh <- yHigh/localSample$SE
+    if (stdResid) {
+      yHigh <- yHigh / localSample$SE
     }
 
-    yInfo <- generalAxis(x=yHigh, minVal=NA, maxVal=NA, tinyPlot=tinyPlot,padPercent=5)
-
-    genericEGRETDotPlot(x=x[Uncen == 1], y=yHigh[Uncen == 1],
-                        xTicks=xInfo$ticks, yTicks=yInfo$ticks,hLine=TRUE,
-                        xlim = c(xInfo$bottom, xInfo$top), ylim = c(yInfo$bottom, yInfo$top),
-                        xlab = xLab, ylab = yLab, plotTitle=plotTitle,cex=cex,
-                        log = "x", cex.axis=cex.axis,cex.main=cex.main, col=col,
-                        tinyPlot=tinyPlot,rmSciX=rmSciX, customPar=customPar,...
+    yInfo <- generalAxis(
+      x = yHigh,
+      minVal = NA,
+      maxVal = NA,
+      tinyPlot = tinyPlot,
+      padPercent = 5
     )
-    points(x=x[Uncen == 0], y=yHigh[Uncen == 0],cex=cex,col=col)
 
+    genericEGRETDotPlot(
+      x = x[Uncen == 1],
+      y = yHigh[Uncen == 1],
+      xTicks = xInfo$ticks,
+      yTicks = yInfo$ticks,
+      hLine = TRUE,
+      xlim = c(xInfo$bottom, xInfo$top),
+      ylim = c(yInfo$bottom, yInfo$top),
+      xlab = xLab,
+      ylab = yLab,
+      plotTitle = plotTitle,
+      cex = cex,
+      log = "x",
+      cex.axis = cex.axis,
+      cex.main = cex.main,
+      col = col,
+      tinyPlot = tinyPlot,
+      rmSciX = rmSciX,
+      customPar = customPar,
+      ...
+    )
+    points(x = x[Uncen == 0], y = yHigh[Uncen == 0], cex = cex, col = col)
   }
-  
-  if (!tinyPlot) mtext(title2,side=3,line=-1.5)
+
+  if (!tinyPlot) {
+    mtext(title2, side = 3, line = -1.5)
+  }
   invisible(eList)
-   
 }

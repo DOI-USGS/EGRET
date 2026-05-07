@@ -13,7 +13,6 @@ checkSurfaceSpan(eList)
 checkSurfaceSpan
 }
 \examples{
- 
 eList <- Choptank_eList
 checkSurfaceSpan(eList)
 }

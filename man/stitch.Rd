@@ -21,10 +21,10 @@ stitch(eList, sample1StartDate, sample1EndDate, sample2StartDate,
 
 \item{sample2EndDate}{The Date (or character in YYYY-MM-DD) of the last sample to be used in the second segment of the surfaces object.}
 
-\item{surfaceStart}{The Date (or character in YYYY-MM-DD) that is the start of the WRTDS model to be estimated and the first of the 
+\item{surfaceStart}{The Date (or character in YYYY-MM-DD) that is the start of the WRTDS model to be estimated and the first of the
 daily outputs to be generated. Default is NA, which means that the surfaceStart is based on the date of the first sample.}
 
-\item{surfaceEnd}{The Date (or character in YYYY-MM-DD) that is the end of the WRTDS model to be estimated and the last of the daily outputs 
+\item{surfaceEnd}{The Date (or character in YYYY-MM-DD) that is the end of the WRTDS model to be estimated and the last of the daily outputs
 to be generated.  Default is NA, which means that the surfaceEnd is based on the date of the last sample.}
 
 \item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
@@ -48,12 +48,12 @@ The edgeAdjust method tends to reduce curvature near the start and end of record
 \item{run.parallel}{logical to run bootstrapping in parallel or not}
 }
 \description{
-This function creates a continuous surfaces object that starts just before 
-surfaceStart and ends just after surfaceEnd. It is made up from two surfaces 
-objects created when there is a wall specified for the analysis.  The first 
-surfaces object is based on data prior to the wall and the second surfaces object 
+This function creates a continuous surfaces object that starts just before
+surfaceStart and ends just after surfaceEnd. It is made up from two surfaces
+objects created when there is a wall specified for the analysis.  The first
+surfaces object is based on data prior to the wall and the second surfaces object
 is based on data after the wall.  The wall is located just after sample1EndDate.
-The Daily data frame is used only to set the minimum and maximum discharges used 
+The Daily data frame is used only to set the minimum and maximum discharges used
 to construct the indices for discharges in the surfaces.
 }
 \examples{
@@ -69,8 +69,8 @@ sample2StartDate <- "1996-10-01"
 sample2EndDate <- "2011-09-30"
 
 \donttest{
-surface_skip <- stitch(eList, 
-                         sample1StartDate, sample1EndDate, 
+surface_skip <- stitch(eList,
+                         sample1StartDate, sample1EndDate,
                          sample2StartDate, sample2EndDate,
                          surfaceStart, surfaceEnd)
 
@@ -80,8 +80,8 @@ sample1EndDate <- "1996-09-30"
 sample2StartDate <- "1992-10-01"
 sample2EndDate <- "2011-09-30"
 
-surface_overlap <- stitch(eList, 
-                         sample1StartDate, sample1EndDate, 
+surface_overlap <- stitch(eList,
+                         sample1StartDate, sample1EndDate,
                          sample2StartDate, sample2EndDate)
 }
 }

@@ -11,36 +11,36 @@ flowDuration(eList, centerDate = "09-30", qUnit = 2, span = 365,
 \item{eList}{named list with at least Daily and INFO dataframes}
 
 \item{centerDate}{character specifying the center date of the part of the year for which the flow
-duration is to be calculated, it is in the form "mm-dd" (it must be in quotes). Default is 
+duration is to be calculated, it is in the form "mm-dd" (it must be in quotes). Default is
 "09-30"}
 
 \item{qUnit}{object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented the short code,
 or character representing the descriptive name. Default is qUnit = 2, which corresponds to cubic meters per second.}
 
-\item{span}{number this is the half-width of the window over which the discharge values are to 
-be used in constructing the flow-duration curve. If the full year is desired any value greater 
-than 182 will. Note that for a window of about 2-months width, a span value should 
+\item{span}{number this is the half-width of the window over which the discharge values are to
+be used in constructing the flow-duration curve. If the full year is desired any value greater
+than 182 will. Note that for a window of about 2-months width, a span value should
 be about 30. Default is 365.}
 
-\item{monthLab}{object of monthLabel class, or numeric represented the short code, 
+\item{monthLab}{object of monthLabel class, or numeric represented the short code,
 or character representing the descriptive name.}
 }
 \value{
 qDuration A named vector with flow duration information.
 }
 \description{
-This function is useful for helping the analyst determine the empirical probability distribution of 
-streamflow for a particular part of the year or for the whole year. 
+This function is useful for helping the analyst determine the empirical probability distribution of
+streamflow for a particular part of the year or for the whole year.
 This is particularly useful in setting up discharge scales for various other plots in this package.
 }
 \examples{
 eList <- Choptank_eList
 # for a window of 30 days either side of June 25 expressed in units
 # of cfs:
-flowDuration(eList, "06-25", qUnit = 1, span = 30) 
-# for a flow-duration curve covering the whole year, 
-# expressed in units of cms, and returning a data frame of results: 
-qDuration <- flowDuration(eList, qUnit = 2) 
+flowDuration(eList, "06-25", qUnit = 1, span = 30)
+# for a flow-duration curve covering the whole year,
+# expressed in units of cms, and returning a data frame of results:
+qDuration <- flowDuration(eList, qUnit = 2)
 }
 \keyword{statistics}
 \keyword{streamflow}

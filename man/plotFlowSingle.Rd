@@ -25,7 +25,7 @@ plotFlowSingle(eList, istat, yearStart = NA, yearEnd = NA, qMax = NA,
 
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE}
 
-\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
 \item{runoff}{logical variable, if TRUE the streamflow data are converted to runoff values in mm/day}
@@ -56,7 +56,7 @@ generated labels.}
 }
 \description{
 A part of the flowHistory system.
-The index of the flow statistics is istat.  These statistics are: 
+The index of the flow statistics is istat.  These statistics are:
 (1) 1-day minimum, (2) 7-day minimum, (3) 30-day minimum, (4) median
 (5) mean, (6) 30-day maximum, (7) 7-day maximum, and (8) 1-day maximum
 
@@ -66,7 +66,7 @@ Data come from named list, which contains a Daily dataframe with the daily flow 
 and an INFO dataframe with metadata.
 }
 \details{
-The curve plotted on the graph is a loess smooth of the data.  
+The curve plotted on the graph is a loess smooth of the data.
 This smooth is computed on the logs of the data and then transformed back to plot.
 The width of the smoothing window is 20 years on either side of the year being plotted
 However, the window width can be adjusted using setPA function.

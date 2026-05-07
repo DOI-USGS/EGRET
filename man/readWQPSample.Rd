@@ -10,7 +10,7 @@ readWQPSample(siteNumber, characteristicName, startDate = "", endDate = "",
 \arguments{
 \item{siteNumber}{character site number.  If USGS, it should be in the form :'USGS-XXXXXXXXX...'}
 
-\item{characteristicName}{character. Either a valid characteristic name, or a 5 digit 
+\item{characteristicName}{character. Either a valid characteristic name, or a 5 digit
 USGS parameter code.}
 
 \item{startDate}{character starting date for data retrieval in the form YYYY-MM-DD.
@@ -21,7 +21,7 @@ Default is empty quotes "" which will retrieve the full period of record.}
 
 \item{verbose}{logical specifying whether or not to display progress message}
 
-\item{legacy}{logical specifying whether to use the "legacy" WQP services, or 
+\item{legacy}{logical specifying whether to use the "legacy" WQP services, or
 the new ones. Legacy works well for non-USGS sites. For USGS sites it is recommended
 to use the \code{readNWISSample} function. Default is \code{FALSE} to get the newest data.}
 }
@@ -35,7 +35,7 @@ ConcHigh \tab numeric \tab Upper limit of concentration \cr
 Uncen \tab integer \tab Uncensored data (1=TRUE, 0=FALSE) \cr
 ConcAve \tab numeric \tab Average concentration \cr
 Julian \tab integer \tab Number of days since Jan. 1, 1850\cr
-Month \tab integer \tab Month of the year [1-12] \cr 
+Month \tab integer \tab Month of the year [1-12] \cr
 Day \tab integer \tab Day of the year [1-366] \cr
 DecYear \tab numeric \tab Decimal year \cr
 MonthSeq \tab integer \tab Number of months since January 1, 1850 \cr
@@ -44,14 +44,14 @@ CosDY \tab numeric \tab Cosine of the DecYear
 }
 }
 \description{
-Imports data from the Water Quality Portal, so it could be STORET, USGS, or USDA data. 
+Imports data from the Water Quality Portal, so it could be STORET, USGS, or USDA data.
 This function gets the data from: \url{https://www.waterqualitydata.us}
-For raw data, use readWQPdata.  This function will retrieve the raw data, 
+For raw data, use readWQPdata.  This function will retrieve the raw data,
 compress it (summing constituents), then converts it to the Sample dataframe structure.
 See chapter 7 of the EGRET user guide for more details.
 }
 \examples{
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 # These examples require an internet connection to run
 \donttest{
 Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
@@ -59,7 +59,7 @@ Sample_All <- readWQPSample('WIDNR_WQX-10032762','Specific conductance', '', '')
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-\code{\link[dataRetrieval]{readWQPdata}}, \code{dataRetrieval::whatWQPsites}, 
+\code{\link[dataRetrieval]{readWQPdata}}, \code{dataRetrieval::whatWQPsites},
 \code{\link[dataRetrieval]{readWQPqw}}, \code{\link{compressData}}, \code{\link{populateSampleColumns}}
 }
 \keyword{USGS}

@@ -20,7 +20,7 @@ plotFluxPred(eList, fluxUnit = 3, fluxMax = NA, printTitle = TRUE,
 
 \item{oneToOneLine}{inserts 1:1 line}
 
-\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
 \item{col}{color of points on plot, see ?par 'Color Specification'}
@@ -46,8 +46,8 @@ generated labels.}
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
 \description{
-Data come from named list, which contains a Sample dataframe with the sample data, 
-and an INFO dataframe with metadata. 
+Data come from named list, which contains a Sample dataframe with the sample data,
+and an INFO dataframe with metadata.
 
 Although there are a lot of optional arguments to this function, most are set to a logical default.
 }

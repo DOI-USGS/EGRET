@@ -13,7 +13,7 @@
 #' Uncen \tab integer \tab Uncensored data (1=TRUE, 0=FALSE) \cr
 #' ConcAve \tab numeric \tab Average concentration \cr
 #' Julian \tab integer \tab Number of days since Jan. 1, 1850\cr
-#' Month \tab integer \tab Month of the year [1-12] \cr 
+#' Month \tab integer \tab Month of the year [1-12] \cr
 #' Day \tab integer \tab Day of the year [1-366] \cr
 #' DecYear \tab numeric \tab Decimal year \cr
 #' MonthSeq \tab integer \tab Number of months since January 1, 1850 \cr
@@ -25,8 +25,8 @@
 #' ConcHigh <- c(1,2,3,3,5)
 #' dataInput <- data.frame(DecYear, ConcHigh, stringsAsFactors=FALSE)
 #' Sample <- removeDuplicates(dataInput)
-removeDuplicates <- function(Sample) {  
-  Sample1 <- Sample[!duplicated(Sample[c("DecYear","ConcHigh")]),]
-  
+removeDuplicates <- function(Sample) {
+  Sample1 <- Sample[!duplicated(Sample[c("DecYear", "ConcHigh")]), ]
+
   return(Sample1)
 }

@@ -14,7 +14,7 @@ flexPlotAddOn(eList, showArrows = TRUE, showRect = TRUE,
 
 \item{showRect}{logical whether or not to show rectangles representing sample segments}
 
-\item{customPalette}{character vector of colors as a hexadecimal string of the form "#rrggbb". 
+\item{customPalette}{character vector of colors as a hexadecimal string of the form "#rrggbb".
 Defaults to NULL, which indicates the use of a default palette (up to 21 segments).}
 }
 \description{
@@ -26,11 +26,11 @@ eList <- setUpEstimation(eList)
 flowNormStart <- c("1979-10-01","1990-01-01","1992-10-10")
 flowNormEnd <- c("1995-06-06","2004-03-03","2011-09-29")
 flowStart <- c("1979-10-01","1995-06-07","2004-03-04")
-flowEnd <- c("1995-06-06","2004-03-03","2011-09-29") 
+flowEnd <- c("1995-06-06","2004-03-03","2011-09-29")
 dateInfo <- data.frame(flowNormStart,
                        flowNormEnd,
-                       flowStart, 
-                       flowEnd, 
+                       flowStart,
+                       flowEnd,
                        stringsAsFactors = FALSE)
 \donttest{
 newEList <- flexFN(eList, dateInfo)

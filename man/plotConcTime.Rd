@@ -29,7 +29,7 @@ plotConcTime(eList, qUnit = 2, yearStart = NA, yearEnd = NA,
 
 \item{concMax}{numeric value for the maximum value to be used on the vertical axis, default is NA (which allows it to be set automatically by the data)}
 
-\item{concMin}{numeric value for lower limit on concentration shown on the vertical log graph, default is NA 
+\item{concMin}{numeric value for lower limit on concentration shown on the vertical log graph, default is NA
 (which causes the lower limit to be set automatically, based on the data). This value is ignored for linear scales, using 0 as the minimum value for the concentration axis.}
 
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure).}
@@ -49,7 +49,7 @@ plotConcTime(eList, qUnit = 2, yearStart = NA, yearEnd = NA,
 
 \item{lwd}{number line width.}
 
-\item{concLab}{object of concUnit class, or numeric represented the short code, 
+\item{concLab}{object of concUnit class, or numeric represented the short code,
 or character representing the descriptive name. By default, this argument sets
 concentration labels to use either Concentration or Conc (for tiny plots). Units
 are taken from the eList$INFO$param.units. To use any other words than
@@ -62,20 +62,20 @@ generated labels}
 \item{\dots}{arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters.}
 }
 \description{
-This function allows the user to plot all of the data, but also to limit it in two ways. 
-  The data can be limited to only those observed concentrations collected in a specified discharge range. 
-  The data can also be limited to only those observed in certain months of the year. 
-    These two selection criteria can be combined. For example, 
+This function allows the user to plot all of the data, but also to limit it in two ways.
+  The data can be limited to only those observed concentrations collected in a specified discharge range.
+  The data can also be limited to only those observed in certain months of the year.
+    These two selection criteria can be combined. For example,
     we may only want to plot data for discharges between 100 and 500 cubic feet per second in the months of March, April and May.
-    
+
 Although there are a lot of optional arguments to this function, most are set to a logical default.
 
-Data come from named list, which contains a Sample dataframe with the sample data, 
+Data come from named list, which contains a Sample dataframe with the sample data,
 and an INFO dataframe with metadata.
 }
 \details{
 The function has two possible ways to plot censored values (e.g. "less-than values").
- 
+
 The default is to plot them as a vertical line that goes from the reporting limit down to the bottom of the graph.
 
 The alternative is to set randomCensored = TRUE.  In this case a random value is used for plotting the individual sample value.  This random value lies between the reporting limit and zero and it is distributed as a truncated log normal based on the fitted WRTDS model.
@@ -90,13 +90,13 @@ eList <- Choptank_eList
 plotConcTime(eList)
 # Graphs consisting of Jun-Aug
 eList <- setPA(eList, paStart=6,paLong=3)
-plotConcTime(eList, 
+plotConcTime(eList,
              qUnit = 1,
              qLower = 100,
              qUpper = 10000)
 plotConcTime(eList, logScale=TRUE)
-plotConcTime(eList, 
-             qUnit = 1, 
+plotConcTime(eList,
+             qUnit = 1,
              qLower = 100, qUpper = 10000,
               randomCensored = TRUE)
 }

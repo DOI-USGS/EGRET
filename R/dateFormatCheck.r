@@ -4,26 +4,31 @@
 #'
 #' @param date character
 #' @keywords WRTDS flow
-#' @return condition logical TRUE or FALSE if checks passed or failed 
+#' @return condition logical TRUE or FALSE if checks passed or failed
 #' @export
 #' @examples
 #' date <- '1985-01-01'
 #' dateFormatCheck(date)
 #' dateWrong <- '1999/1/7'
 #' dateFormatCheck(dateWrong)
-dateFormatCheck <- function(date){  # checks for the format YYYY-MM-DD
-  parts <- strsplit(date,"-",fixed=TRUE)
+dateFormatCheck <- function(date) {
+  # checks for the format YYYY-MM-DD
+  parts <- strsplit(date, "-", fixed = TRUE)
   condition <- FALSE
-  if (length(parts[[1]])>1) {
-    if (nchar(parts[[1]][1]) == 4 && nchar(parts[[1]][2]) == 2 && nchar(parts[[1]][3]) == 2){
+  if (length(parts[[1]]) > 1) {
+    if (
+      nchar(parts[[1]][1]) == 4 &&
+        nchar(parts[[1]][2]) == 2 &&
+        nchar(parts[[1]][3]) == 2
+    ) {
       testYear <- as.numeric(parts[[1]][1])
       testMonth <- as.numeric(parts[[1]][2])
       testDay <- as.numeric(parts[[1]][3])
-      if (!is.na(testYear) && !is.na(testMonth) && !is.na(testDay)){
-        if (testMonth <= 12 && testDay <= 31){
+      if (!is.na(testYear) && !is.na(testMonth) && !is.na(testDay)) {
+        if (testMonth <= 12 && testDay <= 31) {
           condition <- TRUE
-        }        
-      }      
+        }
+      }
     }
   }
   return(condition)

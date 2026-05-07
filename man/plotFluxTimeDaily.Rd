@@ -27,7 +27,7 @@ plotFluxTimeDaily(eList, yearStart = NA, yearEnd = NA, tinyPlot = FALSE,
 
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)}
 
-\item{plotGenFlux}{logical variable. If \code{TRUE}, annual flux points from 
+\item{plotGenFlux}{logical variable. If \code{TRUE}, annual flux points from
 \code{WRTDSKalman} output are plotted, if \code{FALSE} WRTDS flux is plotted.}
 
 \item{usgsStyle}{logical option to use USGS style guidelines. Setting this option
@@ -40,7 +40,7 @@ generated labels.}
 
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
 
-\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
 \item{col}{color of points on plot, see ?par 'Color Specification'}
@@ -52,12 +52,12 @@ generated labels.}
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
 \description{
-This plot is useful for visual examination of the ability of the WRTDS, or other model, to fit the 
-data, as seen in a time-series perspective. 
+This plot is useful for visual examination of the ability of the WRTDS, or other model, to fit the
+data, as seen in a time-series perspective.
 
 Although there are a lot of optional arguments to this function, most are set to a logical default.
 
-Data come from named list, which contains a Sample dataframe with the sample data, 
+Data come from named list, which contains a Sample dataframe with the sample data,
 a Daily dataframe with the daily flow data,
 and an INFO dataframe with metadata.
 }

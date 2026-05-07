@@ -30,7 +30,7 @@ boxResidMonth(eList, stdResid = FALSE, las = 1, printTitle = TRUE,
 
 \item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function}
 
-\item{monthLab}{object of monthLabel class, or numeric represented the short code, 
+\item{monthLab}{object of monthLabel class, or numeric represented the short code,
 or character representing the descriptive name.}
 
 \item{randomCensored}{logical. Show censored residuals as randomized. Default = FALSE.}
@@ -38,15 +38,15 @@ or character representing the descriptive name.}
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
 \description{
-This function produces a boxplot of the residuals from WRTDS, expressed in natural log concentration units. 
-It provides an alternative for viewing the standardized residuals, where the each residual is divided by its estimated standard error. 
-The monthly boxplot widths are proportional to the square root of the sample size. 
-The residuals for a censored value are determined as the difference between the natural log of the average of the upper and lower. 
-  bounds on the sample value, minus the log space estimate of concentration. 
-  
-Although there are a lot of optional arguments to this function, most are set to a logical default. 
+This function produces a boxplot of the residuals from WRTDS, expressed in natural log concentration units.
+It provides an alternative for viewing the standardized residuals, where the each residual is divided by its estimated standard error.
+The monthly boxplot widths are proportional to the square root of the sample size.
+The residuals for a censored value are determined as the difference between the natural log of the average of the upper and lower.
+  bounds on the sample value, minus the log space estimate of concentration.
 
-Data come from named list, which contains a Sample dataframe with the sample data, 
+Although there are a lot of optional arguments to this function, most are set to a logical default.
+
+Data come from named list, which contains a Sample dataframe with the sample data,
 and an INFO dataframe with metadata
 }
 \examples{

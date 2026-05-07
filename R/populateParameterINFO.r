@@ -4,7 +4,7 @@
 #'
 #' @param INFO dataframe with value and code columns. Default is INFO
 #' @param parameterCd character USGS parameter code
-#' @param interactive logical Option for interactive mode.  If TRUE, there is user interaction for error handling 
+#' @param interactive logical Option for interactive mode.  If TRUE, there is user interaction for error handling
 #' and data checks. Default is TRUE. If running in batch, should be set to FALSE.
 #' @return INFO dataframe
 #' @export
@@ -18,39 +18,53 @@
 #' INFO$param.units <- parameterData$parameter_units
 #' INFO$paramShortName <- parameterData$srsname
 #' INFO$paramNumber <- parameterData$parameter_cd
-#' 
+#'
 #' INFO <- populateParameterINFO(parameterCd, INFO, interactive = FALSE)
 #' }
-populateParameterINFO <- function(parameterCd, INFO, interactive=TRUE){
-  if (nzchar(parameterCd)){
-    if(interactive){
+populateParameterINFO <- function(parameterCd, INFO, interactive = TRUE) {
+  if (nzchar(parameterCd)) {
+    if (interactive) {
       cat("Your water quality data are for parameter number:\n")
-      cat(INFO$paramNumber,"\n")
+      cat(INFO$paramNumber, "\n")
       cat("which has the name:'", INFO$param.nm, "'.\n")
-      cat("Typically you will want a shorter name to be used in graphs and tables.\n")
+      cat(
+        "Typically you will want a shorter name to be used in graphs and tables.\n"
+      )
       cat("The suggested short name is:'", INFO$paramShortName, "'.\n")
       cat("If you would like to change the short name, enter it here, \n")
       cat("otherwise just hit enter (no quotes):")
       shortNameTemp <- readline()
-      if (nchar(shortNameTemp)>0) INFO$paramShortName <- shortNameTemp
+      if (nchar(shortNameTemp) > 0) {
+        INFO$paramShortName <- shortNameTemp
+      }
       cat("The units for the water quality data are: ", INFO$param.units, ".\n")
-      cat("It is helpful to set up a constiuent abbreviation, enter a unique id \n")
-      cat("three or four characters should work something like tn or tp or NO3).\n")
-      cat("Even if you don't feel you need an abbreviation you need to enter something (no quotes):\n")
+      cat(
+        "It is helpful to set up a constiuent abbreviation, enter a unique id \n"
+      )
+      cat(
+        "three or four characters should work something like tn or tp or NO3).\n"
+      )
+      cat(
+        "Even if you don't feel you need an abbreviation you need to enter something (no quotes):\n"
+      )
       INFO$constitAbbrev <- readline()
     } else {
       INFO$constitAbbrev <- INFO$paramShortName
     }
   } else {
-    if (interactive){
+    if (interactive) {
       INFO$paramNumber <- NA
       cat("Enter a long name for the water quality data (no quotes):\n")
       INFO$param.nm <- readline()
       cat("Enter a short name to be used in graphs and tables(no quotes):\n")
       INFO$paramShortName <- readline()
       cat("It is helpful to set up a constiuent abbreviation, \n")
-      cat("enter a unique id (three or four characters should work something like tn or tp or NO3).\n")
-      cat("Even if you don't feel you need an abbreviation you need to enter something (no quotes):\n")
+      cat(
+        "enter a unique id (three or four characters should work something like tn or tp or NO3).\n"
+      )
+      cat(
+        "Even if you don't feel you need an abbreviation you need to enter something (no quotes):\n"
+      )
       INFO$constitAbbrev <- readline()
       cat("Enter the units of the water quality data(no quotes):\n")
       INFO$param.units <- readline()
@@ -59,9 +73,9 @@ populateParameterINFO <- function(parameterCd, INFO, interactive=TRUE){
       INFO$param.nm <- NA
       INFO$paramShortName <- NA
       INFO$constitAbbrev <- NA
-      INFO$param.units <- NA      
+      INFO$param.units <- NA
     }
-  } 
-  
+  }
+
   return(INFO)
 }

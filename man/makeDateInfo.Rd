@@ -7,14 +7,14 @@
 makeDateInfo(windowSide, surfaceStart, surfaceEnd, firstQDate0, lastQDate0)
 }
 \arguments{
-\item{windowSide}{integer number of automatically generated span sections, 
+\item{windowSide}{integer number of automatically generated span sections,
 default is 7. If NA, code will use}
 
 \item{surfaceStart}{character (or Date) in YYYY-MM-DD. Date on which we want the analysis to start, it must be at or after the}
 
 \item{surfaceEnd}{character (or Date) in YYYY-MM-DD. Date on which we want the analysis to end, it must be at or before the end of}
 
-\item{firstQDate0}{character (or Date) in YYYY-MM-DD. The first day used in flow normalizing distributions, default is 
+\item{firstQDate0}{character (or Date) in YYYY-MM-DD. The first day used in flow normalizing distributions, default is
 the start of eList$Daily}
 
 \item{lastQDate0}{character (or Date) in YYYY-MM-DD. The last day used in flow normalizating distributions, default is
@@ -29,7 +29,7 @@ surfaceStart <- "1984-01-01"
 surfaceEnd <- "2012-12-31"
 firstQDate0 <- "1970-01-01"
 lastQDate0 <- "2014-06-01"
-dateInfo <- makeDateInfo(windowSide, 
-                         surfaceStart, surfaceEnd, 
+dateInfo <- makeDateInfo(windowSide,
+                         surfaceStart, surfaceEnd,
                          firstQDate0, lastQDate0)
 }

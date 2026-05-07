@@ -17,7 +17,7 @@ runGroups(eList, windowSide, group1firstYear, group1lastYear, group2firstYear,
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
 
 \item{windowSide}{integer. The width of the flow normalization window on each side of the year being estimated.
-A common value is 11, but no default is specified.  If stationary flow normalization is to be used, then windowSide = 0 (this means that 
+A common value is 11, but no default is specified.  If stationary flow normalization is to be used, then windowSide = 0 (this means that
 flow-normalization period for all years is the same).}
 
 \item{group1firstYear}{decimal year. Starting year of first group.}
@@ -28,23 +28,23 @@ flow-normalization period for all years is the same).}
 
 \item{group2lastYear}{decimal year. Ending year of second group.}
 
-\item{surfaceStart}{The Date (or character in YYYY-MM-DD) that is the start of the WRTDS model to be estimated and the first of the 
+\item{surfaceStart}{The Date (or character in YYYY-MM-DD) that is the start of the WRTDS model to be estimated and the first of the
 daily outputs to be generated. Default is NA, which means that the surfaceStart is based on the date of the first sample.}
 
-\item{surfaceEnd}{The Date (or character in YYYY-MM-DD) that is the end of the WRTDS model to be estimated and the last of the daily outputs 
+\item{surfaceEnd}{The Date (or character in YYYY-MM-DD) that is the end of the WRTDS model to be estimated and the last of the daily outputs
 to be generated.  Default is NA, which means that the surfaceEnd is based on the date of the last sample.}
 
 \item{flowBreak}{logical. Is there an abrupt break in the discharge record, default is FALSE.}
 
 \item{Q1EndDate}{The Date (as character in YYYY-MM-DD) which is the last day, just before the flowBreak.}
 
-\item{QStartDate}{The first Date (as character in YYYY-MM-DD) used in the  flow normalization method.  Default is 
+\item{QStartDate}{The first Date (as character in YYYY-MM-DD) used in the  flow normalization method.  Default is
 NA, which makes the QStartDate become the first Date in eList$Daily.}
 
-\item{QEndDate}{The last Date (as character in YYYY-MM-DD) used in the flow normalization method.  Default is NA, 
+\item{QEndDate}{The last Date (as character in YYYY-MM-DD) used in the flow normalization method.  Default is NA,
 which makes the QEndDate become the last Date in eList$Daily.}
 
-\item{wall}{logical. Whether there is an abrupt break in the concentration versus discharge relationship due to some major change in 
+\item{wall}{logical. Whether there is an abrupt break in the concentration versus discharge relationship due to some major change in
 pollution control or water management.  Default is FALSE.}
 
 \item{oldSurface}{logical specifying whether to use the original surface, or create a new one. Default is FALSE.}
@@ -52,19 +52,19 @@ pollution control or water management.  Default is FALSE.}
 \item{fractMin}{numeric specifying the minimum fraction of the observations required to run the weighted regression, default is 0.75. The
 minimum number will be the maximum of minNumObs and fractMin multiplied by total number of observations.}
 
-\item{sample1EndDate}{The Date (as character in YYYY-MM-DD) of the last date just before the wall. Default = NA. 
+\item{sample1EndDate}{The Date (as character in YYYY-MM-DD) of the last date just before the wall. Default = NA.
 A date must be specified if wall = TRUE.}
 
-\item{sampleStartDate}{The Date (as character in YYYY-MM-DD) of the first sample to be used. Default is NA which sets it 
+\item{sampleStartDate}{The Date (as character in YYYY-MM-DD) of the first sample to be used. Default is NA which sets it
 to the first Date in eList$Sample.}
 
-\item{sampleEndDate}{The Date (as character in YYYY-MM-DD) of the last sample to be used. 
+\item{sampleEndDate}{The Date (as character in YYYY-MM-DD) of the last sample to be used.
 Default is NA which sets it to the last Date in eList$Sample.}
 
 \item{paStart}{numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12.
 Default is NA, which will use the paStart in the eList$INFO data frame. See also \code{\link{setPA}}.}
 
-\item{paLong}{numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12. 
+\item{paLong}{numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12.
 Default is NA, which will use the paLong in the eList$INFO data frame. See also \code{\link{setPA}}.}
 
 \item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
@@ -95,7 +95,7 @@ Column Name \tab Description \cr
 Total Change \tab   The difference between the results for group2 - group1 (x22 - x11). \cr
 CQTC \tab CQTC is the "Concentration v. Q Trend Component." It is the component of total change due to the change in the CQR (Concentration Discharge Relationship). (x20 - x10). \cr
 QTC \tab QTC is the "Q Trend Component." It is the component of total change due to the trend in the QD (Discharge Distribution). (x22 - x11 - x20 + x10). \cr
-x10 \tab The estimated value based on the CQR computed for the years in group1, integrated over the QD for the entire timespan of the Daily data frame (or the 
+x10 \tab The estimated value based on the CQR computed for the years in group1, integrated over the QD for the entire timespan of the Daily data frame (or the
 period QStartDate and to QEndDate if these are specified).\cr
 x11 \tab The estimated value based on the CQR for the years in group1, integrated over the QD specified by the user for group1. \cr
 x20 \tab The estimated value based on the CQR computed for the years in group2, integrated over the QD for the entire period of record. \cr
@@ -103,23 +103,23 @@ x22 \tab The estimated value based on the CQR for the years in group2, integrate
 }
 }
 \description{
-\code{runGroups} provides comparisons of results, in terms of 
+\code{runGroups} provides comparisons of results, in terms of
 flow-normalized concentration and flow-normalized flux for any groups of years
-of years in the water quality record.  Comparison could involve the 
-use of the "wall" and/or use of "generalized flow-normalization".  
+of years in the water quality record.  Comparison could involve the
+use of the "wall" and/or use of "generalized flow-normalization".
 These two concepts are described in detail in the vignette:
 \code{vignette("Enhancements", package = "EGRET")}.
 }
 \details{
 When using generalized flow-normalization, it is best to have the Daily data frame
-extend well beyond the years that are in the Sample data frame.  Ideally, 
+extend well beyond the years that are in the Sample data frame.  Ideally,
 the Daily data frame would start windowSide years before the
 start of the Sample data set, if the data exist to provide for that. Generally
 that isn't possible for the end of the record because the Sample data
 may end very close to the present. To the extent that is possible therefore, it is better to
-include more discharge data after the end of the Sample record. 
-Also note that in the case run in the examples don't do that, 
-because the data set needs to be appropriate for stationary flow 
+include more discharge data after the end of the Sample record.
+Also note that in the case run in the examples don't do that,
+because the data set needs to be appropriate for stationary flow
 normalization as well (and package size considerations make it difficult to
 include specialized examples).
 }
@@ -146,7 +146,7 @@ groupOut_2 <- runGroups(eList,  windowSide = 11,
 groupOut_3 <- runGroups(eList,  windowSide = 0,
                        group1firstYear = 1980, group1lastYear = 1990,
                        group2firstYear = 1995, group2lastYear = 2005,
-                       flowBreak = TRUE, 
+                       flowBreak = TRUE,
                        Q1EndDate = "1990-09-30")
 
 # Option 4: Flow normalization is based on splitting the flow record at 1990-09-30
@@ -155,7 +155,7 @@ groupOut_3 <- runGroups(eList,  windowSide = 0,
 groupOut_4 <- runGroups(eList,  windowSide = 11,
                        group1firstYear = 1980, group1lastYear = 1990,
                        group2firstYear = 1995, group2lastYear = 2005,
-                       flowBreak = TRUE, 
+                       flowBreak = TRUE,
                        Q1EndDate = "1990-09-30")
 
 }

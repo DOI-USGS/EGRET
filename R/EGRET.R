@@ -1,10 +1,14 @@
-
 .onAttach <- function(libname, pkgname) {
-  if (!interactive()) return()
+  if (!interactive()) {
+    return()
+  }
   EGRET_version = utils::packageVersion("EGRET")
-  packageStartupMessage("EGRET ", EGRET_version,"
-Extended Documentation: https://doi-usgs.github.io/EGRET")
-
+  packageStartupMessage(
+    "EGRET ",
+    EGRET_version,
+    "
+Extended Documentation: https://doi-usgs.github.io/EGRET"
+  )
 }
 
 #' EGRET package includes WRTDS and flowHistory
@@ -26,7 +30,7 @@ Extended Documentation: https://doi-usgs.github.io/EGRET")
 #'
 #' @name EGRET-package
 #' @docType package
-#' 
+#'
 #' @importFrom graphics axis
 #' @importFrom graphics lines
 #' @importFrom graphics mtext
@@ -35,10 +39,10 @@ Extended Documentation: https://doi-usgs.github.io/EGRET")
 #' @importFrom graphics segments
 #' @importFrom graphics title
 #' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}, Laura De Cicco \email{ldecicco@@usgs.gov}
-#' @references Hirsch, R.M., and De Cicco, L.A., 2014, User guide to Exploration and Graphics for RivEr Trends 
-#' (EGRET) and dataRetrieval: R packages for hydrologic data: U.S. Geological Survey Techniques and Methods book 4, 
+#' @references Hirsch, R.M., and De Cicco, L.A., 2014, User guide to Exploration and Graphics for RivEr Trends
+#' (EGRET) and dataRetrieval: R packages for hydrologic data: U.S. Geological Survey Techniques and Methods book 4,
 #' chap. A10, 94 p., \doi{10.3133/tm4A10}
-#' @keywords internal  
+#' @keywords internal
 "_PACKAGE"
 
 #' Example eList
@@ -50,18 +54,18 @@ Extended Documentation: https://doi-usgs.github.io/EGRET")
 #' @rdname sampleData
 #' @docType data
 #' @keywords water quality data
-#' @examples 
+#' @examples
 #' head(Choptank_eList$Daily)
 NULL
 
 #' @name Arkansas_eList
 #' @rdname sampleData
-#' @examples 
+#' @examples
 #' head(Arkansas_eList$Daily)
 NULL
 
 #' Constants included with EGRET
-#' 
+#'
 #'\tabular{ll}{
 #' fluxConst \tab Flux conversion object\cr
 #' qConst \tab Flow conversion object\cr

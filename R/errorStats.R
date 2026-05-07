@@ -1,7 +1,7 @@
 #' Error statistics
 #'
 #' This function takes a fitted WRTDS model and computes error statistics
-#' the residuals used here are cross-validation residuals, 
+#' the residuals used here are cross-validation residuals,
 #' which will be slightly larger than regular regression residuals
 #' in the case of censored data, the residuals are computed from random residuals
 #' computed from makeAugmentedSample(), the function returns a list of error statistics
@@ -15,11 +15,10 @@
 #' rmse the root mean squared error for ln(Concentration), same value would apply for Flux
 #' sepPercent the standard error of prediction for Concentration, expressed in percent
 #'     same value would apply for Flux
-#' @examples 
+#' @examples
 #' eList <- Choptank_eList
 #' errorStats(eList)
 errorStats <- function(eList) {
-
   eListR <- makeAugmentedSample(eList)
   Sample <- eListR$Sample
 
@@ -43,6 +42,6 @@ errorStats <- function(eList) {
   cat("\n Root Mean Squared Error in natural log units = ", rmse)
   cat("\n Rsquared for natural log of concentration    = ", RsqLC)
   cat("\n Rsquared for natural log of flux             = ", RsqLF)
-  cat("\n Standard error of estimate =",  SepC, "%\n")
+  cat("\n Standard error of estimate =", SepC, "%\n")
   return(erStats)
 }

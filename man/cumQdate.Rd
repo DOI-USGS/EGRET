@@ -17,8 +17,8 @@ cumQdate(eList, paStart = 10, paLong = 12, fract = 0.5)
 }
 \value{
 annualSeries an integer matrix of two columns.
- The first column is the calendar year for the end of the period 
- The second column is day of the year when the flow has exceeded the specified fraction 
+ The first column is the calendar year for the end of the period
+ The second column is day of the year when the flow has exceeded the specified fraction
  of the entire period being considered
 }
 \description{
@@ -27,7 +27,7 @@ at which a specific fraction of the cumulative flow for that year
 has been exceeded.  Typically one looks for the point where
 half the cumulative flow has happened (fract = 0.5).
 The portion of the year being considered is set by paStart and paLong.
-The matrix returned has 2 columns: 
+The matrix returned has 2 columns:
 the first is the year (integer when the period of analysis ends),
 the second is the day of the year when the fraction has been exceeded.
 None of the rows will have any NA values.

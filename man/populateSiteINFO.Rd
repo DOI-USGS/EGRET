@@ -11,7 +11,7 @@ populateSiteINFO(INFO, siteNumber, interactive = TRUE)
 
 \item{siteNumber}{character USGS site number}
 
-\item{interactive}{logical Option for interactive mode.  If TRUE, there is user interaction for error handling 
+\item{interactive}{logical Option for interactive mode.  If TRUE, there is user interaction for error handling
 and data checks. Default is TRUE. If running in batch, should be set to FALSE.}
 }
 \value{

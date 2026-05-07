@@ -11,7 +11,7 @@ printSeries(eList, istat, qUnit = 1, runoff = FALSE)
 
 \item{istat}{A numeric value for the flow statistic to be graphed (possible values are 1 through 8)}
 
-\item{qUnit}{object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented 
+\item{qUnit}{object of qUnit class \code{\link{printqUnitCheatSheet}}, or numeric represented
 the short code, or character representing the descriptive name.
 Default is 1, which is cubic feet per second.}
 
@@ -26,13 +26,13 @@ qSmooth \tab numeric \tab Smoothed flow statistic \cr
 }
 }
 \description{
-Part of the flowHistory system.  
-The index of the flow statistics is istat.  These statistics are: 
+Part of the flowHistory system.
+The index of the flow statistics is istat.  These statistics are:
 (1) 1-day minimum, (2) 7-day minimum, (3) 30-day minimum, (4) median
 (5) mean, (6) 30-day maximum, (7) 7-day maximum, and (8) 1-day maximum.
 }
 \details{
-The smoothing algorithm is as defined in \code{\link{makeAnnualSeries}}.  
+The smoothing algorithm is as defined in \code{\link{makeAnnualSeries}}.
 smoothing window is defined by the eList$INFO$window value (default = 20)
 }
 \examples{

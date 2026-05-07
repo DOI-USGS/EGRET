@@ -37,7 +37,7 @@ plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd,
 
 \item{concMax}{numeric value for upper limit on concentration shown on the graph, default = NA (which causes the upper limit to be set automatically, based on the data)}
 
-\item{concMin}{numeric value for lower limit on concentration shown on the vertical log graph, default is NA 
+\item{concMin}{numeric value for lower limit on concentration shown on the vertical log graph, default is NA
 (which causes the lower limit to be set automatically, based on the data). This value is ignored for linear scales, using 0 as the minimum value for the concentration axis.}
 
 \item{bw}{logical if TRUE graph is produced in black and white, default is FALSE (which means it will use color)}
@@ -50,13 +50,13 @@ plotConcTimeSmooth(eList, q1, q2, q3, centerDate, yearStart, yearEnd,
 
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE}
 
-\item{concLab}{object of concUnit class, or numeric represented the short code, 
+\item{concLab}{object of concUnit class, or numeric represented the short code,
 or character representing the descriptive name. By default, this argument sets
 concentration labels to use either Concentration or Conc (for tiny plots). Units
 are taken from the eList$INFO$param.units. To use any other words than
 "Concentration" see \code{vignette(topic = "units", package = "EGRET")}.}
 
-\item{monthLab}{object of monthLabel class, or numeric represented the short code, 
+\item{monthLab}{object of monthLabel class, or numeric represented the short code,
 or character representing the descriptive name.}
 
 \item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
@@ -81,7 +81,7 @@ or character representing the descriptive name.}
 
 \item{cex.axis}{magnification to be used for axis annotation relative to the current setting of cex}
 
-\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
 \item{lineVal}{vector of line types. Defaults to c(1,1,1) which is a solid line for each line. Options: 0=blank, 1=solid (default), 2=dashed, 3=dotted, 4=dotdash, 5=longdash, 6=twodash}
@@ -114,11 +114,11 @@ centerDate <- "07-01"
 yearStart <- 1990
 yearEnd <- 2010
 eList <- Choptank_eList
-plotConcTimeSmooth(eList, q1, q2,q3, centerDate, 
-                   yearStart, yearEnd, legendLeft = 1997, 
+plotConcTimeSmooth(eList, q1, q2,q3, centerDate,
+                   yearStart, yearEnd, legendLeft = 1997,
                    legendTop = 0.44, cex.legend = 0.9)
-plotConcTimeSmooth(eList, q1, q2,q3, centerDate, yearStart, 
-                   yearEnd, logScale = TRUE, legendLeft = 1994, 
+plotConcTimeSmooth(eList, q1, q2,q3, centerDate, yearStart,
+                   yearEnd, logScale = TRUE, legendLeft = 1994,
                    legendTop = 0.4, cex.legend = 0.9)
 }
 \seealso{

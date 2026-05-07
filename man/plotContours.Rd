@@ -46,7 +46,7 @@ plotContours(eList, yearStart, yearEnd, qBottom = NA, qTop = NA,
 
 \item{flowDuration}{logical variable if TRUE plot the flow duration lines (5 and 95 flow percentiles), if FALSE do not plot them, default = TRUE}
 
-\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins.}
 
 \item{yTicks}{vector of yTick labels and marks that will be plotted in log space. (for example yTicks = c(3, 5, 10, 20, 50, 100, 200, 400). The first and last values determine the range of the y axis. If NA, the tick marks will be automatically generated.}
@@ -63,28 +63,28 @@ generated labels.}
 
 \item{cex.axis}{magnification to be used for axis annotation relative to the current setting of cex}
 
-\item{concLab}{object of concUnit class, or numeric represented the short code, 
+\item{concLab}{object of concUnit class, or numeric represented the short code,
 or character representing the descriptive name. By default, this argument sets
 concentration labels to use either Concentration or Conc (for tiny plots). Units
 are taken from the eList$INFO$param.units. To use any other words than
 "Concentration" see \code{vignette(topic = "units", package = "EGRET")}.}
 
-\item{color.palette}{a function that creates a color palette for the contour plot. Default goes from white to gray to blue to red 
+\item{color.palette}{a function that creates a color palette for the contour plot. Default goes from white to gray to blue to red
 using the function \code{colorRampPalette(c("white","gray","blue","red"))}. A few preset options are heat.colors, topo.colors, and terrain.colors.}
 
 \item{\dots}{arbitrary functions sent to the generic plotting function.  See ?par for details on possible parameters}
 }
 \description{
-These plots are normally used for plotting the estimated concentration surface (whatSurface = 3) but can be used to explore the 
-estimated surfaces for the log of concentration or for the standard error (in log space) which is what determines the bias correction. 
+These plots are normally used for plotting the estimated concentration surface (whatSurface = 3) but can be used to explore the
+estimated surfaces for the log of concentration or for the standard error (in log space) which is what determines the bias correction.
 The plots are often more interpretable when the time limits for the plot are less than a decade.
 To explore changes over a long time period it is best to do this multiple times, for various time slices of 2 years (for example) or to use the function \code{plotDiffContours}.
 
 Although there are a lot of optional arguments to this function, most are set to a logical default.
- 
-Obtaining a plot that provides good insight it is useful to experiment with several of the arguments such as yearStart, yearEnd, qBottom, qTop, and contourLevels. 
 
-Data come from named list, which contains a Sample dataframe with the sample data, 
+Obtaining a plot that provides good insight it is useful to experiment with several of the arguments such as yearStart, yearEnd, qBottom, qTop, and contourLevels.
+
+Data come from named list, which contains a Sample dataframe with the sample data,
 a Daily dataframe with the daily flow data,
 and an INFO dataframe with metadata.
 }
@@ -95,13 +95,13 @@ qBottom <- 0.5
 qTop<- 20
 clevel <- seq(0,2,0.25)
 eList <- Choptank_eList
-plotContours(eList, yearStart, yearEnd, qBottom, qTop, 
-             contourLevels = clevel)  
-plotContours(eList, yearStart, yearEnd, qBottom, qTop = 50, 
-             contourLevels = clevel, flowDuration = FALSE) 
+plotContours(eList, yearStart, yearEnd, qBottom, qTop,
+             contourLevels = clevel)
+plotContours(eList, yearStart, yearEnd, qBottom, qTop = 50,
+             contourLevels = clevel, flowDuration = FALSE)
 colors <- grDevices::colorRampPalette(c("white","black"))
-plotContours(eList, yearStart, yearEnd, qBottom, qTop = 50, 
-             contourLevels = clevel, color.palette = colors, 
+plotContours(eList, yearStart, yearEnd, qBottom, qTop = 50,
+             contourLevels = clevel, color.palette = colors,
              flowDuration = FALSE)
 }
 \keyword{graphics}

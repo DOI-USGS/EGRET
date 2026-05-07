@@ -24,7 +24,7 @@ based on the smoothed values for various streamflow statistics.
 Smoothing algorithm is the same as is used in \code{\link{plotFlowSingle}}.
 }
 \details{
-The index of the flow statistics is istat.  These statistics are: 
+The index of the flow statistics is istat.  These statistics are:
 (1) 1-day minimum, (2) 7-day minimum, (3) 30-day minimum, (4) median
 (5) mean, (6) 30-day maximum, (7) 7-day maximum, and (8) 1-day maximum.
 
@@ -39,7 +39,7 @@ eList <- setPA(eList, paStart = 4, paLong = 12)
 tableFlowChange(eList, istat = 2, qUnit = 2, yearPoints = c(1981, 1995, 2010))
 eList <- setPA(eList, paStart = 9, paLong = 1)
 df <- tableFlowChange(eList, istat = 5, qUnit = 2, yearPoints = c(1981, 1995, 2010))
-df 
+df
 }
 \keyword{statistics}
 \keyword{streamflow}

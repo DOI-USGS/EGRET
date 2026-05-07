@@ -24,10 +24,10 @@ year1 <- 1985
 year2 <- 2010
 
 \donttest{
-pairOut_1 <- runPairs(eList, 
+pairOut_1 <- runPairs(eList,
                       year1, year2,
                       windowSide = 0)
-                       
+
 printPairs(eList, pairOut_1)
 }
 

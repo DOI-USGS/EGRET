@@ -32,7 +32,7 @@ generated labels.}
 
 \item{plotAnnual}{logical variable if TRUE annual flux points are plotted, if FALSE not plotted}
 
-\item{plotGenFlux}{logical variable. If \code{TRUE}, annual flux points from 
+\item{plotGenFlux}{logical variable. If \code{TRUE}, annual flux points from
 \code{WRTDSKalman} output are plotted, if \code{FALSE} the generalized flux is not plotted.}
 
 \item{tinyPlot}{logical variable, if TRUE plot is designed to be plotted small, as a part of a multipart figure, default is FALSE}
@@ -51,14 +51,14 @@ generated labels.}
 
 \item{lwd}{number line width}
 
-\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
 \description{
-The annual results reported are for a specified "period of analysis" which can be 
-an entire water year, a calendar, a season or even an individual month. 
+The annual results reported are for a specified "period of analysis" which can be
+an entire water year, a calendar, a season or even an individual month.
 The user specifies this period of analysis in the call to setupYears.
 Values plotted express a flux rate, such as thousand kg per year
 For a period of analysis that is less than a year, this does not equal the mass transported over the period of analysis

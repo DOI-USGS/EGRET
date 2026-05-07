@@ -36,8 +36,8 @@ plotFourStats(eList, yearStart = NA, yearEnd = NA, printTitle = TRUE,
 \description{
 Part of the flowHistory system.  The four statistics are 1-day maximum, annual mean, annual median, and annual 7-day minimum.
  Although there are a lot of optional arguments to this function, most are set to a logical default.
- 
-Data come from named list, which contains a Sample dataframe with the sample data, 
+
+Data come from named list, which contains a Sample dataframe with the sample data,
 a Daily dataframe with the daily flow data,
 and an INFO dataframe with metadata. Each graph shows a loess smooth of the data that are plotted.
 }

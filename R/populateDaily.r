@@ -1,10 +1,14 @@
 #' Populate Daily data frame
 #'
-#' Using raw data that has at least dateTime, value, code, populates the rest of the basic Daily data frame used in EGRET analysis.
+#' Using a data frame that has at least Date, Q, Qualifier, populates the rest of the basic Daily data frame used in EGRET analysis.
 #'
-#' @param rawData dataframe contains at least dateTime, value, code columns
-#' @param qConvert character conversion to cubic meters per second
-#' @param verbose logical specifying whether or not to display progress message
+#' @param rawData dataframe contains at least Date, Q, Qualifier columns.
+#' @param qConvert numeric conversion to cubic meters per second.
+#' @param verbose logical specifying whether or not to display messages.
+#' @param adjust logical specifying whether or not to add a constant to zero values
+#' to allow log transformation. Defaults to TRUE.
+#' @param fill logical specifying whether to fill NA values by linear interpolation.
+#' Defaults to FALSE.
 #' @keywords WRTDS flow
 #' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
 #' @return A data frame 'Daily' with the following columns:
@@ -12,7 +16,7 @@
 #' Name \tab Type \tab Description \cr
 #' Q \tab numeric \tab Discharge in m^3/s\cr
 #' Julian \tab integer \tab Number of days since Jan. 1, 1850\cr
-#' Month \tab integer \tab Month of the year [1-12] \cr 
+#' Month \tab integer \tab Month of the year [1-12] \cr
 #' Day \tab integer \tab Day of the year [1-366] \cr
 #' DecYear \tab numeric \tab Decimal year \cr
 #' MonthSeq \tab integer \tab Number of months since January 1, 1850 \cr
@@ -25,101 +29,182 @@
 #' @seealso \code{\link{readNWISDaily}}, \code{\link{readUserDaily}}
 #' @export
 #' @examples
-#' dateTime <- as.character(seq(as.Date("2001/1/1"), 
-#'          as.Date("2001/12/31"), by = "day"))
-#' value <- 1:365
-#' code <- rep("",365)
-#' dataInput <- data.frame(dateTime, value, code, stringsAsFactors=FALSE)
-#' Daily <- populateDaily(dataInput, 2)
-populateDaily <- function(rawData, qConvert,
-                          verbose = TRUE){  
-  # rawData is a dataframe with at least dateTime, value, code
-  localDaily <- as.data.frame(matrix(ncol=2,nrow=length(rawData$value)))
-  colnames(localDaily) <- c('Date','Q')
-  localDaily$Date <- rawData$dateTime
-  
-  # need to convert to cubic meters per second to store the values
-  localDaily$Q <- rawData$value/qConvert
-  
-  dateFrame <- populateDateColumns(rawData$dateTime)
-  localDaily <- cbind(localDaily, dateFrame[,-1])
-  
-  localDaily$Date <- as.Date(localDaily$Date)
-  
-  if(length(rawData$code) != 0) localDaily$Qualifier <- rawData$code
-  
+#' Date <- as.character(seq(as.Date("2001/1/1"),
+#'          as.Date("2002/1/2"), by = "day"))
+#' Q <- -1:365
+#' Qualifier <- rep("",367)
+#' dataInput <- data.frame(Date, Q, Qualifier, stringsAsFactors=FALSE)
+#' Daily <- populateDaily(dataInput, 1)
+#'
+populateDaily <- function(
+  rawData,
+  qConvert,
+  verbose = TRUE,
+  adjust = TRUE,
+  fill = FALSE
+) {
+  localDaily <- as.data.frame(matrix(ncol = 3, nrow = nrow(rawData)))
+  colnames(localDaily) <- c('Date', 'Q', 'Qualifier')
+
+  if ("code" %in% names(rawData)) {
+    localDaily$Qualifier <- rawData$code
+  } else if ("qualifier" %in% names(rawData)) {
+    localDaily$Qualifier <- rawData$qualifier
+  } else {
+    localDaily$Qualifier <- ""
+  }
+
+  if ("time" %in% names(rawData)) {
+    localDaily$Date <- rawData$time
+  } else if ("Date" %in% names(rawData)) {
+    localDaily$Date <- rawData$Date
+  } else {
+    localDaily$Date <- rawData[[1]]
+  }
+
+  if ("value" %in% names(rawData)) {
+    localDaily$Q <- rawData$value / qConvert
+  } else if ("Q" %in% names(rawData)) {
+    localDaily$Q <- rawData$Q / qConvert
+  } else {
+    localDaily$Q <- rawData[[2]] / qConvert
+  }
+
+  # Make complete daily time series
+  all_dates <- data.frame(
+    Date = seq.Date(
+      from = min(as.Date(localDaily$Date), na.rm = TRUE),
+      to = max(as.Date(localDaily$Date), na.rm = TRUE),
+      by = "day"
+    )
+  )
+  localDaily <- merge(all_dates, localDaily, all.x = TRUE)
+
+  # Populate date columns
+  dateFrame <- populateDateColumns(localDaily$Date)
+  localDaily <- merge(localDaily, dateFrame)
+
+  localDaily <- localDaily[, c(
+    setdiff(names(localDaily), "Qualifier"),
+    "Qualifier"
+  )]
   localDaily$i <- 1:nrow(localDaily)
-  
-  noDataValue <- -999999
-  
-  nd <- localDaily$Q==noDataValue
-  
-  localDaily$Q<-ifelse(nd,NA,localDaily$Q)
-  
-  zeros<-which(localDaily$Q<=0)
-  
-  nz<-length(zeros)
-  
-  if(nz>0) {
 
-    qshift<- 0.001*mean(localDaily$Q, na.rm=TRUE) 
-    if (verbose){
-      
-      zeroNums <- length(which(localDaily$Q == 0))
+  # Zero and negative discharge
+  nz <- length(which(localDaily$Q == 0))
+  nn <- length(which(localDaily$Q < 0))
 
-      if (zeroNums > 0){
-        cat("There were", as.character(zeroNums), "zero flow days \n")
+  if (nn > 0) {
+    if (verbose) {
+      message(paste("There are", as.character(nn), "negative flow days."))
+      message("Many EGRET functions will not work with negative values.")
+    }
+  }
+
+  qshift <- 0.0
+  if (adjust) {
+    if (nz > 0 & nn == 0) {
+      qshift <- 0.001 * mean(localDaily$Q, na.rm = TRUE)
+      if (verbose) {
+        message(paste(
+          "There are",
+          as.character(nz),
+          "zero flow days and no negative flow days."
+        ))
+        message(paste(
+          "All days had",
+          as.character(round(qshift, 4)),
+          "cms added to the discharge value."
+        ))
       }
-      
-      cat("All days had",as.character(qshift),"cms added to the discharge value.\n")
-      
+    } else if (nn > 0) {
+      if (verbose) {
+        message(paste(
+          "Adjust is TRUE but there are",
+          as.character(nn),
+          "negative flow days."
+        ))
+        message("Discharge was not adjusted.")
+      }
     }
-  } else {
-    qshift<-0.0
   }
-  
-  negNums <- length(which(localDaily$Q<0))
-  if (negNums > 0) {
-    message(paste("There were", as.character(negNums), "negative flow days"))
-    message("Negative values are not supported in the EGRET package")
-  }
-  
-  localDaily$Q<-localDaily$Q+qshift
-  
-  localDaily$LogQ <- log(localDaily$Q)
-  
-#   Qzoo<-zoo(localDaily$Q)
-  
-  if (length(rawData$dateTime) < 30){
-    warning("This program requires at least 30 data points. Rolling means will not be calculated.")
-  } else {
-    ma <- function(x,n=7){stats::filter(x,rep(1/n,n), sides=1)}
-    localDaily$Q7 <- as.numeric(ma(localDaily$Q))
-    localDaily$Q30 <- as.numeric(ma(localDaily$Q,30))
-  }
-  
-  dataPoints <- nrow(localDaily)
-  difference <- (localDaily$Julian[dataPoints] - localDaily$Julian[1])+1  
-  if (verbose){
-    cat("There are", as.character(dataPoints), "data points, and", as.character(difference), "days.\n")
 
-    #these next two lines show the user where the gaps in the data are if there are any
-    n<-nrow(localDaily)
-    for(i in 2:n) {
-      if((localDaily$Julian[i]-localDaily$Julian[i-1])>1) cat("\n discharge data jumps from",as.character(localDaily$Date[i-1]),"to",as.character(localDaily$Date[i]))
-    }
-    
-    numNAs <- sum(is.na(localDaily$Q))
-    if(numNAs > 0){
-      cat(numNAs, "discharge values are not reported (NA's). \nMany of the EGRET functions will not work with missing discharge values.")
-      if (localDaily$Julian[max(which(is.na(localDaily$Q)),na.rm = TRUE)]-
-           localDaily$Julian[min(which(is.na(localDaily$Q)),na.rm = TRUE)]+1 ==  numNAs){
-        cat("\nNA gap is from",as.character(localDaily$Date[min(which(is.na(localDaily$Q)),na.rm = TRUE)]),"to",
-            as.character(localDaily$Date[max(which(is.na(localDaily$Q)),na.rm = TRUE)]))
-      } 
-    }
-    
+  localDaily$Q <- localDaily$Q + qshift
+  localDaily$LogQ <- suppressWarnings(
+    log(localDaily$Q)
+  )
+
+  # Rolling mean discharge
+  ma <- function(x, n = 7) {
+    stats::filter(x, rep(1 / n, n), sides = 1)
   }
-  
-  return (localDaily)  
+  if (length(localDaily$Date) < 30) {
+    if (verbose) {
+      message(
+        "Rolling means not calculated because there are fewer than 30 days."
+      )
+    }
+  } else {
+    localDaily$Q7 <- as.numeric(ma(localDaily$Q))
+    localDaily$Q30 <- as.numeric(ma(localDaily$Q, 30))
+  }
+
+  # NA discharge values
+  nd <- localDaily$Q == -999999
+  localDaily$Q <- ifelse(nd, NA, localDaily$Q)
+  if (verbose) {
+    na_ind <- which(is.na(localDaily$Q))
+    total_na <- length(na_ind)
+    if (total_na > 0) {
+      breaks <- c(0, which(diff(na_ind) > 1), length(na_ind))
+      ranges <- mapply(
+        function(start, end) {
+          ind_start <- na_ind[start + 1]
+          ind_end <- na_ind[end]
+          n_days <- ind_end - ind_start + 1
+          sprintf(
+            "  %s to %s (%d day%s)",
+            format(localDaily$Date[ind_start], "%Y-%m-%d"),
+            format(localDaily$Date[ind_end], "%Y-%m-%d"),
+            n_days,
+            if (n_days == 1) "" else "s"
+          )
+        },
+        breaks[-length(breaks)],
+        breaks[-1],
+        SIMPLIFY = TRUE
+      )
+      message(sprintf(
+        "NA ranges in Q (%d total NA value%s across %d run%s):",
+        total_na,
+        if (total_na == 1) "" else "s",
+        length(ranges),
+        if (length(ranges) == 1) "" else "s"
+      ))
+      message(paste(ranges, collapse = "\n"))
+      message(paste("Many EGRET functions will not work with missing values."))
+    }
+  }
+
+  # Fill NA discharge by linear interpolation
+  if (fill) {
+    localDaily$Qualifier[is.na(localDaily$Q)] <- "INTERPOLATED"
+    localDaily$Q = stats::approx(
+      localDaily$i[!(is.na(localDaily$Q))],
+      localDaily$Q[!(is.na(localDaily$Q))],
+      localDaily$i
+    )$y
+    localDaily$LogQ <- suppressWarnings(
+      log(localDaily$Q)
+    )
+    if (length(localDaily$Date) >= 30) {
+      localDaily$Q7 <- as.numeric(ma(localDaily$Q))
+      localDaily$Q30 <- as.numeric(ma(localDaily$Q, 30))
+    }
+    if (verbose) {
+      message("All NA values filled by linear interpolation.")
+    }
+  }
+
+  return(localDaily)
 }

@@ -38,19 +38,19 @@ generated labels.}
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
 \description{
-This function is used to compare the distribution of discharges in the sample data set 
+This function is used to compare the distribution of discharges in the sample data set
 and the discharges in the full daily data set.
-Note that discharge is plotted on a logarithmic axis. The boxplot is created 
-using the log values but the scale is presented in the original units. An 
-ideal situation would show the two boxes roughly similar to each other or 
-the sample boxplot having median, upper quartile, and higher values being 
+Note that discharge is plotted on a logarithmic axis. The boxplot is created
+using the log values but the scale is presented in the original units. An
+ideal situation would show the two boxes roughly similar to each other or
+the sample boxplot having median, upper quartile, and higher values being
 slightly greater than in the boxplot of all days.
 
 Box widths are proportional to the square root of the number of observations (left box based on number of sampled days, right box based on total number of days in the record).
 
-Data come from named list, which contains a Sample dataframe with the sample data, 
+Data come from named list, which contains a Sample dataframe with the sample data,
 a Daily dataframe with the daily flow data,
-and an INFO dataframe with metadata. 
+and an INFO dataframe with metadata.
 
 Although there are a lot of optional arguments to this function, most are set to a logical default.
 }

@@ -20,37 +20,37 @@ runPairs(eList, year1, year2, windowSide, flowBreak = FALSE,
 \item{year2}{integer the ending year of the second year in the pair}
 
 \item{windowSide}{integer. The width of the flow normalization window on each side of the year being estimated.
-A common value is 11, but no default is specified.  If stationary flow normalization is to be used, then windowSide = 0 (this means that 
+A common value is 11, but no default is specified.  If stationary flow normalization is to be used, then windowSide = 0 (this means that
 flow-normalization period for all years is the same).}
 
 \item{flowBreak}{logical. Is there an abrupt break in the discharge record, default is FALSE.}
 
 \item{Q1EndDate}{The Date (as character in YYYY-MM-DD) which is the last day, just before the flowBreak.}
 
-\item{QStartDate}{The first Date (as character in YYYY-MM-DD) used in the  flow normalization method.  Default is 
+\item{QStartDate}{The first Date (as character in YYYY-MM-DD) used in the  flow normalization method.  Default is
 NA, which makes the QStartDate become the first Date in eList$Daily.}
 
-\item{QEndDate}{The last Date (as character in YYYY-MM-DD) used in the flow normalization method.  Default is NA, 
+\item{QEndDate}{The last Date (as character in YYYY-MM-DD) used in the flow normalization method.  Default is NA,
 which makes the QEndDate become the last Date in eList$Daily.}
 
-\item{wall}{logical. Whether there is an abrupt break in the concentration versus discharge relationship due to some major change in 
+\item{wall}{logical. Whether there is an abrupt break in the concentration versus discharge relationship due to some major change in
 pollution control or water management.  Default is FALSE.}
 
 \item{oldSurface}{logical specifying whether to use the original surface, or create a new one. Default is FALSE.}
 
-\item{sample1EndDate}{The Date (as character in YYYY-MM-DD) of the last date just before the wall. Default = NA. 
+\item{sample1EndDate}{The Date (as character in YYYY-MM-DD) of the last date just before the wall. Default = NA.
 A date must be specified if wall = TRUE.}
 
-\item{sampleStartDate}{The Date (as character in YYYY-MM-DD) of the first sample to be used. Default is NA which sets it 
+\item{sampleStartDate}{The Date (as character in YYYY-MM-DD) of the first sample to be used. Default is NA which sets it
 to the first Date in eList$Sample.}
 
-\item{sampleEndDate}{The Date (as character in YYYY-MM-DD) of the last sample to be used. 
+\item{sampleEndDate}{The Date (as character in YYYY-MM-DD) of the last sample to be used.
 Default is NA which sets it to the last Date in eList$Sample.}
 
 \item{paStart}{numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12.
 Default is NA, which will use the paStart in the eList$INFO data frame. See also \code{\link{setPA}}.}
 
-\item{paLong}{numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12. 
+\item{paLong}{numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12.
 Default is NA, which will use the paLong in the eList$INFO data frame. See also \code{\link{setPA}}.}
 
 \item{minNumObs}{numeric specifying the miniumum number of observations required to run the weighted regression, default is 100}
@@ -77,17 +77,17 @@ what is in the console output. Default is \code{FALSE}.}
 \item{verbose}{logical specifying whether or not to display progress message}
 }
 \value{
-Data frame with 7 columns and 2 rows.  The first row is about trends in concentration (mg/L), 
-the second column is about trends in flux (million kg/year).  
+Data frame with 7 columns and 2 rows.  The first row is about trends in concentration (mg/L),
+the second column is about trends in flux (million kg/year).
 The data frame has a number of attributes.
 \tabular{ll}{
 Column Name \tab Description \cr
 Total Change \tab   The difference between the results for year2 - year1 (x22 - x11)\cr
-CQTC \tab CQTC is the "Concentration v. Q Trend Component." It is the component of total 
+CQTC \tab CQTC is the "Concentration v. Q Trend Component." It is the component of total
 change due to the change in the CQR (Concentration Discharge Relationship). (x20 - x10). \cr
 QTC \tab  QTC is the "Q Trend Component." It is the component of total change due to the
 trend in the QD (Discharge Distribution). (x22 - x11 - x20 + x10).  \cr
-x10 \tab The estimated value based on the CQR computed for year1, integrated over the QD for the entire 
+x10 \tab The estimated value based on the CQR computed for year1, integrated over the QD for the entire
 timespan of the Daily data frame (or the period QStartDate and to QEndDate if these are specified).\cr
 x11 \tab The estimated value based on the CQR for year1, integrated over the QD specified by the user for year1.\cr
 x20 \tab The estimated value based on the CQR computed for year2, integrated over the QD for the entire period of record. \cr
@@ -102,32 +102,32 @@ Total Percent Change is the Total Change divided by x11
 CQTC Percent is the CQTC divided by x11
 QTC Percent  is the QTC divided by x11
 
-Another attribute is "byMonth".  This is a data frame of 4 columns and 14 rows.  
+Another attribute is "byMonth".  This is a data frame of 4 columns and 14 rows.
 The columns represent the concentrations and fluxes for the starting and ending year.
 The flux values for each month are flow normalized monthly watershed yields
 expressed as kg/month/km^2.  The concentrations are the mean flow normalized
-concentration, expressed in whatever concentration units the raw data are 
+concentration, expressed in whatever concentration units the raw data are
 expressed as (typically mg/L).  This data frame is used as the input to the
 \code{plotMonthTrend} function.
 }
 \description{
-\code{runPairs} provides comparisons of results, in terms of 
-flow-normalized concentration and flow-normalized flux for any pair 
-of years in the water quality record.  Comparison could involve the 
-use of the "wall" and/or use of "generalized flow normalization".  
+\code{runPairs} provides comparisons of results, in terms of
+flow-normalized concentration and flow-normalized flux for any pair
+of years in the water quality record.  Comparison could involve the
+use of the "wall" and/or use of "generalized flow normalization".
 These two concepts are described in detail in the vignette:
 \code{vignette("Enhancements", package = "EGRET")}.
 }
 \details{
 When using generalized flow-normalization, it is best to have the Daily data frame
-extend well beyond the years that are in the Sample data frame.  Ideally, 
+extend well beyond the years that are in the Sample data frame.  Ideally,
 the Daily data frame would start windowSide years before the
 start of the Sample data set, if the data exist to provide for that. Generally
 that isn't possible for the end of the record because the Sample data
 may end very close to the present. To the extent that is possible therefore, it is better to
-include more discharge data after the end of the Sample record. 
-Also note that in the case run in the examples don't do that, 
-because the data set needs to be appropriate for stationary flow 
+include more discharge data after the end of the Sample record.
+Also note that in the case run in the examples don't do that,
+because the data set needs to be appropriate for stationary flow
 normalization as well (and package size considerations make it difficult to
 include specialized examples).
 }
@@ -150,10 +150,10 @@ pairOut_1 <- runPairs(eList, year1, year2, windowSide = 0)
 pairOut_2 <- runPairs(eList, year1, year2, windowSide = 11)
 
 # Option 3: Flow normalization is based on splitting the flow record at 1990-09-30
-#          But year1 uses all flow data from before the break, 
+#          But year1 uses all flow data from before the break,
 #          year2 uses all flow data after the break
 
-pairOut_3 <- runPairs(eList, year1, year2, 
+pairOut_3 <- runPairs(eList, year1, year2,
                       windowSide = 0, flowBreak = TRUE,
                       Q1EndDate = "1990-09-30")
 
@@ -161,18 +161,18 @@ pairOut_3 <- runPairs(eList, year1, year2,
 #           but year1 uses a 23 year window before the break
 #           year2 uses a 23 year window after the break
 
-pairOut_4 <- runPairs(eList, year1, year2, 
+pairOut_4 <- runPairs(eList, year1, year2,
                       windowSide = 11, flowBreak = TRUE,
                       Q1EndDate = "1990-09-30")
-                      
-monthly_trends <- attr(pairOut_4, "byMonth")  
+
+monthly_trends <- attr(pairOut_4, "byMonth")
 plotMonthTrend(pairOut_4)
 
 eList <- setPA(eList, paLong = 3, paStart = 12)
 pairOut_5 <- runPairs(eList, year1, year2,
                       windowSide = 11)
-monthly_trends <- attr(pairOut_5, "byMonth") 
-plotMonthTrend(pairOut_5)                      
+monthly_trends <- attr(pairOut_5, "byMonth")
+plotMonthTrend(pairOut_5)
 
 }
 }

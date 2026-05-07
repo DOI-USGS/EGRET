@@ -5,10 +5,11 @@
 \title{Import NWIS Daily Data for EGRET analysis}
 \usage{
 readNWISDaily(siteNumber, parameterCd = "00060", startDate = "",
-  endDate = "", verbose = TRUE, convert = TRUE)
+  endDate = "", verbose = TRUE, convert = TRUE, adjust = TRUE,
+  fill = FALSE)
 }
 \arguments{
-\item{siteNumber}{character USGS site number.  This is usually an 8 digit number}
+\item{siteNumber}{character USGS site number.  This is usually an 8 digit number.}
 
 \item{parameterCd}{character USGS parameter code.  This is usually an 5 digit number.}
 
@@ -16,11 +17,18 @@ readNWISDaily(siteNumber, parameterCd = "00060", startDate = "",
 
 \item{endDate}{character ending date for data retrieval in the form YYYY-MM-DD.}
 
-\item{verbose}{logical specifying whether or not to display progress message}
+\item{verbose}{logical specifying whether or not to display messages.}
 
-\item{convert}{logical Option to include a conversion from cfs to cms (35.314667). The default is TRUE, 
-which is appropriate for using NWIS data in the EGRET package.  Set this to FALSE to not include the conversion. If the parameter code is not 00060 (NWIS discharge),
-there is no conversion applied.}
+\item{convert}{logical Option to include a conversion from cfs to cms (35.314667).
+The default is TRUE which is appropriate for using NWIS data in the EGRET package.
+Set this to FALSE to not include the conversion. If the parameter code is not 00060
+(NWIS discharge), there is no conversion applied.}
+
+\item{adjust}{logical specifying whether or not to add a constant to zero values to
+allow log transformation. Defaults to TRUE.}
+
+\item{fill}{logical specifying whether to fill NA values by linear interpolation.
+Defaults to FALSE.}
 }
 \value{
 A data frame 'Daily' with the following columns:
@@ -29,7 +37,7 @@ Name \tab Type \tab Description \cr
 Date \tab Date \tab Date \cr
 Q \tab numeric \tab Discharge in m^3/s\cr
 Julian \tab integer \tab Number of days since Jan. 1, 1850\cr
-Month \tab integer \tab Month of the year [1-12] \cr 
+Month \tab integer \tab Month of the year [1-12] \cr
 Day \tab integer \tab Day of the year [1-366] \cr
 DecYear \tab numeric \tab Decimal year \cr
 MonthSeq \tab integer \tab Number of months since January 1, 1850 \cr
@@ -44,7 +52,7 @@ Q30 \tab numeric \tab 30 day running average of Q \cr
 Imports daily data from NWIS web service. This function gets the data from here: \url{https://waterservices.usgs.gov/}
 }
 \examples{
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 \donttest{
 
 Daily <- readNWISDaily('01594440','00060',

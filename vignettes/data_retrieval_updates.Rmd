@@ -1,0 +1,85 @@
+---
+title: "Daily and Sample retrieval updates"
+author: "Matthew Diebel and Laura DeCicco"
+date: "2026-04-30"
+output: 
+  rmarkdown::html_vignette:
+    fig_height: 5
+    fig_width: 7
+vignette: >
+  %\VignetteIndexEntry{Daily and Sample retrieval updates}
+  \usepackage[utf8]{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+## Introduction  
+
+The functions for retrieving daily and sample data were revised in `EGRET` 3.0.12 to use new USGS water data services (https://waterservices.usgs.gov/). As part of these revisions, additional arguments were added to `readNWISDaily` to allow more flexibility for dealing with missing, zero, and negative discharge values. Columns were also added to the Sample data frames returned by `readNWISSample` and `readWQPSample` to help identify potential inconsistencies among samples, such as samples with different collection methods. Messages printed by `readNWISDaily`, `readNWISSample`, and `readWQPSample` were revised to alert users to key features of the resulting data frames. This vignette details these revisions and provides suggestions for dealing with anomalies.
+
+## readNWISDaily
+
+The `readNWISDaily` function retrieves mean daily values from the USGS water data service using the `dataRetrieval` function `read_waterdata_daily`. While any parameter code with daily values can be retrieved with this function, the default is "00060" for discharge in cubic feet per second (ft^3^/s). The default argument convert = TRUE converts the values to cubic meters per second (m^3^/s) for use in EGRET. The new arguments in `EGRET` 3.0.12 are `adjust` and `fill`. When `adjust` is TRUE (default) and when there are any zero values but no negative values, a small constant (0.001 times the mean discharge) will be added to all of the daily discharge values to allow the log transformation of discharge used in WRTDS. If there are any negative values or if `adjust` is FALSE, no adjustment will be made. When the argument `fill` is TRUE (default is FALSE), linear interpolation will be used to fill missing values, including discontinous daily records and values recorded as NA or -999999. Messages summarize the number and date ranges of missing values and whether the interpolation was performed. Both `adjust` and `fill` should only be used when there are very few zero or missing values. 
+
+Here is an example of using `readNWISDaily` on a daily discharge dataset from the Little Auglaize River at Melrose OH - USGS-04191058. First, we will run it with adjust = TRUE and fill = FALSE (the defaults):
+
+```{r, collapse = TRUE}
+library(EGRET)
+Daily <- readNWISDaily(siteNumber = "04191058",
+                       parameterCd = "00060",
+                       startDate = "2015-04-15",
+                       endDate = "2024-10-01",
+                       verbose = TRUE,
+                       convert = TRUE,
+                       adjust = TRUE,
+                       fill = FALSE)
+```
+
+There are 272 negative flow days, so even though adjust = TRUE, discharge is not adjusted because the adjustment method will not adjust negative flows. Also, there is one missing value. We can fill this value by interpolation by making fill = TRUE. If we also make adjust = FALSE, the resulting Daily data frame will not be usable in most EGRET functions, but could be analyzed with functions in `WRTDSplus`, as shown in this example [link].
+
+```{r, collapse = TRUE}
+Daily <- readNWISDaily(siteNumber = "04191058",
+                       parameterCd = "00060",
+                       startDate = "2015-04-15",
+                       endDate = "2024-10-01",
+                       verbose = TRUE,
+                       convert = TRUE,
+                       adjust = FALSE,
+                       fill = TRUE)
+```
+
+Here is an example for Nile Ditch at Arnold Hwy NR Jasper, MI - USGS-04176063. Here, we start with the default arguments. The messages indicate that there are 6 zero flow days and no negative flow days. All days had 5e-04 cms added to the discharge value. The small constant (0.001 times mean discharge) that was added to all daily values will allow the log transformation in WRTDS and will add a very small positive bias to the flux estimates.
+
+```{r, collapse = TRUE}
+Daily <- readNWISDaily(siteNumber = "04176063",
+                       parameterCd = "00060",
+                       startDate = "2020-10-01",
+                       endDate = "2024-09-01",
+                       verbose = TRUE,
+                       convert = TRUE,
+                       adjust = TRUE,
+                       fill = FALSE)
+```
+
+## readNWISSample
+
+The `readNWISSample` function retrieves USGS sample data from the USGS water data service using the `dataRetrieval` function `read_waterdata_samples`. There are no new arguments for this function in `EGRET` 3.0.12, but the function now returns several additional columns with information about the sampling activity, collection method, and result characteristics. It also prints a message to alert users to potential inconsistencies among samples, such as samples from different media (water, sediment, biological tissue) or sample collection methods. It is then the user's responsibility to remove inappropriate samples before further analysis in EGRET.
+
+Here is an example of using `readNWISSample` on a total phosphorus dataset from the Detroit River at Fort Wayne at Detroit, MI - USGS-04165710. This site has samples collected with a variety of methods.
+
+```{r, collapse = TRUE}
+Sample <- readNWISSample(siteNumber = "04165710",
+                         parameterCd = "00665",
+                         verbose = TRUE)
+```
+
+## readWQPSample
+
+Here is an example of using `readWQPSample` to retrieve the same data. Note that siteNumber must contain the agency code prefix with `readWQPSample` because WQP contains data from multiple agencies.
+
+```{r, collapse = TRUE}
+Sample <- readWQPSample(siteNumber = "USGS-04165710",
+                        characteristicName = "00665",
+                        verbose = TRUE)
+```

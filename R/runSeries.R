@@ -1,43 +1,43 @@
-#' Annual series of flow-normalized concentration and flow-normalized flux 
+#' Annual series of flow-normalized concentration and flow-normalized flux
 #'
-#' \code{runSeries} provides annual series of flow-normalized concentration and flow-normalized flux for the water quality record.  
-#' Computations could involve the use of the "wall" and/or use of "generalized flow 
-#' normalization".  These two concepts are described in detail in the vignette:  
-#' \code{vignette("Enhancements", package = "EGRET")}.  
-#' 
+#' \code{runSeries} provides annual series of flow-normalized concentration and flow-normalized flux for the water quality record.
+#' Computations could involve the use of the "wall" and/or use of "generalized flow
+#' normalization".  These two concepts are described in detail in the vignette:
+#' \code{vignette("Enhancements", package = "EGRET")}.
+#'
 #' @details
 #' When using generalized flow-normalization, it is best to have the Daily data frame
-#' extend well beyond the years that are in the Sample data frame.  Ideally, 
+#' extend well beyond the years that are in the Sample data frame.  Ideally,
 #' the Daily data frame would start windowSide years before the
 #' start of the Sample data set, if the data exist to provide for that. Generally
 #' that isn't possible for the end of the record because the Sample data
 #' may end very close to the present. To the extent that is possible therefore, it is better to
-#' include more discharge data after the end of the Sample record. 
-#' Also note that in the case run in the examples don't do that, 
-#' because the data set needs to be appropriate for stationary flow 
+#' include more discharge data after the end of the Sample record.
+#' Also note that in the case run in the examples don't do that,
+#' because the data set needs to be appropriate for stationary flow
 #' normalization as well (and package size considerations make it difficult to
 #' include specialized examples).
-#' 
+#'
 #' @export
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @param windowSide integer. The width of the flow normalization window on each side of the year being estimated.
-#' A common value is 11, but no default is specified.  If stationary flow normalization is to be used, then windowSide = 0 (this means that 
+#' A common value is 11, but no default is specified.  If stationary flow normalization is to be used, then windowSide = 0 (this means that
 #' flow-normalization period for all years is the same).
-#' @param surfaceStart The Date (or character in YYYY-MM-DD) that is the start of the WRTDS model to be estimated and the first of the 
-#' daily outputs to be generated.  Default is NA, which means that the surfaceStart is based on the date of the first sample. 
-#' @param surfaceEnd The Date (or character in YYYY-MM-DD) that is the end of the WRTDS model to be estimated and the last of the daily outputs 
-#' to be generated.  Default is NA, which means that the surfaceEnd is based on the date of the last sample. 
+#' @param surfaceStart The Date (or character in YYYY-MM-DD) that is the start of the WRTDS model to be estimated and the first of the
+#' daily outputs to be generated.  Default is NA, which means that the surfaceStart is based on the date of the first sample.
+#' @param surfaceEnd The Date (or character in YYYY-MM-DD) that is the end of the WRTDS model to be estimated and the last of the daily outputs
+#' to be generated.  Default is NA, which means that the surfaceEnd is based on the date of the last sample.
 #' @param flowBreak logical, is there an abrupt break in the discharge record, default is FALSE.
 #' @param Q1EndDate The Date (as character in YYYY-MM-DD format) which is the last day, just before the flowBreak. Required if flowBreak = TRUE.
-#' @param QStartDate The first Date (as character in YYYY-MM-DD format) used in the flow normalization.  Default is NA, which makes the QStartDate become the first Date in eList$Daily. 
-#' @param QEndDate The last Date (as character in YYYY-MM-DD format) used in the flow normalization.  Default is NA, which makes the QEndDate become the last Date in eList$Daily. 
-#' @param wall logical. Whether there is an abrupt break in the concentration versus discharge relationship due to some major change in 
+#' @param QStartDate The first Date (as character in YYYY-MM-DD format) used in the flow normalization.  Default is NA, which makes the QStartDate become the first Date in eList$Daily.
+#' @param QEndDate The last Date (as character in YYYY-MM-DD format) used in the flow normalization.  Default is NA, which makes the QEndDate become the last Date in eList$Daily.
+#' @param wall logical. Whether there is an abrupt break in the concentration versus discharge relationship due to some major change in
 #' pollution control or water management.  Default is FALSE.
 #' @param sample1EndDate The Date (as character in YYYY-MM-DD format) of the last day just before the wall.  Default = NA.  A date must be specified if wall = TRUE.
 #' @param sampleStartDate The Date (as character in YYYY-MM-DD format) of the first sample to be used.  Default is NA which sets it to the first Date in eList$Sample.
-#' @param sampleEndDate The Date (as character in YYYY-MM-DD format) of the last sample to be used. Default is NA which sets it to the last Date in eList$Sample. 
+#' @param sampleEndDate The Date (as character in YYYY-MM-DD format) of the last sample to be used. Default is NA which sets it to the last Date in eList$Sample.
 #' @param oldSurface logical, if TRUE, use surface previously estimated using modelEstimation.  Default is FALSE.
-#' @param paLong numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12. 
+#' @param paLong numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12.
 #' Default is NA, which will use the paLong in the eList$INFO data frame. See also \code{\link{setPA}}.
 #' @param paStart numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12.
 #' Default is NA, which will use the paStart in the eList$INFO data frame. See also \code{\link{setPA}}.
@@ -51,92 +51,127 @@
 #' minimum number will be the maximum of minNumObs and fractMin multiplied by total number of observations.
 #' @param verbose logical specifying whether to output status messages.
 #' @return eList named list with INFO, Daily, and Sample dataframes, along with the surfaces matrix.
-#' @examples 
+#' @examples
 #' eList <- Choptank_eList
-#' 
+#'
 #' \donttest{
 #' # Automatic calculations based on windowSide = 11
 #' # four possible ways to do generalized flow normalization
-#' 
+#'
 #' #Option 1:  Use all years for flow normalization.
 #' seriesOut_1 <- runSeries(eList,  windowSide = 0)
 #' plotConcHist(seriesOut_1)
 #' plotFluxHist(seriesOut_1)
-#' 
+#'
 #' # Option 2: Use sliding window throughout the whole flow normalization process.
 #' #                In each case it is a 15 year window (23 = 1 + 2*11)
 #' seriesOut_2 <- runSeries(eList, windowSide = 11)
-#' 
+#'
 #' plotConcHist(seriesOut_2)
 #' plotFluxHist(seriesOut_2)
-#' 
+#'
 #' # Option 3: Flow normalization is based on splitting the flow record at 1990-09-30
-#' #                But in years before the break it uses all flow data from before the break, 
+#' #                But in years before the break it uses all flow data from before the break,
 #' #                and years after the break uses all flow data after the break
 #' seriesOut_3 <- runSeries(eList,
-#'                        windowSide = 0, 
+#'                        windowSide = 0,
 #'                        flowBreak = TRUE,
 #'                        Q1EndDate = "1990-09-30")
-#'                        
+#'
 #' plotConcHist(seriesOut_3)
 #' plotFluxHist(seriesOut_3)
-#' 
+#'
 #' # Option 4: Flow normalization is based on splitting the flow record at 1990-09-30
 #' #                but before the break uses a 23 year window of years before the break
 #' #                after the break uses a 23 year window of years after the break
-#' seriesOut_4 <- runSeries(eList, 
+#' seriesOut_4 <- runSeries(eList,
 #'                       windowSide = 11, flowBreak = TRUE,
 #'                       Q1EndDate = "1990-09-30")
-#'                       
+#'
 #' plotConcHist(seriesOut_4)
 #' plotFluxHist(seriesOut_4)
-#' 
+#'
 #' }
-runSeries <- function(eList, windowSide, 
-                      surfaceStart = NA, surfaceEnd = NA, 
-                      flowBreak = FALSE, 
-                      Q1EndDate = NA, QStartDate = NA, QEndDate = NA, 
-                      wall = FALSE, oldSurface = FALSE,
-                      sample1EndDate = NA, sampleStartDate = NA, sampleEndDate = NA,
-                      paStart = NA, paLong = NA, fractMin = 0.75,
-                      minNumObs = 100, minNumUncen = 50, windowY = 7, 
-                      windowQ = 2, windowS = 0.5, edgeAdjust = TRUE, verbose = TRUE){
-
-  if(!is.egret(eList)){
+runSeries <- function(
+  eList,
+  windowSide,
+  surfaceStart = NA,
+  surfaceEnd = NA,
+  flowBreak = FALSE,
+  Q1EndDate = NA,
+  QStartDate = NA,
+  QEndDate = NA,
+  wall = FALSE,
+  oldSurface = FALSE,
+  sample1EndDate = NA,
+  sampleStartDate = NA,
+  sampleEndDate = NA,
+  paStart = NA,
+  paLong = NA,
+  fractMin = 0.75,
+  minNumObs = 100,
+  minNumUncen = 50,
+  windowY = 7,
+  windowQ = 2,
+  windowS = 0.5,
+  edgeAdjust = TRUE,
+  verbose = TRUE
+) {
+  if (!is.egret(eList)) {
     stop("Please check eList argument")
   }
-  
+
   localSample <- getSample(eList)
   localDaily <- getDaily(eList)
   localsurfaces <- getSurfaces(eList)
-  
-  sampleStartDate <- if(is.na(sampleStartDate)) localSample$Date[1] else as.Date(sampleStartDate)
+
+  sampleStartDate <- if (is.na(sampleStartDate)) {
+    localSample$Date[1]
+  } else {
+    as.Date(sampleStartDate)
+  }
   numSamples <- length(localSample$Date)
-  sampleEndDate <- if(is.na(sampleEndDate)) localSample$Date[numSamples] else as.Date(sampleEndDate)
-  
-  QStartDate <- if(is.na(QStartDate)) localDaily$Date[1] else as.Date(QStartDate)
+  sampleEndDate <- if (is.na(sampleEndDate)) {
+    localSample$Date[numSamples]
+  } else {
+    as.Date(sampleEndDate)
+  }
+
+  QStartDate <- if (is.na(QStartDate)) {
+    localDaily$Date[1]
+  } else {
+    as.Date(QStartDate)
+  }
   numQDays <- length(localDaily$Date)
-  QEndDate <- if(is.na(QEndDate)) localDaily$Date[numQDays] else as.Date(QEndDate)
-  localDaily <- localDaily[localDaily$Date >= QStartDate & 
-                             localDaily$Date <= QEndDate, ]
+  QEndDate <- if (is.na(QEndDate)) {
+    localDaily$Date[numQDays]
+  } else {
+    as.Date(QEndDate)
+  }
+  localDaily <- localDaily[
+    localDaily$Date >= QStartDate &
+      localDaily$Date <= QEndDate,
+  ]
   firstSample <- localSample$Date[1]
   lastSample <- localSample$Date[length(localSample$Date)]
-  
-  localSample <- localSample[localSample$Date >= sampleStartDate & 
-                               localSample$Date <= sampleEndDate, ]
-  
-  if(is.na(paStart)){
-    if(all(c("paStart") %in% names(eList$INFO))){
-      paStart <- eList$INFO$paStart 
+
+  localSample <- localSample[
+    localSample$Date >= sampleStartDate &
+      localSample$Date <= sampleEndDate,
+  ]
+
+  if (is.na(paStart)) {
+    if (all(c("paStart") %in% names(eList$INFO))) {
+      paStart <- eList$INFO$paStart
     } else {
       paStart <- 10
     }
   } else {
     eList$INFO$paStart <- paStart
   }
-  
-  if(is.na(paLong)){
-    if(all(c("paLong") %in% names(eList$INFO))){
+
+  if (is.na(paLong)) {
+    if (all(c("paLong") %in% names(eList$INFO))) {
       paLong <- eList$INFO$paLong
     } else {
       paLong <- 12
@@ -144,38 +179,57 @@ runSeries <- function(eList, windowSide,
   } else {
     eList$INFO$paLong <- paLong
   }
-  
-  if(is.null(surfaceStart) || is.na(surfaceStart)){
-    surfaceStart <- surfaceStartEnd(paStart, paLong, sampleStartDate, sampleEndDate)[["surfaceStart"]]
+
+  if (is.null(surfaceStart) || is.na(surfaceStart)) {
+    surfaceStart <- surfaceStartEnd(
+      paStart,
+      paLong,
+      sampleStartDate,
+      sampleEndDate
+    )[["surfaceStart"]]
   }
   surfaceStart <- as.Date(surfaceStart)
-  
+
   if (is.null(surfaceEnd) || is.na(surfaceEnd)) {
-    surfaceEnd <- surfaceStartEnd(paStart, paLong, sampleStartDate, sampleEndDate)[["surfaceEnd"]]
+    surfaceEnd <- surfaceStartEnd(
+      paStart,
+      paLong,
+      sampleStartDate,
+      sampleEndDate
+    )[["surfaceEnd"]]
   }
   surfaceEnd <- as.Date(surfaceEnd)
-  
+
   eList <- as.egret(eList$INFO, localDaily, localSample, localsurfaces)
-  
+
   minNumUncen <- ceiling(min(0.5 * minNumObs, minNumUncen))
-  
+
   if (wall) {
     if (is.na(sample1EndDate)) {
       stop("if there is a wall, the user must specify sample1EndDate")
     }
-    
+
     sample1EndDate <- as.Date(sample1EndDate)
     sample2StartDate <- as.Date(sample1EndDate) + 1
-    surfaces <- stitch(eList, surfaceStart = surfaceStart, 
-                          surfaceEnd = surfaceEnd, sample1StartDate = sampleStartDate, 
-                          sample1EndDate = sample1EndDate, sample2StartDate = sample2StartDate, 
-                          sample2EndDate = sampleEndDate, windowY = windowY, fractMin = fractMin,
-                          windowQ = windowQ, windowS = windowS, minNumObs = minNumObs, 
-                          minNumUncen = minNumUncen, edgeAdjust = TRUE)
+    surfaces <- stitch(
+      eList,
+      surfaceStart = surfaceStart,
+      surfaceEnd = surfaceEnd,
+      sample1StartDate = sampleStartDate,
+      sample1EndDate = sample1EndDate,
+      sample2StartDate = sample2StartDate,
+      sample2EndDate = sampleEndDate,
+      windowY = windowY,
+      fractMin = fractMin,
+      windowQ = windowQ,
+      windowS = windowS,
+      minNumObs = minNumObs,
+      minNumUncen = minNumUncen,
+      edgeAdjust = TRUE
+    )
   } else {
-    
-    if(oldSurface){
-      if(all(is.na(localsurfaces))){
+    if (oldSurface) {
+      if (all(is.na(localsurfaces))) {
         message("No surface included in eList, running estSurface function")
         oldSurface <- FALSE
       } else {
@@ -184,32 +238,46 @@ runSeries <- function(eList, windowSide,
         checkSurfaceSpan(eList)
       }
     }
-    
-    if(!oldSurface){
-      surfaces <- estSurfaces(eList, surfaceStart = surfaceStart, surfaceEnd = surfaceEnd,
-                                  windowY = windowY, windowQ = windowQ, 
-                                  windowS = windowS, minNumObs = minNumObs, minNumUncen = minNumUncen, 
-                                  edgeAdjust = TRUE, verbose = verbose)      
-    } 
-    
+
+    if (!oldSurface) {
+      surfaces <- estSurfaces(
+        eList,
+        surfaceStart = surfaceStart,
+        surfaceEnd = surfaceEnd,
+        windowY = windowY,
+        windowQ = windowQ,
+        windowS = windowS,
+        minNumObs = minNumObs,
+        minNumUncen = minNumUncen,
+        edgeAdjust = TRUE,
+        verbose = verbose
+      )
+    }
   }
-  
+
   eListS <- as.egret(eList$INFO, localDaily, localSample, surfaces)
 
-  
   if (windowSide <= 0 && !flowBreak) {
     flowStart <- as.Date(surfaceStart)
     flowEnd <- as.Date(surfaceEnd)
     flowNormStart <- as.Date(QStartDate)
     flowNormEnd <- as.Date(QEndDate)
-    
-    dateInfo <- data.frame(flowNormStart, flowNormEnd,
-                           flowStart,flowEnd, 
-                           stringsAsFactors = FALSE)
-    
+
+    dateInfo <- data.frame(
+      flowNormStart,
+      flowNormEnd,
+      flowStart,
+      flowEnd,
+      stringsAsFactors = FALSE
+    )
   } else if (windowSide > 0 && !flowBreak) {
-    dateInfo <- makeDateInfo(windowSide, surfaceStart, surfaceEnd, 
-                                QStartDate, QEndDate)
+    dateInfo <- makeDateInfo(
+      windowSide,
+      surfaceStart,
+      surfaceEnd,
+      QStartDate,
+      QEndDate
+    )
   } else if (windowSide <= 0 && flowBreak) {
     Q1EndDate <- as.Date(Q1EndDate)
     Q2StartDate <- as.Date(Q1EndDate) + 1
@@ -217,27 +285,48 @@ runSeries <- function(eList, windowSide,
     flowEnd <- c(as.Date(Q1EndDate), as.Date(surfaceEnd))
     flowNormStart <- c(as.Date(QStartDate), as.Date(Q2StartDate))
     flowNormEnd <- c(as.Date(Q1EndDate), as.Date(QEndDate))
-    dateInfo <- data.frame(flowNormStart, flowNormEnd, flowStart, 
-                           flowEnd, stringsAsFactors = FALSE)
+    dateInfo <- data.frame(
+      flowNormStart,
+      flowNormEnd,
+      flowStart,
+      flowEnd,
+      stringsAsFactors = FALSE
+    )
   } else {
     Q1EndDate <- as.Date(Q1EndDate)
     Q2StartDate <- as.Date(Q1EndDate) + 1
-    dateInfo1 <- makeDateInfo(windowSide, surfaceStart, Q1EndDate, 
-                                 QStartDate, Q1EndDate)
-    dateInfo2 <- makeDateInfo(windowSide, Q2StartDate, surfaceEnd, 
-                                 Q2StartDate, QEndDate)
+    dateInfo1 <- makeDateInfo(
+      windowSide,
+      surfaceStart,
+      Q1EndDate,
+      QStartDate,
+      Q1EndDate
+    )
+    dateInfo2 <- makeDateInfo(
+      windowSide,
+      Q2StartDate,
+      surfaceEnd,
+      Q2StartDate,
+      QEndDate
+    )
     dateInfo <- rbind(dateInfo1, dateInfo2)
   }
-  
-  eListOut <- flexFN(eListS, dateInfo, flowNormStartCol = "flowNormStart", 
-                     flowNormEndCol = "flowNormEnd", flowStartCol = "flowStart", 
-                     flowEndCol = "flowEnd", oldSurface = oldSurface)
-  
+
+  eListOut <- flexFN(
+    eListS,
+    dateInfo,
+    flowNormStartCol = "flowNormStart",
+    flowNormEndCol = "flowNormEnd",
+    flowStartCol = "flowStart",
+    flowEndCol = "flowEnd",
+    oldSurface = oldSurface
+  )
+
   eListOut$INFO$wall <- wall
-  
-  if(!oldSurface){
+
+  if (!oldSurface) {
     eListOut$INFO$surfaceStart <- surfaceStart
-    eListOut$INFO$surfaceEnd <- surfaceEnd    
+    eListOut$INFO$surfaceEnd <- surfaceEnd
   }
 
   eListOut$INFO$sampleStartDate <- sampleStartDate
@@ -256,154 +345,194 @@ runSeries <- function(eList, windowSide,
   eListOut$INFO$windowQ <- windowQ
   eListOut$INFO$windowY <- windowY
   eListOut$INFO$windowS <- windowS
-  
+
   attr(eListOut, "runSeries") <- TRUE
-  
+
   return(eListOut)
-  
 }
 
 
 #' makeDateInfo
-#' 
+#'
 #' Create a data frame that organizes date segmentations for runSeries.
-#' 
-#' @param windowSide integer number of automatically generated span sections, 
-#' default is 7. If NA, code will use 
-#' @param surfaceStart character (or Date) in YYYY-MM-DD. Date on which we want the analysis to start, it must be at or after the 
+#'
+#' @param windowSide integer number of automatically generated span sections,
+#' default is 7. If NA, code will use
+#' @param surfaceStart character (or Date) in YYYY-MM-DD. Date on which we want the analysis to start, it must be at or after the
 #    start of the eList$Daily dataframe
-#' @param surfaceEnd character (or Date) in YYYY-MM-DD. Date on which we want the analysis to end, it must be at or before the end of 
+#' @param surfaceEnd character (or Date) in YYYY-MM-DD. Date on which we want the analysis to end, it must be at or before the end of
 #    the eList$Daily data frame
-#' @param firstQDate0 character (or Date) in YYYY-MM-DD. The first day used in flow normalizing distributions, default is 
+#' @param firstQDate0 character (or Date) in YYYY-MM-DD. The first day used in flow normalizing distributions, default is
 #'         the start of eList$Daily
 #' @param lastQDate0 character (or Date) in YYYY-MM-DD. The last day used in flow normalizating distributions, default is
 #'         the end of eList$Daily
 #' @export
-#' @examples 
+#' @examples
 #' windowSide <- 7
 #' surfaceStart <- "1984-01-01"
 #' surfaceEnd <- "2012-12-31"
 #' firstQDate0 <- "1970-01-01"
 #' lastQDate0 <- "2014-06-01"
-#' dateInfo <- makeDateInfo(windowSide, 
-#'                          surfaceStart, surfaceEnd, 
+#' dateInfo <- makeDateInfo(windowSide,
+#'                          surfaceStart, surfaceEnd,
 #'                          firstQDate0, lastQDate0)
-makeDateInfo <- function(windowSide, 
-                         surfaceStart, surfaceEnd, 
-                         firstQDate0, lastQDate0){
+makeDateInfo <- function(
+  windowSide,
+  surfaceStart,
+  surfaceEnd,
+  firstQDate0,
+  lastQDate0
+) {
   windowFull <- 1 + (2 * windowSide)
-  
+
   surfaceStart <- as.Date(surfaceStart)
   surfaceEnd <- as.Date(surfaceEnd)
   firstQDate0 <- as.Date(firstQDate0)
   lastQDate0 <- as.Date(lastQDate0)
-  
+
   daysApart <- surfaceEnd - surfaceStart
   daysApart <- daysApart + 1
   daysApart <- as.numeric(daysApart)
   yearsApart <- daysApart / 365
   nSeg <- ceiling(yearsApart)
-  
+
   flowStart <- seq.Date(surfaceStart, by = "1 year", length.out = nSeg)
-  
-  if(length(flowStart)>1){
-    flowEnd <- as.Date(seq.Date(flowStart[2], by = "1 year", length.out = nSeg)-1)
-    flowEnd[flowEnd > surfaceEnd] <- surfaceEnd    
+
+  if (length(flowStart) > 1) {
+    flowEnd <- as.Date(
+      seq.Date(flowStart[2], by = "1 year", length.out = nSeg) - 1
+    )
+    flowEnd[flowEnd > surfaceEnd] <- surfaceEnd
   } else {
     flowEnd <- surfaceEnd
   }
 
   flowNormStart <- rep(as.Date(firstQDate0), nSeg)
   flowNormEnd <- rep(as.Date(firstQDate0), nSeg)
-  
+
   tempStart <- as.POSIXlt(flowStart)
-  tempStart$year <-  tempStart$year - windowSide
+  tempStart$year <- tempStart$year - windowSide
   tempStart <- as.Date(tempStart)
-  
+
   tempEnd <- as.POSIXlt(flowEnd)
-  tempEnd$year <-  tempEnd$year + windowSide
+  tempEnd$year <- tempEnd$year + windowSide
   tempEnd <- as.Date(tempEnd)
-  
+
   flowNormStart <- tempStart
   flowNormEnd <- tempEnd
-  
+
   firstQDate0_lt <- as.POSIXlt(firstQDate0)
   lastQDate0_lt <- as.POSIXlt(lastQDate0)
-  
-  
-  flowNormEnd[tempStart < firstQDate0] <- as.Date(paste(1900 + firstQDate0_lt$year+windowFull,firstQDate0_lt$mon+1, firstQDate0_lt$mday, sep = "-"))
-  flowNormEnd[tempStart < firstQDate0] <- as.Date(flowNormEnd[tempStart < firstQDate0] - 1)
-  
-  flowNormStart[tempEnd > lastQDate0] <- as.Date(paste(1900 + lastQDate0_lt$year-windowFull,lastQDate0_lt$mon+1, lastQDate0_lt$mday, sep = "-"))
-  flowNormStart[tempEnd > lastQDate0] <-  as.Date(flowNormStart[tempEnd > lastQDate0] + 1)
-  
+
+  flowNormEnd[tempStart < firstQDate0] <- as.Date(paste(
+    1900 + firstQDate0_lt$year + windowFull,
+    firstQDate0_lt$mon + 1,
+    firstQDate0_lt$mday,
+    sep = "-"
+  ))
+  flowNormEnd[tempStart < firstQDate0] <- as.Date(
+    flowNormEnd[tempStart < firstQDate0] - 1
+  )
+
+  flowNormStart[tempEnd > lastQDate0] <- as.Date(paste(
+    1900 + lastQDate0_lt$year - windowFull,
+    lastQDate0_lt$mon + 1,
+    lastQDate0_lt$mday,
+    sep = "-"
+  ))
+  flowNormStart[tempEnd > lastQDate0] <- as.Date(
+    flowNormStart[tempEnd > lastQDate0] + 1
+  )
+
   flowNormEnd[flowNormEnd > lastQDate0] <- lastQDate0
   flowNormStart[flowNormStart < firstQDate0] <- firstQDate0
-  
-  dateInfo <- data.frame(flowNormStart, flowNormEnd, flowStart, flowEnd, stringsAsFactors = FALSE)
-  
-  dateInfo <- dateInfo[dateInfo$flowStart < dateInfo$flowEnd,]
-  
+
+  dateInfo <- data.frame(
+    flowNormStart,
+    flowNormEnd,
+    flowStart,
+    flowEnd,
+    stringsAsFactors = FALSE
+  )
+
+  dateInfo <- dateInfo[dateInfo$flowStart < dateInfo$flowEnd, ]
+
   return(dateInfo)
 }
 
 #' checkSurfaceSpan
-#' 
+#'
 #' checkSurfaceSpan
-#' 
+#'
 #' @param eList named list with at least the Daily, Sample, and INFO dataframes
 #' @export
-#' @examples  
+#' @examples
 #' eList <- Choptank_eList
 #' checkSurfaceSpan(eList)
-checkSurfaceSpan <- function(eList){
-  
+checkSurfaceSpan <- function(eList) {
   surfaces <- getSurfaces(eList)
   localSample <- getSample(eList)
-  
-  if("Year" %in% names(attributes(surfaces))){
+
+  if ("Year" %in% names(attributes(surfaces))) {
     Year <- attr(surfaces, "Year")
   } else {
     localINFO <- getInfo(eList)
-    if(all(c("bottomYear","stepYear","nVectorYear") %in% names(localINFO))){
-      Year <- seq(localINFO$bottomYear, by=localINFO$stepYear, length.out=localINFO$nVectorYear)
+    if (all(c("bottomYear", "stepYear", "nVectorYear") %in% names(localINFO))) {
+      Year <- seq(
+        localINFO$bottomYear,
+        by = localINFO$stepYear,
+        length.out = localINFO$nVectorYear
+      )
     } else {
       surfaceIndexParameters <- surfaceIndex(eList$Daily)
       bottomYear <- surfaceIndexParameters[['bottomYear']]
       stepYear <- surfaceIndexParameters[['stepYear']]
       nVectorYear <- surfaceIndexParameters[['nVectorYear']]
-      Year <- seq(bottomYear, by=stepYear, length.out=nVectorYear)
+      Year <- seq(bottomYear, by = stepYear, length.out = nVectorYear)
     }
   }
-  
+
   Year <- Year[!is.na(Year)]
-  
+
   preSurface <- localSample$DecYear[1] - Year[1]
-  postSurface <- Year[length(Year)] - localSample$DecYear[length(localSample$DecYear)]
-  
+  postSurface <- Year[length(Year)] -
+    localSample$DecYear[length(localSample$DecYear)]
+
   preSurfaceFormat <- format(preSurface, digits = 2)
   postSurfaceFormat <- format(postSurface, digits = 2)
-  
-  if(preSurface > 2 & postSurface > 2){
-    message(paste0("\nThe surface you are using extends ", preSurfaceFormat , " years prior to the start, ",
-                   "and ",postSurfaceFormat," years past the end of the data of the water quality data set. ",
-                   "The surface is only reliable within the time period of the water quality data set.",
-                   "Extensions of a year or more should not be used to characterize trends.  However, the fact ",
-                   "that there are such extensions, does not harm the reliability of the surface or the trend ",
-                   "results within the period for which there are water quality data"))
-  } else if (preSurface > 2){
-    message(paste0("\nThe surface you are using extends ",  preSurfaceFormat,
-                   " years prior to the start of the water quality data set.",
-                   "The surface is only reliable within the time period of the water quality data set. ",
-                   "Extensions of a year or more should not be used to characterize trends.  However, the fact ",
-                   "that there are such extensions, does not harm the reliability of the surface or the trend ",
-                   "results within the period for which there are water quality data"))           
-  } else if (postSurface > 2){
-    message(paste0("\nThe surface you are using extends ",  postSurfaceFormat,
-                   " years past the end of the data of the water quality data set.",
-                   "The surface is only reliable within the time period of the water quality data set.",
-                   "Extensions of a year or more should not be used to characterize trends.  However, the fact ",
-                   "that there are such extensions, does not harm the reliability of the surface or the trend ",
-                   "results within the period for which there are water quality data")) 
+
+  if (preSurface > 2 & postSurface > 2) {
+    message(paste0(
+      "\nThe surface you are using extends ",
+      preSurfaceFormat,
+      " years prior to the start, ",
+      "and ",
+      postSurfaceFormat,
+      " years past the end of the data of the water quality data set. ",
+      "The surface is only reliable within the time period of the water quality data set.",
+      "Extensions of a year or more should not be used to characterize trends.  However, the fact ",
+      "that there are such extensions, does not harm the reliability of the surface or the trend ",
+      "results within the period for which there are water quality data"
+    ))
+  } else if (preSurface > 2) {
+    message(paste0(
+      "\nThe surface you are using extends ",
+      preSurfaceFormat,
+      " years prior to the start of the water quality data set.",
+      "The surface is only reliable within the time period of the water quality data set. ",
+      "Extensions of a year or more should not be used to characterize trends.  However, the fact ",
+      "that there are such extensions, does not harm the reliability of the surface or the trend ",
+      "results within the period for which there are water quality data"
+    ))
+  } else if (postSurface > 2) {
+    message(paste0(
+      "\nThe surface you are using extends ",
+      postSurfaceFormat,
+      " years past the end of the data of the water quality data set.",
+      "The surface is only reliable within the time period of the water quality data set.",
+      "Extensions of a year or more should not be used to characterize trends.  However, the fact ",
+      "that there are such extensions, does not harm the reliability of the surface or the trend ",
+      "results within the period for which there are water quality data"
+    ))
   }
 }

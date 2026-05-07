@@ -13,7 +13,7 @@ populateConcentrations(rawData)
 concentrationColumns dataframe
 }
 \description{
-Creates ConcLow, ConcHigh, Uncen (0 if censored, 1 if uncensored) columns 
+Creates ConcLow, ConcHigh, Uncen (0 if censored, 1 if uncensored) columns
 for Sample data frame for WRTDS analysis.
 }
 \examples{

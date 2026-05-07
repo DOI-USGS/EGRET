@@ -26,7 +26,7 @@ plotConcPred(eList, concMax = NA, logScale = FALSE, printTitle = TRUE,
 
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
 
-\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
 \item{col}{color of points on plot, see ?par 'Color Specification'}
@@ -35,7 +35,7 @@ plotConcPred(eList, concMax = NA, logScale = FALSE, printTitle = TRUE,
 
 \item{randomCensored}{logical. Show censored values as randomized.}
 
-\item{concLab}{object of concUnit class, or numeric represented the short code, 
+\item{concLab}{object of concUnit class, or numeric represented the short code,
 or character representing the descriptive name. By default, this argument sets
 concentration labels to use either Concentration or Conc (for tiny plots). Units
 are taken from the eList$INFO$param.units. To use any other words than
@@ -48,8 +48,8 @@ generated labels}
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
 \description{
-Data come from named list, which contains a Sample dataframe with the sample data, 
-and an INFO dataframe with metadata. 
+Data come from named list, which contains a Sample dataframe with the sample data,
+and an INFO dataframe with metadata.
 
 Although there are a lot of optional arguments to this function, most are set to a logical default.
 }

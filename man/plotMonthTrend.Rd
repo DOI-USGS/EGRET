@@ -14,7 +14,7 @@ plotMonthTrend(pairResults, yMax = NA, arrowFactor = 0.75, flux = TRUE,
 which will use the maximum of the data.}
 
 \item{arrowFactor}{numeric. Scaling factor for the size of the arrows.
-The arrows are automatically scaled to the overall trend. This scaling 
+The arrows are automatically scaled to the overall trend. This scaling
 factor helps adjust how big/small they are.}
 
 \item{flux}{logical. \code{TRUE} is flux, \code{FALSE} is concentration.
@@ -22,13 +22,13 @@ Default is \code{TRUE}.}
 
 \item{printTitle}{logical variable if TRUE title is printed, if FALSE title is not printed (this is best for a multi-plot figure)}
 
-\item{concLab}{object of concUnit class, or numeric represented the short code, 
+\item{concLab}{object of concUnit class, or numeric represented the short code,
 or character representing the descriptive name. By default, this argument sets
 concentration labels to use either Concentration or Conc (for tiny plots). Units
 are taken from the eList$INFO$param.units. To use any other words than
 "Concentration" see \code{vignette(topic = "units", package = "EGRET")}.}
 
-\item{monthLab}{object of monthLabel class, or numeric represented the short code, 
+\item{monthLab}{object of monthLabel class, or numeric represented the short code,
 or character representing the descriptive name.}
 }
 \value{
@@ -37,12 +37,12 @@ Base R plot of monthly trends
 \description{
 Plot monthly trend result from runPairs. The change in concentration
 or flux is calculated from the \code{runPairs} function. This plotting
-function shows an arrow for each month. If the trend from year1 to year2 
+function shows an arrow for each month. If the trend from year1 to year2
 was increasing, the arrow is red and pointing up. If the trend was decreasing,
 the arrow is black and pointing down.
 }
 \details{
-The flux values for each month are flow normalized monthly watershed yields 
+The flux values for each month are flow normalized monthly watershed yields
 expressed as kg/month/km^2.  The concentrations are the mean flow normalized
 concentration, expressed in whatever concentration units the raw data are
 expressed as (typically mg/L).
@@ -71,5 +71,5 @@ pairOut_3 <- runPairs(eList, year1, year2, windowSide = 0)
 plotMonthTrend(pairOut_3)
 
 }
- 
+
 }

@@ -9,23 +9,23 @@ tableResults(eList, qUnit = 2, fluxUnit = 9, localDaily = NA)
 \arguments{
 \item{eList}{named list with at least Daily and INFO dataframes}
 
-\item{qUnit}{object of qUnit class. \code{\link{printqUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.}
+\item{qUnit}{object of qUnit class. \code{\link{printqUnitCheatSheet}}, or
+numeric represented the short code, or character representing the descriptive name.}
 
-\item{fluxUnit}{object of fluxUnit class. \code{\link{printFluxUnitCheatSheet}}, or numeric represented the short code, or character representing the descriptive name.}
+\item{fluxUnit}{object of fluxUnit class. \code{\link{printFluxUnitCheatSheet}},
+or numeric represented the short code, or character representing the descriptive name.}
 
 \item{localDaily}{data frame to override eList$Daily}
 }
 \value{
-results dataframe, if returnDataFrame=TRUE
-
-dataframe with year, discharge, concentration,
-flow-normalized concentration, flux, and flow-normalized concentration columns. 
-If the eList was run through WRTDSKalman, an additional column generalized flux
-is included.
+dataframe with columns year, mean discharge, mean concentration, mean
+flow-normalized concentration, mean Kalman concentration (if it has been
+calculated), mean flux, mean flow-normalized concentration, and mean Kalman
+flux (if it has been calculated).
 }
 \description{
-Produce an ASCII table showing: year, mean discharge, mean concentration, flow-normalized concentration, 
-mean flux, and flow-normalized flux. Note that the flux and flow-normalized flux are rates and not a mass.  As such a value for some period shorter than a full year 
+Produce an ASCII table showing: year, mean discharge, mean concentration, flow-normalized concentration,
+mean flux, and flow-normalized flux. Note that the flux and flow-normalized flux are rates and not a mass.  As such a value for some period shorter than a full year
 could be larger than the value for a full year.
 }
 \details{

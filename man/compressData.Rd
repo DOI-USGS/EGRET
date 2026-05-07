@@ -7,7 +7,7 @@
 compressData(data, verbose = TRUE)
 }
 \arguments{
-\item{data}{dataframe contains at least dateTime, code, value, columns in that order. 
+\item{data}{dataframe contains at least dateTime, code, value, columns in that order.
 If there are more than the initial date, code, value...it combines the
 data is combined as using interval censored concepts.}
 
@@ -30,8 +30,8 @@ comment2 <- c("","<","")
 value2 <- c(2,3,4)
 comment3 <- c("","","<")
 value3 <- c(3,4,5)
-dataInput <- data.frame(dateTime, comment1, value1, 
-      comment2, value2, 
+dataInput <- data.frame(dateTime, comment1, value1,
+      comment2, value2,
       comment3, value3, stringsAsFactors=FALSE)
 compressData(dataInput)
 }

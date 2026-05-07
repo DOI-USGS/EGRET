@@ -7,28 +7,28 @@
 setSeasonLabelByUser(paStartInput = 10, paLongInput = 12, monthLab = 1)
 }
 \arguments{
-\item{paStartInput}{numeric the month which is the start of the period of 
+\item{paStartInput}{numeric the month which is the start of the period of
 analysis, default is 10 which would be the case if the period of analysis is
  the water year}
 
-\item{paLongInput}{numeric the length of the the period of analysis, 
-in months, default is 12 which would be the case if the period of analysis 
+\item{paLongInput}{numeric the length of the the period of analysis,
+in months, default is 12 which would be the case if the period of analysis
 is the water year}
 
-\item{monthLab}{object of monthLabel class, or numeric represented the short code, 
+\item{monthLab}{object of monthLabel class, or numeric represented the short code,
 or character representing the descriptive name.}
 }
 \value{
 periodName character which describes the period of analysis
 }
 \description{
-The period of analysis can be of any length from 1 month to 12 months. 
-The period of analysis can have any starting month from 1 (January) through 12 (December). 
-This function produces a character that describes this period of analysis. 
-For example "water year", "calendar year", "year starting with April", or 
-"Season consisting of April, May, June". 
-There is an alternative version of this function for the case where AnnualResults exists. 
-And we want to use the period of analysis defined there. 
+The period of analysis can be of any length from 1 month to 12 months.
+The period of analysis can have any starting month from 1 (January) through 12 (December).
+This function produces a character that describes this period of analysis.
+For example "water year", "calendar year", "year starting with April", or
+"Season consisting of April, May, June".
+There is an alternative version of this function for the case where AnnualResults exists.
+And we want to use the period of analysis defined there.
 That function is called setSeasonLabel.
 }
 \examples{

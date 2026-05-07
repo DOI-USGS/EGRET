@@ -8,7 +8,7 @@ readDataFromFile(filePath, fileName, hasHeader = TRUE, separator = ",",
   format = "\%m/\%d/\%Y")
 }
 \arguments{
-\item{filePath}{character specifying the path to the file. If it 
+\item{filePath}{character specifying the path to the file. If it
 is in the working directory, use ".".}
 
 \item{fileName}{character name of file to open.}
@@ -28,7 +28,7 @@ retval dataframe with dateTime, value, and code columns
 }
 \description{
 Imports data from user-supplied data file. Specifically used to import water flow data for use in the EGRET package.
-For EGRET usage, the first column is expected to be dates. If the data is daily data, then next column is 
+For EGRET usage, the first column is expected to be dates. If the data is daily data, then next column is
 expected to be the measured values. If the data is sampled data, the next column is remark codes, and the third
 column is values. If the date format is not automatically
 detected, the format can be specified using the "format" argument.

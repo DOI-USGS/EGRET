@@ -33,7 +33,7 @@ boxConcMonth(eList, printTitle = TRUE, cex = 0.8, cex.axis = 1.1,
 
 \item{showYLabels}{logical defaults to TRUE. If FALSE, the y axis label is not plotted}
 
-\item{concLab}{object of concUnit class, or numeric represented the short code, 
+\item{concLab}{object of concUnit class, or numeric represented the short code,
 or character representing the descriptive name. By default, this argument sets
 concentration labels to use either Concentration or Conc (for tiny plots). Units
 are taken from the eList$INFO$param.units. To use any other words than
@@ -45,17 +45,17 @@ are taken from the eList$INFO$param.units. To use any other words than
 
 \item{showYAxis}{logical defaults to TRUE. If FALSE, the y axis is not plotted}
 
-\item{monthLab}{object of monthLabel class, or numeric represented the short code, 
+\item{monthLab}{object of monthLabel class, or numeric represented the short code,
 or character representing the descriptive name.}
 
 \item{\dots}{arbitrary graphical parameters that will be passed to genericEGRETDotPlot function (see ?par for options)}
 }
 \description{
-Data come from named list, which contains a Sample dataframe with the sample data, 
+Data come from named list, which contains a Sample dataframe with the sample data,
 and an INFO dataframe with metadata.
 
-Box widths are proportional to the square root of the number of samples in the month. 
- 
+Box widths are proportional to the square root of the number of samples in the month.
+
  Although there are a lot of optional arguments to this function, most are set to a logical default.
 }
 \examples{
@@ -74,7 +74,7 @@ spanish_month <- new("monthLabel",
                                   "octubre",	"noviembre", "diciembre"),
                   monthSingle = c("E", "F", "M", "A", "M", "J", "J",
                                   "A", "S", "O", "N", "D"))
-boxConcMonth(eList, monthLab = spanish_month, 
+boxConcMonth(eList, monthLab = spanish_month,
              showXLabels = FALSE, printTitle = FALSE)
 }
 \seealso{

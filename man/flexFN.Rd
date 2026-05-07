@@ -11,10 +11,10 @@ flexFN(eList, dateInfo, localsurfaces = NA, oldSurface = FALSE,
 \arguments{
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
 
-\item{dateInfo}{data frame with 4 columns. The column names and descriptions 
+\item{dateInfo}{data frame with 4 columns. The column names and descriptions
 are described below.  Default is NA.}
 
-\item{localsurfaces}{surface  (3-dimensional matrix) over-riding the one stored in 
+\item{localsurfaces}{surface  (3-dimensional matrix) over-riding the one stored in
 eList Default = NA.}
 
 \item{oldSurface}{logical, if TRUE, use the surface object in eList.  Default is FALSE.}
@@ -35,10 +35,10 @@ for the portion of the flow to be populated with flow-normalized values.}
 named list, eList, containing INFO, Daily, Sample, and surfaces objects
 }
 \description{
-This function implements generalized flow normalization.  This means that for 
-determining the  flow normalized concentration and flow normalized flux for any 
-given year, there is a specified list of years from which to create the discharge 
-record used in the flow-normalization process.  That set of years is defined by 
+This function implements generalized flow normalization.  This means that for
+determining the  flow normalized concentration and flow normalized flux for any
+given year, there is a specified list of years from which to create the discharge
+record used in the flow-normalization process.  That set of years is defined by
 the dateInfo object.
 }
 \examples{
@@ -47,11 +47,11 @@ eList <- setUpEstimation(eList)
 flowNormStart <- c("1979-10-01","1990-01-01","1992-10-10")
 flowNormEnd <- c("1995-06-06","2004-03-03","2011-09-29")
 flowStart <- c("1979-10-01","1995-06-07","2004-03-04")
-flowEnd <- c("1995-06-06","2004-03-03","2011-09-29") 
+flowEnd <- c("1995-06-06","2004-03-03","2011-09-29")
 dateInfo <- data.frame(flowNormStart,
                        flowNormEnd,
-                       flowStart, 
-                       flowEnd, 
+                       flowStart,
+                       flowEnd,
                        stringsAsFactors = FALSE)
 \donttest{
 newEList <- flexFN(eList, dateInfo)

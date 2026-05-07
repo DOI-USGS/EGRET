@@ -14,41 +14,67 @@
 #' @examples
 #' eList <- Choptank_eList
 #' plot1of15(eList, 1980, 2010, 0.2938476, 5)
-plot1of15<-function(eList, yearStart, yearEnd, qf, istat,
-                    isBottom=FALSE) {
-  
+plot1of15 <- function(eList, yearStart, yearEnd, qf, istat, isBottom = FALSE) {
   localINFO <- getInfo(eList)
-  
-  if("edgeAdjust" %in% names(localINFO)){
+
+  if ("edgeAdjust" %in% names(localINFO)) {
     edgeAdjust <- localINFO$edgeAdjust
   } else {
     edgeAdjust <- TRUE
   }
-  
+
   localAnnualSeries <- makeAnnualSeries(eList, edgeAdjust = edgeAdjust)
-  
-  xSpan<-c(yearStart,yearEnd)
-  xTicks<-pretty(xSpan,n=6)
-  numXTicks<-length(xTicks)
-  xLeft<-xTicks[1]
-  xRight<-xTicks[numXTicks]
-  x<-localAnnualSeries[1,istat,]
-  y<-qf*localAnnualSeries[2,istat,]
-  yTop<-1.05*max(y,na.rm=TRUE)
-  yTicks<-yPretty(yTop)
-  numYTicks<-length(yTicks)
-  yTop<-yTicks[numYTicks]
-  plot(x,y,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",ylim=c(0,yTop),yaxs="i",ylab="",xlab="",main="",type="p")
-  if(isBottom) axis(1,tcl=0.5,at=xTicks,labels=xTicks) else axis(1,tcl=0.5,at=xTicks,labels=FALSE)
-  axis(2,tcl=0.5,at=yTicks,labels=TRUE)
-  axis(3,tcl=0.5,at=xTicks,labels=FALSE)
-  axis(4,tcl=0.5,at=yTicks,labels=FALSE)
-  y<-qf*localAnnualSeries[3,istat,]
-  par(new=TRUE)
-  plot(x,y,axes=FALSE,xlim=c(xLeft,xRight),xaxs="i",ylim=c(0,yTop),yaxs="i",ylab="",xlab="",main="",type="l")
-  axis(1,tcl=0.5,at=xTicks,labels=FALSE)
-  axis(2,tcl=0.5,at=yTicks,labels=FALSE)
-  axis(3,tcl=0.5,at=xTicks,labels=FALSE)
-  axis(4,tcl=0.5,at=yTicks,labels=FALSE)
+
+  xSpan <- c(yearStart, yearEnd)
+  xTicks <- pretty(xSpan, n = 6)
+  numXTicks <- length(xTicks)
+  xLeft <- xTicks[1]
+  xRight <- xTicks[numXTicks]
+  x <- localAnnualSeries[1, istat, ]
+  y <- qf * localAnnualSeries[2, istat, ]
+  yTop <- 1.05 * max(y, na.rm = TRUE)
+  yTicks <- yPretty(yTop)
+  numYTicks <- length(yTicks)
+  yTop <- yTicks[numYTicks]
+  plot(
+    x,
+    y,
+    axes = FALSE,
+    xlim = c(xLeft, xRight),
+    xaxs = "i",
+    ylim = c(0, yTop),
+    yaxs = "i",
+    ylab = "",
+    xlab = "",
+    main = "",
+    type = "p"
+  )
+  if (isBottom) {
+    axis(1, tcl = 0.5, at = xTicks, labels = xTicks)
+  } else {
+    axis(1, tcl = 0.5, at = xTicks, labels = FALSE)
+  }
+  axis(2, tcl = 0.5, at = yTicks, labels = TRUE)
+  axis(3, tcl = 0.5, at = xTicks, labels = FALSE)
+  axis(4, tcl = 0.5, at = yTicks, labels = FALSE)
+  y <- qf * localAnnualSeries[3, istat, ]
+  par(new = TRUE)
+  plot(
+    x,
+    y,
+    axes = FALSE,
+    xlim = c(xLeft, xRight),
+    xaxs = "i",
+    ylim = c(0, yTop),
+    yaxs = "i",
+    ylab = "",
+    xlab = "",
+    main = "",
+    type = "l"
+  )
+  axis(1, tcl = 0.5, at = xTicks, labels = FALSE)
+  axis(2, tcl = 0.5, at = yTicks, labels = FALSE)
+  axis(3, tcl = 0.5, at = xTicks, labels = FALSE)
+  axis(4, tcl = 0.5, at = yTicks, labels = FALSE)
   graphics::box()
 }

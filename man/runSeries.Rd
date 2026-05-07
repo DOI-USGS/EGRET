@@ -15,13 +15,13 @@ runSeries(eList, windowSide, surfaceStart = NA, surfaceEnd = NA,
 \item{eList}{named list with at least the Daily, Sample, and INFO dataframes}
 
 \item{windowSide}{integer. The width of the flow normalization window on each side of the year being estimated.
-A common value is 11, but no default is specified.  If stationary flow normalization is to be used, then windowSide = 0 (this means that 
+A common value is 11, but no default is specified.  If stationary flow normalization is to be used, then windowSide = 0 (this means that
 flow-normalization period for all years is the same).}
 
-\item{surfaceStart}{The Date (or character in YYYY-MM-DD) that is the start of the WRTDS model to be estimated and the first of the 
+\item{surfaceStart}{The Date (or character in YYYY-MM-DD) that is the start of the WRTDS model to be estimated and the first of the
 daily outputs to be generated.  Default is NA, which means that the surfaceStart is based on the date of the first sample.}
 
-\item{surfaceEnd}{The Date (or character in YYYY-MM-DD) that is the end of the WRTDS model to be estimated and the last of the daily outputs 
+\item{surfaceEnd}{The Date (or character in YYYY-MM-DD) that is the end of the WRTDS model to be estimated and the last of the daily outputs
 to be generated.  Default is NA, which means that the surfaceEnd is based on the date of the last sample.}
 
 \item{flowBreak}{logical, is there an abrupt break in the discharge record, default is FALSE.}
@@ -32,7 +32,7 @@ to be generated.  Default is NA, which means that the surfaceEnd is based on the
 
 \item{QEndDate}{The last Date (as character in YYYY-MM-DD format) used in the flow normalization.  Default is NA, which makes the QEndDate become the last Date in eList$Daily.}
 
-\item{wall}{logical. Whether there is an abrupt break in the concentration versus discharge relationship due to some major change in 
+\item{wall}{logical. Whether there is an abrupt break in the concentration versus discharge relationship due to some major change in
 pollution control or water management.  Default is FALSE.}
 
 \item{oldSurface}{logical, if TRUE, use surface previously estimated using modelEstimation.  Default is FALSE.}
@@ -46,7 +46,7 @@ pollution control or water management.  Default is FALSE.}
 \item{paStart}{numeric integer specifying the starting month for the period of analysis, 1<=paStart<=12.
 Default is NA, which will use the paStart in the eList$INFO data frame. See also \code{\link{setPA}}.}
 
-\item{paLong}{numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12. 
+\item{paLong}{numeric integer specifying the length of the period of analysis, in months, 1<=paLong<=12.
 Default is NA, which will use the paLong in the eList$INFO data frame. See also \code{\link{setPA}}.}
 
 \item{fractMin}{numeric specifying the minimum fraction of the observations required to run the weighted regression, default is 0.75. The
@@ -70,21 +70,21 @@ minimum number will be the maximum of minNumObs and fractMin multiplied by total
 eList named list with INFO, Daily, and Sample dataframes, along with the surfaces matrix.
 }
 \description{
-\code{runSeries} provides annual series of flow-normalized concentration and flow-normalized flux for the water quality record.  
-Computations could involve the use of the "wall" and/or use of "generalized flow 
-normalization".  These two concepts are described in detail in the vignette:  
+\code{runSeries} provides annual series of flow-normalized concentration and flow-normalized flux for the water quality record.
+Computations could involve the use of the "wall" and/or use of "generalized flow
+normalization".  These two concepts are described in detail in the vignette:
 \code{vignette("Enhancements", package = "EGRET")}.
 }
 \details{
 When using generalized flow-normalization, it is best to have the Daily data frame
-extend well beyond the years that are in the Sample data frame.  Ideally, 
+extend well beyond the years that are in the Sample data frame.  Ideally,
 the Daily data frame would start windowSide years before the
 start of the Sample data set, if the data exist to provide for that. Generally
 that isn't possible for the end of the record because the Sample data
 may end very close to the present. To the extent that is possible therefore, it is better to
-include more discharge data after the end of the Sample record. 
-Also note that in the case run in the examples don't do that, 
-because the data set needs to be appropriate for stationary flow 
+include more discharge data after the end of the Sample record.
+Also note that in the case run in the examples don't do that,
+because the data set needs to be appropriate for stationary flow
 normalization as well (and package size considerations make it difficult to
 include specialized examples).
 }
@@ -108,23 +108,23 @@ plotConcHist(seriesOut_2)
 plotFluxHist(seriesOut_2)
 
 # Option 3: Flow normalization is based on splitting the flow record at 1990-09-30
-#                But in years before the break it uses all flow data from before the break, 
+#                But in years before the break it uses all flow data from before the break,
 #                and years after the break uses all flow data after the break
 seriesOut_3 <- runSeries(eList,
-                       windowSide = 0, 
+                       windowSide = 0,
                        flowBreak = TRUE,
                        Q1EndDate = "1990-09-30")
-                       
+
 plotConcHist(seriesOut_3)
 plotFluxHist(seriesOut_3)
 
 # Option 4: Flow normalization is based on splitting the flow record at 1990-09-30
 #                but before the break uses a 23 year window of years before the break
 #                after the break uses a 23 year window of years after the break
-seriesOut_4 <- runSeries(eList, 
+seriesOut_4 <- runSeries(eList,
                       windowSide = 11, flowBreak = TRUE,
                       Q1EndDate = "1990-09-30")
-                      
+
 plotConcHist(seriesOut_4)
 plotFluxHist(seriesOut_4)
 

@@ -8,7 +8,7 @@ readUserSample(filePath, fileName, hasHeader = TRUE, separator = ",",
   verbose = TRUE, format = "\%m/\%d/\%Y")
 }
 \arguments{
-\item{filePath}{character specifying the path to the file. If it 
+\item{filePath}{character specifying the path to the file. If it
 is in the working directory, use ".".}
 
 \item{fileName}{character name of file to open}
@@ -35,7 +35,7 @@ ConcHigh \tab numeric \tab Upper limit of concentration \cr
 Uncen \tab integer \tab Uncensored data (1=TRUE, 0=FALSE) \cr
 ConcAve \tab numeric \tab Average concentration \cr
 Julian \tab integer \tab Number of days since Jan. 1, 1850\cr
-Month \tab integer \tab Month of the year [1-12] \cr 
+Month \tab integer \tab Month of the year [1-12] \cr
 Day \tab integer \tab Day of the year [1-366] \cr
 DecYear \tab numeric \tab Decimal year \cr
 MonthSeq \tab integer \tab Number of months since January 1, 1850 \cr
@@ -44,9 +44,9 @@ CosDY \tab numeric \tab Cosine of the DecYear
 }
 }
 \description{
-Imports data from a user-supplied file, and converts it to a Sample data frame 
-(including summing multiple constituents), appropriate for EGRET analysis. 
-First column is date, second is remark code, and third is value. If multiple constituents 
+Imports data from a user-supplied file, and converts it to a Sample data frame
+(including summing multiple constituents), appropriate for EGRET analysis.
+First column is date, second is remark code, and third is value. If multiple constituents
 are to be combined with interval censoring, additional pairs of columns can be inserted, each pair starting with
 remark code (specifically looking for <), followed by the values. If the date format is not automatically
 detected, the format can be specified using the "format" argument.

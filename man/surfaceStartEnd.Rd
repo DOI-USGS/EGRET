@@ -16,10 +16,10 @@ surfaceStartEnd(paStart, paLong, Date1, Date2)
 \item{Date2}{Date set to Date of latest data in Sample.}
 }
 \description{
-Sets the Date limits to the surfaces being estimated from the Sample data set.  The start is less 
-than a year prior to the first date (typically the date of the first sample) and the end is 
-less than a year after the last date (typically the date of the last sample).  The start is 
-constrained to be on the first day of the period of analysis and the end is constrained to 
+Sets the Date limits to the surfaces being estimated from the Sample data set.  The start is less
+than a year prior to the first date (typically the date of the first sample) and the end is
+less than a year after the last date (typically the date of the last sample).  The start is
+constrained to be on the first day of the period of analysis and the end is constrained to
 be on the last day of the the period of analysis
 }
 \examples{

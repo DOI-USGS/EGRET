@@ -1,9 +1,9 @@
 #'  Compute the flux bias statistic: (mean of estimated flux - mean of observed flux)  / mean of estimated flux
 #'
-#'  Computes three versions of the flux bias: 
-#'   The first where all censored values are set to their miniumum. 
-#'   The second where all censored values are set to their maximum. 
-#'   The third which is the average of the other two. 
+#'  Computes three versions of the flux bias:
+#'   The first where all censored values are set to their miniumum.
+#'   The second where all censored values are set to their maximum.
+#'   The third which is the average of the other two.
 #'      In practice there is rarely a noticable difference among them.
 #'
 #' @param localSample data frame that contains the concentration data, default name is Sample
@@ -13,7 +13,7 @@
 #' @examples
 #' eList <- Choptank_eList
 #' Sample <- getSample(eList)
-#' fluxBias <- fluxBiasStat(Sample) 
+#' fluxBias <- fluxBiasStat(Sample)
 fluxBiasStat <- function(localSample) {
   sumLow <- sum(localSample$ConcLow * localSample$Q, na.rm = TRUE)
   sumHigh <- sum(localSample$ConcHigh * localSample$Q, na.rm = TRUE)

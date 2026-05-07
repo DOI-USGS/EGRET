@@ -19,11 +19,11 @@ Setting the seed to any given value can be used to create repeatable output.}
 \item{verbose}{logical specifying whether or not to display progress message}
 }
 \description{
-This function uses an autoregressive model to produce more accurate 
+This function uses an autoregressive model to produce more accurate
 estimates of concentration and flux
 }
 \details{
-This function takes an existing eList 
+This function takes an existing eList
 Including the estimated model (the surfaces object in the eList)
 And produces the daily WRTDSKalman estimates of concentration and flux
 These generated estimates are called genConc and genFlux

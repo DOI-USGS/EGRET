@@ -9,9 +9,9 @@ makeAnnualSeries(eList, edgeAdjust = TRUE)
 \arguments{
 \item{eList}{named list with at least Daily and INFO dataframes}
 
-\item{edgeAdjust}{logical specifying whether to use the modified method for 
-calculating the windows at the edge of the record.  The modified method tends to 
-reduce curvature near the start and end of record.  
+\item{edgeAdjust}{logical specifying whether to use the modified method for
+calculating the windows at the edge of the record.  The modified method tends to
+reduce curvature near the start and end of record.
 Default is TRUE, but a logical in INFO$edgeAdjust will override the default.}
 }
 \value{
@@ -22,20 +22,20 @@ in the second dimension, the index is the istat value (identifying the flow stat
 the third dimension is year
 }
 \description{
-Part of the flowHistory system.  The data come from Daily and INFO data frames. 
+Part of the flowHistory system.  The data come from Daily and INFO data frames.
 Note that the function setPA must be run before this to establish the period of analysis (e.g. water year).
 }
 \details{
 \tabular{ll}{
 istat  \tab Name  \cr
-1 \tab minimum 1-day daily mean discharge \cr 
-2 \tab minimum 7-day mean of the daily mean discharges \cr 
-3 \tab minimum 30-day mean of the daily mean discharges \cr 
-4 \tab median of the daily mean discharges \cr 
-5 \tab mean of the daily mean discharges \cr 
-6 \tab maximum 30-day mean of the daily mean discharges \cr 
-7 \tab maximum 7-day mean of the daily mean discharges \cr 
-8 \tab  maximum 1-day daily mean discharge \cr  
+1 \tab minimum 1-day daily mean discharge \cr
+2 \tab minimum 7-day mean of the daily mean discharges \cr
+3 \tab minimum 30-day mean of the daily mean discharges \cr
+4 \tab median of the daily mean discharges \cr
+5 \tab mean of the daily mean discharges \cr
+6 \tab maximum 30-day mean of the daily mean discharges \cr
+7 \tab maximum 7-day mean of the daily mean discharges \cr
+8 \tab  maximum 1-day daily mean discharge \cr
 }
 
 

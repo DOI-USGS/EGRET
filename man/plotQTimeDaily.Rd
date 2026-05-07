@@ -38,7 +38,7 @@ generated labels.}
 
 \item{cex.lab}{magnification to be used for x and y labels relative to the current setting of cex}
 
-\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
 \item{prettyDate}{logical use 'pretty' limits for date axis if TRUE, or force the yearStart/yearEnd as limits if FALSE}
@@ -50,7 +50,7 @@ Part of flowHistory component.
 Allows discharge record to only show those discharges above a given threshold
 
  Although there are a lot of optional arguments to this function, most are set to a logical default.
- 
+
 Data come from named list, which contains a Daily dataframe with the daily flow data,
 and an INFO dataframe with metadata.
 }

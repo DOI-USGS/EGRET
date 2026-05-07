@@ -28,12 +28,12 @@ plotResidPred(eList, stdResid = FALSE, tinyPlot = FALSE,
 
 \item{cex.main}{magnification to be used for main titles relative to the current setting of cex}
 
-\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function 
+\item{customPar}{logical defaults to FALSE. If TRUE, par() should be set by user before calling this function
 (for example, adjusting margins with par(mar=c(5,5,5,5))). If customPar FALSE, EGRET chooses the best margins depending on tinyPlot.}
 
 \item{randomCensored}{logical. Show censored residuals as randomized.}
 
-\item{concLab}{object of concUnit class, or numeric represented the short code, 
+\item{concLab}{object of concUnit class, or numeric represented the short code,
 or character representing the descriptive name. By default, this argument sets
 concentration labels to use either Concentration or Conc (for tiny plots). Units
 are taken from the eList$INFO$param.units. To use any other words than
@@ -44,12 +44,12 @@ are taken from the eList$INFO$param.units. To use any other words than
 \description{
 This function produces a plot of the residuals from WRTDS, expressed in natural log concentration units
 versus the estimated values, also in natural log concentration units.  These estimates are
-the log-space estimates prior to bias-correction.  
-The function provides an alternative for viewing the standardized residuals, where the each residual is divided by its estimated standard error. 
+the log-space estimates prior to bias-correction.
+The function provides an alternative for viewing the standardized residuals, where the each residual is divided by its estimated standard error.
 
  Although there are a lot of optional arguments to this function, most are set to a logical default.
- 
-Data come from named list, which contains a Sample dataframe with the sample data, 
+
+Data come from named list, which contains a Sample dataframe with the sample data,
 and an INFO dataframe with metadata.
 }
 \examples{
