@@ -15,7 +15,7 @@ Authors@R: c(
     person("Jennifer","Murphy", role = c("aut"),
            email = "jmurphy@usgs.gov",
            comment = c(ORCID="0000-0002-0881-0919")),
-    person("Matthew", "Diebel", role=c("ctb"),
+    person("Matthew", "Diebel", role=c("aut"),
            email = "mdiebel@usgs.gov",
            comment = c(ORCID="0000-0002-5164-598X")))
 Description: Statistics and graphics for streamflow history,
