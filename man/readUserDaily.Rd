@@ -5,7 +5,8 @@
 \title{Import user daily data for EGRET analysis}
 \usage{
 readUserDaily(filePath, fileName, hasHeader = TRUE, separator = ",",
-  qUnit = 1, format = "\%m/\%d/\%Y", verbose = TRUE, adjust = TRUE)
+  qUnit = 1, format = "\%m/\%d/\%Y", verbose = TRUE, adjust = TRUE,
+  fill = FALSE, maxgap = 21)
 }
 \arguments{
 \item{filePath}{character specifying the path to the file. If it
@@ -32,6 +33,12 @@ check this format as a backup.}
 
 \item{adjust}{logical specifying whether or not to add a constant to zero values
 to allow log transformation. Defaults to TRUE.}
+
+\item{fill}{logical specifying whether to fill NA values by linear interpolation.
+Defaults to FALSE.}
+
+\item{maxgap}{Maximum number of NA days allowed for interpolating gaps.
+Default is 21. Only used if fill is set to TRUE.}
 }
 \value{
 A data frame 'Daily' with the following columns:

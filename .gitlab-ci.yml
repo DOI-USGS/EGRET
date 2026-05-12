@@ -32,9 +32,9 @@ variables:
 build-image:
   stage: build
   cache: []
-  image: ${DEVOPS_REGISTRY}usgs/docker:20
+  image: ${DEVOPS_REGISTRY}usgs/docker:29
   services:
-  - name: ${DEVOPS_REGISTRY}usgs/docker:20-dind
+  - name: ${DEVOPS_REGISTRY}usgs/docker:29-dind
     alias: docker
   rules:
     - changes:
@@ -102,7 +102,6 @@ pages:
     - main
   script:
     - Rscript -e 'pkgdown::build_site(override = list(destination = "public"))'
-    - Rscript -e 'source("deploy_simple.R")'
   artifacts:
     paths:
       - $PAGES_OUTDIR

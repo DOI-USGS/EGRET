@@ -9,6 +9,12 @@
 #' to allow log transformation. Defaults to TRUE.
 #' @param fill logical specifying whether to fill NA values by linear interpolation.
 #' Defaults to FALSE.
+#' @param maxgap Maximum number of NA days allowed for interpolating gaps.
+#' Default is 21. Only used if fill is set to TRUE.
+#' @param fill_type character to define what process to fill missing data. Options are
+#' "interpolation", "spline", or "tsSmooth". "interpolation" is linear interpolation from the
+#' `zoo::na.approx`. "spline" is a spline fit using `zoo::na.spline`. "tsSmooth" uses
+#' `stats::tsSmooth` which is fixed-interval smoothing on time series.
 #' @keywords WRTDS flow
 #' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
 #' @return A data frame 'Daily' with the following columns:
@@ -29,20 +35,121 @@
 #' @seealso \code{\link{readNWISDaily}}, \code{\link{readUserDaily}}
 #' @export
 #' @examples
-#' Date <- as.character(seq(as.Date("2001/1/1"),
-#'          as.Date("2002/1/2"), by = "day"))
-#' Q <- -1:365
+#' Date <- as.character(seq(from = as.Date("2001/1/1"),
+#'                          to = as.Date("2002/1/2"),
+#'                          by = "day"))
+#' Q <- c(-1:365)
 #' Qualifier <- rep("",367)
-#' dataInput <- data.frame(Date, Q, Qualifier, stringsAsFactors=FALSE)
-#' Daily <- populateDaily(dataInput, 1)
+#' dataInput_complete <- data.frame(Date, Q, Qualifier)
+#' dataInput <- dataInput_complete[-4:-5,]
+#'
+#' # No fill, but with 0 and negative:
+#' Daily <- populateDaily(dataInput, qConvert = 1)
+#'
+#' # No negatives/zeros:
+#' Q <- 2+sin(seq(from = 0, to = 2*pi, length.out = 367))
+#' Q <- jitter(Q, factor = 500)
+#' plot(Q)
+#' dataInput_complete <- data.frame(Date, Q, Qualifier)
+#' # Remove some rows to test missing:
+#' dataInput <- dataInput_complete[-4:-5,]
+#'
+#' # No fill:
+#' Daily <- populateDaily(dataInput, qConvert = 1)
+#' plot(Daily$Date[1:10], Daily$Q[1:10], type = "b")
+#'
+#' # Linear interpolation:
+#' Daily_fill <- populateDaily(dataInput,
+#'                             qConvert = 1,
+#'                             fill = TRUE,
+#'                             fill_type = "interpolation")
+#' plot(Daily_fill$Date[1:10],
+#'      Daily_fill$Q[1:10],
+#'      col = as.factor(Daily_fill$Qualifier),
+#'      type = "b", pch = 16,
+#'      main = "Linear Interpolation")
+#'
+#' # Spline fit:
+#' Daily_spline <- populateDaily(dataInput,
+#'                               qConvert = 1,
+#'                               fill = TRUE,
+#'                               fill_type = "spline")
+#' plot(Daily_spline$Date[1:10],
+#'      Daily_spline$Q[1:10],
+#'      col = as.factor(Daily_spline$Qualifier),
+#'      main = "Spline Fit",
+#'      type = "b", pch = 16 )
+#'
+#' # Fixed-Interval Smoothing on Time Series:
+#' Daily_tsSmooth <- populateDaily(dataInput,
+#'                               qConvert = 1,
+#'                               fill = TRUE,
+#'                               fill_type = "tsSmooth")
+#' plot(Daily_tsSmooth$Date[1:10],
+#'      Daily_tsSmooth$Q[1:10],
+#'      col = as.factor(Daily_tsSmooth$Qualifier),
+#'      main = "Fixed-interval smoothing on time series",
+#'      type = "b", pch = 16)
+#'
+#' dataInput <- dataInput_complete[-4:-20,]
+#' dataInput <- dataInput[-200:-255,]
+#'
+#' Daily_interp <- populateDaily(dataInput,
+#'                               qConvert = 1,
+#'                               fill = TRUE,
+#'                               fill_type = "interpolation")
+#' plot(Daily_interp$Date, Daily_interp$Q,
+#'      col = as.factor(Daily_interp$Qualifier),
+#'      main = "Linear Interpolation",
+#'      type = "b", pch = 16)
+#' plot(Daily_interp$Date[1:50], Daily_interp$Q[1:50],
+#'      col = as.factor(Daily_interp$Qualifier[1:50]),
+#'      main = "Linear Interpolation",
+#'      type = "b", pch = 16)
+#'
+#' Daily_spline <- populateDaily(dataInput,
+#'                              qConvert = 1,
+#'                              fill = TRUE,
+#'                              fill_type = "spline")
+#' plot(Daily_spline$Date[1:50], Daily_spline$Q[1:50],
+#'      col = as.factor(Daily_spline$Qualifier[1:50]),
+#'      main = "Spline Fit",
+#'      type = "b", pch = 16)
+#'
+#' Daily_tsSmooth <- populateDaily(dataInput,
+#'                                 qConvert = 1,
+#'                                 fill = TRUE,
+#'                                 fill_type = "tsSmooth")
+#' plot(Daily_tsSmooth$Date[1:50], Daily_tsSmooth$Q[1:50],
+#'      col = as.factor(Daily_tsSmooth$Qualifier[1:50]),
+#'      type = "b", pch = 16)
+#'
+#' eList <- Choptank_eList
+#' Daily_chop <- eList$Daily
+#' df <- Daily_chop[,c("Date", "Q")]
+#' df <- df[-2:-5, ]
+#' df <- df[-100:-200,]
+#' D2 <- populateDaily(df, 1, fill = TRUE)
+#' plot(D2$Date[1:10], D2$Q[1:10],
+#'      col = as.factor(D2$Qualifier[1:10]),
+#'      type = "b", pch = 16)
+#' plot(D2$Date[1:365], D2$Q[1:365],
+#'      col = as.factor(D2$Qualifier[1:365]),
+#'      type = "b", pch = 16)
 #'
 populateDaily <- function(
   rawData,
   qConvert,
   verbose = TRUE,
   adjust = TRUE,
-  fill = FALSE
+  fill = FALSE,
+  maxgap = 21,
+  fill_type = c("interpolation")
 ) {
+  if (fill) {
+    match.arg(fill_type, choices = c("interpolation", "spline", "tsSmooth"))
+  }
+
   localDaily <- as.data.frame(matrix(ncol = 3, nrow = nrow(rawData)))
   colnames(localDaily) <- c('Date', 'Q', 'Qualifier')
 
@@ -156,6 +263,8 @@ populateDaily <- function(
     na_ind <- which(is.na(localDaily$Q))
     total_na <- length(na_ind)
     if (total_na > 0) {
+      perc_missing <- signif(100 * total_na / nrow(localDaily), digits = 3)
+      message(paste0(perc_missing, "% missing data."))
       breaks <- c(0, which(diff(na_ind) > 1), length(na_ind))
       ranges <- mapply(
         function(start, end) {
@@ -182,18 +291,31 @@ populateDaily <- function(
         if (length(ranges) == 1) "" else "s"
       ))
       message(paste(ranges, collapse = "\n"))
-      message(paste("Many EGRET functions will not work with missing values."))
     }
   }
 
   # Fill NA discharge by linear interpolation
   if (fill) {
-    localDaily$Qualifier[is.na(localDaily$Q)] <- "INTERPOLATED"
-    localDaily$Q = stats::approx(
-      localDaily$i[!(is.na(localDaily$Q))],
-      localDaily$Q[!(is.na(localDaily$Q))],
-      localDaily$i
-    )$y
+    if (fill_type == "interpolation") {
+      Q_interp <- zoo::na.approx(localDaily$Q, maxgap = maxgap, na.rm = FALSE)
+      localDaily$Qualifier[is.na(localDaily$Q)] <- "INTERPOLATED"
+      localDaily$Q[is.na(localDaily$Q)] <- Q_interp[is.na(localDaily$Q)]
+    } else if (fill_type == "spline") {
+      Q_spline <- zoo::na.spline(localDaily$Q, maxgap = maxgap, na.rm = FALSE)
+      localDaily$Qualifier[is.na(localDaily$Q)] <- "SPLINE FIT"
+      localDaily$Q[is.na(localDaily$Q)] <- Q_spline[is.na(localDaily$Q)]
+    } else if (fill_type == "tsSmooth") {
+      browser()
+      missing <- rle(is.na(localDaily$Q))
+      my_series <- stats::window(localDaily$Q)
+      my_struct <- stats::StructTS(my_series, type = "trend")
+      fit <- stats::tsSmooth(my_struct)
+      localDaily$Qualifier[is.na(localDaily$Q)] <- "tsSmooth FIT"
+      localDaily$Q[is.na(localDaily$Q)] <- fit[is.na(localDaily$Q), 1]
+    }
+
+    # If gaps were too big, remove fit label:
+    localDaily$Qualifier[is.na(localDaily$Q)] <- ""
     localDaily$LogQ <- suppressWarnings(
       log(localDaily$Q)
     )
@@ -202,7 +324,14 @@ populateDaily <- function(
       localDaily$Q30 <- as.numeric(ma(localDaily$Q, 30))
     }
     if (verbose) {
-      message("All NA values filled by linear interpolation.")
+      message(sprintf(
+        "NA values filled by linear interpolation when gap range less than %s days.",
+        maxgap
+      ))
+    }
+  } else {
+    if (any(is.na(localDaily$Q))) {
+      message(paste("Many EGRET functions will not work with missing values."))
     }
   }
 

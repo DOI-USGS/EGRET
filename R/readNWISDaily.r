@@ -15,6 +15,8 @@
 #' allow log transformation. Defaults to TRUE.
 #' @param fill logical specifying whether to fill NA values by linear interpolation.
 #' Defaults to FALSE.
+#' @param maxgap Maximum number of NA days allowed for interpolating gaps.
+#' Default is 21. Only used if fill is set to TRUE.
 #' @keywords data import USGS WRTDS
 #' @export
 #' @return A data frame 'Daily' with the following columns:
@@ -51,7 +53,8 @@ readNWISDaily <- function(
   verbose = TRUE,
   convert = TRUE,
   adjust = TRUE,
-  fill = FALSE
+  fill = FALSE,
+  maxgap = 21
 ) {
   qConvert <- ifelse("00060" == parameterCd, 35.314667, 1)
   qConvert <- ifelse(convert, qConvert, 1)
@@ -76,7 +79,8 @@ readNWISDaily <- function(
       qConvert,
       verbose = verbose,
       adjust = adjust,
-      fill = fill
+      fill = fill,
+      maxgap = maxgap
     )
   } else {
     localDaily <- data.frame(

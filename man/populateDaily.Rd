@@ -5,7 +5,7 @@
 \title{Populate Daily data frame}
 \usage{
 populateDaily(rawData, qConvert, verbose = TRUE, adjust = TRUE,
-  fill = FALSE)
+  fill = FALSE, maxgap = 21)
 }
 \arguments{
 \item{rawData}{dataframe contains at least Date, Q, Qualifier columns.}
@@ -19,6 +19,9 @@ to allow log transformation. Defaults to TRUE.}
 
 \item{fill}{logical specifying whether to fill NA values by linear interpolation.
 Defaults to FALSE.}
+
+\item{maxgap}{Maximum number of NA days allowed for interpolating gaps.
+Default is 21. Only used if fill is set to TRUE.}
 }
 \value{
 A data frame 'Daily' with the following columns:
@@ -43,11 +46,31 @@ Using a data frame that has at least Date, Q, Qualifier, populates the rest of t
 \examples{
 Date <- as.character(seq(as.Date("2001/1/1"),
          as.Date("2002/1/2"), by = "day"))
-Q <- -1:365
+Q <- c(-1:365)
 Qualifier <- rep("",367)
-dataInput <- data.frame(Date, Q, Qualifier, stringsAsFactors=FALSE)
+dataInput_complete <- data.frame(Date, Q, Qualifier, stringsAsFactors=FALSE)
+dataInput <- dataInput_complete[-4:-5,]
 Daily <- populateDaily(dataInput, 1)
+Daily_fill <- populateDaily(dataInput, 1, fill = TRUE)
 
+dataInput <- dataInput_complete[-4:-35,]
+dataInput <- dataInput[-200:-255,]
+Daily_fill2 <- populateDaily(dataInput, 1, fill = TRUE)
+plot(Daily_fill2$Date, Daily_fill2$Q)
+
+eList <- Choptank_eList
+Daily_chop <- eList$Daily
+df <- Daily_chop[,c("Date", "Q")]
+df <- df[-2:-5, ]
+df <- df[-100:-200,]
+D2 <- populateDaily(df, 1, fill = TRUE)
+plot(D2$Date[1:10], D2$Q[1:10])
+plot(D2$Date[1:365], D2$Q[1:365])
+plot(D2$Date, D2$Q)
+
+df <- df[-5000:-10000, ]
+D3 <- populateDaily(df, 1, fill = TRUE)
+plot(D3$Date, D3$Q)
 }
 \seealso{
 \code{\link{readNWISDaily}}, \code{\link{readUserDaily}}
