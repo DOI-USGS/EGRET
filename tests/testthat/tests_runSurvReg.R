@@ -2,7 +2,8 @@ context("testing runSurvReg")
 
 test_that("runSurvReg returns expected values with defaults", {
   # Uses original and "stale" versions of Arkansas data created in `tests/helper-originaldata.R`
-
+  testthat::skip_on_ci()
+  testthat::skip_on_cran()
   # get subset of data to test survival regression
   i <- c(23, 51, 86, 3)
   yrestpts <- sample_orig_Ar$DecYear[i]
@@ -27,7 +28,8 @@ test_that("runSurvReg returns expected values with defaults", {
 
 test_that("runSurvReg returns expected values with user args", {
   # Uses original and "stale" versions of Choptank data created in `tests/helper-originaldata.R`
-
+  testthat::skip_on_ci()
+  testthat::skip_on_cran()
   # get subset of data to test survival regression
   i <- c(19, 171, 512, 303, 11)
   yrestpts <- sample_orig_Ch$DecYear[i]

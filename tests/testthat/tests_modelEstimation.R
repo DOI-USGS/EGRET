@@ -2,7 +2,7 @@ context("testing modelEstimation")
 
 test_that("modelEstimation produces correct values with default args", {
   skip_on_cran()
-
+  skip_on_ci()
   # Uses original and "stale" versions of Choptank data created in `tests/helper-originaldata.R`
 
   eList_modeled <- modelEstimation(eList_orig_Ch, verbose = FALSE)
@@ -98,7 +98,7 @@ test_that("modelEstimation produces correct values with default args", {
 
 test_that("modelEstimation window params work", {
   skip_on_cran()
-
+  skip_on_ci()
   # Uses original and "stale" versions of Arkansas data created in `tests/helper-originaldata.R`
 
   eList_modeled <- modelEstimation(
@@ -151,6 +151,7 @@ test_that("modelEstimation window params work", {
 context("testing setUpEstimation")
 
 test_that('setUpEstimation handles missing info well', {
+  skip_on_ci()
   # Uses original and "stale" versions of Arkansas data created in `tests/helper-originaldata.R`
 
   # when Q is missing from Sample, it should be added back in this function

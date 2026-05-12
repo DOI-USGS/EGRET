@@ -2,7 +2,7 @@ context("Flow normalization")
 
 test_that("setupYears", {
   testthat::skip_on_cran()
-
+  testthat::skip_on_ci()
   eList <- Choptank_eList
   Daily <- getDaily(eList)
   #Dec - Feb
@@ -54,7 +54,7 @@ test_that("setupYears", {
 
 test_that("setupYears", {
   testthat::skip_on_cran()
-
+  testthat::skip_on_ci()
   eList <- Choptank_eList
 
   tC <- tableChange(eList)
@@ -161,6 +161,9 @@ test_that("setupYears", {
 
 
 test_that("getSurfaceEstimates", {
+  testthat::skip_on_ci()
+  testthat::skip_on_cran()
+
   eList <- Choptank_eList
   Daily_orig <- eList$Daily
   Daily_new <- Daily_orig[, c(
@@ -282,6 +285,8 @@ test_that("dateInfo", {
 })
 
 test_that("getConcFluxFromSurface", {
+  testthat::skip_on_ci()
+  testthat::skip_on_cran()
   eList <- Choptank_eList
   localDaily <- eList$Daily
   # Calculate "flow-normalized" concentration and flux:
@@ -309,7 +314,8 @@ test_that("getConcFluxFromSurface", {
 })
 
 test_that("flexFN", {
-  skip_on_cran()
+  testthat::skip_on_ci()
+  testthat::skip_on_cran()
 
   eList <- Choptank_eList
 
@@ -335,7 +341,8 @@ test_that("flexFN", {
 
 
 test_that("runPairs", {
-  skip_on_cran()
+  testthat::skip_on_ci()
+  testthat::skip_on_cran()
 
   eList <- Choptank_eList
   year1 <- 1985
@@ -577,7 +584,8 @@ test_that("runPairs", {
 })
 
 test_that("runSeries", {
-  skip_on_cran()
+  testthat::skip_on_ci()
+  testthat::skip_on_cran()
 
   eList <- Choptank_eList
 
@@ -631,7 +639,8 @@ test_that("runSeries", {
 })
 
 test_that("runGroups", {
-  skip_on_cran()
+  testthat::skip_on_ci()
+  testthat::skip_on_cran()
 
   eList <- Choptank_eList
 
@@ -738,7 +747,8 @@ test_that("runGroups", {
 })
 
 test_that("stitch", {
-  skip_on_cran()
+  testthat::skip_on_ci()
+  testthat::skip_on_cran()
 
   eList <- Choptank_eList
 

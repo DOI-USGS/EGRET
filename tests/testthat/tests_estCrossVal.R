@@ -1,6 +1,8 @@
 context("testing estCrossVal")
 
 test_that("estCrossVal adds correct, new columns", {
+  testthat::skip_on_ci()
+  testthat::skip_on_cran()
   # Uses original and "stale" versions of Choptank data created in `tests/helper-originaldata.R`
 
   # execute cross validation

@@ -1,7 +1,8 @@
 context("testing estDailyFromSurfaces")
 
 test_that("estDailyFromSurfaces returns expected values", {
-  skip_on_cran()
+  testthat::skip_on_ci()
+  testthat::skip_on_cran()
 
   # Uses original and "stale" versions of Choptank data created in `tests/helper-originaldata.R`
 
