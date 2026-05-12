@@ -83,8 +83,6 @@ covertests:
 pages:
   stage: end
   cache: []
-  only: 
-    - main
   script:
     - Rscript -e 'pkgdown::build_site(override = list(destination = "public"))'
   artifacts:
