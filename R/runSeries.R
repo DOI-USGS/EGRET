@@ -121,6 +121,10 @@ runSeries <- function(
     stop("Please check eList argument")
   }
 
+  if (is.null(windowSide)) {
+    stop("windowSide argument must be specified.")
+  }
+
   localSample <- getSample(eList)
   localDaily <- getDaily(eList)
   localsurfaces <- getSurfaces(eList)

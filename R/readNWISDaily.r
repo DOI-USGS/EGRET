@@ -17,6 +17,11 @@
 #' Defaults to FALSE.
 #' @param maxgap Maximum number of NA days allowed for interpolating gaps.
 #' Default is 21. Only used if fill is set to TRUE.
+#' @param fill_type character to define what process to fill missing data. Options are
+#' "interpolation", "spline", or "tsSmooth". "interpolation" is linear interpolation from the
+#' `zoo::na.approx`. "spline" is a spline fit using `zoo::na.spline`. "tsSmooth" uses
+#' `stats::tsSmooth` which is fixed-interval smoothing on time series. "tsStruct" uses
+#' a structural time series models. "log_interp" is linear interpolation in the log space.
 #' @keywords data import USGS WRTDS
 #' @export
 #' @return A data frame 'Daily' with the following columns:
@@ -54,7 +59,8 @@ readNWISDaily <- function(
   convert = TRUE,
   adjust = TRUE,
   fill = FALSE,
-  maxgap = 21
+  maxgap = 21,
+  fill_type = "interpolation"
 ) {
   qConvert <- ifelse("00060" == parameterCd, 35.314667, 1)
   qConvert <- ifelse(convert, qConvert, 1)

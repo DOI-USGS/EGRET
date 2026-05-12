@@ -5,7 +5,7 @@
 \title{Populate Daily data frame}
 \usage{
 populateDaily(rawData, qConvert, verbose = TRUE, adjust = TRUE,
-  fill = FALSE, maxgap = 21)
+  fill = FALSE, maxgap = 21, fill_type = "interpolation")
 }
 \arguments{
 \item{rawData}{dataframe contains at least Date, Q, Qualifier columns.}
@@ -22,6 +22,12 @@ Defaults to FALSE.}
 
 \item{maxgap}{Maximum number of NA days allowed for interpolating gaps.
 Default is 21. Only used if fill is set to TRUE.}
+
+\item{fill_type}{character to define what process to fill missing data. Options are
+"interpolation", "spline", or "tsSmooth". "interpolation" is linear interpolation from the
+`zoo::na.approx`. "spline" is a spline fit using `zoo::na.spline`. "tsSmooth" uses
+`stats::tsSmooth` which is fixed-interval smoothing on time series.
+Only used if fill is set to TRUE.}
 }
 \value{
 A data frame 'Daily' with the following columns:
@@ -44,19 +50,94 @@ Q30 \tab numeric \tab 30 day running average of Q \cr
 Using a data frame that has at least Date, Q, Qualifier, populates the rest of the basic Daily data frame used in EGRET analysis.
 }
 \examples{
-Date <- as.character(seq(as.Date("2001/1/1"),
-         as.Date("2002/1/2"), by = "day"))
+Date <- as.character(seq(from = as.Date("2001/1/1"),
+                         to = as.Date("2002/1/2"),
+                         by = "day"))
 Q <- c(-1:365)
 Qualifier <- rep("",367)
-dataInput_complete <- data.frame(Date, Q, Qualifier, stringsAsFactors=FALSE)
+dataInput_complete <- data.frame(Date, Q, Qualifier)
 dataInput <- dataInput_complete[-4:-5,]
-Daily <- populateDaily(dataInput, 1)
-Daily_fill <- populateDaily(dataInput, 1, fill = TRUE)
 
-dataInput <- dataInput_complete[-4:-35,]
+# No fill, but with 0 and negative:
+Daily <- populateDaily(dataInput, qConvert = 1)
+
+# No negatives/zeros:
+Q <- 2+sin(seq(from = 0, to = 2*pi, length.out = 367))
+Q <- jitter(Q, factor = 500)
+plot(Q)
+dataInput_complete <- data.frame(Date, Q, Qualifier)
+# Remove some rows to test missing:
+dataInput <- dataInput_complete[-4:-5,]
+
+# No fill:
+Daily <- populateDaily(dataInput, qConvert = 1)
+plot(Daily$Date[1:10], Daily$Q[1:10], type = "b")
+
+# Linear interpolation:
+Daily_fill <- populateDaily(dataInput,
+                            qConvert = 1,
+                            fill = TRUE,
+                            fill_type = "interpolation")
+plot(Daily_fill$Date[1:10],
+     Daily_fill$Q[1:10],
+     col = as.factor(Daily_fill$Qualifier),
+     type = "b", pch = 16,
+     main = "Linear Interpolation")
+
+# Spline fit:
+Daily_spline <- populateDaily(dataInput,
+                              qConvert = 1,
+                              fill = TRUE,
+                              fill_type = "spline")
+plot(Daily_spline$Date[1:10],
+     Daily_spline$Q[1:10],
+     col = as.factor(Daily_spline$Qualifier),
+     main = "Spline Fit",
+     type = "b", pch = 16 )
+
+# Fixed-Interval Smoothing on Time Series:
+Daily_tsSmooth <- populateDaily(dataInput,
+                              qConvert = 1,
+                              fill = TRUE,
+                              fill_type = "tsSmooth")
+plot(Daily_tsSmooth$Date[1:10],
+     Daily_tsSmooth$Q[1:10],
+     col = as.factor(Daily_tsSmooth$Qualifier),
+     main = "Fixed-interval smoothing on time series",
+     type = "b", pch = 16)
+
+dataInput <- dataInput_complete[-4:-20,]
 dataInput <- dataInput[-200:-255,]
-Daily_fill2 <- populateDaily(dataInput, 1, fill = TRUE)
-plot(Daily_fill2$Date, Daily_fill2$Q)
+
+Daily_interp <- populateDaily(dataInput,
+                              qConvert = 1,
+                              fill = TRUE,
+                              fill_type = "interpolation")
+plot(Daily_interp$Date, Daily_interp$Q,
+     col = as.factor(Daily_interp$Qualifier),
+     main = "Linear Interpolation",
+     type = "b", pch = 16)
+plot(Daily_interp$Date[1:50], Daily_interp$Q[1:50],
+     col = as.factor(Daily_interp$Qualifier[1:50]),
+     main = "Linear Interpolation",
+     type = "b", pch = 16)
+
+Daily_spline <- populateDaily(dataInput,
+                             qConvert = 1,
+                             fill = TRUE,
+                             fill_type = "spline")
+plot(Daily_spline$Date[1:50], Daily_spline$Q[1:50],
+     col = as.factor(Daily_spline$Qualifier[1:50]),
+     main = "Spline Fit",
+     type = "b", pch = 16)
+
+Daily_tsSmooth <- populateDaily(dataInput,
+                                qConvert = 1,
+                                fill = TRUE,
+                                fill_type = "tsSmooth")
+plot(Daily_tsSmooth$Date[1:50], Daily_tsSmooth$Q[1:50],
+     col = as.factor(Daily_tsSmooth$Qualifier[1:50]),
+     type = "b", pch = 16)
 
 eList <- Choptank_eList
 Daily_chop <- eList$Daily
@@ -64,13 +145,13 @@ df <- Daily_chop[,c("Date", "Q")]
 df <- df[-2:-5, ]
 df <- df[-100:-200,]
 D2 <- populateDaily(df, 1, fill = TRUE)
-plot(D2$Date[1:10], D2$Q[1:10])
-plot(D2$Date[1:365], D2$Q[1:365])
-plot(D2$Date, D2$Q)
+plot(D2$Date[1:10], D2$Q[1:10],
+     col = as.factor(D2$Qualifier[1:10]),
+     type = "b", pch = 16)
+plot(D2$Date[1:365], D2$Q[1:365],
+     col = as.factor(D2$Qualifier[1:365]),
+     type = "b", pch = 16)
 
-df <- df[-5000:-10000, ]
-D3 <- populateDaily(df, 1, fill = TRUE)
-plot(D3$Date, D3$Q)
 }
 \seealso{
 \code{\link{readNWISDaily}}, \code{\link{readUserDaily}}
