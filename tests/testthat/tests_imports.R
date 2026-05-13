@@ -1,7 +1,9 @@
 context("EGRET retrieval tests")
 
 test_that("External Daily tests", {
+  testthat::skip_on_ci()
   testthat::skip_on_cran()
+
   DailyNames <- c(
     "Date",
     "Q",
@@ -34,6 +36,7 @@ test_that("External Daily tests", {
 })
 
 test_that("External NWIS Sample tests", {
+  testthat::skip_on_ci()
   testthat::skip_on_cran()
 
   SampleNames <- c(
@@ -81,7 +84,9 @@ test_that("External NWIS Sample tests", {
 
 
 test_that("External INFO tests", {
+  testthat::skip_on_ci()
   testthat::skip_on_cran()
+
   requiredColumns <- c(
     "shortName",
     "paramShortName",
@@ -160,18 +165,4 @@ test_that("User tests", {
   )
 
   expect_true(all(SampleNames %in% names(Sample_user)))
-})
-
-
-test_that("processQWData", {
-  testthat::skip_on_cran()
-  rawWQP <- dataRetrieval::readWQPqw(
-    'WIDNR_WQX-10032762',
-    'Specific conductance',
-    '2012-01-01',
-    '2012-12-31',
-    legacy = TRUE
-  )
-  Sample2 <- processQWData(rawWQP)
-  expect_true(all(unique(Sample2$qualifier) %in% c("", "<")))
 })

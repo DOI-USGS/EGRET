@@ -4,6 +4,10 @@ EGRET 3.0.12
 * Changed readNWISInfo to use new USGS Water Data API services.
 * Added option to use the flow adjustment or not.
 * Cleaned up plotConcTimeSmooth title.
+* Added a "fill" option to readDaily functions, see examples in
+populateDaily for more information.
+* Added "fill_missing_daily" function as a standalone.
+
 
 EGRET 3.0.11
 ===========

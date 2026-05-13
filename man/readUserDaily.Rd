@@ -5,7 +5,8 @@
 \title{Import user daily data for EGRET analysis}
 \usage{
 readUserDaily(filePath, fileName, hasHeader = TRUE, separator = ",",
-  qUnit = 1, format = "\%m/\%d/\%Y", verbose = TRUE, adjust = TRUE)
+  qUnit = 1, format = "\%m/\%d/\%Y", verbose = TRUE, adjust = TRUE,
+  fill = FALSE, maxgap = 21, fill_type = "interpolation")
 }
 \arguments{
 \item{filePath}{character specifying the path to the file. If it
@@ -32,6 +33,18 @@ check this format as a backup.}
 
 \item{adjust}{logical specifying whether or not to add a constant to zero values
 to allow log transformation. Defaults to TRUE.}
+
+\item{fill}{logical specifying whether to fill NA values by linear interpolation.
+Defaults to FALSE.}
+
+\item{maxgap}{Maximum number of NA days allowed for interpolating gaps.
+Default is 21. Only used if fill is set to TRUE.}
+
+\item{fill_type}{character to define what process to fill missing data. Options are
+"interpolation", "spline", or "tsSmooth". "interpolation" is linear interpolation from the
+`zoo::na.approx`. "spline" is a spline fit using `zoo::na.spline`. "tsSmooth" uses
+`stats::tsSmooth` which is fixed-interval smoothing on time series. "tsStruct" uses
+a structural time series models. "log_interp" is linear interpolation in the log space.}
 }
 \value{
 A data frame 'Daily' with the following columns:

@@ -36,7 +36,8 @@ Imports:
     truncnorm,
     foreach,
     MASS,
-    sf
+    sf,
+    zoo
 Suggests:
     EGRETci,
     knitr,
