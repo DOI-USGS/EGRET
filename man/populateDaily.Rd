@@ -24,7 +24,7 @@ Defaults to FALSE.}
 Default is 21. Only used if fill is set to TRUE.}
 
 \item{fill_type}{character to define what process to fill missing data. Options are
-"interpolation", "spline", or "tsSmooth". "interpolation" is linear interpolation from the
+"interpolation", or "tsSmooth". "interpolation" is linear interpolation from the
 `zoo::na.approx`. "tsSmooth" uses
 `stats::tsSmooth` which is fixed-interval smoothing on time series. "tsStruct" uses
 a structural time series models. "log_interp" is linear interpolation in the log space.
@@ -86,17 +86,6 @@ plot(Daily_fill$Date[1:30],
      type = "b", pch = 16, ylim = c(0, 3.2),
      main = "Linear Interpolation")
 
-# Spline fit:
-Daily_spline <- populateDaily(dataInput,
-                              qConvert = 1,
-                              fill = TRUE,
-                              fill_type = "spline")
-plot(Daily_spline$Date[1:30],
-     Daily_spline$Q[1:30],
-     col = as.factor(Daily_spline$Qualifier[1:30]),
-     main = "Spline Fit",
-     type = "b", pch = 16, ylim = c(0, 3.2))
-
 # Fixed-Interval Smoothing on Time Series:
 Daily_tsSmooth <- populateDaily(dataInput,
                               qConvert = 1,
@@ -148,15 +137,6 @@ plot(Daily_log_interp$Date[1:50], Daily_log_interp$Q[1:50],
      main = "Linear Interpolation in Log Scale",
      type = "b", pch = 16, ylim = c(0, 3.2))
 
-Daily_spline <- populateDaily(dataInput,
-                             qConvert = 1,
-                             fill = TRUE,
-                             fill_type = "spline")
-plot(Daily_spline$Date[1:50], Daily_spline$Q[1:50],
-     col = as.factor(Daily_spline$Qualifier[1:50]),
-     main = "Spline Fit",
-     type = "b", pch = 16, ylim = c(0, 3.2))
-
 Daily_tsSmooth <- populateDaily(dataInput,
                                 qConvert = 1,
                                 fill = TRUE,
@@ -189,20 +169,10 @@ plot(D2$Date[1:110], D2$Q[1:110],
      main = "Linear Interpolation",
      type = "b", pch = 16)
 
-D3 <- populateDaily(df, 1, fill = TRUE, fill_type = "spline")
-plot(D3$Date[1:20], D3$Q[1:20],
-     col = as.factor(D3$Qualifier[1:20]),
-     main = "Spline Fit",
-     type = "b", pch = 16)
-plot(D3$Date[1:110], D3$Q[1:110],
-     col = as.factor(D3$Qualifier[1:110]),
-     main = "Spline Fit",
-     type = "b", pch = 16)
-
 D4 <- populateDaily(df, 1, fill = TRUE, fill_type = "tsSmooth")
 plot(D4$Date[1:20], D4$Q[1:20],
      col = as.factor(D4$Qualifier[1:20]),
-     main = "Spline Fit",
+     main = "tsSmooth Fit",
      type = "b", pch = 16)
 plot(D4$Date[1:110], D4$Q[1:110],
      col = as.factor(D4$Qualifier[1:110]),
