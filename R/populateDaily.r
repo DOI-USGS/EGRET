@@ -13,7 +13,7 @@
 #' Default is 21. Only used if fill is set to TRUE.
 #' @param fill_type character to define what process to fill missing data. Options are
 #' "interpolation", "spline", or "tsSmooth". "interpolation" is linear interpolation from the
-#' `zoo::na.approx`. "spline" is a spline fit using `zoo::na.spline`. "tsSmooth" uses
+#' `zoo::na.approx`. "tsSmooth" uses
 #' `stats::tsSmooth` which is fixed-interval smoothing on time series. "tsStruct" uses
 #' a structural time series models. "log_interp" is linear interpolation in the log space.
 #' Only used if fill is set to TRUE.
@@ -401,7 +401,7 @@ populateDaily <- function(
 #' Default is 21. Only used if fill is set to TRUE.
 #' @param fill_type character to define what process to fill missing data. Options are
 #' "interpolation", "spline", or "tsSmooth". "interpolation" is linear interpolation from the
-#' `zoo::na.approx`. "spline" is a spline fit using `zoo::na.spline`. "tsSmooth" uses
+#' `zoo::na.approx`. "tsSmooth" uses
 #' `stats::tsSmooth` which is fixed-interval smoothing on time series. "tsStruct" uses
 #' a structural time series models. "log_interp" is linear interpolation in the log space.
 #' Only used if fill is set to TRUE.
@@ -515,7 +515,6 @@ fill_missing_daily <- function(
     fill_type,
     choices = c(
       "interpolation",
-      "spline",
       "tsSmooth",
       "tsStruct",
       "log_interp"
@@ -534,10 +533,6 @@ fill_missing_daily <- function(
       Q_interp <- exp(Q_interp)
     }
     df[[value_col]][is.na(df[[value_col]])] <- Q_interp[is.na(df[[value_col]])]
-  } else if (fill_type == "spline") {
-    Q_spline <- zoo::na.spline(df[[value_col]], maxgap = maxgap, na.rm = FALSE)
-    df[[qualifier_col]][is.na(df[[value_col]])] <- "SPLINE FIT"
-    df[[value_col]][is.na(df[[value_col]])] <- Q_spline[is.na(df[[value_col]])]
   } else if (fill_type %in% c("tsSmooth", "tsStruct")) {
     missing_index <- is.na(df[[value_col]])
     missing <- rle(is.na(df[[value_col]]))
@@ -553,7 +548,6 @@ fill_missing_daily <- function(
           max(group_index) -
           1 +
           1:groups_to_fill[i]
-        # which(is.na(q))[1]:(groups_to_fill[i] + which(is.na(q))[1])
         group_index <- c(group_index, group_i)
       }
     }
