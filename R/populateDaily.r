@@ -13,7 +13,7 @@
 #' Default is 21. Only used if fill is set to TRUE.
 #' @param fill_type character to define what process to fill missing data. Options are
 #' "interpolation", "spline", or "tsSmooth". "interpolation" is linear interpolation from the
-#' `zoo::na.approx`. "spline" is a spline fit using `zoo::na.spline`. "tsSmooth" uses
+#' `zoo::na.approx`. "tsSmooth" uses
 #' `stats::tsSmooth` which is fixed-interval smoothing on time series. "tsStruct" uses
 #' a structural time series models. "log_interp" is linear interpolation in the log space.
 #' Only used if fill is set to TRUE.
@@ -368,7 +368,8 @@ populateDaily <- function(
     }
     if (verbose) {
       message(sprintf(
-        "NA values filled by when gap range less than %s days.",
+        "NA values filled by %s when gap range less than %s days.",
+        fill_type,
         maxgap
       ))
     }
@@ -400,7 +401,7 @@ populateDaily <- function(
 #' Default is 21. Only used if fill is set to TRUE.
 #' @param fill_type character to define what process to fill missing data. Options are
 #' "interpolation", "spline", or "tsSmooth". "interpolation" is linear interpolation from the
-#' `zoo::na.approx`. "spline" is a spline fit using `zoo::na.spline`. "tsSmooth" uses
+#' `zoo::na.approx`. "tsSmooth" uses
 #' `stats::tsSmooth` which is fixed-interval smoothing on time series. "tsStruct" uses
 #' a structural time series models. "log_interp" is linear interpolation in the log space.
 #' Only used if fill is set to TRUE.
@@ -514,7 +515,6 @@ fill_missing_daily <- function(
     fill_type,
     choices = c(
       "interpolation",
-      "spline",
       "tsSmooth",
       "tsStruct",
       "log_interp"
@@ -533,11 +533,8 @@ fill_missing_daily <- function(
       Q_interp <- exp(Q_interp)
     }
     df[[value_col]][is.na(df[[value_col]])] <- Q_interp[is.na(df[[value_col]])]
-  } else if (fill_type == "spline") {
-    Q_spline <- zoo::na.spline(df[[value_col]], maxgap = maxgap, na.rm = FALSE)
-    df[[qualifier_col]][is.na(df[[value_col]])] <- "SPLINE FIT"
-    df[[value_col]][is.na(df[[value_col]])] <- Q_spline[is.na(df[[value_col]])]
   } else if (fill_type %in% c("tsSmooth", "tsStruct")) {
+    missing_index <- is.na(df[[value_col]])
     missing <- rle(is.na(df[[value_col]]))
     missing_groups_lengths <- missing$lengths[missing$values]
     groups_to_fill <- missing_groups_lengths[missing_groups_lengths < maxgap]
@@ -547,8 +544,10 @@ fill_missing_daily <- function(
     if (length(groups_to_fill) > 1) {
       for (i in 2:length(groups_to_fill)) {
         q <- df[[value_col]][(max(group_index) + 1):length(df[[value_col]])]
-        group_i <- max(group_index) +
-          which(is.na(q))[1]:(groups_to_fill[i] + which(is.na(q))[1])
+        group_i <- which(is.na(q))[1] +
+          max(group_index) -
+          1 +
+          1:groups_to_fill[i]
         group_index <- c(group_index, group_i)
       }
     }
@@ -562,8 +561,7 @@ fill_missing_daily <- function(
       fit <- stats::fitted(my_struct)
     }
 
-    df[[qualifier_col]][is.na(df[[value_col]])] <- "tsSmooth FIT"
-
+    df[[qualifier_col]][group_index] <- fill_type
     df[[value_col]][group_index] <- fit[group_index, 1]
   }
   # If gaps were too big, remove fit label:
