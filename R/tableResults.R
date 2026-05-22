@@ -16,8 +16,8 @@
 #' @export
 #' @return dataframe with columns year, mean discharge, mean concentration, mean
 #' flow-normalized concentration, mean Kalman concentration (if it has been
-#' calculated), mean flux, mean flow-normalized concentration, and mean Kalman
-#' flux (if it has been calculated).
+#' calculated), mean flux, mean flow-normalized flux, and mean Kalman flux
+#' (if it has been calculated).
 #' @examples
 #' eList <- Choptank_eList
 #' # Water Year:

@@ -20,8 +20,8 @@ or numeric represented the short code, or character representing the descriptive
 \value{
 dataframe with columns year, mean discharge, mean concentration, mean
 flow-normalized concentration, mean Kalman concentration (if it has been
-calculated), mean flux, mean flow-normalized concentration, and mean Kalman
-flux (if it has been calculated).
+calculated), mean flux, mean flow-normalized flux, and mean Kalman flux
+(if it has been calculated).
 }
 \description{
 Produce an ASCII table showing: year, mean discharge, mean concentration, flow-normalized concentration,
