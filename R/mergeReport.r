@@ -81,6 +81,18 @@ mergeReport <- function(
     message("Please double check that the INFO dataframe is correctly defined.")
   }
 
+  flow_attributes <- c(
+    "number_of_zero_flow",
+    "number_of_negative_flow",
+    "qshift"
+  )
+
+  for (i in flow_attributes) {
+    if (i %in% names(attributes(Daily))) {
+      INFO[[i]] <- attr(Daily, i)
+    }
+  }
+
   if (all(!is.na(surfaces))) {
     if (!isTRUE(dim(surfaces)[3] == 3 && dim(surfaces)[1] == 14)) {
       message(

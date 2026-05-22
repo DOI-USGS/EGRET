@@ -12,7 +12,7 @@
 #' @param maxgap Maximum number of NA days allowed for interpolating gaps.
 #' Default is 21. Only used if fill is set to TRUE.
 #' @param fill_type character to define what process to fill missing data. Options are
-#' "interpolation", "spline", or "tsSmooth". "interpolation" is linear interpolation from the
+#' "interpolation", or "tsSmooth". "interpolation" is linear interpolation from the
 #' `zoo::na.approx`. "tsSmooth" uses
 #' `stats::tsSmooth` which is fixed-interval smoothing on time series. "tsStruct" uses
 #' a structural time series models. "log_interp" is linear interpolation in the log space.
@@ -72,17 +72,6 @@
 #'      type = "b", pch = 16, ylim = c(0, 3.2),
 #'      main = "Linear Interpolation")
 #'
-#' # Spline fit:
-#' Daily_spline <- populateDaily(dataInput,
-#'                               qConvert = 1,
-#'                               fill = TRUE,
-#'                               fill_type = "spline")
-#' plot(Daily_spline$Date[1:30],
-#'      Daily_spline$Q[1:30],
-#'      col = as.factor(Daily_spline$Qualifier[1:30]),
-#'      main = "Spline Fit",
-#'      type = "b", pch = 16, ylim = c(0, 3.2))
-#'
 #' # Fixed-Interval Smoothing on Time Series:
 #' Daily_tsSmooth <- populateDaily(dataInput,
 #'                               qConvert = 1,
@@ -134,15 +123,6 @@
 #'      main = "Linear Interpolation in Log Scale",
 #'      type = "b", pch = 16, ylim = c(0, 3.2))
 #'
-#' Daily_spline <- populateDaily(dataInput,
-#'                              qConvert = 1,
-#'                              fill = TRUE,
-#'                              fill_type = "spline")
-#' plot(Daily_spline$Date[1:50], Daily_spline$Q[1:50],
-#'      col = as.factor(Daily_spline$Qualifier[1:50]),
-#'      main = "Spline Fit",
-#'      type = "b", pch = 16, ylim = c(0, 3.2))
-#'
 #' Daily_tsSmooth <- populateDaily(dataInput,
 #'                                 qConvert = 1,
 #'                                 fill = TRUE,
@@ -175,20 +155,10 @@
 #'      main = "Linear Interpolation",
 #'      type = "b", pch = 16)
 #'
-#' D3 <- populateDaily(df, 1, fill = TRUE, fill_type = "spline")
-#' plot(D3$Date[1:20], D3$Q[1:20],
-#'      col = as.factor(D3$Qualifier[1:20]),
-#'      main = "Spline Fit",
-#'      type = "b", pch = 16)
-#' plot(D3$Date[1:110], D3$Q[1:110],
-#'      col = as.factor(D3$Qualifier[1:110]),
-#'      main = "Spline Fit",
-#'      type = "b", pch = 16)
-#'
 #' D4 <- populateDaily(df, 1, fill = TRUE, fill_type = "tsSmooth")
 #' plot(D4$Date[1:20], D4$Q[1:20],
 #'      col = as.factor(D4$Qualifier[1:20]),
-#'      main = "Spline Fit",
+#'      main = "tsSmooth Fit",
 #'      type = "b", pch = 16)
 #' plot(D4$Date[1:110], D4$Q[1:110],
 #'      col = as.factor(D4$Qualifier[1:110]),
@@ -379,13 +349,17 @@ populateDaily <- function(
     }
   }
 
+  attr(localDaily, "number_of_zero_flow") <- nz
+  attr(localDaily, "number_of_negative_flow") <- nn
+  attr(localDaily, "qshift") <- qshift
+
   return(localDaily)
 }
 
 
 #' Fill missing daily data
 #'
-#' Uses either linear interpolation, spline fit, linear interpolation in the log
+#' Uses either linear interpolation, linear interpolation in the log
 #' scale, or fixed-interval smoothing on time series to fill missing data. This
 #' function gets used within the Daily functions if fill=TRUE. As a
 #' standalone function, the input can be data directly download from
@@ -400,7 +374,7 @@ populateDaily <- function(
 #' @param maxgap Maximum number of NA days allowed for interpolating gaps.
 #' Default is 21. Only used if fill is set to TRUE.
 #' @param fill_type character to define what process to fill missing data. Options are
-#' "interpolation", "spline", or "tsSmooth". "interpolation" is linear interpolation from the
+#' "interpolation", or "tsSmooth". "interpolation" is linear interpolation from the
 #' `zoo::na.approx`. "tsSmooth" uses
 #' `stats::tsSmooth` which is fixed-interval smoothing on time series. "tsStruct" uses
 #' a structural time series models. "log_interp" is linear interpolation in the log space.
@@ -431,14 +405,6 @@ populateDaily <- function(
 #'      col = as.factor(interp1$qualifier[1:30]),
 #'      type = "b", pch = 16, ylim = c(0, 3.2),
 #'      main = "Linear Interpolation")
-#'
-#' # Spline fit:
-#' splin1 <- fill_missing_daily(dataInput,
-#'                              fill_type = "spline")
-#' plot(splin1$time[1:30], splin1$value[1:30],
-#'      col = as.factor(splin1$qualifier[1:30]),
-#'      main = "Spline Fit",
-#'      type = "b", pch = 16, ylim = c(0, 3.2))
 #'
 #' # Fixed-Interval Smoothing on Time Series:
 #' df_smooth <- fill_missing_daily(dataInput,
@@ -482,12 +448,6 @@ populateDaily <- function(
 #'      main = "Linear Interpolation in Log Scale",
 #'      type = "b", pch = 16, ylim = c(0, 3.2))
 #'
-#' df_spline <- fill_missing_daily(dataInput,
-#'                                 fill_type = "spline")
-#' plot(df_spline$time[1:50], df_spline$value[1:50],
-#'      col = as.factor(df_spline$qualifier[1:50]),
-#'      main = "Spline Fit",
-#'      type = "b", pch = 16, ylim = c(0, 3.2))
 #'
 #' df_tsSmooth <- fill_missing_daily(dataInput,
 #'                                   fill_type = "tsSmooth")
