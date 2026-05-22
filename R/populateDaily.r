@@ -368,7 +368,8 @@ populateDaily <- function(
     }
     if (verbose) {
       message(sprintf(
-        "NA values filled by when gap range less than %s days.",
+        "NA values filled by %s when gap range less than %s days.",
+        fill_type,
         maxgap
       ))
     }
@@ -538,6 +539,7 @@ fill_missing_daily <- function(
     df[[qualifier_col]][is.na(df[[value_col]])] <- "SPLINE FIT"
     df[[value_col]][is.na(df[[value_col]])] <- Q_spline[is.na(df[[value_col]])]
   } else if (fill_type %in% c("tsSmooth", "tsStruct")) {
+    missing_index <- is.na(df[[value_col]])
     missing <- rle(is.na(df[[value_col]]))
     missing_groups_lengths <- missing$lengths[missing$values]
     groups_to_fill <- missing_groups_lengths[missing_groups_lengths < maxgap]
@@ -547,8 +549,11 @@ fill_missing_daily <- function(
     if (length(groups_to_fill) > 1) {
       for (i in 2:length(groups_to_fill)) {
         q <- df[[value_col]][(max(group_index) + 1):length(df[[value_col]])]
-        group_i <- max(group_index) +
-          which(is.na(q))[1]:(groups_to_fill[i] + which(is.na(q))[1])
+        group_i <- which(is.na(q))[1] +
+          max(group_index) -
+          1 +
+          1:groups_to_fill[i]
+        # which(is.na(q))[1]:(groups_to_fill[i] + which(is.na(q))[1])
         group_index <- c(group_index, group_i)
       }
     }
@@ -562,8 +567,7 @@ fill_missing_daily <- function(
       fit <- stats::fitted(my_struct)
     }
 
-    df[[qualifier_col]][is.na(df[[value_col]])] <- "tsSmooth FIT"
-
+    df[[qualifier_col]][group_index] <- fill_type
     df[[value_col]][group_index] <- fit[group_index, 1]
   }
   # If gaps were too big, remove fit label:
