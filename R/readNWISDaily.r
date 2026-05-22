@@ -86,7 +86,8 @@ readNWISDaily <- function(
       verbose = verbose,
       adjust = adjust,
       fill = fill,
-      maxgap = maxgap
+      maxgap = maxgap,
+      fill_type = fill_type
     )
   } else {
     localDaily <- data.frame(
