@@ -16,10 +16,8 @@ will be filled in with the assumption that the data is uniform and any
 missing data is set as `NA`.}
 
 \item{fill_type}{character to define what process to fill missing data. Options are
-"interpolation", or "tsSmooth". "interpolation" is linear interpolation from the
-`zoo::na.approx`. "tsSmooth" uses
-`stats::tsSmooth` which is fixed-interval smoothing on time series. "tsStruct" uses
-a structural time series models. "log_interp" is linear interpolation in the log space.
+"interpolation" - linear interpolation from the
+`zoo::na.approx`, or "log_interp" - linear interpolation in the log space.
 Only used if fill is set to TRUE.}
 
 \item{maxgap}{Maximum number of NA days allowed for interpolating gaps.
@@ -60,23 +58,6 @@ plot(interp1$time[1:30],
      type = "b", pch = 16, ylim = c(0, 3.2),
      main = "Linear Interpolation")
 
-# Fixed-Interval Smoothing on Time Series:
-df_smooth <- fill_missing_daily(dataInput,
-                                fill_type = "tsSmooth")
-plot(df_smooth$time[1:30],
-     df_smooth$value[1:30],
-     col = as.factor(df_smooth$qualifier[1:30]),
-     main = "Fixed-interval smoothing on time series",
-     type = "b", pch = 16, ylim = c(0, 3.2))
-
-df_struct <- fill_missing_daily(dataInput,
-                                fill_type = "tsStruct")
-plot(df_struct$time[1:30],
-     df_struct$value[1:30],
-     col = as.factor(df_struct$qualifier[1:30]),
-     main = "Fixed-interval on time series",
-     type = "b", pch = 16, ylim = c(0, 3.2))
-
 # Add a gap that is too big do deal with:
 dataInput$value[200:255] <- NA
 
@@ -101,21 +82,5 @@ plot(df_log_interp$time[1:50], df_log_interp$value[1:50],
      col = as.factor(df_log_interp$qualifier[1:50]),
      main = "Linear Interpolation in Log Scale",
      type = "b", pch = 16, ylim = c(0, 3.2))
-
-
-df_tsSmooth <- fill_missing_daily(dataInput,
-                                  fill_type = "tsSmooth")
-plot(df_tsSmooth$time[1:50], df_tsSmooth$value[1:50],
-     col = as.factor(df_tsSmooth$qualifier[1:50]),
-     main = "tsSmooth",
-     type = "b", pch = 16, ylim = c(0, 3.2))
-
-df_tsStruct <- fill_missing_daily(dataInput,
-                                  fill_type = "tsStruct")
-plot(df_tsStruct$time[1:50], df_tsStruct$value[1:50],
-     col = as.factor(df_tsStruct$qualifier[1:50]),
-     main = "tsStruct",
-     type = "b", pch = 16, ylim = c(0, 3.2))
-
 
 }

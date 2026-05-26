@@ -24,10 +24,8 @@ Defaults to FALSE.}
 Default is 21. Only used if fill is set to TRUE.}
 
 \item{fill_type}{character to define what process to fill missing data. Options are
-"interpolation", or "tsSmooth". "interpolation" is linear interpolation from the
-`zoo::na.approx`. "tsSmooth" uses
-`stats::tsSmooth` which is fixed-interval smoothing on time series. "tsStruct" uses
-a structural time series models. "log_interp" is linear interpolation in the log space.
+"interpolation" - linear interpolation from the
+`zoo::na.approx`, or "log_interp" - linear interpolation in the log space.
 Only used if fill is set to TRUE.}
 }
 \value{
@@ -86,26 +84,6 @@ plot(Daily_fill$Date[1:30],
      type = "b", pch = 16, ylim = c(0, 3.2),
      main = "Linear Interpolation")
 
-# Fixed-Interval Smoothing on Time Series:
-Daily_tsSmooth <- populateDaily(dataInput,
-                              qConvert = 1,
-                              fill = TRUE,
-                              fill_type = "tsSmooth")
-plot(Daily_tsSmooth$Date[1:30],
-     Daily_tsSmooth$Q[1:30],
-     col = as.factor(Daily_tsSmooth$Qualifier[1:30]),
-     main = "Fixed-interval smoothing on time series",
-     type = "b", pch = 16, ylim = c(0, 3.2))
-
-Daily_tsStruct <- populateDaily(dataInput,
-                              qConvert = 1,
-                              fill = TRUE,
-                              fill_type = "tsStruct")
-plot(Daily_tsStruct$Date[1:30],
-     Daily_tsStruct$Q[1:30],
-     col = as.factor(Daily_tsStruct$Qualifier[1:30]),
-     main = "Fixed-interval on time series",
-     type = "b", pch = 16, ylim = c(0, 3.2))
 
 # Add a gap that is too big do deal with:
 dataInput <- dataInput_complete[-4:-20,]
@@ -137,21 +115,6 @@ plot(Daily_log_interp$Date[1:50], Daily_log_interp$Q[1:50],
      main = "Linear Interpolation in Log Scale",
      type = "b", pch = 16, ylim = c(0, 3.2))
 
-Daily_tsSmooth <- populateDaily(dataInput,
-                                qConvert = 1,
-                                fill = TRUE,
-                                fill_type = "tsSmooth")
-plot(Daily_tsSmooth$Date[1:50], Daily_tsSmooth$Q[1:50],
-     col = as.factor(Daily_tsSmooth$Qualifier[1:50]),
-     type = "b", pch = 16, ylim = c(0, 3.2))
-
-Daily_tsStruct <- populateDaily(dataInput,
-                                qConvert = 1,
-                                fill = TRUE,
-                                fill_type = "tsStruct")
-plot(Daily_tsStruct$Date[1:50], Daily_tsStruct$Q[1:50],
-     col = as.factor(Daily_tsStruct$Qualifier[1:50]),
-     type = "b", pch = 16, ylim = c(0, 3.2))
 
 # Real data:
 eList <- Choptank_eList
@@ -167,16 +130,6 @@ plot(D2$Date[1:20], D2$Q[1:20],
 plot(D2$Date[1:110], D2$Q[1:110],
      col = as.factor(D2$Qualifier[1:110]),
      main = "Linear Interpolation",
-     type = "b", pch = 16)
-
-D4 <- populateDaily(df, 1, fill = TRUE, fill_type = "tsSmooth")
-plot(D4$Date[1:20], D4$Q[1:20],
-     col = as.factor(D4$Qualifier[1:20]),
-     main = "tsSmooth Fit",
-     type = "b", pch = 16)
-plot(D4$Date[1:110], D4$Q[1:110],
-     col = as.factor(D4$Qualifier[1:110]),
-     main = "tsSmooth Fit",
      type = "b", pch = 16)
 
 }
