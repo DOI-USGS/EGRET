@@ -41,10 +41,9 @@ Defaults to FALSE.}
 Default is 21. Only used if fill is set to TRUE.}
 
 \item{fill_type}{character to define what process to fill missing data. Options are
-"interpolation", or "tsSmooth". "interpolation" is linear interpolation from the
-`zoo::na.approx`. "tsSmooth" uses
-`stats::tsSmooth` which is fixed-interval smoothing on time series. "tsStruct" uses
-a structural time series models. "log_interp" is linear interpolation in the log space.}
+"interpolation" - linear interpolation from the
+`zoo::na.approx`, or "log_interp" - linear interpolation in the log space.
+Only used if fill is set to TRUE.}
 }
 \value{
 A data frame 'Daily' with the following columns:

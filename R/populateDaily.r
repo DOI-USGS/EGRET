@@ -12,10 +12,8 @@
 #' @param maxgap Maximum number of NA days allowed for interpolating gaps.
 #' Default is 21. Only used if fill is set to TRUE.
 #' @param fill_type character to define what process to fill missing data. Options are
-#' "interpolation", or "tsSmooth". "interpolation" is linear interpolation from the
-#' `zoo::na.approx`. "tsSmooth" uses
-#' `stats::tsSmooth` which is fixed-interval smoothing on time series. "tsStruct" uses
-#' a structural time series models. "log_interp" is linear interpolation in the log space.
+#' "interpolation" - linear interpolation from the
+#' `zoo::na.approx`, or "log_interp" - linear interpolation in the log space.
 #' Only used if fill is set to TRUE.
 #' @keywords WRTDS flow
 #' @author Robert M. Hirsch \email{rhirsch@@usgs.gov}
@@ -72,26 +70,6 @@
 #'      type = "b", pch = 16, ylim = c(0, 3.2),
 #'      main = "Linear Interpolation")
 #'
-#' # Fixed-Interval Smoothing on Time Series:
-#' Daily_tsSmooth <- populateDaily(dataInput,
-#'                               qConvert = 1,
-#'                               fill = TRUE,
-#'                               fill_type = "tsSmooth")
-#' plot(Daily_tsSmooth$Date[1:30],
-#'      Daily_tsSmooth$Q[1:30],
-#'      col = as.factor(Daily_tsSmooth$Qualifier[1:30]),
-#'      main = "Fixed-interval smoothing on time series",
-#'      type = "b", pch = 16, ylim = c(0, 3.2))
-#'
-#' Daily_tsStruct <- populateDaily(dataInput,
-#'                               qConvert = 1,
-#'                               fill = TRUE,
-#'                               fill_type = "tsStruct")
-#' plot(Daily_tsStruct$Date[1:30],
-#'      Daily_tsStruct$Q[1:30],
-#'      col = as.factor(Daily_tsStruct$Qualifier[1:30]),
-#'      main = "Fixed-interval on time series",
-#'      type = "b", pch = 16, ylim = c(0, 3.2))
 #'
 #' # Add a gap that is too big do deal with:
 #' dataInput <- dataInput_complete[-4:-20,]
@@ -123,21 +101,6 @@
 #'      main = "Linear Interpolation in Log Scale",
 #'      type = "b", pch = 16, ylim = c(0, 3.2))
 #'
-#' Daily_tsSmooth <- populateDaily(dataInput,
-#'                                 qConvert = 1,
-#'                                 fill = TRUE,
-#'                                 fill_type = "tsSmooth")
-#' plot(Daily_tsSmooth$Date[1:50], Daily_tsSmooth$Q[1:50],
-#'      col = as.factor(Daily_tsSmooth$Qualifier[1:50]),
-#'      type = "b", pch = 16, ylim = c(0, 3.2))
-#'
-#' Daily_tsStruct <- populateDaily(dataInput,
-#'                                 qConvert = 1,
-#'                                 fill = TRUE,
-#'                                 fill_type = "tsStruct")
-#' plot(Daily_tsStruct$Date[1:50], Daily_tsStruct$Q[1:50],
-#'      col = as.factor(Daily_tsStruct$Qualifier[1:50]),
-#'      type = "b", pch = 16, ylim = c(0, 3.2))
 #'
 #' # Real data:
 #' eList <- Choptank_eList
@@ -153,16 +116,6 @@
 #' plot(D2$Date[1:110], D2$Q[1:110],
 #'      col = as.factor(D2$Qualifier[1:110]),
 #'      main = "Linear Interpolation",
-#'      type = "b", pch = 16)
-#'
-#' D4 <- populateDaily(df, 1, fill = TRUE, fill_type = "tsSmooth")
-#' plot(D4$Date[1:20], D4$Q[1:20],
-#'      col = as.factor(D4$Qualifier[1:20]),
-#'      main = "tsSmooth Fit",
-#'      type = "b", pch = 16)
-#' plot(D4$Date[1:110], D4$Q[1:110],
-#'      col = as.factor(D4$Qualifier[1:110]),
-#'      main = "tsSmooth Fit",
 #'      type = "b", pch = 16)
 #'
 populateDaily <- function(
@@ -374,10 +327,8 @@ populateDaily <- function(
 #' @param maxgap Maximum number of NA days allowed for interpolating gaps.
 #' Default is 21. Only used if fill is set to TRUE.
 #' @param fill_type character to define what process to fill missing data. Options are
-#' "interpolation", or "tsSmooth". "interpolation" is linear interpolation from the
-#' `zoo::na.approx`. "tsSmooth" uses
-#' `stats::tsSmooth` which is fixed-interval smoothing on time series. "tsStruct" uses
-#' a structural time series models. "log_interp" is linear interpolation in the log space.
+#' "interpolation" - linear interpolation from the
+#' `zoo::na.approx`, or "log_interp" - linear interpolation in the log space.
 #' Only used if fill is set to TRUE.
 #' @param value_col Character, name of value column.
 #' @param qualifier_col Character, name of qualifier column.
@@ -406,23 +357,6 @@ populateDaily <- function(
 #'      type = "b", pch = 16, ylim = c(0, 3.2),
 #'      main = "Linear Interpolation")
 #'
-#' # Fixed-Interval Smoothing on Time Series:
-#' df_smooth <- fill_missing_daily(dataInput,
-#'                                 fill_type = "tsSmooth")
-#' plot(df_smooth$time[1:30],
-#'      df_smooth$value[1:30],
-#'      col = as.factor(df_smooth$qualifier[1:30]),
-#'      main = "Fixed-interval smoothing on time series",
-#'      type = "b", pch = 16, ylim = c(0, 3.2))
-#'
-#' df_struct <- fill_missing_daily(dataInput,
-#'                                 fill_type = "tsStruct")
-#' plot(df_struct$time[1:30],
-#'      df_struct$value[1:30],
-#'      col = as.factor(df_struct$qualifier[1:30]),
-#'      main = "Fixed-interval on time series",
-#'      type = "b", pch = 16, ylim = c(0, 3.2))
-#'
 #' # Add a gap that is too big do deal with:
 #' dataInput$value[200:255] <- NA
 #'
@@ -448,22 +382,6 @@ populateDaily <- function(
 #'      main = "Linear Interpolation in Log Scale",
 #'      type = "b", pch = 16, ylim = c(0, 3.2))
 #'
-#'
-#' df_tsSmooth <- fill_missing_daily(dataInput,
-#'                                   fill_type = "tsSmooth")
-#' plot(df_tsSmooth$time[1:50], df_tsSmooth$value[1:50],
-#'      col = as.factor(df_tsSmooth$qualifier[1:50]),
-#'      main = "tsSmooth",
-#'      type = "b", pch = 16, ylim = c(0, 3.2))
-#'
-#' df_tsStruct <- fill_missing_daily(dataInput,
-#'                                   fill_type = "tsStruct")
-#' plot(df_tsStruct$time[1:50], df_tsStruct$value[1:50],
-#'      col = as.factor(df_tsStruct$qualifier[1:50]),
-#'      main = "tsStruct",
-#'      type = "b", pch = 16, ylim = c(0, 3.2))
-#'
-#'
 fill_missing_daily <- function(
   df,
   fill_type,
@@ -475,55 +393,26 @@ fill_missing_daily <- function(
     fill_type,
     choices = c(
       "interpolation",
-      "tsSmooth",
-      "tsStruct",
       "log_interp"
     )
   )
 
-  if (fill_type %in% c("interpolation", "log_interp")) {
-    if (fill_type == "interpolation") {
-      q = df[[value_col]]
-    } else {
-      q = log(df[[value_col]])
-    }
-    Q_interp <- zoo::na.approx(q, maxgap = maxgap, na.rm = FALSE)
-    df[[qualifier_col]][is.na(df[[value_col]])] <- "INTERPOLATED"
-    if (fill_type == "log_interp") {
-      Q_interp <- exp(Q_interp)
-    }
-    df[[value_col]][is.na(df[[value_col]])] <- Q_interp[is.na(df[[value_col]])]
-  } else if (fill_type %in% c("tsSmooth", "tsStruct")) {
-    missing_index <- is.na(df[[value_col]])
-    missing <- rle(is.na(df[[value_col]]))
-    missing_groups_lengths <- missing$lengths[missing$values]
-    groups_to_fill <- missing_groups_lengths[missing_groups_lengths < maxgap]
-    q <- df[[value_col]]
-    group_index <- which(is.na(q))[1]:which(is.na(q))[groups_to_fill[1]]
-
-    if (length(groups_to_fill) > 1) {
-      for (i in 2:length(groups_to_fill)) {
-        q <- df[[value_col]][(max(group_index) + 1):length(df[[value_col]])]
-        group_i <- which(is.na(q))[1] +
-          max(group_index) -
-          1 +
-          1:groups_to_fill[i]
-        group_index <- c(group_index, group_i)
-      }
-    }
-
-    my_series <- stats::window(df[[value_col]])
-    my_struct <- stats::StructTS(my_series, type = "trend")
-
-    if (fill_type == "tsSmooth") {
-      fit <- stats::tsSmooth(my_struct)
-    } else {
-      fit <- stats::fitted(my_struct)
-    }
-
-    df[[qualifier_col]][group_index] <- fill_type
-    df[[value_col]][group_index] <- fit[group_index, 1]
+  if (fill_type == "interpolation") {
+    q = df[[value_col]]
+  } else {
+    q = log(df[[value_col]])
   }
+  
+  Q_interp <- zoo::na.approx(q, maxgap = maxgap, na.rm = FALSE)
+  df[[qualifier_col]][is.na(df[[value_col]])] <- "INTERPOLATED"
+  
+  if (fill_type == "log_interp") {
+    Q_interp <- exp(Q_interp)
+  }
+  
+  df[[value_col]][is.na(df[[value_col]])] <- Q_interp[is.na(df[[value_col]])]
+
+
   # If gaps were too big, remove fit label:
   df[[qualifier_col]][is.na(df[[value_col]])] <- ""
 
