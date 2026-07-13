@@ -83,7 +83,8 @@ pages:
     - |
       Rscript -e '
         pkgdown::build_site(override = list(destination = "public"))
-        file.copy(from = "./public/articles/logo.png", to = "./public/reference/logo.png")'
+        file.copy(from = "./public/articles/logo.png", to = "./public/reference/logo.png")
+        file.copy(from = "./public/articles/logo.png", to = "./public/news/logo.png")'
   artifacts:
     paths:
       - $PAGES_OUTDIR
