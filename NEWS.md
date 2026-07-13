@@ -2,15 +2,18 @@ EGRET 3.0.12
 ===========
 * Changed readNWISDaily to use new USGS Water Data API services.
 * Changed readNWISInfo to use new USGS Water Data API services.
-* Added option to use the flow adjustment or not.
+* Added option ("adjust") to use the flow adjustment within the readNWISDaily and
+readUserDaily functions. By default, "adjust" is set to TRUE and will 
+add a constant to zero flow values to allow log transformation. In special cases,
+users may want to keep the zero-flow values, keeping in mind that in those cases 
+many of the modeling functions will not work.
 * Cleaned up plotConcTimeSmooth title.
 * Added a "fill" option to readDaily functions, see examples in
 populateDaily for more information.
 * Added "fill_missing_daily" function as a standalone.
 * Added code to make sure the eList returned from runSeries contained
 the same columns that would be returned from modelEstimation.
-* Added internal range calculation to WRTDSKalman function to speed processing
-of records with long sample gaps.
+* Revised WRTDSKalman algorithm to speed processing of records with long sample gaps. The behavior and outputs of the WRTDSKalman function have not changed.
 * Added the use of genmissing() to WRTDSKalman function on the first and last
 gaps of the dataset instead of the existing approach where autocorrelation
 doesn't extend into those gaps.

@@ -59,8 +59,12 @@ navbar:
   - text: Bibliograpy
     href: articles/References_WRTDS.html
   right:
+  - text: News
+    href: news/index.html
   - icon: fa-gitlab fa-lg
     href: https://code.usgs.gov/water/EGRET
+  - icon: fa-github fa-lg
+    href: https://github.com/DOI-USGS/EGRET
 reference:
   - title: Import Data
     desc:  Functions for user-generated or web retrieval data.
