@@ -1,7 +1,7 @@
 Package: EGRET
 Type: Package
 Title: Exploration and Graphics for RivEr Trends
-Version: 3.0.12
+Version: 3.0.13
 Authors@R: c(
     person("Robert", "Hirsch", role = c("aut"),
            email = "rhirsch@usgs.gov", 
@@ -66,4 +66,4 @@ Copyright: This software is in the public domain because it contains materials
     https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits
 Roxygen: list(old_usage = TRUE)
 Encoding: UTF-8
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.1

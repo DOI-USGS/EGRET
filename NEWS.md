@@ -1,3 +1,7 @@
+EGRET 3.0.13
+===========
+* Fixed bug in readNWISInfo with interactive=TRUE
+
 EGRET 3.0.12
 ===========
 * Changed readNWISDaily to use new USGS Water Data API services.
