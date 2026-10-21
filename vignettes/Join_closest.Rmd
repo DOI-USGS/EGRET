@@ -35,47 +35,77 @@ Let's look at site "01646500", and a nearby site with a real-time nitrate-plus-n
 ```{r getData, cache=TRUE}
 library(dataRetrieval)
 
-site_uv <- "01646500"
+site_uv <- "USGS-01646500"
 site_qw <- "USGS-01646580"
 pcode_uv <- "99133"
 pcode_qw <- "00631"
-uv_data <- readNWISuv(site_uv, pcode_uv)
-start_sensor_date <- as.Date(min(uv_data$dateTime))
-qw_data <- readWQPqw(site_qw, pcode_qw,
-                     startDate = start_sensor_date)
+
+ts_info <- read_waterdata_ts_meta(monitoring_location_id = site_uv,
+                                  parameter_code = pcode_uv,
+                                  computation_period_identifier = "Points")
+
+qw_data <- read_waterdata_samples(monitoringLocationIdentifier = site_qw,
+                                  activityStartDateLower = as.Date(min(ts_info$begin)),
+                                  usgsPCode = pcode_qw, 
+                                  dataProfile = "fullphyschem")
+
+start_qw_date <- min(qw_data$Activity_StartDate)
+end_qw_date <- max(qw_data$Activity_StartDate)
+
+year_range <- lubridate::year(c(start_qw_date, end_qw_date))
+date_ranges <- as.Date(paste0(seq(from = year_range[1], 
+                                  to = year_range[2]),
+                              "-01-01"))[-1]
+starts <- c(start_qw_date, date_ranges)
+ends <- c(date_ranges - 1, end_qw_date)
+
+# create a data frame where each element starts at the beginning
+# of a chunk, and ends the day before the next chunk:
+time_df <- data.frame(start = starts,
+                      end = ends)
+
+uv_list<- time_df |> 
+  purrr::pmap(
+    \(start, end, ...) read_waterdata_continuous(
+      monitoring_location_id = site_uv, 
+      parameter_code = c(pcode_uv, "00060"), 
+      time = c(start, end))
+  )
+
+uv_data <- purrr::list_rbind(uv_list)
+
+uv_data_wide <- uv_data |> 
+  dplyr::select(monitoring_location_id, parameter_code,
+                time, value, qualifier) |> 
+  tidyr::pivot_wider(names_from = parameter_code,
+                     values_from = c(value, qualifier)) |> 
+# I don't want the row if it lacks the uv nitrate
+# I also don't want the row if it lacks discharge
+  dplyr::filter(!is.na(value_00060),
+                !is.na(value_99133)) |> 
+  dplyr::mutate(DecYear = EGRET::decimalDate(time))
+
 
 ```
 
 First let's trim down the data sets so that they are easy to print in this document. 
 
-The sensor data ("uv" data) has 2 columns of data that are important. The first task is to combine those columns. This is rather unique to this particular site and probably won't need to be done generally.
 
-```{r trimUVdata}
-library(dplyr)
-
-uv_trim <- uv_data |> 
-  select(uv_date = dateTime, 
-         val1 = X_SUNA...Discontinued._99133_00000,
-         val2 = X_SUNA_99133_00000) |> 
-  mutate(val_uv = if_else(is.na(val1), val2, val1)) |> 
-  select(-val1, -val2)
-
-```
 
 ```{r showuvTrim, echo=FALSE}
-knitr::kable(head(uv_trim))
+knitr::kable(head(uv_data_wide))
 ```
 
 Next we'll clean up the discrete water quality "qw" data to make it easy to follow in this tutorial. 
 
 ```{r trimQWdata}
 qw_trim <- qw_data |> 
-  filter(ActivityTypeCode == "Sample-Routine",
-         !is.na(ActivityStartDateTime)) |> 
-  arrange(ActivityStartDateTime) |> 
-  select(qw_date = ActivityStartDateTime,
-         val_qw = ResultMeasureValue,
-         det_txt = ResultDetectionConditionText)
+  filter(Activity_TypeCode == "Sample-Routine",
+         !is.na(Activity_StartDateTime)) |> 
+  arrange(Activity_StartDateTime) |> 
+  select(qw_date = Activity_StartDateTime,
+         val_qw = Result_Measure,
+         det_txt = Result_ResultDetectionCondition)
 ```
 
 ```{r showqwtrim, echo=FALSE}
@@ -89,9 +119,9 @@ library(data.table)
 # coerce to data.table and append join columns to preserve the original columns 
 setDT(qw_trim)[, join_date := qw_date]
 
-setDT(uv_trim)[, join_date := uv_date]
+setDT(uv_data_wide)[, join_date := time]
 # rolling join
-closest_dt <- uv_trim[qw_trim, on = .(join_date), roll = "nearest"]
+closest_dt <- uv_data_wide[qw_trim, on = .(join_date), roll = "nearest"]
 ```
 
 `closest_dt` is a `data.table` object. It similar to a data.frame, but not identical. We can convert it to a data.frame and then use `dplyr` commands. Note: the whole analysis can be done via `data.table`, but most examples in `EGRET` have used `dplyr`, which is why we bring it back to data.frame. `dplyr` also has a `join_by(closest())` option, but it is more complicated because you can only specify the closeness in either the forward or backwards direction (and we want either direction).
@@ -100,8 +130,8 @@ We first calculate "delta_time" - the difference in time between the uv and qw d
 
 ```{r}
 qw_closest <- data.frame(closest_dt) |> 
-  mutate(delta_time = difftime(qw_date, uv_date, units="hours"),
-         val_uv = if_else(abs(as.numeric(delta_time)) >= 24, NA, val_uv)) |> 
+  mutate(delta_time = difftime(qw_date, time, units = "hours"),
+         val_uv = if_else(abs(as.numeric(delta_time)) >= 24, NA, value_99133)) |> 
   select(-join_date)
 
 ```
@@ -116,26 +146,6 @@ knitr::kable(head(qw_closest))
 
 A more realistic scenario might be that we want to create an `EGRET` Sample data frame, and get the real-time water quality and flow values joined by the closest date/time.
 
-We'll re-pull the real-time data, and this time include discharge:
-
-```{r getMoreData, cache=TRUE}
-library(EGRET)
-
-# Sensor discharge:
-uv_flow_qw <- readNWISuv(site_uv, c(pcode_uv, "00060"), 
-                         startDate = start_sensor_date)
-
-#special cleanup needed at this site:
-uv_flow_qw2 <- uv_flow_qw |> 
-  rename(val1 = X_SUNA...Discontinued._99133_00000,
-         val2 = X_SUNA_99133_00000,
-         rmk1 = X_SUNA...Discontinued._99133_00000_cd,
-         rmk2 = X_SUNA_99133_00000_cd) |> 
-  mutate(qw_val_uv = if_else(is.na(val1), val2, val1),
-         qw_rmk_uv = if_else(is.na(rmk1), rmk2, rmk1)) |> 
-  select(-val1, -val2, -rmk1, -rmk2)
-
-```
 
 Here we create a function that does the `data.table` join, and then continues the steps necessary to obtain a `Sample` data.frame.
 
@@ -144,7 +154,7 @@ The inputs are:
 |Argument  | Description                             |  
 |----------|----------------------------------------:|
 |qw_data |  Data frame with discrete water quality data | 
-|uv_flow_qw| Data frame with real-time (high frequency) water quality and/or flow data   |
+|uv_data_wide| Data frame with real-time (high frequency) water quality and/or flow data   |
 |hour_threshold |Number of hours that the dates need to be within to match up |
 | join_by_qw | Name of the date/time column in the qw_data data frame to join by  |
 | join_by_uv | Name of the date/time column in the uv_flow_qw data frame to join by |
@@ -161,17 +171,17 @@ Default values are provided that match the output of `readWQPqw`.
 ```{r defFunc}
 
 join_qw_uv <- function(qw_data, # data from readWQP
-                       uv_flow_qw, # data from readNWISuv
+                       uv_flow_qw, # data from read_waterdata_continuous
                        hour_threshold = 24, # hours threshold for joining
-                       join_by_qw = "ActivityStartDateTime", 
-                       join_by_uv = "dateTime",
-                       qw_val = "ResultMeasureValue",
-                       qw_rmk = "ResultDetectionConditionText",
-                       qw_det_val = "DetectionQuantitationLimitMeasure.MeasureValue",
+                       join_by_qw = "Activity_StartDateTime", 
+                       join_by_uv = "time",
+                       qw_val = "Result_Measure",
+                       qw_rmk = "Result_ResultDetectionCondition",
+                       qw_det_val = "DetectionLimit_MeasureA",
                        qw_val_uv, # water quality value column in uv data
                        qw_rmk_uv, # water quality remark column in uv data
-                       flow_val = "X_00060_00000", # uv flow parameter
-                       flow_rmk = "X_00060_00000_cd"){ # uv flow parameter cd
+                       flow_val = "value_00060", # uv flow parameter
+                       flow_rmk = "qualifier_00060"){ # uv flow parameter cd
   
   req_cols <- c(join_by_qw, qw_val, qw_rmk, qw_det_val)
   if(!all(req_cols %in% names(qw_data))){
@@ -257,14 +267,14 @@ Running the function:
 
 
 Sample <- join_qw_uv(qw_data = qw_data,
-                     uv_flow_qw =  uv_flow_qw2, 
+                     uv_flow_qw =  uv_data_wide, 
                      hour_threshold = 24,
-                     join_by_qw = "ActivityStartDateTime",
-                     join_by_uv = "dateTime",
-                     qw_val_uv = "qw_val_uv",
-                     qw_rmk_uv = "qw_rmk_uv",
-                     flow_val = "X_00060_00000",
-                     flow_rmk = "X_00060_00000_cd")
+                     join_by_qw = "Activity_StartDateTime",
+                     join_by_uv = "time",
+                     qw_val_uv = "value_99133",
+                     qw_rmk_uv = "qualifier_99133",
+                     flow_val = "value_00060",
+                     flow_rmk = "qualifier_00060")
 ```
 
 
@@ -286,12 +296,12 @@ Using the function without real-time flow data:
 ```{r noFlow, warning=FALSE}
 
 Sample2 <- join_qw_uv(qw_data = qw_data,
-                     uv_flow_qw =  uv_flow_qw2, 
+                     uv_flow_qw =  uv_data_wide, 
                      hour_threshold = 24,
-                     join_by_qw = "ActivityStartDateTime",
-                     join_by_uv = "dateTime",
-                     qw_val_uv = "qw_val_uv",
-                     qw_rmk_uv = "qw_rmk_uv",
+                     join_by_qw = "Activity_StartDateTime",
+                     join_by_uv = "time",
+                     qw_val_uv = "value_99133",
+                     qw_rmk_uv = "qualifier_99133",
                      flow_val = "",
                      flow_rmk = "")
 
@@ -302,13 +312,13 @@ Using the function without real-time qw data:
 ```{r noQW, warning=FALSE}
 
 Sample3 <- join_qw_uv(qw_data = qw_data,
-                     uv_flow_qw =  uv_flow_qw2, 
+                     uv_flow_qw =  uv_data_wide, 
                      hour_threshold = 24,
-                     join_by_qw = "ActivityStartDateTime",
-                     join_by_uv = "dateTime",
+                     join_by_qw = "Activity_StartDateTime",
+                     join_by_uv = "time",
                      qw_val_uv = "",
                      qw_rmk_uv = "",
-                     flow_val = "X_00060_00000",
-                     flow_rmk = "X_00060_00000_cd")
+                     flow_val = "value_00060",
+                     flow_rmk = "qualifier_00060")
 
 ```

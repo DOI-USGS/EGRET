@@ -60,28 +60,58 @@ We want to work with the time period that starts with the first uv observations 
 ## First get the uv data
 
 ```{r get_uvData, cache=TRUE}
-site_uv <- "05465500"
+site_uv <- "USGS-05465500"
 site_qw <-"USGS-05465500"
 pcode_uv <- "99133"
 pcode_qw <- "00631"
-startDate <- "2009-01-01"
-endDate <- "2023-09-30"
-uv_data <- readNWISuv(site_uv, c(pcode_uv, "00060"), startDate = startDate, endDate = endDate)
+startDate <- as.Date("2009-01-01")
+endDate <- as.Date("2023-09-30")
+
+year_range <- lubridate::year(c(startDate, endDate))
+date_ranges <- as.Date(paste0(seq(from = year_range[1], 
+                                  to = year_range[2]),
+                              "-01-01"))[-1]
+starts <- c(endDate, date_ranges)
+ends <- c(date_ranges - 1, endDate)
+
+# create a data frame where each element starts at the beginning
+# of a chunk, and ends the day before the next chunk:
+time_df <- data.frame(start = starts,
+                      end = ends)
+
+uv_list<- time_df |> 
+  purrr::pmap(
+    \(start, end, ...) read_waterdata_continuous(
+      monitoring_location_id = site_uv, 
+      parameter_code = c(pcode_uv, "00060"), 
+      time = c(start, end))
+  )
+
+uv_data <- purrr::list_rbind(uv_list)
+
+uv_data_wide <- uv_data |> 
+  dplyr::select(monitoring_location_id, parameter_code,
+                time, value, qualifier) |> 
+  tidyr::pivot_wider(names_from = parameter_code,
+                     values_from = c(value, qualifier)) |> 
 # I don't want the row if it lacks the uv nitrate
-uv_data <- uv_data[-which(is.na(uv_data$X_99133_00000)),]
 # I also don't want the row if it lacks discharge
-uv_data <- uv_data[-which(is.na(uv_data$X_00060_00000)),]
+  dplyr::filter(!is.na(value_00060),
+                !is.na(value_99133)) |> 
+  dplyr::mutate(DecYear = EGRET::decimalDate(time))
+
 # now let's set the starting and ending on the actual period of record of the uv nitrate
-start_sensor_date <- as.Date(min(uv_data$dateTime))
-end_sensor_date <- as.Date(max(uv_data$dateTime))
-# I also want to add a column for decimal year (handy for some graphing later)
-uv_data$DecYear <- EGRET::decimalDate(uv_data$dateTime)
-# before we look for the qw data let's take a quick look at the uv_data
-numUv <- length(uv_data$agency_cd)
-head(uv_data)
+start_sensor_date <- as.Date(min(uv_data_wide$time))
+end_sensor_date <- as.Date(max(uv_data_wide$time))
+
+rm(uv_data)
+rm(uv_list) # we aren't going to use it again
+
+numUv <- nrow(uv_data_wide)
 cat("\n Number of values in the uv record is", numUv)
-summary(uv_data)
+summary(uv_data_wide)
 ```
+
 ## Next we will get the qw data
 
 ```{r getqwData, cache = TRUE}
@@ -115,12 +145,12 @@ There is one additional issue with the qw_data.  At the start there are pairs of
 
 ## The zero concentration values in the uv data set
 
-The uv record does have some zero values and we need to be aware of that fact.  Generally we don't believe that concentrations ever go to zero, for a natural substance such as nitrate.  We will want to try to find out how many zero values there are and we will want to learn a little more about them.  Note that there are a total of 356,765 values and they span a total of a little more than 14 years. We might want to know how many zero values there are in the record.  So we will create a subset of the data set that have values of zero and then take note of what fraction of the data are recorded as exactly zero.  This vignette will not delve into problems of zeros or non-detects, but we need to recognize that new protocols are needed for dealing with this issue in the process of calibration of the sensors.  This code will need to be improved to handle "less than" values and also handle zero values in the uv data.  Note that we have not removed the zero values.  If we decided in some later step to take logs of the concentration values we would have a problem and would have to deal with these zeros in an appropriate way.
+The uv record does have some zero values and we need to be aware of that fact.  Generally we don't believe that concentrations ever go to zero, for a natural substance such as nitrate.  We will want to try to find out how many zero values there are and we will want to learn a little more about them.  Note that there are a total of `r numUv` values and they span a total of a little more than 14 years. We might want to know how many zero values there are in the record.  So we will create a subset of the data set that have values of zero and then take note of what fraction of the data are recorded as exactly zero.  This vignette will not delve into problems of zeros or non-detects, but we need to recognize that new protocols are needed for dealing with this issue in the process of calibration of the sensors.  This code will need to be improved to handle "less than" values and also handle zero values in the uv data.  Note that we have not removed the zero values.  If we decided in some later step to take logs of the concentration values we would have a problem and would have to deal with these zeros in an appropriate way.
 
 ```{r}
 # now let's make a subset of the data frame for only those with a value of 0.0
-uv_data_zeros <- subset(uv_data, X_99133_00000 == 0.0)
-numZeros <- length(uv_data_zeros$agency_cd)
+uv_data_zeros <- subset(uv_data_wide, value_99133 == 0.0)
+numZeros <- nrow(uv_data_zeros)
 cat("\n number of values that are exactly zero is", numZeros)
 fractZero <- format(100 * numZeros / numUv, digits = 2)
 cat("percentage of unit values that are exactly zero is", fractZero, "%")
@@ -131,9 +161,11 @@ rm(uv_data_zeros) # in future applications we might want to hold on to this subs
 
 ```{r}
 par(tck = 0.03, las = 1, xaxs = "i", yaxs = "i", mar = c(5, 4, 5, 4))
-staInfo <- attr(uv_data, "siteInfo")
-title <- paste0(staInfo$station_nm, "   uv Parameter ", pcode_uv)
-plot(uv_data$DecYear, uv_data$X_99133_00000, xlim = c(2009, 2024), 
+staInfo <- dataRetrieval::read_waterdata_monitoring_location(
+  monitoring_location_id = site_uv)
+title <- paste0(staInfo$monitoring_location_name, "   uv Parameter ", pcode_uv)
+plot(uv_data_wide$DecYear, uv_data_wide$value_99133,
+     xlim = c(2009, 2024), 
      ylim = c(0, 35), pch = "19", col = "red"
      , cex = 0.15, xlab = "", ylab = "Concentration, in mg/L", 
      main = title, cex.lab = 1.1, cex.axis = 1.1,
@@ -146,9 +178,9 @@ axis(4, labels = FALSE)
 
 ```{r}
 par(tck = 0.03, las = 1, xaxs = "i", yaxs = "i", mar = c(5, 4, 5, 4))
-staInfo <- attr(uv_data, "siteInfo")
-title <- paste0(staInfo$station_nm, "   uv Parameter ", pcode_uv,"\nuv in red, sample values in green")
-plot(uv_data$DecYear, uv_data$X_99133_00000, xlim = c(2009, 2024), 
+
+title <- paste0(staInfo$monitoring_location_name, "   uv Parameter ", pcode_uv,"\nuv in red, sample values in green")
+plot(uv_data_wide$DecYear, uv_data_wide$value_99133, xlim = c(2009, 2024), 
      ylim = c(0, 35), pch = "19", col = "red"
      , cex = 0.15, xlab = "", ylab = "Concentration, in mg/L", 
      main = title, cex.lab = 1.1, cex.axis = 1.1,
@@ -157,7 +189,7 @@ points(qw_data$DecYear, qw_data$ResultMeasureValue, pch = 19, col = "green", cex
 axis(3, labels = FALSE)
 axis(4, labels = FALSE)
 # Let's zero in on a smaller part of the record to get a better look
-plot(uv_data$DecYear, uv_data$X_99133_00000, xlim = c(2018, 2019), 
+plot(uv_data_wide$DecYear, uv_data_wide$X_99133_00000, xlim = c(2018, 2019), 
      ylim = c(0, 12), pch = "19", col = "red"
      , cex = 0.15, xlab = "", ylab = "Concentration, in mg/L", 
      main = title, cex.lab = 1.1, cex.axis = 1.1,
@@ -185,14 +217,14 @@ source(file = "helper_functions.R")
 ```{r, join, cache = TRUE}
 
 Sample <- join_qw_uv(qw_data = qw_data, 
-                     uv_flow_qw = uv_data,
+                     uv_flow_qw = uv_data_wide,
                      hour_threshold = 12,
                      join_by_qw = "ActivityStartDateTime", 
-                     join_by_uv = "dateTime",
-                     qw_val_uv = "X_99133_00000",
-                     qw_rmk_uv = "X_99133_00000_cd",
-                     flow_val = "X_00060_00000",
-                     flow_rmk = "X_00060_00000_cd")
+                     join_by_uv = "time",
+                     qw_val_uv = "value_99133",
+                     qw_rmk_uv = "qualifier_99133",
+                     flow_val = "value_00060",
+                     flow_rmk = "qualifier_00060_")
 # The Sample data frame will contain some rows that have no uv values (no match possible)
 # we want to remove them
 Sample <- Sample[-which(is.na(Sample$qw_val_uv)),]
@@ -226,7 +258,7 @@ par(tck = 0.03, las = 1, xaxs = "i", yaxs = "i", cex.axis = 1.2, cex.lab = 1.2)
 yMax <- max(Sam$ConcAve, Sam$uv)
 ylim <- c(0, yMax * 1.1)
 xlim <- ylim
-title <- paste0(staInfo$station_nm, "   uv Parameter ", pcode_uv,"\nComparison of Sample values to Sensor values")
+title <- paste0(staInfo$monitoring_location_name, "   uv Parameter ", pcode_uv,"\nComparison of Sample values to Sensor values")
 plot(Sam$uv, Sam$ConcAve, pch = 19, cex = 0.8, xlim = xlim, ylim = ylim, main = title,
      xlab = "Sensor Concentration, in mg/L",
      ylab = "Sample Concentration, in mg/L")
@@ -244,20 +276,20 @@ resid <- Sam$ConcAve - Sam$uv
 ymin <- min(resid)
 ymax <- max(resid)
 ylim <- c(ymin - 0.4, ymax + 0.4)
-title <- paste0(staInfo$station_nm, "   uv Parameter ", pcode_uv,"\nError: Sample value minus Sensor value")
+title <- paste0(staInfo$monitoring_location_name, "   uv Parameter ", pcode_uv,"\nError: Sample value minus Sensor value")
 boxplot(resid, ylab = "Error, in mg/L", ylim = ylim, main = title)
 abline(h = 0, col = "red")
 boxplot(resid~Sam$Month, ylab = "Error, in mg/L", ylim = ylim, main = title, xlab = "Month")
 abline(h = 0, col = "red")
 # note that there were no data pairs for January.  The Month indicator for the boxplot are the calendar months.
 # thus 2 = February, 3 = March, etc.
-title <- paste0(staInfo$station_nm, "   uv Parameter ", pcode_uv,"\nError as a function of sensor value")
+title <- paste0(staInfo$monitoring_location_name, "   uv Parameter ", pcode_uv,"\nError as a function of sensor value")
 xlim <- c(0, yMax * 1.1)
 plot(Sam$uv, resid, pch = 19, cex = 0.6, ylim = ylim, ylab = "Error, in mg/L", main = title, xlim = xlim, xlab = "Sensor value, in mg/L")
 axis(3, labels = FALSE)
 axis(4, labels = FALSE)
 abline(h = 0, col = "red")
-title <- paste0(staInfo$station_nm, "   uv Parameter ", pcode_uv,"\nError as a function DecYear")
+title <- paste0(staInfo$monitoring_location_name, "   uv Parameter ", pcode_uv,"\nError as a function DecYear")
 xlim = c(2009, 2024)
 plot(Sam$DecYear, resid, pch = 19, cex = 0.6, ylim = ylim, ylab = "Error, in mg/L", main = title, xlim = xlim, xlab = "")
 axis(3, labels = FALSE)
@@ -271,7 +303,7 @@ cat("\n Mean, Median, and Standard Deviation of the errors\n", meanResid, median
 
 # First impressions of the simple calibration
 
-The errors are pretty nearly symmetrical and the bias is very small.  Sensor values tend to slightly higher than sample values.  There do seem to be some meaningful seasonal bias (some months consistently high and some consistantly low) and there is some drift in the relationship at the higher sensor values (Sample values are lower than sensor values).
+The errors are pretty nearly symmetrical and the bias is very small.  Sensor values tend to slightly higher than sample values.  There do seem to be some meaningful seasonal bias (some months consistently high and some consistently low) and there is some drift in the relationship at the higher sensor values (Sample values are lower than sensor values).
 
 # Creating a calibration model
 
@@ -288,12 +320,12 @@ The regression model is quite good.  The R-squared value is 0.97.  The overall r
 par(tck = 0.03, las = 1, xaxs = "i", yaxs = "i", cex.axis = 1.2, cex.lab = 1.2)
 resid <- mod1$resid
 ylim <- c(ymin - 0.4, ymax + 0.4)
-title <- paste0(staInfo$station_nm, "   uv Parameter ", pcode_uv,"\nError: Sample value minus predicted value")
+title <- paste0(staInfo$monitoring_location_name, "   uv Parameter ", pcode_uv,"\nError: Sample value minus predicted value")
 boxplot(resid, ylab = "Error, in mg/L", ylim = ylim, main = title)
 abline(h = 0, col = "red")
 boxplot(resid~Sam$Month, ylab = "Error, in mg/L", ylim = ylim, main = title, xlab = "Month")
 abline(h = 0, col = "red")
-title <- paste0(staInfo$station_nm, "   uv Parameter ", pcode_uv,"\nError as a function of predicted value")
+title <- paste0(staInfo$monitoring_location_name, "   uv Parameter ", pcode_uv,"\nError as a function of predicted value")
 xlim <- c(0, yMax * 1.1)
 plot(mod1$fit, resid, pch = 19, cex = 0.6, ylim = ylim, ylab = "Error, in mg/L", main = title, xlim = xlim, xlab = "Regression predicted value, in mg/L")
 axis(3, labels = FALSE)
@@ -305,7 +337,7 @@ stdDev <- sd(resid)
 cat("\n Mean, Median, and Standard Deviation of the errors\n", meanResid, medianResid, stdDev)
 ```
 
-  These preceeding plots indicate that the calibration model has done a pretty good job of producing unbiased estimates.  The results do show some tendency towards being heteroscedastic so we might want to do this as a log-log regression, but for now I will leave the analysis at this point.  My suggestion is that one use this calibration model with all of the sensor data to estimate nitrate concentrations.  The results won't be terribly different from just using the sensor value.  But I would argue that these estimates will be slightly more accurate.  The one issue of concern is that we do have sensor values in the full data set that go way outside the range of these data pairs.  We are left with no choice but to do this extrapolation because we simply don't have the sample values from the brief period when concentrations went up to 30 or more mg/L.  There is some peril in doing that extrapolation but there is peril in not doing it.  This is a place were experience at other sites may be useful in telling us if there are substantial bias issues at very high sensor values.
+These preceding plots indicate that the calibration model has done a pretty good job of producing unbiased estimates.  The results do show some tendency towards being heteroscedastic so we might want to do this as a log-log regression, but for now I will leave the analysis at this point.  My suggestion is that one use this calibration model with all of the sensor data to estimate nitrate concentrations.  The results won't be terribly different from just using the sensor value.  But I would argue that these estimates will be slightly more accurate.  The one issue of concern is that we do have sensor values in the full data set that go way outside the range of these data pairs.  We are left with no choice but to do this extrapolation because we simply don't have the sample values from the brief period when concentrations went up to 30 or more mg/L.  There is some peril in doing that extrapolation but there is peril in not doing it.  This is a place were experience at other sites may be useful in telling us if there are substantial bias issues at very high sensor values.
 
 # Using the calibration equation
 
@@ -314,13 +346,24 @@ What we will look at here is how we would apply the equation we just estimated i
 First we will need to make sure that we have a data frame of all the uv values, but since we are using have both a uv concentration value and a uv discharge (because these are both explanatory variables in the equation).  We will eliminate from our uv record, those times for which one or both of these values is missing. 
 
 ```{r}
-uv_data$Q <- uv_data$X_00060_00000 / 35.314667
-uv_data$LQ <- log(uv_data$Q)
-uv_data$SinDY <- sin(2 * pi * uv_data$DecYear)
-uv_data$CosDY <- cos(2 * pi * uv_data$DecYear)
-newdata <- data.frame(uv = uv_data$X_99133_00000, DecYear = uv_data$DecYear, LogQ = uv_data$LQ, SinDY = uv_data$SinDY, CosDY = uv_data$CosDY)
-uv_data$pred <- predict(mod1, newdata = newdata, interval = "none")
-plot(uv_data$X_99133_00000, uv_data$pred, pch = 19, cex = 0.1, xlab = "measured uv nitrate, in mg/L", ylab = "predicted uv nitrate, in mg/L", main = "Predicted nitrate values as a function of uv nitrate values")
+uv_data_wide$Q <- uv_data_wide$value_00060 / 35.314667
+uv_data_wide$LQ <- log(uv_data_wide$Q)
+uv_data_wide$SinDY <- sin(2 * pi * uv_data_wide$DecYear)
+uv_data_wide$CosDY <- cos(2 * pi * uv_data_wide$DecYear)
+
+newdata <- data.frame(uv = uv_data_wide$value_99133,
+                      DecYear = uv_data_wide$DecYear, 
+                      LogQ = uv_data_wide$LQ,
+                      SinDY = uv_data_wide$SinDY,
+                      CosDY = uv_data_wide$CosDY)
+
+uv_data_wide$pred <- predict(mod1, newdata = newdata, interval = "none")
+plot(uv_data_wide$value_99133,
+     uv_data_wide$pred,
+     pch = 19, cex = 0.1,
+     xlab = "measured uv nitrate, in mg/L", 
+     ylab = "predicted uv nitrate, in mg/L", 
+     main = "Predicted nitrate values as a function of uv nitrate values")
 abline(a = 0, b = 1, col = "red")
 ```
 
@@ -331,7 +374,14 @@ It is notable that for moderate nitrate levels there is some variation in the va
 ```{r}
 xlim = c(4.9, 5.1)
 ylim = c(4.5, 5.5)
-plot(uv_data$X_99133_00000, uv_data$pred, pch = 19, cex = 0.1, xlab = "measured uv nitrate, in mg/L", ylab = "predicted uv nitrate, in mg/L", xlim = xlim, ylim = ylim, log = "xy", main = "Values of predicted nitrate\n over a narrow range of observed uv nitrate values")
+plot(uv_data_wide$value_99133,
+     uv_data_wide$pred, 
+     pch = 19, cex = 0.1, 
+     xlab = "measured uv nitrate, in mg/L", 
+     ylab = "predicted uv nitrate, in mg/L", 
+     xlim = xlim, ylim = ylim, 
+     log = "xy", 
+     main = "Values of predicted nitrate\n over a narrow range of observed uv nitrate values")
 abline(a = 0, b = 1, col = "red", lwd = 2)
 ```
 
@@ -342,17 +392,29 @@ We can also look at the data as a time series showing the raw uv data and the ca
 ```{r}
 xlim = c(2017.5, 2017.9)
 ylim = c(0,12)
-plot(uv_data$DecYear, uv_data$X_99133_00000, pch = 19, cex = 0.1, xlab = "", ylab = "nitrate concentration, in mg/L",
-     xlim = xlim, ylim = ylim, main = "Raw uv nitrate data in black\nadjusted nitrate values in red")
-points(uv_data$DecYear, uv_data$pred, pch = 19, cex = 0.05, col = "red")
+plot(uv_data_wide$DecYear, 
+     uv_data_wide$value_99133, 
+     pch = 19, cex = 0.1, xlab = "", 
+     ylab = "nitrate concentration, in mg/L",
+     xlim = xlim, ylim = ylim, 
+     main = "Raw uv nitrate data in black\nadjusted nitrate values in red")
+points(uv_data_wide$DecYear, 
+       uv_data_wide$pred,
+       pch = 19, cex = 0.05, col = "red")
 #
 # here is another example time period
 #
 xlim = c(2022.3, 2022.7)
 ylim = c(0,12)
-plot(uv_data$DecYear, uv_data$X_99133_00000, pch = 19, cex = 0.1, xlab = "", ylab = "nitrate concentration, in mg/L",
-     xlim = xlim, ylim = ylim, main = "Raw uv nitrate data in black\nadjusted nitrate values in red")
-points(uv_data$DecYear, uv_data$pred, pch = 19, cex = 0.05, col = "red")
+plot(uv_data_wide$DecYear, 
+     uv_data_wide$value_99133, 
+     pch = 19, cex = 0.1, 
+     xlab = "", ylab = "nitrate concentration, in mg/L",
+     xlim = xlim, ylim = ylim, 
+     main = "Raw uv nitrate data in black\nadjusted nitrate values in red")
+points(uv_data_wide$DecYear, 
+       uv_data_wide$pred, 
+       pch = 19, cex = 0.05, col = "red")
 ```
 
 # Concluding comments
