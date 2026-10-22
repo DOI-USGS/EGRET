@@ -64,10 +64,13 @@ read_waterdata_uv <- function(site_uv, pcode, start, end, tz){
   
   # create a data frame where each element starts at the beginning
   # of a chunk, and ends the day before the next chunk:
-  time_df <- data.frame(start = as.POSIXct(starts, 
-                                           tz = tz),
-                        end = as.POSIXct(ends, 
-                                           tz = tz))
+  time_df <- data.frame(
+    start = as.POSIXct(starts),
+    end = as.POSIXct(ends)
+  )
+  
+  time_df$start <- lubridate::force_tz(time_df$start, tz)
+  time_df$end <- lubridate::force_tz(time_df$end, tz)
   
   uv_list<- time_df |> 
     purrr::pmap(
@@ -122,7 +125,7 @@ qw_trim <- qw_data |>
   select(qw_date = Activity_StartDateTime,
          val_qw = Result_Measure,
          det_txt = Result_ResultDetectionCondition)
-qw_trim$Activity_Sta
+
 ```
 
 ```{r showqwtrim, echo=FALSE}
