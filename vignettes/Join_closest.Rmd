@@ -52,27 +52,40 @@ qw_data <- read_waterdata_samples(monitoringLocationIdentifier = site_qw,
 start_qw_date <- min(qw_data$Activity_StartDate)
 end_qw_date <- max(qw_data$Activity_StartDate)
 
-year_range <- lubridate::year(c(start_qw_date, end_qw_date))
-date_ranges <- as.Date(paste0(seq(from = year_range[1], 
-                                  to = year_range[2]),
-                              "-01-01"))[-1]
-starts <- c(start_qw_date, date_ranges)
-ends <- c(date_ranges - 1, end_qw_date)
+# helper function to split up continuous data into chunks:
+read_waterdata_uv <- function(site_uv, pcode, start, end, tz){
+    
+  year_range <- lubridate::year(c(start, end))
+  date_ranges <- as.Date(paste0(seq(from = year_range[1], 
+                                    to = year_range[2]),
+                                "-01-01"))[-1]
+  starts <- c(start, date_ranges)
+  ends <- c(date_ranges - 1, end)
+  
+  # create a data frame where each element starts at the beginning
+  # of a chunk, and ends the day before the next chunk:
+  time_df <- data.frame(start = as.POSIXct(starts, 
+                                           tz = tz),
+                        end = as.POSIXct(ends, 
+                                           tz = tz))
+  
+  uv_list<- time_df |> 
+    purrr::pmap(
+      \(start, end, ...) read_waterdata_continuous(
+        monitoring_location_id = site_uv, 
+        parameter_code = pcode, 
+        time = c(start, end))
+    )
+  
+  uv_data <- purrr::list_rbind(uv_list)
+  return(uv_data)
+}
 
-# create a data frame where each element starts at the beginning
-# of a chunk, and ends the day before the next chunk:
-time_df <- data.frame(start = starts,
-                      end = ends)
-
-uv_list<- time_df |> 
-  purrr::pmap(
-    \(start, end, ...) read_waterdata_continuous(
-      monitoring_location_id = site_uv, 
-      parameter_code = c(pcode_uv, "00060"), 
-      time = c(start, end))
-  )
-
-uv_data <- purrr::list_rbind(uv_list)
+uv_data <- read_waterdata_uv(site_uv = site_uv,
+                             pcode =  c(pcode_uv, "00060"),
+                             start = start_qw_date,
+                             end = end_qw_date,
+                             tz = "America/Chicago")
 
 uv_data_wide <- uv_data |> 
   dplyr::select(monitoring_location_id, parameter_code,
@@ -106,6 +119,7 @@ qw_trim <- qw_data |>
   select(qw_date = Activity_StartDateTime,
          val_qw = Result_Measure,
          det_txt = Result_ResultDetectionCondition)
+qw_trim$Activity_Sta
 ```
 
 ```{r showqwtrim, echo=FALSE}
