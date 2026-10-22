@@ -1,16 +1,16 @@
 join_qw_uv <- function(
   qw_data, # data from readWQP
-  uv_flow_qw, # data from readNWISuv
+  uv_flow_qw, # data from read_waterdata_continuous
   hour_threshold = 24, # hours threshold for joining
-  join_by_qw = "ActivityStartDateTime",
-  join_by_uv = "dateTime",
-  qw_val = "ResultMeasureValue",
-  qw_rmk = "ResultDetectionConditionText",
-  qw_det_val = "DetectionQuantitationLimitMeasure.MeasureValue",
+  join_by_qw = "Activity_StartDateTime",
+  join_by_uv = "time",
+  qw_val = "Result_Measure",
+  qw_rmk = "Result_ResultDetectionCondition",
+  qw_det_val = "DetectionLimit_MeasureA",
   qw_val_uv, # water quality value column in uv data
   qw_rmk_uv, # water quality remark column in uv data
-  flow_val = "X_00060_00000", # uv flow parameter
-  flow_rmk = "X_00060_00000_cd"
+  flow_val = "value_00060", # uv flow parameter
+  flow_rmk = "qualifier_00060"
 ) {
   # uv flow parameter cd
 
