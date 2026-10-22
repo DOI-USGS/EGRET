@@ -98,7 +98,7 @@ read_waterdata_uv <- function(site_uv, pcode, start, end, tz){
   
   uv_data <- purrr::list_rbind(uv_list)
   
-  attr(uv_data, "tzone") <- tz
+  attr(uv_data$time, "tzone") <- tz
   
   return(uv_data)
 }
