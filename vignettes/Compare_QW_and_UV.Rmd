@@ -79,7 +79,7 @@ read_waterdata_uv <- function(site_uv, pcode, start, end, tz){
                                     to = year_range[2]),
                                 "-01-01"))[-1]
   starts <- c(start, date_ranges)
-  ends <- c(date_ranges - 1, end)
+  ends <- c(date_ranges - 1, as.Date(as.Date(end) + 1))
   
   # create a data frame where each element starts at the beginning
   # of a chunk, and ends the day before the next chunk:
